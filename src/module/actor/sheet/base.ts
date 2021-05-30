@@ -512,12 +512,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find('.save-name').on('click', (event) => {
             event.preventDefault();
             const save = $(event.currentTarget).parents('[data-save]')[0].getAttribute('data-save') as SaveString;
-            if (this.actor.data.data.saves[save]?.roll) {
-                const options = this.actor.getRollOptions(['all', 'saving-throw', save]);
-                this.actor.data.data.saves[save].roll({ event, options });
-            } else {
-                this.actor.rollSave(event, save);
-            }
+            this.actor.rollSave(event, save);
         });
 
         // Roll Attribute Checks
@@ -538,14 +533,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find('.attribute-name').on('click', (event) => {
             event.preventDefault();
             const attribute = event.currentTarget.parentElement?.getAttribute('data-attribute') || '';
-            const isSecret = event.currentTarget.getAttribute('data-secret');
-            if (this.actor.data.data.attributes[attribute]?.roll) {
-                const options = this.actor.getRollOptions(['all', attribute]);
-                if (isSecret) {
-                    options.push('secret');
-                }
-                this.actor.data.data.attributes[attribute].roll({ event, options });
-            } else {
+            if (attribute) {
                 this.actor.rollAttribute(event, attribute);
             }
         });
@@ -567,12 +555,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (!skill) {
                 return;
             }
-            if (this.actor.data.data.skills[skill]?.roll) {
-                const options = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[skill] ?? skill]);
-                this.actor.data.data.skills[skill].roll({ event, options });
-            } else {
-                this.actor.rollSkill(event, skill);
-            }
+            this.actor.rollSkill(event, skill);
         });
 
         // Toggle Levels of stats (like proficiencies conditions or hero points)

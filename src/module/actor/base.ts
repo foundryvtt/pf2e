@@ -12,7 +12,7 @@ import { TokenEffect } from '@module/rules/rule-element';
 import { ActorSheetPF2e } from './sheet/base';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { isMagicItemData } from '@item/data/helpers';
-import { SUPPORTED_ROLL_OPTIONS } from './data/values';
+import { SUPPORTED_ROLL_OPTIONS, SKILL_DICTIONARY } from './data/values';
 import { SaveData, SaveString, SkillAbbreviation, SkillData } from './creature/data';
 import { AbilityString, BaseActorDataPF2e } from './data/base';
 import { ActorDataPF2e, ActorSourcePF2e } from './data';
@@ -251,22 +251,29 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      */
     rollSkill(event: JQuery.Event, skillName: SkillAbbreviation) {
-        const skl: SkillData = this.data.data.skills[skillName];
-        const rank: string = CONFIG.PF2E.proficiencyLevels[skl.rank];
-        const parts = ['@mod', '@itemBonus'];
-        const flavor = `${rank} ${CONFIG.PF2E.skills[skillName]} Skill Check`;
+        const skill: SkillData = this.data.data.skills[skillName];
+        if (!skill) throw ErrorPF2e(`Skill '${skillName}' not present on actor.`);
 
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data: {
-                mod: skl.value - skl.item,
-                itemBonus: skl.item,
-            },
-            title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this }),
-        });
+        if (skill.roll) {
+            const options = this.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[skillName] ?? skillName]);
+            skill.roll({ event, options });
+        } else {
+            const rank: string = CONFIG.PF2E.proficiencyLevels[skill.rank];
+            const parts = ['@mod', '@itemBonus'];
+            const flavor = `${rank} ${CONFIG.PF2E.skills[skillName]} Skill Check`;
+
+            // Call the roll helper utility
+            DicePF2e.d20Roll({
+                event,
+                parts,
+                data: {
+                    mod: skill.value - skill.item,
+                    itemBonus: skill.item,
+                },
+                title: flavor,
+                speaker: ChatMessage.getSpeaker({ actor: this }),
+            });
+        }
     }
 
     /**
@@ -311,20 +318,27 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      */
     rollSave(event: JQuery.Event, saveName: SaveString) {
         const save: SaveData = this.data.data.saves[saveName];
-        const parts = ['@mod', '@itemBonus'];
-        const flavor = `${game.i18n.localize(CONFIG.PF2E.saves[saveName])} Save Check`;
+        if (!save) throw ErrorPF2e(`Save '${saveName}' not present on actor.`);
 
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data: {
-                mod: save.value - (save.item ?? 0),
-                itemBonus: save.item ?? 0,
-            },
-            title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this }),
-        });
+        if (save.roll) {
+            const options = this.getRollOptions(['all', 'saving-throw', saveName]);
+            save.roll({ event, options });
+        } else {
+            const parts = ['@mod', '@itemBonus'];
+            const flavor = `${game.i18n.localize(CONFIG.PF2E.saves[saveName])} Save Check`;
+
+            // Call the roll helper utility
+            DicePF2e.d20Roll({
+                event,
+                parts,
+                data: {
+                    mod: save.value - (save.item ?? 0),
+                    itemBonus: save.item ?? 0,
+                },
+                title: flavor,
+                speaker: ChatMessage.getSpeaker({ actor: this }),
+            });
+        }
     }
 
     /**
@@ -349,25 +363,36 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /**
      * Roll a Attribute Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-     * @param skill {String}    The skill id
+     * @param attributeName {String}    The abbreviated attribute name
      */
-    rollAttribute(event: JQuery.Event, attributeName: string) {
-        const skl = this.data.data.attributes[attributeName];
-        const parts = ['@mod', '@itemBonus'];
-        const configAttributes = CONFIG.PF2E.attributes;
-        if (objectHasKey(configAttributes, attributeName)) {
-            const flavor = `${game.i18n.localize(configAttributes[attributeName])} Check`;
-            // Call the roll helper utility
-            DicePF2e.d20Roll({
-                event,
-                parts,
-                data: {
-                    mod: skl.value - (skl.item ?? 0),
-                    itemBonus: skl.item,
-                },
-                title: flavor,
-                speaker: ChatMessage.getSpeaker({ actor: this }),
-            });
+    rollAttribute(event: JQuery.ClickEvent, attributeName: string) {
+        const attr = this.data.data.attributes[attributeName];
+        if (!attr) throw ErrorPF2e(`Attribute '${attributeName}' not present on actor.`);
+
+        if (attr.roll) {
+            const isSecret = event?.currentTarget?.getAttribute('data-secret');
+            const options = this.getRollOptions(['all', attributeName]);
+            if (isSecret) {
+                options.push('secret');
+            }
+            attr.roll({ event, options });
+        } else {
+            const parts = ['@mod', '@itemBonus'];
+            const configAttributes = CONFIG.PF2E.attributes;
+            if (objectHasKey(configAttributes, attributeName)) {
+                const flavor = `${game.i18n.localize(configAttributes[attributeName])} Check`;
+                // Call the roll helper utility
+                DicePF2e.d20Roll({
+                    event,
+                    parts,
+                    data: {
+                        mod: attr.value - (attr.item ?? 0),
+                        itemBonus: attr.item,
+                    },
+                    title: flavor,
+                    speaker: ChatMessage.getSpeaker({ actor: this }),
+                });
+            }
         }
     }
 
