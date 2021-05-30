@@ -1,5 +1,5 @@
 import { DamageType } from '@module/damage-calculation';
-import { LabeledNumber, LabeledValue, Rarity, Size, ValuesList, ZeroToFour } from '@module/data';
+import { LabeledNumber, LabeledValue, Rarity, Size, ValuesList } from '@module/data';
 import { ActorType } from '.';
 import type { ActorPF2e } from '@actor/base';
 import type { ActiveEffectPF2e } from '@module/active-effect';
@@ -78,14 +78,10 @@ export interface BaseTraitsData {
 
 /** Data describing the proficiency with a given type of check */
 export interface ProficiencyData {
-    /** The proficiency rank (0 untrained - 4 legendary). */
-    rank: ZeroToFour;
     /** The actual modifier for this martial type. */
     value: number;
     /** A breakdown describing the how the martial proficiency value is computed. */
     breakdown: string;
-    /** Is this proficiency a custom addition (not among a default set or added via system automation)? */
-    custom?: boolean;
 }
 
 export type AbilityString = typeof ABILITY_ABBREVIATIONS[number];
