@@ -1260,16 +1260,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 ? actor.token.object
                 : canvas.tokens.controlled.find((canvasToken) => canvasToken.actor?.id === actor.id);
 
-            if (token) {
+            if (!actor.canUserModify(game.user, 'update')) {
+                const translations = LocalizePF2e.translations.PF2E;
+                ui.notifications.error(translations.ErrorMessage.NoUpdatePermission);
+                return null;
+            } else if (token) {
                 await ConditionManager.addConditionToToken(itemData, token);
                 return itemData;
             } else {
-                const translations = LocalizePF2e.translations.PF2E;
-                const message = actor.canUserModify(game.user, 'update')
-                    ? translations.ErrorMessage.ActorMustHaveToken
-                    : translations.ErrorMessage.NoUpdatePermission;
-                ui.notifications.error(message);
-                return null;
+                await actor.increaseCondition(itemData.data.slug);
+                return itemData;
             }
         }
 
