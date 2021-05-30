@@ -81,10 +81,7 @@ type TabData<T> = {
     spell: T | null;
 };
 
-/**
- * @category Other
- */
-class CompendiumBrowser extends Application {
+export class CompendiumBrowser extends Application {
     sorters: any;
     filters!: Record<string, Record<string, boolean>>;
     ranges: any;
@@ -95,12 +92,10 @@ class CompendiumBrowser extends Application {
     constructor(options = {}) {
         super(options);
 
-        this.hookCompendiumList();
+        this.loadSettings();
+        this.initCompendiumList();
+        this.injectActorDirectory();
         this.hookTab();
-        Hooks.on('ready', () => {
-            this.loadSettings();
-            this.initCompendiumList();
-        });
     }
 
     initCompendiumList() {
@@ -203,12 +198,12 @@ class CompendiumBrowser extends Application {
     }
 
     async loadActions() {
-        console.log('PF2e System | Compendium Browser | Started loading feats');
+        console.debug('PF2e System | Compendium Browser | Started loading feats');
 
         const actions = {};
 
         for await (const { pack, content } of packLoader.loadPacks('Item', this._loadedPacks('action'))) {
-            console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loading`);
+            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loading`);
             for (let action of content) {
                 action = action.data;
                 if (action.type === 'action') {
@@ -221,7 +216,7 @@ class CompendiumBrowser extends Application {
             }
         }
 
-        console.log('PF2e System | Compendium Browser | Finished loading actions');
+        console.debug('PF2e System | Compendium Browser | Finished loading actions');
 
         return {
             actions,
@@ -232,7 +227,7 @@ class CompendiumBrowser extends Application {
     }
 
     async loadBestiary() {
-        console.log('PF2e System | Compendium Browser | Started loading actors');
+        console.debug('PF2e System | Compendium Browser | Started loading actors');
 
         const bestiaryActors = {};
         const sources: Set<string> = new Set();
@@ -281,10 +276,10 @@ class CompendiumBrowser extends Application {
                     })();
                 }
             }
-            console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
+            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
         }
 
-        console.log('PF2e System | Compendium Browser | Finished loading Bestiary actors');
+        console.debug('PF2e System | Compendium Browser | Finished loading Bestiary actors');
         return {
             bestiaryActors,
             actorSize: CONFIG.PF2E.actorSizes,
@@ -297,14 +292,16 @@ class CompendiumBrowser extends Application {
     }
 
     async loadHazards() {
-        console.log('PF2e System | Compendium Browser | Started loading actors');
+        console.debug('PF2e System | Compendium Browser | Started loading actors');
 
         const hazardActors = {};
         const sources: Set<string> = new Set();
         const rarities = Object.keys(CONFIG.PF2E.rarityTraits);
 
         for await (const { pack, content } of packLoader.loadPacks('Actor', this._loadedPacks('hazard'))) {
-            console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
+            console.debug(
+                `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
+            );
             for (let actor of content) {
                 actor = actor.data;
                 if (actor.type === 'hazard') {
@@ -349,10 +346,10 @@ class CompendiumBrowser extends Application {
                     })();
                 }
             }
-            console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
+            console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
         }
 
-        console.log('PF2e System | Compendium Browser | Finished loading Hazard actors');
+        console.debug('PF2e System | Compendium Browser | Finished loading Hazard actors');
         return {
             hazardActors,
             traits: _sortedObject(CONFIG.PF2E.hazardTraits),
@@ -362,14 +359,16 @@ class CompendiumBrowser extends Application {
     }
 
     async loadEquipment() {
-        console.log('PF2e System | Compendium Browser | Started loading feats');
+        console.debug('PF2e System | Compendium Browser | Started loading feats');
 
         const inventoryItems = {};
 
         const itemTypes = ['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit'];
 
         for await (const { pack, content } of packLoader.loadPacks('Item', this._loadedPacks('equipment'))) {
-            console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
+            console.debug(
+                `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
+            );
             for (let item of content) {
                 item = item.data;
                 if (itemTypes.includes(item.type)) {
@@ -392,7 +391,7 @@ class CompendiumBrowser extends Application {
             }
         }
 
-        console.log('PF2e System | Compendium Browser | Finished loading inventory items');
+        console.debug('PF2e System | Compendium Browser | Finished loading inventory items');
         return {
             inventoryItems,
             armorTypes: CONFIG.PF2E.armorTypes,
@@ -415,7 +414,7 @@ class CompendiumBrowser extends Application {
     }
 
     async loadFeats() {
-        console.log('PF2e System | Compendium Browser | Started loading feats');
+        console.debug('PF2e System | Compendium Browser | Started loading feats');
 
         const feats = {};
         const classes: Set<string> = new Set();
@@ -425,7 +424,9 @@ class CompendiumBrowser extends Application {
         const ancestryList = Object.keys(CONFIG.PF2E.ancestryTraits);
 
         for await (const { pack, content } of packLoader.loadPacks('Item', this._loadedPacks('feat'))) {
-            console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
+            console.debug(
+                `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
+            );
             for (let feat of content) {
                 feat = feat.data;
                 if (feat.type === 'feat') {
@@ -522,7 +523,7 @@ class CompendiumBrowser extends Application {
             ancestryObj[ancestryStr] = CONFIG.PF2E.ancestryTraits[ancestryStr];
         }
 
-        console.log('PF2e System | Compendium Browser | Finished loading feats');
+        console.debug('PF2e System | Compendium Browser | Finished loading feats');
         return {
             feats,
             featClasses: CONFIG.PF2E.classTraits,
@@ -534,7 +535,7 @@ class CompendiumBrowser extends Application {
     }
 
     async loadSpells() {
-        console.log('PF2e System | Compendium Browser | Started loading spells');
+        console.debug('PF2e System | Compendium Browser | Started loading spells');
 
         const spells = {};
         const classes: Set<string> = new Set();
@@ -543,7 +544,9 @@ class CompendiumBrowser extends Application {
         const classList = Object.keys(CONFIG.PF2E.classTraits);
 
         for await (const { pack, content } of packLoader.loadPacks('Item', this._loadedPacks('spell'))) {
-            console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
+            console.debug(
+                `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
+            );
             for (let spell of content) {
                 spell = spell.data;
                 if (spell.type === 'spell') {
@@ -609,7 +612,7 @@ class CompendiumBrowser extends Application {
             schoolsObj[school] = CONFIG.PF2E.magicSchools[school];
         }
 
-        console.log('PF2e System | Compendium Browser | Finished loading spells');
+        console.debug('PF2e System | Compendium Browser | Finished loading spells');
         return {
             classes: classesObj,
             times: [...times].sort(),
@@ -811,51 +814,23 @@ class CompendiumBrowser extends Application {
         return item;
     }
 
-    hookCompendiumList() {
-        Hooks.on('renderCompendiumDirectory', (_app, html) => {
-            if (html.find('.compendium-browser-btn').length) {
-                console.error('Compendium Browser - Already hooked');
-                return;
-            }
+    injectActorDirectory() {
+        const $html = ui.actors.element;
+        if ($html.find('.bestiary-browser-btn').length > 0) return;
 
-            // Feat Browser Buttons
-            const importButton = $(
-                '<button class="compendium-browser-btn"><i class="fas fa-fire"></i> Compendium Browser</button>',
-            );
+        // Bestiary Browser Buttons
+        const bestiaryImportButton = $(
+            `<button class="bestiary-browser-btn"><i class="fas fa-fire"></i> Bestiary Browser</button>`,
+        );
 
-            let target = html.find('.directory-footer');
-            if (!target.length) {
-                target = html.find('.directory-list');
-            }
-            target.append(importButton);
+        if (game.user.isGM) {
+            $html.find('footer').append(bestiaryImportButton);
+        }
 
-            // Handle button clicks
-            importButton.on('click', (ev) => {
-                ev.preventDefault();
-                this.render(true);
-            });
-        });
-
-        Hooks.on('renderActorDirectory', (_app, html) => {
-            if (html.find('.bestiary-browser-btn').length) {
-                console.error('Compendium Browser - Already hooked');
-                return;
-            }
-
-            // Bestiary Browser Buttons
-            const bestiaryImportButton = $(
-                `<button class="bestiary-browser-btn"><i class="fas fa-fire"></i> Bestiary Browser</button>`,
-            );
-
-            if (game.user.isGM) {
-                html.find('.directory-footer').append(bestiaryImportButton);
-            }
-
-            // Handle button clicks
-            bestiaryImportButton.on('click', (ev) => {
-                ev.preventDefault();
-                this.openTab('bestiary');
-            });
+        // Handle button clicks
+        bestiaryImportButton.on('click', (ev) => {
+            ev.preventDefault();
+            this.openTab('bestiary');
         });
     }
 
@@ -1025,5 +1000,3 @@ class CompendiumBrowser extends Application {
         return mappedList.map((mapping) => mapping.li);
     }
 }
-
-export const compendiumBrowser = new CompendiumBrowser();
