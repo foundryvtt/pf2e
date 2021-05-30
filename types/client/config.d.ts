@@ -103,7 +103,7 @@ declare global {
         Token: {
             documentClass: new (
                 data: PreCreate<TTokenDocument['data']['_source']>,
-                context?: DocumentConstructionContext<TTokenDocument>,
+                context: DocumentConstructionContext<TTokenDocument>,
             ) => TTokenDocument;
             objectClass: new (...args: any[]) => TTokenDocument['object'];
             layerClass: typeof TokenLayer;

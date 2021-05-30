@@ -131,8 +131,9 @@ declare class Roll {
      *
      * @param [minimize] Produce the minimum possible result from the Roll instead of a random result.
      * @param [maximize] Produce the maximum possible result from the Roll instead of a random result.
+     * @param [async] Evaluate the roll asynchronously, receiving a Promise as the returned value. This will become the default behavior in version 10.x
      *
-     * @returnsThe rolled Roll object, able to be chained into other methods
+     * @returns The rolled Roll object, able to be chained into other methods
      *
      * @example
      * let r = new Roll("2d6 + 4 + 1d4");
@@ -170,6 +171,11 @@ declare class Roll {
 
     /**
      * Execute the Roll, replacing dice and evaluating the total result
+     *
+     * @param [minimize] Produce the minimum possible result from the Roll instead of a random result.
+     * @param [maximize] Produce the maximum possible result from the Roll instead of a random result.
+     * @param [async] Evaluate the roll asynchronously, receiving a Promise as the returned value. This will become the default behavior in version 10.x
+     *
      * @returns The rolled Roll object, able to be chained into other methods
      *
      * @example
@@ -177,14 +183,19 @@ declare class Roll {
      * r.roll();
      * > 12
      */
-    roll(): Rolled<Roll>;
+    roll({ minimize, maximize, async }?: { minimize?: boolean; maximize?: boolean; async?: boolean }): Rolled<Roll>;
 
     /**
      * Create a new Roll object using the original provided formula and data
      * Each roll is immutable, so this method returns a new Roll instance using the same data.
+     *
+     * @param [minimize] Produce the minimum possible result from the Roll instead of a random result.
+     * @param [maximize] Produce the maximum possible result from the Roll instead of a random result.
+     * @param [async] Evaluate the roll asynchronously, receiving a Promise as the returned value. This will become the default behavior in version 10.x
+     *
      * @returns A new Roll object, rolled using the same formula and data
      */
-    reroll(): Rolled<Roll>;
+    reroll({ minimize, maximize, async }?: { minimize?: boolean; maximize?: boolean; async?: boolean }): Rolled<Roll>;
 
     /* -------------------------------------------- */
     /*  Helpers

@@ -44,7 +44,7 @@ export function getDegreeOfSuccess(
 ): { value: DegreeOfSuccess; degreeAdjustment: DegreeAdjustment | undefined } {
     const dieRoll: DieRoll = {
         dieValue: (roll.terms[0] as any).total ?? 0,
-        modifier: roll.data.totalModifier as number,
+        modifier: (roll.data.totalModifier as number) ?? 0,
     };
     let value = calculateDegreeOfSuccess(dieRoll, checkDC.value);
     const degreeAdjustment = getDegreeAdjustment(value, checkDC.modifiers ?? {});
