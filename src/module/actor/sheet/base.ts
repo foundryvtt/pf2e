@@ -916,7 +916,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const references = li.find('.condition-references');
 
             const deleteCondition = async (): Promise<void> => {
-                this.actor.removeOrReduceCondition(item, { forceRemove: true });
+                this.actor.decreaseCondition(item, { forceRemove: true });
             };
 
             if (event.ctrlKey) {
