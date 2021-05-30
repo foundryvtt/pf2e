@@ -1,4 +1,3 @@
-import { compendiumBrowser } from '../apps/compendium-browser';
 import { VariantRulesSettings } from './variant-rules';
 import { Migrations } from '../migrations';
 import { WorldClockSettings } from './world-clock';
@@ -121,7 +120,7 @@ export function registerSettings() {
         type: String,
         scope: 'world',
         onChange: () => {
-            compendiumBrowser.loadSettings();
+            game.pf2e.compendiumBrowser.loadSettings();
         },
     });
 

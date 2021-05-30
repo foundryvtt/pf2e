@@ -1,5 +1,4 @@
 import { MigrationBase } from './base';
-import { compendiumBrowser } from '../apps/compendium-browser';
 
 export class Migration585MigrateCompendiumSettings extends MigrationBase {
     static version = 0.585;
@@ -25,6 +24,6 @@ export class Migration585MigrateCompendiumSettings extends MigrationBase {
                 spell: JSON.parse(game.settings.get('SpellBrowser', 'settings')),
             }),
         );
-        compendiumBrowser.initCompendiumList();
+        game.pf2e.compendiumBrowser.initCompendiumList();
     }
 }
