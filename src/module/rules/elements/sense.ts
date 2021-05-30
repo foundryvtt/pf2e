@@ -1,5 +1,6 @@
 import { RuleElementPF2e } from '../rule-element';
-import { CreatureData, SenseAcuity, SenseData } from '@actor/data-definitions';
+import { CreatureData } from '@actor/data';
+import { SenseAcuity, SenseData } from '@actor/creature/data';
 
 /**
  * @category RuleElement

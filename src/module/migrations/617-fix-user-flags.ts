@@ -3,15 +3,16 @@ import { MigrationBase } from './base';
 export class Migration617FixUserFlags extends MigrationBase {
     static version = 0.617;
 
-    async updateUser(userData: UserData): Promise<void> {
-        const settings = userData.flags.PF2e?.settings;
+    async updateUser(userData: foundry.data.UserSource): Promise<void> {
+        const flags = userData.flags as Record<string, any>;
+        const settings = flags.PF2e?.settings;
         if (settings) {
             const uiTheme = settings.color ?? 'blue';
             const showRollDialogs = !settings.quickD20roll;
-            userData.flags.pf2e ??= {};
-            userData.flags.pf2e.settings = {
+            flags.pf2e ??= {};
+            flags.pf2e.settings = {
                 uiTheme,
-                showEffectPanel: userData.flags.pf2e?.showEffectPanel ?? true,
+                showEffectPanel: flags.pf2e?.showEffectPanel ?? true,
                 showRollDialogs,
             };
             delete userData.flags.PF2e;

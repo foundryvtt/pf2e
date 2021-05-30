@@ -1,16 +1,10 @@
-import { isBlank, toNumber } from '../utils';
-import { DamageDieSize } from '../system/damage/damage';
-import {
-    ArmorData,
-    ArmorDetailsData,
-    ResilientRuneType,
-    StrikingRuneType,
-    WeaponData,
-    WeaponDetailsData,
-} from './data/types';
-import { DiceModifierPF2e } from '../modifiers';
-import { ConfigPF2e } from '@scripts/config';
-import { ZeroToFour, ZeroToThree } from '@actor/data-definitions';
+import { ZeroToFour, ZeroToThree } from '@module/data';
+import { DiceModifierPF2e } from '@module/modifiers';
+import { isBlank, toNumber } from '@module/utils';
+import { DamageDieSize } from '@system/damage/damage';
+import type { ResilientRuneType } from './armor/data';
+import type { ArmorData, WeaponData } from './data';
+import type { StrikingRuneType } from './weapon/data';
 
 type WeaponPropertyRuneType = keyof ConfigPF2e['PF2E']['weaponPropertyRunes'];
 
@@ -43,14 +37,14 @@ export function getPropertyRunes(itemData: WeaponData | ArmorData, slots: number
     return runes;
 }
 
-export function getAttackBonus(itemData: WeaponDetailsData): number {
+export function getAttackBonus(itemData: WeaponData['data']): number {
     if (itemData.group?.value === 'bomb') {
         return toNumber(itemData?.bonus?.value) ?? 0;
     }
     return itemData.potencyRune.value;
 }
 
-export function getArmorBonus(itemData: ArmorDetailsData): number {
+export function getArmorBonus(itemData: ArmorData['data']): number {
     const potencyRune = itemData.potencyRune.value;
     const baseArmor = toNumber(itemData.armor.value) ?? 0;
     return baseArmor + potencyRune;
@@ -62,7 +56,7 @@ const strikingRuneValues: Map<StrikingRuneType | '', ZeroToThree> = new Map([
     ['majorStriking', 3],
 ]);
 
-export function getStrikingDice(itemData: WeaponDetailsData): ZeroToThree {
+export function getStrikingDice(itemData: WeaponData['data']): ZeroToThree {
     return strikingRuneValues.get(itemData.strikingRune.value) ?? 0;
 }
 
@@ -71,7 +65,7 @@ const resilientRuneValues: Map<ResilientRuneType, ZeroToThree> = new Map([
     ['greaterResilient', 2],
     ['majorResilient', 3],
 ]);
-export function getResiliencyBonus(itemData: ArmorDetailsData): ZeroToThree {
+export function getResiliencyBonus(itemData: ArmorData['data']): ZeroToThree {
     return resilientRuneValues.get(itemData?.resiliencyRune?.value) ?? 0;
 }
 
@@ -85,8 +79,8 @@ function toModifier(
     rune: WeaponPropertyRuneType,
     { damageType = undefined, dieSize = 'd6', diceNumber = 1 }: RuneDiceModifier,
 ): DiceModifierPF2e {
-    const traits = [];
-    if (damageType !== undefined) {
+    const traits: string[] = [];
+    if (damageType) {
         traits.push(damageType);
     }
     return new DiceModifierPF2e({
@@ -118,7 +112,7 @@ runeDamageModifiers.set('greaterShock', { damageType: 'electricity' });
 runeDamageModifiers.set('greaterThundering', { damageType: 'sonic' });
 
 export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): DiceModifierPF2e[] {
-    const diceModifiers = [];
+    const diceModifiers: DiceModifierPF2e[] = [];
     for (const rune of getPropertyRunes(itemData, getPropertySlots(itemData))) {
         const modifierConfig = runeDamageModifiers.get(rune);
         if (modifierConfig) {

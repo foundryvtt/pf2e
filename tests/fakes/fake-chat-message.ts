@@ -1,11 +1,7 @@
 export class FakeChatMessage {
-    _data: ChatMessageData;
+    data: foundry.data.ChatMessageData;
 
-    constructor(data: ChatMessageData) {
-        this._data = duplicate(data);
-    }
-
-    get data() {
-        return this._data;
+    constructor(data: foundry.data.ChatMessageSource) {
+        this.data = duplicate(data) as unknown as foundry.data.ChatMessageData;
     }
 }

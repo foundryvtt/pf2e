@@ -1,9 +1,9 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import { ItemDataPF2e, LoreDetailsData, MartialData, WeaponTrait } from '@item/data/types';
+import { ItemDataPF2e } from '@item/data';
 import { LocalizePF2e } from '@system/localize';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
-import { ItemPF2e } from '@item/base';
+import { ItemPF2e, LorePF2e } from '@item/index';
 import { PF2RuleElementData } from '@module/rules/rules-data-definitions';
 import Tagify from '@yaireo/tagify';
 import {
@@ -14,15 +14,17 @@ import {
     TAG_SELECTOR_TYPES,
 } from '@module/system/trait-selector';
 import { ErrorPF2e, sluggify, tupleHasValue } from '@module/utils';
+import { ActiveEffectPF2e } from '@module/active-effect';
+import { WeaponTrait } from '@item/weapon/data';
 
-export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData<D> {
+export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     user: { isGM: boolean };
     enabledRulesUI: boolean;
     activeEffects: AESheetData;
 }
 
 /** @override */
-export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType> {
+export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** @override */
     static get defaultOptions() {
         const options = super.defaultOptions;
@@ -74,7 +76,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
         const itemData: ItemDataPF2e = data.item;
         // Expose the saved traits for editing purposes;
-        data.data.traits.value = this.item._data.data.traits.value.filter((trait) => !!trait);
+        data.data.traits.value = this.item.toObject().data.traits.value.filter((trait) => !!trait);
 
         const dt = duplicate(CONFIG.PF2E.damageTypes);
         if (itemData.type === 'spell') mergeObject(dt, CONFIG.PF2E.healingTypes);
@@ -98,17 +100,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.consumableTraits = CONFIG.PF2E.consumableTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'weapon') {
-            // get a list of all custom martial skills
-            const martialSkills: MartialData[] = [];
-
-            if (this.actor) {
-                for (const i of this.actor.data.items) {
-                    if (i.type === 'martial') martialSkills.push(i);
-                }
-            }
-
-            data.martialSkills = martialSkills; // Weapon Data
-
             const materials: Partial<typeof CONFIG.PF2E.preciousMaterials> = duplicate(CONFIG.PF2E.preciousMaterials);
             delete materials.dragonhide;
             const slots = getPropertySlots(data);
@@ -206,14 +197,23 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 }
             }
         }
-
         return data;
     }
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
-    protected getBaseData(): ItemSheetDataPF2e<ItemType['data']> {
+    protected getBaseData(): ItemSheetDataPF2e<TItem> {
+        const itemData = this.item.data;
+        const isEditable = this.isEditable;
         return {
-            ...super.getData(),
+            cssClass: isEditable ? 'editable' : 'locked',
+            editable: isEditable,
+            document: this.item,
+            item: itemData,
+            data: itemData.data,
+            limited: this.item.limited,
+            options: this.options,
+            owner: this.item.isOwner,
+            title: this.title,
             user: { isGM: game.user.isGM },
             enabledRulesUI: game.settings.get('pf2e', 'enabledRulesUI'),
             activeEffects: this.getActiveEffectsData(),
@@ -221,38 +221,34 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     }
 
     protected getActiveEffectsData(): AESheetData {
-        const durationString = (duration: ActiveEffectDuration): string => {
+        const durationString = (duration: foundry.data.EffectDurationData): string => {
             const translations = LocalizePF2e.translations.PF2E.ActiveEffects;
-            type DurationEntry = [string, number | string | null];
-            const durationEntries: DurationEntry[] = Object.entries(duration).filter((entry: DurationEntry) =>
-                ['rounds', 'seconds', 'turns'].includes(entry[0]),
-            );
 
-            const [key, quantity] =
-                durationEntries.find(
-                    (entry: DurationEntry): entry is [string, number | null] => typeof entry[1] === 'number',
-                ) ?? (['permanent', null] as const);
-
-            if (key === 'permanent') {
-                return translations.Duration.Permanent;
-            }
+            /** @todo use `as const` when fixed in typescript 4.3.3 */
+            const durationFields: ['rounds', 'seconds', 'turns'] = ['rounds', 'seconds', 'turns'];
+            const unit = durationFields.find((unit) => duration[unit] !== undefined);
+            const quantity = unit && duration[unit];
+            if (!(typeof unit === 'string' && typeof quantity === 'number')) return translations.Duration.Permanent;
 
             type UnitLabel = 'Second' | 'Seconds' | 'Round' | 'Rounds' | 'Turn' | 'Turns';
-            const unit =
+            const unitLabel =
                 quantity === 1
-                    ? ((key.slice(0, 1).toUpperCase() + key.slice(1, -1)) as UnitLabel)
-                    : ((key.slice(0, 1).toUpperCase() + key.slice(1)) as UnitLabel);
-            return game.i18n.format(translations.Duration[unit ?? 'seconds'], {
+                    ? ((unit.slice(0, 1).toUpperCase() + unit.slice(1, -1)) as UnitLabel)
+                    : ((unit.slice(0, 1).toUpperCase() + unit.slice(1)) as UnitLabel);
+            return game.i18n.format(translations.Duration[unitLabel], {
                 quantity,
             });
         };
 
         const actor = this.item.actor;
-        const origin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`; // `;
+        const oldOrigin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`; // Foundry 0.7
+        const newOrigin = `Actor.${actor?.id}.Item.${this.item.id}`; // Foundry 0.8
         const effects =
             actor instanceof ActorPF2e
-                ? actor.effects.entries.filter((effect) => effect.data.origin === origin)
-                : this.item.effects.entries;
+                ? actor.effects.contents.filter(
+                      (effect) => effect.data.origin === newOrigin || effect.data.origin === oldOrigin,
+                  )
+                : this.item.effects.contents;
 
         const ruleUIEnabled = game.settings.get('pf2e', 'enabledRulesUI');
 
@@ -356,8 +352,8 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     /**
      * Get the action image to use for a particular action type.
      */
-    protected getActionImg(action: string) {
-        const img: Record<string, string> = {
+    protected getActionImg(action: string): ImagePath {
+        const img: Record<string, ImagePath> = {
             0: 'systems/pf2e/icons/default-icons/mystery-man.svg',
             1: 'systems/pf2e/icons/actions/OneAction.webp',
             2: 'systems/pf2e/icons/actions/TwoActions.webp',
@@ -394,7 +390,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
     /** @override */
     protected _canDragDrop(_selector: string) {
-        return this.item.owner;
+        return this.item.isOwner;
     }
 
     /** @override */
@@ -443,7 +439,8 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         });
 
         html.find('.add-skill-variant').on('click', (_event) => {
-            const variants = (this.actor?.items?.get(this.entity.id)?.data.data as LoreDetailsData)?.variants ?? {};
+            if (!(this.item instanceof LorePF2e)) return;
+            const variants = this.item.data.data.variants ?? {};
             const index = Object.keys(variants).length;
             this.item.update({
                 [`data.variants.${index}`]: { label: '+X in terrain', options: '' },
@@ -462,24 +459,18 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         }
 
         // Active Effect controls
-        html.find('.tab.effects table th a[data-action="create"]').on('click', () => {
-            const ae = ActiveEffect.create(
+        html.find('.tab.effects table th a[data-action="create"]').on('click', async () => {
+            const newEffect = await ActiveEffectPF2e.create(
                 {
                     label: 'New Effect',
                     icon: this.item.img,
                     origin: this.item.uuid,
                     disabled: false,
-                    duration: {
-                        rounds: undefined,
-                        seconds: undefined,
-                    },
                 },
-                this.item,
+                { parent: this.item as unknown as foundry.documents.BaseItem },
             );
-            ae.create().then((effectData) => {
-                this.render();
-                this.item.effects.get(effectData._id)!.sheet.render(true);
-            });
+            this.render();
+            this.item.effects.get(newEffect?.id ?? '')!.sheet.render(true);
         });
 
         const $aeControls = html.find('.tab.effects table tbody td.controls');
@@ -489,8 +480,8 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
         const getEffects = (): ActiveEffect[] => {
             return actor instanceof ActorPF2e
-                ? actor.effects.entries.filter((effect) => effect.data.origin === origin)
-                : this.item.effects.entries;
+                ? actor.effects.contents.filter((effect) => effect.data.origin === origin)
+                : this.item.effects.contents;
         };
         const getEffectId = (target: HTMLElement): string | undefined => {
             return $(target).closest('tr').data('effect-id');
@@ -506,12 +497,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             const effect = effects.find((ownedEffect) => ownedEffect.id === effectId);
             if (effect instanceof ActiveEffect) {
                 const isDisabled = !$(event.target as HTMLInputElement).is(':checked');
-                const refresh = () => this.render();
-                if (actor instanceof ActorPF2e) {
-                    actor.updateEmbeddedEntity('ActiveEffect', { _id: effect.id, disabled: isDisabled }).then(refresh);
-                } else {
-                    effect.update({ disabled: isDisabled }).then(refresh);
-                }
+                effect.update({ disabled: isDisabled }).then(() => this.render());
             }
         });
 
@@ -528,11 +514,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             const effectId = getEffectId(event.target);
             const effect = effects.find((ownedEffect) => ownedEffect.id === effectId);
             if (effect instanceof ActiveEffect) {
-                if (actor instanceof ActorPF2e) {
-                    actor.deleteEmbeddedEntity('ActiveEffect', effect.id);
-                } else {
-                    effect.delete();
-                }
+                effect.delete();
             }
         });
     }
@@ -541,15 +523,15 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
-        const data: Record<string, unknown> & { name?: string; img?: string; data?: ItemUpdateData } = updateData
+        const data: Record<string, unknown> & { data?: { rules?: string[] } } = updateData
             ? mergeObject(fd.toObject(), updateData)
             : expandObject(fd.toObject());
 
         // ensure all rules objects are parsed and saved as objects
-        if (data?.data && 'rules' in data?.data) {
-            data.data.rules = Object.entries(data.data.rules as PF2RuleElementData).map(([_, value]) => {
+        if (data.data?.rules) {
+            data.data.rules = Object.entries(data.data.rules).map(([_, value]) => {
                 try {
-                    return JSON.parse(value as string);
+                    return JSON.parse(value);
                 } catch (error) {
                     ui.notifications.warn('Syntax error in rule element definition.');
                     throw error;

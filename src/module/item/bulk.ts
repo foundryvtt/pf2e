@@ -1,5 +1,7 @@
+import { Size, SIZES } from '@module/data';
 import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from '../utils';
-import { isPhysicalItem, ItemDataPF2e, PhysicalItemData, Size } from './data/types';
+import { ItemDataPF2e, PhysicalItemData } from './data';
+import { isPhysicalData } from './data/helpers';
 
 interface StackDefinition {
     size: number;
@@ -188,9 +190,8 @@ export class Bulk {
  * @param actorSize
  */
 export function convertBulkToSize(bulk: Bulk, itemSize: Size, actorSize: Size): Bulk {
-    const sizes: Size[] = ['tiny', 'med', 'lg', 'huge', 'grg'];
-    const itemSizeIndex = sizes.indexOf(itemSize === 'sm' ? 'med' : itemSize);
-    const actorSizeIndex = sizes.indexOf(actorSize === 'sm' ? 'med' : actorSize);
+    const itemSizeIndex = SIZES.indexOf(itemSize === 'sm' ? 'med' : itemSize);
+    const actorSizeIndex = SIZES.indexOf(actorSize === 'sm' ? 'med' : actorSize);
 
     if (itemSizeIndex === actorSizeIndex) {
         return bulk;
@@ -235,13 +236,13 @@ export class BulkItem {
 
     quantity: number;
 
-    stackGroup: string;
+    stackGroup?: string;
 
     isEquipped: boolean;
 
-    unequippedBulk: Bulk;
+    unequippedBulk?: Bulk;
 
-    equippedBulk: Bulk;
+    equippedBulk?: Bulk;
 
     holdsItems: BulkItem[];
 
@@ -253,12 +254,12 @@ export class BulkItem {
         id = '',
         bulk = new Bulk(),
         quantity = 1,
-        stackGroup = undefined,
+        stackGroup,
         isEquipped = false,
         // value to overrides bulk field when unequipped
-        unequippedBulk = undefined,
+        unequippedBulk,
         // value to overrides bulk field when equipped
-        equippedBulk = undefined,
+        equippedBulk,
         holdsItems = [],
         // some containers like a backpack or back of holding reduce total bulk if
         // items are put into it
@@ -617,11 +618,14 @@ export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = [])
  * @param groupedItems items grouped by data.containerId.value
  * @return
  */
-function buildContainerTree(items: PhysicalItemData[], groupedItems: Map<string, PhysicalItemData[]>): BulkItem[] {
+function buildContainerTree(
+    items: PhysicalItemData[],
+    groupedItems: Map<string | null, PhysicalItemData[]>,
+): BulkItem[] {
     return items.map((item) => {
-        const itemId = item._id;
-        if (itemId !== null && itemId !== undefined && groupedItems.has(itemId)) {
-            const itemsInContainer = buildContainerTree(groupedItems.get(itemId), groupedItems);
+        const containedItems = groupedItems.get(item._id);
+        if (containedItems) {
+            const itemsInContainer = buildContainerTree(containedItems, groupedItems);
             return toBulkItem(item, itemsInContainer);
         }
         return toBulkItem(item);
@@ -649,8 +653,8 @@ export function toBulkItems(items: PhysicalItemData[]): BulkItem[] {
         }
         return ref;
     });
-    if (itemsInContainers.has(null)) {
-        const topLevelItems = itemsInContainers.get(null);
+    const topLevelItems = itemsInContainers.get(null);
+    if (topLevelItems) {
         return buildContainerTree(topLevelItems, itemsInContainers);
     }
     return [];
@@ -661,7 +665,7 @@ export function toBulkItems(items: PhysicalItemData[]): BulkItem[] {
  * @param actorData
  */
 export function itemsFromActorData(actorData: { items: ItemDataPF2e[] }): BulkItem[] {
-    return toBulkItems(actorData.items.filter(isPhysicalItem));
+    return toBulkItems(actorData.items.filter((itemData): itemData is PhysicalItemData => isPhysicalData(itemData)));
 }
 
 /**

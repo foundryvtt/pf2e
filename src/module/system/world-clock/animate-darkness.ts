@@ -17,7 +17,7 @@ function darknessLevelAtTime(time: DateTime) {
     const secondsElapsed = time.diff(time.startOf('day')).as('seconds');
     const radians = 2 * Math.PI * (secondsElapsed / dayInSeconds);
     const lightnessLevel = -1 * Math.cos(radians);
-    const rad18degrees = toRadians(18);
+    const rad18degrees = Math.toRadians(18);
 
     return (
         1 -

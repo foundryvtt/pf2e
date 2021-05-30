@@ -1,12 +1,23 @@
 import { ActorPF2e } from '@actor/base';
+import { TokenDocumentPF2e } from '@module/token-document';
 
 export class FakeToken {
-    actor: ActorPF2e | null;
+    _actor: ActorPF2e | null;
+    parent: Scene | null;
+    data: foundry.data.TokenData<TokenDocumentPF2e>;
 
-    constructor(public data: TokenData, public scene: Scene) {
-        this.data = duplicate(data);
-        this.scene = scene;
-        this.actor = (Actor.fromToken((this as unknown) as Token) as unknown) as ActorPF2e;
+    constructor(data: foundry.data.TokenSource, context: TokenDocumentConstructionContext<TokenDocumentPF2e> = {}) {
+        this.data = duplicate(data) as foundry.data.TokenData<TokenDocumentPF2e>;
+        this.parent = context.parent ?? null;
+        this._actor = context.actor ?? null;
+    }
+
+    get actor() {
+        return this._actor;
+    }
+
+    get scene() {
+        return this.parent;
     }
 
     get id() {
@@ -17,8 +28,8 @@ export class FakeToken {
         return this.data.name;
     }
 
-    update(changes: EmbeddedEntityUpdateData, options: EntityUpdateOptions = {}) {
+    update(changes: EmbeddedDocumentUpdateData<TokenDocument>, context: DocumentModificationContext = {}) {
         changes['_id'] = this.id;
-        this.scene.updateEmbeddedEntity('Token', changes, options);
+        this.scene?.updateEmbeddedDocuments('Token', [changes], context);
     }
 }
