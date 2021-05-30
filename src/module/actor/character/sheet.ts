@@ -78,7 +78,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.showUnpreparedSpells = sheetData.options.showUnpreparedSpells;
 
         // Update dying icon and container width
-        sheetData.data.attributes.dying.containerWidth = `width: ${sheetData.data.attributes.dying.max * 13}px;`;
         sheetData.data.attributes.dying.icon = this.getDyingIcon(sheetData.data.attributes.dying.value);
 
         // Update wounded, maximum wounded, and doomed.
@@ -766,8 +765,18 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             minWidth: 120,
         });
 
-        // Toggle Dying Wounded
-        html.find('.dying-click').on('click contextmenu', this.onClickDying.bind(this));
+        // Toggle Dying, Wounded, or Doomed
+        html.find('aside > .sidebar > .hitpoints')
+            .find('.dots.dying, .dots.wounded, .dots.doomed')
+            .on('click contextmenu', (event) => {
+                type ConditionName = 'dying' | 'wounded' | 'doomed';
+                const condition = Array.from(event.delegateTarget.classList).find(
+                    (className): className is ConditionName => ['dying', 'wounded', 'doomed'].includes(className),
+                );
+                if (condition) {
+                    this.onClickDyingWoundedDoomed(condition, event);
+                }
+            });
 
         // Spontaneous Spell slot increment handler:
         html.find('.spell-slots-increment-down').on('click', (event) => {
@@ -949,32 +958,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return featSlotType === featType;
     }
 
-    /**
-     * Handle cycling of dying
-     */
-    private onClickDying(event: JQuery.TriggeredEvent) {
-        event.preventDefault();
-        const field = $(event.currentTarget).siblings('input[type="hidden"]');
-        const maxDying = this.object.data.data.attributes.dying.max;
-        const wounded = 0; // Don't automate wounded when clicking on dying until dying is also automated on damage from chat and Recovery rolls
-        const doomed = this.object.data.data.attributes.doomed.value;
-
-        // Get the current level and the array of levels
-        const level = parseFloat(`${field.val()}`);
-        let newLevel = level;
-
-        // Toggle next level - forward on click, backwards on right
+    /** Handle cycling of dying, wounded, or doomed */
+    private onClickDyingWoundedDoomed(condition: 'dying' | 'wounded' | 'doomed', event: JQuery.TriggeredEvent) {
         if (event.type === 'click') {
-            newLevel = Math.clamped(level + 1 + wounded, 0, maxDying);
-            if (newLevel + doomed >= maxDying) newLevel = maxDying;
-        } else {
-            newLevel = Math.clamped(level - 1, 0, maxDying);
-            if (newLevel + doomed >= maxDying) newLevel -= doomed;
+            this.actor.increaseCondition(condition, { max: this.actor.data.data.attributes[condition].max });
+        } else if (event.type === 'contextmenu') {
+            this.actor.decreaseCondition(condition);
         }
-
-        // Update the field value and save the form
-        field.val(newLevel);
-        this._onSubmit(event.originalEvent!);
     }
 
     private getNearestSlotId(event: ElementDragEvent) {

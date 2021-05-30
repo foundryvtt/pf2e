@@ -1,15 +1,12 @@
 import { ActorPF2e, NPCPF2e } from '@actor/index';
-import { CheckPF2e } from './module/system/rolls';
-import { RuleElements } from './module/rules/rules';
-import { PF2E } from './scripts/hooks';
+import { CheckPF2e } from '@system/rolls';
+import { RuleElements } from '@module/rules/rules';
+import { PF2E } from '@scripts/hooks';
 
 import '@system/measure';
 import './styles/pf2e.scss';
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/system/canvas-drop-handler');
-
-// Keep on while migrating to Foundry version 0.8
-CONFIG.debug.hooks = true;
 
 PF2E.Hooks.listen();
 
