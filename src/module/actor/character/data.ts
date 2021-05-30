@@ -20,9 +20,9 @@ import {
     StrikeData,
 } from '@actor/data/base';
 import { ArmorCategory } from '@item/armor/data';
-import { BaseWeaponType, WeaponCategory, WeaponGroup } from '@item/weapon/data';
+import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from '@item/weapon/data';
 import { CheckModifier, StatisticModifier } from '@module/modifiers';
-import { LabeledValue, ZeroToThree } from '@module/data';
+import { LabeledValue, ZeroToFour, ZeroToThree } from '@module/data';
 import type { CharacterPF2e } from '.';
 
 export type CharacterSource = BaseCreatureSource<'character', CharacterSystemData>;
@@ -116,13 +116,26 @@ export interface CharacterSystemData extends CreatureSystemData {
     };
 }
 
-export type CategoryProficiencies = Record<ArmorCategory | WeaponCategory, ProficiencyData>;
+export interface CharacterProficiencyData extends ProficiencyData {
+    /** The proficiency rank (0 untrained - 4 legendary). */
+    rank: ZeroToFour;
+    /** A proficiency in a non-armor/weapon category and not added by a feat or feature */
+    custom?: true;
+    /** A weapon familiarity from an ancestry feat */
+    familiarity?: {
+        name: string;
+        category: WeaponCategory;
+        trait: WeaponTrait;
+    };
+}
+
+export type CategoryProficiencies = Record<ArmorCategory | WeaponCategory, CharacterProficiencyData>;
 
 export type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponType}`;
-type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, ProficiencyData>;
+type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, CharacterProficiencyData>;
 
 export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
-type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, ProficiencyData>;
+type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, CharacterProficiencyData>;
 
 export type CombatProficiencies = CategoryProficiencies & BaseWeaponProficiencies & WeaponGroupProfiencies;
 

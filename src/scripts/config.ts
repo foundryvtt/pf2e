@@ -66,8 +66,11 @@ const ancestryTraits = {
     tengu: 'PF2E.TraitTengu',
     tiefling: 'PF2E.TraitTiefling',
     undine: 'PF2E.TraitUndine',
+};
 
-    // Secondary traits of ancestries and heritages
+// Secondary traits of ancestries and heritages
+const ancestryItemTraits = {
+    ...ancestryTraits,
     amphibious: 'PF2E.TraitAmphibious',
     fey: 'PF2E.TraitFey',
     humanoid: 'PF2E.TraitHumanoid',
@@ -771,6 +774,7 @@ export const PF2ECONFIG = {
         wounding: 'PF2E.WeaponPropertyRuneWounding',
         bloodbane: 'PF2E.WeaponPropertyRuneBloodbane',
         corrosive: 'PF2E.WeaponPropertyRuneCorrosive',
+        cunning: 'PF2E.WeaponPropertyRuneCunning',
         flaming: 'PF2E.WeaponPropertyRuneFlaming',
         frost: 'PF2E.WeaponPropertyRuneFrost',
         shock: 'PF2E.WeaponPropertyRuneShock',
@@ -1057,7 +1061,7 @@ export const PF2ECONFIG = {
     magicSchools,
     classTraits,
     ancestryTraits,
-    ancestryItemTraits: ancestryTraits,
+    ancestryItemTraits,
 
     weaponTraits: {
         ...ancestryTraits,

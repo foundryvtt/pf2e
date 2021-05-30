@@ -19,7 +19,6 @@ import {
     sellAllTreasure,
     sellTreasure,
 } from '@item/treasure/helpers';
-import { compendiumBrowser } from '@module/apps/compendium-browser';
 import { ConditionManager } from '@module/conditions';
 import {
     TraitSelectorBasic,
@@ -617,16 +616,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find('.sell-all-treasure button').on('click', (event) => this.onSellAllTreasure(event));
 
         // Feat Browser
-        html.find('.feat-browse').on('click', () => compendiumBrowser.openTab('feat'));
+        html.find('.feat-browse').on('click', () => game.pf2e.compendiumBrowser.openTab('feat'));
 
         // Action Browser
-        html.find('.action-browse').on('click', () => compendiumBrowser.openTab('action'));
+        html.find('.action-browse').on('click', () => game.pf2e.compendiumBrowser.openTab('action'));
 
         // Spell Browser
-        html.find('.spell-browse').on('click', () => compendiumBrowser.openTab('spell'));
+        html.find('.spell-browse').on('click', () => game.pf2e.compendiumBrowser.openTab('spell'));
 
         // Inventory Browser
-        html.find('.inventory-browse').on('click', () => compendiumBrowser.openTab('equipment'));
+        html.find('.inventory-browse').on('click', () => game.pf2e.compendiumBrowser.openTab('equipment'));
 
         // Spell Create
         html.find('.spell-create').on('click', (event) => this.onItemCreate(event));

@@ -7,6 +7,7 @@ import { ActionsPF2e } from '@system/actions/actions';
 import { HomebrewElements } from '@module/settings/homebrew';
 import { setWorldSchemaVersion } from '@module/migrations/set-world-schema-version';
 import { WorldClock } from '@module/system/world-clock';
+import { CompendiumBrowser } from '@module/apps/compendium-browser';
 
 export function listen(): void {
     Hooks.once('ready', () => {
@@ -58,6 +59,9 @@ export function listen(): void {
                 }
             }
         });
+
+        // Start up the Compendium Browser
+        game.pf2e.compendiumBrowser = new CompendiumBrowser();
 
         // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
         HomebrewElements.refreshTags();
