@@ -1,7 +1,7 @@
 import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-dialog';
 import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
 import { ModifierPredicate, StatisticModifier } from '../modifiers';
-import { PF2CheckDC } from './check-degree-of-success';
+import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
 import { DamageTemplate } from '@system/damage/weapon';
 import { RollNotePF2e } from '@module/notes';
 import { ChatMessagePF2e } from '@module/chat-message';
@@ -97,7 +97,7 @@ export class CheckPF2e {
         await message.delete();
 
         const oldRoll = message.roll!;
-        const newRoll = oldRoll.reroll();
+        const newRoll = oldRoll.reroll({ async: false });
 
         // Keep the new roll by default; Old roll is discarded
         let keepRoll = newRoll;
@@ -108,6 +108,26 @@ export class CheckPF2e {
             // If so, switch the css classes and keep the old roll.
             [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
             keepRoll = oldRoll;
+        }
+
+        // Update the degree of success message for rolls with a DC
+        const context = message.getFlag('pf2e', 'context');
+        if (context?.dc) {
+            const degreeOfSuccess = getDegreeOfSuccess(keepRoll, context.dc);
+            keepRoll.data.degreeOfSuccess = degreeOfSuccess.value;
+            const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
+            let adjustmentLabel = '';
+            if (degreeOfSuccess.degreeAdjustment !== undefined) {
+                adjustmentLabel = degreeOfSuccess.degreeAdjustment
+                    ? game.i18n.localize('PF2E.OneDegreeBetter')
+                    : game.i18n.localize('PF2E.OneDegreeWorse');
+                adjustmentLabel = ` (${adjustmentLabel})`;
+            }
+            const resultLabel = game.i18n.localize('PF2E.ResultLabel');
+            const degreeLabel = game.i18n.localize(`PF2E.${context.dc.scope ?? 'CheckOutcome'}.${degreeOfSuccessText}`);
+            const newString = `<div class="degree-of-success"><b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel}</span></b>${adjustmentLabel}</div>`;
+            const regex = new RegExp('<div class="degree-of-success">.+?</div>', 'g');
+            message.data.flavor = message.data.flavor?.replace(regex, newString);
         }
 
         const newMessage = await ChatMessagePF2e.create(
