@@ -1,5 +1,6 @@
 import { ItemSystemData } from '@item/data/base';
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from '@item/data/non-physical';
+import { ZeroToFour } from '@module/data';
 import type { LorePF2e } from '.';
 
 export type LoreSource = BaseNonPhysicalItemSource<'lore', LoreSystemData>;
@@ -17,13 +18,10 @@ export interface LoreData extends Omit<LoreSource, '_id' | 'effects'> {
 
 interface LoreSystemData extends ItemSystemData {
     mod: {
-        value: 0;
+        value: number;
     };
     proficient: {
-        value: 0;
-    };
-    item: {
-        value: 0;
+        value: ZeroToFour;
     };
     variants?: Record<string, { label: string; options: string }>;
 }
