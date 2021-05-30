@@ -1,6 +1,6 @@
 import { MigrationBase } from './base';
-import { SpellcastingEntryData, SpellData } from '@item/data/types';
-import { ActorDataPF2e } from '@actor/data-definitions';
+import { SpellcastingEntrySource, SpellSource } from '@item/data';
+import { ActorSourcePF2e } from '@actor/data';
 
 /** Delete owned spells with no corresponding spellcastiong entry */
 export class Migration632DeleteOrphanedSpells extends MigrationBase {
@@ -8,10 +8,10 @@ export class Migration632DeleteOrphanedSpells extends MigrationBase {
 
     requiresFlush = true;
 
-    async updateActor(actorData: ActorDataPF2e) {
-        const spells = actorData.items.filter((itemData): itemData is SpellData => itemData.type === 'spell');
+    async updateActor(actorData: ActorSourcePF2e) {
+        const spells = actorData.items.filter((itemData): itemData is SpellSource => itemData.type === 'spell');
         const entries = actorData.items.filter(
-            (itemData): itemData is SpellcastingEntryData => itemData.type === 'spellcastingEntry',
+            (itemData): itemData is SpellcastingEntrySource => itemData.type === 'spellcastingEntry',
         );
         const orphans = spells.filter(
             (spellData) => !entries.some((entryData) => entryData._id === spellData.data.location.value),

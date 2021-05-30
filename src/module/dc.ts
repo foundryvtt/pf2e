@@ -3,7 +3,8 @@
  * and variant rule Proficiency Without Level https://2e.aonprd.com/Rules.aspx?ID=1370
  */
 
-import { ProficiencyRank, Rarity } from '@item/data/types';
+import { ProficiencyRank } from '@item/data';
+import { Rarity } from './data';
 
 export type NegativeDCAdjustment = 'incredibly easy' | 'very easy' | 'easy' | 'normal';
 
@@ -86,7 +87,7 @@ export function rarityToDCAdjustment(rarity: Rarity = 'common'): PositiveDCAdjus
 }
 
 export function adjustDC(dc: number, adjustment: DCAdjustment = 'normal') {
-    return dc + dcAdjustments.get(adjustment);
+    return dc + (dcAdjustments.get(adjustment) ?? 0);
 }
 
 export function adjustDCByRarity(dc: number, rarity: Rarity = 'common') {
@@ -123,7 +124,7 @@ export function calculateSimpleDC(rank: ProficiencyRank, { proficiencyWithoutLev
     }
 }
 
-export function calculateSpellDC(spellLevel, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
+export function calculateSpellDC(spellLevel: number, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
     return calculateDC(spellLevel * 2 - 1, { proficiencyWithoutLevel });
 }
 

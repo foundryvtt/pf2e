@@ -1,33 +1,36 @@
-import { WorldClock } from '@system/world-clock';
-import { EffectPanel } from '@system/effect-panel';
-import { EffectTracker } from '@system/effect-tracker';
-import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
-import { calculateXP } from '@scripts/macros/xp';
-import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
-import { ConfigPF2e, StatusEffectIconType } from '@scripts/config';
-import { CombatPF2e } from './module/combat';
+import { ActiveEffectPF2e } from '@module/active-effect';
+import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
+import { ChatMessagePF2e } from '@module/chat-message';
+import { MacroPF2e } from '@module/macro';
+import { RuleElements } from '@module/rules/rules';
+import type { HomebrewSettingsKey, HomebrewTag } from '@module/settings/homebrew';
+import { CombatTrackerPF2e } from '@module/system/combat-tracker';
+import { StatusEffects } from '@scripts/actor/status-effects';
+import { PF2ECONFIG, StatusEffectIconType } from '@scripts/config';
+import { DicePF2e } from '@scripts/dice';
+import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
+import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
+import { calculateXP } from '@scripts/macros/xp';
+import { EffectPanel } from '@system/effect-panel';
+import { EffectTracker } from '@system/effect-tracker';
 import { CheckPF2e } from '@system/rolls';
+import { WorldClock } from '@system/world-clock';
+import { CombatantPF2e } from '@module/combatant';
+import { CombatPF2e } from './module/combat';
+import { ConditionManager } from './module/conditions';
 import {
     AbilityModifier,
     CheckModifier,
     ModifierPF2e,
     MODIFIER_TYPE,
-    StatisticModifier,
     ProficiencyModifier,
+    StatisticModifier,
 } from './module/modifiers';
-import { ConditionManager } from './module/conditions';
-import { StatusEffects } from '@scripts/actor/status-effects';
-import { DicePF2e } from '@scripts/dice';
-import { ItemType } from '@item/data/types';
-import { RuleElements } from '@module/rules/rules';
-import { HomebrewSettingsKey, HomebrewTag } from '@module/settings/homebrew';
-import { MacroPF2e } from '@module/macro';
-
-type ItemTypeMap = {
-    [K in ItemType]: Owned<InstanceType<ConfigPF2e['PF2E']['Item']['entityClasses'][K]>>[];
-};
+import { TokenDocumentPF2e, TokenPF2e } from '@module/token-document';
+import { UserPF2e } from '@module/user';
+import { ScenePF2e } from '@module/scene';
 
 declare global {
     interface Game {
@@ -42,7 +45,7 @@ declare global {
                 calculateXP: typeof calculateXP;
                 launchTravelSheet: typeof launchTravelSheet;
             };
-            DicePF2e: typeof DicePF2e;
+            Dice: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
             ConditionManager: typeof ConditionManager;
             ModifierType: typeof MODIFIER_TYPE;
@@ -56,15 +59,45 @@ declare global {
         };
     }
 
-    interface Actor {
-        itemTypes: ItemTypeMap;
+    interface ConfigPF2e
+        extends Config<
+            ActiveEffectPF2e,
+            ActorPF2e,
+            ChatMessagePF2e,
+            CombatantPF2e,
+            CombatPF2e,
+            ItemPF2e,
+            MacroPF2e,
+            TokenDocumentPF2e
+        > {
+        debug: Config['debug'] & {
+            ruleElement: boolean;
+        };
+
+        PF2E: typeof PF2ECONFIG;
+        time: {
+            roundTime: number;
+        };
+        ui: Config<
+            ActiveEffectPF2e,
+            ActorPF2e,
+            ChatMessagePF2e,
+            CombatantPF2e,
+            CombatPF2e,
+            ItemPF2e,
+            MacroPF2e,
+            TokenDocumentPF2e
+        >['ui'] & {
+            combat: typeof CombatTrackerPF2e;
+            compendium: typeof CompendiumDirectoryPF2e;
+        };
     }
 
     const CONFIG: ConfigPF2e;
-    const canvas: Canvas<ActorPF2e>;
+    const canvas: Canvas<TokenPF2e>;
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<ActorPF2e, ItemPF2e, CombatPF2e, MacroPF2e>;
+        var game: Game<ActorPF2e, ChatMessagePF2e, CombatPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
     }
 
     interface Window {
@@ -80,29 +113,10 @@ declare global {
         PF2Check: typeof CheckPF2e;
     }
 
-    interface ChatMessage extends Entity {
-        getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;
-        getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
-    }
-
-    interface User extends Entity {
-        getFlag(
-            scope: 'pf2e',
-            key: 'settings',
-        ): {
-            uiTheme: 'blue' | 'red' | 'original' | 'ui';
-            showEffectPanel: boolean;
-            showRollDialogs: boolean;
-        };
-        getFlag(scope: 'pf2e', key: 'settings.uiTheme'): 'blue' | 'red' | 'original' | 'ui';
-        getFlag(scope: 'pf2e', key: 'settings.showEffectPanel'): boolean;
-        getFlag(scope: 'pf2e', key: 'settings.showRollDialogs'): boolean;
-        getFlag(scope: 'pf2e', key: `compendiumFolders.${string}.expanded`): boolean | undefined;
-    }
-
     interface ClientSettings {
         get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
         get(module: 'pf2e', setting: 'automation.lootableNPCs'): boolean;
+        get(module: 'pf2e', setting: 'defaultTokenSettings'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;
         get(module: 'pf2e', setting: 'defaultTokenSettingsName'): string;
         get(module: 'pf2e', setting: 'enabledRulesUI'): boolean;

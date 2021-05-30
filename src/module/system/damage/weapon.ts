@@ -1,18 +1,19 @@
+import { ActorDataPF2e } from '@actor/data';
+import { AbilityString, StrikeTrait } from '@actor/data/base';
+import { WeaponData } from '@item/data';
+import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
 import {
     DamageDicePF2e,
-    ModifierPF2e,
-    MODIFIER_TYPE,
-    ModifierPredicate,
-    StatisticModifier,
-    PROFICIENCY_RANK_OPTION,
     DiceModifierPF2e,
+    ModifierPF2e,
+    ModifierPredicate,
+    MODIFIER_TYPE,
+    PROFICIENCY_RANK_OPTION,
+    StatisticModifier,
 } from '@module/modifiers';
-import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
-import { DamageCategory, DamageDieSize } from './damage';
-import { WeaponData } from '@item/data/types';
-import { AbilityString, ActorDataPF2e, CharacterStrikeTrait } from '@actor/data-definitions';
 import { RollNotePF2e } from '@module/notes';
 import { StrikingPF2e, WeaponPotencyPF2e } from '@module/rules/rules-data-definitions';
+import { DamageCategory, DamageDieSize } from './damage';
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -78,11 +79,11 @@ function isNonPhysicalDamage(damageType?: string): boolean {
  */
 export class WeaponDamagePF2e {
     static calculateStrikeNPC(
-        weapon,
+        weapon: any,
         actor: ActorDataPF2e,
-        traits: CharacterStrikeTrait[] = [],
+        traits: StrikeTrait[] = [],
         statisticsModifiers: Record<string, ModifierPF2e[]>,
-        damageDice,
+        damageDice: any,
         proficiencyRank = 0,
         options: string[] = [],
         rollNotes: Record<string, RollNotePF2e[]>,
@@ -189,7 +190,7 @@ export class WeaponDamagePF2e {
     static calculate(
         weapon: WeaponData,
         actor: ActorDataPF2e,
-        traits: CharacterStrikeTrait[] = [],
+        traits: StrikeTrait[] = [],
         statisticsModifiers: Record<string, ModifierPF2e[]>,
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = -1,
@@ -235,7 +236,8 @@ export class WeaponDamagePF2e {
 
             // check for Rogue's Racket: Thief
             if (
-                actor.items.some((i) => i.type === 'feat' && i.data.slug === 'thief-racket') && // character has Thief Racket class feature
+                // character has Thief Racket class feature
+                actor.items.some((item) => item.type === 'feat' && item.slug === 'thief-racket') &&
                 !traits.some((t) => t.name === 'unarmed') && // NOT unarmed attack
                 traits.some((t) => t.name === 'finesse') &&
                 melee && // finesse melee weapon
@@ -401,7 +403,7 @@ export class WeaponDamagePF2e {
         if (weaponSpecializationDamage > 0) {
             const has = (slug: string, name: string) =>
                 actor.items.some(
-                    (i) => i.type === 'feat' && (i.data.slug?.startsWith(slug) || i.name.startsWith(name)),
+                    (item) => item.type === 'feat' && (item.slug?.startsWith(slug) || item.name.startsWith(name)),
                 );
             if (has('greater-weapon-specialization', 'Greater Weapon Specialization')) {
                 numericModifiers.push(
@@ -482,7 +484,7 @@ export class WeaponDamagePF2e {
 
         // custom dice
         {
-            const stats = [];
+            const stats: string[] = [];
             stats.push(`${weapon.name.slugify()}-damage`); // convert white spaces to dash and lower-case all letters
             stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
                 (damageDice[key] || [])
@@ -525,7 +527,7 @@ export class WeaponDamagePF2e {
     }
 
     /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
-    static getFormula(damage, critical: boolean): DamageFormula {
+    static getFormula(damage: any, critical: boolean): DamageFormula {
         const base = duplicate(damage.base);
         const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
@@ -601,9 +603,8 @@ export class WeaponDamagePF2e {
         {
             const modifiers: ModifierPF2e[] = [];
             damage.numericModifiers
-                .filter((nm) => nm.enabled)
-                .filter((nm) => !nm.critical || critical)
-                .forEach((nm) => {
+                .filter((nm: ModifierPF2e) => nm.enabled && (!nm.critical || critical))
+                .forEach((nm: ModifierPF2e) => {
                     if (critical && nm.critical) {
                         // critical-only stuff
                         modifiers.push(nm);
@@ -615,12 +616,12 @@ export class WeaponDamagePF2e {
                     }
                 });
             Object.entries(
-                modifiers.reduce((accumulator, current) => {
+                modifiers.reduce((accumulator: Record<string, ModifierPF2e[]>, current) => {
                     // split numeric modifiers into separate lists for each damage type
                     const dmg = current.damageType ?? base.damageType;
                     accumulator[dmg] = (accumulator[dmg] ?? []).concat(current);
                     return accumulator;
-                }, {} as Record<string, ModifierPF2e[]>),
+                }, {}),
             )
                 .map(([damageType, damageTypeModifiers]) => {
                     // apply stacking rules for numeric modifiers of each damage type separately
@@ -708,7 +709,7 @@ export class WeaponDamagePF2e {
         let minValue = 0;
         for (const [type, cats] of Object.entries(pool)) {
             for (const [category, info] of Object.entries(cats.categories)) {
-                const p = [];
+                const p: string[] = [];
                 // Add all of the dice components; each individual dice adds one to the minimum value.
                 for (const [dieSize, count] of Object.entries(info.dice ?? {})) {
                     minValue += count;

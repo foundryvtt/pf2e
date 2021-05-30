@@ -1,5 +1,5 @@
+import { Size } from '@module/data';
 import { Bulk } from './bulk';
-import { Size } from './data/types';
 
 /**
  * @category Other

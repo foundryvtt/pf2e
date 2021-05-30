@@ -1,19 +1,19 @@
 import { MigrationBase } from './base';
-import { ActorDataPF2e } from '@actor/data-definitions';
+import { ActorSourcePF2e } from '@actor/data';
 import { FeatPF2e } from '@item/feat';
 
 export class Migration602UpdateDiehardFeat extends MigrationBase {
     static version = 0.602;
     requiresFlush = true;
 
-    private diehardPromise: Promise<Entity | null>;
+    private diehardPromise: Promise<CompendiumDocument | null>;
 
     constructor() {
         super();
         this.diehardPromise = fromUuid('Compendium.pf2e.feats-srd.I0BhPWqYf1bbzEYg');
     }
 
-    async updateActor(actorData: ActorDataPF2e) {
+    async updateActor(actorData: ActorSourcePF2e) {
         const diehard = actorData.items.find(
             (itemData) => itemData.data.slug === 'diehard' && itemData.type === 'feat',
         );
@@ -25,7 +25,7 @@ export class Migration602UpdateDiehardFeat extends MigrationBase {
             if (!(newDiehard instanceof FeatPF2e)) {
                 throw Error('PF2E System | Expected item not found in Compendium');
             }
-            actorData.items.splice(diehardIndex, 1, newDiehard.data);
+            actorData.items.splice(diehardIndex, 1, newDiehard.toObject());
         }
     }
 }

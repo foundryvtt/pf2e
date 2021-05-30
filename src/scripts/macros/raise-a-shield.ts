@@ -1,6 +1,7 @@
 import { CharacterPF2e } from '@actor/character';
 import { NPCPF2e } from '@actor/npc';
 import { EffectPF2e } from '@item/effect';
+import { ChatMessagePF2e } from '@module/chat-message';
 import { ErrorPF2e } from '@module/utils';
 import { ActionDefaultOptions } from '../..//module/system/actions/actions';
 import { LocalizePF2e } from '../../module/system/localize';
@@ -27,7 +28,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
     const shield = actor.itemTypes.armor
         .filter((armor) => armor.data.data.armorType.value === 'shield')
         .find((shield) => shield.data.data.equipped.value === true);
-    const speaker = ChatMessage.getSpeaker({ actor: actor });
+    const speaker = ChatMessagePF2e.getSpeaker({ actor: actor });
 
     const isSuccess = await (async (): Promise<boolean> => {
         if (shield && !shield.isBroken) {
@@ -35,7 +36,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
                 (effect) => effect.getFlag('core', 'sourceId') === ITEM_UUID,
             );
             if (existingEffect) {
-                await actor.deleteOwnedItem(existingEffect._id);
+                await existingEffect.delete();
                 return false;
             } else {
                 const effect = await fromUuid(ITEM_UUID);
@@ -47,7 +48,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
                     (rule) => rule.selector === 'ac' && rule.key === 'PF2E.RuleElement.FlatModifier',
                 );
                 rule!.value = shield.data.data.armor.value;
-                await actor.createEmbeddedEntity('OwnedItem', effect.data);
+                await actor.createEmbeddedDocuments('Item', [effect.data]);
                 return true;
             }
         } else if (shield?.isBroken) {
@@ -71,7 +72,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
             action: { title, typeNumber: 1 },
         });
 
-        await ChatMessage.create({
+        await ChatMessagePF2e.create({
             type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
             speaker,
             flavor,

@@ -1,4 +1,5 @@
-import { ActorPF2e, SKILL_EXPANDED } from '@actor/base';
+import type { ActorPF2e } from '@actor/base';
+import { SKILL_EXPANDED } from '@actor/data/values';
 import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from '../../modifiers';
 import { CheckPF2e } from '../rolls';
 import { seek } from './basic/seek';
@@ -78,9 +79,7 @@ export class ActionsPF2e {
         actions.demoralize = demoralize;
     }
 
-    static resolveStat(
-        stat: string,
-    ): {
+    static resolveStat(stat: string): {
         checkType: CheckType;
         property: string;
         stat: string;
@@ -119,9 +118,9 @@ export class ActionsPF2e {
     ) {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
-        if (actors && Array.isArray(actors) && actors.length) {
+        if (Array.isArray(actors)) {
             rollers.push(...actors);
-        } else if (actors instanceof ActorPF2e) {
+        } else if (actors) {
             rollers.push(actors);
         } else if (canvas.tokens.controlled.length) {
             rollers.push(...(canvas.tokens.controlled.map((token) => token.actor) as ActorPF2e[]));

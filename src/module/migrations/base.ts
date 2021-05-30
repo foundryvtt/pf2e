@@ -1,5 +1,5 @@
-import { ActorDataPF2e } from '@actor/data-definitions';
-import { ItemDataPF2e } from '@item/data/types';
+import { ActorSourcePF2e } from '@actor/data';
+import { ItemSourcePF2e } from '@item/data';
 
 /**
  * This is the base class for a migration.
@@ -28,9 +28,9 @@ export abstract class MigrationBase {
 
     /**
      * Update the actor to the latest schema version.
-     * @param actor This should be effectively a `ActorDataPF2e` from the previous version.
+     * @param actor This should be effectively a `ActorSourcePF2e` from the previous version.
      */
-    async updateActor(_actor: ActorDataPF2e): Promise<void> {}
+    async updateActor(_actor: ActorSourcePF2e): Promise<void> {}
 
     /**
      * Update the item to the latest schema version.
@@ -38,37 +38,37 @@ export abstract class MigrationBase {
      * @param actor If the item is part of an actor, this is set to the actor. For instance
      * if you only want to update items that are on a npc you can do that here.
      */
-    async updateItem(_item: ItemDataPF2e, _actor?: ActorDataPF2e): Promise<void> {}
+    async updateItem(_item: ItemSourcePF2e, _actor?: ActorSourcePF2e): Promise<void> {}
 
     /**
      * Update the macro to the latest schema version.
      * @param macroData Macro data to update. This should be a `MacroData` from the previous version.
      */
-    async updateMacro(_macroData: MacroData): Promise<void> {}
+    async updateMacro(_macroData: foundry.data.MacroSource): Promise<void> {}
 
     /**
      * Update the chat message to the latest schema version.
      * @param messageData Message data to update. This should be a `ChatMessageData` from the previous version.
      */
-    async updateMessage(_macroData: ChatMessageData): Promise<void> {}
+    async updateMessage(_messageData: foundry.data.ChatMessageSource): Promise<void> {}
 
     /**
      * Update the rollable table to the latest schema version.
      * @param tableData Rolltable data to update. This should be a `RollTableData` from the previous version.
      */
-    async updateTable(_tableData: RollTableData): Promise<void> {}
+    async updateTable(_tableData: foundry.data.RollTableSource): Promise<void> {}
 
     /**
      * Update the token to the latest schema version.
      * @param tokenData Token data to update. This should be a `TokenData` from the previous version.
      */
-    async updateToken(_tokenData: TokenData): Promise<void> {}
+    async updateToken(_tokenData: foundry.data.TokenSource): Promise<void> {}
 
     /**
      * Update the user to the latest schema version.
      * @param userData User's data to update. This should be a `UserData` from the previous version.
      */
-    async updateUser(_userData: UserData): Promise<void> {}
+    async updateUser(_userData: foundry.data.UserSource): Promise<void> {}
 
     /**
      * Run migrations for this schema version.

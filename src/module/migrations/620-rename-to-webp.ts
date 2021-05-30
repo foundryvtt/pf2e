@@ -1,13 +1,7 @@
-import { ActorDataPF2e } from '@actor/data-definitions';
-import {
-    ABCFeatureEntryData,
-    AncestryData,
-    BackgroundData,
-    ClassData,
-    ItemDataPF2e,
-    KitData,
-    KitEntryData,
-} from '@item/data/types';
+import { ActorSourcePF2e } from '@actor/data';
+import { ABCFeatureEntryData } from '@item/abc/data';
+import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e, KitSource } from '@item/data';
+import { KitEntryData } from '@item/kit/data';
 import { MigrationBase } from './base';
 
 export class Migration620RenameToWebp extends MigrationBase {
@@ -15,22 +9,22 @@ export class Migration620RenameToWebp extends MigrationBase {
 
     private regexp = /(\/?systems\/pf2e\/[^"]+)\.(?:jpg|png)\b/;
 
-    private renameToWebP(imgPath: string): string;
+    private renameToWebP<T extends string>(imgPath: T): T;
     private renameToWebP(imgPath: undefined): undefined;
-    private renameToWebP(imgPath: string | undefined): string | undefined;
-    private renameToWebP(imgPath: string | undefined): string | undefined {
+    private renameToWebP<T extends string>(imgPath: T | undefined): T | undefined;
+    private renameToWebP<T extends string>(imgPath: T | undefined): T | undefined {
         if (typeof imgPath === 'string' && this.regexp.test(imgPath)) {
-            return imgPath.replace(this.regexp, '$1.webp');
+            return imgPath.replace(this.regexp, '$1.webp') as T;
         }
-        return imgPath?.replace('icons/svg/mystery-man.svg', 'systems/pf2e/icons/default-icons/mystery-man.svg');
+        return imgPath?.replace('icons/svg/mystery-man.svg', 'systems/pf2e/icons/default-icons/mystery-man.svg') as T;
     }
 
-    private isABCK(itemData: ItemDataPF2e): itemData is AncestryData | BackgroundData | ClassData | KitData {
+    private isABCK(itemData: ItemSourcePF2e): itemData is AncestrySource | BackgroundSource | ClassSource | KitSource {
         const ITEMS_WITH_ITEMS = ['ancestry', 'background', 'class', 'kit'];
         return ITEMS_WITH_ITEMS.includes(itemData.type);
     }
 
-    async updateActor(actorData: ActorDataPF2e): Promise<void> {
+    async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         actorData.img = this.renameToWebP(actorData.img);
 
         if (typeof actorData.token?.img === 'string') {
@@ -47,7 +41,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         }
     }
 
-    async updateItem(itemData: ItemDataPF2e): Promise<void> {
+    async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         itemData.img = this.renameToWebP(itemData.img);
 
         // Icons for active effects
@@ -81,28 +75,28 @@ export class Migration620RenameToWebp extends MigrationBase {
         }
     }
 
-    async updateMacro(macroData: MacroData): Promise<void> {
+    async updateMacro(macroData: foundry.data.MacroSource): Promise<void> {
         macroData.img = this.renameToWebP(macroData.img);
     }
 
-    async updateMessage(messageData: ChatMessageData): Promise<void> {
+    async updateMessage(messageData: foundry.data.ChatMessageSource): Promise<void> {
         messageData.flavor = this.renameToWebP(messageData.flavor);
         messageData.content = this.renameToWebP(messageData.content);
     }
 
-    async updateTable(tableData: RollTableData): Promise<void> {
+    async updateTable(tableData: foundry.data.RollTableSource): Promise<void> {
         tableData.img = this.renameToWebP(tableData.img);
         for (const result of tableData.results) {
             result.img = this.renameToWebP(result.img);
         }
     }
 
-    async updateToken(tokenData: TokenData): Promise<void> {
+    async updateToken(tokenData: foundry.data.TokenSource): Promise<void> {
         tokenData.img = this.renameToWebP(tokenData.img);
         tokenData.effects = tokenData.effects.filter((texture) => !this.regexp.test(texture));
     }
 
-    async updateUser(userData: UserData): Promise<void> {
+    async updateUser(userData: foundry.data.UserSource): Promise<void> {
         userData.img = this.renameToWebP(userData.img);
     }
 }
