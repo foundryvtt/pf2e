@@ -83,7 +83,7 @@ export class EffectPanel extends Application {
             if (!actor) return;
             const effect = actor.items.get(event.currentTarget.dataset.itemId ?? '');
             if (effect instanceof ConditionPF2e) {
-                await actor.removeOrReduceCondition(effect);
+                await actor.decreaseCondition(effect);
             } else if (effect instanceof EffectPF2e) {
                 await effect.delete();
             }

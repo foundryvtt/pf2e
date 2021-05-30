@@ -7,7 +7,7 @@ declare global {
         /** @override */
         constructor(
             data: PreCreate<foundry.data.TokenSource>,
-            context?: TokenDocumentConstructionContext<TokenDocument>,
+            context: TokenDocumentConstructionContext<TokenDocument>,
         );
 
         /**

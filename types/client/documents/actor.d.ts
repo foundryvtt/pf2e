@@ -85,7 +85,7 @@ declare global {
          * @param [data={}] Additional data, such as x, y, rotation, etc. for the created token data
          * @return The created TokenData instance
          */
-        getTokenData(data?: DocumentModificationContext): Promise<foundry.data.TokenData>;
+        getTokenData(data?: DocumentModificationContext): Promise<NonNullable<this['parent']>['data']>;
 
         /** Get an Array of Token images which could represent this Actor */
         getTokenImages(): Promise<ImagePath[]>;
