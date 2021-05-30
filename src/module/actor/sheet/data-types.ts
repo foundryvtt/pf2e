@@ -1,4 +1,5 @@
 import { ActorPF2e } from '@actor/base';
+import { LootPF2e } from '@actor/loot';
 import { getContainerMap } from '@item/container/helpers';
 import { ArmorData, ConsumableData, EquipmentData, PhysicalItemData, TreasureData, WeaponData } from '@item/data';
 import { IdentificationData, MystifiedData } from '@item/physical/data';
@@ -50,4 +51,8 @@ export interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheet
     totalCoinageGold: string;
     totalWealth: Coins;
     totalWealthGold: string;
+}
+
+export interface LootSheetDataPF2e extends ActorSheetDataPF2e<LootPF2e> {
+    isLoot: boolean;
 }
