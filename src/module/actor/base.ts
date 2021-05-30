@@ -16,7 +16,7 @@ import { SUPPORTED_ROLL_OPTIONS } from './data/values';
 import { SaveData, SaveString, SkillAbbreviation, SkillData } from './creature/data';
 import { AbilityString, BaseActorDataPF2e } from './data/base';
 import { ActorDataPF2e, ActorSourcePF2e } from './data';
-import { TokenDocumentPF2e, TokenPF2e } from '@module/token-document';
+import { TokenDocumentPF2e } from '@module/token-document';
 import { UserPF2e } from '@module/user';
 import { isCreatureData } from './data/helpers';
 
@@ -1000,45 +1000,91 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return this.data.data.abilities[ability].mod;
     }
 
-    /** Reduce a valued condition, or deletion one or more linked conditions */
-    async removeOrReduceCondition(
-        condition: Embedded<ConditionPF2e>,
-        { forceRemove = false }: { forceRemove: boolean } = { forceRemove: false },
+    /** Decrease the value of condition or remove it entirely */
+    async decreaseCondition(
+        conditionSlug: string | Embedded<ConditionPF2e>,
+        { forceRemove }: { forceRemove: boolean } = { forceRemove: false },
     ): Promise<void> {
-        if (!condition.fromSystem) {
-            return;
-        }
+        // Find a valid matching condition if a slug was passed
+        const condition =
+            typeof conditionSlug === 'string'
+                ? this.itemTypes.condition.find(
+                      (condition) =>
+                          condition.slug === conditionSlug &&
+                          condition.fromSystem &&
+                          typeof condition.number === 'number',
+                  )
+                : conditionSlug;
 
-        const details = condition.data.data;
+        if (!condition) return;
+
+        const systemData = condition.data.data;
         // Get all linked conditions if force-removing
         const conditionList = forceRemove
             ? [condition].concat(
                   this.itemTypes.condition.filter(
                       (maybeLinked) =>
                           maybeLinked.fromSystem &&
-                          maybeLinked.data.data.base === details.base &&
-                          maybeLinked.data.data.value.value === details.value.value,
+                          maybeLinked.data.data.base === systemData.base &&
+                          maybeLinked.data.data.value.value === systemData.value.value,
                   ),
               )
             : [condition];
 
-        const tokens: TokenPF2e[] = this.token?.object ? [this.token.object] : this.getActiveTokens();
-        if (tokens.length === 0) {
-            const idList = conditionList.map((condition) => condition.id);
-            await this.deleteEmbeddedDocuments('Item', idList);
-            return;
-        }
+        // Get the current canvas tokens, or create ephemeral one if none are present
+        const tokens = await (async () => {
+            const canvasTokens = this.getActiveTokens();
+            if (canvasTokens.length === 0) {
+                return [new TokenDocumentPF2e(await this.getTokenData(), { actor: this, parent: canvas.scene }).object];
+            }
+            return canvasTokens;
+        })();
 
         for await (const condition of conditionList) {
             const data = condition.data.data;
             const value = data.value.isValued ? Math.max(data.value.value - 1, 0) : null;
 
             for await (const token of tokens) {
+                if (!token) continue;
                 if (value !== null && !forceRemove) {
                     await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, value);
                 } else {
                     await game.pf2e.ConditionManager.removeConditionFromToken(condition.id, token);
                 }
+            }
+        }
+    }
+
+    /** Increase a valued condition, or create a new one if not present */
+    async increaseCondition(
+        conditionSlug: string | Embedded<ConditionPF2e>,
+        { max }: { max: number } = { max: 4 },
+    ): Promise<void> {
+        const condition =
+            typeof conditionSlug === 'string'
+                ? this.itemTypes.condition.find(
+                      (condition) =>
+                          condition.slug === conditionSlug &&
+                          condition.fromSystem &&
+                          typeof condition.number === 'number',
+                  )
+                : conditionSlug;
+
+        // Get the current canvas tokens, or create ephemeral one if none are present
+        const tokens = await (async () => {
+            const canvasTokens = this.getActiveTokens();
+            if (canvasTokens.length === 0) {
+                return [new TokenDocumentPF2e(await this.getTokenData(), { actor: this, parent: canvas.scene }).object];
+            }
+            return canvasTokens;
+        })();
+
+        for (const token of tokens) {
+            if (!token) continue;
+            if (condition && condition.number !== null && condition.number + 1 <= max) {
+                await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.number + 1);
+            } else if (!condition && typeof conditionSlug === 'string') {
+                await game.pf2e.ConditionManager.addConditionToToken(conditionSlug, token);
             }
         }
     }

@@ -7,6 +7,11 @@ export class ConditionPF2e extends ItemPF2e {
         return ConditionData;
     }
 
+    get number(): number | null {
+        const value = this.data.data.value;
+        return value.isValued ? value.value : null;
+    }
+
     /** Is the condition currently active? */
     get isActive(): boolean {
         return this.data.data.active;

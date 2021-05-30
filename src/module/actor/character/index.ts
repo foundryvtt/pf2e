@@ -43,6 +43,7 @@ import { ZeroToFour } from '@module/data';
 import { AbilityString, DexterityModifierCapData, PerceptionData, StrikeTrait } from '@actor/data/base';
 
 import { SkillAbbreviation, SkillData } from '@actor/creature/data';
+import { ArmorCategory } from '@item/armor/data';
 
 export class CharacterPF2e extends CreaturePF2e {
     /** @override */
@@ -113,10 +114,10 @@ export class CharacterPF2e extends CreaturePF2e {
         const rules = this.items
             .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item.data)), [])
             .filter((rule) => !rule.ignored);
-        const { data } = this.data;
+        const systemData = this.data.data;
 
         // Compute ability modifiers from raw ability scores.
-        for (const abl of Object.values(data.abilities)) {
+        for (const abl of Object.values(systemData.abilities)) {
             abl.mod = Math.floor((abl.value - 10) / 2);
         }
 
@@ -126,10 +127,20 @@ export class CharacterPF2e extends CreaturePF2e {
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
 
         // Update experience percentage from raw experience amounts.
-        data.details.xp.pct = Math.min(Math.round((data.details.xp.value * 100) / data.details.xp.max), 99.5);
+        systemData.details.xp.pct = Math.min(
+            Math.round((systemData.details.xp.value * 100) / systemData.details.xp.max),
+            99.5,
+        );
+
+        // Set dying, doomed, and wounded statuses according to embedded conditions
+        for (const conditionName of ['dying', 'doomed', 'wounded'] as const) {
+            const condition = this.itemTypes.condition.find((condition) => condition.slug === conditionName);
+            const status = systemData.attributes[conditionName];
+            status.value = Math.min(condition?.number ?? 0, status.max);
+        }
 
         // PFS Level Bump - check and DC modifiers
-        if (data.pfs?.levelBump) {
+        if (systemData.pfs?.levelBump) {
             statisticsModifiers.all = (statisticsModifiers.all || []).concat(
                 new ModifierPF2e('PF2E.PFS.LevelBump', 1, MODIFIER_TYPE.UNTYPED),
             );
@@ -137,38 +148,44 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Calculate HP and SP
         {
-            const ancestryHP = data.attributes.ancestryhp ?? 0;
-            const classHP = data.attributes.classhp ?? 0;
-            const hitPoints = data.attributes.hp;
+            const ancestryHP = systemData.attributes.ancestryhp ?? 0;
+            const classHP = systemData.attributes.classhp ?? 0;
+            const hitPoints = systemData.attributes.hp;
             const modifiers = hitPoints.modifiers.concat(
                 new ModifierPF2e('PF2E.AncestryHP', ancestryHP, MODIFIER_TYPE.UNTYPED),
             );
 
             if (game.settings.get('pf2e', 'staminaVariant')) {
-                const bonusSpPerLevel = (data.attributes.levelbonussp ?? 1) * this.level;
+                const bonusSpPerLevel = (systemData.attributes.levelbonussp ?? 1) * this.level;
                 const halfClassHp = Math.floor(classHP / 2);
 
-                data.attributes.sp.max =
-                    (halfClassHp + data.abilities.con.mod) * this.level + bonusSpPerLevel + data.attributes.flatbonussp;
+                systemData.attributes.sp.max =
+                    (halfClassHp + systemData.abilities.con.mod) * this.level +
+                    bonusSpPerLevel +
+                    systemData.attributes.flatbonussp;
 
                 modifiers.push(new ModifierPF2e('PF2E.ClassHP', halfClassHp * this.level, MODIFIER_TYPE.UNTYPED));
             } else {
                 modifiers.push(new ModifierPF2e('PF2E.ClassHP', classHP * this.level, MODIFIER_TYPE.UNTYPED));
                 modifiers.push(
-                    new ModifierPF2e('PF2E.AbilityCon', data.abilities.con.mod * this.level, MODIFIER_TYPE.ABILITY),
+                    new ModifierPF2e(
+                        'PF2E.AbilityCon',
+                        systemData.abilities.con.mod * this.level,
+                        MODIFIER_TYPE.ABILITY,
+                    ),
                 );
             }
 
-            if (data.attributes.flatbonushp) {
+            if (systemData.attributes.flatbonushp) {
                 modifiers.push(
-                    new ModifierPF2e('PF2E.FlatBonusHP', data.attributes.flatbonushp, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e('PF2E.FlatBonusHP', systemData.attributes.flatbonushp, MODIFIER_TYPE.UNTYPED),
                 );
             }
-            if (data.attributes.levelbonushp) {
+            if (systemData.attributes.levelbonushp) {
                 modifiers.push(
                     new ModifierPF2e(
                         'PF2E.BonusHPperLevel',
-                        data.attributes.levelbonushp * this.level,
+                        systemData.attributes.levelbonushp * this.level,
                         MODIFIER_TYPE.UNTYPED,
                     ),
                 );
@@ -189,7 +206,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const stat = mergeObject(new StatisticModifier('hp', modifiers), hpData, { overwrite: false });
 
             // PFS Level Bump - hit points
-            if (data.pfs?.levelBump) {
+            if (systemData.pfs?.levelBump) {
                 const hitPointsBump = Math.max(10, stat.totalModifier * 0.1);
                 stat.push(new ModifierPF2e('PF2E.PFS.LevelBump', hitPointsBump, MODIFIER_TYPE.UNTYPED));
             }
@@ -201,17 +218,17 @@ export class CharacterPF2e extends CreaturePF2e {
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
 
-            data.attributes.hp = stat;
+            systemData.attributes.hp = stat;
         }
 
         // Saves
         const worn = this.wornArmor?.data;
         for (const saveName of ['fortitude', 'reflex', 'will'] as const) {
-            const save = data.saves[saveName];
+            const save = systemData.saves[saveName];
             // Base modifiers from ability scores & level/proficiency rank.
             const ability = save.ability ?? CONFIG.PF2E.savingThrowDefaultAbilities[saveName];
             const modifiers = [
-                AbilityModifier.fromAbilityScore(ability, data.abilities[ability].value),
+                AbilityModifier.fromAbilityScore(ability, systemData.abilities[ability].value),
                 ProficiencyModifier.fromLevelAndRank(this.level, save.rank),
             ];
             const notes: RollNotePF2e[] = [];
@@ -258,11 +275,11 @@ export class CharacterPF2e extends CreaturePF2e {
                 );
             });
 
-            data.saves[saveName] = stat;
+            systemData.saves[saveName] = stat;
         }
 
         // Martial
-        for (const skl of Object.values(data.martial)) {
+        for (const skl of Object.values(systemData.martial)) {
             const proficiency = ProficiencyModifier.fromLevelAndRank(this.level, skl.rank || 0);
             skl.value = proficiency.modifier;
             skl.breakdown = `${game.i18n.localize(proficiency.name)} ${proficiency.modifier < 0 ? '' : '+'}${
@@ -272,9 +289,9 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Perception
         {
-            const proficiencyRank = data.attributes.perception.rank || 0;
+            const proficiencyRank = systemData.attributes.perception.rank || 0;
             const modifiers = [
-                WISDOM.withScore(data.abilities.wis.value),
+                WISDOM.withScore(systemData.abilities.wis.value),
                 ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank),
             ];
             const activeEffects = this.effects.contents.filter((effect) =>
@@ -284,11 +301,11 @@ export class CharacterPF2e extends CreaturePF2e {
             modifiers[1].automation.enabled = activeEffects.some((effect) => !effect.data.disabled);
 
             const notes: RollNotePF2e[] = [];
-            if (data.attributes.perception.item) {
+            if (systemData.attributes.perception.item) {
                 modifiers.push(
                     new ModifierPF2e(
                         'PF2E.ItemBonusLabel',
-                        Number(data.attributes.perception.item),
+                        Number(systemData.attributes.perception.item),
                         MODIFIER_TYPE.ITEM,
                     ),
                 );
@@ -298,7 +315,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
-            const stat = mergeObject(new StatisticModifier('perception', modifiers), data.attributes.perception, {
+            const stat = mergeObject(new StatisticModifier('perception', modifiers), systemData.attributes.perception, {
                 overwrite: false,
             });
             stat.breakdown = stat.modifiers
@@ -319,29 +336,33 @@ export class CharacterPF2e extends CreaturePF2e {
                 );
             });
 
-            data.attributes.perception = stat;
+            systemData.attributes.perception = stat;
         }
 
         // Class DC
         {
             const modifiers = [
                 AbilityModifier.fromAbilityScore(
-                    data.details.keyability.value,
-                    data.abilities[data.details.keyability.value].value,
+                    systemData.details.keyability.value,
+                    systemData.abilities[systemData.details.keyability.value].value,
                 ),
-                ProficiencyModifier.fromLevelAndRank(this.level, data.attributes.classDC.rank ?? 0),
+                ProficiencyModifier.fromLevelAndRank(this.level, systemData.attributes.classDC.rank ?? 0),
             ];
             const notes: RollNotePF2e[] = [];
-            ['class', `${data.details.keyability.value}-based`, 'all'].forEach((key) => {
+            ['class', `${systemData.details.keyability.value}-based`, 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
-            const stat = mergeObject(new StatisticModifier('PF2E.ClassDCLabel', modifiers), data.attributes.classDC, {
-                overwrite: false,
-            });
+            const stat = mergeObject(
+                new StatisticModifier('PF2E.ClassDCLabel', modifiers),
+                systemData.attributes.classDC,
+                {
+                    overwrite: false,
+                },
+            );
             stat.value = 10 + stat.totalModifier;
-            stat.ability = data.details.keyability.value;
+            stat.ability = systemData.details.keyability.value;
             stat.breakdown = [game.i18n.localize('PF2E.ClassDCBase')]
                 .concat(
                     stat.modifiers
@@ -350,21 +371,21 @@ export class CharacterPF2e extends CreaturePF2e {
                 )
                 .join(', ');
 
-            data.attributes.classDC = stat;
+            systemData.attributes.classDC = stat;
         }
 
         // Armor Class
         {
             const modifiers: ModifierPF2e[] = [];
-            const dexCap = duplicate(data.attributes.dexCap ?? []);
+            const dexCap = duplicate(systemData.attributes.dexCap ?? []);
             let armorCheckPenalty = 0;
-            let proficiency = 'unarmored';
+            let proficiency: ArmorCategory = 'unarmored';
 
             if (worn) {
                 dexCap.push({ value: Number(worn.data.dex.value ?? 0), source: worn.name });
-                proficiency = worn.data.armorType?.value;
+                proficiency = worn.data.armorType.value;
                 // armor check penalty
-                if (data.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
+                if (systemData.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
                     armorCheckPenalty = Number(worn.data.check.value ?? 0);
                 }
                 const armorBonus = worn.isInvested === false ? worn.data.armor.value : getArmorBonus(worn.data);
@@ -372,10 +393,12 @@ export class CharacterPF2e extends CreaturePF2e {
             }
 
             // proficiency
-            modifiers.unshift(ProficiencyModifier.fromLevelAndRank(this.level, data.martial[proficiency]?.rank ?? 0));
+            modifiers.unshift(
+                ProficiencyModifier.fromLevelAndRank(this.level, systemData.martial[proficiency]?.rank ?? 0),
+            );
 
             // Dex modifier limited by the lowest dex cap, for example from armor
-            const dexterity = DEXTERITY.withScore(data.abilities.dex.value);
+            const dexterity = DEXTERITY.withScore(systemData.abilities.dex.value);
             dexterity.modifier = Math.min(dexterity.modifier, ...dexCap.map((cap) => cap.value));
             modifiers.unshift(dexterity);
 
@@ -384,7 +407,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
 
-            const stat = mergeObject(new StatisticModifier('ac', modifiers), data.attributes.ac, {
+            const stat = mergeObject(new StatisticModifier('ac', modifiers), systemData.attributes.ac, {
                 overwrite: false,
             });
             stat.value = 10 + stat.totalModifier;
@@ -403,25 +426,28 @@ export class CharacterPF2e extends CreaturePF2e {
                 )
                 .join(', ');
 
-            data.attributes.ac = stat;
+            systemData.attributes.ac = stat;
         }
 
         // Shield
         const shield = this.heldShield?.data;
         if (shield) {
-            data.attributes.shield.value = shield.data.hp.value;
-            data.attributes.shield.max = shield.data.maxHp.value;
+            systemData.attributes.shield.value = shield.data.hp.value;
+            systemData.attributes.shield.max = shield.data.maxHp.value;
         }
 
         // Skill modifiers
 
         const skills: Partial<CharacterSystemData['skills']> = {}; // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
 
-        for (const [skillName, skill] of Object.entries(data.skills).filter(([shortform, _]) =>
+        for (const [skillName, skill] of Object.entries(systemData.skills).filter(([shortform, _]) =>
             Object.keys(SKILL_DICTIONARY).includes(shortform),
         )) {
             const modifiers = [
-                AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability as AbilityString].value),
+                AbilityModifier.fromAbilityScore(
+                    skill.ability,
+                    systemData.abilities[skill.ability as AbilityString].value,
+                ),
                 ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),
             ];
             const notes: RollNotePF2e[] = [];
@@ -434,9 +460,14 @@ export class CharacterPF2e extends CreaturePF2e {
                 worn.data.traits.value.includes('flexible') &&
                 ['acr', 'ath'].includes(skillName)
             );
-            if (skill.armor && data.attributes.ac.check && data.attributes.ac.check < 0 && ignoreArmorCheckPenalty) {
+            if (
+                skill.armor &&
+                systemData.attributes.ac.check &&
+                systemData.attributes.ac.check < 0 &&
+                ignoreArmorCheckPenalty
+            ) {
                 modifiers.push(
-                    new ModifierPF2e('PF2E.ArmorCheckPenalty', data.attributes.ac.check, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e('PF2E.ArmorCheckPenalty', systemData.attributes.ac.check, MODIFIER_TYPE.UNTYPED),
                 );
             }
 
@@ -483,11 +514,11 @@ export class CharacterPF2e extends CreaturePF2e {
             .map((loreItem) => loreItem.data)
             .forEach((skill) => {
                 // normalize skill name to lower-case and dash-separated words
-                const shortform = skill.name.toLowerCase().replace(/\s+/g, '-');
+                const shortform = skill.name.toLowerCase().replace(/\s+/g, '-') as SkillAbbreviation;
                 const rank = skill.data.proficient.value;
 
                 const modifiers = [
-                    AbilityModifier.fromAbilityScore('int', data.abilities.int.value),
+                    AbilityModifier.fromAbilityScore('int', systemData.abilities.int.value),
                     ProficiencyModifier.fromLevelAndRank(this.level, rank),
                 ];
                 const notes: RollNotePF2e[] = [];
@@ -496,7 +527,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                 });
 
-                const loreSkill: SkillData = data.skills[shortform];
+                const loreSkill: SkillData = systemData.skills[shortform];
                 const stat = mergeObject(new StatisticModifier(skill.name, modifiers), loreSkill, {
                     overwrite: false,
                 });
@@ -525,19 +556,19 @@ export class CharacterPF2e extends CreaturePF2e {
                 skills[shortform] = stat;
             });
 
-        data.skills = skills as Required<typeof skills>;
+        systemData.skills = skills as Required<typeof skills>;
 
         // Speeds
         {
             const label = game.i18n.localize('PF2E.SpeedTypesLand');
-            const base = Number(data.attributes.speed.value ?? 0);
+            const base = Number(systemData.attributes.speed.value ?? 0);
             const modifiers: ModifierPF2e[] = [];
             ['land-speed', 'speed'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
             const stat = mergeObject(
                 new StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: label }), modifiers),
-                data.attributes.speed,
+                systemData.attributes.speed,
                 { overwrite: false },
             );
             stat.total = base + stat.totalModifier;
@@ -549,10 +580,10 @@ export class CharacterPF2e extends CreaturePF2e {
                         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`),
                 )
                 .join(', ');
-            data.attributes.speed = stat;
+            systemData.attributes.speed = stat;
         }
-        for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
-            const speed = data.attributes.speed.otherSpeeds[idx];
+        for (let idx = 0; idx < systemData.attributes.speed.otherSpeeds.length; idx++) {
+            const speed = systemData.attributes.speed.otherSpeeds[idx];
             const base = Number(speed.value ?? 0);
             const modifiers: ModifierPF2e[] = [];
             [`${speed.type}-speed`, 'speed'].forEach((key) => {
@@ -571,7 +602,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`),
                 )
                 .join(', ');
-            data.attributes.speed.otherSpeeds[idx] = stat;
+            systemData.attributes.speed.otherSpeeds[idx] = stat;
         }
 
         // Familiar Abilities
@@ -583,7 +614,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
             const stat = mergeObject(
                 new StatisticModifier('familiar-abilities', modifiers),
-                data.attributes.familiarAbilities,
+                systemData.attributes.familiarAbilities,
                 { overwrite: false },
             );
             stat.value = stat.totalModifier;
@@ -591,11 +622,11 @@ export class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
-            data.attributes.familiarAbilities = stat;
+            systemData.attributes.familiarAbilities = stat;
         }
 
         // Automatic Actions
-        data.actions = [];
+        systemData.actions = [];
 
         // Strikes
         type ProficienciesBrief = Record<string, { rank: ZeroToFour; name: string }>;
@@ -623,8 +654,8 @@ export class CharacterPF2e extends CreaturePF2e {
                 }, {});
         };
         const weaponMap = LocalizePF2e.translations.PF2E.Weapon.Base;
-        const weaponProficiencies = getProficiencies(weaponMap, data.martial, 'weapon-base-');
-        const groupProficiencies = getProficiencies(CONFIG.PF2E.weaponGroups, data.martial, 'weapon-group-');
+        const weaponProficiencies = getProficiencies(weaponMap, systemData.martial, 'weapon-base-');
+        const groupProficiencies = getProficiencies(CONFIG.PF2E.weaponGroups, systemData.martial, 'weapon-group-');
 
         // Add any homebrew categories
         const homebrewCategoryTags = game.settings.get('pf2e', 'homebrew.weaponCategories');
@@ -633,7 +664,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 mergeObject(categories, {
                     [category.id]: {
                         name: category.value,
-                        rank: data.martial[category.id]?.rank ?? 0,
+                        rank: systemData.martial[category.id]?.rank ?? 0,
                     },
                 }),
             {},
@@ -646,19 +677,19 @@ export class CharacterPF2e extends CreaturePF2e {
         const proficiencies: Record<string, BaseProficiencyData> = {
             simple: {
                 name: game.i18n.localize(CONFIG.PF2E.martialSkills.simple),
-                rank: data.martial.simple.rank ?? 0,
+                rank: systemData.martial.simple.rank ?? 0,
             },
             martial: {
                 name: game.i18n.localize(CONFIG.PF2E.martialSkills.martial),
-                rank: data.martial.martial.rank ?? 0,
+                rank: systemData.martial.martial.rank ?? 0,
             },
             advanced: {
                 name: game.i18n.localize(CONFIG.PF2E.martialSkills.advanced),
-                rank: data.martial.advanced.rank ?? 0,
+                rank: systemData.martial.advanced.rank ?? 0,
             },
             unarmed: {
                 name: game.i18n.localize(CONFIG.PF2E.martialSkills.unarmed),
-                rank: data.martial.unarmed.rank ?? 0,
+                rank: systemData.martial.unarmed.rank ?? 0,
             },
             ...homebrewProficiencies,
             ...weaponProficiencies,
@@ -713,15 +744,15 @@ export class CharacterPF2e extends CreaturePF2e {
                 let ability: AbilityString;
                 {
                     ability = item.data.ability?.value || 'str'; // default to Str
-                    let score = data.abilities[ability]?.value ?? 0;
+                    let score = systemData.abilities[ability]?.value ?? 0;
                     // naive check for finesse, which should later be changed to take conditions like
                     // enfeebled and clumsy into consideration
                     if (
                         item.data.traits.value.includes('finesse') &&
-                        data.abilities.dex.mod > data.abilities[ability].mod
+                        systemData.abilities.dex.mod > systemData.abilities[ability].mod
                     ) {
                         ability = 'dex';
-                        score = data.abilities.dex.value;
+                        score = systemData.abilities.dex.value;
                     }
                     modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
                 }
@@ -729,18 +760,18 @@ export class CharacterPF2e extends CreaturePF2e {
                 // If the character has an ancestral weapon familiarity, it will make weapons with their ancestry
                 // trait also count as a weapon of different category
                 const weaponCategory = item.data.weaponType.value ?? 'simple';
-                const categoryRank = data.martial[weaponCategory].rank;
+                const categoryRank = systemData.martial[weaponCategory].rank;
                 const familiarityRank = (() => {
                     const weaponTraits = item.data.traits.value;
                     const familiarity = allCategories.find((category) => {
-                        const maybeFamiliarity = data.martial[category].familiarity;
+                        const maybeFamiliarity = systemData.martial[category].familiarity;
                         return (
                             maybeFamiliarity &&
                             maybeFamiliarity.category === weaponCategory &&
                             weaponTraits.includes(maybeFamiliarity.trait)
                         );
                     });
-                    return familiarity ? data.martial[familiarity].rank : 0;
+                    return familiarity ? systemData.martial[familiarity].rank : 0;
                 })();
 
                 const groupRank = proficiencies[`weapon-group-${item.data.group.value}`]?.rank ?? 0;
@@ -1000,7 +1031,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         args.callback,
                     );
                 });
-                data.actions.push(action);
+                systemData.actions.push(action);
             });
 
         this.itemTypes.spellcastingEntry.forEach((item) => {
@@ -1009,7 +1040,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const rank = spellcastingEntry.data.proficiency.value;
             const ability = spellcastingEntry.data.ability.value || 'int';
             const baseModifiers = [
-                AbilityModifier.fromAbilityScore(ability, data.abilities[ability].value),
+                AbilityModifier.fromAbilityScore(ability, systemData.abilities[ability].value),
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),
             ];
             const baseNotes: RollNotePF2e[] = [];
