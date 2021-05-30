@@ -110,6 +110,11 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     /** @override */
     activateListeners($html: JQuery): void {
         super.activateListeners($html);
+
+        // Hook in the compendium browser
+        $('#compendium > footer > button').on('click', () => {
+            game.pf2e.compendiumBrowser.render(true);
+        });
         for (const filter of this._searchFilters) {
             for (const compendiumList of $html) {
                 filter.bind(compendiumList);

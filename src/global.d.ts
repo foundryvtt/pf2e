@@ -31,11 +31,13 @@ import {
 import { TokenDocumentPF2e, TokenPF2e } from '@module/token-document';
 import { UserPF2e } from '@module/user';
 import { ScenePF2e } from '@module/scene';
+import { CompendiumBrowser } from '@module/apps/compendium-browser';
 
 declare global {
     interface Game {
         pf2e: {
             actions: { [key: string]: Function };
+            compendiumBrowser: CompendiumBrowser;
             worldClock: WorldClock;
             effectPanel: EffectPanel;
             effectTracker: EffectTracker;
