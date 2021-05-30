@@ -771,6 +771,7 @@ export const PF2ECONFIG = {
         wounding: 'PF2E.WeaponPropertyRuneWounding',
         bloodbane: 'PF2E.WeaponPropertyRuneBloodbane',
         corrosive: 'PF2E.WeaponPropertyRuneCorrosive',
+        cunning: 'PF2E.WeaponPropertyRuneCunning',
         flaming: 'PF2E.WeaponPropertyRuneFlaming',
         frost: 'PF2E.WeaponPropertyRuneFrost',
         shock: 'PF2E.WeaponPropertyRuneShock',
