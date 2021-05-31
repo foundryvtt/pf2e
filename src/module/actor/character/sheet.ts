@@ -791,7 +791,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
             const data = duplicate(item.data);
 
-            if (data.data.tradition.value === 'focus') {
+            const shouldSpendFocusPoint = data.data.tradition.value === 'focus' && itemLevel > 0;
+
+            if (shouldSpendFocusPoint) {
                 if (data.data.focus.points > 0) {
                     data.data.focus.points -= 1;
                 } else {
