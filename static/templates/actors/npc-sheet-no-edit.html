@@ -390,10 +390,10 @@
       <li class="action-header">
         <h3 class="pf-heading pf-actions">Toggles (Experimental)</h3>
       </li>
-      <li class="actions-options">
+      <li class="actions-options item-list">
         {{#each data.toggles.actions as |toggle idx|}}
-        <div class="actions-option">
-          <label data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+        <div class="actions-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+          <label>
             <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}}>
             <span>{{localize toggle.label}}</span>
           </label>
