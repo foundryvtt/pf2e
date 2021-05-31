@@ -1366,6 +1366,14 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         event.preventDefault();
 
         const li = $(event.currentTarget).parent().parent();
+        this.toggleItemSummary(li);
+    }
+
+    /**
+     * Triggers toggling the visibility of an item summary element,
+     * delegating the populating of the item summary to renderItemSummary()
+     */
+    toggleItemSummary(li: JQuery, options: { instant?: boolean } = {}) {
         const itemId = li.attr('data-item-id');
         const itemType = li.attr('data-item-type');
 
@@ -1379,13 +1387,19 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Toggle summary
         if (li.hasClass('expanded')) {
             const summary = li.children('.item-summary');
-            summary.slideUp(200, () => summary.remove());
+            if (options.instant) {
+                summary.remove();
+            } else {
+                summary.slideUp(200, () => summary.remove());
+            }
         } else {
             const chatData = item.getChatData({ secrets: this.actor.isOwner });
             const div = $('<div class="item-summary"/>');
             this.renderItemSummary(div, item, chatData);
-            li.append(div.hide());
-            div.slideDown(200);
+            li.append(div);
+            if (!options.instant) {
+                div.hide().slideDown(200);
+            }
         }
 
         li.toggleClass('expanded');
@@ -1773,5 +1787,19 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             buttons.splice(buttons.indexOf(sheetButton), 1);
         }
         return buttons;
+    }
+
+    /** @override */
+    protected async _render(force?: boolean, options?: RenderOptions) {
+        // Identify what items need to be kept open across the re-render
+        const expandedItems = this.element.find('.item.expanded[data-item-id]');
+        const openItems = new Set(expandedItems.map((_i, el) => el.dataset.itemId));
+
+        await super._render(force, options);
+
+        // Re-open hidden item summaries
+        for (const element of openItems) {
+            this.toggleItemSummary(this.element.find(`.item[data-item-id=${element}]`), { instant: true });
+        }
     }
 }
