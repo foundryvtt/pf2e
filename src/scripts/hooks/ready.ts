@@ -45,15 +45,6 @@ export function listen(): void {
         prepareMinions();
         activateSocketListener();
 
-        // Apply ActiveEffects modifying the actor's token(s)
-        for (const actor of game.actors) {
-            if (actor.overrides.token) {
-                for (const token of actor.getActiveTokens()) {
-                    token.applyActiveEffects(actor.overrides.token);
-                }
-            }
-        }
-
         // Add value field to TextEditor#_onDragEntityLink data. This is mainly used for conditions.
         $('body').on('dragstart', 'a.entity-link', (event: JQuery.DragStartEvent) => {
             const name = event?.currentTarget?.innerText?.trim() ?? '';

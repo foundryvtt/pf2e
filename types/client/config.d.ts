@@ -257,7 +257,7 @@ declare global {
 
         /** Default configuration options for TinyMCE editors */
         // See https://www.tiny.cloud/docs/configure/content-appearance/
-        TinyMCE: Omit<TinyMCE.EditorSettings, 'content_css' | 'style_formats'> & {
+        TinyMCE: TinyMCE.EditorSettings & {
             content_css: string[];
             style_formats: NonNullable<TinyMCE.EditorSettings['style_formats']>;
         };

@@ -18,12 +18,10 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
      * Track the field of vision for the placeable object.
      * This is necessary to determine whether a player has line-of-sight towards a placeable object or vice-versa
      */
-    vision:
-        | {
-              fov: PIXI.Polygon | null;
-              los: PIXI.Polygon | null;
-          }
-        | PointSource<this>;
+    vision: {
+        fov: PIXI.Polygon | null;
+        los: PIXI.Polygon | null;
+    };
 
     /** A control icon for interacting with the object */
     controlIcon: ControlIcon;
@@ -83,7 +81,9 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
      */
     can(user: User, action: UserAction): boolean;
 
-    /** Can the User access the HUD for this Placeable Object? */
+    /**
+     * Can the User access the HUD for this Placeable Object?
+     */
     protected _canHUD(user: User, event?: Event): boolean;
 
     /** Does the User have permission to configure the Placeable Object? */
@@ -147,19 +147,19 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
 
     /** Register pending canvas operations which should occur after a new PlaceableObject of this type is created */
     protected _onCreate(
-        data: this['document']['data']['_source'],
+        data: foundry.abstract.DocumentSource,
         options: DocumentModificationContext,
         userId: string,
     ): void;
 
-    /** Define additional steps taken when an existing placeable object of this type is updated with new data */
-    protected _onUpdate(
-        changed: DocumentUpdateData<this['document']>,
-        options: DocumentModificationContext,
-        userId: string,
-    ): void;
+    /**
+     * Define additional steps taken when an existing placeable object of this type is updated with new data
+     */
+    protected _onUpdate(changed: DocumentUpdateData, options: DocumentModificationContext, userId: string): void;
 
-    /** Define additional steps taken when an existing placeable object of this type is deleted */
+    /**
+     * Define additional steps taken when an existing placeable object of this type is deleted
+     */
     protected _onDelete(options: DocumentModificationContext, userId: string): void;
 
     /* -------------------------------------------- */
@@ -190,7 +190,15 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
      * Additional events which trigger once control of the object is released
      * @param options   Options which modify the releasing workflow
      */
-    protected _onRelease(options?: Record<string, unknown>): void;
+    protected _onRelease(options?: object): void;
+
+    /**
+     * Rotate the PlaceableObject to a certain angle of facing
+     * @param angle The desired angle of rotation
+     * @param snap  Snap the angle of rotation to a certain target degree increment
+     * @return      A Promise which resolves once the rotation has completed
+     */
+    rotate(angle: number, snap: number): Promise<this>;
 
     /**
      * Determine a new angle of rotation for a PlaceableObject either from an explicit angle or from a delta offset.
@@ -231,7 +239,9 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
         { hoverOutOthers }?: { hoverOutOthers?: boolean },
     ): boolean;
 
-    /** Actions that should be taken for this Placeable Object when a mouseout event occurs */
+    /**
+     * Actions that should be taken for this Placeable Object when a mouseout event occurs
+     */
     protected _onHoverOut(event: PIXI.interaction.InteractionEvent): boolean;
 
     /**

@@ -28,11 +28,10 @@ import {
     ProficiencyModifier,
     StatisticModifier,
 } from './module/modifiers';
-import { TokenDocumentPF2e } from '@module/token-document';
+import { TokenDocumentPF2e, TokenPF2e } from '@module/token-document';
 import { UserPF2e } from '@module/user';
 import { ScenePF2e } from '@module/scene';
 import { CompendiumBrowser } from '@module/apps/compendium-browser';
-import { TokenPF2e } from '@module/canvas/token';
 
 declare global {
     interface Game {

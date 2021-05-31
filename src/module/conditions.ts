@@ -1,10 +1,10 @@
+import type { TokenPF2e } from '@module/token-document';
 import { ModifierPF2e } from './modifiers';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import type { ConditionData, ConditionSource } from '@item/condition/data';
 import { ConditionPF2e } from '@item/condition';
 import { ErrorPF2e } from './utils';
 import { ActorPF2e } from '@actor/base';
-import { TokenPF2e } from './canvas/token';
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
