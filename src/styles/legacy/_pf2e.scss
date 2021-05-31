@@ -1,24 +1,24 @@
 @font-face {
-    font-family: "Nodesto";
+    font-family: 'Nodesto';
     src: url('../fonts/NodestoCapsCondensed.otf');
 }
 
 @font-face {
-    font-family: "Pathfinder2eActions";
+    font-family: 'Pathfinder2eActions';
     src: url('../fonts/Pathfinder2eActions.ttf');
 }
 
 :root {
-    --primary-background:#454a7c;
-    --secondary-background:gray;
-    --tertiary-background:#454a7c;
-    --alternate-background:darkgray;
+    --primary-background: #454a7c;
+    --secondary-background: gray;
+    --tertiary-background: #454a7c;
+    --alternate-background: darkgray;
 }
 
 /* Nodesto Font */
 
 .nodesto {
-    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+    font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
     font-size: 18px;
     color: #444;
 }
@@ -58,147 +58,154 @@
 /* ----------------------------------------- */
 
 .window-app .window-content {
-    background: url("../assets/sheet/parchment.webp") repeat;
+    background: url('../assets/sheet/parchment.webp') repeat;
 }
 
 .pf2e {
-    &.sheet {
-        .window-content {
-            padding: 5px;
-            font-size: 13px;
-            overflow-y: hidden;
+    .window-content {
+        padding: 5px;
+        font-size: 13px;
+        overflow-y: hidden;
+    }
+
+    .sheet-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        flex: 0 0 100%;
+        height: 48px;
+
+        > * {
+            flex: 1;
         }
 
-        .sheet-header {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            flex: 0 0 100%;
-            height: 48px;
+        h1 {
+            margin: 0;
+            border: none;
 
-            > * {
-                flex: 1;
-            }
-
-            h1 {
-                margin: 0;
-                border: none;
-
-                > input {
-                    height: 44px;
-                    width: 100%;
-                    margin: 2px;
-                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-                    font-size: 18px;
-                    color: #444;
-                    font-size: 36px;
-                    border: none;
-                }
-            }
-        }
-
-        .sheet-body {
-            height: calc(100% - 35px);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            flex-wrap: nowrap;
-        }
-
-        form {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-
-            /* Form Elements */
-            /* Select Fields */
-            /* Sheet Tabs */
-            /* Tags */
-
-            input {
-                &[type="text"], &[type="number"] {
-                    width: calc(100% - 2px);
-                    height: calc(100% - 2px);
-                    background: none;
-                    padding: 0;
-                    margin: 1px 0;
-                    color: #333;
-                    border: 1px solid transparent;
-
-                    &:hover, &:focus {
-                        border: 1px solid black;
-                        box-shadow: 0 0 10px #00005a;
-                    }
-                }
-            }
-
-            select {
-                font-size: 10px;
-                height: 18px;
-                background: rgba(255, 255, 255, 0.5);
-            }
-
-            input:disabled, select:disabled, textarea:disabled {
+            > input {
+                height: 44px;
+                width: 100%;
+                margin: 2px;
+                font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
+                font-size: 18px;
                 color: #444;
+                font-size: 36px;
                 border: none;
-            }
-
-            input:disabled:hover, select:disabled:hover, textarea:disabled:hover, input:disabled:focus, select:disabled:focus, textarea:disabled:focus {
-                border: none;
-                box-shadow: none;
-            }
-
-            label {
-                display: block;
-            }
-
-            .mce-panel span {
-                display: inherit;
-            }
-
-            &.editable .rollable:hover {
-                color: #000;
-                text-shadow: 0 0 10px #00005a;
-                cursor: pointer;
-            }
-
-            .sheet-tabs {
-                height: 30px;
-
-                > .list-row {
-                    line-height: 24px;
-                    padding-top: 3px;
-                    font-size: 12px;
-                    text-align: center;
-
-                    &:last-of-type {
-                        padding-right: 4px;
-                    }
-
-                    &.active {
-                        color: #000;
-                        font-weight: 700;
-                    }
-                }
-            }
-
-            .tab {
-                flex: 1;
-                overflow: hidden;
-            }
-
-            .tag {
-                float: left;
-                margin: 0 2px 2px 0;
-                padding: 0 3px;
-                font-size: 10px;
-                line-height: 16px;
-                border: 1px solid #999;
-                border-radius: 3px;
-                white-space: nowrap;
             }
         }
+    }
+
+    .sheet-body {
+        height: calc(100% - 35px);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    form {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+        /* Form Elements */
+        /* Select Fields */
+        /* Sheet Tabs */
+        /* Tags */
+
+        input {
+            &[type='text'],
+            &[type='number'] {
+                width: calc(100% - 2px);
+                height: calc(100% - 2px);
+                background: none;
+                padding: 0;
+                margin: 1px 0;
+                color: #333;
+                border: 1px solid transparent;
+
+                &:hover,
+                &:focus {
+                    border: 1px solid black;
+                    box-shadow: 0 0 10px #00005a;
+                }
+            }
+        }
+
+        select {
+            font-size: 10px;
+            height: 18px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        input:disabled,
+        select:disabled,
+        textarea:disabled {
+            color: #444;
+            border: none;
+        }
+
+        input:disabled:hover,
+        select:disabled:hover,
+        textarea:disabled:hover,
+        input:disabled:focus,
+        select:disabled:focus,
+        textarea:disabled:focus {
+            border: none;
+            box-shadow: none;
+        }
+
+        label {
+            display: block;
+        }
+
+        .mce-panel span {
+            display: inherit;
+        }
+
+        &.editable .rollable:hover {
+            color: #000;
+            text-shadow: 0 0 10px #00005a;
+            cursor: pointer;
+        }
+
+        .sheet-tabs {
+            height: 30px;
+
+            > .list-row {
+                line-height: 24px;
+                padding-top: 3px;
+                font-size: 12px;
+                text-align: center;
+
+                &:last-of-type {
+                    padding-right: 4px;
+                }
+
+                &.active {
+                    color: #000;
+                    font-weight: 700;
+                }
+            }
+        }
+
+        .tab {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        // .tag {
+        //     float: left;
+        //     margin: 0 2px 2px 0;
+        //     padding: 0 3px;
+        //     font-size: 10px;
+        //     line-height: 16px;
+        //     border: 1px solid #999;
+        //     border-radius: 3px;
+        //     white-space: nowrap;
+        // }
     }
 
     &.actor {
@@ -273,7 +280,8 @@
                 height: 48px;
             }
 
-            .sheet-profile, .sheet-showcase {
+            .sheet-profile,
+            .sheet-showcase {
                 height: 220px;
             }
         }
@@ -374,7 +382,7 @@
                 height: 40px;
                 width: 100%;
                 margin: 2px;
-                font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                 font-size: 18px;
                 color: #444;
                 font-size: 36px;
@@ -400,7 +408,7 @@
                     flex-direction: row;
                     flex-wrap: wrap;
                     justify-content: flex-start;
-                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                     font-size: 18px;
                     color: #444;
                     font-size: 20px;
@@ -412,7 +420,8 @@
                         }
 
                         input {
-                            &[type="text"], &[type="number"] {
+                            &[type='text'],
+                            &[type='number'] {
                                 flex: 0 0 26px;
                                 height: 20px;
                                 text-align: center;
@@ -452,7 +461,8 @@
                         }
 
                         input {
-                            &[type="text"], &[type="number"] {
+                            &[type='text'],
+                            &[type='number'] {
                                 flex: 1;
                                 text-align: right;
                                 height: 16px;
@@ -482,7 +492,7 @@
                 }
 
                 > input {
-                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                     font-size: 18px;
                     color: #444;
                     font-size: 20px;
@@ -519,7 +529,7 @@
                     height: 22px;
                     margin: 0 0 2px;
                     line-height: 22px;
-                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                     font-size: 18px;
                     color: #444;
                     text-align: center;
@@ -537,7 +547,7 @@
                     flex-wrap: wrap;
                     justify-content: flex-start;
                     height: 32px;
-                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                     font-size: 18px;
                     color: #444;
                     font-size: 20px;
@@ -570,12 +580,13 @@
                             text-align: right;
                         }
 
-                        &[name="data.attributes.speed.value"] {
+                        &[name='data.attributes.speed.value'] {
                             max-width: none;
                             text-align: left;
                         }
 
-                        &.speed, &.hpformula {
+                        &.speed,
+                        &.hpformula {
                             max-width: 90%;
                         }
                     }
@@ -587,7 +598,7 @@
                         border-radius: 2px;
                     }
 
-                    &.recharge input[type="checkbox"] {
+                    &.recharge input[type='checkbox'] {
                         margin: 1px;
                     }
                 }
@@ -633,7 +644,7 @@
                     flex: 1;
                     margin: 0;
                     font-size: 12px;
-                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                     font-size: 18px;
                     color: #444;
                 }
@@ -648,13 +659,14 @@
                         }
 
                         input {
-                            &[type="text"], &[type="number"] {
+                            &[type='text'],
+                            &[type='number'] {
                                 height: 20px;
                                 max-width: 20px;
                                 margin: 0;
                             }
 
-                            &[type="checkbox"] {
+                            &[type='checkbox'] {
                                 position: relative;
                                 top: 2px;
                             }
@@ -683,7 +695,7 @@
 
         .abilities .defense-list {
             display: grid;
-            grid: "defense" 40px / auto;
+            grid: 'defense' 40px / auto;
             grid-auto-rows: 40px;
             list-style: none;
             margin: 0;
@@ -692,7 +704,7 @@
 
         .npc-defense-list {
             display: grid;
-            grid: "defense" 40px / auto;
+            grid: 'defense' 40px / auto;
             grid-auto-rows: 40px;
             list-style: none;
             margin: 0;
@@ -703,7 +715,7 @@
         .pf-heading {
             /* flex: 0 0 24px;
              */
-            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
             font-size: 24px;
             line-height: 24px;
             color: #fff;
@@ -777,7 +789,7 @@
         }
 
         .pf-container {
-            grid: "title" 15px "value" auto / auto;
+            grid: 'title' 15px 'value' auto / auto;
             margin-top: 2px;
             justify-self: center;
         }
@@ -794,7 +806,7 @@
         .abilities {
             .ac-list {
                 display: grid;
-                grid: "score items" 38px "score items" 38px / 73px auto;
+                grid: 'score items' 38px 'score items' 38px / 73px auto;
                 margin: unset;
                 padding: unset;
                 background: var(--secondary-background);
@@ -802,7 +814,7 @@
 
             .npc-defence-list {
                 display: grid;
-                grid: "ac current max" 38px / 73px 73px 73px;
+                grid: 'ac current max' 38px / 73px 73px 73px;
                 margin: unset;
                 padding: unset;
                 background: var(--secondary-background);
@@ -822,7 +834,7 @@
 
             .ac-grid {
                 display: grid;
-                grid: "item item item" 32px / 33% 33% 33%;
+                grid: 'item item item' 32px / 33% 33% 33%;
                 margin: unset;
                 margin-top: 1px;
                 padding: unset;
@@ -879,7 +891,7 @@
 
             .hp-list {
                 display: grid;
-                grid: "li" 50px / auto;
+                grid: 'li' 50px / auto;
                 grid-auto-rows: 40px;
                 margin: unset;
                 margin-top: 4px;
@@ -888,7 +900,7 @@
 
             .hp-list-small {
                 display: grid;
-                grid: "li" 34px / auto;
+                grid: 'li' 34px / auto;
                 margin: unset;
                 margin-top: 4px;
                 padding: unset;
@@ -896,7 +908,7 @@
 
             .li-two-grid {
                 display: grid;
-                grid: "temp current max" 50px / 50% 50%;
+                grid: 'temp current max' 50px / 50% 50%;
                 margin: unset;
                 align-self: center;
 
@@ -908,7 +920,7 @@
 
             .li-two-grid-small {
                 display: grid;
-                grid: "temp current max" 32px / 50% 50%;
+                grid: 'temp current max' 32px / 50% 50%;
                 margin: unset;
                 align-self: center;
 
@@ -920,7 +932,7 @@
 
             .li-three-grid {
                 display: grid;
-                grid: "temp current max" 50px / 33% 33% 33%;
+                grid: 'temp current max' 50px / 33% 33% 33%;
                 margin: unset;
                 align-self: center;
 
@@ -932,7 +944,7 @@
 
             .li-four-grid {
                 display: grid;
-                grid: "one two three four" 32px / 25% 25% 25% 25%;
+                grid: 'one two three four' 32px / 25% 25% 25% 25%;
                 margin: unset;
                 align-self: center;
 
@@ -943,7 +955,9 @@
             }
 
             .hp-list {
-                .hp-current, .hp-max, .hp-temp {
+                .hp-current,
+                .hp-max,
+                .hp-temp {
                     width: 64px;
                 }
 
@@ -956,7 +970,7 @@
 
         .bio-container {
             display: grid;
-            grid: "image bio" 220px / 220px auto;
+            grid: 'image bio' 220px / 220px auto;
             margin: unset;
             padding: unset;
         }
@@ -969,7 +983,7 @@
             .bio-list {
                 grid-area: bio;
                 display: grid;
-                grid: "bio" 40px / auto auto;
+                grid: 'bio' 40px / auto auto;
                 grid-auto-rows: 40px;
                 margin: unset;
                 padding: unset;
@@ -978,7 +992,7 @@
 
             .bio-3way {
                 display: grid;
-                grid: "bio" 40px / 33% 33% 33%;
+                grid: 'bio' 40px / 33% 33% 33%;
                 grid-auto-rows: 40px;
                 margin: unset;
                 padding: unset;
@@ -989,7 +1003,7 @@
         .abilities .bio-list {
             grid-area: bio;
             display: grid;
-            grid: "bio" 40px / 102px auto;
+            grid: 'bio' 40px / 102px auto;
             grid-auto-rows: 40px;
             margin: unset;
             padding: unset;
@@ -1013,13 +1027,15 @@
                     width: 94px;
                 }
 
-                .bio-appearance, .bio-attitude {
+                .bio-appearance,
+                .bio-attitude {
                     grid-column-start: 1;
                     grid-column-end: 3;
                     width: 170px;
                 }
 
-                .bio-appearance > input, .bio-attitude > input {
+                .bio-appearance > input,
+                .bio-attitude > input {
                     text-align: start;
                     word-break: break-all;
                 }
@@ -1035,11 +1051,12 @@
             }
         }
 
-        .abilities .npc-defense, .npc-defense {
+        .abilities .npc-defense,
+        .npc-defense {
             grid-row-start: auto;
             align-self: center;
             display: grid;
-            grid: "score name" 32px / 40px auto;
+            grid: 'score name' 32px / 40px auto;
             background: var(--secondary-background);
             margin-right: 4px;
         }
@@ -1054,7 +1071,8 @@
         }
 
         .npc-defense {
-            .attribute-name, .spelldc-name {
+            .attribute-name,
+            .spelldc-name {
                 grid-area: auto;
                 margin: 0;
                 background: var(--secondary-background);
@@ -1076,7 +1094,7 @@
 
             .defense-score {
                 grid-area: auto;
-                font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                 font-size: 28px;
                 text-align: center;
                 background: var(--secondary-background);
@@ -1086,18 +1104,19 @@
 
         .npc-defense .defense-score {
             grid-area: auto;
-            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
             font-size: 28px;
             text-align: center;
             background: var(--secondary-background);
             color: white;
         }
 
-        .abilities .npc-defense .defense-score > input, .npc-defense .defense-score > input {
+        .abilities .npc-defense .defense-score > input,
+        .npc-defense .defense-score > input {
             width: 30px;
             height: 30px;
             margin: 3px;
-            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
             font-size: 28px;
             text-align: center;
             background: #fff;
@@ -1108,7 +1127,7 @@
             width: 22px;
             height: 22px;
             margin: 1px;
-            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
             font-size: 20px;
             text-align: center;
             background: #fff;
@@ -1120,11 +1139,13 @@
                 grid-row-start: auto;
                 align-self: center;
                 display: grid;
-                grid: "score name rank item" 32px / 34px auto 52px 52px;
+                grid: 'score name rank item' 32px / 34px auto 52px 52px;
                 background: var(--secondary-background);
                 margin-right: 4px;
 
-                .save-name, .attribute-name, .attribute-name-non-rollable {
+                .save-name,
+                .attribute-name,
+                .attribute-name-non-rollable {
                     grid-area: auto;
                     margin: 0;
                     background: var(--secondary-background);
@@ -1143,7 +1164,7 @@
             .defense {
                 .defense-score {
                     grid-area: auto;
-                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                     font-size: 28px;
                     text-align: center;
                     background: var(--secondary-background);
@@ -1153,7 +1174,7 @@
                         width: 30px;
                         height: 30px;
                         margin: 3px;
-                        font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                        font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                         font-size: 28px;
                         text-align: center;
                         background: #fff;
@@ -1187,16 +1208,18 @@
                 height: 13px;
             }
 
-            .defense .defense-item-value, .defense-item-value {
+            .defense .defense-item-value,
+            .defense-item-value {
                 grid-area: auto;
                 height: 16px;
                 font-size: 12px;
             }
         }
 
-        .npc-abilities .ability-title, .abilities .ability-title {
+        .npc-abilities .ability-title,
+        .abilities .ability-title {
             flex: 0 0 24px;
-            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
             font-size: 24px;
             line-height: 24px;
             color: #fff;
@@ -1219,7 +1242,7 @@
             .ability {
                 grid-row-start: auto;
                 display: grid;
-                grid: [row1-start] "id" 26px [row1-end] [row2-start] "mod" 26px (([row2-end]) / 100%);
+                grid: [row1-start] 'id' 26px [row1-end] [row2-start] 'mod' 26px (([row2-end]) / 100%);
                 height: 26px;
                 line-height: 26px;
 
@@ -1233,7 +1256,7 @@
 
                 .ability-mod {
                     flex: 0 0 24px;
-                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                     font-size: 24px;
                     line-height: 26px;
                     color: #666;
@@ -1243,7 +1266,7 @@
                         width: 30px;
                         height: 30px;
                         margin: 3px;
-                        font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                        font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                         font-size: 28px;
                         text-align: center;
                         background: #fff;
@@ -1262,7 +1285,7 @@
         .abilities {
             .abilities-list {
                 display: grid;
-                grid: "ability ability" 50px / 50%;
+                grid: 'ability ability' 50px / 50%;
                 grid-auto-rows: 50px;
                 list-style: none;
                 margin: 0;
@@ -1272,25 +1295,30 @@
             .ability {
                 grid-row-start: auto;
                 display: grid;
-                grid: [row1-start] "header header header header" 16px [row1-end] [row2-start] "id mod score blank" 26px (([row2-end]) / 46%) 31% 18% 5%;
+                grid: [row1-start] 'header header header header' 16px [row1-end] [row2-start] 'id mod score blank' 26px (
+                        ([row2-end]) / 46%
+                    ) 31% 18% 5%;
                 height: 36px;
                 line-height: 36px;
             }
         }
 
-        .npc-abilities .ability > *, .abilities .ability > * {
+        .npc-abilities .ability > *,
+        .abilities .ability > * {
             flex: 1;
             align-self: center;
         }
 
-        .npc-abilities .ability .ability-proficiency, .abilities .ability .ability-proficiency {
+        .npc-abilities .ability .ability-proficiency,
+        .abilities .ability .ability-proficiency {
             flex: 0 0 20px;
             height: 100%;
             text-align: left;
             padding-left: 3px;
         }
 
-        .npc-abilities .ability .ability-proficiency i.fa-circle, .abilities .ability .ability-proficiency i.fa-circle {
+        .npc-abilities .ability .ability-proficiency i.fa-circle,
+        .abilities .ability .ability-proficiency i.fa-circle {
             font-size: 10px;
         }
 
@@ -1343,7 +1371,7 @@
 
             .ability-mod {
                 flex: 0 0 24px;
-                font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                 font-size: 24px;
                 line-height: 36px;
                 color: #666;
@@ -1351,9 +1379,10 @@
             }
         }
 
-        .npc-abilities .npc-defense .ability-name, .abilities .ability .ability-id {
+        .npc-abilities .npc-defense .ability-name,
+        .abilities .ability .ability-id {
             flex: 0 0 24px;
-            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
             font-size: 32px;
             background: var(--secondary-background);
             border-radius: 8px;
@@ -1362,12 +1391,14 @@
             text-align: center;
         }
 
-        .npc-abilities .ability .ability-mod, .abilities .ability .ability-mod {
+        .npc-abilities .ability .ability-mod,
+        .abilities .ability .ability-mod {
             grid-area: mod;
             align-self: center;
         }
 
-        .npc-abilities .ability .ability-name, .abilities .ability .ability-id {
+        .npc-abilities .ability .ability-name,
+        .abilities .ability .ability-id {
             grid-area: id;
             align-self: center;
         }
@@ -1384,7 +1415,7 @@
 
                 h3 {
                     text-align: center;
-                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                     color: #444;
                     font-size: 18px;
                     color: #222;
@@ -1411,7 +1442,8 @@
                     border-radius: 2px;
                     margin-bottom: 2px;
 
-                    h4, h5 {
+                    h4,
+                    h5 {
                         width: calc(100% - 44px);
                         float: left;
                         margin: 0;
@@ -1430,7 +1462,7 @@
                             margin: 0;
                             font-size: 10px;
                             text-align: right;
-                            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                            font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                             font-size: 18px;
                             color: #444;
                             color: #222;
@@ -1458,7 +1490,7 @@
             margin: 0;
             padding: 0;
             display: grid;
-            grid: "skill skill" 36px / 50% 50%;
+            grid: 'skill skill' 36px / 50% 50%;
             grid-auto-rows: 36px;
         }
 
@@ -1467,27 +1499,27 @@
                 margin: 0;
                 padding: 0;
                 display: grid;
-                grid: "skill skill" 36px / 50% 50%;
+                grid: 'skill skill' 36px / 50% 50%;
                 grid-auto-rows: 36px;
             }
 
             .skill-grid {
                 grid-area: auto;
                 display: grid;
-                grid: "value name rank item" 100% / 35px auto 46px 46px;
+                grid: 'value name rank item' 100% / 35px auto 46px 46px;
             }
         }
 
         .pf-three-grid {
             grid-area: auto;
             display: grid;
-            grid: "one two three" 100% / auto 90px 20px;
+            grid: 'one two three' 100% / auto 90px 20px;
         }
 
         .pf-two-grid {
             grid-area: auto;
             display: grid;
-            grid: "one two" 100% / auto 90px;
+            grid: 'one two' 100% / auto 90px;
         }
 
         .pf-justify-center {
@@ -1503,20 +1535,21 @@
             .martial {
                 grid-area: auto;
                 display: grid;
-                grid: "name rank space" 100% / auto 46px 20px;
+                grid: 'name rank space' 100% / auto 46px 20px;
             }
 
             .skill {
                 grid-area: auto;
                 display: grid;
-                grid: "value name rank item armor" 100% / 35px auto 46px 46px 20px;
+                grid: 'value name rank item armor' 100% / 35px auto 46px 46px 20px;
             }
         }
 
-        .actions-list .lores-list .list-row, .lores-list .list-row {
+        .actions-list .lores-list .list-row,
+        .lores-list .list-row {
             grid-area: auto;
             display: grid;
-            grid: "value name rank item armor" 36px / 32px auto 46px 46px 20px;
+            grid: 'value name rank item armor' 36px / 32px auto 46px 46px 20px;
         }
 
         .skill-container .item-item {
@@ -1525,24 +1558,28 @@
             font-size: 12px;
         }
 
-        .skills .skill-container, .spellbook .skill-container {
+        .skills .skill-container,
+        .spellbook .skill-container {
             display: grid;
-            grid: "title" 12px "value" 18px / auto;
+            grid: 'title' 12px 'value' 18px / auto;
             background: var(--secondary-background);
             height: 32px;
             align-self: center;
         }
 
-        .skills .skill-container .skill-proficiency, .spellbook .skill-container .skill-proficiency {
+        .skills .skill-container .skill-proficiency,
+        .spellbook .skill-container .skill-proficiency {
             font-size: 12px;
         }
 
-        .skills .skill-container > *, .spellbook .skill-container > * {
+        .skills .skill-container > *,
+        .spellbook .skill-container > * {
             width: 43px;
         }
 
         .skills {
-            .skill > *, .list-row > * {
+            .skill > *,
+            .list-row > * {
                 flex: 1;
             }
         }
@@ -1569,7 +1606,8 @@
         }
 
         .skills {
-            .lore-name, .lore-name-input {
+            .lore-name,
+            .lore-name-input {
                 margin: 0;
                 align-self: center;
                 background: var(--secondary-background);
@@ -1586,7 +1624,8 @@
             margin-top: 2px;
         }
 
-        .skills .skill-item, .spellbook .skill-item {
+        .skills .skill-item,
+        .spellbook .skill-item {
             margin-top: 2px;
             font-size: 11px;
         }
@@ -1613,7 +1652,7 @@
             }
 
             .skill-score {
-                font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                 font-size: 28px;
                 text-align: center;
                 align-self: center;
@@ -1623,7 +1662,7 @@
         }
 
         .spellbook .skill-score {
-            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
             font-size: 28px;
             text-align: center;
             align-self: center;
@@ -1632,7 +1671,8 @@
         }
 
         &.locked {
-            .ability-proficiency, .skill-proficiency {
+            .ability-proficiency,
+            .skill-proficiency {
                 text-shadow: none;
                 cursor: default;
             }
@@ -1760,7 +1800,9 @@
                     flex: 1;
                 }
 
-                .item-name, .melee-name, .npc-skill-name {
+                .item-name,
+                .melee-name,
+                .npc-skill-name {
                     /* display: flex;
                      */
                     flex-direction: row;
@@ -1769,11 +1811,15 @@
                     cursor: pointer;
                 }
 
-                .item-name > *, .melee-name > *, .npc-skill-name > * {
+                .item-name > *,
+                .melee-name > *,
+                .npc-skill-name > * {
                     flex: 1;
                 }
 
-                .item-name h4, .melee-name h4, .npc-skill-name h4 {
+                .item-name h4,
+                .melee-name h4,
+                .npc-skill-name h4 {
                     flex: 2;
                     margin: 0;
                 }
@@ -1788,7 +1834,8 @@
             flex: 0 0 44px;
         }
 
-        .inventory-header .list-row .item-controls a, .action-header .item-controls a {
+        .inventory-header .list-row .item-controls a,
+        .action-header .item-controls a {
             display: block;
             float: left;
             width: 44px;
@@ -1849,7 +1896,8 @@
                 flex: 1;
             }
 
-            .item-name, .melee-name {
+            .item-name,
+            .melee-name {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
@@ -1871,14 +1919,16 @@
                 cursor: pointer;
             }
 
-            .item-name .item-image, .melee-name .item-image {
+            .item-name .item-image,
+            .melee-name .item-image {
                 flex: 0 0 24px;
                 margin-right: 4px;
                 background-size: 24px;
                 background-repeat: no-repeat;
             }
 
-            .item-name h4, .melee-name h4 {
+            .item-name h4,
+            .melee-name h4 {
                 flex: 2;
                 margin: 0;
             }
@@ -1897,15 +1947,16 @@
                 }
 
                 &:hover .item-image {
-                    background-image: url("/icons/svg/d20-grey.svg") !important;
+                    background-image: url('/icons/svg/d20-grey.svg') !important;
                 }
 
                 .item-image:hover {
-                    background-image: url("/icons/svg/d20-black.svg") !important;
+                    background-image: url('/icons/svg/d20-black.svg') !important;
                 }
             }
 
-            .item-sell-value, .item-quantity {
+            .item-sell-value,
+            .item-quantity {
                 flex: 0 0 64px;
                 font-size: 12px;
                 color: #666;
@@ -1935,7 +1986,8 @@
 
 /* ###################### BIO ################################## */
 
-.add-coins-popup button, .sell-all-treasure button {
+.add-coins-popup button,
+.sell-all-treasure button {
     line-height: 17px;
 }
 
@@ -2014,7 +2066,10 @@
     }
 
     .action-header .item-controls a {
-        &.item-create, &.item-delete, &.feat-browse, &.action-browse {
+        &.item-create,
+        &.item-delete,
+        &.feat-browse,
+        &.action-browse {
             width: 100%;
             color: #fff;
             background: var(--primary-background);
@@ -2045,7 +2100,9 @@
             font-weight: bold;
         }
 
-        .item-sell-value, .item-quantity, .item-weight {
+        .item-sell-value,
+        .item-quantity,
+        .item-weight {
             color: white;
         }
 
@@ -2055,7 +2112,8 @@
                 color: white;
             }
 
-            &.spell-create, &.spell-browse {
+            &.spell-create,
+            &.spell-browse {
                 color: white;
             }
         }
@@ -2191,7 +2249,8 @@
         }
 
         .inventory-list .list-row {
-            .spell-school-header, .spell-action-header {
+            .spell-school-header,
+            .spell-action-header {
                 color: white;
                 flex: 1;
                 font-size: 12px;
@@ -2216,7 +2275,7 @@
         }
 
         .level-prepared-header {
-            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
             letter-spacing: 2px;
             font-weight: 400;
             font-size: 20px;
@@ -2241,7 +2300,8 @@
         }
 
         .list-row {
-            .item-name, .melee-name {
+            .item-name,
+            .melee-name {
                 flex: 2;
                 border-right: 1px solid var(--secondary-background);
             }
@@ -2249,7 +2309,8 @@
     }
 
     .list-row {
-        .spell-school, .spell-action {
+        .spell-school,
+        .spell-action {
             flex: 1;
             font-size: 12px;
             color: #666;
@@ -2257,13 +2318,15 @@
             border-right: 1px solid var(--secondary-background);
         }
 
-        .spell-slots, .spell-max {
+        .spell-slots,
+        .spell-max {
             flex: 0 0 24px;
             font-size: 12px;
             text-align: center;
         }
 
-        .spell-slots-input, .spell-max-input {
+        .spell-slots-input,
+        .spell-max-input {
             flex: 0 0 24px;
             font-size: 12px;
             text-align: center;
@@ -2405,7 +2468,8 @@
             > * {
                 flex: 1;
             }
-            > section.sheet-sidebar, > section.sheet-body {
+            > section.sheet-sidebar,
+            > section.sheet-body {
                 height: calc(100% - 10px);
                 overflow-y: auto;
             }
@@ -2432,7 +2496,7 @@
                     flex: 0 0 28px;
                     line-height: 28px;
                     text-align: center;
-                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-family: 'Nodesto', 'Signika', 'Palatino Linotype', serif;
                     font-size: 18px;
                     color: #444;
                 }
@@ -2470,7 +2534,8 @@
 
             > section.sheet-body {
                 input {
-                    &[type="text"], &[type="number"] {
+                    &[type='text'],
+                    &[type='number'] {
                         background: rgba(255, 255, 255, 0.5);
                         border: 1px solid #aaa;
                         padding: 3px;
@@ -2513,7 +2578,6 @@
                 margin-right: 6px;
             }
         }
-
 
         .sheet-tabs {
             border-bottom: 1px solid var(--secondary-background);
@@ -2558,17 +2622,17 @@
 
         .details-container {
             display: grid;
-            grid: "dice die type" / 40px 60px auto;
+            grid: 'dice die type' / 40px 60px auto;
         }
 
         .effects-container {
             display: grid;
-            grid: "effect number" / auto 40px;
+            grid: 'effect number' / auto 40px;
         }
 
         .details-container-two-columns {
             display: grid;
-            grid: "size type" / 50% 50%;
+            grid: 'size type' / 50% 50%;
         }
 
         .details-container-three-columns {
@@ -2880,7 +2944,8 @@ button > i.far {
 
 .pf2e.sheet form .npc-detail-text {
     input {
-        &[type="text"], &[type="number"] {
+        &[type='text'],
+        &[type='number'] {
             background: rgba(255, 255, 255, 0.8);
             color: black;
             border: 1px solid black;
@@ -2908,13 +2973,13 @@ button > i.far {
         width: calc(100% - 4px);
     }
 
-    &.actor .sheet-header .charlevel .level > input[type="checkbox"] {
+    &.actor .sheet-header .charlevel .level > input[type='checkbox'] {
         flex: 0 0 26px;
     }
 
     &.sheet form .defense-list.stats-section {
         grid-auto-rows: auto;
-        grid: "defense" auto;
+        grid: 'defense' auto;
     }
 
     &.updatedNPCSheet form .inventory-list.toggles-list {
@@ -3035,7 +3100,8 @@ button > i.far {
                 font-variant: small-caps;
             }
 
-            .level, .editNPCButton {
+            .level,
+            .editNPCButton {
                 flex-shrink: 0;
             }
         }
@@ -3067,8 +3133,9 @@ button > i.far {
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url(https://fonts.gstatic.com/s/oswald/v26/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiZQ.woff2) format("woff2");
-    unicode-range: U0-0FF, U131, U152-153, U2BB-2BC, U2C 6, U2DA, U2DC, U2000-206F, U2074, U20AC, U2122, U2191, U2193, U2212, U2215, UFEFF, UFFFD;
+    src: url(https://fonts.gstatic.com/s/oswald/v26/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiZQ.woff2) format('woff2');
+    unicode-range: U0-0FF, U131, U152-153, U2BB-2BC, U2C 6, U2DA, U2DC, U2000-206F, U2074, U20AC, U2122, U2191, U2193,
+        U2212, U2215, UFEFF, UFFFD;
 }
 
 /* HEADER */
@@ -3228,7 +3295,7 @@ li.list-row.hover-container {
             }
 
             &.speed + .speed:before {
-                content: ", ";
+                content: ', ';
                 white-space: pre-wrap;
             }
         }
@@ -3257,13 +3324,14 @@ li.list-row.hover-container {
         display: inline-flex;
 
         *:not(:last-of-type):after {
-            content: ",";
+            content: ',';
         }
     }
 
-    .stat-list, .stat-value {
+    .stat-list,
+    .stat-value {
         &:not(:last-of-type):after {
-            content: ",";
+            content: ',';
             padding-right: 0.2em;
         }
 
@@ -3276,7 +3344,7 @@ li.list-row.hover-container {
                 display: inline;
                 padding: 0;
                 &:not(:last-of-type):after {
-                    content: ",";
+                    content: ',';
                 }
             }
         }
@@ -3415,7 +3483,7 @@ li.list-row.hover-container {
         font-size: 14px;
         font-weight: 400;
         line-height: normal;
-        background: url("../assets/sheet/parchment.webp") repeat;
+        background: url('../assets/sheet/parchment.webp') repeat;
         border: 1px solid #999;
         border-radius: 3px;
         box-shadow: 0 0 3px #fff inset;
@@ -3456,7 +3524,7 @@ li.list-row.hover-container {
     }
 }
 
-input[type="number"] {
+input[type='number'] {
     width: calc(100% - 2px);
     min-width: 20px;
     height: 26px;
@@ -3499,23 +3567,27 @@ input[type="number"] {
     }
 }
 
-.sheet-header .creature-adjustment, .npc-title-bar .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment,
+.npc-title-bar .creature-adjustment a.hidden {
     font-size: 12px;
 }
 
-.sheet-header .creature-adjustment a, .npc-title-bar .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment a,
+.npc-title-bar .creature-adjustment a.hidden {
     margin-left: 1px;
     background-color: var(--secondary-background);
     border-color: #bbb68f;
 }
 
-.sheet-header .creature-adjustment a.active, .npc-title-bar .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment a.active,
+.npc-title-bar .creature-adjustment a.hidden {
     margin-left: 1px;
     background-color: #5e0000;
     border-color: #bbb68f;
 }
 
-.sheet-header .creature-adjustment a.hidden, .npc-title-bar .creature-adjustment a.hidden {
+.sheet-header .creature-adjustment a.hidden,
+.npc-title-bar .creature-adjustment a.hidden {
     display: none;
 }
 
