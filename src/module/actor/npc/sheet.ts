@@ -994,12 +994,11 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const $input: JQuery<HTMLInputElement | HTMLSelectElement> = $(event.currentTarget);
         const itemId = $input.closest('.spellcasting-entry').attr('data-container-id') ?? '';
         const key = $input.attr('data-base-property')?.replace(/data\.items\.\d+\./, '') ?? '';
-        const value =
-            $input.hasClass('[data-spellcasting-input^="focus"]')
-                ? Math.min(Number($input.val()), 3)
-                : $input.is('select')
-                ? String($input.val())
-                : Number($input.val());
+        const value = $input.hasClass('[data-spellcasting-input^="focus"]')
+            ? Math.min(Number($input.val()), 3)
+            : $input.is('select')
+            ? String($input.val())
+            : Number($input.val());
         await this.actor.updateEmbeddedDocuments('Item', [
             {
                 _id: itemId,
