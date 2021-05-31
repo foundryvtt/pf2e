@@ -1,3 +1,4 @@
+import { CONDITION_TYPES } from '@actor/data/values';
 import { ItemSystemData } from '@item/data/base';
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from '@item/data/non-physical';
 import { ConditionPF2e } from '.';
@@ -16,10 +17,11 @@ export interface ConditionData extends Omit<ConditionSource, '_id' | 'effects'> 
 }
 
 export interface ConditionSystemData extends ItemSystemData {
+    slug: ConditionType;
     active: boolean;
     removable: boolean;
     references: {
-        parent: {
+        parent?: {
             id: string;
             type: 'status' | 'condition' | 'feat' | 'weapon' | 'armor' | 'consumable' | 'equipment' | 'spell';
         };
@@ -104,3 +106,5 @@ export interface ConditionSystemData extends ItemSystemData {
     };
     overrides: string[];
 }
+
+export type ConditionType = typeof CONDITION_TYPES[number];
