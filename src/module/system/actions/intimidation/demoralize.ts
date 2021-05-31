@@ -11,7 +11,7 @@ export function demoralize(options: SkillActionOptions) {
         options.modifiers,
         ['all', checkType, stat, 'action:demoralize'],
         ['action:demoralize'],
-        ['auditory', 'concentrate', 'emotion', 'mental'],
+        ['auditory', 'concentrate', 'emotion', 'fear', 'mental'],
         checkType,
         options.event,
     );
