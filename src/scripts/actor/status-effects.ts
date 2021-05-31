@@ -1,10 +1,9 @@
+import { TokenPF2e } from '@module/token-document';
 import { ConditionManager } from '@module/conditions';
 import { LocalizePF2e } from '@system/localize';
 import { StatusEffectIconType } from '@scripts/config';
 import { ErrorPF2e } from '@module/utils';
 import { ActorPF2e } from '@actor/base';
-import { TokenPF2e } from '@module/canvas/token';
-import { CombatPF2e } from '@module/combat';
 
 /**
  * Class StatusEffects, which is the module to handle the status effects
@@ -78,9 +77,9 @@ export class StatusEffects {
 
         if (game.user.isGM && game.settings.get('pf2e', 'statusEffectShowCombatMessage')) {
             let lastTokenId = '';
-            Hooks.on('updateCombat', (combat: CombatPF2e) => {
+            Hooks.on('updateCombat', (combat) => {
                 const combatant = combat.combatant;
-                const token = combatant?.token;
+                const token = combatant?.token as TokenPF2e;
                 if (
                     token &&
                     token.id !== lastTokenId &&
@@ -340,7 +339,7 @@ export class StatusEffects {
 
         const f = $(event.currentTarget);
         const status = f.attr('data-condition') ?? '';
-        const src = (f.attr('src') ?? '') as ImagePath;
+        const src = f.attr('src') ?? '';
 
         const condition = this.actor?.itemTypes.condition.find(
             (condition) =>
@@ -385,7 +384,7 @@ export class StatusEffects {
     static _onToggleOverlay(event: JQuery.TriggeredEvent, token: TokenPF2e) {
         event.preventDefault();
         const $target = $(event.currentTarget);
-        const iconPath = ($(event.currentTarget).attr('src') ?? '') as ImagePath;
+        const iconPath = $(event.currentTarget).attr('src') ?? '';
         token.toggleEffect(iconPath, { overlay: true });
         $target.siblings().removeClass('overlay');
         $target.toggleClass('overlay');
