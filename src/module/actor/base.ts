@@ -19,6 +19,7 @@ import { ActorDataPF2e, ActorSourcePF2e } from './data';
 import { TokenDocumentPF2e } from '@module/token-document';
 import { UserPF2e } from '@module/user';
 import { isCreatureData } from './data/helpers';
+import { ConditionType } from '@item/condition/data';
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -535,10 +536,6 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         await Promise.all(promises);
     }
 
-    /* -------------------------------------------- */
-    /* Owned Item Management
-    /* -------------------------------------------- */
-
     async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
         if (!entryId || !spellLevel) {
             // TODO: Consider throwing an error on null inputs in the future.
@@ -1000,22 +997,49 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return this.data.data.abilities[ability].mod;
     }
 
+    /* -------------------------------------------- */
+    /* Conditions                                   */
+    /* -------------------------------------------- */
+
+    /** Get a condition on this actor, returning:
+     *  - the highest-valued if there are multiple of a valued condition
+     *  - the longest-lasting if there are multiple of a condition with a duration
+     *  - the last applied if any are present and are neither valued nor with duration
+     *  - otherwise `null`
+     * @param conditionType the slug of a core condition (subject to change when user-created conditions are introduced)
+     * @param [options.all=false] return all conditions of the requested type in the order described above
+     */
+    getCondition(
+        conditionType: ConditionType,
+        { all }: { all: boolean } = { all: false },
+    ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null {
+        const conditions = this.itemTypes.condition
+            .filter((condition) => condition.slug === conditionType)
+            .sort((conditionA, conditionB) => {
+                const [valueA, valueB] = [conditionA.value ?? 0, conditionB.value ?? 0] as const;
+                const [durationA, durationB] = [conditionA.duration ?? 0, conditionB.duration ?? 0] as const;
+
+                return valueA > valueB
+                    ? 1
+                    : valueB < valueB
+                    ? -1
+                    : durationA > durationB
+                    ? 1
+                    : durationA < durationB
+                    ? -1
+                    : 0;
+            });
+
+        return all ? conditions : conditions[0] ?? null;
+    }
+
     /** Decrease the value of condition or remove it entirely */
     async decreaseCondition(
-        conditionSlug: string | Embedded<ConditionPF2e>,
+        conditionSlug: ConditionType | Embedded<ConditionPF2e>,
         { forceRemove }: { forceRemove: boolean } = { forceRemove: false },
     ): Promise<void> {
         // Find a valid matching condition if a slug was passed
-        const condition =
-            typeof conditionSlug === 'string'
-                ? this.itemTypes.condition.find(
-                      (condition) =>
-                          condition.slug === conditionSlug &&
-                          condition.fromSystem &&
-                          typeof condition.number === 'number',
-                  )
-                : conditionSlug;
-
+        const condition = typeof conditionSlug === 'string' ? this.getCondition(conditionSlug) : conditionSlug;
         if (!condition) return;
 
         const systemData = condition.data.data;
@@ -1057,18 +1081,10 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** Increase a valued condition, or create a new one if not present */
     async increaseCondition(
-        conditionSlug: string | Embedded<ConditionPF2e>,
+        conditionSlug: ConditionType | Embedded<ConditionPF2e>,
         { max }: { max: number } = { max: 4 },
     ): Promise<void> {
-        const condition =
-            typeof conditionSlug === 'string'
-                ? this.itemTypes.condition.find(
-                      (condition) =>
-                          condition.slug === conditionSlug &&
-                          condition.fromSystem &&
-                          typeof condition.number === 'number',
-                  )
-                : conditionSlug;
+        const condition = typeof conditionSlug === 'string' ? this.getCondition(conditionSlug) : conditionSlug;
 
         // Get the current canvas tokens, or create ephemeral one if none are present
         const tokens = await (async () => {
@@ -1081,8 +1097,8 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         for (const token of tokens) {
             if (!token) continue;
-            if (condition && condition.number !== null && condition.number + 1 <= max) {
-                await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.number + 1);
+            if (condition && condition.value !== null && condition.value + 1 <= max) {
+                await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value + 1);
             } else if (!condition && typeof conditionSlug === 'string') {
                 await game.pf2e.ConditionManager.addConditionToToken(conditionSlug, token);
             }
@@ -1131,6 +1147,14 @@ export interface ActorPF2e {
         updateData: EmbeddedDocumentUpdateData<ActiveEffectPF2e | ItemPF2e>[],
         options?: DocumentModificationContext,
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
+
+    getCondition(conditionType: ConditionType, { all }: { all: true }): Embedded<ConditionPF2e>[];
+    getCondition(conditionType: ConditionType, { all }: { all: false }): Embedded<ConditionPF2e> | null;
+    getCondition(conditionType: ConditionType): Embedded<ConditionPF2e> | null;
+    getCondition(
+        conditionType: ConditionType,
+        { all }: { all: boolean },
+    ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null;
 
     getFlag(scope: string, key: string): any;
     getFlag(scope: 'pf2e', key: 'rollOptions.all.target:flatFooted'): boolean;

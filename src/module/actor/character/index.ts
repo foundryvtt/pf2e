@@ -136,7 +136,7 @@ export class CharacterPF2e extends CreaturePF2e {
         for (const conditionName of ['dying', 'doomed', 'wounded'] as const) {
             const condition = this.itemTypes.condition.find((condition) => condition.slug === conditionName);
             const status = systemData.attributes[conditionName];
-            status.value = Math.min(condition?.number ?? 0, status.max);
+            status.value = Math.min(condition?.value ?? 0, status.max);
         }
 
         // PFS Level Bump - check and DC modifiers
