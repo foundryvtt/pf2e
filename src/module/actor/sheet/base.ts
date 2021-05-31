@@ -1789,17 +1789,34 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return buttons;
     }
 
-    /** @override */
-    protected async _render(force?: boolean, options?: RenderOptions) {
-        // Identify what items need to be kept open across the re-render
+    /**
+     * Override of inner render function to maintain item summary state
+     * @override
+     */
+    protected async _renderInner(data: Record<string, unknown>, options: RenderOptions) {
+        // Identify which item summaries are expanded currently
         const expandedItems = this.element.find('.item.expanded[data-item-id]');
         const openItems = new Set(expandedItems.map((_i, el) => el.dataset.itemId));
 
-        await super._render(force, options);
+        const result = await super._renderInner(data, options);
 
         // Re-open hidden item summaries
         for (const element of openItems) {
-            this.toggleItemSummary(this.element.find(`.item[data-item-id=${element}]`), { instant: true });
+            this.toggleItemSummary(result.find(`.item[data-item-id=${element}]`), { instant: true });
+        }
+
+        return result;
+    }
+
+    /**
+     * Override of internal render function to maintain scroll position
+     * @override
+     */
+    protected async _render(force?: boolean, options?: RenderOptions) {
+        const scrollPosition = this.element.find('.tab.active').scrollTop();
+        await super._render(force, options);
+        if (scrollPosition) {
+            this.element.find('.tab.active').scrollTop(scrollPosition);
         }
     }
 }
