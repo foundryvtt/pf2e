@@ -1,8 +1,7 @@
 import { ActorPF2e } from '@actor/base';
 import { ConditionManager } from '../conditions';
-import { ConditionData, EffectData } from '@item/data/types';
-import { ConditionPF2e } from '@item/others';
-import { EffectPF2e } from '@item/effect';
+import { ConditionData, EffectData } from '@item/data';
+import { ConditionPF2e, EffectPF2e } from '@item/index';
 
 interface EffectPanelData {
     conditions?: ConditionData[];
@@ -47,7 +46,7 @@ export class EffectPanel extends Application {
                     data.conditions.push(item.data);
                 } else if (item instanceof EffectPF2e) {
                     const duration = item.totalDuration;
-                    const effect = duplicate(item.data);
+                    const effect = deepClone(item).data;
                     if (duration === Infinity) {
                         effect.data.expired = false;
                         effect.data.remaining = game.i18n.localize('PF2E.EffectPanel.UnlimitedDuration');
@@ -84,7 +83,7 @@ export class EffectPanel extends Application {
             if (!actor) return;
             const effect = actor.items.get(event.currentTarget.dataset.itemId ?? '');
             if (effect instanceof ConditionPF2e) {
-                await actor.removeOrReduceCondition(effect);
+                await actor.decreaseCondition(effect);
             } else if (effect instanceof EffectPF2e) {
                 await effect.delete();
             }

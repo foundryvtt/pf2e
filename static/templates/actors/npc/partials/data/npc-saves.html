@@ -1,0 +1,40 @@
+<section id="npc__saves">
+    <div class="header">
+        <div class="input-group">
+            <h4 class="header__title">{{ localize 'PF2E.NPC.SavesLabel' }}</h4>
+            <input
+                type="text"
+                name="data.attributes.allSaves.value"
+                value="{{ data.attributes.allSaves.value }}"
+                title="{{ data.attributes.allSaves.value }}"
+                data-dtype="String"
+                placeholder="{{ localize 'PF2E.NPC.SavesExtraInfoLabelPlaceholder' }}"
+            />
+        </div>
+    </div>
+
+    <div class="body">
+        <div class="save">
+            {{#each data.saves as |save saveId|}}
+            <div class="save__item" data-save="{{saveId}}">
+                <label class="save__attribute rollable" title="{{ save.breakdown }}">
+                    <a>{{ localize save.labelShort }}</a>
+                </label>
+                <div class="input-wrapper">
+                    <input
+                        class="modifier{{#if (gte save.value 0)}} not-negative{{/if}}{{#if (gt save.totalModifier save.base)}} positive-modifier{{/if}}{{#if (lt save.totalModifier save.base)}} negative-modifier{{/if}}"
+                        type="number"
+                        name="data.saves.{{saveId}}.value"
+                        value="{{save.value}}"
+                        data-display-value="{{save.value}}"
+                        data-base-property="data.saves.{{saveId}}.base"
+                        data-dtype="Number"
+                        placeholder="0"
+                    />
+                    <span class="plus{{#if (lt save.value 10)}} lt10{{/if}}"></span>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>

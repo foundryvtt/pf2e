@@ -35,12 +35,7 @@ export class DamageRollModifiersDialog extends Application {
     context: object;
     callback: any;
 
-    /**
-     * @param {object} damage
-     * @param {object} context
-     * @param {function} callback
-     */
-    constructor(damage, context, callback) {
+    constructor(damage: any, context: any, callback: any) {
         super({
             title: damage.name,
             template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html', // change this later
@@ -53,12 +48,7 @@ export class DamageRollModifiersDialog extends Application {
         this.callback = callback;
     }
 
-    /**
-     * @param {object} damage
-     * @param {object} context
-     * @param {function} callback
-     */
-    static roll(damage: DamageTemplate, context, callback) {
+    static roll(damage: DamageTemplate, context: any, callback: any) {
         const ctx = context ?? {};
         const outcome = (ctx.outcome ?? 'success') as DegreeOfSuccessString;
 
@@ -118,7 +108,7 @@ export class DamageRollModifiersDialog extends Application {
             diceResults: {},
             baseDamageDice: damage.effectDice,
         };
-        const rolls: Roll[] = [];
+        const rolls: Rolled<Roll>[] = [];
         let content = `
     <div class="dice-roll">
         <div class="dice-result">
@@ -131,7 +121,7 @@ export class DamageRollModifiersDialog extends Application {
             )}"></i></h3>`;
             rollData.diceResults[damageType] = {};
             for (const [damageCategory, partial] of Object.entries(categories)) {
-                const roll = new Roll(partial, formula.data).roll();
+                const roll = new Roll(partial, formula.data).evaluate({ async: false });
                 rolls.push(roll);
                 const damageValue = rollData.types[damageType] ?? {};
                 damageValue[damageCategory] = roll.total;
@@ -165,12 +155,12 @@ export class DamageRollModifiersDialog extends Application {
 
         // fake dice pool roll to ensure Dice So Nice properly trigger the dice animation
         const roll = (() => {
-            const pool = new DicePool({ rolls }).evaluate();
-            const roll = Roll.create(pool.formula).evaluate();
+            const pool = DicePool.fromRolls(rolls) as RolledDicePool; // TODO: Fix types
+            const roll = Roll.create(pool.formula).evaluate({ async: false });
             roll.terms = [pool];
             roll.results = [pool.total];
             roll._total = pool.total;
-            roll._rolled = true;
+            roll.data._rolled = true;
             return roll;
         })();
 
@@ -181,6 +171,7 @@ export class DamageRollModifiersDialog extends Application {
                 flavor,
                 content: content.trim(),
                 roll,
+                sound: 'sounds/dice.wav',
                 flags: {
                     core: {
                         canPopout: true,

@@ -78,16 +78,16 @@ export class CheckModifiersDialog extends Application {
         const speaker: { actor?: ActorPF2e } = {};
         if (ctx.actor) {
             speaker.actor = ctx.actor;
-            ctx.actor = ctx.actor._id;
+            ctx.actor = ctx.actor.id;
         }
         if (ctx.token) {
-            ctx.token = ctx.token._id;
+            ctx.token = ctx.token.id;
         }
         if (ctx.user) {
-            ctx.user = ctx.user._id;
+            ctx.user = ctx.user.id;
         }
         if (ctx.item) {
-            ctx.item = ctx.item._id;
+            ctx.item = ctx.item.id;
         }
 
         ctx.rollMode =
@@ -112,7 +112,7 @@ export class CheckModifiersDialog extends Application {
             .join('<br />');
 
         const totalModifierPart = check.totalModifier === 0 ? '' : `+${check.totalModifier}`;
-        const roll = new Roll(`${dice}${totalModifierPart}`, check).roll();
+        const roll = new Roll(`${dice}${totalModifierPart}`, check).evaluate({ async: false });
 
         let flavor = `<strong>${check.name}</strong>`;
         if (ctx.type === 'spell-attack-roll' && game.modules.get('pf2qr')?.active) {

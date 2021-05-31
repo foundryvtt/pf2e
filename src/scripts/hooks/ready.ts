@@ -1,16 +1,22 @@
 import { activateSocketListener } from '@scripts/socket';
 import { PlayerConfigPF2e } from '@module/user/player-config';
-import { updateMinionActors } from '@scripts/actor/update-minions';
+import { prepareMinions } from '@scripts/actor/prepare-minions';
 import { MigrationRunner } from '@module/migration-runner';
 import { Migrations } from '@module/migrations';
 import { ActionsPF2e } from '@system/actions/actions';
 import { HomebrewElements } from '@module/settings/homebrew';
+import { setWorldSchemaVersion } from '@module/migrations/set-world-schema-version';
+import { WorldClock } from '@module/system/world-clock';
+import { CompendiumBrowser } from '@module/apps/compendium-browser';
 
 export function listen(): void {
     Hooks.once('ready', () => {
         /** Once the entire VTT framework is initialized, check to see if we should perform a data migration */
         console.log('PF2e System | Readying Pathfinder 2nd Edition System');
         console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
+
+        // Save the current world schema version if hasn't before.
+        setWorldSchemaVersion();
 
         // Determine whether a system migration is required and feasible
         const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
@@ -36,7 +42,7 @@ export function listen(): void {
         PlayerConfigPF2e.activateColorScheme();
 
         // update minion-type actors to trigger another prepare data cycle with the master actor already prepared and ready
-        updateMinionActors();
+        prepareMinions();
         activateSocketListener();
 
         // Add value field to TextEditor#_onDragEntityLink data. This is mainly used for conditions.
@@ -54,16 +60,16 @@ export function listen(): void {
             }
         });
 
-        // Until it's ready, only show the Animal Companion actor type in dev mode
-        if (BUILD_MODE === 'production') {
-            const index = game.system.entityTypes.Actor.indexOf('animalCompanion');
-            game.system.entityTypes.Actor.splice(index, 1);
-        }
+        // Start up the Compendium Browser
+        game.pf2e.compendiumBrowser = new CompendiumBrowser();
 
         // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
         HomebrewElements.refreshTags();
 
         // Final pass to ensure effects on actors properly consider the initiative of any active combat
         game.pf2e.effectTracker.refresh();
+
+        // Start system sub-applications
+        game.pf2e.worldClock = new WorldClock();
     });
 }

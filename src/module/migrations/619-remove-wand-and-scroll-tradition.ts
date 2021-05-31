@@ -1,5 +1,6 @@
-import { ActorDataPF2e } from '@actor/data-definitions';
-import { ItemDataPF2e, SpellcastingEntryData } from '@item/data/types';
+import { ActorSourcePF2e } from '@actor/data';
+import { ItemSourcePF2e } from '@item/data';
+import { SpellcastingEntrySource } from '@item/spellcasting-entry/data';
 import { tupleHasValue } from '@module/utils';
 import { MigrationBase } from './base';
 
@@ -26,7 +27,7 @@ function makeLowercase<T extends string>(value: T): Lowercase<T> {
 export class Migration619TraditionLowercaseAndRemoveWandScroll extends MigrationBase {
     static version = 0.619;
 
-    async updateItem(item: ItemDataPF2e, actorData?: ActorDataPF2e) {
+    async updateItem(item: ItemSourcePF2e, actorData?: ActorSourcePF2e) {
         if (!actorData || item.type !== 'spellcastingEntry') {
             return;
         }
@@ -41,8 +42,8 @@ export class Migration619TraditionLowercaseAndRemoveWandScroll extends Migration
 
         // Calculate the highest tradition in the actor
         const allEntries = actorData.items.filter(
-            (itemData) => itemData.type === 'spellcastingEntry',
-        ) as SpellcastingEntryData[];
+            (itemData): itemData is SpellcastingEntrySource => itemData.type === 'spellcastingEntry',
+        );
         const highestTradition = allEntries.reduce<HighestTradition>(
             (prev, current) => {
                 if (tupleHasValue(LEGIT_TRADITIONS, current.data.tradition.value)) {

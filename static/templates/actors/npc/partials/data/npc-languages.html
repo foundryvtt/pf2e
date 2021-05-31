@@ -1,0 +1,24 @@
+<!-- LANGUAGES -->
+<section id="npc__languages">
+    <div class="header" data-attribute="languages" for="data.traits.languages">
+        <h4 class="header__title">{{localize "PF2E.Languages"}}</h4>
+        {{# if options.editable }}
+        <div class="controls">
+            <a
+                class="trait-edit edit"
+                data-trait-selector="basic"
+                data-config-types="languages"
+                data-property="data.traits.languages"
+                title="{{ localize 'PF2E.NPC.EditLanguages' }}"
+            >
+                <i class="fas fa-edit"></i>
+            </a>
+        </div>
+        {{/if}}
+    </div>
+    <div class="body">
+        {{#each languages as |language|}}
+        <div class="tag">{{localize language}}</div>
+        {{/each}}
+    </div>
+</section>

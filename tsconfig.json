@@ -7,8 +7,12 @@
 
         "noImplicitThis": true,
         "strictBindCallApply": true,
+        "strictFunctionTypes": true,
+        "strictPropertyInitialization": true,
+        "strictNullChecks": true,
 
         "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
 
@@ -16,6 +20,7 @@
         "esModuleInterop": true,
         "sourceMap": true,
         "baseUrl": ".",
+        "allowUnusedLabels": false,
         "removeComments": false,
         "resolveJsonModule": true,
         "paths": {
@@ -31,9 +36,11 @@
             "jest",
             "node",
             "handlebars",
-            "socket.io",
-            "foundry-pc-types"
+            "socket.io"
         ],
-        "typeRoots": ["node_modules/@types", "node_modules/handlebars", "types"]
+        "typeRoots": ["node_modules/@types", "node_modules/handlebars"]
+    },
+    "ts-node": {
+        "files": true
     }
 }

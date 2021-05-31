@@ -1,4 +1,4 @@
-<section class="sidebar-tab sidebar-directory tab flexcol" id="compendium" data-tab="compendium">
+<section class="tab sidebar-tab directory flexcol" id="compendium" data-tab="compendium">
     <header class="directory-header">
         <div class="header-actions action-buttons flexrow">
             {{#if user.isGM}}
@@ -11,63 +11,31 @@
             <a class="header-control collapse-all" title="{{localize 'FOLDER.Collapse'}}"><i class="fas fa-sort-amount-up fa-fw"></i></a>
         </div>
     </header>
-
     <ol class="directory-list">
-        {{#each packs as |summary label|}}
-            <li class="compendium-entity">
-                <h3>{{summary.title}}</h3>
+        {{#each packs as |pack label|}}
+            <li class="compendium-type">
+                <h3>{{label}}</h3>
                 <ol class="compendium-list">
-                    {{#each summary.folders as |folder|}}
-                        <!-- Folder: {{folder.name}} -->
-                        {{> folderPartial folder=folder}}
-                    {{/each}}
-                    {{#each summary.packs as |summaryData|}}
-                        {{#if (not summaryData.metadata.folder)}}
-                            {{> packPartial pack=summaryData}}
-                        {{/if}}
+                    {{#each pack.packs}}
+                        <li class="compendium-pack directory-item" data-pack="{{this.collection}}" data-open="0">
+                            <h4 class="pack-title">
+                                <a><i class="folder fas fa-folder"></i> {{this.metadata.label}}</a>
+                                <div class="status-icons">
+                                    {{#if this.private}}<i class="fas fa-eye-slash"></i>{{/if}}
+                                    {{#if this.locked}}<i class="fas fa-lock"></i>{{/if}}
+                                </div>
+                            </h4>
+                            <footer class="compendium-footer">
+                                <span class="entity-type">{{this.metadata.entity}}</span>
+                                <span> ({{this.metadata.package}})</span>
+                            </footer>
+                        </li>
                     {{/each}}
                 </ol>
             </li>
         {{/each}}
     </ol>
-
-    <footer class="directory-footer"></footer>
-</section>
-
-{{#*inline "folderPartial"}}
-<li class="directory-item folder flexcol{{#unless folder.expanded}} collapsed{{/unless}}{{#unless folder.visible}} hidden{{/unless}}"
-    data-folder-id="{{folder.id}}">
-    <header class="folder-header flexrow"">
-        <h3><i class="fas fa-folder-open fa-fw"></i>{{folder.name}}</h3>
-        <div class="status-icons">
-            {{#if folder.private}}<i class="fas fa-eye-slash"></i>{{/if}}
-        </div>
-    </header>
-    <ol class="subdirectory">
-        {{#each folder.subfolders as |subfolder|}}
-            <!-- Subfolder: {{subfolder.name}} -->
-            {{> folderPartial folder=subfolder}}
-        {{/each~}}
-        {{#each folder as |summaryData|}}
-            {{> packPartial pack=summaryData}}
-        {{/each~}}
-    </ol>
-</li>
-{{/inline}}
-
-{{#*inline "packPartial"}}
-<!-- Compendium: {{pack.metadata.label}} -->
-<li class="compendium-pack" data-pack="{{pack.collection}}" data-open="0">
-    <h4 class="pack-title">
-        <a><i class="folder fas fa-atlas"></i> {{pack.metadata.label}}</a>
-        <div class="status-icons">
-            {{#if pack.private}}<i class="fas fa-eye-slash"></i>{{/if}}
-            {{#if pack.locked}}<i class="fas fa-lock"></i>{{/if}}
-        </div>
-    </h4>
-    <footer class="compendium-footer">
-        <span class="entity-type">{{pack.metadata.entity}}</span>
-        <span> ({{pack.metadata.package}})</span>
+    <footer class="directory-footer">
+        <button type="button" class="compendium-browser-btn"><i class="fas fa-fire"></i> Compendium Browser</button>
     </footer>
-</li>
-{{/inline}}
+</section>

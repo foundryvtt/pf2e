@@ -1,4 +1,4 @@
-import { addCoins, attemptToRemoveCoinsByValue, calculateValueOfCurrency, removeCoins } from '@item/treasure';
+import { addCoins, attemptToRemoveCoinsByValue, calculateValueOfCurrency, removeCoins } from '@item/treasure/helpers';
 import { ActorPF2e } from '../../base';
 import { CharacterPF2e } from '@actor/character';
 

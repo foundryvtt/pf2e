@@ -1,11 +1,11 @@
-import { ActorDataPF2e } from '@actor/data-definitions';
-import { ItemDataPF2e } from '@item/data/types';
+import { ActorSourcePF2e } from '@actor/data';
+import { ItemSourcePF2e } from '@item/data';
 import { MigrationBase } from './migrations/base';
 
 interface ItemsDiff {
-    inserted: ItemDataPF2e[];
+    inserted: ItemSourcePF2e[];
     deleted: string[];
-    updated: ItemDataPF2e[];
+    updated: ItemSourcePF2e[];
 }
 
 export class MigrationRunnerBase {
@@ -21,14 +21,14 @@ export class MigrationRunnerBase {
         return currentVersion < this.latestVersion;
     }
 
-    diffItems(orig: ItemDataPF2e[], updated: ItemDataPF2e[]): ItemsDiff {
+    diffItems(orig: ItemSourcePF2e[], updated: ItemSourcePF2e[]): ItemsDiff {
         const ret: ItemsDiff = {
             inserted: [],
             deleted: [],
             updated: [],
         };
 
-        const origItems: Map<string, ItemDataPF2e> = new Map();
+        const origItems: Map<string, ItemSourcePF2e> = new Map();
         for (const item of orig) {
             origItems.set(item._id, item);
         }
@@ -55,7 +55,7 @@ export class MigrationRunnerBase {
         return ret;
     }
 
-    async getUpdatedItem(item: ItemDataPF2e, migrations: MigrationBase[]): Promise<ItemDataPF2e> {
+    async getUpdatedItem(item: ItemSourcePF2e, migrations: MigrationBase[]): Promise<ItemSourcePF2e> {
         const current = duplicate(item);
 
         for (const migration of migrations) {
@@ -69,7 +69,7 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    async getUpdatedActor(actor: ActorDataPF2e, migrations: MigrationBase[]): Promise<ActorDataPF2e> {
+    async getUpdatedActor(actor: ActorSourcePF2e, migrations: MigrationBase[]): Promise<ActorSourcePF2e> {
         const current = duplicate(actor);
 
         for (const migration of migrations) {
@@ -86,7 +86,10 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    async getUpdatedMessage(messageData: ChatMessageData, migrations: MigrationBase[]): Promise<ChatMessageData> {
+    async getUpdatedMessage(
+        messageData: foundry.data.ChatMessageSource,
+        migrations: MigrationBase[],
+    ): Promise<foundry.data.ChatMessageSource> {
         const current = duplicate(messageData);
 
         for (const migration of migrations) {
@@ -100,8 +103,11 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    async getUpdatedMacro(macroData: MacroData, migrations: MigrationBase[]): Promise<MacroData> {
-        const current = duplicate(macroData);
+    async getUpdatedMacro(
+        macroSource: foundry.data.MacroSource,
+        migrations: MigrationBase[],
+    ): Promise<foundry.data.MacroSource> {
+        const current = deepClone(macroSource);
 
         for (const migration of migrations) {
             try {
@@ -114,8 +120,11 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    async getUpdatedTable(table: RollTableData, migrations: MigrationBase[]): Promise<RollTableData> {
-        const current = duplicate(table);
+    async getUpdatedTable(
+        tableSource: foundry.data.RollTableSource,
+        migrations: MigrationBase[],
+    ): Promise<foundry.data.RollTableSource> {
+        const current = deepClone(tableSource);
 
         for (const migration of migrations) {
             try {
@@ -128,8 +137,8 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    async getUpdatedToken(tokenData: TokenData, migrations: MigrationBase[]): Promise<TokenData> {
-        const current = duplicate(tokenData);
+    async getUpdatedToken(token: TokenDocument, migrations: MigrationBase[]): Promise<foundry.data.TokenSource> {
+        const current = token.toObject();
         for (const migration of migrations) {
             try {
                 await migration.updateToken(current);
@@ -141,7 +150,10 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    async getUpdatedUser(userData: UserData, migrations: MigrationBase[]): Promise<UserData> {
+    async getUpdatedUser(
+        userData: foundry.data.UserSource,
+        migrations: MigrationBase[],
+    ): Promise<foundry.data.UserSource> {
         const current = duplicate(userData);
         for (const migration of migrations) {
             try {

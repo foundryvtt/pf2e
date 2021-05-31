@@ -38,9 +38,7 @@ export const DamageCategory = Object.freeze({
     /** Get a set of all damage categories (both base and custom). */
     allCategories: () =>
         new Set(
-            []
-                .concat(Object.values(BASE_DAMAGE_TYPES_TO_CATEGORIES))
-                .concat(Object.values(CUSTOM_DAMAGE_TYPES_TO_CATEGORIES)),
+            Object.values(BASE_DAMAGE_TYPES_TO_CATEGORIES).concat(Object.values(CUSTOM_DAMAGE_TYPES_TO_CATEGORIES)),
         ),
 
     /** Get a set of all of the base rule damage types. */

@@ -1,8 +1,8 @@
 import { RuleElementPF2e } from '../rule-element';
 import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
-import { CharacterData, NPCData } from '@actor/data-definitions';
-import { ModifierPF2e, ModifierPredicate, MODIFIER_TYPE } from '../../modifiers';
-import { ActorPF2e } from '@actor/base';
+import { CharacterData, NPCData } from '@actor/data';
+import { ModifierPF2e, ModifierPredicate, MODIFIER_TYPE } from '@module/modifiers';
+import { ActorPF2e } from '@actor/index';
 
 /**
  * @category RuleElement

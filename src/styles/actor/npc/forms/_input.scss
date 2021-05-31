@@ -1,0 +1,23 @@
+.input-group {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+input[type='text'],
+input[type='number'] {
+    &.positive-modifier,
+    &.negative-modifier {
+        font-weight: bold;
+    }
+
+    &.positive-modifier,
+    &.positive-modifier ~ .plus {
+        color: $positive-modifier !important;
+    }
+
+    &.negative-modifier,
+    &.negative-modifier ~ .plus {
+        color: $negative-modifer !important;
+    }
+}

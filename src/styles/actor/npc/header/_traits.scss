@@ -1,0 +1,46 @@
+.trait {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'Roboto Condensed', $sans-serif;
+    padding: 0.25em;
+    gap: 0.25em;
+    color: $light-text;
+    text-transform: uppercase;
+    flex: initial;
+    text-align: center;
+
+    &__item {
+        background-color: var(--alt);
+        padding: 0.2em 0.5em;
+    }
+
+    select {
+        color: white;
+        min-width: 8ch;
+        max-width: 22ch;
+    }
+
+    .rarity {
+        &.common {
+            background: $common;
+        }
+        &.uncommon {
+            background: $uncommon;
+        }
+        &.rare {
+            background: $rare;
+        }
+        &.unique {
+            background: $unique;
+        }
+    }
+
+    .alignment {
+        background: #566193;
+    }
+
+    .size {
+        background: #3a7a58;
+    }
+}
