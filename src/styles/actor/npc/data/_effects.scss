@@ -1,0 +1,19 @@
+#npc__effects {
+    .icons-list {
+        --gap: 0.25em;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, calc(25% - var(--gap)));
+        gap: var(--gap);
+    }
+
+    .icon {
+        cursor: pointer;
+        &:hover {
+            transform: scale(1.05);
+        }
+
+        &__image {
+            display: block;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+.npc-body {
+    grid-area: body;
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+}
+
+.sheet-body {
+    @import 'main';
+    @import 'inventory';
+    @import 'spells';
+    @import 'notes';
+
+    flex: auto;
+
+    .tab {
+        padding-right: 0.5em;
+        margin-bottom: 1em;
+
+        &:not(.notes) {
+            overflow: hidden scroll;
+        }
+
+        &:not(.active) {
+            display: none;
+        }
+    }
+}
