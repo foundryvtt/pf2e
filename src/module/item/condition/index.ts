@@ -7,9 +7,13 @@ export class ConditionPF2e extends ItemPF2e {
         return ConditionData;
     }
 
-    get number(): number | null {
+    get value(): number | null {
         const value = this.data.data.value;
         return value.isValued ? value.value : null;
+    }
+
+    get duration(): number | null {
+        return this.data.data.duration.perpetual ? null : this.data.data.duration.value;
     }
 
     /** Is the condition currently active? */

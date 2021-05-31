@@ -413,7 +413,7 @@ export class ConditionManager {
 
     private static async createConditions(condition: ConditionSource, actor: ActorPF2e): Promise<ConditionPF2e | null> {
         const exists = actor.itemTypes.condition.some(
-            (existing) => existing.data.data.base === condition.data.base && !condition.data.references.parent.id,
+            (existing) => existing.data.data.base === condition.data.base && !condition.data.references.parent?.id,
         );
         if (exists) return null;
 
@@ -554,7 +554,7 @@ export class ConditionManager {
 
                 // Update any references
                 if (c.data.references.parent) {
-                    const refCondition = items.find((i) => i._id === c.data.references.parent.id);
+                    const refCondition = items.find((i) => i._id === c.data.references.parent?.id);
 
                     if (refCondition) {
                         const ref = {

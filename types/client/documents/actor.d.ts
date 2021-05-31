@@ -22,9 +22,7 @@ declare global {
     class Actor<TParent extends TokenDocument = TokenDocument> extends ActorConstructor {
         constructor(data: PreCreate<foundry.data.ActorSource>, context?: DocumentConstructionContext<Actor>);
 
-        /**
-         * An object that tracks which tracks the changes to the data model which were applied by active effects
-         */
+        /** An object that tracks which tracks the changes to the data model which were applied by active effects */
         overrides: Record<string, unknown>;
 
         /**
@@ -72,9 +70,7 @@ declare global {
          */
         getActiveTokens(linked?: boolean, document?: boolean): Token<NonNullable<this['parent']>>[];
 
-        /**
-         * Prepare a data object which defines the data schema used by dice roll commands against this Actor
-         */
+        /** Prepare a data object which defines the data schema used by dice roll commands against this Actor */
         getRollData(): object;
 
         /** @override */
