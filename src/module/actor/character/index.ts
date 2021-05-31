@@ -760,18 +760,18 @@ export class CharacterPF2e extends CreaturePF2e {
                 // If the character has an ancestral weapon familiarity, it will make weapons with their ancestry
                 // trait also count as a weapon of different category
                 const weaponCategory = item.data.weaponType.value ?? 'simple';
-                const categoryRank = systemData.martial[weaponCategory].rank;
+                const categoryRank = systemData.martial[weaponCategory]?.rank ?? 0;
                 const familiarityRank = (() => {
                     const weaponTraits = item.data.traits.value;
                     const familiarity = allCategories.find((category) => {
-                        const maybeFamiliarity = systemData.martial[category].familiarity;
+                        const maybeFamiliarity = systemData.martial[category]?.familiarity;
                         return (
                             maybeFamiliarity &&
                             maybeFamiliarity.category === weaponCategory &&
                             weaponTraits.includes(maybeFamiliarity.trait)
                         );
                     });
-                    return familiarity ? systemData.martial[familiarity].rank : 0;
+                    return familiarity ? systemData.martial[familiarity]?.rank ?? 0 : 0;
                 })();
 
                 const groupRank = proficiencies[`weapon-group-${item.data.group.value}`]?.rank ?? 0;
