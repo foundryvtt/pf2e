@@ -1,5 +1,37 @@
 # Patch Notes:
 
+## Version 2.0.0
+
+This version brings support for the Foundry VTT version 0.8.x line, starting from 0.8.6.
+
+### Bug Fixes
+* (stwlam) Fix FlatModifier rule elements for crawling hand, aerial form bird spell effect, aerial form pterosaur spell effect, and aerial form wasp spell effect
+* (stwlam) Restore editable actor description to loot sheet
+* (mdizo) Fixed current hit points alignment in the PC sidebar
+* (In3luki) Update the degree of success when a check is rerolled
+* (Trollderim) Fix focus point reduction on cantrip cast. Closes #1442
+* (nikolaj-a) Fix damage roll dice sound
+* (nikolaj-a) Fix drag and drop of toggles to the hotbar
+
+### Content Changes
+* (Drental) Add Cunning Rune to weapon runes. Closes #1438
+* (Fraser Stanton) Fix damag type of Noxious Vapors. Closes #1405
+* (Fraser Stanton) Fix spelling error in description of Lifting Belt. Closes #1425
+* (SpartanCPA) Favor sheet checkbox over a rule element for applying token icon of spell effects
+* (kageru) Correct Fire Mephit spell DC
+* (stwlam) Add fear trait to Demoralize action, remove skill trait. Closes #1444
+
+### Core System Improvements
+* (stwlam) Expose compendium browser for programmatic access at `game.pf2e.compendiumBrowser`
+* (stwlam) Add support for weapon familiarity type of feats
+* (stwlam) Base character dying/wounded/doomed status on the sheet on applied conditions. Closes #1450
+* (stwlam) Propagate AEs modifying actors' prototype tokens to the corresponding tokens on the canvas
+* (mdizo) Replaced the spellcasting headers and minor design fixes for the spellcasting tab
+* (mdizo) Improved default styling of journal entries
+* (abrault) Only show signature spells at levels with slots
+* (nikolaj-a) Add hooks for turn start and end
+
+
 ## Version 1.15.0
 ### Bug Fixes
 * (stwlam) Fix invested toggle for real, uninvest on unequip
@@ -29,7 +61,7 @@
 * (TMun) Add weapon mastery level 11 text and flag for sorcerer
 * (stwlam) Add Hex trait to _evil eye_ spell
 
-### Core
+### Core System Improvements
 * (stwlam) Try using a Google font for rendering invested diamond to ensure a more uniform look across different platforms
 * (stwlam) Add ability to set identification status back to item sheet
 * (stwlam) Scale down the World Clock application window. Closes #1403
