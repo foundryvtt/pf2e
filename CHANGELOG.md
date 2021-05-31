@@ -1,5 +1,10 @@
 # Patch Notes:
 
+## Version 2.0.1
+### Bug Fixes
+* (nikolaj-a) Fix actor data preparation with unmatched martial proficiency category
+
+
 ## Version 2.0.0
 
 This version brings support for the Foundry VTT version 0.8.x line, starting from 0.8.6.
