@@ -3,7 +3,7 @@
     overflow: hidden;
 }
 
-$header-height: 89px;   /* Adjust height of the header */
+$header-height: 89px; /* Adjust height of the header */
 
 .crb-style {
     display: grid;
@@ -21,7 +21,7 @@ $header-height: 89px;   /* Adjust height of the header */
     background-attachment: local;
 
     &.proficiency-lock {
-        input[type=hidden][data-category=proficiency] ~ .click-stat-level {
+        input[type='hidden'][data-category='proficiency'] ~ .click-stat-level {
             /* So sorry, but the cursor: pointers are so deep in the hierarchy and in different areas :( */
             cursor: default !important;
         }
@@ -42,49 +42,49 @@ $header-height: 89px;   /* Adjust height of the header */
         margin-left: -22px;
     }
     .sheet-body {
-      grid-area: content;
-      position: relative;
+        grid-area: content;
+        position: relative;
 
-      .sheet-content,
-      .sheet-content .inventory {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        padding-top: 8px;
+        .sheet-content,
+        .sheet-content .inventory {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding-top: 8px;
 
-        & > .tab:not(.inventory),
-        .inventory .inventory-list {
-          @include scrollbar;
-          flex-grow: 1;
-          min-height: 0;
-          overflow: hidden scroll;
-          padding-right: $window-p-right;
+            & > .tab:not(.inventory),
+            .inventory .inventory-list {
+                @include scrollbar;
+                flex-grow: 1;
+                min-height: 0;
+                overflow: hidden scroll;
+                padding-right: $window-p-right;
+            }
+
+            &.tab[data-tab] {
+                display: none;
+                &.active {
+                    display: initial;
+                }
+            }
         }
 
-        &.tab[data-tab] {
-          display: none;
-          &.active {
-            display: initial;
-          }
-        }
-      }
+        .sheet-content {
+            color: var(--body);
+            @import 'character', 'npc';
 
-      .sheet-content {
-        color: var(--body);
-        @import 'character', 'npc';
-
-        footer {
-          @include micro;
-          color: var(--primary);
-          text-align: right;
-          line-height: 1.4;
-          margin: 1em 1em 0;
+            footer {
+                @include micro;
+                color: var(--primary);
+                text-align: right;
+                line-height: 1.4;
+                margin: 1em 1em 0;
+            }
         }
-      }
     }
 
     /* Navigation */
@@ -102,11 +102,9 @@ $header-height: 89px;   /* Adjust height of the header */
     @import 'vehicle';
 }
 
-@import "hazard";
+@import 'hazard';
 
-.npc {
-    @import 'npc';
-}
+@import 'npc';
 
 @import 'loot';
 

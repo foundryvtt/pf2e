@@ -1,0 +1,27 @@
+#npc__spells {
+    --size-xs: 0.125em;
+    --size-s: 0.25em;
+    --size-m: 0.5em;
+    --size-l: 1em;
+    --size-xl: 1.5em;
+    --size-xxl: 2em;
+    --padding: var(--size-s) var(--size-m);
+    --radius: 2px;
+
+    ol {
+        @include p-reset;
+        list-style: none;
+
+        & > * + * {
+            margin-top: var(--size-xl);
+        }
+    }
+
+    .spell {
+        @import 'header';
+        @import 'body';
+        @import 'spellbook';
+    }
+
+    @import 'footer';
+}

@@ -298,12 +298,12 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         html.find('button').on('click', (event) => this.onButtonClicked(event));
         html.find('a.chat, .spell-icon.rollable').on('click', (event) => this.onClickToChat(event));
 
-        html.find('.attack')
+        html.find('[data-item-controls="toggle"]')
             .on('mouseenter', (event) => this.showControls(event))
             .on('mouseleave', (event) => this.hideControls(event));
-        html.find('.action')
-            .on('mouseenter', (event) => this.showControls(event))
-            .on('mouseleave', (event) => this.hideControls(event));
+
+        // Expand Hidden Descriptions
+        html.find('[data-item-panel="toggle"]').on('click', (event) => this.onClickExpandPanel(event));
 
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
@@ -317,9 +317,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         // Handle spellcastingEntry attack and DC updates
         html.find('.spellcasting-entry')
-            .find<HTMLInputElement | HTMLSelectElement>(
-                '.attack-input, .dc-input, .focus-points, .focus-pool, .ability-score select',
-            )
+            .find<HTMLInputElement | HTMLSelectElement>('[data-spellcasting-input]')
             .on('change', (event) => this.onChangeSpellcastingEntry(event));
 
         // Spontaneous Spell slot reset handler:
@@ -829,9 +827,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const ability = $label.parent().attr('data-attribute') as 'perception' | AbilityString;
         const skill = $label.parent().attr('data-skill') as SkillAbbreviation;
         const save = $label.parent().attr('data-save') as SaveString;
-        const action = $label.parent().parent().attr('data-action');
-        const item = $label.parent().parent().attr('data-item');
-        const spell = $label.parent().parent().attr('data-spell');
 
         if (ability) {
             switch (ability) {
@@ -845,8 +840,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             this.rollNPCSkill(event, skill);
         } else if (save) {
             this.rollSave(event, save);
-        } else if (action || item || spell) {
-            this.onClickExpandable(event);
         }
     }
 
@@ -899,15 +892,15 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     private hideControls(event: JQuery.MouseLeaveEvent) {
-        const controls = $(event.currentTarget).find('.controls');
+        const controls = $(event.currentTarget).find('[data-item-controls="content"]');
         if (controls === undefined) return;
-        controls.removeClass('expanded');
+        controls.attr('data-visibility', 'hidden');
     }
 
     private showControls(event: JQuery.MouseEnterEvent) {
-        const controls = $(event.currentTarget).find('.controls');
+        const controls = $(event.currentTarget).find('[data-item-controls="content"]');
         if (controls === undefined) return;
-        controls.addClass('expanded');
+        controls.attr('data-visibility', 'visible');
     }
 
     private baseInputOnFocus(event: JQuery.FocusInEvent) {
@@ -947,17 +940,17 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         skillsEditor.render(true);
     }
 
-    private onClickExpandable(event: JQuery.ClickEvent): void {
-        const $details = $(event.currentTarget).closest('li.item').find('.sub-section.expandable');
+    private onClickExpandPanel(event: JQuery.ClickEvent): void {
+        const $details = $(event.currentTarget).closest('li.item').find('[data-item-panel="content"]:first');
 
-        const isExpanded = $details.hasClass('expanded');
-        if (isExpanded) {
+        const panelState = $details.attr('data-visibility');
+        if (panelState == 'visible') {
             $details.slideUp(200, () => {
-                $details.removeClass('expanded');
+                $details.attr('data-visibility', 'hidden');
             });
         } else {
             $details.slideDown(200, () => {
-                $details.addClass('expanded');
+                $details.attr('data-visibility', 'visible');
             });
         }
     }
@@ -1001,12 +994,11 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const $input: JQuery<HTMLInputElement | HTMLSelectElement> = $(event.currentTarget);
         const itemId = $input.closest('.spellcasting-entry').attr('data-container-id') ?? '';
         const key = $input.attr('data-base-property')?.replace(/data\.items\.\d+\./, '') ?? '';
-        const value =
-            $input.hasClass('focus-points') || $input.hasClass('focus-pool')
-                ? Math.min(Number($input.val()), 3)
-                : $input.is('select')
-                ? String($input.val())
-                : Number($input.val());
+        const value = $input.hasClass('[data-spellcasting-input^="focus"]')
+            ? Math.min(Number($input.val()), 3)
+            : $input.is('select')
+            ? String($input.val())
+            : Number($input.val());
         await this.actor.updateEmbeddedDocuments('Item', [
             {
                 _id: itemId,

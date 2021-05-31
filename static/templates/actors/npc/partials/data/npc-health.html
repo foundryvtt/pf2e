@@ -1,0 +1,56 @@
+<section id="npc__health">
+    <div class="header" title="{{data.attributes.hp.breakdown}}">
+        <div class="input-group">
+            <h4 class="header__title">{{ localize 'PF2E.HitPointsShortLabel' }}</h4>
+            <input
+                id="hp-details"
+                type="text"
+                name="data.attributes.hp.details"
+                value="{{ data.attributes.hp.details }}"
+                title="{{ data.attributes.hp.details }}"
+                data-dtype="String"
+                placeholder="{{ localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder' }}"
+            />
+        </div>
+    </div>
+
+    <div class="body hp">
+        <div class="input-group hp__temp">
+            <input
+                id="hp-temp-value"
+                class="hp__value"
+                type="number"
+                name="data.attributes.hp.temp"
+                value="{{ data.attributes.hp.temp }}"
+                data-dtype="Number"
+                placeholder="0"
+            />
+
+            <h4 class="hp__title">{{ localize 'PF2E.RuleElement.TempHPShortLabel' }}</h4>
+        </div>
+
+        <div class="input-group hp__current">
+            <input
+                type="number"
+                class="hp__value"
+                name="data.attributes.hp.value"
+                value="{{ data.attributes.hp.value }}"
+                data-dtype="Number"
+                placeholder="0"
+            />
+            <h4 class="hp__title">{{ localize 'PF2E.NPC.HPCurrentLabel' }}</h4>
+        </div>
+
+        <div class="input-group hp__max">
+            <input
+                class="hp__value {{#if (lt data.attributes.hp.max 10)}}lt10{{else if (lt data.attributes.hp.max 100)}}lt100{{else}}lt1000{{/if}}"
+                type="number"
+                name="data.attributes.hp.max"
+                value="{{ data.attributes.hp.max }}"
+                data-dtype="Number"
+                placeholder="0"
+            />
+            <h4 class="hp__title">{{ localize 'PF2E.NPC.HPMaxLabel' }}</h4>
+        </div>
+    </div>
+</section>
