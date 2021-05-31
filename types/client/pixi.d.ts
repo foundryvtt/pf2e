@@ -11833,21 +11833,7 @@ declare namespace PIXI {
      * @interface IHitArea
      * @memberof PIXI
      */
-    class IHitArea {
-        x: number;
-
-        y: number;
-
-        width: number;
-
-        height: number;
-
-        type: number;
-
-        get bottom(): number;
-
-        get right(): number;
-
+    interface IHitArea {
         /**
          * Checks whether the x and y coordinates given are contained within this area
          *
@@ -14227,7 +14213,7 @@ declare namespace PIXI {
      *    +---+----------------------+---+
      *  D | 7 |          8           | 9 |
      *    +---+----------------------+---+
-
+    
      *  When changing this objects width and/or height:
      *     areas 1 3 7 and 9 will remain unscaled.
      *     areas 2 and 8 will be stretched horizontally

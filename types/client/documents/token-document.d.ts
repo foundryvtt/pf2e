@@ -52,7 +52,7 @@ declare global {
          * @param alternative An alternative attribute path to get instead of the default one
          * @return The attribute displayed on the Token bar, if any
          */
-        getBarAttribute(barName: string, { alternative }?: { alternative?: string }): Record<string, unknown> | null;
+        getBarAttribute(barName: string, { alternative }?: { alternative?: string }): object | null;
 
         /* -------------------------------------------- */
         /*  Actor Data Operations                       */
@@ -162,7 +162,7 @@ declare global {
 
         _sheet: TokenConfig<this> | null;
 
-        readonly _object: Token<TokenDocument> | null;
+        readonly _object: Token<this> | null;
     }
 
     interface TokenDocumentConstructionContext<TTokenDocument extends TokenDocument>

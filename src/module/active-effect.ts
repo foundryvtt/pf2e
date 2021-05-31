@@ -121,34 +121,6 @@ export class ActiveEffectPF2e extends ActiveEffect {
         );
         await toRevoke?.delete();
     }
-
-    /**
-     * Propagate created prototype token overrides to any placed tokens
-     * @override
-     */
-    protected _onCreate(data: foundry.data.ActiveEffectSource, options: DocumentModificationContext, userId: string) {
-        super._onCreate(data, options, userId);
-        const parent = this.parent;
-        if (parent instanceof ActorPF2e) {
-            for (const token of parent.getActiveTokens()) {
-                token.applyActiveEffects(parent.overrides.token);
-            }
-        }
-    }
-
-    /**
-     * Propagate deleted prototype token overrides to any placed tokens
-     * @override
-     */
-    protected _onDelete(options: DocumentModificationContext, userId: string) {
-        super._onDelete(options, userId);
-        const parent = this.parent;
-        if (parent instanceof ActorPF2e) {
-            for (const token of parent.getActiveTokens()) {
-                token.applyActiveEffects(parent.overrides.token);
-            }
-        }
-    }
 }
 
 export interface ActiveEffectPF2e {
