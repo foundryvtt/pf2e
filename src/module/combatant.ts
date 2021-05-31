@@ -1,5 +1,4 @@
 import type { ActorPF2e } from '@actor/base';
-import { TokenPF2e } from './canvas/token';
 import { CombatPF2e } from './combat';
 
 export class CombatantPF2e extends Combatant {
@@ -43,5 +42,4 @@ export class CombatantPF2e extends Combatant {
 export interface CombatantPF2e {
     readonly parent: CombatPF2e | null;
     _actor: ActorPF2e | null;
-    _token: TokenPF2e | null;
 }

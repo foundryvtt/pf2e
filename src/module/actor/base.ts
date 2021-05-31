@@ -166,6 +166,11 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
     }
 
+    /** @override */
+    prepareDerivedData(): void {
+        super.prepareDerivedData();
+    }
+
     /** Synchronize the token image with the actor image, if the token does not currently have an image */
     private prepareTokenImg() {
         const useSystemTokenSettings = game.settings.get('pf2e', 'defaultTokenSettings');
