@@ -23,7 +23,7 @@ declare global {
         constructor(data: PreCreate<foundry.data.ActorSource>, context?: DocumentConstructionContext<Actor>);
 
         /** An object that tracks which tracks the changes to the data model which were applied by active effects */
-        overrides: Record<string, unknown>;
+        overrides: DeepPartial<this['data']['_source']>;
 
         /**
          * A cached array of image paths which can be used for this Actor's token.
@@ -68,7 +68,7 @@ declare global {
          * @param [document=false] Return the Document instance rather than the PlaceableObject
          * @return An array of Token instances in the current Scene which reference this Actor.
          */
-        getActiveTokens(linked?: boolean, document?: boolean): Token<NonNullable<this['parent']>>[];
+        getActiveTokens(linked?: boolean, document?: boolean): NonNullable<TParent['object']>[];
 
         /** Prepare a data object which defines the data schema used by dice roll commands against this Actor */
         getRollData(): object;
@@ -81,7 +81,7 @@ declare global {
          * @param [data={}] Additional data, such as x, y, rotation, etc. for the created token data
          * @return The created TokenData instance
          */
-        getTokenData(data?: DocumentModificationContext): Promise<NonNullable<this['parent']>['data']>;
+        getTokenData(data?: DocumentModificationContext): Promise<TParent['data']>;
 
         /** Get an Array of Token images which could represent this Actor */
         getTokenImages(): Promise<ImagePath[]>;
