@@ -15,7 +15,7 @@ This version brings support for the Foundry VTT version 0.8.x line, starting fro
 
 ### Content Changes
 * (Drental) Add Cunning Rune to weapon runes. Closes #1438
-* (Fraser Stanton) Fix damag type of Noxious Vapors. Closes #1405
+* (Fraser Stanton) Fix damage type of Noxious Vapors. Closes #1405
 * (Fraser Stanton) Fix spelling error in description of Lifting Belt. Closes #1425
 * (SpartanCPA) Favor sheet checkbox over a rule element for applying token icon of spell effects
 * (kageru) Correct Fire Mephit spell DC
