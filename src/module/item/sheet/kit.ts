@@ -43,9 +43,9 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
 
         if (dragItem.type !== 'Item') return;
 
-        const item: CompendiumEntity | undefined = dragItem.pack
-            ? (await game.packs.get(dragItem.pack)?.getEntity(dragItem.id)) ?? undefined
-            : game.items.get(dragItem.id) ?? undefined;
+        const item = dragItem.pack
+            ? await game.packs.get(dragItem.pack)?.getDocument(dragItem.id)
+            : game.items.get(dragItem.id);
 
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             return;

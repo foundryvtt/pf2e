@@ -1,10 +1,10 @@
-import { ItemDataPF2e } from '@item/data/types';
+import { ItemSourcePF2e } from '@item/data';
 import { MigrationBase } from './base';
 
 export class Migration618MigrateItemImagePaths extends MigrationBase {
     static version = 0.618;
 
-    readonly IMAGE_PATHS: { [key: string]: string } = {
+    readonly IMAGE_PATHS: Record<string, ImagePath> = {
         'systems/pf2e/icons/equipment/weapons/blowgun.png': 'systems/pf2e/icons/equipment/weapons/blowgun.jpg',
         'systems/pf2e/icons/equipment/weapons/trident.png': 'systems/pf2e/icons/equipment/weapons/trident.jpg',
         'systems/pf2e/icons/equipment/weapons/longsword.png': 'systems/pf2e/icons/equipment/weapons/longsword.jpg',
@@ -64,9 +64,7 @@ export class Migration618MigrateItemImagePaths extends MigrationBase {
         'systems/pf2e/icons/equipment/weapons/cane.png': 'systems/pf2e/icons/equipment/weapons/cane.jpg',
     };
 
-    async updateItem(itemData: ItemDataPF2e) {
-        if (itemData.img in this.IMAGE_PATHS) {
-            itemData.img = this.IMAGE_PATHS[itemData.img];
-        }
+    async updateItem(itemData: ItemSourcePF2e) {
+        itemData.img = this.IMAGE_PATHS[itemData.img] ?? itemData.img;
     }
 }

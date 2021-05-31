@@ -1,4 +1,4 @@
-import { CharacterData, NPCData } from '@actor/data-definitions';
+import { CharacterData, NPCData } from '@actor/data';
 import { RuleElementPF2e } from '../rule-element';
 
 /**

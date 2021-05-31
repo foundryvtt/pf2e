@@ -1,7 +1,7 @@
 import { ActorPF2e } from '@actor/base';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { fetchSpell } from 'tests/setup';
-import { SpellFacade } from '@item/spell-facade';
+import { SpellFacade } from '@item/spell/facade';
 
 import * as characterData from 'tests/fixtures/characterData.json';
 import * as spellcastingEntry from 'tests/fixtures/items/spellcastingEntry.json';
@@ -17,15 +17,15 @@ const litanyAgainstWrath = fetchSpell('litanyAgainstWrath');
 const spellcastingEntryItem = {
     data: spellcastingEntry,
 };
-const actor = ({
-    getOwnedItem: (jest.fn().mockImplementation(() => spellcastingEntryItem) as unknown) as SpellcastingEntryPF2e,
+const actor = {
+    getOwnedItem: jest.fn().mockImplementation(() => spellcastingEntryItem) as unknown as SpellcastingEntryPF2e,
     data: characterData,
     items: [],
     get level() {
         return characterData.data.details.level.value;
     },
     getAbilityMod: (_ability: string) => 3,
-} as any) as ActorPF2e;
+} as any as ActorPF2e;
 
 describe('#spellcastingEntry', () => {
     test.skip('returns the spellcasting entry it comes from', () => {

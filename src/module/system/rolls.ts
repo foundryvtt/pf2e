@@ -1,9 +1,10 @@
 import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-dialog';
 import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
 import { ModifierPredicate, StatisticModifier } from '../modifiers';
-import { PF2CheckDC } from './check-degree-of-success';
+import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
 import { DamageTemplate } from '@system/damage/weapon';
 import { RollNotePF2e } from '@module/notes';
+import { ChatMessagePF2e } from '@module/chat-message';
 
 /** Possible parameters of a RollFunction */
 export interface RollParameters {
@@ -24,9 +25,6 @@ interface RerollOptions {
     keep?: 'new' | 'best' | 'worst';
 }
 
-/**
- * @category PF2
- */
 export class CheckPF2e {
     /**
      * Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down.
@@ -69,7 +67,7 @@ export class CheckPF2e {
     }
 
     /** Reroll a rolled check given a chat message. */
-    static async rerollFromMessage(message: ChatMessage, { heroPoint = false, keep = 'new' }: RerollOptions = {}) {
+    static async rerollFromMessage(message: ChatMessagePF2e, { heroPoint = false, keep = 'new' }: RerollOptions = {}) {
         if (!(message.isAuthor || game.user.isGM)) {
             ui.notifications.error(game.i18n.localize('PF2E.RerollMenu.ErrorCantDelete'));
             return;
@@ -79,7 +77,7 @@ export class CheckPF2e {
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
         if (heroPoint) {
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
-            if (actor) {
+            if (actor?.data.type === 'character') {
                 const heroPointCount = actor.data.data.attributes.heroPoints.rank;
                 if (heroPointCount) {
                     await actor.update({
@@ -98,8 +96,8 @@ export class CheckPF2e {
 
         await message.delete();
 
-        const oldRoll = message.roll;
-        const newRoll = oldRoll.reroll();
+        const oldRoll = message.roll!;
+        const newRoll = oldRoll.reroll({ async: false });
 
         // Keep the new roll by default; Old roll is discarded
         let keepRoll = newRoll;
@@ -112,21 +110,41 @@ export class CheckPF2e {
             keepRoll = oldRoll;
         }
 
-        const newMessage = await ChatMessage.create(
+        // Update the degree of success message for rolls with a DC
+        const context = message.getFlag('pf2e', 'context');
+        if (context?.dc) {
+            const degreeOfSuccess = getDegreeOfSuccess(keepRoll, context.dc);
+            keepRoll.data.degreeOfSuccess = degreeOfSuccess.value;
+            const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
+            let adjustmentLabel = '';
+            if (degreeOfSuccess.degreeAdjustment !== undefined) {
+                adjustmentLabel = degreeOfSuccess.degreeAdjustment
+                    ? game.i18n.localize('PF2E.OneDegreeBetter')
+                    : game.i18n.localize('PF2E.OneDegreeWorse');
+                adjustmentLabel = ` (${adjustmentLabel})`;
+            }
+            const resultLabel = game.i18n.localize('PF2E.ResultLabel');
+            const degreeLabel = game.i18n.localize(`PF2E.${context.dc.scope ?? 'CheckOutcome'}.${degreeOfSuccessText}`);
+            const newString = `<div class="degree-of-success"><b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel}</span></b>${adjustmentLabel}</div>`;
+            const regex = new RegExp('<div class="degree-of-success">.+?</div>', 'g');
+            message.data.flavor = message.data.flavor?.replace(regex, newString);
+        }
+
+        const newMessage = await ChatMessagePF2e.create(
             {
                 roll: keepRoll,
                 content: `<div class="${oldRollClass}">${await CheckPF2e.renderReroll(
-                    oldRoll,
+                    oldRoll!,
                 )}</div><div class='pf2e-reroll-second ${newRollClass}'>${await CheckPF2e.renderReroll(newRoll)}</div>`,
                 flavor: `<i class='fa fa-dice pf2e-reroll-indicator' title="${rerollFlavor}"></i>${message.data.flavor}`,
                 sound: CONFIG.sounds.dice,
                 speaker: message.data.speaker,
             },
             {
-                rollMode: message.data.flags?.pf2e?.context?.rollMode ?? 'roll',
+                rollMode: message.getFlag('pf2e', 'context')?.rollMode ?? 'roll',
             },
         );
-        await newMessage.setFlag('pf2e', 'canReroll', false);
+        await newMessage?.setFlag('pf2e', 'canReroll', false);
     }
 
     /**

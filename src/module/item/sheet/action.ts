@@ -1,20 +1,25 @@
 import { ActionPF2e } from '@item/action';
-import { FeatData, WeaponData } from '@item/data/types';
 import { ItemSheetDataPF2e, ItemSheetPF2e } from './base';
 
 export class ActionSheetPF2e extends ItemSheetPF2e<ActionPF2e> {
     getData() {
-        const data: ItemSheetDataPF2e<FeatData> = super.getData();
-        const actorWeapons: WeaponData[] =
-            this.actor?.data.items.filter((itemData): itemData is WeaponData => itemData.type === 'weapon') ?? [];
+        const data: ItemSheetDataPF2e<ActionPF2e> = super.getData();
+        const actorWeapons = this.actor?.itemTypes.weapon.map((weapon) => weapon.data) ?? [];
         const actionType = data.data.actionType.value || 'action';
-        let actionImg: string | number = 0;
-        if (actionType === 'action') actionImg = parseInt((data.data.actions || {}).value, 10) || 1;
-        else if (actionType === 'reaction') actionImg = 'reaction';
-        else if (actionType === 'free') actionImg = 'free';
-        else if (actionType === 'passive') actionImg = 'passive';
+        const actionImg = (() => {
+            switch (actionType) {
+                case 'action':
+                    return (Number(data.data.actions.value) || 1).toString();
+                case 'reaction':
+                case 'free':
+                case 'passive':
+                    return actionType;
+                default:
+                    return 'passive';
+            }
+        })();
 
-        data.item.img = this.getActionImg(actionImg.toString());
+        data.item.img = this.getActionImg(actionImg);
 
         return {
             ...data,

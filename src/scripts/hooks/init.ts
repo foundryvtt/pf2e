@@ -1,30 +1,32 @@
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
+import { MystifiedTraits } from '@item/data/values';
 import { ActiveEffectPF2e } from '@module/active-effect';
+import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
+import { TokenPF2e } from '@module/canvas/token';
+import { ChatMessagePF2e } from '@module/chat-message';
+import { CombatPF2e } from '@module/combat';
+import { CombatantPF2e } from '@module/combatant';
 import { ConditionManager } from '@module/conditions';
 import { registerHandlebarsHelpers } from '@module/handlebars';
+import { MacroPF2e } from '@module/macro';
 import {
     AbilityModifier,
     CheckModifier,
     ModifierPF2e,
     MODIFIER_TYPE,
-    StatisticModifier,
     ProficiencyModifier,
+    StatisticModifier,
 } from '@module/modifiers';
 import { registerSettings } from '@module/settings';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { CheckPF2e } from '@module/system/rolls';
 import { loadPF2ETemplates } from '@module/templates';
+import { TokenDocumentPF2e } from '@module/token-document';
 import { PlayerConfigPF2e } from '@module/user/player-config';
-import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 import { StatusEffects } from '../actor/status-effects';
 import { PF2ECONFIG } from '../config';
 import { DicePF2e } from '../dice';
-import * as MonkeyPatch from '../🐵🩹';
-import { CombatPF2e } from '@module/combat';
-import { ChatMessagePF2e } from '@module/chat-message';
-import { MacroPF2e } from '@module/macro';
-import { MystifiedTraits } from '@item/data/values';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -34,12 +36,15 @@ export function listen(): void {
         CONFIG.debug.ruleElement ??= false;
 
         // Assign document classes.
-        CONFIG.Item.entityClass = ItemPF2e;
-        CONFIG.ActiveEffect.entityClass = ActiveEffectPF2e;
-        CONFIG.Actor.entityClass = ActorPF2e;
-        CONFIG.ChatMessage.entityClass = ChatMessagePF2e;
-        CONFIG.Combat.entityClass = CombatPF2e;
-        CONFIG.Macro.entityClass = MacroPF2e;
+        CONFIG.Item.documentClass = ItemPF2e;
+        CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
+        CONFIG.Actor.documentClass = ActorPF2e;
+        CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
+        CONFIG.Combat.documentClass = CombatPF2e;
+        CONFIG.Combatant.documentClass = CombatantPF2e;
+        CONFIG.Macro.documentClass = MacroPF2e;
+        CONFIG.Token.documentClass = TokenDocumentPF2e;
+        CONFIG.Token.objectClass = TokenPF2e;
 
         // Automatically advance world time by 6 seconds each round
         CONFIG.time.roundTime = 6;
@@ -52,14 +57,52 @@ export function listen(): void {
 
         // configure the bundled TinyMCE editor with PF2-specific options
         CONFIG.TinyMCE.extended_valid_elements = 'pf2-action[action|glyph]';
-        CONFIG.TinyMCE.content_css = (CONFIG.TinyMCE.content_css ?? []).concat(
+        CONFIG.TinyMCE.content_css = CONFIG.TinyMCE.content_css.concat(
             `systems/${game.system.id}/styles/pf2e.css`,
+            `systems/${game.system.id}/styles/tinymce.css`,
         );
         CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
-            title: 'Icons A D T F R',
-            inline: 'span',
-            classes: ['pf2-icon'],
-            wrapper: true,
+            title: 'PF2E',
+            items: [
+                {
+                    title: 'Icons A D T F R',
+                    inline: 'span',
+                    classes: ['pf2-icon'],
+                    wrapper: true,
+                },
+                {
+                    title: 'Inline Header',
+                    block: 'h4',
+                    classes: 'inline-header',
+                },
+                {
+                    title: 'Info Block',
+                    block: 'section',
+                    classes: 'info',
+                    wrapper: true,
+                    exact: true,
+                    merge_siblings: false,
+                },
+                {
+                    title: 'Stat Block',
+                    block: 'section',
+                    classes: 'statblock',
+                    wrapper: true,
+                    exact: true,
+                    merge_siblings: false,
+                },
+                {
+                    title: 'Trait',
+                    block: 'section',
+                    classes: 'traits',
+                    wrapper: true,
+                },
+                {
+                    title: 'Written Note',
+                    block: 'p',
+                    classes: 'message',
+                },
+            ],
         });
 
         PlayerConfigPF2e.hookOnRenderSettings();
@@ -152,7 +195,5 @@ export function listen(): void {
                 return CheckPF2e;
             },
         });
-
-        MonkeyPatch.patchCompendiumImports();
     });
 }

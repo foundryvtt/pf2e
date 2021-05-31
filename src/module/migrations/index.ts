@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { MigrationBase } from './base';
 import { Migration412MigrateDyingCondition } from './412-migrate-dying-condition';
 import { Migration544MigrateStamina } from './544-migrate-stamina';

@@ -1,8 +1,10 @@
 <section class="sheet-sidebar sidebar sidebar-loot">
-    <div class="bio-item trait-size pf-container">
-        <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="auto" width="100%" data-edit="img" />
-    </div>
-    <section>{{data.details.description.value}}</section>
+    <img class="actor-icon" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+    {{#if owner}}
+        {{editor content=data.details.description.value target="data.details.description.value" button=true user=user editable=editable}}
+    {{else}}
+        <div class="description">{{{enrichHTML data.details.description.value}}}</section>
+    {{/if}}
     {{#if user.isGM}}
         {{#if isLoot}}
             <section class="loot-distribution">

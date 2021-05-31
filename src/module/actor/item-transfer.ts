@@ -1,7 +1,8 @@
-import { PhysicalItemPF2e } from '@item/physical';
+import { PhysicalItemPF2e } from '@item/index';
 import { LocalizePF2e } from '@module/system/localize';
+import { UserPF2e } from '@module/user';
 import { ErrorPF2e } from '@module/utils';
-import { ActorPF2e, UserPF2e } from './base';
+import { ActorPF2e } from './index';
 
 export interface ItemTransferData {
     source: {
@@ -36,7 +37,7 @@ export class ItemTransfer implements ItemTransferData {
             const source = this.getSource();
             const target = this.getTarget();
             const loot = [source, target].find(
-                (actor) => actor instanceof ActorPF2e && actor.isLootableBy(game.user) && !actor.owner,
+                (actor) => actor instanceof ActorPF2e && actor.isLootableBy(game.user) && !actor.isOwner,
             );
 
             if (!(loot instanceof ActorPF2e)) throw ErrorPF2e('Unexpected missing actor');
@@ -46,7 +47,7 @@ export class ItemTransfer implements ItemTransferData {
             );
             return Promise.reject();
         }
-        console.debug(`PF2e System | Requesting item transfer from GM ${gamemaster.name}`);
+        console.debug(`PF2e System | Requesting item transfer from GM ${gamemaster?.name ?? '<None available>'}`);
 
         game.socket.emit('system.pf2e', { request: 'itemTransfer', data: this });
     }
@@ -97,7 +98,7 @@ export class ItemTransfer implements ItemTransferData {
             const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === tokenId);
             return token?.actor ?? null;
         }
-        return game.actors.find((actor) => actor.id === actorId);
+        return game.actors.get(actorId) ?? null;
     }
 
     private getSource(): ActorPF2e | null {
@@ -176,13 +177,16 @@ export class ItemTransfer implements ItemTransferData {
             const isMerchant = (actor: ActorPF2e) =>
                 actor.data.type === 'loot' && actor.data.data.lootSheetType === 'Merchant';
             const isWhat = (actor: ActorPF2e) => ({
-                isCharacter: actor.hasPerm(requester, 'OWNER') && actor.data.type === 'character',
+                isCharacter: actor.testUserPermission(requester, 'OWNER') && actor.data.type === 'character',
                 isMerchant: isMerchant(actor),
-                isNPC: actor.data.type === 'npc' && actor.isLootableBy(requester) && !actor.hasPerm(requester, 'OWNER'),
+                isNPC:
+                    actor.data.type === 'npc' &&
+                    actor.isLootableBy(requester) &&
+                    !actor.testUserPermission(requester, 'OWNER'),
                 isLoot:
                     actor.data.type === 'loot' &&
                     actor.isLootableBy(requester) &&
-                    !actor.hasPerm(requester, 'OWNER') &&
+                    !actor.testUserPermission(requester, 'OWNER') &&
                     !isMerchant(actor),
             });
             const source = isWhat(sourceActor);

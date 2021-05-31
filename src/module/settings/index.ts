@@ -1,8 +1,6 @@
-import { compendiumBrowser } from '../apps/compendium-browser';
 import { VariantRulesSettings } from './variant-rules';
 import { Migrations } from '../migrations';
 import { WorldClockSettings } from './world-clock';
-import { CharacterPF2e } from '@actor/character';
 import { HomebrewElements } from './homebrew';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { objectHasKey } from '@module/utils';
@@ -122,7 +120,7 @@ export function registerSettings() {
         type: String,
         scope: 'world',
         onChange: () => {
-            compendiumBrowser.loadSettings();
+            game.pf2e.compendiumBrowser.loadSettings();
         },
     });
 
@@ -134,7 +132,7 @@ export function registerSettings() {
         default: true,
         type: Boolean,
         onChange: () => {
-            const actors = game.actors.filter((actor) => actor instanceof CharacterPF2e);
+            const actors = game.actors.filter((actor) => actor.type === 'character');
             const sheets = actors.flatMap((actor) => Object.values(actor.apps));
             for (const sheet of sheets) {
                 sheet.render();
