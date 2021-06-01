@@ -39,7 +39,7 @@ h4 {
 
 h1,
 h2 {
-    font-family: $serif;
+    font-family: var(--serif);
 }
 
 h1 {
@@ -54,20 +54,44 @@ h1 {
 
 h2 {
     text-transform: capitalize;
-    border-bottom: 1px solid var(--primary);
+    color: var(--secondary);
+    font-size: 1.8em;
+    border: none;
+}
+
+h3 {
+    font-family: var(--sans-serif) !important;
+    font-size: 1.4em;
+    font-weight: 900;
+    color: var(--primary);
 }
 
 h3,
-h4 {
+h4,
+h5,
+h6 {
+    font-family: 'Roboto Condensed', var(--sans-serif);
+}
+
+h4,
+h5,
+h6 {
     font-weight: 700;
-}
-
-:is(h3, h4) + p {
-    margin-top: var(--space-s);
+    color: black;
+    text-transform: uppercase;
 }
 
 h4 {
-    text-transform: uppercase;
+    font-size: 1.2em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+h5 {
+    font-size: 1.1em;
+}
+
+:is(h2, h3, h5, h6) + p {
+    margin-top: 0;
 }
 
 P {
@@ -189,6 +213,7 @@ blockquote::before {
     align-items: center;
     justify-content: space-between;
     text-transform: capitalize;
+    color: white;
 }
 
 .info h4::after {
