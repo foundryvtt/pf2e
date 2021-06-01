@@ -24,11 +24,13 @@
         "removeComments": false,
         "resolveJsonModule": true,
         "paths": {
+            "@actor": ["src/module/actor/index"],
             "@actor/*": ["src/module/actor/*"],
+            "@item": ["src/module/item/index"],
             "@item/*": ["src/module/item/*"],
+            "@system/*": ["src/module/system/*"],
             "@module/*": ["src/module/*"],
-            "@scripts/*": ["src/scripts/*"],
-            "@system/*": ["src/module/system/*"]
+            "@scripts/*": ["src/scripts/*"]
         },
         "types": [
             "jquery",
@@ -38,7 +40,11 @@
             "handlebars",
             "socket.io"
         ],
-        "typeRoots": ["node_modules/@types", "node_modules/handlebars"]
+        "typeRoots": [
+            "node_modules/@types",
+            "node_modules/handlebars",
+            "types/foundry"
+        ]
     },
     "ts-node": {
         "files": true

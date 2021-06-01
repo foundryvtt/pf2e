@@ -12,16 +12,8 @@ declare abstract class WorldCollection<
     /** The source data is, itself, a mapping of IDs to data objects */
     protected readonly _source: TDocument['data']['_source'];
 
-    /**
-     * An Array of application references which will be automatically updated when the collection content changes
-     */
+    /** An Array of application references which will be automatically updated when the collection content changes */
     apps: Application[];
-
-    /**
-     * @param data An Array of Entity data from which to create instances
-     * @override
-     */
-    constructor(data?: TDocument['data']);
 
     /**
      * Initialize the WorldCollection object by constructing its contained Document instances
@@ -46,7 +38,7 @@ declare abstract class WorldCollection<
     get directory(): SidebarDirectory | null;
 
     /** Return a reference to the singleton instance of this WorldCollection, or null if it has not yet been created. */
-    static get instance(): WorldCollection<foundry.abstract.Document>;
+    static get instance(): WorldCollection<ClientDocument>;
 
     /* -------------------------------------------- */
     /*  Collection Methods                          */
