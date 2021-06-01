@@ -32,6 +32,7 @@ import { TokenDocumentPF2e, TokenPF2e } from '@module/token-document';
 import { UserPF2e } from '@module/user';
 import { ScenePF2e } from '@module/scene';
 import { CompendiumBrowser } from '@module/apps/compendium-browser';
+import { remigrate } from '@scripts/system/remigrate';
 
 declare global {
     interface Game {
@@ -46,6 +47,9 @@ declare global {
             gm: {
                 calculateXP: typeof calculateXP;
                 launchTravelSheet: typeof launchTravelSheet;
+            };
+            system: {
+                remigrate: typeof remigrate;
             };
             Dice: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
