@@ -7,6 +7,7 @@ import type { ClassData, ClassSource } from '@item/class/data';
 import type { ConditionData, ConditionSource } from '@item/condition/data';
 import type { ConsumableData, ConsumableSource } from '@item/consumable/data';
 import type { ContainerData, ContainerSource } from '@item/container/data';
+import { MartialData } from '@item/deprecated';
 import type { EffectData, EffectSource } from '@item/effect/data';
 import type { EquipmentData, EquipmentSource } from '@item/equipment/data';
 import type { FeatData, FeatSource } from '@item/feat/data';
@@ -46,6 +47,7 @@ export type ItemDataPF2e =
     | FeatData
     | KitData
     | LoreData
+    | MartialData
     | MeleeData
     | SpellcastingEntryData
     | SpellData;
