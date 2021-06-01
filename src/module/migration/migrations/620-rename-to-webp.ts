@@ -36,7 +36,7 @@ export class Migration620RenameToWebp extends MigrationBase {
             effect.icon = this.renameToWebP(effect.icon);
         }
 
-        if (actorData.type === 'character' || actorData.type === 'npc') {
+        if (actorData.type === 'character') {
             actorData.data.details.deity.image = this.renameToWebP(actorData.data.details.deity.image);
         }
     }

@@ -17,11 +17,13 @@ import armorJSON from '../../packs/data/equipment.db/scale-mail.json';
 import { ArmorData } from '@item/data';
 import { FoundryUtils } from 'tests/utils';
 import { FakeActors, FakeCollection, FakeEntityCollection } from 'tests/fakes/fake-collection';
+import { LocalizePF2e } from '@module/system/localize';
 
 const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterData;
 const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorData;
 
 declare let game: any;
+LocalizePF2e.ready = true;
 
 describe('test migration runner', () => {
     populateFoundryUtilFunctions();
@@ -46,6 +48,7 @@ describe('test migration runner', () => {
             },
         },
         actors: new FakeActors(),
+        i18n: { format: () => {} },
         items: new FakeEntityCollection<FakeItem>(),
         macros: new FakeEntityCollection<FakeMacro>(),
         messages: new FakeEntityCollection<FakeChatMessage>(),
