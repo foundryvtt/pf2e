@@ -96,6 +96,18 @@ export class ActiveEffectPF2e extends ActiveEffect {
         return super.apply(actor, change);
     }
 
+    /**
+     * Create a non-existing property before the parent class applies an upgrade
+     * @override
+     */
+    protected _applyUpgrade(actor: ActorPF2e, change: ApplicableChangeData): unknown {
+        if (!foundry.utils.hasProperty(actor.data, change.key) && !Number.isNaN(Number(change.value))) {
+            foundry.utils.setProperty(actor.data, change.key, 0);
+        }
+
+        return super._applyUpgrade(actor, change);
+    }
+
     private valueIsLookupData(value: unknown): value is ItemLookupData {
         return value instanceof Object && 'pack' in value && 'id' in value;
     }
