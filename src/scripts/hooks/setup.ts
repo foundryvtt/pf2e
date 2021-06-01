@@ -117,10 +117,6 @@ function registerPF2ActionClickListener() {
  */
 export function listen() {
     Hooks.once('setup', () => {
-        /** @todo: Find the new correct place to put this */
-        // // Set local mystery-man icon
-        // CONST.DEFAULT_TOKEN = 'systems/pf2e/icons/default-icons/mystery-man.svg';
-
         LocalizePF2e.ready = true;
 
         // Register actor and item sheets
