@@ -22,7 +22,7 @@ import { PF2MultipleAttackPenaltyRuleElement } from './elements/multiple-attack-
 import { PF2EffectTargetRuleElement } from './elements/effect-target';
 import { PF2ActorTraits } from '@module/rules/elements/actor-traits';
 import { PF2RecoveryCheckDCRuleElement } from '@module/rules/feats/recovery-check-dc';
-
+import { PF2AdjustDegreeOfSuccessRuleElement } from './elements/adjust-degree-of-success';
 export { RuleElementPF2e };
 
 /**
@@ -54,6 +54,8 @@ export class RuleElements {
             'PF2E.RuleElement.WeaponPotency': (ruleData, item) => new PF2WeaponPotencyRuleElement(ruleData, item),
             'PF2E.RuleElement.ActorTraits': (ruleData, item) => new PF2ActorTraits(ruleData, item),
             'PF2E.RuleElement.RecoveryCheckDC': (ruleData, item) => new PF2RecoveryCheckDCRuleElement(ruleData, item),
+            'PF2E.RuleElement.AdjustDegreeOfSuccess': (ruleData, item) =>
+                new PF2AdjustDegreeOfSuccessRuleElement(ruleData, item),
         });
 
     static custom: Record<string, (ruleData: PF2RuleElementData, item: ItemDataPF2e) => RuleElementPF2e> = {};
