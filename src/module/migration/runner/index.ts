@@ -238,7 +238,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         return packsToRelock;
     }
 
-    async runMigration() {
+    async runMigration(force = false) {
         const systemVersion = MigrationRunner.WORLD_SCHEMA_VERSION;
         const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
 
@@ -246,7 +246,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             permanent: true,
         });
 
-        const migrationsToRun = this.migrations.filter((x) => currentVersion < x.version);
+        const migrationsToRun = force ? this.migrations : this.migrations.filter((x) => currentVersion < x.version);
 
         // We need to break the migration into phases sometimes.
         // for instance, if a migration creates an item, we need to push that to

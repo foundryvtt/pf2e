@@ -25,5 +25,5 @@ export async function remigrate(schemaVersions: number | { from: number; to?: nu
         return;
     }
     const runner = new MigrationRunner(migrations);
-    await runner.runMigration();
+    await runner.runMigration(true);
 }
