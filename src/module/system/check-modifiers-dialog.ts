@@ -164,6 +164,7 @@ export class CheckModifiersDialog extends Application {
                         canReroll: !['fortune', 'misfortune'].includes(ctx.fate),
                         context: ctx,
                         unsafe: flavor,
+                        totalModifier: check.totalModifier,
                     },
                 },
             },
