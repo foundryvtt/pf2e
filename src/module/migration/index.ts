@@ -97,4 +97,10 @@ export class Migrations {
     static constructForWorld(version: number): MigrationBase[] {
         return this.list.filter((Migration) => Migration.version > version).map((Migration) => new Migration());
     }
+
+    static constructRange(min: number, max = Infinity): MigrationBase[] {
+        return this.list
+            .filter((Migration) => Migration.version >= min && Migration.version <= max)
+            .map((Migration) => new Migration());
+    }
 }
