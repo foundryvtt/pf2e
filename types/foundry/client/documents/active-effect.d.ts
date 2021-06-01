@@ -73,7 +73,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        apply(actor: Actor, change: ApplicableChangeData): unknown;
+        apply(actor: Actor, change: ApplicableChangeData<this>): unknown;
 
         /**
          * Apply an ActiveEffect that uses an ADD application mode.
@@ -88,7 +88,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyAdd(actor: Actor, change: ApplicableChangeData): unknown;
+        protected _applyAdd(actor: Actor, change: ApplicableChangeData<this>): unknown;
 
         /**
          * Apply an ActiveEffect that uses a MULTIPLY application mode.
@@ -97,7 +97,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyMultiply(actor: Actor, change: ApplicableChangeData): unknown;
+        protected _applyMultiply(actor: Actor, change: ApplicableChangeData<this>): unknown;
 
         /**
          * Apply an ActiveEffect that uses an OVERRIDE application mode.
@@ -106,7 +106,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        _applyOverride(actor: Actor, change: ApplicableChangeData): unknown;
+        _applyOverride(actor: Actor, change: ApplicableChangeData<this>): unknown;
 
         /**
          * Apply an ActiveEffect that uses an UPGRADE, or DOWNGRADE application mode.
@@ -115,7 +115,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyUpgrade(actor: Actor, change: ApplicableChangeData): unknown;
+        protected _applyUpgrade(actor: Actor, change: ApplicableChangeData<this>): unknown;
 
         /**
          * Apply an ActiveEffect that uses a CUSTOM application mode.
@@ -123,7 +123,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        _applyCustom(actor: Actor, change: ApplicableChangeData): unknown;
+        _applyCustom(actor: Actor, change: ApplicableChangeData<this>): unknown;
 
         /** Get the name of the source of the Active Effect */
         _getSourceName(): Promise<string>;
@@ -158,7 +158,7 @@ declare global {
         };
     }
 
-    interface ApplicableChangeData extends foundry.data.EffectChangeSource {
-        effect: ActiveEffect;
+    interface ApplicableChangeData<T extends ActiveEffect> extends foundry.data.EffectChangeSource {
+        effect: T;
     }
 }

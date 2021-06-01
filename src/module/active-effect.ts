@@ -8,16 +8,17 @@ interface ItemLookupData {
 }
 
 export class ActiveEffectPF2e extends ActiveEffect {
+    get isDisabled(): boolean {
+        return this.data.disabled;
+    }
+
     get isEnabled(): boolean {
         return !this.data.disabled;
     }
 
+    /** Apply this ActiveEffect to the actor immediately upon spellcasting */
     get applyOnCast(): boolean {
         return this.getFlag('pf2e', 'applyOnCast') ?? false;
-    }
-
-    async enable(): Promise<void> {
-        await this.update({ disabled: false });
     }
 
     prepareBaseData(): void {
@@ -44,7 +45,7 @@ export class ActiveEffectPF2e extends ActiveEffect {
      * Parse non-primitive change values just prior to application to the actor
      * @override
      */
-    apply(actor: ActorPF2e, change: ApplicableChangeData): unknown {
+    apply(actor: ActorPF2e, change: ApplicableChangeData<this>): unknown {
         if (!change.value.startsWith('{')) return super.apply(actor, change);
         // Prepare changes with non-primitive values
         const effect = change.effect;
@@ -100,12 +101,36 @@ export class ActiveEffectPF2e extends ActiveEffect {
      * Create a non-existing property before the parent class applies an upgrade
      * @override
      */
-    protected _applyUpgrade(actor: ActorPF2e, change: ApplicableChangeData): unknown {
+    protected _applyUpgrade(actor: ActorPF2e, change: ApplicableChangeData<this>): unknown {
         if (!foundry.utils.hasProperty(actor.data, change.key) && !Number.isNaN(Number(change.value))) {
             foundry.utils.setProperty(actor.data, change.key, 0);
         }
 
         return super._applyUpgrade(actor, change);
+    }
+
+    /** Disable this active effect for a single data-preparation cycle  */
+    temporarilyDisable(this: Embedded<ActiveEffectPF2e>, actor: ActorPF2e): void {
+        if (this.parent?.parent != actor) return;
+
+        const stringyChanges = JSON.stringify(this.data._source.changes);
+        const transferredEffect = actor.effects.find(
+            (effect) =>
+                effect.data.origin === this.parent.uuid &&
+                // There is unfortunately no reference between an AE on an item and its transfer on the owning actor
+                JSON.stringify(effect.data._source.changes) === stringyChanges,
+        );
+
+        if (transferredEffect) {
+            this.data.disabled = true;
+            transferredEffect.data.disabled = true;
+            // Refresh token data if any disabled effects include token
+            if (transferredEffect.data.changes.some((change) => change.key.trim().startsWith('token.'))) {
+                for (const token of actor.getActiveTokens()) {
+                    token.applyOverrides(actor.overrides.token);
+                }
+            }
+        }
     }
 
     private valueIsLookupData(value: unknown): value is ItemLookupData {
@@ -132,6 +157,22 @@ export class ActiveEffectPF2e extends ActiveEffect {
             (item) => !!(item.getFlag('pf2e', 'grantedBy') === this.id && item.sourceId?.endsWith(lookupData.id)),
         );
         await toRevoke?.delete();
+    }
+
+    /**
+     * Propagate deletion of prototype token overrides to any placed tokens
+     * @override
+     */
+    protected _onDelete(options: DocumentModificationContext, userId: string) {
+        super._onDelete(options, userId);
+        const parent = this.parent;
+        if (parent instanceof ActorPF2e) {
+            for (const token of parent.getActiveTokens()) {
+                if (Object.keys(token.overrides).length > 0) {
+                    token.applyOverrides(parent.overrides.token);
+                }
+            }
+        }
     }
 }
 

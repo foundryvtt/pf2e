@@ -1,5 +1,5 @@
 import { ActorSheetPF2e } from '@actor/sheet/base';
-import { TokenPF2e } from '@module/token-document';
+import { TokenPF2e } from '@module/canvas/token';
 
 Hooks.on('dropCanvasData', async (canvas: Canvas<TokenPF2e>, data) => {
     const target = canvas.tokens.placeables.find((token) => {

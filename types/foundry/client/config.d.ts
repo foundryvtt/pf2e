@@ -47,23 +47,117 @@ declare global {
             sheetClass: typeof ActiveEffectConfig;
         };
 
+        /** Configuration settings for the Canvas and its contained layers and objects */
         Canvas: {
             blurStrength: number;
             darknessColor: number;
             darknessLightPenalty: number;
             daylightColor: number;
-            dispositionColors: Record<string, number>;
+            dispositionColors: {
+                HOSTILE: number;
+                NEUTRAL: number;
+                FRIENDLY: number;
+                INACTIVE: number;
+                PARTY: number;
+                CONTROLLED: number;
+            };
             exploredColor: number;
-            lightAnimations: Record<string, unknown>;
+            unexploredColor: number;
+            layers: {
+                background: typeof PlaceablesLayer;
+                drawings: typeof PlaceablesLayer;
+                grid: typeof GridLayer;
+                walls: typeof WallsLayer;
+                templates: typeof TemplateLayer;
+                notes: typeof NotesLayer;
+                tokens: typeof TokenLayer;
+                foreground: typeof PlaceablesLayer;
+                sounds: typeof PlaceablesLayer;
+                lighting: typeof LightingLayer;
+                sight: typeof PlaceablesLayer;
+                effects: typeof PlaceablesLayer;
+                controls: typeof PlaceablesLayer;
+            };
             lightLevels: {
                 dark: number;
                 dim: number;
                 bright: number;
             };
-            maxZoom: number;
             normalLightColor: number;
+            maxZoom: number;
             objectBorderThickness: number;
-            unexploredColor: number;
+            lightAnimations: {
+                torch: {
+                    label: 'LIGHT.AnimationTorch';
+                    animation: PointSource['animateTorch'];
+                    illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
+                };
+                pulse: {
+                    label: 'LIGHT.AnimationPulse';
+                    animation: PointSource['animatePulse'];
+                    illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
+                };
+                chroma: {
+                    label: 'LIGHT.AnimationChroma';
+                    animation: PointSource['animateTime'];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                wave: {
+                    label: 'LIGHT.AnimationWave';
+                    animation: PointSource['animateTime'];
+                    illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
+                };
+                fog: {
+                    label: 'LIGHT.AnimationFog';
+                    animation: PointSource['animateTime'];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                sunburst: {
+                    label: 'LIGHT.AnimationSunburst';
+                    animation: PointSource['animateTime'];
+                    illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
+                };
+                dome: {
+                    label: 'LIGHT.AnimationLightDome';
+                    animation: PointSource['animateTime'];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                emanation: {
+                    label: 'LIGHT.AnimationEmanation';
+                    animation: PointSource['animateTime'];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                hexa: {
+                    label: 'LIGHT.AnimationHexaDome';
+                    animation: PointSource['animateTime'];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                ghost: {
+                    label: 'LIGHT.AnimationGhostLight';
+                    animation: PointSource['animateTime'];
+                    illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
+                };
+                energy: {
+                    label: 'LIGHT.AnimationEnergyField';
+                    animation: PointSource['animateTime'];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                roiling: {
+                    label: 'LIGHT.AnimationRoilingMass';
+                    animation: PointSource['animateTime'];
+                    illuminationShader: typeof PIXI.Shader;
+                };
+                hole: {
+                    label: 'LIGHT.AnimationBlackHole';
+                    animation: PointSource['animateTime'];
+                    illuminationShader: typeof PIXI.Shader;
+                };
+            };
         };
 
         ChatMessage: {
@@ -257,7 +351,7 @@ declare global {
 
         /** Default configuration options for TinyMCE editors */
         // See https://www.tiny.cloud/docs/configure/content-appearance/
-        TinyMCE: TinyMCE.EditorSettings & {
+        TinyMCE: Omit<TinyMCE.EditorSettings, 'content_css' | 'style_formats'> & {
             content_css: string[];
             style_formats: NonNullable<TinyMCE.EditorSettings['style_formats']>;
         };
