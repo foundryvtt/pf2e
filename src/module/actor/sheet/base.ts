@@ -1795,14 +1795,14 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
      */
     protected async _renderInner(data: Record<string, unknown>, options: RenderOptions) {
         // Identify which item summaries are expanded currently
-        const expandedItems = this.element.find('.item.expanded[data-item-id]');
-        const openItems = new Set(expandedItems.map((_i, el) => el.dataset.itemId));
+        const expandedItemElements = this.element.find('.item.expanded[data-item-id]');
+        const openItemIds = new Set(expandedItemElements.map((_i, el) => el.dataset.itemId));
 
         const result = await super._renderInner(data, options);
 
         // Re-open hidden item summaries
-        for (const element of openItems) {
-            this.toggleItemSummary(result.find(`.item[data-item-id=${element}]`), { instant: true });
+        for (const elementId of openItemIds) {
+            this.toggleItemSummary(result.find(`.item[data-item-id=${elementId}]`), { instant: true });
         }
 
         return result;
