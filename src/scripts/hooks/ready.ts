@@ -1,11 +1,11 @@
 import { activateSocketListener } from '@scripts/socket';
 import { PlayerConfigPF2e } from '@module/user/player-config';
 import { prepareMinions } from '@scripts/actor/prepare-minions';
-import { MigrationRunner } from '@module/migration-runner';
-import { Migrations } from '@module/migrations';
+import { MigrationRunner } from '@module/migration/runner';
+import { Migrations } from '@module/migration';
 import { ActionsPF2e } from '@system/actions/actions';
 import { HomebrewElements } from '@module/settings/homebrew';
-import { setWorldSchemaVersion } from '@module/migrations/set-world-schema-version';
+import { setWorldSchemaVersion } from '@module/migration/set-world-schema-version';
 import { WorldClock } from '@module/system/world-clock';
 import { CompendiumBrowser } from '@module/apps/compendium-browser';
 
@@ -20,9 +20,10 @@ export function listen(): void {
 
         // Determine whether a system migration is required and feasible
         const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
-        const COMPATIBLE_MIGRATION_VERSION = 0.411;
+        const COMPATIBLE_MIGRATION_VERSION = 0.6;
 
-        if (game.user.isGM && game.user.role !== CONST.USER_ROLES.ASSISTANT) {
+        // User#isGM is inclusive of both gamemasters and assistant gamemasters, so check for the specific role
+        if (game.user.hasRole(CONST.USER_ROLES.GAMEMASTER)) {
             // Perform the migration
             const migrationRunner = new MigrationRunner(Migrations.constructForWorld(currentVersion));
             if (migrationRunner.needsMigration()) {

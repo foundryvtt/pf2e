@@ -2,8 +2,8 @@
 
 import { populateFoundryUtilFunctions } from '../fixtures/foundryshim';
 import { ActorDataPF2e, CharacterData } from '@actor/data';
-import { MigrationRunner } from '@module/migration-runner';
-import { MigrationBase } from '@module/migrations/base';
+import { MigrationRunner } from '@module/migration/runner';
+import { MigrationBase } from '@module/migration/base';
 import { FakeActor } from 'tests/fakes/fake-actor';
 import { FakeItem } from 'tests/fakes/fake-item';
 import { FakeMacro } from 'tests/fakes/fake-macro';
@@ -103,14 +103,14 @@ describe('test migration runner', () => {
 
     test('expect needs upgrade when version older', () => {
         settings.worldSchemaVersion = 5;
-        game.system.data.schema = 11;
+        MigrationRunner.WORLD_SCHEMA_VERSION = 11;
         const migrationRunner = new MigrationRunner([new Version10(), new Version11()]);
         expect(migrationRunner.needsMigration()).toEqual(true);
     });
 
     test("expect doesn't need upgrade when version at latest", () => {
         settings.worldSchemaVersion = 11;
-        game.system.data.schema = 11;
+        MigrationRunner.WORLD_SCHEMA_VERSION = 11;
         const migrationRunner = new MigrationRunner([new Version10(), new Version11()]);
         expect(migrationRunner.needsMigration()).toEqual(false);
     });
@@ -126,7 +126,7 @@ describe('test migration runner', () => {
 
     test('expect update causes version to be updated', async () => {
         game.actors.set(characterData._id, new FakeActor(characterData));
-        game.system.data.schema = 12;
+        MigrationRunner.WORLD_SCHEMA_VERSION = 12;
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
         await migrationRunner.runMigration();
