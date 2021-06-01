@@ -43,22 +43,14 @@ export interface NPCSystemData extends CreatureSystemData {
     details: {
         /** The alignment this creature has. */
         alignment: { value: Alignment };
-        /** The race of this creature. */
-        ancestry: { value: string };
-        /** The deity this creature worships */
-        deity: { value: string; image: ImagePath };
         /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
-        level: { value: number; min: number };
+        level: { value: number };
         /** Which sourcebook this creature comes from. */
         source: { value: string };
         /** Information about what is needed to recall knowledge about this creature. */
         recallKnowledgeText: string;
-        /** Information which shows up on the sidebar of the creature. */
-        sidebarText: string;
         /** The type of this creature (such as 'undead') */
         creatureType: string;
-        /** Flavor / descriptive background text for this creature. */
-        flavorText: string;
     };
 
     /** Any special attributes for this NPC, such as AC or health. */

@@ -238,16 +238,15 @@ export class MigrationRunner extends MigrationRunnerBase {
         return packsToRelock;
     }
 
-    async runMigration() {
-        const systemVersion = game.system.data.version;
+    async runMigration(force = false) {
+        const systemVersion = MigrationRunner.WORLD_SCHEMA_VERSION;
         const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
 
-        ui.notifications.info(
-            `Applying PF2E System Migration to version ${systemVersion}. Please be patient and do not close your game or shut down your server.`,
-            { permanent: true },
-        );
+        ui.notifications.info(game.i18n.format('PF2E.Migrations.Starting', { version: systemVersion }), {
+            permanent: true,
+        });
 
-        const migrationsToRun = this.migrations.filter((x) => currentVersion < x.version);
+        const migrationsToRun = force ? this.migrations : this.migrations.filter((x) => currentVersion < x.version);
 
         // We need to break the migration into phases sometimes.
         // for instance, if a migration creates an item, we need to push that to
@@ -269,6 +268,8 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
 
         game.settings.set('pf2e', 'worldSchemaVersion', MigrationRunner.WORLD_SCHEMA_VERSION);
-        ui.notifications.info(`PF2E System Migration to version ${systemVersion} completed!`, { permanent: true });
+        ui.notifications.info(game.i18n.format('PF2E.Migrations.Finished', { version: systemVersion }), {
+            permanent: true,
+        });
     }
 }
