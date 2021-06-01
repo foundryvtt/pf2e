@@ -25,6 +25,7 @@ import { StatusEffects } from '@scripts/actor/status-effects';
 import { EffectPanel } from '@module/system/effect-panel';
 import { EffectTracker } from '@module/system/effect-tracker';
 import { Rollable } from '@actor/data/base';
+import { remigrate } from '@scripts/system/remigrate';
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -141,6 +142,9 @@ export function listen() {
         game.pf2e.gm = {
             calculateXP,
             launchTravelSheet,
+        };
+        game.pf2e.system = {
+            remigrate,
         };
         game.pf2e.Dice = DicePF2e;
         game.pf2e.StatusEffects = StatusEffects;

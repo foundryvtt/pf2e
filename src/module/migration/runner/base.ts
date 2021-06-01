@@ -9,8 +9,13 @@ interface ItemsDiff {
 }
 
 export class MigrationRunnerBase {
-    static WORLD_SCHEMA_VERSION = 0.633;
     migrations: MigrationBase[];
+
+    static WORLD_SCHEMA_VERSION = 0.633;
+
+    static MINIMUM_SAFE_VERSION = 0.543;
+
+    static RECOMMENDED_SAFE_VERSION = 0.601;
 
     constructor(migrations: MigrationBase[] = []) {
         this.migrations = migrations.sort((a, b) => a.version - b.version);
