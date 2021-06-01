@@ -25,6 +25,7 @@ import { StatusEffects } from '@scripts/actor/status-effects';
 import { EffectPanel } from '@module/system/effect-panel';
 import { EffectTracker } from '@module/system/effect-tracker';
 import { Rollable } from '@actor/data/base';
+import { remigrate } from '@scripts/system/remigrate';
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -117,10 +118,6 @@ function registerPF2ActionClickListener() {
  */
 export function listen() {
     Hooks.once('setup', () => {
-        /** @todo: Find the new correct place to put this */
-        // // Set local mystery-man icon
-        // CONST.DEFAULT_TOKEN = 'systems/pf2e/icons/default-icons/mystery-man.svg';
-
         LocalizePF2e.ready = true;
 
         // Register actor and item sheets
@@ -145,6 +142,9 @@ export function listen() {
         game.pf2e.gm = {
             calculateXP,
             launchTravelSheet,
+        };
+        game.pf2e.system = {
+            remigrate,
         };
         game.pf2e.Dice = DicePF2e;
         game.pf2e.StatusEffects = StatusEffects;

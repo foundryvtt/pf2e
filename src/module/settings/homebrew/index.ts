@@ -2,9 +2,9 @@ import { MenuTemplateData, SettingsMenuPF2e } from '../menu';
 import Tagify from '@yaireo/tagify';
 import { prepareCleanup } from './cleanup-migration';
 import { LocalizePF2e } from '@module/system/localize';
-import { MigrationRunner } from '@module/migration-runner';
+import { MigrationRunner } from '@module/migration/runner';
 import { CharacterPF2e } from '@actor/index';
-import { MigrationBase } from '@module/migrations/base';
+import { MigrationBase } from '@module/migration/base';
 import { BaseWeaponType } from '@item/weapon/data';
 
 import '@yaireo/tagify/src/tagify.scss';
