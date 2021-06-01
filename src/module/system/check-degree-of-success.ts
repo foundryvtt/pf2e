@@ -1,3 +1,4 @@
+import { ModifierPredicate } from '@module/modifiers';
 import {
     DieRoll,
     DegreeAdjustment,
@@ -6,7 +7,7 @@ import {
     adjustDegreeOfSuccess,
 } from '../degree-of-success';
 
-interface PF2CheckDCModifiers {
+export interface PF2CheckDCModifiers {
     all?: 'one-degree-better' | 'one-degree-worse';
     criticalFailure?: 'one-degree-better' | 'one-degree-worse';
     failure?: 'one-degree-better' | 'one-degree-worse';
@@ -18,6 +19,10 @@ export interface PF2CheckDC {
     label?: string;
     modifiers?: PF2CheckDCModifiers;
     scope?: 'AttackOutcome' | 'CheckOutcome';
+    adjustment?: {
+        modifiers: PF2CheckDCModifiers;
+        predicate: ModifierPredicate;
+    };
     value: number;
     visibility?: 'gm' | 'owner' | 'all';
 }
