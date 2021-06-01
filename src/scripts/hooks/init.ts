@@ -3,6 +3,7 @@ import { ItemPF2e } from '@item/base';
 import { MystifiedTraits } from '@item/data/values';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
+import { TokenPF2e } from '@module/canvas/token';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { CombatPF2e } from '@module/combat';
 import { CombatantPF2e } from '@module/combatant';
@@ -34,7 +35,7 @@ export function listen(): void {
         CONFIG.PF2E = PF2ECONFIG;
         CONFIG.debug.ruleElement ??= false;
 
-        // Assign document classes.
+        // Assign document and Canvas classes
         CONFIG.Item.documentClass = ItemPF2e;
         CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
         CONFIG.Actor.documentClass = ActorPF2e;
@@ -43,6 +44,7 @@ export function listen(): void {
         CONFIG.Combatant.documentClass = CombatantPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
         CONFIG.Token.documentClass = TokenDocumentPF2e;
+        CONFIG.Token.objectClass = TokenPF2e;
 
         // Automatically advance world time by 6 seconds each round
         CONFIG.time.roundTime = 6;
@@ -55,7 +57,7 @@ export function listen(): void {
 
         // configure the bundled TinyMCE editor with PF2-specific options
         CONFIG.TinyMCE.extended_valid_elements = 'pf2-action[action|glyph]';
-        CONFIG.TinyMCE.content_css = (CONFIG.TinyMCE.content_css ?? []).concat(
+        CONFIG.TinyMCE.content_css = CONFIG.TinyMCE.content_css.concat(
             `systems/${game.system.id}/styles/pf2e.css`,
             `systems/${game.system.id}/styles/tinymce.css`,
         );

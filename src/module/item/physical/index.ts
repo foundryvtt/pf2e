@@ -87,18 +87,6 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     /** @override */
-    prepareEmbeddedEntities(): void {
-        // Disable active effects if the item isn't equipped and (if applicable) invested
-        if (!this.isEquipped || this.isInvested === false) {
-            for (const activeEffect of this.effects) {
-                activeEffect.data.disabled = true;
-            }
-        }
-
-        super.prepareEmbeddedEntities();
-    }
-
-    /** @override */
     prepareDerivedData(): void {
         super.prepareDerivedData();
         this.data.isMagical = this.isMagical;

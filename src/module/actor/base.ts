@@ -166,9 +166,33 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
     }
 
-    /** @override */
-    prepareDerivedData(): void {
-        super.prepareDerivedData();
+    /**
+     * Disable active effects from a physical item if it isn't equipped and (if applicable) invested
+     * @override
+     */
+    applyActiveEffects() {
+        for (const effect of this.effects) {
+            const itemId = effect.data.origin?.match(/Item\.([0-9a-z]+)/i)?.[1] ?? '';
+            const item = this.items.get(itemId);
+
+            if (item instanceof PhysicalItemPF2e && (!item.isEquipped || item.isInvested === false)) {
+                for (const effect of item.effects) {
+                    effect.temporarilyDisable(this);
+                }
+            }
+        }
+
+        super.applyActiveEffects();
+
+        // Refresh token effects if any token-modifying ActiveEffects are present
+        const hasTokenAE = this.effects.some((effect) =>
+            effect.data.changes.some((change) => change.key.trim().startsWith('token.')),
+        );
+        if (hasTokenAE) {
+            for (const token of this.getActiveTokens()) {
+                token.applyOverrides(this.overrides.token);
+            }
+        }
     }
 
     /** Synchronize the token image with the actor image, if the token does not currently have an image */
