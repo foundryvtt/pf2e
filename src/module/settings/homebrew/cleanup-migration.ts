@@ -1,4 +1,4 @@
-import { MigrationBase } from '@module/migrations/base';
+import { MigrationBase } from '@module/migration/base';
 import { ItemSourcePF2e } from '@item/data';
 import { ActorSourcePF2e } from '@actor/data';
 import { ConfigPF2eListName } from './index';
