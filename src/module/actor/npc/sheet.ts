@@ -1046,6 +1046,14 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     /** @override */
     protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // do not update max health if the value has not actually changed
+        if (this.isElite || this.isWeak) {
+            const { max } = this.actor.data.data.attributes.hp;
+            if (formData['data.attributes.hp.max'] === max) {
+                delete formData['data.attributes.hp.max'];
+            }
+        }
+
         // update shield hp
         const shield = this.actor.heldShield;
         if (shield && Number.isInteger(formData['data.attributes.shield.value'])) {
