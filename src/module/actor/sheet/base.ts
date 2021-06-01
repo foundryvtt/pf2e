@@ -1813,10 +1813,19 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
      * @override
      */
     protected async _render(force?: boolean, options?: RenderOptions) {
-        const scrollPosition = this.element.find('.tab.active').scrollTop();
+        // Retrieve scroll position of main container and active tab
+        const formScrollPosition = this.element.find('form:first').scrollTop();
+        const tabScrollPosition = this.element.find('.tab.active').scrollTop();
+
         await super._render(force, options);
-        if (scrollPosition) {
-            this.element.find('.tab.active').scrollTop(scrollPosition);
+
+        // Restore scroll positions
+        if (formScrollPosition) {
+            this.element.find('form:first').scrollTop(formScrollPosition);
+        }
+
+        if (tabScrollPosition) {
+            this.element.find('.tab.active').scrollTop(tabScrollPosition);
         }
     }
 }
