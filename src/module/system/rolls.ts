@@ -51,6 +51,20 @@ export class CheckPF2e {
         if (context) {
             const visible = (note: RollNotePF2e) => ModifierPredicate.test(note.predicate, context.options ?? []);
             context.notes = (context.notes ?? []).filter(visible);
+
+            if (context.dc) {
+                const { adjustment } = context.dc;
+                if (adjustment) {
+                    const merge = adjustment.predicate
+                        ? ModifierPredicate.test(adjustment.predicate, context.options ?? [])
+                        : true;
+
+                    if (merge) {
+                        context.dc.modifiers ??= {};
+                        mergeObject(context.dc.modifiers, adjustment.modifiers);
+                    }
+                }
+            }
         }
 
         // if control (or meta) is held, set roll mode to blind GM roll
