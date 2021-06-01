@@ -18,5 +18,6 @@ export interface ChatMessagePF2e {
     getFlag(scope: 'core', key: 'RollTable'): unknown;
     getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;
     getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
+    getFlag(scope: 'pf2e', key: 'totalModifier'): number | undefined;
     getFlag(scope: 'pf2e', key: 'context'): (CheckModifiersContext & { rollMode: RollMode }) | undefined;
 }

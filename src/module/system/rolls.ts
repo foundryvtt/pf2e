@@ -127,6 +127,7 @@ export class CheckPF2e {
         // Update the degree of success message for rolls with a DC
         const context = message.getFlag('pf2e', 'context');
         if (context?.dc) {
+            keepRoll.data.totalModifier = message.getFlag('pf2e', 'totalModifier') ?? 0;
             const degreeOfSuccess = getDegreeOfSuccess(keepRoll, context.dc);
             keepRoll.data.degreeOfSuccess = degreeOfSuccess.value;
             const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
