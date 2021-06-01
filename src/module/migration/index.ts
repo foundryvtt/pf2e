@@ -40,6 +40,7 @@ import { Migration630FixTalismanSpelling } from './migrations/630-fix-talisman-s
 import { Migration631FixSenseRuleElementSelector } from './migrations/631-fix-sense-rule-element-selector';
 import { Migration632DeleteOrphanedSpells } from './migrations/632-delete-orphaned-spells';
 import { Migration633DeleteUnidentifiedTraits } from './migrations/633-delete-unidentified-traits';
+import { Migration634PurgeMartialItems } from './migrations/634-purge-martial-items';
 
 export class Migrations {
     private static list = [
@@ -84,6 +85,7 @@ export class Migrations {
         Migration631FixSenseRuleElementSelector,
         Migration632DeleteOrphanedSpells,
         Migration633DeleteUnidentifiedTraits,
+        Migration634PurgeMartialItems,
     ];
 
     static get latestVersion(): number {
