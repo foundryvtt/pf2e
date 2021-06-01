@@ -1,5 +1,11 @@
 # Patch Notes:
 
+## Version 2.0.2
+### Core System Improvements
+* (stwlam) Re-enable data migrations
+* (stwlam) Add API to manually trigger data migrations
+
+
 ## Version 2.0.1
 ### Bug Fixes
 * (nikolaj-a) Fix actor data preparation with unmatched martial proficiency category
