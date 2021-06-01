@@ -34,20 +34,44 @@ h1 {
 
 h2 {
     text-transform: capitalize;
-    border-bottom: 1px solid var(--primary);
+    color: var(--secondary);
+    font-size: 1.8em;
+    border: none;
+}
+
+h3 {
+    font-family: $sans-serif !important;
+    font-size: 1.4em;
+    font-weight: 900;
+    color: var(--primary);
 }
 
 h3,
-h4 {
+h4,
+h5,
+h6 {
+    font-family: 'Roboto Condensed', $sans-serif;
+}
+
+h4,
+h5,
+h6 {
     font-weight: 700;
-}
-
-:is(h3, h4) + p {
-    margin-top: var(--space-s);
+    color: black;
+    text-transform: uppercase;
 }
 
 h4 {
-    text-transform: uppercase;
+    font-size: 1.2em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+h5 {
+    font-size: 1.1em;
+}
+
+:is(h2, h3, h5, h6) + p {
+    margin-top: 0;
 }
 
 P {
@@ -157,6 +181,7 @@ blockquote::before {
         align-items: center;
         justify-content: space-between;
         text-transform: capitalize;
+        color: white;
 
         &::after {
             font-family: 'Font Awesome 5 Free';
@@ -256,4 +281,26 @@ a.inline-roll {
     padding: var(--space-s) var(--space-m);
     background-color: var(--primary);
     margin: 0 !important;
+}
+
+ul {
+    margin-top: var(--space-s);
+    padding-left: var(--space-m);
+
+    li {
+        padding-left: var(--space-s);
+    }
+
+    li + li {
+        margin-top: 0;
+    }
+
+    li::marker {
+        content: '\25B8';
+        color: var(--primary);
+    }
+}
+
+p + ul {
+    margin-top: revert;
 }
