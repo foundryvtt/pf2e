@@ -283,7 +283,8 @@ a.inline-roll {
     margin: 0 !important;
 }
 
-ul {
+ul,
+ol {
     margin-top: var(--space-s);
     padding-left: var(--space-m);
 
@@ -294,13 +295,18 @@ ul {
     li + li {
         margin-top: 0;
     }
-
-    li::marker {
-        content: '\25B8';
-        color: var(--primary);
-    }
 }
 
-p + ul {
+ul li::marker {
+    content: '\25B8';
+    color: var(--primary);
+}
+
+ol li::marker {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+p + :is(ul, ol) {
     margin-top: revert;
 }
