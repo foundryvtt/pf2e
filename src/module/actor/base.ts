@@ -1,7 +1,7 @@
 import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, RawPredicate } from '../modifiers';
 import { isCycle } from '@item/container/helpers';
 import { DicePF2e } from '@scripts/dice';
-import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e } from '@item/index';
+import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e } from '@item';
 import type { ConditionPF2e, ArmorPF2e } from '@item/index';
 import { ConditionData, WeaponData, ItemSourcePF2e, ItemType } from '@item/data';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
