@@ -21,6 +21,8 @@ import { Rarity } from '@module/data';
 import { NPCData, NPCStrike } from './data';
 import { StrikeTrait } from '@actor/data/base';
 import { Attitude } from '@actor/creature/data';
+import { NPCSheetPF2e } from './sheet';
+import { NPCLegacySheetPF2e } from './legacy-sheet';
 
 export class NPCPF2e extends CreaturePF2e {
     /** @override */
@@ -812,14 +814,12 @@ export class NPCPF2e extends CreaturePF2e {
         });
     }
 
-    private async updateTokenAttitude(attitude: string) {
+    private async updateTokenAttitude(attitude: string): Promise<void> {
         const disposition = NPCPF2e.mapNPCAttitudeToTokenDisposition(attitude);
-        const tokens = (this as any).getActiveTokens(true, true); // TODO: Fix any type
-        const promises: Promise<any>[] = [];
-        for (const token of tokens) {
-            promises.push(token.update({ disposition }));
+        const tokenDocuments = this.getActiveTokens().map((token) => token.document);
+        for await (const tokenDoc of tokenDocuments) {
+            await tokenDoc.update({ disposition });
         }
-        await Promise.allSettled(promises);
     }
 
     private static mapNPCAttitudeToTokenDisposition(attitude: string): number {
@@ -953,6 +953,5 @@ export class NPCPF2e extends CreaturePF2e {
 
 export interface NPCPF2e {
     readonly data: NPCData;
-    /** @todo: fix */
-    // readonly _sheet: NPCSheetPF2e | NPCLegacySheetPF2e;
+    _sheet: NPCSheetPF2e | NPCLegacySheetPF2e;
 }
