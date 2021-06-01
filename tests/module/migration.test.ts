@@ -2,8 +2,8 @@
 
 import { populateFoundryUtilFunctions } from '../fixtures/foundryshim';
 import { ActorDataPF2e, CharacterData } from '@actor/data';
-import { MigrationRunner } from '@module/migration-runner';
-import { MigrationBase } from '@module/migrations/base';
+import { MigrationRunner } from '@module/migration/runner';
+import { MigrationBase } from '@module/migration/base';
 import { FakeActor } from 'tests/fakes/fake-actor';
 import { FakeItem } from 'tests/fakes/fake-item';
 import { FakeMacro } from 'tests/fakes/fake-macro';
@@ -17,11 +17,13 @@ import armorJSON from '../../packs/data/equipment.db/scale-mail.json';
 import { ArmorData } from '@item/data';
 import { FoundryUtils } from 'tests/utils';
 import { FakeActors, FakeCollection, FakeEntityCollection } from 'tests/fakes/fake-collection';
+import { LocalizePF2e } from '@module/system/localize';
 
 const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterData;
 const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorData;
 
 declare let game: any;
+LocalizePF2e.ready = true;
 
 describe('test migration runner', () => {
     populateFoundryUtilFunctions();
@@ -46,6 +48,7 @@ describe('test migration runner', () => {
             },
         },
         actors: new FakeActors(),
+        i18n: { format: () => {} },
         items: new FakeEntityCollection<FakeItem>(),
         macros: new FakeEntityCollection<FakeMacro>(),
         messages: new FakeEntityCollection<FakeChatMessage>(),
@@ -103,14 +106,14 @@ describe('test migration runner', () => {
 
     test('expect needs upgrade when version older', () => {
         settings.worldSchemaVersion = 5;
-        game.system.data.schema = 11;
+        MigrationRunner.WORLD_SCHEMA_VERSION = 11;
         const migrationRunner = new MigrationRunner([new Version10(), new Version11()]);
         expect(migrationRunner.needsMigration()).toEqual(true);
     });
 
     test("expect doesn't need upgrade when version at latest", () => {
         settings.worldSchemaVersion = 11;
-        game.system.data.schema = 11;
+        MigrationRunner.WORLD_SCHEMA_VERSION = 11;
         const migrationRunner = new MigrationRunner([new Version10(), new Version11()]);
         expect(migrationRunner.needsMigration()).toEqual(false);
     });
@@ -126,7 +129,7 @@ describe('test migration runner', () => {
 
     test('expect update causes version to be updated', async () => {
         game.actors.set(characterData._id, new FakeActor(characterData));
-        game.system.data.schema = 12;
+        MigrationRunner.WORLD_SCHEMA_VERSION = 12;
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
         await migrationRunner.runMigration();
