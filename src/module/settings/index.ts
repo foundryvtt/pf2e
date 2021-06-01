@@ -1,9 +1,9 @@
 import { VariantRulesSettings } from './variant-rules';
-import { Migrations } from '../migrations';
 import { WorldClockSettings } from './world-clock';
 import { HomebrewElements } from './homebrew';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { objectHasKey } from '@module/utils';
+import { MigrationRunner } from '@module/migration/runner';
 
 export function registerSettings() {
     game.settings.register('pf2e', 'worldSchemaVersion', {
@@ -11,7 +11,7 @@ export function registerSettings() {
         hint: 'PF2E.SETTINGS.WorldSchemaVersion.Hint',
         scope: 'world',
         config: true,
-        default: Migrations.latestVersion,
+        default: MigrationRunner.WORLD_SCHEMA_VERSION,
         type: Number,
     });
 

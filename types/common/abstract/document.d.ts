@@ -195,7 +195,7 @@ declare global {
                  */
                 static updateDocuments<T extends Document>(
                     this: ConstructorOf<T>,
-                    updates?: DocumentUpdateData<T>,
+                    updates?: DocumentUpdateData<T>[],
                     context?: DocumentModificationContext,
                 ): Promise<T[]>;
 
