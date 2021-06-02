@@ -578,9 +578,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         });
 
-        // Toggle Levels of stats (like proficiencies conditions or hero points)
-        html.find('.click-stat-level').on('click contextmenu', this.onClickStatLevel.bind(this));
-
         // Remove Spell Slot
         html.find('.item-unprepare').on('click', (event) => {
             const spellLvl = Number($(event.currentTarget).parents('.item').attr('data-spell-lvl') ?? 0);
@@ -867,46 +864,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
-
-    /**
-     * Handle clicking of stat levels. The max level is by default 4.
-     * The max level can be set in the hidden input field with a data-max attribute. Eg: data-max="3"
-     */
-    private onClickStatLevel(event: JQuery.TriggeredEvent) {
-        event.preventDefault();
-        const field = $(event.currentTarget).siblings('input[type="hidden"]');
-        const name = field.attr('name');
-        const max = field.data('max') ?? 4;
-        const { statType, category } = field.data();
-        if (this.actor.getFlag('pf2e', 'proficiencyLock') && category === 'proficiency') return;
-
-        // Get the current level and the array of levels
-        const level = parseFloat(`${field.val()}`);
-        // Toggle next level - forward on click, backwards on right
-        let newLevel = event.type === 'click' ? Math.clamped(level + 1, 0, max) : Math.clamped(level - 1, 0, max);
-
-        // Update the field value and save the form
-        if (statType === 'item') {
-            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
-            const item = this.actor.items.get(itemId);
-            if (item instanceof SpellcastingEntryPF2e) {
-                if (category === 'focus') {
-                    const focusPoolSize = getProperty(item?.data ?? {}, 'data.focus.pool') || 1;
-                    newLevel = Math.clamped(newLevel, 0, focusPoolSize);
-                    this.actor.updateEmbeddedDocuments('Item', [{ _id: itemId, 'data.focus.points': newLevel }]);
-                } else {
-                    this.actor.updateEmbeddedDocuments('Item', [{ _id: itemId, 'data.proficiency.value': newLevel }]);
-                }
-            } else {
-                this.actor.updateEmbeddedDocuments('Item', [{ _id: itemId, 'data.proficient.value': newLevel }]);
-            }
-            return;
-        }
-
-        if (name) {
-            this.actor.update({ [name]: newLevel });
-        }
-    }
 
     async onClickDeleteItem(event: JQuery.ClickEvent | JQuery.ContextMenuEvent): Promise<void> {
         const li = $(event.currentTarget).closest('.item');
