@@ -223,14 +223,3 @@ export class DamageRollPF2e {
         DamageRollModifiersDialog.roll(damage, context, callback);
     }
 }
-
-export function adaptRoll(actualRoll: (param: RollParameters) => void) {
-    return (event: JQuery.Event | RollParameters, options?: string[], callback?: (roll: Roll) => void) => {
-        let param: RollParameters | JQuery.Event = event;
-        if (isObjectEmpty(event ?? {}) || 'shiftKey' in event) {
-            console.warn('You are using the old roll parameters. Use roll({event, options?, callback?}) instead.');
-            param = { event: event as JQuery.Event, options: options ?? [], callback };
-        }
-        actualRoll(param as RollParameters);
-    };
-}

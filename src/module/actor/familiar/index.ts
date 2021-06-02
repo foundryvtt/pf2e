@@ -1,9 +1,8 @@
 import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from '@actor/data/values';
 import { CharacterPF2e, NPCPF2e } from '@actor/index';
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from '@module/modifiers';
-import { CheckPF2e } from '@system/rolls';
+import { CheckPF2e, RollParameters } from '@system/rolls';
 import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
-import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '../creature';
 import { ItemSourcePF2e } from '@item/data';
 import { objectHasKey } from '@module/utils';
@@ -174,7 +173,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                     .join(', ');
-                stat.roll = adaptRoll((args) => {
+                stat.roll = (args: RollParameters) => {
                     const label = game.i18n.format('PF2E.SavingThrowWithName', {
                         saveName: game.i18n.localize(CONFIG.PF2E.saves[save.name]),
                     });
@@ -184,7 +183,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                         args.event,
                         args.callback,
                     );
-                });
+                };
                 data.saves[saveName] = stat;
             }
 
@@ -240,7 +239,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                     .join(', ');
-                stat.roll = adaptRoll((args) => {
+                stat.roll = (args: RollParameters) => {
                     const label = game.i18n.localize('PF2E.PerceptionCheck');
                     CheckPF2e.roll(
                         new CheckModifier(label, stat),
@@ -248,7 +247,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                         args.event,
                         args.callback,
                     );
-                });
+                };
                 data.attributes.perception = stat;
             }
 
@@ -282,7 +281,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                     .join(', ');
-                stat.roll = adaptRoll((args) => {
+                stat.roll = (args: RollParameters) => {
                     const label = game.i18n.format('PF2E.SkillCheckWithName', {
                         skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
                     });
@@ -292,7 +291,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                         args.event,
                         args.callback,
                     );
-                });
+                };
                 data.skills[shortForm] = stat;
             }
         }

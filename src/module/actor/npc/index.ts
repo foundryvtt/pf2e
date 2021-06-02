@@ -11,7 +11,7 @@ import { WeaponDamagePF2e } from '@module/system/damage/weapon';
 import { CheckPF2e, DamageRollPF2e } from '@module/system/rolls';
 import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
 import { RollNotePF2e } from '@module/notes';
-import { adaptRoll } from '@system/rolls';
+import { RollParameters } from '@system/rolls';
 import { CreaturePF2e, ActorPF2e } from '@actor/index';
 import { MeleeData } from '@item/data';
 import { DamageType } from '@module/damage-calculation';
@@ -331,7 +331,7 @@ export class NPCPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
-            stat.roll = adaptRoll((args) => {
+            stat.roll = (args: RollParameters) => {
                 const label = game.i18n.format('PF2E.SavingThrowWithName', {
                     saveName: game.i18n.localize(CONFIG.PF2E.saves[saveName]),
                 });
@@ -341,7 +341,7 @@ export class NPCPF2e extends CreaturePF2e {
                     args.event,
                     args.callback,
                 );
-            });
+            };
 
             data.saves[saveName] = stat;
         }
@@ -368,7 +368,7 @@ export class NPCPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
-            stat.roll = adaptRoll((args) => {
+            stat.roll = (args: RollParameters) => {
                 const label = game.i18n.localize('PF2E.PerceptionCheck');
                 CheckPF2e.roll(
                     new CheckModifier(label, stat),
@@ -376,7 +376,7 @@ export class NPCPF2e extends CreaturePF2e {
                     args.event,
                     args.callback,
                 );
-            });
+            };
 
             data.attributes.perception = stat;
         }
@@ -402,7 +402,7 @@ export class NPCPF2e extends CreaturePF2e {
                     expanded: skill,
                     label: name,
                     visible: false,
-                    roll: adaptRoll((args) => {
+                    roll: (args: RollParameters) => {
                         const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: name });
                         CheckPF2e.roll(
                             new CheckModifier(label, stat),
@@ -410,7 +410,7 @@ export class NPCPF2e extends CreaturePF2e {
                             args.event,
                             args.callback,
                         );
-                    }),
+                    },
                     lore: false,
                     rank: 0, // default to untrained
                 },
@@ -466,7 +466,7 @@ export class NPCPF2e extends CreaturePF2e {
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                     .join(', ');
-                stat.roll = adaptRoll((args) => {
+                stat.roll = (args: RollParameters) => {
                     const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: item.name });
                     CheckPF2e.roll(
                         new CheckModifier(label, stat),
@@ -474,7 +474,7 @@ export class NPCPF2e extends CreaturePF2e {
                         args.event,
                         args.callback,
                     );
-                });
+                };
 
                 const variants = (item.data as any).variants;
                 if (variants && Object.keys(variants).length) {
@@ -614,7 +614,7 @@ export class NPCPF2e extends CreaturePF2e {
                 const strikeLabel = game.i18n.localize('PF2E.WeaponStrikeLabel');
 
                 // Add the base attack roll (used for determining on-hit)
-                action.attack = adaptRoll(async (args) => {
+                action.attack = async (args: RollParameters) => {
                     const attackEffects = await this.getAttackEffects(item);
                     const rollNotes = notes.concat(attackEffects);
                     const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
@@ -623,14 +623,14 @@ export class NPCPF2e extends CreaturePF2e {
                         { actor: this, type: 'attack-roll', options, notes: rollNotes, dc: args.dc },
                         args.event,
                     );
-                });
+                };
                 action.roll = action.attack;
 
                 const map = ItemPF2e.calculateMap(item);
                 action.variants = [
                     {
                         label: `${strikeLabel} ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
-                        roll: adaptRoll(async (args) => {
+                        roll: async (args: RollParameters) => {
                             const attackEffects = await this.getAttackEffects(item);
                             const rollNotes = notes.concat(attackEffects);
                             const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
@@ -640,11 +640,11 @@ export class NPCPF2e extends CreaturePF2e {
                                 { actor: this, type: 'attack-roll', options, notes: rollNotes, dc: args.dc },
                                 args.event,
                             );
-                        }),
+                        },
                     },
                     {
                         label: `MAP ${map.map2}`,
-                        roll: adaptRoll(async (args) => {
+                        roll: async (args: RollParameters) => {
                             const attackEffects = await this.getAttackEffects(item);
                             const rollNotes = notes.concat(attackEffects);
                             const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
@@ -655,11 +655,11 @@ export class NPCPF2e extends CreaturePF2e {
                                 { actor: this, type: 'attack-roll', options, notes: rollNotes, dc: args.dc },
                                 args.event,
                             );
-                        }),
+                        },
                     },
                     {
                         label: `MAP ${map.map3}`,
-                        roll: adaptRoll(async (args) => {
+                        roll: async (args: RollParameters) => {
                             const attackEffects = await this.getAttackEffects(item);
                             const rollNotes = notes.concat(attackEffects);
                             const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
@@ -670,10 +670,10 @@ export class NPCPF2e extends CreaturePF2e {
                                 { actor: this, type: 'attack-roll', options, notes: rollNotes, dc: args.dc },
                                 args.event,
                             );
-                        }),
+                        },
                     },
                 ];
-                action.damage = adaptRoll((args) => {
+                action.damage = (args: RollParameters) => {
                     const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         item,
@@ -691,8 +691,8 @@ export class NPCPF2e extends CreaturePF2e {
                         args.event,
                         args.callback,
                     );
-                });
-                action.critical = adaptRoll((args) => {
+                };
+                action.critical = (args: RollParameters) => {
                     const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         item,
@@ -710,7 +710,7 @@ export class NPCPF2e extends CreaturePF2e {
                         args.event,
                         args.callback,
                     );
-                });
+                };
 
                 data.actions.push(action);
             } else if (item.type === 'spellcastingEntry') {
@@ -751,7 +751,7 @@ export class NPCPF2e extends CreaturePF2e {
                         .filter((m) => m.enabled)
                         .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                         .join(', ');
-                    attack.roll = adaptRoll((args) => {
+                    attack.roll = (args: RollParameters) => {
                         const label = game.i18n.format(`PF2E.SpellAttack.${tradition}`);
                         const options = args.options ?? [];
                         ensureProficiencyOption(options, rank);
@@ -761,7 +761,7 @@ export class NPCPF2e extends CreaturePF2e {
                             args.event,
                             args.callback,
                         );
-                    });
+                    };
                     item.data.attack = attack as Required<SpellAttackRollModifier>;
                 }
 
