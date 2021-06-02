@@ -181,7 +181,7 @@ export interface StrikeData {
     variants: { label: string; roll: RollFunction }[];
 
     /** A list of ammo to choose for this attack */
-    ammo?: ConsumableData[];
+    ammo?: RawObject<ConsumableData>[];
     /** Currently selected ammo id that will be consumed when rolling this action */
     selectedAmmoId?: string;
 }
