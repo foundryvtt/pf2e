@@ -41,6 +41,7 @@ import { Migration631FixSenseRuleElementSelector } from './migrations/631-fix-se
 import { Migration632DeleteOrphanedSpells } from './migrations/632-delete-orphaned-spells';
 import { Migration633DeleteUnidentifiedTraits } from './migrations/633-delete-unidentified-traits';
 import { Migration634PurgeMartialItems } from './migrations/634-purge-martial-items';
+import { Migration635NumifyACAndQuantity } from './migrations/635-numify-ac-and-quantity';
 
 export class Migrations {
     private static list = [
@@ -86,6 +87,7 @@ export class Migrations {
         Migration632DeleteOrphanedSpells,
         Migration633DeleteUnidentifiedTraits,
         Migration634PurgeMartialItems,
+        Migration635NumifyACAndQuantity,
     ];
 
     static get latestVersion(): number {
