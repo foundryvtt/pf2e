@@ -8,6 +8,7 @@ import { HomebrewElements } from '@module/settings/homebrew';
 import { setWorldSchemaVersion } from '@module/migration/set-world-schema-version';
 import { WorldClock } from '@module/system/world-clock';
 import { CompendiumBrowser } from '@module/apps/compendium-browser';
+import { extendDragData } from '@scripts/system/dragstart-handler';
 
 export function listen(): void {
     Hooks.once('ready', () => {
@@ -52,20 +53,8 @@ export function listen(): void {
             }
         }
 
-        // Add value field to TextEditor#_onDragEntityLink data. This is mainly used for conditions.
-        $('body').on('dragstart', 'a.entity-link', (event: JQuery.DragStartEvent) => {
-            const name = event?.currentTarget?.innerText?.trim() ?? '';
-            const match = name.match(/[0-9]+/);
-            if (match !== null) {
-                const value = Number(match[0]);
-                const dataTransfer = event?.originalEvent?.dataTransfer;
-                if (dataTransfer) {
-                    const data = JSON.parse(dataTransfer.getData('text/plain'));
-                    data.value = value;
-                    dataTransfer.setData('text/plain', JSON.stringify(data));
-                }
-            }
-        });
+        // Extend drag data for things such as condition value
+        extendDragData();
 
         // Start up the Compendium Browser
         game.pf2e.compendiumBrowser = new CompendiumBrowser();
