@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>In combat, you favor the brutal weapons that are traditional for your orc ancestors. You are trained with the @Compendium[pf2e.equipment-srd.Falchion]{Falchion} and @Compendium[pf2e.equipment-srd.Greataxe]{Greataxe}. In addition, you gain access to all uncommon orc weapons. For the purpose of determining your proficiency, martial orc weapons are simple weapons and advanced orc weapons are martial weapons.</p>"
+            "value": "<p>In combat, you favor the brutal weapons that are traditional for your orc ancestors. You are trained with the @Compendium[pf2e.equipment-srd.Falchion]{Falchion} and @Compendium[pf2e.equipment-srd.Greataxe]{Greataxe}.</p>\n<p>In addition, you gain access to all uncommon orc weapons. For the purpose of determining your proficiency, martial orc weapons are simple weapons and advanced orc weapons are martial weapons.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -21,6 +21,7 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -38,8 +39,45 @@
             ]
         }
     },
-    "effects": [],
+    "effects": [
+        {
+            "_id": "ZIN47VPR8eZYRoY6",
+            "changes": [
+                {
+                    "key": "data.martial.weapon-base-falchion.rank",
+                    "mode": 4,
+                    "value": "1"
+                },
+                {
+                    "key": "data.martial.weapon-base-greataxe.rank",
+                    "mode": 4,
+                    "value": "1"
+                },
+                {
+                    "key": "data.martial.martial.familiarity",
+                    "mode": 5,
+                    "value": "{ \"trait\": \"orc\", \"category\": \"advanced\" }"
+                },
+                {
+                    "key": "data.martial.simple.familiarity",
+                    "mode": 5,
+                    "value": "{ \"trait\": \"orc\", \"category\": \"martial\" }"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/feats/feats.webp",
+            "label": "Orc Weapon Familiarity",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Orc Weapon Familiarity",
     "permission": {

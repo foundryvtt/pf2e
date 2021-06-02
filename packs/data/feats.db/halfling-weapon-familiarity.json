@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You favor traditional halfling weapons, so you've learned how to use them more effectively. You have the trained proficiency with the sling, halfling sling staff, and shortsword. You gain access to all uncommon halfling weapons. For the purpose of determining your proficiency, martial halfling weapons are simple weapons and advanced halfling weapons are martial weapons.</p>"
+            "value": "<p>You favor traditional halfling weapons, so you've learned how to use them more effectively. You have the trained proficiency with the @Compendium[pf2e.equipment-srd.Sling]{Sling}, @Compendium[pf2e.equipment-srd.Halfling Sling Staff]{Halfling Sling Staff}, and @Compendium[pf2e.equipment-srd.Shortsword]{Shortsword}.</p>\n<p>You gain access to all uncommon halfling weapons. For the purpose of determining your proficiency, martial halfling weapons are simple weapons and advanced halfling weapons are martial weapons.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -21,6 +21,7 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -38,8 +39,50 @@
             ]
         }
     },
-    "effects": [],
+    "effects": [
+        {
+            "_id": "wGnkvVbKvNYsFoYK",
+            "changes": [
+                {
+                    "key": "data.martial.weapon-base-sling.rank",
+                    "mode": 4,
+                    "value": "1"
+                },
+                {
+                    "key": "data.martial.weapon-base-halfling-sling-staff.rank",
+                    "mode": 4,
+                    "value": "1"
+                },
+                {
+                    "key": "data.martial.weapon-base-shortsword.rank",
+                    "mode": 4,
+                    "value": "1"
+                },
+                {
+                    "key": "data.martial.martial.familiarity",
+                    "mode": 5,
+                    "value": "{ \"trait\": \"halfling\", \"category\": \"advanced\" }"
+                },
+                {
+                    "key": "data.martial.simple.familiarity",
+                    "mode": 5,
+                    "value": "{ \"trait\": \"halfling\", \"category\": \"martial\" }"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/feats/feats.webp",
+            "label": "Halfling Weapon Familiarity",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Halfling Weapon Familiarity",
     "permission": {
