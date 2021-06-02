@@ -16,6 +16,9 @@ export interface HazardData extends Omit<HazardSource, 'effects' | 'items'> {
 }
 
 interface HazardAttributes {
+    ac: {
+        value: number;
+    };
     hasHealth: boolean;
     hp: {
         value: number;
