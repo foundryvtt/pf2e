@@ -726,7 +726,7 @@ export class CharacterPF2e extends CreaturePF2e {
             unarmed.data.damage.die = 'd6';
         }
 
-        const ammo = this.itemTypes.consumable
+        const ammos = this.itemTypes.consumable
             .filter((item) => item.data.data.consumableType.value === 'ammo')
             .map((ammo) => ammo.data);
 
@@ -881,7 +881,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 });
 
                 if (['bow', 'sling', 'dart'].includes(itemGroup)) {
-                    action.ammo = ammo;
+                    action.ammo = ammos.map((ammo) => ammo.toObject(false));
                 }
 
                 action.traits = [
