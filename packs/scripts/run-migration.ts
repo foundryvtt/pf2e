@@ -18,6 +18,7 @@ import { MigrationBase } from '@module/migration/base';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
+import { Migration635NumifyACAndQuantity } from '@module/migration/migrations/635-numify-ac-and-quantity';
 
 const migrations: MigrationBase[] = [
     new Migration621RemoveConfigSpellSchools(),
@@ -32,6 +33,7 @@ const migrations: MigrationBase[] = [
     new Migration632DeleteOrphanedSpells(),
     new Migration633DeleteUnidentifiedTraits(),
     new Migration634PurgeMartialItems(),
+    new Migration635NumifyACAndQuantity(),
 ];
 
 global.deepClone = function (original: any): any {
