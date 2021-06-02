@@ -22,7 +22,10 @@ export class CritFumbleCardsPF2e {
             Hooks.on('renderChatMessage', (message: ChatMessagePF2e, html: JQuery) => {
                 if (message.isAuthor && message.isRoll && message.isContentVisible) {
                     const context = message.getFlag('pf2e', 'context');
-                    if (message.roll?.dice[0]?.faces === 20 && context?.type === 'attack-roll') {
+                    if (
+                        message.roll?.dice[0]?.faces === 20 &&
+                        (context?.type === 'attack-roll' || context?.type === 'spell-attack-roll')
+                    ) {
                         const critButton = $(
                             `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-up" title="${game.i18n.localize(
                                 'PF2E.CriticalHitCardButtonTitle',
