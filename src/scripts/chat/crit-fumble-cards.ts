@@ -63,7 +63,7 @@ export class CritFumbleCardsPF2e {
         const chatMessage = typeof messageOrId === 'string' ? game.messages.get(messageOrId) : messageOrId;
         if (chatMessage && chatMessage.isAuthor && chatMessage.isRoll && chatMessage.isContentVisible) {
             const context = chatMessage.getFlag('pf2e', 'context');
-            if (context?.type === 'attack-roll') {
+            if (context?.type === 'attack-roll' || context?.type === 'spell-attack-roll') {
                 const die = chatMessage.roll?.dice[0];
                 if (die?.faces === 20) {
                     if (die.total === 20) {
