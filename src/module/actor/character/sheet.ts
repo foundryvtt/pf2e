@@ -13,6 +13,8 @@ import { ZeroToThree } from '@module/data';
 import { CharacterPF2e } from '.';
 import { CreatureSheetPF2e } from '../creature/sheet';
 import { ManageCombatProficiencies } from '../sheet/popups/manage-combat-proficiencies';
+import { ErrorPF2e } from '@module/utils';
+import { LorePF2e } from '@item';
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /** @override */
@@ -664,6 +666,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (weapon) weapon.update({ data: { selectedAmmoId: ammo?.id ?? null } });
         });
 
+        // Left/right-click adjustments (increment or decrement) of actor and item stats
+        html.find('.adjust-stat').on('click contextmenu', (event) => this.onClickAdjustStat(event));
+        html.find('.adjust-item-stat').on('click contextmenu', (event) => this.onClickAdjustItemStat(event));
+
         {
             // ensure correct tab name is displayed after actor update
             const title = $('.sheet-navigation .active').data('tabTitle');
@@ -841,6 +847,56 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         html.find('.toggle-signature-spell').on('click', (event) => {
             this.onToggleSignatureSpell(event);
         });
+    }
+
+    /** Handle clicking of proficiency-rank adjustment buttons */
+    private async onClickAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
+        const $button = $(event.delegateTarget);
+        const propertyKey = $button.attr('data-property') ?? '';
+        const currentValue = getProperty(this.actor.data, propertyKey);
+
+        if (typeof currentValue !== 'number') throw ErrorPF2e('Actor property not found');
+
+        const change = event.type === 'click' ? 1 : -1;
+        const max = propertyKey.includes('heroPoints') ? 3 : 4;
+        const validCurrentValue = Math.clamped(currentValue, 0, max);
+        const newValue = Math.clamped(validCurrentValue + change, 0, max);
+
+        await this.actor.update({ [propertyKey]: newValue });
+    }
+
+    /** Handle clicking of lore and spellcasting entry adjustment buttons */
+    private async onClickAdjustItemStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
+        const $button = $(event.delegateTarget);
+        const itemId = $button.closest('.item').attr('data-item-id') ?? '';
+        const item = this.actor.items.get(itemId);
+        if (!item) throw ErrorPF2e('Item not found');
+
+        const propertyKey = $button.attr('data-property') ?? '';
+        const change = event.type === 'click' ? 1 : -1;
+
+        // Retrieve and validate the updated value
+        const newValue = ((): number | undefined => {
+            if (item instanceof SpellcastingEntryPF2e) {
+                const focusPool = item.data.data.focus;
+                const proficiencyRank = item.data.data.proficiency.value;
+                const dispatch: Record<string, () => number> = {
+                    'data.focus.points': () => Math.clamped(focusPool.points + change, 0, focusPool.pool),
+                    'data.focus.pool': () => Math.clamped(focusPool.pool + change, 0, 3),
+                    'data.proficiency.value': () => Math.clamped(proficiencyRank + change, 0, 4),
+                };
+                return dispatch[propertyKey]?.();
+            } else if (item instanceof LorePF2e) {
+                const currentRank = item.data.data.proficient.value;
+                return Math.clamped(currentRank + change, 0, 4);
+            } else {
+                throw ErrorPF2e('Item not recognized');
+            }
+        })();
+
+        if (typeof newValue === 'number') {
+            await item.update({ [propertyKey]: newValue });
+        }
     }
 
     /**
