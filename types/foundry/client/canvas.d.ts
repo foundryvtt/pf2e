@@ -13,7 +13,7 @@ declare class Canvas<TToken extends Token = Token> {
     app: PIXI.Application;
     stage: PIXI.Container;
     hud: HeadsUpDisplay;
-
+    perception: PerceptionManager;
     scene: Scene | null;
     dimensions: CanvasDimensions | null;
     grid: GridLayer;
