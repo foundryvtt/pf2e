@@ -70,6 +70,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const options = super.defaultOptions;
         return mergeObject(options, {
             classes: options.classes.concat(['pf2e', 'actor']),
+            submitOnClose: false,
             scrollY: [
                 '.sheet-sidebar',
                 '.spellcastingEntry-list',
