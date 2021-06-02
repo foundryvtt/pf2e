@@ -53,16 +53,18 @@ export class CheckPF2e {
             context.notes = (context.notes ?? []).filter(visible);
 
             if (context.dc) {
-                const { adjustment } = context.dc;
-                if (adjustment) {
-                    const merge = adjustment.predicate
-                        ? ModifierPredicate.test(adjustment.predicate, context.options ?? [])
-                        : true;
+                const { adjustments } = context.dc;
+                if (adjustments) {
+                    adjustments.forEach((adjustment) => {
+                        const merge = adjustment.predicate
+                            ? ModifierPredicate.test(adjustment.predicate, context.options ?? [])
+                            : true;
 
-                    if (merge) {
-                        context.dc.modifiers ??= {};
-                        mergeObject(context.dc.modifiers, adjustment.modifiers);
-                    }
+                        if (merge) {
+                            context.dc!.modifiers ??= {};
+                            mergeObject(context.dc!.modifiers, adjustment.modifiers);
+                        }
+                    });
                 }
             }
         }

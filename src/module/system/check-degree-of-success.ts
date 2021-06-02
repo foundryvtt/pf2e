@@ -19,10 +19,10 @@ export interface PF2CheckDC {
     label?: string;
     modifiers?: PF2CheckDCModifiers;
     scope?: 'AttackOutcome' | 'CheckOutcome';
-    adjustment?: {
+    adjustments?: {
         modifiers: PF2CheckDCModifiers;
         predicate: ModifierPredicate;
-    };
+    }[];
     value: number;
     visibility?: 'gm' | 'owner' | 'all';
 }

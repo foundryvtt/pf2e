@@ -267,8 +267,8 @@ export class CharacterPF2e extends CreaturePF2e {
                 });
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, save.rank);
-                if (args.dc !== undefined && stat.adjustment !== undefined) {
-                    args.dc.adjustment = stat.adjustment;
+                if (args.dc !== undefined && stat.adjustments !== undefined) {
+                    args.dc.adjustments = stat.adjustments;
                 }
                 CheckPF2e.roll(
                     new CheckModifier(label, stat),
@@ -331,8 +331,8 @@ export class CharacterPF2e extends CreaturePF2e {
                 const label = game.i18n.localize('PF2E.PerceptionCheck');
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, proficiencyRank);
-                if (args.dc !== undefined && stat.adjustment !== undefined) {
-                    args.dc.adjustment = stat.adjustment;
+                if (args.dc !== undefined && stat.adjustments !== undefined) {
+                    args.dc.adjustments = stat.adjustments;
                 }
                 CheckPF2e.roll(
                     new CheckModifier(label, stat),
@@ -504,8 +504,8 @@ export class CharacterPF2e extends CreaturePF2e {
                 });
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, skill.rank);
-                if (args.dc !== undefined && stat.adjustment !== undefined) {
-                    args.dc.adjustment = stat.adjustment;
+                if (args.dc !== undefined && stat.adjustments !== undefined) {
+                    args.dc.adjustments = stat.adjustments;
                 }
                 CheckPF2e.roll(
                     new CheckModifier(label, stat),
