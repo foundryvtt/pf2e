@@ -14,7 +14,7 @@ import {
 } from '@module/modifiers';
 import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
 import { WeaponDamagePF2e } from '@system/damage/weapon';
-import { CheckPF2e, DamageRollPF2e } from '@system/rolls';
+import { CheckPF2e, DamageRollPF2e, RollParameters } from '@system/rolls';
 import { SKILL_DICTIONARY } from '../data/values';
 import {
     BaseWeaponProficiencyKey,
@@ -29,7 +29,6 @@ import {
 import { RollNotePF2e } from '@module/notes';
 import { MultipleAttackPenaltyPF2e, WeaponPotencyPF2e } from '@module/rules/rules-data-definitions';
 import { ErrorPF2e, toNumber } from '@module/utils';
-import { adaptRoll } from '@system/rolls';
 import { AncestryPF2e } from '@item/ancestry';
 import { BackgroundPF2e } from '@item/background';
 import { ClassPF2e } from '@item/class';
@@ -261,7 +260,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
-            stat.roll = adaptRoll((args) => {
+            stat.roll = (args: RollParameters) => {
                 const label = game.i18n.format('PF2E.SavingThrowWithName', {
                     saveName: game.i18n.localize(CONFIG.PF2E.saves[saveName]),
                 });
@@ -276,7 +275,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     args.event,
                     args.callback,
                 );
-            });
+            };
 
             systemData.saves[saveName] = stat;
         }
@@ -327,7 +326,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .join(', ');
             stat.notes = notes;
             stat.value = stat.totalModifier;
-            stat.roll = adaptRoll((args) => {
+            stat.roll = (args: RollParameters) => {
                 const label = game.i18n.localize('PF2E.PerceptionCheck');
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, proficiencyRank);
@@ -340,7 +339,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     args.event,
                     args.callback,
                 );
-            });
+            };
 
             systemData.attributes.perception = stat;
         }
@@ -498,7 +497,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .join(', ');
             stat.value = stat.totalModifier;
             stat.notes = notes;
-            stat.roll = adaptRoll((args) => {
+            stat.roll = (args: RollParameters) => {
                 const label = game.i18n.format('PF2E.SkillCheckWithName', {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[skillName]),
                 });
@@ -513,7 +512,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     args.event,
                     args.callback,
                 );
-            });
+            };
 
             skills[skillName] = stat;
         }
@@ -550,7 +549,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                     .join(', ');
-                stat.roll = adaptRoll((args) => {
+                stat.roll = (args: RollParameters) => {
                     const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: skill.name });
                     const options = args.options ?? [];
                     ensureProficiencyOption(options, rank);
@@ -560,7 +559,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         args.event,
                         args.callback,
                     );
-                });
+                };
 
                 skills[shortform] = stat;
             });
@@ -936,7 +935,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 const strikeLabel = game.i18n.localize('PF2E.WeaponStrikeLabel');
 
                 // Add the base attack roll (used for determining on-hit)
-                action.attack = adaptRoll((args) => {
+                action.attack = (args: RollParameters) => {
                     const options = (args.options ?? []).concat(defaultOptions);
                     CheckPF2e.roll(
                         new CheckModifier(`${strikeLabel}: ${action.name}`, action),
@@ -944,14 +943,14 @@ export class CharacterPF2e extends CreaturePF2e {
                         args.event,
                         args.callback,
                     );
-                });
+                };
                 action.roll = action.attack;
 
                 action.variants = [
                     {
                         label: `${game.i18n.localize('PF2E.RuleElement.Strike')}
                             ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
-                        roll: adaptRoll((args) => {
+                        roll: (args: RollParameters) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
                                 new CheckModifier(`${strikeLabel}: ${action.name}`, action),
@@ -959,11 +958,11 @@ export class CharacterPF2e extends CreaturePF2e {
                                 args.event,
                                 args.callback,
                             );
-                        }),
+                        },
                     },
                     {
                         label: `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map2}`,
-                        roll: adaptRoll((args) => {
+                        roll: (args: RollParameters) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
                                 new CheckModifier(`Strike: ${action.name}`, action, [
@@ -977,11 +976,11 @@ export class CharacterPF2e extends CreaturePF2e {
                                 args.event,
                                 args.callback,
                             );
-                        }),
+                        },
                     },
                     {
                         label: `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map3}`,
-                        roll: adaptRoll((args) => {
+                        roll: (args: RollParameters) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
                                 new CheckModifier(`Strike: ${action.name}`, action, [
@@ -995,10 +994,10 @@ export class CharacterPF2e extends CreaturePF2e {
                                 args.event,
                                 args.callback,
                             );
-                        }),
+                        },
                     },
                 ];
-                action.damage = adaptRoll((args) => {
+                action.damage = (args: RollParameters) => {
                     const options = (args.options ?? []).concat(action.options);
                     const damage = WeaponDamagePF2e.calculate(
                         item,
@@ -1018,8 +1017,8 @@ export class CharacterPF2e extends CreaturePF2e {
                         args.event,
                         args.callback,
                     );
-                });
-                action.critical = adaptRoll((args) => {
+                };
+                action.critical = (args: RollParameters) => {
                     const options = (args.options ?? []).concat(action.options);
                     const damage = WeaponDamagePF2e.calculate(
                         item,
@@ -1039,7 +1038,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         args.event,
                         args.callback,
                     );
-                });
+                };
                 systemData.actions.push(action);
             });
 
@@ -1077,7 +1076,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                     .join(', ');
-                attack.roll = adaptRoll((args) => {
+                attack.roll = (args: RollParameters) => {
                     const label = game.i18n.format(`PF2E.SpellAttack.${tradition}`);
                     const options = args.options ?? [];
                     ensureProficiencyOption(options, rank);
@@ -1087,7 +1086,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         args.event,
                         args.callback,
                     );
-                });
+                };
                 spellcastingEntry.data.attack = attack as Required<SpellAttackRollModifier>;
             }
 
@@ -1163,7 +1162,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const stat = new CheckModifier('initiative', initStat, modifiers);
         stat.ability = initSkill;
         stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
-        stat.roll = adaptRoll((args) => {
+        stat.roll = (args: RollParameters) => {
             const skillFullName = SKILL_DICTIONARY[stat.ability as SkillAbbreviation] ?? 'perception';
             const options = args.options ?? [];
             // push skill name to options if not already there
@@ -1179,7 +1178,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     this._applyInitiativeRollToCombatTracker(roll);
                 },
             );
-        });
+        };
 
         data.attributes.initiative = stat;
     }
