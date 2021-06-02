@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+3",
+                "mod": 3,
                 "value": 16
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 16,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -92,7 +93,7 @@
                 "hardness": "3",
                 "max": "12",
                 "min": 0,
-                "value": "12"
+                "value": 12
             },
             "sp": {
                 "details": "",
@@ -103,11 +104,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "15 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "15"
                     }
                 ],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -143,7 +146,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "The lizardfolk defender serves as a protector of the young, guardian of the settlement, and when no other options are available, soldier in time of war. They eagerly rise to the defense of their kin but do not revel in battle. An iruxi defender would rather turn back intruders and allow them to flee with the knowledge they were beaten, in hopes that such word prevents further invasions, but they are not naive. The iruxi understand the need for revenge, and when they allow a foe to escape, they do not forget.<br /><br />",
+            "flavorText": "<p>When human scholars speak of ancient civilizations, they usually turn their focus to themselves, researching and lecturing on the first human empires. When they drift to others, they invariably look to cultures that had conflicts or alliances with ancient humanity. That the culture of the people called lizardfolk often gets ignored or forgotten even by well-meaning researchers is thus no surprise, but to the lizardfolk themselves it is no matter. They know their history and value its integrity and privacy&mdash;if younger ancestries like humanity aren&rsquo;t interested in learning from lizardfolk empires dating back to before the first human knocked two rocks together to make their first campfire, that&rsquo;s fine with them.</p>\n<p>The word &ldquo;lizardfolk&rdquo; is an excellent example of humanity&rsquo;s narrow-sighted view of this culture. The name of their people is &ldquo;iruxi,&rdquo; but these reptilian humanoids have patiently and good-naturedly accepted the name &ldquo;lizardfolk&rdquo; as a variant, and they generally resist urges to call humans and other mammalians similarly derivative names in return. Iruxis dwell and thrive in all tropical and temperate biomes, but they are most at home in swamplands, coastal regions, and riverlands, for they are talented swimmers, and fish and aquatic plants make up a large part of their preferred diets.</p>\n<h3>Lizardfolk Relations</h3>\n<p>Though most are neutral in alignment, the typical iruxi&rsquo;s pride in their traditions, suspicion of others, and need to protect their kin can make them seem standoffish or even aggressive when encountered. However, most are eager to learn from visitors, trade stories and equipment, and forge alliances.</p>\n<h3>Lizardfolk Society</h3>\n<p>Iruxis are, as a general rule, quite religious. Those who venerate deities typically look to Gozreh, but some of them find the teachings of Desna to be compelling. Most iruxis, though, instead follow druidic traditions, ancestor worship, and astrological philosophies in particular.</p>\n<hr />\n<p>The lizardfolk defender serves as a protector of the young, guardian of the settlement, and when no other options are available, soldier in time of war. They eagerly rise to the defense of their kin but do not revel in battle. An iruxi defender would rather turn back intruders and allow them to flee with the knowledge they were beaten, in hopes that such word prevents further invasions, but they are not naive. The iruxi understand the need for revenge, and when they allow a foe to escape, they do not forget.<br /><br /></p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -426,7 +429,9 @@
             "rarity": {
                 "value": "common"
             },
-            "senses": [],
+            "senses": {
+                "value": ""
+            },
             "size": {
                 "value": "med"
             },
@@ -441,12 +446,25 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "XkATaT2kTquUbX9V",
+            "_id": "hCLbB1LRfwhUISNi",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "flail",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -459,15 +477,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This weapon consists of a wooden handle attached to a spiked ball or cylinder by a chain, rope, or strap of leather.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "flail"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -501,6 +531,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -508,20 +541,58 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "1 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": {
+                    "value": "melee"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "flail",
                 "source": {
                     "value": ""
                 },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -529,26 +600,54 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "disarm",
+                        "sweep",
+                        "trip"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "flail",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.t5FbyZtRL4qV0V7k"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/flail.webp",
+            "name": "Flail",
+            "permission": {
+                "default": 0,
+                "jaN4qDHa35aErkp6": 3
+            },
             "sort": 100000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "UiGdESCBXYlSw9Nl",
+            "_id": "4Ty86lbhUHB3ANZM",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "dex"
+                },
+                "baseItem": "javelin",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -561,15 +660,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(3)</p>"
+                    "value": "<p>This thin spear is well balanced for throwing but is not designed for melee use.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "dart"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -587,8 +698,8 @@
                                 "value": ""
                             }
                         },
-                        "img": "",
-                        "name": ""
+                        "img": "systems/pf2e/icons/unidentified_item_icons/weapon.webp",
+                        "name": "Unusual Javelin"
                     }
                 },
                 "invested": {
@@ -603,6 +714,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -610,20 +724,58 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "1 sp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 3
+                },
+                "range": {
+                    "value": "30"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "javelin",
                 "source": {
                     "value": ""
                 },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -631,30 +783,53 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "thrown-30"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "simple"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "javelin (3)",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.JNt7GmLCCVz5BiEI"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/javelin.webp",
+            "name": "Javelin",
+            "permission": {
+                "default": 0,
+                "jaN4qDHa35aErkp6": 3
+            },
             "sort": 200000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "KNh18g4ehXTBPFbm",
+            "_id": "iUlN4ilQhtBA2wLL",
             "data": {
+                "armor": {
+                    "value": 2
+                },
+                "armorType": {
+                    "value": "shield"
+                },
                 "baseItem": null,
                 "brokenThreshold": {
-                    "value": 0
+                    "value": 6
                 },
                 "bulkCapacity": {
+                    "value": ""
+                },
+                "check": {
                     "value": ""
                 },
                 "collapsed": {
@@ -666,19 +841,25 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
+                    "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table style=\"height: 32px;\" border=\"1\">\n<tbody>\n<tr style=\"height: 15px;\">\n<td style=\"height: 15px; width: 115px;\">Hardness</td>\n<td style=\"height: 15px; width: 115px;\">HP</td>\n<td style=\"height: 15px; width: 116px;\">BT</td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 115px;\">3</td>\n<td style=\"height: 17px; width: 115px;\">12</td>\n<td style=\"height: 17px; width: 116px;\">6</td>\n</tr>\n</tbody>\n</table>"
+                },
+                "dex": {
                     "value": ""
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
                 },
+                "group": {
+                    "value": ""
+                },
                 "hardness": {
-                    "value": 0
+                    "value": 3
                 },
                 "hp": {
-                    "value": 0
+                    "value": 12
                 },
                 "identification": {
                     "misidentified": {},
@@ -700,10 +881,14 @@
                     "value": 0
                 },
                 "maxHp": {
-                    "value": 0
+                    "value": 12
                 },
                 "negateBulk": {
                     "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -712,20 +897,42 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "1 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
                 },
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "resilient": {},
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "wooden-shield",
                 "source": {
                     "value": ""
                 },
+                "speed": {
+                    "value": ""
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strength": {
                     "value": ""
                 },
                 "traits": {
@@ -739,15 +946,24 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "wooden shield ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ezVp13Uw8cWW08Da"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/shields/wooden-shield.webp",
+            "name": "Wooden Shield",
+            "permission": {
+                "default": 0,
+                "jaN4qDHa35aErkp6": 3
+            },
             "sort": 300000,
-            "type": "equipment"
+            "type": "armor"
         },
         {
             "_id": "r035iPNnkvHhoCqt",
@@ -800,6 +1016,19 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -886,8 +1115,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Flail",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "melee"
         },
@@ -942,6 +1175,19 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1024,8 +1270,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Jaws",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "melee"
         },
@@ -1080,6 +1330,19 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1164,8 +1427,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Tail",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "melee"
         },
@@ -1220,6 +1487,19 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1304,8 +1584,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Javelin",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "melee"
         },
@@ -1353,8 +1637,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Attack of Opportunity",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "action"
         },
@@ -1402,8 +1690,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Shield Block",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "action"
         },
@@ -1451,8 +1743,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Deep Breath",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "action"
         },
@@ -1500,8 +1796,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Terrain Advantage",
+            "permission": {
+                "default": 0
+            },
             "sort": 1100000,
             "type": "action"
         },
@@ -1540,8 +1840,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
             "type": "lore"
         },
@@ -1580,8 +1884,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "lore"
         },
@@ -1620,8 +1928,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 1400000,
             "type": "lore"
         }
@@ -1633,10 +1945,13 @@
     "token": {
         "actorId": "EhB5Q98OO25DDOOl",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1648,17 +1963,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Lizardfolk Defender",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1
