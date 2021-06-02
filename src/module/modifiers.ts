@@ -230,7 +230,8 @@ export const ProficiencyModifier = Object.freeze({
             case 4:
                 return LEGENDARY.atLevel(level);
             default:
-                throw new RangeError(`invalid proficiency rank: ${rank}`);
+                console.error(`PF2e System | Invalid proficiency rank: ${rank}`);
+                return UNTRAINED.atLevel(level);
         }
     },
 });
