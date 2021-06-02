@@ -42,12 +42,18 @@ describe('#modifiers', () => {
         expect(modifier.type).toBe(expectedType);
     });
 
-    test('prevent proficiency ranks below zero', () => {
-        expect(() => ProficiencyModifier.fromLevelAndRank(1, -1)).toThrow(RangeError);
-    });
+    describe('prevent invalid proficiency ranks', () => {
+        beforeEach(() => {
+            jest.spyOn(console, 'error').mockImplementation(() => {});
+        });
 
-    test('prevent proficiency ranks above four', () => {
-        expect(() => ProficiencyModifier.fromLevelAndRank(1, 5)).toThrow(RangeError);
+        test('prevent proficiency ranks below zero', () => {
+            expect(ProficiencyModifier.fromLevelAndRank(1, -1).modifier).toEqual(UNTRAINED.atLevel(1).modifier);
+        });
+
+        test('prevent proficiency ranks above four', () => {
+            expect(ProficiencyModifier.fromLevelAndRank(1, 5).modifier).toEqual(UNTRAINED.atLevel(1).modifier);
+        });
     });
 
     each([
