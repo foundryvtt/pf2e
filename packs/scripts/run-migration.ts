@@ -12,6 +12,8 @@ import { Migration630FixTalismanSpelling } from '@module/migration/migrations/63
 import { Migration631FixSenseRuleElementSelector } from '@module/migration/migrations/631-fix-sense-rule-element-selector';
 import { Migration632DeleteOrphanedSpells } from '@module/migration/migrations/632-delete-orphaned-spells';
 import { Migration633DeleteUnidentifiedTraits } from '@module/migration/migrations/633-delete-unidentified-traits';
+import { Migration634PurgeMartialItems } from '@module/migration/migrations/634-purge-martial-items';
+
 import { MigrationBase } from '@module/migration/base';
 import * as fs from 'fs-extra';
 import * as path from 'path';
@@ -29,7 +31,29 @@ const migrations: MigrationBase[] = [
     new Migration631FixSenseRuleElementSelector(),
     new Migration632DeleteOrphanedSpells(),
     new Migration633DeleteUnidentifiedTraits(),
+    new Migration634PurgeMartialItems(),
 ];
+
+global.deepClone = function (original: any): any {
+    // Simple types
+    if (typeof original !== 'object' || original === null) return original;
+
+    // Arrays
+    if (Array.isArray(original)) return original.map(deepClone);
+
+    // Dates
+    if (original instanceof Date) return new Date(original);
+
+    // Unsupported advanced objects
+    if ('constructor' in original && original['constructor'] !== Object) return original;
+
+    // Other objects
+    const clone: Record<string, unknown> = {};
+    for (const k of Object.keys(original)) {
+        clone[k] = deepClone(original[k]);
+    }
+    return clone;
+};
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
 
