@@ -19,12 +19,34 @@
             "value": "class"
         },
         "level": {
-            "value": "6"
+            "value": 6
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Use Diverting Vortex",
+                "property": "flags.pf2e.rollOptions.ac.diverting-vortex"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "ranged",
+                        "mundane"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -40,6 +62,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Diverting Vortex",
     "permission": {
