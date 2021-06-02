@@ -32,19 +32,19 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
             if (type === 'save') {
                 const save = selector as keyof Saves;
                 if (SAVE_TYPES.includes(save)) {
-                    actorData.data.saves[save].adjustment ??= {};
-                    mergeObject(actorData.data.saves[save].adjustment, completeAdjustment);
+                    actorData.data.saves[save].adjustments ??= [];
+                    actorData.data.saves[save].adjustments.push(completeAdjustment);
                 }
             } else if (type === 'skill') {
                 const skill = this.skillAbbreviationFromString(selector);
                 if (skill) {
-                    actorData.data.skills[skill].adjustment ??= {};
-                    mergeObject(actorData.data.skills[skill].adjustment, completeAdjustment);
+                    actorData.data.skills[skill].adjustments ??= [];
+                    actorData.data.skills[skill].adjustments.push(completeAdjustment);
                 }
             } else if (type === 'attribute') {
                 if (selector === 'perception') {
-                    actorData.data.attributes.perception.adjustment ??= {};
-                    mergeObject(actorData.data.attributes.perception.adjustment, completeAdjustment);
+                    actorData.data.attributes.perception.adjustments ??= [];
+                    actorData.data.attributes.perception.adjustments.push(completeAdjustment);
                 } else {
                     console.warn(`PF2E | Degree of success adjustment for selector '${selector}' is not implemented.`);
                 }
