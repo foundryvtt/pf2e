@@ -23,8 +23,7 @@
                                 <div class="skill-container focus-points">
                                     <h4 class="skill-name">{{localize "PF2E.Focus.label"}}</h4>
                                     <span class="skill-item pf-small" title="{{localize "PF2E.Focus.pointTitle"}}">
-                                        <input type="hidden" name="data.items.{{eid}}.data.focus.points" data-stat-type="item" data-max="3" value="{{entry.data.focus.points}}" data-dtype="Number" data-category="focus"/>
-                                        <span class="proficiency-rank click-stat-level pf-value" title="{{localize "PF2E.Focus.pointTitle"}}">{{{entry.data.focus.icon}}}</span>
+                                        <span class="proficiency-rank adjust-item-stat pf-value" data-property="data.focus.points" title="{{localize "PF2E.Focus.pointTitle"}}">{{{entry.data.focus.icon}}}</span>
                                     </span>
                                 </div>
                                 <div class="skill-container focus-pool">
@@ -54,11 +53,7 @@
 
                         </li>
                         <li class="spell-ability">
-                            <div class="skill-container skill-proficiency">
-                                <!-- <h4 class="pf-title" title="Left-Click to move forward one step. Right-Click to move backwards one step.">{{localize 'PF2E.ProficiencyLabel'}}</h4> -->
-                                <input type="hidden" name="data.items.{{eid}}.data.proficiency.value" data-stat-type="item" value="{{entry.data.proficiency.value}}" data-dtype="Number" data-category="proficiency"/>
-                                <span class="pf-value pf-rank click-stat-level" title="{{entry.data.spelldc.hover}}">{{localize (add 'PF2E.ProficiencyLevel' entry.data.proficiency.value)}}</span>
-                            </div>
+                            <span class="pf-value pf-rank adjust-item-stat" data-property="data.proficiency.value" value="{{entry.data.proficiency.value}}" title="{{entry.data.spelldc.hover}}">{{localize (add "PF2E.ProficiencyLevel" entry.data.proficiency.value)}}</span>
                             <div class="skill-name">
                                 <select class="ability-select" name="data.items.{{eid}}.data.ability.value" data-type="String">
                                     {{#select entry.data.ability.value}}
