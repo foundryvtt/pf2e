@@ -1,5 +1,14 @@
 # Patch Notes:
 
+## Version 2.0.3
+### Bug Fixes
+* (stwlam) Fix UPGRADE Active Effect changes on non-existent data properties
+* (stwlam) Prevent stack overflow on ammo items when looking up token attributes
+
+### Core System Improvements
+* (stwlam) Make invalid proficiency rank errors non-fatal, to prevent the actor from disappearing completely
+
+
 ## Version 2.0.2
 ### Core System Improvements
 * (stwlam) Re-enable data migrations
@@ -36,7 +45,6 @@ This version brings support for the Foundry VTT version 0.8.x line, starting fro
 * (stwlam) Expose compendium browser for programmatic access at `game.pf2e.compendiumBrowser`
 * (stwlam) Add support for weapon familiarity type of feats
 * (stwlam) Base character dying/wounded/doomed status on the sheet on applied conditions. Closes #1450
-* (stwlam) Propagate AEs modifying actors' prototype tokens to the corresponding tokens on the canvas
 * (mdizo) Replaced the spellcasting headers and minor design fixes for the spellcasting tab
 * (mdizo) Improved default styling of journal entries
 * (abrault) Only show signature spells at levels with slots
