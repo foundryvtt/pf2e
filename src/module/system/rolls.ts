@@ -5,6 +5,12 @@ import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-deg
 import { DamageTemplate } from '@system/damage/weapon';
 import { RollNotePF2e } from '@module/notes';
 import { ChatMessagePF2e } from '@module/chat-message';
+import { ZeroToThree } from '@module/data';
+
+export interface RollDataPF2e extends RollData {
+    totalModifier?: number;
+    degreeOfSuccess?: ZeroToThree;
+}
 
 /** Possible parameters of a RollFunction */
 export interface RollParameters {

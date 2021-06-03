@@ -777,7 +777,7 @@ export class WeaponDamagePF2e {
         if (rule === 'doubledamage') {
             return `2 * (${formula})`;
         } else {
-            const critRoll = new Roll(formula, {}).alter(2, 0, { multiplyNumeric: true });
+            const critRoll = new Roll(formula).alter(2, 0, { multiplyNumeric: true });
             return critRoll.formula;
         }
     }
