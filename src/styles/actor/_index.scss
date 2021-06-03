@@ -1,0 +1,109 @@
+.default section.window-content {
+    padding: 0;
+    overflow: hidden;
+}
+
+$header-height: 89px;   /* Adjust height of the header */
+
+.crb-style {
+    display: grid;
+    grid:
+        'sidebar header' 75px
+        'sidebar nav' minmax(min-content, max-content)
+        'sidebar content' 1fr
+        / 247px 1fr;
+
+    font-family: $body-serif;
+
+    background: url('../assets/sheet/header.webp'), url('../assets/sheet/background.webp');
+    background-repeat: repeat-x, no-repeat;
+    background-size: auto $header-height, cover;
+    background-attachment: local;
+
+    /* prettier-ignore */
+    @import 'sidebar',
+            'header';
+
+    $window-p-right: 20px;
+
+    .char-header {
+        grid-area: header;
+        margin-right: $window-p-right;
+    }
+    .sheet-navigation {
+        grid-area: nav;
+        margin-left: -22px;
+    }
+    .sheet-body {
+      grid-area: content;
+      position: relative;
+
+      .sheet-content,
+      .sheet-content .inventory {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 8px;
+
+        & > .tab:not(.inventory),
+        .inventory .inventory-list {
+          @include scrollbar;
+          flex-grow: 1;
+          min-height: 0;
+          overflow: hidden scroll;
+          padding-right: $window-p-right;
+        }
+
+        &.tab[data-tab] {
+          display: none;
+          &.active {
+            display: initial;
+          }
+        }
+      }
+
+      .sheet-content {
+        color: var(--body);
+        @import 'character', 'npc';
+
+        footer {
+          @include micro;
+          color: var(--primary);
+          text-align: right;
+          line-height: 1.4;
+          margin: 1em 1em 0;
+        }
+      }
+    }
+
+    /* Navigation */
+    @import 'nav';
+
+    /* Read-Only Sheet */
+    &.limited {
+        @import 'limited';
+    }
+}
+
+/* Character Type Imports */
+@import 'familiar';
+.vehicle {
+    @import 'vehicle';
+}
+
+@import "hazard";
+
+.npc {
+    @import 'npc';
+}
+
+@import 'loot';
+
+/* Mystification data revealed to GMs */
+.gm-mystified-data {
+    opacity: 0.75;
+}
