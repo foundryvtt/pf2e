@@ -130,7 +130,6 @@ declare global {
         get(module: 'pf2e', setting: 'enabledRulesUI'): boolean;
         get(module: 'pf2e', setting: 'freeArchetypeVariant'): boolean;
         get(module: 'pf2e', setting: 'ignoreCoinBulk'): boolean;
-        get(module: 'pf2e', setting: 'ignoreContainerOverflow'): boolean;
         get(module: 'pf2e', setting: 'pfsSheetTab'): boolean;
         get(module: 'pf2e', setting: 'staminaVariant'): 0 | 1;
         get(module: 'pf2e', setting: 'statusEffectType'): StatusEffectIconType;

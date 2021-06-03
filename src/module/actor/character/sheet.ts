@@ -211,13 +211,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Iterate through items, allocating to containers
         const bulkConfig = {
             ignoreCoinBulk: game.settings.get('pf2e', 'ignoreCoinBulk'),
-            ignoreContainerOverflow: game.settings.get('pf2e', 'ignoreContainerOverflow'),
         };
 
         const bulkItems = itemsFromActorData(actorData);
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
-            items: actorData.items,
+            items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
             bulkItemsById,
             bulkConfig,
         });
