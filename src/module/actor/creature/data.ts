@@ -23,7 +23,7 @@ export class BaseCreatureData<
     TSystemData extends CreatureSystemData = CreatureSystemData,
 > extends BaseActorDataPF2e<TActor> {}
 
-export interface BaseCreatureData extends Omit<BaseCreatureSource, 'effects' | 'items'> {
+export interface BaseCreatureData extends Omit<BaseCreatureSource, 'effects' | 'items' | 'token'> {
     readonly type: CreatureType;
     data: BaseCreatureSource['data'];
     readonly _source: BaseCreatureSource;
