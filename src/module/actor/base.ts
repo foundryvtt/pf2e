@@ -206,7 +206,27 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** Synchronize the token image with the actor image if the token has a default image but not its actor */
+    /**
+     * Prevent character importers from creating martial items
+     * @override
+     */
+    createEmbeddedDocuments(
+        embeddedName: 'ActiveEffect' | 'Item',
+        data: PreCreate<foundry.data.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
+        context: DocumentModificationContext = {},
+    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
+        const includesMartialItems = data.some(
+            (datum: PreCreate<foundry.data.ActiveEffectSource> | PreCreate<ItemSourcePF2e>) =>
+                'type' in datum && datum.type === 'martial',
+        );
+        if (includesMartialItems) {
+            throw ErrorPF2e('Martial items are pending removal from the system and may no longer be created.');
+        }
+
+        return super.createEmbeddedDocuments(embeddedName, data, context) as Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
+    }
+
+    /** Synchronize the token image with the actor image, if the token does not currently have an image */
     private prepareTokenImg() {
         const useSystemTokenSettings = game.settings.get('pf2e', 'defaultTokenSettings');
         const tokenImgIsDefault =
