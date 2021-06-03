@@ -296,7 +296,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
         // the click listener registered on all buttons breaks the event delegation here...
         // html.find('.strikes-list [data-action-index]').on('click', '.damage-strike', (event) => {
-        html.find('.strikes-list .damage-strike, button.tag.damage').on('click', (event) => {
+        html.find('.strikes-list .damage-strike').on('click', (event) => {
             if (!['character', 'npc'].includes(this.actor.data.type))
                 throw Error('This sheet only works for characters and NPCs');
             event.preventDefault();
@@ -309,7 +309,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
         // the click listener registered on all buttons breaks the event delegation here...
         // html.find('.strikes-list [data-action-index]').on('click', '.critical-strike', (event) => {
-        html.find('.strikes-list .critical-strike, button.tag.critical').on('click', (event) => {
+        html.find('.strikes-list .critical-strike').on('click', (event) => {
             if (!['character', 'npc'].includes(this.actor.data.type))
                 throw Error('This sheet only works for characters and NPCs');
             event.preventDefault();
@@ -351,7 +351,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             this.actor.data.data.actions[Number(actionIndex)].roll(rollContext);
         });
 
-        html.find('[data-variant-index].variant-strike, button.tag.attack').on('click', (event) => {
+        html.find('[data-variant-index].variant-strike').on('click', (event) => {
             if (!('actions' in this.actor.data.data)) throw Error('Strikes are not supported on this actor');
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
