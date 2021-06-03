@@ -137,7 +137,7 @@ export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
         value: string;
     };
     containerId: {
-        value: string;
+        value: string | null;
     };
     preciousMaterial: {
         value: string;
