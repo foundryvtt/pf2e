@@ -15,11 +15,10 @@ interface DegreeOfSuccessAdjustment {
  */
 export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
     onBeforePrepareData(actorData: CharacterData | NPCData) {
-        const selector: string = this.ruleData.selector ?? '';
-        const type: string = this.ruleData.type ?? '';
+        const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const adjustment = this.ruleData.adjustment as PF2CheckDCModifiers;
 
-        if (selector && type && adjustment && typeof adjustment === 'object') {
+        if (selector && adjustment && typeof adjustment === 'object') {
             if (!this.isAdjustmentData(adjustment)) {
                 console.warn('PF2E | Degree of success adjustment does not have the correct format.', adjustment);
             }
@@ -29,27 +28,35 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
             if (this.ruleData.predicate) {
                 completeAdjustment.predicate = new ModifierPredicate(this.ruleData.predicate);
             }
-            if (type === 'save') {
-                const save = selector as keyof Saves;
-                if (SAVE_TYPES.includes(save)) {
-                    actorData.data.saves[save].adjustments ??= [];
-                    actorData.data.saves[save].adjustments.push(completeAdjustment);
-                }
-            } else if (type === 'skill') {
-                const skill = this.skillAbbreviationFromString(selector);
-                if (skill) {
-                    actorData.data.skills[skill].adjustments ??= [];
-                    actorData.data.skills[skill].adjustments.push(completeAdjustment);
-                }
-            } else if (type === 'attribute') {
-                if (selector === 'perception') {
-                    actorData.data.attributes.perception.adjustments ??= [];
-                    actorData.data.attributes.perception.adjustments.push(completeAdjustment);
+
+            const skill = this.skillAbbreviationFromString(selector);
+            const save = SAVE_TYPES.includes(selector as keyof Saves) ? (selector as keyof Saves) : undefined;
+            if (selector === 'saving-throw' || save !== undefined) {
+                if (selector === 'saving-throw') {
+                    SAVE_TYPES.forEach((save) => {
+                        actorData.data.saves[save].adjustments ??= [];
+                        actorData.data.saves[save].adjustments.push(completeAdjustment);
+                    });
                 } else {
-                    console.warn(`PF2E | Degree of success adjustment for selector '${selector}' is not implemented.`);
+                    actorData.data.saves[save!].adjustments ??= [];
+                    actorData.data.saves[save!].adjustments.push(completeAdjustment);
                 }
+            } else if (selector === 'skill-check' || skill !== undefined) {
+                if (selector === 'skill-check') {
+                    Object.keys(actorData.data.skills).forEach((key) => {
+                        const skill = key as SkillAbbreviation;
+                        actorData.data.skills[skill].adjustments ??= [];
+                        actorData.data.skills[skill].adjustments.push(completeAdjustment);
+                    });
+                } else {
+                    actorData.data.skills[skill!].adjustments ??= [];
+                    actorData.data.skills[skill!].adjustments.push(completeAdjustment);
+                }
+            } else if (selector === 'perception-check') {
+                actorData.data.attributes.perception.adjustments ??= [];
+                actorData.data.attributes.perception.adjustments.push(completeAdjustment);
             } else {
-                console.warn(`PF2E | Degree of success adjustment for type '${type}' is not implemented.`);
+                console.warn(`PF2E | Degree of success adjustment for selector '${selector}' is not implemented.`);
             }
         } else {
             console.warn(
