@@ -778,12 +778,17 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find<HTMLInputElement>('.spell-slots-input').on('change', async (event) => {
             event.preventDefault();
 
-            const itemId = $(event.currentTarget).parents('.item, .section').attr('data-item-id') ?? '';
-            const slotLevel = Number($(event.currentTarget).parents('.item, .section').attr('data-level') ?? 0);
+            const $input = $(event.target);
+            const itemId = $input.closest('.item, .section').attr('data-item-id') ?? '';
+            const spellcastingEntry = this.actor.items.get(itemId);
+            if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) throw ErrorPF2e('Spellcasting entry not found');
 
-            await this.actor.updateEmbeddedDocuments('Item', [
-                { _id: itemId, [`data.slots.slot${slotLevel}.value`]: slotLevel },
-            ]);
+            const slotLevel = Number($input.closest('.item, .section').attr('data-level') ?? 0);
+            const slots = spellcastingEntry.data.data.slots;
+            const slot = slots[`slot${slotLevel}` as keyof typeof slots];
+            const newValue = Math.clamped(Number($input.val()), 0, slot.max);
+
+            await spellcastingEntry.update({ [`data.slots.slot${slotLevel}.value`]: newValue });
         });
 
         // Update max slots for Spell Items
