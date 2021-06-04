@@ -295,7 +295,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         // Subscribe to roll events
         const rollables = ['a.rollable', '.rollable a', '.item-icon.rollable'].join(', ');
         html.find(rollables).on('click', (event) => this.onClickRollable(event));
-        html.find('button').on('click', (event) => this.onButtonClicked(event));
         html.find('a.chat, .spell-icon.rollable').on('click', (event) => this.onClickToChat(event));
 
         html.find('.attack')
@@ -847,54 +846,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             this.rollSave(event, save);
         } else if (action || item || spell) {
             this.onClickExpandable(event);
-        }
-    }
-
-    private onButtonClicked(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        switch (event.target.dataset.action) {
-            case 'npcAttack':
-                this.onNPCAttackClicked(event);
-                break;
-            case 'damage':
-                this.onNPCDamageClicked(event);
-                break;
-            case 'critical':
-                this.onNPCCriticalClicked(event);
-                break;
-        }
-    }
-
-    private onNPCAttackClicked(event: JQuery.ClickEvent) {
-        const actionId = Number($(event.currentTarget).parents('.item').attr('data-action-id') ?? 0);
-        const action = this.actor.data.data.actions[actionId];
-
-        if (action) {
-            const variant = Number($(event.currentTarget).attr('data-variant-index') ?? 0);
-            const options = this.actor.getRollOptions(['all', 'attack-roll']);
-            action.variants[variant].roll({ event: event, options });
-        }
-    }
-
-    private onNPCDamageClicked(event: JQuery.ClickEvent) {
-        const actionId = Number($(event.currentTarget).parents('.item').attr('data-action-id') ?? 0);
-        const action = this.actor.data.data.actions[actionId];
-
-        if (action && action.damage !== undefined) {
-            const options = this.actor.getRollOptions(['all', 'damage-roll']);
-            action.damage({ event: event, options });
-        }
-    }
-
-    private onNPCCriticalClicked(event: JQuery.ClickEvent) {
-        const actionId = Number($(event.currentTarget).parents('.item').attr('data-action-id') ?? 0);
-        const action = this.actor.data.data.actions[actionId];
-
-        if (action && action.critical !== undefined) {
-            const options = this.actor.getRollOptions(['all', 'damage-roll']);
-            action.critical({ event: event, options });
         }
     }
 
