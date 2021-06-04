@@ -76,7 +76,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         const bulkItems = itemsFromActorData(actorData);
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
-            items: actorData.items,
+            items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
             bulkItemsById,
             bulkConfig,
         });

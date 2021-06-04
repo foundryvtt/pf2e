@@ -98,7 +98,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         const bulkItems = itemsFromActorData(actorData);
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
-            items: actorData.items,
+            items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
             bulkItemsById,
             bulkConfig,
             actorSize: actorData.data.traits.size.value,
