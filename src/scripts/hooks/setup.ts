@@ -19,7 +19,7 @@ import {
     StatisticModifier,
 } from '@module/modifiers';
 import { CheckPF2e } from '@system/rolls';
-import { RuleElements } from '@module/rules/rules';
+import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
 import { ConditionManager } from '@module/conditions';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { EffectPanel } from '@module/system/effect-panel';
@@ -157,6 +157,7 @@ export function listen() {
         game.pf2e.CheckModifier = CheckModifier;
         game.pf2e.Check = CheckPF2e;
         game.pf2e.RuleElements = RuleElements;
+        game.pf2e.RuleElement = RuleElementPF2e;
 
         // Start system sub-applications
         game.pf2e.effectPanel = new EffectPanel();

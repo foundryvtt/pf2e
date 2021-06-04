@@ -4,7 +4,7 @@ import { ActiveEffectPF2e } from '@module/active-effect';
 import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { MacroPF2e } from '@module/macro';
-import { RuleElements } from '@module/rules/rules';
+import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
 import type { HomebrewSettingsKey, HomebrewTag } from '@module/settings/homebrew';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { StatusEffects } from '@scripts/actor/status-effects';
@@ -63,6 +63,7 @@ declare global {
             CheckModifier: typeof CheckModifier;
             Check: typeof CheckPF2e;
             RuleElements: typeof RuleElements;
+            RuleElement: typeof RuleElementPF2e;
         };
     }
 
