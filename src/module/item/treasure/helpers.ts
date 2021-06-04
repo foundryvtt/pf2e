@@ -154,13 +154,13 @@ export const coinCompendiumIds = {
     cp: 'lzJ8AVhRcbFul5fh',
 };
 
-function isTopLevelCoin(item: PhysicalItemData, currencies: typeof CURRENCIES): boolean {
+function isTopLevelCoin(itemData: PhysicalItemData, currencies: typeof CURRENCIES): boolean {
     return (
-        item.type === 'treasure' &&
-        item.data.value.value === 1 &&
-        item.data.stackGroup.value === 'coins' &&
-        item.data.containerId.value === '' &&
-        currencies.has(item.data.denomination?.value)
+        itemData.type === 'treasure' &&
+        itemData.data.value.value === 1 &&
+        itemData.data.stackGroup.value === 'coins' &&
+        itemData.data.containerId.value === null &&
+        currencies.has(itemData.data.denomination?.value)
     );
 }
 

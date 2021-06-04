@@ -2,11 +2,15 @@ import { PhysicalItemData, TraitChatData } from '@item/data';
 import { LocalizePF2e } from '@module/system/localize';
 import { Rarity } from '@module/data';
 import { ItemPF2e } from '@item/index';
+import type { ContainerPF2e } from '@item/index';
 import { MystifiedTraits } from '@item/data/values';
 import { getUnidentifiedPlaceholderImage } from '../identification';
 import { IdentificationStatus, MystifiedData } from './data';
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
+    // The cached container of this item, if in a container, or null
+    private _container: Embedded<ContainerPF2e> | null = null;
+
     get level(): number {
         return this.data.data.level.value;
     }
@@ -57,12 +61,25 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get isInContainer(): boolean {
-        return !!this.actor?.items.get(this.data.data.containerId.value ?? '');
+        return !!this.container;
+    }
+
+    /** Get this item's container, returning null if it is not in a container */
+    get container(): Embedded<ContainerPF2e> | null {
+        if (this.data.data.containerId.value === null) return null;
+
+        const container = this._container ?? this.actor?.items.get(this.data.data.containerId.value ?? '');
+        if (container?.type === 'backpack') this._container = container as Embedded<ContainerPF2e>;
+
+        return this._container;
     }
 
     /** @override */
     prepareBaseData(): void {
         super.prepareBaseData();
+
+        // Clear empty-string containerId values
+        this.data.data.containerId.value ||= null;
 
         this.data.isEquipped = this.data.data.equipped.value;
         this.data.isIdentified = this.data.data.identification.status === 'identified';
@@ -84,6 +101,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Fill gaps in unidentified data with defaults
         data.data.identification.unidentified = this.getMystifiedData('unidentified');
+
+        // Set the _container cache property to null if it no longer matches this item's container ID
+        if (this._container?.id !== this.data.data.containerId.value) {
+            this._container = null;
+        }
     }
 
     /** @override */
