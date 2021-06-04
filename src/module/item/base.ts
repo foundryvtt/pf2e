@@ -157,9 +157,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /**
-     * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
+     * Create a chat card for this item and send it to the chat log. Many cards contain follow-up options for attack
+     * rolls, effect application, etc.
      */
-    async roll(this: Embedded<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
+    async toChat(this: Embedded<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
         const { token } = this.actor;

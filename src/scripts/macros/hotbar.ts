@@ -34,14 +34,14 @@ export async function createItemMacro(item: ItemDataPF2e, slot: number): Promise
  * Get an existing item macro if one exists, otherwise create a new one.
  * @param itemId
  */
-export function rollItemMacro(itemId: string): ReturnType<ItemPF2e['roll']> | void {
+export function rollItemMacro(itemId: string): ReturnType<ItemPF2e['toChat']> | void {
     const speaker = ChatMessage.getSpeaker();
     const actor = canvas.tokens.get(speaker.token ?? '')?.actor ?? game.actors.get(speaker.actor ?? '');
     const item = actor?.items?.get(itemId);
     if (!item) return ui.notifications.warn(`Your controlled Actor does not have an item with ID ${itemId}`);
 
     // Trigger the item roll
-    return item.roll();
+    return item.toChat();
 }
 
 export async function createActionMacro(actionIndex: string, actorId: string, slot: number): Promise<void> {

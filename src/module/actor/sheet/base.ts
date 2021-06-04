@@ -1313,7 +1313,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         event.preventDefault();
         const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
         const item = this.actor.items.get(itemId ?? '');
-        item?.roll(event);
+        item?.toChat(event);
     }
 
     /**

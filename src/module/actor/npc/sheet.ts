@@ -973,7 +973,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 return;
             }
 
-            item.roll(event);
+            item.toChat(event);
         } else {
             console.error(`Clicked item with ID ${itemId}, but unable to find item with that ID.`);
         }
