@@ -1,5 +1,4 @@
 import {
-    ActivatedEffectData,
     BasePhysicalItemData,
     BasePhysicalItemSource,
     MagicItemSystemData,
@@ -23,6 +22,6 @@ export interface EquipmentData extends Omit<EquipmentSource, '_id' | 'effects'> 
 export type EquipmentTrait = keyof ConfigPF2e['PF2E']['equipmentTraits'];
 type EquipmentTraits = PhysicalItemTraits<EquipmentTrait>;
 
-interface EquipmentSystemData extends MagicItemSystemData, ActivatedEffectData {
+interface EquipmentSystemData extends MagicItemSystemData {
     traits: EquipmentTraits;
 }
