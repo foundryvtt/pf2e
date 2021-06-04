@@ -9,7 +9,7 @@ export class LootData extends BaseActorDataPF2e<LootPF2e> {
 }
 
 /** Wrapper type for loot-specific data. */
-export interface LootData extends Omit<LootSource, 'effects' | 'items'> {
+export interface LootData extends Omit<LootSource, 'effects' | 'items' | 'token'> {
     type: LootSource['type'];
     data: LootSource['data'];
     readonly _source: LootSource;
