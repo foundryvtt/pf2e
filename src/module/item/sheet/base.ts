@@ -580,4 +580,16 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         }
         super._updateObject(event, formData);
     }
+
+    /**
+     * Override of internal render function to maintain scroll position
+     * @override
+     */
+    protected async _render(force?: boolean, options?: RenderOptions) {
+        const tabScrollPosition = this.element.find('.tab.active').scrollTop();
+        await super._render(force, options);
+        if (tabScrollPosition) {
+            this.element.find('.tab.active').scrollTop(tabScrollPosition);
+        }
+    }
 }
