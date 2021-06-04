@@ -168,18 +168,16 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const contextualData = nearestItem.dataset || {};
         const templateData = {
             actor: this.actor,
-            tokenId: token ? `${(token as any).parent.id}.${token.id}` : null, // TODO: Fix any type;
+            tokenId: token ? `${token.parent?.id}.${token.id}` : null,
             item: this.data,
             data: this.getChatData(undefined, contextualData),
         };
 
         // Basic chat message data
-        const chatData: Partial<foundry.data.ChatMessageSource> = {
-            user: game.user.id,
+        const chatData: PreCreate<foundry.data.ChatMessageSource> = {
             speaker: {
                 actor: this.actor.id,
-                token: this.actor.token?.id,
-                alias: this.actor.name,
+                token: this.actor.getActiveTokens()[0]?.id,
             },
             flags: {
                 core: {
@@ -203,7 +201,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /* -------------------------------------------- */
-    /*  Chat Card Data
+    /*  Chat Card Data                              */
     /* -------------------------------------------- */
 
     /**
