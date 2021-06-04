@@ -1232,12 +1232,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         if (isPhysicalData(itemData)) {
-            const container = $(event.target).parents('[data-item-is-container="true"]');
-            let containerId: string | undefined = undefined;
-            if (container[0] !== undefined) {
-                containerId = container[0].dataset.itemId?.trim();
+            const containerId =
+                $(event.target).closest('[data-item-is-container="true"]').attr('data-item-id')?.trim() || null;
+            const container = this.actor.itemTypes.backpack.find((container) => container.id === containerId);
+            if (container) {
+                itemData.data.containerId.value = containerId;
             }
-            itemData.data.containerId.value = containerId || '';
         }
         return this._onDropItemCreate(itemData);
     }

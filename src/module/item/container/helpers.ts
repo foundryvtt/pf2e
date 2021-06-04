@@ -142,12 +142,12 @@ function toContainer({
 }
 
 function detectCycle(itemId: string, containerId = '', idIndexedItems: Map<string, PhysicalItemData>): boolean {
-    if (idIndexedItems.has(containerId)) {
-        const currentItem = idIndexedItems.get(containerId);
+    const currentItem = idIndexedItems.get(containerId);
+    if (currentItem) {
         if (itemId === currentItem?._id) {
             return true;
         }
-        return detectCycle(itemId, currentItem?.data.containerId.value, idIndexedItems);
+        return detectCycle(itemId, currentItem.data.containerId.value!, idIndexedItems);
     }
     return false;
 }
@@ -192,7 +192,7 @@ export function getContainerMap({
     const allIds = groupBy(items, (item) => item._id);
 
     const containerGroups = groupBy(items, (item) => {
-        const containerId = item?.data?.containerId?.value;
+        const containerId = item.data.containerId.value ?? '';
         if (allIds.has(containerId)) {
             return containerId;
         }
