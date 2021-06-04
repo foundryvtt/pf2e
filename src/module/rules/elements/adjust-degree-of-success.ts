@@ -44,7 +44,6 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
             } else if (selector === 'skill-check' || skill !== undefined) {
                 if (selector === 'skill-check') {
                     Object.keys(actorData.data.skills).forEach((key) => {
-                        console.log(key);
                         const skill = key as SkillAbbreviation;
                         actorData.data.skills[skill].adjustments ??= [];
                         actorData.data.skills[skill].adjustments.push(completeAdjustment);
