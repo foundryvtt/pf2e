@@ -1,6 +1,7 @@
 import type { ActorPF2e } from '@actor/index';
 import { CheckModifiersContext } from '@module/system/check-modifiers-dialog';
 import { ChatCards } from './listeners/cards';
+import { CriticalHitAndFumbleCards } from './crit-fumble-cards';
 
 export class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** @override */
@@ -8,7 +9,19 @@ export class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         const $html = await super.getHTML();
         ChatCards.listen($html);
 
+        // Append critical hit and fumble card buttons if the setting is enabled
+        CriticalHitAndFumbleCards.appendButtons($html);
+
         return $html;
+    }
+
+    _onCreate(data: foundry.data.ChatMessageSource, options: DocumentModificationContext, userId: string) {
+        super._onCreate(data, options, userId);
+
+        // Handle critical hit and fumble card drawing
+        if (this.isRoll && game.settings.get('pf2e', 'drawCritFumble')) {
+            CriticalHitAndFumbleCards.handleDraw(this);
+        }
     }
 }
 
