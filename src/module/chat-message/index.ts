@@ -1,5 +1,6 @@
 import type { ActorPF2e } from '@actor/index';
 import { CheckModifiersContext } from '@module/system/check-modifiers-dialog';
+import { RollDataPF2e } from '@system/rolls';
 import { ChatCards } from './listeners/cards';
 import { CriticalHitAndFumbleCards } from './crit-fumble-cards';
 
@@ -27,6 +28,9 @@ export class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
 export interface ChatMessagePF2e {
     readonly data: foundry.data.ChatMessageData<this>;
+
+    /** @todo: change back to getter when prettier updates with syntax support */
+    readonly roll: Rolled<Roll<RollDataPF2e>>;
 
     getFlag(scope: 'core', key: 'RollTable'): unknown;
     getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;

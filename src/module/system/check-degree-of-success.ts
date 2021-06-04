@@ -6,6 +6,7 @@ import {
     calculateDegreeOfSuccess,
     adjustDegreeOfSuccess,
 } from '../degree-of-success';
+import { RollDataPF2e } from './rolls';
 
 export interface PF2CheckDCModifiers {
     all?: 'one-degree-better' | 'one-degree-worse';
@@ -44,12 +45,12 @@ export const DegreeOfSuccessText = ['criticalFailure', 'failure', 'success', 'cr
 export type DegreeOfSuccessString = typeof DegreeOfSuccessText[number];
 
 export function getDegreeOfSuccess(
-    roll: Roll,
+    roll: Roll<RollDataPF2e>,
     checkDC: PF2CheckDC,
 ): { value: DegreeOfSuccess; degreeAdjustment: DegreeAdjustment | undefined } {
     const dieRoll: DieRoll = {
-        dieValue: (roll.terms[0] as any).total ?? 0,
-        modifier: (roll.data.totalModifier as number) ?? 0,
+        dieValue: Number(roll.terms[0].total) ?? 0,
+        modifier: roll.data.totalModifier ?? 0,
     };
     let value = calculateDegreeOfSuccess(dieRoll, checkDC.value);
     const degreeAdjustment = getDegreeAdjustment(value, checkDC.modifiers ?? {});

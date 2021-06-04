@@ -6,6 +6,7 @@ import { DegreeOfSuccessString } from '@system/check-degree-of-success';
 import { RollNotePF2e } from '@module/notes';
 import { DiceModifierPF2e, ModifierPF2e, RawModifier } from '@module/modifiers';
 import { DamageTemplate } from '@system/damage/weapon';
+import { ChatMessagePF2e } from '@module/chat-message';
 
 /**
  * @category Other
@@ -155,16 +156,12 @@ export class DamageRollModifiersDialog extends Application {
 
         // fake dice pool roll to ensure Dice So Nice properly trigger the dice animation
         const roll = (() => {
-            const pool = DicePool.fromRolls(rolls) as RolledDicePool; // TODO: Fix types
-            const roll = Roll.create(pool.formula).evaluate({ async: false });
-            roll.terms = [pool];
-            roll.results = [pool.total];
-            roll._total = pool.total;
-            roll.data._rolled = true;
+            const pool = PoolTerm.fromRolls(rolls);
+            const roll = Roll.create(pool.formula, { terms: [pool] }).evaluate({ async: false });
             return roll;
         })();
 
-        ChatMessage.create(
+        ChatMessagePF2e.create(
             {
                 type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                 speaker: ChatMessage.getSpeaker(),

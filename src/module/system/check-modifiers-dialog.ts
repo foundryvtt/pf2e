@@ -3,6 +3,7 @@ import { ActorPF2e } from '@actor/base';
 import { RollNotePF2e } from '../notes';
 import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
 import { LocalizePF2e } from './localize';
+import { RollDataPF2e } from './rolls';
 
 export interface CheckModifiersContext {
     /** Any options which should be used in the roll. */
@@ -112,7 +113,7 @@ export class CheckModifiersDialog extends Application {
             .join('<br />');
 
         const totalModifierPart = check.totalModifier === 0 ? '' : `+${check.totalModifier}`;
-        const roll = new Roll(`${dice}${totalModifierPart}`, check).evaluate({ async: false });
+        const roll = new Roll(`${dice}${totalModifierPart}`, check as RollDataPF2e).evaluate({ async: false });
 
         let flavor = `<strong>${check.name}</strong>`;
         if (ctx.type === 'spell-attack-roll' && game.modules.get('pf2qr')?.active) {
