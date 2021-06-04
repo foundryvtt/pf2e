@@ -15,7 +15,7 @@ export class FormulaPreservingRoll extends Roll {
  * @category Other
  */
 export class DicePF2e {
-    _rolled: any;
+    _rolled?: boolean;
     terms?: string[];
     _formula: any;
     /**
@@ -24,19 +24,19 @@ export class DicePF2e {
      * Holding SHIFT, ALT, or CTRL when the attack is rolled will "fast-forward".
      * This chooses the default options of a normal attack with no bonus, Advantage, or Disadvantage respectively
      *
-     * @param {Event} event           The triggering event which initiated the roll
-     * @param {Array} parts           The dice roll component parts, excluding the initial d20
-     * @param {Actor} actor           The Actor making the d20 roll
-     * @param {Object} data           Actor or item data against which to parse the roll
-     * @param {String} template       The HTML template used to render the roll dialog
-     * @param {String} title          The dice roll UI window title
-     * @param {Object} speaker        The ChatMessage speaker to pass when creating the chat
-     * @param {Function} flavor       A callable function for determining the chat message flavor given parts and data
-     * @param {Boolean} advantage     Allow rolling with advantage (and therefore also with disadvantage)
-     * @param {Boolean} situational   Allow for an arbitrary situational bonus field
-     * @param {Boolean} fastForward   Allow fast-forward advantage selection
-     * @param {Function} onClose      Callback for actions to take when the dialog form is closed
-     * @param {Object} dialogOptions  Modal dialog options
+     * @param event         The triggering event which initiated the roll
+     * @param parts         The dice roll component parts, excluding the initial d20
+     * @param actor         The Actor making the d20 roll
+     * @param data          Actor or item data against which to parse the roll
+     * @param template      The HTML template used to render the roll dialog
+     * @param title         The dice roll UI window title
+     * @param speaker       The ChatMessage speaker to pass when creating the chat
+     * @param flavor        A callable function for determining the chat message flavor given parts and data
+     * @param advantage     Allow rolling with advantage (and therefore also with disadvantage)
+     * @param situational   Allow for an arbitrary situational bonus field
+     * @param fastForward   Allow fast-forward advantage selection
+     * @param onClose       Callback for actions to take when the dialog form is closed
+     * @param dialogOptions Modal dialog options
      */
     static async d20Roll({
         event,
@@ -329,7 +329,7 @@ export class DicePF2e {
     }
 
     alter(add: number, multiply: number) {
-        const rgx = new RegExp(Roll.rgx.dice, 'g');
+        const rgx = new RegExp(DiceTerm.REGEXP, 'g');
         if (this._rolled) throw new Error('You may not alter a Roll which has already been rolled');
 
         // Update dice roll terms
