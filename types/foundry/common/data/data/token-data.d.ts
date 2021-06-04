@@ -73,10 +73,11 @@ declare module foundry {
             brightSight: number;
             sightAngle: number;
             hidden: boolean;
-            disposition: number;
+            lightAnimation: AnimationSource;
+            disposition: TokenDisposition;
             displayBars: number;
-            bar1: Record<string, string>;
-            bar2: Record<string, string>;
+            bar1: TokenBarSource;
+            bar2: TokenBarSource;
             flags: Record<string, unknown>;
         }
 
@@ -84,8 +85,14 @@ declare module foundry {
             TDocument extends documents.BaseToken = documents.BaseToken,
         > extends abstract.DocumentData<TDocument> {
             static defineSchema(): abstract.DocumentSchema;
+
+            lightAnimation: AnimationData<TDocument>;
+
+            bar1: TokenBarData<TDocument>;
+
+            bar2: TokenBarData<TDocument>;
         }
-        interface TokenData extends TokenSource {
+        interface TokenData extends Omit<TokenSource, 'lightAnimation' | 'bar1' | 'bar2'> {
             readonly _source: TokenSource;
         }
     }

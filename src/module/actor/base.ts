@@ -206,14 +206,14 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** Synchronize the token image with the actor image, if the token does not currently have an image */
+    /** Synchronize the token image with the actor image if the token has a default image but not its actor */
     private prepareTokenImg() {
         const useSystemTokenSettings = game.settings.get('pf2e', 'defaultTokenSettings');
         const tokenImgIsDefault =
             this.data.token.img === (this.data.constructor as typeof BaseActorDataPF2e).DEFAULT_ICON;
         const tokenImgIsActorImg = this.data.token.img === this.img;
         if (useSystemTokenSettings && tokenImgIsDefault && !tokenImgIsActorImg) {
-            this.data.token.img = this.img;
+            this.data.token.update({ img: this.img });
         }
     }
 

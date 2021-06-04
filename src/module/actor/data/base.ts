@@ -26,7 +26,8 @@ export abstract class BaseActorDataPF2e<TActor extends ActorPF2e = ActorPF2e> ex
     ItemPF2e
 > {}
 
-export interface BaseActorDataPF2e extends Omit<BaseActorSourcePF2e<ActorType, ActorSystemData>, 'effects' | 'items'> {
+export interface BaseActorDataPF2e
+    extends Omit<BaseActorSourcePF2e<ActorType, ActorSystemData>, 'effects' | 'items' | 'token'> {
     type: BaseActorSourcePF2e['type'];
     data: BaseActorSourcePF2e['data'];
 

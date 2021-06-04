@@ -25,7 +25,7 @@ export class NPCData extends BaseCreatureData<NPCPF2e, NPCSystemData> {
     static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/npc.svg';
 }
 
-export interface NPCData extends Omit<NPCSource, 'effects' | 'items'> {
+export interface NPCData extends Omit<NPCSource, 'effects' | 'items' | 'token'> {
     readonly type: NPCSource['type'];
     data: NPCSource['data'];
     readonly _source: NPCSource;

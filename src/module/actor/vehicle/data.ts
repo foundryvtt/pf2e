@@ -15,7 +15,7 @@ export class VehicleData extends BaseActorDataPF2e<VehiclePF2e> {
     static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/vehicle.svg';
 }
 
-export interface VehicleData extends Omit<VehicleSource, 'effects' | 'items'> {
+export interface VehicleData extends Omit<VehicleSource, 'effects' | 'items' | 'token'> {
     type: VehicleSource['type'];
     data: VehicleSource['data'];
     readonly _source: VehicleSource;

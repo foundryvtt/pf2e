@@ -31,7 +31,7 @@ export class CharacterData extends BaseCreatureData<CharacterPF2e, CharacterSyst
     static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/mystery-man.svg';
 }
 
-export interface CharacterData extends Omit<CharacterSource, 'effects' | 'items'> {
+export interface CharacterData extends Omit<CharacterSource, 'effects' | 'items' | 'token'> {
     readonly type: CharacterSource['type'];
     data: CharacterSource['data'];
     readonly _source: CharacterSource;
