@@ -32,6 +32,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.height = 460;
         options.classes = options.classes.concat(['pf2e', 'item']);
         options.template = 'systems/pf2e/templates/items/item-sheet.html';
+        options.scrollY = ['.tab.active'];
         options.tabs = [
             {
                 navSelector: '.tabs',
