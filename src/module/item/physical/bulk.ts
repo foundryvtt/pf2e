@@ -1,7 +1,7 @@
 import { Size, SIZES } from '@module/data';
-import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from '../utils';
-import { ItemDataPF2e, PhysicalItemData } from './data';
-import { isPhysicalData } from './data/helpers';
+import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from '@module/utils';
+import { ItemDataPF2e, PhysicalItemData } from '../data';
+import { isPhysicalData } from '../data/helpers';
 
 interface StackDefinition {
     size: number;
@@ -56,9 +56,6 @@ const stackDefinitions: StackDefinitions = {
     },
 };
 
-/**
- * @category Other
- */
 export class Bulk {
     normal: number;
 
@@ -330,12 +327,10 @@ function combineBulkAndOverflow(first: BulkAndOverflow, second: BulkAndOverflow)
 
 export interface BulkConfig {
     ignoreCoinBulk: boolean;
-    ignoreContainerOverflow: boolean;
 }
 
 export const defaultBulkConfig: BulkConfig = {
     ignoreCoinBulk: false,
-    ignoreContainerOverflow: false,
 };
 
 /**
@@ -434,15 +429,10 @@ function reduceNestedItemBulk(bulk: Bulk, item: BulkItem, nestedExtraDimensional
  * Stacks don't overflow if inside extra dimensional containers or overflowing bulk is turned off
  * @param overflow
  * @param item
- * @param ignoreContainerOverflow
  * @return {{}|*}
  */
-function calculateChildOverflow(
-    overflow: StackGroupOverflow,
-    item: BulkItem,
-    ignoreContainerOverflow: boolean,
-): StackGroupOverflow {
-    if (item.extraDimensionalContainer || ignoreContainerOverflow) {
+function calculateChildOverflow(overflow: StackGroupOverflow, item: BulkItem): StackGroupOverflow {
+    if (item.extraDimensionalContainer) {
         return {};
     }
     return overflow;
@@ -480,11 +470,7 @@ function calculateCombinedBulk({
         .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
 
     // combine item overflow and child overflow
-    const combinedOverflow = combineObjects(
-        mainOverflow,
-        calculateChildOverflow(childOverflow, item, bulkConfig.ignoreContainerOverflow),
-        add,
-    );
+    const combinedOverflow = combineObjects(mainOverflow, calculateChildOverflow(childOverflow, item), add);
     const [overflowBulk, remainingOverflow] = calculateStackBulk({
         itemStacks: combinedOverflow,
         bulkConfig,
@@ -537,7 +523,6 @@ const complexBulkRegex = /^(\d+);\s*(\d*)l$/i;
  * Accepted formats:
  * "l", "1", "L", "1; L", "2; 3L", "2;3L"
  * @param weight if not parseable will return null or undefined
- * @return {Bulk}
  */
 export function weightToBulk(weight: Optional<string>): Bulk | undefined {
     if (weight === undefined || weight === null) {

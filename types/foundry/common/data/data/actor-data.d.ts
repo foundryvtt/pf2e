@@ -51,6 +51,9 @@ declare module foundry {
             /** A Collection of Item embedded Documents */
             items: abstract.EmbeddedCollection<TItem>;
 
+            /** Default Token settings that are used for Tokens created from this Actor **/
+            token: PrototypeTokenData;
+
             protected _initializeSource(data: ActorSource): this['_source'];
 
             protected _initialize(): void;
@@ -60,7 +63,7 @@ declare module foundry {
             TDocument extends documents.BaseActor,
             TActiveEffect extends documents.BaseActiveEffect,
             TItem extends documents.BaseItem,
-        > extends Omit<ActorSource, 'effects' | 'items'> {
+        > extends Omit<ActorSource, 'effects' | 'items' | 'token'> {
             readonly _source: ActorSource;
         }
     }

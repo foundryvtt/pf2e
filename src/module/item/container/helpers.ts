@@ -1,4 +1,12 @@
-import { Bulk, BulkConfig, BulkItem, calculateBulk, defaultBulkConfig, formatBulk, weightToBulk } from '../bulk';
+import {
+    Bulk,
+    BulkConfig,
+    BulkItem,
+    calculateBulk,
+    defaultBulkConfig,
+    formatBulk,
+    weightToBulk,
+} from '../physical/bulk';
 import { PhysicalItemData } from '../data';
 import { groupBy } from '@module/utils';
 import { Size } from '@module/data';
@@ -142,12 +150,12 @@ function toContainer({
 }
 
 function detectCycle(itemId: string, containerId = '', idIndexedItems: Map<string, PhysicalItemData>): boolean {
-    if (idIndexedItems.has(containerId)) {
-        const currentItem = idIndexedItems.get(containerId);
+    const currentItem = idIndexedItems.get(containerId);
+    if (currentItem) {
         if (itemId === currentItem?._id) {
             return true;
         }
-        return detectCycle(itemId, currentItem?.data.containerId.value, idIndexedItems);
+        return detectCycle(itemId, currentItem.data.containerId.value!, idIndexedItems);
     }
     return false;
 }
@@ -189,19 +197,16 @@ export function getContainerMap({
     bulkConfig?: BulkConfig;
     actorSize?: Size;
 } = {}): Map<string, ContainerData> {
-    const allIds = groupBy(items, (item) => item._id);
+    const allIds = groupBy(items, (itemData) => itemData._id);
 
-    const containerGroups = groupBy(items, (item) => {
-        const containerId = item?.data?.containerId?.value;
-        if (allIds.has(containerId)) {
-            return containerId;
-        }
-        return null;
+    const containerGroups = groupBy(items, (itemData) => {
+        const containerId = itemData.data.containerId.value ?? '';
+        return allIds.has(containerId) ? containerId : null;
     });
 
     const idIndexedContainerData = new Map();
     for (const item of items) {
-        const isInContainer = containerGroups.has(item?.data?.containerId?.value);
+        const isInContainer = item.data.containerId.value !== null && containerGroups.has(item.data.containerId.value);
         const heldItems = containerGroups.get(item._id) || [];
 
         idIndexedContainerData.set(

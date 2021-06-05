@@ -478,3 +478,4 @@ declare type DocumentPermission = keyof typeof CONST.ENTITY_PERMISSIONS;
 declare type PermissionLevel = typeof CONST.ENTITY_PERMISSIONS[DocumentPermission];
 declare type UserPermission = keyof typeof CONST.USER_PERMISSIONS;
 declare type UserAction = 'create' | 'update' | 'delete';
+declare type TokenDisposition = typeof CONST.TOKEN_DISPOSITIONS[keyof typeof CONST.TOKEN_DISPOSITIONS];

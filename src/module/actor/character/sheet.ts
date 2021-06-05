@@ -1,8 +1,8 @@
 import { ItemPF2e } from '@item/base';
-import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/bulk';
+import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/physical/bulk';
 import { getContainerMap } from '@item/container/helpers';
 import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, SpellData, WeaponData } from '@item/data';
-import { calculateEncumbrance } from '@item/encumbrance';
+import { calculateEncumbrance } from '@item/physical/encumbrance';
 import { FeatSource } from '@item/feat/data';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
@@ -211,13 +211,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Iterate through items, allocating to containers
         const bulkConfig = {
             ignoreCoinBulk: game.settings.get('pf2e', 'ignoreCoinBulk'),
-            ignoreContainerOverflow: game.settings.get('pf2e', 'ignoreContainerOverflow'),
         };
 
         const bulkItems = itemsFromActorData(actorData);
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
-            items: actorData.items,
+            items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
             bulkItemsById,
             bulkConfig,
         });

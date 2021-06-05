@@ -37,7 +37,7 @@ declare global {
         get isRoll(): boolean;
 
         /** Return the Roll instance contained in this chat message, if one is present */
-        get roll(): Rolled<Roll> | null;
+        readonly roll: Rolled<Roll> | null;
 
         /**
          * Return whether the ChatMessage is visible to the current User.
@@ -176,7 +176,7 @@ declare global {
     }
 
     interface ChatMessage {
-        readonly data: foundry.data.ChatMessageData<ChatMessage>;
+        readonly data: foundry.data.ChatMessageData<this>;
         readonly parent: null;
     }
 

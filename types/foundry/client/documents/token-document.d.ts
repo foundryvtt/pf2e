@@ -52,7 +52,7 @@ declare global {
          * @param alternative An alternative attribute path to get instead of the default one
          * @return The attribute displayed on the Token bar, if any
          */
-        getBarAttribute(barName: string, { alternative }?: { alternative?: string }): Record<string, unknown> | null;
+        getBarAttribute(barName: string, { alternative }?: { alternative?: string }): { value: number } | null;
 
         /* -------------------------------------------- */
         /*  Actor Data Operations                       */
@@ -66,10 +66,7 @@ declare global {
          * @param options  Provided options which modify the update request
          * @returns The updated un-linked Actor instance
          */
-        modifyActorDocument(
-            update: Record<string, unknown>,
-            options: DocumentModificationContext,
-        ): Promise<NonNullable<TActor>[]>;
+        modifyActorDocument(update: Record<string, unknown>, options: DocumentModificationContext): Promise<TActor[]>;
 
         /** @override */
         // getEmbeddedCollection(embeddedName: 'Item' | 'ActiveEffect'): ReturnType<TActor['getEmbeddedCollection']>;

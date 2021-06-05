@@ -9,7 +9,7 @@ export class HazardData extends BaseActorDataPF2e<HazardPF2e> {
 }
 
 /** Wrapper type for hazard-specific data. */
-export interface HazardData extends Omit<HazardSource, 'effects' | 'items'> {
+export interface HazardData extends Omit<HazardSource, 'effects' | 'items' | 'token'> {
     type: HazardSource['type'];
     data: HazardSource['data'];
     readonly _source: HazardSource;

@@ -1,6 +1,6 @@
 import { ActorSheetPF2e } from '../sheet/base';
 import { LootPF2e } from '@actor/loot';
-import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/bulk';
+import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/physical/bulk';
 import { getContainerMap } from '@item/container/helpers';
 import { DistributeCoinsPopup } from '../sheet/popups/distribute-coins-popup';
 import { ItemDataPF2e, PhysicalItemData } from '@item/data';
@@ -70,13 +70,12 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         // Iterate through items, allocating to containers
         const bulkConfig = {
             ignoreCoinBulk: game.settings.get('pf2e', 'ignoreCoinBulk'),
-            ignoreContainerOverflow: game.settings.get('pf2e', 'ignoreContainerOverflow'),
         };
 
         const bulkItems = itemsFromActorData(actorData);
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
-            items: actorData.items,
+            items: actorData.items.filter((itemData: ItemDataPF2e) => itemData.isPhysical),
             bulkItemsById,
             bulkConfig,
         });

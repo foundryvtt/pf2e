@@ -1,7 +1,7 @@
 import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, RawPredicate } from '../modifiers';
 import { isCycle } from '@item/container/helpers';
 import { DicePF2e } from '@scripts/dice';
-import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e } from '@item';
+import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e } from '@item';
 import type { ConditionPF2e, ArmorPF2e } from '@item/index';
 import { ConditionData, WeaponData, ItemSourcePF2e, ItemType } from '@item/data';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
@@ -157,13 +157,24 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.prepareTokenImg();
     }
 
-    /** @override */
+    /**
+     * Prepare physical item getters on this actor and containers
+     * @override
+     */
     prepareEmbeddedEntities(): void {
         super.prepareEmbeddedEntities();
         const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
             (item) => item instanceof PhysicalItemPF2e,
         );
         this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
+
+        // Prepare container contents now that this actor's embedded documents are ready
+        const containers = physicalItems.filter(
+            (item): item is Embedded<ContainerPF2e> => item instanceof ContainerPF2e,
+        );
+        for (const container of containers) {
+            container.prepareContents();
+        }
     }
 
     /**
@@ -195,6 +206,26 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
+    /**
+     * Prevent character importers from creating martial items
+     * @override
+     */
+    createEmbeddedDocuments(
+        embeddedName: 'ActiveEffect' | 'Item',
+        data: PreCreate<foundry.data.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
+        context: DocumentModificationContext = {},
+    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
+        const includesMartialItems = data.some(
+            (datum: PreCreate<foundry.data.ActiveEffectSource> | PreCreate<ItemSourcePF2e>) =>
+                'type' in datum && datum.type === 'martial',
+        );
+        if (includesMartialItems) {
+            throw ErrorPF2e('Martial items are pending removal from the system and may no longer be created.');
+        }
+
+        return super.createEmbeddedDocuments(embeddedName, data, context) as Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
+    }
+
     /** Synchronize the token image with the actor image, if the token does not currently have an image */
     private prepareTokenImg() {
         const useSystemTokenSettings = game.settings.get('pf2e', 'defaultTokenSettings');
@@ -202,7 +233,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             this.data.token.img === (this.data.constructor as typeof BaseActorDataPF2e).DEFAULT_ICON;
         const tokenImgIsActorImg = this.data.token.img === this.img;
         if (useSystemTokenSettings && tokenImgIsDefault && !tokenImgIsActorImg) {
-            this.data.token.img = this.img;
+            this.data.token.update({ img: this.img });
         }
     }
 
@@ -795,8 +826,8 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param getItem     Lambda returning the item.
      * @param containerId Id of the container that will contain the item.
      */
-    async stashOrUnstash(item: PhysicalItemPF2e, containerId?: string): Promise<void> {
-        if (containerId) {
+    async stashOrUnstash(item: Embedded<PhysicalItemPF2e>, containerId?: string): Promise<void> {
+        if (containerId && this.physicalItems.get(containerId) instanceof ContainerPF2e) {
             if (!isCycle(item.id, containerId, [item.data])) {
                 await item.update({
                     'data.containerId.value': containerId,
@@ -804,7 +835,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 });
             }
         } else {
-            await item.update({ 'data.containerId.value': '' });
+            await item.update({ 'data.containerId.value': null });
         }
     }
 

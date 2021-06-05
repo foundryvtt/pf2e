@@ -628,7 +628,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find('.inventory-browse').on('click', () => game.pf2e.compendiumBrowser.openTab('equipment'));
 
         // Spell Create
-        html.find('.spell-create').on('click', (event) => this.onItemCreate(event));
+        html.find('.spell-create').on('click', (event) => this.onClickCreateItem(event));
 
         // Add Spellcasting Entry
         html.find('.spellcasting-create').on('click', (event) => this.createSpellcastingEntry(event));
@@ -649,7 +649,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         /* -------------------------------------------- */
 
         // Create New Item
-        html.find('.item-create').on('click', (event) => this.onItemCreate(event));
+        html.find('.item-create').on('click', (event) => this.onClickCreateItem(event));
 
         html.find('.item-toggle-container').on('click', (event) => this.toggleContainer(event));
 
@@ -778,12 +778,17 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find<HTMLInputElement>('.spell-slots-input').on('change', async (event) => {
             event.preventDefault();
 
-            const itemId = $(event.currentTarget).parents('.item, .section').attr('data-item-id') ?? '';
-            const slotLevel = Number($(event.currentTarget).parents('.item, .section').attr('data-level') ?? 0);
+            const $input = $(event.target);
+            const itemId = $input.closest('.item, .section').attr('data-item-id') ?? '';
+            const spellcastingEntry = this.actor.items.get(itemId);
+            if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) throw ErrorPF2e('Spellcasting entry not found');
 
-            await this.actor.updateEmbeddedDocuments('Item', [
-                { _id: itemId, [`data.slots.slot${slotLevel}.value`]: slotLevel },
-            ]);
+            const slotLevel = Number($input.closest('.item, .section').attr('data-level') ?? 0);
+            const slots = spellcastingEntry.data.data.slots;
+            const slot = slots[`slot${slotLevel}` as keyof typeof slots];
+            const newValue = Math.clamped(Number($input.val()), 0, slot.max);
+
+            await spellcastingEntry.update({ [`data.slots.slot${slotLevel}.value`]: newValue });
         });
 
         // Update max slots for Spell Items
@@ -1232,12 +1237,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         if (isPhysicalData(itemData)) {
-            const container = $(event.target).parents('[data-item-is-container="true"]');
-            let containerId: string | undefined = undefined;
-            if (container[0] !== undefined) {
-                containerId = container[0].dataset.itemId?.trim();
+            const containerId =
+                $(event.target).closest('[data-item-is-container="true"]').attr('data-item-id')?.trim() || null;
+            const container = this.actor.itemTypes.backpack.find((container) => container.id === containerId);
+            if (container) {
+                itemData.data.containerId.value = containerId;
             }
-            itemData.data.containerId.value = containerId || '';
         }
         return this._onDropItemCreate(itemData);
     }
@@ -1400,13 +1405,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         item.update({ 'data.collapsed.value': !isCollapsed });
     }
 
-    /**
-     * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
-     */
-    private onItemCreate(event: JQuery.ClickEvent) {
+    /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
+    private onClickCreateItem(event: JQuery.ClickEvent) {
         event.preventDefault();
         const header = event.currentTarget;
         const data: any = duplicate(header.dataset);
+        data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
 
         if (data.type === 'feat') {
             const featTypeString = game.i18n.localize(`PF2E.FeatType${data.featType.capitalize()}`);

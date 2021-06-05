@@ -1235,6 +1235,7 @@ export const PF2ECONFIG = {
         teleportation: 'PF2E.TraitTeleportation',
         tethered: 'PF2E.TraitTethered',
         'thrown-10': 'PF2E.TraitThrown10',
+        'thrown-15': 'PF2E.TraitThrown15',
         'thrown-20': 'PF2E.TraitThrown20',
         'thrown-30': 'PF2E.TraitThrown30',
         'thrown-40': 'PF2E.TraitThrown40',

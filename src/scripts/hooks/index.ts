@@ -9,7 +9,6 @@ import * as TurnChanges from './turn-changes';
 import * as UpdateScene from './update-scene';
 import * as UpdateWorldTime from './update-world-time';
 import * as RenderActorDirectory from './render-actor-directory';
-import * as RenderChatLog from './render-chat-log';
 import * as RenderChatMessage from './render-chat-message';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -23,7 +22,6 @@ export namespace PF2E {
             HotbarDrop.listen();
             Ready.listen();
             RenderActorDirectory.listen();
-            RenderChatLog.listen();
             RenderChatMessage.listen();
             Setup.listen();
             TurnChanges.listen();
