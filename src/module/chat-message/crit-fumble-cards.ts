@@ -50,38 +50,41 @@ export class CriticalHitAndFumbleCards {
             });
     }
 
-    static appendButtons($html: JQuery): void {
+    static appendButtons(chatMessage: ChatMessagePF2e, $html: JQuery): void {
         this.appendButtonsOption ??= game.settings.get('pf2e', 'critFumbleButtons');
         if (this.appendButtonsOption) {
-            const critButton = $(
-                `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-up" title="${game.i18n.localize(
-                    'PF2E.CriticalHitCardButtonTitle',
-                )}"></i></button>`,
-            );
-            const fumbleButton = $(
-                `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-down" title="${game.i18n.localize(
-                    'PF2E.CriticalFumbleCardButtonTitle',
-                )}"></i></button>`,
-            );
-            const btnContainer1 = $(
-                `<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>`,
-            );
-            btnContainer1.append(critButton);
-            btnContainer1.append(fumbleButton);
+            const type = chatMessage.getFlag('pf2e', 'context')?.type ?? '';
+            if (this.rollTypes.includes(type)) {
+                const critButton = $(
+                    `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-up" title="${game.i18n.localize(
+                        'PF2E.CriticalHitCardButtonTitle',
+                    )}"></i></button>`,
+                );
+                const fumbleButton = $(
+                    `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-down" title="${game.i18n.localize(
+                        'PF2E.CriticalFumbleCardButtonTitle',
+                    )}"></i></button>`,
+                );
+                const btnContainer1 = $(
+                    `<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>`,
+                );
+                btnContainer1.append(critButton);
+                btnContainer1.append(fumbleButton);
 
-            critButton.on('click', (event) => {
-                event.stopPropagation();
-                this.drawFromTable('critTable');
-                event.currentTarget.blur();
-            });
+                critButton.on('click', (event) => {
+                    event.stopPropagation();
+                    this.drawFromTable('critTable');
+                    event.currentTarget.blur();
+                });
 
-            fumbleButton.on('click', (event) => {
-                event.stopPropagation();
-                this.drawFromTable('fumbleTable');
-                event.currentTarget.blur();
-            });
+                fumbleButton.on('click', (event) => {
+                    event.stopPropagation();
+                    this.drawFromTable('fumbleTable');
+                    event.currentTarget.blur();
+                });
 
-            $html.find('.dice-total').wrapInner('<span id="value"></span>').append(btnContainer1);
+                $html.find('.dice-total').wrapInner('<span id="value"></span>').append(btnContainer1);
+            }
         }
     }
 }
