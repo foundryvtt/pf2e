@@ -1,4 +1,12 @@
-import { Bulk, BulkConfig, BulkItem, calculateBulk, defaultBulkConfig, formatBulk, weightToBulk } from '../physical/bulk';
+import {
+    Bulk,
+    BulkConfig,
+    BulkItem,
+    calculateBulk,
+    defaultBulkConfig,
+    formatBulk,
+    weightToBulk,
+} from '../physical/bulk';
 import { PhysicalItemData } from '../data';
 import { groupBy } from '@module/utils';
 import { Size } from '@module/data';
@@ -198,7 +206,7 @@ export function getContainerMap({
 
     const idIndexedContainerData = new Map();
     for (const item of items) {
-        const isInContainer = containerGroups.has(item?.data?.containerId?.value);
+        const isInContainer = item.data.containerId.value !== null && containerGroups.has(item.data.containerId.value);
         const heldItems = containerGroups.get(item._id) || [];
 
         idIndexedContainerData.set(
