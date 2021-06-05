@@ -858,8 +858,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const change = event.type === 'click' ? 1 : -1;
         const max = propertyKey.includes('heroPoints') ? 3 : 4;
-        const validCurrentValue = Math.clamped(currentValue, 0, max);
-        const newValue = Math.clamped(validCurrentValue + change, 0, max);
+        const update = this.getIntendedChange(propertyKey, currentValue + change);
+        const newValue = Math.clamped(update, 0, max);
 
         await this.actor.update({ [propertyKey]: newValue });
     }
