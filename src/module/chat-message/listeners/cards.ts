@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from '@item/data';
-import { ItemPF2e, MeleePF2e } from '@item/index';
+import { ConsumablePF2e, ItemPF2e, MeleePF2e } from '@item/index';
 import { ActorPF2e } from '@actor/index';
 import { StatisticModifier } from '@module/modifiers';
 
@@ -89,7 +89,7 @@ export const ChatCards = {
                 else if (action === 'spellDamage') item.rollSpellDamage(event);
                 else if (action === 'spellCounteract') item.rollCounteract(event);
                 // Consumable usage
-                else if (action === 'consume') item.rollConsumable(event);
+                else if (action === 'consume' && item instanceof ConsumablePF2e) item.consume();
                 else if (action === 'save') ActorPF2e.rollSave(event, item);
             } else {
                 const strikeIndex = card.attr('data-strike-index');

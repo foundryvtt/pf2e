@@ -120,9 +120,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                     item.rollSpellDamage(event);
                     break;
                 case 'consume':
-                    item.rollConsumable(event);
+                    if (item instanceof ConsumablePF2e) item.consume();
                     break;
-                default:
             }
         });
     }

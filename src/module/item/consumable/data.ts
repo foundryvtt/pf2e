@@ -53,8 +53,8 @@ interface ConsumableSystemData extends MagicItemSystemData, ActivatedEffectData 
         value: boolean;
         _deprecated: boolean;
     };
-    spell?: {
-        data?: SpellSource;
-        heightenedLevel?: number;
+    spell: {
+        data?: SpellSource | null;
+        heightenedLevel?: number | null;
     };
 }
