@@ -645,13 +645,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (['attributes.shield', 'attributes.hp'].includes(attribute)) {
             const updateActorData: any = {};
             const shield = selectedShield ?? this.heldShield;
-            const updateShieldData = {
-                data: {
-                    hp: {
-                        value: -1,
-                    },
-                },
-            };
+            let updatedShieldHp = -1;
             if (attribute === 'attributes.shield') {
                 if (shield?.isBroken === false) {
                     let shieldHitPoints = shield.hitPoints.current;
@@ -668,7 +662,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     shield.data.data.hp.value = shieldHitPoints; // ensure the shield item has the correct state in prepareData() on the first pass after Actor#update
                     updateActorData['data.attributes.shield.value'] = shieldHitPoints;
                     // actor update is necessary to properly refresh the token HUD resource bar
-                    updateShieldData.data.hp.value = shieldHitPoints;
+                    updatedShieldHp = shieldHitPoints;
                 } else if ('shield' in this.data.data.attributes && this.data.data.attributes.shield.max) {
                     // NPC with no shield but pre-existing shield data
                     const shieldData = this.data.data.attributes.shield;
@@ -707,14 +701,20 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 value = Math.clamped(value, 0, hp.max);
                 updateActorData['data.attributes.hp.value'] = value;
             }
+            if (shield && updatedShieldHp >= 0) {
+                updateActorData.items = [
+                    {
+                        _id: shield.id,
+                        data: {
+                            hp: {
+                                value: updatedShieldHp,
+                            },
+                        },
+                    },
+                ];
+            }
 
-            return this.update(updateActorData).then(() => {
-                if (shield && updateShieldData.data.hp.value >= 0) {
-                    // this will trigger a second prepareData() call, but is necessary for persisting the shield state
-                    shield.update({ updateShieldData });
-                }
-                return this;
-            });
+            return this.update(updateActorData);
         }
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
