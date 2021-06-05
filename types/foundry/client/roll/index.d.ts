@@ -185,7 +185,7 @@ declare global {
          * @param [options={}] Additional options which modify or describe this Roll
          * @return The constructed Roll instance
          */
-        static create<T extends object>(formula: string, data?: T, options?: Record<string, unknown>): Roll;
+        static create<T extends RollData>(formula: string, data?: T, options?: Record<string, unknown>): Roll;
 
         /**
          * Transform an array of RollTerm objects into a cleaned string formula representation.

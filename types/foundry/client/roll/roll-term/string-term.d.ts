@@ -1,18 +1,26 @@
-/** A type of RollTerm used to capture residual strings which have not yet been matched */
-declare class StringTerm extends RollTerm {
-    constructor({ term, options }: { term: string; options?: Record<string, unknown> });
+export {};
 
-    term: string;
+declare global {
+    /** A type of RollTerm used to capture residual strings which have not yet been matched */
+    class StringTerm extends RollTerm<StringTermData> {
+        constructor({ term, options }: StringTermData);
 
-    /** @override */
-    static SERIALIZE_ATTRIBUTES: ['term'];
+        term: string;
 
-    /** @override */
-    get expression(): string;
+        /** @override */
+        static SERIALIZE_ATTRIBUTES: ['term'];
 
-    /** @override */
-    get total(): string;
+        /** @override */
+        get expression(): string;
 
-    /** @override */
-    evaluate(options?: Record<string, unknown>): never;
+        /** @override */
+        get total(): string;
+
+        /** @override */
+        evaluate(options?: Record<string, unknown>): never;
+    }
+
+    interface StringTermData extends RollTermData {
+        term?: string;
+    }
 }

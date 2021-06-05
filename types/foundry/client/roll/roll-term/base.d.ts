@@ -5,8 +5,8 @@ declare global {
      * An abstract class which represents a single token that can be used as part of a Roll formula.
      * Every portion of a Roll formula is parsed into a subclass of RollTerm in order for the Roll to be fully evaluated.
      */
-    abstract class RollTerm {
-        constructor({ options }?: { options?: RollTermData });
+    abstract class RollTerm<TData extends RollTermData = RollTermData> {
+        constructor({ options }?: { options?: TData });
 
         /** An object of additional options which describes and modifies the term. */
         options: Record<string, unknown>;
@@ -113,32 +113,33 @@ declare global {
          * @param data Provided data from an un-serialized term
          * @return The constructed RollTerm
          */
-        static fromData(data: RollTermData): RollTerm;
+        static fromData<T extends RollTerm>(this: ConstructorOf<T>, data: RollTermData): T;
 
         /**
          * Define term-specific logic for how a de-serialized data object is restored as a functional RollTerm
          * @param data The de-serialized term data
          * @returns The re-constructed RollTerm object
          */
-        protected static _fromData(data: RollTermData): RollTerm;
+        protected static _fromData<T extends RollTerm>(this: ConstructorOf<T>, data: RollTermData): T;
 
         /**
          * Reconstruct a RollTerm instance from a provided JSON string
          * @param json A serialized JSON representation of a DiceTerm
          * @return A reconstructed RollTerm from the provided JSON
          */
-        static fromJSON(json: string): RollTerm;
+        static fromJSON<T extends RollTerm<any>>(this: ConstructorOf<T>, json: string): T;
 
         /**
          * Serialize the RollTerm to a JSON string which allows it to be saved in the database or embedded in text.
          * This method should return an object suitable for passing to the JSON.stringify function.
          */
-        toJSON(): Record<string, unknown>;
+        toJSON(): TData;
     }
 
     interface RollTermData {
+        class?: string;
+        options?: this;
         evaluated?: boolean;
-        flavor?: string;
     }
 
     type Evaluated<T extends RollTerm> = T & {

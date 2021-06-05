@@ -2,7 +2,7 @@ export {};
 
 declare global {
     /** Define a two-sided coin term that can be used as part of a Roll formula */
-    class Coin extends DiceTerm {
+    class Coin extends DiceTerm<CoinData> {
         /** @override */
         constructor(termData: CoinData);
 
@@ -37,6 +37,6 @@ declare global {
     }
 
     interface CoinData extends DiceTermData {
-        faces: 2;
+        faces?: 2;
     }
 }

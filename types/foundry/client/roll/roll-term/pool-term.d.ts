@@ -13,7 +13,7 @@ declare global {
      * });
      * pool.evaluate();
      */
-    class PoolTerm extends RollTerm {
+    class PoolTerm extends RollTerm<PoolTermData> {
         constructor({ terms, modifiers, rolls, results, options }?: PoolTermData);
 
         /** The original provided terms to the Dice Pool */
@@ -103,9 +103,7 @@ declare global {
         /* -------------------------------------------- */
 
         /** @override */
-        protected static _fromData<T extends PoolTerm>(this: T, data: PoolTermData): T;
-
-        /* -------------------------------------------- */
+        protected static _fromData<D extends PoolTermData, T extends RollTerm<D>>(this: ConstructorOf<T>, data: D): T;
 
         /**
          * Given a string formula, create and return an evaluated PoolTerm object
@@ -113,11 +111,7 @@ declare global {
          * @param [options] Additional options applied to the PoolTerm
          * @return The evaluated PoolTerm object or null if the formula is invalid
          */
-        static fromExpression<T extends PoolTerm>(
-            this: T,
-            formula: string,
-            options?: Record<string, unknown>,
-        ): T | null;
+        static fromExpression(formula: string, options?: Record<string, unknown>): PoolTerm | null;
 
         /**
          * Create a PoolTerm by providing an array of existing Roll objects
@@ -178,10 +172,9 @@ declare global {
     }
 
     interface PoolTermData extends RollTermData {
-        terms?: RollTermData[];
+        terms?: string[];
         modifiers?: string[];
-        rolls?: RollData;
+        rolls?: RollData[];
         results?: DiceTermResult[];
-        options?: PoolTermData;
     }
 }

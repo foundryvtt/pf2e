@@ -1,25 +1,34 @@
-/** A type of RollTerm used to denote and perform an arithmetic operation. */
-declare class OperatorTerm extends RollTerm {
-    constructor({ operator, options }: { operator: ArithmeticOperator; options?: Record<string, unknown> });
-    operator: ArithmeticOperator;
+export {};
 
-    /** An array of operators which represent arithmetic operations */
-    static OPERATORS: ['+', '-', '*', '/'];
+declare global {
+    /** A type of RollTerm used to denote and perform an arithmetic operation. */
+    class OperatorTerm extends RollTerm<OperatorTermData> {
+        constructor({ operator, options }: OperatorTermData);
 
-    /** @override */
-    static REGEXP: RegExp;
+        operator: ArithmeticOperator;
 
-    /** @override */
-    static SERIALIZE_ATTRIBUTES: ['operator'];
+        /** An array of operators which represent arithmetic operations */
+        static OPERATORS: ['+', '-', '*', '/'];
 
-    /** @override */
-    get flavor(): ''; // Operator terms cannot have flavor text
+        /** @override */
+        static REGEXP: RegExp;
 
-    /** @override */
-    get expression(): ` ${ArithmeticOperator} `;
+        /** @override */
+        static SERIALIZE_ATTRIBUTES: ['operator'];
 
-    /** @override */
-    get total(): ` ${ArithmeticOperator} `;
+        /** @override */
+        get flavor(): ''; // Operator terms cannot have flavor text
+
+        /** @override */
+        get expression(): ` ${ArithmeticOperator} `;
+
+        /** @override */
+        get total(): ` ${ArithmeticOperator} `;
+    }
+
+    type ArithmeticOperator = typeof OperatorTerm['OPERATORS'][number];
+
+    interface OperatorTermData extends RollTermData {
+        operator: ArithmeticOperator;
+    }
 }
-
-declare type ArithmeticOperator = typeof OperatorTerm['OPERATORS'][number];
