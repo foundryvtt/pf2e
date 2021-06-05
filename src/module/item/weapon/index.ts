@@ -3,6 +3,7 @@ import { TRADITION_TRAITS } from '../data/values';
 import { getAttackBonus } from '../runes';
 import { LocalizePF2e } from '@module/system/localize';
 import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup } from './data';
+import { CreaturePF2e } from '@actor';
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     /** @override */
@@ -51,24 +52,31 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const twohandedTrait = data.traits.value.find((trait: string) => trait.match(twohandedRegex)) !== undefined;
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
 
-        // calculate attackRoll modifier (for _onItemSummary)
         const isFinesse = this.traits.has('finesse');
-        const abl =
-            isFinesse && actorData.data.abilities.dex.mod > actorData.data.abilities.str.mod
-                ? 'dex'
-                : data.ability.value || 'str';
-
-        const prof = data.weaponType.value || 'simple';
-        // if a default martial proficiency then lookup the martial value, else find the martialSkill item and get the value from there.
         const proficiency = {
             type: 'default',
             value: 0,
         };
-        if (Object.keys(CONFIG.PF2E.weaponTypes).includes(prof)) {
-            proficiency.type = 'martial';
-            proficiency.value = (actorData.data as any).martial?.[prof]?.value || 0;
-        } else {
-            console.warn(`PF2E | Could not find martial skill for ${prof}`);
+
+        let attackRoll = 0;
+        let canAttack = false;
+        if (this.actor instanceof CreaturePF2e && !this.actor.pack) {
+            // calculate attackRoll modifier (for _onItemSummary)
+            const abl =
+                isFinesse && actorData.data.abilities.dex.mod > actorData.data.abilities.str.mod
+                    ? 'dex'
+                    : data.ability.value || 'str';
+
+            // if a default martial proficiency then lookup the martial value, else find the martialSkill item and get the value from there.
+            const prof = data.weaponType.value || 'simple';
+            if (Object.keys(CONFIG.PF2E.weaponTypes).includes(prof)) {
+                proficiency.type = 'martial';
+                proficiency.value = (actorData.data as any).martial?.[prof]?.value || 0;
+            } else {
+                console.warn(`PF2E | Could not find martial skill for ${prof}`);
+            }
+            attackRoll = getAttackBonus(data) + (actorData.data.abilities?.[abl]?.mod ?? 0) + proficiency.value;
+            canAttack = true;
         }
 
         const properties = [data.group.value ? CONFIG.PF2E.weaponGroups[data.group.value] : null].filter(
@@ -82,7 +90,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             traits,
             proficiency,
             properties,
-            attackRoll: getAttackBonus(data) + (actorData.data.abilities?.[abl]?.mod ?? 0) + proficiency.value,
+            attackRoll,
+            canAttack,
             isTwohanded: !!twohandedTrait,
             wieldedTwoHands: !!data.hands.value,
             isFinesse,
