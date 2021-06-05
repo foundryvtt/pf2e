@@ -1691,12 +1691,22 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
      */
     protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         const overrides = this.actor.overrides;
+        let submitData: Record<string, unknown>;
         try {
             this.actor.overrides = {};
-            return super._getSubmitData(updateData);
+            submitData = super._getSubmitData(updateData);
         } finally {
             this.actor.overrides = overrides;
         }
+
+        for (const propertyPath of Object.keys(submitData)) {
+            const update = submitData[propertyPath];
+            if (typeof update === 'number') {
+                submitData[propertyPath] = this.getIntendedChange(propertyPath, update);
+            }
+        }
+
+        return submitData;
     }
 
     /** @override */
@@ -1718,6 +1728,14 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         return super._onSubmit(event, options);
+    }
+
+    /** Get the intended change of a numeric value despite any modification via data preparation */
+    protected getIntendedChange(propertyPath: string, update: number): number {
+        const baseValue = getProperty(this.actor.data._source, propertyPath);
+        const override = getProperty(this.actor.data, propertyPath);
+
+        return typeof baseValue === 'number' && typeof override === 'number' ? baseValue + (update - override) : update;
     }
 
     /**
