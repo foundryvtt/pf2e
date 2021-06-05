@@ -5,6 +5,7 @@ import { identifyCreature } from '@module/recall-knowledge';
 import { RecallKnowledgePopup } from '../sheet/popups/recall-knowledge-popup';
 import { SpellcastingEntryData, SpellData } from '@item/data';
 import { objectHasKey } from '@module/utils';
+import { ConsumablePF2e } from '@item';
 
 export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     static get defaultOptions() {
@@ -326,7 +327,7 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                     item.rollSpellDamage(ev);
                     break;
                 case 'consume':
-                    item.rollConsumable(ev);
+                    if (item instanceof ConsumablePF2e) item.consume();
                     break;
                 default:
                     throw new Error('Unknown action type');

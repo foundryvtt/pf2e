@@ -1,6 +1,7 @@
 import { ActorSheetPF2e } from '../sheet/base';
 import { ErrorPF2e } from '@module/utils';
 import { HazardPF2e } from '.';
+import { ConsumablePF2e } from '@item';
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static get defaultOptions() {
@@ -204,7 +205,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                     item.rollSpellDamage(event);
                     break;
                 case 'consume':
-                    item.rollConsumable(event);
+                    if (item instanceof ConsumablePF2e) item.consume();
                     break;
                 default:
                     throw new Error('Unknown action type');

@@ -429,7 +429,7 @@ declare global {
                  * @param user    The User requesting the document creation
                  */
                 protected _preCreate(
-                    data: PreCreate<DocumentSource>,
+                    data: PreCreate<this['data']['_source']>,
                     options: DocumentModificationContext,
                     user: documents.BaseUser,
                 ): Promise<void>;
