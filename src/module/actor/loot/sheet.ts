@@ -1,6 +1,6 @@
 import { ActorSheetPF2e } from '../sheet/base';
 import { LootPF2e } from '@actor/loot';
-import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/bulk';
+import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/physical/bulk';
 import { getContainerMap } from '@item/container/helpers';
 import { DistributeCoinsPopup } from '../sheet/popups/distribute-coins-popup';
 import { ItemDataPF2e, PhysicalItemData } from '@item/data';

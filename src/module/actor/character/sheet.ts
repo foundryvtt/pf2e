@@ -1,8 +1,8 @@
 import { ItemPF2e } from '@item/base';
-import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/bulk';
+import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/physical/bulk';
 import { getContainerMap } from '@item/container/helpers';
 import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, SpellData, WeaponData } from '@item/data';
-import { calculateEncumbrance } from '@item/encumbrance';
+import { calculateEncumbrance } from '@item/physical/encumbrance';
 import { FeatSource } from '@item/feat/data';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
