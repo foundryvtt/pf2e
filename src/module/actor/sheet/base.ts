@@ -628,7 +628,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find('.inventory-browse').on('click', () => game.pf2e.compendiumBrowser.openTab('equipment'));
 
         // Spell Create
-        html.find('.spell-create').on('click', (event) => this.onItemCreate(event));
+        html.find('.spell-create').on('click', (event) => this.onClickCreateItem(event));
 
         // Add Spellcasting Entry
         html.find('.spellcasting-create').on('click', (event) => this.createSpellcastingEntry(event));
@@ -649,7 +649,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         /* -------------------------------------------- */
 
         // Create New Item
-        html.find('.item-create').on('click', (event) => this.onItemCreate(event));
+        html.find('.item-create').on('click', (event) => this.onClickCreateItem(event));
 
         html.find('.item-toggle-container').on('click', (event) => this.toggleContainer(event));
 
@@ -1405,13 +1405,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         item.update({ 'data.collapsed.value': !isCollapsed });
     }
 
-    /**
-     * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
-     */
-    private onItemCreate(event: JQuery.ClickEvent) {
+    /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
+    private onClickCreateItem(event: JQuery.ClickEvent) {
         event.preventDefault();
         const header = event.currentTarget;
         const data: any = duplicate(header.dataset);
+        data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
 
         if (data.type === 'feat') {
             const featTypeString = game.i18n.localize(`PF2E.FeatType${data.featType.capitalize()}`);
