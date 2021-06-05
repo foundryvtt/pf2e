@@ -189,14 +189,11 @@ export function getContainerMap({
     bulkConfig?: BulkConfig;
     actorSize?: Size;
 } = {}): Map<string, ContainerData> {
-    const allIds = groupBy(items, (item) => item._id);
+    const allIds = groupBy(items, (itemData) => itemData._id);
 
-    const containerGroups = groupBy(items, (item) => {
-        const containerId = item.data.containerId.value ?? '';
-        if (allIds.has(containerId)) {
-            return containerId;
-        }
-        return null;
+    const containerGroups = groupBy(items, (itemData) => {
+        const containerId = itemData.data.containerId.value ?? '';
+        return allIds.has(containerId) ? containerId : null;
     });
 
     const idIndexedContainerData = new Map();

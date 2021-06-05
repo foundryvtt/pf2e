@@ -76,15 +76,6 @@ export function registerSettings() {
         type: Boolean,
     });
 
-    game.settings.register('pf2e', 'ignoreContainerOverflow', {
-        name: 'PF2E.SETTINGS.IgnoreContainerOverflow.Name',
-        hint: 'PF2E.SETTINGS.IgnoreContainerOverflow.Hint',
-        scope: 'world',
-        config: true,
-        default: false,
-        type: Boolean,
-    });
-
     game.settings.register('pf2e', 'identifyMagicNotMatchingTraditionModifier', {
         name: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Name',
         hint: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Hint',
