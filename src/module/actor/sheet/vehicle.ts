@@ -1,4 +1,4 @@
-import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/bulk';
+import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/physical/bulk';
 import { getContainerMap } from '@item/container/helpers';
 import { ActorSheetPF2e } from './base';
 import { calculateWealth } from '@item/treasure/helpers';

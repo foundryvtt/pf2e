@@ -1,4 +1,4 @@
-import { Bulk, BulkConfig, BulkItem, calculateBulk, defaultBulkConfig, formatBulk, weightToBulk } from '../bulk';
+import { Bulk, BulkConfig, BulkItem, calculateBulk, defaultBulkConfig, formatBulk, weightToBulk } from '../physical/bulk';
 import { PhysicalItemData } from '../data';
 import { groupBy } from '@module/utils';
 import { Size } from '@module/data';
