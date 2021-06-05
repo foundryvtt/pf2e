@@ -6,7 +6,7 @@ import {
     convertBulkToSize,
     toBulkItems,
     weightToBulk,
-} from '@item/bulk';
+} from '@item/physical/bulk';
 import { PhysicalItemData } from '@item/data';
 
 function createItem({
