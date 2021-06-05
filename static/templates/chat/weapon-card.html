@@ -17,7 +17,7 @@
     {{/if}}
 
     <div class="card-content">{{{data.description.value}}}</div>
-
+    {{#if data.canAttack}}
     <div class="card-buttons">
         <div class="card-buttons-multiattack">
             <button data-action="weaponAttack">{{localize "PF2E.AttackLabel"}}</button>
@@ -29,6 +29,7 @@
             <button data-action="criticalDamage">{{localize "PF2E.CriticalDamageLabel"}}</button>
         </div>
     </div>
+    {{/if}}
 
     <footer class="card-footer"></footer>
 </div>
