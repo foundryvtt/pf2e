@@ -1,64 +1,78 @@
-/** A type of RollTerm used to enclose a parenthetical expression to be recursively evaluated. */
-declare class ParentheticalTerm extends RollTerm {
-    constructor({ term, roll, options }: { term: string; roll?: Roll; options?: Record<string, unknown> });
-    constructor({ term, roll, options }: { term?: string; roll: Roll; options?: Record<string, unknown> });
+export {};
 
-    /** The original provided string term used to construct the parenthetical */
-    term: string;
+declare global {
+    /** A type of RollTerm used to enclose a parenthetical expression to be recursively evaluated. */
+    class ParentheticalTerm extends RollTerm<ParentheticalTermData> {
+        constructor({ term, roll, options }: { term: string; roll?: Roll; options?: Record<string, unknown> });
+        constructor({ term, roll, options }: { term?: string; roll: Roll; options?: Record<string, unknown> });
 
-    /** Alternatively, an already-evaluated Roll instance may be passed directly */
-    roll?: Roll;
+        /** The original provided string term used to construct the parenthetical */
+        term: string;
 
-    /** @override */
-    isIntermediate: true;
+        /** Alternatively, an already-evaluated Roll instance may be passed directly */
+        roll?: Roll;
 
-    /**
-     * The regular expression pattern used to identify the opening of a parenthetical expression.
-     * This could also identify the opening of a math function.
-     */
-    static OPEN_REGEXP: RegExp;
+        /** @override */
+        isIntermediate: true;
 
-    /** A regular expression pattern used to identify the closing of a parenthetical expression. */
-    static CLOSE_REGEXP: RegExp;
+        /**
+         * The regular expression pattern used to identify the opening of a parenthetical expression.
+         * This could also identify the opening of a math function.
+         */
+        static OPEN_REGEXP: RegExp;
 
-    /** @override */
-    static SERIALIZE_ATTRIBUTES: ['term'];
+        /** A regular expression pattern used to identify the closing of a parenthetical expression. */
+        static CLOSE_REGEXP: RegExp;
 
-    /* -------------------------------------------- */
-    /*  Parenthetical Term Attributes               */
-    /* -------------------------------------------- */
+        /** @override */
+        static SERIALIZE_ATTRIBUTES: ['term'];
 
-    /** An array of evaluated DiceTerm instances that should be bubbled up to the parent Roll */
-    get dice(): Evaluated<DiceTerm>[];
+        /* -------------------------------------------- */
+        /*  Parenthetical Term Attributes               */
+        /* -------------------------------------------- */
 
-    /** @override */
-    get total(): string | number | undefined;
+        /** An array of evaluated DiceTerm instances that should be bubbled up to the parent Roll */
+        get dice(): Evaluated<DiceTerm>[];
 
-    /** @inheritdoc */
-    get expression(): `(${string})`;
+        /** @override */
+        get total(): string | number | undefined;
 
-    /* -------------------------------------------- */
-    /*  Parenthetical Term Methods                  */
-    /* -------------------------------------------- */
+        /** @inheritdoc */
+        get expression(): `(${string})`;
 
-    /** @override */
-    protected _evaluateSync({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): Evaluated<this>;
+        /* -------------------------------------------- */
+        /*  Parenthetical Term Methods                  */
+        /* -------------------------------------------- */
 
-    /** @override */
-    protected _evaluate({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): Promise<Evaluated<this>>;
+        /** @override */
+        protected _evaluateSync({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): Evaluated<this>;
 
-    /**
-     * Construct a ParentheticalTerm from an Array of component terms which should be wrapped inside the parentheses.
-     * @param terms The array of terms to use as internal parts of the parenthetical
-     * @param [options={}]   Additional options passed to the ParentheticalTerm constructor
-     * @returns The constructed ParentheticalTerm instance
-     *
-     * @example <caption>Create a Parenthetical Term from an array of component RollTerm instances</caption>
-     * const d6 = new Die({number: 4, faces: 6});
-     * const plus = new OperatorTerm({operator: "+"});
-     * const bonus = new NumericTerm({number: 4});
-     * t = ParentheticalTerm.fromTerms([d6, plus, bonus]);
-     * t.formula; // (4d6 + 4)
-     */
-    static fromTerms(terms: RollTerm[], options?: Record<string, unknown>): ParentheticalTerm;
+        /** @override */
+        protected _evaluate({
+            minimize,
+            maximize,
+        }?: {
+            minimize?: boolean;
+            maximize?: boolean;
+        }): Promise<Evaluated<this>>;
+
+        /**
+         * Construct a ParentheticalTerm from an Array of component terms which should be wrapped inside the parentheses.
+         * @param terms The array of terms to use as internal parts of the parenthetical
+         * @param [options={}]   Additional options passed to the ParentheticalTerm constructor
+         * @returns The constructed ParentheticalTerm instance
+         *
+         * @example <caption>Create a Parenthetical Term from an array of component RollTerm instances</caption>
+         * const d6 = new Die({number: 4, faces: 6});
+         * const plus = new OperatorTerm({operator: "+"});
+         * const bonus = new NumericTerm({number: 4});
+         * t = ParentheticalTerm.fromTerms([d6, plus, bonus]);
+         * t.formula; // (4d6 + 4)
+         */
+        static fromTerms(terms: RollTerm[], options?: Record<string, unknown>): ParentheticalTerm;
+    }
+
+    interface ParentheticalTermData extends RollTermData {
+        term?: string;
+    }
 }

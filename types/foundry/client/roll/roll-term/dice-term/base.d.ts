@@ -10,8 +10,8 @@ declare global {
      * @param [termData.results]   An optional array of pre-cast results for the term
      * @param [termData.options]   Additional options that modify the term
      */
-    abstract class DiceTerm extends RollTerm {
-        constructor({ number, faces, modifiers, results, options }?: DiceTermData);
+    abstract class DiceTerm<TData extends DiceTermData = DiceTermData> extends RollTerm<TData> {
+        constructor({ number, faces, modifiers, results, options }?: TData);
 
         /** The number of dice of this term to roll, before modifiers are applied */
         number: number;
@@ -190,7 +190,7 @@ declare global {
          * @param match The matched regular expression array
          * @return The constructed term
          */
-        static fromMatch<T extends DiceTerm>(this: DiceTerm, match: RegExpMatchArray): T;
+        static fromMatch<T extends DiceTerm>(this: ConstructorOf<T>, match: RegExpMatchArray): T;
     }
 
     /**
@@ -220,7 +220,6 @@ declare global {
         faces?: number;
         modifiers?: string[];
         results?: DiceTermResult[];
-        options?: DiceTermData;
     }
 
     type ComparisonOperator = '=' | '<' | '<=' | '>' | '>=';

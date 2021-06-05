@@ -154,17 +154,21 @@ export class DamageRollModifiersDialog extends Application {
         }
         content += `</div><h4 class="dice-total"><span id="value">${rollData.total}</span></h4></div></div>`;
 
-        // fake dice pool roll to ensure Dice So Nice properly trigger the dice animation
+        // Combine the rolls into a single roll of a dice pool
         const roll = (() => {
+            if (rolls.length === 1) return rolls[0];
             const pool = PoolTerm.fromRolls(rolls);
-            const roll = Roll.create(pool.formula, { terms: [pool] }).evaluate({ async: false });
+            // Work around foundry bug where `fromData` doubles the number of dice from a pool
+            const data = pool.toJSON();
+            delete data.rolls;
+            const roll = Roll.fromData({ formula: pool.formula, terms: [pool] });
             return roll;
         })();
 
         ChatMessagePF2e.create(
             {
                 type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                speaker: ChatMessage.getSpeaker(),
+                speaker: ChatMessagePF2e.getSpeaker(),
                 flavor,
                 content: content.trim(),
                 roll,
@@ -173,7 +177,7 @@ export class DamageRollModifiersDialog extends Application {
                     core: {
                         canPopout: true,
                     },
-                    [game.system.id]: {
+                    pf2e: {
                         damageRoll: rollData,
                     },
                 },
