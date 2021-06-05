@@ -1,4 +1,6 @@
+import { ActorSourcePF2e } from '@actor/data';
 import { ActorPF2e } from '@actor/index';
+import { ItemSourcePF2e } from '@item/data';
 import { ItemPF2e } from '@item/index';
 import { ValuesList } from '@module/data';
 import { TraitSelectorBase } from './base';
@@ -34,7 +36,10 @@ export class TagSelectorBasic extends TraitSelectorBase {
 
     /** @override */
     getData() {
-        const property: ValuesList = getProperty(this.object._data, this.objectProperty);
+        const property: ValuesList = getProperty(
+            (this.object as { toObject(): ActorSourcePF2e | ItemSourcePF2e }).toObject(),
+            this.objectProperty,
+        );
         const chosen: string[] = (property.value ?? []).map((prop) => prop.toString());
 
         const custom = this.allowCustom ? property.custom : null;

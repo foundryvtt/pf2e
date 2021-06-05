@@ -15,7 +15,6 @@ import {
 } from '@module/system/trait-selector';
 import { ErrorPF2e, sluggify, tupleHasValue } from '@module/utils';
 import { ActiveEffectPF2e } from '@module/active-effect';
-import { WeaponTrait } from '@item/weapon/data';
 
 export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     user: { isGM: boolean };
@@ -113,7 +112,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
 
             data.traits = this.prepareOptions(CONFIG.PF2E.weaponTraits, data.data.traits, { selectedOnly: true });
-            data.baseTraits = this.prepareOptions(CONFIG.PF2E.weaponTraits, this.item._data.data.traits, {
+            data.baseTraits = this.prepareOptions(CONFIG.PF2E.weaponTraits, this.item.toObject().data.traits, {
                 selectedOnly: true,
             });
 
@@ -174,7 +173,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.baseTypes = LocalizePF2e.translations.PF2E.Item.Armor.Base;
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, data.data.traits, { selectedOnly: true });
-            data.baseTraits = this.prepareOptions(CONFIG.PF2E.armorTraits, this.item._data.data.traits, {
+            data.baseTraits = this.prepareOptions(CONFIG.PF2E.armorTraits, this.item.toObject().data.traits, {
                 selectedOnly: true,
             });
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
