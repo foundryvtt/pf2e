@@ -11,7 +11,9 @@ export class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         ChatCards.listen($html);
 
         // Append critical hit and fumble card buttons if the setting is enabled
-        CriticalHitAndFumbleCards.appendButtons($html);
+        if (this.isRoll) {
+            CriticalHitAndFumbleCards.appendButtons(this, $html);
+        }
 
         return $html;
     }
