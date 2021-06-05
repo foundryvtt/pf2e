@@ -32,6 +32,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         options.height = 460;
         options.classes = options.classes.concat(['pf2e', 'item']);
         options.template = 'systems/pf2e/templates/items/item-sheet.html';
+        options.scrollY = ['.tab.active'];
         options.tabs = [
             {
                 navSelector: '.tabs',
@@ -579,17 +580,5 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             formData['data.baseItem'] = null;
         }
         super._updateObject(event, formData);
-    }
-
-    /**
-     * Override of internal render function to maintain scroll position
-     * @override
-     */
-    protected async _render(force?: boolean, options?: RenderOptions) {
-        const tabScrollPosition = this.element.find('.tab.active').scrollTop();
-        await super._render(force, options);
-        if (tabScrollPosition) {
-            this.element.find('.tab.active').scrollTop(tabScrollPosition);
-        }
     }
 }
