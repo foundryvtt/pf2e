@@ -1,34 +1,43 @@
-/** A type of RollTerm used to capture static numbers. */
-declare class NumericTerm extends RollTerm {
-    constructor({ number, options }: { number: number; options?: Record<string, unknown> });
-    number: number;
+export {};
 
-    /** @override */
-    static REGEXP: RegExp;
+declare global {
+    /** A type of RollTerm used to capture static numbers. */
+    class NumericTerm extends RollTerm {
+        constructor({ number, options }: NumericTermData);
 
-    /** @override */
-    static SERIALIZE_ATTRIBUTES: ['number'];
+        number: number;
 
-    /** @override */
-    get expression(): string;
+        /** @override */
+        static REGEXP: RegExp;
 
-    /** @override */
-    get total(): number;
+        /** @override */
+        static SERIALIZE_ATTRIBUTES: ['number'];
 
-    /* -------------------------------------------- */
-    /*  Factory Methods                             */
-    /* -------------------------------------------- */
+        /** @override */
+        get expression(): string;
 
-    /**
-     * Determine whether a string expression matches a NumericTerm
-     * @param expression The expression to parse
-     */
-    static matchTerm(expression: string): RegExpMatchArray | null;
+        /** @override */
+        get total(): number;
 
-    /**
-     * Construct a term of this type given a matched regular expression array.
-     * @param match The matched regular expression array
-     * @return The constructed term
-     */
-    static fromMatch<T extends NumericTerm>(this: T, match: RegExpMatchArray): T;
+        /* -------------------------------------------- */
+        /*  Factory Methods                             */
+        /* -------------------------------------------- */
+
+        /**
+         * Determine whether a string expression matches a NumericTerm
+         * @param expression The expression to parse
+         */
+        static matchTerm(expression: string): RegExpMatchArray | null;
+
+        /**
+         * Construct a term of this type given a matched regular expression array.
+         * @param match The matched regular expression array
+         * @return The constructed term
+         */
+        static fromMatch<T extends NumericTerm>(this: T, match: RegExpMatchArray): T;
+    }
+
+    interface NumericTermData extends RollTermData {
+        number?: number;
+    }
 }
