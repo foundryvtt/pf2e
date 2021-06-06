@@ -1084,11 +1084,12 @@ export class CharacterPF2e extends CreaturePF2e {
                     .join(', ');
                 attack.roll = (args: RollParameters) => {
                     const label = game.i18n.format(`PF2E.SpellAttack.${tradition}`);
-                    const options = args.options ?? [];
+                    const ctx = this.createAttackRollContext(args.event!, ['all', 'attack-roll', 'spell-attack-roll']);
+                    const options = (args.options ?? []).concat(ctx.options);
                     ensureProficiencyOption(options, rank);
                     CheckPF2e.roll(
                         new CheckModifier(label, attack, args.modifiers ?? []),
-                        { actor: this, type: 'spell-attack-roll', options, dc: args.dc, notes },
+                        { actor: this, type: 'spell-attack-roll', options, notes, dc: args.dc ?? ctx.dc },
                         args.event,
                         args.callback,
                     );
