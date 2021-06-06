@@ -1192,9 +1192,11 @@ export class CharacterPF2e extends CreaturePF2e {
 
     private prepareAncestry() {
         const ancestry = this.ancestry;
+
+        const actorData = this.data;
+        actorData.data.details.ancestry = ancestry?.name ?? null;
+
         if (ancestry) {
-            const actorData = this.data;
-            actorData.data.details.ancestry = ancestry.name;
             actorData.data.attributes.ancestryhp = ancestry.hitPoints;
             actorData.data.attributes.speed.value = String(ancestry.speed);
             actorData.data.traits.size.value = ancestry.size;
@@ -1214,14 +1216,14 @@ export class CharacterPF2e extends CreaturePF2e {
     }
 
     private prepareBackground() {
-        this.data.data.details.background = this.background?.name ?? '';
+        this.data.data.details.background = this.background?.name ?? null;
     }
 
     private prepareClass(): void {
         const classItem = this.class;
+        this.data.data.details.class = classItem?.name ?? null;
 
         if (classItem) {
-            this.data.data.details.class = classItem.name ?? '';
             this.data.data.attributes.classhp = classItem.hpPerLevel ?? 0;
         }
     }
