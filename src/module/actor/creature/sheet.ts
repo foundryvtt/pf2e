@@ -4,7 +4,6 @@ import { ItemPF2e } from '@item/base';
 import { LocalizePF2e } from '@module/system/localize';
 import { ConsumablePF2e } from '@item/consumable';
 import { CreaturePF2e } from '@actor/creature';
-import { PF2CheckDC } from '@module/system/check-degree-of-success';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { BaseWeaponType, WeaponGroup } from '@item/weapon/data';
 import { ZeroToFour } from '@module/data';
@@ -237,62 +236,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             $(event.currentTarget).parents('.expandable').toggleClass('expanded');
         });
 
-        const createStrikeRollContext = (rollNames: string[]) => {
-            const targets = Array.from(game.user.targets)
-                .map((token) => token.actor)
-                .filter((actor) => !!actor);
-            const target =
-                targets.length === 1 && targets[0] instanceof CreaturePF2e ? (targets[0] as CreaturePF2e) : undefined;
-            const options = this.actor.getRollOptions(rollNames);
-            {
-                const conditions = this.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
-                options.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
-            }
-            if (target) {
-                const conditions = target.itemTypes.condition.filter((condition) => condition.fromSystem);
-                options.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
-
-                const traits = (target.data.data.traits.traits.custom ?? '')
-                    .split(/[;,\\|]/)
-                    .map((value) => value.trim())
-                    .concat(target.data.data.traits.traits.value ?? [])
-                    .filter((value) => !!value)
-                    .map((trait) => `target:${trait}`);
-                options.push(...traits);
-            }
-            return {
-                options,
-                targets: new Set(targets),
-                target,
-            };
-        };
-        const createAttackRollContext = (event: JQuery.TriggeredEvent, rollNames: string[]) => {
-            const ctx = createStrikeRollContext(rollNames);
-            let dc: PF2CheckDC | undefined;
-            if (ctx.target) {
-                dc = {
-                    label: game.i18n.format('PF2E.CreatureArmorClass', { creature: ctx.target.name }),
-                    scope: 'AttackOutcome',
-                    value: ctx.target.data.data.attributes.ac.value,
-                    visibility: 'gm',
-                };
-            }
-            return {
-                event,
-                options: Array.from(new Set(ctx.options)), // de-duplication
-                targets: ctx.targets,
-                dc,
-            };
-        };
-        const createDamageRollContext = (event: JQuery.TriggeredEvent) => {
-            const ctx = createStrikeRollContext(['all', 'damage-roll']);
-            return {
-                event,
-                options: Array.from(new Set(ctx.options)), // de-duplication
-                targets: ctx.targets,
-            };
-        };
-
         // the click listener registered on all buttons breaks the event delegation here...
         // html.find('.strikes-list [data-action-index]').on('click', '.damage-strike', (event) => {
         html.find('.strikes-list .damage-strike, [data-action="npcDamage"]').on('click', (event) => {
@@ -302,7 +245,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             event.stopPropagation();
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-            const rollContext = createDamageRollContext(event);
+            const rollContext = this.actor.createDamageRollContext(event);
             this.actor.data.data.actions[Number(actionIndex)].damage(rollContext);
         });
 
@@ -315,7 +258,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             event.stopPropagation();
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-            const rollContext = createDamageRollContext(event);
+            const rollContext = this.actor.createDamageRollContext(event);
             this.actor.data.data.actions[Number(actionIndex)].critical(rollContext);
         });
 
@@ -326,8 +269,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const index = $(event.currentTarget).closest('[data-container-id]').data('containerId');
             const entryData = this.actor.itemTypes.spellcastingEntry.find((item) => item.id === index)?.data;
             if (entryData && entryData.data.attack?.roll) {
-                const rollContext = createAttackRollContext(event, ['all', 'attack-roll', 'spell-attack-roll']);
-                entryData.data.attack.roll(rollContext);
+                const ctx = this.actor.createAttackRollContext(event, ['all', 'attack-roll', 'spell-attack-roll']);
+                entryData.data.attack.roll(ctx);
             }
         });
 
@@ -346,7 +289,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             if (!('actions' in this.actor.data.data)) throw Error('Strikes are not supported on this actor');
 
             const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
-            const rollContext = createAttackRollContext(event, ['all', 'attack-roll']);
+            const rollContext = this.actor.createAttackRollContext(event, ['all', 'attack-roll']);
             this.actor.data.data.actions[Number(actionIndex)].roll(rollContext);
         });
 
@@ -369,7 +312,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 }
             }
 
-            const rollContext = createAttackRollContext(event, ['all', 'attack-roll']);
+            const rollContext = this.actor.createAttackRollContext(event, ['all', 'attack-roll']);
             action.variants[Number(variantIndex)]?.roll(rollContext);
         });
     }
