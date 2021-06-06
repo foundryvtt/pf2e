@@ -15,6 +15,7 @@ import {
 import { ConditionManager } from '@module/conditions';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { isMagicItemData } from '@item/data/helpers';
+import { PF2CheckDC } from '@system/check-degree-of-success';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -247,6 +248,64 @@ export abstract class CreaturePF2e extends ActorPF2e {
             token.drawEffects();
         }
         this.redrawingTokenEffects = false;
+    }
+
+    public createAttackRollContext(event: JQuery.TriggeredEvent, rollNames: string[]) {
+        const ctx = this.createStrikeRollContext(rollNames);
+        let dc: PF2CheckDC | undefined;
+        if (ctx.target) {
+            dc = {
+                label: game.i18n.format('PF2E.CreatureArmorClass', { creature: ctx.target.name }),
+                scope: 'AttackOutcome',
+                value: ctx.target.data.data.attributes.ac.value,
+                visibility: 'gm',
+            };
+        }
+        return {
+            event,
+            options: Array.from(new Set(ctx.options)), // de-duplication
+            targets: ctx.targets,
+            dc,
+        };
+    }
+
+    public createDamageRollContext(event: JQuery.TriggeredEvent) {
+        const ctx = this.createStrikeRollContext(['all', 'damage-roll']);
+        return {
+            event,
+            options: Array.from(new Set(ctx.options)), // de-duplication
+            targets: ctx.targets,
+        };
+    }
+
+    private createStrikeRollContext(rollNames: string[]) {
+        const targets = Array.from(game.user.targets)
+            .map((token) => token.actor)
+            .filter((actor) => !!actor);
+        const target =
+            targets.length === 1 && targets[0] instanceof CreaturePF2e ? (targets[0] as CreaturePF2e) : undefined;
+        const options = this.getRollOptions(rollNames);
+        {
+            const conditions = this.itemTypes.condition.filter((condition) => condition.fromSystem);
+            options.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
+        }
+        if (target) {
+            const conditions = target.itemTypes.condition.filter((condition) => condition.fromSystem);
+            options.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
+
+            const traits = (target.data.data.traits.traits.custom ?? '')
+                .split(/[;,\\|]/)
+                .map((value) => value.trim())
+                .concat(target.data.data.traits.traits.value ?? [])
+                .filter((value) => !!value)
+                .map((trait) => `target:${trait}`);
+            options.push(...traits);
+        }
+        return {
+            options,
+            targets: new Set(targets),
+            target,
+        };
     }
 }
 
