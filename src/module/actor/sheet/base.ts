@@ -1738,12 +1738,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return super._onSubmit(event, options);
     }
 
-    /** Get the intended change of a numeric value despite any modification via data preparation */
+    /**
+     * Users edit numeric values on actor sheets that are already modified by data preparation, so get what is likely
+     * the intended change by adding the difference between their update and the prepared value to the underlying
+     * base value.
+     */
     protected getIntendedChange(propertyPath: string, update: number): number {
-        const baseValue = getProperty(this.actor.data._source, propertyPath);
-        const override = getProperty(this.actor.data, propertyPath);
+        const base = getProperty(this.actor.data._source, propertyPath);
+        const prepared = getProperty(this.actor.data, propertyPath);
 
-        return typeof baseValue === 'number' && typeof override === 'number' ? baseValue + (update - override) : update;
+        return typeof base === 'number' && typeof prepared === 'number' ? base + (update - prepared) : update;
     }
 
     /**
