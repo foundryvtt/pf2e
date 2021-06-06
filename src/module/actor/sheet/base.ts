@@ -81,6 +81,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 '.spellbook-pane',
                 '.skillstab-pane',
                 '.pfs-pane',
+                '.tab.active',
             ],
         });
     }
@@ -1806,26 +1807,5 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         return result;
-    }
-
-    /**
-     * Override of internal render function to maintain scroll position
-     * @override
-     */
-    protected async _render(force?: boolean, options?: RenderOptions) {
-        // Retrieve scroll position of main container and active tab
-        const formScrollPosition = this.element.find('form:first').scrollTop();
-        const tabScrollPosition = this.element.find('.tab.active').scrollTop();
-
-        await super._render(force, options);
-
-        // Restore scroll positions
-        if (formScrollPosition) {
-            this.element.find('form:first').scrollTop(formScrollPosition);
-        }
-
-        if (tabScrollPosition) {
-            this.element.find('.tab.active').scrollTop(tabScrollPosition);
-        }
     }
 }
