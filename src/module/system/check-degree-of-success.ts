@@ -18,6 +18,7 @@ export interface PF2CheckDCModifiers {
 
 export interface PF2CheckDC {
     label?: string;
+    subLabels?: any;
     modifiers?: PF2CheckDCModifiers;
     scope?: 'AttackOutcome' | 'CheckOutcome';
     adjustments?: {

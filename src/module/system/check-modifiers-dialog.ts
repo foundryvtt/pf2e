@@ -128,8 +128,9 @@ export class CheckModifiersDialog extends Application {
             // Add degree of success to roll for the callback function
             roll.data.degreeOfSuccess = degreeOfSuccess.value;
 
-            const dcLabel = game.i18n.localize(ctx.dc.label ?? 'PF2E.DCLabel');
-            flavor += `<div><b>${dcLabel}: ${ctx.dc.value}</b></div>`;
+            const labels = mergeObject(ctx.dc.subLabels ?? {}, { dc: ctx.dc.value });
+            const dcLabel = game.i18n.format(ctx.dc.label ?? 'PF2E.DCLabel', labels);
+            flavor += `<div><b>${dcLabel}</b></div>`;
 
             let adjustmentLabel = '';
             if (degreeOfSuccess.degreeAdjustment !== undefined) {

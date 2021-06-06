@@ -200,7 +200,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
 
         const dc: PF2CheckDC = {
-            label: game.i18n.format('PF2E.Recovery.rollingDescription', { dying }),
+            label: 'PF2E.Recovery.rollingDescription',
+            subLabels: { dying },
             value: 10 + recoveryMod + dying,
         };
 
@@ -211,7 +212,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             new RollNotePF2e('all', game.i18n.localize('PF2E.Recovery.critFailure'), undefined, ['criticalFailure']),
         ];
 
-        const modifier = new StatisticModifier(game.i18n.format('PF2E.FlatCheck'), []);
+        const modifier = new StatisticModifier(game.i18n.localize('PF2E.FlatCheck'), []);
 
         CheckPF2e.roll(modifier, { dc, notes });
 
