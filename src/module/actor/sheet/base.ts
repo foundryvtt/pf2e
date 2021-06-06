@@ -1170,7 +1170,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // get the item type of the drop target
         const dropSlotType = $(event.target).closest('.item').attr('data-item-type');
-        const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
+        const dropContainerType =
+            this.actor.type === 'loot'
+                ? 'actorInventory'
+                : $(event.target).parents('.item-container').attr('data-container-type');
 
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
