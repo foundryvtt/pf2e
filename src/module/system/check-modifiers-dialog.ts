@@ -108,10 +108,6 @@ export class CheckModifiersDialog extends Application {
             .map((o) => `<span style="${optionStyle}">${game.i18n.localize(o)}</span>`)
             .join('');
 
-        const notes = (ctx.notes ?? [])
-            .map((note: { text: string }) => TextEditor.enrichHTML(note.text))
-            .join('<br />');
-
         const totalModifierPart = check.totalModifier === 0 ? '' : `+${check.totalModifier}`;
         const roll = new Roll(`${dice}${totalModifierPart}`, check as RollDataPF2e).evaluate({ async: false });
 
@@ -125,6 +121,9 @@ export class CheckModifiersDialog extends Application {
         if (ctx.dc !== undefined) {
             flavor += `<div data-visibility="${ctx.dc.visibility ?? 'all'}">`;
             const degreeOfSuccess = getDegreeOfSuccess(roll, ctx.dc);
+            const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
+            ctx.outcome = degreeOfSuccessText;
+            ctx.unadjustedOutcome = '';
 
             // Add degree of success to roll for the callback function
             roll.data.degreeOfSuccess = degreeOfSuccess.value;
@@ -132,13 +131,14 @@ export class CheckModifiersDialog extends Application {
             const dcLabel = game.i18n.localize(ctx.dc.label ?? 'PF2E.DCLabel');
             flavor += `<div><b>${dcLabel}: ${ctx.dc.value}</b></div>`;
 
-            const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
             let adjustmentLabel = '';
             if (degreeOfSuccess.degreeAdjustment !== undefined) {
                 adjustmentLabel = degreeOfSuccess.degreeAdjustment
                     ? game.i18n.localize('PF2E.OneDegreeBetter')
                     : game.i18n.localize('PF2E.OneDegreeWorse');
                 adjustmentLabel = ` (${adjustmentLabel})`;
+
+                ctx.unadjustedOutcome = DegreeOfSuccessText[degreeOfSuccess.unadjusted];
             }
 
             const resultLabel = game.i18n.localize('PF2E.ResultLabel');
@@ -146,6 +146,16 @@ export class CheckModifiersDialog extends Application {
             flavor += `<div class="degree-of-success"><b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel}</span></b>${adjustmentLabel}</div>`;
             flavor += '</div>';
         }
+
+        const notes = ((ctx.notes as RollNotePF2e[]) ?? [])
+            .filter(
+                (note) =>
+                    note.outcome.length === 0 ||
+                    note.outcome.includes(ctx.outcome) ||
+                    note.outcome.includes(ctx.unadjustedOutcome),
+            )
+            .map((note: { text: string }) => TextEditor.enrichHTML(note.text))
+            .join('<br />');
 
         if (ctx.traits) {
             const traits = ctx.traits.map((trait: string) => `<span class="tag">${trait}</span>`).join('');
