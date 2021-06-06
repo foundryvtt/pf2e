@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+3",
+                "mod": 3,
                 "value": 16
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 17,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -78,6 +79,7 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
+                "base": 6,
                 "breakdown": "",
                 "item": 0,
                 "rank": 0,
@@ -102,7 +104,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "40 feet"
+                "value": "40"
             }
         },
         "currency": {
@@ -119,6 +121,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -138,7 +141,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Goblins' eponymous pets aren't true canines at all, but rather large, blunt-nosed rodents with thin bodies and long legs. As cowardly as they are ugly, goblin dogs prefer to lurk behind bushes or in deep shadows, pouncing upon lone or wounded prey. Goblin dogs frequently lair and roam in packs, but they are likely to flee from a fight if injured, even if it means abandoning their pack-mates.<br /><br /> Goblin dogs take their name from their long association with goblins, who breed the beasts as guard animals and mounts. Most goblins take issue with the name, as the average goblin is appalled at the suggestion that these, their favored mounts, have anything at all to do with actual dogs. Of course, being goblins, they haven't bothered to come up with their own, unique name for goblin dogs.<br /><br /> Even the most pampered goblin dogs have itchy mange and prolific dander that tenaciously affects those who come in contact with them. This &quot;goblin pox&quot; causes itchy hives and festering sores that are as unsightly as they are irritating and distracting. Goblin dog dander causes allergic reactions in nearly all other creatures that don't share the goblin dogs' terrible hygiene-with the notable exception, of course, of goblins, who remain entirely immune to the disease regardless of cleanliness.<br /><br /> Hunger can drive goblin dogs to bouts of uncharacteristic violence; many goblins purposefully starve their pets to make them more aggressive in battle. Goblin dogs subsist on whatever organic material they can scavenge, and they particularly enjoy fresh carrion. Although goblins are far from picky eaters, they value goblin dogs as pets because the noisome animals will consume food that even goblins won't dare to eat. &quot;Will it eat?&quot; is one of several games goblins enjoy playing with their goblin dog pets, where a wide range of mouth-sized morsels  are dangled before a goblin dog's snout. &quot;Will it die?&quot; is often a game played after &quot;Will it eat?&quot; Goblin dogs who survive the second game earn renown for their digestive prowess and often become favored tribal pets treated better than most of the rank-and-file goblins.<br /><br />",
+            "flavorText": "<p>Goblins' eponymous pets aren't true canines at all, but rather large, blunt-nosed rodents with thin bodies and long legs. As cowardly as they are ugly, goblin dogs prefer to lurk behind bushes or in deep shadows, pouncing upon lone or wounded prey. Goblin dogs frequently lair and roam in packs, but they are likely to flee from a fight if injured, even if it means abandoning their pack-mates.</p>\n<p>Goblin dogs take their name from their long association with goblins, who breed the beasts as guard animals and mounts. Most goblins take issue with the name, as the average goblin is appalled at the suggestion that these, their favored mounts, have anything at all to do with actual dogs. Of course, being goblins, they haven't bothered to come up with their own, unique name for goblin dogs.</p>\n<p>Even the most pampered goblin dogs have itchy mange and prolific dander that tenaciously affects those who come in contact with them. This \"goblin pox\" causes itchy hives and festering sores that are as unsightly as they are irritating and distracting. Goblin dog dander causes allergic reactions in nearly all other creatures that don't share the goblin dogs' terrible hygiene-with the notable exception, of course, of goblins, who remain entirely immune to the disease regardless of cleanliness.</p>\n<p>Hunger can drive goblin dogs to bouts of uncharacteristic violence; many goblins purposefully starve their pets to make them more aggressive in battle. Goblin dogs subsist on whatever organic material they can scavenge, and they particularly enjoy fresh carrion. Although goblins are far from picky eaters, they value goblin dogs as pets because the noisome animals will consume food that even goblins won't dare to eat. \"Will it eat?\" is one of several games goblins enjoy playing with their goblin dog pets, where a wide range of mouth-sized morsels (not always edible or safe to consume) are dangled before a goblin dog's snout. \"Will it die?\" is often a game played after \"Will it eat?\" Goblin dogs who survive the second game earn renown for their digestive prowess and often become favored tribal pets treated better than most of the rank-and-file goblins.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -201,6 +204,7 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
+                "base": 8,
                 "breakdown": "",
                 "item": 0,
                 "rank": 0,
@@ -209,6 +213,7 @@
             },
             "reflex": {
                 "ability": "dex",
+                "base": 8,
                 "breakdown": "",
                 "item": 0,
                 "rank": 0,
@@ -217,6 +222,7 @@
             },
             "will": {
                 "ability": "wis",
+                "base": 5,
                 "breakdown": "",
                 "item": 0,
                 "rank": 0,
@@ -403,6 +409,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -434,6 +443,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -443,8 +453,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "goblin pox"
+                        "goblin-pox"
                     ]
                 },
                 "baseItem": null,
@@ -489,6 +500,19 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -571,19 +595,23 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Jaws",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "ccTU8ywsXhNMP25a",
+            "_id": "xRQZegRo2JOZB7hU",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": ""
@@ -591,13 +619,19 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>DC 17<br />Most monsters that serve as mounts can attempt to\nbuck off unwanted or annoying riders, but most mounts\nwill not use this reaction against a trusted creature unless\nthe mounts are spooked or mistreated. <strong>Trigger</strong> A creature\nMounts or uses the Command an Animal action while riding\nthe monster. <strong>Effect</strong> The triggering creature must succeed\nat a Reflex saving throw against the listed DC or fall off the\ncreature and land prone. If the save is a critical failure, the\ntriggering creature also takes [[/r 1d6 # bludgeoning damage]] bludgeoning damage in\naddition to the normal damage for the fall.</p>"
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Sense",
+                        "label": "PF2E.SensesLowLightVision",
+                        "selector": "lowLightVision"
+                    }
+                ],
+                "slug": "low-light-vision",
                 "source": {
                     "value": ""
                 },
@@ -611,18 +645,131 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Low-Light Vision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "4BNXIgVORiBDrL95",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
                 },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "M1Uh0E4VLZObTo3I",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><span data-pf2-saving-throw=\"reflex\" data-pf2-label=\"Buck DC\" data-pf2-dc=\"17\" data-pf2-show-dc=\"gm\">basic Reflex</span></p>\n<hr />\n<p>Most monsters that serve as mounts can attempt to buck off unwanted or annoying riders, but most mounts will not use this reaction against a trusted creature unless the mounts are spooked or mistreated.</p>\n<p><strong>Trigger</strong> A creature @Compendium[pf2e.actionspf2e.Mount]{Mounts} or uses the @Compendium[pf2e.actionspf2e.Command an Animal]{Command an Animal} action while riding the monster.</p>\n<p><strong>Effect</strong> The triggering creature must succeed at a Reflex saving throw against the listed DC or fall off the creature and land @Compendium[pf2e.conditionitems.Prone]{Prone}. If the save is a critical failure, the triggering creature also takes [[/roll 1d6 #bludgeoning]] bludgeoning damage in addition to the normal damage for the fall.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "buck",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.nZMQh4AaBr291TUf"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Buck",
-            "sort": 200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -640,7 +787,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A creature that hits the goblin dog with an unarmed attack, tries to Grapple it, or otherwise touches it is exposed to goblin pox.</p>"
+                    "value": "<p>A creature that hits the goblin dog with an unarmed attack, tries to @Compendium[pf2e.actionspf2e.Grapple]{Grapple} it, or otherwise touches it is exposed to goblin pox.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -669,9 +816,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Irritating Dander",
-            "sort": 300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -689,7 +840,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirement</strong> A creature must be mounted on the goblin dog. <strong>Trigger</strong> The rider issues a command to the goblin dog. <strong>Effect</strong> The goblin dog Steps before following the command.</p>"
+                    "value": "<p><strong>Requirement</strong> A creature must be mounted on the goblin dog.</p>\n<p><strong>Trigger</strong> The rider issues a command to the goblin dog.</p>\n<p><strong>Effect</strong> The goblin dog @Compendium[pf2e.actionspf2e.Step]{Steps} before following the command.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -718,9 +869,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": " Juke ",
-            "sort": 400000,
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Juke",
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -738,7 +893,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Goblins and goblin dogs are immune to goblin pox. <strong>Saving Throw</strong> DC 17 Fortitude; <strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 (1 round); <strong>Stage 2</strong> sickened 1 and @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 (1 round); <strong>Stage 3</strong> sickened 2 and can't reduce its sickened value below 1 (1 day).</p>"
+                    "value": "<p><em data-visibility=\"gm\">Goblins and goblin dogs are immune to goblin pox.</em></p>\n<p><strong>Saving Throw</strong> <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"disease\" data-pf2-label=\"Goblin Pox DC\" data-pf2-dc=\"17\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<p><em data-visibility=\"gm\"><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (1 round);</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 round);</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} and can't reduce its sickened value below 1 (1 day).</em></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -769,9 +924,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Goblin Pox",
-            "sort": 500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -784,7 +943,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
@@ -820,9 +979,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Scratch",
-            "sort": 600000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -860,9 +1023,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -900,9 +1067,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
             "type": "lore"
         }
     ],
@@ -913,10 +1084,13 @@
     "token": {
         "actorId": "0rfropeocJWXC6pg",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -928,17 +1102,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Goblin Dog",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

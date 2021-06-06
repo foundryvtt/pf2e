@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+2",
+                "mod": 2,
                 "value": 14
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 17,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -78,6 +79,7 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
+                "base": 5,
                 "breakdown": "",
                 "item": 0,
                 "rank": 0,
@@ -102,7 +104,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -119,6 +121,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -138,7 +141,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "While all goblins enjoy singing, goblin war chanters pride themselves on mastering the art of vocal performance. Their ballads and jingles are undeniably catchy, though whether they are actually enjoyable is entirely subjective.<br /><br />",
+            "flavorText": "<p>While all goblins enjoy singing, goblin war chanters pride themselves on mastering the art of vocal performance. Their ballads and jingles are undeniably catchy, though whether they are actually enjoyable is entirely subjective.</p>\n<hr />\n<p>These small humanoids have green or gray skin and large heads with wide ears. While some goblins are civilized and have worked hard to be considered upstanding members of humanoid communities, most are impetuous and vicious creatures who delight in wreaking havoc. These goblins think nothing of slaughtering livestock, stealing infants, or burning down a building purely for momentary delight. They revel in playing malicious tricks on taller humanoids, whom they call \"longshanks.\"</p>\n<p>Goblins are superstitious, with an intense awe of magic and a fascination with fire; goblins who master magic or fire earn great respect from their kin. Most other humanoids find it difficult to understand goblins' outlook: they hate canines but eagerly share their lairs with so-called \"goblin dogs,\" they fearlessly attack larger creatures but are terrified of horses, and they despise vegetables yet consider pickles a delicacy. To a goblin, of course, these are all perfectly sensible life choices.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -154,6 +157,34 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary pg. 181"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "ability": {
+                        "value": "cha"
+                    },
+                    "slots": {
+                        "slot1": {
+                            "max": 2,
+                            "value": 2
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 17,
+                        "value": 7
+                    }
+                }
+            },
+            "jiPnwOEgyqQEa8Av": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 2
+                        }
+                    }
+                }
             }
         },
         "martial": {
@@ -201,6 +232,7 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
+                "base": 7,
                 "breakdown": "",
                 "item": 0,
                 "rank": 0,
@@ -209,6 +241,7 @@
             },
             "reflex": {
                 "ability": "dex",
+                "base": 8,
                 "breakdown": "",
                 "item": 0,
                 "rank": 0,
@@ -217,6 +250,7 @@
             },
             "will": {
                 "ability": "wis",
+                "base": 5,
                 "breakdown": "",
                 "item": 0,
                 "rank": 0,
@@ -403,6 +437,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -438,13 +475,14 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/bestiary/goblinwarchanter.webp",
     "items": [
         {
             "_id": "jiPnwOEgyqQEa8Av",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "description": {
                     "chat": "",
@@ -561,13 +599,17 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Occult Spontaneous Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "dQonwdwRjleoc16D",
+            "_id": "iW14xLvWsT6IzAxH",
             "data": {
                 "ability": {
                     "value": ""
@@ -575,6 +617,9 @@
                 "area": {
                     "areaType": "emanation",
                     "value": 5
+                },
+                "areasize": {
+                    "value": "5-foot emanation"
                 },
                 "category": {
                     "value": "spell"
@@ -590,18 +635,18 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Blessings from beyond help your companions strike true. You and your allies in the area gain a +1 status bonus to attack rolls. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet. Bless can counteract bane.</p>"
+                    "value": "<p>Blessings from beyond help your companions strike true. You and your allies gain a +1 status bonus to attack rolls while within the emanation. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet. Bless can counteract bane.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Bless]{Spell Effect: Bless}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "value": 1
@@ -613,6 +658,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -630,9 +678,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "bless",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=25"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -661,20 +715,25 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XSujb7EsSwKl19Uu"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/bless.webp",
             "name": "Bless",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "cCLVOaN498p6ZBPd",
+            "_id": "EUv68aDsDKp2Ir9v",
             "data": {
                 "ability": {
                     "value": ""
@@ -682,6 +741,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -694,15 +756,15 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "1d10"
+                    "value": "1d10+4"
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": "healing"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing increases by 1d10+4.</p>"
+                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Soothe]{Spell Effect: Soothe}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -722,6 +784,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -731,15 +796,21 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d10+4",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "soothe",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=291"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "heal"
@@ -769,20 +840,25 @@
                         "healing",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.szIyEsvihc5e1w8n"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/soothe.webp",
             "name": "Soothe",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "Rcr4aTN8aZyXAgDz",
+            "_id": "PnxnDuQlOyNGlRPW",
             "data": {
                 "ability": {
                     "value": ""
@@ -790,6 +866,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -810,7 +889,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened</strong> The range increases to 120 feet.</p>"
+                    "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 120 feet.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -830,6 +909,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -845,9 +927,15 @@
                 "school": {
                     "value": "illusion"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "ghost-sound",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=132"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -877,20 +965,25 @@
                         "cantrip",
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.atlgGNI1E1Ox3O3a"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
-            "name": "Ghost Sound - Cantrips ",
+            "name": "Ghost Sound",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "D8LycWyt1LTsvRKU",
+            "_id": "IuIWovtWLNoYAIrW",
             "data": {
                 "ability": {
                     "value": ""
@@ -900,7 +993,7 @@
                     "value": null
                 },
                 "areasize": {
-                    "value": ""
+                    "value": "60-foot emanation"
                 },
                 "category": {
                     "value": "focus"
@@ -916,12 +1009,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You inspire your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>"
+                    "value": "<p>You inspire yourself and your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Inspire Courage]{Spell Effect: Inspire Courage}</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -965,9 +1058,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "inspire-courage",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=386"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -988,7 +1081,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "bard",
@@ -998,20 +1091,25 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.IAjvwqgiDr3qGYxY"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/inspire-courage.webp",
-            "name": "Inspire Courage - Cantrips ",
+            "name": "Inspire Courage",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "ZRsVAqsBZ8k9Qt57",
+            "_id": "hwyIOYcJZK1hgRCV",
             "data": {
                 "ability": {
                     "value": ""
@@ -1019,6 +1117,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -1039,7 +1140,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
+                    "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -1059,6 +1160,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -1074,9 +1178,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "mage-hand",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=177"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1105,20 +1215,25 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.pwzdSlJgYqN7bs2w"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
-            "name": "Mage Hand - Cantrips ",
+            "name": "Mage Hand",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "DcWvaJDMe4sro2A5",
+            "_id": "s3wnLJPDCyLJqD8l",
             "data": {
                 "ability": {
                     "value": ""
@@ -1127,11 +1242,14 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "value": "verbal"
                 },
                 "cost": {
                     "value": ""
@@ -1141,12 +1259,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You mouth words quietly, but instead of coming out of your mouth, they're transferred directly to the ears of the target. While others can't hear your words any better than if you normally mouthed them, the target can hear your words as if they were standing next to you.</p>\n<p>The target can give a brief response as a reaction, or as a free action on their next turn if they wish, but they must be able to see you and be within range to do so. If they respond, their response is delivered directly to your ear, just like the original message.</p>\n<hr />\n<p><strong>Heightened</strong> The spell's range increases to 500 feet.</p>"
+                    "value": "<p>You mouth words quietly, but instead of coming out of your mouth, they're transferred directly to the ears of the target. While others can't hear your words any better than if you normally mouthed them, the target can hear your words as if they were standing next to you.</p>\n<p>The target can give a brief response as a reaction, or as a free action on their next turn if they wish, but they must be able to see you and be within range to do so. If they respond, their response is delivered directly to your ear, just like the original message.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The spell's range increases to 500 feet.</p>"
                 },
                 "duration": {
                     "value": "see below"
@@ -1166,6 +1284,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "120 feet"
                 },
@@ -1181,9 +1302,15 @@
                 "school": {
                     "value": "illusion"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "message",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=190"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1195,7 +1322,7 @@
                     "value": "1 creature"
                 },
                 "time": {
-                    "value": "2"
+                    "value": "1"
                 },
                 "traditions": {
                     "value": [
@@ -1216,27 +1343,35 @@
                         "linguistic",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLzFcIaSXs7YTIqJ"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/message.webp",
-            "name": "Message - Cantrips ",
+            "name": "Message",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "x0hPeDf89wrbV3AW",
+            "_id": "pooxF1Yanc2QtvOI",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -1257,7 +1392,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack attack against the target. If you hit, you deal bludgeoning, piercing, or slashing damage-as appropriate for the object you hurled-equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr /><strong>Critical Success</strong> You deal double damage.\n<p><strong>Success</strong> You deal full damage.</p>\n<hr /><strong>Heightened</strong> The damage increases by 1d6."
+                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack roll against the target. If you hit, you deal bludgeoning, piercing, or slashing damage-as appropriate for the object you hurled-equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr />\n<p><strong>Critical Success</strong> You deal double damage.</p>\n<p><strong>Success</strong> You deal full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1277,6 +1412,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -1292,9 +1430,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "telekinetic-projectile",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=334"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "attack"
@@ -1324,22 +1468,39 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.60sgbuMWN0268dB7"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/telekinetic-projectile.webp",
-            "name": "Telekinetic Projectile - Cantrips ",
+            "name": "Telekinetic Projectile",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "hjfuBN3pf5dlCd02",
+            "_id": "yYgFxjtAMe4wilHb",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "dogslicer",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -1352,15 +1513,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This short, curved, and crude makeshift blade often has holes drilled into it to reduce its weight. It's a favored weapon of goblins.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "sword"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -1394,6 +1567,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -1401,47 +1577,113 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "1 sp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": {
+                    "value": "melee"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "dogslicer",
                 "source": {
                     "value": ""
                 },
+                "splashDamage": {
+                    "value": null
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
-                    "value": []
+                    "value": [
+                        "agile",
+                        "backstabber",
+                        "finesse",
+                        "goblin"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "dogslicer",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.olwngGXM3hpgoLEP"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/dogslicer.webp",
+            "name": "Dogslicer",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "mb48s1xvSfB9oMoi",
+            "_id": "6s4bNIkl7g5vZ6qM",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "dex"
+                },
+                "baseItem": "shortbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -1454,15 +1696,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This smaller bow is made of a single piece of wood and favored by skirmishers and cavalry.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "bow"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -1496,6 +1750,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -1503,20 +1760,58 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "3 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": {
+                    "value": "60"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "shortbow",
                 "source": {
                     "value": ""
                 },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -1524,31 +1819,53 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "deadly-d10"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "leather armor",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.hIgqLgH3YcLZBeoT"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/shortbow.webp",
+            "name": "Shortbow",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "IseWes6YCeyaLoKH",
+            "_id": "3bQEaPCljCrowWO3",
             "data": {
-                "baseItem": null,
+                "armor": {
+                    "value": 1
+                },
+                "armorType": {
+                    "value": "light"
+                },
+                "baseItem": "leather-armor",
                 "brokenThreshold": {
-                    "value": 0
+                    "value": null
                 },
                 "bulkCapacity": {
                     "value": ""
+                },
+                "check": {
+                    "value": "-1"
                 },
                 "collapsed": {
                     "value": false
@@ -1559,7 +1876,178 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dex": {
+                    "value": "4"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": "1"
+                },
+                "group": {
+                    "value": "leather"
+                },
+                "hardness": {
+                    "value": null
+                },
+                "hp": {
+                    "value": null
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
+                },
+                "preciousMaterial": {
                     "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "2 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "resilient": {},
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "leather-armor",
+                "source": {
+                    "value": ""
+                },
+                "speed": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strength": {
+                    "value": "10"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornarmor"
+                },
+                "weight": {
+                    "value": "2"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
+            "name": "Leather Armor",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
+            "type": "armor"
+        },
+        {
+            "_id": "F6RTMgU8ZvrnBYMr",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 0,
+                    "value": 0
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
                 },
                 "equipped": {
                     "value": false
@@ -1605,42 +2093,74 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "1 sp"
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 10
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "arrows",
                 "source": {
                     "value": ""
                 },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
                 "stackGroup": {
-                    "value": ""
+                    "value": "arrows"
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
                     "value": 0
+                },
+                "weight": {
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "shortbow",
-            "sort": 1100000,
-            "type": "equipment"
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1200000,
+            "type": "consumable"
         },
         {
             "_id": "4uh4OO7zv1oZkB4W",
@@ -1693,6 +2213,19 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1779,9 +2312,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Dogslicer",
-            "sort": 1200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1300000,
             "type": "melee"
         },
         {
@@ -1835,6 +2372,19 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1905,8 +2455,8 @@
                     },
                     "value": [
                         "deadly-d10",
-                        "range increment 60 feet",
-                        "reload 0"
+                        "range-increment-60",
+                        "reload-0"
                     ]
                 },
                 "usage": {
@@ -1921,13 +2471,71 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Shortbow",
-            "sort": 1300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1400000,
             "type": "melee"
         },
         {
-            "_id": "0zYSfQMscjFvy8yQ",
+            "_id": "vC1gOoPRvNWrVbnW",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1500000,
+            "type": "action"
+        },
+        {
+            "_id": "NWBHIW6hm8aF1Q1G",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1941,13 +2549,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A goblin ally ends a move action adjacent to the war chanter. <strong>Effect</strong> The goblin warrior Steps.</p>"
+                    "value": "<p><strong>Trigger</strong> A goblin ally ends a move action adjacent to the war chanter.</p>\n<p><strong>Effect</strong> The goblin war chanter @Compendium[pf2e.actionspf2e.Step]{Steps}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "goblin-scuttle",
                 "source": {
                     "value": ""
                 },
@@ -1969,10 +2577,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Hrevxi3glTGgxzY6"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Goblin Scuttle",
-            "sort": 1400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -2021,9 +2637,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Goblin Song",
-            "sort": 1500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -2061,9 +2681,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1600000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -2101,9 +2725,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -2141,9 +2769,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -2181,9 +2813,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 1900000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -2221,9 +2857,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2000000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2200000,
             "type": "lore"
         }
     ],
@@ -2234,10 +2874,13 @@
     "token": {
         "actorId": "4BBzo72pHOpecoIp",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -2247,19 +2890,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "systems/pf2e/icons/default-icons/npc.svg",
+        "img": "systems/pf2e/icons/bestiary/goblinwarchanter.webp",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Goblin War Chanter",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1
