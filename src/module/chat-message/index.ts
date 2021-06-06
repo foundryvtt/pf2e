@@ -18,7 +18,7 @@ export class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         return $html;
     }
 
-    _onCreate(data: foundry.data.ChatMessageSource, options: DocumentModificationContext, userId: string) {
+    protected _onCreate(data: foundry.data.ChatMessageSource, options: DocumentModificationContext, userId: string) {
         super._onCreate(data, options, userId);
 
         // Handle critical hit and fumble card drawing
