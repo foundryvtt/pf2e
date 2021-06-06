@@ -289,8 +289,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             if (!('actions' in this.actor.data.data)) throw Error('Strikes are not supported on this actor');
 
             const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
-            const rollContext = this.actor.createAttackRollContext(event, ['all', 'attack-roll']);
-            this.actor.data.data.actions[Number(actionIndex)].roll(rollContext);
+            this.actor.data.data.actions[Number(actionIndex)].roll({ event });
         });
 
         html.find('[data-variant-index].variant-strike, [data-action="npcAttack"]').on('click', (event) => {
@@ -312,8 +311,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 }
             }
 
-            const rollContext = this.actor.createAttackRollContext(event, ['all', 'attack-roll']);
-            action.variants[Number(variantIndex)]?.roll(rollContext);
+            action.variants[Number(variantIndex)]?.roll({ event });
         });
     }
 }
