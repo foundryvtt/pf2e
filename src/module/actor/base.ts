@@ -408,7 +408,11 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param skill {String}    The skill id
      */
     rollAttribute(event: JQuery.Event, attributeName: string) {
-        const skl = this.data.data.attributes[attributeName];
+        if (!objectHasKey(this.data.data.attributes, attributeName)) {
+            throw ErrorPF2e(`Unrecognized attribute "${attributeName}"`);
+        }
+
+        const attribute = this.data.data.attributes[attributeName];
         const parts = ['@mod', '@itemBonus'];
         const configAttributes = CONFIG.PF2E.attributes;
         if (objectHasKey(configAttributes, attributeName)) {
@@ -417,10 +421,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             DicePF2e.d20Roll({
                 event,
                 parts,
-                data: {
-                    mod: skl.value - (skl.item ?? 0),
-                    itemBonus: skl.item,
-                },
+                data: { mod: attribute.value },
                 title: flavor,
                 speaker: ChatMessage.getSpeaker({ actor: this }),
             });
