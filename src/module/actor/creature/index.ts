@@ -269,7 +269,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         };
     }
 
-    public createDamageRollContext(event: JQuery.Event) {
+    protected createDamageRollContext(event: JQuery.Event) {
         const ctx = this.createStrikeRollContext(['all', 'damage-roll']);
         return {
             event,

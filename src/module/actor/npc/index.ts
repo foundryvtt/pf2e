@@ -677,7 +677,8 @@ export class NPCPF2e extends CreaturePF2e {
                     },
                 ];
                 action.damage = (args: RollParameters) => {
-                    const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
+                    const ctx = this.createDamageRollContext(args.event!);
+                    const options = (args.options ?? []).concat(ctx.options).concat(item.data.traits.value); // always add all weapon traits as options
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         item,
                         this.data,
@@ -696,7 +697,8 @@ export class NPCPF2e extends CreaturePF2e {
                     );
                 };
                 action.critical = (args: RollParameters) => {
-                    const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
+                    const ctx = this.createDamageRollContext(args.event!);
+                    const options = (args.options ?? []).concat(ctx.options).concat(item.data.traits.value); // always add all weapon traits as options
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         item,
                         this.data,

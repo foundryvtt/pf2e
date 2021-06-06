@@ -245,8 +245,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             event.stopPropagation();
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-            const rollContext = this.actor.createDamageRollContext(event);
-            this.actor.data.data.actions[Number(actionIndex)].damage(rollContext);
+            this.actor.data.data.actions[Number(actionIndex)].damage({ event });
         });
 
         // the click listener registered on all buttons breaks the event delegation here...
@@ -258,8 +257,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             event.stopPropagation();
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-            const rollContext = this.actor.createDamageRollContext(event);
-            this.actor.data.data.actions[Number(actionIndex)].critical(rollContext);
+            this.actor.data.data.actions[Number(actionIndex)].critical({ event });
         });
 
         html.find('.spell-attack').on('click', (event) => {
