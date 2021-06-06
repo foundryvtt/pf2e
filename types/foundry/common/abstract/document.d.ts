@@ -429,7 +429,7 @@ declare global {
                  * @param user    The User requesting the document creation
                  */
                 protected _preCreate(
-                    data: PreCreate<this['data']['_source']>,
+                    data: PreDocumentId<this['data']['_source']>,
                     options: DocumentModificationContext,
                     user: documents.BaseUser,
                 ): Promise<void>;
@@ -608,6 +608,8 @@ declare global {
     type PreCreate<T extends foundry.abstract.DocumentSource> = T extends { name: string; type: string }
         ? DeepPartial<T> & { name: string; type: T['type'] }
         : DeepPartial<T>;
+
+    type PreDocumentId<T extends foundry.abstract.DocumentSource> = Omit<T, '_id'> & { _id: null };
 
     type DocumentUpdateData<T extends foundry.abstract.Document = foundry.abstract.Document> =
         | Partial<T['data']['_source']>

@@ -7,7 +7,7 @@ declare module foundry {
             static override get metadata(): MacroMetadata;
 
             protected override _preCreate(
-                data: PreCreate<foundry.data.MacroSource>,
+                data: PreDocumentId<foundry.data.MacroSource>,
                 options: DocumentModificationContext,
                 user: BaseUser,
             ): Promise<void>;

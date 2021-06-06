@@ -66,7 +66,7 @@ declare global {
         override prepareBaseData(): void;
 
         protected override _preCreate(
-            data: PreCreate<foundry.data.SceneSource>,
+            data: PreDocumentId<foundry.data.SceneSource>,
             options: DocumentModificationContext,
             user: User,
         ): Promise<void>;
