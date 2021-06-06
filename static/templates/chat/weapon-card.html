@@ -1,4 +1,4 @@
-<div class="pf2e chat-card weapon-card" data-actor-id="{{actor.id}}" data-item-id="{{item._id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+<div class="pf2e chat-card weapon-card" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
     <header class="card-header flexrow">
         <img src="{{item.img}}" title="{{item.name}}" width="36" height="36" />
         <h3>{{item.name}}</h3>
@@ -20,13 +20,13 @@
     {{#if data.canAttack}}
     <div class="card-buttons">
         <div class="card-buttons-multiattack">
-            <button data-action="weaponAttack">{{localize "PF2E.AttackLabel"}}</button>
-            <button data-action="weaponAttack2">{{data.map2}}</button>
-            <button data-action="weaponAttack3">{{data.map3}}</button>
+            <button type="button" data-action="weaponAttack">{{localize "PF2E.AttackLabel"}}</button>
+            <button type="button" data-action="weaponAttack2">{{data.map2}}</button>
+            <button type="button" data-action="weaponAttack3">{{data.map3}}</button>
         </div>
         <div class="card-buttons-two-column">
-            <button data-action="weaponDamage">{{localize "PF2E.DamageLabel"}}</button>
-            <button data-action="criticalDamage">{{localize "PF2E.CriticalDamageLabel"}}</button>
+            <button type="button" data-action="weaponDamage">{{localize "PF2E.DamageLabel"}}</button>
+            <button type="button" data-action="criticalDamage">{{localize "PF2E.CriticalDamageLabel"}}</button>
         </div>
     </div>
     {{/if}}

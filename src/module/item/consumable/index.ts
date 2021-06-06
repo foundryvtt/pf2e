@@ -183,7 +183,8 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             spellData.item = JSON.stringify(this.data);
 
             const template = `systems/pf2e/templates/chat/spell-card.html`;
-            const token = actor.token?.object;
+            const token = actor.token;
+            // Set
             const templateData = {
                 actor: actor,
                 tokenId: token?.scene ? `${token.scene.id}.${token.id}` : null,

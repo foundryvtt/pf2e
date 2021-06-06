@@ -165,7 +165,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const templateData = {
             actor: this.actor,
             tokenId: token ? `${token.parent?.id}.${token.id}` : null,
-            item: this.data,
+            item: this,
             data: this.getChatData(undefined, contextualData),
         };
 
