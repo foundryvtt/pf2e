@@ -1002,7 +1002,8 @@ export class CharacterPF2e extends CreaturePF2e {
                     },
                 ];
                 action.damage = (args: RollParameters) => {
-                    const options = (args.options ?? []).concat(action.options);
+                    const ctx = this.createDamageRollContext(args.event!);
+                    const options = (args.options ?? []).concat(ctx.options).concat(action.options);
                     const damage = WeaponDamagePF2e.calculate(
                         item,
                         this.data,
@@ -1023,7 +1024,8 @@ export class CharacterPF2e extends CreaturePF2e {
                     );
                 };
                 action.critical = (args: RollParameters) => {
-                    const options = (args.options ?? []).concat(action.options);
+                    const ctx = this.createDamageRollContext(args.event!);
+                    const options = (args.options ?? []).concat(ctx.options).concat(action.options);
                     const damage = WeaponDamagePF2e.calculate(
                         item,
                         this.data,
