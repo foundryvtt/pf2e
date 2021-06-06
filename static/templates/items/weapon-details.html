@@ -2,13 +2,8 @@
     <label>{{localize "PF2E.WeaponTypeLabel"}}</label>
     <select name="data.weaponType.value" data-dtype="String">
         {{#select data.weaponType.value}}
-            {{#each weaponTypes as |name type|}}
+            {{#each categories as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
-            {{/each}}
-        {{/select}}
-        {{#select data.weaponType.value}}
-            {{#each martialSkills as |martial key|}}
-                <option value="{{martial._id}}">{{localize martial.name}}</option>
             {{/each}}
         {{/select}}
     </select>
@@ -19,7 +14,7 @@
     <select name="data.group.value" data-dtype="String">
         {{#select data.group.value}}
             <option value=""></option>
-            {{#each weaponGroups as |name type|}}
+            {{#each groups as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}
         {{/select}}
@@ -31,7 +26,7 @@
     <select name="data.baseItem" data-dtype="String">
         {{#select data.baseItem}}
             <option value=""></option>
-            {{#each baseWeapons as |name slug|}}
+            {{#each baseTypes as |name slug|}}
                 <option value="{{slug}}">{{name}}</option>
             {{/each}}
         {{/select}}
@@ -387,8 +382,10 @@
         <a class="trait-selector" data-trait-selector="basic" data-config-types="weaponTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="traits-list pf-value pf-large">
-        {{#each weaponTraits as |trait|}}
-            <li class="tag">{{localize trait}}</li>
+        {{#each baseTraits as |trait|}}
+            {{#if trait.selected}}
+                <li class="tag">{{localize trait.label}}</li>
+            {{/if}}
         {{/each}}
     </ul>
 </div>
