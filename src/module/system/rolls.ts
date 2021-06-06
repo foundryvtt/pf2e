@@ -138,7 +138,9 @@ export class CheckPF2e {
             keepRoll.data.totalModifier = message.getFlag('pf2e', 'totalModifier') ?? 0;
             const degreeOfSuccess = getDegreeOfSuccess(keepRoll, context.dc);
             keepRoll.data.degreeOfSuccess = degreeOfSuccess.value;
-            const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
+            const outcome = DegreeOfSuccessText[degreeOfSuccess.value];
+            const unadjustedOutcome = DegreeOfSuccessText[degreeOfSuccess.unadjusted];
+
             let adjustmentLabel = '';
             if (degreeOfSuccess.degreeAdjustment !== undefined) {
                 adjustmentLabel = degreeOfSuccess.degreeAdjustment
@@ -147,10 +149,30 @@ export class CheckPF2e {
                 adjustmentLabel = ` (${adjustmentLabel})`;
             }
             const resultLabel = game.i18n.localize('PF2E.ResultLabel');
-            const degreeLabel = game.i18n.localize(`PF2E.${context.dc.scope ?? 'CheckOutcome'}.${degreeOfSuccessText}`);
-            const newString = `<div class="degree-of-success"><b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel}</span></b>${adjustmentLabel}</div>`;
+            const degreeLabel = game.i18n.localize(`PF2E.${context.dc.scope ?? 'CheckOutcome'}.${outcome}`);
+            const newString = `<div class="degree-of-success"><b>${resultLabel}:<span class="${outcome}"> ${degreeLabel}</span></b>${adjustmentLabel}</div>`;
             const regex = new RegExp('<div class="degree-of-success">.+?</div>', 'g');
-            message.data.flavor = message.data.flavor?.replace(regex, newString);
+            message.data.flavor = message.data.flavor!.replace(regex, newString);
+
+            if (context.notes !== undefined) {
+                const notes = context.notes
+                    .filter(
+                        (note) =>
+                            note.outcome.length === 0 ||
+                            note.outcome.includes(outcome) ||
+                            note.outcome.includes(unadjustedOutcome),
+                    )
+                    .map((note: { text: string }) => TextEditor.enrichHTML(note.text))
+                    .join('<br />');
+
+                const noteRegex = new RegExp('<p class="compact-text">.+?</p>', 'g');
+                const noteString = notes ? `<p class="compact-text">${notes}</p>` : '';
+                if (message.data.flavor!.match(noteRegex)) {
+                    message.data.flavor = message.data.flavor!.replace(noteRegex, noteString);
+                } else {
+                    message.data.flavor += noteString;
+                }
+            }
         }
 
         const newMessage = await ChatMessagePF2e.create(
