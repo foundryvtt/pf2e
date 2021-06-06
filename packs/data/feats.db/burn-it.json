@@ -24,7 +24,31 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+          {
+            "key": "PF2E.RuleElement.FlatModifier",
+            "selector": "damage",
+            "label": "Burn It!",
+            "predicate": {
+              "all": [
+                "alchemical",
+                "fire"
+              ]
+            },
+            "value": "min(1,floor(@details.level.value/2)"
+          },
+          {
+            "key": "PF2E.RuleElement.Note",
+            "selector": "damage",
+            "predicate": {
+              "all": [
+                "alchemical",
+                "fire"
+              ]
+            },
+            "text": "<p class='compact-text'><strong>{item|name}</strong> You also gain a +1 status bonus to any persistent fire damage you deal.</p>"
+          }
+        ],
         "source": {
             "value": ""
         },
