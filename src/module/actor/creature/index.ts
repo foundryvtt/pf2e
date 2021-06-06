@@ -201,7 +201,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         const dc: PF2CheckDC = {
             label: 'PF2E.Recovery.rollingDescription',
-            subLabels: { dying },
+            labelValues: { dying },
             value: 10 + recoveryMod + dying,
         };
 
