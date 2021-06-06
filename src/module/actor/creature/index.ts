@@ -250,7 +250,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         this.redrawingTokenEffects = false;
     }
 
-    public createAttackRollContext(event: JQuery.TriggeredEvent, rollNames: string[]) {
+    public createAttackRollContext(event: JQuery.Event, rollNames: string[]) {
         const ctx = this.createStrikeRollContext(rollNames);
         let dc: PF2CheckDC | undefined;
         if (ctx.target) {
@@ -269,7 +269,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         };
     }
 
-    public createDamageRollContext(event: JQuery.TriggeredEvent) {
+    public createDamageRollContext(event: JQuery.Event) {
         const ctx = this.createStrikeRollContext(['all', 'damage-roll']);
         return {
             event,
