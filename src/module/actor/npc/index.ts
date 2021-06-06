@@ -617,10 +617,11 @@ export class NPCPF2e extends CreaturePF2e {
                 action.attack = async (args: RollParameters) => {
                     const attackEffects = await this.getAttackEffects(item);
                     const rollNotes = notes.concat(attackEffects);
-                    const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
+                    const ctx = this.createAttackRollContext(args.event!, ['all', 'attack-roll']);
+                    const options = (args.options ?? []).concat(ctx.options).concat(item.data.traits.value); // always add all weapon traits as options
                     CheckPF2e.roll(
                         new CheckModifier(`${strikeLabel}: ${action.name}`, action),
-                        { actor: this, type: 'attack-roll', options, notes: rollNotes, dc: args.dc },
+                        { actor: this, type: 'attack-roll', options, notes: rollNotes, dc: args.dc ?? ctx.dc },
                         args.event,
                     );
                 };
@@ -633,11 +634,11 @@ export class NPCPF2e extends CreaturePF2e {
                         roll: async (args: RollParameters) => {
                             const attackEffects = await this.getAttackEffects(item);
                             const rollNotes = notes.concat(attackEffects);
-                            const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
-                            options.push('constrict');
+                            const ctx = this.createAttackRollContext(args.event!, ['all', 'attack-roll']);
+                            const options = (args.options ?? []).concat(ctx.options).concat(item.data.traits.value); // always add all weapon traits as options
                             CheckPF2e.roll(
                                 new CheckModifier(`Strike: ${action.name}`, action),
-                                { actor: this, type: 'attack-roll', options, notes: rollNotes, dc: args.dc },
+                                { actor: this, type: 'attack-roll', options, notes: rollNotes, dc: args.dc ?? ctx.dc },
                                 args.event,
                             );
                         },
@@ -647,12 +648,13 @@ export class NPCPF2e extends CreaturePF2e {
                         roll: async (args: RollParameters) => {
                             const attackEffects = await this.getAttackEffects(item);
                             const rollNotes = notes.concat(attackEffects);
-                            const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
+                            const ctx = this.createAttackRollContext(args.event!, ['all', 'attack-roll']);
+                            const options = (args.options ?? []).concat(ctx.options).concat(item.data.traits.value); // always add all weapon traits as options
                             CheckPF2e.roll(
                                 new CheckModifier(`Strike: ${action.name}`, action, [
                                     new ModifierPF2e('PF2E.MultipleAttackPenalty', map.map2, MODIFIER_TYPE.UNTYPED),
                                 ]),
-                                { actor: this, type: 'attack-roll', options, notes: rollNotes, dc: args.dc },
+                                { actor: this, type: 'attack-roll', options, notes: rollNotes, dc: args.dc ?? ctx.dc },
                                 args.event,
                             );
                         },
@@ -662,12 +664,13 @@ export class NPCPF2e extends CreaturePF2e {
                         roll: async (args: RollParameters) => {
                             const attackEffects = await this.getAttackEffects(item);
                             const rollNotes = notes.concat(attackEffects);
-                            const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
+                            const ctx = this.createAttackRollContext(args.event!, ['all', 'attack-roll']);
+                            const options = (args.options ?? []).concat(ctx.options).concat(item.data.traits.value); // always add all weapon traits as options
                             CheckPF2e.roll(
                                 new CheckModifier(`Strike: ${action.name}`, action, [
                                     new ModifierPF2e('PF2E.MultipleAttackPenalty', map.map3, MODIFIER_TYPE.UNTYPED),
                                 ]),
-                                { actor: this, type: 'attack-roll', options, notes: rollNotes, dc: args.dc },
+                                { actor: this, type: 'attack-roll', options, notes: rollNotes, dc: args.dc ?? ctx.dc },
                                 args.event,
                             );
                         },
