@@ -1,4 +1,4 @@
-<div class="pf2e chat-card action-card" data-actor-id="{{actor.id}}" data-item-id="{{item._id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+<div class="pf2e chat-card action-card" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
     <header class="card-header flexrow">
         <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
         <h3>{{item.name}}</h3>
@@ -11,8 +11,8 @@
             <h4>{{data.weapon.name}}</h4>
         </header>
         <div class="card-buttons">
-            <button data-action="weaponAttack">{{localize "PF2E.AttackLabel"}}</button>
-            <button data-action="weaponDamage">{{localize "PF2E.DamageLabel"}}</button>
+            <button type="button" data-action="weaponAttack">{{localize "PF2E.AttackLabel"}}</button>
+            <button type="button" data-action="weaponDamage">{{localize "PF2E.DamageLabel"}}</button>
         </div>
     {{/if}}
 
