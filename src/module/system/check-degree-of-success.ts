@@ -47,17 +47,19 @@ export type DegreeOfSuccessString = typeof DegreeOfSuccessText[number];
 export function getDegreeOfSuccess(
     roll: Roll<RollDataPF2e>,
     checkDC: PF2CheckDC,
-): { value: DegreeOfSuccess; degreeAdjustment: DegreeAdjustment | undefined } {
+): { unadjusted: DegreeOfSuccess; value: DegreeOfSuccess; degreeAdjustment: DegreeAdjustment | undefined } {
     const dieRoll: DieRoll = {
         dieValue: Number(roll.terms[0].total) ?? 0,
         modifier: roll.data.totalModifier ?? 0,
     };
-    let value = calculateDegreeOfSuccess(dieRoll, checkDC.value);
+    const unadjusted = calculateDegreeOfSuccess(dieRoll, checkDC.value);
+    let value = unadjusted;
     const degreeAdjustment = getDegreeAdjustment(value, checkDC.modifiers ?? {});
     if (degreeAdjustment !== undefined) {
         value = adjustDegreeOfSuccess(degreeAdjustment, value);
     }
     return {
+        unadjusted,
         value,
         degreeAdjustment,
     };
