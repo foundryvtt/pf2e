@@ -150,6 +150,7 @@ export class CheckModifiersDialog extends Application {
         const notes = ((ctx.notes as RollNotePF2e[]) ?? [])
             .filter(
                 (note) =>
+                    ctx.dc === undefined ||
                     note.outcome.length === 0 ||
                     note.outcome.includes(ctx.outcome) ||
                     note.outcome.includes(ctx.unadjustedOutcome),
