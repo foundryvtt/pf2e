@@ -250,7 +250,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         this.redrawingTokenEffects = false;
     }
 
-    public createAttackRollContext(event: JQuery.Event, rollNames: string[]) {
+    protected createAttackRollContext(event: JQuery.Event, rollNames: string[]) {
         const ctx = this.createStrikeRollContext(rollNames);
         let dc: PF2CheckDC | undefined;
         if (ctx.target) {
