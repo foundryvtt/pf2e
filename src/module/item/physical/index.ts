@@ -66,7 +66,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     /** Get this item's container, returning null if it is not in a container */
     get container(): Embedded<ContainerPF2e> | null {
-        if (this.data.data.containerId.value === null) return null;
+        if (this.data.data.containerId.value === null) return (this._container = null);
 
         const container = this._container ?? this.actor?.items.get(this.data.data.containerId.value ?? '');
         if (container?.type === 'backpack') this._container = container as Embedded<ContainerPF2e>;
@@ -140,6 +140,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         const description =
             mystifiedData.data.description.value ||
             (() => {
+                if (status === 'identified') return this.description;
+
                 const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedDescription;
                 const itemType = this.generateUnidentifiedName({ typeOnly: true });
                 const caseCorrect = (noun: string) =>
