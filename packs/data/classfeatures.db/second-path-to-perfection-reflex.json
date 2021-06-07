@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You've learned to find perfection in every success. Choose a different saving throw than the one you chose for your path to perfection. Your proficiency rank for the chosen saving throw increases to master. If you roll a success with the chosen saving throw, you instead critically succeed.</p>"
+            "value": "<p>You've learned to find perfection in every success.</p>\n<p>Choose a different saving throw than the one you chose for your path to perfection. Your proficiency rank for the chosen saving throw increases to master. If you roll a success with the chosen saving throw, you instead critically succeed.</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -30,6 +30,14 @@
                 "key": "PF2E.RuleElement.Note",
                 "selector": "reflex",
                 "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Reflex save, you get a critical success instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "selector": "reflex",
+                "type": "save"
             }
         ],
         "source": {
@@ -52,27 +60,23 @@
                 {
                     "key": "data.saves.reflex.rank",
                     "mode": 4,
-                    "value": 3
+                    "value": "3"
                 }
             ],
             "disabled": false,
             "duration": {
-                "rounds": null,
-                "seconds": null,
-                "startRound": null,
-                "startTime": null,
-                "startTurn": null,
-                "turns": null
+                "startTime": null
             },
             "flags": {},
             "icon": "systems/pf2e/icons/features/classes/second-path-to-perfection.webp",
             "label": "Path to Perfection (Reflex)",
             "origin": "",
-            "tint": "",
+            "tint": null,
             "transfer": true
         }
     ],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/classes/second-path-to-perfection.webp",
     "name": "Second Path to Perfection (Reflex)",
     "permission": {
