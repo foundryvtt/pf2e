@@ -111,19 +111,6 @@ declare global {
         var game: Game<ActorPF2e, ChatMessagePF2e, CombatPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
     }
 
-    interface Window {
-        DicePF2e: typeof DicePF2e;
-        PF2eStatusEffects: typeof StatusEffects;
-        PF2eConditionManager: typeof ConditionManager;
-        PF2ModifierType: typeof MODIFIER_TYPE;
-        PF2Modifier: typeof ModifierPF2e;
-        AbilityModifier: typeof AbilityModifier;
-        ProficiencyModifier: typeof ProficiencyModifier;
-        PF2StatisticModifier: typeof StatisticModifier;
-        PF2CheckModifier: typeof CheckModifier;
-        PF2Check: typeof CheckPF2e;
-    }
-
     interface ClientSettings {
         get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
         get(module: 'pf2e', setting: 'automation.lootableNPCs'): boolean;
