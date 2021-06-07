@@ -1697,7 +1697,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     /**
-     * Prevent `ActorSheet#_getSubmitData` from preventing submitting overridden values`
+     * Prevent `ActorSheet#_getSubmitData` from preventing the submission of updates to overridden values`
      * @override
      */
     protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
@@ -1742,9 +1742,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     /**
-     * Users edit numeric values on actor sheets that are already modified by data preparation, so get what is likely
-     * the intended change by adding the difference between their update and the prepared value to the underlying
-     * base value.
+     * A user edits numeric values on actor sheets that are frequently modified by data preparation: we should be able
+     * to infer the intended change by adding the difference between their update and the prepared value to the
+     * underlying base value.
      */
     protected getIntendedChange(propertyPath: string, update: number): number {
         const base = getProperty(this.actor.data._source, propertyPath);
