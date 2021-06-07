@@ -39,7 +39,8 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
             throw ErrorPF2e('ScrollWandPopup | Could not read spelldata');
         }
 
-        const levels = Array.from(Array(this.spellData.data.level.value).keys()).map((key) => key + 1);
+        const minimumLevel = this.spellData.data.level.value;
+        const levels = Array.from(Array(11 - minimumLevel).keys()).map((index) => minimumLevel + index);
         sheetData.validLevels = levels;
         return sheetData;
     }
