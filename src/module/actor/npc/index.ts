@@ -138,6 +138,7 @@ export class NPCPF2e extends CreaturePF2e {
                     MODIFIER_TYPE.UNTYPED,
                 ),
             );
+            this.data.data.details.level.value += 1;
         } else if (this.isWeak) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
             statisticsModifiers.all.push(new ModifierPF2e('PF2E.NPC.Adjustment.WeakLabel', -2, MODIFIER_TYPE.UNTYPED));
@@ -153,6 +154,7 @@ export class NPCPF2e extends CreaturePF2e {
                     MODIFIER_TYPE.UNTYPED,
                 ),
             );
+            this.data.data.details.level.value -= 1;
         }
 
         // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
