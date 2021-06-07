@@ -95,9 +95,9 @@ export interface CharacterSystemData extends CreatureSystemData {
         };
 
         /** Prepared/sheet data */
-        ancestry: string;
-        background: string;
-        class: string;
+        ancestry: string | null;
+        background: string | null;
+        class: string | null;
     };
 
     attributes: CharacterAttributes;
