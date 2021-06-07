@@ -1,5 +1,6 @@
 import { ItemPF2e } from '@item/index';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
+import { ErrorPF2e } from '@module/utils';
 import { SpellData } from './data';
 
 export class SpellPF2e extends ItemPF2e {
@@ -45,9 +46,17 @@ export class SpellPF2e extends ItemPF2e {
         const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
         const data = this.data.data;
 
-        const spellcastingEntryData = this.spellcasting?.data;
-        let spellDC = spellcastingEntryData?.data.dc?.value ?? spellcastingEntryData?.data.spelldc.dc;
-        let spellAttack = spellcastingEntryData?.data.attack?.value ?? spellcastingEntryData?.data.spelldc.value;
+        const spellcastingData = this.data.data.trickMagicItemData ?? this.spellcasting?.data;
+        if (!spellcastingData) throw ErrorPF2e('No spellcasting entry found');
+
+        let spellDC =
+            'dc' in spellcastingData.data
+                ? spellcastingData.data.dc?.value ?? spellcastingData.data.spelldc.dc
+                : spellcastingData.data.spelldc.dc;
+        let spellAttack =
+            'attack' in spellcastingData.data
+                ? spellcastingData.data.attack?.value ?? spellcastingData.data.spelldc.value
+                : spellcastingData.data.spelldc.value;
 
         // Adjust spell dcs and attacks for elite/weak
         /** @todo: handle elsewhere */

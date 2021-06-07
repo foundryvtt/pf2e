@@ -61,7 +61,6 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
     spelldc: {
         value: number;
         dc: number;
-        item: number;
         mod: number;
     };
     attack?: SpellAttackRollModifier;
