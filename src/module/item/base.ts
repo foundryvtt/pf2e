@@ -593,18 +593,15 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollSpellAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
-        let item = this.toObject();
-        if (item.type === 'consumable' && item.data.spell?.data) {
-            item = item.data.spell.data;
-        }
-        if (item.type !== 'spell') throw new Error('Wrong item type!');
+        const itemData = deepClone(this.data);
+        if (itemData.type !== 'spell') throw new Error('Wrong item type!');
 
         // Prepare roll data
-        const trickMagicItemData = item.data.trickMagicItemData;
-        const itemData = item.data;
+        const trickMagicItemData = itemData.data.trickMagicItemData;
+        const systemData = itemData.data;
         const rollData = duplicate(this.actor.data.data);
         const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
-            (entry) => entry.id === itemData.location.value,
+            (entry) => entry.id === systemData.location.value,
         )?.data;
         const useTrickData = !spellcastingEntry;
 
