@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You have made great progress in your personal studies of enlightenment. Choose one of the saving throws you selected for path to perfection or second path to perfection. Your proficiency rank for the chosen type of save increases to legendary. When you roll a critical failure on the chosen type of save, you get a failure instead. When you roll a failure on the chosen type of save against an effect that deals damage, you take half damage.</p>"
+            "value": "<p>You have made great progress in your personal studies of enlightenment.</p>\n<p>Choose one of the saving throws you selected for path to perfection or second path to perfection. Your proficiency rank for the chosen type of save increases to legendary. When you roll a critical failure on the chosen type of save, you get a failure instead. When you roll a failure on the chosen type of save against an effect that deals damage, you take half damage.</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -30,6 +30,14 @@
                 "key": "PF2E.RuleElement.Note",
                 "selector": "will",
                 "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a critical failure on a Will save, you get a failure instead. When you roll a failure on a Will save against an effect that deals damage, you take half damage.</p>"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "selector": "will",
+                "type": "save"
             }
         ],
         "source": {
@@ -52,27 +60,23 @@
                 {
                     "key": "data.saves.will.rank",
                     "mode": 4,
-                    "value": 4
+                    "value": "4"
                 }
             ],
             "disabled": false,
             "duration": {
-                "rounds": null,
-                "seconds": null,
-                "startRound": null,
-                "startTime": null,
-                "startTurn": null,
-                "turns": null
+                "startTime": null
             },
             "flags": {},
             "icon": "systems/pf2e/icons/features/classes/third-path-to-perfection.webp",
             "label": "Third Path to Perfection (Will)",
             "origin": "",
-            "tint": "",
+            "tint": null,
             "transfer": true
         }
     ],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/classes/third-path-to-perfection.webp",
     "name": "Third Path to Perfection (Will)",
     "permission": {
