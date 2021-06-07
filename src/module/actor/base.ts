@@ -52,8 +52,8 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return this.data.data.details.level.value;
     }
 
-    /** @override */
-    get temporaryEffects(): TemporaryEffect[] {
+    /** Add effect icons from effect items and rule elements */
+    override get temporaryEffects(): TemporaryEffect[] {
         const tokenIcon = (data: ConditionData) => {
             const folder = CONFIG.PF2E.statusEffects.effectsIconFolder;
             const statusName = data.data.hud.statusName;
