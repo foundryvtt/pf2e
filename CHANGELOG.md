@@ -1,5 +1,88 @@
 # Patch Notes:
 
+## Version 2.1.0
+### Bug Fixes
+* (stwlam) Fix updating tokens from NPC attitudes
+* (stwlam) Purge martial items, set any weapon with a martial item's ID as a category to "simple"
+* (stwlam) Fix setting of non-default token image
+* (stwlam) Fix updating spontaneous spell slot value on character sheet
+* (stwlam) Get intended changes of numeric values on actor sheets despite modification via data preparation (fixes the broken animal companions)
+* (stwlam) Ensure derived traits are not unintentionally saved
+* (In3luki) Fix the degree of success for rerolled checks not applying the modifier
+* (In3luki) Fix attack rolls not displaying the degree of success against targeted tokens for NPCs
+* (In3luki) Fix derived data being saved for weak or elite NPCs
+* (In3luki) Fix critical card drawing for spell attacks
+* (In3luki) Remove the attack buttons from the chat card if the weapon is not on a creature
+* (In3luki) Fix chat damage buttons not applying damage to shields
+* (In3luki) Adjust the level of elite or weak NPCs by 1. Closes #1426
+* (nikolaj-a) Fix available scroll and wand heightening levels
+
+### Content Changes
+* (TMun) Add cursebound trait to Brain Drain Oracle Focus Spell. Closes #1454
+* (TMun) Add 15 foot cone to Cry of Destruction Spell. Closes #1464
+* (TMun) Add rule element for Razor Claws lizardfolk feat. Closes #1449
+* (TMun) Correct Gorilla Stance modifiers. Closes #1443
+* (TMun) Correct bomb snare craft requirements. Closes #1440
+* (TMun) Add ranger tag to the three masterful hunter class features. Closes #1437
+* (TMun) Add text on focus points to Oracle Class. Closes #1428
+* (TMun) Correct damage from 1d6 to 1d10 for taw launche, and change default from strength to dexterity for modifier. Closes #1422
+* (TMun) Correct Gibtas Bounder from AV bestiary. Add missing passives. Correct attack traits and damage. Correct descriptions of attacks. Correct flags on attacks for range. Closes #1401
+* (TMun) Corrects level of pearly white aeon stone from 35 to 3. Closes #1474
+* (TMun) Add ringmaster's introduction from Extinction Curse book 6. Closes #1476
+* (TMun) Add Pathfinder Society mentor boon automation. Closes #1458
+* (TMun) Update to Lizardfolk Defender
+* (TMun) Add hazards for both tiers of quest 9 of Pathfinder Society. Add Aeon Nexus, Automatic Fire Suppression, and Grasping Limbs. Closes #1448
+* (TMun) Correct Level for Malarunk. Closes #1478
+* (TMun) Add pregens from Lionlodge (One-Shot 2)
+* (Shandyan) Formatting for alchemist feats to add links to conditions, pre-req feats, features, items etc. Add placeholder features for research field-specific features to add to alchemist class item
+* (Shandyan) Rogue automation, including some formatting, effects, and feats. Analyze weakness, brutal beating, bullseye, deadly poison weapon, improved poison weapon, nimble dodge, nimble roll, poison weapon, predictable!, sly striker, you're next. Added duration tracker for debilitating strike and enduring debilitations
+* (Shandyan) Sorcerer automation, including spell effects, feat formatting, and rule elements for bloodline resistance, diverting vortex, entreat with forebears
+    * Feats: anoint ally, bloodline resistance, diverting vortex, entreat with forebears
+    * Spells: angelic wings, arcane countermeasures, celestial brand, diabolic edict, dragon claws, dragon wings, elemental motion, glutton's jaw, nymph's token, unusual anatomy
+* (Shandyan) Swashbuckler automation, including effects. Formatting of actions, features and feats. Rule elements and effect links for Charmed Life, Flamboyant Cruelty, Swaggering Initiative, and Vivacious Bravado
+* (Shandyan) Witch automation, including effects
+    * Feats: Eldritch Nails, Living Hair, and Witch's Cauldron
+    * Spells: Blood Ward, Discern Secrets, Nudge Fate, and Stoke the Heart
+* (Shandyan) Wizard automation, including effects
+    * Spells: Augment Summoning, Physical Boost, and Shifting Form
+* (Shandyan) Correct areas and other details for sorcerer focus spells
+* (Shandya) Rules elements to upgrade saving throws from class features
+* (stwlam) Add token size active effect to Spell Effect: Pest Form
+* (stwlam) Several Abomination Vaults and a single Pathfinder Society NPC were missing their image
+* (SpartanCPA) Add active effect support to Ancestral Weapon Familiarity feats
+* (SpartanCPA) Add rollable button to Dragon's Rage Breath feat to properly roll dice based on character level
+* (SpartanCPA) Add "Thrown 15 ft." weapon trait
+* (SpartanCPA) NPC Gallery brush-up
+* (SpartanCPA) Reformat tables in equipment descriptions
+* (SpartanCPA) Correct typo in Grunka and change description for both Grunka and Pelmo from Agents of Edgewatch book 1
+* (SpartanCPA) Brush-up of goblins, hobgoblins, and goblin dog from Bestiary 1
+* (rectulo & In3luki) Update enforce oath with prerequisites
+* (rectulo) Clarify reactive transformation prerequisites
+* (rectulo) Clean up guiding finish description
+* (rectulo) Add requirements to tangled forest rake description
+* (rectulo) Update tourmaline sphere aeon stone description
+* (bapacibl) Add positive trait to healing potions. Closes #1407
+* (SLATE) Fix Sarenrae boons and curses to her properly spelled name
+
+### Core System Improvements
+* (stwlam) Re-arrange type declarations to speed up load times
+* (stwlam) Propagate AEs modifying actors' prototype tokens to the corresponding tokens on the canvas
+* (stwlam) Remove setting to treat coin stacks in different containers separately for bulk calculation, as this was deprecated by the bulk errata
+* (stwlam) Prevent character importers from creating martial items, since these are no longer used
+* (stwlam) Normalize sidebar view between armor and weapons
+* (stwlam) Allow journal entry width to increase when resizing the window
+* (stwlam) Allow the GM to drop a spell anywhere on a loot actor to create a scroll or wand, including on the token
+* (mdizo) Isolate and improve journal entry styles
+* (In3luki) Add a rule element to adjust the degree of success of checks with a DC
+* (In3luki) Remove support for the old roll syntax for strikes and various other checks
+* (In3luki) Support RollNote outcome field for checks using any adjusted outcome
+* (In3luki) Always show RollNotes for checks without a DC
+* (In3luki) Update RollNotes on rerolled checks with a DC
+* (Supe) Expose RuleElementPF2e class as `game.pf2e.RuleElement` for use by modules
+* (Supe) Maintain scroll position when item sheet is edited
+* (nikolaj-a) Move strike targeting logic from the sheet to the actor, allowing easier usage from macros and modules (this also fixes Token Action HUD integration)
+
+
 ## Version 2.0.3
 ### Bug Fixes
 * (stwlam) Fix UPGRADE Active Effect changes on non-existent data properties
