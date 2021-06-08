@@ -1,5 +1,11 @@
 # Patch Notes:
 
+## Version 2.1.1
+### Content Changes
+* (SpartanCPA) Remove Rule Element from the Bestiary "Low-Light Vision" ability
+* (nikolaj-a) Fix misspelled flat modifier rule elements for hamatula, hellcat, hezrou, and hound archon
+
+
 ## Version 2.1.0
 ### Bug Fixes
 * (stwlam) Fix updating tokens from NPC attitudes
