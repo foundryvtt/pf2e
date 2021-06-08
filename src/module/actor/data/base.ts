@@ -91,8 +91,6 @@ export type AbilityString = typeof ABILITY_ABBREVIATIONS[number];
 export interface RawSkillData extends ProficiencyData {
     /** The ability which this save scales off of. */
     ability: AbilityString;
-    /** The raw modifier for this save (after applying all modifiers). */
-    item: number;
     /** A breakdown of how the save value is determined. */
     armor?: number;
 }

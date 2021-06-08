@@ -62,7 +62,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const sheetData = super.getData();
 
         sheetData.ancestryItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'ancestry')?._id ?? '';
-        sheetData.backgroundItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'background')?._id ?? '';
+        sheetData.background = this.actor.background;
         sheetData.classItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'class')?._id ?? '';
 
         // Update hero points label
@@ -154,8 +154,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Spellcasting Entries
         const spellcastingEntries: any[] = [];
-
-        let backgroundItemId = undefined;
 
         // Feats
         interface FeatSlot {
@@ -430,11 +428,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
             }
 
-            // background
-            else if (itemData.type === 'background') {
-                backgroundItemId = itemData._id;
-            }
-
             // class
             else if (itemData.type === 'class') {
                 const classItem = itemData as ClassData;
@@ -465,9 +458,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        if (backgroundItemId !== undefined) {
+        if (this.actor.background) {
             featSlots.skill.feats.unshift({
-                id: backgroundItemId,
+                id: this.actor.background.id,
                 level: game.i18n.localize('PF2E.FeatBackgroundShort'),
             });
         }
