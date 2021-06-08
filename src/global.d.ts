@@ -34,6 +34,7 @@ import { ScenePF2e } from '@module/scene';
 import { CompendiumBrowser } from '@module/apps/compendium-browser';
 import { TokenPF2e } from '@module/canvas/token';
 import { remigrate } from '@scripts/system/remigrate';
+import { FolderPF2e } from '@module/folder';
 
 declare global {
     interface Game {
@@ -74,6 +75,7 @@ declare global {
             ChatMessagePF2e,
             CombatantPF2e,
             CombatPF2e,
+            FolderPF2e,
             ItemPF2e,
             MacroPF2e,
             TokenDocumentPF2e
@@ -92,6 +94,7 @@ declare global {
             ChatMessagePF2e,
             CombatantPF2e,
             CombatPF2e,
+            FolderPF2e,
             ItemPF2e,
             MacroPF2e,
             TokenDocumentPF2e

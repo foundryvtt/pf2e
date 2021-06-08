@@ -118,9 +118,9 @@ function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
 /** Walk object tree and make appropriate deletions */
 function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
     type DocumentKey = keyof PackEntry;
-    if ('label' in entityData && 'type' in entityData && ['Boolean', 'Number', 'String'].includes(entityData['type'])) {
-        delete entityData['label'];
-        delete entityData['type'];
+    if ('permission' in entityData) {
+        const defaultPermission = entityData.permission['default'] ?? [0];
+        entityData.permission = { default: defaultPermission };
     }
     for (const key in entityData) {
         if (key === '_id') {
