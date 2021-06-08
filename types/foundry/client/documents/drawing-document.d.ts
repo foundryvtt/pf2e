@@ -13,11 +13,8 @@ declare global {
         /** A reference to the User who created the Drawing document. */
         get author(): User | undefined;
 
-        /**
-         * A flag for whether the current User has full ownership over the Drawing document.
-         * @override
-         */
-        get isOwner(): boolean;
+        /** A flag for whether the current User has full ownership over the Drawing document. */
+        override get isOwner(): boolean;
     }
 
     interface DrawingDocument {

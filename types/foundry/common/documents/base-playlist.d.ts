@@ -2,9 +2,9 @@ declare module foundry {
     module documents {
         /** The Playlist document model. */
         class BasePlaylist extends abstract.Document {
-            static get schema(): typeof data.PlaylistData;
+            static override get schema(): typeof data.PlaylistData;
 
-            static get metadata(): PlaylistMetadata;
+            static override get metadata(): PlaylistMetadata;
 
             /** A reference to the Collection of PlaylistSound instances in the Playlist document, indexed by _id. */
             get sounds(): this['data']['sounds'];

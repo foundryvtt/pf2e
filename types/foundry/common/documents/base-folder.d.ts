@@ -7,9 +7,9 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseFolder extends abstract.Document {
-            static get schema(): typeof data.FolderData;
+            static override get schema(): typeof data.FolderData;
 
-            static get metadata(): FolderMetadata;
+            static override get metadata(): FolderMetadata;
         }
 
         interface BaseFolder {

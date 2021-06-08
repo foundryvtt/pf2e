@@ -7,24 +7,17 @@ declare global {
      * Each ActiveEffect contains a ActiveEffectData object which provides its source data.
      */
     class ActiveEffect extends ActiveEffectConstructor implements TemporaryEffect {
-        /**
-         * @param [data={}] Initial data provided to construct the ActiveEffect document
-         * @param parent The parent document to which this ActiveEffect belongs
-         * @override
-         */
+        /** @override */
         constructor(
             data: PreCreate<foundry.data.ActiveEffectSource>,
             context?: DocumentConstructionContext<ActiveEffect>,
         );
 
         /** A cached reference to the source name to avoid recurring database lookups */
-        _sourceName: string | null;
+        protected _sourceName: string | null;
 
-        /**
-         * A cached reference to the ActiveEffectConfig instance which configures this effect
-         * @override
-         */
-        _sheet: ActiveEffectConfig<this> | null;
+        /** A cached reference to the ActiveEffectConfig instance which configures this effect */
+        override _sheet: ActiveEffectConfig<this> | null;
 
         /** Summarize the active effect duration */
         get duration(): {
@@ -61,7 +54,7 @@ declare global {
          * An instance of the ActiveEffectConfig sheet to use for this ActiveEffect instance.
          * The reference to the sheet is cached so the same sheet instance is reused.
          */
-        get sheet(): NonNullable<this['_sheet']>;
+        override get sheet(): NonNullable<this['_sheet']>;
 
         /* -------------------------------------------- */
         /*  Methods                                     */
@@ -106,7 +99,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        _applyOverride(actor: Actor, change: ApplicableChangeData<this>): unknown;
+        protected _applyOverride(actor: Actor, change: ApplicableChangeData<this>): unknown;
 
         /**
          * Apply an ActiveEffect that uses an UPGRADE, or DOWNGRADE application mode.
@@ -123,17 +116,16 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        _applyCustom(actor: Actor, change: ApplicableChangeData<this>): unknown;
+        protected _applyCustom(actor: Actor, change: ApplicableChangeData<this>): unknown;
 
         /** Get the name of the source of the Active Effect */
-        _getSourceName(): Promise<string>;
+        protected _getSourceName(): Promise<string>;
 
         /* -------------------------------------------- */
         /*  Event Handlers                              */
         /* -------------------------------------------- */
 
-        /** @override */
-        _preCreate(
+        protected override _preCreate(
             data: PreCreate<foundry.data.ActiveEffectSource>,
             options: DocumentModificationContext,
             user: User,

@@ -39,7 +39,7 @@ declare module foundry {
         class AmbientLightData<
             TDocument extends documents.BaseAmbientLight = documents.BaseAmbientLight,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
 
             lightAnimation: AnimationData<documents.BaseAmbientLight>;
 

@@ -63,11 +63,11 @@ declare module foundry {
         class DrawingData<
             TDocument extends documents.BaseDrawing = documents.BaseDrawing,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
 
-            protected _initialize(): void;
+            protected override _initialize(): void;
 
-            protected _validateDocument(): void;
+            protected override _validateDocument(): void;
         }
 
         interface DrawingData extends DrawingSource {

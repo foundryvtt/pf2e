@@ -13,9 +13,9 @@ declare module foundry {
 
             readonly role: UserRole;
 
-            static get schema(): typeof data.UserData;
+            static override get schema(): typeof data.UserData;
 
-            static get metadata(): UserMetadata;
+            static override get metadata(): UserMetadata;
 
             /* ---------------------------------------- */
             /*  Permissions                             */

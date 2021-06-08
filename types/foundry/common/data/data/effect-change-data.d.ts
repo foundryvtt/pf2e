@@ -17,7 +17,7 @@ declare module foundry {
         class EffectChangeData<
             TDocument extends documents.BaseActiveEffect = documents.BaseActiveEffect,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
         }
 
         interface EffectChangeData extends EffectChangeSource {

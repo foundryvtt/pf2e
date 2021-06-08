@@ -41,17 +41,18 @@ declare global {
         /** An indicator for whether this document is currently rendered on the game canvas. */
         get rendered(): boolean;
 
-        /** @override */
-        protected _onCreate(data: this['data']['_source'], options: DocumentModificationContext, userId: string): void;
+        protected override _onCreate(
+            data: this['data']['_source'],
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
-        /** @override */
-        protected _onUpdate(
+        protected override _onUpdate(
             changed: DocumentUpdateData<this>,
             options: DocumentModificationContext,
             userId: string,
         ): void;
 
-        /** @override */
-        protected _onDelete(options: DocumentModificationContext, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext, userId: string): void;
     }
 }
