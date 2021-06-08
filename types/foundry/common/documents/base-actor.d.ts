@@ -38,7 +38,7 @@ declare module foundry {
             }): this['data']['data'];
 
             protected override _preCreate(
-                data: PreCreate<this['data']['_source']>,
+                data: PreDocumentId<this['data']['_source']>,
                 options: DocumentModificationContext,
                 user: BaseUser,
             ): Promise<void>;
