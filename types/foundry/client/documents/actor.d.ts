@@ -121,7 +121,7 @@ declare global {
         override getEmbeddedCollection(embeddedName: 'ActiveEffect' | 'Item'): this['effects'] | this['items'];
 
         protected override _preCreate(
-            data: PreCreate<this['data']['_source']>,
+            data: PreDocumentId<this['data']['_source']>,
             options: DocumentModificationContext,
             user: User,
         ): Promise<void>;

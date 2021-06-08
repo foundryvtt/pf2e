@@ -126,7 +126,7 @@ declare global {
         /* -------------------------------------------- */
 
         protected override _preCreate(
-            data: PreCreate<foundry.data.ActiveEffectSource>,
+            data: PreDocumentId<this['data']['_source']>,
             options: DocumentModificationContext,
             user: User,
         ): Promise<void>;

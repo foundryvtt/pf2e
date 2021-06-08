@@ -11,7 +11,7 @@ declare module foundry {
             static override get metadata(): ActiveEffectMetadata;
 
             protected override _preCreate(
-                data: PreCreate<data.ActiveEffectSource>,
+                data: PreDocumentId<data.ActiveEffectSource>,
                 options: DocumentModificationContext,
                 user: BaseUser,
             ): Promise<void>;

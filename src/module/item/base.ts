@@ -60,7 +60,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
 
     /** @override */
     protected async _preCreate(
-        data: PreCreate<this['data']['_source']>,
+        data: PreDocumentId<this['data']['_source']>,
         options: DocumentModificationContext,
         user: UserPF2e,
     ): Promise<void> {
