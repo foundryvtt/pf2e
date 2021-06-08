@@ -30,18 +30,15 @@ declare global {
         /** Prepare a data object which defines the data schema used by dice roll commands against this Item */
         getRollData(): object;
 
-        /** @override */
-        protected _getSheetClass(): ConstructorOf<NonNullable<this['_sheet']>>;
+        protected override _getSheetClass(): ConstructorOf<NonNullable<this['_sheet']>>;
 
-        /** @override */
-        protected static _onCreateDocuments<T extends Item>(
+        protected static override _onCreateDocuments<T extends Item>(
             this: ConstructorOf<T>,
             items: T[],
             context: DocumentModificationContext,
         ): Promise<void>;
 
-        /** @override */
-        protected static _onDeleteDocuments<T extends Item>(
+        protected static override _onDeleteDocuments<T extends Item>(
             this: ConstructorOf<T>,
             items: T[],
             context: DocumentModificationContext,

@@ -40,7 +40,7 @@ declare module foundry {
             TActiveEffect extends documents.BaseActiveEffect,
             TItem extends documents.BaseItem,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
 
             /** The default icon used for newly created Actor documents */
             static DEFAULT_ICON: ImagePath;
@@ -54,9 +54,9 @@ declare module foundry {
             /** Default Token settings that are used for Tokens created from this Actor **/
             token: PrototypeTokenData;
 
-            protected _initializeSource(data: ActorSource): this['_source'];
+            protected override _initializeSource(data: ActorSource): this['_source'];
 
-            protected _initialize(): void;
+            protected override _initialize(): void;
         }
 
         interface ActorData<

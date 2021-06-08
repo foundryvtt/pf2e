@@ -31,7 +31,7 @@ declare module foundry {
         class TableResultData<
             TDocument extends documents.BaseTableResult = documents.BaseTableResult,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
         }
 
         interface TableResultData extends TableResultSource {

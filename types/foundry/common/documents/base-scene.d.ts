@@ -6,9 +6,9 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseScene extends abstract.Document {
-            static get schema(): typeof data.SceneData;
+            static override get schema(): typeof data.SceneData;
 
-            static get metadata(): SceneMetadata;
+            static override get metadata(): SceneMetadata;
 
             /** A reference to the Collection of Drawing instances in the Scene document, indexed by _id. */
             get drawings(): this['data']['drawings'];

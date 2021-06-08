@@ -6,17 +6,17 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseActiveEffect extends abstract.Document {
-            static get schema(): typeof data.ActiveEffectData;
+            static override get schema(): typeof data.ActiveEffectData;
 
-            static get metadata(): ActiveEffectMetadata;
+            static override get metadata(): ActiveEffectMetadata;
 
-            protected _preCreate(
+            protected override _preCreate(
                 data: PreCreate<data.ActiveEffectSource>,
                 options: DocumentModificationContext,
                 user: BaseUser,
             ): Promise<void>;
 
-            testUserPermission(
+            override testUserPermission(
                 user: BaseUser,
                 permission: DocumentPermission | UserAction,
                 { exact }?: { exact?: boolean },

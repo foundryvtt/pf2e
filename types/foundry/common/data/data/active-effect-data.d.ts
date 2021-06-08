@@ -26,7 +26,7 @@ declare module foundry {
         class ActiveEffectData<
             TDocument extends documents.BaseActiveEffect = documents.BaseActiveEffect,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
 
             /** @property duration The duration of the effect */
             duration: EffectDurationData<TDocument>;

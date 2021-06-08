@@ -11,8 +11,7 @@ declare namespace foundry {
         class TokenBarData<
             TDocument extends documents.BaseToken | documents.BaseActor = documents.BaseToken | documents.BaseActor,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
         }
 
         interface TokenBarData extends TokenBarSource {

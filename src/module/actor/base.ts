@@ -79,26 +79,26 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return null;
     }
 
-    /** As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
-     *  overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
-     * @override
+    /**
+     * As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
+     * overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
      */
-    static create<A extends ActorPF2e>(
+    static override create<A extends ActorPF2e>(
         this: ConstructorOf<A>,
         data: PreCreate<A['data']['_source']>,
         context?: DocumentModificationContext,
     ): Promise<A | undefined>;
-    static create<A extends ActorPF2e>(
+    static override create<A extends ActorPF2e>(
         this: ConstructorOf<A>,
         data: PreCreate<A['data']['_source']>[],
         context?: DocumentModificationContext,
     ): Promise<A[]>;
-    static create<A extends ActorPF2e>(
+    static override create<A extends ActorPF2e>(
         this: ConstructorOf<A>,
         data: PreCreate<A['data']['_source']>[] | PreCreate<A['data']['_source']>,
         context?: DocumentModificationContext,
     ): Promise<A[] | A | undefined>;
-    static async create<A extends ActorPF2e>(
+    static override async create<A extends ActorPF2e>(
         this: ConstructorOf<A>,
         data: PreCreate<A['data']['_source']>[] | PreCreate<A['data']['_source']>,
         context: DocumentModificationContext = {},
@@ -150,18 +150,14 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.create(data, context) as Promise<A[] | A | undefined>;
     }
 
-    /** @override */
-    prepareBaseData(): void {
+    override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.tokenEffects = [];
         this.prepareTokenImg();
     }
 
-    /**
-     * Prepare physical item getters on this actor and containers
-     * @override
-     */
-    prepareEmbeddedEntities(): void {
+    /** Prepare physical item getters on this actor and containers */
+    override prepareEmbeddedEntities(): void {
         super.prepareEmbeddedEntities();
         const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
             (item) => item instanceof PhysicalItemPF2e,
@@ -177,11 +173,8 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /**
-     * Disable active effects from a physical item if it isn't equipped and (if applicable) invested
-     * @override
-     */
-    applyActiveEffects() {
+    /** Disable active effects from a physical item if it isn't equipped and (if applicable) invested */
+    override applyActiveEffects() {
         for (const effect of this.effects) {
             const itemId = effect.data.origin?.match(/Item\.([0-9a-z]+)/i)?.[1] ?? '';
             const item = this.items.get(itemId);
@@ -206,11 +199,8 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /**
-     * Prevent character importers from creating martial items
-     * @override
-     */
-    createEmbeddedDocuments(
+    /** Prevent character importers from creating martial items */
+    override createEmbeddedDocuments(
         embeddedName: 'ActiveEffect' | 'Item',
         data: PreCreate<foundry.data.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
         context: DocumentModificationContext = {},
@@ -632,7 +622,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param isDelta   Whether the number represents a relative change (true) or an absolute change (false)
      * @param isBar     Whether the new value is part of an attribute bar, or just a direct value
      */
-    async modifyTokenAttribute(
+    override async modifyTokenAttribute(
         attribute: string,
         value: number,
         isDelta = false,
@@ -1166,7 +1156,7 @@ export interface ActorPF2e {
     readonly data: ActorDataPF2e;
     _sheet: ActorSheetPF2e<ActorPF2e> | ActorSheet<ActorPF2e, ItemPF2e> | null;
 
-    readonly itemTypes: {
+    get itemTypes(): {
         [K in ItemType]: Embedded<InstanceType<ConfigPF2e['PF2E']['Item']['documentClasses'][K]>>[];
     };
 

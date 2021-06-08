@@ -453,7 +453,7 @@ declare global {
                  * @param options Additional options which modify the deletion request
                  * @param user    The User requesting the document deletion
                  */
-                _preDelete(options: DocumentModificationContext, user: documents.BaseUser): Promise<void>;
+                protected _preDelete(options: DocumentModificationContext, user: documents.BaseUser): Promise<void>;
 
                 /**
                  * Perform follow-up operations after a Document of this type is created.

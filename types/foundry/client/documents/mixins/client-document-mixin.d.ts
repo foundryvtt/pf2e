@@ -48,21 +48,18 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: Record<string, Application>;
+    override apps: Record<string, Application>;
 
     /** A cached reference to the FormApplication instance used to configure this Document. */
     _sheet: FormApplication | null;
 
-    /** @override */
-    protected _initialize(): void;
+    protected override _initialize(): void;
 
     /* -------------------------------------------- */
     /*  Properties                                  */
     /* -------------------------------------------- */
 
-    /**
-     * Return a reference to the parent Collection instance which contains this Document.
-     */
+    /** Return a reference to the parent Collection instance which contains this Document. */
     get collection(): Collection<this>;
 
     /** A reference to the Compendium Collection which contains this Document, if any, otherwise undefined. */
@@ -175,14 +172,19 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    /** @override */
-    protected _onCreate(data: this['data']['_source'], options: DocumentModificationContext, userId: string): void;
+    protected override _onCreate(
+        data: this['data']['_source'],
+        options: DocumentModificationContext,
+        userId: string,
+    ): void;
 
-    /** @override */
-    protected _onUpdate(data: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void;
+    protected override _onUpdate(
+        data: DocumentUpdateData<this>,
+        options: DocumentModificationContext,
+        userId: string,
+    ): void;
 
-    /** @override */
-    protected _onDelete(options: DocumentModificationContext, userId: string): void;
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void;
 
     /**
      * Preliminary actions taken before a set of embedded Documents in this parent Document are created.
