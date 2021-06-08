@@ -8,6 +8,7 @@ import { ChatMessagePF2e } from '@module/chat-message';
 import { CombatPF2e } from '@module/combat';
 import { CombatantPF2e } from '@module/combatant';
 import { ConditionManager } from '@module/conditions';
+import { FolderPF2e } from '@module/folder';
 import { registerHandlebarsHelpers } from '@module/handlebars';
 import { MacroPF2e } from '@module/macro';
 import {
@@ -42,6 +43,7 @@ export function listen(): void {
         CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
         CONFIG.Combat.documentClass = CombatPF2e;
         CONFIG.Combatant.documentClass = CombatantPF2e;
+        CONFIG.Folder.documentClass = FolderPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
         CONFIG.Token.documentClass = TokenDocumentPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
