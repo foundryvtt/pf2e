@@ -288,12 +288,43 @@ table.pf2-table {
     font-weight: 500;
 }
 
+[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]):not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
 [data-pf2-saving-throw]::before {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     margin-right: 5px;
     color: #7a7971;
     content: '\f6cf';
+}
+
+/* ----------------------------------------- */
+/* PF2E GM Visibility Elements
+/* ----------------------------------------- */
+div[data-visibility="gm"] {
+        box-sizing: border-box;
+        display: inline-block;
+        border: 1px dotted;
+        background: #e8e8ef;
+        padding: 2px;
+        margin-bottom: 2px;
+
+        em[data-visibility="gm"] {
+            border: none;
+            padding: 0px;
+            margin-bottom: 0px;
+        }
+    }
+
+em[data-visibility="gm"] {
+    box-sizing: border-box;
+    display: inline-block;
+    border: 1px dotted;
+    background: #e8e8ef;
+    padding: 2px;
+    margin-bottom: 2px;
 }
 
 /* ----------------------------------------- */
