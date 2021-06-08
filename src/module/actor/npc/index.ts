@@ -139,6 +139,7 @@ export class NPCPF2e extends CreaturePF2e {
                 ),
             );
             this.data.data.details.level.value += 1;
+            this.adjustDCs(2);
         } else if (this.isWeak) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
             statisticsModifiers.all.push(new ModifierPF2e('PF2E.NPC.Adjustment.WeakLabel', -2, MODIFIER_TYPE.UNTYPED));
@@ -155,6 +156,7 @@ export class NPCPF2e extends CreaturePF2e {
                 ),
             );
             this.data.data.details.level.value -= 1;
+            this.adjustDCs(-2);
         }
 
         // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
@@ -851,6 +853,26 @@ export class NPCPF2e extends CreaturePF2e {
         } else {
             return 'hostile';
         }
+    }
+
+    protected adjustDCs(value: number) {
+        this.itemTypes.action.forEach((action) => {
+            // Wrap description in a div element to enable JQuery parsing.
+            const $description = $(`<div>${action.data.data.description.value}</div>`);
+            const dcs = $description.find('[data-pf2-dc]');
+            let isAdjusted = false;
+            for (const dc of dcs) {
+                const baseDc = dc.dataset?.pf2Dc;
+                if (baseDc !== undefined) {
+                    const adjusted = Number(baseDc) + value;
+                    $(dc).attr('data-pf2-dc', adjusted.toString());
+                    isAdjusted = true;
+                }
+            }
+            if (isAdjusted) {
+                action.data.data.description.value = $description.html();
+            }
+        });
     }
 
     protected async getAttackEffects(item: MeleeData): Promise<RollNotePF2e[]> {
