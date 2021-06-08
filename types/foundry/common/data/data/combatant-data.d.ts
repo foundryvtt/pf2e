@@ -25,7 +25,7 @@ declare module foundry {
         class CombatantData<
             TDocument extends documents.BaseCombatant = documents.BaseCombatant,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
         }
 
         interface CombatantData extends CombatantSource {

@@ -2,9 +2,9 @@ declare module foundry {
     module documents {
         /** The Combat document model. */
         class BaseCombatant extends abstract.Document {
-            static get schema(): typeof data.CombatantData;
+            static override get schema(): typeof data.CombatantData;
 
-            static get metadata(): CombatantMetadata;
+            static override get metadata(): CombatantMetadata;
 
             /** Is a user able to update an existing Combatant? */
             protected static _canUpdate(

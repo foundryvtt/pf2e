@@ -9,9 +9,9 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseChatMessage extends abstract.Document {
-            static get schema(): typeof data.ChatMessageData;
+            static override get schema(): typeof data.ChatMessageData;
 
-            static get metadata(): ChatMessageMetadata;
+            static override get metadata(): ChatMessageMetadata;
 
             /** Is a user able to create a new chat message? */
             protected static _canCreate(user: documents.BaseUser, doc: documents.BaseChatMessage): boolean;

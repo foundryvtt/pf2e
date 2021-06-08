@@ -2,9 +2,9 @@ declare module foundry {
     module documents {
         /** The PlaylistSound document model. */
         class BasePlaylistSound extends abstract.Document {
-            static get schema(): typeof data.PlaylistSoundData;
+            static override get schema(): typeof data.PlaylistSoundData;
 
-            static get metadata(): PlaylistSoundMetadata;
+            static override get metadata(): PlaylistSoundMetadata;
 
             testUserPermission(
                 user: documents.BaseUser,

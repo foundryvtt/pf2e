@@ -38,7 +38,7 @@ declare global {
         get img(): ImagePath;
 
         /** Provide an object which organizes all embedded Item instances by their type */
-        readonly itemTypes: Record<string, Embedded<Item>[]>;
+        get itemTypes(): Record<string, Embedded<Item>[]>;
 
         /** Test whether an Actor is a synthetic representation of a Token (if true) or a full Document (if false) */
         get isToken(): boolean;
@@ -52,8 +52,7 @@ declare global {
         /** A convenience reference to the item type (data.type) of this Actor */
         get type(): string;
 
-        /** @override */
-        get uuid(): string;
+        override get uuid(): string;
 
         /** Apply any transformations to the Actor data which are caused by ActiveEffects. */
         applyActiveEffects(): void;
@@ -73,8 +72,7 @@ declare global {
         /** Prepare a data object which defines the data schema used by dice roll commands against this Actor */
         getRollData(): object;
 
-        /** @override */
-        protected _getSheetClass(): ConstructorOf<NonNullable<this['_sheet']>>;
+        protected override _getSheetClass(): ConstructorOf<NonNullable<this['_sheet']>>;
 
         /**
          * Create a new TokenData object which can be used to create a Token representation of the Actor.
@@ -118,23 +116,23 @@ declare global {
             initiativeOptions?: object;
         }): Promise<Combat | null>;
 
-        /** @override */
-        getEmbeddedCollection(embeddedName: 'ActiveEffect'): this['effects'];
-        getEmbeddedCollection(embeddedName: 'Item'): this['items'];
-        getEmbeddedCollection(embeddedName: 'ActiveEffect' | 'Item'): this['effects'] | this['items'];
+        override getEmbeddedCollection(embeddedName: 'ActiveEffect'): this['effects'];
+        override getEmbeddedCollection(embeddedName: 'Item'): this['items'];
+        override getEmbeddedCollection(embeddedName: 'ActiveEffect' | 'Item'): this['effects'] | this['items'];
 
-        /** @override */
-        protected _preCreate(
+        protected override _preCreate(
             data: PreCreate<this['data']['_source']>,
             options: DocumentModificationContext,
             user: User,
         ): Promise<void>;
 
-        /** @override */
-        protected _onUpdate(data: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void;
+        protected override _onUpdate(
+            data: DocumentUpdateData<this>,
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
-        /** @override */
-        protected _onCreateEmbeddedDocuments(
+        protected override _onCreateEmbeddedDocuments(
             embeddedName: 'ActiveEffect' | 'item',
             documents: ActiveEffect[] | Item[],
             result: ActiveEffect['data']['_source'][],
@@ -142,8 +140,7 @@ declare global {
             userId: string,
         ): void;
 
-        /** @override */
-        protected _onUpdateEmbeddedDocuments(
+        protected override _onUpdateEmbeddedDocuments(
             embeddedName: 'ActiveEffect' | 'Item',
             documents: ActiveEffect[] | Item[],
             result: ActiveEffect['data']['_source'][] | Item['data']['_source'][],
@@ -151,8 +148,7 @@ declare global {
             userId: string,
         ): void;
 
-        /** @override */
-        protected _onDeleteEmbeddedDocuments(
+        protected override _onDeleteEmbeddedDocuments(
             embeddedName: 'ActiveEffect' | 'Item',
             documents: ActiveEffect[] | Item[],
             result: ActiveEffect['data']['_source'][] | Item['data']['_source'][],

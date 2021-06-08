@@ -88,9 +88,13 @@ declare global {
          */
         updateTokenTargets(targetIds?: string[]): void;
 
-        protected _onUpdate(data: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void;
+        protected override _onUpdate(
+            data: DocumentUpdateData<this>,
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
-        protected _onDelete(options: DocumentModificationContext, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext, userId: string): void;
     }
 
     interface UserActivity {

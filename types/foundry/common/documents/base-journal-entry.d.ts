@@ -2,9 +2,9 @@ declare module foundry {
     module documents {
         /**The JournalEntry document model. */
         class BaseJournalEntry extends abstract.Document {
-            static get schema(): typeof data.JournalEntryData;
+            static override get schema(): typeof data.JournalEntryData;
 
-            static get metadata(): JournalEntryMetadata;
+            static override get metadata(): JournalEntryMetadata;
         }
 
         interface BaseJournalEntry {

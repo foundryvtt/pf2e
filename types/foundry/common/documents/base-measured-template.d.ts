@@ -2,9 +2,9 @@ declare module foundry {
     module documents {
         /**The MeasuredTemplate embedded document model. */
         class BaseMeasuredTemplate extends abstract.Document {
-            static get schema(): typeof data.MeasuredTemplateData;
+            static override get schema(): typeof data.MeasuredTemplateData;
 
-            static get metadata(): MeasuredTemplateMetadata;
+            static override get metadata(): MeasuredTemplateMetadata;
 
             /** Is a user able to update or delete an existing MeasuredTemplate? */
             protected static _canModify(

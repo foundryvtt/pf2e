@@ -6,9 +6,9 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseRollTable extends abstract.Document {
-            static get schema(): typeof data.RollTableData;
+            static override get schema(): typeof data.RollTableData;
 
-            static get metadata(): RollTableMetadata;
+            static override get metadata(): RollTableMetadata;
 
             /** A reference to the Collection of TableResult instances in this document, indexed by _id. */
             get results(): this['data']['results'];
