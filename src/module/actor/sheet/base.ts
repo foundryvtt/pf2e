@@ -82,6 +82,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 '.spellbook-pane',
                 '.skillstab-pane',
                 '.pfs-pane',
+                '.tab.active',
             ],
         });
     }
@@ -1333,12 +1334,21 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     /**
-     * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
+     * Handles expanding and contracting the item summary,
+     * delegating the populating of the item summary to renderItemSummary()
      */
     protected onItemSummary(event: JQuery.ClickEvent) {
         event.preventDefault();
 
         const li = $(event.currentTarget).parent().parent();
+        this.toggleItemSummary(li);
+    }
+
+    /**
+     * Triggers toggling the visibility of an item summary element,
+     * delegating the populating of the item summary to renderItemSummary()
+     */
+    toggleItemSummary(li: JQuery, options: { instant?: boolean } = {}) {
         const itemId = li.attr('data-item-id');
         const itemType = li.attr('data-item-type');
 
@@ -1349,59 +1359,68 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         if (item.data.type === 'spellcastingEntry' || item.data.type === 'condition') return;
 
-        const chatData = item.getChatData({ secrets: this.actor.isOwner });
-        this.renderItemSummary(li, item, chatData);
-    }
-
-    protected renderItemSummary(li: JQuery, _item: ItemPF2e, chatData: any) {
-        const localize = game.i18n.localize.bind(game.i18n);
-
         // Toggle summary
         if (li.hasClass('expanded')) {
             const summary = li.children('.item-summary');
-            summary.slideUp(200, () => summary.remove());
+            if (options.instant) {
+                summary.remove();
+            } else {
+                summary.slideUp(200, () => summary.remove());
+            }
         } else {
-            const div = $(
-                `<div class="item-summary"><div class="item-description">${TextEditor.enrichHTML(
-                    chatData.description.value,
-                )}</div></div>`,
-            );
-            const props = $('<div class="item-properties tags"></div>');
-            if (Array.isArray(chatData.properties)) {
-                chatData.properties
-                    .filter((property: unknown) => typeof property === 'string')
-                    .forEach((property: string) => {
-                        props.append(`<span class="tag tag_secondary">${localize(property)}</span>`);
-                    });
+            const chatData = item.getChatData({ secrets: this.actor.isOwner });
+            const div = $('<div class="item-summary"/>');
+            this.renderItemSummary(div, item, chatData);
+            li.append(div);
+            if (!options.instant) {
+                div.hide().slideDown(200);
             }
-            if (chatData.critSpecialization)
-                props.append(
-                    `<span class="tag" title="${localize(
-                        chatData.critSpecialization.description,
-                    )}" style="background: rgb(69,74,124); color: white;">${localize(
-                        chatData.critSpecialization.label,
-                    )}</span>`,
-                );
-            // append traits (only style the tags if they contain description data)
-            for (const trait of chatData.traits ?? []) {
-                if (trait.excluded) continue;
-                const label: string = game.i18n.localize(trait.label);
-                const mystifiedClass = trait.mystified ? 'mystified' : [];
-                if (trait.description) {
-                    const classes: string = ['tag', mystifiedClass].flat().join(' ');
-                    const description: string = game.i18n.localize(trait.description);
-                    props.append(`<span class="${classes}" title="${description}">${label}</span>`);
-                } else {
-                    const classes: string = ['tag', 'tag_alt', mystifiedClass].flat().join(' ');
-                    props.append(`<span class="${classes}">${label}</span>`);
-                }
-            }
-
-            div.append(props);
-            li.append(div.hide());
-            div.slideDown(200);
         }
+
         li.toggleClass('expanded');
+    }
+
+    /**
+     * Called when an item summary is expanded and needs to be filled out.
+     */
+    protected renderItemSummary(div: JQuery, _item: ItemPF2e, chatData: any) {
+        const localize = game.i18n.localize.bind(game.i18n);
+
+        const description = TextEditor.enrichHTML(chatData.description.value);
+        div.append(`<div class="item-description">${description}</div></div>`);
+
+        const props = $('<div class="item-properties tags"></div>');
+        if (Array.isArray(chatData.properties)) {
+            chatData.properties
+                .filter((property: unknown) => typeof property === 'string')
+                .forEach((property: string) => {
+                    props.append(`<span class="tag tag_secondary">${localize(property)}</span>`);
+                });
+        }
+        if (chatData.critSpecialization)
+            props.append(
+                `<span class="tag" title="${localize(
+                    chatData.critSpecialization.description,
+                )}" style="background: rgb(69,74,124); color: white;">${localize(
+                    chatData.critSpecialization.label,
+                )}</span>`,
+            );
+        // append traits (only style the tags if they contain description data)
+        for (const trait of chatData.traits ?? []) {
+            if (trait.excluded) continue;
+            const label: string = game.i18n.localize(trait.label);
+            const mystifiedClass = trait.mystified ? 'mystified' : [];
+            if (trait.description) {
+                const classes: string = ['tag', mystifiedClass].flat().join(' ');
+                const description: string = game.i18n.localize(trait.description);
+                props.append(`<span class="${classes}" title="${description}">${label}</span>`);
+            } else {
+                const classes: string = ['tag', 'tag_alt', mystifiedClass].flat().join(' ');
+                props.append(`<span class="${classes}">${label}</span>`);
+            }
+        }
+
+        div.append(props);
     }
 
     /**
@@ -1764,5 +1783,24 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             buttons.splice(buttons.indexOf(sheetButton), 1);
         }
         return buttons;
+    }
+
+    /**
+     * Override of inner render function to maintain item summary state
+     * @override
+     */
+    protected async _renderInner(data: Record<string, unknown>, options: RenderOptions) {
+        // Identify which item summaries are expanded currently
+        const expandedItemElements = this.element.find('.item.expanded[data-item-id]');
+        const openItemIds = new Set(expandedItemElements.map((_i, el) => el.dataset.itemId));
+
+        const result = await super._renderInner(data, options);
+
+        // Re-open hidden item summaries
+        for (const elementId of openItemIds) {
+            this.toggleItemSummary(result.find(`.item[data-item-id=${elementId}]`), { instant: true });
+        }
+
+        return result;
     }
 }
