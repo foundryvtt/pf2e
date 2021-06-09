@@ -43,6 +43,7 @@ import { Migration633DeleteUnidentifiedTraits } from './migrations/633-delete-un
 import { Migration634PurgeMartialItems } from './migrations/634-purge-martial-items';
 import { Migration635NumifyACAndQuantity } from './migrations/635-numify-ac-and-quantity';
 import { Migration636NumifyArmorData } from './migrations/636-numify-armor-data';
+import { Migration637CleanMeleeItems } from './migrations/637-clean-melee-items';
 
 export class Migrations {
     private static list = [
@@ -90,6 +91,7 @@ export class Migrations {
         Migration634PurgeMartialItems,
         Migration635NumifyACAndQuantity,
         Migration636NumifyArmorData,
+        Migration637CleanMeleeItems,
     ];
 
     static get latestVersion(): number {
