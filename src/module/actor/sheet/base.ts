@@ -19,7 +19,6 @@ import {
     sellAllTreasure,
     sellTreasure,
 } from '@item/treasure/helpers';
-import { ConditionManager } from '@module/conditions';
 import {
     TagSelectorBasic,
     TraitSelectorResistances,
@@ -1240,7 +1239,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 ui.notifications.error(translations.ErrorMessage.NoUpdatePermission);
                 return null;
             } else if (token) {
-                await ConditionManager.addConditionToToken(itemData, token);
+                await game.pf2e.ConditionManager.addConditionToToken(itemData, token);
                 return itemData;
             } else {
                 await actor.increaseCondition(itemData.data.slug);

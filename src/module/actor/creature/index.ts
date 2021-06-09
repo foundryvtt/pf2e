@@ -12,7 +12,6 @@ import {
     StrikingPF2e,
     WeaponPotencyPF2e,
 } from '@module/rules/rules-data-definitions';
-import { ConditionManager } from '@module/conditions';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { isMagicItemData } from '@item/data/helpers';
 import { PF2CheckDC } from '@system/check-degree-of-success';
@@ -123,7 +122,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             .filter((c) => c.data.flags.pf2e?.condition && c.data.data.active)
             .map((c) => c.data);
 
-        for (const [key, value] of ConditionManager.getModifiersFromConditions(conditions.values())) {
+        for (const [key, value] of game.pf2e.ConditionManager.getModifiersFromConditions(conditions.values())) {
             statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
         }
 
