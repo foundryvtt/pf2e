@@ -215,7 +215,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         const modifier = new StatisticModifier(game.i18n.localize('PF2E.FlatCheck'), []);
 
-        CheckPF2e.roll(modifier, { dc, notes });
+        CheckPF2e.roll(modifier, { actor: this, dc, notes });
 
         // No automated update yet, not sure if Community wants that.
         // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
