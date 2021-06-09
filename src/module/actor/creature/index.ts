@@ -200,8 +200,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
 
         const dc: PF2CheckDC = {
-            label: 'PF2E.Recovery.rollingDescription',
-            labelValues: { dying },
+            label: game.i18n.format('PF2E.Recovery.rollingDescription', {
+                dying,
+                dc: '{dc}', // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
+            }),
             value: 10 + recoveryMod + dying,
         };
 
