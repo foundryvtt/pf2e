@@ -42,6 +42,7 @@ import { Migration632DeleteOrphanedSpells } from './migrations/632-delete-orphan
 import { Migration633DeleteUnidentifiedTraits } from './migrations/633-delete-unidentified-traits';
 import { Migration634PurgeMartialItems } from './migrations/634-purge-martial-items';
 import { Migration635NumifyACAndQuantity } from './migrations/635-numify-ac-and-quantity';
+import { Migration636NumifyArmorData } from './migrations/636-numify-armor-data';
 
 export class Migrations {
     private static list = [
@@ -88,6 +89,7 @@ export class Migrations {
         Migration633DeleteUnidentifiedTraits,
         Migration634PurgeMartialItems,
         Migration635NumifyACAndQuantity,
+        Migration636NumifyArmorData,
     ];
 
     static get latestVersion(): number {
