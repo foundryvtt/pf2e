@@ -1,7 +1,7 @@
 import { ActorPF2e } from '@actor/index';
 import { CreatureData } from '@actor/data';
 import { WeaponData } from '@item/data';
-import { DamageDicePF2e, ModifierPF2e } from '@module/modifiers';
+import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from '@module/modifiers';
 import { ItemPF2e, ArmorPF2e } from '@item/index';
 import { prepareMinions } from '@scripts/actor/prepare-minions';
 import { RuleElementPF2e } from '@module/rules/rule-element';
@@ -15,6 +15,7 @@ import {
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { isMagicItemData } from '@item/data/helpers';
 import { PF2CheckDC } from '@system/check-degree-of-success';
+import { CheckPF2e } from '@system/rolls';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -196,43 +197,25 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const dying = this.data.data.attributes.dying.value;
         // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
         const recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
-        const recoveryDc = 10 + recoveryMod;
-        const flatCheck = new Roll('1d20').roll();
-        const total = flatCheck.total ?? 0;
-        const dc = recoveryDc + dying;
-        let result = '';
 
-        if (total === 20 || total >= dc + 10) {
-            result = `${game.i18n.localize('PF2E.CritSuccess')} ${game.i18n.localize('PF2E.Recovery.critSuccess')}`;
-        } else if (total === 1 || total <= dc - 10) {
-            result = `${game.i18n.localize('PF2E.CritFailure')} ${game.i18n.localize('PF2E.Recovery.critFailure')}`;
-        } else if (total >= dc) {
-            result = `${game.i18n.localize('PF2E.Success')} ${game.i18n.localize('PF2E.Recovery.success')}`;
-        } else {
-            result = `${game.i18n.localize('PF2E.Failure')} ${game.i18n.localize('PF2E.Recovery.failure')}`;
-        }
-        const rollingDescription = game.i18n.format('PF2E.Recovery.rollingDescription', { dc, dying });
+        const dc: PF2CheckDC = {
+            label: game.i18n.format('PF2E.Recovery.rollingDescription', {
+                dying,
+                dc: '{dc}', // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
+            }),
+            value: 10 + recoveryMod + dying,
+        };
 
-        const message = `
-      ${rollingDescription}.
-      <div class="dice-roll">
-        <div class="dice-formula" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-weight: 400;">
-            ${result}
-          </span>
-        </div>
-      </div>
-      `;
+        const notes: RollNotePF2e[] = [
+            new RollNotePF2e('all', game.i18n.localize('PF2E.Recovery.critSuccess'), undefined, ['criticalSuccess']),
+            new RollNotePF2e('all', game.i18n.localize('PF2E.Recovery.success'), undefined, ['success']),
+            new RollNotePF2e('all', game.i18n.localize('PF2E.Recovery.failure'), undefined, ['failure']),
+            new RollNotePF2e('all', game.i18n.localize('PF2E.Recovery.critFailure'), undefined, ['criticalFailure']),
+        ];
 
-        flatCheck.toMessage(
-            {
-                speaker: ChatMessage.getSpeaker({ actor: this }),
-                flavor: message,
-            },
-            {
-                rollMode: game.settings.get('core', 'rollMode'),
-            },
-        );
+        const modifier = new StatisticModifier(game.i18n.localize('PF2E.FlatCheck'), []);
+
+        CheckPF2e.roll(modifier, { dc, notes });
 
         // No automated update yet, not sure if Community wants that.
         // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
