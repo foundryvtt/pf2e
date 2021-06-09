@@ -7,7 +7,6 @@ import { FeatSource } from '@item/feat/data';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { MagicTradition, PreparationType } from '@item/spellcasting-entry/data';
-import { ConditionManager } from '@module/conditions';
 import { ProficiencyModifier } from '@module/modifiers';
 import { ZeroToThree } from '@module/data';
 import { CharacterPF2e } from '.';
@@ -116,7 +115,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         sheetData.data.effects = {};
 
-        sheetData.data.effects.conditions = ConditionManager.getFlattenedConditions(
+        sheetData.data.effects.conditions = game.pf2e.ConditionManager.getFlattenedConditions(
             sheetData.actor.items.filter((i: any) => i.flags.pf2e?.condition && i.type === 'condition'),
         );
         // Show the PFS tab only if the setting for it is enabled.
