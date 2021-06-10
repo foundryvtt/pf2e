@@ -870,7 +870,7 @@ describe('Bulk conversions', () => {
         );
     });
 
-    test.skip('maximum halving', () => {
+    test('maximum halving', () => {
         expect(convertBulkToSize(new Bulk({ normal: 16 }), 'tiny', 'grg')).toEqual(
             new Bulk({
                 light: 0,
@@ -879,7 +879,7 @@ describe('Bulk conversions', () => {
         );
     });
 
-    test.skip('maximum doubling', () => {
+    test('maximum doubling', () => {
         expect(convertBulkToSize(new Bulk(), 'grg', 'tiny')).toEqual(
             new Bulk({
                 light: 0,
