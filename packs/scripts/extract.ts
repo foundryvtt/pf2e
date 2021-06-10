@@ -118,14 +118,14 @@ function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
 /** Walk object tree and make appropriate deletions */
 function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
     type DocumentKey = keyof PackEntry;
-    if ('permission' in entityData) {
-        const defaultPermission = entityData.permission['default'] ?? [0];
-        entityData.permission = { default: defaultPermission };
-    }
     for (const key in entityData) {
         if (key === '_id') {
             topLevel = entityData;
-            delete (entityData as { data?: { rarity?: unknown } }).data?.rarity;
+            if ('folder' in entityData && 'permission' in entityData) {
+                const defaultPermission = entityData.permission['default'] ?? [0];
+                entityData.folder = null;
+                entityData.permission = { default: defaultPermission };
+            }
         } else if (['_modifiers', '_sheetTab'].includes(key)) {
             delete entityData[key as DocumentKey];
         } else if (entityData[key as DocumentKey] instanceof Object) {
