@@ -13,7 +13,7 @@ import {
     WISDOM,
 } from '@module/modifiers';
 import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
-import { WeaponDamagePF2e } from '@system/damage/weapon';
+import { ensureWeaponCategory, WeaponDamagePF2e } from '@system/damage/weapon';
 import { CheckPF2e, DamageRollPF2e, RollParameters } from '@system/rolls';
 import { SKILL_DICTIONARY } from '../data/values';
 import {
@@ -809,6 +809,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     .concat(melee ? 'melee' : 'ranged')
                     .concat(`${ability}-attack`);
                 ensureProficiencyOption(defaultOptions, proficiencyRank);
+                ensureWeaponCategory(defaultOptions, weaponCategory);
                 const notes: RollNotePF2e[] = [];
 
                 if (item.data.group?.value === 'bomb') {
