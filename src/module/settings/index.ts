@@ -11,7 +11,7 @@ export function registerSettings() {
         hint: 'PF2E.SETTINGS.WorldSchemaVersion.Hint',
         scope: 'world',
         config: true,
-        default: MigrationRunner.WORLD_SCHEMA_VERSION,
+        default: MigrationRunner.LATEST_SCHEMA_VERSION,
         type: Number,
     });
 

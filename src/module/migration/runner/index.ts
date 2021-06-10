@@ -239,14 +239,19 @@ export class MigrationRunner extends MigrationRunnerBase {
     }
 
     async runMigration(force = false) {
-        const systemVersion = MigrationRunner.WORLD_SCHEMA_VERSION;
-        const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
+        const schemaVersion = {
+            latest: MigrationRunner.LATEST_SCHEMA_VERSION,
+            current: game.settings.get('pf2e', 'worldSchemaVersion'),
+        };
+        const systemVersion = game.system.data.version;
 
         ui.notifications.info(game.i18n.format('PF2E.Migrations.Starting', { version: systemVersion }), {
             permanent: true,
         });
 
-        const migrationsToRun = force ? this.migrations : this.migrations.filter((x) => currentVersion < x.version);
+        const migrationsToRun = force
+            ? this.migrations
+            : this.migrations.filter((x) => schemaVersion.current < x.version);
 
         // We need to break the migration into phases sometimes.
         // for instance, if a migration creates an item, we need to push that to
@@ -267,7 +272,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             }
         }
 
-        game.settings.set('pf2e', 'worldSchemaVersion', MigrationRunner.WORLD_SCHEMA_VERSION);
+        game.settings.set('pf2e', 'worldSchemaVersion', schemaVersion.latest);
         ui.notifications.info(game.i18n.format('PF2E.Migrations.Finished', { version: systemVersion }), {
             permanent: true,
         });
