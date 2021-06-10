@@ -1,0 +1,83 @@
+<div class="{{item.type}}-body item-body" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if data.spellLvl}}data-spell-lvl="{{data.spellLvl}}"{{/if}}>
+    <div class="traits-list tags">
+        {{#each chatData.traits as |trait|}}
+        {{#unless trait.excluded}}
+            <span class="tag {{#unless trait.description}}tag_alt{{/unless}} {{#if trait.mystified}}{{trait.mystified}}{{/if}}" title="{{trait.description}}">
+                {{localize trait.label}} {{trait.name}}
+            </span>
+        {{/unless}}
+        {{/each}}
+    </div>
+
+    {{#if chatData.isSave}}
+        <div>
+            {{ localize 'PF2E.SaveDCLabel'}} {{chatData.save.dc}} {{chatData.save.basic}} {{chatData.save.str}}
+        </div>
+    {{/if}}
+
+    <div class="item-description">
+        {{{ enrichHTML chatData.description.value }}}
+    </div>
+
+    <div class="item-properties tags">
+        {{#each chatData.properties as |prop|}}
+            <span class="tag tag_secondary">{{ localize prop }}</span>
+        {{/each}}
+        {{#if chatData.critSpecialization}}
+            <span class="tag" title="{{localize chatData.critSpecialization.description}}" style="background: rgb(69,74,124); color: white;">
+                {{localize chatData.critSpecialization.label }}
+            </span>
+        {{/if}}
+    </div>
+
+    {{#if chatData.isCreature}}
+    <div class="item-buttons">
+        {{#if chatData.isSave}}
+            <span class="tag">
+                {{ localize 'PF2E.SaveDCLabel'}} {{ chatData.save.dc }} {{ item.chatData.save.basic }} {{ item.chatData.save.str }}
+            </span>
+        {{/if}}
+        {{#if chatData.isAttack}}
+            <span class="tag">
+                <button class="spell_attack" data-action="spellAttack">
+                    {{ localize 'PF2E.AttackLabel' }}
+                </button>
+            </span>
+        {{/if}}
+        {{#if item.data.data.damage.value}}
+            <span class="tag">
+                <button class="spell_damage" data-action="spellDamage">
+                    {{ chatData.damageLabel }}: {{ item.data.data.damage.value }}
+                </button>
+            </span>
+        {{/if}}
+    </div>
+    {{/if}}
+</div>
+
+{{#if chatData.isCreature}}
+<div class="item-buttons">
+    {{#if (eq item.type "weapon")}}
+    {{#if chatData.isTwoHanded}}
+    {{#if (eq this.actor.type "character")}}
+        <span class="tag">
+            <button data-action="toggleHands">
+                <i class="far fa-hand-paper"></i>
+                {{#if chatData.wieldedTwoHands}}<i class="far fa-hand-paper"></i>{{/if}}
+            </button>
+        </span>
+    {{/if}}
+    {{/if}}
+    {{/if}}
+
+    {{#if (eq item.data.type "consumable")}}
+        {{#if (and item.isIdentified item.charges.max)}}
+            <span class="tag">
+                <button class="consume" data-action="consume">
+                    {{localize 'PF2E.ConsumableUseLabel'}} {{item.name}}
+                </button>
+            </span>
+        {{/if}}
+    {{/if}}
+</div>
+{{/if}}
