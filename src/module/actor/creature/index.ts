@@ -68,19 +68,19 @@ export abstract class CreaturePF2e extends ActorPF2e {
               }, heldShields.slice(-1)[0]);
     }
 
-    /**
-     * Setup base ephemeral data to be modified by active effects and derived-data preparation
-     * @override
-     */
-    prepareBaseData(): void {
+    /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
+    override prepareBaseData(): void {
         super.prepareBaseData();
         const attributes = this.data.data.attributes;
         const hitPoints: { modifiers: Readonly<ModifierPF2e[]> } = attributes.hp;
         hitPoints.modifiers = [];
     }
 
-    /** @override */
-    protected _onUpdate(changed: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void {
+    protected override _onUpdate(
+        changed: DocumentUpdateData<this>,
+        options: DocumentModificationContext,
+        userId: string,
+    ): void {
         if (userId === game.userId) {
             // ensure minion-type actors with are prepared with their master-derived data
             prepareMinions(this);
