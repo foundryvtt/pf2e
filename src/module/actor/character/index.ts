@@ -66,13 +66,7 @@ export class CharacterPF2e extends CreaturePF2e {
         return this.itemTypes.feat.find((feat) => feat.featType.value === 'heritage') ?? null;
     }
 
-    /** @override */
-    static get defaultImg() {
-        return CONST.DEFAULT_TOKEN;
-    }
-
-    /** @override */
-    prepareBaseData(): void {
+    override prepareBaseData(): void {
         super.prepareBaseData();
 
         // Add any homebrew categories
@@ -98,16 +92,15 @@ export class CharacterPF2e extends CreaturePF2e {
         };
     }
 
-    /** @override */
-    prepareEmbeddedEntities(): void {
-        super.prepareEmbeddedEntities();
+    /** Adjustments from ABC items are made after all items are prepared but before active effects are applied. */
+    override applyActiveEffects(): void {
         this.prepareAncestry();
         this.prepareBackground();
         this.prepareClass();
+        super.applyActiveEffects();
     }
 
-    /** @override */
-    prepareDerivedData(): void {
+    override prepareDerivedData(): void {
         super.prepareDerivedData();
 
         const rules = this.items
