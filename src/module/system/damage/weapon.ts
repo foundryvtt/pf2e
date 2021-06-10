@@ -74,6 +74,12 @@ function isNonPhysicalDamage(damageType?: string): boolean {
     );
 }
 
+export function ensureWeaponCategory(options: string[], weaponCategory: 'simple' | 'martial' | 'advanced' | 'unarmed') {
+    if (weaponCategory && !options.some((option) => option.toLowerCase().startsWith('weapon:category:'))) {
+        options.push(`weapon:category:${weaponCategory}`);
+    }
+}
+
 /**
  * @category PF2
  */
