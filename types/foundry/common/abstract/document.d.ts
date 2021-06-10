@@ -579,6 +579,7 @@ declare global {
      * @property [pack]              A Compendium pack identifier within which the Documents should be modified
      * @property [noHook=false]      Block the dispatch of preCreate hooks for this operation
      * @property [index=false]       Return an index of the Document collection, used only during a get operation.
+     * @property [keepId=false]        When performing a creation operation, keep the provided _id instead of clearing it.
      * @property [temporary=false]   Create a temporary document which is not saved to the database. Only used during creation.
      * @property [render=true]       Automatically re-render existing applications associated with the document.
      * @property [renderSheet=false] Automatically create and render the Document sheet when the Document is first created.
@@ -592,6 +593,7 @@ declare global {
         pack?: string;
         noHook?: boolean;
         index?: boolean;
+        keepId?: boolean;
         temporary?: boolean;
         render?: boolean;
         renderSheet?: boolean;

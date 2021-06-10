@@ -18,6 +18,9 @@ export class FolderPF2e<
         }
 
         const index = await pack.getIndex();
+
+        ui.notifications.info(`Exporting ${index.size} ${pack.metadata.entity}s to Compendium ${pack.collection}.`);
+
         const documents = this.contents;
         for await (const folderDoc of documents) {
             const packIndex = index.find((compendiumDoc) => compendiumDoc.name === folderDoc.name);
@@ -35,8 +38,12 @@ export class FolderPF2e<
                 | ActorSourcePF2e
                 | ItemSourcePF2e;
 
-            await packDoc.update(updateData, { noHook: true, diff: false });
+            await packDoc.update(updateData, { noHook: true, diff: false, recursive: false });
         }
-        return super.exportToCompendium(pack, { updateByName });
+
+        pack.render(false);
+        ui.notifications.info(`Finished exporting ${pack.metadata.entity}s to Compendium ${pack.collection}.`);
+
+        return pack;
     }
 }
