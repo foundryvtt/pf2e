@@ -23,28 +23,22 @@ declare class MeasuredTemplate extends PlaceableObject<MeasuredTemplateDocument>
     /** A convenience accessor for the fill color as a numeric hex code */
     get fillColor(): number;
 
-    /** @override */
     static get layer(): TemplateLayer;
 
-    /** @override */
-    get layer(): TemplateLayer;
+    override get layer(): TemplateLayer;
 
     /* -------------------------------------------- */
-    /*  Rendering
+    /*  Rendering                                   */
     /* -------------------------------------------- */
     /**
      * Draw the ControlIcon for the MeasuredTemplate
      */
     protected _drawControlIcon(): ControlIcon;
 
-    /* -------------------------------------------- */
-
     /**
      * Draw the Text label used for the MeasuredTemplate
      */
     protected _drawRulerText(): PIXI.Text;
-
-    /* -------------------------------------------- */
 
     /**
      * Get a Circular area of effect given a radius of effect
@@ -72,26 +66,13 @@ declare class MeasuredTemplate extends PlaceableObject<MeasuredTemplateDocument>
      */
     protected _getRayShape(direction: number, distance: number, width: number): PIXI.Polygon;
 
-    /* -------------------------------------------- */
-
-    /**
-     * Draw the rotation control handle and assign event listeners
-     */
+    /** Draw the rotation control handle and assign event listeners */
     protected _drawRotationHandle(radius: number): void;
 
-    /* -------------------------------------------- */
+    /** Update the displayed ruler tooltip text */
+    protected _refreshRulerText(): void;
 
-    /**
-     * Update the displayed ruler tooltip text
-     * @private
-     */
-    _refreshRulerText(): void;
-
-    /* -------------------------------------------- */
-
-    /**
-     * Highlight the grid squares which should be shown under the area of effect
-     */
+    /** Highlight the grid squares which should be shown under the area of effect */
     highlightGrid(): void;
 
     /* -------------------------------------------- */
@@ -102,22 +83,17 @@ declare class MeasuredTemplate extends PlaceableObject<MeasuredTemplateDocument>
     /*  Interactivity                               */
     /* -------------------------------------------- */
 
-    /** @override */
-    _canControl(user: User, event?: Event): boolean;
+    protected override _canControl(user: User, event?: Event): boolean;
 
-    /** @override */
-    _canConfigure(user: User, event?: Event): boolean;
+    protected override _canConfigure(user: User, event?: Event): boolean;
 
-    /** @override */
-    _canView(user: User, event?: Event): boolean;
+    protected override _canView(user: User, event?: Event): boolean;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers               */
     /* -------------------------------------------- */
 
-    /** @override */
-    _onUpdate(data: any): void;
+    protected override _onUpdate(data: any): void;
 
-    /** @override */
-    _onDelete(): void;
+    protected override _onDelete(): void;
 }

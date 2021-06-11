@@ -32,9 +32,9 @@ import { TokenDocumentPF2e } from '@module/token-document';
 import { UserPF2e } from '@module/user';
 import { ScenePF2e } from '@module/scene';
 import { CompendiumBrowser } from '@module/apps/compendium-browser';
-import { TokenPF2e } from '@module/canvas/token';
 import { remigrate } from '@scripts/system/remigrate';
 import { FolderPF2e } from '@module/folder';
+import { TokenPF2e } from '@module/canvas/token';
 
 declare global {
     interface Game {
@@ -78,6 +78,7 @@ declare global {
             FolderPF2e,
             ItemPF2e,
             MacroPF2e,
+            ScenePF2e,
             TokenDocumentPF2e
         > {
         debug: Config['debug'] & {
@@ -97,6 +98,7 @@ declare global {
             FolderPF2e,
             ItemPF2e,
             MacroPF2e,
+            ScenePF2e,
             TokenDocumentPF2e
         >['ui'] & {
             combat: typeof CombatTrackerPF2e;
@@ -105,7 +107,7 @@ declare global {
     }
 
     const CONFIG: ConfigPF2e;
-    const canvas: Canvas<TokenPF2e>;
+    const canvas: Canvas<ScenePF2e, TokenPF2e>;
     namespace globalThis {
         // eslint-disable-next-line no-var
         var game: Game<ActorPF2e, ChatMessagePF2e, CombatPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;

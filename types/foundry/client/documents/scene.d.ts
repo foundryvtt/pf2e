@@ -102,7 +102,7 @@ declare global {
         protected override _preCreateEmbeddedDocuments(
             embeddedName: 'Token',
             result: foundry.data.TokenSource[],
-            options: DocumentModificationContext,
+            options: SceneEmbeddedModificationContext,
             userId: string,
         ): void;
 
@@ -110,14 +110,14 @@ declare global {
             embeddedName: 'Token',
             documents: TTokenDocument[],
             result: foundry.data.TokenSource[],
-            options: DocumentModificationContext,
+            options: SceneEmbeddedModificationContext,
             userId: string,
         ): void;
 
         protected override _preUpdateEmbeddedDocuments(
             embeddedName: 'Token',
             result: foundry.data.TokenSource[],
-            options: DocumentModificationContext,
+            options: SceneEmbeddedModificationContext,
             userId: string,
         ): void;
 
@@ -125,14 +125,14 @@ declare global {
             embeddedName: 'Token',
             documents: TTokenDocument[],
             result: TTokenDocument['data']['_source'][],
-            options: DocumentModificationContext,
+            options: SceneEmbeddedModificationContext,
             userId: string,
         ): void;
 
         protected override _preDeleteEmbeddedDocuments(
             embeddedName: 'Token',
             result: TTokenDocument['data']['_source'][],
-            options: DocumentModificationContext,
+            options: SceneEmbeddedModificationContext,
             userId: string,
         ): void;
 
@@ -140,7 +140,7 @@ declare global {
             embeddedName: 'Token',
             documents: TokenDocument[],
             result: foundry.data.TokenSource[],
-            options: DocumentModificationContext,
+            options: SceneEmbeddedModificationContext,
             userId: string,
         ): void;
 
@@ -183,7 +183,7 @@ declare global {
         updateEmbeddedDocuments(
             embeddedName: 'Token',
             updateData: EmbeddedDocumentUpdateData<TTokenDocument>[],
-            options?: DocumentModificationContext,
+            options?: SceneEmbeddedModificationContext,
         ): Promise<CollectionValue<this['data']['tokens']>[]>;
     }
 }
