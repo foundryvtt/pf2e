@@ -1,4 +1,5 @@
 <div class="{{item.type}}-summary-details item-summary-details" data-actor-id="{{item.document.actor.id}}" data-item-id="{{item._id}}" {{#if chatData.spellLvl}}data-spell-lvl="{{chatData.spellLvl}}"{{/if}}>
+    {{#if chatData.traits.length}}
     <div class="traits-list tags">
         {{#each chatData.traits as |trait|}}
         {{#unless trait.excluded}}
@@ -8,6 +9,7 @@
         {{/unless}}
         {{/each}}
     </div>
+    {{/if}}
 
     {{#if chatData.isSave}}
         <div>
