@@ -45,6 +45,7 @@ import { RemoveCoinsPopup } from './popups/remove-coins-popup';
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { ContainerPF2e } from '@item/container';
 import { ActorDataPF2e } from '@actor/data';
+import { CreaturePF2e } from '@actor/creature';
 import { SaveString, SkillAbbreviation } from '@actor/creature/data';
 import { AbilityString } from '@actor/data/base';
 import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
@@ -1368,7 +1369,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
      */
     protected async renderItemSummary(div: JQuery, item: Embedded<ItemPF2e>, chatData: any) {
         const template = 'systems/pf2e/templates/actors/item-summary.html';
-        const result = await renderTemplate(template, { item: item.data, chatData });
+        const isCreature = this.actor instanceof CreaturePF2e;
+        const result = await renderTemplate(template, { actor: this.actor, item: item.data, chatData, isCreature });
         div.append(result);
     }
 

@@ -15,7 +15,6 @@ import { SkillData } from './data';
  */
 export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends ActorSheetPF2e<ActorType> {
     protected override async renderItemSummary(div: JQuery, item: Embedded<ItemPF2e>, chatData: any) {
-        chatData.isCreature = true;
         await super.renderItemSummary(div, item, chatData);
 
         div.find('button').on('click', (event) => {

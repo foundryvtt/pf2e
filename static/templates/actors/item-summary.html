@@ -1,4 +1,4 @@
-<div class="{{item.type}}-summary-details item-summary-details" data-actor-id="{{item.document.actor.id}}" data-item-id="{{item._id}}" {{#if chatData.spellLvl}}data-spell-lvl="{{chatData.spellLvl}}"{{/if}}>
+<div class="{{item.type}}-summary-details item-summary-details" data-actor-id="{{actor.id}}" data-item-id="{{item._id}}" {{#if chatData.spellLvl}}data-spell-lvl="{{chatData.spellLvl}}"{{/if}}>
     {{#if chatData.traits.length}}
     <div class="traits-list tags">
         {{#each chatData.traits as |trait|}}
@@ -32,27 +32,23 @@
         {{/if}}
     </div>
 
-    {{#if chatData.isCreature}}
+    {{#if (eq actor.type "character")}}
     <div class="item-buttons">
         {{#if chatData.isAttack}}
-            <span class="tag">
-                <button class="spell_attack" data-action="spellAttack">
-                    {{ localize 'PF2E.AttackLabel' }}
-                </button>
-            </span>
+            <button class="spell-attack" data-action="spellAttack">
+                {{ localize 'PF2E.AttackLabel' }}
+            </button>
         {{/if}}
         {{#if item.data.damage.value}}
-            <span class="tag">
-                <button class="spell_damage" data-action="spellDamage">
-                    {{ chatData.damageLabel }}: {{ item.data.damage.value }}
-                </button>
-            </span>
+            <button class="spell-damage" data-action="spellDamage">
+                {{ chatData.damageLabel }}: {{ item.data.damage.value }}
+            </button>
         {{/if}}
     </div>
     {{/if}}
 </div>
 
-{{#if chatData.isCreature}}
+{{#if isCreature}}
 <div class="item-buttons">
     {{#if (eq item.type "weapon")}}
     {{#if chatData.isTwoHanded}}
