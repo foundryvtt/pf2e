@@ -24,75 +24,58 @@ declare interface LightChannels {
  * @example <caption>The lightingRefresh hook</caption>
  * Hooks.on("lightingRefresh", layer => {});
  */
-declare class LightingLayer extends PlaceablesLayer {
-    constructor();
+declare class LightingLayer extends PlaceablesLayer<AmbientLight> {
+    constructor(document: AmbientLightDocument);
 
-    /**
-     * A mapping of light sources which are active within the rendered Scene
-     */
+    /** A mapping of light sources which are active within the rendered Scene */
     sources: foundry.utils.Collection<PointSource>;
 
     /**
-     * A mapping of different light level channels
+     * Increment this whenever lighting channels are re-configured.
+     * This informs lighting and vision sources whether they need to re-render.
      */
-    channels: LightChannels;
+    version: number;
 
-    /**
-     * The currently displayed darkness level, which may override the saved Scene value
-     */
+    /** The currently displayed darkness level, which may override the saved Scene value */
     darknessLevel: number | null;
 
-    /**
-     * The current client setting for whether global illumination is used or not
-     */
+    /** The current client setting for whether global illumination is used or not */
     globalLight: boolean;
 
-    /**
-     * The coloration container which visualizes the effect of light sources
-     */
+    /** The coloration container which visualizes the effect of light sources */
     coloration: PIXI.Container | null;
 
-    /**
-     * The illumination container which visualizes darkness and light
-     */
+    /** The illumination container which visualizes darkness and light */
     illumination: PIXI.Container | null;
 
-    /**
-     * A flag for whether the darkness level is currently animating
-     */
+    /** A flag for whether the darkness level is currently animating */
     protected _animating: boolean;
 
-    /**
-     * An array of light sources which are currently animated
-     */
+    /** An array of light sources which are currently animated */
     protected _animatedSources: PointSource[];
 
-    /**
-     * The blur distance for soft shadows
-     */
+    /** The blur distance for soft shadows */
     protected _blurDistance: boolean;
 
-    /* -------------------------------------------- */
+    /** A mapping of different light level channels */
+    channels: LightChannels;
 
-    /** @override */
-    static get layerOptions(): typeof PlaceablesLayer['layerOptions'] & {
+    static override get layerOptions(): typeof PlaceablesLayer['layerOptions'] & {
         rotatableObjects: true;
         objectClass: AmbientLight;
         quadtree: true;
         sheetClass: LightConfig;
         zIndex: 200;
     };
-    /**
-     * Configure the lighting channels which are inputs to the ShadowMap
-     */
-    protected _configureChannels(darkness?: number): LightChannels;
+
+    /** Configure the lighting channels which are inputs to the ShadowMap */
+    protected _configureChannels(darkness?: number | null): LightChannels;
 
     /* -------------------------------------------- */
-    /*  Rendering
+    /*  Rendering                                   */
     /* -------------------------------------------- */
 
-    /** @override */
-    draw(): Promise<this>;
+    override draw(): Promise<this>;
 
     /**
      * Draw the coloration container which is responsible for rendering the visible hue of a light source.
@@ -105,9 +88,7 @@ declare class LightingLayer extends PlaceablesLayer {
      */
     protected _drawIlluminationContainer(): PIXI.Container;
 
-    /**
-     * Does this scene currently benefit from global illumination?
-     */
+    /** Does this scene currently benefit from global illumination? */
     hasGlobalIllumination(): boolean;
 
     /**
@@ -117,17 +98,12 @@ declare class LightingLayer extends PlaceablesLayer {
      */
     refresh(darkness: number): void;
 
-    /** @override */
-    tearDown(): void;
+    override tearDown(): Promise<void>;
 
-    /**
-     * Activate light source animation for AmbientLight objects within this layer
-     */
+    /** Activate light source animation for AmbientLight objects within this layer */
     activateAnimation(): void;
 
-    /**
-     * Deactivate light source animation for AmbientLight objects within this layer
-     */
+    /** Deactivate light source animation for AmbientLight objects within this layer */
     deactivateAnimation(): void;
 
     /**
@@ -145,15 +121,11 @@ declare class LightingLayer extends PlaceablesLayer {
      */
     animateDarkness(target?: number, { duration }?: { duration?: number }): Promise<void>;
 
-    /** @override */
-    protected _onDragLeftStart(event: PIXI.interaction.InteractionEvent): void;
+    protected override _onDragLeftStart(event: PIXI.InteractionEvent): Promise<void>;
 
-    /** @override */
-    protected _onDragLeftMove(event: PIXI.interaction.InteractionEvent): void;
+    protected override _onDragLeftMove(event: PIXI.InteractionEvent): Promise<void>;
 
-    /** @override */
-    protected _onDragLeftCancel(event: PIXI.interaction.InteractionEvent): void;
+    protected override _onDragLeftCancel(event: PIXI.InteractionEvent): void;
 
-    /** @override */
-    protected _onMouseWheel(event: PIXI.interaction.InteractionEvent): void;
+    protected override _onMouseWheel(event: PIXI.InteractionEvent): void;
 }

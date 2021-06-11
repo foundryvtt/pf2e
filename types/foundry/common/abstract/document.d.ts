@@ -585,7 +585,6 @@ declare global {
      * @property [renderSheet=false] Automatically create and render the Document sheet when the Document is first created.
      * @property [diff=true]         Difference each update object against current Document data to reduce the size of the transferred data. Only used during update.
      * @property [recursive=true]    Merge objects recursively. If false, inner objects will be replaced explicitly. Use with caution!
-     * @property [isUndo]            Is the operation undoing a previous operation, only used by embedded Documents within a Scene
      * @property [deleteAll]         Whether to delete all documents of a given type, regardless of the array of ids provided. Only used during a delete operation.
      */
     interface DocumentModificationContext {
@@ -599,7 +598,6 @@ declare global {
         renderSheet?: boolean;
         diff?: boolean;
         recursive?: boolean;
-        isUndo?: boolean;
         deleteAll?: boolean;
     }
 

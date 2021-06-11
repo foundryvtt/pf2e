@@ -1,7 +1,7 @@
 import { ActorSheetPF2e } from '@actor/sheet/base';
-import { TokenPF2e } from '@module/canvas/token';
+import { ScenePF2e } from '@module/scene';
 
-Hooks.on('dropCanvasData', async (canvas: Canvas<TokenPF2e>, data) => {
+Hooks.on('dropCanvasData', async (canvas: Canvas<ScenePF2e>, data) => {
     const target = canvas.tokens.placeables.find((token) => {
         const maximumX = token.x + token.hitArea.right;
         const maximumY = token.y + token.hitArea.bottom;

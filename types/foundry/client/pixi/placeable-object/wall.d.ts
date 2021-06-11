@@ -122,22 +122,22 @@ declare class Wall extends PlaceableObject<WallDocument> {
 
     protected _canControl(user: User, event: Event): boolean;
 
-    protected _onHoverIn(event: PIXI.interaction.InteractionEvent, options?: { hoverOutOthers?: boolean }): boolean;
+    protected _onHoverIn(event: PIXI.InteractionEvent, options?: { hoverOutOthers?: boolean }): boolean;
 
-    protected _onHoverOut(event: PIXI.interaction.InteractionEvent): boolean;
+    protected _onHoverOut(event: PIXI.InteractionEvent): boolean;
 
     /** Handle mouse-hover events on the line segment itself, pulling the Wall to the front of the container stack */
-    protected _onMouseOverLine(event: PIXI.interaction.InteractionEvent): void;
+    protected _onMouseOverLine(event: PIXI.InteractionEvent): void;
 
-    protected _onClickLeft(event: PIXI.interaction.InteractionEvent): boolean;
+    protected _onClickLeft(event: PIXI.InteractionEvent): boolean;
 
-    protected _onClickLeft2(event: PIXI.interaction.InteractionEvent): boolean;
+    protected _onClickLeft2(event: PIXI.InteractionEvent): boolean;
 
-    protected _onClickRight2(event: PIXI.interaction.InteractionEvent): boolean;
+    protected _onClickRight2(event: PIXI.InteractionEvent): boolean;
 
-    protected _onDragLeftStart(event: PIXI.interaction.InteractionEvent): boolean;
+    protected _onDragLeftStart(event: PIXI.InteractionEvent): boolean;
 
-    protected _onDragLeftMove(event: PIXI.interaction.InteractionEvent): void;
+    protected _onDragLeftMove(event: PIXI.InteractionEvent): void;
 
-    protected _onDragLeftDrop(event: PIXI.interaction.InteractionEvent): Promise<this['document'][]>;
+    protected _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<this['document'][]>;
 }
