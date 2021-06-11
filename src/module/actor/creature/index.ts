@@ -16,11 +16,50 @@ import { ActiveEffectPF2e } from '@module/active-effect';
 import { isMagicItemData } from '@item/data/helpers';
 import { PF2CheckDC } from '@system/check-degree-of-success';
 import { CheckPF2e } from '@system/rolls';
+import { VisionLevel, VisionLevels } from './data';
+import { LightLevels } from '@module/scene';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
     /** Used as a lock to prevent multiple asynchronous redraw requests from triggering an error */
     redrawingTokenEffects = false;
+
+    /** Whether the creature could see at the last this#canSee check */
+    couldSee!: boolean;
+
+    get visionLevel(): VisionLevel {
+        const senses = this.data.data.traits.senses;
+        const senseTypes = senses
+            .map((sense) => sense.type)
+            .filter((senseType) => ['lowLightVision', 'darkvision'].includes(senseType));
+        return this.getCondition('blinded')
+            ? VisionLevels.BLINDED
+            : senseTypes.includes('darkvision')
+            ? VisionLevels.DARKVISION
+            : senseTypes.includes('lowLightVision')
+            ? VisionLevels.LOWLIGHT
+            : VisionLevels.NORMAL;
+    }
+
+    get hasDarkvision(): boolean {
+        return this.visionLevel === VisionLevels.DARKVISION;
+    }
+
+    get hasLowLightVision(): boolean {
+        return this.visionLevel === VisionLevels.LOWLIGHT;
+    }
+
+    get canSee(): boolean {
+        if (!canvas.scene) return true;
+        const canSeeNow = (() => {
+            if (this.visionLevel === VisionLevels.BLINDED) return false;
+
+            const lightLevel = canvas.scene.getLightLevel();
+            return lightLevel > LightLevels.DARKNESS || this.hasDarkvision;
+        })();
+        this.couldSee = canSeeNow;
+        return canSeeNow;
+    }
 
     get hitPoints() {
         return {
