@@ -1,8 +1,8 @@
-<div class="{{item.type}}-body item-body" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if data.spellLvl}}data-spell-lvl="{{data.spellLvl}}"{{/if}}>
+<div class="{{item.type}}-summary-details item-summary-details" data-actor-id="{{item.document.actor.id}}" data-item-id="{{item._id}}" {{#if chatData.spellLvl}}data-spell-lvl="{{chatData.spellLvl}}"{{/if}}>
     <div class="traits-list tags">
         {{#each chatData.traits as |trait|}}
         {{#unless trait.excluded}}
-            <span class="tag {{#unless trait.description}}tag_alt{{/unless}} {{#if trait.mystified}}{{trait.mystified}}{{/if}}" title="{{trait.description}}">
+            <span class="tag {{#unless trait.description}}tag_alt{{/unless}} {{#if trait.mystified}}{{trait.mystified}}{{/if}}" title="{{localize trait.description}}">
                 {{localize trait.label}} {{trait.name}}
             </span>
         {{/unless}}
@@ -32,11 +32,6 @@
 
     {{#if chatData.isCreature}}
     <div class="item-buttons">
-        {{#if chatData.isSave}}
-            <span class="tag">
-                {{ localize 'PF2E.SaveDCLabel'}} {{ chatData.save.dc }} {{ item.chatData.save.basic }} {{ item.chatData.save.str }}
-            </span>
-        {{/if}}
         {{#if chatData.isAttack}}
             <span class="tag">
                 <button class="spell_attack" data-action="spellAttack">
@@ -44,10 +39,10 @@
                 </button>
             </span>
         {{/if}}
-        {{#if item.data.data.damage.value}}
+        {{#if item.data.damage.value}}
             <span class="tag">
                 <button class="spell_damage" data-action="spellDamage">
-                    {{ chatData.damageLabel }}: {{ item.data.data.damage.value }}
+                    {{ chatData.damageLabel }}: {{ item.data.damage.value }}
                 </button>
             </span>
         {{/if}}
@@ -59,7 +54,7 @@
 <div class="item-buttons">
     {{#if (eq item.type "weapon")}}
     {{#if chatData.isTwoHanded}}
-    {{#if (eq this.actor.type "character")}}
+    {{#if (eq actor.type "character")}}
         <span class="tag">
             <button data-action="toggleHands">
                 <i class="far fa-hand-paper"></i>
@@ -70,8 +65,8 @@
     {{/if}}
     {{/if}}
 
-    {{#if (eq item.data.type "consumable")}}
-        {{#if (and item.isIdentified item.charges.max)}}
+    {{#if (eq item.type "consumable")}}
+        {{#if (and item.isIdentified item.data.charges.max)}}
             <span class="tag">
                 <button class="consume" data-action="consume">
                     {{localize 'PF2E.ConsumableUseLabel'}} {{item.name}}

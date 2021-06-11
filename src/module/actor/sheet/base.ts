@@ -1368,7 +1368,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
      */
     protected async renderItemSummary(div: JQuery, item: Embedded<ItemPF2e>, chatData: any) {
         const template = 'systems/pf2e/templates/actors/item-summary.html';
-        div.append(await renderTemplate(template, { item, chatData }));
+        const result = await renderTemplate(template, { item: item.data, chatData });
+        div.append(result);
     }
 
     /** Opens an item container */

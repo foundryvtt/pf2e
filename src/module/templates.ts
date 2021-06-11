@@ -47,6 +47,7 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/npc/partials/npc-action.html',
         'systems/pf2e/templates/actors/npc/partials/npc-attack.html',
         'systems/pf2e/templates/actors/npc/partials/npc-item.html',
+        'systems/pf2e/templates/actors/npc/partials/npc-item-body.html',
 
         // Item Summary Partials
         'systems/pf2e/templates/actors/item-summary.html',
