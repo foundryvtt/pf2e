@@ -1,0 +1,23 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+    <p class="notes">{{localize "PF2E.SETTINGS.Automation.Instructions"}}</p>
+    {{#each settings as |setting|}}
+        <!-- {{setting.key}} -->
+        {{#if (not (eq setting.key "rulesBasedVision"))}}
+        <div class="form-group setting">
+            <label for="{{setting.key}}">{{localize setting.name}}</label>
+            <div class="form-fields">
+                <input type="checkbox" name="{{setting.key}}" data-dtype="Boolean" {{checked setting.value}} />
+            </div>
+            <p class="notes">{{localize setting.hint}}</p>
+        </div>
+        {{/if}}
+    {{/each}}
+    <div class="form-group buttons">
+        <button type="submit" name="submit">
+            <i class="far fa-save"></i> {{localize "SETTINGS.Save"}}
+        </button>
+        <button type="reset" name="reset">
+            <i class="fas fa-undo"></i> {{localize "PF2E.SETTINGS.ResetChanges"}}
+        </button>
+    </div>
+</form>
