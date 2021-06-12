@@ -1,4 +1,3 @@
-import { CreaturePF2e } from '@actor';
 import { VisionLevels } from '@actor/creature/data';
 import { LightLevels } from '@module/scene';
 import { TokenDocumentPF2e } from '@module/token-document';
@@ -12,8 +11,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     setPerceivedLightLevel(): void {
         const rulesBasedVision = game.settings.get('pf2e', 'automation.rulesBasedVision');
-        const actorCanSee = this.observer && !!this.actor?.canSee;
-        if (!(canvas.scene && rulesBasedVision && actorCanSee && this.actor instanceof CreaturePF2e)) {
+        if (!(canvas.scene && rulesBasedVision && this.observer && this.hasSight && this.actor?.canSee)) {
             return;
         }
 
@@ -31,13 +29,20 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         }
     }
 
-    /** Refresh the `EffectPanel` upon selecting a new token */
+    /** Refresh vision and the `EffectPanel` upon selecting a token */
     protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
-        if (game.ready && this.observer) {
+        if (game.ready) {
             this.setPerceivedLightLevel();
-            game.pf2e.effectPanel.refresh();
+            game.pf2e?.effectPanel.refresh();
         }
         super._onControl(options);
+    }
+
+    /** Refresh vision and the `EffectPanel` upon releasing control of a token */
+    protected override _onRelease(options?: Record<string, unknown>) {
+        this.setPerceivedLightLevel();
+        game.pf2e.effectPanel.refresh();
+        super._onRelease(options);
     }
 
     /**
