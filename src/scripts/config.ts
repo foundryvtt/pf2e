@@ -241,6 +241,7 @@ const traitsDescriptions = {
     shoony: 'PF2E.TraitDescriptionShoony',
     sleep: 'PF2E.TraitDescriptionSleep',
     splash: 'PF2E.TraitDescriptionSplash',
+	'splash-10': 'PF2E.TraitDescriptionSplash10',
     summoned: 'PF2E.TraitDescriptionSummoned',
     tattoo: 'PF2E.TraitDescriptionTattoo',
     teleportation: 'PF2E.TraitDescriptionTeleportation',
