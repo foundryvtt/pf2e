@@ -26,6 +26,7 @@ export interface LabeledNumber extends LabeledValue {
 }
 
 /** Literal numeric types */
-export type ZeroToThree = 0 | 1 | 2 | 3;
-export type ZeroToFour = ZeroToThree | 4; // +1!
+export type ZeroToTwo = 0 | 1 | 2;
+export type ZeroToThree = ZeroToTwo | 3; // +1!
+export type ZeroToFour = ZeroToThree | 4;
 export type ZeroToTen = ZeroToFour | 5 | 6 | 7 | 8 | 9 | 10;
