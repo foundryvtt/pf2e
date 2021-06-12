@@ -269,7 +269,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
         let dc: PF2CheckDC | undefined;
         if (ctx.target) {
             dc = {
-                label: game.i18n.format('PF2E.CreatureArmorClass', { creature: ctx.target.name }),
+                label: game.i18n.format('PF2E.CreatureArmorClass', {
+                    creature: ctx.target.name,
+                    ac: ctx.target.data.data.attributes.ac.value,
+                }),
                 scope: 'AttackOutcome',
                 value: ctx.target.data.data.attributes.ac.value,
                 visibility: 'gm',
