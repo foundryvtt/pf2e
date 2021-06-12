@@ -18,9 +18,12 @@ export class PF2RecoveryCheckDCRuleElement extends RuleElementPF2e {
             const toughness = synergizers.includes('toughness');
             const mountainsStoutness =
                 synergizers.includes('mountains-stoutness') || synergizers.includes('mountainsStoutness');
+            const defyDeath = synergizers.includes('defy-death') || synergizers.includes('defyDeath');
             if (toughness && mountainsStoutness) {
                 recoveryModifier = -4;
-            } else if (toughness || mountainsStoutness) {
+            } else if (toughness && defyDeath) {
+                recoveryModifier = -2;
+            } else if (toughness || mountainsStoutness || defyDeath) {
                 recoveryModifier = -1;
             }
 
