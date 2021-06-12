@@ -1,9 +1,8 @@
-import { CreaturePF2e } from '@actor';
-
 export class LightingLayerPF2e extends LightingLayer {
+    /** Set Unrestricted Global Vision based on token vision */
     override hasGlobalIllumination(): boolean {
         const coreHasGlobalLight = super.hasGlobalIllumination();
-        if (coreHasGlobalLight) return true;
+        if (!game.settings.get('pf2e', 'automation.rulesBasedVision')) return coreHasGlobalLight;
 
         const scene = canvas.scene;
         if (!scene) return coreHasGlobalLight;
@@ -16,12 +15,11 @@ export class LightingLayerPF2e extends LightingLayer {
                       (token) => token.actor && token.observer && token.actor === game.user.character,
                   );
         })();
-        if (tokens.length > 0 && game.user.isGM) return true;
+        if (tokens.length === 0 && game.user.isGM) return true;
 
         return tokens.some((token) => {
-            const actor = token.actor;
-            if (!(token.hasSight && actor instanceof CreaturePF2e)) return true;
-            return actor.canSee;
+            if (!(token.hasSight && token.actor)) return true;
+            return token.actor.canSee;
         });
     }
 }

@@ -52,6 +52,14 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return this.data.data.details.level.value;
     }
 
+    /**
+     * Whether the actor can see, given its token placement in the current scene.
+     * A meaningful implementation is found in `CreaturePF2e`.
+     */
+    get canSee(): boolean {
+        return true;
+    }
+
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): TemporaryEffect[] {
         const tokenIcon = (data: ConditionData) => {

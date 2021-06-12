@@ -24,9 +24,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Used as a lock to prevent multiple asynchronous redraw requests from triggering an error */
     redrawingTokenEffects = false;
 
-    /** Whether the creature could see at the last this#canSee check */
-    couldSee!: boolean;
-
     get visionLevel(): VisionLevel {
         const senses = this.data.data.traits.senses;
         const senseTypes = senses
@@ -49,16 +46,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return this.visionLevel === VisionLevels.LOWLIGHT;
     }
 
-    get canSee(): boolean {
+    override get canSee(): boolean {
         if (!canvas.scene) return true;
-        const canSeeNow = (() => {
-            if (this.visionLevel === VisionLevels.BLINDED) return false;
+        if (this.visionLevel === VisionLevels.BLINDED) return false;
 
-            const lightLevel = canvas.scene.getLightLevel();
-            return lightLevel > LightLevels.DARKNESS || this.hasDarkvision;
-        })();
-        this.couldSee = canSeeNow;
-        return canSeeNow;
+        const lightLevel = canvas.scene.getLightLevel();
+        return lightLevel > LightLevels.DARKNESS || this.hasDarkvision;
     }
 
     get hitPoints() {

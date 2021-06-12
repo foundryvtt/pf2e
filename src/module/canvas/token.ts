@@ -10,12 +10,12 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
     statusEffectChanged = false;
 
-    get hasOverrides(): boolean {
-        return Object.keys(this.overrides).length > 0;
-    }
-
     setPerceivedLightLevel(): void {
-        if (!(this.actor instanceof CreaturePF2e && this.actor.canSee && this.observer && canvas.scene)) return;
+        const rulesBasedVision = game.settings.get('pf2e', 'automation.rulesBasedVision');
+        const actorCanSee = this.observer && !!this.actor?.canSee;
+        if (!(canvas.scene && rulesBasedVision && actorCanSee && this.actor instanceof CreaturePF2e)) {
+            return;
+        }
 
         const actor = this.actor;
         const lightLevel = canvas.scene.getLightLevel();
@@ -61,11 +61,6 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
                 sight: { refresh: true },
             });
         }
-    }
-
-    /** Update perceived light level during an animated change of scene darkness */
-    onDarknessTransition(): void {
-        this.setPerceivedLightLevel();
     }
 
     /** Persist token overrides during movement */
