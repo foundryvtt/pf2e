@@ -2,7 +2,6 @@
     <p class="notes">{{localize "PF2E.SETTINGS.Automation.Instructions"}}</p>
     {{#each settings as |setting|}}
         <!-- {{setting.key}} -->
-        {{#if (not (eq setting.key "rulesBasedVision"))}}
         <div class="form-group setting">
             <label for="{{setting.key}}">{{localize setting.name}}</label>
             <div class="form-fields">
@@ -10,7 +9,6 @@
             </div>
             <p class="notes">{{localize setting.hint}}</p>
         </div>
-        {{/if}}
     {{/each}}
     <div class="form-group buttons">
         <button type="submit" name="submit">
