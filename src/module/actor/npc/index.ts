@@ -25,8 +25,7 @@ import { NPCSheetPF2e } from './sheet';
 import { NPCLegacySheetPF2e } from './legacy-sheet';
 
 export class NPCPF2e extends CreaturePF2e {
-    /** @override */
-    static get schema(): typeof NPCData {
+    static override get schema(): typeof NPCData {
         return NPCData;
     }
 
@@ -44,11 +43,13 @@ export class NPCPF2e extends CreaturePF2e {
         return this.traits.has('weak');
     }
 
-    /**
-     *  Users with limited permission can loot a dead NPC
-     * @override
-     */
-    canUserModify(user: User, action: UserAction): boolean {
+    /** NPCs with sufficient permissions can always see (for now) */
+    override get canSee(): boolean {
+        return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
+    }
+
+    /** Users with limited permission can loot a dead NPC */
+    override canUserModify(user: User, action: UserAction): boolean {
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
         if (action === 'update' && this.hitPoints.current === 0 && npcsAreLootable) {
             return this.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
@@ -56,19 +57,13 @@ export class NPCPF2e extends CreaturePF2e {
         return super.canUserModify(user, action);
     }
 
-    /**
-     * A user can see an NPC in the actor directory only if they have at least Observer permission
-     * @override
-     */
-    get visible(): boolean {
+    /** A user can see an NPC in the actor directory only if they have at least Observer permission */
+    override get visible(): boolean {
         return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
     }
 
-    /**
-     * Grant all users at least limited permission on dead NPCs
-     * @override
-     */
-    get permission(): PermissionLevel {
+    /** Grant all users at least limited permission on dead NPCs */
+    override get permission(): PermissionLevel {
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
         if (game.user.isGM || this.hitPoints.current > 0 || !npcsAreLootable) {
             return super.permission;
@@ -76,11 +71,12 @@ export class NPCPF2e extends CreaturePF2e {
         return Math.max(super.permission, 1) as PermissionLevel;
     }
 
-    /**
-     * Grant players limited permission on dead NPCs
-     * @override
-     */
-    testUserPermission(user: User, permission: DocumentPermission | UserAction, options?: { exact?: boolean }) {
+    /** Grant players limited permission on dead NPCs */
+    override testUserPermission(
+        user: User,
+        permission: DocumentPermission | UserAction,
+        options?: { exact?: boolean },
+    ) {
         // Temporary measure until a lootable view of the legacy sheet is ready
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
         if (game.user.isGM || this.hitPoints.current > 0 || !npcsAreLootable) {
@@ -92,8 +88,7 @@ export class NPCPF2e extends CreaturePF2e {
         return super.testUserPermission(user, permission, options);
     }
 
-    /** Prepare Character type specific data. */
-    prepareDerivedData(): void {
+    override prepareDerivedData(): void {
         super.prepareDerivedData();
         const { data } = this.data;
 
@@ -907,8 +902,11 @@ export class NPCPF2e extends CreaturePF2e {
         return 0;
     }
 
-    /** @override */
-    protected _onUpdate(changed: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void {
+    protected override _onUpdate(
+        changed: DocumentUpdateData<this>,
+        options: DocumentModificationContext,
+        userId: string,
+    ): void {
         super._onUpdate(changed, options, userId);
 
         const attitude = (changed as DeepPartial<NPCData>)?.data?.traits?.attitude?.value;
