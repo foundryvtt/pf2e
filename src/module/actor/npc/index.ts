@@ -20,7 +20,7 @@ import { SpellAttackRollModifier, SpellDifficultyClass } from '@item/spellcastin
 import { Rarity } from '@module/data';
 import { NPCData, NPCStrike } from './data';
 import { StrikeTrait } from '@actor/data/base';
-import { Attitude } from '@actor/creature/data';
+import { Attitude, VisionLevel, VisionLevels } from '@actor/creature/data';
 import { NPCSheetPF2e } from './sheet';
 import { NPCLegacySheetPF2e } from './legacy-sheet';
 
@@ -44,8 +44,8 @@ export class NPCPF2e extends CreaturePF2e {
     }
 
     /** NPCs with sufficient permissions can always see (for now) */
-    override get canSee(): boolean {
-        return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
+    override get visionLevel(): VisionLevel {
+        return VisionLevels.NORMAL;
     }
 
     /** Users with limited permission can loot a dead NPC */
