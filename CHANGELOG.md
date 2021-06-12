@@ -1,5 +1,38 @@
 # Patch Notes:
 
+## Version 2.2.0
+### Bug Fixes
+* (stwlam) Restore functionality of "Skip Defeated" in combat tracker. Closes #1493
+* (stwlam) Fix version displayed in migration messages
+* (stwlam) Fix application of active effects modifying properties set by ABC items
+* (stwlam) Fix Tough familiar ability
+* (stwlam) Fix bulk adjustments according to creature and item sizes
+* (stwlam) Issue a warning about orphaned spells instead of blocking the data preparation
+* (nikolaj-a) Fix NPC sidebar effect rendering
+
+### Content Changes
+* (rectulo) Change azaersis roads from class feat to hobgoblin ancestry feat
+* (rectulo) Remove unused styling from the reckless abandon barbarian feat
+* (rectulo) Remove page reference from auspicious mount champion feat
+* (Friz) Add roll notes to the Burn It! feat to remind of the extra damage for alchemical items
+* (Friz) Fix blight bomb damage so the persistent damage component is in a roll note. Closes #1479
+* (Shandyan) Alchemist feature formatting
+* (SpartanCPA) Fix Persistent Damage. Closes #1487
+
+### Core System Improvements
+* (stwlam) Work around Foundry 0.8.6 bug by overriding Folder#exportToCompendium
+* (stwlam) Remove all deprecated objects attached to the global namespace
+* (stwlam) Remove Calendar/Weather integration for World Clock
+* (In3luki) Add special styling for elements that are only visible to the GM. Closes #1481
+* (In3luki) Add even more checks to the crit card buttons
+* (Drental) Add macro to open compendium browser
+* (Supe) Maintain actor sheet scroll position and expanded item summaries
+* (BoMbY) Convert recovery check to roll with DC and notes
+* (nikolaj-a) Flag to disable ABP for individual actors
+* (nikolaj-a) Add weapon category option to PC strikes
+* (nikolaj-a) Add weapon size options to PC strikes
+
+
 ## Version 2.1.1
 ### Content Changes
 * (SpartanCPA) Remove Rule Element from the Bestiary "Low-Light Vision" ability
