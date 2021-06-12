@@ -33,7 +33,7 @@
             "value": ""
         },
         "description": {
-            "value": "<p><strong>Usage</strong> held in 1 hand</p>\n<p><strong>Activate<span class=\"pf2-icon\">1</span></strong> Strike</p>\n<p><br />Sap from redpitch pines, if properly distilled into a gummy, incendiary mass, ignites when exposed to the air. A redpitch bomb deals the listed fire damage, persistent fire damage, and splash damage. Many types grant an item bonus to attack rolls.</p>\n<p>You gain a +1 item bonus to attack rolls. The bomb deals 2 fire damage, 2d4 persistent fire damage, and 2 fire splash damage. On a critical hit, the target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} until the start of your next turn.</p>"
+            "value": "<p><strong>Usage</strong> held in 1 hand</p>\n<p><strong>Activate<span class=\"pf2-icon\">1</span></strong> Strike</p>\n<p><br />Sap from redpitch pines, if properly distilled into a gummy, incendiary mass, ignites when exposed to the air. A redpitch bomb deals the listed fire damage, persistent fire damage, and splash damage. Many types grant an item bonus to attack rolls.</p>\n<p>You gain a +1 item bonus to attack rolls. The bomb deals 2 fire damage, 2d4 persistent fire damage, and 2 fire splash damage. On a critical hit, the target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} until the start of your next turn.</p>"
         },
         "equipped": {
             "value": false
@@ -125,7 +125,13 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+          {
+            "key": "PF2E.RuleElement.Note",
+            "selector": "{item|_id}-damage",
+            "text": "<p class='compact-text'><strong>Effect:</strong> The bomb also deals [[/r 2d4]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}. On a critical hit, Target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} until the start of my next turn.</p>"
+          }
+        ],
         "size": {
             "value": "med"
         },
