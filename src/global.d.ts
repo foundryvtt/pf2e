@@ -115,6 +115,8 @@ declare global {
 
     interface ClientSettings {
         get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
+        get(module: 'pf2e', setting: 'automation.rulesBasedVision'): boolean;
+        get(module: 'pf2e', setting: 'automation.effectExpiration'): boolean;
         get(module: 'pf2e', setting: 'automation.lootableNPCs'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettings'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;
