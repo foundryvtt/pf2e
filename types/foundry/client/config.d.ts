@@ -230,14 +230,14 @@ declare global {
                 torch: {
                     label: 'LIGHT.AnimationTorch';
                     animation: PointSource['animateTorch'];
-                    illuminationShader: typeof PIXI.Shader;
-                    colorationShader: typeof PIXI.Shader;
+                    illuminationShader: typeof TorchIlluminationShader;
+                    colorationShader: typeof TorchColorationShader;
                 };
                 pulse: {
                     label: 'LIGHT.AnimationPulse';
                     animation: PointSource['animatePulse'];
-                    illuminationShader: typeof PIXI.Shader;
-                    colorationShader: typeof PIXI.Shader;
+                    illuminationShader: typeof PulseIlluminationShader;
+                    colorationShader: typeof PulseColorationShader;
                 };
                 chroma: {
                     label: 'LIGHT.AnimationChroma';
