@@ -250,6 +250,7 @@ export class CharacterPF2e extends CreaturePF2e {
             // Create a new modifier from the modifiers, then merge in other fields from the old save data, and finally
             // overwrite potentially changed fields.
             const stat = mergeObject(new StatisticModifier(saveName, modifiers), save, { overwrite: false });
+            stat.notes = notes;
             stat.value = stat.totalModifier;
             stat.breakdown = (stat.modifiers as ModifierPF2e[])
                 .filter((m) => m.enabled)
