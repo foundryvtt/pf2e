@@ -253,4 +253,19 @@ export function registerSettings() {
         default: false,
         type: Boolean,
     });
+
+    const metagameDcChoices = {
+        gm: 'PF2E.SETTINGS.Metagame.ShowDC.Gm',
+        owner: 'PF2E.SETTINGS.Metagame.ShowDC.Owner',
+        all: 'PF2E.SETTINGS.Metagame.ShowDC.All',
+    };
+    game.settings.register('pf2e', 'metagame.showDC', {
+        name: 'PF2E.SETTINGS.Metagame.ShowDC.Name',
+        hint: 'PF2E.SETTINGS.Metagame.ShowDC.Hint',
+        scope: 'world',
+        config: true,
+        default: 'gm',
+        type: String,
+        choices: metagameDcChoices,
+    });
 }

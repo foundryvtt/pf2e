@@ -92,8 +92,9 @@ function registerPF2ActionClickListener() {
                 actors.forEach((actor) => {
                     const savingThrow = actor.data.data.saves[pf2SavingThrow ?? ''] as Rollable | undefined;
                     if (pf2SavingThrow && savingThrow) {
+                        const showDC = game.settings.get('pf2e', 'metagame.showDC').toString();
                         const dc = Number.isInteger(Number(pf2Dc))
-                            ? ({ label: pf2Label, value: Number(pf2Dc), visibility: 'gm' } as PF2CheckDC)
+                            ? ({ label: pf2Label, value: Number(pf2Dc), visibility: showDC } as PF2CheckDC)
                             : undefined;
                         const options = actor.getRollOptions(['all', 'saving-throw', pf2SavingThrow]);
                         if (pf2Traits) {
