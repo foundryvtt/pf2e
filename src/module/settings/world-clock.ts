@@ -89,7 +89,7 @@ export class WorldClockSettings extends FormApplication {
         });
     }
 
-    protected async _updateObject(_event: Event, data: UpdateData): Promise<void> {
+    protected override async _updateObject(_event: Event, data: UpdateData): Promise<void> {
         const keys: (keyof UpdateData)[] = ['dateTheme', 'timeConvention', 'playersCanView', 'syncDarkness'];
         for await (const key of keys) {
             const settingKey = `worldClock.${key}`;
@@ -108,7 +108,7 @@ export class WorldClockSettings extends FormApplication {
             'globalLight',
             {
                 get: () =>
-                    canvas.lighting.globalLight
+                    canvas.lighting?.globalLight
                         ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOn)
                         : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOff),
             },

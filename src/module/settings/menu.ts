@@ -28,8 +28,7 @@ export abstract class SettingsMenuPF2e extends FormApplication {
         }
     }
 
-    /** @override */
-    getData(): MenuTemplateData {
+    override getData(): MenuTemplateData {
         const settings = (this.constructor as typeof SettingsMenuPF2e).settings;
         const templateData: SettingsTemplateData[] = Object.entries(settings).map(([key, setting]) => {
             const value = game.settings.get('pf2e', `${this.namespace}.${key}`);
@@ -42,7 +41,7 @@ export abstract class SettingsMenuPF2e extends FormApplication {
         return mergeObject(super.getData(), { settings: templateData });
     }
 
-    protected async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
+    protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
         for await (const key of (this.constructor as typeof SettingsMenuPF2e).SETTINGS) {
             const settingKey = `${this.namespace}.${key}`;
             await game.settings.set('pf2e', settingKey, data[key]);

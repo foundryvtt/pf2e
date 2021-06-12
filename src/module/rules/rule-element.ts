@@ -64,7 +64,7 @@ export abstract class RuleElementPF2e {
      */
     get ignored(): boolean {
         const { item } = this;
-        if (game.settings.get('pf2e', 'effectAutoExpire') && item.type === 'effect' && item.data.expired) {
+        if (game.settings.get('pf2e', 'automation.effectExpiration') && item.type === 'effect' && item.data.expired) {
             return true;
         }
         if (!isPhysicalData(item)) return false;

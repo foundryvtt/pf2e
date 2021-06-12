@@ -2214,6 +2214,20 @@ export const PF2ECONFIG = {
     },
 
     SETTINGS: {
+        automation: {
+            rulesBasedVision: {
+                name: 'PF2E.SETTINGS.Automation.RulesBasedVision.Name',
+                hint: 'PF2E.SETTINGS.Automation.RulesBasedVision.Hint',
+            },
+            effectExpiration: {
+                name: 'PF2E.SETTINGS.Automation.EffectExpiration.Name',
+                hint: 'PF2E.SETTINGS.Automation.EffectExpiration.Hint',
+            },
+            lootableNPCs: {
+                name: 'PF2E.SETTINGS.Automation.LootableNPCs.Name',
+                hint: 'PF2E.SETTINGS.Automation.LootableNPCs.Hint',
+            },
+        },
         homebrew: {
             creatureTraits: {
                 name: 'PF2E.SETTINGS.Homebrew.CreatureTraits.Name',
