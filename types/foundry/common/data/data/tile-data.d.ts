@@ -34,7 +34,7 @@ declare module foundry {
         class TileData<
             TDocument extends documents.BaseTile = documents.BaseTile,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
         }
 
         interface TileData extends TileSource {

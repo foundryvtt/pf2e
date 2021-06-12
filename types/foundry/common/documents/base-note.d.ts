@@ -2,9 +2,9 @@ declare module foundry {
     module documents {
         /**The Note embedded document model. */
         class BaseNote extends abstract.Document {
-            static get schema(): typeof data.NoteData;
+            static override get schema(): typeof data.NoteData;
 
-            static get metadata(): NoteMetadata;
+            static override get metadata(): NoteMetadata;
 
             /** Is a user able to update an existing Note? */
             protected static _canUpdate(user: BaseUser, doc: BaseNote, data: data.NoteData): boolean;

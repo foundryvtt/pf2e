@@ -19,7 +19,7 @@ export async function remigrate(schemaVersions: number | { from: number; to?: nu
         ui.notifications.error(
             game.i18n.format(translations.OutsideSchemaRange, {
                 minimum: MigrationRunner.RECOMMENDED_SAFE_VERSION,
-                maximum: MigrationRunner.WORLD_SCHEMA_VERSION,
+                maximum: MigrationRunner.LATEST_SCHEMA_VERSION,
             }),
         );
         return;

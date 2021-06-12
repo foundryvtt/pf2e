@@ -30,9 +30,9 @@ declare module foundry {
         class PlaylistSoundData<
             TDocument extends documents.BasePlaylistSound = documents.BasePlaylistSound,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
 
-            protected _initialize(): void;
+            protected override _initialize(): void;
         }
 
         interface PlaylistSoundData extends PlaylistSoundSource {

@@ -41,7 +41,7 @@ declare module foundry {
         class NoteData<
             TDocument extends documents.BaseNote = documents.BaseNote,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
         }
 
         interface NoteData extends NoteSource {

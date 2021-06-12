@@ -103,7 +103,7 @@ const config: Configuration = {
     bail: isProductionBuild,
     watch: !isProductionBuild,
     plugins: [
-        new ForkTsCheckerWebpackPlugin(),
+        new ForkTsCheckerWebpackPlugin({ typescript: { memoryLimit: 4096 } }),
         new DefinePlugin({
             BUILD_MODE: JSON.stringify(buildMode),
         }),

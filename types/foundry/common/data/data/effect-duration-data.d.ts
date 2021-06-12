@@ -23,7 +23,7 @@ declare module foundry {
         class EffectDurationData<
             TDocument extends documents.BaseActiveEffect = documents.BaseActiveEffect,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): {
+            static override defineSchema(): {
                 startTime: typeof fields.TIMESTAMP_FIELD;
                 seconds: typeof fields.NONNEGATIVE_INTEGER_FIELD;
                 combat: typeof fields.STRING_FIELD;

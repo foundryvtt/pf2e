@@ -16,13 +16,10 @@ declare global {
                     },
                 );
 
-                /** @override */
-                set(key: string, value: TDocument, { modifySource }?: { modifySource?: boolean }): this;
+                override set(key: string, value: TDocument, { modifySource }?: { modifySource?: boolean }): this;
 
-                /** @override */
-                delete(key: string, { modifySource }?: { modifySource?: boolean }): boolean;
+                override delete(key: string, { modifySource }?: { modifySource?: boolean }): boolean;
 
-                /** @override */
                 toObject<T extends true>(source?: T): TDocument['data']['_source'][];
                 toObject<T extends false>(source: T): RawObject<TDocument['data']>[];
                 toObject<T extends boolean>(

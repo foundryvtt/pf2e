@@ -47,16 +47,15 @@ declare global {
          */
         activate(): Promise<this>;
 
-        /** @override */
-        clone(
+        override clone(
             createData: PreCreate<foundry.data.SceneSource> | undefined,
             options: { save?: false | undefined; keepId?: boolean },
         ): this;
-        clone(
+        override clone(
             createData?: PreCreate<foundry.data.SceneSource>,
             options?: { save: true; keepId?: boolean },
         ): Promise<this>;
-        clone(
+        override clone(
             createData?: PreCreate<foundry.data.SceneSource>,
             options?: { save?: boolean; keepId?: boolean },
         ): this | Promise<this>;
@@ -64,34 +63,35 @@ declare global {
         /** Set this scene as the current view */
         view(): Promise<this>;
 
-        /** @override */
-        prepareBaseData(): void;
+        override prepareBaseData(): void;
 
-        /** @override */
-        protected _preCreate(
-            data: PreCreate<foundry.data.SceneSource>,
+        protected override _preCreate(
+            data: PreDocumentId<foundry.data.SceneSource>,
             options: DocumentModificationContext,
             user: User,
         ): Promise<void>;
 
-        /** @override */
-        protected _onCreate(data: foundry.data.SceneSource, options: DocumentModificationContext, userId: string): void;
+        protected override _onCreate(
+            data: foundry.data.SceneSource,
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
-        /** @override */
-        protected _preUpdate(
+        protected override _preUpdate(
             data: DocumentUpdateData<this>,
             options: DocumentModificationContext,
             user: User,
         ): Promise<void>;
 
-        /** @override */
-        protected _onUpdate(data: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void;
+        protected override _onUpdate(
+            data: DocumentUpdateData<this>,
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
-        /** @override */
-        _preDelete(options: DocumentModificationContext, user: User): Promise<void>;
+        protected override _preDelete(options: DocumentModificationContext, user: User): Promise<void>;
 
-        /** @override */
-        protected _onDelete(options: DocumentModificationContext, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext, userId: string): void;
 
         /**
          * Handle Scene activation workflow if the active state is changed to true
@@ -99,59 +99,52 @@ declare global {
          */
         protected _onActivate(active: boolean): Promise<this>;
 
-        /** @override */
-        protected _preCreateEmbeddedDocuments(
+        protected override _preCreateEmbeddedDocuments(
             embeddedName: 'Token',
             result: foundry.data.TokenSource[],
-            options: DocumentModificationContext,
+            options: SceneEmbeddedModificationContext,
             userId: string,
         ): void;
 
-        /** @override */
-        protected _onCreateEmbeddedDocuments(
+        protected override _onCreateEmbeddedDocuments(
             embeddedName: 'Token',
             documents: TTokenDocument[],
             result: foundry.data.TokenSource[],
-            options: DocumentModificationContext,
+            options: SceneEmbeddedModificationContext,
             userId: string,
         ): void;
 
-        /** @override */
-        protected _preUpdateEmbeddedDocuments(
+        protected override _preUpdateEmbeddedDocuments(
             embeddedName: 'Token',
             result: foundry.data.TokenSource[],
-            options: DocumentModificationContext,
+            options: SceneEmbeddedModificationContext,
             userId: string,
         ): void;
 
-        /** @override */
-        protected _onUpdateEmbeddedDocuments(
+        protected override _onUpdateEmbeddedDocuments(
             embeddedName: 'Token',
             documents: TTokenDocument[],
-            result: foundry.data.TokenSource[],
-            options: DocumentModificationContext,
+            result: TTokenDocument['data']['_source'][],
+            options: SceneEmbeddedModificationContext,
             userId: string,
         ): void;
 
-        /** @override */
-        protected _preDeleteEmbeddedDocuments(
+        protected override _preDeleteEmbeddedDocuments(
             embeddedName: 'Token',
-            result: foundry.data.TokenSource[],
-            options: DocumentModificationContext,
+            result: TTokenDocument['data']['_source'][],
+            options: SceneEmbeddedModificationContext,
             userId: string,
         ): void;
 
-        /** @override */
-        protected _onDeleteEmbeddedDocuments(
+        protected override _onDeleteEmbeddedDocuments(
             embeddedName: 'Token',
-            documents: TTokenDocument[],
+            documents: TokenDocument[],
             result: foundry.data.TokenSource[],
-            options: DocumentModificationContext,
+            options: SceneEmbeddedModificationContext,
             userId: string,
         ): void;
 
-        /** @override */
-        toCompendium(pack: CompendiumCollection<this>): this['data']['_source'];
+        override toCompendium(pack: CompendiumCollection<this>): this['data']['_source'];
 
         /**
          * Create a 300px by 100px thumbnail image for this scene background
@@ -190,7 +183,7 @@ declare global {
         updateEmbeddedDocuments(
             embeddedName: 'Token',
             updateData: EmbeddedDocumentUpdateData<TTokenDocument>[],
-            options?: DocumentModificationContext,
+            options?: SceneEmbeddedModificationContext,
         ): Promise<CollectionValue<this['data']['tokens']>[]>;
     }
 }

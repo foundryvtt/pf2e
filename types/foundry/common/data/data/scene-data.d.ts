@@ -77,7 +77,7 @@ declare module foundry {
             TTile extends documents.BaseTile = documents.BaseTile,
             TWall extends documents.BaseWall = documents.BaseWall,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
 
             // Embedded Collections
             drawings: abstract.EmbeddedCollection<TDrawing>;

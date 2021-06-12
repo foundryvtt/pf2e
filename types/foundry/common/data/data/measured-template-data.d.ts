@@ -39,11 +39,11 @@ declare module foundry {
         class MeasuredTemplateData<
             TDocument extends documents.BaseMeasuredTemplate = documents.BaseMeasuredTemplate,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
 
-            protected _initialize(): void;
+            protected override _initialize(): void;
 
-            protected _validateDocument(): void;
+            protected override _validateDocument(): void;
         }
 
         interface MeasuredTemplateData extends MeasuredTemplateSource {

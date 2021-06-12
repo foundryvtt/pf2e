@@ -30,6 +30,12 @@ export interface BaseCreatureData extends Omit<BaseCreatureSource, 'effects' | '
 }
 
 export interface CreatureSystemData extends ActorSystemData {
+    details: {
+        level: {
+            value: number;
+        };
+    };
+
     /** Traits, languages, and other information. */
     traits: CreatureTraitsData;
 

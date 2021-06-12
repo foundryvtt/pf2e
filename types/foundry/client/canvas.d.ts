@@ -8,16 +8,20 @@ interface CanvasDimensions {
     ratio: number;
 }
 
-declare class Canvas<TToken extends Token = Token> {
+declare class Canvas<
+    TScene extends Scene = Scene,
+    TToken extends Token = Token,
+    TLightingLayer extends LightingLayer = LightingLayer,
+> {
     id: string;
     app: PIXI.Application;
     stage: PIXI.Container;
     hud: HeadsUpDisplay;
     perception: PerceptionManager;
-    scene: Scene | null;
-    dimensions: CanvasDimensions | null;
+    scene: TScene | null;
+    dimensions: CanvasDimensions;
     grid: GridLayer;
-    lighting: LightingLayer;
+    lighting: TLightingLayer;
     tokens: TokenLayer<TToken>;
     templates: TemplateLayer;
 
@@ -59,6 +63,6 @@ declare class Canvas<TToken extends Token = Token> {
     constructor();
 }
 
-declare type DrawnCanvas<T extends Token = Token> = {
-    [K in keyof Canvas<T>]: NonNullable<Canvas<T>[K]>;
+declare type DrawnCanvas<T extends Canvas = Canvas> = {
+    [K in keyof T]: NonNullable<T[K]>;
 };

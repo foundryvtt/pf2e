@@ -1,4 +1,5 @@
 import type * as TinyMCE from 'tinymce';
+import * as PIXI from 'pixi.js';
 
 declare global {
     interface Config<
@@ -7,8 +8,10 @@ declare global {
         TChatMessage extends ChatMessage<TActor> = ChatMessage<TActor>,
         TCombatant extends Combatant = Combatant,
         TCombat extends Combat = Combat,
+        TFolder extends Folder = Folder,
         TItem extends Item = Item,
         TMacro extends Macro = Macro,
+        TScene extends Scene = Scene,
         TTokenDocument extends TokenDocument = TokenDocument,
     > {
         /** Configure debugging flags to display additional information */
@@ -25,6 +28,10 @@ declare global {
             time: boolean;
         };
 
+        /* -------------------------------------------- */
+        /*  Embedded Documents                          */
+        /* -------------------------------------------- */
+
         /** Configuration for the Actor document */
         Actor: {
             documentClass: {
@@ -34,9 +41,118 @@ declare global {
             sheetClasses: Record<string, Record<string, typeof ActorSheet>>;
         };
 
-        /**
-         * Configuration for the ActiveEffect embedded Entity
-         */
+        /** Configuration for the Folder document */
+        Folder: {
+            documentClass: {
+                new (
+                    data: PreCreate<TFolder['data']['_source']>,
+                    options?: DocumentConstructionContext<TFolder>,
+                ): TFolder;
+            };
+            collection: typeof Folders;
+            sheetClass: typeof FolderConfig;
+        };
+
+        ChatMessage: {
+            batchSize: number;
+            collection: typeof Messages;
+            documentClass: {
+                new (
+                    data: PreCreate<TChatMessage['data']['_source']>,
+                    context?: DocumentConstructionContext<TChatMessage>,
+                ): TChatMessage;
+            };
+            sidebarIcon: string;
+            template: string;
+        };
+
+        /** Configuration for Item document */
+        Item: {
+            documentClass: {
+                new (data: PreCreate<TItem['data']['_source']>, context?: DocumentConstructionContext<TItem>): TItem;
+            };
+            collection: typeof Items;
+            sheetClasses: Record<string, Record<string, typeof ItemSheet>>;
+        };
+
+        /** Configuration for the Combat document */
+        Combat: {
+            documentClass: {
+                new (
+                    data: PreCreate<TCombat['data']['_source']>,
+                    context?: DocumentConstructionContext<TCombat>,
+                ): TCombat;
+            };
+            collection: typeof CombatEncounters;
+            defeatedStatusId: string;
+            sidebarIcon: string;
+            initiative: {
+                formula: ((combatant: TCombatant) => string) | null;
+                decimals: number;
+            };
+        };
+
+        /** Configuration for the JournalEntry entity */
+        JournalEntry: {
+            documentClass: typeof JournalEntry;
+            sheetClass: typeof JournalSheet;
+            noteIcons: {
+                Anchor: string;
+                [key: string]: string;
+            };
+            sidebarIcon: string;
+        };
+
+        /** Configuration for the Macro document */
+        Macro: {
+            documentClass: {
+                new (data: PreCreate<TMacro['data']['_source']>, context?: DocumentConstructionContext<TMacro>): TMacro;
+            };
+            collection: typeof Macros;
+            sheetClass: typeof MacroConfig;
+            sidebarIcon: string;
+        };
+
+        /** Configuration for Scene document */
+        Scene: {
+            documentClass: {
+                new (data: PreCreate<TScene['data']['_source']>, context?: DocumentConstructionContext<TScene>): TScene;
+            };
+
+            collection: typeof Scenes;
+            sheetClass: typeof SceneConfig;
+            notesClass: any;
+            sidebarIcon: string;
+        };
+
+        /** Configuration for the Playlist document */
+        Playlist: {
+            documentClass: typeof Playlist;
+            sheetClass: typeof PlaylistConfig;
+            sidebarIcon: string;
+        };
+
+        /** Configuration for RollTable random draws */
+        RollTable: {
+            documentClass: typeof RollTable;
+            sheetClass: typeof RollTableConfig;
+            sidebarIcon: string;
+            resultIcon: string;
+        };
+
+        /** Configuration for the User document */
+        User: {
+            documentClass: typeof User;
+            collection: typeof Users;
+            // sheetClass: typeof UserConfig;
+            permissions: undefined;
+        };
+
+        /* -------------------------------------------- */
+        /*  Embedded Documents                          */
+        /* -------------------------------------------- */
+
+        /** Configuration for the ActiveEffect embedded document type */
         ActiveEffect: {
             documentClass: {
                 new (
@@ -46,6 +162,30 @@ declare global {
             };
             sheetClass: typeof ActiveEffectConfig;
         };
+
+        /** Configuration for the Combatant document */
+        Combatant: {
+            documentClass: new (
+                data: PreCreate<TCombatant['data']['_source']>,
+                context?: DocumentConstructionContext<TCombatant>,
+            ) => TCombatant;
+            sheetClass: typeof CombatantConfig;
+        };
+
+        /** Configuration for the Token embedded document type and its representation on the game Canvas */
+        Token: {
+            documentClass: new (
+                data: PreCreate<TTokenDocument['data']['_source']>,
+                context: DocumentConstructionContext<TTokenDocument>,
+            ) => TTokenDocument;
+            objectClass: new (...args: any[]) => TTokenDocument['object'];
+            layerClass: typeof TokenLayer;
+            sheetClass: typeof TokenConfig;
+        };
+
+        /* -------------------------------------------- */
+        /*  Canvas                                      */
+        /* -------------------------------------------- */
 
         /** Configuration settings for the Canvas and its contained layers and objects */
         Canvas: {
@@ -160,67 +300,6 @@ declare global {
             };
         };
 
-        ChatMessage: {
-            batchSize: number;
-            collection: typeof Messages;
-            documentClass: {
-                new (
-                    data: PreCreate<TChatMessage['data']['_source']>,
-                    context?: DocumentConstructionContext<TChatMessage>,
-                ): TChatMessage;
-            };
-            sidebarIcon: string;
-            template: string;
-        };
-
-        /**
-         * Configuration for the default Item entity class
-         */
-        Item: {
-            documentClass: {
-                new (data: PreCreate<TItem['data']['_source']>, context?: DocumentConstructionContext<TItem>): TItem;
-            };
-            collection: typeof Items;
-            sheetClasses: Record<string, Record<string, typeof ItemSheet>>;
-        };
-
-        /** Configuration for the Combatant document */
-        Combatant: {
-            documentClass: new (
-                data: PreCreate<TCombatant['data']['_source']>,
-                context?: DocumentConstructionContext<TCombatant>,
-            ) => TCombatant;
-            sheetClass: typeof CombatantConfig;
-        };
-
-        /** Configuration for the Token embedded document type and its representation on the game Canvas */
-        Token: {
-            documentClass: new (
-                data: PreCreate<TTokenDocument['data']['_source']>,
-                context: DocumentConstructionContext<TTokenDocument>,
-            ) => TTokenDocument;
-            objectClass: new (...args: any[]) => TTokenDocument['object'];
-            layerClass: typeof TokenLayer;
-            sheetClass: typeof TokenConfig;
-        };
-
-        /** Configuration for the Combat document */
-        Combat: {
-            documentClass: {
-                new (
-                    data: PreCreate<TCombat['data']['_source']>,
-                    context?: DocumentConstructionContext<TCombat>,
-                ): TCombat;
-            };
-            collection: typeof CombatEncounters;
-            defeatedStatusId: string;
-            sidebarIcon: string;
-            initiative: {
-                formula: ((combatant: TCombatant) => string) | null;
-                decimals: number;
-            };
-        };
-
         /** Configuration for dice rolling behaviors in the Foundry VTT client */
         Dice: {
             types: Array<typeof Die | typeof DiceTerm>;
@@ -233,59 +312,6 @@ declare global {
                 f: FateDie;
             };
             randomUniform: Function;
-        };
-
-        /** Configuration for the JournalEntry entity */
-        JournalEntry: {
-            documentClass: typeof JournalEntry;
-            sheetClass: typeof JournalSheet;
-            noteIcons: {
-                Anchor: string;
-                [key: string]: string;
-            };
-            sidebarIcon: string;
-        };
-
-        /** Configuration for the Macro document */
-        Macro: {
-            documentClass: {
-                new (data: PreCreate<TMacro['data']['_source']>, context?: DocumentConstructionContext<TMacro>): TMacro;
-            };
-            collection: typeof Macros;
-            sheetClass: typeof MacroConfig;
-            sidebarIcon: string;
-        };
-
-        /** Configuration for Scene document */
-        Scene: {
-            documentClass: typeof Scene;
-            collection: typeof Scenes;
-            sheetClass: typeof SceneConfig;
-            notesClass: any;
-            sidebarIcon: string;
-        };
-
-        /** Configuration for the User document */
-        User: {
-            documentClass: typeof User;
-            collection: typeof Users;
-            // sheetClass: typeof UserConfig;
-            permissions: undefined;
-        };
-
-        /** Configuration for the Playlist document */
-        Playlist: {
-            documentClass: typeof Playlist;
-            sheetClass: typeof PlaylistConfig;
-            sidebarIcon: string;
-        };
-
-        /** Configuration for RollTable random draws */
-        RollTable: {
-            documentClass: typeof RollTable;
-            sheetClass: typeof RollTableConfig;
-            sidebarIcon: string;
-            resultIcon: string;
         };
 
         /**

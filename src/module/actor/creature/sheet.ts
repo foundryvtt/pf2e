@@ -14,9 +14,8 @@ import { SkillData } from './data';
  * @category Actor
  */
 export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends ActorSheetPF2e<ActorType> {
-    protected renderItemSummary(li: JQuery, item: Embedded<ItemPF2e>, chatData: any) {
-        super.renderItemSummary(li, item, chatData);
-        const div = li.find('.item-summary');
+    protected renderItemSummary(div: JQuery, item: Embedded<ItemPF2e>, chatData: any) {
+        super.renderItemSummary(div, item, chatData);
 
         const buttons = $('<div class="item-buttons"></div>');
         switch (item.data.type) {

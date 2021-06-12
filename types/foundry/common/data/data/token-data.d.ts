@@ -84,7 +84,7 @@ declare module foundry {
         class TokenData<
             TDocument extends documents.BaseToken = documents.BaseToken,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
 
             lightAnimation: AnimationData<TDocument>;
 

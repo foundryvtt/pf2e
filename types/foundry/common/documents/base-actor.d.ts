@@ -6,9 +6,9 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseActor extends abstract.Document {
-            static get schema(): ConstructorOf<data.ActorData<BaseActor, BaseActiveEffect, BaseItem>>;
+            static override get schema(): ConstructorOf<data.ActorData<BaseActor, BaseActiveEffect, BaseItem>>;
 
-            static get metadata(): ActorMetadata;
+            static override get metadata(): ActorMetadata;
 
             /**
              * A reference to the Collection of embedded ActiveEffect instances in the Actor document, indexed by _id.
@@ -37,13 +37,13 @@ declare module foundry {
                 enforceTypes?: boolean;
             }): this['data']['data'];
 
-            protected _preCreate(
-                data: PreCreate<this['data']['_source']>,
+            protected override _preCreate(
+                data: PreDocumentId<this['data']['_source']>,
                 options: DocumentModificationContext,
                 user: BaseUser,
             ): Promise<void>;
 
-            protected _preUpdate(
+            protected override _preUpdate(
                 changed: DocumentUpdateData<BaseActor>,
                 options: DocumentModificationContext,
                 user: BaseUser,

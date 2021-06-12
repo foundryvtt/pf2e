@@ -1,5 +1,4 @@
 import { ActorPF2e } from '@actor/base';
-import { ConditionManager } from '../conditions';
 import { ConditionData, EffectData } from '@item/data';
 import { ConditionPF2e, EffectPF2e } from '@item/index';
 
@@ -65,7 +64,7 @@ export class EffectPanel extends Application {
                 }
             }
         }
-        data.conditions = ConditionManager.getFlattenedConditions(data.conditions).map((c) => {
+        data.conditions = game.pf2e.ConditionManager.getFlattenedConditions(data.conditions).map((c) => {
             c.locked = c.parents.length > 0;
             c.breakdown = EffectPanel.getParentConditionsBreakdown(c.parents);
             return c;

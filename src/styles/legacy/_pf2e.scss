@@ -53,8 +53,7 @@
 /* Damage Tags */
 
 /* ----------------------------------------- */
-
-/* Sheet Structure
+/* Sheet Structure                           */
 /* ----------------------------------------- */
 
 .window-app .window-content {
@@ -2374,287 +2373,10 @@
 }
 
 /* ----------------------------------------- */
-/* Item Sheet Structure
+/* Item Card Structure                       */
 /* ----------------------------------------- */
 
 .pf2e {
-    &.item form {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: nowrap;
-
-        > * {
-            flex: 1;
-        }
-
-        .sheet-header {
-            flex: 0 0 70px;
-            width: 100%;
-            padding-bottom: 6px;
-        }
-
-        article.sheet-content {
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            height: calc(100% - 35px);
-            overflow: hidden;
-
-            > * {
-                flex: 1;
-            }
-            > section.sheet-sidebar, > section.sheet-body {
-                height: calc(100% - 10px);
-                overflow-y: auto;
-            }
-
-            > section.sheet-sidebar {
-                flex: 0 0 220px;
-                display: flex;
-                flex-direction: column;
-                flex-wrap: nowrap;
-
-                > * {
-                    flex: 1;
-                }
-
-                .sidebar-summary {
-                    flex: 0 0 28px;
-                    line-height: 29px;
-                    margin: 0 0 0.5em;
-                    text-align: center;
-                    border-bottom: 1px solid var(--secondary-background);
-                }
-
-                .item-summary {
-                    flex: 0 0 28px;
-                    line-height: 28px;
-                    text-align: center;
-                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-                    font-size: 18px;
-                    color: #444;
-                }
-
-                .inventory-details {
-                    overflow-y: auto;
-                    padding: 0 4px;
-
-                    label {
-                        color: #353535;
-                        font-weight: bold;
-                        white-space: nowrap;
-                    }
-
-                    .form-group input {
-                        text-align: right;
-                    }
-                }
-            }
-
-            > section.sheet-body {
-                input {
-                    &[type="text"], &[type="number"] {
-                        background: rgba(255, 255, 255, 0.5);
-                        border: 1px solid #aaa;
-                        padding: 3px;
-                    }
-                }
-            }
-        }
-
-        .tab {
-            padding-left: 10px;
-        }
-
-        .form-list {
-            border: 1px solid var(--secondary-background);
-            border-radius: 5px;
-            padding-left: 2px;
-            padding-right: 4px;
-        }
-
-        .form-group {
-            height: 24px;
-            margin: 2px 0;
-
-            &.scalable {
-                height: auto;
-                min-height: 24px;
-
-                ul.traits-list {
-                    list-style-type: none;
-                }
-            }
-        }
-
-        .sheet-header {
-            border-bottom: 1px solid var(--secondary-background);
-
-            img {
-                border: none;
-                flex: 0 0 64px;
-                margin-right: 6px;
-            }
-        }
-
-
-        .sheet-tabs {
-            border-bottom: 1px solid var(--secondary-background);
-
-            .active {
-                text-decoration: underline;
-            }
-        }
-
-        .editor {
-            height: 100%;
-        }
-
-        .pf-value {
-            background: white;
-            border: 1px solid var(--tertiary-background);
-            text-align: center;
-            &.traits-list {
-                list-style-type: none;
-                padding: 3px;
-            }
-        }
-
-        .pf-large {
-            height: 40px;
-        }
-
-        .item-details {
-            padding: 8px 8px 0;
-            overflow-y: auto;
-
-            label {
-                color: #353535;
-                font-weight: bold;
-            }
-
-            select {
-                font-size: 12px;
-                height: 24px;
-            }
-        }
-
-        .details-container {
-            display: grid;
-            grid: "dice die type" / 40px 60px auto;
-        }
-
-        .effects-container {
-            display: grid;
-            grid: "effect number" / auto 40px;
-        }
-
-        .details-container-two-columns {
-            display: grid;
-            grid: "size type" / 50% 50%;
-        }
-
-        .details-container-three-columns {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-        }
-
-        .consumable-details {
-            flex: 0 0 24px;
-
-            label {
-                font-weight: bold;
-            }
-
-            input {
-                flex: 0 0 24px;
-                margin-right: 6px;
-                text-align: right;
-            }
-
-            span {
-                line-height: 24px;
-            }
-
-            .max-charges {
-                flex: 0 0 16px;
-                text-align: center;
-            }
-        }
-
-        .consumable-charges {
-            label {
-                flex: 0 0 144px;
-            }
-
-            input {
-                flex: 0 0 64px;
-                text-align: center;
-            }
-
-            span.flex0 {
-                line-height: 24px;
-            }
-        }
-
-        .tool-details {
-            border-top: 1px solid var(--secondary-background);
-            padding-top: 10px;
-
-            .form-group-stacked {
-                margin-bottom: 8px;
-            }
-        }
-
-        .feat-uses {
-            select {
-                flex: 2;
-                margin-right: 5px;
-            }
-
-            input {
-                flex: 1;
-                text-align: center;
-            }
-
-            span.sep {
-                flex: 0 0 16px;
-                line-height: 24px;
-                font-size: 14px;
-                text-align: center;
-            }
-        }
-
-        .item-mystify {
-            padding: 8px 8px 0;
-            overflow-y: auto;
-
-            label {
-                color: #353535;
-                font-weight: bold;
-            }
-        }
-
-        .sheet-body .item-rules {
-            overflow-y: scroll;
-
-            .rules {
-                padding: 7px;
-
-                .rule-element-header {
-                    display: flex;
-                    justify-content: space-between;
-                }
-
-                .add-rule-element {
-                    text-align: right;
-                }
-            }
-        }
-    }
-
     &.chat-card {
         font-style: normal;
 
@@ -2747,6 +2469,11 @@
         }
     }
 
+
+    /* ----------------------------------------- */
+    /* Item Buttons
+    /* ----------------------------------------- */
+
     &.sheet {
         .item-buttons {
             button {
@@ -2777,22 +2504,8 @@
 }
 
 /* ----------------------------------------- */
-/* Item Sheet Style
-/* ----------------------------------------- */
-
-/* ----------------------------------------- */
-/* Chat Cards
-/* ----------------------------------------- */
-
-/* ----------------------------------------- */
-/* Item Buttons
-/* ----------------------------------------- */
-
-/* ----------------------------------------- */
 /* Spell Browser
 /* ----------------------------------------- */
-
-/* core foundry changes */
 
 #compendium {
     &.flexcolumn {

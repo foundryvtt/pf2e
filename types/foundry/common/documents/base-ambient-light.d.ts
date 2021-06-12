@@ -2,11 +2,11 @@ declare module foundry {
     module documents {
         /**The AmbientLight embedded document model. */
         class BaseAmbientLight extends abstract.Document {
-            static get schema(): typeof data.AmbientLightData;
+            static override get schema(): typeof data.AmbientLightData;
 
-            static get metadata(): AmbientLightMetadata;
+            static override get metadata(): AmbientLightMetadata;
 
-            protected _initialize(): void;
+            protected override _initialize(): void;
         }
 
         interface BaseAmbientLight {
