@@ -10,7 +10,7 @@ import {
 } from '@actor/data/base';
 import type { CREATURE_ACTOR_TYPES, SAVE_TYPES, SKILL_ABBREVIATIONS } from '@actor/data/values';
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from '@module/modifiers';
-import { LabeledString, ValuesList } from '@module/data';
+import { LabeledString, ValuesList, ZeroToThree } from '@module/data';
 import type { CreaturePF2e } from '.';
 
 export type BaseCreatureSource<
@@ -116,3 +116,12 @@ export interface BaseCreatureAttributes {
 }
 
 export type Alignment = 'LG' | 'NG' | 'CG' | 'LN' | 'N' | 'CN' | 'LE' | 'NE' | 'CE';
+
+export enum VisionLevels {
+    BLINDED,
+    NORMAL,
+    LOWLIGHT,
+    DARKVISION,
+}
+
+export type VisionLevel = ZeroToThree;

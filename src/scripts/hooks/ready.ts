@@ -47,10 +47,8 @@ export function listen(): void {
 
         // Apply ActiveEffects modifying the actor's token(s)
         for (const actor of game.actors) {
-            if (actor.overrides.token) {
-                for (const token of actor.getActiveTokens()) {
-                    token.applyOverrides(actor.overrides.token);
-                }
+            for (const token of actor.getActiveTokens()) {
+                token.applyOverrides(actor.overrides.token);
             }
         }
 

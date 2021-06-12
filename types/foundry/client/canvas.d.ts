@@ -19,11 +19,11 @@ declare class Canvas<
     hud: HeadsUpDisplay;
     perception: PerceptionManager;
     scene: TScene | null;
-    dimensions: CanvasDimensions;
-    grid: GridLayer;
-    lighting: TLightingLayer;
+    dimensions: CanvasDimensions | null;
+    grid: GridLayer | null;
+    lighting: TLightingLayer | null;
     tokens: TokenLayer<TToken>;
-    templates: TemplateLayer;
+    templates: TemplateLayer | null;
 
     /**
      * Track the timestamp of the last stage zoom operation
