@@ -2,9 +2,9 @@ declare module foundry {
     module documents {
         /** The Combat document model. */
         class BaseCombat extends abstract.Document {
-            static get schema(): typeof data.CombatData;
+            static override get schema(): typeof data.CombatData;
 
-            static get metadata(): CombatMetadata;
+            static override get metadata(): CombatMetadata;
 
             /** A reference to the Collection of Combatant instances in the Combat document, indexed by id. */
             get combatants(): this['data']['combatants'];

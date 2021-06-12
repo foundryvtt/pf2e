@@ -2,12 +2,12 @@ declare module foundry {
     module documents {
         /**The Macro document model. */
         class BaseMacro extends abstract.Document {
-            static get schema(): typeof data.MacroData;
+            static override get schema(): typeof data.MacroData;
 
-            static get metadata(): MacroMetadata;
+            static override get metadata(): MacroMetadata;
 
-            protected _preCreate(
-                data: PreCreate<foundry.data.MacroSource>,
+            protected override _preCreate(
+                data: PreDocumentId<foundry.data.MacroSource>,
                 options: DocumentModificationContext,
                 user: BaseUser,
             ): Promise<void>;

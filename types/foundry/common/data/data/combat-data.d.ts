@@ -26,7 +26,7 @@ declare module foundry {
             TDocument extends documents.BaseCombat = documents.BaseCombat,
             TCombatant extends documents.BaseCombatant = documents.BaseCombatant,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
 
             combatants: abstract.EmbeddedCollection<TCombatant>;
         }

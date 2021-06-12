@@ -13,7 +13,7 @@ import {
     WISDOM,
 } from '@module/modifiers';
 import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
-import { WeaponDamagePF2e } from '@system/damage/weapon';
+import { ensureWeaponCategory, ensureWeaponSize, WeaponDamagePF2e } from '@system/damage/weapon';
 import { CheckPF2e, DamageRollPF2e, RollParameters } from '@system/rolls';
 import { SKILL_DICTIONARY } from '../data/values';
 import {
@@ -66,13 +66,7 @@ export class CharacterPF2e extends CreaturePF2e {
         return this.itemTypes.feat.find((feat) => feat.featType.value === 'heritage') ?? null;
     }
 
-    /** @override */
-    static get defaultImg() {
-        return CONST.DEFAULT_TOKEN;
-    }
-
-    /** @override */
-    prepareBaseData(): void {
+    override prepareBaseData(): void {
         super.prepareBaseData();
 
         // Add any homebrew categories
@@ -98,16 +92,15 @@ export class CharacterPF2e extends CreaturePF2e {
         };
     }
 
-    /** @override */
-    prepareEmbeddedEntities(): void {
-        super.prepareEmbeddedEntities();
+    /** Adjustments from ABC items are made after all items are prepared but before active effects are applied. */
+    override applyActiveEffects(): void {
         this.prepareAncestry();
         this.prepareBackground();
         this.prepareClass();
+        super.applyActiveEffects();
     }
 
-    /** @override */
-    prepareDerivedData(): void {
+    override prepareDerivedData(): void {
         super.prepareDerivedData();
 
         const rules = this.items
@@ -121,7 +114,9 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         const synthetics = this.prepareCustomModifiers(rules);
-        AutomaticBonusProgression.concatModifiers(this.level, synthetics);
+        if (!this.getFlag('pf2e', 'disableABP')) {
+            AutomaticBonusProgression.concatModifiers(this.level, synthetics);
+        }
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
 
@@ -814,6 +809,8 @@ export class CharacterPF2e extends CreaturePF2e {
                     .concat(melee ? 'melee' : 'ranged')
                     .concat(`${ability}-attack`);
                 ensureProficiencyOption(defaultOptions, proficiencyRank);
+                ensureWeaponCategory(defaultOptions, weaponCategory);
+                ensureWeaponSize(defaultOptions, item.data.size?.value, this.data.data.traits.size.value);
                 const notes: RollNotePF2e[] = [];
 
                 if (item.data.group?.value === 'bomb') {

@@ -187,8 +187,9 @@ export class Bulk {
  * @param actorSize
  */
 export function convertBulkToSize(bulk: Bulk, itemSize: Size, actorSize: Size): Bulk {
-    const itemSizeIndex = SIZES.indexOf(itemSize === 'sm' ? 'med' : itemSize);
-    const actorSizeIndex = SIZES.indexOf(actorSize === 'sm' ? 'med' : actorSize);
+    const sizes = SIZES.filter((size) => size !== 'sm');
+    const itemSizeIndex = sizes.indexOf(itemSize === 'sm' ? 'med' : itemSize);
+    const actorSizeIndex = sizes.indexOf(actorSize === 'sm' ? 'med' : actorSize);
 
     if (itemSizeIndex === actorSizeIndex) {
         return bulk;

@@ -2,18 +2,14 @@
  * This Canvas Layer provides a container for MeasuredTemplate objects.
  * @todo: fill this in
  */
-declare interface TemplateContainer extends PIXI.Container {
-    children: MeasuredTemplate[];
-}
-
-declare interface TemplateLayerOptions extends LayerOptions {
+declare interface TemplateLayerOptions extends PlaceablesLayerOptions {
     name: 'templates';
     sortActiveTop: boolean;
     zIndex: number;
 }
 
 declare class TemplateLayer extends PlaceablesLayer<MeasuredTemplate> {
-    static get layerOptions(): TemplateLayerOptions;
+    static override get layerOptions(): TemplateLayerOptions;
 
     static documentName: 'MeasuredTemplate';
 
@@ -21,12 +17,20 @@ declare class TemplateLayer extends PlaceablesLayer<MeasuredTemplate> {
     /*  Methods                                     */
     /* -------------------------------------------- */
 
-    activate(): this;
+    override activate(): this;
 
-    deactivate(): this;
+    override deactivate(): this;
 
     /** Register game settings used by the TemplatesLayer */
     static registerSettings(): void;
 
-    objects: TemplateContainer;
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    protected override _onDragLeftStart(event: PIXI.InteractionEvent): Promise<void>;
+
+    protected override _onDragLeftMove(event: PIXI.InteractionEvent): Promise<void>;
+
+    protected override _onMouseWheel(event: PIXI.InteractionEvent): void;
 }

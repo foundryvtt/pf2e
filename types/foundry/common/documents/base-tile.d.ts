@@ -2,9 +2,9 @@ declare module foundry {
     module documents {
         /**The Tile embedded document model. */
         class BaseTile extends abstract.Document {
-            static get schema(): typeof data.TileData;
+            static override get schema(): typeof data.TileData;
 
-            static get metadata(): TileMetadata;
+            static override get metadata(): TileMetadata;
         }
 
         interface BaseTile {

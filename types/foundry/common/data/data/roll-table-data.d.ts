@@ -38,7 +38,7 @@ declare module foundry {
             TDocument extends documents.BaseRollTable = documents.BaseRollTable,
             TResults extends documents.BaseTableResult = documents.BaseTableResult,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
 
             /** The default icon used for newly created Macro documents */
             static DEFAULT_ICON: string;

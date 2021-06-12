@@ -18,33 +18,44 @@ export class FamiliarPF2e extends CreaturePF2e {
 
     /** The familiar's master, if selected */
     get master(): CharacterPF2e | NPCPF2e | null {
-        const actor = game.actors.get(this.data.data.master.id ?? '');
+        const actor = game.actors?.get(this.data.data.master.id ?? '');
         if (actor instanceof CharacterPF2e || actor instanceof NPCPF2e) {
             return actor;
         }
         return null;
     }
 
-    /** Prepare Character type specific data. */
-    prepareDerivedData(): void {
+    override prepareBaseData() {
+        super.prepareBaseData();
+        this.data.data.details.level = { value: 0 };
+    }
+
+    /** Active effects on a familiar require a master, so wait until embedded documents are prepared */
+    override applyActiveEffects(): void {
+        return;
+    }
+
+    override prepareDerivedData(): void {
         super.prepareDerivedData();
+
+        const master = this.master;
+        this.data.data.details.level.value = master?.level ?? 0;
+
+        // Apply active effects now that the master (if selected) is ready.
+        super.applyActiveEffects();
 
         const data = this.data.data;
         const rules = this.items
             .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item.data)), [])
             .filter((rule) => !rule.ignored);
 
-        const gameActors = game.actors instanceof Actors ? game.actors : new Map();
-        const master = gameActors.get(data.master?.id);
-
         // Ensure presence of "minion" trait
         data.traits.traits.value = data.traits.traits.value
             .concat('minion')
             .filter((trait, index, self) => self.indexOf(trait) === index);
 
-        if (master instanceof CharacterPF2e || master instanceof NPCPF2e) {
+        if (master) {
             data.master.ability ||= 'cha';
-            data.details.level.value = master.level;
             const spellcastingAbilityModifier = master.data.data.abilities[data.master.ability].mod;
 
             // base size
@@ -92,7 +103,10 @@ export class FamiliarPF2e extends CreaturePF2e {
 
             // hit points
             {
-                const modifiers = [new ModifierPF2e('PF2E.MasterLevelHP', this.level * 5, MODIFIER_TYPE.UNTYPED)];
+                const modifiers = [
+                    new ModifierPF2e('PF2E.MasterLevelHP', this.level * 5, MODIFIER_TYPE.UNTYPED),
+                    ...this.data.data.attributes.hp.modifiers,
+                ];
                 (statisticsModifiers.hp || [])
                     .filter(filter_modifier)
                     .map((m) => duplicate(m))

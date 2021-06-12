@@ -41,8 +41,7 @@ declare global {
          */
         get isNPC(): boolean;
 
-        /** @override */
-        get isOwner(): boolean;
+        override get isOwner(): boolean;
 
         /** Is this Combatant entry currently visible in the Combat Tracker? */
         get isVisible(): boolean;
@@ -72,8 +71,7 @@ declare global {
         /*  Methods                                     */
         /* -------------------------------------------- */
 
-        /** @override */
-        testUserPermission(
+        override testUserPermission(
             user: foundry.documents.BaseUser,
             permission: DocumentPermission | UserAction,
             { exact }?: { exact?: boolean },
@@ -93,8 +91,7 @@ declare global {
          */
         rollInitiative(formula: string): Rolled<Roll>;
 
-        /** @override */
-        prepareDerivedData(): void;
+        override prepareDerivedData(): void;
 
         /** Update the value of the tracked resource for this Combatant. */
         updateResource(): { value: number } | null;

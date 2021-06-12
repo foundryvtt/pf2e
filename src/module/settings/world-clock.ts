@@ -6,7 +6,6 @@ type SettingsKey = 'dateTheme' | 'timeConvention' | 'playersCanView' | 'syncDark
 interface FormInputData extends ClientSettingsData {
     key: string;
     value: unknown;
-    isDisabled: boolean;
     isSelect: boolean;
     isCheckbox: boolean;
     isDateTime: boolean;
@@ -49,21 +48,16 @@ export class WorldClockSettings extends FormApplication {
                 return rawValue;
             })();
 
-            const usingCalendarWeather = game.pf2e.worldClock!.usingCalendarWeather;
             return {
                 ...setting,
                 key: key,
                 value: value,
-                isDisabled: usingCalendarWeather && ['dateTheme', 'timeConvention'].includes(key as SettingsKey),
                 isSelect: 'choices' in setting,
                 isCheckbox: setting.type === Boolean,
                 isDateTime: setting.type === String && !('choices' in setting),
             };
         });
-        return mergeObject(super.getData(), {
-            settings,
-            usingCalendarWeather: game.pf2e.worldClock!.usingCalendarWeather,
-        });
+        return mergeObject(super.getData(), { settings });
     }
 
     /** Register World Clock settings */

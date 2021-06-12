@@ -10,7 +10,7 @@ declare global {
         get author(): User | undefined;
 
         /** A flag for whether the current User has full ownership over the MeasuredTemplate document. */
-        get isOwner(): boolean;
+        override get isOwner(): boolean;
     }
 
     interface MeasuredTemplateDocument {

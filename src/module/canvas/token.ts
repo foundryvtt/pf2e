@@ -12,6 +12,16 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     /**
+     * Refresh the `EffectPanel` upon selecting a new token
+     * @override
+     */
+    protected _onControl(options?: { releaseOthers?: boolean; pan?: boolean }) {
+        super._onControl(options);
+
+        game.pf2e?.effectPanel.refresh();
+    }
+
+    /**
      * Apply a set of changes from the actor
      * @param overrides The property overrides to be applied
      * @param moving    Whether this token is moving: setting as true indicates the client will make the Canvas updates.

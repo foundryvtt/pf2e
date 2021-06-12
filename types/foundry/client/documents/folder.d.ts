@@ -17,9 +17,11 @@ declare global {
          * @param data Initial data with which to populate the creation form
          * @param options Initial positioning and sizing options for the dialog form
          * @return An active FolderConfig instance for creating the new Folder entity
-         * @override
          */
-        static createDialog(data?: { folder?: string }, options?: FormApplicationOptions): Promise<Folder | undefined>;
+        static override createDialog(
+            data?: { folder?: string },
+            options?: FormApplicationOptions,
+        ): Promise<Folder | undefined>;
 
         /** The depth of this folder in its sidebar tree */
         depth: number;
@@ -72,8 +74,7 @@ declare global {
          */
         getSubfolders(recursive?: boolean): this[];
 
-        /** @override */
-        protected _onDelete(options: DocumentModificationContext, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext, userId: string): void;
     }
 
     type EnfolderableDocument = Actor | Item | Scene | JournalEntry | RollTable;
