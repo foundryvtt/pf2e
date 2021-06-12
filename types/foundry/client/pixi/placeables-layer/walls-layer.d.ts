@@ -29,7 +29,7 @@ declare class WallsLayer extends PlaceablesLayer<Wall> {
     /*  Properties                                  */
     /* -------------------------------------------- */
 
-    static get layerOptions(): WallsLayerOptions;
+    static override get layerOptions(): WallsLayerOptions;
 
     static documentName: 'Wall';
 
@@ -43,9 +43,9 @@ declare class WallsLayer extends PlaceablesLayer<Wall> {
     /*  Methods                                     */
     /* -------------------------------------------- */
 
-    draw(): Promise<this>;
+    override draw(): Promise<this>;
 
-    deactivate(): this;
+    override deactivate(): this;
 
     /**
      * Perform initialization steps for the WallsLayer whenever the composition of walls in the Scene is changed.
@@ -92,7 +92,7 @@ declare class WallsLayer extends PlaceablesLayer<Wall> {
      */
     highlightControlledSegments(): void;
 
-    releaseAll(options: Record<string, unknown>): number;
+    override releaseAll(options: Record<string, unknown>): number;
 
     pasteObjects(position: { x: number; y: number }, { hidden }?: { hidden?: boolean }): Promise<Wall['document'][]>;
 
@@ -124,15 +124,15 @@ declare class WallsLayer extends PlaceablesLayer<Wall> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    protected _onClickLeft(event: PIXI.interaction.InteractionEvent): void;
+    protected override _onClickLeft(event: PIXI.InteractionEvent): void;
 
-    protected _onDragLeftStart(event: PIXI.interaction.InteractionEvent): this;
+    protected override _onDragLeftStart(event: PIXI.InteractionEvent): Promise<void>;
 
-    protected _onDragLeftMove(event: PIXI.interaction.InteractionEvent): void;
+    protected override _onDragLeftMove(event: PIXI.InteractionEvent): Promise<void>;
 
-    protected _onDragLeftCancel(event: PIXI.interaction.InteractionEvent): void;
+    protected override _onDragLeftCancel(event: PIXI.InteractionEvent): void;
 
-    protected _onClickRight(event: PIXI.interaction.InteractionEvent): void;
+    protected override _onClickRight(event: PIXI.InteractionEvent): void;
 
     /* -------------------------------------------- */
     /*  Source Polygon Computation                  */
@@ -252,7 +252,7 @@ declare class WallsLayer extends PlaceablesLayer<Wall> {
     protected static _mapWallCollisionType(type: WallType): string;
 }
 
-declare interface WallsLayerOptions extends LayerOptions {
+declare interface WallsLayerOptions extends PlaceablesLayerOptions {
     name: 'walls';
     controllableObjects: boolean;
     objectClass: typeof Wall;

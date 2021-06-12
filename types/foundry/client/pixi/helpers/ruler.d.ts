@@ -143,31 +143,31 @@ declare class Ruler extends PIXI.Container {
 
     /**
      * Handle the beginning of a new Ruler measurement event
-     * @param {PIXI.interaction.InteractionEvent} event
+     * @param {PIXI.InteractionEvent} event
      * @private
      */
-    public _onStartMeasurement(event: PIXI.interaction.InteractionEvent): void;
+    public _onStartMeasurement(event: PIXI.InteractionEvent): void;
 
     /**
      * Handle the addition of a new waypoint in the Ruler measurement path
-     * @param {PIXI.interaction.InteractionEvent} event
+     * @param {PIXI.InteractionEvent} event
      * @private
      */
-    public _onAddWaypoint(event: PIXI.interaction.InteractionEvent): void;
+    public _onAddWaypoint(event: PIXI.InteractionEvent): void;
 
     /**
      * Handle the removal of a waypoint in the Ruler measurement path
-     * @param {PIXI.interaction.InteractionEvent} event
+     * @param {PIXI.InteractionEvent} event
      * @private
      */
-    public _onCancelWaypoint(event: PIXI.interaction.InteractionEvent): void;
+    public _onCancelWaypoint(event: PIXI.InteractionEvent): void;
 
     /**
      * Handle the conclusion of a Ruler measurement workflow
-     * @param {PIXI.interaction.InteractionEvent} event
+     * @param {PIXI.InteractionEvent} event
      * @private
      */
-    public _onEndMeasurement(event: PIXI.interaction.InteractionEvent): void;
+    public _onEndMeasurement(event: PIXI.InteractionEvent): void;
 
     public toJSON(): RulerData;
 

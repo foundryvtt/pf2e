@@ -34,11 +34,11 @@ declare class Token<TDocument extends TokenDocument = TokenDocument> extends Pla
     protected _getInitialVelocity(): TokenVelocity;
 
     /* -------------------------------------------- */
-    /*  Permission Attributes
-        /* -------------------------------------------- */
+    /*  Permission Attributes                       */
+    /* -------------------------------------------- */
 
     /** A convenient reference to the Actor object associated with the Token embedded document. */
-    get actor(): TDocument['actor'];
+    get actor(): TDocument['actor'] | null;
 
     /** A convenient reference for whether the current User has full control over the Token document. */
     get isOwner(): boolean;
@@ -66,11 +66,8 @@ declare class Token<TDocument extends TokenDocument = TokenDocument> extends Pla
      */
     get h(): number;
 
-    /**
-     * The Token's current central position
-     * @override
-     */
-    get center(): PIXI.Point;
+    /** The Token's current central position */
+    override get center(): PIXI.Point;
 
     /* -------------------------------------------- */
     /*  State Attributes                            */
@@ -82,9 +79,7 @@ declare class Token<TDocument extends TokenDocument = TokenDocument> extends Pla
     /** Return a reference to a Combatant that represents this Token, if one is present in the current encounter. */
     get combatant(): TDocument['combatant'];
 
-    /**
-     * An indicator for whether the Token is currently targeted by the active game User
-     */
+    /** An indicator for whether the Token is currently targeted by the active game User */
     get isTargeted(): boolean;
 
     /**
@@ -99,19 +94,13 @@ declare class Token<TDocument extends TokenDocument = TokenDocument> extends Pla
     /*  Lighting and Vision Attributes              */
     /* -------------------------------------------- */
 
-    /**
-     * Test whether the Token has sight (or blindness) at any radius
-     */
+    /** Test whether the Token has sight (or blindness) at any radius */
     get hasSight(): boolean;
 
-    /**
-     * Test whether the Token emits light (or darkness) at any radius
-     */
+    /** Test whether the Token emits light (or darkness) at any radius */
     get emitsLight(): boolean;
 
-    /**
-     * Test whether the Token has a limited angle of vision or light emission which would require sight to update on Token rotation
-     */
+    /** Test whether the Token has a limited angle of vision or light emission which would require sight to update on Token rotation */
     get hasLimitedVisionAngle(): boolean;
 
     /**
@@ -144,8 +133,7 @@ declare class Token<TDocument extends TokenDocument = TokenDocument> extends Pla
     /* Rendering                                    */
     /* -------------------------------------------- */
 
-    /** @override */
-    draw(): Promise<this>;
+    override draw(): Promise<this>;
 
     /** Apply initial sanitizations to the provided input data to ensure that a Token has valid required attributes. */
     protected _cleanData(): void;
@@ -242,11 +230,9 @@ declare class Token<TDocument extends TokenDocument = TokenDocument> extends Pla
      */
     checkCollision(destination: Point): boolean;
 
-    /** @override */
-    protected _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void;
+    protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void;
 
-    /** @override */
-    protected _onRelease(options?: Record<string, unknown>): void;
+    protected override _onRelease(options?: Record<string, unknown>): void;
 
     /**
      * Get the center-point coordinate for a given grid position
@@ -340,74 +326,64 @@ declare class Token<TDocument extends TokenDocument = TokenDocument> extends Pla
      */
     getLightRadius(units: number): number;
 
-    /** @override */
-    protected _getShiftedPosition(dx: number, dy: number): Point;
+    protected override _getShiftedPosition(dx: number, dy: number): Point;
 
-    /** @override */
-    rotate(angle: number, snap: number): void;
+    override rotate(angle: number, snap: number): void;
 
-    /** @override */
-    protected _onCreate(
+    protected override _onCreate(
         data: this['document']['data']['_source'],
         options: DocumentModificationContext,
         userId: string,
     ): void;
 
-    /** @override */
-    protected _onUpdate(
+    protected override _onUpdate(
         changed: DocumentUpdateData<this['document']>,
         options: DocumentModificationContext,
         userId: string,
     ): void;
 
-    /** Define additional steps taken when an existing placeable object of this type is deleted */
-    protected _onDelete(options: DocumentModificationContext, userId: string): void;
-
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** @override */
-    protected _canControl(user: User, event?: Event): boolean;
+    /** Define additional steps taken when an existing placeable object of this type is deleted */
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void;
 
-    /** @override */
-    protected _canHUD(user: User, event?: Event): boolean;
+    protected override _canControl(user: User, event?: Event): boolean;
 
-    /** @override */
-    protected _canConfigure(user: User, event?: Event): boolean;
+    protected override _canHUD(user: User, event?: Event): boolean;
 
-    /** @override */
-    protected _canHover(user: User, event?: Event): boolean;
+    protected override _canConfigure(user: User, event?: Event): boolean;
 
-    /** @override */
-    protected _canView(user: User, event?: Event): boolean;
+    protected override _canHover(user: User, event?: Event): boolean;
 
-    /** @override */
-    protected _canDrag(user: User, event?: Event): boolean;
+    protected override _canView(user: User, event?: Event): boolean;
 
-    /** @override */
-    protected _onHoverIn(
-        event: PIXI.interaction.InteractionEvent,
+    protected override _canDrag(user: User, event?: Event): boolean;
+
+    protected override _onHoverIn(
+        event: PIXI.InteractionEvent,
         { hoverOutOthers }?: { hoverOutOthers?: boolean },
     ): boolean;
 
-    /** @override */
-    protected _onHoverOut(event: PIXI.interaction.InteractionEvent): boolean;
+    protected override _onHoverOut(event: PIXI.InteractionEvent): boolean;
 
-    /** @override */
-    protected _onClickLeft(event: PIXI.interaction.InteractionEvent): boolean;
+    protected override _onClickLeft(event: PIXI.InteractionEvent): boolean;
 
-    /** @override */
-    protected _onClickLeft2(event: PIXI.interaction.InteractionEvent): boolean;
+    protected override _onClickLeft2(event: PIXI.InteractionEvent): boolean;
 
-    /** @override */
-    protected _onClickRight2(event: PIXI.interaction.InteractionEvent): void;
+    protected override _onClickRight2(event: PIXI.InteractionEvent): void;
 
-    /** @override */
-    protected _onDragLeftDrop(event: PIXI.interaction.InteractionEvent): Promise<this['document'][]>;
+    protected override _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<this['document'][]>;
 
-    /** @override */
-    protected _onDragLeftMove(event: PIXI.interaction.InteractionEvent): void;
+    protected override _onDragLeftMove(event: PIXI.InteractionEvent): void;
+}
+
+interface Token {
+    hitArea: PIXI.IHitArea & {
+        right: number;
+        bottom: number;
+    };
 }
 
 declare type TokenDisplayMode = typeof CONST.TOKEN_DISPLAY_MODES[keyof typeof CONST.TOKEN_DISPLAY_MODES];

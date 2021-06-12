@@ -1,4 +1,4 @@
-import * as io from 'socket.io';
+export {};
 
 declare global {
     /** The base PlaceablesLayer subclass of CanvasLayer */
@@ -6,7 +6,7 @@ declare global {
         constructor();
 
         /** Placeable Layer Objects */
-        objects: PIXI.Container;
+        objects: TPlaceableObject[];
 
         /** Preview Object Placement */
         preview: PIXI.Container;
@@ -24,15 +24,13 @@ declare global {
         protected _copy: TPlaceableObject[];
 
         /** PlaceableObject layer options */
-        options: LayerOptions;
+        options: PlaceablesLayerOptions;
 
         /** Customize behaviors of this PlaceablesLayer by modifying some behaviors at a class level */
-        static get layerOptions(): LayerOptions;
+        static override get layerOptions(): PlaceablesLayerOptions;
 
-        /**
-         * Return a reference to the active instance of this canvas layer
-         */
-        static get instance(): PlaceablesLayer;
+        /** Return a reference to the active instance of this canvas layer */
+        static override get instance(): PlaceablesLayer;
 
         /**
          * Define the named Array within Scene.data containing the placeable objects displayed in this layer
@@ -42,16 +40,14 @@ declare global {
         /**
          * Define a Container implementation used to render placeable objects contained in this layer
          */
-        static get placeableClass(): typeof PIXI.Container;
+        static get placeableClass(): ConstructorOf<PIXI.Container>;
 
         /**
          * Return the precision relative to the Scene grid with which Placeable objects should be snapped
          */
         get gridPrecision(): number;
 
-        /**
-         * If objects on this PlaceableLayer have a HUD UI, provide a reference to its instance
-         */
+        /** If objects on this PlaceableLayer have a HUD UI, provide a reference to its instance */
         get hud(): BasePlaceableHUD<TPlaceableObject> | null;
 
         /**
@@ -65,40 +61,27 @@ declare global {
         get controlled(): TPlaceableObject[];
 
         /* -------------------------------------------- */
-        /*  Rendering
-            /* -------------------------------------------- */
+        /*  Rendering                                   */
+        /* -------------------------------------------- */
 
         /**
          * Draw the PlaceablesLayer.
          * Draw each Sound within the scene as a child of the sounds container.
          */
-        draw(): Promise<this>;
+        override draw(): Promise<this>;
 
-        /**
-         * Draw a single placeable object
-         */
-        drawObject(data: any): this;
+        /** Draw a single placeable object */
+        createObject(data: PreCreate<TPlaceableObject['data']['_source']>): TPlaceableObject;
 
-        /**
-         * Reorder the child objects of the layer according to their z-index (if one exists)
-         */
-        sortObjects(): number;
+        override tearDown(): Promise<void>;
 
         /* -------------------------------------------- */
         /*  Methods                                     */
         /* -------------------------------------------- */
 
-        /**
-         * Override the activation behavior of the PlaceablesLayer.
-         * While active, ambient sound previews are displayed.
-         */
-        activate(): void;
+        override activate(): void;
 
-        /**
-         * Override the deactivation behavior of the PlaceablesLayer.
-         * When inactive, ambient sound previews are hidden from view.
-         */
-        deactivate(): void;
+        override deactivate(): void;
 
         /**
          * Get a PlaceableObject contained in this layer by it's ID
@@ -106,6 +89,13 @@ declare global {
          * @return          The object instance, or undefined
          */
         get(objectId: number | string): TPlaceableObject | undefined;
+
+        /**
+         * Acquire control over all PlaceableObject instances which are visible and controllable within the layer.
+         * @param options Options passed to the control method of each object
+         * @return An array of objects that were controlled
+         */
+        controlAll(options?: Record<string, unknown>): TPlaceableObject[];
 
         /**
          * Release all controlled PlaceableObject instance from this layer.
@@ -194,14 +184,14 @@ declare global {
          * A helper method to prompt for deletion of all PlaceableObject instances within the Scene
          * Renders a confirmation dialogue to confirm with the requester that all objects will be deleted
          */
-        deleteAll(): void;
+        deleteAll(): Promise<TPlaceableObject['document'][] | void>;
 
         /**
          * Record a new CRUD event in the history log so that it can be undone later
          * @param type  The event type (create, update, delete)
          * @param data  The object data
          */
-        protected _storeHistory(type: string, data: Record<string, unknown>): void;
+        storeHistory(type: string, data: Record<string, unknown>): void;
 
         /**
          * Copy currently controlled PlaceableObjects to a temporary Array, ready to paste back into the scene later
@@ -245,179 +235,83 @@ declare global {
             controlOptions?: any;
         }): number;
 
+        /**
+         * Update all objects in this layer with a provided transformation.
+         * Conditionally filter to only apply to objects which match a certain condition.
+         * @param transformation An object of data or function to apply to all matched objects
+         * @param condition      A function which tests whether to target each object
+         * @param [options]      Additional options passed to Entity.update
+         * @return An array of updated data once the operation is complete
+         */
+        updateAll(
+            transformation: (
+                document: TPlaceableObject,
+            ) => DocumentUpdateData<TPlaceableObject['document']> | DocumentUpdateData<TPlaceableObject['document']>,
+            condition?: Function | null,
+            options?: DocumentModificationContext,
+        ): Promise<TPlaceableObject['document'][]>;
+
         /* -------------------------------------------- */
-        /*  Socket Listeners and Handlers               */
+        /*  Event Listeners and Handlers                */
         /* -------------------------------------------- */
 
         /**
-         * Activate socket listeners which transact basic CRUD operations for Placeable Objects contained within this layer
+         * Handle left mouse-click events which originate from the Canvas stage and are dispatched to this Layer.
+         * @see {Canvas#_onClickLeft}
          */
-        protected static socketListeners(socket: io.Socket): void;
+        protected _onClickLeft(event: PIXI.InteractionEvent): void;
 
         /**
-         * Create a new placeable object given input data
-         *
-         * @param parentId  The parent Scene ID
-         * @param created   The created PlaceableObject data
-         * @param options   Additional options which modify the creation request
-         * @param userId    The ID of the triggering User
-         *
-         * @return          The created PlaceableObject instance
+         * Handle double left-click events which originate from the Canvas stage and are dispatched to this Layer.
+         * @see {Canvas#_onClickLeft2}
          */
-        protected static _createPlaceableObject({
-            parentId,
-            created,
-            options,
-            userId,
-        }: {
-            parentId: string;
-            created: any;
-            options: any;
-            userId: string;
-        }): PlaceableObject;
+        protected _onClickLeft2(event: PIXI.InteractionEvent): void;
 
         /**
-         * Update an existing placeable object using new data
-         *
-         * @param parentId  The parent Scene ID
-         * @param updated   The updated PlaceableObject data
-         * @param options   Additional options which modify the update request
-         * @param userId    The ID of the triggering User
-         *
-         * @return          The updated PlaceableObject instance
+         * Start a left-click drag workflow originating from the Canvas stage.
+         * @see {Canvas#_onDragLeftStart}
          */
-        protected static _updatePlaceableObject({
-            parentId,
-            updated,
-            options,
-            userId,
-        }: {
-            parentId: string;
-            updated: any;
-            options: any;
-            userId: string;
-        }): PlaceableObject;
+        protected _onDragLeftStart(event: PIXI.InteractionEvent): Promise<void>;
 
         /**
-         * Handle the server response to update many Embedded Entities in a parent Entity collection
-         *
-         * @param parentId  The parent Entity ID
-         * @param data      The Array of data updates performed
-         * @param options   Additional options which were included with the update request
-         * @param userId    The ID of the triggering User
-         *
-         * @return          The updated PlaceableObject instance
+         * Continue a left-click drag workflow originating from the Canvas stage.
+         * @see {Canvas#_onDragLeftMove}
          */
-        protected static _updateManyPlaceableObjects({
-            parentId,
-            data,
-            options,
-            userId,
-        }: {
-            parentId: string;
-            data: any[];
-            options: any;
-            userId: string;
-        }): PlaceableObject;
+        protected _onDragLeftMove(event: PIXI.InteractionEvent): Promise<void>;
 
         /**
-         * Delete an existing placeable object by its ID within the Scene
-         *
-         * @param parentId  The ID of the Scene which contains this placeable object
-         * @param deleted   The ID of the PlaceableObject to delete
-         * @param options   Additional options which modify the update request
-         * @param userId    The ID of the triggering User
-         *
-         * @return          The deleted PlaceableObject instance
+         * Conclude a left-click drag workflow originating from the Canvas stage.
+         * @see {Canvas#_onDragLeftDrop}
          */
-        protected static _deletePlaceableObject({
-            parentId,
-            deleted,
-            options,
-            userId,
-        }: {
-            parentId: string;
-            deleted: any;
-            options: any;
-            userId: string;
-        }): PlaceableObject;
+        protected _onDragLeftDrop(event: ElementDragEvent): Promise<void>;
 
         /**
-         * Handle the server response to delete many Embedded Entities from a parent Entity collection
-         *
-         * @param parentId  The parent Entity ID
-         * @param data      An Array of deleted object IDs
-         * @param options   Additional options which were included with the delete request
-         * @param userId    The ID of the triggering User
-         *
-         * @return          The updated PlaceableObject instance
+         * Cancel a left-click drag workflow originating from the Canvas stage.
+         * @see {Canvas#_onDragLeftDrop}
          */
-        protected static _deleteManyPlaceableObjects({
-            parentId,
-            data,
-            options,
-            userId,
-        }: {
-            parentId: string;
-            data: any[];
-            options: any;
-            userId: string;
-        }): PlaceableObject;
+        protected _onDragLeftCancel(event: PIXI.InteractionEvent): void;
 
         /**
-         * Default mouse-down event handling implementation
+         * Handle right mouse-click events which originate from the Canvas stage and are dispatched to this Layer.
+         * @see {Canvas#_onClickRight}
          */
-        protected _onMouseDown(
-            event: PIXI.interaction.InteractionEvent,
-            { isRuler, isCtrlRuler, isSelect }?: { isRuler?: boolean; isCtrlRuler?: boolean; isSelect?: boolean },
-        ): void;
-
-        /**
-         * Default handling of drag start events by left click + dragging
-         */
-        protected _onDragStart(event: PIXI.interaction.InteractionEvent): void;
-
-        /**
-         * Default handling of mouse move events during a dragging workflow
-         */
-        protected _onMouseMove(event: PIXI.interaction.InteractionEvent): void;
-
-        /**
-         * Default handling of drag cancel events by right clicking during a drag creation
-         */
-        protected _onDragCancel(event: PIXI.interaction.InteractionEvent): void;
-
-        /**
-         * Handle successful creation of an object through the drag creation workflow.
-         * This logic requires that the drag exceeded some minimum distance for the new object to be created.
-         */
-        protected _onDragCreate(event: PIXI.interaction.InteractionEvent): void;
-
-        /**
-         * Default handling of mouse-up events which conclude a new object creation after dragging
-         */
-        protected _onMouseUp(event: PIXI.interaction.InteractionEvent): void;
+        protected _onClickRight(event: PIXI.InteractionEvent): void;
 
         /**
          * Handle mouse-wheel events at the PlaceableObjects layer level to rotate multiple objects at once.
          * This handler will rotate all controlled objects by some incremental angle.
-         * @param event The mousewheel event which originated the request
+         * @param event   The mousewheel event which originated the request
          */
-        protected _onMouseWheel(event: PIXI.interaction.InteractionEvent): void;
-
-        /**
-         * Handle right mouse-click events which occur while this layer is active
-         */
-        protected _onRightDown(event: PIXI.interaction.InteractionEvent): void;
+        protected _onMouseWheel(event: PIXI.InteractionEvent): void;
 
         /**
          * Handle a DELETE keypress while a placeable object is hovered
          * @param event The delete key press event which triggered the request
          */
-        protected _onDeleteKey(event: PIXI.interaction.InteractionEvent): void;
+        protected _onDeleteKey(event: PIXI.InteractionEvent): Promise<void>;
     }
 
-    interface LayerOptions extends CanvasLayerOptions {
+    interface PlaceablesLayerOptions extends CanvasLayerOptions {
         canDragCreate: boolean;
         controllableObjects: boolean;
         rotatableObjects: boolean;

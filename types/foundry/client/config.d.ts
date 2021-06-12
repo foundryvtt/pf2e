@@ -1,4 +1,5 @@
 import type * as TinyMCE from 'tinymce';
+import * as PIXI from 'pixi.js';
 
 declare global {
     interface Config<
@@ -10,6 +11,7 @@ declare global {
         TFolder extends Folder = Folder,
         TItem extends Item = Item,
         TMacro extends Macro = Macro,
+        TScene extends Scene = Scene,
         TTokenDocument extends TokenDocument = TokenDocument,
     > {
         /** Configure debugging flags to display additional information */
@@ -113,7 +115,10 @@ declare global {
 
         /** Configuration for Scene document */
         Scene: {
-            documentClass: typeof Scene;
+            documentClass: {
+                new (data: PreCreate<TScene['data']['_source']>, context?: DocumentConstructionContext<TScene>): TScene;
+            };
+
             collection: typeof Scenes;
             sheetClass: typeof SceneConfig;
             notesClass: any;
