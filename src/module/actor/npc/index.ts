@@ -323,6 +323,7 @@ export class NPCPF2e extends CreaturePF2e {
                 overwrite: false,
             });
             stat.base = base;
+            stat.notes = notes;
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
@@ -360,6 +361,7 @@ export class NPCPF2e extends CreaturePF2e {
                 overwrite: false,
             });
             stat.base = base;
+            stat.notes = notes;
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
