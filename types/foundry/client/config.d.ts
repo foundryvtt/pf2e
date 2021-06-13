@@ -120,7 +120,7 @@ declare global {
             };
 
             collection: typeof Scenes;
-            sheetClass: typeof SceneConfig;
+            sheetClass: ConstructorOf<TScene['sheet']>;
             notesClass: any;
             sidebarIcon: string;
         };
@@ -180,7 +180,7 @@ declare global {
             ) => TTokenDocument;
             objectClass: new (...args: any[]) => TTokenDocument['object'];
             layerClass: typeof TokenLayer;
-            sheetClass: typeof TokenConfig;
+            sheetClass: ConstructorOf<TTokenDocument['sheet']>;
         };
 
         /* -------------------------------------------- */

@@ -12,10 +12,12 @@ import { FolderPF2e } from '@module/folder';
 import { registerHandlebarsHelpers } from '@module/handlebars';
 import { MacroPF2e } from '@module/macro';
 import { ScenePF2e } from '@module/scene';
+import { SceneConfigPF2e } from '@module/scene/sheet';
 import { registerSettings } from '@module/settings';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { loadPF2ETemplates } from '@module/templates';
 import { TokenDocumentPF2e } from '@module/token-document';
+import { TokenConfigPF2e } from '@module/token-document/sheet';
 import { PlayerConfigPF2e } from '@module/user/player-config';
 import { PF2ECONFIG } from '../config';
 
@@ -35,9 +37,13 @@ export function listen(): void {
         CONFIG.Combatant.documentClass = CombatantPF2e;
         CONFIG.Folder.documentClass = FolderPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
+
         CONFIG.Scene.documentClass = ScenePF2e;
+        CONFIG.Scene.sheetClass = SceneConfigPF2e;
+
         CONFIG.Token.documentClass = TokenDocumentPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
+        CONFIG.Token.sheetClass = TokenConfigPF2e;
 
         CONFIG.Canvas.layers.lighting = LightingLayerPF2e;
 
