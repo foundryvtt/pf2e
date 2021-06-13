@@ -14,10 +14,11 @@ import {
 } from '@module/rules/rules-data-definitions';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { isMagicItemData } from '@item/data/helpers';
-import { PF2CheckDC } from '@system/check-degree-of-success';
+import { DegreeOfSuccessAdjustment, PF2CheckDC } from '@system/check-degree-of-success';
 import { CheckPF2e } from '@system/rolls';
 import { VisionLevel, VisionLevels } from './data';
 import { LightLevels } from '@module/scene';
+import { Statistic, StatisticBuilder } from '@system/statistic';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -63,6 +64,23 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     get attributes(): this['data']['data']['attributes'] {
         return this.data.data.attributes;
+    }
+
+    get perception(): Statistic {
+        const stat = this.data.data.attributes.perception as StatisticModifier;
+        return this.buildStatistic(stat, 'perception', 'PF2E.PerceptionCheck', 'perception-check');
+    }
+
+    get fortitude(): Statistic {
+        return this.buildSavingThrowStatistic('fortitude');
+    }
+
+    get reflex(): Statistic {
+        return this.buildSavingThrowStatistic('reflex');
+    }
+
+    get will(): Statistic {
+        return this.buildSavingThrowStatistic('will');
     }
 
     get wornArmor(): Embedded<ArmorPF2e> | null {
@@ -262,6 +280,28 @@ export abstract class CreaturePF2e extends ActorPF2e {
             token.drawEffects();
         }
         this.redrawingTokenEffects = false;
+    }
+
+    protected buildStatistic(
+        stat: { adjustments?: DegreeOfSuccessAdjustment[]; modifiers: readonly ModifierPF2e[]; notes?: RollNotePF2e[] },
+        name: string,
+        label: string,
+        type: string,
+    ): Statistic {
+        return StatisticBuilder.from(this, {
+            name: name,
+            check: { adjustments: stat.adjustments, label, type },
+            dc: {},
+            modifiers: [...stat.modifiers],
+            notes: stat.notes,
+        });
+    }
+
+    private buildSavingThrowStatistic(savingThrow: 'fortitude' | 'reflex' | 'will'): Statistic {
+        const label = game.i18n.format('PF2E.SavingThrowWithName', {
+            saveName: game.i18n.localize(CONFIG.PF2E.saves[savingThrow]),
+        });
+        return this.buildStatistic(this.data.data.saves[savingThrow], savingThrow, label, 'saving-throw');
     }
 
     protected createAttackRollContext(event: JQuery.Event, rollNames: string[]) {
