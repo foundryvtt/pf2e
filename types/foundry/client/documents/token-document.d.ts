@@ -169,7 +169,7 @@ declare global {
 
         readonly parent: Scene | null;
 
-        _sheet: TokenConfig<this> | null;
+        _sheet: TokenConfig<TokenDocument> | null;
 
         readonly _object: Token<TokenDocument> | null;
     }

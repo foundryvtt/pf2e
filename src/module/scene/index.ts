@@ -1,5 +1,6 @@
-import { ZeroToTwo } from './data';
-import { TokenDocumentPF2e } from './token-document';
+import { ZeroToTwo } from '../data';
+import { TokenDocumentPF2e } from '../token-document';
+import { SceneConfigPF2e } from './sheet';
 
 export class ScenePF2e extends Scene<TokenDocumentPF2e> {
     getLightLevel(): number {
@@ -16,6 +17,10 @@ export class ScenePF2e extends Scene<TokenDocumentPF2e> {
         }
         return this;
     }
+}
+
+export interface ScenePF2e {
+    _sheet: SceneConfigPF2e;
 }
 
 export enum LightLevels {
