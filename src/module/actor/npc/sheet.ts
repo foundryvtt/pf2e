@@ -343,7 +343,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const customSelections = selections.custom
             .split(/\s*[,;|]\s*/)
             .filter((trait) => trait)
-            .map((trait): Record<string, string> => ({ value: trait, label: trait }));
+            .map((trait): Record<string, string> => ({ value: trait.replace(/\.$/, ''), label: trait }));
 
         return mainSelections
             .concat(customSelections)
