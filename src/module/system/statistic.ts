@@ -2,12 +2,7 @@ import { CheckModifier, ModifierPF2e, ModifierPredicate, StatisticModifier } fro
 import { CheckPF2e, RollParameters } from '@system/rolls';
 import { RollNotePF2e } from '@module/notes';
 import { ActorPF2e } from '@actor';
-import { PF2CheckDCModifiers } from '@system/check-degree-of-success';
-
-export interface DegreeOfSuccessAdjustment {
-    modifiers: PF2CheckDCModifiers;
-    predicate: ModifierPredicate;
-}
+import { DegreeOfSuccessAdjustment } from '@system/check-degree-of-success';
 
 export interface StatisticCheckData {
     adjustments?: DegreeOfSuccessAdjustment[];
@@ -47,13 +42,10 @@ export interface StatisticWithDC {
 }
 
 export interface StatisticWithCheck {
-    get check(): {
-        modifiers: ModifierPF2e[];
-        roll: (args: RollParameters & { modifiers: ModifierPF2e[] }) => void;
-        totalModifier: (options?: { options?: string[] }) => number;
-        value: number;
-    };
+    get check(): StatisticCheck;
 }
+
+export interface Statistic extends StatisticWithCheck, StatisticWithDC {}
 
 export class StatisticBuilder {
     static from(

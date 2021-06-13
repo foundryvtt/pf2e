@@ -2,13 +2,8 @@ import { RuleElementPF2e } from '../rule-element';
 import { CharacterData, NPCData } from '@actor/data';
 import { SAVE_TYPES, SKILL_DICTIONARY } from '@actor/data/values';
 import { Saves, SkillAbbreviation } from '@actor/creature/data';
-import { PF2CheckDCModifiers } from '@system/check-degree-of-success';
+import { DegreeOfSuccessAdjustment, PF2CheckDCModifiers } from '@system/check-degree-of-success';
 import { ModifierPredicate } from '@module/modifiers';
-
-interface DegreeOfSuccessAdjustment {
-    modifiers: PF2CheckDCModifiers;
-    predicate?: ModifierPredicate;
-}
 
 /**
  * @category RuleElement
