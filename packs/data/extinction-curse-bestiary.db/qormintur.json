@@ -2505,7 +2505,11 @@
                         "key": "PF2E.RuleElement.FlatModifier",
                         "predicate": {
                             "any": [
-                                "magical","arcane","divine","occult","primal"
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "occult",
+                                "primal"
                             ]
                         },
                         "selector": "saving-throw",
@@ -2834,6 +2838,14 @@
                         "key": "PF2E.RuleElement.Note",
                         "selector": "fortitude",
                         "text": "<p class='compact-text'><strong>{item|name}</strong> When Qormintur rolls a success on a Fortitude save, she gets a critical success instead.</p>"
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                        "selector": "fortitude",
+                        "type": "save"
                     }
                 ],
                 "slug": null,
