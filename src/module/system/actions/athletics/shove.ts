@@ -14,5 +14,6 @@ export function shove(options: SkillActionOptions) {
         ['attack'],
         checkType,
         options.event,
+        (target) => target.fortitude,
     );
 }

@@ -14,5 +14,6 @@ export function lie(options: SkillActionOptions) {
         ['auditory', 'concentrate', 'linguistic', 'mental', 'secret'],
         checkType,
         options.event,
+        (target) => target.perception,
     );
 }
