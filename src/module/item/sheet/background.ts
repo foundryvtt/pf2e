@@ -3,8 +3,7 @@ import { BackgroundPF2e } from '@item/background';
 import { BackgroundSheetData } from './data-types';
 
 export class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {
-    /** @override */
-    getData(): BackgroundSheetData {
+    override getData(): BackgroundSheetData {
         const data = super.getData();
         const itemData = data.item;
 

@@ -22,10 +22,8 @@ export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData
     activeEffects: AESheetData;
 }
 
-/** @override */
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
         options.width = 630;
         options.height = 460;
@@ -48,8 +46,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return options;
     }
 
-    /** @override */
-    getData() {
+    override getData() {
         const data: any = this.getBaseData();
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves;
@@ -388,7 +385,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         });
     }
 
-    private async deleteDamageRoll(event: JQuery.TriggeredEvent) {
+    private async deleteDamageRoll(event: JQuery.TriggeredEvent): Promise<ItemPF2e> {
         event.preventDefault();
         if (event.originalEvent) {
             await this._onSubmit(event.originalEvent);
@@ -399,13 +396,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         });
     }
 
-    /** @override */
-    protected _canDragDrop(_selector: string) {
+    protected override _canDragDrop(_selector: string): boolean {
         return this.item.isOwner;
     }
 
-    /** @override */
-    activateListeners(html: JQuery): void {
+    override activateListeners(html: JQuery): void {
         super.activateListeners(html);
 
         html.find('li.trait-item input[type="checkbox"]').on('click', (event) => {
@@ -530,8 +525,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         });
     }
 
-    /** @override */
-    protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
+    protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: Object.values(this.editors) });
         const data: Record<string, unknown> & { data?: { rules?: string[] } } = updateData
@@ -553,10 +547,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return flattenObject(data); // return the flattened submission data
     }
 
-    /**
-     * Hide the sheet-config button unless there is more than one sheet option.
-     * @override */
-    protected _getHeaderButtons(): ApplicationHeaderButton[] {
+    /** Hide the sheet-config button unless there is more than one sheet option. */
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
         const hasMultipleSheets = Object.keys(CONFIG.Item.sheetClasses[this.item.type]).length > 1;
         const sheetButton = buttons.find((button) => button.class === 'configure-sheet');
@@ -566,11 +558,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return buttons;
     }
 
-    /**
-     * Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error
-     * @override
-     */
-    protected async _onSubmit(
+    /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
+    protected override async _onSubmit(
         event: Event,
         { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
     ): Promise<Record<string, unknown>> {
@@ -583,8 +572,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         return super._onSubmit(event, { updateData, preventClose, preventRender });
     }
 
-    /** @override */
-    protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Avoid setting a baseItem of an empty string
         if (formData['data.baseItem'] === '') {
             formData['data.baseItem'] = null;

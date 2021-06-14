@@ -16,8 +16,7 @@ import { ErrorPF2e } from '@module/utils';
 import { LorePF2e } from '@item';
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ['default', 'sheet', 'actor', 'pc'],
             width: 700,
@@ -27,7 +26,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
     }
 
-    get template() {
+    override get template() {
         let style = 'crb-style';
         if (!game.user.isGM && this.actor.limited) {
             style = 'limited';
@@ -35,8 +34,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return `systems/pf2e/templates/actors/${style}/actor-sheet.html`;
     }
 
-    /** @override */
-    protected async _updateObject(event: Event, formData: any): Promise<void> {
+    protected override async _updateObject(event: Event, formData: any): Promise<void> {
         // update shield hp
         const heldShield = this.actor.heldShield;
         if (heldShield) {
@@ -56,8 +54,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    /** @override */
-    getData() {
+    override getData() {
         const sheetData = super.getData();
 
         sheetData.ancestryItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'ancestry')?._id ?? '';
@@ -126,8 +123,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Return data for rendering
         return sheetData;
     }
-
-    /* -------------------------------------------- */
 
     /**
      * Organize and classify Items for Character sheets
@@ -649,7 +644,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
      * Activate event listeners using the prepared sheet HTML
      * @param html The prepared HTML object ready to be rendered into the DOM
      */
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // ACTIONS
@@ -979,7 +974,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         this.actor.updateEmbeddedDocuments('ActiveEffect', effectUpdates);
     }
 
-    protected async _onDropItemCreate(itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
+    protected override async _onDropItemCreate(itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         if (['ancestry', 'background', 'class'].includes(itemData.type)) {
             const items = await this.actor.createEmbeddedDocuments('Item', [itemData]);
             if (items.length > 0) return items;
@@ -1023,7 +1018,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private getNearestSlotId(event: ElementDragEvent) {
+    private getNearestSlotId(event: ElementDragEvent): JQuery.PlainObject {
         const data = $(event.target).closest('.item').data();
         if (!data) {
             return { slotId: undefined, featType: undefined };
@@ -1061,8 +1056,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    /** @override */
-    protected async _onDropItem(event: ElementDragEvent, data: DropCanvasData): Promise<unknown> {
+    protected override async _onDropItem(
+        event: ElementDragEvent,
+        data: DropCanvasData<ItemSourcePF2e>,
+    ): Promise<ItemPF2e[]> {
         const actor = this.actor;
         const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
         if (isSameActor) {
@@ -1100,7 +1097,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
      * @param event
      * @param itemData
      */
-    protected async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
+    protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         if (itemData.type === 'feat') {
             const { slotId, featType } = this.getNearestSlotId(event);
 
@@ -1130,8 +1127,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return super._onSortItem(event, itemData);
     }
 
-    /** @override */
-    protected _onSubmit(event: any): Promise<Record<string, unknown>> {
+    protected override _onSubmit(event: any): Promise<Record<string, unknown>> {
         // Limit SP value to data.attributes.sp.max value
         if (event?.currentTarget?.name === 'data.attributes.sp.value') {
             event.currentTarget.value = Math.clamped(
@@ -1214,9 +1210,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return icons[level];
     }
 
-    /**
-     * Get the font-awesome icon used to display hero points
-     */
+    /** Get the font-awesome icon used to display hero points */
     private getHeroPointsIcon(level: ZeroToThree) {
         const icons = {
             0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',

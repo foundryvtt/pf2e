@@ -77,7 +77,9 @@ declare global {
         TObject extends {} = {},
         TOptions extends FormApplicationOptions = FormApplicationOptions,
     > extends Application<TOptions> {
-        options: TOptions;
+        constructor(object?: TObject, options?: TOptions);
+
+        override options: TOptions;
 
         /**
          * The object target which we are using this form to modify
@@ -99,12 +101,10 @@ declare global {
          */
         editors: Record<string, TinyMCEEditorData>;
 
-        constructor(object?: TObject, options?: TOptions);
-
         /**
          * Assign the default options which are supported by the entity edit sheet
          */
-        static get defaultOptions(): FormApplicationOptions;
+        static override get defaultOptions(): FormApplicationOptions;
 
         /**
          * Is the Form Application currently editable?
@@ -123,7 +123,7 @@ declare global {
          *
          * @param html The rendered template ready to have listeners attached
          */
-        activateListeners(html: JQuery): void;
+        override activateListeners(html: JQuery): void;
 
         /**
          * If the form is not editable, disable its input fields
@@ -192,7 +192,6 @@ declare global {
          */
         submit(options?: OnSubmitFormOptions): Promise<this>;
 
-        /** @override */
-        close(options?: { force?: boolean }): Promise<void>;
+        override close(options?: { force?: boolean }): Promise<void>;
     }
 }
