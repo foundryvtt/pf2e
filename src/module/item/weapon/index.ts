@@ -12,6 +12,7 @@ import { MeleePF2e } from "@item/melee";
 import { MeleeSource } from "@item/data";
 import { MeleeDamageRoll } from "@item/melee/data";
 import { NPCPF2e } from "@actor";
+import { StaffSpellcasting } from "./spellcasting";
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof WeaponData {
@@ -252,6 +253,20 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         };
 
         return new MeleePF2e(source, { parent: this.actor }) as Embedded<MeleePF2e>;
+    }
+
+    override prepareDerivedData() {
+        super.prepareDerivedData();
+        if (this.traits.has("staff")) {
+            try {
+                this.spellcasting = new StaffSpellcasting(this);
+            } catch (ex) {
+                const message = `PF2e System | Could not load spellcasting data for item ${this.name} (${this.id})`;
+                console.error(message, this, ex);
+            }
+        } else if (this.spellcasting) {
+            delete this.spellcasting;
+        }
     }
 }
 
