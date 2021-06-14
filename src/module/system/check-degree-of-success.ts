@@ -27,7 +27,7 @@ export interface PF2CheckDC {
     scope?: 'AttackOutcome' | 'CheckOutcome';
     adjustments?: DegreeOfSuccessAdjustment[];
     value: number;
-    visibility?: 'gm' | 'owner' | 'all';
+    visibility?: 'none' | 'gm' | 'owner' | 'all';
 }
 
 const PREFIXES = Object.freeze({
