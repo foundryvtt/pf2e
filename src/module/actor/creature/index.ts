@@ -316,7 +316,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const ctx = this.createStrikeRollContext(rollNames);
         let dc: PF2CheckDC | undefined;
         if (ctx.target) {
-            const showDC = game.settings.get('pf2e', 'metagame.showDC').toString();
             dc = {
                 label: game.i18n.format('PF2E.CreatureArmorClass', {
                     creature: ctx.target.name,
@@ -324,7 +323,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 }),
                 scope: 'AttackOutcome',
                 value: ctx.target.data.data.attributes.ac.value,
-                visibility: showDC,
             };
         }
         return {

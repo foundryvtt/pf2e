@@ -255,6 +255,7 @@ export function registerSettings() {
     });
 
     const metagameDcChoices = {
+        none: 'PF2E.SETTINGS.Metagame.ShowDC.None',
         gm: 'PF2E.SETTINGS.Metagame.ShowDC.Gm',
         owner: 'PF2E.SETTINGS.Metagame.ShowDC.Owner',
         all: 'PF2E.SETTINGS.Metagame.ShowDC.All',
