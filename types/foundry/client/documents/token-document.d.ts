@@ -142,7 +142,7 @@ declare global {
         ): Promise<void>;
 
         protected override _onUpdate(
-            data: DocumentUpdateData<this>,
+            changed: DeepPartial<this['data']['_source']>,
             options: DocumentModificationContext,
             userId: string,
         ): void;

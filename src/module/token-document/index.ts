@@ -32,11 +32,15 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     }
 
     /** Synchronous actor attitude with token disposition, refresh the EffectPanel */
-    protected override _onUpdate(data: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string) {
-        super._onUpdate(data, options, userId);
+    protected override _onUpdate(
+        changed: DeepPartial<this['data']['_source']>,
+        options: DocumentModificationContext,
+        userId: string,
+    ) {
+        super._onUpdate(changed, options, userId);
 
-        if (this.actor instanceof NPCPF2e && typeof data.disposition === 'number' && game.userId === userId) {
-            this.actor.updateAttitudeFromDisposition(data.disposition);
+        if (this.actor instanceof NPCPF2e && typeof changed.disposition === 'number' && game.userId === userId) {
+            this.actor.updateAttitudeFromDisposition(changed.disposition);
         }
 
         game.pf2e.effectPanel.refresh();

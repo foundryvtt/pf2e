@@ -89,7 +89,7 @@ declare global {
         updateTokenTargets(targetIds?: string[]): void;
 
         protected override _onUpdate(
-            data: DocumentUpdateData<this>,
+            changed: DeepPartial<this['data']['_source']>,
             options: DocumentModificationContext,
             userId: string,
         ): void;
