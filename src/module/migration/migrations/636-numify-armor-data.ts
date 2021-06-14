@@ -2,9 +2,9 @@ import { ItemSourcePF2e } from '@item/data';
 import { MigrationBase } from '../base';
 
 export class Migration636NumifyArmorData extends MigrationBase {
-    static version = 0.636;
+    static override version = 0.636;
 
-    async updateItem(itemData: ItemSourcePF2e): Promise<void> {
+    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type !== 'armor') return;
 
         const systemData = itemData.data;

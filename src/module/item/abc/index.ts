@@ -54,8 +54,7 @@ export abstract class ABCItemPF2e extends ItemPF2e {
         await actor.createEmbeddedDocuments('Item', featuresData);
     }
 
-    /** @override */
-    protected _onCreate(
+    protected override _onCreate(
         data: AncestrySource | BackgroundSource | ClassSource,
         options: DocumentModificationContext,
         userId: string,

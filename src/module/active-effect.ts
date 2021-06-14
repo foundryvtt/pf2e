@@ -21,7 +21,7 @@ export class ActiveEffectPF2e extends ActiveEffect {
         return this.getFlag('pf2e', 'applyOnCast') ?? false;
     }
 
-    prepareBaseData(): void {
+    override prepareBaseData(): void {
         super.prepareBaseData();
         for (const change of this.data.changes) {
             // Prepare custom change modes
@@ -41,11 +41,8 @@ export class ActiveEffectPF2e extends ActiveEffect {
         }
     }
 
-    /**
-     * Parse non-primitive change values just prior to application to the actor
-     * @override
-     */
-    apply(actor: ActorPF2e, change: ApplicableChangeData<this>): unknown {
+    /** Parse non-primitive change values just prior to application to the actor */
+    override apply(actor: ActorPF2e, change: ApplicableChangeData<this>): unknown {
         if (!change.value.startsWith('{')) return super.apply(actor, change);
         // Prepare changes with non-primitive values
         const effect = change.effect;
@@ -97,11 +94,8 @@ export class ActiveEffectPF2e extends ActiveEffect {
         return super.apply(actor, change);
     }
 
-    /**
-     * Create a non-existing property before the parent class applies an upgrade
-     * @override
-     */
-    protected _applyUpgrade(actor: ActorPF2e, change: ApplicableChangeData<this>): unknown {
+    /** Create a non-existing property before the parent class applies an upgrade */
+    protected override _applyUpgrade(actor: ActorPF2e, change: ApplicableChangeData<this>): unknown {
         if (!foundry.utils.hasProperty(actor.data, change.key) && !Number.isNaN(Number(change.value))) {
             foundry.utils.setProperty(actor.data, change.key, 0);
         }
@@ -159,11 +153,8 @@ export class ActiveEffectPF2e extends ActiveEffect {
         await toRevoke?.delete();
     }
 
-    /**
-     * Propagate deletion of prototype token overrides to any placed tokens
-     * @override
-     */
-    protected _onDelete(options: DocumentModificationContext, userId: string) {
+    /** Propagate deletion of prototype token overrides to any placed tokens */
+    protected override _onDelete(options: DocumentModificationContext, userId: string) {
         super._onDelete(options, userId);
         const parent = this.parent;
         if (parent instanceof ActorPF2e) {

@@ -5,7 +5,7 @@ import { KitEntryData } from '@item/kit/data';
 import { MigrationBase } from '../base';
 
 export class Migration620RenameToWebp extends MigrationBase {
-    static version = 0.62;
+    static override version = 0.62;
 
     private regexp = /(\/?systems\/pf2e\/[^"]+)\.(?:jpg|png)\b/;
 
@@ -24,7 +24,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         return ITEMS_WITH_ITEMS.includes(itemData.type);
     }
 
-    async updateActor(actorData: ActorSourcePF2e): Promise<void> {
+    override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         actorData.img = this.renameToWebP(actorData.img);
 
         if (typeof actorData.token?.img === 'string') {
@@ -41,7 +41,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         }
     }
 
-    async updateItem(itemData: ItemSourcePF2e): Promise<void> {
+    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         itemData.img = this.renameToWebP(itemData.img);
 
         // Icons for active effects
@@ -75,28 +75,28 @@ export class Migration620RenameToWebp extends MigrationBase {
         }
     }
 
-    async updateMacro(macroData: foundry.data.MacroSource): Promise<void> {
+    override async updateMacro(macroData: foundry.data.MacroSource): Promise<void> {
         macroData.img = this.renameToWebP(macroData.img);
     }
 
-    async updateMessage(messageData: foundry.data.ChatMessageSource): Promise<void> {
+    override async updateMessage(messageData: foundry.data.ChatMessageSource): Promise<void> {
         messageData.flavor = this.renameToWebP(messageData.flavor);
         messageData.content = this.renameToWebP(messageData.content);
     }
 
-    async updateTable(tableData: foundry.data.RollTableSource): Promise<void> {
+    override async updateTable(tableData: foundry.data.RollTableSource): Promise<void> {
         tableData.img = this.renameToWebP(tableData.img);
         for (const result of tableData.results) {
             result.img = this.renameToWebP(result.img);
         }
     }
 
-    async updateToken(tokenData: foundry.data.TokenSource): Promise<void> {
+    override async updateToken(tokenData: foundry.data.TokenSource): Promise<void> {
         tokenData.img = this.renameToWebP(tokenData.img);
         tokenData.effects = tokenData.effects.filter((texture) => !this.regexp.test(texture));
     }
 
-    async updateUser(userData: foundry.data.UserSource): Promise<void> {
+    override async updateUser(userData: foundry.data.UserSource): Promise<void> {
         userData.img = this.renameToWebP(userData.img);
     }
 }

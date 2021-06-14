@@ -5,8 +5,7 @@ import { ChatCards } from './listeners/cards';
 import { CriticalHitAndFumbleCards } from './crit-fumble-cards';
 
 export class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
-    /** @override */
-    async getHTML(): Promise<JQuery> {
+    override async getHTML(): Promise<JQuery> {
         const $html = await super.getHTML();
         ChatCards.listen($html);
 
@@ -18,7 +17,11 @@ export class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         return $html;
     }
 
-    protected _onCreate(data: foundry.data.ChatMessageSource, options: DocumentModificationContext, userId: string) {
+    protected override _onCreate(
+        data: foundry.data.ChatMessageSource,
+        options: DocumentModificationContext,
+        userId: string,
+    ) {
         super._onCreate(data, options, userId);
 
         // Handle critical hit and fumble card drawing

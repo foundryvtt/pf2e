@@ -1,10 +1,10 @@
 import { MigrationBase } from '../base';
 
 export class Migration598AddClassItem extends MigrationBase {
-    static version = 0.598;
-    requiresFlush = true;
+    static override version = 0.598;
+    override requiresFlush = true;
 
-    async updateActor(actor: any) {
+    override async updateActor(actor: any) {
         if (actor.type !== 'character') return;
 
         const classItem = actor.items.find((x: any) => x.type === 'class');

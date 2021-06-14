@@ -7,7 +7,7 @@ import { MigrationBase } from '@module/migration/base';
 import { UserPF2e } from '@module/user';
 
 export class MigrationRunner extends MigrationRunnerBase {
-    needsMigration(): boolean {
+    override needsMigration(): boolean {
         return super.needsMigration(game.settings.get('pf2e', 'worldSchemaVersion'));
     }
 

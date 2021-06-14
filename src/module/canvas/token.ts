@@ -24,7 +24,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         const lightLevel = canvas.scene.getLightLevel();
         const perceivedBrightness = {
             [VisionLevels.BLINDED]: 0,
-            [VisionLevels.NORMAL]: lightLevel,
+            [VisionLevels.NORMAL]: Math.max(lightLevel, 0.05),
             [VisionLevels.LOWLIGHT]: lightLevel > LightLevels.DARKNESS ? 1 : lightLevel,
             [VisionLevels.DARKVISION]: 1,
         }[actor.visionLevel];

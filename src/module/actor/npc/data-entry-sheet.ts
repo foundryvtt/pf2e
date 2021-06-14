@@ -6,20 +6,20 @@ export class ActorSheetPF2eDataEntryNPC extends ActorSheetPF2e<NPCPF2e> {
     private readonly CUSTOM_TRAIT_SEPARATOR = new RegExp(/[,;|]+/g);
     private readonly CREATURE_TRAITS = CONFIG.PF2E.monsterTraits; // might need to expand this list later
 
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
         return mergeObject(options, {
             classes: options.classes.concat(['npc', 'data-entry']),
         });
     }
 
-    get template() {
+    override get template() {
         return 'systems/pf2e/templates/actors/npc/data-entry-sheet.html';
     }
 
     protected prepareItems(_sheetData: { actor: ActorDataPF2e }): void {}
 
-    getData(): any {
+    override getData() {
         return {
             ...super.getData(),
             app: {
@@ -36,7 +36,7 @@ export class ActorSheetPF2eDataEntryNPC extends ActorSheetPF2e<NPCPF2e> {
         };
     }
 
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // add creature trait when pressing enter in the trait text box
@@ -89,7 +89,7 @@ export class ActorSheetPF2eDataEntryNPC extends ActorSheetPF2e<NPCPF2e> {
         });
     }
 
-    protected async _render(force?: boolean, options?: RenderOptions) {
+    protected override async _render(force?: boolean, options?: RenderOptions) {
         // find the first input element in focus that has an "id" attribute but no "name" attribute, as these are not
         // handle by the Foundry's built-in FormApplication#_render method
         const focus = this.element

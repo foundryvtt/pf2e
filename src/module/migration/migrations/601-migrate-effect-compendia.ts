@@ -3,7 +3,7 @@ import { ItemSourcePF2e } from '@item/data';
 import { objectHasKey } from '@module/utils';
 
 export class Migration601SplitEffectCompendia extends MigrationBase {
-    static version = 0.601;
+    static override version = 0.601;
 
     static effectLocations = {
         QuZ5frBMJF3gi7RY: 'consumable-effects',
@@ -187,7 +187,7 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
         LXf1Cqi1zyo4DaLv: 'spell-effects',
     };
 
-    async updateItem(item: ItemSourcePF2e) {
+    override async updateItem(item: ItemSourcePF2e) {
         if (typeof item.data.description.value === 'string') {
             item.data.description.value = item.data.description.value.replace(
                 /(@Compendium\[pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})(\]{.*?})/g,
@@ -212,7 +212,7 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
         }
     }
 
-    async migrate() {
+    override async migrate() {
         game.macros.forEach((macro) => {
             macro.data.command = macro.data.command.replace(
                 /(Compendium\.pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})/g,

@@ -11,7 +11,7 @@ export class PF2TokenEffectIconRuleElement extends RuleElementPF2e {
         super(ruleData, item);
     }
 
-    onAfterPrepareData(actorData: CreatureData, synthetics: RuleElementSyntheticsPF2e) {
+    override onAfterPrepareData(actorData: CreatureData, synthetics: RuleElementSyntheticsPF2e) {
         super.onAfterPrepareData(actorData, synthetics);
 
         const icon = this.ruleData.value ?? this.item.img ?? 'systems/pf2e/icons/default-icons/mystery-man.svg';
