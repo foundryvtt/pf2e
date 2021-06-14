@@ -816,6 +816,9 @@ export class NPCPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         });
+
+        // Refresh vision of controlled tokens linked to this actor in case any of the above changed its senses
+        this.refreshVision();
     }
 
     private async updateTokenAttitude(attitude: string): Promise<void> {
