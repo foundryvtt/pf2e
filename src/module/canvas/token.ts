@@ -9,9 +9,14 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
     statusEffectChanged = false;
 
-    setPerceivedLightLevel(): void {
+    /** Is the user currently controlling this token? */
+    get isControlled(): boolean {
+        return canvas.tokens.controlled.includes(this);
+    }
+
+    setPerceivedLightLevel({ updateSource = false } = {}): void {
         const rulesBasedVision = game.settings.get('pf2e', 'automation.rulesBasedVision');
-        if (!(canvas.scene && rulesBasedVision && this.observer && this.hasSight && this.actor?.canSee)) {
+        if (!(canvas.scene && this.actor && rulesBasedVision && this.observer && this.hasSight)) {
             return;
         }
 
@@ -24,9 +29,8 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             [VisionLevels.DARKVISION]: 1,
         }[actor.visionLevel];
 
-        if (perceivedBrightness > lightLevel) {
-            this.data.brightSight = perceivedBrightness * 500;
-        }
+        this.data.brightSight = perceivedBrightness > lightLevel ? perceivedBrightness * 500 : 0;
+        if (updateSource) this.updateSource();
     }
 
     /** Refresh vision and the `EffectPanel` upon selecting a token */

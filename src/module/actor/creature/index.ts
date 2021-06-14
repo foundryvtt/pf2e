@@ -118,6 +118,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
               }, heldShields.slice(-1)[0]);
     }
 
+    /** Refresh the vision of any controlled tokens linked to this creature */
+    protected refreshVision() {
+        if (canvas.scene) {
+            for (const token of this.getActiveTokens().filter((token) => token.isControlled)) {
+                token.setPerceivedLightLevel({ updateSource: true });
+            }
+        }
+    }
+
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
@@ -205,8 +214,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         };
     }
 
-    /** @override */
-    async updateEmbeddedDocuments(
+    override async updateEmbeddedDocuments(
         embeddedName: 'ActiveEffect' | 'Item',
         data: EmbeddedDocumentUpdateData<ActiveEffectPF2e | ItemPF2e>[],
         options: DocumentModificationContext = {},

@@ -11,8 +11,7 @@ import { ItemPF2e } from '@item/base';
 import { FamiliarData } from './data';
 
 export class FamiliarPF2e extends CreaturePF2e {
-    /** @override */
-    static get schema(): typeof FamiliarData {
+    static override get schema(): typeof FamiliarData {
         return FamiliarData;
     }
 
@@ -25,9 +24,14 @@ export class FamiliarPF2e extends CreaturePF2e {
         return null;
     }
 
+    /** Set base emphemeral data for later updating by derived-data preparation */
     override prepareBaseData() {
         super.prepareBaseData();
-        this.data.data.details.level = { value: 0 };
+
+        const systemData = this.data.data;
+        systemData.details.level = { value: 0 };
+        systemData.traits.size.value = 'tiny';
+        systemData.traits.senses = [{ type: 'lowLightVision', label: 'PF2E.SensesLowLightVision', value: '' }];
     }
 
     /** Active effects on a familiar require a master, so wait until embedded documents are prepared */
@@ -57,12 +61,6 @@ export class FamiliarPF2e extends CreaturePF2e {
         if (master) {
             data.master.ability ||= 'cha';
             const spellcastingAbilityModifier = master.data.data.abilities[data.master.ability].mod;
-
-            // base size
-            data.traits.size.value = 'tiny';
-
-            // base senses
-            data.traits.senses = [{ type: 'lowLightVision', label: 'PF2E.SensesLowLightVision', value: '' }];
 
             const { statisticsModifiers } = this.prepareCustomModifiers(rules);
             const modifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
@@ -309,9 +307,12 @@ export class FamiliarPF2e extends CreaturePF2e {
                 data.skills[shortForm] = stat;
             }
         }
+
+        // Refresh vision of controlled tokens linked to this actor in case any of the above changed its senses
+        this.refreshVision();
     }
 
-    async createEmbeddedDocuments(
+    override async createEmbeddedDocuments(
         embeddedName: 'ActiveEffect' | 'Item',
         data: PreCreate<foundry.data.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
         context: DocumentModificationContext = {},
