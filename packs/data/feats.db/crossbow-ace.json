@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You have a deep understanding of the crossbow. When you're wielding a crossbow and use Hunt Prey or use Interact to reload your crossbow, you gain a +2 circumstance bonus to the damage roll on your next Strike with that crossbow.</p>\n<p>If the crossbow is a simple crossbow, also increase the damage die size for that attack by one step (page 279).</p>\n<p>You must make the attack before the end of your next turn or these benefits are lost.</p>"
+            "value": "<p>You have a deep understanding of the crossbow. When you're wielding a crossbow and use Hunt Prey or use Interact to reload your crossbow, you gain a +2 circumstance bonus to the damage roll on your next Strike with that crossbow.</p>\n<p>If the crossbow is a simple crossbow, also increase the damage die size for that attack by one step.</p>\n<p>You must make the attack before the end of your next turn or these benefits are lost.</p>"
         },
         "featType": {
             "value": "class"
@@ -41,6 +41,66 @@
                 "selector": "damage",
                 "type": "circumstance",
                 "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "selector": "crossbow-damage",
+                "override": {
+                "dieSize": "d10"
+                },
+                "predicate": {
+                "all": ["crossbow-ace"]
+                },
+                "label": "Crossbow Ace",
+                "name": "crossbow-ace-dice-override"
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "selector": "hand-crossbow-damage",
+                "override": {
+                "dieSize": "d8"
+                },
+                "predicate": {
+                "all": ["crossbow-ace"]
+                },
+                "label": "Crossbow Ace",
+                "name": "crossbow-ace-dice-override-hand"
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "selector": "heavy-crossbow-damage",
+                "override": {
+                "dieSize": "d12"
+                },
+                "predicate": {
+                "all": ["crossbow-ace"]
+                },
+                "label": "Crossbow Ace",
+                "name": "crossbow-ace-dice-override-heavy"
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "selector": "alchemical-crossbow-damage",
+                "override": {
+                "dieSize": "d10"
+                },
+                "predicate": {
+                "all": ["crossbow-ace"]
+                },
+                "label": "Crossbow Ace",
+                "name": "crossbow-ace-dice-override"
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "selector": "spiritsight-crossbow-damage",
+                "override": {
+                "dieSize": "d10"
+                },
+                "predicate": {
+                "all": ["crossbow-ace"]
+                },
+                "label": "Crossbow Ace",
+                "name": "crossbow-ace-dice-override"
             }
         ],
         "source": {
