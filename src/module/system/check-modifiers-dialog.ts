@@ -119,7 +119,8 @@ export class CheckModifiersDialog extends Application {
 
         // Add the degree of success if a DC was supplied
         if (ctx.dc !== undefined) {
-            flavor += `<div data-visibility="${ctx.dc.visibility ?? 'all'}">`;
+            const showDC = game.settings.get('pf2e', 'metagame.showDC').toString();
+            flavor += `<div data-visibility="${ctx.dc.visibility ?? showDC}">`;
             const degreeOfSuccess = getDegreeOfSuccess(roll, ctx.dc);
             const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
             ctx.outcome = degreeOfSuccessText;
