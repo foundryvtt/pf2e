@@ -48,7 +48,7 @@ declare global {
         ): void;
 
         protected override _onUpdate(
-            changed: DocumentUpdateData<this>,
+            changed: DeepPartial<this['data']['_source']>,
             options: DocumentModificationContext,
             userId: string,
         ): void;
