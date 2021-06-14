@@ -935,7 +935,10 @@ export class CharacterPF2e extends CreaturePF2e {
                 // Add the base attack roll (used for determining on-hit)
                 action.attack = (args: RollParameters) => {
                     const ctx = this.createAttackRollContext(args.event!, ['all', 'attack-roll']);
-                    ctx.options = (args.options ?? []).concat(ctx.options).concat(defaultOptions);
+                    ctx.options = (args.options ?? [])
+                        .concat(ctx.options)
+                        .concat(action.options)
+                        .concat(defaultOptions);
                     CheckPF2e.roll(
                         new CheckModifier(`${strikeLabel}: ${action.name}`, action),
                         { actor: this, type: 'attack-roll', options: ctx.options, notes, dc: args.dc ?? ctx.dc },
@@ -951,7 +954,10 @@ export class CharacterPF2e extends CreaturePF2e {
                             ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
                         roll: (args: RollParameters) => {
                             const ctx = this.createAttackRollContext(args.event!, ['all', 'attack-roll']);
-                            const options = (args.options ?? []).concat(ctx.options).concat(defaultOptions);
+                            const options = (args.options ?? [])
+                                .concat(ctx.options)
+                                .concat(action.options)
+                                .concat(defaultOptions);
                             CheckPF2e.roll(
                                 new CheckModifier(`${strikeLabel}: ${action.name}`, action),
                                 { actor: this, type: 'attack-roll', options, notes, dc: args.dc ?? ctx.dc },
@@ -964,7 +970,10 @@ export class CharacterPF2e extends CreaturePF2e {
                         label: `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map2}`,
                         roll: (args: RollParameters) => {
                             const ctx = this.createAttackRollContext(args.event!, ['all', 'attack-roll']);
-                            const options = (args.options ?? []).concat(ctx.options).concat(defaultOptions);
+                            const options = (args.options ?? [])
+                                .concat(ctx.options)
+                                .concat(action.options)
+                                .concat(defaultOptions);
                             CheckPF2e.roll(
                                 new CheckModifier(`Strike: ${action.name}`, action, [
                                     new ModifierPF2e(
@@ -983,7 +992,10 @@ export class CharacterPF2e extends CreaturePF2e {
                         label: `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map3}`,
                         roll: (args: RollParameters) => {
                             const ctx = this.createAttackRollContext(args.event!, ['all', 'attack-roll']);
-                            const options = (args.options ?? []).concat(ctx.options).concat(defaultOptions);
+                            const options = (args.options ?? [])
+                                .concat(ctx.options)
+                                .concat(action.options)
+                                .concat(defaultOptions);
                             CheckPF2e.roll(
                                 new CheckModifier(`Strike: ${action.name}`, action, [
                                     new ModifierPF2e(
@@ -1001,7 +1013,10 @@ export class CharacterPF2e extends CreaturePF2e {
                 ];
                 action.damage = (args: RollParameters) => {
                     const ctx = this.createDamageRollContext(args.event!);
-                    const options = (args.options ?? []).concat(ctx.options).concat(action.options);
+                    const options = (args.options ?? [])
+                        .concat(ctx.options)
+                        .concat(action.options)
+                        .concat(defaultOptions);
                     const damage = WeaponDamagePF2e.calculate(
                         item,
                         this.data,
@@ -1023,7 +1038,10 @@ export class CharacterPF2e extends CreaturePF2e {
                 };
                 action.critical = (args: RollParameters) => {
                     const ctx = this.createDamageRollContext(args.event!);
-                    const options = (args.options ?? []).concat(ctx.options).concat(action.options);
+                    const options = (args.options ?? [])
+                        .concat(ctx.options)
+                        .concat(action.options)
+                        .concat(defaultOptions);
                     const damage = WeaponDamagePF2e.calculate(
                         item,
                         this.data,
