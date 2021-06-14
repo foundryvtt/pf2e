@@ -625,7 +625,7 @@ export class CompendiumBrowser extends Application {
         };
     }
 
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: [],
             template: 'systems/pf2e/templates/packs/compendium-browser.html',
@@ -642,12 +642,11 @@ export class CompendiumBrowser extends Application {
         });
     }
 
-    get title() {
+    override get title() {
         return game.i18n.localize('PF2E.CompendiumBrowser.Title');
     }
 
-    /** @override */
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         super.activateListeners(html);
         this.resetFilters(html);
 
@@ -853,7 +852,7 @@ export class CompendiumBrowser extends Application {
         return img[action] ?? 'systems/pf2e/icons/actions/OneAction.webp';
     }
 
-    getData() {
+    override getData() {
         return mergeObject(
             {
                 user: game.user,

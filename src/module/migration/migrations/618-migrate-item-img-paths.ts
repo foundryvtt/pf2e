@@ -2,7 +2,7 @@ import { ItemSourcePF2e } from '@item/data';
 import { MigrationBase } from '../base';
 
 export class Migration618MigrateItemImagePaths extends MigrationBase {
-    static version = 0.618;
+    static override version = 0.618;
 
     readonly IMAGE_PATHS: Record<string, ImagePath> = {
         'systems/pf2e/icons/equipment/weapons/blowgun.png': 'systems/pf2e/icons/equipment/weapons/blowgun.jpg',
@@ -64,7 +64,7 @@ export class Migration618MigrateItemImagePaths extends MigrationBase {
         'systems/pf2e/icons/equipment/weapons/cane.png': 'systems/pf2e/icons/equipment/weapons/cane.jpg',
     };
 
-    async updateItem(itemData: ItemSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e) {
         itemData.img = this.IMAGE_PATHS[itemData.img] ?? itemData.img;
     }
 }

@@ -45,8 +45,7 @@ import { SkillAbbreviation, SkillData } from '@actor/creature/data';
 import { ArmorCategory } from '@item/armor/data';
 
 export class CharacterPF2e extends CreaturePF2e {
-    /** @override */
-    static get schema(): typeof CharacterData {
+    static override get schema(): typeof CharacterData {
         return CharacterData;
     }
 

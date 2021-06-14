@@ -4,7 +4,7 @@ import { ActionSheetPF2e } from '@item/sheet/action';
 import { HazardSheetPF2e } from '@actor/hazard/sheet';
 import { LootSheetPF2e } from '@actor/loot/sheet';
 import { FamiliarSheetPF2e } from '@actor/familiar/sheet';
-import { VehicleSheetPF2e } from '@actor/sheet/vehicle';
+import { VehicleSheetPF2e } from '@actor/vehicle/sheet';
 import { NPCSheetPF2e } from '@actor/npc/sheet';
 import { ItemSheetPF2e } from '@item/sheet/base';
 import { KitSheetPF2e } from '@item/sheet/kit';

@@ -2,8 +2,7 @@ import { ItemPF2e } from '../base';
 import { EffectData } from './data';
 
 export class EffectPF2e extends ItemPF2e {
-    /** @override */
-    static get schema(): typeof EffectData {
+    static override get schema(): typeof EffectData {
         return EffectData;
     }
 
@@ -14,7 +13,7 @@ export class EffectPF2e extends ItemPF2e {
         days: 86400,
     });
 
-    prepareData() {
+    override prepareData() {
         super.prepareData();
         if (this.actor) {
             game.pf2e.effectTracker.register(this as Embedded<this>);

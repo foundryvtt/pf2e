@@ -12,7 +12,7 @@ export type VehicleSource = BaseActorSourcePF2e<'vehicle', VehicleSystemData>;
 
 /** The boxed data object of the vehicle actor */
 export class VehicleData extends BaseActorDataPF2e<VehiclePF2e> {
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/vehicle.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/vehicle.svg';
 }
 
 export interface VehicleData extends Omit<VehicleSource, 'effects' | 'items' | 'token'> {

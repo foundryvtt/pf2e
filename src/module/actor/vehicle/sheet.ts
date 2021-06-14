@@ -1,16 +1,12 @@
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/physical/bulk';
 import { getContainerMap } from '@item/container/helpers';
-import { ActorSheetPF2e } from './base';
+import { ActorSheetPF2e } from '../sheet/base';
 import { calculateWealth } from '@item/treasure/helpers';
 import { VehiclePF2e } from '@actor/vehicle';
 import { ItemDataPF2e } from '@item/data';
 
-/**
- * @category Actor
- */
 export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ['default', 'sheet', 'actor', 'vehicle'],
             width: 670,
@@ -19,12 +15,11 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         });
     }
 
-    get template() {
+    override get template() {
         return 'systems/pf2e/templates/actors/vehicle/vehicle-sheet.html';
     }
 
-    /** @override */
-    getData() {
+    override getData() {
         const sheetData: any = super.getData();
 
         // update properties
@@ -41,11 +36,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         }
 
         // Update save labels
-        if (sheetData.data.saves !== undefined) {
-            for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
-                save.label = CONFIG.PF2E.saves[s];
-            }
-        }
+        sheetData.data.saves.fortitude.label = CONFIG.PF2E.saves['fortitude'];
 
         this.prepareItems(sheetData);
 
@@ -53,7 +44,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         if (sheetData.actor.items !== undefined) {
             const treasure = calculateWealth(sheetData.actor.items);
             sheetData.totalTreasure = {};
-            for (const [denomination, value] of Object.entries(treasure)) {
+            for (const denomination of ['cp', 'sp', 'gp', 'pp'] as const) {
+                const value = treasure[denomination];
                 sheetData.totalTreasure[denomination] = {
                     value,
                     label: CONFIG.PF2E.currencies[denomination],
@@ -173,8 +165,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         // actorData.readonlyEquipment = readonlyEquipment;
     }
 
-    /** @override */
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         super.activateListeners(html);
         {
             // ensure correct tab name is displayed after actor update

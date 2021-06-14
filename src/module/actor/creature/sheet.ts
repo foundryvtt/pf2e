@@ -14,7 +14,7 @@ import { SkillData } from './data';
  * @category Actor
  */
 export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends ActorSheetPF2e<ActorType> {
-    protected renderItemSummary(div: JQuery, item: Embedded<ItemPF2e>, chatData: any) {
+    protected override renderItemSummary(div: JQuery, item: Embedded<ItemPF2e>, chatData: any) {
         super.renderItemSummary(div, item, chatData);
 
         const buttons = $('<div class="item-buttons"></div>');
@@ -124,7 +124,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
     }
 
-    getData() {
+    override getData() {
         const sheetData: any = super.getData();
         // Update martial-proficiency labels
         if (sheetData.data.martial) {
@@ -221,8 +221,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         return icons[level];
     }
 
-    /** @override */
-    activateListeners(html: JQuery): void {
+    override activateListeners(html: JQuery): void {
         super.activateListeners(html);
 
         // Roll Recovery Flat Check when Dying

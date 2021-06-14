@@ -3,15 +3,15 @@ import { LootPF2e } from '@actor/loot';
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/physical/bulk';
 import { getContainerMap } from '@item/container/helpers';
 import { DistributeCoinsPopup } from '../sheet/popups/distribute-coins-popup';
-import { ItemDataPF2e, PhysicalItemData } from '@item/data';
+import { ItemDataPF2e, ItemSourcePF2e, PhysicalItemData } from '@item/data';
 import { LootNPCsPopup } from '../sheet/loot/loot-npcs-popup';
 import { ActorSheetDataPF2e, InventoryItem, LootSheetDataPF2e } from '../sheet/data-types';
 import { PhysicalItemType } from '@item/physical/data';
 import { isPhysicalData } from '@item/data/helpers';
+import { ItemPF2e } from '@item';
 
 export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
         return mergeObject(options, {
             editable: true,
@@ -22,25 +22,21 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         });
     }
 
-    /** @override */
-    get template() {
+    override get template(): string {
         return 'systems/pf2e/templates/actors/loot/sheet.html';
     }
 
-    /** @override */
-    get isLootSheet(): boolean {
+    override get isLootSheet(): boolean {
         return !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
-    /** @override */
-    getData(): LootSheetDataPF2e {
+    override getData(): LootSheetDataPF2e {
         const sheetData: ActorSheetDataPF2e<LootPF2e> = super.getData();
         const isLoot = this.actor.data.data.lootSheetType === 'Loot';
         return { ...sheetData, isLoot };
     }
 
-    /** @override */
-    activateListeners(html: JQuery<HTMLElement>) {
+    override activateListeners(html: JQuery<HTMLElement>) {
         super.activateListeners(html);
 
         if (this.options.editable) {
@@ -125,12 +121,14 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         }
     }
 
-    /** @override */
-    protected async _onDropItem(event: ElementDragEvent, data: DropCanvasData): Promise<unknown> {
+    protected override async _onDropItem(
+        event: ElementDragEvent,
+        data: DropCanvasData<ItemSourcePF2e>,
+    ): Promise<ItemPF2e[]> {
         // Prevent a Foundry permissions error from being thrown when a player drops an item from an unowned
         // loot sheet to the same sheet
         if (this.actor.id === data.actorId && !this.actor.testUserPermission(game.user, 'OWNER')) {
-            return null;
+            return [];
         }
         return super._onDropItem(event, data);
     }

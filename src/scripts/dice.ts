@@ -3,17 +3,6 @@ import { ActorPF2e } from '../module/actor/base';
 /**
  * @category Other
  */
-export class FormulaPreservingRoll extends Roll {
-    toJSON() {
-        const jsonData = super.toJSON();
-        jsonData.class = 'Roll'; // Pretend to be a roll to be rehydratable
-        return jsonData;
-    }
-}
-
-/**
- * @category Other
- */
 export class DicePF2e {
     _rolled?: boolean;
     terms?: string[];
@@ -257,7 +246,7 @@ export class DicePF2e {
                 rollParts = rollParts.concat(partsCritOnly);
             }
 
-            const roll = new FormulaPreservingRoll(rollParts.join('+'), data);
+            const roll = new Roll(rollParts.join('+'), data);
             const flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             roll.toMessage(
                 {

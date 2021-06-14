@@ -7,8 +7,7 @@ import { UserPF2e } from '@module/user';
 import { LootData } from './data';
 
 export class LootPF2e extends ActorPF2e {
-    /** @override */
-    static get schema(): typeof LootData {
+    static override get schema(): typeof LootData {
         return LootData;
     }
 
@@ -20,26 +19,20 @@ export class LootPF2e extends ActorPF2e {
         return this.data.data.lootSheetType === 'Merchant';
     }
 
-    /** Anyone with Limited permission can update a loot actor
-     * @override
-     */
-    canUserModify(user: UserPF2e, action: UserAction): boolean {
+    /** Anyone with Limited permission can update a loot actor */
+    override canUserModify(user: UserPF2e, action: UserAction): boolean {
         if (action === 'update') {
             return this.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
         }
         return super.canUserModify(user, action);
     }
 
-    /**
-     * A user can see a loot actor in the actor directory only if they have at least Observer permission
-     * @override
-     */
-    get visible(): boolean {
+    /** A user can see a loot actor in the actor directory only if they have at least Observer permission */
+    override get visible(): boolean {
         return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
     }
 
-    /** @override */
-    async transferItemToActor(
+    override async transferItemToActor(
         targetActor: ActorPF2e,
         item: Embedded<ItemPF2e>,
         quantity: number,

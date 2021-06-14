@@ -9,7 +9,7 @@ import { ModifierPredicate } from '@module/modifiers';
  * @category RuleElement
  */
 export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
-    onBeforePrepareData(actorData: CharacterData | NPCData) {
+    override onBeforePrepareData(actorData: CharacterData | NPCData) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const adjustment = this.ruleData.adjustment as PF2CheckDCModifiers;
 

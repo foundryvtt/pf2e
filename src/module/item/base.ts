@@ -58,8 +58,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return this.data.data.description.value;
     }
 
-    /** @override */
-    protected async _preCreate(
+    protected override async _preCreate(
         data: PreDocumentId<this['data']['_source']>,
         options: DocumentModificationContext,
         user: UserPF2e,
@@ -97,8 +96,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         }
     }
 
-    /** @override */
-    protected _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
+    protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
         if (this.isOwned) {
             if (this.actor) {
                 // Rule Elements
@@ -119,8 +117,11 @@ export class ItemPF2e extends Item<ActorPF2e> {
         super._onCreate(data, options, userId);
     }
 
-    /** @override */
-    protected _onUpdate(changed: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void {
+    protected override _onUpdate(
+        changed: DocumentUpdateData<this>,
+        options: DocumentModificationContext,
+        userId: string,
+    ): void {
         if (this.isOwned && this.actor) {
             game.pf2e.effectPanel.refresh();
         }
@@ -128,8 +129,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         super._onUpdate(changed, options, userId);
     }
 
-    /** @override */
-    protected _onDelete(options: DocumentModificationContext, userId: string): void {
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
         if (this.isOwned) {
             if (this.actor) {
                 if (this.data.type === 'effect') {
@@ -819,11 +819,8 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return { label: 'PF2E.MultipleAttackPenalty', map2: -5, map3: -10 };
     }
 
-    /**
-     * Don't allow the user to create a condition or spellcasting entry from the sidebar.
-     * @override
-     */
-    static async createDialog(
+    /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
+    static override async createDialog(
         data: { folder?: string } = {},
         options: FormApplicationOptions = {},
     ): Promise<ItemPF2e | undefined> {

@@ -3,8 +3,7 @@ import { ABCItemPF2e } from '../abc';
 import { AncestryData } from './data';
 
 export class AncestryPF2e extends ABCItemPF2e {
-    /** @override */
-    static get schema(): typeof AncestryData {
+    static override get schema(): typeof AncestryData {
         return AncestryData;
     }
 

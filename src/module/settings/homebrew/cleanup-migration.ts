@@ -7,7 +7,7 @@ import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from '@actor/char
 
 export function prepareCleanup(listKey: ConfigPF2eHomebrewList, deletions: string[]): MigrationBase {
     const Migration = class extends MigrationBase {
-        async updateActor(actorData: ActorSourcePF2e) {
+        override async updateActor(actorData: ActorSourcePF2e) {
             if (!(actorData.type === 'character' || actorData.type === 'npc')) {
                 return;
             }
@@ -61,7 +61,7 @@ export function prepareCleanup(listKey: ConfigPF2eHomebrewList, deletions: strin
             }
         }
 
-        async updateItem(itemData: ItemSourcePF2e) {
+        override async updateItem(itemData: ItemSourcePF2e) {
             switch (listKey) {
                 // Creature traits can be on many item
                 case 'creatureTraits': {

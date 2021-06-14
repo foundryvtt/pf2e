@@ -3,8 +3,7 @@ import { PhysicalItemPF2e } from '@item/physical';
 import { tupleHasValue } from '@module/utils';
 
 export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
-    /** @override */
-    static get defaultOptions(): FormApplicationOptions {
+    static override get defaultOptions(): FormApplicationOptions {
         return {
             ...super.defaultOptions,
             id: 'identify-item',
@@ -19,8 +18,7 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
         return this.object;
     }
 
-    /** @override */
-    getData() {
+    override getData() {
         const item = this.object;
         const notMatchingTraditionModifier = game.settings.get('pf2e', 'identifyMagicNotMatchingTraditionModifier');
         const proficiencyWithoutLevel = game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel';
@@ -36,15 +34,14 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
         };
     }
 
-    /** @override */
-    activateListeners($form: JQuery<HTMLFormElement>) {
+    override activateListeners($form: JQuery<HTMLFormElement>) {
         $form.find<HTMLButtonElement>('button.update-identification').on('click', (event) => {
             const $button = $(event.delegateTarget);
             this.submit({ updateData: { status: $button.val() } });
         });
     }
 
-    protected async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
+    protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
         const status = formData['status'];
         const newStatuses = ['identified', 'misidentified'] as const;
         if (typeof status === 'string' && tupleHasValue(newStatuses, status)) {

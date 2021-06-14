@@ -15,7 +15,7 @@ const SIZES = {
  * @category RuleElement
  */
 export class PF2TokenSizeRuleElement extends RuleElementPF2e {
-    onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
+    override onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
         const value =
             SIZES[this.ruleData.value] ?? this.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
 
@@ -44,7 +44,7 @@ export class PF2TokenSizeRuleElement extends RuleElementPF2e {
         }
     }
 
-    onDelete(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
+    override onDelete(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
         if (getProperty(actorData, 'flags.pf2e.token.sizesource') === item._id) {
             const width = getProperty(actorData, 'flags.pf2e.token.size.height');
             const height = getProperty(actorData, 'flags.pf2e.token.size.width');

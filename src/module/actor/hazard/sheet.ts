@@ -4,7 +4,7 @@ import { HazardPF2e } from '.';
 import { ConsumablePF2e } from '@item';
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
             classes: options.classes.concat('hazard'),
@@ -14,17 +14,14 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         return options;
     }
 
-    /**
-     * Get the correct HTML template path to use for rendering this particular sheet
-     */
-    get template(): string {
+    /** Get the HTML template path to use depending on whether this sheet is in edit mode */
+    override get template(): string {
         const path = 'systems/pf2e/templates/actors/';
         if (this.actor.getFlag('pf2e', 'editHazard.value')) return `${path}hazard-sheet.html`;
         return `${path}hazard-sheet-no-edit.html`;
     }
 
-    /** @override */
-    getData() {
+    override getData(): any {
         const sheetData: any = super.getData();
 
         // Update save labels
@@ -56,8 +53,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         return sheetData;
     }
 
-    /** @override */
-    prepareItems(sheetData: any) {
+    override prepareItems(sheetData: any): void {
         const actorData = sheetData.actor;
         // Actions
         const attacks = {
@@ -146,8 +142,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     /*  Event Listeners and Handlers
     /* -------------------------------------------- */
 
-    /** @override */
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery): void {
         super.activateListeners(html);
 
         // Melee Attack summaries

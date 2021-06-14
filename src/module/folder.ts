@@ -8,11 +8,8 @@ type EnfolderableDocumentPF2e = ActorPF2e | ItemPF2e | Exclude<EnfolderableDocum
 export class FolderPF2e<
     TDocument extends EnfolderableDocumentPF2e = EnfolderableDocumentPF2e,
 > extends Folder<TDocument> {
-    /**
-     * Work around foundry bug causing deleted array elements to be retained.
-     * @override
-     */
-    async exportToCompendium(pack: CompendiumCollection<TDocument>, { updateByName = false } = {}) {
+    /** Work around foundry bug causing deleted array elements to be retained. */
+    override async exportToCompendium(pack: CompendiumCollection<TDocument>, { updateByName = false } = {}) {
         if (!(updateByName && ['Actor', 'Item'].includes(pack.metadata.entity))) {
             return super.exportToCompendium(pack, { updateByName });
         }

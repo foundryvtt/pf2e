@@ -19,9 +19,9 @@ type UnidentifiedWithTraits = MystifiedData['data'] & {
 
 /** OK, let's not store mystified traits. */
 export class Migration633DeleteUnidentifiedTraits extends MigrationBase {
-    static version = 0.633;
+    static override version = 0.633;
 
-    async updateItem(itemData: ItemDataWithIdentification): Promise<void> {
+    override async updateItem(itemData: ItemDataWithIdentification): Promise<void> {
         // This definitely shouldn't be here
         if (itemData.type === 'melee') {
             const systemData: MeleeWithIdentification = itemData.data;
