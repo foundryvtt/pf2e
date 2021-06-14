@@ -78,5 +78,8 @@ export function listen(): void {
 
         // Start system sub-applications
         game.pf2e.worldClock = new WorldClock();
+
+        // Announce the system is ready in case any module needs access to an application not available until now
+        Hooks.callAll('pf2e.systemReady');
     });
 }
