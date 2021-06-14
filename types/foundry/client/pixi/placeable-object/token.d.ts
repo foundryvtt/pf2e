@@ -337,7 +337,7 @@ declare class Token<TDocument extends TokenDocument = TokenDocument> extends Pla
     ): void;
 
     protected override _onUpdate(
-        changed: DocumentUpdateData<this['document']>,
+        changed: DeepPartial<this['document']['data']['_source']>,
         options: DocumentModificationContext,
         userId: string,
     ): void;

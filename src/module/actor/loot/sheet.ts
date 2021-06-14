@@ -54,13 +54,14 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         const inventory: Record<
             PhysicalItemType,
             { label: string; items: (PhysicalItemData & { totalWeight?: string })[] }
-        > = {
+        > & { empty: boolean } = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
             armor: { label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: [] },
             equipment: { label: game.i18n.localize('PF2E.InventoryEquipmentHeader'), items: [] },
             consumable: { label: game.i18n.localize('PF2E.InventoryConsumablesHeader'), items: [] },
             treasure: { label: game.i18n.localize('PF2E.InventoryTreasureHeader'), items: [] },
             backpack: { label: game.i18n.localize('PF2E.InventoryBackpackHeader'), items: [] },
+            empty: false,
         };
 
         // Iterate through items, allocating to containers
@@ -101,6 +102,8 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
             itemData.totalWeight = formatBulk(approximatedBulk);
             inventory[itemData.type].items.push(itemData);
         }
+
+        inventory.empty = itemsData.length === 0;
 
         actorData.inventory = inventory;
     }
