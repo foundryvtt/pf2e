@@ -15,12 +15,12 @@ export class CombatantPF2e extends Combatant {
      * Hide the tracked resource if the combatant represents a non-player-owned actor
      * @todo Make this a configurable with a metagame-knowledge setting
      */
-    updateResource(): { value: number } | null {
+    override updateResource(): { value: number } | null {
         if (this.isNPC && !game.user.isGM) return (this.resource = null);
         return super.updateResource();
     }
 
-    _getInitiativeFormula(): string {
+    override _getInitiativeFormula(): string {
         const { actor } = this;
         if (!actor) return '1d20';
         const actorData = actor.data;

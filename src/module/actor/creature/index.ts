@@ -25,7 +25,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** Used as a lock to prevent multiple asynchronous redraw requests from triggering an error */
     redrawingTokenEffects = false;
 
-    get visionLevel(): VisionLevel {
+    override get visionLevel(): VisionLevel {
         const senses = this.data.data.traits.senses;
         const senseTypes = senses
             .map((sense) => sense.type)
@@ -88,7 +88,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Get the held shield of most use to the wielder */
-    get heldShield(): Embedded<ArmorPF2e> | null {
+    override get heldShield(): Embedded<ArmorPF2e> | null {
         const heldShields = this.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
         return heldShields.length === 0
             ? null

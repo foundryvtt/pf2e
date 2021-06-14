@@ -2,8 +2,7 @@ import { ItemPF2e } from '../index';
 import { FeatData, FeatType } from './data';
 
 export class FeatPF2e extends ItemPF2e {
-    /** @override */
-    static get schema(): typeof FeatData {
+    static override get schema(): typeof FeatData {
         return FeatData;
     }
 
@@ -14,8 +13,7 @@ export class FeatPF2e extends ItemPF2e {
         };
     }
 
-    /** @override */
-    getChatData(this: Embedded<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const properties = [
             `Level ${data.level.value || 0}`,

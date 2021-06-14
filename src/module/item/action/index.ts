@@ -2,13 +2,11 @@ import { ItemPF2e } from '@item/base';
 import { ActionData } from './data';
 
 export class ActionPF2e extends ItemPF2e {
-    /** @override */
-    static get schema(): typeof ActionData {
+    static override get schema(): typeof ActionData {
         return ActionData;
     }
 
-    /** @override */
-    prepareData() {
+    override prepareData() {
         const data = super.prepareData();
 
         /**
@@ -19,7 +17,7 @@ export class ActionPF2e extends ItemPF2e {
         return data;
     }
 
-    getChatData(this: Embedded<ActionPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<ActionPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const associatedWeapon = this.actor?.items.get(data.weapon.value) ?? null;
 

@@ -14,9 +14,9 @@ interface BaseNPCSaves {
 
 /** Ensure presence of all three save types on NPCs */
 export class Migration625EnsurePresenceOfSaves extends MigrationBase {
-    static version = 0.625;
+    static override version = 0.625;
 
-    async updateActor(actorData: ActorSourcePF2e): Promise<void> {
+    override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         if (actorData.type !== 'npc') return;
 
         const saves: BaseNPCSaves = actorData.data.saves;

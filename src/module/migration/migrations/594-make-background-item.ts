@@ -1,10 +1,10 @@
 import { MigrationBase } from '../base';
 
 export class Migration594AddBackgroundItem extends MigrationBase {
-    static version = 0.594;
-    requiresFlush = true;
+    static override version = 0.594;
+    override requiresFlush = true;
 
-    async updateActor(actor: any) {
+    override async updateActor(actor: any) {
         if (actor.type !== 'character') return;
 
         const backgroundItem = actor.items.find((x: any) => x.type === 'background');

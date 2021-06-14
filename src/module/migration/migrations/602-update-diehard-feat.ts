@@ -3,8 +3,8 @@ import { ActorSourcePF2e } from '@actor/data';
 import { FeatPF2e } from '@item/feat';
 
 export class Migration602UpdateDiehardFeat extends MigrationBase {
-    static version = 0.602;
-    requiresFlush = true;
+    static override version = 0.602;
+    override requiresFlush = true;
 
     private diehardPromise: Promise<CompendiumDocument | null>;
 
@@ -13,7 +13,7 @@ export class Migration602UpdateDiehardFeat extends MigrationBase {
         this.diehardPromise = fromUuid('Compendium.pf2e.feats-srd.I0BhPWqYf1bbzEYg');
     }
 
-    async updateActor(actorData: ActorSourcePF2e) {
+    override async updateActor(actorData: ActorSourcePF2e) {
         const diehard = actorData.items.find(
             (itemData) => itemData.data.slug === 'diehard' && itemData.type === 'feat',
         );

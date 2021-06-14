@@ -6,7 +6,7 @@ export type FeatSource = BaseNonPhysicalItemSource<'feat', FeatSystemData>;
 
 export class FeatData extends BaseNonPhysicalItemData<FeatPF2e> {
     /** @override */
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/feat.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/feat.svg';
 }
 
 export interface FeatData extends Omit<FeatSource, '_id' | 'effects'> {

@@ -9,7 +9,7 @@ import { DegreeOfSuccessText } from '@system/check-degree-of-success';
  * @category RuleElement
  */
 export class PF2RollNoteRuleElement extends RuleElementPF2e {
-    onBeforePrepareData(actorData: CharacterData | NPCData, { rollNotes }: RuleElementSyntheticsPF2e) {
+    override onBeforePrepareData(actorData: CharacterData | NPCData, { rollNotes }: RuleElementSyntheticsPF2e) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const text = super.resolveInjectedProperties(this.ruleData.text, this.ruleData, this.item, actorData);
         if (selector && text) {

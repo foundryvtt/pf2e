@@ -5,8 +5,7 @@ export class ContainerPF2e extends PhysicalItemPF2e {
     /** This container's contents, reloaded every data preparation cycle */
     contents: Collection<Embedded<PhysicalItemPF2e>> = new Collection();
 
-    /** @override */
-    static get schema(): typeof ContainerData {
+    static override get schema(): typeof ContainerData {
         return ContainerData;
     }
 
@@ -17,8 +16,7 @@ export class ContainerPF2e extends PhysicalItemPF2e {
         );
     }
 
-    /** @override */
-    getChatData(this: Embedded<ContainerPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<ContainerPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
 

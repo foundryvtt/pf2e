@@ -5,7 +5,7 @@ import { MagicSchool } from '@item/spell/data';
 
 /** Remove duplicate magic schools localization map */
 export class Migration621RemoveConfigSpellSchools extends MigrationBase {
-    static version = 0.621;
+    static override version = 0.621;
 
     private KEY_MAP = {
         abj: 'abjuration',
@@ -28,7 +28,7 @@ export class Migration621RemoveConfigSpellSchools extends MigrationBase {
         }
     }
 
-    async updateItem(itemData: ItemSourcePF2e): Promise<void> {
+    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type == 'spell') {
             const school: { value: string } = itemData.data.school ?? { value: 'evocation' };
             school.value = this.reassignSchool(school.value);

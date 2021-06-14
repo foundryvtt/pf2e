@@ -5,7 +5,7 @@ import { LootPF2e } from '.';
 export type LootSource = BaseActorSourcePF2e<'loot', LootSystemData>;
 
 export class LootData extends BaseActorDataPF2e<LootPF2e> {
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/loot.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/loot.svg';
 }
 
 /** Wrapper type for loot-specific data. */

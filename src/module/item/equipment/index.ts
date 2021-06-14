@@ -4,13 +4,11 @@ import { PhysicalItemPF2e } from '../physical';
 import { EquipmentData } from './data';
 
 export class EquipmentPF2e extends PhysicalItemPF2e {
-    /** @override */
-    static get schema(): typeof EquipmentData {
+    static override get schema(): typeof EquipmentData {
         return EquipmentData;
     }
 
-    /** @override */
-    getChatData(this: Embedded<EquipmentPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<EquipmentPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
         const properties = [data.equipped.value ? game.i18n.localize('PF2E.EquipmentEquippedLabel') : null].filter(
@@ -19,8 +17,7 @@ export class EquipmentPF2e extends PhysicalItemPF2e {
         return this.processChatData(htmlOptions, { ...data, properties, traits });
     }
 
-    /** @override */
-    generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
+    override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const translations = LocalizePF2e.translations.PF2E.identification;
         const slotType = /book\b/.test(this.slug ?? '')
             ? 'Book'

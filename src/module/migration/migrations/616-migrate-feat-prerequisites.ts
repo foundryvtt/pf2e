@@ -2,9 +2,9 @@ import { ItemSourcePF2e } from '@item/data';
 import { MigrationBase } from '../base';
 
 export class Migration616MigrateFeatPrerequisites extends MigrationBase {
-    static version = 0.616;
+    static override version = 0.616;
 
-    async updateItem(itemData: ItemSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e) {
         if (itemData.type === 'feat') {
             const update: { value: string }[] = [];
             const prerequisites: any = itemData.data.prerequisites;

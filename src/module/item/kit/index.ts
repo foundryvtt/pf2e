@@ -6,8 +6,7 @@ import { KitData, KitEntryData } from './data';
 const SYSTEM_EQUIPMENT_PACK_ID = 'pf2e.equipment-srd';
 
 export class KitPF2e extends ItemPF2e {
-    /** @override */
-    static get schema(): typeof KitData {
+    static override get schema(): typeof KitData {
         return KitData;
     }
 

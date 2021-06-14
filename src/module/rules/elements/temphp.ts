@@ -6,7 +6,7 @@ import { RuleElementPF2e } from '../rule-element';
  * @category RuleElement
  */
 export class PF2TempHPRuleElement extends RuleElementPF2e {
-    onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any) {
+    override onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any) {
         const updatedActorData = mergeObject(actorData, actorUpdates, { inplace: false });
         const value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, updatedActorData);
 
@@ -22,7 +22,7 @@ export class PF2TempHPRuleElement extends RuleElementPF2e {
         }
     }
 
-    onDelete(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any) {
+    override onDelete(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any) {
         const updatedActorData = mergeObject(actorData, actorUpdates, { inplace: false });
         if (getProperty(updatedActorData, 'data.attributes.hp.tempsource') === item._id) {
             mergeObject(actorUpdates, {

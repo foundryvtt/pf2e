@@ -8,7 +8,7 @@ import { objectHasKey } from '@module/utils';
 import { ConsumablePF2e } from '@item';
 
 export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
             classes: options.classes.concat('npc-sheet'),
@@ -20,13 +20,13 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     /** Get the correct HTML template path to use for rendering this particular sheet */
-    get template(): string {
+    override get template(): string {
         const path = 'systems/pf2e/templates/actors/';
         return `${path}npc-sheet.html`;
     }
 
     /** Add some extra data when rendering the sheet to reduce the amount of logic required within the template. */
-    getData() {
+    override getData() {
         const sheetData = super.getData();
 
         sheetData.monsterTraits = CONFIG.PF2E.monsterTraits;
@@ -265,14 +265,14 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers
-  /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
 
     /**
      * Activate event listeners using the prepared sheet HTML
      * @param html The prepared HTML object ready to be rendered into the DOM
      */
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // Melee Attack summaries

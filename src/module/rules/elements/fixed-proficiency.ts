@@ -13,7 +13,10 @@ const KNOWN_TARGETS = {
  * @category RuleElement
  */
 export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
-    onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: RuleElementSyntheticsPF2e) {
+    override onBeforePrepareData(
+        actorData: CharacterData | NPCData,
+        { statisticsModifiers }: RuleElementSyntheticsPF2e,
+    ) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         let value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         if (selector === 'ac') {
@@ -39,7 +42,7 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
         }
     }
 
-    onAfterPrepareData(actorData: CharacterData | NPCData) {
+    override onAfterPrepareData(actorData: CharacterData | NPCData) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const { data } = actorData;
         const skill: SkillAbbreviation | string = SKILL_EXPANDED[selector]?.shortform ?? selector;

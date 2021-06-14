@@ -1,7 +1,7 @@
-interface DropCanvasData {
+interface DropCanvasData<T extends foundry.abstract.DocumentSource> {
     type: string;
     id: string;
-    data?: any;
+    data?: PreCreate<T>;
     pack?: string;
     x: number;
     y: number;
@@ -16,7 +16,7 @@ declare type HookParamsSetup = HookParameters<'setup', never>;
 declare type HookParamsReady = HookParameters<'ready', never>;
 declare type HookParamsCanvasReady = HookParameters<'canvasReady', [Canvas]>;
 declare type HookParamsDeleteCombat = HookParameters<'deleteCombat', [Combat, { [key: string]: any }, string]>;
-declare type HookParamsDropCanvasData = HookParameters<'dropCanvasData', [Canvas, DropCanvasData]>;
+declare type HookParamsDropCanvasData = HookParameters<'dropCanvasData', [Canvas, DropCanvasData<any>]>;
 declare type HookParamsGetChatLogEntryContext = HookParameters<
     'getChatLogEntryContext',
     [JQuery, EntryContextOption[]]

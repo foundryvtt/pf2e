@@ -3,8 +3,7 @@ import { ABCSheetPF2e } from '@item/abc/sheet';
 import { ABCSheetData, AncestrySheetData } from '../sheet/data-types';
 
 export class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
-    /** @override */
-    getData(): AncestrySheetData {
+    override getData(): AncestrySheetData {
         const data: ABCSheetData<AncestryPF2e> = super.getData();
         const itemData = data.item;
 

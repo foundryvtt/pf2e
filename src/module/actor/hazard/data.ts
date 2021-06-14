@@ -5,7 +5,7 @@ import { HazardPF2e } from '.';
 export type HazardSource = BaseActorSourcePF2e<'hazard', HazardSystemData>;
 
 export class HazardData extends BaseActorDataPF2e<HazardPF2e> {
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/hazard.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/hazard.svg';
 }
 
 /** Wrapper type for hazard-specific data. */

@@ -4,8 +4,7 @@ import { ABCItemPF2e } from '../abc';
 import { ClassData } from './data';
 
 export class ClassPF2e extends ABCItemPF2e {
-    /** @override */
-    static get schema(): typeof ClassData {
+    static override get schema(): typeof ClassData {
         return ClassData;
     }
 
@@ -13,7 +12,7 @@ export class ClassPF2e extends ABCItemPF2e {
         return this.data.data.hp;
     }
 
-    async addFeatures(actor: CharacterPF2e): Promise<void> {
+    override async addFeatures(actor: CharacterPF2e): Promise<void> {
         await this.deleteExistingFeatures(actor);
         await this.ensureClassFeaturesForLevel(actor, 0);
     }

@@ -7,7 +7,7 @@ import type { ItemPF2e } from '@item/base';
  * @category Actor
  */
 export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
             classes: options.classes?.concat('familiar'),
@@ -18,11 +18,11 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
         return options;
     }
 
-    get template() {
+    override get template() {
         return 'systems/pf2e/templates/actors/familiar-sheet.html';
     }
 
-    getData() {
+    override getData() {
         const familiar = this.actor;
         // find all owners, which are the list of all potential masters
         const owners = Object.entries(familiar.data.permission)
@@ -72,8 +72,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
         };
     }
 
-    /** @override */
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // rollable stats

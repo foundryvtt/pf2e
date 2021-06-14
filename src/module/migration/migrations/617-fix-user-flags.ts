@@ -1,9 +1,9 @@
 import { MigrationBase } from '../base';
 
 export class Migration617FixUserFlags extends MigrationBase {
-    static version = 0.617;
+    static override version = 0.617;
 
-    async updateUser(userData: foundry.data.UserSource): Promise<void> {
+    override async updateUser(userData: foundry.data.UserSource): Promise<void> {
         const flags = userData.flags as Record<string, any>;
         const settings = flags.PF2e?.settings;
         if (settings) {
