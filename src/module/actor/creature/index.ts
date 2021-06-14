@@ -323,7 +323,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 }),
                 scope: 'AttackOutcome',
                 value: ctx.target.data.data.attributes.ac.value,
-                visibility: 'gm',
             };
         }
         return {
