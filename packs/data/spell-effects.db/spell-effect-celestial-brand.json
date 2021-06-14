@@ -1,0 +1,127 @@
+{
+    "_id": "A61eVVVyUuaUl3tz",
+    "data": {
+        "description": {
+            "value": "<p>Granted by attacking a target under the effect of @Compendium[pf2e.spells-srd.Celestial Brand]{Celestial Brand}</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Target is affected by Celestial Brand",
+                "property": "flags.pf2e.rollOptions.all.celestial-brand"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Celestial Brand",
+                "predicate": {
+                    "all": [
+                        "celestial-brand"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Celestial Brand",
+                "predicate": {
+                    "all": [
+                        "celestial-brand"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "damagetype": "good",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Celestial Brand",
+                "predicate": {
+                    "all": [
+                        "celestial-brand"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 5,
+                            "value": 0
+                        },
+                        {
+                            "end": 8,
+                            "start": 7,
+                            "value": 1
+                        },
+                        {
+                            "start": 9,
+                            "value": 2
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "damageType": "good",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "PF2E.RuleElement.DamageDice",
+                "label": "Celestial Brand",
+                "predicate": {
+                    "all": [
+                        "celestial-brand"
+                    ]
+                },
+                "selector": "damage"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/spells/celestial-brand.webp",
+    "name": "Spell Effect: Celestial Brand",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}
