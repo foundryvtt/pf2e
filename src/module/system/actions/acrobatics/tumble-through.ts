@@ -14,5 +14,6 @@ export function tumbleThrough(options: SkillActionOptions) {
         ['move'],
         checkType,
         options.event,
+        (target) => target.reflex,
     );
 }
