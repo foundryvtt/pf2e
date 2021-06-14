@@ -1,7 +1,9 @@
 import type { ActorPF2e } from '@actor/base';
+import { CreaturePF2e } from '@actor';
 import { SKILL_EXPANDED } from '@actor/data/values';
 import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from '../../modifiers';
 import { CheckPF2e } from '../rolls';
+import { StatisticWithDC } from '@system/statistic';
 import { seek } from './basic/seek';
 import { balance } from './acrobatics/balance';
 import { maneuverInFlight } from './acrobatics/maneuver-in-flight';
@@ -115,6 +117,7 @@ export class ActionsPF2e {
         traits: string[],
         checkType: CheckType,
         event: JQuery.Event,
+        difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC,
     ) {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
@@ -128,6 +131,9 @@ export class ActionsPF2e {
             rollers.push(game.user.character);
         }
 
+        const targets = Array.from(game.user.targets).filter((token) => token.actor instanceof CreaturePF2e);
+        const target = targets[0];
+
         if (rollers.length) {
             rollers.forEach((actor) => {
                 let flavor = '';
@@ -139,11 +145,47 @@ export class ActionsPF2e {
                 const stat = getProperty(actor, statName) as StatisticModifier;
                 const check = new CheckModifier(flavor, stat, modifiers ?? []);
                 const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
+                {
+                    // options for roller's conditions
+                    const conditions = actor.itemTypes.condition.filter((condition) => condition.fromSystem);
+                    finalOptions.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
+                }
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
+                const dc = (() => {
+                    if (target && target.actor instanceof CreaturePF2e) {
+                        const targetOptions: string[] = [];
+
+                        // target's conditions
+                        const conditions = target.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
+                        targetOptions.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
+
+                        // target's traits
+                        const targetTraits = (target.actor.data.data.traits.traits.custom ?? '')
+                            .split(/[;,\\|]/)
+                            .map((value) => value.trim())
+                            .concat(target.actor.data.data.traits.traits.value ?? [])
+                            .filter((value) => !!value)
+                            .map((trait) => `target:${trait}`);
+                        targetOptions.push(...targetTraits);
+
+                        // try to resolve target's defense stat and calculate DC
+                        const dc = difficultyClassStatistic?.(target.actor)?.dc({
+                            options: finalOptions.concat(targetOptions),
+                        });
+                        if (dc) {
+                            return {
+                                label: game.i18n.format(dc.labelKey, { creature: target.name, dc: '{dc}' }),
+                                value: dc.value,
+                            };
+                        }
+                    }
+                    return undefined;
+                })();
                 CheckPF2e.roll(
                     check,
                     {
                         actor,
+                        dc,
                         type: checkType,
                         options: finalOptions,
                         notes: stat.notes ?? [],
