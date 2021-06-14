@@ -957,6 +957,53 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return super._canDragDrop(selector);
     }
 
+    /** Add support for dropping actions and toggles */
+    protected override _onDragStart(event: ElementDragEvent): void {
+        const $li = $(event.currentTarget);
+
+        const baseDragData = {
+            actorId: this.actor.id,
+            sceneId: canvas.scene?.id ?? null,
+            tokenId: this.actor.token?.id ?? null,
+        };
+
+        // Dragging ...
+        const supplementalData = (() => {
+            const actionIndex = $li.attr('data-action-index');
+            const toggleProperty = $li.attr('data-toggle-property');
+            const toggleLabel = $li.attr('data-toggle-label');
+
+            // ... an action?
+            if (actionIndex) {
+                return {
+                    type: 'Action',
+                    index: Number(actionIndex),
+                };
+            }
+            // ... a toggle?
+            if (toggleProperty) {
+                return {
+                    type: 'Toggle',
+                    property: toggleProperty,
+                    label: toggleLabel,
+                };
+            }
+
+            // ... something else?
+            return null;
+        })();
+
+        return supplementalData
+            ? event.dataTransfer.setData(
+                  'text/plain',
+                  JSON.stringify({
+                      ...baseDragData,
+                      ...supplementalData,
+                  }),
+              )
+            : super._onDragStart(event);
+    }
+
     /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
