@@ -158,6 +158,8 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
 
 Hooks.on('renderChatMessage', (message, html) => {
     // remove elements the user does not have permission to see
+    html.find('[data-visibility="none"]').remove();
+
     if (!game.user.isGM) {
         html.find('[data-visibility="gm"]').remove();
     }
