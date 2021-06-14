@@ -1,4 +1,4 @@
-export interface DropCanvasDataPF2e<T> extends DropCanvasData<T> {
+export interface DropCanvasDataPF2e<T extends object> extends DropCanvasData<T> {
     value?: number;
     level?: number;
 }
