@@ -2429,60 +2429,6 @@
             "type": "action"
         },
         {
-            "_id": "OwAhtu9K9pfUPHun",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>When first exposed to bright light, the monster is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn. After this exposure, light doesn't blind the monster again until after it spends 1 hour in darkness. However, as long as the monster is in an area of bright light, it's @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "light-blindness",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
-                }
-            },
-            "folder": null,
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Light Blindness",
-            "permission": {
-                "default": 0
-            },
-            "sort": 1900000,
-            "type": "action"
-        },
-        {
             "_id": "5ShmRpRiadEdwNuC",
             "data": {
                 "actionCategory": {
@@ -2547,7 +2493,7 @@
             "permission": {
                 "default": 0
             },
-            "sort": 2000000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -2595,7 +2541,123 @@
             "permission": {
                 "default": 0
             },
+            "sort": 2000000,
+            "type": "action"
+        },
+        {
+            "_id": "wMph0ESDRk2zz1Ff",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>When Qormintur rolls a success on a Fortitude save, she gets a critical success instead.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "selector": "fortitude",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> When Qormintur rolls a success on a Fortitude save, she gets a critical success instead.</p>"
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                        "selector": "fortitude",
+                        "type": "save"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Juggernaut",
+            "permission": {
+                "default": 0
+            },
             "sort": 2100000,
+            "type": "action"
+        },
+        {
+            "_id": "OwAhtu9K9pfUPHun",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>When first exposed to bright light, the monster is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn. After this exposure, light doesn't blind the monster again until after it spends 1 hour in darkness. However, as long as the monster is in an area of bright light, it's @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "light-blindness",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Light Blindness",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2200000,
             "type": "action"
         },
         {
@@ -2643,7 +2705,7 @@
             "permission": {
                 "default": 0
             },
-            "sort": 2200000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -2697,7 +2759,7 @@
             "permission": {
                 "default": 0
             },
-            "sort": 2300000,
+            "sort": 2400000,
             "type": "action"
         },
         {
@@ -2745,7 +2807,7 @@
             "permission": {
                 "default": 0
             },
-            "sort": 2400000,
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -2812,68 +2874,6 @@
             "permission": {
                 "default": 0
             },
-            "sort": 2500000,
-            "type": "action"
-        },
-        {
-            "_id": "wMph0ESDRk2zz1Ff",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>When Qormintur rolls a success on a Fortitude save, she gets a critical success instead.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "PF2E.RuleElement.Note",
-                        "selector": "fortitude",
-                        "text": "<p class='compact-text'><strong>{item|name}</strong> When Qormintur rolls a success on a Fortitude save, she gets a critical success instead.</p>"
-                    },
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
-                        "selector": "fortitude",
-                        "type": "save"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "folder": null,
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Juggernaut",
-            "permission": {
-                "default": 0
-            },
             "sort": 2600000,
             "type": "action"
         },
@@ -2881,7 +2881,7 @@
             "_id": "13WOSIjbbyXFLN47",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
