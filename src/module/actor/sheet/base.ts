@@ -47,7 +47,7 @@ import { ContainerPF2e } from '@item/container';
 import { ActorDataPF2e } from '@actor/data';
 import { SaveString, SkillAbbreviation } from '@actor/creature/data';
 import { AbilityString } from '@actor/data/base';
-import { DropCanvasDataPF2e } from '@scripts/system/dragstart-handler';
+import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -1095,8 +1095,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return super._onSortItem(event, itemData);
     }
 
-    protected override async _onDropItemCreate(itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
+    protected override async _onDropItemCreate(itemData: ItemSourcePF2e | ItemSourcePF2e[]): Promise<ItemPF2e[]> {
+        const itemsData = Array.isArray(itemData) ? itemData : [itemData];
+        const includesABCItems = itemsData.some((datum) => ['ancestry', 'background', 'class'].includes(datum.type));
+        if (this.actor.type !== 'character' && includesABCItems) {
             // ignore these. they should get handled in the derived class
             ui.notifications.error(game.i18n.localize('PF2E.ItemNotSupportedOnActor'));
             return [];
@@ -1104,15 +1106,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return super._onDropItemCreate(itemData);
     }
 
-    async onDropItem(data: DropCanvasDataPF2e<ItemSourcePF2e>) {
+    async onDropItem(data: DropCanvasItemDataPF2e) {
         return await this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
     }
 
-    /** Extend the base _onDrop method to handle dragging spells onto spell slots. */
-    protected override async _onDropItem(
-        event: ElementDragEvent,
-        data: DropCanvasDataPF2e<ItemSourcePF2e>,
-    ): Promise<ItemPF2e[]> {
+    /** Extend the base _onDropItem method to handle dragging spells onto spell slots. */
+    protected override async _onDropItem(event: ElementDragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
