@@ -1,4 +1,5 @@
 import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
+import { toNumber } from '@module/utils';
 
 /**
  * Extends all drag and drop events on entity links to contain PF2e specific information
@@ -20,12 +21,10 @@ export function extendDragData() {
         }
 
         // Detect spell level of containing element, if available
-        if (data.data.type === 'spell') {
-            const containerElement = event.target.closest('[data-spell-lvl]');
-            const spellLevel = Number(containerElement?.dataset.spellLvl);
-            if (spellLevel >= 0) {
-                data.level = spellLevel;
-            }
+        const containerElement = event.target.closest('[data-spell-lvl]');
+        const spellLevel = toNumber(containerElement?.dataset.spellLvl) ?? null;
+        if (spellLevel !== null && spellLevel >= 0) {
+            data.level = spellLevel;
         }
 
         dataTransfer.setData('text/plain', JSON.stringify(data));
