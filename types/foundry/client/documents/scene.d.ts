@@ -7,7 +7,6 @@ declare global {
      * @param [data={}]        Initial data provided to construct the Scene document
      */
     class Scene<TTokenDocument extends TokenDocument = TokenDocument> extends SceneConstructor {
-        /** @override */
         constructor(data: PreCreate<foundry.data.SceneSource>, context?: DocumentConstructionContext<Scene>);
 
         /** Track whether the scene is the active view */
