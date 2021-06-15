@@ -4,7 +4,6 @@ type _Actor = Actor<TokenDocument<_Actor>>;
 
 declare global {
     class TokenDocument<TActor extends Actor = _Actor> extends TokenDocumentConstructor {
-        /** @override */
         constructor(
             data: PreCreate<foundry.data.TokenSource>,
             context: TokenDocumentConstructionContext<TokenDocument>,
