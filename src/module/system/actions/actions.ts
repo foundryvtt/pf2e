@@ -5,6 +5,7 @@ import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e
 import { CheckPF2e } from '../rolls';
 import { StatisticWithDC } from '@system/statistic';
 import { seek } from './basic/seek';
+import { senseMotive } from './basic/sense-motive';
 import { balance } from './acrobatics/balance';
 import { maneuverInFlight } from './acrobatics/maneuver-in-flight';
 import { squeeze } from './acrobatics/squeeze';
@@ -47,6 +48,7 @@ export class ActionsPF2e {
     static exposeActions(actions: { [key: string]: Function }) {
         // basic
         actions.seek = seek;
+        actions.senseMotive = senseMotive;
 
         // acrobatics
         actions.balance = balance;
