@@ -48,6 +48,7 @@ import { ActorDataPF2e } from '@actor/data';
 import { SaveString, SkillAbbreviation } from '@actor/creature/data';
 import { AbilityString } from '@actor/data/base';
 import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
+import { FolderPF2e } from '@module/folder';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -1228,6 +1229,17 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         }
         return this._onDropItemCreate(itemData);
+    }
+
+    protected override async _onDropFolder(
+        _event: ElementDragEvent,
+        data: DropCanvasData<'Folder', FolderPF2e>,
+    ): Promise<ItemPF2e[]> {
+        if (!(this.actor.isOwner && data.documentName === 'Item')) return [];
+        const folder = (await FolderPF2e.fromDropData(data)) as FolderPF2e<ItemPF2e> | undefined;
+        if (!folder) return [];
+        const itemSources = folder.flattenedContents.map((item) => item.toObject());
+        return this._onDropItemCreate(itemSources);
     }
 
     /**
