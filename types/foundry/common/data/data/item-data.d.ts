@@ -23,7 +23,7 @@ declare module foundry {
             type: string;
             img: ImagePath;
             data: object;
-            effects: foundry.data.ActiveEffectSource[];
+            effects: ActiveEffectSource[];
             folder?: string | null;
             sort: number;
             permission: Record<string, PermissionLevel>;

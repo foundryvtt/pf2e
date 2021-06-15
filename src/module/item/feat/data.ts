@@ -5,7 +5,6 @@ import { FeatPF2e } from '.';
 export type FeatSource = BaseNonPhysicalItemSource<'feat', FeatSystemData>;
 
 export class FeatData extends BaseNonPhysicalItemData<FeatPF2e> {
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/feat.svg';
 }
 
@@ -19,7 +18,7 @@ export type FeatTrait = keyof ConfigPF2e['PF2E']['featTraits'];
 export type FeatTraits = ItemTraits<FeatTrait>;
 export type FeatType = keyof ConfigPF2e['PF2E']['featTypes'];
 
-interface PrerequisiteTagData {
+export interface PrerequisiteTagData {
     value: string;
 }
 

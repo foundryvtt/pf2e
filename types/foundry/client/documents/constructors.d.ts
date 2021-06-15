@@ -14,6 +14,8 @@ export const ChatMessageConstructor: ClientDocumentMixin<typeof foundry.document
 
 export const DrawingConstructor: CanvasDocumentMixin<typeof foundry.documents.BaseDrawing, DrawingLayer>;
 
+export const FogExplorationConstructor: ClientDocumentMixin<typeof foundry.documents.BaseFogExploration>;
+
 export const FolderConstructor: ClientDocumentMixin<typeof foundry.documents.BaseFolder>;
 
 export const ItemConstructor: ClientDocumentMixin<typeof foundry.documents.BaseItem>;

@@ -19,7 +19,7 @@ declare module foundry {
              * @param data A base64 data string
              * @return Is it a base64 image?
              */
-            function isBase64Image(data: string): `data:image/${string}`;
+            function isBase64Image(data: string): data is `data:image/${string}`;
 
             /**
              * Test whether an input represents a valid 6-character color string

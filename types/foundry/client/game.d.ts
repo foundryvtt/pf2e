@@ -240,7 +240,7 @@ declare global {
                 Folder: string[];
                 Item: string[];
                 JournalEntry: string[];
-                Macro: string[];
+                Macro: ['chat', 'script'];
                 Playlist: string[];
                 RollTable: string[];
                 Scene: string[];
