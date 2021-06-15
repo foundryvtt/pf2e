@@ -117,10 +117,7 @@ declare global {
          * @param data  The data transfer extracted from the event
          * @return A data object which describes the result of the drop
          */
-        protected _onDropFolder<D extends Folder>(
-            event: ElementDragEvent,
-            data: DropCanvasData<'Folder', D>,
-        ): Promise<TItem[]>;
+        protected _onDropFolder(event: ElementDragEvent, data: DropCanvasData<'Folder', Folder>): Promise<TItem[]>;
 
         /**
          * Handle the final creation of dropped Item data on the Actor.

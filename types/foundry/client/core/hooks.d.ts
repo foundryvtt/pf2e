@@ -128,6 +128,7 @@ declare global {
         pack?: string;
         x: number;
         y: number;
+        documentName?: string;
         actorId?: string;
         tokenId?: string;
     }
