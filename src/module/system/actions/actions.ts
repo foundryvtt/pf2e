@@ -29,6 +29,7 @@ import { request } from './diplomacy/request';
 import { coerce } from './intimidation/coerce';
 import { demoralize } from './intimidation/demoralize';
 import { hide } from './stealth/hide';
+import { sneak } from './stealth/sneak';
 
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
 
@@ -85,6 +86,7 @@ export class ActionsPF2e {
 
         // stealth
         actions.hide = hide;
+        actions.sneak = sneak;
     }
 
     static resolveStat(stat: string): {
