@@ -1,8 +1,8 @@
-import { ActorPF2e } from '@actor/index';
+import { ActorPF2e } from '@actor/base';
 import { CreatureData } from '@actor/data';
 import { WeaponData } from '@item/data';
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from '@module/modifiers';
-import { ItemPF2e, ArmorPF2e } from '@item/index';
+import { ItemPF2e, ArmorPF2e } from '@item';
 import { prepareMinions } from '@scripts/actor/prepare-minions';
 import { RuleElementPF2e } from '@module/rules/rule-element';
 import { RollNotePF2e } from '@module/notes';
@@ -255,7 +255,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /**
      * Roll a Recovery Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-     * @param skill {String}    The skill id
      */
     rollRecovery() {
         if (this.data.type !== 'character') {
@@ -327,9 +326,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         let dc: PF2CheckDC | undefined;
         if (ctx.target) {
             dc = {
-                label: game.i18n.format('PF2E.CreatureArmorClass', {
+                label: game.i18n.format('PF2E.CreatureStatisticDC.ac', {
                     creature: ctx.target.name,
-                    ac: ctx.target.data.data.attributes.ac.value,
+                    dc: ctx.target.data.data.attributes.ac.value,
                 }),
                 scope: 'AttackOutcome',
                 value: ctx.target.data.data.attributes.ac.value,
