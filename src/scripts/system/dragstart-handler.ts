@@ -1,7 +1,4 @@
-export interface DropCanvasDataPF2e<T extends object> extends DropCanvasData<T> {
-    value?: number;
-    level?: number;
-}
+import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
 
 /**
  * Extends all drag and drop events on entity links to contain PF2e specific information
@@ -12,7 +9,8 @@ export function extendDragData() {
         const dataTransfer = event?.originalEvent?.dataTransfer;
         if (!dataTransfer) return;
 
-        const data: DropCanvasDataPF2e<Document> = JSON.parse(dataTransfer.getData('text/plain'));
+        const data: DropCanvasItemDataPF2e = JSON.parse(dataTransfer.getData('text/plain'));
+        if (data.type !== 'Item') return;
 
         // Add value field to TextEditor#_onDragEntityLink data. This is mainly used for conditions.
         const name = event?.currentTarget?.innerText?.trim() ?? '';
@@ -22,10 +20,12 @@ export function extendDragData() {
         }
 
         // Detect spell level of containing element, if available
-        const containerElement = event.target.closest('[data-spell-lvl]');
-        const spellLevel = Number(containerElement?.dataset.spellLvl);
-        if (spellLevel >= 0) {
-            data.level = spellLevel;
+        if (data.data.type === 'spell') {
+            const containerElement = event.target.closest('[data-spell-lvl]');
+            const spellLevel = Number(containerElement?.dataset.spellLvl);
+            if (spellLevel >= 0) {
+                data.level = spellLevel;
+            }
         }
 
         dataTransfer.setData('text/plain', JSON.stringify(data));

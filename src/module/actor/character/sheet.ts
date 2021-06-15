@@ -974,15 +974,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         this.actor.updateEmbeddedDocuments('ActiveEffect', effectUpdates);
     }
 
-    protected override async _onDropItemCreate(itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        if (['ancestry', 'background', 'class'].includes(itemData.type)) {
-            const items = await this.actor.createEmbeddedDocuments('Item', [itemData]);
-            if (items.length > 0) return items;
-        }
-
-        return super._onDropItemCreate(itemData);
-    }
-
     private isFeatValidInFeatSlot(_slotId: string, featSlotType: string, feat: FeatSource) {
         let featType = feat.data?.featType?.value;
         if (featType === 'archetype') {
@@ -1058,7 +1049,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     protected override async _onDropItem(
         event: ElementDragEvent,
-        data: DropCanvasData<ItemSourcePF2e>,
+        data: DropCanvasData<'Item', ItemPF2e>,
     ): Promise<ItemPF2e[]> {
         const actor = this.actor;
         const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
