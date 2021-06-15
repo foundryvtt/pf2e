@@ -25,32 +25,31 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
         return;
     }
 
-    const shield = actor.itemTypes.armor
-        .filter((armor) => armor.data.data.armorType.value === 'shield')
-        .find((shield) => shield.data.data.equipped.value === true);
+    const shield = actor.heldShield;
     const speaker = ChatMessagePF2e.getSpeaker({ actor: actor });
 
     const isSuccess = await (async (): Promise<boolean> => {
-        if (shield && !shield.isBroken) {
-            const existingEffect = actor.itemTypes.effect.find(
-                (effect) => effect.getFlag('core', 'sourceId') === ITEM_UUID,
-            );
-            if (existingEffect) {
-                await existingEffect.delete();
-                return false;
-            } else {
-                const effect = await fromUuid(ITEM_UUID);
-                if (!(effect instanceof EffectPF2e)) {
-                    throw ErrorPF2e('Raise a Shield effect not found');
-                }
-                effect.data.img = shield.img;
-                const rule = effect.data.data.rules!.find(
-                    (rule) => rule.selector === 'ac' && rule.key === 'PF2E.RuleElement.FlatModifier',
-                );
-                rule!.value = shield.data.data.armor.value;
-                await actor.createEmbeddedDocuments('Item', [effect.data]);
-                return true;
+        const existingEffect = actor.itemTypes.effect.find(
+            (effect) => effect.getFlag('core', 'sourceId') === ITEM_UUID,
+        );
+        if (existingEffect) {
+            await existingEffect.delete();
+            return false;
+        }
+
+        if (shield?.isBroken === false) {
+            const effect = await fromUuid(ITEM_UUID);
+            if (!(effect instanceof EffectPF2e)) {
+                throw ErrorPF2e('Raise a Shield effect not found');
             }
+            const effectSource = effect.toObject();
+            effectSource.img = shield.img;
+            const rule = effectSource.data.rules.find(
+                (rule) => rule.selector === 'ac' && rule.key === 'PF2E.RuleElement.FlatModifier',
+            );
+            rule!.value = shield.acBonus;
+            await actor.createEmbeddedDocuments('Item', [effectSource]);
+            return true;
         } else if (shield?.isBroken) {
             ui.notifications.warn(
                 game.i18n.format(translations.ShieldIsBroken, { actor: speaker.alias, shield: shield.name }),
@@ -63,13 +62,18 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
     })();
 
     if (isSuccess) {
-        const title = translations.Title;
+        const combatActor = (game.combat?.active && game.combat.combatant?.actor) || null;
+        const [actionType, glyph] =
+            combatActor && combatActor !== actor ? (['Reaction', 'R'] as const) : (['SingleAction', '1'] as const);
+
+        const title = translations[`${actionType}Title` as const];
+
         const content = await renderTemplate(TEMPLATES.content, {
             imgPath: shield!.img,
             message: game.i18n.format(translations.Content, { actor: speaker.alias }),
         });
         const flavor = await renderTemplate(TEMPLATES.flavor, {
-            action: { title, typeNumber: 1 },
+            action: { title, typeNumber: glyph },
         });
 
         await ChatMessagePF2e.create({
