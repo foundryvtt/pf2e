@@ -35,7 +35,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>Peshspine grenades are explosive bombs packed with alchemically treated needles from the pesh cactus. A peshspine grenade deals the listed piercing damage and splash damage. On a hit, the target gains the stupefied condition until the end of its next turn.<br /></span></p>\n<p><span>Many types of peshpine grenade grant an item bonus to attack rolls.<br /></span></p>\n<p><span><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</span></p>\n<p>You gain a +3 item bonus to attack rolls. The bomb deals 4d6 piercing damage and 4 piercing splash damage, and the target is stupefied 3.</p>"
+            "value": "<p>Peshspine grenades are explosive bombs packed with alchemically treated needles from the pesh cactus. A peshspine grenade deals the listed piercing damage and splash damage. On a hit, the target gains the stupefied condition until the end of its next turn.</p>\n<p>Many types of peshpine grenade grant an item bonus to attack rolls.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>You gain a +3 item bonus to attack rolls. The bomb deals 4d6 piercing damage and 4 piercing splash damage, and the target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 3}.</p>"
         },
         "equipped": {
             "value": false
@@ -127,7 +127,13 @@
         "reload": {
             "value": "1"
         },
-        "rules": [],
+        "rules": [
+          {
+            "key": "PF2E.RuleElement.Note",
+            "selector": "{item|_id}-damage",
+            "text": "<p class='compact-text'><strong>Effect:</strong> Target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 3} until the end of its turn.</p>"
+          }
+        ],
         "size": {
             "value": "med"
         },
