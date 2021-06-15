@@ -28,6 +28,7 @@ import { makeAnImpression } from './diplomacy/make-an-impression';
 import { request } from './diplomacy/request';
 import { coerce } from './intimidation/coerce';
 import { demoralize } from './intimidation/demoralize';
+import { hide } from './stealth/hide';
 
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
 
@@ -81,6 +82,9 @@ export class ActionsPF2e {
         // intimidation
         actions.coerce = coerce;
         actions.demoralize = demoralize;
+
+        // stealth
+        actions.hide = hide;
     }
 
     static resolveStat(stat: string): {
