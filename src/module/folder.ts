@@ -6,4 +6,8 @@ type EnfolderableDocumentPF2e = ActorPF2e | ItemPF2e | Exclude<EnfolderableDocum
 /** An empty subclass, used in the past to work around a Foundry bug and kept in place for later needs */
 export class FolderPF2e<
     TDocument extends EnfolderableDocumentPF2e = EnfolderableDocumentPF2e,
-> extends Folder<TDocument> {}
+> extends Folder<TDocument> {
+    get flattenedContents(): TDocument[] {
+        return [this, ...this.getSubfolders()].flatMap((folder) => folder.contents);
+    }
+}
