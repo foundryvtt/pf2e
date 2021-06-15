@@ -83,6 +83,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return this.buildSavingThrowStatistic('will');
     }
 
+    get deception(): Statistic {
+        const stat = this.data.data.skills.dec as StatisticModifier;
+        return this.buildStatistic(stat, 'deception', 'PF2E.ActionsCheck.deception', 'skill-check');
+    }
+
+    get stealth(): Statistic {
+        const stat = this.data.data.skills.ste as StatisticModifier;
+        return this.buildStatistic(stat, 'stealth', 'PF2E.ActionsCheck.stealth', 'skill-check');
+    }
+
     get wornArmor(): Embedded<ArmorPF2e> | null {
         return this.itemTypes.armor.find((armor) => armor.isEquipped && armor.isArmor) ?? null;
     }
