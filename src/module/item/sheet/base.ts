@@ -527,7 +527,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         // create the expanded update data object
-        const fd = new FormDataExtended(this.form, { editors: Object.values(this.editors) });
+        const fd = new FormDataExtended(this.form, { editors: this.editors });
         const data: Record<string, unknown> & { data?: { rules?: string[] } } = updateData
             ? mergeObject(fd.toObject(), updateData)
             : expandObject(fd.toObject());
