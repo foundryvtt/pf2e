@@ -89,10 +89,10 @@ declare global {
          * @param data The data transfer extracted from the event
          * @return A data object which describes the result of the drop
          */
-        protected _onDropActiveEffect(
+        protected _onDropActiveEffect<D extends ActiveEffect>(
             event: ElementDragEvent,
-            data?: { tokenId: string; data: PreCreate<foundry.data.ActiveEffectSource> },
-        ): Promise<ActiveEffect | void>;
+            data?: DropCanvasData<'ActiveEffect', D>,
+        ): Promise<D | void>;
 
         /**
          * Handle dropping of an Actor data onto another Actor sheet
@@ -100,10 +100,7 @@ declare global {
          * @param data  The data transfer extracted from the event
          * @return A data object which describes the result of the drop
          */
-        protected _onDropActor(
-            event: ElementDragEvent,
-            data: DropCanvasData<TActor['data']['_source']>,
-        ): Promise<false | void>;
+        protected _onDropActor(event: ElementDragEvent, data: DropCanvasData<'Actor', TActor>): Promise<false | void>;
 
         /**
          * Handle dropping of an item reference or item data onto an Actor Sheet
@@ -111,10 +108,7 @@ declare global {
          * @param data  The data transfer extracted from the event
          * @return A data object which describes the result of the drop
          */
-        protected _onDropItem(
-            event: ElementDragEvent,
-            data: DropCanvasData<TItem['data']['_source']>,
-        ): Promise<TItem[]>;
+        protected _onDropItem(event: ElementDragEvent, data: DropCanvasData<'Item', TItem>): Promise<TItem[]>;
 
         /**
          * Handle dropping of a Folder on an Actor Sheet.
@@ -123,9 +117,9 @@ declare global {
          * @param data  The data transfer extracted from the event
          * @return A data object which describes the result of the drop
          */
-        protected _onDropFolder(
+        protected _onDropFolder<D extends Folder>(
             event: ElementDragEvent,
-            data: DropCanvasData<foundry.data.FolderSource>,
+            data: DropCanvasData<'Folder', D>,
         ): Promise<TItem[]>;
 
         /**
@@ -133,7 +127,7 @@ declare global {
          * This method is factored out to allow downstream classes the opportunity to override item creation behavior.
          * @param itemData The item data requested for creation
          */
-        protected _onDropItemCreate(itemData: TItem['data']['_source']): Promise<TItem[]>;
+        protected _onDropItemCreate(itemData: TItem['data']['_source'] | TItem['data']['_source'][]): Promise<TItem[]>;
 
         /**
          * Handle a drop event for an existing embedded Item to sort that Item relative to its siblings

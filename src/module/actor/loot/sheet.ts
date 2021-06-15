@@ -3,12 +3,13 @@ import { LootPF2e } from '@actor/loot';
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/physical/bulk';
 import { getContainerMap } from '@item/container/helpers';
 import { DistributeCoinsPopup } from '../sheet/popups/distribute-coins-popup';
-import { ItemDataPF2e, ItemSourcePF2e, PhysicalItemData } from '@item/data';
+import { ItemDataPF2e, PhysicalItemData } from '@item/data';
 import { LootNPCsPopup } from '../sheet/loot/loot-npcs-popup';
 import { ActorSheetDataPF2e, InventoryItem, LootSheetDataPF2e } from '../sheet/data-types';
 import { PhysicalItemType } from '@item/physical/data';
 import { isPhysicalData } from '@item/data/helpers';
 import { ItemPF2e } from '@item';
+import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
 
 export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     static override get defaultOptions() {
@@ -126,13 +127,13 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
     protected override async _onDropItem(
         event: ElementDragEvent,
-        data: DropCanvasData<ItemSourcePF2e>,
+        itemData: DropCanvasItemDataPF2e,
     ): Promise<ItemPF2e[]> {
         // Prevent a Foundry permissions error from being thrown when a player drops an item from an unowned
         // loot sheet to the same sheet
-        if (this.actor.id === data.actorId && !this.actor.testUserPermission(game.user, 'OWNER')) {
+        if (this.actor.id === itemData.actorId && !this.actor.testUserPermission(game.user, 'OWNER')) {
             return [];
         }
-        return super._onDropItem(event, data);
+        return super._onDropItem(event, itemData);
     }
 }
