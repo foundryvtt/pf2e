@@ -1213,6 +1213,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 await actor.increaseCondition(itemData.data.slug);
                 return [item];
             }
+        } else if (itemData.type === 'effect' && data && 'level' in data) {
+            const level = data.level;
+            if (typeof level === 'number' && level >= 0) {
+                itemData.data.level.value = level;
+            }
         }
 
         if (isPhysicalData(itemData)) {
