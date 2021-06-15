@@ -120,8 +120,8 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         if (charges.value <= 1 && quantity <= 1 && this.data.data.autoDestroy.value) {
             await this.delete();
         }
-        // Deduct one from quantity if this item doesn't have charges
-        else if (charges.max < 1) {
+        // Deduct one from quantity if this item has one charge or doesn't have charges
+        else if (charges.value <= 1) {
             await this.update({
                 'data.quantity.value': Math.max(quantity - 1, 0),
                 'data.charges.value': charges.max,
