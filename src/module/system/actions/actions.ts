@@ -184,6 +184,7 @@ export class ActionsPF2e {
                             return {
                                 label: game.i18n.format(dc.labelKey, { creature: target.name, dc: '{dc}' }),
                                 value: dc.value,
+                                adjustments: stat.adjustments ?? [],
                             };
                         }
                     }
