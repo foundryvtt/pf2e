@@ -198,8 +198,8 @@ export class WeaponDamagePF2e {
                     statisticsModifiers.damage = modifiers;
                 }
             } else {
-                weapon.data.damage.dice = dice;
-                weapon.data.damage.die = die;
+                weapon.data.damage.dice = dice || 0;
+                weapon.data.damage.die = die || '';
                 if (weapon.data.range.value !== 'ranged' || traits.some((trait) => trait.name.startsWith('thrown'))) {
                     modifier -= actor.data.abilities.str.mod;
                 }
