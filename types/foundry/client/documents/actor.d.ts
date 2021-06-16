@@ -127,15 +127,15 @@ declare global {
         ): Promise<void>;
 
         protected override _onUpdate(
-            data: DocumentUpdateData<this>,
+            changed: DeepPartial<this['data']['_source']>,
             options: DocumentModificationContext,
             userId: string,
         ): void;
 
         protected override _onCreateEmbeddedDocuments(
-            embeddedName: 'ActiveEffect' | 'item',
+            embeddedName: 'ActiveEffect' | 'Item',
             documents: ActiveEffect[] | Item[],
-            result: ActiveEffect['data']['_source'][],
+            result: foundry.data.ActiveEffectSource[] | foundry.data.ItemSource[],
             options: DocumentModificationContext,
             userId: string,
         ): void;
@@ -143,7 +143,7 @@ declare global {
         protected override _onUpdateEmbeddedDocuments(
             embeddedName: 'ActiveEffect' | 'Item',
             documents: ActiveEffect[] | Item[],
-            result: ActiveEffect['data']['_source'][] | Item['data']['_source'][],
+            result: foundry.data.ActiveEffectSource[] | foundry.data.ItemSource[],
             options: DocumentModificationContext,
             userId: string,
         ): void;
@@ -151,7 +151,7 @@ declare global {
         protected override _onDeleteEmbeddedDocuments(
             embeddedName: 'ActiveEffect' | 'Item',
             documents: ActiveEffect[] | Item[],
-            result: ActiveEffect['data']['_source'][] | Item['data']['_source'][],
+            result: foundry.data.ActiveEffectSource[] | foundry.data.ItemSource[],
             options: DocumentModificationContext,
             userId: string,
         ): void;

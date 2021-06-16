@@ -6,14 +6,10 @@ import { LocalizePF2e } from '@system/localize';
 import { ItemSheetPF2e } from '../sheet/base';
 import { ABCSheetData } from '../sheet/data-types';
 
-/**
- * @category Other
- */
-export abstract class ABCSheetPF2e<
-    TItem extends AncestryPF2e | BackgroundPF2e | ClassPF2e,
-> extends ItemSheetPF2e<TItem> {
-    /** @override */
-    static get defaultOptions() {
+type ABCItem = AncestryPF2e | BackgroundPF2e | ClassPF2e;
+
+export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> {
+    static override get defaultOptions() {
         return {
             ...super.defaultOptions,
             scrollY: ['.item-details'],
@@ -21,8 +17,7 @@ export abstract class ABCSheetPF2e<
         };
     }
 
-    /** @override */
-    getData(): ABCSheetData<TItem> {
+    override getData(): ABCSheetData<TItem> {
         const itemType = this.item.type;
 
         return {
@@ -65,8 +60,7 @@ export abstract class ABCSheetPF2e<
         return true;
     }
 
-    /** @override */
-    protected async _onDrop(event: ElementDragEvent): Promise<void> {
+    protected override async _onDrop(event: ElementDragEvent): Promise<void> {
         event.preventDefault();
         const dataString = event.dataTransfer?.getData('text/plain');
         const dropData = JSON.parse(dataString ?? '');
@@ -111,8 +105,7 @@ export abstract class ABCSheetPF2e<
         });
     }
 
-    /** @override */
-    activateListeners(html: JQuery): void {
+    override activateListeners(html: JQuery): void {
         super.activateListeners(html);
         html.on('click', '[data-action=remove]', (ev) => this.removeItem(ev));
     }

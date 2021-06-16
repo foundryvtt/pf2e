@@ -1,0 +1,107 @@
+{
+    "_id": "aDOL3OAEWf3ka9oT",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Blood Ward]{Blood Ward}</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Defending vs. target of Blood Ward",
+                "property": "flags.pf2e.rollOptions.all.blood-ward"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Defending vs. target of Blood Ward",
+                "predicate": {
+                    "all": [
+                        "blood-ward"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 1,
+                            "value": 1
+                        },
+                        {
+                            "start": 5,
+                            "value": 2
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Defending vs. target of Blood Ward",
+                "predicate": {
+                    "all": [
+                        "blood-ward"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 1,
+                            "value": 1
+                        },
+                        {
+                            "start": 5,
+                            "value": 2
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/spells/blood-ward.webp",
+    "name": "Spell Effect: Blood Ward",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

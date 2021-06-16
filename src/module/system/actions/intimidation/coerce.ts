@@ -14,5 +14,6 @@ export function coerce(options: SkillActionOptions) {
         ['auditory', 'concentrate', 'emotion', 'exploration', 'linguistic', 'mental'],
         checkType,
         options.event,
+        (target) => target.will,
     );
 }

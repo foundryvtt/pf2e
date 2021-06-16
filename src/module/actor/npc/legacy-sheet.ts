@@ -14,7 +14,7 @@ interface LootSheetData {
 }
 
 export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
-    get template() {
+    override get template() {
         if (this.isLootSheet) {
             return 'systems/pf2e/templates/actors/npc/loot-sheet.html';
         }
@@ -24,7 +24,7 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         return `${path}npc-sheet-no-edit.html`;
     }
 
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
             classes: options.classes.concat('updatedNPCSheet'),
@@ -35,8 +35,7 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         return options;
     }
 
-    /** @override */
-    get title() {
+    override get title() {
         if (this.isLootSheet) {
             const actorName = this.token?.name ?? this.actor.name;
             return `${actorName} [${game.i18n.localize('PF2E.NPC.Dead')}]`;
@@ -44,8 +43,7 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         return super.title;
     }
 
-    /** @override */
-    getData() {
+    override getData() {
         const sheetData = super.getData();
         /** Use the simple NPC loot-sheet variant if in loot mode */
         if (this.isLootSheet) {
@@ -216,15 +214,12 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         return data;
     }
 
-    /** @override */
-    get isLootSheet(): boolean {
+    override get isLootSheet(): boolean {
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
         return npcsAreLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
-    /**
-     * Increases the NPC via the Elite/Weak adjustment rules
-     */
+    /** Increases the NPC via the Elite/Weak adjustment rules */
     npcAdjustment(increase: boolean) {
         let traits = duplicate(this.actor.data.data.traits.traits.value) ?? [];
         const isElite = traits.some((trait) => trait === 'elite');
@@ -250,16 +245,12 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         this.actor.update({ ['data.traits.traits.value']: traits });
     }
 
-    /**
-     * Check if Elite
-     */
+    /** Check if Elite */
     get npcIsElite() {
         return this.actor.data.data.traits.traits.value.some((trait) => trait === 'elite');
     }
 
-    /**
-     * Check if Weak
-     */
+    /** Check if Weak */
     get npcIsWeak() {
         return this.actor.data.data.traits.traits.value.some((trait) => trait === 'weak');
     }
@@ -299,10 +290,7 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         });
     }
 
-    /**
-     * Toggle expansion of an attackEffect ability if it exists.
-     *
-     */
+    /** Toggle expansion of an attackEffect ability if it exists. */
     expandAttackEffect(attackEffectName: string, event: JQuery.TriggeredEvent) {
         const actionList = $(event.currentTarget).parents('form').find('.item.action-item');
         let toggledAnything = false;
@@ -353,7 +341,7 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
      * Activate event listeners using the prepared sheet HTML
      * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
      */
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // Set the inventory tab as active on a loot-sheet rendering.

@@ -47,6 +47,8 @@ import { ContainerPF2e } from '@item/container';
 import { ActorDataPF2e } from '@actor/data';
 import { SaveString, SkillAbbreviation } from '@actor/creature/data';
 import { AbilityString } from '@actor/data/base';
+import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
+import { FolderPF2e } from '@module/folder';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -64,8 +66,7 @@ interface SpellSheetData extends SpellData {
  * @category Actor
  */
 export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
         return mergeObject(options, {
             classes: options.classes.concat(['pf2e', 'actor']),
@@ -86,15 +87,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         });
     }
 
-    /**
-     * Return the type of the current Actor
-     */
-    get type(): string {
-        return this.actor.data.type;
-    }
-
-    /** @override */
-    get isEditable(): boolean {
+    override get isEditable(): boolean {
         return this.actor.canUserModify(game.user, 'update');
     }
 
@@ -103,8 +96,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return false;
     }
 
-    /** @override */
-    getData(): ActorSheetDataPF2e<TActor> {
+    override getData(): ActorSheetDataPF2e<TActor> {
         // The Actor and its Items
         const actorData = this.actor.toObject(false);
         const items = deepClone(
@@ -484,11 +476,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         ]);
     }
 
-    /**
-     * Save any open tinyMCE editor before closing
-     * @override
-     */
-    async close(options: { force?: boolean } = {}): Promise<void> {
+    /** Save any open tinyMCE editor before closing */
+    override async close(options: { force?: boolean } = {}): Promise<void> {
         const editors = Object.values(this.editors).filter((editor) => editor.active);
         for (const editor of editors) {
             editor.options.save_onsavecallback();
@@ -500,8 +489,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     /*  Event Listeners and Handlers
     /* -------------------------------------------- */
 
-    /** @override */
-    activateListeners(html: JQuery): void {
+    override activateListeners(html: JQuery): void {
         super.activateListeners(html);
 
         // Pad field width
@@ -961,23 +949,18 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
     }
 
-    /** @override */
-    protected _canDragStart(selector: string): boolean {
+    protected override _canDragStart(selector: string): boolean {
         if (this.isLootSheet) return true;
         return super._canDragStart(selector);
     }
 
-    /** @override */
-    protected _canDragDrop(selector: string): boolean {
+    protected override _canDragDrop(selector: string): boolean {
         if (this.isLootSheet) return true;
         return super._canDragDrop(selector);
     }
 
-    /**
-     * Override core method due to bug in which new items are created from prepared data
-     * @override
-     */
-    protected _onDragStart(event: ElementDragEvent): void {
+    /** Add support for dropping actions and toggles */
+    protected override _onDragStart(event: ElementDragEvent): void {
         const $li = $(event.currentTarget);
 
         const baseDragData = {
@@ -988,20 +971,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Dragging ...
         const supplementalData = (() => {
-            const itemId = $li.attr('data-item-id');
             const actionIndex = $li.attr('data-action-index');
             const toggleProperty = $li.attr('data-toggle-property');
             const toggleLabel = $li.attr('data-toggle-label');
 
-            // ... an item?
-            if (itemId) {
-                const item = this.actor.items.get(itemId);
-                if (!item) throw ErrorPF2e('Item not found during drag event');
-                return {
-                    type: 'Item',
-                    data: item.toObject(),
-                };
-            }
             // ... an action?
             if (actionIndex) {
                 return {
@@ -1033,11 +1006,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             : super._onDragStart(event);
     }
 
-    /**
-     * Handle a drop event for an existing Owned Item to sort that item
-     * @override
-     */
-    protected async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
+    /** Handle a drop event for an existing Owned Item to sort that item */
+    protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
         const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
         const item = this.actor.items.get(itemData._id);
@@ -1126,9 +1096,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return super._onSortItem(event, itemData);
     }
 
-    /** @override */
-    protected async _onDropItemCreate(itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
+    protected override async _onDropItemCreate(itemData: ItemSourcePF2e | ItemSourcePF2e[]): Promise<ItemPF2e[]> {
+        const itemsData = Array.isArray(itemData) ? itemData : [itemData];
+        const includesABCItems = itemsData.some((datum) => ['ancestry', 'background', 'class'].includes(datum.type));
+        if (this.actor.type !== 'character' && includesABCItems) {
             // ignore these. they should get handled in the derived class
             ui.notifications.error(game.i18n.localize('PF2E.ItemNotSupportedOnActor'));
             return [];
@@ -1136,19 +1107,16 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return super._onDropItemCreate(itemData);
     }
 
-    async onDropItem(data: DropCanvasData) {
+    async onDropItem(data: DropCanvasItemDataPF2e) {
         return await this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
     }
 
-    /**
-     * Extend the base _onDrop method to handle dragging spells onto spell slots.
-     * @override
-     */
-    protected async _onDropItem(event: ElementDragEvent, data: DropCanvasData): Promise<unknown> {
+    /** Extend the base _onDropItem method to handle dragging spells onto spell slots. */
+    protected override async _onDropItem(event: ElementDragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        if (!item) return;
+        if (!item) return [];
         const itemData = item.toObject();
 
         const actor = this.actor;
@@ -1165,7 +1133,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 actor.token?.id ?? '',
                 sourceItemId,
             );
-            return item;
+            return [item];
         }
 
         // get the item type of the drop target
@@ -1215,18 +1183,18 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     itemData,
                 );
                 popup.render(true);
-                return itemData;
+                return [item];
             } else {
-                return null;
+                return [];
             }
         } else if (itemData.type === 'spellcastingEntry') {
             // spellcastingEntry can only be created. drag & drop between actors not allowed
-            return;
+            return [];
         } else if (item instanceof KitPF2e) {
             item.dumpContents(this.actor);
-            return itemData;
+            return [item];
         } else if (itemData.type === 'condition' && itemData.flags.pf2e?.condition) {
-            const value = data['value'];
+            const value = data.value;
             if (typeof value === 'number' && itemData.data.value.isValued) {
                 itemData.data.value.value = value;
             }
@@ -1237,13 +1205,18 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (!actor.canUserModify(game.user, 'update')) {
                 const translations = LocalizePF2e.translations.PF2E;
                 ui.notifications.error(translations.ErrorMessage.NoUpdatePermission);
-                return null;
+                return [];
             } else if (token) {
-                await game.pf2e.ConditionManager.addConditionToToken(itemData, token);
-                return itemData;
+                const condition = await game.pf2e.ConditionManager.addConditionToToken(itemData, token);
+                return condition ? [condition] : [];
             } else {
                 await actor.increaseCondition(itemData.data.slug);
-                return itemData;
+                return [item];
+            }
+        } else if (itemData.type === 'effect' && data && 'level' in data) {
+            const level = data.level;
+            if (typeof level === 'number' && level >= 0) {
+                itemData.data.level.value = level;
             }
         }
 
@@ -1256,6 +1229,17 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         }
         return this._onDropItemCreate(itemData);
+    }
+
+    protected override async _onDropFolder(
+        _event: ElementDragEvent,
+        data: DropCanvasData<'Folder', FolderPF2e>,
+    ): Promise<ItemPF2e[]> {
+        if (!(this.actor.isOwner && data.documentName === 'Item')) return [];
+        const folder = (await FolderPF2e.fromDropData(data)) as FolderPF2e<ItemPF2e> | undefined;
+        if (!folder) return [];
+        const itemSources = folder.flattenedContents.map((item) => item.toObject());
+        return this._onDropItemCreate(itemSources);
     }
 
     /**
@@ -1422,9 +1406,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         div.append(props);
     }
 
-    /**
-     * Opens an item container
-     */
+    /** Opens an item container */
     private toggleContainer(event: JQuery.ClickEvent) {
         const itemId = $(event.currentTarget).parents('.item').data('item-id');
         const item = this.actor.items.get(itemId);
@@ -1478,7 +1460,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             ]);
         } else if (data.type === 'lore') {
             data.name =
-                this.type === 'npc'
+                this.actor.type === 'npc'
                     ? game.i18n.localize('PF2E.SkillLabel')
                     : game.i18n.localize('PF2E.NewPlaceholders.Lore');
         } else {
@@ -1488,13 +1470,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         this.actor.createEmbeddedDocuments('Item', [data]);
     }
 
-    /**
-     * Handle creating a new spellcasting entry for the actor
-     */
+    /** Handle creating a new spellcasting entry for the actor */
     private createSpellcastingEntry(event: JQuery.ClickEvent) {
         event.preventDefault();
-
-        // let entries = this.actor.data.data.attributes.spellcasting.entry || {};
 
         let magicTradition = 'arcane';
         let spellcastingType = 'innate';
@@ -1714,11 +1692,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
     }
 
-    /**
-     * Prevent `ActorSheet#_getSubmitData` from preventing the submission of updates to overridden values`
-     * @override
-     */
-    protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
+    /** Prevent `ActorSheet#_getSubmitData` from preventing the submission of updates to overridden values */
+    protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         const overrides = this.actor.overrides;
         let submitData: Record<string, unknown>;
         try {
@@ -1738,8 +1713,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return submitData;
     }
 
-    /** @override */
-    protected async _onSubmit(event: Event, options: OnSubmitFormOptions = {}): Promise<Record<string, unknown>> {
+    protected override async _onSubmit(
+        event: Event,
+        options: OnSubmitFormOptions = {},
+    ): Promise<Record<string, unknown>> {
         // Limit HP value to data.attributes.hp.max value
         if (!(event.currentTarget instanceof HTMLInputElement)) {
             return super._onSubmit(event, options);
@@ -1771,10 +1748,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return typeof base === 'number' && typeof prepared === 'number' ? base + (update - prepared) : update;
     }
 
-    /**
-     * Hide the sheet-config button unless there is more than one sheet option.
-     *@override */
-    protected _getHeaderButtons(): ApplicationHeaderButton[] {
+    /** Hide the sheet-config button unless there is more than one sheet option. */
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
         const sheetButton = buttons.find((button) => button.class === 'configure-sheet');
         const hasMultipleSheets = Object.keys(CONFIG.Actor.sheetClasses[this.actor.type]).length > 1;
@@ -1784,11 +1759,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return buttons;
     }
 
-    /**
-     * Override of inner render function to maintain item summary state
-     * @override
-     */
-    protected async _renderInner(data: Record<string, unknown>, options: RenderOptions) {
+    /** Override of inner render function to maintain item summary state */
+    protected override async _renderInner(data: Record<string, unknown>, options: RenderOptions) {
         // Identify which item summaries are expanded currently
         const expandedItemElements = this.element.find('.item.expanded[data-item-id]');
         const openItemIds = new Set(expandedItemElements.map((_i, el) => el.dataset.itemId));

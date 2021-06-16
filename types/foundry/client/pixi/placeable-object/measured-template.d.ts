@@ -93,7 +93,11 @@ declare class MeasuredTemplate extends PlaceableObject<MeasuredTemplateDocument>
     /*  Socket Listeners and Handlers               */
     /* -------------------------------------------- */
 
-    protected override _onUpdate(data: any): void;
+    protected override _onUpdate(
+        changed: DeepPartial<this['document']['data']['_source']>,
+        options: DocumentModificationContext,
+        userId: string,
+    ): void;
 
-    protected override _onDelete(): void;
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void;
 }

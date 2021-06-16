@@ -16,42 +16,47 @@ declare global {
     }
 
     /**
-     * The default Actor Sheet
-     *
+     * The Actor configuration sheet.
      * This Application is responsible for rendering an actor's attributes and allowing the actor to be edited.
-     *
      * System modifications may elect to override this class to better suit their own game system by re-defining the value
-     * ``CONFIG.Actor.sheetClass``.
-     *
-     * @param actor            The Actor instance being displayed within the sheet.
-     * @param options          Additional options which modify the rendering of the Actor's sheet.
-     * @param options.editable Is the Actor editable? Default is true.
+     * CONFIG.Actor.sheetClass.
+
+     * @param actor                   The Actor instance being displayed within the sheet.
+     * @param options    Additional application configuration options.
      */
     class ActorSheet<TActor extends Actor = Actor, TItem extends Item = Item> extends DocumentSheet<
         TActor,
         ActorSheetOptions
     > {
-        /** @override */
-        static get defaultOptions(): ActorSheetOptions;
+        static override get defaultOptions(): ActorSheetOptions;
 
-        /** If this Actor Sheet represents a synthetic Token actor, reference the active Token */
-        token: TActor['parent'];
+        override get id(): `actor-${string}` | `actor-${string}-${string}`;
 
-        /** @override */
-        get id(): `actor-${string}` | `actor-${string}-${string}`;
-
-        /** @override */
-        get title(): string;
+        override get title(): string;
 
         /** A convenience reference to the Actor document */
         get actor(): TActor;
 
-        /** @override */
-        getData(options?: ActorSheetOptions): ActorSheetData<TActor>;
+        /** If this Actor Sheet represents a synthetic Token actor, reference the active Token */
+        get token(): TActor['parent'];
 
-        /**
-         * Handle requests to configure the prototype Token for the Actor
-         */
+        /* -------------------------------------------- */
+        /*  Methods                                     */
+        /* -------------------------------------------- */
+
+        override close(options?: { force?: boolean }): Promise<void>;
+
+        override getData(options?: ActorSheetOptions): ActorSheetData<TActor>;
+
+        protected override _getHeaderButtons(): ApplicationHeaderButton[];
+
+        protected override _getSubmitData(updateData?: DocumentUpdateData<TActor>): Record<string, unknown>;
+
+        /* -------------------------------------------- */
+        /*  Event Listeners                             */
+        /* -------------------------------------------- */
+
+        /** Handle requests to configure the prototype Token for the Actor */
         protected _onConfigureToken(event: Event): void;
 
         /**
@@ -64,32 +69,67 @@ declare global {
          */
         protected _onEditImage(event: Event): void;
 
-        /**
-         * Allow the Actor sheet to be a displayed as a valid drop-zone
-         */
-        protected _onDragOver(event: ElementDragEvent): boolean;
+        /* -------------------------------------------- */
+        /*  Drag and Drop                               */
+        /* -------------------------------------------- */
+
+        protected override _canDragStart(selector: string): boolean;
+
+        protected override _canDragDrop(selector: string): boolean;
+
+        protected override _onDragStart(event: ElementDragEvent): void;
+
+        protected override _onDrop(event: ElementDragEvent): Promise<boolean | void>;
+
+        protected override _onDragOver(event: ElementDragEvent): boolean;
 
         /**
-         * Handle dropped data on the Actor sheet
+         * Handle dropping of an Actor data onto another Actor sheet
+         * @param event The concluding DragEvent which contains drop data
+         * @param data The data transfer extracted from the event
+         * @return A data object which describes the result of the drop
          */
-        protected _onDrop(event: ElementDragEvent): Promise<boolean | any>;
+        protected _onDropActiveEffect<D extends ActiveEffect>(
+            event: ElementDragEvent,
+            data?: DropCanvasData<'ActiveEffect', D>,
+        ): Promise<D | void>;
+
+        /**
+         * Handle dropping of an Actor data onto another Actor sheet
+         * @param event The concluding DragEvent which contains drop data
+         * @param data  The data transfer extracted from the event
+         * @return A data object which describes the result of the drop
+         */
+        protected _onDropActor(event: ElementDragEvent, data: DropCanvasData<'Actor', TActor>): Promise<false | void>;
+
+        /**
+         * Handle dropping of an item reference or item data onto an Actor Sheet
+         * @param event The concluding DragEvent which contains drop data
+         * @param data  The data transfer extracted from the event
+         * @return A data object which describes the result of the drop
+         */
+        protected _onDropItem(event: ElementDragEvent, data: DropCanvasData<'Item', TItem>): Promise<TItem[]>;
+
+        /**
+         * Handle dropping of a Folder on an Actor Sheet.
+         * Currently supports dropping a Folder of Items to create all items as owned items.
+         * @param event The concluding DragEvent which contains drop data
+         * @param data  The data transfer extracted from the event
+         * @return A data object which describes the result of the drop
+         */
+        protected _onDropFolder(event: ElementDragEvent, data: DropCanvasData<'Folder', Folder>): Promise<TItem[]>;
 
         /**
          * Handle the final creation of dropped Item data on the Actor.
          * This method is factored out to allow downstream classes the opportunity to override item creation behavior.
          * @param itemData The item data requested for creation
          */
-        protected _onDropItemCreate(itemData: TItem['data']['_source']): Promise<TItem[]>;
-
-        /* -------------------------------------------- */
-        /*  Owned Item Sorting                          */
-        /* -------------------------------------------- */
+        protected _onDropItemCreate(itemData: TItem['data']['_source'] | TItem['data']['_source'][]): Promise<TItem[]>;
 
         /**
-         * Handle dropping of an item reference or item data onto an Actor Sheet
-         * @param event The concluding DragEvent which contains drop data
-         * @param data The data transfer extracted from the event
-         * @return A data object which describes the result of the drop
+         * Handle a drop event for an existing embedded Item to sort that Item relative to its siblings
+         * @param  event
+         * @param itemData
          */
         protected _onSortItem(event: ElementDragEvent, itemData: TItem['data']['_source']): Promise<TItem[]>;
     }

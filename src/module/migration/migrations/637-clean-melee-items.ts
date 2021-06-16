@@ -16,7 +16,7 @@ const meleeKeys = new Set([
 
 /** Remove physical item data from melee items */
 export class Migration637CleanMeleeItems extends MigrationBase {
-    async updateItem(itemData: ItemSourcePF2e): Promise<void> {
+    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type !== 'melee') return;
 
         const systemData = itemData.data;

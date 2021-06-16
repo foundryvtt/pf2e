@@ -119,7 +119,8 @@ export class CheckModifiersDialog extends Application {
 
         // Add the degree of success if a DC was supplied
         if (ctx.dc !== undefined) {
-            flavor += `<div data-visibility="${ctx.dc.visibility ?? 'all'}">`;
+            const showDC = game.settings.get('pf2e', 'metagame.showDC').toString();
+            flavor += `<div data-visibility="${ctx.dc.visibility ?? showDC}">`;
             const degreeOfSuccess = getDegreeOfSuccess(roll, ctx.dc);
             const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
             ctx.outcome = degreeOfSuccessText;
@@ -190,7 +191,7 @@ export class CheckModifiersDialog extends Application {
         }
     }
 
-    getData() {
+    override getData() {
         const fortune = this?.context?.fate === 'fortune';
         const misfortune = this?.context?.fate === 'misfortune';
         const none = fortune === misfortune;
@@ -206,7 +207,7 @@ export class CheckModifiersDialog extends Application {
         };
     }
 
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         html.find('.roll').on('click', (_event) => {
             this.context.fate = html.find('input[type=radio][name=fate]:checked').val() as string;
             CheckModifiersDialog.roll(this.check, this.context, this.callback);
@@ -272,8 +273,7 @@ export class CheckModifiersDialog extends Application {
         this.context.rollMode = ($(event.currentTarget).val() ?? 'roll') as string;
     }
 
-    /** @override */
-    protected _getHeaderButtons(): ApplicationHeaderButton[] {
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
         const label = LocalizePF2e.translations.PF2E.SETTINGS.Settings;
         const settingsButton: ApplicationHeaderButton = {

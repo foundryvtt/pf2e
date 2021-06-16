@@ -192,7 +192,7 @@ export class DamageRollModifiersDialog extends Application {
         }
     }
 
-    getData() {
+    override getData() {
         return {
             damage: this.damage,
         };

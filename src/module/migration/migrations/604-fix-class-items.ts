@@ -1,9 +1,9 @@
 import { MigrationBase } from '../base';
 
 export class Migration604FixClassItem extends MigrationBase {
-    static version = 0.604;
+    static override version = 0.604;
 
-    async updateItem(item: any) {
+    override async updateItem(item: any) {
         if (item.type !== 'class') return;
 
         if (Array.isArray(item.data.ancestryFeatLevels)) {

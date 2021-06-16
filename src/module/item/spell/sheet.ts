@@ -4,7 +4,7 @@ import { SpellSheetData } from '../sheet/data-types';
 import { SpellSystemData } from './data';
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
-    getData(): SpellSheetData {
+    override getData(): SpellSheetData {
         const data: ItemSheetDataPF2e<SpellPF2e> = super.getData();
         return {
             ...data,

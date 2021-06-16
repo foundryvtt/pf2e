@@ -25,8 +25,7 @@ export class TagSelectorBasic extends TraitSelectorBase {
         return this.options.configTypes ?? [];
     }
 
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             template: 'systems/pf2e/templates/system/trait-selector/basic.html',
             title: 'PF2E.BrowserFilterTraits',
@@ -34,8 +33,7 @@ export class TagSelectorBasic extends TraitSelectorBase {
         });
     }
 
-    /** @override */
-    getData() {
+    override getData() {
         const property: ValuesList = getProperty(
             (this.object as { toObject(): ActorSourcePF2e | ItemSourcePF2e }).toObject(),
             this.objectProperty,
@@ -60,8 +58,7 @@ export class TagSelectorBasic extends TraitSelectorBase {
         };
     }
 
-    /** @override */
-    activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery) {
         super.activateListeners($html);
 
         // Search filtering
@@ -71,7 +68,6 @@ export class TagSelectorBasic extends TraitSelectorBase {
         }
     }
 
-    /** @override */
     protected async _updateObject(_event: Event, formData: Record<string, unknown>) {
         const value = this.getUpdateData(formData);
         if (this.allowCustom && typeof formData['custom'] === 'string') {

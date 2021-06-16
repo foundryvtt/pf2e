@@ -475,7 +475,7 @@ declare global {
                  * @param userId  The ID of the User requesting the document update
                  */
                 protected _onUpdate(
-                    changed: DocumentUpdateData<this>,
+                    changed: DeepPartial<this['data']['_source']>,
                     options: DocumentModificationContext,
                     userId: string,
                 ): void;

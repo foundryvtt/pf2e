@@ -48,7 +48,7 @@ describe('test migration runner', () => {
             },
         },
         actors: new FakeActors(),
-        i18n: { format: () => {} },
+        i18n: { format: (stringId: string, data: object): string => {} },
         items: new FakeEntityCollection<FakeItem>(),
         macros: new FakeEntityCollection<FakeMacro>(),
         messages: new FakeEntityCollection<FakeChatMessage>(),

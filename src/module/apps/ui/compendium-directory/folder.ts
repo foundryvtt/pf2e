@@ -43,7 +43,7 @@ export class PackFolderPF2e extends Array<EnfolderedSummaryData> {
         return game.user.isGM || this.some((pack) => !pack.private) || this.subfolders.some((folder) => folder.visible);
     }
 
-    push(summaryData: EnfolderedSummaryData) {
+    override push(summaryData: EnfolderedSummaryData) {
         const packID = `pf2e.${summaryData.metadata.name}`;
         const compendium = game.packs.get(packID);
         if (compendium?.documentName === this.type) {

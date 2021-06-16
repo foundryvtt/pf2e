@@ -1,13 +1,11 @@
 import { ActorPF2e } from '@actor/index';
 import { CheckPF2e } from '@system/rolls';
-import { PF2E } from '@scripts/hooks';
+import { HooksPF2e } from '@scripts/hooks';
 
 import '@system/measure';
 import './styles/pf2e.scss';
-// load in the scripts (that were previously just included by <script> tags instead of in the bundle
-require('./scripts/system/canvas-drop-handler');
 
-PF2E.Hooks.listen();
+HooksPF2e.listen();
 
 /* -------------------------------------------- */
 /*  Foundry VTT Setup                           */
@@ -158,6 +156,8 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
 
 Hooks.on('renderChatMessage', (message, html) => {
     // remove elements the user does not have permission to see
+    html.find('[data-visibility="none"]').remove();
+
     if (!game.user.isGM) {
         html.find('[data-visibility="gm"]').remove();
     }

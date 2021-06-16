@@ -143,7 +143,7 @@ interface SpellcastingSheetData extends SheetItemData<SpellcastingEntryData> {
 }
 
 export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
 
         // Mix default options with new ones
@@ -158,21 +158,16 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         return options;
     }
 
-    /**
-     * Returns the path to the HTML template to use to render this sheet.
-     */
-    get template() {
+    /** Show either the actual NPC sheet or a briefened lootable version if the NPC is dead */
+    override get template(): string {
         if (this.isLootSheet) {
             return 'systems/pf2e/templates/actors/npc/loot-sheet.html';
         }
         return 'systems/pf2e/templates/actors/npc/npc-sheet.html';
     }
 
-    /**
-     * Use the token name as the title if showing a lootable NPC sheet
-     * @override
-     */
-    get title() {
+    /** Use the token name as the title if showing a lootable NPC sheet */
+    override get title() {
         if (this.isLootSheet) {
             const actorName = this.token?.name ?? this.actor.name;
             return `${actorName} [${game.i18n.localize('PF2E.NPC.Dead')}]`; // `;
@@ -180,8 +175,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         return super.title;
     }
 
-    /** @override */
-    get isLootSheet(): boolean {
+    override get isLootSheet(): boolean {
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
         return npcsAreLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
@@ -210,8 +204,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.spellcastingEntries = this.prepareSpellcasting(sheetData);
     }
 
-    /** @override */
-    getData(): NPCSheetData {
+    override getData(): NPCSheetData {
         const sheetData: NPCSheetData = super.getData();
 
         // recall knowledge DCs
@@ -284,7 +277,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      * Subscribe to events from the sheet.
      * @param html HTML content ready to render the sheet.
      */
-    activateListeners(html: JQuery<HTMLElement>) {
+    override activateListeners(html: JQuery<HTMLElement>) {
         super.activateListeners(html);
 
         // Set the inventory tab as active on a loot-sheet rendering.
@@ -343,7 +336,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const customSelections = selections.custom
             .split(/\s*[,;|]\s*/)
             .filter((trait) => trait)
-            .map((trait): Record<string, string> => ({ value: trait, label: trait }));
+            .map((trait): Record<string, string> => ({ value: trait.replace(/\.$/, ''), label: trait }));
 
         return mainSelections
             .concat(customSelections)
@@ -1003,8 +996,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         item.imageUrl = imageUrl;
     }
 
-    /** @override */
-    protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // do not update max health if the value has not actually changed
         if (this.isElite || this.isWeak) {
             const { max } = this.actor.data.data.attributes.hp;

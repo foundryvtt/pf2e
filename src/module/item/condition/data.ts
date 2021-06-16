@@ -7,7 +7,7 @@ export type ConditionSource = BaseNonPhysicalItemSource<'condition', ConditionSy
 
 export class ConditionData extends BaseNonPhysicalItemData<ConditionPF2e> {
     /** @override */
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/condition.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/condition.svg';
 }
 
 export interface ConditionData extends Omit<ConditionSource, '_id' | 'effects'> {

@@ -2,9 +2,9 @@ import { ActorSourcePF2e } from '@actor/data';
 import { MigrationBase } from '../base';
 
 export class Migration622RemoveOldTokenEffectIcons extends MigrationBase {
-    static version = 0.622;
+    static override version = 0.622;
 
-    async updateActor(actorData: ActorSourcePF2e): Promise<void> {
+    override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         // remove deprecated condition token effects
         actorData.token.effects =
             actorData.token.effects?.filter((fx) => !fx.startsWith('systems/pf2e/icons/conditions/')) ?? [];
@@ -18,7 +18,7 @@ export class Migration622RemoveOldTokenEffectIcons extends MigrationBase {
         }
     }
 
-    async updateToken(tokenData: foundry.data.TokenSource): Promise<void> {
+    override async updateToken(tokenData: foundry.data.TokenSource): Promise<void> {
         // remove deprecated condition token effects
         tokenData.effects = tokenData.effects.filter((fx) => !fx.startsWith('systems/pf2e/icons/conditions/'));
 

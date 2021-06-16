@@ -12,7 +12,6 @@ interface PlayerSettings {
 export class PlayerConfigPF2e extends FormApplication {
     settings: PlayerSettings;
 
-    /** @override */
     constructor() {
         super();
         this.settings = mergeObject(PlayerConfigPF2e.defaultSettings, game.user.getFlag('pf2e', 'settings'));
@@ -30,8 +29,7 @@ export class PlayerConfigPF2e extends FormApplication {
         showRollDialogs: true,
     };
 
-    /** @override */
-    static get defaultOptions(): FormApplicationOptions {
+    static override get defaultOptions(): FormApplicationOptions {
         return mergeObject(super.defaultOptions, {
             id: 'pf2e-player-config-panel',
             title: 'PF2e Player Settings',
@@ -43,8 +41,7 @@ export class PlayerConfigPF2e extends FormApplication {
         });
     }
 
-    /** @override */
-    getData(): FormApplicationData & PlayerSettings {
+    override getData(): FormApplicationData & PlayerSettings {
         return { ...super.getData(), ...this.settings };
     }
 
@@ -77,7 +74,6 @@ export class PlayerConfigPF2e extends FormApplication {
         });
     }
 
-    /** @override */
     async _updateObject(_event: Event, formData: FormData & PlayerSettings): Promise<void> {
         const settings = USER_SETTINGS_KEYS.reduce((currentSettings: Record<UserSettingsKey, unknown>, key) => {
             currentSettings[key] = formData[key] ?? this.settings[key];

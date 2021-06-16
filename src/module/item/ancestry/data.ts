@@ -10,7 +10,7 @@ export type AncestrySource = BaseNonPhysicalItemSource<'ancestry', AncestrySyste
 
 export class AncestryData extends BaseNonPhysicalItemData<AncestryPF2e> {
     /** @override */
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/ancestry.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/ancestry.svg';
 }
 
 export interface AncestryData extends Omit<AncestrySource, '_id' | 'effects'> {

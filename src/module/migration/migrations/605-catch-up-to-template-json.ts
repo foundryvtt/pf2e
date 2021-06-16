@@ -5,7 +5,7 @@ import { isPhysicalData } from '@item/data/helpers';
 
 /** Catch up actors and items to the current template.json spec */
 export class Migration605CatchUpToTemplateJSON extends MigrationBase {
-    static version = 0.605;
+    static override version = 0.605;
 
     private addEffects(entityData: ActorSourcePF2e | ItemSourcePF2e) {
         if (!Array.isArray(entityData.effects)) {
@@ -13,7 +13,7 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
         }
     }
 
-    async updateActor(actorData: ActorSourcePF2e) {
+    override async updateActor(actorData: ActorSourcePF2e) {
         this.addEffects(actorData);
 
         // Add custom trait property
@@ -54,7 +54,7 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
         }
     }
 
-    async updateItem(itemData: ItemSourcePF2e, actorData: ActorSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e, actorData: ActorSourcePF2e) {
         this.addEffects(itemData);
 
         // Add slugs to owned items

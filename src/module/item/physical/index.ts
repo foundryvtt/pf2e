@@ -15,8 +15,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.data.level.value;
     }
 
-    /** @override */
-    get traits(): Set<string> {
+    override get traits(): Set<string> {
         const traits: string[] = this.data.data.traits.value;
         return new Set(traits.concat(this.rarity));
     }
@@ -74,8 +73,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this._container;
     }
 
-    /** @override */
-    prepareBaseData(): void {
+    override prepareBaseData(): void {
         super.prepareBaseData();
 
         // Clear empty-string containerId values
@@ -108,8 +106,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         }
     }
 
-    /** @override */
-    prepareDerivedData(): void {
+    override prepareDerivedData(): void {
         super.prepareDerivedData();
         this.data.isMagical = this.isMagical;
     }
@@ -177,11 +174,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return game.i18n.format(formatString, { item: itemType });
     }
 
-    /**
-     * Include mystification-related rendering instructions for views that will display this data.
-     * @override
-     */
-    protected traitChatData(dictionary: Record<string, string>): TraitChatData[] {
+    /** Include mystification-related rendering instructions for views that will display this data. */
+    protected override traitChatData(dictionary: Record<string, string>): TraitChatData[] {
         const traitData = super.traitChatData(dictionary);
         for (const trait of traitData) {
             trait.mystified = !this.isIdentified && MystifiedTraits.has(trait.value);

@@ -34,7 +34,7 @@ import { ScenePF2e } from '@module/scene';
 import { CompendiumBrowser } from '@module/apps/compendium-browser';
 import { remigrate } from '@scripts/system/remigrate';
 import { FolderPF2e } from '@module/folder';
-import { TokenPF2e } from '@module/canvas/token';
+import { CanvasPF2e } from '@module/canvas';
 
 declare global {
     interface Game {
@@ -107,7 +107,7 @@ declare global {
     }
 
     const CONFIG: ConfigPF2e;
-    const canvas: Canvas<ScenePF2e, TokenPF2e>;
+    const canvas: CanvasPF2e;
     namespace globalThis {
         // eslint-disable-next-line no-var
         var game: Game<ActorPF2e, ChatMessagePF2e, CombatPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
@@ -115,6 +115,8 @@ declare global {
 
     interface ClientSettings {
         get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
+        get(module: 'pf2e', setting: 'automation.rulesBasedVision'): boolean;
+        get(module: 'pf2e', setting: 'automation.effectExpiration'): boolean;
         get(module: 'pf2e', setting: 'automation.lootableNPCs'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettings'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;

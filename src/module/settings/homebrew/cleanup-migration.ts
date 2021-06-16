@@ -1,13 +1,13 @@
 import { MigrationBase } from '@module/migration/base';
 import { ItemSourcePF2e } from '@item/data';
 import { ActorSourcePF2e } from '@actor/data';
-import { ConfigPF2eListName } from './index';
+import { ConfigPF2eHomebrewList } from './index';
 import { objectHasKey } from '@module/utils';
 import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from '@actor/character/data';
 
-export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[]): MigrationBase {
+export function prepareCleanup(listKey: ConfigPF2eHomebrewList, deletions: string[]): MigrationBase {
     const Migration = class extends MigrationBase {
-        async updateActor(actorData: ActorSourcePF2e) {
+        override async updateActor(actorData: ActorSourcePF2e) {
             if (!(actorData.type === 'character' || actorData.type === 'npc')) {
                 return;
             }
@@ -61,7 +61,7 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
             }
         }
 
-        async updateItem(itemData: ItemSourcePF2e) {
+        override async updateItem(itemData: ItemSourcePF2e) {
             switch (listKey) {
                 // Creature traits can be on many item
                 case 'creatureTraits': {

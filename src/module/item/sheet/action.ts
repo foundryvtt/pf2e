@@ -2,7 +2,7 @@ import { ActionPF2e } from '@item/action';
 import { ItemSheetDataPF2e, ItemSheetPF2e } from './base';
 
 export class ActionSheetPF2e extends ItemSheetPF2e<ActionPF2e> {
-    getData() {
+    override getData() {
         const data: ItemSheetDataPF2e<ActionPF2e> = super.getData();
         const actorWeapons = this.actor?.itemTypes.weapon.map((weapon) => weapon.data) ?? [];
         const actionType = data.data.actionType.value || 'action';

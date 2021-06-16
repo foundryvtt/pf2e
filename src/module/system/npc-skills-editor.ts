@@ -18,7 +18,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         return this.object;
     }
 
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
 
         options.id = 'npc-skills-selector';
@@ -32,10 +32,8 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         return options;
     }
 
-    /**
-     * Prepare data to be sent to HTML.
-     */
-    getData() {
+    /** Prepare data to be sent to HTML. */
+    override getData() {
         const skills: Record<string, NPCSkillData> = {};
         const missingSkills: Record<string, NPCSkillData> = {};
 
@@ -64,7 +62,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
      * Subscribe to events from HTML.
      * @param html
      */
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         html.find('.delete').on('click', (event) => this.onRemoveSkillClicked(event));
@@ -141,7 +139,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
      * @param event
      * @param formData
      */
-    async _updateObject(_event: Event, formData: any) {
+    override async _updateObject(_event: Event, formData: any): Promise<void> {
         for (const [key, skillData] of Object.entries(formData as Record<any, any>)) {
             const skillId = key;
             const value = parseInt(skillData, 10);
