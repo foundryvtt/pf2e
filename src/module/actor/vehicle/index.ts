@@ -5,12 +5,11 @@ import { ActorPF2e } from '../base';
 import { VehicleData } from './data';
 
 export class VehiclePF2e extends ActorPF2e {
-    /** @override */
-    static get schema(): typeof VehicleData {
+    static override get schema(): typeof VehicleData {
         return VehicleData;
     }
 
-    async createEmbeddedDocuments(
+    override async createEmbeddedDocuments(
         embeddedName: 'ActiveEffect' | 'Item',
         data: PreCreate<foundry.data.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
         context?: DocumentModificationContext,

@@ -13,7 +13,7 @@ import { ActorSheetPF2e } from './sheet/base';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { isMagicItemData } from '@item/data/helpers';
 import { SUPPORTED_ROLL_OPTIONS } from './data/values';
-import { SaveData, SaveString, SkillAbbreviation, SkillData } from './creature/data';
+import { SaveData, SaveString, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from './creature/data';
 import { AbilityString, BaseActorDataPF2e } from './data/base';
 import { ActorDataPF2e, ActorSourcePF2e } from './data';
 import { TokenDocumentPF2e } from '@module/token-document';
@@ -50,6 +50,18 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     get level(): number {
         return this.data.data.details.level.value;
+    }
+
+    /**
+     * Whether the actor can see, given its token placement in the current scene.
+     * A meaningful implementation is found in `CreaturePF2e`.
+     */
+    get canSee(): boolean {
+        return true;
+    }
+
+    get visionLevel(): VisionLevel {
+        return VisionLevels.NORMAL;
     }
 
     /** Add effect icons from effect items and rule elements */

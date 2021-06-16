@@ -30,8 +30,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
     private static readonly contentSelector = 'ol.compendium-list';
 
-    /** @override */
-    static get defaultOptions(): CompendiumDirectoryOptions {
+    static override get defaultOptions(): CompendiumDirectoryOptions {
         return {
             ...super.defaultOptions,
             template: 'systems/pf2e/templates/system/ui/compendium-directory.html',
@@ -45,8 +44,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         };
     }
 
-    /** @override */
-    getData(options?: object): PackDirectoryDataPF2e {
+    override getData(options?: object): PackDirectoryDataPF2e {
         const data: PackDirectoryDataPF2e = super.getData(options);
 
         // Get compendia in folders
@@ -107,8 +105,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         return newFolder;
     }
 
-    /** @override */
-    activateListeners($html: JQuery): void {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
         // Hook in the compendium browser
@@ -136,13 +133,11 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         });
     }
 
-    /** @override */
-    protected _canDragDrop(): boolean {
+    protected override _canDragDrop(): boolean {
         return game.user.hasPermission('ACTOR_CREATE');
     }
 
-    /** @override */
-    protected _onSearchFilter(_event: KeyboardEvent, query: string): void {
+    protected override _onSearchFilter(_event: KeyboardEvent, query: string): void {
         const $lists = $(CompendiumDirectoryPF2e.contentSelector);
         const $compendia = $lists.find('li.compendium-pack');
 

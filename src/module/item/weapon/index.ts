@@ -6,13 +6,11 @@ import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup } from './data'
 import { CreaturePF2e } from '@actor';
 
 export class WeaponPF2e extends PhysicalItemPF2e {
-    /** @override */
-    static get schema(): typeof WeaponData {
+    static override get schema(): typeof WeaponData {
         return WeaponData;
     }
 
-    /** @override */
-    isStackableWith(item: PhysicalItemPF2e): boolean {
+    override isStackableWith(item: PhysicalItemPF2e): boolean {
         const equippedButStackable = ['bomb', 'dart'].includes(this.group ?? '');
         if ((this.isEquipped || item.isEquipped) && !equippedButStackable) return false;
         return super.isStackableWith(item);
@@ -30,8 +28,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return this.data.data.weaponType.value || null;
     }
 
-    /** @override */
-    prepareBaseData(): void {
+    override prepareBaseData(): void {
         super.prepareBaseData();
 
         const baseTraits = this.data.data.traits.value;
@@ -45,7 +42,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         this.data.isInvested = this.isInvested;
     }
 
-    getChatData(this: Embedded<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const actorData = this.actor.data;
         const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
@@ -100,8 +97,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         });
     }
 
-    /** @override */
-    generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
+    override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const translations = LocalizePF2e.translations.PF2E;
         const base = this.baseType ? translations.Weapon.Base[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;

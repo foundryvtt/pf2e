@@ -14,5 +14,6 @@ export function impersonate(options: SkillActionOptions) {
         ['concentrate', 'exploration', 'manipulate', 'secret'],
         checkType,
         options.event,
+        (target) => target.perception,
     );
 }

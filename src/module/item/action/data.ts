@@ -7,8 +7,7 @@ export type ActionType = keyof ConfigPF2e['PF2E']['actionTypes'];
 export type ActionSource = BaseNonPhysicalItemSource<'action', ActionSystemData>;
 
 export class ActionData extends BaseNonPhysicalItemData<ActionPF2e> {
-    /** @override */
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/action.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/action.svg';
 }
 
 export interface ActionData extends Omit<ActionSource, '_id' | 'effects'> {

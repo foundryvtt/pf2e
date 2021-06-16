@@ -4,7 +4,6 @@ type _Actor = Actor<TokenDocument<_Actor>>;
 
 declare global {
     class TokenDocument<TActor extends Actor = _Actor> extends TokenDocumentConstructor {
-        /** @override */
         constructor(
             data: PreCreate<foundry.data.TokenSource>,
             context: TokenDocumentConstructionContext<TokenDocument>,
@@ -142,7 +141,7 @@ declare global {
         ): Promise<void>;
 
         protected override _onUpdate(
-            data: DocumentUpdateData<this>,
+            changed: DeepPartial<this['data']['_source']>,
             options: DocumentModificationContext,
             userId: string,
         ): void;
@@ -169,7 +168,7 @@ declare global {
 
         readonly parent: Scene | null;
 
-        _sheet: TokenConfig<this> | null;
+        _sheet: TokenConfig<TokenDocument> | null;
 
         readonly _object: Token<TokenDocument> | null;
     }

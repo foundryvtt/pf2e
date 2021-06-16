@@ -4,9 +4,9 @@ import { ActorSourcePF2e } from '@actor/data';
 
 /** Unbreak actor sheets that have kit items in their inventories */
 export class Migration608DeletePersistedKits extends MigrationBase {
-    static version = 0.608;
+    static override version = 0.608;
 
-    async updateItem(itemData: ItemSourcePF2e, actorData?: ActorSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e, actorData?: ActorSourcePF2e) {
         if (actorData && itemData.type === 'kit') {
             const index = actorData.items.indexOf(itemData);
             actorData.items.splice(index, 1);

@@ -13,7 +13,7 @@ export class EffectPanel extends Application {
 
     private timeout: number | undefined = undefined;
 
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             popOut: false,
             template: 'systems/pf2e/templates/system/effect-panel.html',
@@ -33,7 +33,7 @@ export class EffectPanel extends Application {
         }, 100);
     }
 
-    getData(options?: any): EffectPanelData {
+    override getData(options?: ApplicationOptions): EffectPanelData {
         const data: EffectPanelData = super.getData(options);
 
         data.conditions = [];
@@ -73,7 +73,7 @@ export class EffectPanel extends Application {
         return data;
     }
 
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // handle right-click on condition and effect icons

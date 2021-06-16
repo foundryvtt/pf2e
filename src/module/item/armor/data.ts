@@ -12,7 +12,7 @@ export type ArmorSource = BasePhysicalItemSource<'armor', ArmorSystemData>;
 
 export class ArmorData extends BasePhysicalItemData<ArmorPF2e> {
     /** @override */
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/armor.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/armor.svg';
 }
 
 export interface ArmorData extends Omit<ArmorSource, '_id' | 'effects'> {

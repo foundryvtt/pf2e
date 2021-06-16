@@ -6,7 +6,7 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
     }
 
     /** Exclude orphaned and loot-actor tokens from combat */
-    async createEmbeddedDocuments(
+    override async createEmbeddedDocuments(
         embeddedName: 'Combatant',
         data: PreCreate<foundry.data.CombatantSource>[],
         context: DocumentModificationContext = {},

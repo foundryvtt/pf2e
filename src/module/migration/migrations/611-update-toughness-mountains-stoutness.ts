@@ -4,8 +4,8 @@ import { FeatPF2e } from '@item/feat';
 import { FeatSource } from '@item/data';
 
 export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase {
-    static version = 0.611;
-    requiresFlush = true;
+    static override version = 0.611;
+    override requiresFlush = true;
 
     private featSlugs = ['mountains-stoutness', 'mountain-s-stoutness', 'toughness'];
     private featsPromise: Promise<FeatPF2e[]>;
@@ -15,7 +15,7 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
         this.featsPromise = game.packs.get<CompendiumCollection<FeatPF2e>>('pf2e.feats-srd')!.getDocuments();
     }
 
-    async updateActor(actorData: ActorSourcePF2e) {
+    override async updateActor(actorData: ActorSourcePF2e) {
         if (actorData.type !== 'character') return;
 
         const oldFeatsData = actorData.items.filter(

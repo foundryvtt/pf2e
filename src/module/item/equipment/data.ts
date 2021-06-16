@@ -10,7 +10,7 @@ export type EquipmentSource = BasePhysicalItemSource<'equipment', EquipmentSyste
 
 export class EquipmentData extends BasePhysicalItemData<EquipmentPF2e> {
     /** @override */
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/equipment.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/equipment.svg';
 }
 
 export interface EquipmentData extends Omit<EquipmentSource, '_id' | 'effects'> {

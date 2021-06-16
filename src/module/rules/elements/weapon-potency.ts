@@ -7,7 +7,7 @@ import { ModifierPredicate } from '@module/modifiers';
  * @category RuleElement
  */
 export class PF2WeaponPotencyRuleElement extends RuleElementPF2e {
-    onBeforePrepareData(actorData: CharacterData | NPCData, { weaponPotency }: RuleElementSyntheticsPF2e) {
+    override onBeforePrepareData(actorData: CharacterData | NPCData, { weaponPotency }: RuleElementSyntheticsPF2e) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const label = super.getDefaultLabel(this.ruleData, this.item);
         const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);

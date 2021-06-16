@@ -6,7 +6,7 @@ import { ItemSourcePF2e } from '@item/data';
 
 /** Set the `baseItem` property of base armor and weapons for the benefit of better unidentified names */
 export class Migration629SetBaseItems extends MigrationBase {
-    static version = 0.629;
+    static override version = 0.629;
 
     private BASE_ARMORS = [
         'explorers-clothing',
@@ -192,7 +192,7 @@ export class Migration629SetBaseItems extends MigrationBase {
         'wooden-taws',
     ];
 
-    async updateItem(itemData: ItemSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e) {
         if (!isPhysicalData(itemData)) return;
 
         const systemData: { slug: string | null; baseItem: string | null } = itemData.data;

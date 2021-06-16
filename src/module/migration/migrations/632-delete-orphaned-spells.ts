@@ -4,11 +4,11 @@ import { ActorSourcePF2e } from '@actor/data';
 
 /** Delete owned spells with no corresponding spellcastiong entry */
 export class Migration632DeleteOrphanedSpells extends MigrationBase {
-    static version = 0.632;
+    static override version = 0.632;
 
-    requiresFlush = true;
+    override requiresFlush = true;
 
-    async updateActor(actorData: ActorSourcePF2e) {
+    override async updateActor(actorData: ActorSourcePF2e) {
         const spells = actorData.items.filter((itemData): itemData is SpellSource => itemData.type === 'spell');
         const entries = actorData.items.filter(
             (itemData): itemData is SpellcastingEntrySource => itemData.type === 'spellcastingEntry',

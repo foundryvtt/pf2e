@@ -1,4 +1,3 @@
-import { ModifierPredicate } from '@module/modifiers';
 import {
     DieRoll,
     DegreeAdjustment,
@@ -7,6 +6,7 @@ import {
     adjustDegreeOfSuccess,
 } from '../degree-of-success';
 import { RollDataPF2e } from './rolls';
+import { ModifierPredicate } from '@module/modifiers';
 
 export interface PF2CheckDCModifiers {
     all?: 'one-degree-better' | 'one-degree-worse';
@@ -16,16 +16,18 @@ export interface PF2CheckDCModifiers {
     criticalSuccess?: 'one-degree-better' | 'one-degree-worse';
 }
 
+export interface DegreeOfSuccessAdjustment {
+    modifiers: PF2CheckDCModifiers;
+    predicate?: ModifierPredicate;
+}
+
 export interface PF2CheckDC {
     label?: string;
     modifiers?: PF2CheckDCModifiers;
     scope?: 'AttackOutcome' | 'CheckOutcome';
-    adjustments?: {
-        modifiers: PF2CheckDCModifiers;
-        predicate: ModifierPredicate;
-    }[];
+    adjustments?: DegreeOfSuccessAdjustment[];
     value: number;
-    visibility?: 'gm' | 'owner' | 'all';
+    visibility?: 'none' | 'gm' | 'owner' | 'all';
 }
 
 const PREFIXES = Object.freeze({

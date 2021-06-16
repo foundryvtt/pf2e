@@ -4,11 +4,12 @@ import { ItemPF2e } from '@item/base';
 import { addCoins, attemptToRemoveCoinsByValue, extractPriceFromItem } from '@item/treasure/helpers';
 import { ErrorPF2e } from '@module/utils';
 import { UserPF2e } from '@module/user';
-import { LootData } from './data';
+import { LootData, LootSource } from './data';
+import { ActiveEffectPF2e } from '@module/active-effect';
+import { ItemSourcePF2e } from '@item/data';
 
 export class LootPF2e extends ActorPF2e {
-    /** @override */
-    static get schema(): typeof LootData {
+    static override get schema(): typeof LootData {
         return LootData;
     }
 
@@ -20,26 +21,25 @@ export class LootPF2e extends ActorPF2e {
         return this.data.data.lootSheetType === 'Merchant';
     }
 
-    /** Anyone with Limited permission can update a loot actor
-     * @override
-     */
-    canUserModify(user: UserPF2e, action: UserAction): boolean {
+    /** Should this actor's token(s) be hidden when there are no items in its inventory? */
+    get hiddenWhenEmpty(): boolean {
+        return this.isLoot && this.data.data.hiddenWhenEmpty;
+    }
+
+    /** Anyone with Limited permission can update a loot actor */
+    override canUserModify(user: UserPF2e, action: UserAction): boolean {
         if (action === 'update') {
             return this.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
         }
         return super.canUserModify(user, action);
     }
 
-    /**
-     * A user can see a loot actor in the actor directory only if they have at least Observer permission
-     * @override
-     */
-    get visible(): boolean {
+    /** A user can see a loot actor in the actor directory only if they have at least Observer permission */
+    override get visible(): boolean {
         return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
     }
 
-    /** @override */
-    async transferItemToActor(
+    override async transferItemToActor(
         targetActor: ActorPF2e,
         item: Embedded<ItemPF2e>,
         quantity: number,
@@ -62,6 +62,57 @@ export class LootPF2e extends ActorPF2e {
         }
 
         return super.transferItemToActor(targetActor, item, quantity, containerId);
+    }
+
+    /** Hide this actor's token(s) when in loot (rather than merchant) mode, empty, and configured thus */
+    async toggleTokenHiding() {
+        const hiddenStatus = this.hiddenWhenEmpty && this.items.size === 0;
+        const tokenDocs = this.getActiveTokens().map((token) => token.document);
+        for await (const tokenDoc of tokenDocs) {
+            await tokenDoc.update({ hidden: hiddenStatus });
+        }
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    protected override _onCreate(data: LootSource, options: DocumentModificationContext, userId: string): void {
+        this.toggleTokenHiding();
+        super._onCreate(data, options, userId);
+    }
+
+    protected override _onUpdate(
+        changed: DeepPartial<this['data']['_source']>,
+        options: DocumentModificationContext,
+        userId: string,
+    ): void {
+        if (changed.data?.hiddenWhenEmpty !== undefined) {
+            this.toggleTokenHiding();
+        }
+        super._onUpdate(changed, options, userId);
+    }
+
+    protected override _onCreateEmbeddedDocuments(
+        embeddedName: 'ActiveEffect' | 'Item',
+        documents: ActiveEffectPF2e[] | ItemPF2e[],
+        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
+        options: DocumentModificationContext,
+        userId: string,
+    ): void {
+        this.toggleTokenHiding();
+        super._onCreateEmbeddedDocuments(embeddedName, documents, result, options, userId);
+    }
+
+    protected override _onDeleteEmbeddedDocuments(
+        embeddedName: 'ActiveEffect' | 'Item',
+        documents: ActiveEffectPF2e[] | ItemPF2e[],
+        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
+        options: DocumentModificationContext,
+        userId: string,
+    ): void {
+        this.toggleTokenHiding();
+        super._onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId);
     }
 }
 

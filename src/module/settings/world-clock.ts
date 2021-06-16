@@ -23,7 +23,7 @@ interface UpdateData {
 }
 
 export class WorldClockSettings extends FormApplication {
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             title: CONFIG.PF2E.SETTINGS.worldClock.name,
             id: 'world-clock-settings',
@@ -34,7 +34,7 @@ export class WorldClockSettings extends FormApplication {
         });
     }
 
-    getData(): TemplateData {
+    override getData(): TemplateData {
         const visibleSettings = Object.entries(WorldClockSettings.settings).filter(([key]) => key !== 'worldCreatedOn');
 
         const settings: FormInputData[] = visibleSettings.map(([key, setting]) => {
@@ -69,7 +69,7 @@ export class WorldClockSettings extends FormApplication {
         game.settings.register('pf2e', 'worldClock.worldCreatedOn', this.settings.worldCreatedOn);
     }
 
-    activateListeners($html: JQuery): void {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
         const translations = LocalizePF2e.translations.PF2E.SETTINGS.WorldClock;
@@ -89,7 +89,7 @@ export class WorldClockSettings extends FormApplication {
         });
     }
 
-    protected async _updateObject(_event: Event, data: UpdateData): Promise<void> {
+    protected override async _updateObject(_event: Event, data: UpdateData): Promise<void> {
         const keys: (keyof UpdateData)[] = ['dateTheme', 'timeConvention', 'playersCanView', 'syncDarkness'];
         for await (const key of keys) {
             const settingKey = `worldClock.${key}`;
@@ -108,7 +108,7 @@ export class WorldClockSettings extends FormApplication {
             'globalLight',
             {
                 get: () =>
-                    canvas.lighting.globalLight
+                    canvas.lighting?.globalLight
                         ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOn)
                         : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOff),
             },

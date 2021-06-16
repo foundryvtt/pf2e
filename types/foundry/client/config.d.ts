@@ -120,7 +120,7 @@ declare global {
             };
 
             collection: typeof Scenes;
-            sheetClass: typeof SceneConfig;
+            sheetClass: ConstructorOf<TScene['sheet']>;
             notesClass: any;
             sidebarIcon: string;
         };
@@ -180,7 +180,7 @@ declare global {
             ) => TTokenDocument;
             objectClass: new (...args: any[]) => TTokenDocument['object'];
             layerClass: typeof TokenLayer;
-            sheetClass: typeof TokenConfig;
+            sheetClass: ConstructorOf<TTokenDocument['sheet']>;
         };
 
         /* -------------------------------------------- */
@@ -230,14 +230,14 @@ declare global {
                 torch: {
                     label: 'LIGHT.AnimationTorch';
                     animation: PointSource['animateTorch'];
-                    illuminationShader: typeof PIXI.Shader;
-                    colorationShader: typeof PIXI.Shader;
+                    illuminationShader: typeof TorchIlluminationShader;
+                    colorationShader: typeof TorchColorationShader;
                 };
                 pulse: {
                     label: 'LIGHT.AnimationPulse';
                     animation: PointSource['animatePulse'];
-                    illuminationShader: typeof PIXI.Shader;
-                    colorationShader: typeof PIXI.Shader;
+                    illuminationShader: typeof PulseIlluminationShader;
+                    colorationShader: typeof PulseColorationShader;
                 };
                 chroma: {
                     label: 'LIGHT.AnimationChroma';

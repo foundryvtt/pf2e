@@ -15,7 +15,7 @@ export class PF2SenseRuleElement extends RuleElementPF2e {
         );
     }
 
-    onBeforePrepareData(actorData: CreatureData) {
+    override onBeforePrepareData(actorData: CreatureData) {
         const label = super.getDefaultLabel(this.ruleData, this.item);
         const range = super.resolveValue(this.ruleData.range, this.ruleData, this.item, actorData);
         if (this.ruleData.selector && label) {

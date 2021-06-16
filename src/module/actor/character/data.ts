@@ -28,7 +28,7 @@ import type { CharacterPF2e } from '.';
 export type CharacterSource = BaseCreatureSource<'character', CharacterSystemData>;
 
 export class CharacterData extends BaseCreatureData<CharacterPF2e, CharacterSystemData> {
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/mystery-man.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/mystery-man.svg';
 }
 
 export interface CharacterData extends Omit<CharacterSource, 'effects' | 'items' | 'token'> {

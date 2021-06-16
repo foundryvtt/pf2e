@@ -8,7 +8,7 @@ export type ClassSource = BaseNonPhysicalItemSource<'class', ClassSystemData>;
 
 export class ClassData extends BaseNonPhysicalItemData<ClassPF2e> {
     /** @override */
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/class.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/class.svg';
 }
 
 export interface ClassData extends Omit<ClassSource, '_id' | 'effects'> {

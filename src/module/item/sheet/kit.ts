@@ -6,8 +6,7 @@ import { ItemSheetPF2e } from './base';
  * @category Other
  */
 export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return {
             ...super.defaultOptions,
             scrollY: ['.item-details'],
@@ -15,25 +14,22 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         };
     }
 
-    /** @override */
-    getData() {
-        const data: any = super.getBaseData();
-
-        mergeObject(data, {
+    override getData() {
+        const data = mergeObject(super.getBaseData(), {
             type: 'kit',
             hasSidebar: true,
             sidebarTemplate: () => 'systems/pf2e/templates/items/kit-sidebar.html',
             hasDetails: true,
             detailsTemplate: () => 'systems/pf2e/templates/items/kit-details.html',
+            rarity: CONFIG.PF2E.rarityTraits,
         });
 
-        data.rarity = CONFIG.PF2E.rarityTraits; // treasure data
         this.prepareTraits(data.data.traits, CONFIG.PF2E.classTraits);
 
         return data;
     }
 
-    protected async _onDrop(event: ElementDragEvent): Promise<void> {
+    protected override async _onDrop(event: ElementDragEvent): Promise<void> {
         event.preventDefault();
         const dropTarget = $(event.target);
         const dragData = event.dataTransfer?.getData('text/plain');
@@ -92,7 +88,7 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         });
     }
 
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery): void {
         super.activateListeners(html);
         html.on('click', '[data-action=remove]', (event) => this.removeItem(event));
     }

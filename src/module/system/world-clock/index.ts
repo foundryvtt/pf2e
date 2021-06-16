@@ -15,7 +15,6 @@ export class WorldClock extends Application {
 
     readonly animateDarkness = animateDarkness;
 
-    /** @override */
     constructor() {
         super();
 
@@ -59,8 +58,7 @@ export class WorldClock extends Application {
         return this.worldCreatedOn.plus({ seconds: game.time.worldTime });
     }
 
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: 'world-clock',
             width: 400,
@@ -130,8 +128,7 @@ export class WorldClock extends Application {
         return this.translations.OrdinalSuffixes[ruleKey];
     }
 
-    /** @override */
-    getData(options?: ApplicationOptions): WorldClockData {
+    override getData(options?: ApplicationOptions): WorldClockData {
         const date =
             this.dateTheme === 'CE'
                 ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
@@ -152,8 +149,7 @@ export class WorldClock extends Application {
         return { date, time, options, user: game.user };
     }
 
-    /** @override */
-    protected _getHeaderButtons(): ApplicationHeaderButton[] {
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const settingsButton: ApplicationHeaderButton[] = game.user.isGM
             ? [
                   {
@@ -175,9 +171,8 @@ export class WorldClock extends Application {
         return settingsButton.concat(...super._getHeaderButtons());
     }
 
-    /** @override */
-    // Advance the world time by a static or input value
-    activateListeners($html: JQuery) {
+    /** Advance the world time by a static or input value */
+    override activateListeners($html: JQuery) {
         super.activateListeners($html);
 
         $html.on('click', 'button[data-advance-time]', (event) => {

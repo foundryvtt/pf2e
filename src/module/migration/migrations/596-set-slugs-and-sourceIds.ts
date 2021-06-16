@@ -7,7 +7,7 @@ type ItemMap = Map<string, ItemPF2e>;
 type PackContent = Map<string, Promise<ItemMap>>;
 
 export class Migration596SetSlugSourceIds extends MigrationBase {
-    static version = 0.596;
+    static override version = 0.596;
 
     /** Only PF2e system compendia will be checked against */
     private sourceIdPattern = /^Compendium\.(pf2e\.[-\w]+)\.(\w+)$/;
@@ -85,7 +85,7 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
         return undefined;
     }
 
-    async updateItem(itemData: ItemSourcePF2e): Promise<void> {
+    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         const existingSourceId: string | undefined = itemData.flags.core?.sourceId;
         const match = this.sourceIdPattern.exec(existingSourceId ?? '');
         const collection = Array.isArray(match) ? match[1] : undefined;

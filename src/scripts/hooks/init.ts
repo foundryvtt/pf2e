@@ -3,6 +3,7 @@ import { ItemPF2e } from '@item/base';
 import { MystifiedTraits } from '@item/data/values';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
+import { LightingLayerPF2e } from '@module/canvas/lighting-layer';
 import { TokenPF2e } from '@module/canvas/token';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { CombatPF2e } from '@module/combat';
@@ -10,10 +11,13 @@ import { CombatantPF2e } from '@module/combatant';
 import { FolderPF2e } from '@module/folder';
 import { registerHandlebarsHelpers } from '@module/handlebars';
 import { MacroPF2e } from '@module/macro';
+import { ScenePF2e } from '@module/scene';
+import { SceneConfigPF2e } from '@module/scene/sheet';
 import { registerSettings } from '@module/settings';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { loadPF2ETemplates } from '@module/templates';
 import { TokenDocumentPF2e } from '@module/token-document';
+import { TokenConfigPF2e } from '@module/token-document/sheet';
 import { PlayerConfigPF2e } from '@module/user/player-config';
 import { PF2ECONFIG } from '../config';
 
@@ -33,8 +37,15 @@ export function listen(): void {
         CONFIG.Combatant.documentClass = CombatantPF2e;
         CONFIG.Folder.documentClass = FolderPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
+
+        CONFIG.Scene.documentClass = ScenePF2e;
+        CONFIG.Scene.sheetClass = SceneConfigPF2e;
+
         CONFIG.Token.documentClass = TokenDocumentPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
+        CONFIG.Token.sheetClass = TokenConfigPF2e;
+
+        CONFIG.Canvas.layers.lighting = LightingLayerPF2e;
 
         // Automatically advance world time by 6 seconds each round
         CONFIG.time.roundTime = 6;

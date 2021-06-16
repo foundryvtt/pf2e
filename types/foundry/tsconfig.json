@@ -1,10 +1,21 @@
 {
     "compilerOptions": {
-        "target": "es2017",
-        "module": "esnext",
+        "module": "none",
         "moduleResolution": "node",
+        "target": "es2017",
+        "lib": [
+            "dom",
+            "es2017"
+        ],
         "strict": true,
         "noImplicitOverride": true,
-        "noEmit": true
-    }
+        "noEmit": true,
+        "paths": {
+            "pixi.js": ["../../node_modules/pixi.js/index"]
+        }
+    },
+    "files": [
+        "./index.d.ts",
+        "./utils.d.ts"
+    ]
 }

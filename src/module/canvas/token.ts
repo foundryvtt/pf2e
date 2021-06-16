@@ -1,3 +1,5 @@
+import { VisionLevels } from '@actor/creature/data';
+import { LightLevels } from '@module/scene';
 import { TokenDocumentPF2e } from '@module/token-document';
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
@@ -7,18 +9,44 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
     statusEffectChanged = false;
 
-    get hasOverrides(): boolean {
-        return Object.keys(this.overrides).length > 0;
+    /** Is the user currently controlling this token? */
+    get isControlled(): boolean {
+        return canvas.tokens.controlled.includes(this);
     }
 
-    /**
-     * Refresh the `EffectPanel` upon selecting a new token
-     * @override
-     */
-    protected _onControl(options?: { releaseOthers?: boolean; pan?: boolean }) {
-        super._onControl(options);
+    setPerceivedLightLevel({ updateSource = false } = {}): void {
+        const rulesBasedVision = game.settings.get('pf2e', 'automation.rulesBasedVision');
+        if (!(canvas.scene && this.actor && rulesBasedVision && this.observer && this.hasSight)) {
+            return;
+        }
 
-        game.pf2e?.effectPanel.refresh();
+        const actor = this.actor;
+        const lightLevel = canvas.scene.getLightLevel();
+        const perceivedBrightness = {
+            [VisionLevels.BLINDED]: 0,
+            [VisionLevels.NORMAL]: lightLevel,
+            [VisionLevels.LOWLIGHT]: lightLevel > LightLevels.DARKNESS ? 1 : lightLevel,
+            [VisionLevels.DARKVISION]: 1,
+        }[actor.visionLevel];
+
+        this.data.brightSight = perceivedBrightness > lightLevel ? perceivedBrightness * 500 : 0;
+        if (updateSource) this.updateSource();
+    }
+
+    /** Refresh vision and the `EffectPanel` upon selecting a token */
+    protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
+        if (game.ready) {
+            this.setPerceivedLightLevel();
+            game.pf2e?.effectPanel.refresh();
+        }
+        super._onControl(options);
+    }
+
+    /** Refresh vision and the `EffectPanel` upon releasing control of a token */
+    protected override _onRelease(options?: Record<string, unknown>) {
+        this.setPerceivedLightLevel();
+        game.pf2e.effectPanel.refresh();
+        super._onRelease(options);
     }
 
     /**
@@ -26,13 +54,11 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
      * @param overrides The property overrides to be applied
      * @param moving    Whether this token is moving: setting as true indicates the client will make the Canvas updates.
      */
-    applyOverrides(
-        overrides: DeepPartial<foundry.data.TokenSource> = {},
-        { moving = false }: { moving?: boolean } = {},
-    ) {
-        // Propagate any new or removed ActiveEffect overrides to the token
+    applyOverrides(overrides: DeepPartial<foundry.data.TokenSource> = {}, { moving = false } = {}): void {
+        // Propagate any new or removed overrides to the token
         this.overrides = overrides;
         this.data.reset();
+        this.setPerceivedLightLevel();
         mergeObject(this.data, overrides, { insertKeys: false });
 
         if (moving) {
@@ -46,14 +72,13 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         }
     }
 
-    /**
-     * Persist token overrides during movement
-     * @override
-     */
-    protected _onMovementFrame(dt: number, anim: TokenAnimationAttribute<this>[], config: TokenAnimationConfig) {
-        if (this.hasOverrides) {
-            this.applyOverrides(this.overrides, { moving: true });
-        }
+    /** Persist token overrides during movement */
+    protected override _onMovementFrame(
+        dt: number,
+        anim: TokenAnimationAttribute<this>[],
+        config: TokenAnimationConfig,
+    ) {
+        this.applyOverrides(this.overrides, { moving: true });
         super._onMovementFrame(dt, anim, config);
     }
 }

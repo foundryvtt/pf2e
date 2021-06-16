@@ -7,9 +7,9 @@ import { MigrationBase } from '../base';
  * of traditions and removes focus/ritual from the spell types.
  */
 export class Migration626UpdateSpellCategory extends MigrationBase {
-    static version = 0.626;
+    static override version = 0.626;
 
-    async updateItem(itemData: ItemSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e) {
         if (itemData.type === 'spell') {
             interface MaybeCategorie extends Partial<SpellData['data']> {
                 traditions: ValuesList<keyof ConfigPF2e['PF2E']['spellTraditions']>;

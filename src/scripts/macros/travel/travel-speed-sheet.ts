@@ -109,7 +109,7 @@ interface TravelSpeedSheetOptions extends FormApplicationOptions {
 class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
     private formData?: TravelFormData = undefined;
 
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
         options.id = 'travel-duration';
         options.classes = ['travel-duration'];
@@ -208,7 +208,7 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
         });
     }
 
-    getData() {
+    override getData() {
         const sheetData = super.getData();
         let data: SheetData;
         if (this.formData === undefined) {

@@ -21,7 +21,7 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
         this.onSubmitCallback = callback;
     }
 
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
 
         options.classes = [];
@@ -32,7 +32,7 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
         return options;
     }
 
-    getData(): FormApplicationData<ActorPF2e> {
+    override getData(): FormApplicationData<ActorPF2e> {
         const sheetData: FormApplicationData<ActorPF2e> & { validLevels?: number[] } = super.getData();
 
         if (!this.spellData) {
@@ -45,7 +45,7 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
         return sheetData;
     }
 
-    async _updateObject(_event: Event, formData: { itemType: string; level: number }) {
+    override async _updateObject(_event: Event, formData: { itemType: string; level: number }) {
         if (formData.itemType === 'wand' && formData.level === 10) {
             ui.notifications.warn(game.i18n.localize('PF2E.ScrollWandPopup.10thLevelWand'));
         } else if (this.onSubmitCallback && this.spellData) {

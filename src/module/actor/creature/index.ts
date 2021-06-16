@@ -1,8 +1,8 @@
-import { ActorPF2e } from '@actor/index';
+import { ActorPF2e } from '@actor/base';
 import { CreatureData } from '@actor/data';
 import { WeaponData } from '@item/data';
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from '@module/modifiers';
-import { ItemPF2e, ArmorPF2e } from '@item/index';
+import { ItemPF2e, ArmorPF2e } from '@item';
 import { prepareMinions } from '@scripts/actor/prepare-minions';
 import { RuleElementPF2e } from '@module/rules/rule-element';
 import { RollNotePF2e } from '@module/notes';
@@ -14,13 +14,46 @@ import {
 } from '@module/rules/rules-data-definitions';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { isMagicItemData } from '@item/data/helpers';
-import { PF2CheckDC } from '@system/check-degree-of-success';
+import { DegreeOfSuccessAdjustment, PF2CheckDC } from '@system/check-degree-of-success';
 import { CheckPF2e } from '@system/rolls';
+import { VisionLevel, VisionLevels } from './data';
+import { LightLevels } from '@module/scene';
+import { Statistic, StatisticBuilder } from '@system/statistic';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
     /** Used as a lock to prevent multiple asynchronous redraw requests from triggering an error */
     redrawingTokenEffects = false;
+
+    override get visionLevel(): VisionLevel {
+        const senses = this.data.data.traits.senses;
+        const senseTypes = senses
+            .map((sense) => sense.type)
+            .filter((senseType) => ['lowLightVision', 'darkvision'].includes(senseType));
+        return this.getCondition('blinded')
+            ? VisionLevels.BLINDED
+            : senseTypes.includes('darkvision')
+            ? VisionLevels.DARKVISION
+            : senseTypes.includes('lowLightVision')
+            ? VisionLevels.LOWLIGHT
+            : VisionLevels.NORMAL;
+    }
+
+    get hasDarkvision(): boolean {
+        return this.visionLevel === VisionLevels.DARKVISION;
+    }
+
+    get hasLowLightVision(): boolean {
+        return this.visionLevel === VisionLevels.LOWLIGHT;
+    }
+
+    override get canSee(): boolean {
+        if (!canvas.scene) return true;
+        if (this.visionLevel === VisionLevels.BLINDED) return false;
+
+        const lightLevel = canvas.scene.getLightLevel();
+        return lightLevel > LightLevels.DARKNESS || this.hasDarkvision;
+    }
 
     get hitPoints() {
         return {
@@ -33,12 +66,39 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return this.data.data.attributes;
     }
 
+    get perception(): Statistic {
+        const stat = this.data.data.attributes.perception as StatisticModifier;
+        return this.buildStatistic(stat, 'perception', 'PF2E.PerceptionCheck', 'perception-check');
+    }
+
+    get fortitude(): Statistic {
+        return this.buildSavingThrowStatistic('fortitude');
+    }
+
+    get reflex(): Statistic {
+        return this.buildSavingThrowStatistic('reflex');
+    }
+
+    get will(): Statistic {
+        return this.buildSavingThrowStatistic('will');
+    }
+
+    get deception(): Statistic {
+        const stat = this.data.data.skills.dec as StatisticModifier;
+        return this.buildStatistic(stat, 'deception', 'PF2E.ActionsCheck.deception', 'skill-check');
+    }
+
+    get stealth(): Statistic {
+        const stat = this.data.data.skills.ste as StatisticModifier;
+        return this.buildStatistic(stat, 'stealth', 'PF2E.ActionsCheck.stealth', 'skill-check');
+    }
+
     get wornArmor(): Embedded<ArmorPF2e> | null {
         return this.itemTypes.armor.find((armor) => armor.isEquipped && armor.isArmor) ?? null;
     }
 
     /** Get the held shield of most use to the wielder */
-    get heldShield(): Embedded<ArmorPF2e> | null {
+    override get heldShield(): Embedded<ArmorPF2e> | null {
         const heldShields = this.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
         return heldShields.length === 0
             ? null
@@ -68,6 +128,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
               }, heldShields.slice(-1)[0]);
     }
 
+    /** Refresh the vision of any controlled tokens linked to this creature */
+    protected refreshVision() {
+        if (canvas.scene) {
+            for (const token of this.getActiveTokens().filter((token) => token.isControlled)) {
+                token.setPerceivedLightLevel({ updateSource: true });
+            }
+        }
+    }
+
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
@@ -77,7 +146,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     protected override _onUpdate(
-        changed: DocumentUpdateData<this>,
+        changed: DeepPartial<this['data']['_source']>,
         options: DocumentModificationContext,
         userId: string,
     ): void {
@@ -155,8 +224,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         };
     }
 
-    /** @override */
-    async updateEmbeddedDocuments(
+    override async updateEmbeddedDocuments(
         embeddedName: 'ActiveEffect' | 'Item',
         data: EmbeddedDocumentUpdateData<ActiveEffectPF2e | ItemPF2e>[],
         options: DocumentModificationContext = {},
@@ -187,7 +255,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /**
      * Roll a Recovery Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-     * @param skill {String}    The skill id
      */
     rollRecovery() {
         if (this.data.type !== 'character') {
@@ -232,15 +299,39 @@ export abstract class CreaturePF2e extends ActorPF2e {
         this.redrawingTokenEffects = false;
     }
 
+    protected buildStatistic(
+        stat: { adjustments?: DegreeOfSuccessAdjustment[]; modifiers: readonly ModifierPF2e[]; notes?: RollNotePF2e[] },
+        name: string,
+        label: string,
+        type: string,
+    ): Statistic {
+        return StatisticBuilder.from(this, {
+            name: name,
+            check: { adjustments: stat.adjustments, label, type },
+            dc: {},
+            modifiers: [...stat.modifiers],
+            notes: stat.notes,
+        });
+    }
+
+    private buildSavingThrowStatistic(savingThrow: 'fortitude' | 'reflex' | 'will'): Statistic {
+        const label = game.i18n.format('PF2E.SavingThrowWithName', {
+            saveName: game.i18n.localize(CONFIG.PF2E.saves[savingThrow]),
+        });
+        return this.buildStatistic(this.data.data.saves[savingThrow], savingThrow, label, 'saving-throw');
+    }
+
     protected createAttackRollContext(event: JQuery.Event, rollNames: string[]) {
         const ctx = this.createStrikeRollContext(rollNames);
         let dc: PF2CheckDC | undefined;
         if (ctx.target) {
             dc = {
-                label: game.i18n.format('PF2E.CreatureArmorClass', { creature: ctx.target.name }),
+                label: game.i18n.format('PF2E.CreatureStatisticDC.ac', {
+                    creature: ctx.target.name,
+                    dc: ctx.target.data.data.attributes.ac.value,
+                }),
                 scope: 'AttackOutcome',
                 value: ctx.target.data.data.attributes.ac.value,
-                visibility: 'gm',
             };
         }
         return {

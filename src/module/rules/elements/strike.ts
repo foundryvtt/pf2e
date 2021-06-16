@@ -7,7 +7,7 @@ import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
  * @category RuleElement
  */
 export class PF2StrikeRuleElement extends RuleElementPF2e {
-    onBeforePrepareData(actorData: CharacterData | NPCData, { strikes }: RuleElementSyntheticsPF2e) {
+    override onBeforePrepareData(actorData: CharacterData | NPCData, { strikes }: RuleElementSyntheticsPF2e) {
         const label = super.getDefaultLabel(this.ruleData, this.item);
         strikes.push({
             _id: this.item._id,

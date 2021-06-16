@@ -6,7 +6,7 @@ import type { FamiliarPF2e } from '.';
 export type FamiliarSource = BaseCreatureSource<'familiar', FamiliarSystemData>;
 
 export class FamiliarData extends BaseCreatureData<FamiliarPF2e, FamiliarSystemData> {
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/familiar.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/familiar.svg';
 }
 
 export interface FamiliarData extends Omit<FamiliarSource, 'effects' | 'items' | 'token'> {

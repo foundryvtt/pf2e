@@ -35,7 +35,7 @@ declare type ClientDocumentMixin<T extends typeof foundry.abstract.Document> = {
      */
     fromDropData<T extends typeof foundry.abstract.Document>(
         this: T,
-        data: object,
+        data: DropCanvasData,
         { importWorld }?: { importWorld?: boolean },
     ): Promise<InstanceType<T> | undefined>;
 } & T;
@@ -179,7 +179,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     ): void;
 
     protected override _onUpdate(
-        data: DocumentUpdateData<this>,
+        changed: DeepPartial<this['data']['_source']>,
         options: DocumentModificationContext,
         userId: string,
     ): void;

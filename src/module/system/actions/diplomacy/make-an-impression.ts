@@ -14,5 +14,6 @@ export function makeAnImpression(options: SkillActionOptions) {
         ['auditory', 'concentrate', 'exploration', 'linguistic', 'mental'],
         checkType,
         options.event,
+        (target) => target.will,
     );
 }
