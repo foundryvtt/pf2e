@@ -9,7 +9,7 @@ import { ModifierPredicate } from '@module/modifiers';
  * @category RuleElement
  */
 export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(actorData: CharacterData | NPCData) {
+    override onAfterPrepareData(actorData: CharacterData | NPCData) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const adjustment = this.ruleData.adjustment as PF2CheckDCModifiers;
 
@@ -50,6 +50,11 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
             } else if (selector === 'perception-check') {
                 actorData.data.attributes.perception.adjustments ??= [];
                 actorData.data.attributes.perception.adjustments.push(completeAdjustment);
+            } else if (selector === 'attack-roll') {
+                actorData.data.actions.forEach((action) => {
+                    action.adjustments ??= [];
+                    action.adjustments.push(completeAdjustment);
+                });
             } else {
                 console.warn(`PF2E | Degree of success adjustment for selector '${selector}' is not implemented.`);
             }
