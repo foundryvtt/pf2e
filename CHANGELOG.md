@@ -1,5 +1,47 @@
 # Patch Notes:
 
+## Version 2.3.0
+### Bug Fixes
+* (stwlam) Prevent error during localization of custom attributes and other properties
+* (stwlam) Prevent distortion of smaller loot actor icons. Closes #1504
+* (stwlam) Fix decrementing consumable quantities
+* (stwlam) Fix bug causing extra "0" entry to get added to item data
+* (stwlam) Fix Raise a Shield macro
+* (nikolaj-a) Fix PC strike options for damage rolls
+* (nikolaj-a) Fix show target AC in strike chat card
+
+### New Features
+* (stwlam) Implement basic rules-based vision mechanics. This feature is still experimental and has been included for user feedback
+
+### Content Changes
+* (SpartanCPA) Add "Splash 10 ft" trait
+* (SpartanCPA) Rename Wizard and Witch Spell Effects
+* (SpartanCPA) Correct base item of Spiritsight Crossbow
+* (SpartanCPA) Add Damage Dice override to Crossbow Ace. Closes #1509
+* (SpartanCPA) Extinction Curse Book 5 - Adventure Toolbox Monsters
+* (Drental) Fix skinsaw murderer weapon damage
+* (rectulo) Clean up the verdant presence druid feat description text
+* (rectulo) Clean up tenacious blood sorcerer class feat description text
+* (rectulo) Correct formatting of Cloak of Immolation description
+* (rectulo) Add prerequisites for denier of destruction cleric class feat
+* (Friz) Add rule elements for persistent damage and other notes to alchemical bombs
+
+### Core System Improvements
+* (stwlam) Move automation settings to a menu
+* (stwlam) Fix journal-entry styling with tables
+* (stwlam) Call a `pf2e.systemReady` hook to help modules know when it is safe to access system-specific applications
+* (stwlam) Add ability to hide a loot token when its inventory is empty
+* (stwlam) Remove previously applied monkey patch for exporting a folder to compendium, since the fix was now included in core Foundry
+* (stwlam) Allow drag and drop of folders with sub-folders of items to an actor
+* (Drental) Add DC visibility to metagame settings
+* (Supe) Capture spell level for drag data
+* (nikolaj-a) Set level of effect when dragged from spell chat card
+* (nikolaj-a) Add support for the Defy Death orc feat
+* (nikolaj-a) Allow "none" as an option for check DC visibility in the chat cards
+* (nikolaj-a) Add support for targeting and DC resolving for action macros
+* (nikolaj-a) Add built-in action and associated macro for hide, sense motive, and sneak
+
+
 ## Version 2.2.0
 ### Bug Fixes
 * (stwlam) Restore functionality of "Skip Defeated" in combat tracker. Closes #1493
