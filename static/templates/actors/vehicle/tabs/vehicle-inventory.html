@@ -23,7 +23,7 @@
             {{/if}}
             <span class="item-quantity">{{localize "PF2E.QuantityLabel"}}</span>
             <span class="item-weight">{{localize "PF2E.BulkShortLabel"}}</span>
-            {{#if ../owner}}
+            {{#if @root.editable}}
             <div class="item-controls">
                 <a class="item-control item-create" title="{{localize "PF2E.CreateItemTitle"}}" data-type="{{sid}}"><i class="fas fa-plus"></i></a>
                 <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-type="{{sid}}"><i class="fas fa-search"></i></a>
@@ -33,7 +33,7 @@
         <ol class="item-list">
             {{#each section.items as |item itemId|}}
                 {{#if item.isNotInContainer}}
-                    {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=item owner=../../owner level=1}}                            
+                    {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=item editable=@root.editable level=1}}                            
                 {{/if}}
             {{/each}}
         </ol>
