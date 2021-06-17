@@ -106,19 +106,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
                 itemData.isInContainer = containerData.isInContainer;
                 itemData.isInvestable = false;
 
-                // // Read-Only Equipment
-                // if (
-                //     physicalData.type === 'armor' ||
-                //     physicalData.type === 'equipment' ||
-                //     physicalData.type === 'consumable' ||
-                //     physicalData.type === 'backpack'
-                // ) {
-                //     readonlyEquipment.push(itemData);
-                //     actorData.hasEquipment = true;
-                // }
-
-                // itemData.canBeEquipped = !containerData.isInContainer;
-
                 // Inventory
                 if (Object.keys(inventory).includes(itemData.type)) {
                     itemData.data.quantity.value = physicalData.data.quantity.value || 0;
