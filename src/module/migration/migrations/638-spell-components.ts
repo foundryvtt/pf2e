@@ -10,7 +10,7 @@ export class Migration638SpellComponents extends MigrationBase {
     static override version = 0.638;
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         // Recursively apply to embedded spells
-        if (itemData.type === "consumable" && itemData.data.spell.data) {
+        if (itemData.type === 'consumable' && itemData.data.spell.data) {
             return this.updateItem(itemData.data.spell.data);
         }
 
