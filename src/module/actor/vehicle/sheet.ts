@@ -156,6 +156,13 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
                     actorData.hasOffensiveActions = true;
                 }
             }
+
+            for (const itemData of sheetData.items) {
+                const physicalData: ItemDataPF2e = itemData;
+                if (physicalData.isPhysical) {
+                    itemData.showEdit = true;
+                }
+            }
         }
 
         actorData.inventory = inventory;
