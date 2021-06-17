@@ -139,13 +139,13 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
                     }
                     inventory[itemData.type].items.push(itemData);
                 }
-            } 
-            
+            }
+
             // Actions
             if (itemData.type === 'action') {
                 const actionType = ['free', 'reaction', 'passive'].includes(itemData.data.actionType.value)
-                ? itemData.data.actionType.value
-                : 'action';
+                    ? itemData.data.actionType.value
+                    : 'action';
                 itemData.img = VehiclePF2e.getActionGraphics(
                     actionType,
                     parseInt((itemData.data.actions || {}).value, 10) || 1,
