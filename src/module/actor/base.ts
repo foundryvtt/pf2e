@@ -1059,20 +1059,21 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /* Conditions                                   */
     /* -------------------------------------------- */
 
-    /** Get a condition on this actor, returning:
-     *  - the highest-valued if there are multiple of a valued condition
-     *  - the longest-lasting if there are multiple of a condition with a duration
-     *  - the last applied if any are present and are neither valued nor with duration
-     *  - otherwise `null`
-     * @param conditionType the slug of a core condition (subject to change when user-created conditions are introduced)
+    /**
+     * Get a condition on this actor, returning:
+     *   - the highest-valued if there are multiple of a valued condition
+     *   - the longest-lasting if there are multiple of a condition with a duration
+     *   - the last applied if any are present and are neither valued nor with duration
+     *   - otherwise `null`
+     * @param slug the slug of a core condition (subject to change when user-created conditions are introduced)
      * @param [options.all=false] return all conditions of the requested type in the order described above
      */
     getCondition(
-        conditionType: ConditionType,
+        slug: ConditionType,
         { all }: { all: boolean } = { all: false },
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null {
         const conditions = this.itemTypes.condition
-            .filter((condition) => condition.slug === conditionType)
+            .filter((condition) => condition.slug === slug)
             .sort((conditionA, conditionB) => {
                 const [valueA, valueB] = [conditionA.value ?? 0, conditionB.value ?? 0] as const;
                 const [durationA, durationB] = [conditionA.duration ?? 0, conditionB.duration ?? 0] as const;
@@ -1089,6 +1090,14 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             });
 
         return all ? conditions : conditions[0] ?? null;
+    }
+
+    /**
+     * Does this actor have the provided condition?
+     * @param slug The slug of the queried condition
+     */
+    hasCondition(slug: ConditionType): boolean {
+        return this.itemTypes.condition.some((condition) => condition.slug === slug);
     }
 
     /** Decrease the value of condition or remove it entirely */

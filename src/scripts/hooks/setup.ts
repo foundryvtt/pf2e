@@ -6,6 +6,7 @@ import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
 import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
 import { raiseAShield } from '@scripts/macros/raise-a-shield';
+import { restForTheNight } from '@scripts/macros/rest-for-the-night';
 import { steelYourResolve } from '@scripts/macros/steel-your-resolve';
 import { encouragingWords } from '@scripts/macros/encouraging-words';
 import { earnIncome } from '@scripts/macros/earn-income';
@@ -134,6 +135,7 @@ export function listen() {
         game.pf2e.actions = {
             earnIncome,
             raiseAShield,
+            restForTheNight,
             steelYourResolve,
             encouragingWords,
         };
