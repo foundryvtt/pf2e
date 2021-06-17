@@ -119,11 +119,6 @@ type SheetItemData<T extends ItemDataPF2e = ItemDataPF2e> = T & {
     }[];
     chatData?: unknown;
     data: {
-        components: {
-            somatic: boolean;
-            verbal: boolean;
-            material: boolean;
-        };
         bonus: {
             value: number;
             total?: number;
@@ -601,11 +596,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             // Assign icon based on cast time
             spell.glyph = getActionGlyph(spell.data.time.value);
 
-            // Assign components
-            spell.data.components.somatic = spell.data.components.value.includes('somatic');
-            spell.data.components.verbal = spell.data.components.value.includes('verbal');
-            spell.data.components.material = spell.data.components.value.includes('material');
-
             let location = spell.data.location.value;
             let spellbook: any;
             const hasVaidSpellcastingEntry = spellEntriesList.includes(location);
@@ -676,11 +666,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
                         // Assign icon based on cast time
                         spell.glyph = getActionGlyph(spell.data.time.value);
-
-                        // Assign components
-                        spell.data.components.somatic = spell.data.components.value.includes('somatic');
-                        spell.data.components.verbal = spell.data.components.value.includes('verbal');
-                        spell.data.components.material = spell.data.components.value.includes('material');
                     }
                 }
             }
