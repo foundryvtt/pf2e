@@ -16,6 +16,7 @@ import { Migration634PurgeMartialItems } from '@module/migration/migrations/634-
 import { Migration635NumifyACAndQuantity } from '@module/migration/migrations/635-numify-ac-and-quantity';
 import { Migration636NumifyArmorData } from '@module/migration/migrations/636-numify-armor-data';
 import { Migration637CleanMeleeItems } from '@module/migration/migrations/637-clean-melee-items';
+import { Migration638SpellComponents } from '@module/migration/migrations/638-spell-components';
 
 import { MigrationBase } from '@module/migration/base';
 import * as fs from 'fs-extra';
@@ -38,6 +39,7 @@ const migrations: MigrationBase[] = [
     new Migration635NumifyACAndQuantity(),
     new Migration636NumifyArmorData(),
     new Migration637CleanMeleeItems(),
+    new Migration638SpellComponents(),
 ];
 
 global.deepClone = function (original: any): any {

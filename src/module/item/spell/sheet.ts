@@ -24,14 +24,11 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     }
 
     private formatSpellComponents(data: SpellSystemData): string[] {
-        if (!data.components.value) return [];
-        const comps = data.components.value
-            .split(',')
-            .map(
-                (component: string) =>
-                    CONFIG.PF2E.spellComponents[component.trim() as keyof ConfigPF2e['PF2E']['spellComponents']] ??
-                    component.trim().capitalize(),
-            );
+        if (!data.components) return [];
+        const comps: string[] = [];
+        if (data.components.material) comps.push(game.i18n.localize(CONFIG.PF2E.spellComponents.M));
+        if (data.components.somatic) comps.push(game.i18n.localize(CONFIG.PF2E.spellComponents.S));
+        if (data.components.verbal) comps.push(game.i18n.localize(CONFIG.PF2E.spellComponents.V));
         if (data.materials.value) comps.push(data.materials.value);
         return comps;
     }
