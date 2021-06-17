@@ -93,10 +93,15 @@ export class SpellPF2e extends ItemPF2e {
             return null;
         })();
 
+        const components: string[] = [];
+        if (systemData.components.material) components.push('M');
+        if (systemData.components.somatic) components.push('S');
+        if (systemData.components.verbal) components.push('V');
+
         // Combine properties
         const properties: string[] = [
             localize(CONFIG.PF2E.spellLevels[systemData.level.value]),
-            `${localize('PF2E.SpellComponentsLabel')}: ${systemData.components.value}`,
+            `${localize('PF2E.SpellComponentsLabel')}: ${components.join('')}`,
             systemData.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${systemData.range.value}` : null,
             systemData.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${systemData.target.value}` : null,
             area,
