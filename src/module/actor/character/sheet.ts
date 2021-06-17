@@ -501,11 +501,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         // put the feats in their feat slots
-        const allFeatSlots = Object.values(featSlots).flatMap((x) => x.feats);
+        const allFeatSlots = Object.values(featSlots).flatMap((slot) => slot.feats);
         for (const feat of tempFeats) {
-            let slotIndex = allFeatSlots.findIndex((x) => x.id === feat.data.location);
-            if (slotIndex !== -1 && allFeatSlots[slotIndex].feat !== undefined) {
-                console.error(`Foundry VTT | Duplicate feats in same index! ${feat.name}`);
+            let slotIndex = allFeatSlots.findIndex((slotted) => slotted.id === feat.data.location);
+            const existing = allFeatSlots[slotIndex]?.feat;
+            if (slotIndex !== -1 && existing) {
+                console.debug(`Foundry VTT | Multiple feats with same index: ${feat.name}, ${existing.name}`);
                 slotIndex = -1;
             }
 
