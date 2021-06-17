@@ -23,6 +23,11 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         };
     }
 
+    /** Should this item be automatically destroyed upon use */
+    get autoDestroy(): boolean {
+        return this.data.data.autoDestroy.value;
+    }
+
     get embeddedSpell(): Embedded<SpellPF2e> | null {
         const spellData = deepClone(this.data.data.spell.data);
 
@@ -117,18 +122,18 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         const charges = this.data.data.charges;
 
         // Optionally destroy the item
-        if (charges.value <= 1 && quantity <= 1 && this.data.data.autoDestroy.value) {
-            await this.delete();
-        }
-        // Deduct one from quantity if this item has one charge or doesn't have charges
-        else if (charges.value <= 1) {
-            await this.update({
-                'data.quantity.value': Math.max(quantity - 1, 0),
-                'data.charges.value': charges.max,
-            });
-        }
-        // Deduct one charge
-        else {
+        if (this.autoDestroy && charges.value <= 1) {
+            if (quantity <= 1) {
+                await this.delete();
+            } else {
+                // Deduct one from quantity if this item has one charge or doesn't have charges
+                await this.update({
+                    'data.quantity.value': Math.max(quantity - 1, 0),
+                    'data.charges.value': charges.max,
+                });
+            }
+        } else {
+            // Deduct one charge
             await this.update({
                 'data.charges.value': Math.max(charges.value - 1, 0),
             });

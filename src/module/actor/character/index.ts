@@ -65,6 +65,10 @@ export class CharacterPF2e extends CreaturePF2e {
         return this.itemTypes.feat.find((feat) => feat.featType.value === 'heritage') ?? null;
     }
 
+    get keyAbility(): AbilityString {
+        return this.data.data.details.keyability.value || 'str';
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
