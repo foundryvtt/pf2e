@@ -95,64 +95,86 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             actorSize: actorData.data.traits.size.value,
         });
 
-        for (const i of actorData.items) {
-            i.img = i.img || CONST.DEFAULT_TOKEN;
-            i.containerData = containers.get(i._id);
-            i.isContainer = i.containerData.isContainer;
-            i.isNotInContainer = i.containerData.isNotInContainer;
-            i.canBeEquipped = false;
-            i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
+        for (const itemData of actorData.items) {
+            const physicalData: ItemDataPF2e = itemData;
+            if (physicalData.isPhysical) {
+                itemData.showEdit = sheetData.user.isGM || physicalData.isIdentified;
+                itemData.img ||= CONST.DEFAULT_TOKEN;
 
-            // Inventory
-            if (Object.keys(inventory).includes(i.type)) {
-                i.data.quantity.value = i.data.quantity.value || 0;
-                i.data.weight.value = i.data.weight.value || 0;
-                const bulkItem = bulkItemsById.get(i._id);
-                const [approximatedBulk] = calculateBulk({
-                    items: bulkItem === undefined ? [] : [bulkItem],
-                    bulkConfig,
-                    actorSize: actorData.data.traits.size.value,
-                });
-                i.totalWeight = formatBulk(approximatedBulk);
-                i.hasCharges = i.type === 'consumable' && i.data.charges.max > 0;
-                i.isTwoHanded =
-                    i.type === 'weapon' && !!(i.data.traits.value || []).find((x: any) => x.startsWith('two-hand'));
-                i.wieldedTwoHanded = i.type === 'weapon' && (i.data.hands || {}).value;
-                inventory[i.type].items.push(i);
-            }
+                const containerData = containers.get(itemData._id)!;
+                itemData.containerData = containerData;
+                itemData.isInContainer = containerData.isInContainer;
+                itemData.isInvestable = false;
 
+                // // Read-Only Equipment
+                // if (
+                //     physicalData.type === 'armor' ||
+                //     physicalData.type === 'equipment' ||
+                //     physicalData.type === 'consumable' ||
+                //     physicalData.type === 'backpack'
+                // ) {
+                //     readonlyEquipment.push(itemData);
+                //     actorData.hasEquipment = true;
+                // }
+
+                // itemData.canBeEquipped = !containerData.isInContainer;
+
+                // Inventory
+                if (Object.keys(inventory).includes(itemData.type)) {
+                    itemData.data.quantity.value = physicalData.data.quantity.value || 0;
+                    itemData.data.weight.value = physicalData.data.weight.value || 0;
+                    const bulkItem = bulkItemsById.get(physicalData._id);
+                    const [approximatedBulk] = calculateBulk({
+                        items: bulkItem === undefined ? [] : [bulkItem],
+                        bulkConfig: bulkConfig,
+                        actorSize: this.actor.data.data.traits.size.value,
+                    });
+                    itemData.totalWeight = formatBulk(approximatedBulk);
+                    itemData.hasCharges = physicalData.type === 'consumable' && physicalData.data.charges.max > 0;
+                    if (physicalData.type === 'weapon') {
+                        itemData.isTwoHanded = physicalData.data.traits.value.some((trait: string) =>
+                            trait.startsWith('two-hand'),
+                        );
+                        itemData.wieldedTwoHanded = physicalData.data.hands.value;
+                    }
+                    inventory[itemData.type].items.push(itemData);
+                }
+            } 
+            
             // Actions
-            if (i.type === 'action') {
-                const actionType = i.data.actionType.value || 'action';
-                i.img = VehiclePF2e.getActionGraphics(
+            if (itemData.type === 'action') {
+                const actionType = ['free', 'reaction', 'passive'].includes(itemData.data.actionType.value)
+                ? itemData.data.actionType.value
+                : 'action';
+                itemData.img = VehiclePF2e.getActionGraphics(
                     actionType,
-                    parseInt((i.data.actions || {}).value, 10) || 1,
+                    parseInt((itemData.data.actions || {}).value, 10) || 1,
                 ).imageUrl;
-                if (actionType === 'passive') actions.free.actions.push(i);
-                else actions[actionType].actions.push(i);
+                if (actionType === 'passive') actions.free.actions.push(itemData);
+                else actions[actionType].actions.push(itemData);
 
                 // Read-Only Actions
-                if (i.data.actionCategory && i.data.actionCategory.value) {
-                    switch (i.data.actionCategory.value) {
+                if (itemData.data.actionCategory && itemData.data.actionCategory.value) {
+                    switch (itemData.data.actionCategory.value) {
                         case 'interaction':
-                            readonlyActions.interaction.actions.push(i);
+                            readonlyActions.interaction.actions.push(itemData);
                             actorData.hasInteractionActions = true;
                             break;
                         case 'defensive':
-                            readonlyActions.defensive.actions.push(i);
+                            readonlyActions.defensive.actions.push(itemData);
                             actorData.hasDefensiveActions = true;
                             break;
                         case 'offensive':
-                            readonlyActions.offensive.actions.push(i);
+                            readonlyActions.offensive.actions.push(itemData);
                             actorData.hasOffensiveActions = true;
                             break;
                         // Should be offensive but throw anything else in there too
                         default:
-                            readonlyActions.offensive.actions.push(i);
+                            readonlyActions.offensive.actions.push(itemData);
                             actorData.hasOffensiveActions = true;
                     }
                 } else {
-                    readonlyActions.offensive.actions.push(i);
+                    readonlyActions.offensive.actions.push(itemData);
                     actorData.hasOffensiveActions = true;
                 }
             }
