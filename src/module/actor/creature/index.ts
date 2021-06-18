@@ -19,6 +19,8 @@ import { CheckPF2e } from '@system/rolls';
 import { VisionLevel, VisionLevels } from './data';
 import { LightLevels } from '@module/scene';
 import { Statistic, StatisticBuilder } from '@system/statistic';
+import { TokenPF2e } from '@module/canvas';
+import { measureDistance } from '@system/measure';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -324,21 +326,31 @@ export abstract class CreaturePF2e extends ActorPF2e {
     protected createAttackRollContext(event: JQuery.Event, rollNames: string[]) {
         const ctx = this.createStrikeRollContext(rollNames);
         let dc: PF2CheckDC | undefined;
-        if (ctx.target) {
+        let distance: number | undefined;
+        if (ctx.target?.actor instanceof CreaturePF2e) {
             dc = {
                 label: game.i18n.format('PF2E.CreatureStatisticDC.ac', {
                     creature: ctx.target.name,
-                    dc: ctx.target.data.data.attributes.ac.value,
+                    dc: ctx.target.actor.data.data.attributes.ac.value,
                 }),
                 scope: 'AttackOutcome',
-                value: ctx.target.data.data.attributes.ac.value,
+                value: ctx.target.actor.data.data.attributes.ac.value,
             };
+
+            // calculate distance
+            const self = canvas.tokens.controlled.find((token) => token.actor?.id === this.id);
+            if (self && canvas.grid?.grid instanceof SquareGrid) {
+                const groundDistance = measureDistance(self.position, ctx.target.position);
+                const elevationDiff = Math.abs(self.data.elevation - ctx.target.data.elevation);
+                distance = Math.floor(Math.sqrt(Math.pow(groundDistance, 2) + Math.pow(elevationDiff, 2)));
+            }
         }
         return {
             event,
             options: Array.from(new Set(ctx.options)), // de-duplication
             targets: ctx.targets,
             dc,
+            distance,
         };
     }
 
@@ -352,24 +364,23 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     private createStrikeRollContext(rollNames: string[]) {
-        const targets = Array.from(game.user.targets)
-            .map((token) => token.actor)
-            .filter((actor) => !!actor);
-        const target =
-            targets.length === 1 && targets[0] instanceof CreaturePF2e ? (targets[0] as CreaturePF2e) : undefined;
+        const targets: TokenPF2e[] = Array.from(game.user.targets).filter(
+            (token) => token.actor instanceof CreaturePF2e,
+        );
+        const target = targets.length === 1 && targets[0].actor instanceof CreaturePF2e ? targets[0] : undefined;
         const options = this.getRollOptions(rollNames);
         {
             const conditions = this.itemTypes.condition.filter((condition) => condition.fromSystem);
             options.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
         }
-        if (target) {
-            const conditions = target.itemTypes.condition.filter((condition) => condition.fromSystem);
+        if (target?.actor) {
+            const conditions = target.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
             options.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
 
-            const traits = (target.data.data.traits.traits.custom ?? '')
+            const traits = (target.actor.data.data.traits.traits.custom ?? '')
                 .split(/[;,\\|]/)
                 .map((value) => value.trim())
-                .concat(target.data.data.traits.traits.value ?? [])
+                .concat(target.actor.data.data.traits.traits.value ?? [])
                 .filter((value) => !!value)
                 .map((trait) => `target:${trait}`);
             options.push(...traits);
