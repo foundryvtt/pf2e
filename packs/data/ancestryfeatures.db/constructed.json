@@ -23,7 +23,22 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Constructed (vs. diseases, poisons, and radiation)",
+                "predicate": {
+                    "any": [
+                        "disease",
+                        "poison",
+                        "radiation"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -39,6 +54,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/feat.svg",
     "name": "Constructed",
     "permission": {

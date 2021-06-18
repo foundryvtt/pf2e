@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Nanites augment your attacks. You can choose to activate Nanite Surge when you attempt an attack roll, instead of when you attempt a skill check. If you do, you gain a +1 status bonus to the triggering attack roll.</p>"
+            "value": "<p>Nanites augment your attacks. You can choose to activate @Compendium[pf2e.feats-srd.Nanite Surge]{Nanite Surge} when you attempt an attack roll, instead of when you attempt a skill check. If you do, you gain a +1 status bonus to the triggering attack roll.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -29,7 +29,22 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "nanite-surge"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -48,6 +63,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Offensive Subroutine",
     "permission": {
