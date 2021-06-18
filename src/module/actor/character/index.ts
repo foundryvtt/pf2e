@@ -65,6 +65,10 @@ export class CharacterPF2e extends CreaturePF2e {
         return this.itemTypes.feat.find((feat) => feat.featType.value === 'heritage') ?? null;
     }
 
+    get keyAbility(): AbilityString {
+        return this.data.data.details.keyability.value || 'str';
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
@@ -938,9 +942,13 @@ export class CharacterPF2e extends CreaturePF2e {
                         .concat(ctx.options)
                         .concat(action.options)
                         .concat(defaultOptions);
+                    const dc = args.dc ?? ctx.dc;
+                    if (dc !== undefined && action.adjustments !== undefined) {
+                        dc.adjustments = action.adjustments;
+                    }
                     CheckPF2e.roll(
                         new CheckModifier(`${strikeLabel}: ${action.name}`, action),
-                        { actor: this, type: 'attack-roll', options: ctx.options, notes, dc: args.dc ?? ctx.dc },
+                        { actor: this, type: 'attack-roll', options: ctx.options, notes, dc },
                         args.event,
                         args.callback,
                     );
@@ -957,9 +965,13 @@ export class CharacterPF2e extends CreaturePF2e {
                                 .concat(ctx.options)
                                 .concat(action.options)
                                 .concat(defaultOptions);
+                            const dc = args.dc ?? ctx.dc;
+                            if (dc !== undefined && action.adjustments !== undefined) {
+                                dc.adjustments = action.adjustments;
+                            }
                             CheckPF2e.roll(
                                 new CheckModifier(`${strikeLabel}: ${action.name}`, action),
-                                { actor: this, type: 'attack-roll', options, notes, dc: args.dc ?? ctx.dc },
+                                { actor: this, type: 'attack-roll', options, notes, dc },
                                 args.event,
                                 args.callback,
                             );

@@ -19,12 +19,119 @@
             "value": "ancestry"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Musetouched (to Escape)",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Musetouched (to Escape)",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Musetouched (to Escape)",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "attack-roll"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "attack",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a critical failure on a check to Escape, you get a failure instead, and when you roll a success, you get a critical success instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "athletics"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "athletics",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a critical failure on a check to Escape, you get a failure instead, and when you roll a success, you get a critical success instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "acrobatics"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "acrobatics",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a critical failure on a check to Escape, you get a failure instead, and when you roll a success, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -41,6 +148,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Musetouched",
     "permission": {

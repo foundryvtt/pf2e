@@ -5,6 +5,23 @@ function degtorad(degrees: number) {
     return (degrees * Math.PI) / 180;
 }
 
+export const measureDistance = (p0: Point, p1: Point) => {
+    const gs = canvas.dimensions.size;
+    const ray = new Ray(p0, p1);
+    // How many squares do we travel across to get there? If 2.3, we should count that as 3 instead of 2; hence, Math.ceil
+    const nx = Math.ceil(Math.abs(ray.dx / gs));
+    const ny = Math.ceil(Math.abs(ray.dy / gs));
+
+    // Get the number of straight and diagonal moves
+    const nDiagonal = Math.min(nx, ny);
+    const nStraight = Math.abs(ny - nx);
+
+    // Diagonals in PF pretty much count as 1.5 times a straight
+    const distance = Math.floor(nDiagonal * 1.5 + nStraight);
+    const distanceOnGrid = distance * canvas.dimensions.distance;
+    return distanceOnGrid;
+};
+
 // Use 90 degrees cone in PF2e style
 TemplateLayer.prototype._onDragLeftStart = function _onDragLeftStart(event: ElementDragEvent) {
     PlaceablesLayer.prototype._onDragLeftStart.call(this, event);
@@ -108,23 +125,6 @@ MeasuredTemplate.prototype.highlightGrid = function highlightGrid() {
 
         if (min < max) return value >= min && value <= max;
         return value >= min || value <= max;
-    };
-
-    const measureDistance = (p0: number, p1: number) => {
-        const gs = canvas.dimensions.size;
-        const ray = new Ray(p0, p1);
-        // How many squares do we travel across to get there? If 2.3, we should count that as 3 instead of 2; hence, Math.ceil
-        const nx = Math.ceil(Math.abs(ray.dx / gs));
-        const ny = Math.ceil(Math.abs(ray.dy / gs));
-
-        // Get the number of straight and diagonal moves
-        const nDiagonal = Math.min(nx, ny);
-        const nStraight = Math.abs(ny - nx);
-
-        // Diagonals in PF pretty much count as 1.5 times a straight
-        const distance = Math.floor(nDiagonal * 1.5 + nStraight);
-        const distanceOnGrid = distance * canvas.dimensions.distance;
-        return distanceOnGrid;
     };
 
     const originOffset = { x: 0, y: 0 };

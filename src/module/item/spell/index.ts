@@ -28,6 +28,18 @@ export class SpellPF2e extends ItemPF2e {
         return this.data.isRitual;
     }
 
+    get components() {
+        const components = this.data.data.components;
+        const results: string[] = [];
+        if (components.material) results.push(game.i18n.localize('PF2E.SpellComponentShortM'));
+        if (components.somatic) results.push(game.i18n.localize('PF2E.SpellComponentShortS'));
+        if (components.verbal) results.push(game.i18n.localize('PF2E.SpellComponentShortV'));
+        return {
+            ...components,
+            value: results.join(''),
+        };
+    }
+
     override prepareBaseData() {
         super.prepareBaseData();
         this.data.isCantrip = this.data.data.level.value === 0;
@@ -96,7 +108,7 @@ export class SpellPF2e extends ItemPF2e {
         // Combine properties
         const properties: string[] = [
             localize(CONFIG.PF2E.spellLevels[systemData.level.value]),
-            `${localize('PF2E.SpellComponentsLabel')}: ${systemData.components.value}`,
+            `${localize('PF2E.SpellComponentsLabel')}: ${this.components.value}`,
             systemData.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${systemData.range.value}` : null,
             systemData.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${systemData.target.value}` : null,
             area,

@@ -44,6 +44,7 @@ import { Migration634PurgeMartialItems } from './migrations/634-purge-martial-it
 import { Migration635NumifyACAndQuantity } from './migrations/635-numify-ac-and-quantity';
 import { Migration636NumifyArmorData } from './migrations/636-numify-armor-data';
 import { Migration637CleanMeleeItems } from './migrations/637-clean-melee-items';
+import { Migration638SpellComponents } from './migrations/638-spell-components';
 
 export class Migrations {
     private static list = [
@@ -92,6 +93,7 @@ export class Migrations {
         Migration635NumifyACAndQuantity,
         Migration636NumifyArmorData,
         Migration637CleanMeleeItems,
+        Migration638SpellComponents,
     ];
 
     static get latestVersion(): number {
