@@ -1,5 +1,44 @@
 # Patch Notes:
 
+## Version 2.4.0
+### Bug Fixes
+* (Drental) Fix NPC damage rolls with non-dice values
+* (Drental) Fix light bulk label for armor and treasure
+* (stwlam) Fix consumption of wands
+* (Chup) Fixed actions and inventory of vehicle sheet. Closes #1167 and #1494
+* (nikolaj-a) Make rules tab in item sheet less temperamental on syntax error
+
+### Content Changes
+* (SpartanCPA) NPC Gallery Audit (Criminals)
+* (SpartanCPA) Remove page references to the Core Rulebook
+* (SpartanCPA) Add action category definitions where needed to NPCs in Extinction Curse
+* (Shandyan) Ranger and Rogue Critical Specialisation, plus Ruffian Sneak Attack
+* (Shandyan) Update Giant Instinct to use new `weapon:oversized` predicate
+* (Shandyan) Add automation for aasimar heritage and ancestry feats (angelkin, blessed blood, call of elysium, celestial eyes, celestial lore, celestial strikes, celestial wings, divine countermeasures, emberkin, enforced order, eternal wings, garuda's squall, idyllkin, lawbringer, musetouched, plumekith, truespeech)
+* (Shandyan) Add automation for android ancestry features (constructed, emotionally unaware), heritages (artisan, impersonator, laborer, and warrior android), and feats (android lore, emotionless, nanite surge, nightvision adaptation, offensive subroutine, protective subroutine, and proximity alert)
+* (TMun) Convert impossible volley into three versions
+* (TMun) Add 45, 75 and 90 foot options to support emanations with +15 foot per level heightening for NPCs
+* (TMun) Correct spells for Quelaunt. Closes #1508
+* (TMun) Lionlodge compendium additions
+* (rectulo) Clean up reflecting riposte fighter class feat description text
+* (rectulo) Clean up prescient planner general feat description text
+* (rectulo) Clean up bargain hunter general skill feat description text
+* (rectulo) Fix typo in terrified retreat feat prerequisite
+* (rectulo) Remove page reference from foil senses general skill feat
+* (rectulo) Correct level for eldritch researcher feat
+* (Drental) Fix Take Cover macro to properly add the cover effect on NPC actors
+* (Drental) Fix perception and stealth for selected tokens macros
+* (Tikael) Add default weapon potency and striking rule elements to handwraps
+
+### Core System Improvements
+* (In3luki) Update AdjustDegreeOfSuccess rule element to support attack rolls
+* (Drental) Clarify the text for the standard flatfooted toggle
+* (stwlam) Make console error for multiple feats in same slot a debug message
+* (stwlam) Move Rest for the Night macro to typescript, fix for 0.8. Closes #1510
+* (Tikael) Add min and max properties to flat modifier
+* (Tikael) Change WeaponPotency and Striking rule elements to use the values from the item
+
+
 ## Version 2.3.0
 ### Bug Fixes
 * (stwlam) Prevent error during localization of custom attributes and other properties
@@ -199,8 +238,8 @@ This version brings support for the Foundry VTT version 0.8.x line, starting fro
 
 ### Content Changes
 * (Drental) Add Cunning Rune to weapon runes. Closes #1438
-* (Fraser Stanton) Fix damage type of Noxious Vapors. Closes #1405
-* (Fraser Stanton) Fix spelling error in description of Lifting Belt. Closes #1425
+* (Friz) Fix damage type of Noxious Vapors. Closes #1405
+* (Friz) Fix spelling error in description of Lifting Belt. Closes #1425
 * (SpartanCPA) Favor sheet checkbox over a rule element for applying token icon of spell effects
 * (kageru) Correct Fire Mephit spell DC
 * (stwlam) Add fear trait to Demoralize action, remove skill trait. Closes #1444
