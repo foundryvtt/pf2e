@@ -10,8 +10,26 @@ export class PF2StrikingRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(actorData: CharacterData | NPCData, { striking }: RuleElementSyntheticsPF2e) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const label = super.getDefaultLabel(this.ruleData, this.item);
-        const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
+        let value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         if (selector && label && value) {
+            if (typeof value === 'string') {
+                switch (value) {
+                    case 'striking': {
+                        value = 1;
+                        break;
+                    }
+                    case 'greaterStriking': {
+                        value = 2;
+                        break;
+                    }
+                    case 'majorStriking': {
+                        value = 3;
+                        break;
+                    }
+                    default:
+                        value = 0;
+                }
+            }
             const s: StrikingPF2e = { label, bonus: value };
             if (this.ruleData.predicate) {
                 s.predicate = new ModifierPredicate(this.ruleData.predicate);
