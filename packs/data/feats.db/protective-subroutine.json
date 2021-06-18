@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your nanites can augment your defenses. You can choose to activate Nanite Surge when you attempt a saving throw, instead of when you attempt a skill check. If you do, you gain a +2 status bonus to the triggering saving throw.</p>"
+            "value": "<p>Your nanites can augment your defenses. You can choose to activate @Compendium[pf2e.feats-srd.Nanite Surge]{Nanite Surge} when you attempt a saving throw, instead of when you attempt a skill check. If you do, you gain a +2 status bonus to the triggering saving throw.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -29,7 +29,22 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "nanite-surge"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -48,6 +63,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Protective Subroutine",
     "permission": {
