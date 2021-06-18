@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { animateDarkness } from './animate-darkness';
 import { LocalizePF2e } from '../localize';
+import { ordinal } from '@module/utils';
 
 interface WorldClockData {
     date: string;
@@ -119,15 +120,6 @@ export class WorldClock extends Application {
         }
     }
 
-    /** The ordinal suffix of the month's day (in English: "st", "nd", "rd", or "th") */
-    private get ordinalSuffix() {
-        const rule = new Intl.PluralRules(game.i18n.lang, {
-            type: 'ordinal',
-        }).select(this.worldTime.day);
-        const ruleKey = rule[0].toUpperCase() + rule.slice(1);
-        return this.translations.OrdinalSuffixes[ruleKey];
-    }
-
     override getData(options?: ApplicationOptions): WorldClockData {
         const date =
             this.dateTheme === 'CE'
@@ -136,9 +128,8 @@ export class WorldClock extends Application {
                       era: this.era,
                       year: this.year,
                       month: this.month,
-                      day: this.worldTime.day,
+                      day: ordinal(this.worldTime.day),
                       weekday: this.weekday,
-                      ordinalSuffix: this.ordinalSuffix,
                   });
 
         const time =
