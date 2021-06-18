@@ -1,5 +1,7 @@
 import { ItemPF2e } from '@item/index';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
+import { toNumber } from '@module/utils';
+import { LocalizePF2e } from '@system/localize';
 import { SpellData } from './data';
 
 export class SpellPF2e extends ItemPF2e {
@@ -94,9 +96,23 @@ export class SpellPF2e extends ItemPF2e {
             return null;
         })();
 
+        const spellLvl = toNumber((rollOptions || {}).spellLvl ?? systemData.heightenedLevel?.value);
+        const spellLvlString = (() => {
+            if (spellLvl && systemData.level.value < spellLvl) {
+                const suffixes = LocalizePF2e.translations.PF2E.WorldClock.OrdinalSuffixes;
+                const pluralRules = new Intl.PluralRules(game.i18n.lang, { type: 'ordinal' });
+                const suffix = suffixes[pluralRules.select(spellLvl).capitalize()];
+                const originalLvl = localize(CONFIG.PF2E.spellLevels[systemData.level.value]);
+                const gap = (spellLvl ?? 0) - Math.max(1, systemData.level.value);
+                return game.i18n.format('PF2E.SpellHeightened', { spellLvl, suffix, originalLvl, gap });
+            }
+
+            return localize(CONFIG.PF2E.spellLevels[systemData.level.value]);
+        })();
+
         // Combine properties
         const properties: string[] = [
-            localize(CONFIG.PF2E.spellLevels[systemData.level.value]),
+            spellLvlString,
             `${localize('PF2E.SpellComponentsLabel')}: ${this.components.value}`,
             systemData.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${systemData.range.value}` : null,
             systemData.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${systemData.target.value}` : null,
@@ -104,12 +120,6 @@ export class SpellPF2e extends ItemPF2e {
             systemData.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${systemData.time.value}` : null,
             systemData.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${systemData.duration.value}` : null,
         ].filter((p): p is string => p !== null);
-
-        const spellLvl = (rollOptions || {}).spellLvl ?? systemData.heightenedLevel?.value;
-        const castedLevel = Number(spellLvl ?? 0);
-        if (systemData.level.value < castedLevel) {
-            properties.push(`Heightened: +${castedLevel - systemData.level.value}`);
-        }
 
         const traits = this.traitChatData(CONFIG.PF2E.spellTraits);
 
