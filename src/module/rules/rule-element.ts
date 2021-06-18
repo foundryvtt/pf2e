@@ -226,9 +226,6 @@ export abstract class RuleElementPF2e {
             if (value.includes('item|')) {
                 const separator = value.indexOf('|');
                 value = getProperty(item, value.substring(separator + 1));
-                //if (typeof value === 'string') {
-                //    value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actorData.data, item: item.data }));
-                //}
             } else {
                 value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actorData.data, item: item.data }));
             }
