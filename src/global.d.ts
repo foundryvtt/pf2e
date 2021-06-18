@@ -39,7 +39,7 @@ import { CanvasPF2e } from '@module/canvas';
 declare global {
     interface Game {
         pf2e: {
-            actions: { [key: string]: Function };
+            actions: Record<string, Function>;
             compendiumBrowser: CompendiumBrowser;
             worldClock: WorldClock;
             effectPanel: EffectPanel;

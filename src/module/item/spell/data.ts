@@ -45,7 +45,9 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
         value: MagicSchool;
     };
     components: {
-        value: string;
+        material: boolean;
+        somatic: boolean;
+        verbal: boolean;
     };
     materials: {
         value: string;

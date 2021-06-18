@@ -21,8 +21,7 @@ import {
 } from '@item/data';
 import { ErrorPF2e, getActionGlyph, objectHasKey } from '@module/utils';
 import { ActorSheetDataPF2e, InventoryItem, SheetInventory } from '../sheet/data-types';
-import { SpellSlots } from '@item/spellcasting-entry/data';
-import { LabeledString, ValuesList } from '@module/data';
+import { LabeledString, ValuesList, ZeroToEleven } from '@module/data';
 import { NPCAttributes, NPCSkillData, NPCStrike, NPCSystemData } from './data';
 import { Abilities, AbilityData, CreatureTraitsData, SaveString, SkillAbbreviation } from '@actor/creature/data';
 import { AbilityString } from '@actor/data/base';
@@ -119,11 +118,6 @@ type SheetItemData<T extends ItemDataPF2e = ItemDataPF2e> = T & {
     }[];
     chatData?: unknown;
     data: {
-        components: {
-            somatic: boolean;
-            verbal: boolean;
-            material: boolean;
-        };
         bonus: {
             value: number;
             total?: number;
@@ -601,11 +595,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             // Assign icon based on cast time
             spell.glyph = getActionGlyph(spell.data.time.value);
 
-            // Assign components
-            spell.data.components.somatic = spell.data.components.value.includes('somatic');
-            spell.data.components.verbal = spell.data.components.value.includes('verbal');
-            spell.data.components.material = spell.data.components.value.includes('material');
-
             let location = spell.data.location.value;
             let spellbook: any;
             const hasVaidSpellcastingEntry = spellEntriesList.includes(location);
@@ -676,11 +665,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
                         // Assign icon based on cast time
                         spell.glyph = getActionGlyph(spell.data.time.value);
-
-                        // Assign components
-                        spell.data.components.somatic = spell.data.components.value.includes('somatic');
-                        spell.data.components.verbal = spell.data.components.value.includes('verbal');
-                        spell.data.components.material = spell.data.components.value.includes('material');
                     }
                 }
             }
@@ -962,11 +946,14 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     private async onSpellSlotIncrementReset(event: JQuery.ClickEvent) {
         const target = $(event.currentTarget);
         const itemId = target.data().itemId;
-        const itemLevel: string = target.data().level ?? '';
+        const itemLevel =
+            typeof target.attr('data-level') === 'string'
+                ? (Number(target.attr('data-level') || 0) as ZeroToEleven)
+                : null;
         const actor = this.actor;
         const item = actor.items.get(itemId);
 
-        if (item == null || itemLevel === '') {
+        if (item == null || itemLevel === null) {
             return;
         }
         if (item.data.type !== 'spellcastingEntry') {
@@ -978,7 +965,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         if (data.data.slots == null) {
             return;
         }
-        const slot = `slot${itemLevel}` as keyof SpellSlots;
+        const slot = `slot${itemLevel}` as const;
         data.data.slots[slot].value = data.data.slots[slot].max;
 
         item.update(data);

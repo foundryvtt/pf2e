@@ -21,6 +21,10 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     get isInnate(): boolean {
         return this.data.data.prepared.value === 'innate';
     }
+
+    get isFocusPool(): boolean {
+        return this.tradition === 'focus';
+    }
 }
 
 export interface SpellcastingEntryPF2e {
