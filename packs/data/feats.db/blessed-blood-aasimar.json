@@ -21,10 +21,26 @@
         "level": {
             "value": 5
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Blessed Blood (craft Holy Water with own blood)",
+                "predicate": {
+                    "all": [
+                        "action:craft",
+                        "item:holy-water",
+                        "own-blood"
+                    ]
+                },
+                "selector": "craft",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -40,6 +56,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Blessed Blood (Aasimar)",
     "permission": {
