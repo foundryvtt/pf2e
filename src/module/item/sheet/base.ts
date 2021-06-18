@@ -575,8 +575,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     try {
                         rules.push(JSON.parse(value as string));
                     } catch (error) {
-                        ui.notifications.warn('Syntax error in rule element definition.');
-                        console.warn('Syntax error in rule element definition.', value);
+                        ui.notifications.warn(`Syntax error in rule element definition: ${error.message}`);
+                        console.warn('Syntax error in rule element definition.', error.message, value);
                         throw error;
                     }
                 });
