@@ -532,18 +532,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             ? mergeObject(fd.toObject(), updateData)
             : expandObject(fd.toObject());
 
-        // ensure all rules objects are parsed and saved as objects
-        if (data.data?.rules) {
-            data.data.rules = Object.entries(data.data.rules).map(([_, value]) => {
-                try {
-                    return JSON.parse(value);
-                } catch (error) {
-                    ui.notifications.warn('Syntax error in rule element definition.');
-                    throw error;
-                }
-            });
-        }
-
         return flattenObject(data); // return the flattened submission data
     }
 
@@ -577,6 +565,26 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         if (formData['data.baseItem'] === '') {
             formData['data.baseItem'] = null;
         }
+
+        // ensure all rules objects are parsed and saved as objects before proceeding to update
+        try {
+            const rules: object[] = [];
+            Object.entries(formData)
+                .filter(([key, _]) => key.startsWith('data.rules.'))
+                .forEach(([_, value]) => {
+                    try {
+                        rules.push(JSON.parse(value as string));
+                    } catch (error) {
+                        ui.notifications.warn('Syntax error in rule element definition.');
+                        console.warn('Syntax error in rule element definition.', value);
+                        throw error;
+                    }
+                });
+            formData['data.rules'] = rules;
+        } catch (e) {
+            return;
+        }
+
         super._updateObject(event, formData);
     }
 }
