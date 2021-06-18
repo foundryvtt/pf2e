@@ -25,7 +25,46 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Emotionless (vs. emotion and fear effects)",
+                "predicate": {
+                    "any": [
+                        "emotion",
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "emotion",
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a save against an emotion or fear effect, you get a critical success instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "predicate": {
+                    "any": [
+                        "emotion",
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -44,6 +83,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Emotionless",
     "permission": {
