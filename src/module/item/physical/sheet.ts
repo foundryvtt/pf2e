@@ -1,4 +1,4 @@
-import { ItemSheetDataPF2e, ItemSheetPF2e } from './base';
+import { ItemSheetDataPF2e, ItemSheetPF2e } from '../sheet/base';
 import { PhysicalItemPF2e } from '@item/physical';
 
 export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
