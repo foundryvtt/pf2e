@@ -19,7 +19,7 @@ export class PF2StrikingRuleElement extends RuleElementPF2e {
                 ? getStrikingDice(this.item.data)
                 : 0;
         const value = super.resolveValue(strikingValue, this.ruleData, this.item, actorData);
-        if (selector && label && value) {
+        if (selector && label && typeof value === 'number') {
             const s: StrikingPF2e = { label, bonus: value };
             if (this.ruleData.predicate) {
                 s.predicate = new ModifierPredicate(this.ruleData.predicate);
