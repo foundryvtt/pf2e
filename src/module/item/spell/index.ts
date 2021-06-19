@@ -1,6 +1,6 @@
 import { ItemPF2e } from '@item/index';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
-import { ordinal, toNumber } from '@module/utils';
+import { toNumber } from '@module/utils';
 import { SpellData } from './data';
 
 export class SpellPF2e extends ItemPF2e {
@@ -11,6 +11,15 @@ export class SpellPF2e extends ItemPF2e {
     get spellcasting(): SpellcastingEntryPF2e | undefined {
         const spellcastingId = this.data.data.location.value;
         return this.actor?.itemTypes.spellcastingEntry.find((entry) => entry.id === spellcastingId);
+    }
+
+    get category() {
+        // note: this will go away once we have a cantrip category
+        if (this.data.data.level.value === 0) {
+            return 'cantrip';
+        }
+
+        return this.data.data.category.value;
     }
 
     get level() {
@@ -95,22 +104,25 @@ export class SpellPF2e extends ItemPF2e {
             return null;
         })();
 
-        const spellLvl = toNumber((rollOptions || {}).spellLvl ?? systemData.heightenedLevel?.value);
-        const spellLvlString = (() => {
-            if (spellLvl && systemData.level.value < spellLvl) {
-                const originalLvl = systemData.level.value
-                    ? ordinal(systemData.level.value)
-                    : localize(CONFIG.PF2E.spellLevels[0]);
-                const gap = (spellLvl ?? 0) - Math.max(1, systemData.level.value);
-                return game.i18n.format('PF2E.SpellHeightened', { spellLvl: ordinal(spellLvl), originalLvl, gap });
-            }
+        // TEMPORARY: This will go away once cantrip becomes an actual category
+        const categories = {
+            ...CONFIG.PF2E.spellCategories,
+            cantrip: 'PF2E.SpellCategoryCantrip',
+        };
 
-            return localize(CONFIG.PF2E.spellLevels[systemData.level.value]);
+        const baseLevel = Math.max(1, systemData.level.value);
+        const level = Math.max(1, toNumber((rollOptions || {}).spellLvl ?? systemData.heightenedLevel?.value) ?? 1);
+        const isHeightened = level && baseLevel < level;
+        const levelString = (() => {
+            const gap = (level ?? 0) - baseLevel;
+            const key = isHeightened ? 'PF2E.SpellLevelHeightened' : 'PF2E.SpellLevel';
+            const category = localize(categories[this.category]);
+            return game.i18n.format(key, { category, level: baseLevel, gap });
         })();
 
         // Combine properties
         const properties: string[] = [
-            spellLvlString,
+            levelString,
             `${localize('PF2E.SpellComponentsLabel')}: ${this.components.value}`,
             systemData.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${systemData.range.value}` : null,
             systemData.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${systemData.target.value}` : null,
@@ -126,7 +138,8 @@ export class SpellPF2e extends ItemPF2e {
             save,
             isAttack,
             isSave,
-            spellLvl,
+            spellLvl: level,
+            isHeightened,
             damageLabel,
             properties,
             traits,

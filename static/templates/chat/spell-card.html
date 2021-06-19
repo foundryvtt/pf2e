@@ -6,8 +6,11 @@
 
     <div class="item-properties tags">
         {{#each data.traits}}
-            <span class="tag tag_alt" title="{{localize this.description}}">{{localize this.label}}</span>
+            <span class="tag" title="{{localize this.description}}">{{localize this.label}}</span>
         {{/each}}
+        {{#if (and data.isHeightened data.spellLvl)}}
+            <span class="tag tag_secondary">{{localize "PF2E.HeightenedLevel" level=data.spellLvl}}</span>
+        {{/if}}
     </div>
 
     <div class="card-content">
