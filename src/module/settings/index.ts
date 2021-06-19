@@ -278,7 +278,7 @@ export function registerSettings() {
         choices: metagameDcChoices,
     });
 
-	game.settings.register('pf2e', 'metagame.showResults', {
+    game.settings.register('pf2e', 'metagame.showResults', {
         name: 'PF2E.SETTINGS.Metagame.ShowResults.Name',
         hint: 'PF2E.SETTINGS.Metagame.ShowResults.Hint',
         scope: 'world',
