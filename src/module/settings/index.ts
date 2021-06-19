@@ -260,6 +260,14 @@ export function registerSettings() {
         owner: 'PF2E.SETTINGS.Metagame.ShowDC.Owner',
         all: 'PF2E.SETTINGS.Metagame.ShowDC.All',
     };
+
+    const metagameResultsChoices = {
+        none: 'PF2E.SETTINGS.Metagame.ShowResults.None',
+        gm: 'PF2E.SETTINGS.Metagame.ShowResults.Gm',
+        owner: 'PF2E.SETTINGS.Metagame.ShowResults.Owner',
+        all: 'PF2E.SETTINGS.Metagame.ShowResults.All',
+    };
+
     game.settings.register('pf2e', 'metagame.showDC', {
         name: 'PF2E.SETTINGS.Metagame.ShowDC.Name',
         hint: 'PF2E.SETTINGS.Metagame.ShowDC.Hint',
@@ -269,4 +277,14 @@ export function registerSettings() {
         type: String,
         choices: metagameDcChoices,
     });
+	game.settings.register('pf2e', 'metagame.showResults', {
+        name: 'PF2E.SETTINGS.Metagame.ShowResults.Name',
+        hint: 'PF2E.SETTINGS.Metagame.ShowResults.Hint',
+        scope: 'world',
+        config: true,
+        default: 'gm',
+        type: String,
+        choices: metagameResultsChoices,
+    });
+
 }
