@@ -144,8 +144,9 @@ export class CheckModifiersDialog extends Application {
             const resultLabel = game.i18n.localize('PF2E.ResultLabel');
             const degreeLabel = game.i18n.localize(`PF2E.${ctx.dc.scope ?? 'CheckOutcome'}.${degreeOfSuccessText}`);
             const showResults = game.settings.get('pf2e', 'metagame.showResults').toString();
-            flavor += `<div data-visibility="${ctx.dc.visibility ?? showResults}" class="degree-of-success">`;
-            flavor += `<b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel}</span></b>${adjustmentLabel}`;
+            flavor += `<div data-visibility="${
+                ctx.dc.visibility ?? showResults
+            }" class="degree-of-success"><b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel}</span></b>${adjustmentLabel}`;
             flavor += '</div>';
         }
 
