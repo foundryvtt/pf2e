@@ -44,21 +44,27 @@ export class LootPF2e extends ActorPF2e {
         item: Embedded<ItemPF2e>,
         quantity: number,
         containerId?: string,
-    ): Promise<Embedded<PhysicalItemPF2e> | null> {
+    ): Promise<any> {
         // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
         if (!(this.isOwner && targetActor.isOwner)) {
             return super.transferItemToActor(targetActor, item, quantity, containerId);
         }
         if (this.isMerchant && item instanceof PhysicalItemPF2e) {
             const itemValue = extractPriceFromItem(item.data, quantity);
-            if (await attemptToRemoveCoinsByValue({ actor: targetActor, coinsToRemove: itemValue })) {
-                await addCoins(item.actor, { coins: itemValue, combineStacks: true });
-                return super.transferItemToActor(targetActor, item, quantity, containerId);
-            } else if (this.isLoot) {
-                throw ErrorPF2e('Loot transfer failed');
-            } else {
-                return null;
-            }
+            return attemptToRemoveCoinsByValue({ actor: targetActor, coinsToRemove: itemValue }).then(
+                async (result) => {
+                    if (result) {
+                        return Promise.all([
+                            addCoins(item.actor, { coins: itemValue, combineStacks: true }),
+                            super.transferItemToActor(targetActor, item, quantity, containerId),
+                        ]);
+                    } else if (this.isLoot) {
+                        throw ErrorPF2e('Loot transfer failed');
+                    } else {
+                        return null;
+                    }
+                },
+            );
         }
 
         return super.transferItemToActor(targetActor, item, quantity, containerId);
@@ -67,10 +73,12 @@ export class LootPF2e extends ActorPF2e {
     /** Hide this actor's token(s) when in loot (rather than merchant) mode, empty, and configured thus */
     async toggleTokenHiding() {
         const hiddenStatus = this.hiddenWhenEmpty && this.items.size === 0;
-        const tokenDocs = this.getActiveTokens().map((token) => token.document);
-        for await (const tokenDoc of tokenDocs) {
-            await tokenDoc.update({ hidden: hiddenStatus });
-        }
+
+        await Promise.all(
+            this.getActiveTokens().map(async (token) => {
+                return token.document.update({ hidden: hiddenStatus });
+            }),
+        );
     }
 
     /* -------------------------------------------- */
