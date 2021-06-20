@@ -18,7 +18,7 @@ export class PF2WeaponPotencyRuleElement extends RuleElementPF2e {
                 ? this.item.data.potencyRune.value
                 : 0;
         const value = super.resolveValue(potencyValue, this.ruleData, this.item, actorData);
-        if (selector && label && value) {
+        if (selector && label && typeof value === 'number') {
             const potency: WeaponPotencyPF2e = { label, bonus: value };
             if (this.ruleData.predicate) {
                 potency.predicate = new ModifierPredicate(this.ruleData.predicate);
