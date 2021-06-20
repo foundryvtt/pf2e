@@ -417,7 +417,7 @@ export class ConditionManager {
         if (!item) throw ErrorPF2e('Unexpected failure creating new condition');
 
         const baseCondition = item.toObject();
-        const conditionsToCreate = this.createAdditionalyAppliedConditions(baseCondition);
+        const conditionsToCreate = this.createAdditionallyAppliedConditions(baseCondition);
         conditionsToCreate.push(baseCondition);
 
         await actor.createEmbeddedDocuments('Item', conditionsToCreate, { keepId: true });
@@ -425,7 +425,7 @@ export class ConditionManager {
         return item;
     }
 
-    private static createAdditionalyAppliedConditions(baseCondition: ConditionSource): ConditionSource[] {
+    private static createAdditionallyAppliedConditions(baseCondition: ConditionSource): ConditionSource[] {
         const conditionsToCreate: ConditionSource[] = [];
 
         baseCondition.data.alsoApplies.linked.forEach((linkedCondition) => {
@@ -441,7 +441,7 @@ export class ConditionManager {
             // Add linked condition to the list of items to create
             conditionsToCreate.push(conditionSource);
             // Add conditions that are applied by the previously added linked condition
-            conditionsToCreate.push(...this.createAdditionalyAppliedConditions(conditionSource));
+            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource));
         });
 
         baseCondition.data.alsoApplies.unlinked.forEach((unlinkedCondition) => {
@@ -456,7 +456,7 @@ export class ConditionManager {
             // Add unlinked condition to the list of items to create
             conditionsToCreate.push(conditionSource);
             // Add conditions that are applied by the previously added condition
-            conditionsToCreate.push(...this.createAdditionalyAppliedConditions(conditionSource));
+            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource));
         });
 
         return conditionsToCreate;
