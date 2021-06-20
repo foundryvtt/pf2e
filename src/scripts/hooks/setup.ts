@@ -1,6 +1,7 @@
 import { LocalizePF2e } from '@system/localize';
 import { registerSheets } from '../register-sheets';
 import { ActorPF2e } from '@actor/base';
+import { CreaturePF2e } from '@actor/creature/index';
 import { PF2CheckDC } from '@system/check-degree-of-success';
 import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
@@ -138,6 +139,38 @@ function registerPF2ActionClickListener() {
                         skillCheck.roll({ event, options, dc });
                     } else {
                         console.warn(`PF2e System | Skip rolling unknown skill check or untrained lore '${skill}'`);
+                    }
+                });
+            }
+        }
+        else if (
+            target?.matches(
+                '[data-pf2-perception-check]:not([data-pf2-perception-check=""]), [data-pf2-perception-check]:not([data-pf2-perception-check=""]) *',
+            )
+        ) {
+            target = target.closest('[data-pf2-perception-check]:not([data-pf2-perception-check=""])')!;
+            const actors = resolveActors();
+            if (actors.length) {
+                const { pf2Dc, pf2Traits, pf2Label } = target.dataset ?? {};
+                actors.forEach((actor) => {
+                    if (actor instanceof CreaturePF2e) {
+                        const perceptionCheck = actor.data.data.attributes.perception as Rollable | undefined;
+                        if (perceptionCheck) {
+                            const dc = Number.isInteger(Number(pf2Dc))
+                                ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                : undefined;
+                            const options = actor.getRollOptions(['all', 'perception']);
+                            if (pf2Traits) {
+                                const traits = pf2Traits
+                                    .split(',')
+                                    .map((trait) => trait.trim())
+                                    .filter((trait) => !!trait);
+                                options.push(...traits);
+                            }
+                            perceptionCheck.roll({ event, options, dc });
+                        } else {
+                            console.warn(`PF2e System | Skip rolling perception for '${actor}'`);
+                        }
                     }
                 });
             }
