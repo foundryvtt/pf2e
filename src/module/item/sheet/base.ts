@@ -2,7 +2,7 @@ import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
 import { ItemDataPF2e } from '@item/data';
 import { LocalizePF2e } from '@system/localize';
-import { AESheetData, SheetOptions, SheetSelections } from './data-types';
+import { AESheetData, ItemSheetDataPF2e, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e, LorePF2e } from '@item/index';
 import { PF2RuleElementData } from '@module/rules/rules-data-definitions';
 import Tagify from '@yaireo/tagify';
@@ -15,12 +15,6 @@ import {
 } from '@module/system/trait-selector';
 import { ErrorPF2e, sluggify, tupleHasValue } from '@module/utils';
 import { ActiveEffectPF2e } from '@module/active-effect';
-
-export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
-    user: { isGM: boolean };
-    enabledRulesUI: boolean;
-    activeEffects: AESheetData;
-}
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {
@@ -89,6 +83,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === 'consumable') {
             data.consumableTypes = CONFIG.PF2E.consumableTypes;
+            data.traits = this.prepareOptions(CONFIG.PF2E.consumableTraits, itemData.data.traits, {
+                selectedOnly: true,
+            });
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.consumableTraits = CONFIG.PF2E.consumableTraits;
@@ -105,6 +102,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
 
+            // Weapons have derived traits: base traits are shown for editing
             data.traits = this.prepareOptions(CONFIG.PF2E.weaponTraits, itemData.data.traits, { selectedOnly: true });
             data.baseTraits = this.prepareOptions(CONFIG.PF2E.weaponTraits, itemData.toObject().data.traits, {
                 selectedOnly: true,
@@ -145,12 +143,18 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.conditions = [];
         } else if (itemData.type === 'equipment') {
             // Equipment data
+            data.traits = this.prepareOptions(CONFIG.PF2E.equipmentTraits, itemData.data.traits, {
+                selectedOnly: true,
+            });
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === 'backpack') {
             // Backpack data
+            data.traits = this.prepareOptions(CONFIG.PF2E.equipmentTraits, itemData.data.traits, {
+                selectedOnly: true,
+            });
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
@@ -166,13 +170,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.groups = CONFIG.PF2E.armorGroups;
             data.baseTypes = LocalizePF2e.translations.PF2E.Item.Armor.Base;
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
+            data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
+            data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
+            data.sizes = CONFIG.PF2E.actorSizes;
+
+            // Armor has derived traits: base traits are shown for editing
             data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, itemData.data.traits, { selectedOnly: true });
             data.baseTraits = this.prepareOptions(CONFIG.PF2E.armorTraits, itemData.toObject().data.traits, {
                 selectedOnly: true,
             });
-            data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
-            data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
-            data.sizes = CONFIG.PF2E.actorSizes;
         } else if (itemData.type === 'lore') {
             // Lore-specific data
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;

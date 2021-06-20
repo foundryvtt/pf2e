@@ -1,6 +1,6 @@
 import { KitPF2e } from '@item/kit';
 import { PhysicalItemPF2e } from '@item/physical';
-import { ItemSheetPF2e } from './base';
+import { ItemSheetPF2e } from '../sheet/base';
 
 /**
  * @category Other

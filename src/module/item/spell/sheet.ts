@@ -1,6 +1,6 @@
 import { SpellPF2e } from '@item/spell';
-import { ItemSheetDataPF2e, ItemSheetPF2e } from '../sheet/base';
-import { SpellSheetData } from '../sheet/data-types';
+import { ItemSheetPF2e } from '../sheet/base';
+import { ItemSheetDataPF2e, SpellSheetData } from '../sheet/data-types';
 import { SpellSystemData } from './data';
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
