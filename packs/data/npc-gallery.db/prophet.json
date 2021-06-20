@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 17,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -119,9 +120,10 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
-                "value": "N"
+                "value": "CN"
             },
             "ancestry": {
                 "value": ""
@@ -138,6 +140,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
+            "flavorText": "<p>The gods occasionally send messages in dreams to individuals who wander the lands, gaining followers with their oratorical abilities. Some prophets have not received true divine missives, but have misinterpreted normal dreams.</p>\n<hr />\n<p>Religions inspire devout individuals to uphold their tenets. Many of these devotees seek to bring respite and hope, but others have darker motives.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -152,7 +155,7 @@
             "recallKnowledgeText": "",
             "sidebarText": "",
             "source": {
-                "value": "NPC Gallery"
+                "value": ""
             }
         },
         "items": {
@@ -161,7 +164,7 @@
                     "slots": {
                         "slot1": {
                             "max": "4",
-                            "value": "4"
+                            "value": 4
                         }
                     },
                     "spelldc": {
@@ -180,7 +183,24 @@
                     },
                     "spelldc": {
                         "dc": 18,
-                        "value": 0
+                        "value": 10
+                    }
+                }
+            },
+            "ZGG5xlIlkDX9vRoe": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 4
+                        }
+                    }
+                }
+            },
+            "qQYZCdbDe5NlE8e5": {
+                "data": {
+                    "focus": {
+                        "points": 1,
+                        "pool": 1
                     }
                 }
             }
@@ -466,13 +486,14 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "ZGG5xlIlkDX9vRoe",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "description": {
                     "chat": "",
@@ -589,8 +610,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Spontaneous Divine Spells",
+            "name": "Divine Spontaneous Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -598,7 +623,7 @@
             "_id": "qQYZCdbDe5NlE8e5",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "description": {
                     "chat": "",
@@ -697,7 +722,7 @@
                     "dc": 18,
                     "item": 0,
                     "mod": 0,
-                    "value": 0
+                    "value": 10
                 },
                 "tradition": {
                     "value": "focus"
@@ -715,13 +740,17 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Focus Spells",
+            "name": "Cleric Domain Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "86pfZ8cDqF6sN81X",
+            "_id": "sYHNq9HAtS3LBSbN",
             "data": {
                 "ability": {
                     "value": ""
@@ -754,13 +783,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Blessings from beyond help your companions strike true. You and your allies in the area gain a +1 status bonus to attack rolls. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet. Bless can counteract bane.</p>"
+                    "value": "<p>Blessings from beyond help your companions strike true. You and your allies gain a +1 status bonus to attack rolls while within the emanation. Once per turn, starting the turn after you cast bless, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet. Bless can counteract bane.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Bless]{Spell Effect: Bless}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "value": 1
@@ -798,9 +827,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "bless",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=25"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -829,20 +858,25 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XSujb7EsSwKl19Uu"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/bless.webp",
             "name": "Bless",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "AGNJEb0dreSZUfSI",
+            "_id": "JnwcGsvMamfpXmbr",
             "data": {
                 "ability": {
                     "value": ""
@@ -875,7 +909,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -919,9 +953,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "heal",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "heal"
@@ -952,20 +986,25 @@
                         "necromancy",
                         "positive"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "YzP2IeWq1AOpVpD4",
+            "_id": "bVIM022I5qkjdlqR",
             "data": {
                 "ability": {
                     "value": ""
@@ -998,7 +1037,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A ray with the power to sap a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save in order to determine the spell's effect. If you critically succeed on your attack roll, use the outcome for one degree of success worse than the result of its save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 2.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 3.</p>"
+                    "value": "<p>A ray that saps a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save to determine the spell's effect. If your attack roll is a critical success, use the outcome for one degree of success worse than the result of its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1042,9 +1081,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "ray-of-enfeeblement",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=244"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "attack"
@@ -1074,20 +1113,25 @@
                         "attack",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.J7Y7tl0bbdz7TcCc"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "q1yUxbsmfODaPB7c",
+            "_id": "7roeRJOu0V4Dvy9a",
             "data": {
                 "ability": {
                     "value": ""
@@ -1164,9 +1208,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "read-fate",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=445"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1193,20 +1237,25 @@
                         "divination",
                         "prediction"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Vvxgn7saUPW2bJhb"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/read-fate.webp",
             "name": "Read Fate",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "MTF3GSjt2OFJ6J04",
+            "_id": "Uh7kbXEgqaIgLShM",
             "data": {
                 "ability": {
                     "value": ""
@@ -1283,9 +1332,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "sanctuary",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=266"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1313,20 +1362,25 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.8xRzLhwGL7Dgy3EZ"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "CbGkI0WTEiMeMGDe",
+            "_id": "xqdZ2P46gsmWo8l2",
             "data": {
                 "ability": {
                     "value": ""
@@ -1359,7 +1413,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -1403,9 +1457,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "daze",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=61"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -1437,27 +1491,32 @@
                         "mental",
                         "nonlethal"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4gBIw4IDrSfFHik4"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "4qJmqBbv4IaKgIHf",
+            "_id": "eVD4dLFTM7LGZBtg",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
                 },
                 "areasize": {
                     "value": "30-foot emanation"
@@ -1483,7 +1542,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.<br style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\"><strong>Heightened</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1527,7 +1586,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "detect-magic",
                 "source": {
                     "value": ""
                 },
@@ -1562,20 +1621,25 @@
                         "cantrip",
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "OGTPstjTLGmdDVEk",
+            "_id": "hMD29ApJXZ3h4unP",
             "data": {
                 "ability": {
                     "value": ""
@@ -1583,6 +1647,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -1605,7 +1672,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You ask for divine guidance, granting the target a +1 status bonus to one attack roll, Perception check, saving throw, or skill check the target attempts before the duration ends. The target chooses which roll to use the bonus on before rolling. If the target uses the bonus, the spell ends. Either way, the target is then temporarily immune for 1 hour.</p>"
+                    "value": "<p>You ask for divine guidance, granting the target a +1 status bonus to one attack roll, Perception check, saving throw, or skill check the target attempts before the duration ends. The target chooses which roll to use the bonus on before rolling. If the target uses the bonus, the spell ends. Either way, the target is then temporarily immune for 1 hour.</p>\n\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Guidance]{Spell Effect: Guidance}</p>"
                 },
                 "duration": {
                     "value": "until the start of your next turn"
@@ -1625,6 +1692,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -1640,7 +1710,13 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "guidance",
                 "source": {
                     "value": ""
                 },
@@ -1673,20 +1749,25 @@
                         "cantrip",
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.izcxFQFwf3woCnFs"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "7tS9EQTHcICrO7nP",
+            "_id": "XP9HvjUCsMbJvy7h",
             "data": {
                 "ability": {
                     "value": ""
@@ -1694,6 +1775,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -1716,7 +1800,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>In your mind's eye, you see a path northward. You immediately know which direction is north (if it exists at your current location).</p>\n<hr />\n<p><strong>Heightened</strong> You can instead know the direction to a familiar location, such as a previous home or a favorite tavern.</p>"
+                    "value": "<p>In your mind's eye, you see a path northward. You immediately know which direction is north (if it exists at your current location).</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can instead know the direction to a familiar location, such as a previous home or a favorite tavern.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1736,6 +1820,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": ""
                 },
@@ -1751,7 +1838,13 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "know-direction",
                 "source": {
                     "value": ""
                 },
@@ -1785,27 +1878,32 @@
                         "cantrip",
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.tXa5vOu5giBNCjdR"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/know-direction.webp",
             "name": "Know Direction",
+            "permission": {
+                "default": 0
+            },
             "sort": 1100000,
             "type": "spell"
         },
         {
-            "_id": "ey7Z0tAVei6IMRWS",
+            "_id": "TMl2iipo6z7ELqFv",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1831,7 +1929,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -1875,7 +1973,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "light",
                 "source": {
                     "value": ""
                 },
@@ -1910,20 +2008,25 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.WBmvzNDfpwka3qT4"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
             "type": "spell"
         },
         {
-            "_id": "ttkJSUY1HutOoV70",
+            "_id": "rxPKi98zWvZz7fxV",
             "data": {
                 "ability": {
                     "value": ""
@@ -2000,7 +2103,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "prestidigitation",
                 "source": {
                     "value": ""
                 },
@@ -2011,7 +2114,7 @@
                     "value": true
                 },
                 "target": {
-                    "value": "1 object "
+                    "value": "1 object (cook, lift, or tidy only)"
                 },
                 "time": {
                     "value": "2"
@@ -2034,20 +2137,25 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Qw3fnUlaUbnn7ipC"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/prestidigitation.webp",
             "name": "Prestidigitation",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "spell"
         },
         {
-            "_id": "HhSernYp8oetu6je",
+            "_id": "KyFBDt9qrND8z6Mo",
             "data": {
                 "ability": {
                     "value": ""
@@ -2055,6 +2163,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
@@ -2077,7 +2188,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2097,6 +2208,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -2112,7 +2226,13 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "read-aura",
                 "source": {
                     "value": ""
                 },
@@ -2147,20 +2267,25 @@
                         "cantrip",
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.OhD2Z6rIGGD5ocZA"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/read-aura.webp",
             "name": "Read Aura",
+            "permission": {
+                "default": 0
+            },
             "sort": 1400000,
             "type": "spell"
         },
         {
-            "_id": "2xDX9e00JBr1sLff",
+            "_id": "6sSQcLQv9kUYsMRJ",
             "data": {
                 "MAP": {
                     "value": ""
@@ -2168,7 +2293,7 @@
                 "ability": {
                     "value": "str"
                 },
-                "baseItem": null,
+                "baseItem": "flail",
                 "bonus": {
                     "value": 0
                 },
@@ -2233,7 +2358,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -2251,7 +2376,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "8 sp"
+                    "value": "1 gp"
                 },
                 "property1": {
                     "critDamage": "",
@@ -2265,26 +2390,6 @@
                     "die": "",
                     "strikeConditionType": "",
                     "strikeConditionValue": null,
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -2312,7 +2417,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "flail",
                 "source": {
                     "value": ""
                 },
@@ -2343,18 +2448,26 @@
                     "value": "martial"
                 },
                 "weight": {
-                    "value": "-"
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.t5FbyZtRL4qV0V7k"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/flail.webp",
             "name": "Flail",
+            "permission": {
+                "default": 0
+            },
             "sort": 1500000,
             "type": "weapon"
         },
         {
-            "_id": "jCiwUULE0QWCq9Vq",
+            "_id": "7n5gBvpwPx9Shwm7",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -2395,15 +2508,15 @@
                                 "value": ""
                             }
                         },
-                        "img": "",
-                        "name": ""
+                        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+                        "name": "Unusual Object"
                     }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -2427,7 +2540,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "religious-text",
                 "source": {
                     "value": ""
                 },
@@ -2452,9 +2565,17 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.z1okOYtNVnpBNj9F"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-text.webp",
             "name": "Manifesto",
+            "permission": {
+                "default": 0
+            },
             "sort": 1600000,
             "type": "equipment"
         },
@@ -2500,8 +2621,8 @@
                                 "value": ""
                             }
                         },
-                        "img": "",
-                        "name": ""
+                        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+                        "name": "Unusual Object"
                     }
                 },
                 "invested": {
@@ -2558,13 +2679,17 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/adventuring-gear/material-component-pouch.webp",
             "name": "Pouch of Rocks",
+            "permission": {
+                "default": 0
+            },
             "sort": 1700000,
             "type": "equipment"
         },
         {
-            "_id": "oqFL7LlkHfDta1ry",
+            "_id": "AU8uXTXeRiZhol22",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -2582,7 +2707,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>Ordinary clothing is functional with basic tailoring, such as peasant garb, monk's robes, or work clothes.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -2605,15 +2730,15 @@
                                 "value": ""
                             }
                         },
-                        "img": "",
-                        "name": ""
+                        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+                        "name": "Unusual Object"
                     }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": "1"
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -2628,7 +2753,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 cp"
+                    "value": "1 sp"
                 },
                 "quantity": {
                     "value": 1
@@ -2637,7 +2762,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "clothing-ordinary",
                 "source": {
                     "value": ""
                 },
@@ -2658,13 +2783,21 @@
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": "1"
+                    "value": "-"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ilbLQNy6TbBPW7sQ"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/robe-of-eyes.webp",
             "name": "Robes",
+            "permission": {
+                "default": 0
+            },
             "sort": 1800000,
             "type": "equipment"
         },
@@ -2713,8 +2846,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Flail",
+            "permission": {
+                "default": 0
+            },
             "sort": 1900000,
             "type": "melee"
         },
@@ -2762,8 +2899,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Fist",
+            "permission": {
+                "default": 0
+            },
             "sort": 2000000,
             "type": "melee"
         },
@@ -2810,8 +2951,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Rock",
+            "permission": {
+                "default": 0
+            },
             "sort": 2100000,
             "type": "melee"
         },
@@ -2850,8 +2995,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
+            "permission": {
+                "default": 0
+            },
             "sort": 2200000,
             "type": "lore"
         },
@@ -2872,7 +3021,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Spout Prophecy",
+                        "predicate": {
+                            "all": [
+                                "prophecy"
+                            ]
+                        },
+                        "selector": "performance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2886,12 +3047,22 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+10 to Spout Prophecy",
+                        "options": "prophecy"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
+            "permission": {
+                "default": 0
+            },
             "sort": 2300000,
             "type": "lore"
         },
@@ -2930,8 +3101,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
+            "permission": {
+                "default": 0
+            },
             "sort": 2400000,
             "type": "lore"
         },
@@ -2970,8 +3145,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
+            "permission": {
+                "default": 0
+            },
             "sort": 2500000,
             "type": "lore"
         }
@@ -2983,10 +3162,13 @@
     "token": {
         "actorId": "W9lhKuDeS670LzLx",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -2998,17 +3180,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Prophet",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1
