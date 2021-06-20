@@ -27,6 +27,7 @@ import { EffectPanel } from '@module/system/effect-panel';
 import { EffectTracker } from '@module/system/effect-tracker';
 import { Rollable } from '@actor/data/base';
 import { remigrate } from '@scripts/system/remigrate';
+import { SKILL_EXPANDED } from '@actor/data/values';
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -119,13 +120,14 @@ function registerPF2ActionClickListener() {
             const actors = resolveActors();
             if (actors.length) {
                 const { pf2SkillCheck, pf2Dc, pf2Traits, pf2Label } = target.dataset ?? {};
+                const skill = SKILL_EXPANDED[pf2SkillCheck!]?.shortform ?? pf2SkillCheck!;
                 actors.forEach((actor) => {
-                    const skillCheck = actor.data.data.skills[pf2SkillCheck ?? ''] as Rollable | undefined;
-                    if (pf2SkillCheck && skillCheck) {
+                    const skillCheck = actor.data.data.skills[skill ?? ''] as Rollable | undefined;
+                    if (skill && skillCheck) {
                         const dc = Number.isInteger(Number(pf2Dc))
                             ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
                             : undefined;
-                        const options = actor.getRollOptions(['all', 'skill-check', pf2SkillCheck]);
+                        const options = actor.getRollOptions(['all', 'skill-check', skill]);
                         if (pf2Traits) {
                             const traits = pf2Traits
                                 .split(',')
@@ -135,7 +137,7 @@ function registerPF2ActionClickListener() {
                         }
                         skillCheck.roll({ event, options, dc });
                     } else {
-                        console.warn(`PF2e System | Skip rolling unknown skill check '${pf2SkillCheck}'`);
+                        console.warn(`PF2e System | Skip rolling unknown skill check or untrained lore '${skill}'`);
                     }
                 });
             }
