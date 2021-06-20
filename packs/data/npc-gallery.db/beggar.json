@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 15,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -138,6 +139,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
+            "flavorText": "<p>Wherever there is poverty, there are beggars. Beggars are truly the downtrodden of society-folks who have been cast out into the streets due to a variety of setbacks or the weight of circumstance. Some beggars work for underworld organizations as lookouts, spies, or even hired muscle on the cheap-sometimes by choice, but often not.</p>\n<hr />\n<p>Unfortunately, every society has people living on its fringes. While good communities work to grant aid and respite to their downtrodden, sometimes-due to economic downturn, famine, or war-the ranks of the less fortunate exceed the community's capacity to support them. In heartless neutral and evil societies, poverty is seen as an inevitability that can never be truly eradicated, or even worse, as a tool to be manipulated for political gain.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -436,6 +438,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -482,8 +485,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Fist",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "melee"
         },
@@ -530,8 +537,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Rock",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "melee"
         },
@@ -539,7 +550,7 @@
             "_id": "L2NMWuwie5fk4t5D",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -550,12 +561,31 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The beggar @Compendium[pf2e.actionspf2e.Stride]{Strides} three times and gains a +2 circumstance bonus to AC during those actions.</p>"
+                    "value": "<p>The beggar Strides three times and gains a +2 circumstance bonus to AC during those actions.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.beat-a-retreat"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "beat-a-retreat"
+                            ]
+                        },
+                        "roll-options": [
+                            "all",
+                            "ac"
+                        ],
+                        "selector": "ac",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -579,8 +609,12 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Beat a Retreat",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "action"
         },
@@ -619,8 +653,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "lore"
         },
@@ -659,8 +697,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "lore"
         },
@@ -699,8 +741,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "lore"
         },
@@ -739,8 +785,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "lore"
         },
@@ -779,8 +829,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Underworld Lore",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "lore"
         }
@@ -792,10 +846,13 @@
     "token": {
         "actorId": "JsTI2SEZdg2j03gf",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -807,17 +864,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Beggar",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1
