@@ -36,10 +36,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const hasTraditionTraits = TRADITION_TRAITS.some((trait) => baseTraits.includes(trait));
         const magicTraits: 'magical'[] = fromRunes.length > 0 && !hasTraditionTraits ? ['magical'] : [];
         this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
-
-        // Set these again in case the above would entail different values
-        this.data.isMagical = this.isMagical;
-        this.data.isInvested = this.isInvested;
     }
 
     override getChatData(this: Embedded<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}) {

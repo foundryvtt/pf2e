@@ -15,11 +15,6 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.data.level.value;
     }
 
-    override get traits(): Set<string> {
-        const traits: string[] = this.data.data.traits.value;
-        return new Set(traits.concat(this.rarity));
-    }
-
     get rarity(): Rarity {
         return this.data.data.traits.rarity.value;
     }
@@ -106,9 +101,12 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         }
     }
 
+    /** Refresh certain derived properties in case of special data preparation from subclasses */
     override prepareDerivedData(): void {
         super.prepareDerivedData();
         this.data.isMagical = this.isMagical;
+        this.data.isInvested = this.isInvested;
+        this.data.data.traits.value.sort();
     }
 
     /** Can the provided item stack with this item? */
