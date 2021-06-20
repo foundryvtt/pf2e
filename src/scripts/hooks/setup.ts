@@ -142,8 +142,7 @@ function registerPF2ActionClickListener() {
                     }
                 });
             }
-        }
-        else if (
+        } else if (
             target?.matches(
                 '[data-pf2-perception-check]:not([data-pf2-perception-check=""]), [data-pf2-perception-check]:not([data-pf2-perception-check=""]) *',
             )
