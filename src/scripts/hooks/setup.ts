@@ -110,6 +110,35 @@ function registerPF2ActionClickListener() {
                     }
                 });
             }
+        } else if (
+            target?.matches(
+                '[data-pf2-skill-check]:not([data-pf2-skill-check=""]), [data-pf2-skill-check]:not([data-pf2-skill-check=""]) *',
+            )
+        ) {
+            target = target.closest('[data-pf2-skill-check]:not([data-pf2-skill-check=""])')!;
+            const actors = resolveActors();
+            if (actors.length) {
+                const { pf2SkillCheck, pf2Dc, pf2Traits, pf2Label } = target.dataset ?? {};
+                actors.forEach((actor) => {
+                    const skillCheck = actor.data.data.skills[pf2SkillCheck ?? ''] as Rollable | undefined;
+                    if (pf2SkillCheck && skillCheck) {
+                        const dc = Number.isInteger(Number(pf2Dc))
+                            ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                            : undefined;
+                        const options = actor.getRollOptions(['all', 'skill-check', pf2SkillCheck]);
+                        if (pf2Traits) {
+                            const traits = pf2Traits
+                                .split(',')
+                                .map((trait) => trait.trim())
+                                .filter((trait) => !!trait);
+                            options.push(...traits);
+                        }
+                        skillCheck.roll({ event, options, dc });
+                    } else {
+                        console.warn(`PF2e System | Skip rolling unknown skill check '${pf2SkillCheck}'`);
+                    }
+                });
+            }
         }
     });
 }
