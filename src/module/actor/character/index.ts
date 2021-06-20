@@ -798,6 +798,9 @@ export class CharacterPF2e extends CreaturePF2e {
                     'attack-roll',
                     'all',
                 ];
+                if (item.data.baseItem) {
+                    selectors.push(`${item.data.baseItem}-attack`);
+                }
 
                 const itemGroup = item.data.group.value ?? '';
                 if (itemGroup) {
