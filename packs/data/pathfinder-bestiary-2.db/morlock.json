@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+4",
+                "mod": 4,
                 "value": 18
             },
             "wis": {
@@ -35,11 +35,15 @@
         },
         "attributes": {
             "ac": {
+                "base": 17,
+                "breakdown": "Base Armor Class 10, Base Modifier +4, Dexterity +3",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
+                "name": "ac",
+                "totalModifier": 7,
                 "value": 17
             },
             "allSaves": {
@@ -59,10 +63,14 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
+                "base": 38,
+                "breakdown": "Base Max HP 38",
                 "details": "",
                 "max": 38,
                 "min": 0,
+                "name": "hp",
                 "temp": 0,
+                "totalModifier": 0,
                 "value": 38
             },
             "init": {
@@ -78,9 +86,12 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 7,
+                "breakdown": "Base Modifier +4, Wisdom +3",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
+                "totalModifier": 7,
                 "value": 7
             },
             "resolve": {
@@ -101,14 +112,23 @@
                 "value": 0
             },
             "speed": {
+                "breakdown": "Base Land Speed 30",
+                "name": "Land Speed",
                 "otherSpeeds": [
                     {
+                        "breakdown": "Base climb Speed 20",
                         "exceptions": "",
                         "label": "Climb",
+                        "name": "climb Speed",
+                        "total": 20,
+                        "totalModifier": 0,
                         "type": "climb",
                         "value": "20"
                     }
                 ],
+                "total": 30,
+                "totalModifier": 0,
+                "type": "land",
                 "value": "30"
             }
         },
@@ -127,6 +147,7 @@
             }
         },
         "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -146,7 +167,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Originating from humans long lost from the world of light, morlocks are brutal monsters that dwell in the tangled tunnels of the upper reaches of the Darklands. Their wiry frames mask the strength of their limbs and their swift reactions, and their arms are long enough that they can drop into an uncanny, four-limbed shuffle for speed or stealth. They no longer remember the lives their ancestors led on the surface, although many morlocks still dwell in the shattered ruins of their ancient homes. Some morlocks worship the statues of humans from these bygone eras as gods, but others now worship Lamashtu, Rovagug, or other violent deities.<br /><br /> Morlock young are insatiable and clamor for even the slightest morsel of food, even consuming their siblings if no other meal presents itself. Most morlocks encourage the practice to ensure their ancestral group as a whole grows stronger.<br /><br /> A typical morlock stands just over 5 feet tall and weighs roughly 150 pounds.<br /><br />",
+            "flavorText": "<p>Originating from humans long lost from the world of light, morlocks are brutal monsters that dwell in the tangled tunnels of the upper reaches of the Darklands. Their wiry frames mask the strength of their limbs and their swift reactions, and their arms are long enough that they can drop into an uncanny, four-limbed shuffle for speed or stealth. They no longer remember the lives their ancestors led on the surface, although many morlocks still dwell in the shattered ruins of their ancient homes. Some morlocks worship the statues of humans from these bygone eras as gods, but others now worship Lamashtu, Rovagug, or other violent deities.<br /><br />Morlock young are insatiable and clamor for even the slightest morsel of food, even consuming their siblings if no other meal presents itself. Most morlocks encourage the practice to ensure their ancestral group as a whole grows stronger.<br /><br />A typical morlock stands just over 5 feet tall and weighs roughly 150 pounds.<br /><br /></p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -240,135 +261,214 @@
         "skills": {
             "acr": {
                 "ability": "dex",
-                "armor": 1,
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
-                "rank": 0,
-                "value": 0
+                "base": 7,
+                "breakdown": "Base Modifier +4, Dexterity +3",
+                "expanded": "acrobatics",
+                "itemID": "XzaLoiUlsO70ko1e",
+                "label": "Acrobatics",
+                "lore": false,
+                "name": "Acrobatics",
+                "rank": 1,
+                "totalModifier": 7,
+                "value": 7,
+                "visible": true
             },
             "arc": {
                 "ability": "int",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Intelligence -2",
+                "expanded": "arcana",
+                "label": "Arcana",
+                "lore": false,
+                "name": "Arcana",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -2,
+                "value": -2,
+                "visible": false
             },
             "ath": {
                 "ability": "str",
-                "armor": 1,
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
-                "rank": 0,
-                "value": 0
+                "base": 8,
+                "breakdown": "Base Modifier +4, Strength +4",
+                "expanded": "athletics",
+                "itemID": "rET5SfCVJHTK7d5a",
+                "label": "Athletics",
+                "lore": false,
+                "name": "Athletics",
+                "rank": 1,
+                "totalModifier": 8,
+                "value": 8,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Intelligence -2",
+                "expanded": "crafting",
+                "label": "Crafting",
+                "lore": false,
+                "name": "Crafting",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -2,
+                "value": -2,
+                "visible": false
+            },
+            "crafting-(repair-only)": {
+                "base": 8,
+                "breakdown": "Base Modifier +10, Intelligence -2",
+                "expanded": "crafting-(repair-only)",
+                "itemID": "tIAbvJ570qXQY3Po",
+                "label": "Crafting (Repair only)",
+                "lore": true,
+                "name": "Crafting (Repair only)",
+                "rank": 1,
+                "totalModifier": 8,
+                "value": 8,
+                "visible": true
             },
             "dec": {
                 "ability": "cha",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Charisma +1",
+                "expanded": "deception",
+                "label": "Deception",
+                "lore": false,
+                "name": "Deception",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "dip": {
                 "ability": "cha",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Charisma +1",
+                "expanded": "diplomacy",
+                "label": "Diplomacy",
+                "lore": false,
+                "name": "Diplomacy",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "itm": {
                 "ability": "cha",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Charisma +1",
+                "expanded": "intimidation",
+                "label": "Intimidation",
+                "lore": false,
+                "name": "Intimidation",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "med": {
                 "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Wisdom +3",
+                "expanded": "medicine",
+                "label": "Medicine",
+                "lore": false,
+                "name": "Medicine",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 3,
+                "value": 3,
+                "visible": false
             },
             "nat": {
                 "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Wisdom +3",
+                "expanded": "nature",
+                "label": "Nature",
+                "lore": false,
+                "name": "Nature",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 3,
+                "value": 3,
+                "visible": false
             },
             "occ": {
                 "ability": "int",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Intelligence -2",
+                "expanded": "occultism",
+                "label": "Occultism",
+                "lore": false,
+                "name": "Occultism",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -2,
+                "value": -2,
+                "visible": false
             },
             "prf": {
                 "ability": "cha",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Charisma +1",
+                "expanded": "performance",
+                "label": "Performance",
+                "lore": false,
+                "name": "Performance",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "rel": {
                 "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Wisdom +3",
+                "expanded": "religion",
+                "label": "Religion",
+                "lore": false,
+                "name": "Religion",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 3,
+                "value": 3,
+                "visible": false
             },
             "soc": {
                 "ability": "int",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Intelligence -2",
+                "expanded": "society",
+                "label": "Society",
+                "lore": false,
+                "name": "Society",
                 "rank": 0,
-                "value": 0
+                "totalModifier": -2,
+                "value": -2,
+                "visible": false
             },
             "ste": {
                 "ability": "dex",
-                "armor": 1,
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
-                "rank": 0,
-                "value": 0
+                "base": 9,
+                "breakdown": "Base Modifier +6, Dexterity +3",
+                "expanded": "stealth",
+                "itemID": "XUXBrT0KGQKkyY1x",
+                "label": "Stealth",
+                "lore": false,
+                "name": "Stealth",
+                "rank": 1,
+                "totalModifier": 9,
+                "value": 9,
+                "visible": true
             },
             "sur": {
                 "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Wisdom +3",
+                "expanded": "survival",
+                "label": "Survival",
+                "lore": false,
+                "name": "Survival",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 3,
+                "value": 3,
+                "visible": false
             },
             "thi": {
                 "ability": "dex",
-                "armor": 1,
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Dexterity +3",
+                "expanded": "thievery",
+                "label": "Thievery",
+                "lore": false,
+                "name": "Thievery",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 3,
+                "value": 3,
+                "visible": false
             }
         },
         "spells": {
@@ -410,6 +510,18 @@
             }
         },
         "statusEffects": [],
+        "toggles": {
+            "actions": [
+                {
+                    "inputName": "flags.pf2e.rollOptions.all.target:flatFooted",
+                    "label": "PF2E.TargetFlatFootedLabel"
+                },
+                {
+                    "inputName": "flags.pf2e.rollOptions.attack-roll.swarming-stance",
+                    "label": "Swarming Stance"
+                }
+            ]
+        },
         "traits": {
             "attitude": {
                 "value": "hostile"
@@ -440,6 +552,7 @@
             "traits": {
                 "custom": "",
                 "value": [
+                    "common",
                     "humanoid"
                 ]
             }
@@ -447,6 +560,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -489,7 +603,7 @@
                     "value": "<p>This is a piece of stout wood shaped or repurposed to bludgeon an enemy. Clubs can be intricately carved pieces of martial art or as simple as a tree branch or piece of wood.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -620,8 +734,12 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.c58wczIzH2gzeXQL"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/club.webp",
             "name": "Club",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "weapon"
         },
@@ -634,8 +752,25 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "value": 9
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "die": "1d6+4"
                 },
                 "damageRolls": {
                     "0": {
@@ -666,8 +801,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Club",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "melee"
         },
@@ -680,8 +819,25 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "value": 9
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "piercing",
+                    "die": "1d4+4"
                 },
                 "damageRolls": {
                     "0": {
@@ -694,9 +850,91 @@
                     "unidentified": "",
                     "value": ""
                 },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
                 "rules": [],
+                "size": {
+                    "value": "med"
+                },
                 "slug": null,
                 "source": {
+                    "value": ""
+                },
+                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -708,14 +946,24 @@
                         "agile"
                     ]
                 },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
                 "weaponType": {
                     "value": "melee"
+                },
+                "weight": {
+                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Jaws",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "melee"
         },
@@ -742,9 +990,91 @@
                     "unidentified": "",
                     "value": ""
                 },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
                 "rules": [],
+                "size": {
+                    "value": "med"
+                },
                 "slug": null,
                 "source": {
+                    "value": ""
+                },
+                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -756,14 +1086,24 @@
                         "range-increment-10"
                     ]
                 },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
                 "weaponType": {
                     "value": "ranged"
+                },
+                "weight": {
+                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Club",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "melee"
         },
@@ -812,8 +1152,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "action"
         },
@@ -862,8 +1206,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Light Blindness",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "action"
         },
@@ -919,8 +1267,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "+2 Status Bonus on Saves vs Disease and Poison",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "action"
         },
@@ -968,8 +1320,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Instinctual Tinker",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "action"
         },
@@ -1017,8 +1373,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Leap Attack",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "action"
         },
@@ -1037,7 +1397,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A morlock's Strikes deal an extra [[/r 1d6 #precision]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>A morlock's Strikes deal an extra <a class=\"inline-roll roll\" title=\"precision\" data-mode=\"roll\" data-flavor=\"precision\" data-formula=\"1d6\"><i class=\"fas fa-dice-d20\"></i> 1d6</a> precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1085,8 +1445,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "action"
         },
@@ -1150,8 +1514,12 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Swarming Stance",
+            "permission": {
+                "default": 0
+            },
             "sort": 1100000,
             "type": "action"
         },
@@ -1190,8 +1558,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
             "type": "lore"
         },
@@ -1230,17 +1602,19 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "lore"
         },
         {
-            "_id": "tIAbvJ570qXQY3Po",
+            "_id": "J18V8YsU1h4W8STL",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1264,14 +1638,21 @@
                     },
                     "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "variants": {
+                    "0": {
+                        "label": "Repair only",
+                        "options": ""
+                    }
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting (Repair only)",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Crafting",
+            "permission": {
+                "default": 0
+            },
             "sort": 1400000,
             "type": "lore"
         },
@@ -1310,8 +1691,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 1500000,
             "type": "lore"
         }
@@ -1321,12 +1706,15 @@
         "default": 0
     },
     "token": {
-        "actorId": "DYBZniwR1Ip4inVr",
+        "actorId": "HzlXPU1LsRHnZSMc",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1338,17 +1726,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Morlock",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1
