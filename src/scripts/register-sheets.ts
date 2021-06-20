@@ -13,7 +13,7 @@ import { BackgroundSheetPF2e } from '@item/sheet/background';
 import { ClassSheetPF2e } from '@item/sheet/class';
 import { SpellSheetPF2e } from '@item/spell/sheet';
 import { LocalizePF2e } from '@system/localize';
-import { PhysicalItemSheetPF2e } from '@item/sheet/physical';
+import { PhysicalItemSheetPF2e } from '@item/physical/sheet';
 import { ActorSheetPF2eDataEntryNPC } from '@actor/npc/data-entry-sheet';
 import { FeatSheetPF2e } from '@item/feat/sheet';
 import { PHYSICAL_ITEM_TYPES } from '@item/data/values';
