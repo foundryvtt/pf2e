@@ -1,12 +1,10 @@
-/** Item sheet form types */
-
+import { ItemPF2e } from '@item';
 import { ABCFeatureEntryData } from '@item/abc/data';
 import { AncestryPF2e } from '@item/ancestry';
 import { BackgroundPF2e } from '@item/background';
 import { ClassPF2e } from '@item/class';
 import { FeatPF2e } from '@item/feat';
 import { SpellPF2e } from '@item/spell';
-import { ItemSheetDataPF2e } from './base';
 
 export interface SheetOption {
     value: string;
@@ -43,6 +41,12 @@ export interface ABCSheetData<TItem extends AncestryPF2e | BackgroundPF2e | Clas
     sidebarTemplate: () => string;
     hasDetails: true;
     detailsTemplate: () => string;
+}
+
+export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
+    user: { isGM: boolean };
+    enabledRulesUI: boolean;
+    activeEffects: AESheetData;
 }
 
 export interface AncestrySheetData extends ABCSheetData<AncestryPF2e> {
