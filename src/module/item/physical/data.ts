@@ -121,7 +121,7 @@ export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
         value: string;
     };
     price: {
-        value: number;
+        value: string;
     };
     equipped: {
         value: boolean;
