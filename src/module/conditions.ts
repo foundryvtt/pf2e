@@ -417,6 +417,7 @@ export class ConditionManager {
         if (!item) throw ErrorPF2e('Unexpected failure creating new condition');
 
         const baseCondition = item.toObject();
+        baseCondition._id = randomID(16);
         const conditionsToCreate = this.createAdditionallyAppliedConditions(baseCondition);
         conditionsToCreate.push(baseCondition);
 
