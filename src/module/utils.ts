@@ -1,3 +1,5 @@
+import { LocalizePF2e } from '@system/localize';
+
 /**
  * Given an array and a key function, create a map where the key is the value that
  * gets returned when each item is pushed into the function. Accumulate
@@ -253,4 +255,12 @@ export function getActionGlyph(actionType: string) {
 
 export function ErrorPF2e(message: string) {
     return Error(`PF2e System | ${message}`);
+}
+
+/** Returns the number in an ordinal format, like 1st, 2nd, 3rd, 4th, etc */
+export function ordinal(value: number) {
+    const suffixes = LocalizePF2e.translations.PF2E.OrdinalSuffixes;
+    const pluralRules = new Intl.PluralRules(game.i18n.lang, { type: 'ordinal' });
+    const suffix = suffixes[pluralRules.select(value)];
+    return game.i18n.format('PF2E.OrdinalNumber', { value, suffix });
 }
