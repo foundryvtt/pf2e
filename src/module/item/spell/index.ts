@@ -1,5 +1,6 @@
 import { ItemPF2e } from '@item/index';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
+import { ordinal, toNumber } from '@module/utils';
 import { SpellData } from './data';
 
 export class SpellPF2e extends ItemPF2e {
@@ -94,9 +95,20 @@ export class SpellPF2e extends ItemPF2e {
             return null;
         })();
 
+        const baseLevel = Math.max(1, systemData.level.value);
+        const level = Math.max(1, toNumber((rollOptions || {}).spellLvl ?? systemData.heightenedLevel?.value) ?? 1);
+        const heightened = (level ?? baseLevel) - baseLevel;
+        const levelLabel = (() => {
+            const category = this.isCantrip
+                ? localize('PF2E.TraitCantrip')
+                : localize(CONFIG.PF2E.spellCategories[this.data.data.category.value]);
+            return game.i18n.format('PF2E.SpellLevel', { category, level });
+        })();
+
         // Combine properties
         const properties: string[] = [
-            localize(CONFIG.PF2E.spellLevels[systemData.level.value]),
+            heightened ? game.i18n.format('PF2E.SpellLevelBase', { level: ordinal(baseLevel) }) : null,
+            heightened ? game.i18n.format('PF2E.SpellLevelHeightened', { heightened }) : null,
             `${localize('PF2E.SpellComponentsLabel')}: ${this.components.value}`,
             systemData.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${systemData.range.value}` : null,
             systemData.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${systemData.target.value}` : null,
@@ -105,12 +117,6 @@ export class SpellPF2e extends ItemPF2e {
             systemData.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${systemData.duration.value}` : null,
         ].filter((p): p is string => p !== null);
 
-        const spellLvl = (rollOptions || {}).spellLvl ?? systemData.heightenedLevel?.value;
-        const castedLevel = Number(spellLvl ?? 0);
-        if (systemData.level.value < castedLevel) {
-            properties.push(`Heightened: +${castedLevel - systemData.level.value}`);
-        }
-
         const traits = this.traitChatData(CONFIG.PF2E.spellTraits);
 
         return this.processChatData(htmlOptions, {
@@ -118,7 +124,8 @@ export class SpellPF2e extends ItemPF2e {
             save,
             isAttack,
             isSave,
-            spellLvl,
+            spellLvl: level,
+            levelLabel,
             damageLabel,
             properties,
             traits,
