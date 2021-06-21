@@ -1,5 +1,3 @@
-import { ordinal } from './utils';
-
 export function registerHandlebarsHelpers() {
     Handlebars.registerHelper('pad', (value, length, character) => {
         return `${value}`.padStart(length, character);
@@ -123,9 +121,5 @@ export function registerHandlebarsHelpers() {
 
     Handlebars.registerHelper('json', (html) => {
         return JSON.stringify(html);
-    });
-
-    Handlebars.registerHelper('ordinal', (value) => {
-        return ordinal(value);
     });
 }
