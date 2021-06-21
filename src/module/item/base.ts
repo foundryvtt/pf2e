@@ -16,7 +16,6 @@ import { MeleeSystemData } from './melee/data';
 import { getAttackBonus, getStrikingDice } from './runes';
 import { SpellFacade } from './spell/facade';
 import { ItemSheetPF2e } from './sheet/base';
-import { UserPF2e } from '@module/user';
 import { AbilityString } from '@actor/data/base';
 import { isCreatureData } from '@actor/data/helpers';
 import { NPCSystemData } from '@actor/npc/data';
@@ -58,60 +57,20 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return this.data.data.description.value;
     }
 
-    protected override async _preCreate(
-        data: PreDocumentId<this['data']['_source']>,
-        options: DocumentModificationContext,
-        user: UserPF2e,
-    ): Promise<void> {
-        await super._preCreate(data, options, user);
-
-        const itemData = this.data;
-        const updateData: any = {};
-
-        if (this.isOwned && user.id === game.userId) {
-            if (itemData.type === 'effect') {
-                const data = itemData.data;
-                if (data.start === undefined) {
-                    updateData.data = {
-                        start: {
-                            value: 0,
-                            initiative: null,
-                        },
-                    };
-                } else {
-                    updateData.data = {
-                        start: data.start,
-                    };
-                }
-                updateData.data.start.value = game.time.worldTime;
-                if (game.combat && game.combat.turns?.length > game.combat.turn) {
-                    updateData.data.start.initiative = game.combat.turns[game.combat.turn].initiative;
-                }
-            }
-        }
-
-        // Changing the createData does not change the resulting item; the data has to be updated.
-        if (!isObjectEmpty(updateData)) {
-            itemData.update(updateData);
-        }
-    }
-
     protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
-        if (this.isOwned) {
-            if (this.actor) {
-                // Rule Elements
-                if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
-                const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
-                const tokens = this.actor.getAllTokens();
-                const actorUpdates = {};
-                for (const rule of rules) {
-                    rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
-                }
-                this.actor.update(actorUpdates);
-
-                // Effect Panel
-                game.pf2e.effectPanel.refresh();
+        if (this.actor) {
+            // Rule Elements
+            if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
+            const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
+            const tokens = this.actor.getAllTokens();
+            const actorUpdates = {};
+            for (const rule of rules) {
+                rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
             }
+            this.actor.update(actorUpdates);
+
+            // Effect Panel
+            game.pf2e.effectPanel.refresh();
         }
 
         super._onCreate(data, options, userId);
