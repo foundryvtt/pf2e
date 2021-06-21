@@ -1089,8 +1089,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const container = $(event.target).closest('[data-item-is-container="true"]');
         const containerId = container[0]?.dataset?.itemId?.trim();
         if (item instanceof PhysicalItemPF2e && (containerId || (item.isInContainer && !containerId))) {
-            await this.actor.stashOrUnstash(item, containerId);
-            return [item];
+            return this.actor.stashOrUnstash(item, containerId);
         }
 
         return super._onSortItem(event, itemData);
@@ -1108,7 +1107,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     async onDropItem(data: DropCanvasItemDataPF2e) {
-        return await this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
+        return this._onDropItem({ preventDefault(): void {} } as ElementDragEvent, data);
     }
 
     /** Extend the base _onDropItem method to handle dragging spells onto spell slots. */
@@ -1256,7 +1255,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         targetActorId: string,
         targetTokenId: string,
         itemId: string,
-    ): Promise<void> {
+    ): Promise<any> {
         const sourceActor = sourceTokenId ? game.actors.tokens[sourceTokenId] : game.actors.get(sourceActorId);
         const targetActor = targetTokenId ? game.actors.tokens[targetTokenId] : game.actors.get(targetActorId);
         const item = sourceActor?.items?.get(itemId);
@@ -1274,12 +1273,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1) {
             const popup = new MoveLootPopup(sourceActor, { maxQuantity: sourceItemQuantity }, (quantity) => {
-                sourceActor.transferItemToActor(targetActor, item, quantity, containerId);
+                Promise.resolve(sourceActor.transferItemToActor(targetActor, item, quantity, containerId));
             });
 
             popup.render(true);
         } else {
-            sourceActor.transferItemToActor(targetActor, item, 1, containerId);
+            return sourceActor.transferItemToActor(targetActor, item, 1, containerId);
         }
     }
 

@@ -63,37 +63,37 @@ export class ItemPF2e extends Item<ActorPF2e> {
         options: DocumentModificationContext,
         user: UserPF2e,
     ): Promise<void> {
-        await super._preCreate(data, options, user);
+        return super._preCreate(data, options, user).then(() => {
+            const itemData = this.data;
+            const updateData: any = {};
 
-        const itemData = this.data;
-        const updateData: any = {};
-
-        if (this.isOwned && user.id === game.userId) {
-            if (itemData.type === 'effect') {
-                const data = itemData.data;
-                if (data.start === undefined) {
-                    updateData.data = {
-                        start: {
-                            value: 0,
-                            initiative: null,
-                        },
-                    };
-                } else {
-                    updateData.data = {
-                        start: data.start,
-                    };
-                }
-                updateData.data.start.value = game.time.worldTime;
-                if (game.combat && game.combat.turns?.length > game.combat.turn) {
-                    updateData.data.start.initiative = game.combat.turns[game.combat.turn].initiative;
+            if (this.isOwned && user.id === game.userId) {
+                if (itemData.type === 'effect') {
+                    const data = itemData.data;
+                    if (data.start === undefined) {
+                        updateData.data = {
+                            start: {
+                                value: 0,
+                                initiative: null,
+                            },
+                        };
+                    } else {
+                        updateData.data = {
+                            start: data.start,
+                        };
+                    }
+                    updateData.data.start.value = game.time.worldTime;
+                    if (game.combat && game.combat.turns?.length > game.combat.turn) {
+                        updateData.data.start.initiative = game.combat.turns[game.combat.turn].initiative;
+                    }
                 }
             }
-        }
 
-        // Changing the createData does not change the resulting item; the data has to be updated.
-        if (!isObjectEmpty(updateData)) {
-            itemData.update(updateData);
-        }
+            // Changing the createData does not change the resulting item; the data has to be updated.
+            if (!isObjectEmpty(updateData)) {
+                itemData.update(updateData);
+            }
+        });
     }
 
     protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {

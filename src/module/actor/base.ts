@@ -735,7 +735,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         item: Embedded<ItemPF2e>,
         quantity: number,
         containerId?: string,
-    ): Promise<Embedded<PhysicalItemPF2e> | null> {
+    ): Promise<any> {
         if (!(item instanceof PhysicalItemPF2e)) {
             return Promise.reject(new Error('Only physical items (with quantities) can be transfered between actors'));
         }
@@ -750,8 +750,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (gmMustTransfer(this, targetActor)) {
             const source = { tokenId: this.token?.id, actorId: this.id, itemId: item.id };
             const target = { tokenId: targetActor.token?.id, actorId: targetActor.id };
-            await new ItemTransfer(source, target, quantity, containerId).request();
-            return null;
+            return new ItemTransfer(source, target, quantity, containerId).request();
         }
 
         if (!this.canUserModify(game.user, 'update')) {
@@ -770,37 +769,32 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const newQuantity = item.quantity - quantity;
         const removeFromSource = newQuantity < 1;
 
-        if (removeFromSource) {
-            await item.delete();
-        } else {
-            await item.update({ 'data.quantity.value': newQuantity });
-        }
+        const itemUpdate = removeFromSource ? item.delete() : item.update({ 'data.quantity.value': newQuantity });
 
-        const newItemData = item.toObject();
-        newItemData.data.quantity.value = quantity;
-        newItemData.data.equipped.value = false;
-        if (isMagicItemData(newItemData)) {
-            newItemData.data.invested.value = false;
-        }
+        return itemUpdate.then(async (item) => {
+            const newItemData = item.toObject();
+            newItemData.data.quantity.value = quantity;
+            newItemData.data.equipped.value = false;
+            if (isMagicItemData(newItemData)) {
+                newItemData.data.invested.value = false;
+            }
 
-        // Stack with an existing item if possible
-        const stackItem = this.findStackableItem(targetActor, newItemData);
-        if (stackItem && stackItem.data.type !== 'backpack') {
-            const stackQuantity = stackItem.quantity + quantity;
-            await stackItem.update({ 'data.quantity.value': stackQuantity });
-            return stackItem;
-        }
+            // Stack with an existing item if possible
+            const stackItem = this.findStackableItem(targetActor, newItemData);
+            if (stackItem && stackItem.data.type !== 'backpack') {
+                const stackQuantity = stackItem.quantity + quantity;
 
-        // Otherwise create a new item
-        const result = await ItemPF2e.create(newItemData, { parent: targetActor });
-        if (!result) {
-            return null;
-        }
-        const movedItem = targetActor.physicalItems.get(result.id);
-        if (!movedItem) return null;
-        await targetActor.stashOrUnstash(movedItem, containerId);
+                return stackItem.update({ 'data.quantity.value': stackQuantity });
+            }
 
-        return item;
+            // Otherwise create a new item
+            return ItemPF2e.create(newItemData, { parent: targetActor }).then(async (newItem) => {
+                if (!newItem) return null;
+                const movedItem = targetActor.physicalItems.get(newItem.id);
+                if (!movedItem) return null;
+                return targetActor.stashOrUnstash(movedItem, containerId);
+            });
+        });
     }
 
     /** Find an item already owned by the actor that can stack with the to-be-transferred item */
@@ -829,16 +823,27 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param getItem     Lambda returning the item.
      * @param containerId Id of the container that will contain the item.
      */
-    async stashOrUnstash(item: Embedded<PhysicalItemPF2e>, containerId?: string): Promise<void> {
+    async stashOrUnstash(
+        item: Embedded<PhysicalItemPF2e>,
+        containerId?: string,
+    ): Promise<[Embedded<PhysicalItemPF2e>]> {
         if (containerId && this.physicalItems.get(containerId) instanceof ContainerPF2e) {
             if (!isCycle(item.id, containerId, [item.data])) {
-                await item.update({
-                    'data.containerId.value': containerId,
-                    'data.equipped.value': false,
-                });
+                return item
+                    .update({
+                        'data.containerId.value': containerId,
+                        'data.equipped.value': false,
+                    })
+                    .then((item) => {
+                        return [item];
+                    });
+            } else {
+                return [item];
             }
         } else {
-            await item.update({ 'data.containerId.value': null });
+            return item.update({ 'data.containerId.value': null }).then((item) => {
+                return [item];
+            });
         }
     }
 

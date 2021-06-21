@@ -1060,28 +1060,30 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         event.preventDefault();
 
-        const item = await ItemPF2e.fromDropData(data);
-        const itemData = item?.toObject();
+        return ItemPF2e.fromDropData(data).then((item) => {
+            const itemData = item?.toObject();
 
-        const { slotId, featType }: { slotId?: string; featType?: string } = this.getNearestSlotId(event);
+            const { slotId, featType }: { slotId?: string; featType?: string } = this.getNearestSlotId(event);
 
-        if (itemData?.type === 'feat') {
-            if (slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
-                itemData.data.location = slotId;
-                const items = await Promise.all([
-                    this.actor.createEmbeddedDocuments('Item', [itemData]),
-                    this.actor.updateEmbeddedDocuments(
-                        'Item',
-                        this.actor.items
-                            .filter((x) => x.data.type === 'feat' && x.data.data.location === slotId)
-                            .map((x) => ({ _id: x.id, 'data.location': '' })),
-                    ),
-                ]);
-                return items.flatMap((item) => item);
+            if (itemData?.type === 'feat') {
+                if (slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
+                    itemData.data.location = slotId;
+                    return Promise.all([
+                        this.actor.createEmbeddedDocuments('Item', [itemData]),
+                        this.actor.updateEmbeddedDocuments(
+                            'Item',
+                            this.actor.items
+                                .filter((x) => x.data.type === 'feat' && x.data.data.location === slotId)
+                                .map((x) => ({ _id: x.id, 'data.location': '' })),
+                        ),
+                    ]).then((promises) => {
+                        return promises.flatMap((item) => item);
+                    });
+                }
             }
-        }
 
-        return super._onDropItem(event, data);
+            return super._onDropItem(event, data);
+        });
     }
 
     /**
