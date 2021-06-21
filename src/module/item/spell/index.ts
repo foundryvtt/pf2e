@@ -63,25 +63,14 @@ export class SpellPF2e extends ItemPF2e {
             return systemData;
         }
 
-        let spellDC =
+        const spellDC =
             'dc' in spellcastingData.data
                 ? spellcastingData.data.dc?.value ?? spellcastingData.data.spelldc.dc
                 : spellcastingData.data.spelldc.dc;
-        let spellAttack =
+        const spellAttack =
             'attack' in spellcastingData.data
                 ? spellcastingData.data.attack?.value ?? spellcastingData.data.spelldc.value
                 : spellcastingData.data.spelldc.value;
-
-        // Adjust spell dcs and attacks for elite/weak
-        /** @todo: handle elsewhere */
-        const actorTraits = this.actor.data.data.traits.traits.value;
-        if (actorTraits.some((trait) => trait === 'elite')) {
-            spellDC = Number(spellDC) + 2;
-            spellAttack = Number(spellAttack) + 2;
-        } else if (actorTraits.some((trait) => trait === 'weak')) {
-            spellDC = Number(spellDC) - 2;
-            spellAttack = Number(spellAttack) - 2;
-        }
 
         const isAttack = systemData.spellType.value === 'attack';
         const isSave = systemData.spellType.value === 'save' || systemData.save.value !== '';
