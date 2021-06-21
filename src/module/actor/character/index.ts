@@ -798,7 +798,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     'attack-roll',
                     'all',
                 ];
-                if (item.data.baseItem) {
+                if (item.data.baseItem && !selectors.includes(`${item.data.baseItem}-attack`)) {
                     selectors.push(`${item.data.baseItem}-attack`);
                 }
 

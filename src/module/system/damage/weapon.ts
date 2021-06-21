@@ -522,7 +522,7 @@ export class WeaponDamagePF2e {
         {
             const stats: string[] = [];
             stats.push(`${weapon.name.slugify()}-damage`); // convert white spaces to dash and lower-case all letters
-            if (weapon.data.baseItem) {
+            if (weapon.data.baseItem && !stats.includes(`${weapon.data.baseItem}-damage`)) {
                 stats.push(`${weapon.data.baseItem}-damage`);
             }
             stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
