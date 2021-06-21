@@ -4,6 +4,9 @@ import { ordinal, toNumber } from '@module/utils';
 import { SpellData } from './data';
 
 export class SpellPF2e extends ItemPF2e {
+    /** Temp internal variable for the level a spell is being casted at */
+    private _castLevel?: number;
+
     static override get schema(): typeof SpellData {
         return SpellData;
     }
@@ -15,6 +18,18 @@ export class SpellPF2e extends ItemPF2e {
 
     get level() {
         return this.data.data.level.value;
+    }
+
+    get castLevel() {
+        const isAutoScaling = this.isCantrip || this.isFocusSpell;
+        if (isAutoScaling && this.actor) {
+            return Math.ceil(this.actor.level / 2);
+        }
+        return this._castLevel ?? this.level;
+    }
+
+    set castLevel(value: number) {
+        this._castLevel = value;
     }
 
     get isCantrip(): boolean {
@@ -39,6 +54,66 @@ export class SpellPF2e extends ItemPF2e {
             ...components,
             value: results.join(''),
         };
+    }
+
+    get damage() {
+        return this.data.data.damage;
+    }
+
+    get damageValue() {
+        if (this.damage.value && this.damage.value !== '' && this.damage.value !== '0') {
+            return this.damage.value;
+        }
+        return null;
+    }
+
+    get damageParts() {
+        const parts: (string | number)[] = [];
+        if (this.damageValue) parts.push(this.damage.value);
+        if (this.damage.applyMod && this.actor) {
+            const entry = this.spellcasting;
+            if (!entry && this.data.data.trickMagicItemData) {
+                parts.push(this.actor.getAbilityMod(this.data.data.trickMagicItemData.ability));
+            } else if (entry) {
+                parts.push(this.actor.getAbilityMod(entry.ability));
+            }
+        }
+        if (this.data.data.duration.value === '' && this.actor) {
+            const hasDangerousSorcery = this.actor.itemTypes.feat.some((feat) => feat.slug === 'dangerous-sorcery');
+            if (hasDangerousSorcery && !this.isFocusSpell && this.level !== 0) {
+                console.debug(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.name}`);
+                parts.push(this.castLevel);
+            }
+        }
+        return parts.concat(this.heightenedParts);
+    }
+
+    get scaling() {
+        return this.data.data?.scaling || { formula: '', mode: '' };
+    }
+
+    get heightenedParts() {
+        const heighteningModes: Record<string, number> = {
+            level1: 1,
+            level2: 2,
+            level3: 3,
+            level4: 4,
+        };
+
+        let parts: string[] = [];
+        if (this.scaling.formula !== '') {
+            const heighteningDivisor: number = heighteningModes[this.scaling.mode];
+            if (heighteningDivisor) {
+                let effectiveSpellLevel = 1;
+                if (this.level > 0 && this.level < 11) {
+                    effectiveSpellLevel = this.level;
+                }
+                let partCount = this.castLevel - effectiveSpellLevel;
+                partCount = Math.floor(partCount / heighteningDivisor);
+                parts = Array(partCount).fill(this.scaling.formula);
+            }
+        }
+        return parts;
     }
 
     override prepareBaseData() {
