@@ -4,6 +4,7 @@ import { RollNotePF2e } from '../notes';
 import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
 import { LocalizePF2e } from './localize';
 import { RollDataPF2e } from './rolls';
+import { DegreeAdjustment } from '@module/degree-of-success';
 
 export interface CheckModifiersContext {
     /** Any options which should be used in the roll. */
@@ -133,9 +134,19 @@ export class CheckModifiersDialog extends Application {
 
             let adjustmentLabel = '';
             if (degreeOfSuccess.degreeAdjustment !== undefined) {
-                adjustmentLabel = degreeOfSuccess.degreeAdjustment
-                    ? game.i18n.localize('PF2E.OneDegreeBetter')
-                    : game.i18n.localize('PF2E.OneDegreeWorse');
+                switch (degreeOfSuccess.degreeAdjustment) {
+                    case DegreeAdjustment.INCREASE_BY_TWO:
+                        adjustmentLabel = game.i18n.localize('PF2E.TwoDegreesBetter');
+                        break;
+                    case DegreeAdjustment.INCREASE:
+                        adjustmentLabel = game.i18n.localize('PF2E.OneDegreeBetter');
+                        break;
+                    case DegreeAdjustment.LOWER:
+                        adjustmentLabel = game.i18n.localize('PF2E.OneDegreeWorse');
+                        break;
+                    case DegreeAdjustment.LOWER_BY_TWO:
+                        adjustmentLabel = game.i18n.localize('PF2E.TwoDegreesWorse');
+                }
                 adjustmentLabel = ` (${adjustmentLabel})`;
 
                 ctx.unadjustedOutcome = DegreeOfSuccessText[degreeOfSuccess.unadjusted];
