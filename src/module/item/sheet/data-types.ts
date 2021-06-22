@@ -33,20 +33,21 @@ export interface AESheetData {
     effects: ActiveEffectSummary[];
 }
 
-export interface ABCSheetData<TItem extends AncestryPF2e | BackgroundPF2e | ClassPF2e> extends ItemSheetData<TItem> {
-    item: RawObject<TItem['data']>;
-    data: RawObject<TItem['data']>['data'];
-    activeEffects: AESheetData;
-    hasSidebar: boolean;
-    sidebarTemplate: () => string;
-    hasDetails: true;
-    detailsTemplate: () => string;
-}
-
 export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
+    hasSidebar: boolean;
+    hasDetails: boolean;
+    sidebarTemplate?: () => string;
+    detailsTemplate?: () => string;
+    item: TItem['data'];
+    data: TItem['data']['data'];
     user: { isGM: boolean };
     enabledRulesUI: boolean;
     activeEffects: AESheetData;
+}
+
+export interface ABCSheetData<TItem extends AncestryPF2e | BackgroundPF2e | ClassPF2e>
+    extends ItemSheetDataPF2e<TItem> {
+    hasDetails: true;
 }
 
 export interface AncestrySheetData extends ABCSheetData<AncestryPF2e> {

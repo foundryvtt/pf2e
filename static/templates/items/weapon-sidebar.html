@@ -59,8 +59,11 @@
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.PriceLabel"}}</label>
-        <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="String" />
+        <label>
+            {{localize "PF2E.PriceLabel"}}
+            {{#if hasModifiedPrice}}<span class="modified-price" title="{{localize "PF2E.Item.Weapon.FromMaterialAndRunes" value=data.price.value}}">*</span>{{/if}}
+        </label>
+        <input type="text" name="data.price.value" value="{{basePrice}}" data-dtype="String" />
     </div>
 
     <ol class="item-tags">

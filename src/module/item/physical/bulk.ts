@@ -579,7 +579,7 @@ export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = [])
     const negateBulk = item.data.negateBulk?.value;
     const traits: string[] = item.data.traits.value;
     const extraDimensionalContainer = traits.includes('extradimensional');
-    const size = item.data?.size?.value ?? 'med';
+    const size = item.data.size.value || 'med';
 
     return new BulkItem({
         id,
