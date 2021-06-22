@@ -112,9 +112,9 @@ export class SpellPF2e extends ItemPF2e {
 
     override prepareBaseData() {
         super.prepareBaseData();
-        this.data.isCantrip = this.data.data.level.value === 0;
         this.data.isFocusSpell = this.data.data.category.value === 'focus';
         this.data.isRitual = this.data.data.category.value === 'ritual';
+        this.data.isCantrip = this.level === 0 || (this.traits.has('cantrip') && !this.data.isRitual);
     }
 
     override getChatData(
