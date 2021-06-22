@@ -14,7 +14,6 @@ import { ItemDataPF2e, ItemSourcePF2e, TraitChatData } from './data';
 import { isItemSystemData } from './data/helpers';
 import { MeleeSystemData } from './melee/data';
 import { getAttackBonus, getStrikingDice } from './runes';
-import { SpellFacade } from './spell/facade';
 import { ItemSheetPF2e } from './sheet/base';
 import { UserPF2e } from '@module/user';
 import { AbilityString } from '@actor/data/base';
@@ -672,11 +671,17 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
     rollSpellDamage(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent) {
-        let item = this.toObject();
-        if (item.type === 'consumable' && item.data.spell?.data) {
-            item = item.data.spell.data;
+        // If this is a consumable, roll spell damage on the consumable instead
+        if (this instanceof CONFIG.PF2E.Item.documentClasses.consumable && this.data.data.spell?.data) {
+            this.embeddedSpell?.rollSpellDamage(event);
+            return;
         }
-        if (item.type !== 'spell') throw new Error('Wrong item type!');
+
+        if (!(this instanceof CONFIG.PF2E.Item.documentClasses.spell)) {
+            throw new Error('Wrong item type!');
+        }
+
+        const item = this.toObject();
 
         // Get data
         const itemData = item.data;
@@ -684,9 +689,8 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const isHeal = itemData.spellType.value === 'heal';
         const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[itemData.damageType.value]);
 
-        const spellLvl = ItemPF2e.findSpellLevel(event);
-        const spell = new SpellFacade(item, { castingActor: this.actor, castLevel: spellLvl });
-        const parts = spell.damageParts;
+        const castLevel = ItemPF2e.findSpellLevel(event);
+        const parts = this.computeDamageParts(castLevel);
 
         // Append damage type to title
         const damageLabel = game.i18n.localize(isHeal ? 'PF2E.SpellTypeHeal' : 'PF2E.DamageLabel');
@@ -694,10 +698,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
         if (damageType && !isHeal) title += ` (${damageType})`;
 
         // Add item to roll data
-        if (!spell.spellcastingEntry?.data && spell.data.data.trickMagicItemData) {
-            rollData.mod = rollData.abilities[spell.data.data.trickMagicItemData.ability].mod;
+        if (!this.spellcasting?.data && this.data.data.trickMagicItemData) {
+            rollData.mod = rollData.abilities[this.data.data.trickMagicItemData.ability].mod;
         } else {
-            rollData.mod = rollData.abilities[spell.spellcastingEntry?.ability ?? 'int'].mod;
+            rollData.mod = rollData.abilities[this.spellcasting?.ability ?? 'int'].mod;
         }
         rollData.item = itemData;
 

@@ -9,7 +9,6 @@ import { PhysicalItemPF2e } from '@item/physical';
 import { SpellPF2e } from '@item/spell';
 import { createConsumableFromSpell, SpellConsumableTypes } from '@item/consumable/spell-consumables';
 import { MagicSchool, SpellData, SpellSource, SpellSystemData } from '@item/spell/data';
-import { SpellFacade } from '@item/spell/facade';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import {
     calculateTotalWealth,
@@ -1284,9 +1283,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     private moveSpell(spellData: SpellSource, targetLocation: string, targetLevel: number): boolean {
-        const spell = new SpellFacade(spellData);
-
-        if (spell.spellcastingEntryId === targetLocation && spell.heightenedLevel === targetLevel) {
+        // todo: this function should receive the spell, not the data
+        const spell = new SpellPF2e(spellData, { parent: this.actor });
+        const spellcastingEntryId = spellData.data.location.value;
+        const heightenedLevel = spellData.data.heightenedLevel?.value ?? spell.level;
+        if (spellcastingEntryId === targetLocation && heightenedLevel === targetLevel) {
             return false;
         }
 
@@ -1299,7 +1300,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         if (!spell.isCantrip && !spell.isFocusSpell && !spell.isRitual) {
             if (spellcastingEntry.isSpontaneous || spellcastingEntry.isInnate) {
-                spellData.data.heightenedLevel = { value: Math.max(spell.spellLevel, targetLevel) };
+                spellData.data.heightenedLevel = { value: Math.max(spell.level, targetLevel) };
             }
         }
 
