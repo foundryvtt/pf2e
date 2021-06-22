@@ -1,4 +1,4 @@
-import { ActorPF2e, NPCPF2e } from '@actor/index';
+import { ActorPF2e, LootPF2e, NPCPF2e } from '@actor/index';
 import { TokenPF2e } from '../canvas/token';
 import { RuleElements } from '../rules/rules';
 import { ScenePF2e } from '../scene';
@@ -31,12 +31,22 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         }
     }
 
+    /** Toggle token hiding if this token's actor is a loot actor */
+    protected override _onCreate(
+        data: this['data']['_source'],
+        options: DocumentModificationContext,
+        userId: string,
+    ): void {
+        super._onCreate(data, options, userId);
+        if (this.actor instanceof LootPF2e) this.actor.toggleTokenHiding();
+    }
+
     /** Synchronous actor attitude with token disposition, refresh the EffectPanel */
     protected override _onUpdate(
         changed: DeepPartial<this['data']['_source']>,
         options: DocumentModificationContext,
         userId: string,
-    ) {
+    ): void {
         super._onUpdate(changed, options, userId);
 
         if (this.actor instanceof NPCPF2e && typeof changed.disposition === 'number' && game.userId === userId) {
