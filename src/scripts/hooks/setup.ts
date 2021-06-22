@@ -144,10 +144,10 @@ function registerPF2ActionClickListener() {
             }
         } else if (
             target?.matches(
-                '[data-pf2-perception-check]:not([data-pf2-perception-check=""]), [data-pf2-perception-check]:not([data-pf2-perception-check=""]) *',
+                '[data-pf2-perception-check], [data-pf2-perception-check] *',
             )
         ) {
-            target = target.closest('[data-pf2-perception-check]:not([data-pf2-perception-check=""])')!;
+            target = target.closest('[data-pf2-perception-check]')!;
             const actors = resolveActors();
             if (actors.length) {
                 const { pf2Dc, pf2Traits, pf2Label } = target.dataset ?? {};
