@@ -28,6 +28,18 @@ export type SaveType = keyof ConfigPF2e['PF2E']['saves'];
 export type SpellTrait = keyof ConfigPF2e['PF2E']['spellTraits'];
 export type SpellTraits = ItemTraits<SpellTrait>;
 
+interface CastTimeActions {
+    type: 'actions';
+    value: keyof ConfigPF2e['PF2E']['actionTimes'];
+}
+
+interface CastTimeDuration {
+    type: 'time';
+    value: string;
+}
+
+export type CastTime = CastTimeActions | CastTimeDuration;
+
 export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     traits: SpellTraits;
     level: {
@@ -61,9 +73,7 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
         value: keyof ConfigPF2e['PF2E']['areaSizes'];
         areaType: keyof ConfigPF2e['PF2E']['areaTypes'];
     };
-    time: {
-        value: string;
-    };
+    time: CastTime;
     duration: {
         value: string;
     };
