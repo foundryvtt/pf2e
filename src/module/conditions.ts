@@ -2,7 +2,6 @@ import { ModifierPF2e } from './modifiers';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import type { ConditionData, ConditionSource } from '@item/condition/data';
 import { ConditionPF2e } from '@item/condition';
-import { ErrorPF2e } from './utils';
 import { ActorPF2e } from '@actor/base';
 import { TokenPF2e } from './canvas/token';
 
@@ -413,16 +412,15 @@ export class ConditionManager {
         );
         if (exists) return null;
 
-        const item = new ConditionPF2e(condition);
-        if (!item) throw ErrorPF2e('Unexpected failure creating new condition');
+        condition._id = randomID(16);
+        const conditionsToCreate = this.createAdditionallyAppliedConditions(condition);
+        conditionsToCreate.push(condition);
 
-        const baseCondition = item.toObject();
-        const conditionsToCreate = this.createAdditionallyAppliedConditions(baseCondition);
-        conditionsToCreate.push(baseCondition);
+        actor.createEmbeddedDocuments('Item', conditionsToCreate, { keepId: true }).then((result) => {
+            return result.find((item) => item.id === condition._id) as ConditionPF2e;
+        });
 
-        await actor.createEmbeddedDocuments('Item', conditionsToCreate, { keepId: true });
-
-        return item;
+        return null;
     }
 
     private static createAdditionallyAppliedConditions(baseCondition: ConditionSource): ConditionSource[] {
