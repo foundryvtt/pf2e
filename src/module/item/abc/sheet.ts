@@ -22,7 +22,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
 
         return {
             ...this.getBaseData(),
-            hasSidebar: this.item.data.type !== 'class',
+            hasSidebar: itemType !== 'class',
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemType}-sidebar.html`,
             hasDetails: true,
             detailsTemplate: () => `systems/pf2e/templates/items/${itemType}-details.html`,

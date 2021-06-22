@@ -8,18 +8,22 @@ export class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e = PhysicalItem
         const sheetData: ItemSheetDataPF2e<TItem> = super.getData();
 
         // Set the source item data for editing
-        if (!sheetData.item.isIdentified) {
-            const identifiedData = this.item.getMystifiedData('identified');
-            mergeObject(sheetData.item, identifiedData, { insertKeys: false, insertValues: false });
-        }
+        const identifiedData = this.item.getMystifiedData('identified', { source: true });
+        mergeObject(sheetData.item, identifiedData, { insertKeys: false, insertValues: false });
 
         return sheetData;
     }
 
+    /** Normalize nullable fields to actual `null`s */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        // Normalize nullable fields to actual `null`s
-        for (const propertyPath of ['data.baseItem', 'data.group.value']) {
-            if (formData[propertyPath] === '') formData[propertyPath] = null;
+        const propertyPaths = [
+            'data.baseItem',
+            'data.preciousMaterial.value',
+            'data.preciousMaterialGrade.value',
+            'data.group.value',
+        ];
+        for (const path of propertyPaths) {
+            if (formData[path] === '') formData[path] = null;
         }
 
         super._updateObject(event, formData);

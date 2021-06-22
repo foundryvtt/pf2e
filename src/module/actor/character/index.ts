@@ -717,7 +717,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 damage: { dice: 1, die: 'd4', damageType: 'bludgeoning' },
                 group: { value: 'brawling' },
                 range: { value: 'melee' },
-                strikingRune: { value: '' },
+                strikingRune: { value: null },
                 traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
                 equipped: {
                     value: true, // consider checking for free hands
