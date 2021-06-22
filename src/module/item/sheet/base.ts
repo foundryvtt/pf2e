@@ -90,39 +90,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.consumableTraits = CONFIG.PF2E.consumableTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
-        } else if (itemData.type === 'weapon') {
-            const materials: Partial<typeof CONFIG.PF2E.preciousMaterials> = duplicate(CONFIG.PF2E.preciousMaterials);
-            delete materials.dragonhide;
-            const slots = getPropertySlots(data);
-            this.assignPropertySlots(data, slots);
-            data.preciousMaterials = materials;
-            data.weaponPotencyRunes = CONFIG.PF2E.weaponPotencyRunes;
-            data.weaponStrikingRunes = CONFIG.PF2E.weaponStrikingRunes;
-            data.weaponPropertyRunes = CONFIG.PF2E.weaponPropertyRunes;
-            data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
-            data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
-
-            // Weapons have derived traits: base traits are shown for editing
-            data.traits = this.prepareOptions(CONFIG.PF2E.weaponTraits, itemData.data.traits, { selectedOnly: true });
-            data.baseTraits = this.prepareOptions(CONFIG.PF2E.weaponTraits, itemData.toObject().data.traits, {
-                selectedOnly: true,
-            });
-
-            data.categories = CONFIG.PF2E.weaponCategories;
-            data.groups = CONFIG.PF2E.weaponGroups;
-            data.baseTypes = LocalizePF2e.translations.PF2E.Weapon.Base;
-
-            data.itemBonuses = CONFIG.PF2E.itemBonuses;
-            data.damageDie = CONFIG.PF2E.damageDie;
-            data.damageDice = CONFIG.PF2E.damageDice;
-            data.conditionTypes = CONFIG.PF2E.conditionTypes;
-            data.weaponDamage = CONFIG.PF2E.damageTypes;
-            data.weaponRange = CONFIG.PF2E.weaponRange;
-            data.weaponReload = CONFIG.PF2E.weaponReload;
-            data.weaponMAP = CONFIG.PF2E.weaponMAP;
-            data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.sizes = CONFIG.PF2E.actorSizes;
-            data.isBomb = itemData.type === 'weapon' && data.data?.group?.value === 'bomb';
         } else if (itemData.type === 'melee') {
             // Melee Data
             data.hasSidebar = false;
@@ -206,9 +173,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
     protected getBaseData(): ItemSheetDataPF2e<TItem> {
-        const itemData = this.item.data;
+        const itemData = this.item.clone({}, { keepId: true }).data;
         const isEditable = this.isEditable;
         return {
+            hasSidebar: false,
+            hasDetails: true,
             cssClass: isEditable ? 'editable' : 'locked',
             editable: isEditable,
             document: this.item,

@@ -6,6 +6,7 @@ import type { ContainerPF2e } from '@item/index';
 import { MystifiedTraits } from '@item/data/values';
 import { getUnidentifiedPlaceholderImage } from '../identification';
 import { IdentificationStatus, MystifiedData } from './data';
+import { coinsToString, extractPriceFromItem } from '@item/treasure/helpers';
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     // The cached container of this item, if in a container, or null
@@ -54,6 +55,16 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.isCursed;
     }
 
+    get material() {
+        const systemData = this.data.data;
+        return systemData.preciousMaterial.value && systemData.preciousMaterialGrade.value
+            ? {
+                  type: systemData.preciousMaterial.value,
+                  grade: systemData.preciousMaterialGrade.value,
+              }
+            : null;
+    }
+
     get isInContainer(): boolean {
         return !!this.container;
     }
@@ -71,11 +82,17 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        // Clear empty-string containerId values
-        this.data.data.containerId.value ||= null;
+        const systemData = this.data.data;
+        // null out empty-string values
+        systemData.preciousMaterial.value ||= null;
+        systemData.preciousMaterialGrade.value ||= null;
+        systemData.containerId.value ||= null;
 
-        this.data.isEquipped = this.data.data.equipped.value;
-        this.data.isIdentified = this.data.data.identification.status === 'identified';
+        // Normalize price string
+        systemData.price.value = coinsToString(extractPriceFromItem(this.data, 1));
+
+        this.data.isEquipped = systemData.equipped.value;
+        this.data.isIdentified = systemData.identification.status === 'identified';
 
         const traits: string[] = this.data.data.traits.value;
         this.data.isAlchemical = traits.includes('alchemical');
@@ -123,7 +140,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     /* Retrieve subtitution data for an unidentified or misidentified item, generating defaults as necessary */
-    getMystifiedData(status: IdentificationStatus): MystifiedData {
+    getMystifiedData(status: IdentificationStatus, _options?: Record<string, boolean>): MystifiedData {
         const mystifiedData: MystifiedData =
             status === 'identified' || status === 'misidentified'
                 ? this.data._source
