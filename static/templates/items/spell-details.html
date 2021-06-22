@@ -72,7 +72,25 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.SpellTimeLabel"}}</label>
-        <input type="text" name="data.time.value" value="{{data.time.value}}" data-dtype="String"/>
+        <div class="details-container-two-columns">
+            {{#if (eq data.time.type "actions")}}
+                <select name="data.time.value" data-dtype="String">
+                    {{#select data.time.value}}
+                    {{#each actionTimes as |value key|}}
+                        <option value="{{key}}">{{localize value}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            {{else}}
+                <input type="text" name="data.time.value" value="{{data.time.value}}" data-dtype="String"/>
+            {{/if}}
+            <select name="data.time.type" data-dtype="String">
+                {{#select data.time.type}}
+                <option value="actions">{{localize "PF2E.TabActionsLabel"}}</option>
+                <option value="time">{{localize "PF2E.SpellDurationLabel"}}</option>
+                {{/select}}
+            </select>
+        </div>
     </div>
 
     <div class="form-group">

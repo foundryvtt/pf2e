@@ -34,6 +34,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
             spellScalingModes: CONFIG.PF2E.spellScalingModes,
+            actionTimes: CONFIG.PF2E.actionTimes,
         };
     }
 
@@ -66,5 +67,16 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         if (data.components.verbal) comps.push(game.i18n.localize(CONFIG.PF2E.spellComponents.V));
         if (data.materials.value) comps.push(data.materials.value);
         return comps;
+    }
+
+    protected override _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
+        const result = super._getSubmitData(updateData);
+
+        // Clear casting time value if the type has changed
+        if (result["data.time.type"] !== this.item.data.data.time.type) {
+            result["data.time.value"] = result["data.time.type"] === "actions" ? "1" : "";
+        }
+
+        return result;
     }
 }

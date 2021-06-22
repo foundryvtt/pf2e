@@ -1606,6 +1606,17 @@ export const PF2ECONFIG = {
         3: "PF2E.ActionNumber3",
     },
 
+    actionTimes: {
+        free: "PF2E.ActionTypeFree",
+        reaction: "PF2E.ActionTypeReaction",
+        "1": "PF2E.ActionNumber1",
+        "2": "PF2E.ActionNumber2",
+        "3": "PF2E.ActionNumber3",
+        "1 to 3": "1 to 3",
+        "1 or 2": "1 or 2",
+        "2 or 3": "2 or 3",
+    },
+
     actionCategories: {
         interaction: "PF2E.ActionCategoryInteraction",
         defensive: "PF2E.ActionCategoryDefensive",
