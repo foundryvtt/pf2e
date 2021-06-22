@@ -142,9 +142,7 @@ function registerPF2ActionClickListener() {
                     }
                 });
             }
-        } else if (
-            target?.matches('[data-pf2-perception-check], [data-pf2-perception-check] *')
-        ) {
+        } else if (target?.matches('[data-pf2-perception-check], [data-pf2-perception-check] *')) {
             target = target.closest('[data-pf2-perception-check]')!;
             const actors = resolveActors();
             if (actors.length) {
