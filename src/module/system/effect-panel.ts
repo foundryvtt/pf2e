@@ -45,7 +45,7 @@ export class EffectPanel extends Application {
                     data.conditions.push(item.data);
                 } else if (item instanceof EffectPF2e) {
                     const duration = item.totalDuration;
-                    const effect = deepClone(item).data;
+                    const effect = item.clone({}, { keepId: true }).data;
                     if (duration === Infinity) {
                         effect.data.expired = false;
                         effect.data.remaining = game.i18n.localize('PF2E.EffectPanel.UnlimitedDuration');
