@@ -174,22 +174,23 @@ export class CheckPF2e {
                 }
             }
         }
-
-        const newMessage = await ChatMessagePF2e.create(
+        await keepRoll.toMessage(
             {
-                roll: keepRoll,
                 content: `<div class="${oldRollClass}">${await CheckPF2e.renderReroll(
                     oldRoll!,
                 )}</div><div class='pf2e-reroll-second ${newRollClass}'>${await CheckPF2e.renderReroll(newRoll)}</div>`,
                 flavor: `<i class='fa fa-dice pf2e-reroll-indicator' title="${rerollFlavor}"></i>${message.data.flavor}`,
-                sound: CONFIG.sounds.dice,
                 speaker: message.data.speaker,
+                flags: {
+                    pf2e: {
+                        canReroll: false,
+                    },
+                },
             },
             {
-                rollMode: message.getFlag('pf2e', 'context')?.rollMode ?? 'roll',
+                rollMode: context?.rollMode ?? 'roll',
             },
         );
-        await newMessage?.setFlag('pf2e', 'canReroll', false);
     }
 
     /**
