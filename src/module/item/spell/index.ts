@@ -4,9 +4,6 @@ import { ordinal, toNumber } from '@module/utils';
 import { SpellData } from './data';
 
 export class SpellPF2e extends ItemPF2e {
-    /** Temp internal variable for the level a spell is being casted at */
-    private _castLevel?: number;
-
     static override get schema(): typeof SpellData {
         return SpellData;
     }
@@ -20,16 +17,12 @@ export class SpellPF2e extends ItemPF2e {
         return this.data.data.level.value;
     }
 
-    get castLevel() {
+    private computeCastLevel(castLevel?: number) {
         const isAutoScaling = this.isCantrip || this.isFocusSpell;
         if (isAutoScaling && this.actor) {
             return Math.ceil(this.actor.level / 2);
         }
-        return this._castLevel ?? this.level;
-    }
-
-    set castLevel(value: number) {
-        this._castLevel = value;
+        return castLevel ?? this.level;
     }
 
     get isCantrip(): boolean {
@@ -67,7 +60,8 @@ export class SpellPF2e extends ItemPF2e {
         return null;
     }
 
-    get damageParts() {
+    computeDamageParts(castLevel?: number) {
+        castLevel = this.computeCastLevel(castLevel);
         const parts: (string | number)[] = [];
         if (this.damageValue) parts.push(this.damage.value);
         if (this.damage.applyMod && this.actor) {
@@ -82,17 +76,17 @@ export class SpellPF2e extends ItemPF2e {
             const hasDangerousSorcery = this.actor.itemTypes.feat.some((feat) => feat.slug === 'dangerous-sorcery');
             if (hasDangerousSorcery && !this.isFocusSpell && this.level !== 0) {
                 console.debug(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.name}`);
-                parts.push(this.castLevel);
+                parts.push(castLevel);
             }
         }
-        return parts.concat(this.heightenedParts);
+        return parts.concat(this.computeHeightenedParts(castLevel));
     }
 
     get scaling() {
         return this.data.data?.scaling || { formula: '', mode: '' };
     }
 
-    get heightenedParts() {
+    private computeHeightenedParts(castLevel: number) {
         const heighteningModes: Record<string, number> = {
             level1: 1,
             level2: 2,
@@ -108,7 +102,7 @@ export class SpellPF2e extends ItemPF2e {
                 if (this.level > 0 && this.level < 11) {
                     effectiveSpellLevel = this.level;
                 }
-                let partCount = this.castLevel - effectiveSpellLevel;
+                let partCount = castLevel - effectiveSpellLevel;
                 partCount = Math.floor(partCount / heighteningDivisor);
                 parts = Array(partCount).fill(this.scaling.formula);
             }

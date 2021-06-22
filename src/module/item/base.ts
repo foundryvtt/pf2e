@@ -689,8 +689,8 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const isHeal = itemData.spellType.value === 'heal';
         const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[itemData.damageType.value]);
 
-        this.castLevel = ItemPF2e.findSpellLevel(event);
-        const parts = this.damageParts;
+        const castLevel = ItemPF2e.findSpellLevel(event);
+        const parts = this.computeDamageParts(castLevel);
 
         // Append damage type to title
         const damageLabel = game.i18n.localize(isHeal ? 'PF2E.SpellTypeHeal' : 'PF2E.DamageLabel');
