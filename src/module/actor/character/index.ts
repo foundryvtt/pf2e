@@ -43,7 +43,6 @@ import { AbilityString, DexterityModifierCapData, PerceptionData, StrikeTrait } 
 
 import { SkillAbbreviation, SkillData } from '@actor/creature/data';
 import { ArmorCategory } from '@item/armor/data';
-import { ItemSourcePF2e } from '@item/data';
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -68,45 +67,6 @@ export class CharacterPF2e extends CreaturePF2e {
 
     get keyAbility(): AbilityString {
         return this.data.data.details.keyability.value || 'str';
-    }
-
-    override _onCreateEmbeddedDocuments(
-        embeddedName: 'Item' | 'ActiveEffect',
-        documents: ActiveEffect[] | Item<CharacterPF2e>[],
-        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
-        options: DocumentModificationContext,
-        userId: string,
-    ) {
-        // Fix bug in Foundry 0.8.7 where 'render = false' is not working for embedded documents
-        if (options.render === undefined || options.render === true) {
-            super._onCreateEmbeddedDocuments(embeddedName, documents, result, options, userId);
-        }
-    }
-
-    override _onUpdateEmbeddedDocuments(
-        embeddedName: 'Item' | 'ActiveEffect',
-        documents: ActiveEffect[] | Item<CharacterPF2e>[],
-        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
-        options: DocumentModificationContext,
-        userId: string,
-    ) {
-        // Fix bug in Foundry 0.8.7 where 'render = false' is not working for embedded documents
-        if (options.render === undefined || options.render === true) {
-            super._onUpdateEmbeddedDocuments(embeddedName, documents, result, options, userId);
-        }
-    }
-
-    override _onDeleteEmbeddedDocuments(
-        embeddedName: 'Item' | 'ActiveEffect',
-        documents: ActiveEffect[] | Item<CharacterPF2e>[],
-        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
-        options: DocumentModificationContext,
-        userId: string,
-    ) {
-        // Fix bug in Foundry 0.8.7 where 'render = false' is not working for embedded documents
-        if (options.render === undefined || options.render === true) {
-            super._onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId);
-        }
     }
 
     override prepareBaseData(): void {
