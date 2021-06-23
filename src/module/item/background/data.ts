@@ -1,3 +1,4 @@
+import { SkillAbbreviation } from '@actor/creature/data';
 import { AbilityString } from '@actor/data/base';
 import { ABCSystemData } from '@item/abc/data';
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from '@item/data/non-physical';
@@ -20,6 +21,6 @@ interface BackgroundSystemData extends ABCSystemData {
     boosts: { [key: string]: { value: AbilityString[] } };
     trainedLore: string;
     trainedSkills: {
-        value: string[];
+        value: SkillAbbreviation[];
     };
 }

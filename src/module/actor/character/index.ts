@@ -98,7 +98,7 @@ export class CharacterPF2e extends CreaturePF2e {
     /** Adjustments from ABC items are made after all items are prepared but before active effects are applied. */
     override applyActiveEffects(): void {
         this.prepareAncestry();
-        this.prepareBackground();
+        this.background?.prepareActorData(this);
         this.prepareClass();
         super.applyActiveEffects();
     }
@@ -534,7 +534,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                 });
 
-                const loreSkill: SkillData = systemData.skills[shortform];
+                const loreSkill = systemData.skills[shortform];
                 const stat = mergeObject(new StatisticModifier(skill.name, modifiers), loreSkill, {
                     overwrite: false,
                 });
@@ -1246,10 +1246,6 @@ export class CharacterPF2e extends CreaturePF2e {
                 this.data.data.traits.traits.value.push(trait);
             }
         }
-    }
-
-    private prepareBackground() {
-        this.data.data.details.background = this.background?.name ?? null;
     }
 
     private prepareClass(): void {

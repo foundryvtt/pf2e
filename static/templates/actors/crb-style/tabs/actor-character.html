@@ -91,14 +91,12 @@
               </h3>
             </span>
           </div>
-          <div class="pc pc_background item" data-item-id="{{backgroundItemId}}">
-            <label for="pc_background">
-              {{localize 'PF2E.Background'}}
-            </label>
-            <span title="{{localize 'PF2E.BackgroundTitle'}}">
+          <div class="pc pc_background item" data-item-id="{{background.id}}">
+            <label for="pc_background">{{localize "PF2E.Background"}}</label>
+            <span title="{{localize "PF2E.BackgroundTitle"}}">
               <h3>
-                <span class="value">{{data.details.background}}</span>
-                {{#if backgroundItemId}}
+                <span class="value">{{background.name}}</span>
+                {{#if background}}
                   <a class="item-edit"><i class="fas fa-edit"></i></a>
                 {{else}}
                   <a class="open-compendium" data-compendium="pf2e.backgrounds"><i class="fas fa-plus-circle"></i></a>

@@ -6,7 +6,8 @@ import {
     BaseCreatureSource,
     CreatureSystemData,
     Saves,
-    Skills,
+    SkillAbbreviation,
+    SkillData,
 } from '@actor/creature/data';
 import {
     AbilityString,
@@ -96,14 +97,13 @@ export interface CharacterSystemData extends CreatureSystemData {
 
         /** Prepared/sheet data */
         ancestry: string | null;
-        background: string | null;
         class: string | null;
     };
 
     attributes: CharacterAttributes;
 
     /** Player skills, used for various skill checks. */
-    skills: Skills;
+    skills: CharacterSkills;
 
     /** Pathfinder Society Organized Play */
     pfs: PathfinderSocietyData;
@@ -145,6 +145,12 @@ export type CombatProficiencyKey = keyof CombatProficiencies;
 export type ClassDCData = StatisticModifier & RawSkillData;
 /** The full data for a character action (used primarily for strikes.) */
 export type CharacterStrike = StatisticModifier & StrikeData;
+
+interface CharacterSkillData extends SkillData {
+    rank: ZeroToFour;
+}
+
+type CharacterSkills = Record<SkillAbbreviation, CharacterSkillData>;
 
 /** A Pathfinder Society Faction */
 type PFSFaction = 'EA' | 'GA' | 'HH' | 'VS' | 'RO' | 'VW';
