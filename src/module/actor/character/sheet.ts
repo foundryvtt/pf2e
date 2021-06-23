@@ -14,7 +14,7 @@ import { CreatureSheetPF2e } from '../creature/sheet';
 import { ManageCombatProficiencies } from '../sheet/popups/manage-combat-proficiencies';
 import { ErrorPF2e } from '@module/utils';
 import { LorePF2e } from '@item';
-import { AncestryBackgroundClassManager } from './abc-manager';
+import { AncestryBackgroundClassManager } from '@item/abc/abc-manager';
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
