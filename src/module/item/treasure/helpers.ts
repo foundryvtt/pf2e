@@ -1,7 +1,7 @@
-import { ActorPF2e } from '@actor/index';
+import type { ActorPF2e } from '@actor/index';
 import { groupBy } from '@module/utils';
-import { ItemDataPF2e, ItemType, PhysicalItemData, TreasureData } from '@item/data';
-import { PhysicalItemPF2e, TreasurePF2e } from '@item/index';
+import type { ItemDataPF2e, ItemType, PhysicalItemData, TreasureData } from '@item/data';
+import type { PhysicalItemPF2e } from '@item/index';
 import { isPhysicalData } from '@item/data/helpers';
 
 export const DENOMINATIONS = ['cp', 'sp', 'gp', 'pp'] as const;
@@ -193,14 +193,14 @@ async function addFromCompendium(actor: ActorPF2e, compendiumId: string, quantit
         throw Error('unable to get pack!');
     }
     const item = await pack.getDocument(compendiumId);
-    if (item instanceof TreasurePF2e) {
+    if (item?.data.type === 'treasure') {
         item.data.update({ 'data.quantity.value': quantity });
         await actor.createEmbeddedDocuments('Item', [item.toObject()]);
     }
 }
 
 async function increaseItemQuantity(item: Embedded<PhysicalItemPF2e>, quantity: number) {
-    if (item instanceof TreasurePF2e) {
+    if (item.data.type === 'treasure') {
         await item.update({ 'data.quantity.value': item.quantity + quantity });
     }
 }
@@ -249,7 +249,7 @@ export async function addCoins(
     );
     const coinsByDenomination = groupBy(
         topLevelCoins,
-        (item) => item instanceof TreasurePF2e && item.data.data.denomination.value,
+        (item) => item.data.type === 'treasure' && item.data.data.denomination.value,
     );
 
     for await (const denomination of CURRENCIES) {
@@ -320,7 +320,7 @@ export async function sellAllTreasure(actor: ActorPF2e): Promise<void> {
 export async function sellTreasure(actor: ActorPF2e, itemId: string): Promise<void> {
     const item = actor.physicalItems.get(itemId);
     if (
-        item instanceof TreasurePF2e &&
+        item?.data.type === 'treasure' &&
         item.data.data.denomination.value !== undefined &&
         item.data.data.denomination.value !== null &&
         item.data.data.stackGroup.value !== 'coins'
