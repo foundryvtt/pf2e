@@ -45,6 +45,7 @@ import { Migration635NumifyACAndQuantity } from './migrations/635-numify-ac-and-
 import { Migration636NumifyArmorData } from './migrations/636-numify-armor-data';
 import { Migration637CleanMeleeItems } from './migrations/637-clean-melee-items';
 import { Migration638SpellComponents } from './migrations/638-spell-components';
+import { Migration639NormalizeLevelAndPrice } from './migrations/639-normalize-level-and-price';
 
 export class Migrations {
     private static list = [
@@ -94,6 +95,7 @@ export class Migrations {
         Migration636NumifyArmorData,
         Migration637CleanMeleeItems,
         Migration638SpellComponents,
+        Migration639NormalizeLevelAndPrice,
     ];
 
     static get latestVersion(): number {
