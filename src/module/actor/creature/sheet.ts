@@ -14,76 +14,10 @@ import { SkillData } from './data';
  * @category Actor
  */
 export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends ActorSheetPF2e<ActorType> {
-    protected override renderItemSummary(div: JQuery, item: Embedded<ItemPF2e>, chatData: any) {
-        super.renderItemSummary(div, item, chatData);
+    protected override async renderItemSummary(div: JQuery, item: Embedded<ItemPF2e>, chatData: any) {
+        await super.renderItemSummary(div, item, chatData);
 
-        const buttons = $('<div class="item-buttons"></div>');
-        switch (item.data.type) {
-            case 'action':
-                if (chatData.weapon.value) {
-                    if (chatData.weapon.value) {
-                        buttons.append(
-                            `<button class="weapon_attack tag" data-action="weaponAttack">${game.i18n.localize(
-                                'PF2E.WeaponStrikeLabel',
-                            )}</button>`,
-                        );
-                        buttons.append('<button class="tag weapon_attack2" data-action="weaponAttack2">2</button>');
-                        buttons.append('<button class="tag weapon_attack3" data-action="weaponAttack3">3</button>');
-                        buttons.append(
-                            `<button class="tag weapon_damage" data-action="weaponDamage">${game.i18n.localize(
-                                'PF2E.DamageLabel',
-                            )}</button>`,
-                        );
-                    }
-                }
-                break;
-            case 'weapon':
-                // The two handed trait is working differently now and is toggled from the action tab (for players).
-                // It is currently only used in the old npc sheet.
-                // If this gets deprecated sometime, maybe the two handed support should be moved somewhere else.
-                if (chatData.isTwohanded && this.actor.type !== 'character') {
-                    if (chatData.wieldedTwoHands)
-                        buttons.append(
-                            '<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i><i class="far fa-hand-paper"></i></button></span>',
-                        );
-                    else
-                        buttons.append(
-                            '<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i></button></span>',
-                        );
-                }
-                break;
-            case 'spell':
-                if (chatData.isSave)
-                    buttons.append(
-                        `<span class="tag">${game.i18n.localize('PF2E.SaveDCLabel')} ${chatData.save.dc} ${
-                            chatData.save.basic
-                        } ${chatData.save.str}</span>`,
-                    );
-                if (chatData.isAttack)
-                    buttons.append(
-                        `<span class="tag"><button class="spell_attack" data-action="spellAttack">${game.i18n.localize(
-                            'PF2E.AttackLabel',
-                        )}</button></span>`,
-                    );
-                if (item.data.data.damage.value)
-                    buttons.append(
-                        `<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`,
-                    );
-                break;
-            case 'consumable':
-                if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified)
-                    buttons.append(
-                        `<span class="tag"><button class="consume" data-action="consume">${game.i18n.localize(
-                            'PF2E.ConsumableUseLabel',
-                        )} ${item.name}</button></span>`,
-                    );
-                break;
-            default:
-        }
-
-        div.append(buttons);
-
-        buttons.find('button').on('click', (event) => {
+        div.find('button').on('click', (event) => {
             event.preventDefault();
             event.stopPropagation();
 

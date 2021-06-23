@@ -44,6 +44,7 @@ import { RemoveCoinsPopup } from './popups/remove-coins-popup';
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { ContainerPF2e } from '@item/container';
 import { ActorDataPF2e } from '@actor/data';
+import { CreaturePF2e } from '@actor/creature';
 import { SaveString, SkillAbbreviation } from '@actor/creature/data';
 import { AbilityString } from '@actor/data/base';
 import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
@@ -1332,7 +1333,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
      * Triggers toggling the visibility of an item summary element,
      * delegating the populating of the item summary to renderItemSummary()
      */
-    toggleItemSummary(li: JQuery, options: { instant?: boolean } = {}) {
+    async toggleItemSummary(li: JQuery, options: { instant?: boolean } = {}) {
         const itemId = li.attr('data-item-id');
         const itemType = li.attr('data-item-type');
 
@@ -1354,7 +1355,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         } else {
             const chatData = item.getChatData({ secrets: this.actor.isOwner });
             const div = $('<div class="item-summary"/>');
-            this.renderItemSummary(div, item, chatData);
+            await this.renderItemSummary(div, item, chatData);
             li.append(div);
             if (!options.instant) {
                 div.hide().slideDown(200);
@@ -1367,44 +1368,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     /**
      * Called when an item summary is expanded and needs to be filled out.
      */
-    protected renderItemSummary(div: JQuery, _item: ItemPF2e, chatData: any) {
-        const localize = game.i18n.localize.bind(game.i18n);
-
-        const description = TextEditor.enrichHTML(chatData.description.value);
-        div.append(`<div class="item-description">${description}</div></div>`);
-
-        const props = $('<div class="item-properties tags"></div>');
-        if (Array.isArray(chatData.properties)) {
-            chatData.properties
-                .filter((property: unknown) => typeof property === 'string')
-                .forEach((property: string) => {
-                    props.append(`<span class="tag tag_secondary">${localize(property)}</span>`);
-                });
-        }
-        if (chatData.critSpecialization)
-            props.append(
-                `<span class="tag" title="${localize(
-                    chatData.critSpecialization.description,
-                )}" style="background: rgb(69,74,124); color: white;">${localize(
-                    chatData.critSpecialization.label,
-                )}</span>`,
-            );
-        // append traits (only style the tags if they contain description data)
-        for (const trait of chatData.traits ?? []) {
-            if (trait.excluded) continue;
-            const label: string = game.i18n.localize(trait.label);
-            const mystifiedClass = trait.mystified ? 'mystified' : [];
-            if (trait.description) {
-                const classes: string = ['tag', mystifiedClass].flat().join(' ');
-                const description: string = game.i18n.localize(trait.description);
-                props.append(`<span class="${classes}" title="${description}">${label}</span>`);
-            } else {
-                const classes: string = ['tag', 'tag_alt', mystifiedClass].flat().join(' ');
-                props.append(`<span class="${classes}">${label}</span>`);
-            }
-        }
-
-        div.append(props);
+    protected async renderItemSummary(div: JQuery, item: Embedded<ItemPF2e>, chatData: any) {
+        const template = 'systems/pf2e/templates/actors/item-summary.html';
+        const isCreature = this.actor instanceof CreaturePF2e;
+        const result = await renderTemplate(template, { actor: this.actor, item: item.data, chatData, isCreature });
+        div.append(result);
     }
 
     /** Opens an item container */
@@ -1769,10 +1737,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const result = await super._renderInner(data, options);
 
         // Re-open hidden item summaries
+        const promises = new Array<Promise<unknown>>();
         for (const elementId of openItemIds) {
-            this.toggleItemSummary(result.find(`.item[data-item-id=${elementId}]`), { instant: true });
+            promises.push(this.toggleItemSummary(result.find(`.item[data-item-id=${elementId}]`), { instant: true }));
         }
 
+        await Promise.allSettled(promises);
         return result;
     }
 }
