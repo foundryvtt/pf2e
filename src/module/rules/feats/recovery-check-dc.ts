@@ -1,11 +1,11 @@
-import { CharacterData, NPCData } from '@actor/data-definitions';
+import { CharacterData, NPCData } from '@actor/data';
 import { RuleElementPF2e } from '../rule-element';
 
 /**
  * @category RuleElement
  */
 export class PF2RecoveryCheckDCRuleElement extends RuleElementPF2e {
-    onBeforePrepareData(actorData: CharacterData | NPCData) {
+    override onBeforePrepareData(actorData: CharacterData | NPCData) {
         const slug = this.ruleData.slug || this.item.data.slug;
         if (slug) {
             let recoveryModifier = getProperty(actorData.data.attributes, 'dying.recoveryMod') || 0;
@@ -18,9 +18,12 @@ export class PF2RecoveryCheckDCRuleElement extends RuleElementPF2e {
             const toughness = synergizers.includes('toughness');
             const mountainsStoutness =
                 synergizers.includes('mountains-stoutness') || synergizers.includes('mountainsStoutness');
+            const defyDeath = synergizers.includes('defy-death') || synergizers.includes('defyDeath');
             if (toughness && mountainsStoutness) {
                 recoveryModifier = -4;
-            } else if (toughness || mountainsStoutness) {
+            } else if (toughness && defyDeath) {
+                recoveryModifier = -2;
+            } else if (toughness || mountainsStoutness || defyDeath) {
                 recoveryModifier = -1;
             }
 

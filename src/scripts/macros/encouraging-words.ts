@@ -26,7 +26,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
             dc: dc,
             options: options,
             callback: (roll: any) => {
-                let healFormula, successLabel;
+                let healFormula: string | undefined, successLabel: string | undefined;
 
                 const bonusString = bonus > 0 ? `+ ${bonus}` : '';
                 if (roll.data.degreeOfSuccess === 3) {

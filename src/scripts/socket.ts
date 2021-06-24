@@ -10,7 +10,7 @@ export type SocketEventCallback = [
 
 export function activateSocketListener() {
     game.socket.on('system.pf2e', async (...[message, userId]: SocketEventCallback) => {
-        const sender = game.users.find((user) => user.id === userId);
+        const sender = game.users.get(userId, { strict: true });
         switch (message.request) {
             case 'itemTransfer':
                 if (game.user.isGM) {

@@ -1,5 +1,3 @@
-import { ConfigPF2e } from '@scripts/config';
-
 declare const CONFIG: ConfigPF2e;
 
 export class MystifiedTraits {
@@ -23,3 +21,17 @@ export class MystifiedTraits {
 
 export const PHYSICAL_ITEM_TYPES = ['armor', 'backpack', 'consumable', 'equipment', 'treasure', 'weapon'] as const;
 export const TRADITION_TRAITS = ['arcane', 'primal', 'divine', 'occult'] as const;
+
+export const PRECIOUS_MATERIAL_TYPES = [
+    'adamantine',
+    'coldIron',
+    'darkwood',
+    'dragonhide',
+    'mithral',
+    'orichalcum',
+    'silver',
+    'sovereignSteel',
+    'warpglass',
+] as const;
+
+export const PRECIOUS_MATERIAL_GRADES = ['low', 'standard', 'high'] as const;

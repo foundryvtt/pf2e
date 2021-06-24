@@ -130,7 +130,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "<p>Children of primeval chaos, ganzis intertwine the churning pandemonium of the Maelstrom with the more mundane tumult of mortal life. Some arise in bloodlines touched by creatures of chaos in generations previous, while others are changed by planar friction as the Maelstrom seethes upon the shores of creation, but all share the essence of anarchy in their blood and bone.</p>\n<p>As children of chaos, ganzis vary wildly in appearance; protean-kin remain the most common, with patches of scales and feathers and mischievous slithering tails. Others might have stranger features, such as horns, glowing orange eyes, or limbs flickering with harmless auras of entropic energy. Ganzis might be dramatically shorter, taller, thinner, or stouter than is typical for their ancestry, and it&rsquo;s not uncommon for them to be mistaken for more common planar scions.</p>\n<p>Independent-minded to a fault, often creative and capricious, ganzis prefer professions that allow them to serve as their own masters. If such a profession gives a ganzi opportunity to baffle or befuddle Golarion&rsquo;s more staid citizens, then all the better. Many ganzis develop reputations as outgoing, deviant, or thrill-seeking, and many heartily embrace these reputations and lean into them. Of all the planar scions, ganzis are among the most likely to take up life as wanderers.</p>\n<p>Ganzis with a taste for close combat are sometimes drawn to martial arts, turning their curious forms into potent and unexpected weapons. It&rsquo;s common to find such ganzi in the temporary employ of others, whether out of a legitimately shared ideology or simply the need for money. Just as often, though, one may simply find a ganzi martial artist demonstrating their craft on a street corner or dealing out justice to enforcers of cruel laws.</p>",
+            "flavorText": "<p>Children of primeval chaos, ganzis intertwine the churning pandemonium of the Maelstrom with the more mundane tumult of mortal life. Some arise in bloodlines touched by creatures of chaos in generations previous, while others are changed by planar friction as the Maelstrom seethes upon the shores of creation, but all share the essence of anarchy in their blood and bone.</p>\n<p>As children of chaos, ganzis vary wildly in appearance; protean-kin remain the most common, with patches of scales and feathers and mischievous slithering tails. Others might have stranger features, such as horns, glowing orange eyes, or limbs flickering with harmless auras of entropic energy. Ganzis might be dramatically shorter, taller, thinner, or stouter than is typical for their ancestry, and it's not uncommon for them to be mistaken for more common planar scions.</p>\n<p>Independent-minded to a fault, often creative and capricious, ganzis prefer professions that allow them to serve as their own masters. If such a profession gives a ganzi opportunity to baffle or befuddle Golarion's more staid citizens, then all the better. Many ganzis develop reputations as outgoing, deviant, or thrill-seeking, and many heartily embrace these reputations and lean into them. Of all the planar scions, ganzis are among the most likely to take up life as wanderers.</p>\n<p>Ganzis with a taste for close combat are sometimes drawn to martial arts, turning their curious forms into potent and unexpected weapons. It's common to find such ganzi in the temporary employ of others, whether out of a legitimately shared ideology or simply the need for money. Just as often, though, one may simply find a ganzi martial artist demonstrating their craft on a street corner or dealing out justice to enforcers of cruel laws.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -321,6 +321,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -440,8 +441,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Divine Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -461,7 +466,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": ""
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -547,8 +554,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "2 Chosen at Random via 1d12 at Level 2",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spell"
         },
@@ -626,7 +637,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "0"
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -635,7 +646,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -673,7 +684,7 @@
                     "value": ""
                 },
                 "quantity": {
-                    "value": "20"
+                    "value": 20
                 },
                 "range": {
                     "value": "20"
@@ -725,8 +736,12 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.fjkwYZ0hRmBztwBG"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/shuriken.webp",
             "name": "Shuriken",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "weapon"
         },
@@ -734,7 +749,7 @@
             "_id": "eA4temNXzJKOAUny",
             "data": {
                 "armor": {
-                    "value": "0"
+                    "value": 0
                 },
                 "armorType": {
                     "value": "unarmored"
@@ -747,7 +762,7 @@
                     "value": ""
                 },
                 "check": {
-                    "value": "0"
+                    "value": 0
                 },
                 "collapsed": {
                     "value": false
@@ -758,10 +773,10 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span>Explorer's clothing is sturdy enough that it can be reinforced to protect you, even though it isn't a suit of armor. It comes in many forms, though the most common sorts look like clerical vestments, monk's garments, or wizard's robes, as members of all three classes are likely to avoid wearing armor. For more information on explorer's clothing, see pages 275-276. </span></p>"
+                    "value": "<p><span>Explorer's clothing is sturdy enough that it can be reinforced to protect you, even though it isn't a suit of armor. It comes in many forms, though the most common sorts look like clerical vestments, monk's garments, or wizard's robes, as members of all three classes are likely to avoid wearing armor.</span></p>"
                 },
                 "dex": {
-                    "value": "5"
+                    "value": 5
                 },
                 "equipped": {
                     "value": false
@@ -795,7 +810,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "0"
+                    "value": 0
                 },
                 "maxHp": {
                     "value": null
@@ -804,7 +819,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -828,7 +843,7 @@
                     "value": ""
                 },
                 "quantity": {
-                    "value": "1"
+                    "value": 1
                 },
                 "resiliencyRune": {
                     "value": ""
@@ -842,13 +857,13 @@
                     "value": ""
                 },
                 "speed": {
-                    "value": "0"
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
                 "strength": {
-                    "value": "0"
+                    "value": 0
                 },
                 "traits": {
                     "custom": "",
@@ -870,8 +885,12 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.dDIPA1WE9ESF67EB"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/adventuring-gear/clothes-explorers.webp",
             "name": "Clothing (Explorer's)",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "armor"
         },
@@ -885,21 +904,8 @@
                     "custom": "",
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 11
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "0": {
@@ -910,48 +916,9 @@
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -967,15 +934,16 @@
                 },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Foot",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "melee"
         },
@@ -989,21 +957,8 @@
                     "custom": "",
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 11
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "0": {
@@ -1014,48 +969,9 @@
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -1070,15 +986,16 @@
                 },
                 "weaponType": {
                     "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Shuriken",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "melee"
         },
@@ -1127,8 +1044,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Low-Light Vision",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "action"
         },
@@ -1187,9 +1108,61 @@
                     "sourceId": "Item.aBKnqAXEQhDEN8ho"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "+1 Status Bonus on Saves vs Controlled Condition",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "o5w3DGu6fR9R74V6",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>The martial artist has resistance to acid, electricity, or sonic 1 (chosen randomly each day).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Variable Resistance",
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -1231,9 +1204,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Flurry of Kicks",
-            "sort": 900000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1275,52 +1252,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Handspring Kick",
-            "sort": 1000000,
-            "type": "action"
-        },
-        {
-            "_id": "o5w3DGu6fR9R74V6",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>The martial artist has resistance to acid, electricity, or sonic 1 (chosen randomly each day).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
+            "permission": {
+                "default": 0
             },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Variable Resistance",
             "sort": 1100000,
             "type": "action"
         },
@@ -1354,8 +1291,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
             "type": "lore"
         },
@@ -1389,8 +1330,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "lore"
         },
@@ -1424,8 +1369,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
+            "permission": {
+                "default": 0
+            },
             "sort": 1400000,
             "type": "lore"
         },
@@ -1459,8 +1408,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
+            "permission": {
+                "default": 0
+            },
             "sort": 1500000,
             "type": "lore"
         },
@@ -1494,8 +1447,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 1600000,
             "type": "lore"
         }
@@ -1507,10 +1464,13 @@
     "token": {
         "actorId": "0sQg5UM8dQY7fBhQ",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1522,17 +1482,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Ganzi Martial Artist",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

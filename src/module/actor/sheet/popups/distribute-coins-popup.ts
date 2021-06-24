@@ -1,4 +1,4 @@
-import { addCoins, attemptToRemoveCoinsByValue, calculateValueOfCurrency, removeCoins } from '@item/treasure';
+import { addCoins, attemptToRemoveCoinsByValue, calculateValueOfCurrency, removeCoins } from '@item/treasure/helpers';
 import { ActorPF2e } from '../../base';
 import { CharacterPF2e } from '@actor/character';
 
@@ -20,8 +20,7 @@ interface PopupFormData extends FormData {
  * @category Other
  */
 export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
-    /** @override */
-    static get defaultOptions(): FormApplicationOptions {
+    static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.id = 'distribute-coins';
         options.classes = [];
@@ -31,8 +30,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
         return options;
     }
 
-    /** @override */
-    async _updateObject(_event: Event, formData: PopupFormData): Promise<void> {
+    override async _updateObject(_event: Event, formData: PopupFormData): Promise<void> {
         const thisActor = this.object;
         const selectedActors: CharacterPF2e[] = formData.actorIds.flatMap((actorId) => {
             const maybeActor = game.actors.get(actorId);
@@ -103,10 +101,11 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
         }
     }
 
-    /** Prevent Foundry from converting the actor IDs to boolean values
-     * @override
-     */
-    protected async _onSubmit(event: Event, options: OnSubmitFormOptions = {}): Promise<Record<string, unknown>> {
+    /** Prevent Foundry from converting the actor IDs to boolean values */
+    protected override async _onSubmit(
+        event: Event,
+        options: OnSubmitFormOptions = {},
+    ): Promise<Record<string, unknown>> {
         const actorIds: string[] = Array.from(this.form.elements).flatMap((element) =>
             element instanceof HTMLInputElement && element.name === 'actorIds' && element.checked ? element.value : [],
         );
@@ -114,8 +113,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
         return super._onSubmit(event, options);
     }
 
-    /** @override */
-    getData(): PopupData {
+    override getData(): PopupData {
         const sheetData: PopupData = super.getData();
         const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor instanceof CharacterPF2e);
         sheetData.actorInfo = playerActors.map((actor) => ({

@@ -1,5 +1,6 @@
-import { CreatureData } from '@actor/data-definitions';
-import { isPhysicalItem, ItemDataPF2e } from '@item/data/types';
+import type { ActorDataPF2e, CreatureData } from '@actor/data';
+import type { ItemDataPF2e } from '@item/data';
+import { isPhysicalData } from '@item/data/helpers';
 import { RuleElementSyntheticsPF2e } from './rules-data-definitions';
 
 export interface Bracket {
@@ -63,10 +64,10 @@ export abstract class RuleElementPF2e {
      */
     get ignored(): boolean {
         const { item } = this;
-        if (game.settings.get('pf2e', 'effectAutoExpire') && item.type === 'effect' && item.data.expired) {
+        if (game.settings.get('pf2e', 'automation.effectExpiration') && item.type === 'effect' && item.data.expired) {
             return true;
         }
-        if (!isPhysicalItem(item)) return false;
+        if (!isPhysicalData(item)) return false;
         return !item.isEquipped || item.isInvested === false;
     }
 
@@ -126,7 +127,7 @@ export abstract class RuleElementPF2e {
      * @param item the item data of the item containing the rule element
      * @param token the token data of the token to be created
      */
-    onCreateToken(_actorData: ActorData, _item: ItemDataPF2e, _token: TokenData) {}
+    onCreateToken(_actorData: ActorDataPF2e, _item: ItemDataPF2e, _token: PreDocumentId<foundry.data.TokenSource>) {}
 
     /**
      * Used to look up the label when displaying a rule effect. By default uses the label field on a rule and if absent
@@ -222,9 +223,7 @@ export abstract class RuleElementPF2e {
         }
 
         if (typeof value === 'string') {
-            const roll = new Roll(value, { ...actorData.data, item: item.data });
-            roll.roll();
-            value = roll.total!;
+            value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actorData.data, item: item.data }));
         }
 
         if (Number.isInteger(Number(value))) {

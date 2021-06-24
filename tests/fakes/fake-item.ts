@@ -1,4 +1,4 @@
-import { ItemDataPF2e } from '@item/data/types';
+import { ItemDataPF2e } from '@item/data';
 
 export class FakeItem {
     _data: Partial<ItemDataPF2e>;
@@ -34,5 +34,9 @@ export class FakeItem {
         for (const [k, v] of Object.entries(changes)) {
             global.setProperty(this._data, k, v);
         }
+    }
+
+    toObject(source = true) {
+        return source ? duplicate(this._data) : duplicate(this.data);
     }
 }

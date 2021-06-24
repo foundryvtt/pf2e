@@ -1,5 +1,6 @@
 import { RuleElementPF2e } from '../rule-element';
-import { CreatureData, SenseAcuity, SenseData } from '@actor/data-definitions';
+import { CreatureData } from '@actor/data';
+import { SenseAcuity, SenseData } from '@actor/creature/data';
 
 /**
  * @category RuleElement
@@ -14,7 +15,7 @@ export class PF2SenseRuleElement extends RuleElementPF2e {
         );
     }
 
-    onBeforePrepareData(actorData: CreatureData) {
+    override onBeforePrepareData(actorData: CreatureData) {
         const label = super.getDefaultLabel(this.ruleData, this.item);
         const range = super.resolveValue(this.ruleData.range, this.ruleData, this.item, actorData);
         if (this.ruleData.selector && label) {

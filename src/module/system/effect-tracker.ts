@@ -1,12 +1,12 @@
-import { EffectPF2e } from '@item/effect';
-import { ActorPF2e } from '@actor/base';
-import { EffectData } from '@item/data/types';
+import type { ActorPF2e } from '@actor/base';
 import { CreaturePF2e } from '@actor/creature';
+import type { EffectData } from '@item/data';
+import type { EffectPF2e } from '@item/index';
 
 export class EffectTracker {
-    private trackedEffects: EffectPF2e[] = [];
+    private trackedEffects: Embedded<EffectPF2e>[] = [];
 
-    private insert(effect: EffectPF2e, duration: { expired: boolean; remaining: number }) {
+    private insert(effect: Embedded<EffectPF2e>, duration: { expired: boolean; remaining: number }) {
         if (this.trackedEffects.length === 0) {
             this.trackedEffects.push(effect);
         } else {
@@ -36,9 +36,7 @@ export class EffectTracker {
         }
     }
 
-    register(effect: EffectPF2e) {
-        if (!effect.isOwned) return; // skip unowned effects
-
+    register(effect: Embedded<EffectPF2e>) {
         const index = this.trackedEffects.findIndex((e) => e.id === effect.id);
         if (effect.data.data.duration.unit === 'unlimited') {
             effect.data.data.expired = false;
@@ -69,9 +67,8 @@ export class EffectTracker {
     }
 
     async refresh() {
-        const expired: EffectPF2e[] = [];
-        for (let index = 0; index < this.trackedEffects.length; index++) {
-            const effect = this.trackedEffects[index];
+        const expired: Embedded<EffectPF2e>[] = [];
+        for (const effect of this.trackedEffects) {
             const duration = effect.remainingDuration;
             if (effect.data.data.expired !== duration.expired) {
                 expired.push(effect);
@@ -81,12 +78,14 @@ export class EffectTracker {
         }
 
         // only update each actor once, and only the ones with effect expiry changes
-        const updatedActors = expired.reduce((actors, effect) => {
-            if (effect.actor && !actors.some((actor) => actor.id === effect.actor?.id)) {
-                actors.push(effect.actor);
-            }
-            return actors;
-        }, [] as ActorPF2e[]);
+        const updatedActors = expired
+            .map((effect) => effect.actor)
+            .reduce((actors: ActorPF2e[], actor) => {
+                if (actor.isToken || !actors.some((other) => !other.isToken && other.id === actor.id)) {
+                    actors.push(actor);
+                }
+                return actors;
+            }, []);
         for await (const actor of updatedActors) {
             actor.prepareData();
             actor.sheet.render(false);
@@ -97,7 +96,7 @@ export class EffectTracker {
     }
 
     async removeExpired(actor?: ActorPF2e) {
-        const expired: EffectPF2e[] = [];
+        const expired: Embedded<EffectPF2e>[] = [];
         for (let index = 0; index < this.trackedEffects.length; index++) {
             const effect = this.trackedEffects[index];
             const duration = effect.remainingDuration;
@@ -108,7 +107,7 @@ export class EffectTracker {
             }
         }
         for await (const effect of expired) {
-            if (!effect.actor || !actor || effect.actor._id === actor._id) {
+            if (!effect.actor || !actor || effect.actor.id === actor.id) {
                 await effect.delete();
             }
         }

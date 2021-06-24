@@ -6,8 +6,8 @@
  * See https://www.youtube.com/watch?v=UtNS1vM7czM for interpretations
  */
 
-import { RawNPCData } from '@actor/data-definitions';
-import { toNumber } from './utils';
+import { NPCSystemData } from '@actor/npc/data';
+import { Rarity } from '@module/data';
 import {
     adjustDC,
     calculateDC,
@@ -18,7 +18,7 @@ import {
     NegativeDCAdjustment,
     rarityToDCAdjustment,
 } from './dc';
-import { Rarity } from '@item/data/types';
+import { toNumber } from './utils';
 
 const identifySkills = new Map<string, string[]>();
 identifySkills.set('aberration', ['occ']);
@@ -65,7 +65,7 @@ function toKnowledgeDC(dc: number, rarity: Rarity, loreAdjustment: NegativeDCAdj
 }
 
 export function identifyCreature(
-    creature: { data: RawNPCData },
+    creature: { data: NPCSystemData },
     { proficiencyWithoutLevel = false }: DCOptions = {},
 ): IdentifyCreatureData {
     const rarity = creature.data.traits.rarity.value ?? 'common';

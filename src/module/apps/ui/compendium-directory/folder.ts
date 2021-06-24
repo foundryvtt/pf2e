@@ -3,7 +3,7 @@ import { EnfolderedSummaryData } from './index';
 interface DataParameters {
     id: string;
     name: string;
-    type: CompendiumEntityString;
+    type: CompendiumDocumentType;
     parent?: PackFolderPF2e | null;
     expanded?: boolean;
 }
@@ -13,7 +13,7 @@ export class PackFolderPF2e extends Array<EnfolderedSummaryData> {
     /** The localized name of this folder */
     name: string;
     /** The compendium entity type */
-    type: CompendiumEntityString;
+    type: CompendiumDocumentType;
     /** Whether the sidebar view of the folder is expanded or collapsed */
     expanded: boolean;
     /** The parent of this folder, if any */
@@ -43,10 +43,10 @@ export class PackFolderPF2e extends Array<EnfolderedSummaryData> {
         return game.user.isGM || this.some((pack) => !pack.private) || this.subfolders.some((folder) => folder.visible);
     }
 
-    push(summaryData: EnfolderedSummaryData) {
+    override push(summaryData: EnfolderedSummaryData) {
         const packID = `pf2e.${summaryData.metadata.name}`;
         const compendium = game.packs.get(packID);
-        if (compendium?.entity === this.type) {
+        if (compendium?.documentName === this.type) {
             return super.push(summaryData);
         }
         return this.length;

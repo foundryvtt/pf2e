@@ -1,0 +1,158 @@
+.spell-browser {
+    display: flex;
+    min-height: 100px;
+    height: 100%;
+
+    .control-area {
+        position: sticky;
+        display: block;
+        min-width: 320px;
+        width: 320px;
+        padding-right: 5px;
+        overflow: auto;
+    }
+
+    /*  Sort and filter areas */
+    .filtercontainer,
+    .sortcontainer {
+        border: 1px solid #bbb;
+        border-radius: 5px;
+        margin-top: 5px;
+        padding: 2px;
+
+        h3 {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        > dl {
+            dt > input[type="checkbox"] {
+                transform: none;
+                flex: none;
+                height: auto;
+                margin: 3px 3px;
+            }
+
+            dd > a.direction {
+                padding: 2px;
+            }
+        }
+    }
+
+    .filtercontainer {
+        dt {
+            width: 10%
+        }
+
+        dd {
+            width: 88%;
+        }
+    }
+
+    .rangecontainer {
+        div {
+            text-align: center;
+        }
+
+        input[type="number"] {
+            width: 45%;
+        }
+    }
+
+    dl {
+        margin: 5px 0;
+    }
+
+    dt {
+        display: inline-block;
+        padding-left: 5px;
+    }
+
+    dd {
+        text-transform: capitalize;
+        display: inline-block;
+        margin-left: 0.25em;
+
+        select {
+            width: 6em;
+            margin-left: 0.5em;
+        }
+    }
+
+    ul.result-list {
+        width: 100%;
+        float: right;
+        display: block;
+        margin: 0;
+        height: 100%;
+        // 'overflow: auto' causes excessive layout/redraw times
+        // Use a fixed setting instead, to avoid stuttering
+        overflow: visible scroll;
+
+        > li {
+            vertical-align: middle;
+            line-height: 32px;
+            margin: 2px 0;
+
+            > * {
+                align-self: center;
+            }
+
+            > .image {
+                max-width: 32px;
+                height: 32px;
+            }
+
+            > .level {
+                text-align: center;
+                font-weight: 900;
+                max-width: 18px;
+                height: 32px;
+            }
+
+            > .name {
+                line-height: 1em;
+                padding-left: 5px;
+            }
+
+            > .end {
+                text-align: right;
+                margin-right: 3px;
+                font-weight: 900;
+                max-width: 100px;
+                height: 32px;
+            }
+
+            &:hover {
+                cursor: grab;
+                background-color: rgba(255, 255, 255, 0.25);
+            }
+        }
+    }
+
+    #tagfilter input {
+        width: 100%;
+    }
+
+    .hint {
+        font-size: 12px;
+        border: 1px solid #00ff0547;
+        border-radius: 5px;
+        padding: 3px;
+    }
+
+    .spacer {
+        display: inline-block;
+        min-width: 5px;
+    }
+    .spacer-large {
+        display: inline-block;
+        min-width: 15px;
+    }
+
+    .take-item {
+        margin-left: 0.5em;
+        max-width: 1em;
+        width: 1em;
+    }
+}

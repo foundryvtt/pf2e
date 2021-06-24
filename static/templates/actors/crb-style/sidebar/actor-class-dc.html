@@ -6,52 +6,23 @@
 <div class="roll-data difficulty-checks">
     <h3>{{numberFormat data.attributes.classDC.value decimals=0 sign=false}}</h3>
     <div class="classdc-rank" value="{{data.attributes.classDC.rank}}">
-        <input type="hidden" name="data.attributes.classDC.rank" value="{{data.attributes.classDC.rank}}" data-dtype="Number" data-category="proficiency"/>
-        <h4 class="click-stat-level">
+        <h4 class="adjust-stat" data-property="data.attributes.classDC.rank" value="{{data.attributes.classDC.rank}}">
             <span>{{data.attributes.classDC.rankName}}</span>
         </h4>
     </div>
 </div>
 
-<!-- <ol class="difficulty-checks">
-    <li>
-        <div class="data-value">
-            <h2>12</h2>
-        </div>
-        <div class="label">
-            <h4>Class</h4>
-        </div>
-    </li>
-    <li>
-        <div class="data-value">
-            <h2>12</h2>
-        </div>
-        <div class="label">
-            <h4>Spell</h4>
-        </div>
-    </li>
-    <li>
-        <div class="data-value">
-            <h2>12</h2>
-        </div>
-        <div class="label">
-            <h4>Percep.</h4>
-        </div>
-    </li>
-</ol> -->
-
 <div class="hover-content" id="{{uid}}-dc-modifiers">
     <div class="sidebar_title">
         <h2>Class DC</h2>
-        <!-- <a href="#">+ Add Modifier</a> -->
     </div>
     <ul>
         {{#each data.attributes.classDC._modifiers as |modifier|}}
-        <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
-            <span class="tag">{{modifier.type}}</span>
-            <span class="label">{{localize modifier.name}}</span>
-            <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
-        </li>
+            <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
+                <span class="tag">{{modifier.type}}</span>
+                <span class="label">{{localize modifier.name}}</span>
+                <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
+            </li>
         {{/each}}
     </ul>
 </div>

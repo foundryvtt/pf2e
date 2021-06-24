@@ -1,6 +1,7 @@
-import { SKILL_EXPANDED } from '@actor/base';
-import { CharacterData, NPCData, SkillAbbreviation } from '@actor/data-definitions';
-import { ModifierPF2e, MODIFIER_TYPE } from '../../modifiers';
+import { SkillAbbreviation } from '@actor/creature/data';
+import type { CharacterData, NPCData } from '@actor/data';
+import { SKILL_EXPANDED } from '@actor/data/values';
+import { ModifierPF2e, MODIFIER_TYPE } from '@module/modifiers';
 import { RuleElementPF2e } from '../rule-element';
 import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
 
@@ -12,7 +13,10 @@ const KNOWN_TARGETS = {
  * @category RuleElement
  */
 export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
-    onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: RuleElementSyntheticsPF2e) {
+    override onBeforePrepareData(
+        actorData: CharacterData | NPCData,
+        { statisticsModifiers }: RuleElementSyntheticsPF2e,
+    ) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         let value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         if (selector === 'ac') {
@@ -38,7 +42,7 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
         }
     }
 
-    onAfterPrepareData(actorData: CharacterData | NPCData) {
+    override onAfterPrepareData(actorData: CharacterData | NPCData) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const { data } = actorData;
         const skill: SkillAbbreviation | string = SKILL_EXPANDED[selector]?.shortform ?? selector;

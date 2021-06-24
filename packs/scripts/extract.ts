@@ -4,8 +4,8 @@ import * as process from 'process';
 import Datastore from 'nedb-promises';
 import yargs from 'yargs';
 import { JSDOM } from 'jsdom';
-import { ActorDataPF2e } from '@actor/data-definitions';
-import { ActionData, ItemDataPF2e, MeleeData, SpellData } from '@item/data/types';
+import type { ActorPF2e } from '@actor/base';
+import type { ItemPF2e } from '@item/base';
 import { sluggify } from '@module/utils';
 
 declare global {
@@ -19,6 +19,7 @@ const { window } = new JSDOM();
 global.document = window.document;
 global.window = global.document.defaultView!;
 import $ from 'jquery';
+import { ActionSource, ItemSourcePF2e, MeleeSource, SpellSource } from '@item/data';
 
 // show error message without needless traceback
 const PackError = (message: string) => {
@@ -99,13 +100,8 @@ const linkPatterns = {
     components: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/,
 };
 
-type CompendiumEntityPF2e =
-    | (Actor & { data: ActorDataPF2e })
-    | (Item & { data: ItemDataPF2e })
-    | JournalEntry
-    | Macro
-    | RollTable;
-type PackEntry = CompendiumEntityPF2e['data'];
+type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e | JournalEntry | Macro | RollTable;
+type PackEntry = CompendiumDocumentPF2e['data']['_source'];
 
 function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
     if (fs.existsSync(jsonPath)) {
@@ -121,24 +117,24 @@ function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
 
 /** Walk object tree and make appropriate deletions */
 function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
-    type EntityKey = keyof PackEntry;
-    if ('label' in entityData && 'type' in entityData && ['Boolean', 'Number', 'String'].includes(entityData['type'])) {
-        delete entityData['label'];
-        delete entityData['type'];
-    }
+    type DocumentKey = keyof PackEntry;
     for (const key in entityData) {
         if (key === '_id') {
             topLevel = entityData;
-            delete (entityData as { data?: { rarity?: unknown } }).data?.rarity;
+            if ('folder' in entityData && 'permission' in entityData) {
+                const defaultPermission = entityData.permission['default'] ?? [0];
+                entityData.folder = null;
+                entityData.permission = { default: defaultPermission };
+            }
         } else if (['_modifiers', '_sheetTab'].includes(key)) {
-            delete entityData[key as EntityKey];
-        } else if (entityData[key as EntityKey] instanceof Object) {
-            pruneTree(entityData[key as EntityKey] as PackEntry, topLevel);
+            delete entityData[key as DocumentKey];
+        } else if (entityData[key as DocumentKey] instanceof Object) {
+            pruneTree(entityData[key as DocumentKey] as PackEntry, topLevel);
         }
     }
 }
 
-function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: false }): PackEntry {
+function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = { isEmbedded: false }): T {
     // Remove individual permissions
     if (isEmbedded) {
         delete entityData.flags.pf2e_updatednpcsheet;
@@ -159,7 +155,10 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
         }
 
         entityData.flags = 'type' in entityData && entityData.type === 'condition' ? { pf2e: { condition: true } } : {};
-        if ('effects' in entityData && !entityData.effects.some((effect) => effect.origin?.startsWith('Actor.'))) {
+        if (
+            'effects' in entityData &&
+            !entityData.effects.some((effect: foundry.data.ActiveEffectSource) => effect.origin?.startsWith('Actor.'))
+        ) {
             for (const effect of entityData.effects) {
                 effect.origin = '';
             }
@@ -245,11 +244,9 @@ const newEntityIdMap: Record<string, string> = {};
 function convertLinks(entityData: PackEntry, packName: string): PackEntry {
     newEntityIdMap[entityData._id] = entityData.name;
 
-    const sanitized = sanitizeEntity(entityData);
+    const sanitized = sanitizeDocument(entityData);
     if ('items' in sanitized) {
-        sanitized.items = sanitized.items.map(
-            (itemData: ItemDataPF2e) => sanitizeEntity(itemData, { isEmbedded: true }) as ItemDataPF2e,
-        );
+        sanitized.items = sanitized.items.map((itemData) => sanitizeDocument(itemData, { isEmbedded: true }));
     }
     const entityJson = JSON.stringify(sanitized);
 
@@ -328,8 +325,8 @@ function sortDataItems(entityData: PackEntry): any[] {
         return [];
     }
 
-    const entityItems: ItemData[] = entityData.items;
-    const groupedItems: Map<string, Set<ItemData>> = new Map();
+    const entityItems: ItemSourcePF2e[] = entityData.items;
+    const groupedItems: Map<string, Set<ItemSourcePF2e>> = new Map();
 
     // Separate the data items into type collections.
     entityItems.forEach((item) => {
@@ -338,7 +335,7 @@ function sortDataItems(entityData: PackEntry): any[] {
         }
 
         if (!groupedItems.has(item.type)) {
-            groupedItems.set(item.type, new Set<ItemData>());
+            groupedItems.set(item.type, new Set<ItemSourcePF2e>());
         }
 
         const itemGroup = groupedItems.get(item.type);
@@ -354,7 +351,7 @@ function sortDataItems(entityData: PackEntry): any[] {
         if (groupedItems.has(itemType) && groupedItems.size > 0) {
             const itemGroup = groupedItems.get(itemType);
             if (itemGroup) {
-                let items: ItemData[];
+                let items: ItemSourcePF2e[];
                 switch (itemType) {
                     case 'spell':
                         items = sortSpells(itemGroup);
@@ -400,16 +397,16 @@ function sortDataItems(entityData: PackEntry): any[] {
     return sortedItems;
 }
 
-function sortAttacks(entityName: string, attacks: Set<ItemData>): ItemData[] {
+function sortAttacks(entityName: string, attacks: Set<ItemSourcePF2e>): ItemSourcePF2e[] {
     attacks.forEach((attack) => {
-        const attackData = attack as MeleeData;
+        const attackData = attack as MeleeSource;
         if (!attackData.data.weaponType?.value && args.logWarnings) {
             console.log(`Warning in ${entityName}: Melee item '${attackData.name}' has no weaponType defined!`);
         }
     });
     return Array.from(attacks).sort((a, b) => {
-        const attackA = a as MeleeData;
-        const attackB = b as MeleeData;
+        const attackA = a as MeleeSource;
+        const attackB = b as MeleeSource;
         if (attackA.data.weaponType?.value) {
             if (!attackB.data.weaponType?.value) {
                 return -1;
@@ -424,16 +421,16 @@ function sortAttacks(entityName: string, attacks: Set<ItemData>): ItemData[] {
     });
 }
 
-function sortActions(entityName: string, actions: Set<ItemData>): ItemData[] {
+function sortActions(entityName: string, actions: Set<ItemSourcePF2e>): ItemSourcePF2e[] {
     actions.forEach((action) => {
-        const actionData = action as ActionData;
+        const actionData = action as ActionSource;
         if (!actionData.data.actionCategory?.value && args.logWarnings) {
             console.log(`Warning in ${entityName}: Action item '${actionData.name}' has no actionCategory defined!`);
         }
     });
     return Array.from(actions).sort((a, b) => {
-        const actionA = a as ActionData;
-        const actionB = b as ActionData;
+        const actionA = a as ActionSource;
+        const actionB = b as ActionSource;
         const aActionCategory = actionA.data.actionCategory.value;
         const bActionCategory = actionB.data.actionCategory.value;
         if (aActionCategory && !bActionCategory) {
@@ -462,10 +459,10 @@ function sortActions(entityName: string, actions: Set<ItemData>): ItemData[] {
     });
 }
 
-function sortSpells(spells: Set<ItemData>): ItemData[] {
+function sortSpells(spells: Set<ItemSourcePF2e>): SpellSource[] {
     return Array.from(spells).sort((a, b) => {
-        const spellA = a as SpellData;
-        const spellB = b as SpellData;
+        const spellA = a as SpellSource;
+        const spellB = b as SpellSource;
         const aLevel = spellA.data.level;
         const bLevel = spellB.data.level;
         if (aLevel && !bLevel) {
@@ -480,7 +477,7 @@ function sortSpells(spells: Set<ItemData>): ItemData[] {
         }
 
         return a.name.localeCompare(b.name);
-    });
+    }) as SpellSource[];
 }
 
 async function extractPack(filePath: string, packFilename: string) {

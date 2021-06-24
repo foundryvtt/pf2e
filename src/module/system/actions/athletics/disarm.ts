@@ -14,5 +14,6 @@ export function disarm(options: SkillActionOptions) {
         ['attack'],
         checkType,
         options.event,
+        (target) => target.reflex,
     );
 }

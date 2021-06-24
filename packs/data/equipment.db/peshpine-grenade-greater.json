@@ -35,7 +35,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>Peshspine grenades are explosive bombs packed with alchemically treated needles from the pesh cactus. A peshspine grenade deals the listed piercing damage and splash damage. On a hit, the target gains the stupefied condition until the end of its next turn.<br /></span></p>\n<p><span>Many types of peshpine grenade grant an item bonus to attack rolls.<br /></span></p>\n<p><span><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</span></p>\n<p>You gain a +2 item bonus to attack rolls. The bomb deals 3d6 piercing damage and 3 piercing splash damage, and the target is stupefied 2.</p>"
+            "value": "<p>Peshspine grenades are explosive bombs packed with alchemically treated needles from the pesh cactus. A peshspine grenade deals the listed piercing damage and splash damage. On a hit, the target gains the stupefied condition until the end of its next turn.</p>\n<p>Many types of peshpine grenade grant an item bonus to attack rolls.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>You gain a +2 item bonus to attack rolls. The bomb deals 3d6 piercing damage and 3 piercing splash damage, and the target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2}.</p>"
         },
         "equipped": {
             "value": false
@@ -72,7 +72,7 @@
             "value": false
         },
         "level": {
-            "value": "11"
+            "value": 11
         },
         "maxHp": {
             "value": 0
@@ -81,7 +81,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": 0
+            "value": null
         },
         "preciousMaterial": {
             "value": ""
@@ -119,7 +119,7 @@
             "value": ""
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
         "range": {
             "value": "20"
@@ -127,7 +127,13 @@
         "reload": {
             "value": "1"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'><strong>Effect:</strong> Target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} until the end of its turn.</p>"
+            }
+        ],
         "size": {
             "value": "med"
         },
@@ -167,6 +173,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/peshpine-grenade.webp",
     "name": "Peshpine Grenade (Greater)",
     "permission": {

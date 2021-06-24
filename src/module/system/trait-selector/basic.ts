@@ -1,10 +1,12 @@
-import { ActorPF2e } from '@actor/base';
-import { ValuesList } from '@actor/data-definitions';
-import { ItemPF2e } from '@item/base';
+import { ActorSourcePF2e } from '@actor/data';
+import { ActorPF2e } from '@actor/index';
+import { ItemSourcePF2e } from '@item/data';
+import { ItemPF2e } from '@item/index';
+import { ValuesList } from '@module/data';
 import { TraitSelectorBase } from './base';
 import { BasicSelectorOptions, SelectableTagField } from './index';
 
-export class TraitSelectorBasic extends TraitSelectorBase {
+export class TagSelectorBasic extends TraitSelectorBase {
     allowCustom: boolean;
     searchString = '';
     private filterTimeout: number | null = null;
@@ -23,8 +25,7 @@ export class TraitSelectorBasic extends TraitSelectorBase {
         return this.options.configTypes ?? [];
     }
 
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             template: 'systems/pf2e/templates/system/trait-selector/basic.html',
             title: 'PF2E.BrowserFilterTraits',
@@ -32,9 +33,11 @@ export class TraitSelectorBasic extends TraitSelectorBase {
         });
     }
 
-    /** @override */
-    getData() {
-        const property: ValuesList = getProperty(this.object.data, this.objectProperty);
+    override getData() {
+        const property: ValuesList = getProperty(
+            (this.object as { toObject(): ActorSourcePF2e | ItemSourcePF2e }).toObject(),
+            this.objectProperty,
+        );
         const chosen: string[] = (property.value ?? []).map((prop) => prop.toString());
 
         const custom = this.allowCustom ? property.custom : null;
@@ -55,8 +58,7 @@ export class TraitSelectorBasic extends TraitSelectorBase {
         };
     }
 
-    /** @override */
-    activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery) {
         super.activateListeners($html);
 
         // Search filtering
@@ -66,17 +68,16 @@ export class TraitSelectorBasic extends TraitSelectorBase {
         }
     }
 
-    /** @override */
-    protected async _updateObject(_event: Event, formData: FormData) {
+    protected async _updateObject(_event: Event, formData: Record<string, unknown>) {
         const value = this.getUpdateData(formData);
-        if (this.allowCustom && 'custom' in formData) {
+        if (this.allowCustom && typeof formData['custom'] === 'string') {
             this.object.update({ [this.objectProperty]: { value, custom: formData['custom'] } });
         } else {
             this.object.update({ [`${this.objectProperty}.value`]: value });
         }
     }
 
-    private getUpdateData(formData: FormData) {
+    private getUpdateData(formData: Record<string, unknown>) {
         const choices: string[] = [];
         Object.entries(formData).forEach(([language, selected]) => {
             if (selected) {
@@ -114,6 +115,6 @@ export class TraitSelectorBasic extends TraitSelectorBase {
     }
 }
 
-export interface TraitSelectorBasic {
+export interface TagSelectorBasic {
     options: BasicSelectorOptions;
 }

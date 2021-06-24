@@ -1,0 +1,72 @@
+{
+    "_id": "v2HDcrxQF2Dncjbs",
+    "data": {
+        "description": {
+            "value": "<p>Granted when you use @Compendium[pf2e.feats-srd.Flamboyant Cruelty]{Flamboyant Cruelty}</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Tumble Through (Flamboyant Cruelty)",
+                "predicate": {
+                    "all": [
+                        "action:tumble-through",
+                        "flamboyant-cruelty"
+                    ]
+                },
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Panache-granting action (Flamboyant Cruelty)",
+                "predicate": {
+                    "all": [
+                        "panache-granting",
+                        "flamboyant-cruelty"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/spells/suns-fury.webp",
+    "name": "Effect: Flamboyant Cruelty",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

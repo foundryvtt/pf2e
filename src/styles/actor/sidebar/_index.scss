@@ -52,6 +52,10 @@ aside {
             justify-content: space-between;
             align-items: flex-end;
             margin: 1em 0 0.5em;
+
+            &:first-of-type {
+                margin-bottom: -1px;
+            }
             h2,
             h4,
             a {
@@ -89,9 +93,13 @@ aside {
                 text-decoration: none;
             }
         }
-        .dots {
+        a.dots {
             display: flex;
             flex-direction: column;
+
+            > * {
+              cursor: pointer;
+            }
         }
         .data-value {
             display: inline-flex;

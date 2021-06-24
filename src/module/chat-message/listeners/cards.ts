@@ -1,7 +1,6 @@
-import { ActorPF2e, TokenPF2e } from '@actor/base';
-import { ItemPF2e } from '@item/base';
-import { ItemDataPF2e } from '@item/data/types';
-import { MeleePF2e } from '@item/others';
+import { ItemSourcePF2e } from '@item/data';
+import { ConsumablePF2e, ItemPF2e, MeleePF2e } from '@item/index';
+import { ActorPF2e } from '@actor/index';
 import { StatisticModifier } from '@module/modifiers';
 
 export const ChatCards = {
@@ -12,45 +11,41 @@ export const ChatCards = {
             // Extract card data
             const button = $(event.currentTarget);
             const messageId = button.parents('.message').attr('data-message-id') ?? '';
-            const senderId = game.messages.get(messageId)?.user?._id ?? '';
+            const senderId = game.messages.get(messageId)?.user?.id ?? '';
             const card = button.parents('.chat-card');
             const action = button.attr('data-action');
 
             // Confirm roll permission
-            if (!game.user.isGM && game.user._id !== senderId && action !== 'save') return;
+            if (!game.user.isGM && game.user.id !== senderId && action !== 'save') return;
 
-            // Get the Actor from a synthetic Token
-            let actor: ActorPF2e | null;
-            const tokenKey = card.attr('data-token-id');
-            if (tokenKey) {
-                const [sceneId, tokenId] = tokenKey.split('.');
-                let token: TokenPF2e | undefined;
-                if (sceneId === canvas.scene?._id) token = canvas.tokens.get(tokenId);
-                else {
+            // Get the synthetic Actor from a Token
+            const actor = ((): ActorPF2e | null => {
+                const tokenKey = card.attr('data-token-id');
+                if (tokenKey) {
+                    const [sceneId, tokenId] = tokenKey.split('.');
                     const scene = game.scenes.get(sceneId);
-                    if (!scene) return;
-                    const tokenData = scene.data.tokens.find((t) => t._id === tokenId);
-                    if (tokenData) token = new Token(tokenData, scene);
+                    const token = scene?.tokens.get(tokenId);
+                    return token?.actor ?? null;
+                } else {
+                    return game.actors.get(card.attr('data-actor-id') ?? '') ?? null;
                 }
-                if (!token) return;
-                actor = ActorPF2e.fromToken(token);
-            } else {
-                actor = game.actors.get(card.attr('data-actor-id') ?? '');
-            }
+            })();
 
             if (!actor) return;
 
             // Get the Item
             const itemId = card.attr('data-item-id') ?? '';
             const embeddedItemData = $(event.target).parents('.item-card').attr('data-embedded-item') || 'null';
-            const itemData: ItemDataPF2e | null = JSON.parse(embeddedItemData);
-            const item = itemData ? ItemPF2e.createOwned(itemData, actor) : actor.items.get(itemId);
+            const itemData: ItemSourcePF2e | null = JSON.parse(embeddedItemData);
+            const item = itemData
+                ? (new ItemPF2e(itemData, { parent: actor }) as Embedded<ItemPF2e> | undefined)
+                : actor.items.get(itemId);
 
             if (item) {
                 const strike: StatisticModifier = actor.data.data.actions?.find(
                     (a: StatisticModifier) => a.item === itemId,
                 );
-                const rollOptions = (actor as ActorPF2e)?.getRollOptions(['all', 'attack-roll']);
+                const rollOptions = actor.getRollOptions(['all', 'attack-roll']);
 
                 if (action === 'weaponAttack') {
                     if (strike && rollOptions) {
@@ -94,7 +89,7 @@ export const ChatCards = {
                 else if (action === 'spellDamage') item.rollSpellDamage(event);
                 else if (action === 'spellCounteract') item.rollCounteract(event);
                 // Consumable usage
-                else if (action === 'consume') item.rollConsumable(event);
+                else if (action === 'consume' && item instanceof ConsumablePF2e) item.consume();
                 else if (action === 'save') ActorPF2e.rollSave(event, item);
             } else {
                 const strikeIndex = card.attr('data-strike-index');

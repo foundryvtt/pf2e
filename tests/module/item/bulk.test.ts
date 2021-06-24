@@ -6,8 +6,8 @@ import {
     convertBulkToSize,
     toBulkItems,
     weightToBulk,
-} from '@item/bulk';
-import { PhysicalItemData } from '@item/data/types';
+} from '@item/physical/bulk';
+import { PhysicalItemData } from '@item/data';
 
 function createItem({
     id = 'ignore',
@@ -38,7 +38,7 @@ function createItem({
     stackGroup?: string;
     size?: string;
 }): PhysicalItemData {
-    return ({
+    return {
         _id: id,
         type: type,
         data: {
@@ -76,7 +76,7 @@ function createItem({
                 value: stackGroup,
             },
         },
-    } as unknown) as PhysicalItemData;
+    } as unknown as PhysicalItemData;
 }
 
 describe('should calculate bulk', () => {
@@ -373,58 +373,6 @@ describe('should calculate bulk', () => {
         expect(bulk).toEqual({
             light: 0,
             normal: 2,
-        });
-    });
-
-    test('nested stacks do not pass overflow up if disabled', () => {
-        const items = [
-            // backpack
-            new BulkItem({
-                bulk: new Bulk({ normal: 1 }),
-                holdsItems: [
-                    // backpack containing 999 coins
-                    new BulkItem({
-                        bulk: new Bulk({ normal: 1 }),
-                        holdsItems: [
-                            // partial stack gets passed up
-                            new BulkItem({
-                                stackGroup: 'coins',
-                                quantity: 997,
-                            }),
-                        ],
-                        negateBulk: new Bulk({ normal: 2 }),
-                    }),
-                    // this container now holds 999 coins
-                    new BulkItem({
-                        quantity: 2,
-                        stackGroup: 'coins',
-                    }),
-                ],
-                negateBulk: new Bulk({ normal: 2 }),
-                isEquipped: true,
-            }),
-            // pouch
-            new BulkItem({
-                holdsItems: [
-                    // the last coin from this container should add to 1 bulk
-                    new BulkItem({
-                        quantity: 1,
-                        stackGroup: 'coins',
-                    }),
-                ],
-            }),
-        ];
-        const [bulk] = calculateBulk({
-            items,
-            bulkConfig: {
-                ignoreContainerOverflow: true,
-                ignoreCoinBulk: false,
-            },
-        });
-
-        expect(bulk).toEqual({
-            light: 0,
-            normal: 1,
         });
     });
 
@@ -779,7 +727,6 @@ describe('should calculate bulk', () => {
             items,
             bulkConfig: {
                 ignoreCoinBulk: true,
-                ignoreContainerOverflow: false,
             },
         });
         expect(bulk).toEqual({

@@ -59,7 +59,9 @@ $rank-legendary: $primary-color;
 
 @import url('https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed|Tauri|Teko:500|Changa+One|DM+Serif+Text:400i&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap');
 @import url('../fonts/Eczar/eczar.css');
 @font-face {
   font-family: 'Noto Sans JP', sans-serif;
@@ -157,6 +159,10 @@ a[href] {
 .pf2e.sheet form span[data-pf2-action] *,
 .pf2e.sheet form span[data-pf2-saving-throw],
 .pf2e.sheet form span[data-pf2-saving-throw] *,
+.pf2e.sheet form span[data-pf2-skill-check],
+.pf2e.sheet form span[data-pf2-skill-check] *,
+.pf2e.sheet form span[data-pf2-perception-check],
+.pf2e.sheet form span[data-pf2-perception-check] *,
 .pf2-icon {
     display: inline;
 }
@@ -286,12 +292,96 @@ table.pf2-table {
     font-weight: 500;
 }
 
+[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]):not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
 [data-pf2-saving-throw]::before {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     margin-right: 5px;
     color: #7a7971;
     content: '\f6cf';
+}
+
+/* ----------------------------------------- */
+/* PF2E Skill Check Custom Element
+/* ----------------------------------------- */
+[data-pf2-skill-check]:not([data-pf2-skill-check=""]) {
+    background: #ddd;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+[data-pf2-skill-check]:not([data-pf2-skill-check=""]):not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
+[data-pf2-skill-check]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f6cf';
+}
+
+/* ----------------------------------------- */
+/* PF2E Perception Check Custom Element
+/* ----------------------------------------- */
+[data-pf2-perception-check] {
+    background: #ddd;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+[data-pf2-perception-check]:not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
+[data-pf2-perception-check]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f6cf';
+}
+
+/* ----------------------------------------- */
+/* PF2E GM Visibility Elements
+/* ----------------------------------------- */
+div[data-visibility="gm"] {
+        box-sizing: border-box;
+        border: 1px dotted;
+        background: #e8e8ef;
+        padding: 2px;
+        margin-bottom: 2px;
+
+        em[data-visibility="gm"] {
+            border: none;
+            padding: 0px;
+            margin-bottom: 0px;
+        }
+    }
+
+em[data-visibility="gm"] {
+    box-sizing: border-box;
+    display: inline-block;
+    border: 1px dotted;
+    background: #e8e8ef;
+    padding: 2px;
+    margin-bottom: 2px;
 }
 
 /* ----------------------------------------- */

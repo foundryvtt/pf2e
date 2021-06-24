@@ -130,7 +130,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "<p>Sumbreivas are the Negative Energy Plane&rsquo;s unstoppable hunters, tracking down and destroying other creatures on their plane for sport and practice. Occasionally they pass through a rift or are brought to the Material Plane via planar binding, where they collect living souls to display as trophies.</p>\n<p>Sumbreivas gather at Night Lodges, where they train and display their soul trophies, which appear as floating wisps of blue energy. The more formidable the soul, the more intense the blue glow that emanates from it. Sumbreivas in lodges periodically raid the Material Plane on a Night Hunt. Over the course of one night, the sumbreivas from that lodge split up and compete to see who can capture the most brilliant souls as trophies. The winner of the Night Hunt leads the lodge until the next hunt.</p>\n<p>Night Lodges are ranked against each other by the accomplishments of the hunters within. All sumbreivas have the ultimate goal of capturing a soul worthy of being placed in the Twilight Lodge, reserved for the truly elite souls and hunters.</p>",
+            "flavorText": "<p>Sumbreivas are the Negative Energy Plane's unstoppable hunters, tracking down and destroying other creatures on their plane for sport and practice. Occasionally they pass through a rift or are brought to the Material Plane via planar binding, where they collect living souls to display as trophies.</p>\n<p>Sumbreivas gather at Night Lodges, where they train and display their soul trophies, which appear as floating wisps of blue energy. The more formidable the soul, the more intense the blue glow that emanates from it. Sumbreivas in lodges periodically raid the Material Plane on a Night Hunt. Over the course of one night, the sumbreivas from that lodge split up and compete to see who can capture the most brilliant souls as trophies. The winner of the Night Hunt leads the lodge until the next hunt.</p>\n<p>Night Lodges are ranked against each other by the accomplishments of the hunters within. All sumbreivas have the ultimate goal of capturing a soul worthy of being placed in the Twilight Lodge, reserved for the truly elite souls and hunters.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -353,6 +353,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -477,8 +478,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Arcane Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -499,7 +504,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -599,8 +606,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Darkness"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spell"
         },
@@ -621,7 +632,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -718,8 +731,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.gPvtmKMRpg9I9D7H"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/earthbind.webp",
             "name": "Earthbind",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
@@ -735,21 +752,8 @@
                         "Huntblade Brutality"
                     ]
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 33
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "0": {
@@ -760,48 +764,9 @@
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -819,15 +784,16 @@
                 },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Sumbreiva Huntblade",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "melee"
         },
@@ -843,21 +809,8 @@
                         "Improved Grab"
                     ]
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 33
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "0": {
@@ -868,48 +821,9 @@
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -929,15 +843,16 @@
                 },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Shadow Whip",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "melee"
         },
@@ -953,21 +868,8 @@
                         "Huntblade Brutality"
                     ]
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 33
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "0": {
@@ -978,48 +880,9 @@
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -1037,15 +900,16 @@
                 },
                 "weaponType": {
                     "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Sumbreiva Huntblade",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "melee"
         },
@@ -1092,8 +956,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Greater Darkvision",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "action"
         },
@@ -1142,8 +1010,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Scent (Imprecise) 30 feet",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "action"
         },
@@ -1192,8 +1064,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Negative Healing",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "action"
         },
@@ -1242,9 +1118,66 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "fcF7yPdFg6xTRRlu",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The sumbreiva kills a creature;</p>\n<p><strong>Effect</strong> The sumbreiva lets out a triumphant, bone-chilling howl. Every enemy in a 30-foot emanation must succeed at a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"36\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Hunter's Triumph DC\" data-pf2-show-dc=\"gm\">Will</span> save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} (and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} as long as it’s frightened on a critical failure).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Hunter's Triumph",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1286,9 +1219,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Claim Trophy",
-            "sort": 1100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1330,9 +1267,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Huntblade Brutality",
-            "sort": 1200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1378,9 +1319,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Whip Drain",
-            "sort": 1300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1428,57 +1373,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
-            "sort": 1400000,
-            "type": "action"
-        },
-        {
-            "_id": "fcF7yPdFg6xTRRlu",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p><strong>Trigger</strong> The sumbreiva kills a creature;</p>\n<p><strong>Effect</strong> The sumbreiva lets out a triumphant, bone-chilling howl. Every enemy in a 30-foot emanation must succeed at a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"36\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Hunter's Triumph DC\" data-pf2-show-dc=\"gm\">Will</span> save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} (and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} as long as it’s frightened on a critical failure).</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "auditory",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
+            "permission": {
+                "default": 0
             },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Hunter's Triumph",
             "sort": 1500000,
             "type": "action"
         },
@@ -1512,8 +1412,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
             "sort": 1600000,
             "type": "lore"
         },
@@ -1547,8 +1451,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
+            "permission": {
+                "default": 0
+            },
             "sort": 1700000,
             "type": "lore"
         },
@@ -1582,8 +1490,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 1800000,
             "type": "lore"
         },
@@ -1617,8 +1529,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
+            "permission": {
+                "default": 0
+            },
             "sort": 1900000,
             "type": "lore"
         }
@@ -1630,11 +1546,12 @@
     "token": {
         "actorId": "NQzkW5D28zIGESBt",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
         "bar2": {
-            "attribute": ""
+            "attribute": null
         },
         "brightLight": 0,
         "brightSight": 0,
@@ -1647,13 +1564,12 @@
         "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
-            "speed": 5,
-            "type": ""
+            "speed": 5
         },
-        "lightColor": "",
+        "lightColor": null,
         "lockRotation": false,
         "mirrorX": false,
         "mirrorY": false,
@@ -1661,8 +1577,8 @@
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
-        "tint": "",
+        "sightAngle": 0,
+        "tint": null,
         "vision": false,
         "width": 2
     },

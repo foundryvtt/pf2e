@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 14,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -102,7 +103,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -139,6 +140,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
+            "flavorText": "<p>Surrounded by bottles and bins of crushed herbs, curative minerals, and potent extracts, the apothecary skillfully combines materials into unguents and medicines. For encounters involving making medicine or alchemical contests, the apothecary is a 3rd-level challenge.</p>\n<hr />\n<p>The world is a dangerous place. Thankfully, there are those who devote their lives to easing the pain and suffering of others.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -153,7 +155,7 @@
             "recallKnowledgeText": "",
             "sidebarText": "",
             "source": {
-                "value": "NPC Gallery"
+                "value": ""
             }
         },
         "martial": {
@@ -444,10 +446,11 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "IyMxt0WDwkWl04sz",
+            "_id": "0fYF0RDXqw6RB7nK",
             "data": {
                 "MAP": {
                     "value": ""
@@ -455,7 +458,7 @@
                 "ability": {
                     "value": "dex"
                 },
-                "baseItem": null,
+                "baseItem": "alchemical-bomb",
                 "bonus": {
                     "value": 0
                 },
@@ -477,16 +480,16 @@
                 "damage": {
                     "damageType": "acid",
                     "dice": 1,
-                    "die": "d6",
+                    "die": "",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span>This flask filled with corrosive acid deals 1 acid damage, the listed persistent acid damage, and the listed acid splash damage. Many types grant an item bonus to attack rolls.</span></p>\n<p><span>It deals 1d6 persistent acid damage and 1 acid splash damage. </span></p>\n<p><span><strong>Activate</strong> <img class=\"actiondark\" style=\"height: 15px; padding: 0px 2px 0px 2px;\" src=\"systems/pf2e/icons/actions/OneAction.webp\" alt=\"Single Action\"> Strike</span></p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 1d6 persistent acid damage, and 1 acid splash damage.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -529,7 +532,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -554,26 +557,6 @@
                     "strikeConditionValue": null,
                     "value": ""
                 },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -595,16 +578,22 @@
                 "reload": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Effect:</strong> The bomb also deals [[/r 1d6 #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>"
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "acid-flask-lesser",
                 "source": {
                     "value": ""
                 },
                 "splashDamage": {
-                    "value": 0
+                    "value": 1
                 },
                 "stackGroup": {
                     "value": ""
@@ -636,14 +625,22 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.M1k5QQc1qQLxzyCK"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.webp",
             "name": "Acid Flask (Lesser)",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "weapon"
         },
         {
-            "_id": "ROEjYhXDhGCo2QnW",
+            "_id": "LlYc92UOjKx21Upj",
             "data": {
                 "MAP": {
                     "value": ""
@@ -651,7 +648,7 @@
                 "ability": {
                     "value": "str"
                 },
-                "baseItem": null,
+                "baseItem": "dagger",
                 "bonus": {
                     "value": 0
                 },
@@ -679,10 +676,10 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown. <br style=\"font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;\"></p>"
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -716,7 +713,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -725,7 +722,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -748,26 +745,6 @@
                     "die": "",
                     "strikeConditionType": "",
                     "strikeConditionValue": null,
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -795,7 +772,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "dagger",
                 "source": {
                     "value": ""
                 },
@@ -831,14 +808,22 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.rQWaJhI5Bko5x14Z"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "weapon"
         },
         {
-            "_id": "L9FcZ1N7NQeCBlXH",
+            "_id": "BhfP2QCbcXQVjYhI",
             "data": {
                 "armor": {
                     "value": 1
@@ -846,7 +831,7 @@
                 "armorType": {
                     "value": "light"
                 },
-                "baseItem": null,
+                "baseItem": "padded-armor",
                 "brokenThreshold": {
                     "value": null
                 },
@@ -854,7 +839,7 @@
                     "value": ""
                 },
                 "check": {
-                    "value": ""
+                    "value": 0
                 },
                 "collapsed": {
                     "value": false
@@ -865,19 +850,19 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(Leather Apron functions as padded armor)</p>\n<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor or undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep the armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
+                    "value": "<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor or undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep the armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
                 },
                 "dex": {
-                    "value": "3"
+                    "value": 3
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": "L"
                 },
                 "group": {
-                    "value": ""
+                    "value": null
                 },
                 "hardness": {
                     "value": null
@@ -912,7 +897,7 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -922,36 +907,6 @@
                 },
                 "price": {
                     "value": "2 sp"
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -976,18 +931,18 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "padded-armor",
                 "source": {
                     "value": ""
                 },
                 "speed": {
-                    "value": ""
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
                 "strength": {
-                    "value": "10"
+                    "value": 10
                 },
                 "traits": {
                     "custom": "",
@@ -999,21 +954,29 @@
                     ]
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
                     "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.zBYEU9E7034ENCmh"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/armor/padded-armor.webp",
             "name": "Leather Apron",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "armor"
         },
         {
-            "_id": "7lDKzn1GXVWd4Yhh",
+            "_id": "sOzgzk33i0l78q8k",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -1062,7 +1025,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -1086,7 +1049,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "healers-tools",
                 "source": {
                     "value": ""
                 },
@@ -1098,6 +1061,9 @@
                     "rarity": {
                         "value": "common"
                     },
+                    "usage": {
+                        "value": "held-in-two-hands"
+                    },
                     "value": []
                 },
                 "usage": {
@@ -1108,14 +1074,22 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.s1vB3HdXjMigYAnY"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/adventuring-gear/healers-kit.webp",
             "name": "Healer's Tools",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "equipment"
         },
         {
-            "_id": "00S7ZsF8480Z4PDP",
+            "_id": "iEv0dskNR9XsPa9V",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -1133,7 +1107,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This matching mortar and pestle are made from immaculate darkwood that looks nearly olive in the right light.</p>"
+                    "value": ""
                 },
                 "equipped": {
                     "value": false
@@ -1164,7 +1138,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "1"
+                    "value": 1
                 },
                 "maxHp": {
                     "value": 0
@@ -1182,13 +1156,13 @@
                     "value": "1 gp"
                 },
                 "quantity": {
-                    "value": "1"
+                    "value": 1
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "mortar-of-hidden-meaning",
                 "source": {
                     "value": ""
                 },
@@ -1213,14 +1187,22 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.LmIpYZ1lS2UDGXvU"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/held-items/mortar-of-hidden-meaning.webp",
             "name": "Mortar and Pestle",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "equipment"
         },
         {
-            "_id": "b6w7VC4ozfYKaRUn",
+            "_id": "02W2R2yD5ga54tWz",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1263,7 +1245,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Elixirs of life accelerate the body's natural healing processes and immune system. Upon drinking this elixir, you regain the listed number of Hit Points and gain an item bonus to saving throws against diseases and poisons for 10 minutes. The elixir restores 1d6 Hit Points, and the bonus is +1.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creature's natural healing processes and immune system. Upon drinking this elixir, you regain [[/r 1d6]] Hit Points and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@Compendium[pf2e.consumable-effects.Effect: Elixir of Life (Minor)]{Effect: Elixir of Life (Minor)}</p>"
                 },
                 "duration": {
                     "units": "",
@@ -1327,7 +1309,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "elixir-of-life-minor",
                 "source": {
                     "value": ""
                 },
@@ -1373,9 +1355,17 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.hDLbR56Id2OtU318"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
             "name": "Elixir of Life (Minor)",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "consumable"
         },
@@ -1388,25 +1378,8 @@
                 "attackEffects": {
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 4
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "die": "1d6"
                 },
                 "damageRolls": {
                     "mtk1xhn3uwxw2z0t325g": {
@@ -1419,78 +1392,9 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -1500,20 +1404,18 @@
                     },
                     "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Stone Pestle",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "melee"
         },
@@ -1526,25 +1428,8 @@
                 "attackEffects": {
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 5
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "die": "1d4"
                 },
                 "damageRolls": {
                     "0": {
@@ -1557,78 +1442,9 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -1641,20 +1457,18 @@
                         "nonlethal"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Fist",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "melee"
         },
@@ -1667,36 +1481,11 @@
                 "attackEffects": {
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 5
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "acid",
-                    "die": "1"
-                },
                 "damageRolls": {
                     "0": {
-                        "damage": "1",
-                        "damageType": "acid"
-                    },
-                    "1": {
-                        "damage": "1d6",
-                        "damageType": "acid"
-                    },
-                    "2": {
                         "damage": "1",
                         "damageType": "acid"
                     }
@@ -1704,80 +1493,11 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
+                    "value": "<p>[[/r 1d6 #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage} and [[/r 1 #acid splash]] Acid Splash damage</p>"
                 },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -1786,24 +1506,22 @@
                         "value": "common"
                     },
                     "value": [
-                        "range increment 20 feet",
+                        "range-increment-20",
                         "splash"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weaponType": {
                     "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Acid Flask",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "melee"
         },
@@ -1851,29 +1569,46 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Medical Wisdom",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "action"
         },
         {
-            "_id": "s2musO2FKKMj2dLe",
+            "_id": "Yzt7iAgbGNFAn1NW",
             "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
+                "description": {
+                    "value": ""
                 },
-                "mod": {
-                    "value": 5
+                "requirements": {
+                    "value": ""
                 },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "poison"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1885,15 +1620,95 @@
                     },
                     "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.5EcCWK4rV7lqrPqY"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Circumstance Bonus on Saves vs Poisons",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "lO3CMWjs9XkP1KVX",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 5
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Craft Alchemy",
+                        "predicate": {
+                            "all": [
+                                "alchemy"
+                            ]
+                        },
+                        "selector": "crafting",
+                        "value": 3
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Craft Medication",
+                        "predicate": {
+                            "all": [
+                                "medication"
+                            ]
+                        },
+                        "selector": "crafting",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+8 for alchemy",
+                        "options": "alchemy"
+                    },
+                    "1": {
+                        "label": "and medication",
+                        "options": "medication"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting (+8 for alchemy and medication)",
-            "sort": 1100000,
+            "name": "Crafting",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -1931,9 +1746,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 1200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -1971,9 +1790,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1400000,
             "type": "lore"
         }
     ],
@@ -1984,10 +1807,13 @@
     "token": {
         "actorId": "8WFGygPv7UHh7zdJ",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1999,17 +1825,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Apothecary",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

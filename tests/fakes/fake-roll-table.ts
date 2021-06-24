@@ -1,11 +1,7 @@
 export class FakeRollTable {
-    _data: RollTableData;
+    data: foundry.data.RollTableData;
 
-    constructor(data: RollTableData) {
-        this._data = duplicate(data);
-    }
-
-    get data() {
-        return this._data;
+    constructor(data: foundry.data.RollTableSource) {
+        this.data = duplicate(data) as unknown as foundry.data.RollTableData;
     }
 }

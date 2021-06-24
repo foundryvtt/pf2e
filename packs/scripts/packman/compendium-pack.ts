@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { sluggify } from '@module/utils';
-import { isPhysicalItem, ItemDataPF2e } from '@item/data/types';
-import { ActorDataPF2e } from '@actor/data-definitions';
+import { ItemSourcePF2e } from '@item/data';
+import { isPhysicalData } from '@item/data/helpers';
 
 export interface PackMetadata {
     system: string;
@@ -16,18 +16,18 @@ export const PackError = (message: string) => {
     process.exit(1);
 };
 
-type CompendiumData = CompendiumEntity['data'];
-const isActorData = (entityData: CompendiumData): entityData is ActorDataPF2e => {
+type CompendiumSource = CompendiumDocument['data']['_source'];
+const isActorSource = (docSource: CompendiumSource): docSource is foundry.data.ActorSource => {
     return (
-        'effects' in entityData &&
-        Array.isArray(entityData.effects) &&
-        'items' in entityData &&
-        Array.isArray(entityData.items)
+        'effects' in docSource &&
+        Array.isArray(docSource.effects) &&
+        'items' in docSource &&
+        Array.isArray(docSource.items)
     );
 };
 
-const isItemData = (entityData: CompendiumData): entityData is ItemDataPF2e => {
-    return 'effects' in entityData && Array.isArray(entityData.effects) && 'description' in entityData.data;
+const isItemSource = (docSource: CompendiumSource): docSource is ItemSourcePF2e => {
+    return 'effects' in docSource && Array.isArray(docSource.effects) && 'description' in docSource.data;
 };
 
 export class CompendiumPack {
@@ -35,7 +35,7 @@ export class CompendiumPack {
     packDir: string;
     entityClass: string;
     systemId: string;
-    data: CompendiumData[];
+    data: CompendiumSource[];
 
     static outDir = path.resolve(process.cwd(), 'static/packs');
     private static namesToIds = new Map<string, Map<string, string>>();
@@ -76,16 +76,16 @@ export class CompendiumPack {
 
         this.data = parsedData;
 
-        for (const entityData of this.data) {
+        for (const docSource of this.data) {
             // Populate CompendiumPack.namesToIds for later conversion of compendium links
-            packMap.set(entityData.name, entityData._id);
+            packMap.set(docSource.name, docSource._id);
 
             // Check img paths
-            if (typeof entityData.img === 'string') {
-                const imgPaths = [entityData.img ?? ''].concat(
-                    isActorData(entityData) ? entityData.items.map((itemData) => itemData.img ?? '') : [],
+            if ('img' in docSource && typeof docSource.img === 'string') {
+                const imgPaths: string[] = [docSource.img ?? ''].concat(
+                    isActorSource(docSource) ? docSource.items.map((itemData) => itemData.img ?? '') : [],
                 );
-                const entityName = entityData.name;
+                const entityName = docSource.name;
                 for (const imgPath of imgPaths) {
                     if (imgPath.startsWith('data:image')) {
                         const imgData = imgPath.slice(0, 64);
@@ -119,7 +119,7 @@ export class CompendiumPack {
         const filePaths = filenames.map((filename) => path.resolve(dirPath, filename));
         const parsedData = filePaths.map((filePath) => {
             const jsonString = fs.readFileSync(filePath, 'utf-8');
-            const entityData: CompendiumData = (() => {
+            const entityData: CompendiumSource = (() => {
                 try {
                     return JSON.parse(jsonString);
                 } catch (error) {
@@ -144,40 +144,38 @@ export class CompendiumPack {
         return new CompendiumPack(dbFilename, parsedData);
     }
 
-    private finalize(entityData: CompendiumData) {
+    private finalize(docSource: CompendiumSource) {
         // Replace all compendium entities linked by name to links by ID
-        const stringified = JSON.stringify(entityData);
+        const stringified = JSON.stringify(docSource);
         const worldItemLink = CompendiumPack.worldItemLinkPattern.exec(stringified);
         if (worldItemLink !== null) {
-            throw PackError(`${entityData.name} (${this.name}) has a link to a world item: ${worldItemLink[0]}`);
+            throw PackError(`${docSource.name} (${this.name}) has a link to a world item: ${worldItemLink[0]}`);
         }
 
-        entityData.flags.core = { sourceId: this.sourceIdOf(entityData._id) };
-        if (isItemData(entityData)) {
-            entityData.data.slug = sluggify(entityData.name);
+        docSource.flags.core = { sourceId: this.sourceIdOf(docSource._id) };
+        if (isItemSource(docSource)) {
+            docSource.data.slug = sluggify(docSource.name);
 
-            if (isPhysicalItem(entityData)) {
-                entityData.data.equipped.value = false;
+            if (isPhysicalData(docSource)) {
+                docSource.data.equipped.value = false;
             }
         }
 
-        return JSON.stringify(entityData).replace(
+        return JSON.stringify(docSource).replace(
             /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/g,
             (match, packName: string, entityName: string) => {
                 const namesToIds = CompendiumPack.namesToIds.get(packName);
                 const link = match.replace(/\{$/, '');
                 if (namesToIds === undefined) {
-                    throw PackError(`${entityData.name} (${this.name}) has a bad pack reference: ${link}`);
+                    throw PackError(`${docSource.name} (${this.name}) has a bad pack reference: ${link}`);
                 }
                 if (!match.endsWith('{')) {
-                    throw PackError(`${entityData.name} (${this.name}) has a link with no label: ${link}`);
+                    throw PackError(`${docSource.name} (${this.name}) has a link with no label: ${link}`);
                 }
 
                 const entityId: string | undefined = namesToIds.get(entityName);
                 if (entityId === undefined) {
-                    throw PackError(
-                        `${entityData.name} (${this.name}) has broken link to ${entityName} (${packName}).`,
-                    );
+                    throw PackError(`${docSource.name} (${this.name}) has broken link to ${entityName} (${packName}).`);
                 }
 
                 return `@Compendium[pf2e.${packName}.${entityId}]{`;
@@ -202,7 +200,7 @@ export class CompendiumPack {
         return this.data.length;
     }
 
-    private isEntityData(entityData: {}): entityData is CompendiumData {
+    private isDocumentSource(entityData: {}): entityData is CompendiumSource {
         const checks = Object.entries({
             name: (data: { name?: unknown }) => typeof data.name === 'string',
             flags: (data: unknown) => typeof data === 'object' && data !== null && 'flags' in data,
@@ -224,7 +222,7 @@ export class CompendiumPack {
         return true;
     }
 
-    private isPackData(packData: unknown[]): packData is CompendiumData[] {
-        return packData.every((entityData: any) => this.isEntityData(entityData));
+    private isPackData(packData: unknown[]): packData is CompendiumSource[] {
+        return packData.every((entityData: any) => this.isDocumentSource(entityData));
     }
 }

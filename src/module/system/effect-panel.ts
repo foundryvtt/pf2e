@@ -1,8 +1,6 @@
 import { ActorPF2e } from '@actor/base';
-import { ConditionManager } from '../conditions';
-import { ConditionData, EffectData } from '@item/data/types';
-import { ConditionPF2e } from '@item/others';
-import { EffectPF2e } from '@item/effect';
+import { ConditionData, EffectData } from '@item/data';
+import { ConditionPF2e, EffectPF2e } from '@item/index';
 
 interface EffectPanelData {
     conditions?: ConditionData[];
@@ -15,7 +13,7 @@ export class EffectPanel extends Application {
 
     private timeout: number | undefined = undefined;
 
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             popOut: false,
             template: 'systems/pf2e/templates/system/effect-panel.html',
@@ -35,7 +33,7 @@ export class EffectPanel extends Application {
         }, 100);
     }
 
-    getData(options?: any): EffectPanelData {
+    override getData(options?: ApplicationOptions): EffectPanelData {
         const data: EffectPanelData = super.getData(options);
 
         data.conditions = [];
@@ -47,7 +45,7 @@ export class EffectPanel extends Application {
                     data.conditions.push(item.data);
                 } else if (item instanceof EffectPF2e) {
                     const duration = item.totalDuration;
-                    const effect = duplicate(item.data);
+                    const effect = item.clone({}, { keepId: true }).data;
                     if (duration === Infinity) {
                         effect.data.expired = false;
                         effect.data.remaining = game.i18n.localize('PF2E.EffectPanel.UnlimitedDuration');
@@ -66,7 +64,7 @@ export class EffectPanel extends Application {
                 }
             }
         }
-        data.conditions = ConditionManager.getFlattenedConditions(data.conditions).map((c) => {
+        data.conditions = game.pf2e.ConditionManager.getFlattenedConditions(data.conditions).map((c) => {
             c.locked = c.parents.length > 0;
             c.breakdown = EffectPanel.getParentConditionsBreakdown(c.parents);
             return c;
@@ -75,7 +73,7 @@ export class EffectPanel extends Application {
         return data;
     }
 
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // handle right-click on condition and effect icons
@@ -84,7 +82,7 @@ export class EffectPanel extends Application {
             if (!actor) return;
             const effect = actor.items.get(event.currentTarget.dataset.itemId ?? '');
             if (effect instanceof ConditionPF2e) {
-                await actor.removeOrReduceCondition(effect);
+                await actor.decreaseCondition(effect);
             } else if (effect instanceof EffectPF2e) {
                 await effect.delete();
             }

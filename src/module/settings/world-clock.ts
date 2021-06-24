@@ -6,7 +6,6 @@ type SettingsKey = 'dateTheme' | 'timeConvention' | 'playersCanView' | 'syncDark
 interface FormInputData extends ClientSettingsData {
     key: string;
     value: unknown;
-    isDisabled: boolean;
     isSelect: boolean;
     isCheckbox: boolean;
     isDateTime: boolean;
@@ -24,8 +23,7 @@ interface UpdateData {
 }
 
 export class WorldClockSettings extends FormApplication {
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             title: CONFIG.PF2E.SETTINGS.worldClock.name,
             id: 'world-clock-settings',
@@ -36,8 +34,7 @@ export class WorldClockSettings extends FormApplication {
         });
     }
 
-    /** @override */
-    getData(): TemplateData {
+    override getData(): TemplateData {
         const visibleSettings = Object.entries(WorldClockSettings.settings).filter(([key]) => key !== 'worldCreatedOn');
 
         const settings: FormInputData[] = visibleSettings.map(([key, setting]) => {
@@ -51,21 +48,16 @@ export class WorldClockSettings extends FormApplication {
                 return rawValue;
             })();
 
-            const usingCalendarWeather = game.pf2e.worldClock!.usingCalendarWeather;
             return {
                 ...setting,
                 key: key,
                 value: value,
-                isDisabled: usingCalendarWeather && ['dateTheme', 'timeConvention'].includes(key as SettingsKey),
                 isSelect: 'choices' in setting,
                 isCheckbox: setting.type === Boolean,
                 isDateTime: setting.type === String && !('choices' in setting),
             };
         });
-        return mergeObject(super.getData(), {
-            settings,
-            usingCalendarWeather: game.pf2e.worldClock!.usingCalendarWeather,
-        });
+        return mergeObject(super.getData(), { settings });
     }
 
     /** Register World Clock settings */
@@ -77,8 +69,7 @@ export class WorldClockSettings extends FormApplication {
         game.settings.register('pf2e', 'worldClock.worldCreatedOn', this.settings.worldCreatedOn);
     }
 
-    /** @override */
-    activateListeners($html: JQuery): void {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
         const translations = LocalizePF2e.translations.PF2E.SETTINGS.WorldClock;
@@ -98,8 +89,7 @@ export class WorldClockSettings extends FormApplication {
         });
     }
 
-    /** @override */
-    protected async _updateObject(_event: Event, data: UpdateData): Promise<void> {
+    protected override async _updateObject(_event: Event, data: UpdateData): Promise<void> {
         const keys: (keyof UpdateData)[] = ['dateTheme', 'timeConvention', 'playersCanView', 'syncDarkness'];
         for await (const key of keys) {
             const settingKey = `worldClock.${key}`;
@@ -113,12 +103,16 @@ export class WorldClockSettings extends FormApplication {
     /** Settings to be registered and also later referenced during user updates */
     private static get settings(): Record<SettingsKey, ClientSettingsData> {
         // Advise the GM whether Global Illumination is enabled on the current scene.
-        const syncDarknessFormatting: { globalLight: string } = Object.defineProperty({}, 'globalLight', {
-            get: () =>
-                canvas.lighting.globalLight
-                    ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOn)
-                    : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOff),
-        });
+        const syncDarknessFormatting: { readonly globalLight: string } = Object.defineProperty(
+            { globalLight: '' },
+            'globalLight',
+            {
+                get: () =>
+                    canvas.lighting?.globalLight
+                        ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOn)
+                        : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOff),
+            },
+        );
 
         return {
             // Date theme, currently one of Golarion (Absalom Reckoning), Earth (Material Plane, 95 years ago), or

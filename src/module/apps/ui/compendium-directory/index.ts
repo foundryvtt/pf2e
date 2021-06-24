@@ -4,9 +4,8 @@ import { PackFolderPF2e } from './folder';
 
 type FolderName = keyof typeof LocalizePF2e.translations.PF2E.CompendiumDirectory.Folders;
 
-interface PackMetadataPF2e<T extends CompendiumEntity = CompendiumEntity> extends CompendiumMetadata<T> {
+interface PackMetadataPF2e<T extends CompendiumDocument = CompendiumDocument> extends CompendiumMetadata<T> {
     folder?: FolderName;
-    private?: boolean;
 }
 interface PackSummaryDataPF2e extends PackSummaryData {
     metadata: PackMetadataPF2e;
@@ -18,7 +17,7 @@ interface PackSummaryPF2e extends PackSummary {
     folders?: PackFolderPF2e[];
     packs: PackSummaryDataPF2e[];
 }
-type PackSummaryByEntityPF2e = Record<CompendiumEntityString, PackSummaryPF2e>;
+type PackSummaryByEntityPF2e = Record<CompendiumDocumentType, PackSummaryPF2e>;
 
 interface PackDirectoryDataPF2e extends CompendiumDirectoryData {
     packs: PackSummaryByEntityPF2e;
@@ -31,8 +30,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
     private static readonly contentSelector = 'ol.compendium-list';
 
-    /** @override */
-    static get defaultOptions(): CompendiumDirectoryOptions {
+    static override get defaultOptions(): CompendiumDirectoryOptions {
         return {
             ...super.defaultOptions,
             template: 'systems/pf2e/templates/system/ui/compendium-directory.html',
@@ -46,18 +44,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         };
     }
 
-    /** @override */
-    getData(options?: object): PackDirectoryDataPF2e {
-        const packSettings = game.settings.get('core', 'compendiumConfiguration');
-        for (const pack of game.packs) {
-            const metadata: PackMetadataPF2e = pack.metadata;
-            if (metadata.package !== 'pf2e') {
-                delete metadata.folder;
-                delete metadata.private;
-            }
-            const packKey = `${metadata.package}.${metadata.name}`;
-            pack.private = packSettings[packKey]?.private ?? metadata.private ?? false;
-        }
+    override getData(options?: object): PackDirectoryDataPF2e {
         const data: PackDirectoryDataPF2e = super.getData(options);
 
         // Get compendia in folders
@@ -118,9 +105,13 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         return newFolder;
     }
 
-    /** @override */
-    activateListeners($html: JQuery): void {
+    override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+
+        // Hook in the compendium browser
+        $('#compendium > footer > button').on('click', () => {
+            game.pf2e.compendiumBrowser.render(true);
+        });
         for (const filter of this._searchFilters) {
             for (const compendiumList of $html) {
                 filter.bind(compendiumList);
@@ -140,25 +131,13 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 $icon.removeClass('fa-atlas').addClass('fa-book-open');
             }
         });
-
-        // What follows is evil but necessary given the stakes.
-        const original = Compendium.prototype.close;
-        Compendium.prototype.close = async function (this: Compendium) {
-            const packID = `${this.metadata.package}.${this.metadata.name}`;
-            const $packRow = $html.find(`li.compendium-pack[data-pack="${packID}"]`);
-            const $icon = $packRow.find('h4.pack-title i.folder');
-            await original.apply(this);
-            $icon.removeClass(['fa-folder', 'fa-book-open']).addClass('fa-atlas');
-        };
     }
 
-    /** @override */
-    protected _canDragDrop(): boolean {
+    protected override _canDragDrop(): boolean {
         return game.user.hasPermission('ACTOR_CREATE');
     }
 
-    /** @override */
-    protected _onSearchFilter(_event: Event, query: string, _html: HTMLElement): void {
+    protected override _onSearchFilter(_event: KeyboardEvent, query: string): void {
         const $lists = $(CompendiumDirectoryPF2e.contentSelector);
         const $compendia = $lists.find('li.compendium-pack');
 

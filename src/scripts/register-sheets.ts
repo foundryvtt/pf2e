@@ -1,28 +1,27 @@
-import { CharacterSheetPF2e } from '@actor/sheet/character';
-import { UpdatedNPCSheetPF2e } from '@actor/sheet/updated-npc-sheet';
-import { ActionSheetPF2e } from '@item/sheet/action';
-import { HazardSheetPF2e } from '@actor/sheet/hazard';
-import { LootSheetPF2e } from '@actor/sheet/loot';
-import { FamiliarSheetPF2e } from '@actor/sheet/familiar';
-import { VehicleSheetPF2e } from '@actor/sheet/vehicle';
-import { ActorSheetPF2eSimpleNPC } from '@actor/sheet/simple-npc-sheet';
-import { AnimalCompanionSheetPF2e } from '@actor/sheet/animal-companion';
+import { CharacterSheetPF2e } from '@actor/character/sheet';
+import { NPCLegacySheetPF2e } from '@actor/npc/legacy-sheet';
+import { ActionSheetPF2e } from '@item/action/sheet';
+import { HazardSheetPF2e } from '@actor/hazard/sheet';
+import { LootSheetPF2e } from '@actor/loot/sheet';
+import { FamiliarSheetPF2e } from '@actor/familiar/sheet';
+import { VehicleSheetPF2e } from '@actor/vehicle/sheet';
+import { NPCSheetPF2e } from '@actor/npc/sheet';
 import { ItemSheetPF2e } from '@item/sheet/base';
-import { KitSheetPF2e } from '@item/sheet/kit';
-import { AncestrySheetPF2e } from '@item/sheet/ancestry';
+import { KitSheetPF2e } from '@item/kit/sheet';
+import { AncestrySheetPF2e } from '@item/ancestry/sheet';
 import { BackgroundSheetPF2e } from '@item/sheet/background';
-import { ClassSheetPF2e } from '@item/sheet/class';
-import { SpellSheetPF2e } from '@item/sheet/spell';
+import { ClassSheetPF2e } from '@item/class/sheet';
+import { SpellSheetPF2e } from '@item/spell/sheet';
 import { LocalizePF2e } from '@system/localize';
-import { PhysicalItemSheetPF2e } from '@item/sheet/physical';
-import { ActorSheetPF2eDataEntryNPC } from '@actor/sheet/data-entry-npc-sheet';
-import { FeatSheetPF2e } from '@item/sheet/feat';
+import { PhysicalItemSheetPF2e } from '@item/physical/sheet';
+import { ActorSheetPF2eDataEntryNPC } from '@actor/npc/data-entry-sheet';
+import { FeatSheetPF2e } from '@item/feat/sheet';
 import { PHYSICAL_ITEM_TYPES } from '@item/data/values';
+import { WeaponSheetPF2e } from '@item/weapon/sheet';
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
     const sheetLabel = translations.SheetLabel;
-    const sheetLabelNew = translations.SheetLabelNew;
     const sheetLabelOld = translations.SheetLabelOld;
     const sheetLabelDataEntry = translations.SheetLabelDataEntry;
 
@@ -30,7 +29,7 @@ export function registerSheets() {
     Actors.unregisterSheet('core', ActorSheet);
 
     const localizeType = (type: string) => {
-        const entityType = type in CONFIG.PF2E.Actor.entityClasses ? 'ACTOR' : 'ITEM';
+        const entityType = type in CONFIG.PF2E.Actor.documentClasses ? 'ACTOR' : 'ITEM';
         const camelized = type[0].toUpperCase() + type.slice(1).toLowerCase();
         return game.i18n.localize(`${entityType}.Type${camelized}`);
     };
@@ -42,14 +41,14 @@ export function registerSheets() {
     });
 
     // Register NPC Sheet
-    Actors.registerSheet('pf2e', UpdatedNPCSheetPF2e, {
+    Actors.registerSheet('pf2e', NPCLegacySheetPF2e, {
         types: ['npc'],
         label: game.i18n.format(sheetLabelOld, { type: localizeType('npc') }),
         makeDefault: false,
     });
 
     // Regiser NEW NPC Sheet (don't make it default, it's on testing phase)
-    Actors.registerSheet('pf2e', ActorSheetPF2eSimpleNPC, {
+    Actors.registerSheet('pf2e', NPCSheetPF2e, {
         types: ['npc'],
         label: game.i18n.format(sheetLabel, { type: localizeType('npc') }),
         makeDefault: true,
@@ -91,15 +90,6 @@ export function registerSheets() {
         makeDefault: true,
     });
 
-    if (BUILD_MODE === 'development') {
-        // Register AnimalCompanion Sheet
-        Actors.registerSheet('pf2e', AnimalCompanionSheetPF2e, {
-            types: ['animalCompanion'],
-            label: game.i18n.format(sheetLabelNew, { type: localizeType('animalCompanion') }),
-            makeDefault: true,
-        });
-    }
-
     // ITEMS
     Items.unregisterSheet('core', ItemSheet);
 
@@ -113,12 +103,18 @@ export function registerSheets() {
     }
 
     for (const itemType of PHYSICAL_ITEM_TYPES) {
+        if (itemType === 'weapon') continue;
         Items.registerSheet('pf2e', PhysicalItemSheetPF2e, {
             types: [itemType],
             label: game.i18n.format(sheetLabel, { type: localizeType(itemType) }),
             makeDefault: true,
         });
     }
+    Items.registerSheet('pf2e', WeaponSheetPF2e, {
+        types: ['weapon'],
+        label: game.i18n.format(sheetLabel, { type: localizeType('weapon') }),
+        makeDefault: true,
+    });
 
     const sheetEntries = [
         ['action', ActionSheetPF2e],

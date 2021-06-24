@@ -2,7 +2,7 @@
     <label>{{localize "PF2E.ArmorArmorTypeLabel"}}</label>
     <select name="data.armorType.value" data-dtype="String">
         {{#select data.armorType.value}}
-            {{#each armorTypes as |name type|}}
+            {{#each categories as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}
         {{/select}}
@@ -14,7 +14,7 @@
     <select name="data.group.value" data-dtype="String">
         {{#select data.group.value}}
             <option value=""></option>
-            {{#each armorGroups as |name type|}}
+            {{#each groups as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}
         {{/select}}
@@ -26,7 +26,7 @@
     <select name="data.baseItem" data-dtype="String">
         {{#select data.baseItem}}
             <option value=""></option>
-            {{#each baseArmors as |name slug|}}
+            {{#each baseTypes as |name slug|}}
                 <option value="{{slug}}">{{name}}</option>
             {{/each}}
         {{/select}}
@@ -193,7 +193,7 @@
         <a class="trait-selector" data-trait-selector="basic" data-config-types="armorTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="traits-list pf-value pf-large">
-        {{#each traits as |trait|}}
+        {{#each baseTraits as |trait|}}
             {{#if trait.selected}}
                 <li class="tag" data-trait="{{trait.value}}">{{localize trait.label}}</li>
             {{/if}}

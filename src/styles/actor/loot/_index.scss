@@ -1,8 +1,64 @@
 .pf2e.actor.loot {
-    .loot-distribution {
-        @include button;
-        width: calc(100% - 6px);
-        background-color: var(--tertiary);
+    section.sidebar {
+        float: left;
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        height: calc(100% - 48px);
+
+        > * {
+            flex: 0;
+        }
+
+        > img.actor-icon {
+            flex: none;
+            border: none;
+            border-bottom: 1px solid var(--primary-background);
+        }
+        > .editor, .description {
+            flex-basis: auto;
+            min-height: 40px;
+            margin-top: 4px;
+        }
+
+        > .editor {
+            > .tox-tinymce {
+                height: auto !important; // override inline tinymc styling
+                .tox-edit-area {
+                    min-height: 120px;
+                }
+            }
+        }
+
+        > .loot-distribution {
+            @include button;
+            width: calc(100% - 6px);
+            background-color: var(--tertiary);
+        }
+        section.gm-settings {
+            margin: 0;
+
+            h4 {
+                display: flex;
+                align-items: center;
+                margin: 0.5em 0 0.25em;
+
+                &.sheet-type {
+                    i.fas {
+                        padding: 0 2px;
+                    }
+                }
+
+                > select, input {
+                    margin-left: auto;
+                    margin-right: 0.5em;
+                }
+
+                > span.eye {
+                    padding-left: 0.25em;
+                }
+            }
+        }
     }
 
     .currency {
@@ -138,16 +194,18 @@
         background-color: var(--tertiary);
     }
 
-    .checkboxes label {
-        display: block;
-        padding-right: 10px;
-        padding-left: 22px;
-        text-indent: -22px;
-    }
-    .checkboxes input {
-        vertical-align: middle;
-    }
-    .checkboxes label span {
-        vertical-align: middle;
+    .checkboxes {
+        label {
+            display: block;
+            padding-right: 10px;
+            padding-left: 22px;
+            text-indent: -22px;
+        }
+        input {
+            vertical-align: middle;
+        }
+        label span {
+            vertical-align: middle;
+        }
     }
 }

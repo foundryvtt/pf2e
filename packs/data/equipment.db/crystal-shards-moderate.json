@@ -35,7 +35,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Usage</strong> held in 1 hand</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<hr />\n<p>This flask holds a pressurized red-brown gas flecked with bits of sublimated crystal. You gain the listed item bonus to attack rolls. When the bomb explodes, it deals the listed piercing damage and piercing splash damage as the mixture suddenly turns into solid crystals flying at high speeds.</p>\n<p>Surfaces in the splash area grow brittle, gleaming red crystals that crumble to dust after 1 minute. The crystals on level surfaces are @Compendium[pf2e.equipment-srd.Caltrops]{Caltrops} (Core Rulebook 287). The crystals on vertical surfaces can be used briefly as handholds, granting the listed item bonus to the next Athletics check to @Compendium[pf2e.actionspf2e.Climb]{Climb} each space. The crystals in each space crumble after the creature leaves, whether Climbing or moving through the caltrops.</p>"
+            "value": "<p><strong>Usage</strong> held in 1 hand</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<hr />\n<p>This flask holds a pressurized red-brown gas flecked with bits of sublimated crystal. You gain the listed item bonus to attack rolls. When the bomb explodes, it deals the listed piercing damage and piercing splash damage as the mixture suddenly turns into solid crystals flying at high speeds.</p>\n<p>Surfaces in the splash area grow brittle, gleaming red crystals that crumble to dust after 1 minute. The crystals on level surfaces are @Compendium[pf2e.equipment-srd.Caltrops]{Caltrops}. The crystals on vertical surfaces can be used briefly as handholds, granting the listed item bonus to the next Athletics check to @Compendium[pf2e.actionspf2e.Climb]{Climb} each space. The crystals in each space crumble after the creature leaves, whether Climbing or moving through the caltrops.</p>"
         },
         "equipped": {
             "value": false
@@ -81,7 +81,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": 0
+            "value": null
         },
         "preciousMaterial": {
             "value": ""
@@ -127,7 +127,13 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'><strong>Effect:</strong> Splash causes crystals that are @Compendium[pf2e.equipment-srd.Caltrops]{Caltrops} or climbing holds (see details).</p>"
+            }
+        ],
         "size": {
             "value": "med"
         },
@@ -168,6 +174,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/crystal-shards.webp",
     "name": "Crystal Shards (Moderate)",
     "permission": {

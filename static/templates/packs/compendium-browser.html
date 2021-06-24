@@ -1,93 +1,71 @@
-<div class="compendium-browser">
-    <nav class="compendium-navigation" data-group="primary">
-        <a class="item" data-tab="landing-page" style="display:none"></a>
-        <a class="item" data-tab="action">
-            {{localize "PF2E.CompendiumBrowser.TabAction"}}
-        </a>
-
+<div class="content-box">
+    <nav data-group="primary">
+        <a data-tab="landing-page" style="display:none"></a>
+        <a data-tab="action">{{localize "PF2E.CompendiumBrowser.TabAction"}}</a>
         {{#if user.isGM}}
-        <a class="item" data-tab="bestiary">
-            {{localize "PF2E.CompendiumBrowser.TabBestiary"}}
-        </a>
+            <a data-tab="bestiary">{{localize "PF2E.CompendiumBrowser.TabBestiary"}}</a>
         {{/if}}
-
-        <a class="item" data-tab="equipment">
-            {{localize "PF2E.CompendiumBrowser.TabEquipment"}}
-        </a>
-
-        <a class="item" data-tab="feat">
-            {{localize "PF2E.CompendiumBrowser.TabFeat"}}
-        </a>
-
+        <a data-tab="equipment">{{localize "PF2E.CompendiumBrowser.TabEquipment"}}</a>
+        <a data-tab="feat">{{localize "PF2E.CompendiumBrowser.TabFeat"}}</a>
         {{#if user.isGM}}
-        <a class="item" data-tab="hazard">
-            {{localize "PF2E.CompendiumBrowser.TabHazard"}}
-        </a>
+            <a data-tab="hazard">{{localize "PF2E.CompendiumBrowser.TabHazard"}}</a>
         {{/if}}
-
-        <a class="item" data-tab="spell">
-            {{localize "PF2E.CompendiumBrowser.TabSpell"}}
-        </a>
-
+        <a data-tab="spell">{{localize "PF2E.CompendiumBrowser.TabSpell"}}</a>
         {{#if user.isGM}}
-        <a class="item" data-tab="settings">
-            {{localize "PF2E.CompendiumBrowser.TabSettings"}}
-        </a>
+            <a data-tab="settings">{{localize "PF2E.CompendiumBrowser.TabSettings"}}</a>
         {{/if}}
     </nav>
+    <section class="content">
+        <div class="tab" data-group="primary" data-tab="landing-page">
+            <div style='text-align:center; padding: 2em;'>Use the tabs above to select a compendium</div>
+        </div>
 
-    <section class="compendium-content">
-      <div class="tab" data-group="primary" data-tab="landing-page">
-        <div style='text-align:center; padding: 2em;'>Use the tabs above to select a compendium</div>
-      </div>
+        {{#with action}}
+            <div class="tab browser" data-group="primary" data-tab="action">
+                {{> systems/pf2e/templates/packs/action-browser.html }}
+            </div>
+        {{/with}}
 
-      {{#with action}}
-      <div class="tab browser" data-group="primary" data-tab="action">
-        {{> systems/pf2e/templates/packs/action-browser.html }}
-      </div>
-      {{/with}}
+        {{#if user.isGM}}
+            {{#with bestiary}}
+                <div class="tab browser" data-group="primary" data-tab="bestiary">
+                    {{> systems/pf2e/templates/packs/bestiary-browser.html }}
+                </div>
+            {{/with}}
+        {{/if}}
 
-      {{#if user.isGM}}
-      {{#with bestiary}}
-      <div class="tab browser" data-group="primary" data-tab="bestiary">
-        {{> systems/pf2e/templates/packs/bestiary-browser.html }}
-      </div>
-      {{/with}}
-      {{/if}}
+        {{#with equipment}}
+            <div class="tab browser" data-group="primary" data-tab="equipment">
+                {{> systems/pf2e/templates/packs/inventory-browser.html }}
+            </div>
+        {{/with}}
 
-      {{#with equipment}}
-      <div class="tab browser" data-group="primary" data-tab="equipment">
-        {{> systems/pf2e/templates/packs/inventory-browser.html }}
-      </div>
-      {{/with}}
+        {{#with feat}}
+            <div class="tab browser" data-group="primary" data-tab="feat">
+                {{> systems/pf2e/templates/packs/feat-browser.html }}
+            </div>
+        {{/with}}
 
-      {{#with feat}}
-      <div class="tab browser" data-group="primary" data-tab="feat">
-        {{> systems/pf2e/templates/packs/feat-browser.html }}
-      </div>
-      {{/with}}
+        {{#if user.isGM}}
+            {{#with hazard}}
+                <div class="tab browser" data-group="primary" data-tab="hazard">
+                    {{> systems/pf2e/templates/packs/hazard-browser.html }}
+                </div>
+            {{/with}}
+        {{/if}}
 
-      {{#if user.isGM}}
-      {{#with hazard}}
-      <div class="tab browser" data-group="primary" data-tab="hazard">
-        {{> systems/pf2e/templates/packs/hazard-browser.html }}
-      </div>
-      {{/with}}
-      {{/if}}
+        {{#with spell}}
+            <div class="tab browser" data-group="primary" data-tab="spell">
+                {{> systems/pf2e/templates/packs/spell-browser.html }}
+            </div>
+        {{/with}}
 
-      {{#with spell}}
-      <div class="tab browser" data-group="primary" data-tab="spell">
-        {{> systems/pf2e/templates/packs/spell-browser.html }}
-      </div>
-      {{/with}}
-
-      {{#if user.isGM}}
-      {{#with settings}}
-      <div class="tab settings" data-group="primary" data-tab="settings">
-        {{> systems/pf2e/templates/packs/browser-settings.html }}
-      </div>
-      {{/with}}
-      {{/if}}
-
+        {{#if user.isGM}}
+            {{#with settings}}
+                <div class="tab settings" data-group="primary" data-tab="settings">
+                    {{> systems/pf2e/templates/packs/browser-settings.html }}
+                </div>
+            {{/with}}
+        {{/if}}
     </section>
 </div>

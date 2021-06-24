@@ -2,32 +2,32 @@ import { MenuTemplateData, SettingsMenuPF2e } from '../menu';
 import Tagify from '@yaireo/tagify';
 import { prepareCleanup } from './cleanup-migration';
 import { LocalizePF2e } from '@module/system/localize';
-import { MigrationRunner } from '@module/migration-runner';
+import { MigrationRunner } from '@module/migration/runner';
+import { CharacterPF2e } from '@actor/index';
+import { MigrationBase } from '@module/migration/base';
+import { BaseWeaponType } from '@item/weapon/data';
+
 import '@yaireo/tagify/src/tagify.scss';
-import { CharacterPF2e } from '@actor/character';
-import { MigrationBase } from '@module/migrations/base';
-import { ConfigPF2e } from '@scripts/config';
-import { BaseWeaponType } from '@item/data/types';
 
-export type ConfigPF2eListName = typeof HomebrewElements.SETTINGS[number];
-export type HomebrewSettingsKey = `homebrew.${ConfigPF2eListName}`;
+export type ConfigPF2eHomebrewList = typeof HomebrewElements.SETTINGS[number];
+export type HomebrewSettingsKey = `homebrew.${ConfigPF2eHomebrewList}`;
 
-export interface HomebrewTag<T extends ConfigPF2eListName = ConfigPF2eListName> {
+export interface HomebrewTag<T extends ConfigPF2eHomebrewList = ConfigPF2eHomebrewList> {
     id: T extends 'baseWeapons'
         ? BaseWeaponType
-        : T extends Exclude<ConfigPF2eListName, 'baseWeapons'>
+        : T extends Exclude<ConfigPF2eHomebrewList, 'baseWeapons'>
         ? keyof ConfigPF2e['PF2E'][T]
         : never;
     value: string;
 }
 
 export class HomebrewElements extends SettingsMenuPF2e {
-    static readonly namespace = 'homebrew';
+    static override readonly namespace = 'homebrew';
 
     /** Whether this is the first time the homebrew tags will have been injected into CONFIG and actor derived data */
     private static initialRefresh = true;
 
-    static readonly SETTINGS = [
+    static override readonly SETTINGS = [
         'creatureTraits',
         'featTraits',
         'languages',
@@ -38,8 +38,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
         'baseWeapons',
     ] as const;
 
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             title: 'PF2E.SETTINGS.Homebrew.Name',
             id: 'homebrew-settings',
@@ -50,9 +49,8 @@ export class HomebrewElements extends SettingsMenuPF2e {
         });
     }
 
-    /** @override */
-    protected static get settings(): Record<ConfigPF2eListName, ClientSettingsData> {
-        return this.SETTINGS.map((key): { key: ConfigPF2eListName; value: ClientSettingsData } => {
+    protected static override get settings(): Record<ConfigPF2eHomebrewList, ClientSettingsData> {
+        return this.SETTINGS.map((key): { key: ConfigPF2eHomebrewList; value: ClientSettingsData } => {
             return {
                 key,
                 value: {
@@ -66,12 +64,11 @@ export class HomebrewElements extends SettingsMenuPF2e {
             };
         }).reduce(
             (settings, setting) => mergeObject(settings, { [setting.key]: setting.value }),
-            {} as Record<ConfigPF2eListName, ClientSettingsData & { placeholder: string }>,
+            {} as Record<ConfigPF2eHomebrewList, ClientSettingsData & { placeholder: string }>,
         );
     }
 
-    /** @override */
-    getData(): MenuTemplateData {
+    override getData(): MenuTemplateData {
         const data = super.getData();
         for (const setting of data.settings) {
             setting.value = JSON.stringify(setting.value);
@@ -79,8 +76,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
         return data;
     }
 
-    /** @override */
-    activateListeners($form: JQuery<HTMLFormElement>): void {
+    override activateListeners($form: JQuery<HTMLFormElement>): void {
         super.activateListeners($form);
 
         $form.find('button[name="reset"]').on('click', () => {
@@ -108,11 +104,8 @@ export class HomebrewElements extends SettingsMenuPF2e {
         }
     }
 
-    /**
-     * Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error
-     * @override
-     */
-    protected async _onSubmit(
+    /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
+    protected override async _onSubmit(
         event: Event,
         { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
     ): Promise<Record<string, unknown>> {
@@ -125,8 +118,10 @@ export class HomebrewElements extends SettingsMenuPF2e {
         return super._onSubmit(event, { updateData, preventClose, preventRender });
     }
 
-    /** @override */
-    protected async _updateObject(_event: Event, data: Record<ConfigPF2eListName, HomebrewTag[]>): Promise<void> {
+    protected override async _updateObject(
+        _event: Event,
+        data: Record<ConfigPF2eHomebrewList, HomebrewTag[]>,
+    ): Promise<void> {
         const cleanupTasks = HomebrewElements.SETTINGS.map((key) => {
             for (const tag of data[key]) {
                 tag.id ??= randomID(16) as HomebrewTag<typeof key>['id'];
@@ -143,7 +138,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     }
 
     /** Prepare and run a migration for each set of tag deletions from a tag map */
-    private processDeletions(listKey: ConfigPF2eListName, newTagList: HomebrewTag[]): MigrationBase | null {
+    private processDeletions(listKey: ConfigPF2eHomebrewList, newTagList: HomebrewTag[]): MigrationBase | null {
         const oldTagList = game.settings.get('pf2e', `homebrew.${listKey}` as const); // `;
         const newIDList = newTagList.map((tag) => tag.id);
         const deletions: string[] = oldTagList.flatMap((oldTag) => (newIDList.includes(oldTag.id) ? [] : oldTag.id));
@@ -175,7 +170,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
         if (this.initialRefresh) {
             this.initialRefresh = false;
         } else {
-            const characters = game.actors.entities?.filter((actor) => actor instanceof CharacterPF2e) ?? [];
+            const characters = game.actors.filter((actor) => actor instanceof CharacterPF2e) ?? [];
             for (const character of characters) {
                 character.prepareData();
                 character.sheet.render(false);

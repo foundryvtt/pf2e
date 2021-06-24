@@ -6,6 +6,7 @@ import { DegreeOfSuccessString } from '@system/check-degree-of-success';
 import { RollNotePF2e } from '@module/notes';
 import { DiceModifierPF2e, ModifierPF2e, RawModifier } from '@module/modifiers';
 import { DamageTemplate } from '@system/damage/weapon';
+import { ChatMessagePF2e } from '@module/chat-message';
 
 /**
  * @category Other
@@ -35,12 +36,7 @@ export class DamageRollModifiersDialog extends Application {
     context: object;
     callback: any;
 
-    /**
-     * @param {object} damage
-     * @param {object} context
-     * @param {function} callback
-     */
-    constructor(damage, context, callback) {
+    constructor(damage: any, context: any, callback: any) {
         super({
             title: damage.name,
             template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html', // change this later
@@ -53,12 +49,7 @@ export class DamageRollModifiersDialog extends Application {
         this.callback = callback;
     }
 
-    /**
-     * @param {object} damage
-     * @param {object} context
-     * @param {function} callback
-     */
-    static roll(damage: DamageTemplate, context, callback) {
+    static roll(damage: DamageTemplate, context: any, callback: any) {
         const ctx = context ?? {};
         const outcome = (ctx.outcome ?? 'success') as DegreeOfSuccessString;
 
@@ -118,7 +109,7 @@ export class DamageRollModifiersDialog extends Application {
             diceResults: {},
             baseDamageDice: damage.effectDice,
         };
-        const rolls: Roll[] = [];
+        const rolls: Rolled<Roll>[] = [];
         let content = `
     <div class="dice-roll">
         <div class="dice-result">
@@ -131,7 +122,7 @@ export class DamageRollModifiersDialog extends Application {
             )}"></i></h3>`;
             rollData.diceResults[damageType] = {};
             for (const [damageCategory, partial] of Object.entries(categories)) {
-                const roll = new Roll(partial, formula.data).roll();
+                const roll = new Roll(partial, formula.data).evaluate({ async: false });
                 rolls.push(roll);
                 const damageValue = rollData.types[damageType] ?? {};
                 damageValue[damageCategory] = roll.total;
@@ -163,29 +154,30 @@ export class DamageRollModifiersDialog extends Application {
         }
         content += `</div><h4 class="dice-total"><span id="value">${rollData.total}</span></h4></div></div>`;
 
-        // fake dice pool roll to ensure Dice So Nice properly trigger the dice animation
+        // Combine the rolls into a single roll of a dice pool
         const roll = (() => {
-            const pool = new DicePool({ rolls }).evaluate();
-            const roll = Roll.create(pool.formula).evaluate();
-            roll.terms = [pool];
-            roll.results = [pool.total];
-            roll._total = pool.total;
-            roll._rolled = true;
+            if (rolls.length === 1) return rolls[0];
+            const pool = PoolTerm.fromRolls(rolls);
+            // Work around foundry bug where `fromData` doubles the number of dice from a pool
+            const data = pool.toJSON();
+            delete data.rolls;
+            const roll = Roll.fromData({ formula: pool.formula, terms: [pool] });
             return roll;
         })();
 
-        ChatMessage.create(
+        ChatMessagePF2e.create(
             {
                 type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                speaker: ChatMessage.getSpeaker(),
+                speaker: ChatMessagePF2e.getSpeaker(),
                 flavor,
                 content: content.trim(),
                 roll,
+                sound: 'sounds/dice.wav',
                 flags: {
                     core: {
                         canPopout: true,
                     },
-                    [game.system.id]: {
+                    pf2e: {
                         damageRoll: rollData,
                     },
                 },
@@ -200,7 +192,7 @@ export class DamageRollModifiersDialog extends Application {
         }
     }
 
-    getData() {
+    override getData() {
         return {
             damage: this.damage,
         };

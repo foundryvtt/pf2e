@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 21,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -139,6 +140,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
+            "flavorText": "<p>Trusted counselors of the court, advisors whisper words of guidance in the ears of those in power. Many nobles lean so heavily on their counsel that they make few decisions without them and insist on their attendance at all meetings and public events. Advisors are often master manipulators, and their guidance can shape a barony or even a kingdom-for good or ill.</p>\n<hr />\n<p>Though adventurers travel through perilous dungeons and across treacherous wilderness, sometimes the most dangerous place they can end up is in a noble court.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -153,7 +155,7 @@
             "recallKnowledgeText": "",
             "sidebarText": "",
             "source": {
-                "value": "NPC Gallery"
+                "value": ""
             }
         },
         "items": {
@@ -162,15 +164,15 @@
                     "slots": {
                         "slot1": {
                             "max": "3",
-                            "value": "3"
+                            "value": 3
                         },
                         "slot2": {
                             "max": "3",
-                            "value": "3"
+                            "value": 3
                         },
                         "slot3": {
                             "max": "2",
-                            "value": "2"
+                            "value": 2
                         }
                     },
                     "spelldc": {
@@ -190,6 +192,29 @@
                     "spelldc": {
                         "dc": 22,
                         "value": 0
+                    }
+                }
+            },
+            "gb8uAcOP8CQdYojJ": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 3
+                        },
+                        "slot2": {
+                            "max": 3
+                        },
+                        "slot3": {
+                            "max": 2
+                        }
+                    }
+                }
+            },
+            "lgk4yY8Kw44C3bLA": {
+                "data": {
+                    "focus": {
+                        "points": 1,
+                        "pool": 1
                     }
                 }
             }
@@ -472,13 +497,14 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "gb8uAcOP8CQdYojJ",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "description": {
                     "chat": "",
@@ -595,8 +621,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Spontaneous Occult Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -604,7 +634,7 @@
             "_id": "lgk4yY8Kw44C3bLA",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "description": {
                     "chat": "",
@@ -703,7 +733,7 @@
                     "dc": 22,
                     "item": 0,
                     "mod": 0,
-                    "value": 0
+                    "value": 13
                 },
                 "tradition": {
                     "value": "focus"
@@ -721,13 +751,17 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Focus Spells",
+            "name": "Bard Composition Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "DgVQQxOkHPOUFCq7",
+            "_id": "iGZg9GTzCLLqhvuU",
             "data": {
                 "ability": {
                     "value": ""
@@ -743,7 +777,9 @@
                     "value": "focus"
                 },
                 "components": {
-                    "value": "somatic or verbal"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -802,9 +838,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "counter-performance",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=381"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -832,20 +868,25 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.WILXkjU5Yq3yw10r"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/counter-performance.webp",
             "name": "Counter Performance",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "couUJs5hYaoKxJ7C",
+            "_id": "uhVm183ICCB5YlzV",
             "data": {
                 "ability": {
                     "value": ""
@@ -861,7 +902,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -920,9 +963,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "mind-reading",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=194"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -953,27 +996,32 @@
                         "mental",
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.KHnhPHL4x1AQHfbC"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "qWjs3kbtPa9hRgIQ",
+            "_id": "IUa3nUZb3vm7lTul",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -982,7 +1030,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -997,7 +1047,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing increases by 1d10+4.</p>"
+                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Soothe]{Spell Effect: Soothe}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1041,9 +1091,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "soothe",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=291"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "heal"
@@ -1073,20 +1123,25 @@
                         "healing",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.szIyEsvihc5e1w8n"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/soothe.webp",
             "name": "Soothe",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "usuik6aRe4vGoHMc",
+            "_id": "kVr0juzTuCSA7Pbf",
             "data": {
                 "ability": {
                     "value": ""
@@ -1102,7 +1157,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1161,9 +1218,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "zone-of-truth",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=379"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -1193,20 +1250,25 @@
                         "mental",
                         "enchantment"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.aewxsale5xWEPKLk"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/zone-of-truth.webp",
             "name": "Zone of Truth",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "VWk4mLpqY8HVXQWz",
+            "_id": "he2uPmOO5BEiGkng",
             "data": {
                 "ability": {
                     "value": ""
@@ -1222,7 +1284,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1281,9 +1345,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "augury",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=15"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1312,20 +1376,25 @@
                         "divination",
                         "prediction"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.41TZEjhO6D1nWw2X"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "k9AkNnxOM56bkQA7",
+            "_id": "rh95ONc73SL3xm8f",
             "data": {
                 "ability": {
                     "value": ""
@@ -1341,7 +1410,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1356,7 +1427,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened</strong> Add @Compendium[pf2e.conditionitems.Drained]{Drained} to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @Compendium[pf2e.conditionitems.Doomed]{Doomed} value by 1. You can't use this to reduce a permanent @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition.</p>\n<p><strong>Heightened</strong> As the 4th-level restoration, but you can reduce a permanent @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
+                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @Compendium[pf2e.conditionitems.Drained]{Drained} to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @Compendium[pf2e.conditionitems.Doomed]{Doomed} value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-level restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1400,9 +1471,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "restoration",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=258"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "heal"
@@ -1432,27 +1503,32 @@
                         "healing",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SnaLVgxZ9ryUFmUr"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/restoration.webp",
             "name": "Restoration",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "e9ZBv3z9BKXg4UdV",
+            "_id": "CFvFA9fjceQKC6qi",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1461,14 +1537,16 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "2d20+4"
+                    "value": "2d10+8"
                 },
                 "damageType": {
                     "value": "healing"
@@ -1476,7 +1554,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing increases by 1d10+4.</p>"
+                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Soothe]{Spell Effect: Soothe}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1520,9 +1598,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "soothe",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=291"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "heal"
@@ -1552,20 +1630,25 @@
                         "healing",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.szIyEsvihc5e1w8n"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/soothe.webp",
             "name": "Soothe",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "MFFFg9XislR71Vha",
+            "_id": "nvyExLYGIm80ZR4A",
             "data": {
                 "ability": {
                     "value": ""
@@ -1581,7 +1664,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1596,7 +1681,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You dull the target's mind; the target must attempt a Will save.</p>\n<hr /><strong>Success</strong> The target is unaffected.\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 2.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 4.</p>"
+                    "value": "<p>You dull the target's mind; the target must attempt a Will save.</p>\n<hr />\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 4}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1640,9 +1725,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "touch-of-idiocy",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=341"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -1671,20 +1756,25 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.CQb8HtQ1BPeZmu9h"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/touch-of-idiocy.webp",
             "name": "Touch of Idiocy",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "dlHUNx9cIvki7iOY",
+            "_id": "HdvcGNT7I5E8PtUh",
             "data": {
                 "ability": {
                     "value": ""
@@ -1700,7 +1790,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1715,7 +1807,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell (Identifying Spells section on page 305).</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -1759,9 +1851,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "charm",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=34"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -1793,20 +1885,25 @@
                         "incapacitation",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLA0q0WOK2YPuJs6"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
+            "permission": {
+                "default": 0
+            },
             "sort": 1100000,
             "type": "spell"
         },
         {
-            "_id": "j1aJuhZlCw3CW22P",
+            "_id": "xeYJAgFGwRVHSb5M",
             "data": {
                 "ability": {
                     "value": ""
@@ -1822,7 +1919,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1837,7 +1936,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mage armor, you use your unarmored proficiency to calculate your AC.</p>\n<hr />\n<p><strong>Heightened</strong> You gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened</strong> The item bonus to AC increases to +2, and you gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened</strong> The item bonus to AC increases to +2, and you gain a +2 item bonus to saving throws.</p>\n<p><strong>Heightened</strong> The item bonus to AC increases to +3, and you gain a +3 item bonus to saving throws.</p>"
+                    "value": "<p>You ward yourself with shimmering magical energy, gaining a +1 item bonus to AC and a maximum Dexterity modifier of +5. While wearing mage armor, you use your unarmored proficiency to calculate your AC.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> You gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (6th)</strong> The item bonus to AC increases to +2, and you gain a +1 item bonus to saving throws.</p>\n<p><strong>Heightened (8th)</strong> The item bonus to AC increases to +2, and you gain a +2 item bonus to saving throws.</p>\n<p><strong>Heightened (10th)</strong> The item bonus to AC increases to +3, and you gain a +3 item bonus to saving throws.</p>\n\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Mage Armor]{Spell Effect: Mage Armor}</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -1881,9 +1980,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "mage-armor",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=176"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1911,20 +2010,25 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.aAbfKn8maGjJjk2W"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/mage-armor.webp",
             "name": "Mage Armor",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
             "type": "spell"
         },
         {
-            "_id": "N8Fm06U3Ka9mURdK",
+            "_id": "ZeKyulLOpRb0bZeF",
             "data": {
                 "ability": {
                     "value": ""
@@ -1940,7 +2044,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1955,7 +2061,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You send a dart of force streaking toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of missiles you shoot by one, to a maximum of three missiles for 3 actions. You choose the target for each missile individually. If you shoot more than one missile at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened</strong> You shoot one additional missile with each action you spend.</p>"
+                    "value": "<p>You send a dart of force streaking toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of missiles you shoot by one, to a maximum of three missiles for 3 actions. You choose the target for each missile individually. If you shoot more than one missile at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> You shoot one additional missile with each action you spend.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1999,9 +2105,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "magic-missile",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=180"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -2030,20 +2136,25 @@
                         "evocation",
                         "force"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gKKqvLohtrSJj3BM"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/magic-missile.webp",
             "name": "Magic Missile",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "spell"
         },
         {
-            "_id": "G6Tp99dWoUAMvwGT",
+            "_id": "hQ5pEAH0V2yRCnFB",
             "data": {
                 "ability": {
                     "value": ""
@@ -2059,7 +2170,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2074,7 +2187,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing increases by 1d10+4.</p>"
+                    "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Soothe]{Spell Effect: Soothe}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -2118,9 +2231,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "soothe",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=291"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "heal"
@@ -2150,33 +2263,43 @@
                         "healing",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.szIyEsvihc5e1w8n"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/soothe.webp",
             "name": "Soothe",
+            "permission": {
+                "default": 0
+            },
             "sort": 1400000,
             "type": "spell"
         },
         {
-            "_id": "K9Cjgjk17r9zmNxW",
+            "_id": "69m8j9mdZgRaf5rq",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2191,7 +2314,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened</strong> The negative damage to living creatures increases by 1d4.</p>"
+                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage to living creatures increases by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2211,6 +2334,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "touch"
                 },
@@ -2226,9 +2352,15 @@
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "chill-touch",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=35"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -2259,20 +2391,25 @@
                         "necromancy",
                         "negative"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.mAMEt4FFbdqoRnkN"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
+            "permission": {
+                "default": 0
+            },
             "sort": 1500000,
             "type": "spell"
         },
         {
-            "_id": "8H79ZgGcEdhhDX1l",
+            "_id": "9vPr3vID74WxVcvq",
             "data": {
                 "ability": {
                     "value": ""
@@ -2288,7 +2425,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2303,7 +2442,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -2347,9 +2486,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "daze",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=61"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -2381,20 +2520,25 @@
                         "mental",
                         "nonlethal"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4gBIw4IDrSfFHik4"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
+            "permission": {
+                "default": 0
+            },
             "sort": 1600000,
             "type": "spell"
         },
         {
-            "_id": "WmxJ42zHyUxQpoVq",
+            "_id": "YjCW2VvikFr1xVYW",
             "data": {
                 "ability": {
                     "value": ""
@@ -2410,7 +2554,9 @@
                     "value": "focus"
                 },
                 "components": {
-                    "value": "verbal"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2469,9 +2615,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "inspire-competence",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=385"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -2502,20 +2648,25 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.f0Z5mqGA6Yu79B8x"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/inspire-competence.webp",
             "name": "Inspire Competence",
+            "permission": {
+                "default": 0
+            },
             "sort": 1700000,
             "type": "spell"
         },
         {
-            "_id": "Qm7vutc82LPOBF2o",
+            "_id": "IzoYLgohVXt1gFa1",
             "data": {
                 "ability": {
                     "value": ""
@@ -2531,7 +2682,9 @@
                     "value": "focus"
                 },
                 "components": {
-                    "value": "verbal"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2546,7 +2699,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You inspire your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>"
+                    "value": "<p>You inspire yourself and your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Inspire Courage]{Spell Effect: Inspire Courage}</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -2590,9 +2743,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "inspire-courage",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=386"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -2623,20 +2776,25 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.IAjvwqgiDr3qGYxY"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/inspire-courage.webp",
             "name": "Inspire Courage",
+            "permission": {
+                "default": 0
+            },
             "sort": 1800000,
             "type": "spell"
         },
         {
-            "_id": "Wnyga895lHjwMcn3",
+            "_id": "wMzVfuZBhnulWaSy",
             "data": {
                 "ability": {
                     "value": ""
@@ -2652,7 +2810,9 @@
                     "value": "focus"
                 },
                 "components": {
-                    "value": "verbal"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2667,7 +2827,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You inspire your allies to protect themselves more effectively. You and all allies in the area gain a +1 status bonus to AC and saving throws, as well as resistance equal to half the spell's level to physical damage.</p>"
+                    "value": "<p>You inspire yourself and your allies to protect themselves more effectively. You and all allies in the area gain a +1 status bonus to AC and saving throws, as well as resistance equal to half the spell's level to physical damage.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Inspire Defense]{Spell Effect: Inspire Defense}</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -2711,9 +2871,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "inspire-defense",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=387"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -2744,27 +2904,32 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.bH0kPuf7UKxRvi2P"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/inspire-defense.webp",
             "name": "Inspire Defense",
+            "permission": {
+                "default": 0
+            },
             "sort": 1900000,
             "type": "spell"
         },
         {
-            "_id": "uY9vtcDPqzfySpcQ",
+            "_id": "7BLXiMewT5Ve6V5v",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -2773,7 +2938,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2788,7 +2955,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -2832,7 +2999,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "light",
                 "source": {
                     "value": ""
                 },
@@ -2867,20 +3034,25 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.WBmvzNDfpwka3qT4"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
+            "permission": {
+                "default": 0
+            },
             "sort": 2000000,
             "type": "spell"
         },
         {
-            "_id": "HgkTLdMDMIFaHAp8",
+            "_id": "4pLL1fjkXQlh83iV",
             "data": {
                 "ability": {
                     "value": ""
@@ -2896,7 +3068,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2955,7 +3129,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "prestidigitation",
                 "source": {
                     "value": ""
                 },
@@ -2966,7 +3140,7 @@
                     "value": true
                 },
                 "target": {
-                    "value": "1 object "
+                    "value": "1 object (cook, lift, or tidy only)"
                 },
                 "time": {
                     "value": "2"
@@ -2989,20 +3163,25 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Qw3fnUlaUbnn7ipC"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/prestidigitation.webp",
             "name": "Prestidigitation",
+            "permission": {
+                "default": 0
+            },
             "sort": 2100000,
             "type": "spell"
         },
         {
-            "_id": "u44v3p53KVacaFgD",
+            "_id": "1uxLr1HHXN6KtWS3",
             "data": {
                 "ability": {
                     "value": ""
@@ -3018,7 +3197,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "verbal"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -3033,7 +3214,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<hr />\n<p><strong>Heightened</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "value": "until the start of your next turn"
@@ -3077,9 +3258,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "shield",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=280"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -3110,20 +3291,25 @@
                         "cantrip",
                         "force"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.TVKNbcgTee19PXZR"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/shield.webp",
             "name": "Shield",
+            "permission": {
+                "default": 0
+            },
             "sort": 2200000,
             "type": "spell"
         },
         {
-            "_id": "8zh9LcosUM9WxtNE",
+            "_id": "ev5zbIAPhU7XxrVP",
             "data": {
                 "MAP": {
                     "value": ""
@@ -3131,7 +3317,7 @@
                 "ability": {
                     "value": "str"
                 },
-                "baseItem": null,
+                "baseItem": "dagger",
                 "bonus": {
                     "value": 0
                 },
@@ -3159,10 +3345,10 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown. <br style=\"font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;\"></p>"
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3196,7 +3382,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -3205,7 +3391,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -3228,26 +3414,6 @@
                     "die": "",
                     "strikeConditionType": "",
                     "strikeConditionValue": null,
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -3275,7 +3441,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "dagger",
                 "source": {
                     "value": ""
                 },
@@ -3311,14 +3477,22 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.rQWaJhI5Bko5x14Z"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
             "name": "Dagger",
+            "permission": {
+                "default": 0
+            },
             "sort": 2300000,
             "type": "weapon"
         },
         {
-            "_id": "DlsYIXuLd6unj3BX",
+            "_id": "yRfTgE73XRusZ7Ky",
             "data": {
                 "MAP": {
                     "value": ""
@@ -3326,7 +3500,7 @@
                 "ability": {
                     "value": "str"
                 },
-                "baseItem": null,
+                "baseItem": "whip",
                 "bonus": {
                     "value": 0
                 },
@@ -3357,7 +3531,7 @@
                     "value": "<p>This long strand of thick leather, often braided, delivers a painful but nonlethal slash at a distance, usually accompanied by a distinctive cracking sound.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3391,7 +3565,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -3400,7 +3574,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -3409,7 +3583,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": "1 sp"
                 },
                 "property1": {
                     "critDamage": "",
@@ -3423,26 +3597,6 @@
                     "die": "",
                     "strikeConditionType": "",
                     "strikeConditionValue": null,
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -3470,12 +3624,12 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "whip",
                 "source": {
                     "value": ""
                 },
                 "splashDamage": {
-                    "value": 0
+                    "value": null
                 },
                 "stackGroup": {
                     "value": ""
@@ -3507,14 +3661,22 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.f1gwoTkf3Nn0v3PN"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/whip.webp",
             "name": "Whip",
+            "permission": {
+                "default": 0
+            },
             "sort": 2400000,
             "type": "weapon"
         },
         {
-            "_id": "G0UP5HMOIsVccPWB",
+            "_id": "B3fbDvvdZ642amsm",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -3535,7 +3697,7 @@
                     "value": "<p>Fine clothing, suitable for a noble or royal, is made with expensive fabrics, precious metals, and intricate patterns.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3563,13 +3725,13 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
-                    "value": "0"
+                    "value": ""
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -3587,7 +3749,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "clothing-fine",
                 "source": {
                     "value": ""
                 },
@@ -3602,21 +3764,29 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "worn"
                 },
                 "weight": {
-                    "value": "-"
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.jJZbdMHMdh8UL2j8"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/adventuring-gear/clothes-fine.webp",
-            "name": "Clothing",
+            "name": "Clothing (Fine)",
+            "permission": {
+                "default": 0
+            },
             "sort": 2500000,
             "type": "equipment"
         },
         {
-            "_id": "T1zO6jxxDkBFdwZA",
+            "_id": "UCWUwvmphOyo6iWr",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -3634,10 +3804,10 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played. A virtuoso instrument gives a +1 item bonus to Performance checks using that instrument.</p>"
+                    "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -3665,7 +3835,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -3689,7 +3859,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "musical-instrument-handheld",
                 "source": {
                     "value": ""
                 },
@@ -3702,7 +3872,7 @@
                         "value": "common"
                     },
                     "usage": {
-                        "value": "held-in-one-hand"
+                        "value": "held-in-two-hands"
                     },
                     "value": []
                 },
@@ -3714,14 +3884,22 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.MPv5Yx4w7scZGj2Y"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/adventuring-gear/musical-instrument-handheld.webp",
-            "name": "Musical Instrument ",
+            "name": "Small Harp",
+            "permission": {
+                "default": 0
+            },
             "sort": 2600000,
             "type": "equipment"
         },
         {
-            "_id": "uNeKfKfDUXtLCT6f",
+            "_id": "SGwnPKXYCY3v8CK3",
             "data": {
                 "activation": {
                     "condition": "",
@@ -3764,7 +3942,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain the listed number of Hit Points.</p>"
+                    "value": "<p>A healing potion is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a healing potion, you regain [[/r 1d8]] Hit Points.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -3828,7 +4006,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "healing-potion-minor",
                 "source": {
                     "value": ""
                 },
@@ -3849,11 +4027,15 @@
                     "rarity": {
                         "value": "common"
                     },
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
                     "value": [
                         "consumable",
                         "healing",
                         "magical",
                         "necromancy",
+                        "positive",
                         "potion"
                     ]
                 },
@@ -3872,9 +4054,17 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.2RuepCemJhrpKKao"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/consumables/potions/healing-potion.webp",
-            "name": "Healing Potion ",
+            "name": "Healing Potion (Minor)",
+            "permission": {
+                "default": 0
+            },
             "sort": 2700000,
             "type": "consumable"
         },
@@ -3887,21 +4077,8 @@
                 "attackEffects": {
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 11
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "kvhyx50a5yzc6rc3n09s": {
@@ -3914,78 +4091,9 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -4001,20 +4109,18 @@
                         "trip"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Whip",
+            "permission": {
+                "default": 0
+            },
             "sort": 2800000,
             "type": "melee"
         },
@@ -4027,21 +4133,8 @@
                 "attackEffects": {
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 11
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "xiz1kglm334zoswd11x7x": {
@@ -4054,78 +4147,9 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -4139,20 +4163,18 @@
                         "versatile-s"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weaponType": {
                     "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Dagger",
+            "permission": {
+                "default": 0
+            },
             "sort": 2900000,
             "type": "melee"
         },
@@ -4160,7 +4182,7 @@
             "_id": "3LcqeSNm2BGnGC1G",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -4176,7 +4198,34 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.placate"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "placate"
+                            ]
+                        },
+                        "selector": "diplomacy",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "placate"
+                            ]
+                        },
+                        "selector": "deception",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -4200,8 +4249,12 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Placate",
+            "permission": {
+                "default": 0
+            },
             "sort": 3000000,
             "type": "action"
         },
@@ -4240,8 +4293,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
+            "permission": {
+                "default": 0
+            },
             "sort": 3100000,
             "type": "lore"
         },
@@ -4280,8 +4337,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
+            "permission": {
+                "default": 0
+            },
             "sort": 3200000,
             "type": "lore"
         },
@@ -4320,8 +4381,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Legal Lore",
+            "permission": {
+                "default": 0
+            },
             "sort": 3300000,
             "type": "lore"
         },
@@ -4360,8 +4425,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
+            "permission": {
+                "default": 0
+            },
             "sort": 3400000,
             "type": "lore"
         },
@@ -4400,8 +4469,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
+            "permission": {
+                "default": 0
+            },
             "sort": 3500000,
             "type": "lore"
         },
@@ -4440,8 +4513,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
+            "permission": {
+                "default": 0
+            },
             "sort": 3600000,
             "type": "lore"
         }
@@ -4453,10 +4530,13 @@
     "token": {
         "actorId": "w4VJ6h4mysbpdoN4",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -4468,17 +4548,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Advisor",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

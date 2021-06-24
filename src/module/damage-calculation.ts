@@ -1,7 +1,7 @@
-import { groupBy, sum } from './utils';
+import { Alignment } from '@actor/creature/data';
 import { isChaotic, isEvil, isGood, isLawful } from './alignment';
-import { AlignmentString } from '@actor/data-definitions';
 import { Living } from './living';
+import { groupBy, sum } from './utils';
 
 const physicalDamageTypes = ['bludgeoning', 'piercing', 'slashing', 'bleed'] as const;
 const lifeEnergyDamageTypes = ['positive', 'negative'] as const;
@@ -376,7 +376,7 @@ function findHighestModifier<T extends Weakness | Resistance>(
         .reverse()[0];
 }
 
-export function removeAlignmentDamage(damage: Damage, alignment: AlignmentString) {
+export function removeAlignmentDamage(damage: Damage, alignment: Alignment) {
     if (!isEvil(alignment)) {
         damage.delete('good');
     }
@@ -508,7 +508,7 @@ export function calculateDamage({
     resistances?: Resistance[];
     weaknesses?: Weakness[];
     living?: Living;
-    alignment?: AlignmentString;
+    alignment?: Alignment;
     damageOptions?: DamageOptions;
 }): number {
     // make a damage copy since we are going to modify the map

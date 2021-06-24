@@ -12,7 +12,7 @@
                     </h3>
                     {{#if @root.owner}}
                         <div class="item-controls">
-                            <a class="item-control spellcasting-remove" title="{{localize "PF2E.RemoveSpellcastingEntryTitle"}}" data-type="{{eid}}"><i class="fas fa-minus"></i>{{localize "PF2E.DeleteShortLabel"}}</a>
+                            <a class="item-control spellcasting-remove" title="{{localize "PF2E.RemoveSpellcastingEntryTitle"}}" data-type="{{eid}}">{{localize "PF2E.DeleteShortLabel"}} <i class="fas fa-trash"></i></a>
                         </div>
                     {{/if}}
                 </div>
@@ -23,8 +23,7 @@
                                 <div class="skill-container focus-points">
                                     <h4 class="skill-name">{{localize "PF2E.Focus.label"}}</h4>
                                     <span class="skill-item pf-small" title="{{localize "PF2E.Focus.pointTitle"}}">
-                                        <input type="hidden" name="data.items.{{eid}}.data.focus.points" data-stat-type="item" data-max="3" value="{{entry.data.focus.points}}" data-dtype="Number" data-category="focus"/>
-                                        <span class="proficiency-rank click-stat-level pf-value" title="{{localize "PF2E.Focus.pointTitle"}}">{{{entry.data.focus.icon}}}</span>
+                                        <span class="proficiency-rank adjust-item-stat pf-value" data-property="data.focus.points" title="{{localize "PF2E.Focus.pointTitle"}}">{{{entry.data.focus.icon}}}</span>
                                     </span>
                                 </div>
                                 <div class="skill-container focus-pool">
@@ -41,20 +40,20 @@
                     <ol class="skills-list spell-dc">
                         <li class="skill-grid">
                             {{#unless entry.data.tradition.focus}}
+                            <div class="skill-data">
                                 <span class="skill-score spell-attack" title="{{entry.data.attack.breakdown}}">{{numberFormat entry.data.attack.value decimals=0 sign=true}}</span>
                                 <h4 class="skill-name spell-attack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.SpellAttackLabel"}}</h4>
-                            {{/unless}}
-
-                            <span class="skill-score spellcasting" title="{{entry.data.dc.breakdown}}">{{entry.data.dc.value}}</span>
-                            <h4 class="skill-name spellcasting" title="{{entry.data.dc.breakdown}}">{{localize "PF2E.SpellSaveLabel"}}</h4>
-
-                            <div class="skill-container skill-proficiency">
-                                <h4 class="pf-title" title="Left-Click to move forward one step. Right-Click to move backwards one step.">{{localize 'PF2E.ProficiencyLabel'}}</h4>
-                                <input type="hidden" name="data.items.{{eid}}.data.proficiency.value" data-stat-type="item" value="{{entry.data.proficiency.value}}" data-dtype="Number" data-category="proficiency"/>
-                                <span class="pf-value pf-rank click-stat-level" title="{{entry.data.spelldc.hover}}">{{localize (add 'PF2E.ProficiencyLevel' entry.data.proficiency.value)}}</span>
                             </div>
+                                {{/unless}}
+
+                            <div class="skill-data">
+                                <span class="skill-score spellcasting" title="{{entry.data.dc.breakdown}}">{{entry.data.dc.value}}</span>
+                                <h4 class="skill-name spellcasting" title="{{entry.data.dc.breakdown}}">{{localize "PF2E.SpellSaveLabel"}}</h4>
+                            </div>
+
                         </li>
                         <li class="spell-ability">
+                            <span class="pf-value pf-rank adjust-item-stat" data-property="data.proficiency.value" value="{{entry.data.proficiency.value}}" title="{{entry.data.spelldc.hover}}">{{localize (add "PF2E.ProficiencyLevel" entry.data.proficiency.value)}}</span>
                             <div class="skill-name">
                                 <select class="ability-select" name="data.items.{{eid}}.data.ability.value" data-type="String">
                                     {{#select entry.data.ability.value}}

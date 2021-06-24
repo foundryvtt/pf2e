@@ -1,10 +1,10 @@
-import { Rarity } from '@item/data/types';
 import { ArmorPF2e } from '@item/armor';
-import { WeaponPF2e } from '@item/weapon';
-import { FakeItem } from 'tests/fakes/fake-item';
-import { identifyItem, isMagical } from '@item/identification';
-import { EquipmentPF2e } from '@item/equipment';
 import { ConsumablePF2e } from '@item/consumable';
+import { EquipmentPF2e } from '@item/equipment';
+import { identifyItem, isMagical } from '@item/identification';
+import { WeaponPF2e } from '@item/weapon';
+import { Rarity } from '@module/data';
+import { FakeItem } from 'tests/fakes/fake-item';
 
 interface TestItemData<T extends WeaponPF2e | ArmorPF2e | ConsumablePF2e = WeaponPF2e> {
     level: number;
@@ -31,7 +31,7 @@ function createItem<T extends WeaponPF2e | ArmorPF2e>({
 }: TestItemData<T>): T {
     return new FakeItem({
         type,
-        data: ({
+        data: {
             level: {
                 value: level,
             },
@@ -51,8 +51,8 @@ function createItem<T extends WeaponPF2e | ArmorPF2e>({
             resiliencyRune: {
                 value: resilienceRune,
             },
-        } as unknown) as T['data']['data'],
-    } as T['data']) as T;
+        } as unknown as T['data']['data'],
+    } as T['data']) as unknown as T;
 }
 
 describe('test identification DCs', () => {
@@ -98,7 +98,7 @@ describe('test identification DCs', () => {
     });
 
     test('identify item without level', () => {
-        const item = ({
+        const item = {
             data: {
                 data: {
                     traits: {
@@ -107,7 +107,7 @@ describe('test identification DCs', () => {
                     },
                 },
             },
-        } as unknown) as EquipmentPF2e;
+        } as unknown as EquipmentPF2e;
         const dcs = identifyItem(item, { notMatchingTraditionModifier: 3 });
         expect(dcs).toEqual({
             dc: 14,
@@ -115,12 +115,12 @@ describe('test identification DCs', () => {
     });
 
     test('potency runes are magical', () => {
-        const item = (createItem({
+        const item = createItem({
             level: 2,
             rarity: 'rare',
             traits: [],
             potencyRune: '1',
-        }) as unknown) as WeaponPF2e;
+        }) as unknown as WeaponPF2e;
         expect(isMagical(item.data)).toBe(true);
     });
 

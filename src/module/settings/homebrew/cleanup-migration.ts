@@ -1,12 +1,13 @@
-import { MigrationBase } from '@module/migrations/base';
-import { ItemDataPF2e } from '@item/data/types';
-import { ActorDataPF2e, BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from '@actor/data-definitions';
-import { ConfigPF2eListName } from './index';
+import { MigrationBase } from '@module/migration/base';
+import { ItemSourcePF2e } from '@item/data';
+import { ActorSourcePF2e } from '@actor/data';
+import { ConfigPF2eHomebrewList } from './index';
 import { objectHasKey } from '@module/utils';
+import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from '@actor/character/data';
 
-export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[]): MigrationBase {
+export function prepareCleanup(listKey: ConfigPF2eHomebrewList, deletions: string[]): MigrationBase {
     const Migration = class extends MigrationBase {
-        async updateActor(actorData: ActorDataPF2e) {
+        override async updateActor(actorData: ActorSourcePF2e) {
             if (!(actorData.type === 'character' || actorData.type === 'npc')) {
                 return;
             }
@@ -27,7 +28,7 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
                         for (const key of deletions) {
                             if (objectHasKey(actorData.data.martial, key)) {
                                 delete actorData.data.martial[key];
-                                ((actorData.data.martial as unknown) as Record<string, unknown>)[`-=${key}`] = null;
+                                (actorData.data.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
                             }
                         }
                     }
@@ -40,7 +41,7 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
                         ) as WeaponGroupProficiencyKey[];
                         for (const key of proficiencyKeys) {
                             delete actorData.data.martial[key];
-                            ((actorData.data.martial as unknown) as Record<string, unknown>)[`-=${key}`] = null;
+                            (actorData.data.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
                         }
                     }
                     break;
@@ -52,7 +53,7 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
                         ) as BaseWeaponProficiencyKey[];
                         for (const key of proficiencyKeys) {
                             delete actorData.data.martial[key];
-                            ((actorData.data.martial as unknown) as Record<string, unknown>)[`-=${key}`] = null;
+                            (actorData.data.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
                         }
                     }
                     break;
@@ -60,7 +61,7 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
             }
         }
 
-        async updateItem(itemData: ItemDataPF2e) {
+        override async updateItem(itemData: ItemSourcePF2e) {
             switch (listKey) {
                 // Creature traits can be on many item
                 case 'creatureTraits': {

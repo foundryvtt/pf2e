@@ -1,5 +1,5 @@
-import { DamageCategory, DamageDieSize } from './system/damage/damage';
-import { AbilityString, ModifierType } from '@actor/data-definitions';
+import { AbilityString } from '@actor/data/base';
+import { DamageCategory, DamageDieSize } from '@system/damage/damage';
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
     'proficiency:untrained',
@@ -20,14 +20,16 @@ export function ensureProficiencyOption(options: string[], proficiencyRank: numb
  * which fully stack).
  */
 export const MODIFIER_TYPE = Object.freeze({
-    ABILITY: 'ability' as const,
-    PROFICIENCY: 'proficiency' as const,
-    CIRCUMSTANCE: 'circumstance' as const,
-    ITEM: 'item' as const,
-    POTENCY: 'potency' as const,
-    STATUS: 'status' as const,
-    UNTYPED: 'untyped' as const,
-});
+    ABILITY: 'ability',
+    PROFICIENCY: 'proficiency',
+    CIRCUMSTANCE: 'circumstance',
+    ITEM: 'item',
+    POTENCY: 'potency',
+    STATUS: 'status',
+    UNTYPED: 'untyped',
+} as const);
+
+export type ModifierType = typeof MODIFIER_TYPE[keyof typeof MODIFIER_TYPE];
 
 export interface RawModifier {
     /** The name of this modifier; should generally be a localization key (see en.json). */
@@ -228,7 +230,8 @@ export const ProficiencyModifier = Object.freeze({
             case 4:
                 return LEGENDARY.atLevel(level);
             default:
-                throw new RangeError(`invalid proficiency rank: ${rank}`);
+                console.error(`PF2e System | Invalid proficiency rank: ${rank}`);
+                return UNTRAINED.atLevel(level);
         }
     },
 });

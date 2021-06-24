@@ -1,12 +1,13 @@
-<div class="pf2e chat-card item-card" data-embedded-item="{{data.item}}" data-spell-lvl="{{data.spellLvl}}" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+<div class="pf2e chat-card item-card" {{#if data.item}}data-embedded-item="{{data.item}}"{{/if}} data-spell-lvl="{{data.spellLvl}}" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
     <header class="card-header flexrow">
         <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
         <h3>{{item.name}}</h3>
+        <h4>{{data.levelLabel}}</h4>
     </header>
 
     <div class="item-properties tags">
         {{#each data.traits}}
-            <span class="tag tag_alt" title="{{localize this.description}}">{{localize this.label}}</span>
+            <span class="tag" title="{{localize this.description}}">{{localize this.label}}</span>
         {{/each}}
     </div>
 
@@ -19,16 +20,16 @@
     </div>
 
     <div class="card-buttons">
-        {{#if data.isSave}}<button data-action="save" data-save="{{data.save.value}}" data-dc="{{data.save.dc}}">Save DC {{data.save.dc}} {{data.save.basic}} {{localize data.save.str}}</button>{{/if}}
+        {{#if data.isSave}}<button type="button" data-action="save" data-save="{{data.save.value}}" data-dc="{{data.save.dc}}">Save DC {{data.save.dc}} {{data.save.basic}} {{localize data.save.str}}</button>{{/if}}
         {{#if data.isAttack}}
             <div class="spell-attack-buttons">
-                <button data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>
-                <button data-action="spellAttack2">MAP -5</button>
-                <button data-action="spellAttack3">MAP -10</button>
+                <button type="button" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>
+                <button type="button" data-action="spellAttack2">MAP -5</button>
+                <button type="button" data-action="spellAttack3">MAP -10</button>
             </div>
         {{/if}}
-        {{#if data.damage.value}}<button data-action="spellDamage">{{data.damageLabel}}</button>{{/if}}
-        {{#if data.hasCounteractCheck.value}}<button data-action="spellCounteract">{{localize "PF2E.Counteract"}}</button>{{/if}}
+        {{#if data.damage.value}}<button type="button" data-action="spellDamage">{{data.damageLabel}}</button>{{/if}}
+        {{#if data.hasCounteractCheck.value}}<button type="button" data-action="spellCounteract">{{localize "PF2E.Counteract"}}</button>{{/if}}
     </div>
 
     <footer class="card-footer">

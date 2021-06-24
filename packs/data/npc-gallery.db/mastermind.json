@@ -153,7 +153,7 @@
             "recallKnowledgeText": "",
             "sidebarText": "",
             "source": {
-                "value": "NPC Gallery"
+                "value": ""
             }
         },
         "items": {
@@ -475,6 +475,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -597,8 +598,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Occult Spontaneous Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -724,8 +729,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Bard Composition Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spellcastingEntry"
         },
@@ -746,7 +755,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -843,8 +854,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/blur.webp",
             "name": "Blur",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
@@ -865,7 +880,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -880,7 +897,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell (usually by Identifying Magic, page 305).</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (+8)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (+8)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -889,7 +906,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "2"
+                    "value": 2
                 },
                 "location": {
                     "value": "j8JBG1lXjBsfISYy"
@@ -965,8 +982,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "spell"
         },
@@ -987,7 +1008,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -1002,7 +1025,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead (page 466). If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -1083,8 +1106,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/invisibility.webp",
             "name": "Invisibility",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "spell"
         },
@@ -1105,7 +1132,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1201,8 +1230,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/paranoia.webp",
             "name": "Paranoia",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "spell"
         },
@@ -1223,7 +1256,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1238,7 +1273,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell (usually by Identifying Magic, page 305).</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (+8)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (+8)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -1323,8 +1358,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "spell"
         },
@@ -1345,7 +1384,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1442,8 +1483,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "spell"
         },
@@ -1464,7 +1509,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1561,8 +1608,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/illusory-object.webp",
             "name": "Illusory Object",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "spell"
         },
@@ -1583,7 +1634,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1683,8 +1736,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "spell"
         },
@@ -1705,7 +1762,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1806,8 +1865,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
+            "permission": {
+                "default": 0
+            },
             "sort": 1100000,
             "type": "spell"
         },
@@ -1828,7 +1891,9 @@
                     "value": "focus"
                 },
                 "components": {
-                    "value": "verbal"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1927,8 +1992,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/inspire-competence.webp",
             "name": "Inspire Competence",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
             "type": "spell"
         },
@@ -1949,7 +2018,9 @@
                     "value": "focus"
                 },
                 "components": {
-                    "value": "verbal"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2048,8 +2119,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/inspire-courage.webp",
             "name": "Inspire Courage",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "spell"
         },
@@ -2070,7 +2145,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2171,8 +2248,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
+            "permission": {
+                "default": 0
+            },
             "sort": 1400000,
             "type": "spell"
         },
@@ -2193,7 +2274,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2293,8 +2376,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/prestidigitation.webp",
             "name": "Prestidigitation",
+            "permission": {
+                "default": 0
+            },
             "sort": 1500000,
             "type": "spell"
         },
@@ -2315,7 +2402,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": ""
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -2415,8 +2504,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/sigil.webp",
             "name": "Sigil",
+            "permission": {
+                "default": 0
+            },
             "sort": 1600000,
             "type": "spell"
         },
@@ -2494,7 +2587,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -2503,7 +2596,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -2605,8 +2698,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/hand-crossbow.webp",
             "name": "Hand Crossbow",
+            "permission": {
+                "default": 0
+            },
             "sort": 1700000,
             "type": "weapon"
         },
@@ -2684,7 +2781,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -2693,7 +2790,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -2799,8 +2896,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/shortsword.webp",
             "name": "Shortsword",
+            "permission": {
+                "default": 0
+            },
             "sort": 1800000,
             "type": "weapon"
         },
@@ -2821,7 +2922,7 @@
                     "value": ""
                 },
                 "check": {
-                    "value": "-1"
+                    "value": -1
                 },
                 "collapsed": {
                     "value": false
@@ -2835,7 +2936,7 @@
                     "value": "<p>Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chainmail. However, it is much lighter than chainmail and protects only the torso, upper arms, and upper legs of its wearer.</p>"
                 },
                 "dex": {
-                    "value": "3"
+                    "value": 3
                 },
                 "equipped": {
                     "value": false
@@ -2869,7 +2970,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": null
@@ -2879,7 +2980,7 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -2948,13 +3049,13 @@
                     "value": ""
                 },
                 "speed": {
-                    "value": ""
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
                 "strength": {
-                    "value": "12"
+                    "value": 12
                 },
                 "traits": {
                     "custom": "",
@@ -2975,8 +3076,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/armor/chainshirt.webp",
             "name": "Chain Shirt",
+            "permission": {
+                "default": 0
+            },
             "sort": 1900000,
             "type": "armor"
         },
@@ -3030,7 +3135,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -3080,8 +3185,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/adventuring-gear/disguisekit.webp",
             "name": "Disguise Kit",
+            "permission": {
+                "default": 0
+            },
             "sort": 2000000,
             "type": "equipment"
         },
@@ -3164,7 +3273,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -3235,8 +3344,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
+            "permission": {
+                "default": 0
+            },
             "sort": 2100000,
             "type": "consumable"
         },
@@ -3249,25 +3362,8 @@
                 "attackEffects": {
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 13
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "die": "1d6+6"
                 },
                 "damageRolls": {
                     "0": {
@@ -3280,78 +3376,9 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -3365,20 +3392,18 @@
                         "versatile-s"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Shortsword",
+            "permission": {
+                "default": 0
+            },
             "sort": 2200000,
             "type": "melee"
         },
@@ -3391,25 +3416,8 @@
                 "attackEffects": {
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 13
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "piercing",
-                    "die": "1d6+3"
                 },
                 "damageRolls": {
                     "0": {
@@ -3422,78 +3430,9 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -3506,20 +3445,18 @@
                         "reload 1"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weaponType": {
                     "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Hand Crossbow",
+            "permission": {
+                "default": 0
+            },
             "sort": 2300000,
             "type": "melee"
         },
@@ -3567,8 +3504,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Versatile Performance",
+            "permission": {
+                "default": 0
+            },
             "sort": 2400000,
             "type": "action"
         },
@@ -3634,8 +3575,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Sneak Attack",
+            "permission": {
+                "default": 0
+            },
             "sort": 2500000,
             "type": "action"
         },
@@ -3683,8 +3628,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Scoundrel's Feint",
+            "permission": {
+                "default": 0
+            },
             "sort": 2600000,
             "type": "action"
         },
@@ -3723,8 +3672,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
+            "permission": {
+                "default": 0
+            },
             "sort": 2700000,
             "type": "lore"
         },
@@ -3763,8 +3716,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
+            "permission": {
+                "default": 0
+            },
             "sort": 2800000,
             "type": "lore"
         },
@@ -3803,8 +3760,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
+            "permission": {
+                "default": 0
+            },
             "sort": 2900000,
             "type": "lore"
         },
@@ -3843,8 +3804,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
+            "permission": {
+                "default": 0
+            },
             "sort": 3000000,
             "type": "lore"
         },
@@ -3883,8 +3848,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
+            "permission": {
+                "default": 0
+            },
             "sort": 3100000,
             "type": "lore"
         },
@@ -3923,8 +3892,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
+            "permission": {
+                "default": 0
+            },
             "sort": 3200000,
             "type": "lore"
         },
@@ -3963,8 +3936,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
+            "permission": {
+                "default": 0
+            },
             "sort": 3300000,
             "type": "lore"
         },
@@ -4003,8 +3980,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
+            "permission": {
+                "default": 0
+            },
             "sort": 3400000,
             "type": "lore"
         },
@@ -4043,8 +4024,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 3500000,
             "type": "lore"
         },
@@ -4083,8 +4068,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
+            "permission": {
+                "default": 0
+            },
             "sort": 3600000,
             "type": "lore"
         },
@@ -4123,8 +4112,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Underworld Lore",
+            "permission": {
+                "default": 0
+            },
             "sort": 3700000,
             "type": "lore"
         }
@@ -4136,10 +4129,13 @@
     "token": {
         "actorId": "Cnm5zWmuTEYy6mPx",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -4151,17 +4147,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Mastermind",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

@@ -1,30 +1,25 @@
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
+import { MystifiedTraits } from '@item/data/values';
 import { ActiveEffectPF2e } from '@module/active-effect';
-import { ConditionManager } from '@module/conditions';
+import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
+import { LightingLayerPF2e } from '@module/canvas/lighting-layer';
+import { TokenPF2e } from '@module/canvas/token';
+import { ChatMessagePF2e } from '@module/chat-message';
+import { CombatPF2e } from '@module/combat';
+import { CombatantPF2e } from '@module/combatant';
+import { FolderPF2e } from '@module/folder';
 import { registerHandlebarsHelpers } from '@module/handlebars';
-import {
-    AbilityModifier,
-    CheckModifier,
-    ModifierPF2e,
-    MODIFIER_TYPE,
-    StatisticModifier,
-    ProficiencyModifier,
-} from '@module/modifiers';
+import { MacroPF2e } from '@module/macro';
+import { ScenePF2e } from '@module/scene';
+import { SceneConfigPF2e } from '@module/scene/sheet';
 import { registerSettings } from '@module/settings';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
-import { CheckPF2e } from '@module/system/rolls';
 import { loadPF2ETemplates } from '@module/templates';
+import { TokenDocumentPF2e } from '@module/token-document';
+import { TokenConfigPF2e } from '@module/token-document/sheet';
 import { PlayerConfigPF2e } from '@module/user/player-config';
-import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
-import { StatusEffects } from '../actor/status-effects';
 import { PF2ECONFIG } from '../config';
-import { DicePF2e } from '../dice';
-import * as MonkeyPatch from '../🐵🩹';
-import { CombatPF2e } from '@module/combat';
-import { ChatMessagePF2e } from '@module/chat-message';
-import { MacroPF2e } from '@module/macro';
-import { MystifiedTraits } from '@item/data/values';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -33,13 +28,24 @@ export function listen(): void {
         CONFIG.PF2E = PF2ECONFIG;
         CONFIG.debug.ruleElement ??= false;
 
-        // Assign document classes.
-        CONFIG.Item.entityClass = ItemPF2e;
-        CONFIG.ActiveEffect.entityClass = ActiveEffectPF2e;
-        CONFIG.Actor.entityClass = ActorPF2e;
-        CONFIG.ChatMessage.entityClass = ChatMessagePF2e;
-        CONFIG.Combat.entityClass = CombatPF2e;
-        CONFIG.Macro.entityClass = MacroPF2e;
+        // Assign document and Canvas classes
+        CONFIG.Item.documentClass = ItemPF2e;
+        CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
+        CONFIG.Actor.documentClass = ActorPF2e;
+        CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
+        CONFIG.Combat.documentClass = CombatPF2e;
+        CONFIG.Combatant.documentClass = CombatantPF2e;
+        CONFIG.Folder.documentClass = FolderPF2e;
+        CONFIG.Macro.documentClass = MacroPF2e;
+
+        CONFIG.Scene.documentClass = ScenePF2e;
+        CONFIG.Scene.sheetClass = SceneConfigPF2e;
+
+        CONFIG.Token.documentClass = TokenDocumentPF2e;
+        CONFIG.Token.objectClass = TokenPF2e;
+        CONFIG.Token.sheetClass = TokenConfigPF2e;
+
+        CONFIG.Canvas.layers.lighting = LightingLayerPF2e;
 
         // Automatically advance world time by 6 seconds each round
         CONFIG.time.roundTime = 6;
@@ -52,14 +58,52 @@ export function listen(): void {
 
         // configure the bundled TinyMCE editor with PF2-specific options
         CONFIG.TinyMCE.extended_valid_elements = 'pf2-action[action|glyph]';
-        CONFIG.TinyMCE.content_css = (CONFIG.TinyMCE.content_css ?? []).concat(
+        CONFIG.TinyMCE.content_css = CONFIG.TinyMCE.content_css.concat(
             `systems/${game.system.id}/styles/pf2e.css`,
+            `systems/${game.system.id}/styles/tinymce.css`,
         );
         CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
-            title: 'Icons A D T F R',
-            inline: 'span',
-            classes: ['pf2-icon'],
-            wrapper: true,
+            title: 'PF2E',
+            items: [
+                {
+                    title: 'Icons A D T F R',
+                    inline: 'span',
+                    classes: ['pf2-icon'],
+                    wrapper: true,
+                },
+                {
+                    title: 'Inline Header',
+                    block: 'h4',
+                    classes: 'inline-header',
+                },
+                {
+                    title: 'Info Block',
+                    block: 'section',
+                    classes: 'info',
+                    wrapper: true,
+                    exact: true,
+                    merge_siblings: false,
+                },
+                {
+                    title: 'Stat Block',
+                    block: 'section',
+                    classes: 'statblock',
+                    wrapper: true,
+                    exact: true,
+                    merge_siblings: false,
+                },
+                {
+                    title: 'Trait',
+                    block: 'section',
+                    classes: 'traits',
+                    wrapper: true,
+                },
+                {
+                    title: 'Written Note',
+                    block: 'p',
+                    classes: 'message',
+                },
+            ],
         });
 
         PlayerConfigPF2e.hookOnRenderSettings();
@@ -68,91 +112,5 @@ export function listen(): void {
         registerSettings();
         loadPF2ETemplates();
         registerHandlebarsHelpers();
-
-        // expose a few things to the global world, so that other modules can use our stuff
-        // instead of being locked in our world after we started building with webpack
-        // which enforced modules being private
-        Object.defineProperty(window, 'DicePF2e', {
-            get: function () {
-                console.warn(
-                    'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.Dice instead.',
-                );
-                return DicePF2e;
-            },
-        });
-        Object.defineProperty(window, 'PF2eStatusEffects', {
-            get: function () {
-                console.warn(
-                    'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.StatusEffects instead.',
-                );
-                return StatusEffects;
-            },
-        });
-        Object.defineProperty(window, 'PF2eConditionManager', {
-            get: function () {
-                console.warn(
-                    'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.ConditionManager instead.',
-                );
-                return ConditionManager;
-            },
-        });
-        Object.defineProperty(window, 'PF2ModifierType', {
-            get: function () {
-                console.warn(
-                    'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.ModifierType instead.',
-                );
-                return MODIFIER_TYPE;
-            },
-        });
-        Object.defineProperty(window, 'PF2Modifier', {
-            get: function () {
-                console.warn(
-                    'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.Modifier instead.',
-                );
-                return ModifierPF2e;
-            },
-        });
-        Object.defineProperty(window, 'AbilityModifier', {
-            get: function () {
-                console.warn(
-                    'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.AbilityModifier instead.',
-                );
-                return AbilityModifier;
-            },
-        });
-        Object.defineProperty(window, 'ProficiencyModifier', {
-            get: function () {
-                console.warn(
-                    'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.ProficiencyModifier instead.',
-                );
-                return ProficiencyModifier;
-            },
-        });
-        Object.defineProperty(window, 'PF2StatisticModifier', {
-            get: function () {
-                console.warn(
-                    'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.StatisticModifier instead.',
-                );
-                return StatisticModifier;
-            },
-        });
-        Object.defineProperty(window, 'PF2CheckModifier', {
-            get: function () {
-                console.warn(
-                    'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.CheckModifier instead.',
-                );
-                return CheckModifier;
-            },
-        });
-        Object.defineProperty(window, 'PF2Check', {
-            get: function () {
-                console.warn(
-                    'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.Check instead.',
-                );
-                return CheckPF2e;
-            },
-        });
-
-        MonkeyPatch.patchCompendiumImports();
     });
 }

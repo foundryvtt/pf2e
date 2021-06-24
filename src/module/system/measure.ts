@@ -5,23 +5,37 @@ function degtorad(degrees: number) {
     return (degrees * Math.PI) / 180;
 }
 
+export const measureDistance = (p0: Point, p1: Point) => {
+    const gs = canvas.dimensions.size;
+    const ray = new Ray(p0, p1);
+    // How many squares do we travel across to get there? If 2.3, we should count that as 3 instead of 2; hence, Math.ceil
+    const nx = Math.ceil(Math.abs(ray.dx / gs));
+    const ny = Math.ceil(Math.abs(ray.dy / gs));
+
+    // Get the number of straight and diagonal moves
+    const nDiagonal = Math.min(nx, ny);
+    const nStraight = Math.abs(ny - nx);
+
+    // Diagonals in PF pretty much count as 1.5 times a straight
+    const distance = Math.floor(nDiagonal * 1.5 + nStraight);
+    const distanceOnGrid = distance * canvas.dimensions.distance;
+    return distanceOnGrid;
+};
+
 // Use 90 degrees cone in PF2e style
-TemplateLayer.prototype._onDragLeftStart = function _onDragLeftStart(event) {
+TemplateLayer.prototype._onDragLeftStart = function _onDragLeftStart(event: ElementDragEvent) {
     PlaceablesLayer.prototype._onDragLeftStart.call(this, event);
 
     // Create the new preview template
     const tool = game.activeTool;
     const origin = event.data.origin;
-    let pos;
-    if (['cone', 'circle'].includes(tool)) {
-        pos = canvas.grid.getSnappedPosition(origin.x, origin.y, 2);
-    } else pos = canvas.grid.getSnappedPosition(origin.x, origin.y, 2);
+    const pos = canvas.grid.getSnappedPosition(origin.x, origin.y, 2);
     origin.x = pos.x;
     origin.y = pos.y;
 
     // Create the template
     const data = {
-        user: game.user._id,
+        user: game.user.id,
         t: tool,
         x: pos.x,
         y: pos.y,
@@ -33,12 +47,12 @@ TemplateLayer.prototype._onDragLeftStart = function _onDragLeftStart(event) {
     else if (tool === 'ray') data.width = 5;
 
     // Assign the template
-    const template = new MeasuredTemplate(data);
+    const template = new MeasuredTemplate(new MeasuredTemplateDocument(data, { parent: canvas.scene }));
     event.data.preview = this.preview.addChild(template);
     template.draw();
 };
 
-TemplateLayer.prototype._onDragLeftMove = function _onDragLeftMove(event) {
+TemplateLayer.prototype._onDragLeftMove = function _onDragLeftMove(event: ElementDragEvent) {
     PlaceablesLayer.prototype._onDragLeftMove.call(this, event);
     if (event.data.createState >= 1) {
         // Snap the destination to the grid
@@ -55,13 +69,13 @@ TemplateLayer.prototype._onDragLeftMove = function _onDragLeftMove(event) {
         // Update the shape data
         if (['cone', 'circle'].includes(template.data.t)) {
             const direction = ray.angle;
-            template.data.direction = toDegrees(
+            template.data.direction = Math.toDegrees(
                 Math.floor((direction + Math.PI * 0.125) / (Math.PI * 0.25)) * (Math.PI * 0.25),
             );
             const distance = ray.distance / ratio;
             template.data.distance = Math.floor(distance / canvas.dimensions.distance) * canvas.dimensions.distance;
         } else {
-            template.data.direction = toDegrees(ray.angle);
+            template.data.direction = Math.toDegrees(ray.angle);
             template.data.distance = ray.distance / ratio;
         }
 
@@ -104,30 +118,13 @@ MeasuredTemplate.prototype.highlightGrid = function highlightGrid() {
     const minAngle = (360 + ((this.data.direction - this.data.angle * 0.5) % 360)) % 360;
     const maxAngle = (360 + ((this.data.direction + this.data.angle * 0.5) % 360)) % 360;
 
-    const withinAngle = (min, max, value) => {
+    const withinAngle = (min: number, max: number, value: number) => {
         min = (360 + (min % 360)) % 360;
         max = (360 + (max % 360)) % 360;
         value = (360 + (value % 360)) % 360;
 
         if (min < max) return value >= min && value <= max;
         return value >= min || value <= max;
-    };
-
-    const measureDistance = (p0, p1) => {
-        const gs = canvas.dimensions.size;
-        const ray = new Ray(p0, p1);
-        // How many squares do we travel across to get there? If 2.3, we should count that as 3 instead of 2; hence, Math.ceil
-        const nx = Math.ceil(Math.abs(ray.dx / gs));
-        const ny = Math.ceil(Math.abs(ray.dy / gs));
-
-        // Get the number of straight and diagonal moves
-        const nDiagonal = Math.min(nx, ny);
-        const nStraight = Math.abs(ny - nx);
-
-        // Diagonals in PF pretty much count as 1.5 times a straight
-        const distance = Math.floor(nDiagonal * 1.5 + nStraight);
-        const distanceOnGrid = distance * canvas.dimensions.distance;
-        return distanceOnGrid;
     };
 
     const originOffset = { x: 0, y: 0 };

@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your kin have instilled in you an affinity for hard-hitting weapons, and you prefer these to more elegant arms. You are trained with the battle axe, pick, and warhammer. You also gain access to all uncommon dwarf weapons. For the purpose of determining your proficiency, martial dwarf weapons are simple weapons and advanced dwarf weapons are martial weapons.</p>"
+            "value": "<p>Your kin have instilled in you an affinity for hard-hitting weapons, and you prefer these to more elegant arms. You are trained with the @Compendium[pf2e.equipment-srd.Battle Axe]{Battle Axe}, @Compendium[pf2e.equipment-srd.Pick]{Pick}, and @Compendium[pf2e.equipment-srd.Warhammer]{Warhammer}.</p>\n<p>You also gain access to all uncommon dwarf weapons. For the purpose of determining your proficiency, martial dwarf weapons are simple weapons and advanced dwarf weapons are martial weapons.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -21,6 +21,7 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
@@ -38,8 +39,50 @@
             ]
         }
     },
-    "effects": [],
+    "effects": [
+        {
+            "_id": "WOYBI43YifQJDAEc",
+            "changes": [
+                {
+                    "key": "data.martial.weapon-base-battle-axe.rank",
+                    "mode": 4,
+                    "value": "1"
+                },
+                {
+                    "key": "data.martial.weapon-base-pick.rank",
+                    "mode": 4,
+                    "value": "1"
+                },
+                {
+                    "key": "data.martial.weapon-base-warhammer.rank",
+                    "mode": 4,
+                    "value": "1"
+                },
+                {
+                    "key": "data.martial.martial.familiarity",
+                    "mode": 5,
+                    "value": "{ \"trait\": \"dwarf\", \"category\": \"advanced\" }"
+                },
+                {
+                    "key": "data.martial.simple.familiarity",
+                    "mode": 5,
+                    "value": "{ \"trait\": \"dwarf\", \"category\": \"martial\" }"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/feats/feats.webp",
+            "label": "Dwarven Weapon Familiarity",
+            "origin": "",
+            "tint": "",
+            "transfer": true
+        }
+    ],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Dwarven Weapon Familiarity",
     "permission": {

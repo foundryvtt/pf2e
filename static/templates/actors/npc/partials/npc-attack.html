@@ -1,4 +1,4 @@
-<li class="item attack flexrow" data-action-id="{{actionId}}" data-item-name="{{action.name}}" data-item-id="{{action.sourceId}}">
+<li class="item attack flexrow" data-action-index="{{actionId}}" data-item-name="{{action.name}}" data-item-id="{{action.sourceId}}">
     <div class="attack-header">
         <div class="attack-name">
             <h4>{{action.name}} <span class="activity-icon">{{action.glyph}}</span></h4>
@@ -21,8 +21,8 @@
         </div>
         <div class="damage sub-section">
             <div class="flexrow">
-                <button type="button" class="btn damage-button" data-action="damage">{{#each action.damageBreakdown}}{{this}}{{#unless @last}} + {{/unless}}{{/each}}</button>
-                <button type="button" class="btn critical-button" data-action="critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
+                <button type="button" class="btn damage-button" data-action="npcDamage">{{#each action.damageBreakdown}}{{this}}{{#unless @last}} + {{/unless}}{{/each}}</button>
+                <button type="button" class="btn critical-button" data-action="npcCritical">{{localize "PF2E.CriticalDamageLabel"}}</button>
             </div>
         </div>
         <div class="attack-detail sub-section expandable expanded">

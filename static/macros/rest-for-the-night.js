@@ -5,8 +5,8 @@ const levelMultiplier = (actor) =>
     actor.items.filter((item) => [FAST_RECOVERY, DREAM_MAY].includes(item.data.flags.core?.sourceId)).length + 1;
 
 const recover = () => {
-    const Character = CONFIG.PF2E.Actor.entityClasses.character;
-    const Condition = CONFIG.PF2E.Item.entityClasses.condition;
+    const Character = CONFIG.PF2E.Actor.documentClasses.character;
+    const Condition = CONFIG.PF2E.Item.documentClasses.condition;
     const tokens = canvas.tokens.controlled.filter((token) => token.actor instanceof Character);
 
     if (tokens.length === 0) {

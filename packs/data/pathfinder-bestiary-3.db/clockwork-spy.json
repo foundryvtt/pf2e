@@ -137,7 +137,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "<p>Intricate, complex machines, clockworks are built with care by highly skilled engineers. Though their creation involves some amount of magic, they&rsquo;re primarily mechanical, packed with precision-tuned gears and springs working in concert.</p>\n<p>The sturdy mainspring within a clockwork must be wound to provide the energy needed to power the device. Some larger clockworks contain a series of springs for different limbs that each need to be wound. A clockwork&rsquo;s crafter creates a unique metal key while building the clockwork; winding the clockwork usually involves inserting the key into the machine&rsquo;s back and turning clockwise. Larger clockworks require greater strength to turn the key, and typically have larger keys to allow for more torque&mdash;some even accommodating a team of winders rather than an individual. Programming a clockwork requires both the key and the knowledge to set the program correctly, information usually reserved for the clockwork&rsquo;s creator or owner.</p>\n<hr />\n<p>Engineers, technologists, and mechanically gifted wizards employ clockwork spies&mdash;tiny, spiderlike constructs capable of recording and playing back audio&mdash;to surreptitiously surveil their enemies or steal secrets from competitors. Their spindly bodies and delicate components make them unsuitable for combat; in fact, most builders construct clockwork spies with a self-destruct mechanism to ensure the spies&rsquo; meddling can&rsquo;t be traced back to them.</p>",
+            "flavorText": "<p>Intricate, complex machines, clockworks are built with care by highly skilled engineers. Though their creation involves some amount of magic, they're primarily mechanical, packed with precision-tuned gears and springs working in concert.</p>\n<p>The sturdy mainspring within a clockwork must be wound to provide the energy needed to power the device. Some larger clockworks contain a series of springs for different limbs that each need to be wound. A clockwork's crafter creates a unique metal key while building the clockwork; winding the clockwork usually involves inserting the key into the machine's back and turning clockwise. Larger clockworks require greater strength to turn the key, and typically have larger keys to allow for more torque-some even accommodating a team of winders rather than an individual. Programming a clockwork requires both the key and the knowledge to set the program correctly, information usually reserved for the clockwork's creator or owner.</p>\n<hr />\n<p>Engineers, technologists, and mechanically gifted wizards employ clockwork spies-tiny, spiderlike constructs capable of recording and playing back audio-to surreptitiously surveil their enemies or steal secrets from competitors. Their spindly bodies and delicate components make them unsuitable for combat; in fact, most builders construct clockwork spies with a self-destruct mechanism to ensure the spies' meddling can't be traced back to them.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -320,6 +320,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -332,21 +333,8 @@
                     "custom": "",
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 7
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "0": {
@@ -357,48 +345,9 @@
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -412,15 +361,16 @@
                 },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Spherical Body",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "melee"
         },
@@ -469,9 +419,65 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Low-Light Vision",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "zdb8RR0jcIIol6on",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>24 hours, DC 14, standby</p>\n<hr />\n<p>For a clockwork to act, it must be wound with a unique key by another creature. This takes 1 minute. Once wound, it remains operational for the listed amount of time, usually 24 hours, after which time it becomes unaware of its surroundings and can’t act until it’s wound again. Some clockworks’ abilities require them to spend some of their remaining operational time. They can’t spend more than they have and shut down immediately once they have 0 time remaining. If it’s unclear when a clockwork was last wound, most clockwork keepers wind all their clockworks at a set time, typically 8 a.m.</p>\n<p>A clockwork that lists standby in its wind-up entry can enter standby mode as a 3-action activity. Its operational time doesn’t decrease in standby, but it can sense its surroundings (with a –2 penalty to Perception). It can’t act, with one exception: when it perceives a creature, it can exit standby as a reaction (rolling initiative if appropriate).</p>\n<p>A creature can attempt to Disable a Device to wind a clockwork down (with a DC listed in the wind-up entry). For each success, the clockwork loses 1 hour of operational time. This can be done even if the clockwork is in standby mode.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.blycRyrxURtXbX7M"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Wind-Up",
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -513,9 +519,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Record Audio",
-            "sort": 300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -557,56 +567,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Self-Destruct",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "zdb8RR0jcIIol6on",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p><span style=\"color: var(--body);\">24 hours, DC 14, standby</span></p>\n<hr />\n<p>For a clockwork to act, it must be wound with a unique key by another creature. This takes 1 minute. Once wound, it remains operational for the listed amount of time, usually 24 hours, after which time it becomes unaware of its surroundings and can’t act until it’s wound again. Some clockworks’ abilities require them to spend some of their remaining operational time. They can’t spend more than they have and shut down immediately once they have 0 time remaining. If it’s unclear when a clockwork was last wound, most clockwork keepers wind all their clockworks at a set time, typically 8 a.m.</p>\n<p>A clockwork that lists standby in its wind-up entry can enter standby mode as a 3-action activity. Its operational time doesn’t decrease in standby, but it can sense its surroundings (with a –2 penalty to Perception). It can’t act, with one exception: when it perceives a creature, it can exit standby as a reaction (rolling initiative if appropriate).</p>\n<p>A creature can attempt to Disable a Device to wind a clockwork down (with a DC listed in the wind-up entry). For each success, the clockwork loses 1 hour of operational time. This can be done even if the clockwork is in standby mode.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
+            "permission": {
+                "default": 0
             },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Item.blycRyrxURtXbX7M"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Wind-Up",
             "sort": 500000,
             "type": "action"
         },
@@ -640,8 +606,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "lore"
         }
@@ -653,10 +623,13 @@
     "token": {
         "actorId": "cKZtOsBlN3Qu8Kyq",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -668,17 +641,19 @@
         "height": 0.5,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Clockwork Spy",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 0.5

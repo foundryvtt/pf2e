@@ -6,7 +6,7 @@ export async function listen(message: ChatMessage<ActorPF2e>, html: JQuery): Pro
     const damageRoll = message.getFlag('pf2e', 'damageRoll');
     const fromRollTable = message.getFlag('core', 'RollTable') !== undefined;
     const isRoll = damageRoll || message.isRoll;
-    const isD20 = message.roll && message.roll.dice[0]?.faces === 20;
+    const isD20 = (isRoll && message.roll && message.roll.dice[0]?.faces === 20) || false;
     if (!isRoll || isD20 || fromRollTable) return;
 
     const $buttons = $(await renderTemplate('systems/pf2e/templates/chat/damage/buttons.html'));
@@ -97,7 +97,6 @@ export async function listen(message: ChatMessage<ActorPF2e>, html: JQuery): Pro
     });
 
     heal.on('click', (event) => {
-        event.stopPropagation();
         applyDamage(html, -1, event.shiftKey);
     });
 }

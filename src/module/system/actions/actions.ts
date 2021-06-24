@@ -1,7 +1,11 @@
-import { ActorPF2e, SKILL_EXPANDED } from '@actor/base';
+import type { ActorPF2e } from '@actor/base';
+import { CreaturePF2e } from '@actor';
+import { SKILL_EXPANDED } from '@actor/data/values';
 import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from '../../modifiers';
 import { CheckPF2e } from '../rolls';
+import { StatisticWithDC } from '@system/statistic';
 import { seek } from './basic/seek';
+import { senseMotive } from './basic/sense-motive';
 import { balance } from './acrobatics/balance';
 import { maneuverInFlight } from './acrobatics/maneuver-in-flight';
 import { squeeze } from './acrobatics/squeeze';
@@ -24,6 +28,8 @@ import { makeAnImpression } from './diplomacy/make-an-impression';
 import { request } from './diplomacy/request';
 import { coerce } from './intimidation/coerce';
 import { demoralize } from './intimidation/demoralize';
+import { hide } from './stealth/hide';
+import { sneak } from './stealth/sneak';
 
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
 
@@ -44,6 +50,7 @@ export class ActionsPF2e {
     static exposeActions(actions: { [key: string]: Function }) {
         // basic
         actions.seek = seek;
+        actions.senseMotive = senseMotive;
 
         // acrobatics
         actions.balance = balance;
@@ -76,11 +83,13 @@ export class ActionsPF2e {
         // intimidation
         actions.coerce = coerce;
         actions.demoralize = demoralize;
+
+        // stealth
+        actions.hide = hide;
+        actions.sneak = sneak;
     }
 
-    static resolveStat(
-        stat: string,
-    ): {
+    static resolveStat(stat: string): {
         checkType: CheckType;
         property: string;
         stat: string;
@@ -116,18 +125,22 @@ export class ActionsPF2e {
         traits: string[],
         checkType: CheckType,
         event: JQuery.Event,
+        difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC,
     ) {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
-        if (actors && Array.isArray(actors) && actors.length) {
+        if (Array.isArray(actors)) {
             rollers.push(...actors);
-        } else if (actors instanceof ActorPF2e) {
+        } else if (actors) {
             rollers.push(actors);
         } else if (canvas.tokens.controlled.length) {
             rollers.push(...(canvas.tokens.controlled.map((token) => token.actor) as ActorPF2e[]));
         } else if (game.user.character) {
             rollers.push(game.user.character);
         }
+
+        const targets = Array.from(game.user.targets).filter((token) => token.actor instanceof CreaturePF2e);
+        const target = targets[0];
 
         if (rollers.length) {
             rollers.forEach((actor) => {
@@ -140,11 +153,48 @@ export class ActionsPF2e {
                 const stat = getProperty(actor, statName) as StatisticModifier;
                 const check = new CheckModifier(flavor, stat, modifiers ?? []);
                 const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
+                {
+                    // options for roller's conditions
+                    const conditions = actor.itemTypes.condition.filter((condition) => condition.fromSystem);
+                    finalOptions.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
+                }
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
+                const dc = (() => {
+                    if (target && target.actor instanceof CreaturePF2e) {
+                        const targetOptions: string[] = [];
+
+                        // target's conditions
+                        const conditions = target.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
+                        targetOptions.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
+
+                        // target's traits
+                        const targetTraits = (target.actor.data.data.traits.traits.custom ?? '')
+                            .split(/[;,\\|]/)
+                            .map((value) => value.trim())
+                            .concat(target.actor.data.data.traits.traits.value ?? [])
+                            .filter((value) => !!value)
+                            .map((trait) => `target:${trait}`);
+                        targetOptions.push(...targetTraits);
+
+                        // try to resolve target's defense stat and calculate DC
+                        const dc = difficultyClassStatistic?.(target.actor)?.dc({
+                            options: finalOptions.concat(targetOptions),
+                        });
+                        if (dc) {
+                            return {
+                                label: game.i18n.format(dc.labelKey, { creature: target.name, dc: '{dc}' }),
+                                value: dc.value,
+                                adjustments: stat.adjustments ?? [],
+                            };
+                        }
+                    }
+                    return undefined;
+                })();
                 CheckPF2e.roll(
                     check,
                     {
                         actor,
+                        dc,
                         type: checkType,
                         options: finalOptions,
                         notes: stat.notes ?? [],

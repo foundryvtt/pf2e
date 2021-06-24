@@ -1,19 +1,11 @@
-import { CheckPF2e } from './module/system/rolls';
-import { RuleElements } from './module/rules/rules';
-import { updateMinionActors } from './scripts/actor/update-minions';
-import { PF2E } from './scripts/hooks';
-import { ItemDataPF2e } from '@item/data/types';
-import { ActorPF2e } from './module/actor/base';
-import { NPCPF2e } from './module/actor/npc';
+import { ActorPF2e } from '@actor/index';
+import { CheckPF2e } from '@system/rolls';
+import { HooksPF2e } from '@scripts/hooks';
 
 import '@system/measure';
 import './styles/pf2e.scss';
-import { CreaturePF2e } from '@actor/creature';
 
-// load in the scripts (that were previously just included by <script> tags instead of in the bundle
-require('./scripts/system/canvas-drop-handler');
-
-PF2E.Hooks.listen();
+HooksPF2e.listen();
 
 /* -------------------------------------------- */
 /*  Foundry VTT Setup                           */
@@ -25,20 +17,14 @@ PF2E.Hooks.listen();
  */
 Hooks.on('getChatLogEntryContext', (_html, options) => {
     const canApplyDamage: ContextOptionCondition = (li) => {
-        const { messageId } = li.data();
-        const message = game.messages.get(messageId);
+        const messageId = li.attr('data-message-id') ?? '';
+        const message = game.messages.get(messageId, { strict: true });
 
-        return !!(
-            canvas.tokens.controlled.length &&
-            message.isRoll &&
-            message.data &&
-            message.data.flavor &&
-            message.data.flavor.includes('Damage')
-        );
+        return !!(canvas.tokens.controlled.length && message.isRoll && message.data.flavor?.includes('Damage'));
     };
     const canApplyHealing: ContextOptionCondition = (li) => {
-        const { messageId } = li.data();
-        const message = game.messages.get(messageId);
+        const messageId = li.attr('data-message-id') ?? '';
+        const message = game.messages.get(messageId, { strict: true });
 
         return !!(
             canvas.tokens.controlled.length &&
@@ -49,39 +35,37 @@ Hooks.on('getChatLogEntryContext', (_html, options) => {
         );
     };
     const canApplyInitiative: ContextOptionCondition = (li) => {
-        const { messageId } = li.data();
-        const message = game.messages.get(messageId);
+        const messageId = li.attr('data-message-id') ?? '';
+        const message = game.messages.get(messageId, { strict: true });
 
         // Rolling PC iniative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
         // Avoid potential confusion and misunderstanding by just allowing NPCs to roll
-        const validActor = canvas.tokens.controlled?.[0]?.actor?.data?.type === 'npc' ?? false;
+        const validActor = canvas.tokens.controlled[0]?.actor?.data.type === 'npc';
         const validRollType =
-            (message?.data?.flavor?.includes('Skill Check') || message?.data?.flavor?.includes('Perception Check')) ??
-            false;
+            message.data.flavor?.includes('Skill Check') || message.data.flavor?.includes('Perception Check') || false;
         return validActor && message.isRoll && validRollType;
     };
 
     const canHeroPointReroll: ContextOptionCondition = (li): boolean => {
-        const message = game.messages.get(li.data('messageId'));
-        const actorId = message.data.speaker.actor;
-        const canReroll = message.getFlag('pf2e', 'canReroll');
-        if (canReroll && actorId) {
-            const actor = game.actors.get(actorId);
-            return (
-                actor.owner && actor.data.data.attributes.heroPoints?.rank >= 1 && (message.isAuthor || game.user.isGM)
-            );
-        }
-        return false;
+        const message = game.messages.get(li.data('messageId'), { strict: true });
+
+        const actorId = message.data.speaker.actor ?? '';
+        const actor = game.actors.get(actorId);
+        const canReroll = !!message.getFlag('pf2e', 'canReroll');
+        return (
+            canReroll &&
+            actor?.data.type === 'character' &&
+            actor.isOwner &&
+            actor.data.data.attributes.heroPoints?.rank >= 1 &&
+            (message.isAuthor || game.user.isGM)
+        );
     };
     const canReroll: ContextOptionCondition = (li): boolean => {
-        const message = game.messages.get(li.data('messageId'));
-        const actorId = message.data.speaker.actor;
-        const canRerollMessage = message.getFlag('pf2e', 'canReroll');
-        if (canRerollMessage && actorId) {
-            const actor = game.actors.get(actorId);
-            return actor.owner && (message.isAuthor || game.user.isGM);
-        }
-        return false;
+        const message = game.messages.get(li.data('messageId'), { strict: true });
+        const actorId = message.data.speaker.actor ?? '';
+        const isOwner = !!game.actors.get(actorId)?.isOwner;
+        const canRerollMessage = !!message.getFlag('pf2e', 'canReroll');
+        return canRerollMessage && isOwner && (message.isAuthor || game.user.isGM);
     };
 
     options.push(
@@ -119,170 +103,41 @@ Hooks.on('getChatLogEntryContext', (_html, options) => {
             name: 'PF2E.RerollMenu.HeroPoint',
             icon: '<i class="fas fa-hospital-symbol"></i>',
             condition: canHeroPointReroll,
-            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId')), { heroPoint: true }),
+            callback: (li) =>
+                CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'), { strict: true }), {
+                    heroPoint: true,
+                }),
         },
         {
             name: 'PF2E.RerollMenu.KeepNew',
             icon: '<i class="fas fa-dice"></i>',
             condition: canReroll,
-            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'))),
+            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'), { strict: true })),
         },
         {
             name: 'PF2E.RerollMenu.KeepWorst',
             icon: '<i class="fas fa-dice-one"></i>',
             condition: canReroll,
-            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'worst' }),
+            callback: (li) =>
+                CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'), { strict: true }), {
+                    keep: 'worst',
+                }),
         },
         {
             name: 'PF2E.RerollMenu.KeepBest',
             icon: '<i class="fas fa-dice-six"></i>',
             condition: canReroll,
-            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'best' }),
+            callback: (li) =>
+                CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'), { strict: true }), {
+                    keep: 'best',
+                }),
         },
     );
-});
-
-Hooks.on('preCreateItem', (itemData: Partial<ItemDataPF2e>) => {
-    itemData.img = (() => {
-        if (itemData.img !== undefined) {
-            return itemData.img;
-        }
-        return CONFIG.PF2E.Item.entityClasses[itemData.type].defaultImg;
-    })();
-});
-
-Hooks.on('updateActor', (actor, _data, _options, userID) => {
-    if (userID === game.userId) {
-        // ensure minion-type actors with the updated actor as master should also be updated
-        updateMinionActors(actor);
-    }
-});
-
-function preCreateOwnedItem(
-    _parent: ActorPF2e,
-    child: DeepPartial<ItemDataPF2e>,
-    _options: EntityCreateOptions,
-    userID: string,
-) {
-    if (userID === game.userId) {
-        if (child.type === 'effect') {
-            const data = child.data!;
-            data.start = data.start ?? { value: 0, initiative: null };
-            data.start!.value = game.time.worldTime;
-
-            if (game.combat && game.combat.turns?.length > game.combat.turn) {
-                data.start!.initiative = game.combat.turns[game.combat.turn].initiative;
-            }
-        }
-    }
-}
-
-Hooks.on('preCreateOwnedItem', preCreateOwnedItem);
-
-function createOwnedItem(parent: ActorPF2e | null, child: ItemDataPF2e, options: EntityCreateOptions, userID: string) {
-    if (parent instanceof ActorPF2e) {
-        if (userID === game.userId) {
-            parent.onCreateOwnedItem(child, options, userID);
-        }
-
-        game.pf2e.effectPanel.refresh();
-    }
-}
-
-Hooks.on('createOwnedItem', createOwnedItem);
-
-function deleteOwnedItem(parent: ActorPF2e | null, child: ItemDataPF2e, options: EntityDeleteOptions, userID: string) {
-    if (parent instanceof ActorPF2e) {
-        if (userID === game.userId) {
-            parent.onDeleteOwnedItem(child, options, userID);
-        }
-
-        if (child.type === 'effect') {
-            game.pf2e.effectTracker.unregister(child);
-        }
-        game.pf2e.effectPanel.refresh();
-    }
-}
-
-Hooks.on('deleteOwnedItem', deleteOwnedItem);
-
-Hooks.on('updateOwnedItem', (parent) => {
-    if (parent instanceof ActorPF2e) {
-        game.pf2e.effectPanel.refresh();
-    }
 });
 
 // effect panel
 Hooks.on('updateUser', () => {
     game.pf2e.effectPanel.refresh();
-});
-
-Hooks.on('preCreateToken', (_scene: Scene, token: TokenData) => {
-    const actor = game.actors.get(token.actorId);
-    if (actor) {
-        actor.items.forEach((item) => {
-            const rules = RuleElements.fromRuleElementData(item.data.data.rules ?? [], item.data);
-            for (const rule of rules) {
-                if (rule.ignored) continue;
-                rule.onCreateToken(actor.data, item.data, token);
-            }
-        });
-    }
-});
-
-Hooks.on('preUpdateToken', (_scene, token, data, options, userID) => {
-    if (!token.actorLink && data.actorData?.items) {
-        // Preparation for synthetic actors to fake some of the other hooks in the 'updateToken' hook where this data is
-        // not otherwise available
-        options.pf2e = {
-            items: {
-                added:
-                    data.actorData?.items?.filter((i) => !token.actorData?.items?.map((x) => x._id)?.includes(i._id)) ??
-                    [],
-                removed:
-                    token.actorData?.items?.filter((i) => !data.actorData?.items?.map((x) => x._id)?.includes(i._id)) ??
-                    [],
-            },
-        };
-        const actor = canvas.tokens.get(token._id)?.actor;
-        if (actor) {
-            options.pf2e.items.added.forEach((item: ItemDataPF2e) => {
-                preCreateOwnedItem(actor, item, options, userID);
-            });
-        }
-    }
-});
-
-Hooks.on('updateToken', (_scene, token: TokenData, data, options, userID) => {
-    if (!token.actorLink && options.pf2e?.items) {
-        // Synthetic actors do not trigger the 'createOwnedItem' and 'deleteOwnedItem' hooks, so use the previously
-        // prepared data from the 'preUpdateToken' hook to trigger the callbacks from here instead
-        const actor = canvas.tokens.get(token._id)?.actor;
-        if (actor) {
-            options.pf2e.items.added.forEach((item: ItemDataPF2e) => {
-                createOwnedItem(actor, item, options, userID);
-            });
-            options.pf2e.items.removed.forEach((item: ItemDataPF2e) => {
-                deleteOwnedItem(actor, item, options, userID);
-            });
-            if (actor instanceof CreaturePF2e) {
-                actor.redrawTokenEffects();
-            }
-        }
-    }
-
-    if ('disposition' in data && game.userId === userID) {
-        const actor = canvas.tokens.get(token._id)?.actor;
-        if (actor instanceof NPCPF2e) {
-            (actor as NPCPF2e).updateNPCAttitudeFromDisposition(data.disposition);
-        }
-    }
-
-    game.pf2e.effectPanel.refresh();
-});
-
-Hooks.on('controlToken', () => {
-    game.pf2e?.effectPanel.refresh();
 });
 
 // world clock application
@@ -301,12 +156,14 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
 
 Hooks.on('renderChatMessage', (message, html) => {
     // remove elements the user does not have permission to see
+    html.find('[data-visibility="none"]').remove();
+
     if (!game.user.isGM) {
         html.find('[data-visibility="gm"]').remove();
     }
 
     const actor = message.data.speaker?.actor ? game.actors.get(message.data.speaker.actor) : undefined;
-    if (!((actor && actor.owner) || game.user.isGM || message.isAuthor)) {
+    if (!((actor && actor.isOwner) || game.user.isGM || message.isAuthor)) {
         html.find('[data-visibility="owner"]').remove();
     }
 
@@ -317,7 +174,7 @@ Hooks.on('renderChatMessage', (message, html) => {
         if (
             role === 'all' ||
             (role === 'gm' && game.user.isGM) ||
-            (role === 'owner' && ((actor && actor.owner) || game.user.isGM || message.isAuthor))
+            (role === 'owner' && ((actor && actor.isOwner) || game.user.isGM || message.isAuthor))
         ) {
             elem.innerHTML = game.i18n.format('PF2E.DCWithValue', {
                 dc,

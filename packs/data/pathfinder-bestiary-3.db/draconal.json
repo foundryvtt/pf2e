@@ -137,7 +137,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "<p>These celestial outsiders hail from Nirvana, the plane of purest good. Agathions are born from the souls of mortals who attained the enlightenment they sought in life, sometimes even after death. Because they all start out as mortals who were rewarded for their determination, self-awareness, and purity of heart, agathions are more likely than other celestials to intervene in working nonviolently against the spread of evil on the material plane. Agathions have served as moderators between the chaotic azatas and lawful archons, so they know how vital communication with mortals can be to bridge differences and ensure that evil doesn&rsquo;t win out.</p>\n<p>All agathions possess animal-like aspects, some appear more anthropomorphic, while others spend most of their time in forms nearly indistinguishable from true animals. Still others prefer to shapeshift as they see fit, or present as humanoid when in the company of humanoid mortals.</p>\n<p>Each type of agathion serves a specific role in Nirvana. Their duties and forms generally reflect the core values they cultivated in life that led them to their enlightenment. Since agathions receive their animal forms as rewards for their mortal lives, they take great insult with insinuations that they&rsquo;re merely magical talking beasts or&mdash;even worse&mdash;that their forms are a curse or punishment.</p>\n<hr />\n<p>Dragon agathions, known as draconals, number among the most powerful of their kin, and also the wisest, embodying the wisdom of the benevolent philosopher-king. With their wisdom comes an elevation above material matters, making them the most removed from the troubles and lives of mortals. Draconals serve as the guardians of powerful magic, and they dispense their wisdom in service of the greater good of Nirvana and the celestial planes.</p>\n<p>Draconals appear more draconic than humanoid. They walk on their hind legs and balance on their long, serpent like tails. Sharp claws tip their scaled humanoid hands.</p>\n<p>Similar to true dragons, a draconal&rsquo;s coloration signifies different breath weapons, traits, and resistances. Draconals also choose spells from one of four domains. All have the options of the air and healing domains, but their color determines the other two. Black draconals breathe and are resistant to fire, and their additional domain options are fire and luck. Red draconals have the same fire breath and resistance, but their additional domain options are protection and sun. Green and white draconals breathe and are resistant to cold, but green draconals have the options of nature and water domains while white draconals have the options of freedom and repose. Yellow draconals breathe and are resistant to acid, and their additional domain options are earth and luck.</p>",
+            "flavorText": "<p>These celestial outsiders hail from Nirvana, the plane of purest good. Agathions are born from the souls of mortals who attained the enlightenment they sought in life, sometimes even after death. Because they all start out as mortals who were rewarded for their determination, self-awareness, and purity of heart, agathions are more likely than other celestials to intervene in working nonviolently against the spread of evil on the material plane. Agathions have served as moderators between the chaotic azatas and lawful archons, so they know how vital communication with mortals can be to bridge differences and ensure that evil doesn't win out.</p>\n<p>All agathions possess animal-like aspects, some appear more anthropomorphic, while others spend most of their time in forms nearly indistinguishable from true animals. Still others prefer to shapeshift as they see fit, or present as humanoid when in the company of humanoid mortals.</p>\n<p>Each type of agathion serves a specific role in Nirvana. Their duties and forms generally reflect the core values they cultivated in life that led them to their enlightenment. Since agathions receive their animal forms as rewards for their mortal lives, they take great insult with insinuations that they're merely magical talking beasts or-even worse-that their forms are a curse or punishment.</p>\n<hr />\n<p>Dragon agathions, known as draconals, number among the most powerful of their kin, and also the wisest, embodying the wisdom of the benevolent philosopher-king. With their wisdom comes an elevation above material matters, making them the most removed from the troubles and lives of mortals. Draconals serve as the guardians of powerful magic, and they dispense their wisdom in service of the greater good of Nirvana and the celestial planes.</p>\n<p>Draconals appear more draconic than humanoid. They walk on their hind legs and balance on their long, serpent like tails. Sharp claws tip their scaled humanoid hands.</p>\n<p>Similar to true dragons, a draconal's coloration signifies different breath weapons, traits, and resistances. Draconals also choose spells from one of four domains. All have the options of the air and healing domains, but their color determines the other two. Black draconals breathe and are resistant to fire, and their additional domain options are fire and luck. Red draconals have the same fire breath and resistance, but their additional domain options are protection and sun. Green and white draconals breathe and are resistant to cold, but green draconals have the options of nature and water domains while white draconals have the options of freedom and repose. Yellow draconals breathe and are resistant to acid, and their additional domain options are earth and luck.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -423,6 +423,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -585,8 +586,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Divine Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -705,7 +710,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
+            "img": "icons/svg/item-bag.svg",
             "name": "Focus Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spellcastingEntry"
         },
@@ -726,7 +736,9 @@
                     "value": "focus"
                 },
                 "components": {
-                    "value": "material, verbal"
+                    "material": true,
+                    "somatic": false,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -824,8 +836,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.zul5cBTfr7NXHBZf"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/dazzling-flash.webp",
             "name": "Dazzling Flash",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
@@ -846,7 +862,9 @@
                     "value": "focus"
                 },
                 "components": {
-                    "value": "somatic"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -943,8 +961,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Lay on Hands"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
             "name": "Lay on Hands",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "spell"
         },
@@ -965,7 +987,9 @@
                     "value": "focus"
                 },
                 "components": {
-                    "value": "somatic"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -1062,8 +1086,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Lay on Hands (Vs. Undead)"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/lay-on-hands.webp",
             "name": "Lay on Hands (Vs. Undead)",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "spell"
         },
@@ -1084,7 +1112,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1180,8 +1210,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.YfJTXyVGzLhM6V8U"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/miracle.webp",
             "name": "Miracle",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "spell"
         },
@@ -1202,7 +1236,9 @@
                     "value": "focus"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1297,8 +1333,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.DH9Y3RQGWO0GzXGU"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/protectors-sphere.webp",
             "name": "Protector's Sphere",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "spell"
         },
@@ -1319,7 +1359,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "verbal"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1417,8 +1459,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Hnc7eGi7vyZenAIm"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/breath-of-life.webp",
             "name": "Breath of Life",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "spell"
         },
@@ -1439,7 +1485,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1538,8 +1586,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.9HpwDN4MYQJnW0LG"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/dispel-magic.webp",
             "name": "Dispel Magic",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "spell"
         },
@@ -1560,7 +1612,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1656,8 +1710,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.sX2o0HH4RjJDAZ8C"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/divine-decree.webp",
             "name": "Divine Decree",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "spell"
         },
@@ -1678,7 +1736,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1776,8 +1836,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.x7SPrsRxGb2Vy2nu"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/earthquake.webp",
             "name": "Earthquake",
+            "permission": {
+                "default": 0
+            },
             "sort": 1100000,
             "type": "spell"
         },
@@ -1798,7 +1862,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "varies"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -1898,8 +1964,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
             "type": "spell"
         },
@@ -1920,7 +1990,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "varies"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -2020,8 +2092,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "spell"
         },
@@ -2042,7 +2118,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "varies"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -2142,8 +2220,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
+            "permission": {
+                "default": 0
+            },
             "sort": 1400000,
             "type": "spell"
         },
@@ -2164,7 +2246,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2261,8 +2345,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.4WS7HrFjwNvTn8T2"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/implosion.webp",
             "name": "Implosion",
+            "permission": {
+                "default": 0
+            },
             "sort": 1500000,
             "type": "spell"
         },
@@ -2283,7 +2371,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2381,8 +2471,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.r4HLQcYwB62bTayl"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/storm-of-vengeance.webp",
             "name": "Storm of Vengeance",
+            "permission": {
+                "default": 0
+            },
             "sort": 1600000,
             "type": "spell"
         },
@@ -2403,7 +2497,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2501,8 +2597,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.mpGCMTldMVa0pWYs"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/circle-of-protection.webp",
             "name": "Circle of Protection",
+            "permission": {
+                "default": 0
+            },
             "sort": 1700000,
             "type": "spell"
         },
@@ -2523,7 +2623,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2619,8 +2721,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.BBvV7qoXGdw09q1C"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/speak-with-animals.webp",
             "name": "Speak with Animals",
+            "permission": {
+                "default": 0
+            },
             "sort": 1800000,
             "type": "spell"
         },
@@ -2641,7 +2747,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2739,8 +2847,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.SwUiVavHKMWG7t5K"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/tongues.webp",
             "name": "Tongues",
+            "permission": {
+                "default": 0
+            },
             "sort": 1900000,
             "type": "spell"
         },
@@ -2761,7 +2873,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2861,8 +2975,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing",
+            "permission": {
+                "default": 0
+            },
             "sort": 2000000,
             "type": "spell"
         },
@@ -2876,21 +2994,8 @@
                     "custom": "",
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 38
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "0": {
@@ -2909,48 +3014,9 @@
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -2966,15 +3032,16 @@
                 },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Jaws",
+            "permission": {
+                "default": 0
+            },
             "sort": 2100000,
             "type": "melee"
         },
@@ -2988,21 +3055,8 @@
                     "custom": "",
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 38
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "0": {
@@ -3021,48 +3075,9 @@
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -3079,15 +3094,16 @@
                 },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Claw",
+            "permission": {
+                "default": 0
+            },
             "sort": 2200000,
             "type": "melee"
         },
@@ -3130,8 +3146,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Dragon’s Salvation",
+            "permission": {
+                "default": 0
+            },
             "sort": 2300000,
             "type": "action"
         },
@@ -3180,8 +3200,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Regeneration 20 (Deactivated by evil)",
+            "permission": {
+                "default": 0
+            },
             "sort": 2400000,
             "type": "action"
         },
@@ -3227,8 +3251,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
+            "permission": {
+                "default": 0
+            },
             "sort": 2500000,
             "type": "action"
         },
@@ -3271,8 +3299,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Dragon’s Wisdom",
+            "permission": {
+                "default": 0
+            },
             "sort": 2600000,
             "type": "action"
         },
@@ -3306,8 +3338,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
+            "permission": {
+                "default": 0
+            },
             "sort": 2700000,
             "type": "lore"
         },
@@ -3341,8 +3377,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
+            "permission": {
+                "default": 0
+            },
             "sort": 2800000,
             "type": "lore"
         },
@@ -3376,8 +3416,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
+            "permission": {
+                "default": 0
+            },
             "sort": 2900000,
             "type": "lore"
         },
@@ -3411,8 +3455,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
+            "permission": {
+                "default": 0
+            },
             "sort": 3000000,
             "type": "lore"
         },
@@ -3446,8 +3494,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
+            "permission": {
+                "default": 0
+            },
             "sort": 3100000,
             "type": "lore"
         },
@@ -3481,8 +3533,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
+            "permission": {
+                "default": 0
+            },
             "sort": 3200000,
             "type": "lore"
         },
@@ -3516,8 +3572,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
+            "permission": {
+                "default": 0
+            },
             "sort": 3300000,
             "type": "lore"
         },
@@ -3551,8 +3611,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nirvana Lore",
+            "permission": {
+                "default": 0
+            },
             "sort": 3400000,
             "type": "lore"
         },
@@ -3586,8 +3650,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
+            "permission": {
+                "default": 0
+            },
             "sort": 3500000,
             "type": "lore"
         },
@@ -3621,8 +3689,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
+            "permission": {
+                "default": 0
+            },
             "sort": 3600000,
             "type": "lore"
         },
@@ -3656,8 +3728,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
+            "permission": {
+                "default": 0
+            },
             "sort": 3700000,
             "type": "lore"
         }
@@ -3669,11 +3745,12 @@
     "token": {
         "actorId": "mRsiT9EtpbOQ7AeX",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
         "bar2": {
-            "attribute": ""
+            "attribute": null
         },
         "brightLight": 0,
         "brightSight": 0,
@@ -3686,13 +3763,12 @@
         "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
-            "speed": 5,
-            "type": ""
+            "speed": 5
         },
-        "lightColor": "",
+        "lightColor": null,
         "lockRotation": false,
         "mirrorX": false,
         "mirrorY": false,
@@ -3700,8 +3776,8 @@
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
-        "tint": "",
+        "sightAngle": 0,
+        "tint": null,
         "vision": false,
         "width": 2
     },

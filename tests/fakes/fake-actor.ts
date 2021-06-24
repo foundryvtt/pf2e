@@ -1,7 +1,9 @@
-import { ActorPF2e } from '@actor/base';
-import { ActorDataPF2e } from '@actor/data-definitions';
+import type { ActorPF2e } from '@actor/index';
+import { ActorSourcePF2e } from '@actor/data';
+import type { ItemPF2e } from '@item/index';
+import { ItemSourcePF2e } from '@item/data';
 import { FoundryUtils } from 'tests/utils';
-import { FakeItem } from './fake-item';
+import { FakeCollection } from './fake-collection';
 
 export class FakeActorItem {
     actor: FakeActor;
@@ -12,14 +14,14 @@ export class FakeActorItem {
     }
 
     get data() {
-        return this.actor._data.items.find((x) => x._id == this.id);
+        return this.actor.data.items.find((itemData: ItemSourcePF2e) => itemData._id == this.id);
     }
 
     get name() {
         return this.data?.name;
     }
 
-    update(changes: EmbeddedEntityUpdateData) {
+    update(changes: EmbeddedDocumentUpdateData<ItemPF2e>) {
         for (const [k, v] of Object.entries(changes)) {
             global.setProperty(this.data!, k, v);
         }
@@ -27,9 +29,9 @@ export class FakeActorItem {
 }
 
 export class FakeActor {
-    _data: ActorDataPF2e;
+    _data: ActorSourcePF2e;
     _itemGuid = 1;
-    constructor(data: ActorDataPF2e, public options: EntityConstructorOptions = {}) {
+    constructor(data: ActorSourcePF2e, public options: DocumentConstructionContext<ActorPF2e> = {}) {
         this._data = FoundryUtils.duplicate(data);
     }
 
@@ -46,7 +48,12 @@ export class FakeActor {
     }
 
     get items() {
-        return this._data.items?.map((x) => new FakeItem(x.data as any) as any);
+        const collection = new FakeCollection();
+        this.data.items?.forEach((itemData: ItemSourcePF2e) => {
+            const item = new FakeActorItem(this, itemData._id);
+            collection.set(item.id, item);
+        });
+        return collection;
     }
 
     static fromToken(token: Token): ActorPF2e | null {
@@ -60,8 +67,8 @@ export class FakeActor {
     static createTokenActor(baseActor: ActorPF2e, token: Token): ActorPF2e {
         const actor = game.actors.tokens[token.id];
         if (actor) return actor;
-        const actorData = mergeObject(baseActor._data, token.data.actorData, { inplace: false });
-        return (new this(actorData, { token }) as unknown) as ActorPF2e;
+        const actorData = mergeObject(baseActor.data, token.data.actorData, { inplace: false }) as ActorSourcePF2e;
+        return new this(actorData, { token }) as unknown as ActorPF2e;
     }
 
     update(changes: object) {
@@ -70,15 +77,7 @@ export class FakeActor {
         }
     }
 
-    getOwnedItem(itemId: string) {
-        const item = this._data.items?.find((x) => x._id == itemId);
-        if (item !== undefined) {
-            return new FakeActorItem(this, item._id ?? '');
-        }
-        return undefined;
-    }
-
-    updateEmbeddedEntity(type: string, data: any | any[]) {
+    updateEmbeddedDocuments(type: string, data: any | any[]) {
         // make sure data is an array, since it expects multiple
         data = data instanceof Array ? data : [data];
 
@@ -88,8 +87,8 @@ export class FakeActor {
 
         for (const itemChanges of data) {
             let obj: unknown;
-            if (type == 'OwnedItem') {
-                obj = this._data.items.find((x) => x._id === itemChanges._id);
+            if (type == 'Item') {
+                obj = this.data.items.find((itemData: ItemSourcePF2e) => itemData._id === itemChanges._id);
             }
 
             for (const [k, v] of Object.entries(itemChanges)) {
@@ -101,10 +100,10 @@ export class FakeActor {
     }
 
     createOwnedItem(data: any | any[]) {
-        return this.createEmbeddedEntity('OwnedItem', data);
+        return this.createEmbeddedDocuments('Item', data);
     }
 
-    createEmbeddedEntity(type: string, data: any | any[]) {
+    createEmbeddedDocuments(type: string, data: any | any[]) {
         // make sure data is an array, since it expects multiple
         data = data instanceof Array ? data : [data];
 
@@ -112,7 +111,7 @@ export class FakeActor {
             this._data.items = [];
         }
 
-        if (type == 'OwnedItem') {
+        if (type == 'Item') {
             for (const obj of data) {
                 obj._id = `item${this._itemGuid}`;
                 this._itemGuid += 1;
@@ -121,14 +120,18 @@ export class FakeActor {
         }
     }
 
-    deleteEmbeddedEntity(type: string, data: string | string[]) {
+    deleteEmbeddedDocuments(type: string, data: string | string[]) {
         // make sure data is an array, since it expects multiple
         data = data instanceof Array ? data : [data];
 
-        if (type == 'OwnedItem') {
+        if (type == 'Item') {
             for (const id of data) {
                 this._data.items = this._data.items?.filter((x: any) => x._id !== id);
             }
         }
+    }
+
+    toObject(source = true) {
+        return source ? duplicate(this._data) : duplicate(this.data);
     }
 }

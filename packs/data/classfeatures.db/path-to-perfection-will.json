@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You have progressed along your own path to enlightenment. Choose your Fortitude, Reflex, or Will saving throw. Your proficiency rank for the chosen saving throw increases to master. When you roll a success on the chosen saving throw, you get a critical success instead.</p>"
+            "value": "<p>You have progressed along your own path to enlightenment.</p>\n<p>Choose your Fortitude, Reflex, or Will saving throw. Your proficiency rank for the chosen saving throw increases to master. When you roll a success on the chosen saving throw, you get a critical success instead.</p>"
         },
         "featType": {
             "value": "classfeature"
@@ -30,6 +30,14 @@
                 "key": "PF2E.RuleElement.Note",
                 "selector": "will",
                 "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Will save, you get a critical success instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "selector": "will",
+                "type": "save"
             }
         ],
         "source": {
@@ -52,27 +60,23 @@
                 {
                     "key": "data.saves.will.rank",
                     "mode": 4,
-                    "value": 3
+                    "value": "3"
                 }
             ],
             "disabled": false,
             "duration": {
-                "rounds": null,
-                "seconds": null,
-                "startRound": null,
-                "startTime": null,
-                "startTurn": null,
-                "turns": null
+                "startTime": null
             },
             "flags": {},
             "icon": "systems/pf2e/icons/features/classes/path-to-perfection.webp",
             "label": "Path to Perfection (Will)",
             "origin": "",
-            "tint": "",
+            "tint": null,
             "transfer": true
         }
     ],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/classes/path-to-perfection.webp",
     "name": "Path to Perfection (Will)",
     "permission": {

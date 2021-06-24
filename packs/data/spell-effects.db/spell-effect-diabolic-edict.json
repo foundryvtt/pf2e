@@ -1,0 +1,111 @@
+{
+    "_id": "1kelGCsoXyGRqMd9",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Diabolic Edict]{Diabolic Edict}</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Performing requested Diabolic Edict task",
+                "property": "flags.pf2e.rollOptions.all.diabolic-edict-agree"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Diabolic Edict Request",
+                "predicate": {
+                    "all": [
+                        "diabolic-edict-agree"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Diabolic Edict Refused",
+                "predicate": {
+                    "not": [
+                        "diabolic-edict-agree"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Diabolic Edict Performed",
+                "predicate": {
+                    "all": [
+                        "diabolic-edict"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Diabolic Edict Refused",
+                "predicate": {
+                    "not": [
+                        "diabolic-edict"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/spells/diabolic-edict.webp",
+    "name": "Spell Effect: Diabolic Edict",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

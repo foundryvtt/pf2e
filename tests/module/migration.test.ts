@@ -1,25 +1,29 @@
+// @ts-nocheck
+
 import { populateFoundryUtilFunctions } from '../fixtures/foundryshim';
-import { ActorDataPF2e, CharacterData } from '@actor/data-definitions';
-import { MigrationRunner } from '@module/migration-runner';
-import { MigrationBase } from '@module/migrations/base';
+import { ActorDataPF2e, CharacterData } from '@actor/data';
+import { MigrationRunner } from '@module/migration/runner';
+import { MigrationBase } from '@module/migration/base';
 import { FakeActor } from 'tests/fakes/fake-actor';
 import { FakeItem } from 'tests/fakes/fake-item';
 import { FakeMacro } from 'tests/fakes/fake-macro';
 import { FakeRollTable } from 'tests/fakes/fake-roll-table';
 import { FakeUser } from 'tests/fakes/fake-user';
-import { FakeScene } from 'tests/fakes/fake-scene';
+import { FakeScene } from 'tests/fakes/scene';
 import { FakeChatMessage } from 'tests/fakes/fake-chat-message';
 
 import characterJSON from '../../packs/data/iconics.db/amiri-level-1.json';
-import * as armorJSON from '../../packs/data/equipment.db/scale-mail.json';
-import { ArmorData } from '@item/data/types';
+import armorJSON from '../../packs/data/equipment.db/scale-mail.json';
+import { ArmorData } from '@item/data';
 import { FoundryUtils } from 'tests/utils';
 import { FakeActors, FakeCollection, FakeEntityCollection } from 'tests/fakes/fake-collection';
+import { LocalizePF2e } from '@module/system/localize';
 
-const characterData = (FoundryUtils.duplicate(characterJSON) as unknown) as CharacterData;
-const armorData = (FoundryUtils.duplicate(armorJSON) as unknown) as ArmorData;
+const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterData;
+const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorData;
 
 declare let game: any;
+LocalizePF2e.ready = true;
 
 describe('test migration runner', () => {
     populateFoundryUtilFunctions();
@@ -44,6 +48,7 @@ describe('test migration runner', () => {
             },
         },
         actors: new FakeActors(),
+        i18n: { format: (stringId: string, data: object): string => {} },
         items: new FakeEntityCollection<FakeItem>(),
         macros: new FakeEntityCollection<FakeMacro>(),
         messages: new FakeEntityCollection<FakeChatMessage>(),
@@ -101,14 +106,14 @@ describe('test migration runner', () => {
 
     test('expect needs upgrade when version older', () => {
         settings.worldSchemaVersion = 5;
-        game.system.data.schema = 11;
+        MigrationRunner.LATEST_SCHEMA_VERSION = 11;
         const migrationRunner = new MigrationRunner([new Version10(), new Version11()]);
         expect(migrationRunner.needsMigration()).toEqual(true);
     });
 
     test("expect doesn't need upgrade when version at latest", () => {
         settings.worldSchemaVersion = 11;
-        game.system.data.schema = 11;
+        MigrationRunner.LATEST_SCHEMA_VERSION = 11;
         const migrationRunner = new MigrationRunner([new Version10(), new Version11()]);
         expect(migrationRunner.needsMigration()).toEqual(false);
     });
@@ -119,12 +124,12 @@ describe('test migration runner', () => {
         game.actors.set(characterData._id, new FakeActor(characterData));
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
         await migrationRunner.runMigration();
-        expect(game.actors.entities[0]._data.name).not.toEqual('updated');
+        expect(game.actors.contents[0]._data.name).not.toEqual('updated');
     });
 
     test('expect update causes version to be updated', async () => {
         game.actors.set(characterData._id, new FakeActor(characterData));
-        game.system.data.schema = 12;
+        MigrationRunner.LATEST_SCHEMA_VERSION = 12;
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
         await migrationRunner.runMigration();
@@ -136,7 +141,7 @@ describe('test migration runner', () => {
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
         await migrationRunner.runMigration();
-        expect(game.actors.entities[0]._data.name).toEqual('updated');
+        expect(game.actors.contents[0]._data.name).toEqual('updated');
     });
 
     test('expect update actor deep property', async () => {
@@ -144,7 +149,7 @@ describe('test migration runner', () => {
 
         const migrationRunner = new MigrationRunner([new ChangeSizeMigration()]);
         await migrationRunner.runMigration();
-        expect(game.actors.entities[0]._data.data.traits.size.value).toEqual('sm');
+        expect(game.actors.contents[0]._data.data.traits.size.value).toEqual('sm');
     });
 
     test.skip('expect unlinked actor in scene gets migrated', async () => {
@@ -169,7 +174,7 @@ describe('test migration runner', () => {
 
         const migrationRunner = new MigrationRunner([new UpdateItemName()]);
         await migrationRunner.runMigration();
-        expect(game.actors.entities[0]._data.items[0].name).toEqual('updated');
+        expect(game.actors.contents[0]._data.items[0].name).toEqual('updated');
     });
 
     test('update world item', async () => {
@@ -177,16 +182,16 @@ describe('test migration runner', () => {
 
         const migrationRunner = new MigrationRunner([new UpdateItemName()]);
         await migrationRunner.runMigration();
-        expect(game.items.entities[0]._data.name).toEqual('updated');
+        expect(game.items.contents[0]._data.name).toEqual('updated');
     });
 
     test('properties can be removed', async () => {
         game.items.set(armorData._id, new FakeItem(armorData));
-        game.items.entities[0]._data.data.someFakeProperty = 123123;
+        game.items.contents[0]._data.data.someFakeProperty = 123123;
 
         const migrationRunner = new MigrationRunner([new RemoveItemProperty()]);
         await migrationRunner.runMigration();
-        expect('someFakeProperty' in game.items.entities[0]._data.data).toEqual(false);
+        expect('someFakeProperty' in game.items.contents[0]._data.data).toEqual(false);
     });
 
     test('migrations run in sequence', async () => {
@@ -205,12 +210,12 @@ describe('test migration runner', () => {
         }
 
         game.items.set(armorData._id, new FakeItem(armorData));
-        game.items.entities[0]._data.data.prop = 123;
+        game.items.contents[0]._data.data.prop = 123;
 
         const migrationRunner = new MigrationRunner([new ChangeItemProp(), new UpdateItemNameWithProp()]);
         await migrationRunner.runMigration();
-        expect(game.items.entities[0]._data.data.prop).toEqual(456);
-        expect(game.items.entities[0]._data.name).toEqual('456');
+        expect(game.items.contents[0]._data.data.prop).toEqual(456);
+        expect(game.items.contents[0]._data.name).toEqual('456');
     });
 
     test('migrations can remove items from actors', async () => {
@@ -225,7 +230,7 @@ describe('test migration runner', () => {
 
         const migrationRunner = new MigrationRunner([new RemoveItemsFromActor()]);
         await migrationRunner.runMigration();
-        expect(game.actors.entities[0]._data.items.length).toEqual(0);
+        expect(game.actors.contents[0]._data.items.length).toEqual(0);
     });
 
     class AddItemToActor extends MigrationBase {
@@ -242,12 +247,12 @@ describe('test migration runner', () => {
 
     test('migrations can add items to actors', async () => {
         game.actors.set(characterData._id, new FakeActor(characterData));
-        game.actors.entities[0]._data.items = [];
+        game.actors.contents[0]._data.items = [];
 
         const migrationRunner = new MigrationRunner([new AddItemToActor()]);
         await migrationRunner.runMigration();
-        expect(game.actors.entities[0]._data.items.length).toEqual(1);
-        expect(game.actors.entities[0]._data.items[0]._id).toEqual('item1');
+        expect(game.actors.contents[0]._data.items.length).toEqual(1);
+        expect(game.actors.contents[0]._data.items[0]._id).toEqual('item1');
     });
 
     class SetActorPropertyToAddedItem extends MigrationBase {
@@ -262,7 +267,7 @@ describe('test migration runner', () => {
 
         const migrationRunner = new MigrationRunner([new AddItemToActor(), new SetActorPropertyToAddedItem()]);
         await migrationRunner.runMigration();
-        expect(game.actors.entities[0]._data.data.sampleItemId).toEqual('item1');
+        expect(game.actors.contents[0]._data.data.sampleItemId).toEqual('item1');
     });
 
     test.skip('migrations can reference previously added items on tokens', async () => {

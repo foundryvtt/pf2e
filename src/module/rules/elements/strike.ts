@@ -1,5 +1,5 @@
-import { CharacterData, NPCData } from '@actor/data-definitions';
-import { WeaponData } from '@item/data/types';
+import { CharacterData, NPCData } from '@actor/data';
+import { WeaponData } from '@item/data';
 import { RuleElementPF2e } from '../rule-element';
 import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
 
@@ -7,9 +7,9 @@ import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
  * @category RuleElement
  */
 export class PF2StrikeRuleElement extends RuleElementPF2e {
-    onBeforePrepareData(actorData: CharacterData | NPCData, { strikes }: RuleElementSyntheticsPF2e) {
+    override onBeforePrepareData(actorData: CharacterData | NPCData, { strikes }: RuleElementSyntheticsPF2e) {
         const label = super.getDefaultLabel(this.ruleData, this.item);
-        strikes.push(({
+        strikes.push({
             _id: this.item._id,
             name: label,
             type: actorData.type === 'npc' ? 'melee' : 'weapon',
@@ -28,6 +28,6 @@ export class PF2StrikeRuleElement extends RuleElementPF2e {
                 options: { value: this.ruleData.options ?? [] },
                 equipped: { value: true },
             },
-        } as unknown) as WeaponData);
+        } as unknown as WeaponData);
     }
 }

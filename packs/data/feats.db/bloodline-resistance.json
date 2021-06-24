@@ -21,10 +21,27 @@
         "level": {
             "value": 8
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "any": [
+                        "magical",
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -40,6 +57,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Bloodline Resistance",
     "permission": {

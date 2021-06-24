@@ -5,8 +5,7 @@ import {
     createToggleEffectMacro,
     createTogglePropertyMacro,
 } from '@scripts/macros/hotbar';
-import { ItemPF2e } from '@item/base';
-import { EffectPF2e } from '@item/effect';
+import { ItemPF2e, EffectPF2e } from '@item/index';
 
 export function listen() {
     Hooks.on('hotbarDrop', async (_bar, data: any, slot) => {
@@ -15,7 +14,7 @@ export function listen() {
         let item: ItemPF2e | undefined;
         if (data.type === 'Item' && data.id) {
             const prefix = data.pack ? `Compendium.${data.pack}` : 'Item';
-            item = (await fromUuid(`${prefix}.${data.id}`)) as ItemPF2e;
+            item = (await fromUuid(`${prefix}.${data.id}` as CompendiumUUID)) as ItemPF2e;
         }
 
         if (item instanceof EffectPF2e) {

@@ -1,31 +1,29 @@
-import { ActorPF2e, HazardPF2e } from '@module/actor/base';
-import { VehiclePF2e } from '@module/actor/vehicle';
-import { CharacterPF2e } from '@module/actor/character';
-import { LootPF2e } from '@module/actor/loot';
-import { NPCPF2e } from '@module/actor/npc';
-import { FamiliarPF2e } from '@module/actor/familiar';
-import { ItemPF2e } from '@module/item/base';
-import { ActionPF2e } from '@item/action';
-import { AncestryPF2e } from '@module/item/ancestry';
-import { ArmorPF2e } from '@module/item/armor';
-import { BackgroundPF2e } from '@module/item/background';
-import { ClassPF2e } from '@module/item/class';
-import { ConsumablePF2e } from '@module/item/consumable';
-import { FeatPF2e } from '@module/item/feat';
-import { EquipmentPF2e } from '@item/equipment';
-import { KitPF2e } from '@item/kit';
-import { SpellPF2e } from '@module/item/spell';
-import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
-import { WeaponPF2e } from '@module/item/weapon';
-import { ContainerPF2e, ConditionPF2e, LorePF2e, MartialPF2e, MeleePF2e, TreasurePF2e } from '@module/item/others';
-import { EffectPF2e } from '@module/item/effect';
-import { CombatTrackerPF2e } from '@module/system/combat-tracker';
-import { AnimalCompanionPF2e } from '@actor/animal-companion';
-import { ActiveEffectPF2e } from '@module/active-effect';
-import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
-import { ChatMessagePF2e } from '@module/chat-message';
-import { MacroPF2e } from '@module/macro';
-import { AbilityString } from '@actor/data-definitions';
+import {
+    ActionPF2e,
+    AncestryPF2e,
+    BackgroundPF2e,
+    ArmorPF2e,
+    ClassPF2e,
+    ConditionPF2e,
+    ConsumablePF2e,
+    ContainerPF2e,
+    EffectPF2e,
+    EquipmentPF2e,
+    FeatPF2e,
+    KitPF2e,
+    LorePF2e,
+    MeleePF2e,
+    MartialPF2e,
+    SpellPF2e,
+    SpellcastingEntryPF2e,
+    TreasurePF2e,
+    WeaponPF2e,
+} from '@item/index';
+import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from '@actor/index';
+import { ConditionType } from '@item/condition/data';
+import { WeaponPropertyRuneType } from '@item/weapon/data';
+import { PreciousMaterialGrade, PreciousMaterialType } from '@item/physical/data';
+import { DamageType } from '@module/damage-calculation';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
@@ -72,8 +70,11 @@ const ancestryTraits = {
     tengu: 'PF2E.TraitTengu',
     tiefling: 'PF2E.TraitTiefling',
     undine: 'PF2E.TraitUndine',
+};
 
-    // Secondary traits of ancestries and heritages
+// Secondary traits of ancestries and heritages
+const ancestryItemTraits = {
+    ...ancestryTraits,
     amphibious: 'PF2E.TraitAmphibious',
     fey: 'PF2E.TraitFey',
     humanoid: 'PF2E.TraitHumanoid',
@@ -191,6 +192,7 @@ const traitsDescriptions = {
     'reach-25': 'PF2E.TraitDescriptionReach25',
     'reach-30': 'PF2E.TraitDescriptionReach30',
     repeating: 'PF2E.TraitDescriptionRepeating',
+    saggorak: 'PF2E.TraitDescriptionSaggorak',
     shove: 'PF2E.TraitDescriptionShove',
     sweep: 'PF2E.TraitDescriptionSweep',
     tethered: 'PF2E.TraitDescriptionTethered',
@@ -243,6 +245,7 @@ const traitsDescriptions = {
     shoony: 'PF2E.TraitDescriptionShoony',
     sleep: 'PF2E.TraitDescriptionSleep',
     splash: 'PF2E.TraitDescriptionSplash',
+    'splash-10': 'PF2E.TraitDescriptionSplash10',
     summoned: 'PF2E.TraitDescriptionSummoned',
     tattoo: 'PF2E.TraitDescriptionTattoo',
     teleportation: 'PF2E.TraitDescriptionTeleportation',
@@ -348,7 +351,7 @@ const damageTraits = Object.fromEntries(
     Object.entries(damageTypes).filter(
         (entry): entry is [keyof typeof traitsDescriptions, string] => entry[0] in traitsDescriptions,
     ),
-);
+) as Record<DamageType, string>;
 
 const creatureTraits = {
     ...ancestryTraits,
@@ -584,6 +587,108 @@ const consumableTraits = {
     visual: 'PF2E.TraitVisual',
 };
 
+const preciousMaterialGrades: Record<PreciousMaterialGrade, string> = {
+    low: 'PF2E.PreciousMaterialLowGrade',
+    standard: 'PF2E.PreciousMaterialStandardGrade',
+    high: 'PF2E.PreciousMaterialHighGrade',
+};
+
+const preciousMaterials: Record<PreciousMaterialType, string> = {
+    adamantine: 'PF2E.PreciousMaterialAdamantine',
+    coldIron: 'PF2E.PreciousMaterialColdIron',
+    darkwood: 'PF2E.PreciousMaterialDarkwood',
+    dragonhide: 'PF2E.PreciousMaterialDragonhide',
+    mithral: 'PF2E.PreciousMaterialMithral',
+    orichalcum: 'PF2E.PreciousMaterialOrichalcum',
+    silver: 'PF2E.PreciousMaterialSilver',
+    sovereignSteel: 'PF2E.PreciousMaterialSovereignSteel',
+    warpglass: 'PF2E.PreciousMaterialWarpglass',
+};
+
+const weaponPropertyRunes: Record<WeaponPropertyRuneType, string> = {
+    kinWarding: 'PF2E.WeaponPropertyRuneKinWarding',
+    returning: 'PF2E.WeaponPropertyRuneReturning',
+    ghostTouch: 'PF2E.WeaponPropertyRuneGhostTouch',
+    disrupting: 'PF2E.WeaponPropertyRuneDisrupting',
+    pacifying: 'PF2E.WeaponPropertyRunePacifying',
+    fearsome: 'PF2E.WeaponPropertyRuneFearsome',
+    shifting: 'PF2E.WeaponPropertyRuneShifting',
+    conducting: 'PF2E.WeaponPropertyRuneConducting',
+    wounding: 'PF2E.WeaponPropertyRuneWounding',
+    bloodbane: 'PF2E.WeaponPropertyRuneBloodbane',
+    corrosive: 'PF2E.WeaponPropertyRuneCorrosive',
+    cunning: 'PF2E.WeaponPropertyRuneCunning',
+    flaming: 'PF2E.WeaponPropertyRuneFlaming',
+    frost: 'PF2E.WeaponPropertyRuneFrost',
+    shock: 'PF2E.WeaponPropertyRuneShock',
+    thundering: 'PF2E.WeaponPropertyRuneThundering',
+    grievous: 'PF2E.WeaponPropertyRuneGrievous',
+    serrating: 'PF2E.WeaponPropertyRuneSerrating',
+    anarchic: 'PF2E.WeaponPropertyRuneAnarchic',
+    axiomatic: 'PF2E.WeaponPropertyRuneAxiomatic',
+    holy: 'PF2E.WeaponPropertyRuneHoly',
+    unholy: 'PF2E.WeaponPropertyRuneUnholy',
+    greaterFearsome: 'PF2E.WeaponPropertyRuneGreaterFearsome',
+    dancing: 'PF2E.WeaponPropertyRuneDancing',
+    spellStoring: 'PF2E.WeaponPropertyRuneSpellStoring',
+    greaterBloodbane: 'PF2E.WeaponPropertyRuneGreaterBloodbane',
+    keen: 'PF2E.WeaponPropertyRuneKeen',
+    greaterDisrupting: 'PF2E.WeaponPropertyRuneGreaterDisrupting',
+    greaterCorrosive: 'PF2E.WeaponPropertyRuneGreaterCorrosive',
+    greaterFlaming: 'PF2E.WeaponPropertyRuneGreaterFlaming',
+    greaterFrost: 'PF2E.WeaponPropertyRuneGreaterFrost',
+    greaterShock: 'PF2E.WeaponPropertyRuneGreaterShock',
+    greaterThundering: 'PF2E.WeaponPropertyRuneGreaterThundering',
+    ancestralEchoing: 'PF2E.WeaponPropertyRuneAncestralEchoing',
+    speed: 'PF2E.WeaponPropertyRuneSpeed',
+    vorpal: 'PF2E.WeaponPropertyRuneVorpal',
+};
+
+const conditionTypes: Record<ConditionType, string> = {
+    blinded: 'PF2E.ConditionTypeBlinded',
+    broken: 'PF2E.ConditionTypeBroken',
+    clumsy: 'PF2E.ConditionTypeClumsy',
+    concealed: 'PF2E.ConditionTypeConcealed',
+    confused: 'PF2E.ConditionTypeConfused',
+    controlled: 'PF2E.ConditionTypeControlled',
+    dazzled: 'PF2E.ConditionTypeDazzled',
+    deafened: 'PF2E.ConditionTypeDeafened',
+    doomed: 'PF2E.ConditionTypeDoomed',
+    drained: 'PF2E.ConditionTypeDrained',
+    dying: 'PF2E.ConditionTypeDying',
+    encumbered: 'PF2E.ConditionTypeEncumbered',
+    enfeebled: 'PF2E.ConditionTypeEnfeebled',
+    fascinated: 'PF2E.ConditionTypeFascinated',
+    fatigued: 'PF2E.ConditionTypeFatigued',
+    'flat-footed': 'PF2E.ConditionTypeFlatFooted',
+    fleeing: 'PF2E.ConditionTypeFleeing',
+    friendly: 'PF2E.ConditionTypeFriendly',
+    frightened: 'PF2E.ConditionTypeFrightened',
+    grabbed: 'PF2E.ConditionTypeGrabbed',
+    helpful: 'PF2E.ConditionTypeHelpful',
+    hidden: 'PF2E.ConditionTypeHidden',
+    hostile: 'PF2E.ConditionTypeHostile',
+    immobilized: 'PF2E.ConditionTypeImmobilized',
+    indifferent: 'PF2E.ConditionTypeIndifferent',
+    invisible: 'PF2E.ConditionTypeInvisible',
+    observed: 'PF2E.ConditionTypeObserved',
+    paralyzed: 'PF2E.ConditionTypeParalyzed',
+    persistent: 'PF2E.ConditionTypePersistent',
+    petrified: 'PF2E.ConditionTypePetrified',
+    prone: 'PF2E.ConditionTypeProne',
+    quickened: 'PF2E.ConditionTypeQuickened',
+    restrained: 'PF2E.ConditionTypeRestrained',
+    sickened: 'PF2E.ConditionTypeSickened',
+    slowed: 'PF2E.ConditionTypeSlowed',
+    stunned: 'PF2E.ConditionTypeStunned',
+    stupefied: 'PF2E.ConditionTypeStupefied',
+    unconscious: 'PF2E.ConditionTypeUnconscious',
+    undetected: 'PF2E.ConditionTypeUndetected',
+    unfriendly: 'PF2E.ConditionTypeUnfriendly',
+    unnoticed: 'PF2E.ConditionTypeUnnoticed',
+    wounded: 'PF2E.ConditionTypeWounded',
+};
+
 export const PF2ECONFIG = {
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
     // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
@@ -685,7 +790,7 @@ export const PF2ECONFIG = {
         fortitude: 'con',
         reflex: 'dex',
         will: 'wis',
-    } as { [save: string]: AbilityString },
+    } as const,
 
     currencies: {
         pp: 'PF2E.CurrencyPP',
@@ -694,23 +799,8 @@ export const PF2ECONFIG = {
         cp: 'PF2E.CurrencyCP',
     },
 
-    preciousMaterialGrades: {
-        low: 'PF2E.PreciousMaterialLowGrade',
-        standard: 'PF2E.PreciousMaterialStandardGrade',
-        high: 'PF2E.PreciousMaterialHighGrade',
-    },
-
-    preciousMaterials: {
-        adamantine: 'PF2E.PreciousMaterialAdamantine',
-        coldIron: 'PF2E.PreciousMaterialColdIron',
-        darkwood: 'PF2E.PreciousMaterialDarkwood',
-        dragonhide: 'PF2E.PreciousMaterialDragonhide',
-        mithral: 'PF2E.PreciousMaterialMithral',
-        orichalcum: 'PF2E.PreciousMaterialOrichalcum',
-        silver: 'PF2E.PreciousMaterialSilver',
-        'sovereign steel': 'PF2E.PreciousMaterialSovereignSteel',
-        warpglass: 'PF2E.PreciousMaterialWarpglass',
-    },
+    preciousMaterialGrades,
+    preciousMaterials,
 
     armorPotencyRunes: {
         '1': 'PF2E.ArmorPotencyRune1',
@@ -755,54 +845,17 @@ export const PF2ECONFIG = {
         greaterWinged: 'PF2E.ArmorPropertyRuneGreaterWinged',
     },
     weaponPotencyRunes: {
-        '1': 'PF2E.WeaponPotencyRune1',
-        '2': 'PF2E.WeaponPotencyRune2',
-        '3': 'PF2E.WeaponPotencyRune3',
-        '4': 'PF2E.WeaponPotencyRune4',
+        1: 'PF2E.WeaponPotencyRune1',
+        2: 'PF2E.WeaponPotencyRune2',
+        3: 'PF2E.WeaponPotencyRune3',
+        4: 'PF2E.WeaponPotencyRune4',
     },
     weaponStrikingRunes: {
         striking: 'PF2E.ArmorStrikingRune',
         greaterStriking: 'PF2E.ArmorGreaterStrikingRune',
         majorStriking: 'PF2E.ArmorMajorStrikingRune',
     },
-    weaponPropertyRunes: {
-        kinWarding: 'PF2E.WeaponPropertyRuneKinWarding',
-        returning: 'PF2E.WeaponPropertyRuneReturning',
-        ghostTouch: 'PF2E.WeaponPropertyRuneGhostTouch',
-        disrupting: 'PF2E.WeaponPropertyRuneDisrupting',
-        pacifying: 'PF2E.WeaponPropertyRunePacifying',
-        fearsome: 'PF2E.WeaponPropertyRuneFearsome',
-        shifting: 'PF2E.WeaponPropertyRuneShifting',
-        conducting: 'PF2E.WeaponPropertyRuneConducting',
-        wounding: 'PF2E.WeaponPropertyRuneWounding',
-        bloodbane: 'PF2E.WeaponPropertyRuneBloodbane',
-        corrosive: 'PF2E.WeaponPropertyRuneCorrosive',
-        flaming: 'PF2E.WeaponPropertyRuneFlaming',
-        frost: 'PF2E.WeaponPropertyRuneFrost',
-        shock: 'PF2E.WeaponPropertyRuneShock',
-        thundering: 'PF2E.WeaponPropertyRuneThundering',
-        grievous: 'PF2E.WeaponPropertyRuneGrievous',
-        serrating: 'PF2E.WeaponPropertyRuneSerrating',
-        anarchic: 'PF2E.WeaponPropertyRuneAnarchic',
-        axiomatic: 'PF2E.WeaponPropertyRuneAxiomatic',
-        holy: 'PF2E.WeaponPropertyRuneHoly',
-        unholy: 'PF2E.WeaponPropertyRuneUnholy',
-        greaterFearsome: 'PF2E.WeaponPropertyRuneGreaterFearsome',
-        dancing: 'PF2E.WeaponPropertyRuneDancing',
-        spellStoring: 'PF2E.WeaponPropertyRuneSpellStoring',
-        greaterBloodbane: 'PF2E.WeaponPropertyRuneGreaterBloodbane',
-        keen: 'PF2E.WeaponPropertyRuneKeen',
-        greaterDisrupting: 'PF2E.WeaponPropertyRuneGreaterDisrupting',
-        greaterCorrosive: 'PF2E.WeaponPropertyRuneGreaterCorrosive',
-        greaterFlaming: 'PF2E.WeaponPropertyRuneGreaterFlaming',
-        greaterFrost: 'PF2E.WeaponPropertyRuneGreaterFrost',
-        greaterShock: 'PF2E.WeaponPropertyRuneGreaterShock',
-        greaterThundering: 'PF2E.WeaponPropertyRuneGreaterThundering',
-        ancestralEchoing: 'PF2E.WeaponPropertyRuneAncestralEchoing',
-        speed: 'PF2E.WeaponPropertyRuneSpeed',
-        vorpal: 'PF2E.WeaponPropertyRuneVorpal',
-    },
-
+    weaponPropertyRunes,
     damageTypes,
 
     resistanceTypes: {
@@ -1063,7 +1116,7 @@ export const PF2ECONFIG = {
     magicSchools,
     classTraits,
     ancestryTraits,
-    ancestryItemTraits: ancestryTraits,
+    ancestryItemTraits,
 
     weaponTraits: {
         ...ancestryTraits,
@@ -1091,6 +1144,7 @@ export const PF2ECONFIG = {
         'deadly-d6': 'PF2E.TraitDeadlyD6',
         'deadly-d8': 'PF2E.TraitDeadlyD8',
         'deadly-2d8': 'PF2E.TraitDeadly2D8',
+        'deadly-3d8': 'PF2E.TraitDeadly3D8',
         'deadly-d10': 'PF2E.TraitDeadlyD10',
         'deadly-2d10': 'PF2E.TraitDeadly2D10',
         'deadly-3d10': 'PF2E.TraitDeadly3D10',
@@ -1182,6 +1236,7 @@ export const PF2ECONFIG = {
         'reload-2': 'PF2E.TraitReload2',
         repeating: 'PF2E.TraitRepeating',
         resonant: 'PF2E.TraitResonant',
+        saggorak: 'PF2E.TraitSaggorak',
         shove: 'PF2E.TraitShove',
         silver: 'PF2E.PreciousMaterialSilver',
         staff: 'PF2E.TraitStaff',
@@ -1191,6 +1246,7 @@ export const PF2ECONFIG = {
         teleportation: 'PF2E.TraitTeleportation',
         tethered: 'PF2E.TraitTethered',
         'thrown-10': 'PF2E.TraitThrown10',
+        'thrown-15': 'PF2E.TraitThrown15',
         'thrown-20': 'PF2E.TraitThrown20',
         'thrown-30': 'PF2E.TraitThrown30',
         'thrown-40': 'PF2E.TraitThrown40',
@@ -1351,6 +1407,7 @@ export const PF2ECONFIG = {
         mechanical: 'PF2E.TraitMechanical',
         summon: 'PF2E.TraitSummon',
         trap: 'PF2E.TraitTrap',
+        virulent: 'PF2E.TraitVirulent',
     },
 
     traitsDescriptions,
@@ -1468,8 +1525,11 @@ export const PF2ECONFIG = {
         20: 'PF2E.AreaSize20',
         30: 'PF2E.AreaSize30',
         40: 'PF2E.AreaSize40',
+        45: 'PF2E.AreaSize45',
         50: 'PF2E.AreaSize50',
         60: 'PF2E.AreaSize60',
+        75: 'PF2E.AreaSize75',
+        90: 'PF2E.AreaSize90',
         100: 'PF2E.AreaSize100',
         120: 'PF2E.AreaSize120',
     },
@@ -1696,50 +1756,7 @@ export const PF2ECONFIG = {
         50: '50',
     },
 
-    conditionTypes: {
-        blinded: 'PF2E.ConditionTypeBlinded',
-        broken: 'PF2E.ConditionTypeBroken',
-        clumsy: 'PF2E.ConditionTypeClumsy',
-        concealed: 'PF2E.ConditionTypeConcealed',
-        confused: 'PF2E.ConditionTypeConfused',
-        controlled: 'PF2E.ConditionTypeControlled',
-        dazzled: 'PF2E.ConditionTypeDazzled',
-        deafened: 'PF2E.ConditionTypeDeafened',
-        doomed: 'PF2E.ConditionTypeDoomed',
-        drained: 'PF2E.ConditionTypeDrained',
-        dying: 'PF2E.ConditionTypeDying',
-        encumbered: 'PF2E.ConditionTypeEncumbered',
-        enfeebled: 'PF2E.ConditionTypeEnfeebled',
-        fascinated: 'PF2E.ConditionTypeFascinated',
-        fatigued: 'PF2E.ConditionTypeFatigued',
-        'flat-footed': 'PF2E.ConditionTypeFlatFooted',
-        fleeing: 'PF2E.ConditionTypeFleeing',
-        friendly: 'PF2E.ConditionTypeFriendly',
-        frightened: 'PF2E.ConditionTypeFrightened',
-        grabbed: 'PF2E.ConditionTypeGrabbed',
-        helpful: 'PF2E.ConditionTypeHelpful',
-        hidden: 'PF2E.ConditionTypeHidden',
-        hostile: 'PF2E.ConditionTypeHostile',
-        immobilized: 'PF2E.ConditionTypeImmobilized',
-        indifferent: 'PF2E.ConditionTypeIndifferent',
-        invisible: 'PF2E.ConditionTypeInvisible',
-        observed: 'PF2E.ConditionTypeObserved',
-        paralyzed: 'PF2E.ConditionTypeParalyzed',
-        persistent: 'PF2E.ConditionTypePersistent',
-        petrified: 'PF2E.ConditionTypePetrified',
-        prone: 'PF2E.ConditionTypeProne',
-        quickened: 'PF2E.ConditionTypeQuickened',
-        restrained: 'PF2E.ConditionTypeRestrained',
-        sickened: 'PF2E.ConditionTypeSickened',
-        slowed: 'PF2E.ConditionTypeSlowed',
-        stunned: 'PF2E.ConditionTypeStunned',
-        stupefied: 'PF2E.ConditionTypeStupefied',
-        unconscious: 'PF2E.ConditionTypeUnconscious',
-        undetected: 'PF2E.ConditionTypeUndetected',
-        unfriendly: 'PF2E.ConditionTypeUnfriendly',
-        unnoticed: 'PF2E.ConditionTypeUnnoticed',
-        wounded: 'PF2E.ConditionTypeWounded',
-    },
+    conditionTypes,
 
     pfsFactions: {
         EA: 'PF2E.PFS.Factions.EA',
@@ -1866,6 +1883,7 @@ export const PF2ECONFIG = {
         algollthu: 'PF2E.LanguageAlghollthu',
         amurrun: 'PF2E.LanguageAmurrun',
         anadi: 'PF2E.LanguageAnadi',
+        arcadian: 'PF2E.LanguageArcadian',
         aquan: 'PF2E.LanguageAquan',
         arboreal: 'PF2E.LanguageArboreal',
         auran: 'PF2E.LanguageAuran',
@@ -2212,6 +2230,20 @@ export const PF2ECONFIG = {
     },
 
     SETTINGS: {
+        automation: {
+            rulesBasedVision: {
+                name: 'PF2E.SETTINGS.Automation.RulesBasedVision.Name',
+                hint: 'PF2E.SETTINGS.Automation.RulesBasedVision.Hint',
+            },
+            effectExpiration: {
+                name: 'PF2E.SETTINGS.Automation.EffectExpiration.Name',
+                hint: 'PF2E.SETTINGS.Automation.EffectExpiration.Hint',
+            },
+            lootableNPCs: {
+                name: 'PF2E.SETTINGS.Automation.LootableNPCs.Name',
+                hint: 'PF2E.SETTINGS.Automation.LootableNPCs.Hint',
+            },
+        },
         homebrew: {
             creatureTraits: {
                 name: 'PF2E.SETTINGS.Homebrew.CreatureTraits.Name',
@@ -2281,19 +2313,18 @@ export const PF2ECONFIG = {
     },
 
     Actor: {
-        entityClasses: {
+        documentClasses: {
             character: CharacterPF2e,
             npc: NPCPF2e,
             hazard: HazardPF2e,
             loot: LootPF2e,
             familiar: FamiliarPF2e,
-            animalCompanion: AnimalCompanionPF2e,
             vehicle: VehiclePF2e,
         },
     },
 
     Item: {
-        entityClasses: {
+        documentClasses: {
             backpack: ContainerPF2e,
             treasure: TreasurePF2e,
             weapon: WeaponPF2e,
@@ -2316,30 +2347,3 @@ export const PF2ECONFIG = {
         },
     },
 };
-
-export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e> {
-    debug: Config['debug'] & {
-        ruleElement: boolean;
-    };
-
-    /**
-     * Configuration for the default Combat entity class
-     */
-    Combat: {
-        entityClass: { new (data: CombatData<ActorPF2e>, options?: EntityConstructorOptions): Combat<ActorPF2e> };
-        collection: typeof CombatEncounters;
-        initiative: {
-            decimals: number;
-            formula: ((combatant: CombatantData<Actor>) => string) | null;
-        };
-    };
-
-    PF2E: typeof PF2ECONFIG;
-    time: {
-        roundTime: number;
-    };
-    ui: Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e>['ui'] & {
-        combat: typeof CombatTrackerPF2e;
-        compendium: typeof CompendiumDirectoryPF2e;
-    };
-}

@@ -1,9 +1,16 @@
 import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-dialog';
 import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
 import { ModifierPredicate, StatisticModifier } from '../modifiers';
-import { PF2CheckDC } from './check-degree-of-success';
+import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
 import { DamageTemplate } from '@system/damage/weapon';
 import { RollNotePF2e } from '@module/notes';
+import { ChatMessagePF2e } from '@module/chat-message';
+import { ZeroToThree } from '@module/data';
+
+export interface RollDataPF2e extends RollData {
+    totalModifier?: number;
+    degreeOfSuccess?: ZeroToThree;
+}
 
 /** Possible parameters of a RollFunction */
 export interface RollParameters {
@@ -24,9 +31,6 @@ interface RerollOptions {
     keep?: 'new' | 'best' | 'worst';
 }
 
-/**
- * @category PF2
- */
 export class CheckPF2e {
     /**
      * Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down.
@@ -53,6 +57,22 @@ export class CheckPF2e {
         if (context) {
             const visible = (note: RollNotePF2e) => ModifierPredicate.test(note.predicate, context.options ?? []);
             context.notes = (context.notes ?? []).filter(visible);
+
+            if (context.dc) {
+                const { adjustments } = context.dc;
+                if (adjustments) {
+                    adjustments.forEach((adjustment) => {
+                        const merge = adjustment.predicate
+                            ? ModifierPredicate.test(adjustment.predicate, context.options ?? [])
+                            : true;
+
+                        if (merge) {
+                            context.dc!.modifiers ??= {};
+                            mergeObject(context.dc!.modifiers, adjustment.modifiers);
+                        }
+                    });
+                }
+            }
         }
 
         // if control (or meta) is held, set roll mode to blind GM roll
@@ -69,7 +89,7 @@ export class CheckPF2e {
     }
 
     /** Reroll a rolled check given a chat message. */
-    static async rerollFromMessage(message: ChatMessage, { heroPoint = false, keep = 'new' }: RerollOptions = {}) {
+    static async rerollFromMessage(message: ChatMessagePF2e, { heroPoint = false, keep = 'new' }: RerollOptions = {}) {
         if (!(message.isAuthor || game.user.isGM)) {
             ui.notifications.error(game.i18n.localize('PF2E.RerollMenu.ErrorCantDelete'));
             return;
@@ -79,7 +99,7 @@ export class CheckPF2e {
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
         if (heroPoint) {
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
-            if (actor) {
+            if (actor?.data.type === 'character') {
                 const heroPointCount = actor.data.data.attributes.heroPoints.rank;
                 if (heroPointCount) {
                     await actor.update({
@@ -98,8 +118,8 @@ export class CheckPF2e {
 
         await message.delete();
 
-        const oldRoll = message.roll;
-        const newRoll = oldRoll.reroll();
+        const oldRoll = message.roll!;
+        const newRoll = oldRoll.reroll({ async: false });
 
         // Keep the new roll by default; Old roll is discarded
         let keepRoll = newRoll;
@@ -112,21 +132,65 @@ export class CheckPF2e {
             keepRoll = oldRoll;
         }
 
-        const newMessage = await ChatMessage.create(
+        // Update the degree of success message for rolls with a DC
+        const context = message.getFlag('pf2e', 'context');
+        if (context?.dc) {
+            keepRoll.data.totalModifier = message.getFlag('pf2e', 'totalModifier') ?? 0;
+            const degreeOfSuccess = getDegreeOfSuccess(keepRoll, context.dc);
+            keepRoll.data.degreeOfSuccess = degreeOfSuccess.value;
+            const outcome = DegreeOfSuccessText[degreeOfSuccess.value];
+            const unadjustedOutcome = DegreeOfSuccessText[degreeOfSuccess.unadjusted];
+
+            let adjustmentLabel = '';
+            if (degreeOfSuccess.degreeAdjustment !== undefined) {
+                adjustmentLabel = degreeOfSuccess.degreeAdjustment
+                    ? game.i18n.localize('PF2E.OneDegreeBetter')
+                    : game.i18n.localize('PF2E.OneDegreeWorse');
+                adjustmentLabel = ` (${adjustmentLabel})`;
+            }
+            const resultLabel = game.i18n.localize('PF2E.ResultLabel');
+            const degreeLabel = game.i18n.localize(`PF2E.${context.dc.scope ?? 'CheckOutcome'}.${outcome}`);
+            const newString = `<div class="degree-of-success"><b>${resultLabel}:<span class="${outcome}"> ${degreeLabel}</span></b>${adjustmentLabel}</div>`;
+            const regex = new RegExp('<div class="degree-of-success">.+?</div>', 'g');
+            message.data.flavor = message.data.flavor!.replace(regex, newString);
+
+            if (context.notes !== undefined) {
+                const notes = context.notes
+                    .filter(
+                        (note) =>
+                            note.outcome.length === 0 ||
+                            note.outcome.includes(outcome) ||
+                            note.outcome.includes(unadjustedOutcome),
+                    )
+                    .map((note: { text: string }) => TextEditor.enrichHTML(note.text))
+                    .join('<br />');
+
+                const noteRegex = new RegExp('<p class="compact-text">.+?</p>', 'g');
+                const noteString = notes ? `<p class="compact-text">${notes}</p>` : '';
+                if (message.data.flavor!.match(noteRegex)) {
+                    message.data.flavor = message.data.flavor!.replace(noteRegex, noteString);
+                } else {
+                    message.data.flavor += noteString;
+                }
+            }
+        }
+        await keepRoll.toMessage(
             {
-                roll: keepRoll,
                 content: `<div class="${oldRollClass}">${await CheckPF2e.renderReroll(
-                    oldRoll,
+                    oldRoll!,
                 )}</div><div class='pf2e-reroll-second ${newRollClass}'>${await CheckPF2e.renderReroll(newRoll)}</div>`,
                 flavor: `<i class='fa fa-dice pf2e-reroll-indicator' title="${rerollFlavor}"></i>${message.data.flavor}`,
-                sound: CONFIG.sounds.dice,
                 speaker: message.data.speaker,
+                flags: {
+                    pf2e: {
+                        canReroll: false,
+                    },
+                },
             },
             {
-                rollMode: message.data.flags?.pf2e?.context?.rollMode ?? 'roll',
+                rollMode: context?.rollMode ?? 'roll',
             },
         );
-        await newMessage.setFlag('pf2e', 'canReroll', false);
     }
 
     /**
@@ -187,15 +251,4 @@ export class DamageRollPF2e {
         }
         DamageRollModifiersDialog.roll(damage, context, callback);
     }
-}
-
-export function adaptRoll(actualRoll: (param: RollParameters) => void) {
-    return (event: JQuery.Event | RollParameters, options?: string[], callback?: (roll: Roll) => void) => {
-        let param: RollParameters | JQuery.Event = event;
-        if (isObjectEmpty(event ?? {}) || 'shiftKey' in event) {
-            console.warn('You are using the old roll parameters. Use roll({event, options?, callback?}) instead.');
-            param = { event: event as JQuery.Event, options: options ?? [], callback };
-        }
-        actualRoll(param as RollParameters);
-    };
 }

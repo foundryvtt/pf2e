@@ -1,18 +1,19 @@
-import { ActorPF2e, SKILL_DICTIONARY } from '@actor/base';
-import { ItemPF2e } from '@item/base';
 import {
     calculateTrickMagicItemCastData,
     calculateTrickMagicItemCheckDC,
     TrickMagicItemDifficultyData,
-} from '@item/spell-consumables';
+} from '@item/consumable/spell-consumables';
+import type { ConsumablePF2e } from '@item';
+import type { ActorPF2e } from '@actor';
 import { LocalizePF2e } from '@module/system/localize';
 import { ErrorPF2e } from '@module/utils';
+import { SKILL_DICTIONARY } from '@actor/data/values';
 
 type TrickMagicItemSkill = TrickMagicItemPopup['SKILLS'][number];
 
 export class TrickMagicItemPopup {
     /** The wand or scroll being "tricked" */
-    readonly item: Owned<ItemPF2e>;
+    readonly item: Embedded<ConsumablePF2e>;
 
     /** The actor doing the tricking */
     readonly actor: ActorPF2e;
@@ -25,7 +26,7 @@ export class TrickMagicItemPopup {
 
     private translations = LocalizePF2e.translations.PF2E.TrickMagicItemPopup;
 
-    constructor(item: Owned<ItemPF2e>) {
+    constructor(item: Embedded<ConsumablePF2e>) {
         this.item = item;
         this.actor = item.actor;
         if (item.data.type !== 'consumable') {

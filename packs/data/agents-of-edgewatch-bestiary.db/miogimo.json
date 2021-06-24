@@ -534,6 +534,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -669,8 +670,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Occult Prepared Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -794,8 +799,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Innate Occult Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spellcastingEntry"
         },
@@ -919,8 +928,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Rituals",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spellcastingEntry"
         },
@@ -941,7 +954,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1037,8 +1052,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/blade-barrier.webp",
             "name": "Blade Barrier",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "spell"
         },
@@ -1059,7 +1078,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1157,8 +1178,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/dominate.webp",
             "name": "Dominate",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "spell"
         },
@@ -1179,7 +1204,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1275,8 +1302,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/mislead.webp",
             "name": "Mislead",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "spell"
         },
@@ -1297,7 +1328,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1393,8 +1426,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/zealous-conviction.webp",
             "name": "Zealous Conviction",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "spell"
         },
@@ -1415,7 +1452,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -1513,8 +1552,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/hallucination.webp",
             "name": "Hallucination",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "spell"
         },
@@ -1535,7 +1578,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1550,7 +1595,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You implant a subconscious suggestion deep within the target's mind for them to follow when a trigger you specify occurs (as described on page 305). You suggest a course of action to the target. Your directive must be phrased in such a way as to seem like a logical course of action to the target, and it can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The suggestion remains in the target's subconscious until the next time you prepare. If the trigger occurs before then, the target immediately follows your suggestion. The effect has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is 1 hour.</p>\n<hr /><strong>Heightened (9th)</strong> You can target up to 10 creatures."
+                    "value": "<p>You implant a subconscious suggestion deep within the target's mind for them to follow when a trigger you specify occurs. You suggest a course of action to the target. Your directive must be phrased in such a way as to seem like a logical course of action to the target, and it can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The suggestion remains in the target's subconscious until the next time you prepare. If the trigger occurs before then, the target immediately follows your suggestion. The effect has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is 1 hour.</p>\n<hr /><strong>Heightened (9th)</strong> You can target up to 10 creatures."
                 },
                 "duration": {
                     "value": "varies"
@@ -1639,8 +1684,12 @@
                     "equipActive": false
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/subconscious-suggestion.webp",
             "name": "Subconscious Suggestion",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "spell"
         },
@@ -1661,7 +1710,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1758,8 +1809,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
             "name": "Freedom of Movement",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "spell"
         },
@@ -1780,7 +1835,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1877,8 +1934,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/veil.webp",
             "name": "Veil",
+            "permission": {
+                "default": 0
+            },
             "sort": 1100000,
             "type": "spell"
         },
@@ -1899,7 +1960,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1997,8 +2060,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/enthrall.webp",
             "name": "Enthrall",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
             "type": "spell"
         },
@@ -2019,7 +2086,9 @@
                     "value": "ritual"
                 },
                 "components": {
-                    "value": ""
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -2116,8 +2185,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/geas.webp",
             "name": "Geas",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "spell"
         },
@@ -2138,7 +2211,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2236,8 +2311,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/spells/illusory-creature.webp",
             "name": "Illusory Creature (At Will)",
+            "permission": {
+                "default": 0
+            },
             "sort": 1400000,
             "type": "spell"
         },
@@ -2324,7 +2403,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -2429,8 +2508,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/dart.webp",
             "name": "Dart",
+            "permission": {
+                "default": 0
+            },
             "sort": 1500000,
             "type": "weapon"
         },
@@ -2623,8 +2706,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/katana.webp",
             "name": "+2 Greater Striking Katana",
+            "permission": {
+                "default": 0
+            },
             "sort": 1600000,
             "type": "weapon"
         },
@@ -2645,7 +2732,7 @@
                     "value": ""
                 },
                 "check": {
-                    "value": "-1"
+                    "value": -1
                 },
                 "collapsed": {
                     "value": false
@@ -2659,7 +2746,7 @@
                     "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
                 },
                 "dex": {
-                    "value": "3"
+                    "value": 3
                 },
                 "equipped": {
                     "value": true
@@ -2772,13 +2859,13 @@
                     "value": ""
                 },
                 "speed": {
-                    "value": ""
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
                 "strength": {
-                    "value": "12"
+                    "value": 12
                 },
                 "traits": {
                     "custom": "",
@@ -2796,8 +2883,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
             "name": "+2 Resilient Studded Leather Armor",
+            "permission": {
+                "default": 0
+            },
             "sort": 1700000,
             "type": "armor"
         },
@@ -2851,7 +2942,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "0"
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -2866,10 +2957,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0"
+                    "value": "0 gp"
                 },
                 "quantity": {
-                    "value": "1"
+                    "value": 1
                 },
                 "rules": [],
                 "size": {
@@ -2901,8 +2992,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/equipment.svg",
             "name": "Miogimo's mask",
+            "permission": {
+                "default": 0
+            },
             "sort": 1800000,
             "type": "equipment"
         },
@@ -2918,21 +3013,8 @@
                         "2d6 chaotic and 2d6 negative"
                     ]
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 32
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "jubiewgde5m4lygwmtok": {
@@ -2945,78 +3027,9 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -3032,20 +3045,18 @@
                         "versatile-p"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "katana",
+            "permission": {
+                "default": 0
+            },
             "sort": 1900000,
             "type": "melee"
         },
@@ -3061,21 +3072,8 @@
                         "2d6 chaotic and 2d6 negative"
                     ]
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 29
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "53o4ileivxmej36sc2ki": {
@@ -3088,78 +3086,9 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -3172,20 +3101,18 @@
                         "thrown-20"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weaponType": {
                     "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "dart",
+            "permission": {
+                "default": 0
+            },
             "sort": 2000000,
             "type": "melee"
         },
@@ -3233,8 +3160,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Little Favors",
+            "permission": {
+                "default": 0
+            },
             "sort": 2100000,
             "type": "action"
         },
@@ -3285,8 +3216,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Rejuvenation",
+            "permission": {
+                "default": 0
+            },
             "sort": 2200000,
             "type": "action"
         },
@@ -3334,8 +3269,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Trickster's Ace",
+            "permission": {
+                "default": 0
+            },
             "sort": 2300000,
             "type": "action"
         },
@@ -3354,7 +3293,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A zealborn can't regain Hit Points through resting or negative healing; they feed only on the idealism of their supporters, regaining 10 Hit Points per day for each creature under the effects of a <em>geas</em> cast by the zealborn. Creatures under a zealborn's <em>geas</em> have their maximum HP reduced by 10 each day until they are burned away to a husk and perish. After 24 hours, such creatures rise as zeal-damned ghouls under the zealborn's control. Zeal-damned ghouls eat only the flesh of evil or chaotic creatures and deal an additional 1d6 chaotic and 1d6 negative damage with their attacks. (See page 9 for an example of zeal-damned ghoul statistics.)</p>"
+                    "value": "<p>A zealborn can't regain Hit Points through resting or negative healing; they feed only on the idealism of their supporters, regaining 10 Hit Points per day for each creature under the effects of a <em>geas</em> cast by the zealborn. Creatures under a zealborn's <em>geas</em> have their maximum HP reduced by 10 each day until they are burned away to a husk and perish. After 24 hours, such creatures rise as zeal-damned ghouls under the zealborn's control. Zeal-damned ghouls eat only the flesh of evil or chaotic creatures and deal an additional 1d6 chaotic and 1d6 negative damage with their attacks.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3383,8 +3322,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Zealous Restoration",
+            "permission": {
+                "default": 0
+            },
             "sort": 2400000,
             "type": "action"
         },
@@ -3432,8 +3375,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Occult Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 2500000,
             "type": "action"
         },
@@ -3481,8 +3428,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Occult Ritual",
+            "permission": {
+                "default": 0
+            },
             "sort": 2600000,
             "type": "action"
         },
@@ -3521,8 +3472,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
+            "permission": {
+                "default": 0
+            },
             "sort": 2700000,
             "type": "lore"
         },
@@ -3561,8 +3516,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
             "sort": 2800000,
             "type": "lore"
         },
@@ -3601,8 +3560,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
+            "permission": {
+                "default": 0
+            },
             "sort": 2900000,
             "type": "lore"
         },
@@ -3641,8 +3604,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
+            "permission": {
+                "default": 0
+            },
             "sort": 3000000,
             "type": "lore"
         },
@@ -3681,8 +3648,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
+            "permission": {
+                "default": 0
+            },
             "sort": 3100000,
             "type": "lore"
         },
@@ -3721,8 +3692,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
+            "permission": {
+                "default": 0
+            },
             "sort": 3200000,
             "type": "lore"
         },
@@ -3761,8 +3736,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 3300000,
             "type": "lore"
         },
@@ -3801,8 +3780,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Underworld Lore",
+            "permission": {
+                "default": 0
+            },
             "sort": 3400000,
             "type": "lore"
         }
@@ -3814,10 +3797,13 @@
     "token": {
         "actorId": "Sq0Kb92nGkqj19Xx",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -3829,17 +3815,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Miogimo",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

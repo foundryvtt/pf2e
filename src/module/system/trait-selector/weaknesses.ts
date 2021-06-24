@@ -1,14 +1,13 @@
 import { ActorPF2e } from '@actor/base';
 import { NPCPF2e } from '@actor/npc';
-import { LabeledValue } from '@actor/data-definitions';
+import { LabeledValue } from '@module/data';
 import { TraitSelectorBase } from './base';
 import { SelectableTagField } from './index';
 
 export class TraitSelectorWeaknesses extends TraitSelectorBase<ActorPF2e> {
-    objectProperty = 'data.traits.dv';
+    override objectProperty = 'data.traits.dv';
 
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             template: 'systems/pf2e/templates/system/trait-selector/weaknesses.html',
             title: 'PF2E.WeaknessesLabel',
@@ -19,8 +18,7 @@ export class TraitSelectorWeaknesses extends TraitSelectorBase<ActorPF2e> {
         return ['weaknessTypes'] as const;
     }
 
-    /** @override */
-    getData() {
+    override getData() {
         const data: any = super.getData();
 
         if (this.object instanceof NPCPF2e) {
@@ -42,8 +40,7 @@ export class TraitSelectorWeaknesses extends TraitSelectorBase<ActorPF2e> {
         return data;
     }
 
-    /** @override */
-    activateListeners($html: JQuery) {
+    override activateListeners($html: JQuery) {
         super.activateListeners($html);
 
         $html
@@ -60,17 +57,16 @@ export class TraitSelectorWeaknesses extends TraitSelectorBase<ActorPF2e> {
             });
     }
 
-    /** @override */
-    protected async _updateObject(_event: Event, formData: FormData) {
+    protected override async _updateObject(_event: Event, formData: Record<string, unknown>) {
         const update = this.getUpdateData(formData);
         if (update) {
             this.object.update({ [this.objectProperty]: update });
         }
     }
 
-    protected getUpdateData(formData: FormData) {
-        const choices = [];
-        for (const [k, v] of Object.entries(formData as Record<any, any>)) {
+    protected getUpdateData(formData: Record<string, unknown>) {
+        const choices: Record<string, unknown>[] = [];
+        for (const [k, v] of Object.entries(formData as Record<string, any>)) {
             if (v.length > 1 && v[0]) {
                 if (!Number.isNaN(Number(v[1])) && v[1] !== '') {
                     const label = this.choices[k];

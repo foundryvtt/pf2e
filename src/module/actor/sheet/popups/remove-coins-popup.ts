@@ -1,4 +1,4 @@
-import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoins, Coins } from '@item/treasure';
+import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoins, Coins } from '@item/treasure/helpers';
 import { ActorPF2e } from '../../base';
 
 interface PopupFormData extends Coins {
@@ -9,7 +9,7 @@ interface PopupFormData extends Coins {
  * @category Other
  */
 export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
         options.id = 'remove-coins';
         options.classes = [];
@@ -19,7 +19,7 @@ export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
         return options;
     }
 
-    async _updateObject(_event: Event, formData: PopupFormData) {
+    override async _updateObject(_event: Event, formData: PopupFormData) {
         const actor = this.object;
         const coinsToRemove = {
             pp: formData.pp,

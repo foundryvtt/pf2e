@@ -382,6 +382,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -499,7 +500,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
+            "img": "icons/svg/item-bag.svg",
             "name": "Innate Occult Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -520,7 +526,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -621,8 +629,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.fkDeKktdmbeplYRY"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/overwhelming-presence.webp",
             "name": "Overwhelming Presence",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spell"
         },
@@ -643,7 +655,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -740,8 +754,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.wfleiawxsfhpRRwf"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/disapperance.webp",
             "name": "Disappearance (At Will) (Self only)",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
@@ -762,7 +780,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -861,8 +881,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.U58aQWJ47VrI36yP"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/hallucination.webp",
             "name": "Hallucination",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "spell"
         },
@@ -883,7 +907,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -981,8 +1007,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.HBJPsonQnWcC3qdX"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/hallucinatory-terrain.webp",
             "name": "Hallucinatory Terrain",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "spell"
         },
@@ -998,21 +1028,8 @@
                         "Grab"
                     ]
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 38
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "uhnbr51unlm9pra7i6a9": {
@@ -1023,48 +1040,9 @@
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -1079,17 +1057,72 @@
                 },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Pseudopod",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "melee"
+        },
+        {
+            "_id": "kBVPkLjfI3McqTI0",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
+            "type": "action"
         },
         {
             "_id": "rhTcJceeycWuNn5Q",
@@ -1136,9 +1169,13 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.sebk9XseMCRkDqRg"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Lifesense (Imprecise) 60 feet",
-            "sort": 700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -1186,9 +1223,13 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Scent (Imprecise) 60 feet",
-            "sort": 800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -1236,9 +1277,13 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Tremorsense (Imprecise) 60 feet",
-            "sort": 900000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1286,58 +1331,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "At-Will Spells",
-            "sort": 1000000,
-            "type": "action"
-        },
-        {
-            "_id": "kBVPkLjfI3McqTI0",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
+            "permission": {
+                "default": 0
             },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Darkvision",
             "sort": 1100000,
             "type": "action"
         },
@@ -1386,204 +1385,13 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.9qV49KjZujZnSp6w"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "All-Around Vision",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
-            "type": "action"
-        },
-        {
-            "_id": "mRib1Lv6hyd1E6Fp",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "fast-healing",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Fast Healing 30",
-            "sort": 1300000,
-            "type": "action"
-        },
-        {
-            "_id": "TiEypml6YcXwh0hS",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "negative-healing",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Negative Healing",
-            "sort": 1400000,
-            "type": "action"
-        },
-        {
-            "_id": "RtG3Dfe9kEKJnPYX",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>60 feet, DC 45. @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature entering or starting its turn in the aura that fails at a Fortitude save becomes @Compendium[pf2e.conditionitems.Doomed]{Doomed 1} and @Compendium[pf2e.conditionitems.Drained]{Drained 1}. If the target was already doomed or drained, the values of these conditions increase by 1, to a maximum of doomed 3 and drained 3. A creature that dies while doomed 3 and drained 3 in this way disintegrates into black sand.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "aura",
-                        "necromancy",
-                        "occult"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Aura of Annihilation",
-            "sort": 1500000,
-            "type": "action"
-        },
-        {
-            "_id": "QHfqtuROQMmVf7uq",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>Unlike most undead, Iffdahsil isn’t destroyed at 0 HP. Iffdahsil’s @Compendium[pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} continues to function normally, though on any round it begins its turn at 0 HP, it is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 4} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the start of its next turn. While Iffdahsil is at 0 HP, it can be killed permanently only by simultaneously exposing it to direct sunlight (or a 10th-level @Compendium[pf2e.spells-srd.Sunburst]{Sunburst} spell) and casting a @Compendium[pf2e.spells-srd.Miracle]{Miracle} or @Compendium[pf2e.spells-srd.Wish]{Wish} spell (or similar magic) directed at destroying it.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "necromancy",
-                        "occult"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Unkillable",
-            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1641,33 +1449,37 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "+1 Status Bonus to all saves vs. magical effects",
-            "sort": 1700000,
+            "name": "+1 Status Bonus to Saves vs. Magical Effects",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1300000,
             "type": "action"
         },
         {
-            "_id": "iMB9R9rKmK8I558D",
+            "_id": "mRib1Lv6hyd1E6Fp",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "defensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": "grab",
+                "slug": "fast-healing",
                 "source": {
                     "value": ""
                 },
@@ -1688,12 +1500,173 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Grab"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Fast Healing"
                 }
             },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 1800000,
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Fast Healing 30",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "TiEypml6YcXwh0hS",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Negative Healing",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1500000,
+            "type": "action"
+        },
+        {
+            "_id": "RtG3Dfe9kEKJnPYX",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>60 feet, DC 45. @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}</p>\n<hr />\n<p>A creature entering or starting its turn in the aura that fails at a Fortitude save becomes @Compendium[pf2e.conditionitems.Doomed]{Doomed 1} and @Compendium[pf2e.conditionitems.Drained]{Drained 1}. If the target was already doomed or drained, the values of these conditions increase by 1, to a maximum of doomed 3 and drained 3. A creature that dies while doomed 3 and drained 3 in this way disintegrates into black sand.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "necromancy",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Aura of Annihilation",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "QHfqtuROQMmVf7uq",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>Unlike most undead, Iffdahsil isn’t destroyed at 0 HP. Iffdahsil’s @Compendium[pf2e.bestiary-ability-glossary-srd.Fast Healing]{Fast Healing} continues to function normally, though on any round it begins its turn at 0 HP, it is @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 4} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the start of its next turn. While Iffdahsil is at 0 HP, it can be killed permanently only by simultaneously exposing it to direct sunlight (or a 10th-level @Compendium[pf2e.spells-srd.Sunburst]{Sunburst} spell) and casting a @Compendium[pf2e.spells-srd.Miracle]{Miracle} or @Compendium[pf2e.spells-srd.Wish]{Wish} spell (or similar magic) directed at destroying it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "necromancy",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Unkillable",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1741,8 +1714,60 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1800000,
+            "type": "action"
+        },
+        {
+            "_id": "yVBUPO8bNkZEb4gC",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>A creature that begins its turn inside Iffdahsil takes [[/r 10d6 #negative]] negative damage. Iffdahsil gains temporary HP for 1 minute equal to half the damage dealt.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Eat Away",
+            "permission": {
+                "default": 0
+            },
             "sort": 1900000,
             "type": "action"
         },
@@ -1791,8 +1816,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.zU3Ovaet4xQ5Gmvy"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Engulf",
+            "permission": {
+                "default": 0
+            },
             "sort": 2000000,
             "type": "action"
         },
@@ -1835,31 +1864,37 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Tentacular Burst",
+            "permission": {
+                "default": 0
+            },
             "sort": 2100000,
             "type": "action"
         },
         {
-            "_id": "yVBUPO8bNkZEb4gC",
+            "_id": "iMB9R9rKmK8I558D",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "action"
                 },
                 "actions": {
-                    "value": ""
+                    "value": "1"
                 },
                 "description": {
-                    "value": "<p>A creature that begins its turn inside Iffdahsil takes [[/r 10d6 #negative]] negative damage. Iffdahsil gains temporary HP for 1 minute equal to half the damage dealt.</p>"
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -1878,9 +1913,17 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Eat Away",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Grab"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "permission": {
+                "default": 0
+            },
             "sort": 2200000,
             "type": "action"
         },
@@ -1914,8 +1957,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
             "sort": 2300000,
             "type": "lore"
         },
@@ -1949,8 +1996,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
+            "permission": {
+                "default": 0
+            },
             "sort": 2400000,
             "type": "lore"
         }
@@ -1962,10 +2013,13 @@
     "token": {
         "actorId": "aqcDvkIaKwJdMEAO",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1977,17 +2031,19 @@
         "height": 4,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Iffdahsil",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 4

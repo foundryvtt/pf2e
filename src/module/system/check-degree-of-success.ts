@@ -1,25 +1,36 @@
 import {
     DieRoll,
     DegreeAdjustment,
+    DegreeAdjustmentValues,
     DegreeOfSuccess,
     calculateDegreeOfSuccess,
     adjustDegreeOfSuccess,
 } from '../degree-of-success';
+import { RollDataPF2e } from './rolls';
+import { ModifierPredicate } from '@module/modifiers';
 
-interface PF2CheckDCModifiers {
-    all?: 'one-degree-better' | 'one-degree-worse';
-    criticalFailure?: 'one-degree-better' | 'one-degree-worse';
-    failure?: 'one-degree-better' | 'one-degree-worse';
-    success?: 'one-degree-better' | 'one-degree-worse';
-    criticalSuccess?: 'one-degree-better' | 'one-degree-worse';
+type CheckDCStrings = 'one-degree-better' | 'one-degree-worse' | 'two-degrees-better' | 'two-degrees-worse';
+
+export interface PF2CheckDCModifiers {
+    all?: CheckDCStrings;
+    criticalFailure?: CheckDCStrings;
+    failure?: CheckDCStrings;
+    success?: CheckDCStrings;
+    criticalSuccess?: CheckDCStrings;
+}
+
+export interface DegreeOfSuccessAdjustment {
+    modifiers: PF2CheckDCModifiers;
+    predicate?: ModifierPredicate;
 }
 
 export interface PF2CheckDC {
     label?: string;
     modifiers?: PF2CheckDCModifiers;
     scope?: 'AttackOutcome' | 'CheckOutcome';
+    adjustments?: DegreeOfSuccessAdjustment[];
     value: number;
-    visibility?: 'gm' | 'owner' | 'all';
+    visibility?: 'none' | 'gm' | 'owner' | 'all';
 }
 
 const PREFIXES = Object.freeze({
@@ -31,33 +42,40 @@ const PREFIXES = Object.freeze({
 });
 
 const ADJUSTMENTS = Object.freeze({
+    'two-degrees-better': DegreeAdjustment.INCREASE_BY_TWO,
     'one-degree-better': DegreeAdjustment.INCREASE,
     'one-degree-worse': DegreeAdjustment.LOWER,
+    'two-degrees-worse': DegreeAdjustment.LOWER_BY_TWO,
 });
 
 export const DegreeOfSuccessText = ['criticalFailure', 'failure', 'success', 'criticalSuccess'] as const;
 export type DegreeOfSuccessString = typeof DegreeOfSuccessText[number];
 
 export function getDegreeOfSuccess(
-    roll: Roll,
+    roll: Roll<RollDataPF2e>,
     checkDC: PF2CheckDC,
-): { value: DegreeOfSuccess; degreeAdjustment: DegreeAdjustment | undefined } {
+): { unadjusted: DegreeOfSuccess; value: DegreeOfSuccess; degreeAdjustment: DegreeAdjustmentValues | undefined } {
     const dieRoll: DieRoll = {
-        dieValue: (roll.terms[0] as any).total ?? 0,
-        modifier: roll.data.totalModifier as number,
+        dieValue: Number(roll.terms[0].total) ?? 0,
+        modifier: roll.data.totalModifier ?? 0,
     };
-    let value = calculateDegreeOfSuccess(dieRoll, checkDC.value);
+    const unadjusted = calculateDegreeOfSuccess(dieRoll, checkDC.value);
+    let value = unadjusted;
     const degreeAdjustment = getDegreeAdjustment(value, checkDC.modifiers ?? {});
     if (degreeAdjustment !== undefined) {
         value = adjustDegreeOfSuccess(degreeAdjustment, value);
     }
     return {
+        unadjusted,
         value,
         degreeAdjustment,
     };
 }
 
-function getDegreeAdjustment(value: DegreeOfSuccess, modifiers: PF2CheckDCModifiers): DegreeAdjustment | undefined {
+function getDegreeAdjustment(
+    value: DegreeOfSuccess,
+    modifiers: PF2CheckDCModifiers,
+): DegreeAdjustmentValues | undefined {
     for (const [k, v] of Object.entries(modifiers)) {
         const condition = PREFIXES[k];
         const adjustment = ADJUSTMENTS[v];

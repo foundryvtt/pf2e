@@ -2,7 +2,7 @@ import { IdentifyCreatureData } from '../../../recall-knowledge';
 import { padArray } from '../../../utils';
 
 export class RecallKnowledgePopup extends Application {
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
         options.id = 'recall-knowledge-breakdown';
         options.classes = [];
@@ -12,7 +12,7 @@ export class RecallKnowledgePopup extends Application {
         return options;
     }
 
-    getData() {
+    override getData() {
         const data = this.options as IdentifyCreatureData;
         return {
             specificLoreAttempts: this.padAttempts(data.specificLoreDC.progression),

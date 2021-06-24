@@ -1,9 +1,9 @@
-import { ActorPF2e } from '@actor/base';
-import { ItemPF2e } from '@item/base';
+import { ActorPF2e } from '@actor/index';
+import { ItemPF2e } from '@item/index';
 import { SelectableTagField, TagSelectorOptions } from './index';
 
 export abstract class TraitSelectorBase<
-    EntityType extends ActorPF2e | ItemPF2e = ActorPF2e | ItemPF2e
+    EntityType extends ActorPF2e | ItemPF2e = ActorPF2e | ItemPF2e,
 > extends FormApplication<EntityType> {
     choices: Record<string, string>;
     objectProperty = '';
@@ -15,8 +15,7 @@ export abstract class TraitSelectorBase<
 
     protected abstract get configTypes(): readonly SelectableTagField[];
 
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: 'trait-selector',
             classes: ['pf2e'],
@@ -25,7 +24,7 @@ export abstract class TraitSelectorBase<
         });
     }
 
-    protected abstract _updateObject(_event: Event, _formData: FormData): Promise<void>;
+    protected abstract override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 
     /**
      * Builds an object of all keys of this.configTypes from CONFIG.PF2E
