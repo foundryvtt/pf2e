@@ -1,11 +1,16 @@
 import { Progress } from './progress';
 import { PhysicalItemPF2e } from '@item/physical';
 import { KitPF2e } from '@item/kit';
-import { KitEntryData } from '@item/kit/data';
-import { MagicSchool } from '@item/spell/data';
+import { MagicSchool, SpellData } from '@item/spell/data';
+import { ArmorPF2e, ConsumablePF2e, ContainerPF2e, EquipmentPF2e, ItemPF2e, TreasurePF2e, WeaponPF2e } from '@item';
+import { coinValueInCopper, extractPriceFromItem } from '@item/treasure/helpers';
+import { ErrorPF2e, tupleHasValue } from '@module/utils';
+import { ActorPF2e, FamiliarPF2e } from '@actor';
+import { ActionData, FeatData } from '@item/data';
+import { HazardData, NPCData } from '@actor/data';
 
 /** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */
-function _sortedObject(obj: object) {
+function sortedObject(obj: object) {
     return Object.fromEntries([...Object.entries(obj)].sort());
 }
 
@@ -18,11 +23,31 @@ function normaliseString(str: string): string {
         .replace(/[^a-z0-9]/g, '');
 }
 
-/**
- * @category Other
- */
+type SortByOption = 'name' | 'level' | 'price';
+type SortDirection = 'asc' | 'desc';
+
+type InventoryItem<
+    T extends WeaponPF2e | ArmorPF2e | EquipmentPF2e | ConsumablePF2e | TreasurePF2e | ContainerPF2e | KitPF2e =
+        | WeaponPF2e
+        | ArmorPF2e
+        | EquipmentPF2e
+        | ConsumablePF2e
+        | TreasurePF2e
+        | ContainerPF2e
+        | KitPF2e,
+> = T & {
+    data: T['data'] & {
+        compendium?: string;
+        filters?: string[];
+        data: T['data']['data'] & {
+            itemTypes?: { value: string };
+            rarity?: { value: string };
+        };
+    };
+};
+
 class PackLoader {
-    loadedPacks: object;
+    loadedPacks: Record<'Actor' | 'Item', Record<string, ClientDocument>>;
 
     constructor() {
         this.loadedPacks = {
@@ -32,13 +57,11 @@ class PackLoader {
     }
 
     async *loadPacks(entityType: string, packs: string[]) {
-        if (!this.loadedPacks[entityType]) {
-            this.loadedPacks[entityType] = {};
-        }
+        this.loadedPacks[entityType] ??= {};
 
         // TODO: i18n for progress bar
         const progress = new Progress({ steps: packs.length });
-        for (const packId of packs) {
+        for await (const packId of packs) {
             let data = this.loadedPacks[entityType][packId];
             if (!data) {
                 const pack = game.packs.get(packId);
@@ -48,7 +71,6 @@ class PackLoader {
                 }
                 progress.advance(`Loading ${pack.metadata.label}`);
                 if (pack.metadata.entity === entityType) {
-                    /* eslint-disable-next-line no-await-in-loop */
                     const content = await pack.getDocuments();
                     data = { pack, content };
                     this.loadedPacks[entityType][packId] = data;
@@ -82,10 +104,10 @@ type TabData<T> = {
 };
 
 export class CompendiumBrowser extends Application {
-    sorters: any;
+    sorters: { text: string; castingtime: string } = { text: '', castingtime: '' };
     filters!: Record<string, Record<string, boolean>>;
-    ranges: any;
-    settings!: TabData<{ [key: string]: PackInfo }>;
+    ranges: Record<string, { lowerBound: number; upperBound: number }> = {};
+    settings!: TabData<Record<string, PackInfo>>;
     navigationTab!: Tabs;
     data!: TabData<object>;
 
@@ -98,8 +120,36 @@ export class CompendiumBrowser extends Application {
         this.hookTab();
     }
 
+    override get title() {
+        return game.i18n.localize('PF2E.CompendiumBrowser.Title');
+    }
+
+    static override get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+            id: 'compendium-browser',
+            classes: [],
+            template: 'systems/pf2e/templates/packs/compendium-browser.html',
+            width: 800,
+            height: 700,
+            resizable: true,
+            dragDrop: [{ dragSelector: 'ul.item-list > li.item' }],
+            tabs: [
+                {
+                    navSelector: 'nav',
+                    contentSelector: 'section.content',
+                    initial: 'landing-page',
+                },
+            ],
+        });
+    }
+
+    override async _render(force?: boolean, options?: RenderOptions) {
+        await super._render(force, options);
+        this.activateResultListeners();
+    }
+
     initCompendiumList() {
-        const settings = {
+        const settings: TabData<Record<string, PackInfo>> = {
             action: {},
             bestiary: {},
             hazard: {},
@@ -107,20 +157,24 @@ export class CompendiumBrowser extends Application {
             feat: {},
             spell: {},
         };
-        let types: string[];
         for (const pack of game.packs.values()) {
-            if (pack.metadata.entity === 'Item') {
-                types = ['action', 'equipment', 'feat', 'spell'];
-            } else if (pack.metadata.entity === 'Actor') {
-                types = ['bestiary', 'hazard'];
-            } else {
-                continue;
-            }
+            const types = (() => {
+                if (pack.metadata.entity === 'Item') {
+                    return ['action', 'equipment', 'feat', 'spell'] as const;
+                } else if (pack.metadata.entity === 'Actor') {
+                    return ['bestiary', 'hazard'] as const;
+                }
+                return null;
+            })();
+            if (!types) continue;
 
-            for (const t of types) {
-                const load = this.settings[t]?.[pack.collection]?.load ?? pack.collection.includes(t);
+            for (const packType of types) {
+                const load =
+                    this.settings[packType]?.[pack.collection]?.load ||
+                    pack.collection.includes(packType) ||
+                    (packType === 'bestiary' && pack.collection.includes('npc-'));
 
-                settings[t][pack.collection] = {
+                settings[packType]![pack.collection] = {
                     load,
                     name: pack.metadata.label,
                 };
@@ -191,7 +245,7 @@ export class CompendiumBrowser extends Application {
         }
     }
 
-    _loadedPacks(tab: string) {
+    private loadedPacks(tab: string): string[] {
         return (Object.entries(this.settings[tab] ?? []) as [string, PackInfo][]).flatMap(([collection, info]) => {
             return info.load ? [collection] : [];
         });
@@ -200,18 +254,18 @@ export class CompendiumBrowser extends Application {
     async loadActions() {
         console.debug('PF2e System | Compendium Browser | Started loading feats');
 
-        const actions = {};
+        const actions: Record<string, ActionData> = {};
 
-        for await (const { pack, content } of packLoader.loadPacks('Item', this._loadedPacks('action'))) {
+        for await (const { pack, content } of packLoader.loadPacks('Item', this.loadedPacks('action'))) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loading`);
-            for (let action of content) {
-                action = action.data;
-                if (action.type === 'action') {
+            for (const action of content) {
+                const actionData = action.data;
+                if (actionData.type === 'action') {
                     // update icons for any passive actions
-                    if (action.data.actionType.value === 'passive') action.img = this._getActionImg('passive');
+                    if (actionData.data.actionType.value === 'passive') actionData.img = this._getActionImg('passive');
                     // record the pack the feat was read from
-                    action.compendium = pack.collection;
-                    actions[action._id] = action;
+                    actionData.compendium = pack.collection;
+                    actions[actionData._id] = actionData;
                 }
             }
         }
@@ -220,7 +274,7 @@ export class CompendiumBrowser extends Application {
 
         return {
             actions,
-            actionTraits: _sortedObject(CONFIG.PF2E.featTraits),
+            actionTraits: sortedObject(CONFIG.PF2E.featTraits),
             skills: CONFIG.PF2E.skillList,
             proficiencies: CONFIG.PF2E.proficiencyLevels,
         };
@@ -229,51 +283,50 @@ export class CompendiumBrowser extends Application {
     async loadBestiary() {
         console.debug('PF2e System | Compendium Browser | Started loading actors');
 
-        const bestiaryActors = {};
+        const bestiaryActors: Record<string, NPCData> = {};
         const sources: Set<string> = new Set();
 
-        for await (const { pack, content } of packLoader.loadPacks('Actor', this._loadedPacks('bestiary'))) {
+        for await (const { pack, content } of packLoader.loadPacks('Actor', this.loadedPacks('bestiary'))) {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
             );
-            for (let actor of content) {
-                actor = actor.data;
-                if (actor.type === 'npc') {
+            content.sort((actorA: ActorPF2e, actorB: ActorPF2e) =>
+                actorA.name > actorB.name ? 1 : actorA.name < actorB.name ? -1 : 0,
+            );
+            for (const actor of content) {
+                const actorData = actor.data;
+                if (actorData.type === 'npc') {
                     // record the pack the feat was read from
-                    actor.compendium = pack.collection;
-                    actor.filters = {};
+                    actorData.compendium = pack.collection;
+                    actorData.filters = {};
 
-                    actor.filters.level = actor.data.details.level.value;
-                    actor.filters.traits = actor.data.traits.traits.value;
-                    actor.filters.alignment = actor.data.details.alignment.value;
-                    actor.filters.actorSize = actor.data.traits.size.value;
+                    actorData.filters.level = actorData.data.details.level.value;
+                    actorData.filters.traits = actorData.data.traits.traits.value;
+                    actorData.filters.alignment = actorData.data.details.alignment.value;
+                    actorData.filters.actorSize = actorData.data.traits.size.value;
 
                     // get the source of the bestiary entry ignoring page number and add it as an additional attribute on the bestiary entry
-                    if (actor.data.details.source && actor.data.details.source.value) {
-                        const actorSource = actor.data.details.source.value;
+                    if (actorData.data.details.source && actorData.data.details.source.value) {
+                        const actorSource = actorData.data.details.source.value;
                         if (actorSource.includes('pg.')) {
-                            actor.filters.source = actorSource.split('pg.')[0].trim();
+                            actorData.filters.source = actorSource.split('pg.')[0].trim();
                         } else if (actorSource.includes('page.')) {
-                            actor.filters.source = actorSource.split('page.')[0].trim();
+                            actorData.filters.source = actorSource.split('page.')[0].trim();
                         } else {
-                            actor.filters.source = actorSource;
+                            actorData.filters.source = actorSource;
                         }
                     }
 
                     // add the source to the filter list.
-                    if (actor.filters.source) {
-                        sources.add(actor.filters.source);
+                    if (actorData.filters.source) {
+                        sources.add(actorData.filters.source);
                     }
 
                     // add actor to bestiaryActors object
-                    bestiaryActors[actor._id] = actor;
+                    bestiaryActors[actorData._id] = actorData;
 
                     // Add rarity for filtering
-                    actor.filters.rarity = (() => {
-                        if (actor.data.traits.rarity) return actor.data.traits.rarity.value; // TODO: only look in one place once data is fixed
-                        if (actor.data.rarity) return actor.data.rarity.value;
-                        return { value: 'common' };
-                    })();
+                    actorData.filters.rarity = actorData.data.traits.rarity.value;
                 }
             }
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loaded`);
@@ -284,8 +337,8 @@ export class CompendiumBrowser extends Application {
             bestiaryActors,
             actorSize: CONFIG.PF2E.actorSizes,
             alignment: CONFIG.PF2E.alignment,
-            traits: _sortedObject(CONFIG.PF2E.monsterTraits),
-            languages: _sortedObject(CONFIG.PF2E.languages),
+            traits: sortedObject(CONFIG.PF2E.monsterTraits),
+            languages: sortedObject(CONFIG.PF2E.languages),
             source: [...sources].sort(),
             rarities: CONFIG.PF2E.rarityTraits,
         };
@@ -294,53 +347,56 @@ export class CompendiumBrowser extends Application {
     async loadHazards() {
         console.debug('PF2e System | Compendium Browser | Started loading actors');
 
-        const hazardActors = {};
+        const hazardActors: Record<string, HazardData> = {};
         const sources: Set<string> = new Set();
         const rarities = Object.keys(CONFIG.PF2E.rarityTraits);
 
-        for await (const { pack, content } of packLoader.loadPacks('Actor', this._loadedPacks('hazard'))) {
+        for await (const { pack, content } of packLoader.loadPacks('Actor', this.loadedPacks('hazard'))) {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
             );
-            for (let actor of content) {
-                actor = actor.data;
-                if (actor.type === 'hazard') {
+            content.sort((actorA: ActorPF2e, actorB: ActorPF2e) =>
+                actorA.name > actorB.name ? 1 : actorA.name < actorB.name ? -1 : 0,
+            );
+            for (const actor of content) {
+                const actorData = actor.data;
+                if (actorData.type === 'hazard') {
                     // record the pack the hazard was read from
-                    actor.compendium = pack.collection;
-                    actor.filters = {};
+                    actorData.compendium = pack.collection;
+                    actorData.filters = {};
 
-                    actor.filters.level = actor.data.details.level;
-                    actor.filters.traits = actor.data.traits.traits.value;
+                    actorData.filters.level = actorData.data.details.level;
+                    actorData.filters.traits = actorData.data.traits.traits.value;
 
                     // get the source of the hazard entry ignoring page number and add it as an additional attribute on the hazard entry
-                    if (actor.data.details.source && actor.data.details.source.value) {
-                        const actorSource = actor.data.details.source.value;
+                    if (actorData.data.details.source && actorData.data.details.source.value) {
+                        const actorSource = actorData.data.details.source.value;
                         if (actorSource.includes('pg.')) {
-                            actor.filters.source = actorSource.split('pg.')[0].trim();
+                            actorData.filters.source = actorSource.split('pg.')[0].trim();
                         } else if (actorSource.includes('page.')) {
-                            actor.filters.source = actorSource.split('page.')[0].trim();
+                            actorData.filters.source = actorSource.split('page.')[0].trim();
                         } else {
-                            actor.filters.source = actorSource;
+                            actorData.filters.source = actorSource;
                         }
                     }
 
-                    actor.filters.complex = actor.data.details.isComplex ? 'complex' : 'simple';
+                    actorData.filters.complex = actorData.data.details.isComplex ? 'complex' : 'simple';
 
                     // add the source to the filter list.
-                    if (actor.filters.source) {
-                        sources.add(actor.filters.source);
+                    if (actorData.filters.source) {
+                        sources.add(actorData.filters.source);
                     }
 
                     // add actor to bestiaryActors object
-                    hazardActors[actor._id] = actor;
+                    hazardActors[actorData._id] = actorData;
 
                     // Add rarity for filtering
-                    actor.filters.rarity = (() => {
-                        if (actor.data.traits.rarity) return actor.data.traits.rarity.value; // TODO: only look in one place once data is fixed
-                        if (actor.data.rarity) return actor.data.rarity.value;
+                    actorData.filters.rarity = (() => {
+                        if (actorData.data.traits.rarity) return actorData.data.traits.rarity.value; // TODO: only look in one place once data is fixed
+                        if (actorData.data.rarity) return actorData.data.rarity.value;
                         for (const rarity of rarities) {
-                            const indexOfRarity = actor.data.traits.traits.value.indexOf(rarity);
-                            if (indexOfRarity >= 0) return actor.data.traits.traits.value[indexOfRarity];
+                            const indexOfRarity = actorData.data.traits.traits.value.indexOf(rarity);
+                            if (indexOfRarity >= 0) return actorData.data.traits.traits.value[indexOfRarity];
                         }
                         return 'common';
                     })();
@@ -352,7 +408,7 @@ export class CompendiumBrowser extends Application {
         console.debug('PF2e System | Compendium Browser | Finished loading Hazard actors');
         return {
             hazardActors,
-            traits: _sortedObject(CONFIG.PF2E.hazardTraits),
+            traits: sortedObject(CONFIG.PF2E.hazardTraits),
             source: [...sources].sort(),
             rarities: CONFIG.PF2E.rarityTraits,
         };
@@ -361,32 +417,41 @@ export class CompendiumBrowser extends Application {
     async loadEquipment() {
         console.debug('PF2e System | Compendium Browser | Started loading feats');
 
-        const inventoryItems = {};
+        const inventoryItems: Record<string, InventoryItem['data']> = {};
 
         const itemTypes = ['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit'];
 
-        for await (const { pack, content } of packLoader.loadPacks('Item', this._loadedPacks('equipment'))) {
+        for await (const { pack, content } of packLoader.loadPacks('Item', this.loadedPacks('equipment'))) {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
             );
-            for (let item of content) {
-                item = item.data;
-                if (itemTypes.includes(item.type)) {
+            content.sort((itemA: ItemPF2e, itemB: ItemPF2e) =>
+                itemA.name > itemB.name ? 1 : itemA.name < itemB.name ? -1 : 0,
+            );
+            for (const item of content as InventoryItem[]) {
+                const itemData = item.data;
+                if (item.data.type === 'treasure' && item.data.data.stackGroup.value === 'coins') continue;
+                if (itemTypes.includes(itemData.type)) {
                     // record the pack the feat was read from
-                    item.compendium = pack.collection;
+                    itemData.compendium = pack.collection;
 
                     // add item.type into the correct format for filtering
-                    item.data.itemTypes = { value: item.type };
+                    itemData.data.itemTypes = { value: itemData.type };
+                    itemData.data.rarity = { value: itemData.data.traits.rarity.value };
+                    itemData.filters = [
+                        'itemTypes',
+                        'rarity',
+                        'level',
+                        'traits',
+                        'price',
+                        'source',
+                        'armorType',
+                        'weaponType',
+                        'group',
+                    ];
 
                     // add spell to spells array
-                    inventoryItems[item._id] = item;
-
-                    // Add rarity for filtering
-                    item.data.rarity = (() => {
-                        if (item.data.traits.rarity) return item.data.traits.rarity; // TODO: only look in one place once data is fixed
-                        if (item.data.rarity) return item.data.rarity;
-                        return { value: 'common' };
-                    })();
+                    inventoryItems[itemData._id] = itemData;
                 }
             }
         }
@@ -396,16 +461,15 @@ export class CompendiumBrowser extends Application {
             inventoryItems,
             armorTypes: CONFIG.PF2E.armorTypes,
             armorGroups: CONFIG.PF2E.armorGroups,
-            weaponTraits: _sortedObject(CONFIG.PF2E.weaponTraits),
-            // TODO: i18n
+            weaponTraits: sortedObject(CONFIG.PF2E.weaponTraits),
             itemTypes: {
-                weapon: 'Weapons',
-                armor: 'Armor',
-                equipment: 'Equipment',
-                consumable: 'Consumables',
-                treasure: 'Treasure',
-                backpack: 'Containers',
-                kit: 'Kits',
+                weapon: game.i18n.localize('ITEM.TypeWeapon'),
+                armor: game.i18n.localize('ITEM.TypeArmor'),
+                equipment: game.i18n.localize('ITEM.TypeEquipment'),
+                consumable: game.i18n.localize('ITEM.TypeConsumable'),
+                treasure: game.i18n.localize('ITEM.TypeTreasure'),
+                backpack: game.i18n.localize('ITEM.TypeBackpack'),
+                kit: game.i18n.localize('ITEM.TypeKit'),
             },
             rarities: CONFIG.PF2E.rarityTraits,
             weaponTypes: CONFIG.PF2E.weaponTypes,
@@ -416,40 +480,45 @@ export class CompendiumBrowser extends Application {
     async loadFeats() {
         console.debug('PF2e System | Compendium Browser | Started loading feats');
 
-        const feats = {};
+        const feats: Record<string, FeatData> = {};
         const classes: Set<string> = new Set();
         const skills: Set<string> = new Set();
         const ancestries: Set<string> = new Set();
         const times: Set<string> = new Set();
         const ancestryList = Object.keys(CONFIG.PF2E.ancestryTraits);
 
-        for await (const { pack, content } of packLoader.loadPacks('Item', this._loadedPacks('feat'))) {
+        for await (const { pack, content } of packLoader.loadPacks('Item', this.loadedPacks('feat'))) {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
             );
-            for (let feat of content) {
-                feat = feat.data;
-                if (feat.type === 'feat') {
+            content.sort((itemA: ItemPF2e, itemB: ItemPF2e) =>
+                itemA.name > itemB.name ? 1 : itemA.name < itemB.name ? -1 : 0,
+            );
+            for (const feat of content) {
+                const featData = feat.data;
+                if (featData.type === 'feat') {
                     // record the pack the feat was read from
-                    feat.compendium = pack.collection;
+                    featData.compendium = pack.collection;
 
                     // determining attributes from traits
-                    if (feat.data.traits.value) {
+                    if (featData.data.traits.value) {
                         // determine class feats
                         const classList = Object.keys(CONFIG.PF2E.classTraits);
-                        const classIntersection = classList.filter((x) => feat.data.traits.value.includes(x));
+                        const classIntersection = classList.filter((x) => featData.data.traits.value.includes(x));
 
                         if (classIntersection.length !== 0) {
                             classes.add(classIntersection.join(','));
-                            feat.data.classes = { value: classIntersection };
+                            featData.data.classes = { value: classIntersection };
                         }
 
-                        if (feat.data.featType.value === 'ancestry') {
-                            const ancestryIntersection = ancestryList.filter((x) => feat.data.traits.value.includes(x));
+                        if (featData.data.featType.value === 'ancestry') {
+                            const ancestryIntersection = ancestryList.filter((x) =>
+                                featData.data.traits.value.includes(x),
+                            );
 
                             if (ancestryIntersection.length !== 0) {
                                 ancestries.add(ancestryIntersection.join(','));
-                                feat.data.ancestry = { value: ancestryIntersection };
+                                featData.data.ancestry = { value: ancestryIntersection };
                             }
                         }
                     }
@@ -460,7 +529,7 @@ export class CompendiumBrowser extends Application {
                     // (Basic Arcana)
                     {
                         const skillList = Object.keys(CONFIG.PF2E.skillList);
-                        const prereqs = feat.data.prerequisites.value;
+                        const prereqs = featData.data.prerequisites.value;
                         let prerequisitesArr: string[] = [];
 
                         prerequisitesArr = prereqs.map((y: { value: string }) => y.value.toLowerCase());
@@ -471,27 +540,23 @@ export class CompendiumBrowser extends Application {
 
                         if (skillIntersection.length !== 0) {
                             skills.add(skillIntersection.join(','));
-                            feat.data.skills = { value: skillIntersection };
+                            featData.data.skills = { value: skillIntersection };
                         }
                     }
 
-                    // format spell level for display
-                    feat.data.level.formated = parseInt(feat.data.level.value, 10);
-
-                    // format spell level for display
                     let time = '';
-                    if (feat.data.actionType.value === 'reaction') {
-                        feat.data.actionType.img = this._getActionImg('reaction');
+                    if (featData.data.actionType.value === 'reaction') {
+                        featData.data.actionType.img = this._getActionImg('reaction');
                         time = 'reaction';
-                    } else if (feat.data.actionType.value === 'free') {
-                        feat.data.actionType.img = this._getActionImg('free');
+                    } else if (featData.data.actionType.value === 'free') {
+                        featData.data.actionType.img = this._getActionImg('free');
                         time = 'free';
-                    } else if (feat.data.actionType.value === 'passive') {
-                        feat.data.actionType.img = this._getActionImg('passive');
+                    } else if (featData.data.actionType.value === 'passive') {
+                        featData.data.actionType.img = this._getActionImg('passive');
                         time = 'passive';
-                    } else if (parseInt(feat.data.actions.value, 10)) {
-                        feat.data.actionType.img = this._getActionImg(feat.data.actions.value);
-                        time = feat.data.actions.value.toLowerCase();
+                    } else if (parseInt(featData.data.actions.value, 10)) {
+                        featData.data.actionType.img = this._getActionImg(featData.data.actions.value);
+                        time = featData.data.actions.value.toLowerCase();
                     }
 
                     if (time !== '') {
@@ -499,14 +564,10 @@ export class CompendiumBrowser extends Application {
                     }
 
                     // add spell to spells array
-                    feats[feat._id] = feat;
+                    feats[featData._id] = featData;
 
                     // Add rarity for filtering
-                    feat.data.rarity = (() => {
-                        if (feat.data.traits.rarity) return feat.data.traits.rarity; // TODO: only look in one place once data is fixed
-                        if (feat.data.rarity) return feat.data.rarity;
-                        return { value: 'common' };
-                    })();
+                    featData.data.rarity = deepClone(featData.data.traits.rarity);
                 }
             }
         }
@@ -537,77 +598,76 @@ export class CompendiumBrowser extends Application {
     async loadSpells() {
         console.debug('PF2e System | Compendium Browser | Started loading spells');
 
-        const spells = {};
+        const spells: Record<string, SpellData> = {};
         const classes: Set<string> = new Set();
         const schools: Set<MagicSchool> = new Set();
         const times: Set<string> = new Set();
         const classList = Object.keys(CONFIG.PF2E.classTraits);
 
-        for await (const { pack, content } of packLoader.loadPacks('Item', this._loadedPacks('spell'))) {
+        for await (const { pack, content } of packLoader.loadPacks('Item', this.loadedPacks('spell'))) {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
             );
-            for (let spell of content) {
-                spell = spell.data;
-                if (spell.type === 'spell') {
+            content.sort((itemA: ItemPF2e, itemB: ItemPF2e) =>
+                itemA.name > itemB.name ? 1 : itemA.name < itemB.name ? -1 : 0,
+            );
+            for (const spell of content) {
+                const spellData = spell.data;
+                if (spellData.type === 'spell') {
                     // record the pack the spell was read from
-                    spell.compendium = pack.collection;
+                    spellData.compendium = pack.collection;
 
                     // format spell level for display
-                    if (spell.data.level.value === 0) spell.data.level.formated = 'C';
-                    else if (spell.data.level.value === 11) spell.data.level.formated = 'F';
-                    else spell.data.level.formated = spell.data.level.value;
+                    if (spellData.data.level.value === 0) spellData.data.level.formated = 'C';
+                    else if (spellData.data.level.value === 11) spellData.data.level.formated = 'F';
+                    else spellData.data.level.formated = spellData.data.level.value;
 
                     // determining classes that can use the spell
-                    const classIntersection = classList.filter((x) => spell.data.traits.value.includes(x));
+                    const classIntersection = classList.filter((trait) => spellData.data.traits.value.includes(trait));
 
                     if (classIntersection.length !== 0) {
                         classes.add(classIntersection.join(','));
-                        spell.data.classes = { value: classIntersection };
+                        spellData.data.classes = { value: classIntersection };
                     }
 
                     // recording casting times
-                    if (spell.data.time.value !== undefined) {
-                        let time = spell.data.time.value;
+                    if (spellData.data.time.value !== undefined) {
+                        let time = spellData.data.time.value;
                         if (time.indexOf('reaction') !== -1) time = 'reaction';
                         times.add(time);
                     }
 
                     // format spell level for display
-                    if (spell.data.time.value === 'reaction') {
-                        spell.data.time.img = this._getActionImg('reaction');
-                    } else if (spell.data.time.value === 'free') {
-                        spell.data.time.img = this._getActionImg('free');
+                    if (spellData.data.time.value === 'reaction') {
+                        spellData.data.time.img = this._getActionImg('reaction');
+                    } else if (spellData.data.time.value === 'free') {
+                        spellData.data.time.img = this._getActionImg('free');
                     } else {
-                        spell.data.time.img = this._getActionImg(spell.data.time.value);
+                        spellData.data.time.img = this._getActionImg(spellData.data.time.value);
                     }
 
                     // add spell to spells array
-                    spells[spell._id] = spell;
+                    spells[spellData._id] = spellData;
 
                     // recording schools
-                    if (spell.data.school.value !== undefined) {
-                        schools.add(spell.data.school.value);
+                    if (spellData.data.school.value !== undefined) {
+                        schools.add(spellData.data.school.value);
                     }
 
                     // Add rarity for filtering
-                    spell.data.rarity = (() => {
-                        if (spell.data.traits.rarity) return spell.data.traits.rarity; // TODO: only look in one place once data is fixed
-                        if (spell.data.rarity) return spell.data.rarity;
-                        return { value: 'common' };
-                    })();
+                    spellData.data.rarity = deepClone(spellData.data.traits.rarity);
                 }
             }
         }
 
         //  sorting and assigning better class names
-        const classesObj = {};
+        const classesObj: Record<string, string> = {};
         for (const classStr of [...classes].sort()) {
             classesObj[classStr] = CONFIG.PF2E.classTraits[classStr];
         }
 
         // sorting and assigning proper school names
-        const schoolsObj = {};
+        const schoolsObj: Record<string, string> = {};
         for (const school of [...schools].sort()) {
             schoolsObj[school] = CONFIG.PF2E.magicSchools[school];
         }
@@ -625,133 +685,105 @@ export class CompendiumBrowser extends Application {
         };
     }
 
-    static override get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
-            classes: [],
-            template: 'systems/pf2e/templates/packs/compendium-browser.html',
-            width: 800,
-            height: 700,
-            resizable: false, // TODO: Fix CSS scrollbar issue and remove fixed size
-            tabs: [
-                {
-                    navSelector: '.compendium-navigation',
-                    contentSelector: '.compendium-content',
-                    initial: 'landing-page',
-                },
-            ],
-        });
+    /** Set the ascending/descending order of the search results */
+    setSortDirection($direction: JQuery<HTMLElement>, sortBy: SortByOption, { change = false } = {}): SortDirection {
+        const direction = $direction.attr('data-direction');
+        if (!(direction === 'asc' || direction === 'desc')) {
+            throw ErrorPF2e('No sort direction set');
+        }
+        const newDirection = change ? (direction === 'asc' ? 'desc' : 'asc') : direction;
+
+        const $icon = $direction.children('i');
+        const iconClass = (() => {
+            const alphaNum = sortBy === 'name' ? 'alpha' : 'numeric';
+            const upDown = newDirection === 'asc' ? 'up' : 'down-alt';
+            return `fas fa-sort-${alphaNum}-${upDown}`;
+        })();
+        $icon.attr('class', iconClass);
+        $direction.attr('data-direction', newDirection);
+
+        return newDirection;
     }
 
-    override get title() {
-        return game.i18n.localize('PF2E.CompendiumBrowser.Title');
-    }
+    override activateListeners($html: JQuery) {
+        super.activateListeners($html);
+        this.resetFilters($html);
 
-    override activateListeners(html: JQuery) {
-        super.activateListeners(html);
-        this.resetFilters(html);
-
-        html.on('click', '.clear-filters', () => {
-            this.resetFilters(html);
-            this.filterSpells(html.find('.tab.active li'));
+        $html.find('button.clear-filters').on('click', () => {
+            this.resetFilters($html);
+            this.filterItems($html.find('.tab.active li'));
         });
 
-        // show spell card
-        html.on('click', '.item-edit, .actor-edit', (ev) => {
-            const entry = ev.currentTarget.closest('.spell').dataset;
-            const id = entry.entryId;
-            const compendium = entry.entryCompendium;
-            const pack = game.packs.get(compendium);
-            pack?.getDocument(id).then((spell) => {
-                spell!.sheet.render(true);
-            });
-        });
-
-        // make draggable
-        html.find('.draggable').each((_i, li) => {
-            li.setAttribute('draggable', 'true');
-            li.addEventListener(
-                'dragstart',
-                (event) => {
-                    const packName = li.dataset.entryCompendium;
-                    const pack = game.packs.find((p) => p.collection === packName);
-                    if (!pack) {
-                        event.preventDefault();
-                        return false;
-                    }
-                    event.dataTransfer!.setData(
-                        'text/plain',
-                        JSON.stringify({
-                            type: pack.documentName,
-                            pack: pack.collection,
-                            id: li.dataset.entryId,
-                        }),
-                    );
-                    return true;
-                },
-                false,
-            );
-        });
-
-        // toggle visibility of filter containers
-        html.on('click', '.filtercontainer h3', (ev) => {
-            $(ev.target.nextElementSibling).toggle(100);
+        // Toggle visibility of filter containers
+        $html.find('.filtercontainer h3').on('click', (event) => {
+            $(event.delegateTarget).next().toggle(100);
         });
 
         // toggle hints
-        html.on('contextmenu', 'input[name=textFilter]', () => {
-            html.find('.hint').toggle(100);
+        $html.find('.control-area input[name=textFilter]').on('contextmenu', () => {
+            $html.find('.hint').toggle(100);
         });
 
-        // sort spell list
-        html.on('change', 'select[name=sortorder]', (ev) => {
-            const spellList = html.find('.tab.active li');
-            const byName = ev.target.value === 'true';
-            const sortedList = this.sortSpells(spellList, byName);
-            const ol = $(html.find('.tab.active ul'));
-            ol[0].innerHTML = '';
-            for (const element of sortedList) {
-                ol[0].append(element);
-            }
+        // Sort item list
+        const $sort = $html.find('.tab .sortcontainer');
+        const $order = $sort.find<HTMLSelectElement>('select.order');
+        const $direction = $sort.find('a.direction');
+        $order.on('change', () => {
+            const sortBy = $order.val();
+            if (!tupleHasValue(['name', 'level', 'price'] as const, sortBy)) return;
+
+            const direction = this.setSortDirection($direction, sortBy);
+
+            const $list = $html.find('.tab.active ul.item-list');
+            this.sortResults($list, { sortBy, direction });
+        });
+        $direction.on('click', () => {
+            const sortBy = $order.val();
+            if (!tupleHasValue(['name', 'level', 'price'] as const, sortBy)) return;
+
+            const direction = this.setSortDirection($direction, sortBy, { change: true });
+            const $list = $html.find('.tab.active ul.item-list');
+            this.sortResults($list, { sortBy, direction });
         });
 
         // activating or deactivating filters
-        html.on('change paste', 'input[name=textFilter]', (ev) => {
-            this.sorters.text = ev.target.value;
-            this.filterSpells(html.find('.tab.active li'));
+        $html.find<HTMLInputElement>('input[name=textFilter]').on('change paste', (event) => {
+            this.sorters.text = event.target.value;
+            this.filterItems($html.find('.tab.active li'));
         });
-        html.on('change', '#timefilter select', (ev) => {
-            this.sorters.castingtime = ev.target.value;
-            this.filterSpells(html.find('.tab.active li'));
+        $html.find<HTMLSelectElement>('#timefilter select').on('change', (event) => {
+            this.sorters.castingtime = event.target.value;
+            this.filterItems($html.find('.tab.active li'));
         });
 
         // filters for spell level, class and school
-        html.on('click', 'input[type=checkbox]', (ev) => {
-            const filterType = ev.target.name.split(/-(.+)/)[0];
-            const filterTarget = ev.target.name.split(/-(.+)/)[1];
-            const filterValue = ev.target.checked;
+        $html.find<HTMLInputElement>('input[type=checkbox]').on('click', (event) => {
+            const filterType = event.target.name.split(/-(.+)/)[0];
+            const filterTarget = event.target.name.split(/-(.+)/)[1];
+            const filterValue = event.target.checked;
             if (Object.keys(this.filters).includes(filterType)) {
                 this.filters[filterType][filterTarget] = filterValue;
                 this.filters[filterType] = this.clearObject(this.filters[filterType]);
             }
-            this.filterSpells(html.find('.tab.active li'));
+            this.filterItems($html.find('.tab.active li'));
         });
 
         // filter for levels
-        html.on('input change paste', 'input[name*=Bound]', (ev) => {
-            const type = ev.target.name.split('-')[1];
+        $html.find<HTMLInputElement>('input[name*=Bound]').on('input change paste', (event) => {
+            const type = event.target.name.split('-')[1] ?? '';
 
-            const parentDiv = ev.target.parentElement;
-            const lowerBoundElement = parentDiv.querySelector('input[name*=lowerBound]');
-            const upperBoundElement = parentDiv.querySelector('input[name*=upperBound]');
+            const $parent = $(event.target).closest('div');
+            const $lowerBound = $parent.find<HTMLInputElement>('input[name*=lowerBound]');
+            const $upperBound = $parent.find<HTMLInputElement>('input[name*=upperBound]');
 
-            this.ranges[type].lowerBound = (<HTMLInputElement>lowerBoundElement).value;
-            this.ranges[type].upperBound = (<HTMLInputElement>upperBoundElement).value;
+            this.ranges[type].lowerBound = Number($lowerBound.val());
+            this.ranges[type].upperBound = Number($upperBound.val());
 
-            this.filterSpells(html.find('.tab.active li'));
+            this.filterItems($html.find('.tab.active li'));
         });
 
-        html.on('click', 'button.save-settings', (_ev) => {
-            const formData = new FormData(html.find<HTMLFormElement>('.compendium-browser-settings form')[0]);
+        $html.find<HTMLButtonElement>('button.save-settings').on('click', () => {
+            const formData = new FormData($html.find<HTMLFormElement>('.compendium-browser-settings form')[0]);
             for (const [t, packs] of Object.entries(this.settings) as [string, { [key: string]: PackInfo }][]) {
                 for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
                     pack.load = formData.has(`${t}-${key}`);
@@ -759,58 +791,143 @@ export class CompendiumBrowser extends Application {
             }
             game.settings.set('pf2e', 'compendiumBrowserPacks', JSON.stringify(this.settings));
         });
-
-        html.on('click', '.take-item', (_ev) => {
-            const entry = _ev.currentTarget.closest('.spell').dataset;
-            const id = entry.entryId;
-
-            this.addPhysicalItemsToSelectedTokens(id);
-        });
     }
 
-    private addPhysicalItemsToSelectedTokens(id: string) {
-        this.createPhysicalItemFromCompendiumId(id).then((item) => {
-            if (item instanceof KitPF2e) {
-                const kitItems: Record<string, KitEntryData> = item.data.data.items;
-                (Object.values(kitItems) as Array<KitEntryData>).forEach((kitItem) =>
-                    this.addPhysicalItemsToSelectedTokens(kitItem.id),
-                );
-            } else {
-                const actorsToUpdate = new Set(canvas.tokens.controlled.map((token) => token.actor));
+    /** Activate click listeners on loaded actors and items */
+    private activateResultListeners(): void {
+        const $list = this.element.find('.tab.active ul.item-list');
+        if ($list.length === 0) return;
 
-                for (const actor of actorsToUpdate) {
-                    if (actor === undefined) {
-                        continue;
-                    }
-
-                    const userHasPermissions = actor!.canUserModify(game.user, 'update') ?? false;
-                    const actorType = actor!.data?.type ?? 'undefined';
-                    const actorMayContainEquipment =
-                        actorType === 'character' || actorType === 'loot' || actorType === 'npc';
-
-                    if (item !== null && userHasPermissions && actorMayContainEquipment) {
-                        actor!.createEmbeddedDocuments('Item', [item.data]);
-                    } else {
-                        ui.notifications.error(game.i18n.format('PF2E.ErrorMessage.NoTokenSelected'), {});
-                    }
-                }
-            }
-        });
-    }
-
-    private async createPhysicalItemFromCompendiumId(itemID: string): Promise<PhysicalItemPF2e | KitPF2e | null> {
-        const pack = game.packs.get('pf2e.equipment-srd');
-        if (!pack) {
-            console.error('PF2e System | Compendium not found');
-            return null;
+        const $items = $list.children('li');
+        if ($list.data('listeners-active')) {
+            $items.children('.name').children('a').off('click');
         }
-        const item = await pack?.getDocument(itemID);
+
+        $items
+            .children('.name')
+            .children('a.item-link, a.actor-link')
+            .on('click', (event) => {
+                const entry = $(event.currentTarget).closest('.item')[0].dataset;
+                const id = entry.entryId ?? '';
+                const compendium = entry.entryCompendium;
+                const pack = game.packs.get(compendium ?? '');
+                pack?.getDocument(id).then((document) => {
+                    document!.sheet.render(true);
+                });
+            });
+
+        // Add an item to selected tokens' actors' inventories
+        $items.children('a.take-item').on('click', (event) => {
+            const itemId = $(event.currentTarget).closest('li').attr('data-entry-id') ?? '';
+            this.takePhysicalItem(itemId);
+        });
+        $list.data('listeners-active', true);
+    }
+
+    private async takePhysicalItem(itemId: string): Promise<void> {
+        const actors: ActorPF2e[] = canvas.tokens.controlled.flatMap((token) =>
+            token.actor?.isOwner && !(token.actor instanceof FamiliarPF2e) ? token.actor : [],
+        );
+        if (actors.length === 0 && game.user.character) actors.push(game.user.character);
+        if (actors.length === 0) {
+            ui.notifications.error(game.i18n.format('PF2E.ErrorMessage.NoTokenSelected'));
+            return;
+        }
+
+        const item = await this.getPhysicalItem(itemId);
+        if (item instanceof KitPF2e) {
+            for await (const actor of actors) await item.dumpContents(actor);
+        } else {
+            for await (const actor of actors) await actor.createEmbeddedDocuments('Item', [item.toObject()]);
+        }
+
+        if (actors.length === 1 && game.user.character && actors[0] === game.user.character) {
+            ui.notifications.info(
+                game.i18n.format('PF2E.CompendiumBrowser.AddedItemToCharacter', {
+                    item: item.name,
+                    character: game.user.character.name,
+                }),
+            );
+        } else {
+            ui.notifications.info(game.i18n.format('PF2E.CompendiumBrowser.AddedItem', { item: item.name }));
+        }
+    }
+
+    private async getPhysicalItem(itemId: string): Promise<PhysicalItemPF2e | KitPF2e> {
+        const item = await game.packs.get('pf2e.equipment-srd')?.getDocument(itemId);
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
-            console.error('PF2e System | Item from compendium not found');
-            return null;
+            throw ErrorPF2e('Unexpected failure retrieving compendium item');
         }
 
         return item;
+    }
+
+    protected override _canDragStart() {
+        return true;
+    }
+
+    protected override _canDragDrop() {
+        return true;
+    }
+
+    /** Set drag data and lower opacity of the application window to reveal any tokens */
+    protected override _onDragStart(event: ElementDragEvent): void {
+        this.element.animate({ opacity: 0.125 }, 250);
+
+        const $item = $(event.target);
+        const packName = $item.attr('data-entry-compendium');
+        const itemPack = game.packs.find((pack) => pack.collection === packName);
+        if (!itemPack) return;
+        event.dataTransfer.setData(
+            'text/plain',
+            JSON.stringify({
+                type: itemPack.documentName,
+                pack: itemPack.collection,
+                id: $item.attr('data-entry-id'),
+            }),
+        );
+
+        $item.one('dragend', () => {
+            this.element.animate({ opacity: 1 }, 500);
+        });
+    }
+
+    /** Simulate a drop event on the DOM element directly beneath the compendium browser */
+    protected override _onDrop(event: ElementDragEvent): void {
+        // Get all elements beneath the compendium browser
+        const browserZIndex = Number(this.element.css('zIndex'));
+        const dropCandidates = Array.from(document.body.querySelectorAll('*')).filter(
+            (element): element is HTMLElement => {
+                if (!(element instanceof HTMLElement) || ['compendium-browser', 'hud'].includes(element.id))
+                    return false;
+                const appBounds = element.getBoundingClientRect();
+                const zIndex = Number(element.style.zIndex);
+                if (!appBounds || zIndex > browserZIndex) return false;
+
+                return (
+                    event.clientX >= appBounds.left &&
+                    event.clientX <= appBounds.right &&
+                    event.clientY >= appBounds.top &&
+                    event.clientY <= appBounds.bottom
+                );
+            },
+        );
+
+        const highestElement = dropCandidates.reduce((highest: HTMLElement | null, candidate) => {
+            if (!highest) return candidate;
+            return Number(candidate.style.zIndex) > Number(highest.style.zIndex) ? candidate : highest;
+        }, null);
+
+        if (highestElement) {
+            const newEvent = new DragEvent(event.type, {
+                ...event,
+                clientX: event.clientX,
+                clientY: event.clientY,
+                dataTransfer: new DataTransfer(),
+            });
+            newEvent.dataTransfer?.setData('text/plain', event.dataTransfer.getData('text/plain'));
+            highestElement.dispatchEvent(newEvent);
+        }
     }
 
     injectActorDirectory() {
@@ -862,7 +979,7 @@ export class CompendiumBrowser extends Application {
         );
     }
 
-    async filterSpells(li: JQuery) {
+    async filterItems(li: JQuery) {
         let counter = 0;
         li.hide();
         for (const spell of li) {
@@ -879,15 +996,11 @@ export class CompendiumBrowser extends Application {
     }
 
     getFilterResult(element: HTMLElement) {
-        if (this.sorters.text !== '') {
+        if (this.sorters.text) {
             const searches = this.sorters.text.split(',');
             for (const search of searches) {
                 if (search.indexOf(':') === -1) {
-                    if (
-                        !normaliseString($(element).find('.spell-name a')[0].innerHTML).includes(
-                            normaliseString(search),
-                        )
-                    ) {
+                    if (!normaliseString($(element).find('.name a')[0].innerHTML).includes(normaliseString(search))) {
                         return false;
                     }
                 } else {
@@ -899,7 +1012,7 @@ export class CompendiumBrowser extends Application {
                 }
             }
         }
-        if (this.sorters.castingtime !== 'null') {
+        if (this.sorters.castingtime !== '') {
             const castingtime = element.dataset.time;
             if (castingtime !== this.sorters.castingtime) {
                 return false;
@@ -944,7 +1057,7 @@ export class CompendiumBrowser extends Application {
     resetFilters(html: JQuery) {
         this.sorters = {
             text: '',
-            castingtime: 'null',
+            castingtime: '',
         };
 
         this.filters = {
@@ -974,28 +1087,74 @@ export class CompendiumBrowser extends Application {
         };
 
         html.find('.tab.browser input[name=textFilter]').val('');
-        html.find('.tab.browser input[name=timefilter]').val('null');
+        html.find('.tab.browser input[name=timefilter]').val('');
         html.find('.tab.browser input[type=checkbox]').prop('checked', false);
     }
 
-    sortSpells(list: JQuery, byName: boolean): HTMLElement[] {
+    sortResults(
+        $list: JQuery,
+        { sortBy = 'name', direction = 'asc' }: { sortBy: SortByOption; direction: SortDirection },
+    ): void {
         interface LIMapping {
             value: string | number;
-            li: HTMLElement;
-            i: number;
+            element: HTMLElement;
+            index: number;
         }
+        const $items = $list.children('li');
+        const mappedList: LIMapping[] = (() => {
+            switch (sortBy) {
+                case 'name': {
+                    return $items
+                        .map((index, element) => ({
+                            value: $(element).find('.name a')[0].innerHTML,
+                            element,
+                            index,
+                        }))
+                        .toArray();
+                }
+                case 'level': {
+                    return $items
+                        .map((index, element) => ({ value: Number(element.dataset.level) || -10, element, index }))
+                        .toArray();
+                }
+                case 'price': {
+                    return $items
+                        .map((index, element) => {
+                            if (element.dataset.itemtypes === 'kit') {
+                                const coinValues = (element.dataset.price ?? '0 gp').split(/,\s*/);
+                                const total = coinValues
+                                    .map((coinValue) =>
+                                        coinValueInCopper(
+                                            extractPriceFromItem({
+                                                data: { price: { value: coinValue }, quantity: { value: 1 } },
+                                            }),
+                                        ),
+                                    )
+                                    .reduce((total, part) => total + part, 0);
+                                return { value: total, element, index };
+                            }
+                            const price = coinValueInCopper(
+                                extractPriceFromItem({
+                                    data: { price: { value: element.dataset.price ?? '0 gp' }, quantity: { value: 1 } },
+                                }),
+                            );
+                            return { value: price, element, index };
+                        })
+                        .toArray();
+                }
+            }
+        })();
 
-        const mappedList: LIMapping[] = byName
-            ? list.map((i, li) => ({ value: $(li).find('.spell-name a')[0].innerHTML, li, i })).toArray()
-            : list.map((i, li) => ({ value: parseInt(li.dataset.level || '-10', 10), li, i })).toArray();
-
-        mappedList.sort((a, b) => {
-            const aName = a.value;
-            const bName = b.value;
-            if (aName < bName) return -1;
-            if (aName > bName) return 1;
-            return a.i - b.i;
+        mappedList.sort((entryA, entryB) => {
+            if (entryA.value < entryB.value) return direction === 'asc' ? -1 : 1;
+            if (entryA.value > entryB.value) return direction === 'asc' ? 1 : -1;
+            return 0;
         });
-        return mappedList.map((mapping) => mapping.li);
+        const rows = mappedList.map((mapping) => mapping.element);
+        $list.html('');
+        for (const row of rows) {
+            $list[0].append(row);
+        }
+        this.activateResultListeners();
     }
 }

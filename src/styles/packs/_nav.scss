@@ -1,4 +1,6 @@
-nav.compendium-navigation {
+> nav {
+    @include corner-boxes;
+    flex: 0;
     width: 100%;
     display: inline-flex;
     justify-content: space-evenly;
@@ -7,9 +9,8 @@ nav.compendium-navigation {
     background: url('../assets/sheet/border-pattern.webp') repeat-x top,
         url('../assets/sheet/border-pattern.webp') repeat-x bottom,
         var(--secondary);
-    @include corner-boxes;
 
-    a {
+    > a {
         color: $sidebar-label;
         padding: 4px 0;
         font-family: $sans-serif;
