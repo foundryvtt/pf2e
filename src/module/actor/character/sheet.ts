@@ -14,6 +14,7 @@ import { CreatureSheetPF2e } from '../creature/sheet';
 import { ManageCombatProficiencies } from '../sheet/popups/manage-combat-proficiencies';
 import { ErrorPF2e } from '@module/utils';
 import { LorePF2e } from '@item';
+import { AncestryBackgroundClassManager } from '@item/abc/abc-manager';
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -49,7 +50,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const actorClasses = this.actor.itemTypes.class;
         if (updatedLevel != previousLevel && actorClasses.length > 0) {
             for await (const actorClass of actorClasses) {
-                await actorClass.ensureClassFeaturesForLevel(this.actor);
+                await AncestryBackgroundClassManager.ensureClassFeaturesForLevel(actorClass, this.actor);
             }
         }
     }
@@ -1061,11 +1062,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        const itemData = item?.toObject();
+        if (!item) throw ErrorPF2e('Unable to create item from drop data!');
+        const itemData = item.toObject();
 
         const { slotId, featType }: { slotId?: string; featType?: string } = this.getNearestSlotId(event);
 
-        if (itemData?.type === 'feat') {
+        if (itemData.type === 'feat') {
             if (slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
                 itemData.data.location = slotId;
                 const items = await Promise.all([
@@ -1079,6 +1081,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 ]);
                 return items.flatMap((item) => item);
             }
+        } else if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
+            return AncestryBackgroundClassManager.addABCFromDrop(itemData, actor);
         }
 
         return super._onDropItem(event, data);
