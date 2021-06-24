@@ -11,7 +11,7 @@
             "value": ""
         },
         "description": {
-            "value": "<p>You can ask questions of, receive answers from, and use the Diplomacy skill with animals with the amphibious or aquatic traits. You gain a +1 circumstance bonus to Make an Impression on such animals.</p>"
+            "value": "<p>You can ask questions of, receive answers from, and use the Diplomacy skill with animals with the amphibious or aquatic traits. You gain a +1 circumstance bonus to @Compendium[pf2e.actionspf2e.Make an Impression]{Make an Impression} on such animals.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -23,7 +23,24 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Aquatic conversationalist (Make an Impression with amphibious or aquatic creatures)",
+                "predicate": {
+                    "all": [
+                        "action:make-an-impression"
+                    ],
+                    "any": [
+                        "target:amphibious",
+                        "aquatic"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -39,6 +56,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Aquatic Conversationalist",
     "permission": {

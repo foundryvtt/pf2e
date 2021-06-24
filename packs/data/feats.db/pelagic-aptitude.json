@@ -11,7 +11,7 @@
             "value": ""
         },
         "description": {
-            "value": "<p>You’ve learned special tricks to survive underwater. You gain the trained proficiency rank in Survival. When in an aquatic environment, if you roll a critical failure on a Survival skill check to Sense Direction or Subsist, you get a failure instead.</p>"
+            "value": "<p>You’ve learned special tricks to survive underwater. You gain the trained proficiency rank in Survival.</p>\n<p>When in an aquatic environment, if you roll a critical failure on a Survival skill check to @Compendium[pf2e.actionspf2e.Sense Direction]{Sense Direction} or @Compendium[pf2e.actionspf2e.Subsist]{Subsist}, you get a failure instead.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -23,7 +23,38 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "terrain:aquatic"
+                    ],
+                    "any": [
+                        "action:sense-direction",
+                        "action:subsist"
+                    ]
+                },
+                "selector": "survival",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When in an aquatic environment, if you roll a critical failure on a Survival skill check to Sense Direction or Subsist, you get a failure instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "terrain:aquatic"
+                    ],
+                    "any": [
+                        "action:sense-direction",
+                        "action:subsist"
+                    ]
+                },
+                "selector": "survival"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -37,8 +68,30 @@
             ]
         }
     },
-    "effects": [],
+    "effects": [
+        {
+            "_id": "sTSOXts2j7ySx7LE",
+            "changes": [
+                {
+                    "key": "data.skills.ath.rank",
+                    "mode": 4,
+                    "value": "1"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/default-icons/feats.webp",
+            "label": "Pelagic Aptitude",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Pelagic Aptitude",
     "permission": {
