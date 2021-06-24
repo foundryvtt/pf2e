@@ -21,6 +21,15 @@ interface ApplicationOptions {
     classes?: string[];
     /** Track Tab navigation handlers which are active for this Application */
     tabs?: TabsOptions[];
+    dragDrop?: {
+        callbacks?: {
+            dragover: Function;
+            dragstart: Function;
+            drop: Function;
+        };
+        dragSelector?: string;
+        dropSelector?: string;
+    }[];
     /** A default window title string (popOut only) */
     title?: string;
     /** The default HTML template path to render for this Application */
@@ -82,34 +91,22 @@ declare class Application<OptionsType extends ApplicationOptions = ApplicationOp
      */
     appId: number;
 
-    /**
-     * Track the current position and dimensions of the Application UI
-     */
+    /** Track the current position and dimensions of the Application UI */
     position: ApplicationPosition;
 
-    /**
-     * An internal reference to the HTML element this application renders
-     */
+    /** An internal reference to the HTML element this application renders */
     protected _element: JQuery;
 
-    /**
-     * DragDrop workflow handlers which are active for this Application
-     */
+    /** DragDrop workflow handlers which are active for this Application */
     protected _dragDrop: DragDrop[];
 
-    /**
-     * Tab navigation handlers which are active for this Application
-     */
+    /** Tab navigation handlers which are active for this Application */
     protected _tabs: Tabs[];
 
-    /**
-     * SearchFilter handlers which are active for this Application
-     */
+    /** SearchFilter handlers which are active for this Application */
     protected _searchFilters: SearchFilter[];
 
-    /**
-     * Track whether the Application is currently minimized
-     */
+    /** Track whether the Application is currently minimized */
     protected _minimized: boolean;
 
     /**
@@ -118,10 +115,8 @@ declare class Application<OptionsType extends ApplicationOptions = ApplicationOp
      */
     protected _state: keyof typeof Application['RENDER_STATES'];
 
-    /**
-     * Track the most recent scroll positions for any vertically scrolling containers
-     */
-    protected _scrollPositions: any | null;
+    /** Track the most recent scroll positions for any vertically scrolling containers */
+    protected _scrollPositions: Record<string, unknown> | null;
 
     static readonly RENDER_STATES: {
         CLOSING: -2;
@@ -207,9 +202,9 @@ declare class Application<OptionsType extends ApplicationOptions = ApplicationOp
 
     /**
      * An asynchronous inner function which handles the rendering of the Application
-     * @param {boolean} force   Render and display the application even if it is not currently displayed.
-     * @param {Object} options  Provided rendering options, see the render function for details
-     * @return {Promise<void>}  A Promise that resolves to the Application once rendering is complete
+     * @param force   Render and display the application even if it is not currently displayed.
+     * @param options Provided rendering options, see the render function for details
+     * @return A Promise that resolves to the Application once rendering is complete
      */
     protected _render(force?: boolean, options?: RenderOptions): Promise<void>;
 
@@ -261,8 +256,14 @@ declare class Application<OptionsType extends ApplicationOptions = ApplicationOp
     /* -------------------------------------------- */
 
     /**
-     * Once the HTML for an Application has been rendered, activate event listeners which provide interactivity for
-     * the application
+     * Activate required listeners which must be enabled on every Application.
+     * These are internal interactions which should not be overridden by downstream subclasses.
+     */
+    protected _activateCoreListeners(html: JQuery): void;
+
+    /**
+     * After rendering, activate event listeners which provide interactivity for the Application.
+     * This is where user-defined Application subclasses should attach their event-handling logic.
      */
     activateListeners(html: JQuery): void;
 
