@@ -1144,6 +1144,7 @@ export const PF2ECONFIG = {
         'deadly-d6': 'PF2E.TraitDeadlyD6',
         'deadly-d8': 'PF2E.TraitDeadlyD8',
         'deadly-2d8': 'PF2E.TraitDeadly2D8',
+        'deadly-3d8': 'PF2E.TraitDeadly3D8',
         'deadly-d10': 'PF2E.TraitDeadlyD10',
         'deadly-2d10': 'PF2E.TraitDeadly2D10',
         'deadly-3d10': 'PF2E.TraitDeadly3D10',
@@ -1406,6 +1407,7 @@ export const PF2ECONFIG = {
         mechanical: 'PF2E.TraitMechanical',
         summon: 'PF2E.TraitSummon',
         trap: 'PF2E.TraitTrap',
+        virulent: 'PF2E.TraitVirulent',
     },
 
     traitsDescriptions,
@@ -1881,6 +1883,7 @@ export const PF2ECONFIG = {
         algollthu: 'PF2E.LanguageAlghollthu',
         amurrun: 'PF2E.LanguageAmurrun',
         anadi: 'PF2E.LanguageAnadi',
+        arcadian: 'PF2E.LanguageArcadian',
         aquan: 'PF2E.LanguageAquan',
         arboreal: 'PF2E.LanguageArboreal',
         auran: 'PF2E.LanguageAuran',
