@@ -1,19 +1,31 @@
-.compendium-browser {
-    @import 'nav';
-    @import 'settings';
-    @import 'spelltab';
-    
-    .tab.browser > div {
-        display: grid;
+#compendium-browser {
+    > section.window-content > .content-box {
+        @import 'nav';
+        @import 'settings';
+        @import 'tab';
 
-        grid-template-columns: 320px auto;
+        flex: 1;
+        overflow: hidden;
+        height: inherit;
 
-        .control-area {
-            grid-column-start: 1;
-        }
-        ul {
-            grid-column-start: 2;
+        > section.content {
+            height: 92%;
+
+            > .tab.browser.active {
+                height: inherit;
+
+                > div {
+                    display: grid;
+                    grid-template-columns: 320px auto;
+
+                    .control-area {
+                        grid-column-start: 1;
+                    }
+                    ul {
+                        grid-column-start: 2;
+                    }
+                }
+            }
         }
     }
-
 }
