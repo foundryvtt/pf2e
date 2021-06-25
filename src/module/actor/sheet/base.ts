@@ -1200,7 +1200,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         } else if (item instanceof KitPF2e) {
             item.dumpContents(this.actor);
             return [item];
-        } else if (itemData.type === 'condition' && itemData.flags.pf2e?.condition) {
+        } else if (itemData.type === 'condition') {
             const value = data.value;
             if (typeof value === 'number' && itemData.data.value.isValued) {
                 itemData.data.value.value = value;
@@ -1217,7 +1217,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const condition = await game.pf2e.ConditionManager.addConditionToToken(itemData, token);
                 return condition ? [condition] : [];
             } else {
-                await actor.increaseCondition(itemData.data.slug);
+                await actor.increaseCondition(itemData.data.slug, { min: itemData.data.value.value });
                 return [item];
             }
         } else if (itemData.type === 'effect' && data && 'level' in data) {

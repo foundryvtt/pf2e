@@ -1161,7 +1161,8 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         for await (const condition of conditionList) {
             const data = condition.data.data;
-            const value = data.value.isValued ? Math.max(data.value.value - 1, 0) : null;
+            const value =
+                typeof data.value.value === 'number' && data.value.isValued ? Math.max(data.value.value - 1, 0) : null;
 
             for await (const token of tokens) {
                 if (!token) continue;
@@ -1177,26 +1178,27 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Increase a valued condition, or create a new one if not present */
     async increaseCondition(
         conditionSlug: ConditionType | Embedded<ConditionPF2e>,
-        { max }: { max: number } = { max: 4 },
+        { min, max = 4 }: { min?: number | null; max?: number | null } = {},
     ): Promise<void> {
-        const condition = typeof conditionSlug === 'string' ? this.getCondition(conditionSlug) : conditionSlug;
-
-        // Get the current canvas tokens, or create ephemeral one if none are present
-        const tokens = await (async () => {
-            const canvasTokens = this.getActiveTokens();
-            if (canvasTokens.length === 0) {
-                return [new TokenDocumentPF2e(await this.getTokenData(), { actor: this, parent: canvas.scene }).object];
-            }
-            return canvasTokens;
-        })();
-
-        for (const token of tokens) {
-            if (!token) continue;
-            if (condition && condition.value !== null && condition.value + 1 <= max) {
-                await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value + 1);
-            } else if (!condition && typeof conditionSlug === 'string') {
-                await game.pf2e.ConditionManager.addConditionToToken(conditionSlug, token);
-            }
+        const existing = typeof conditionSlug === 'string' ? this.getCondition(conditionSlug) : conditionSlug;
+        if (existing) {
+            const conditionValue = (() => {
+                if (existing.value === null) return null;
+                return min && max
+                    ? Math.min(Math.max(min, existing.value), max)
+                    : max
+                    ? Math.min(existing.value + 1, max)
+                    : existing.value + 1;
+            })();
+            await existing.update({ 'data.value.value': conditionValue });
+        } else if (typeof conditionSlug === 'string') {
+            const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
+            const conditionValue =
+                typeof conditionSource?.data.value.value === 'number' && min && max
+                    ? Math.min(Math.max(min, conditionSource.data.value.value), max)
+                    : null;
+            conditionSource.data.value.value &&= conditionValue;
+            await this.createEmbeddedDocuments('Item', [conditionSource]);
         }
     }
 }
