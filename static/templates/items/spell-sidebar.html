@@ -10,14 +10,16 @@
     {{#each spellComponents}}
         <li class="tag">{{this}}</li>
     {{/each}}
-    {{#if data.secondarycasters.value}}
-        <li class="tag">{{localize "PF2E.SpellSecondaryCasters"}}</li>
-    {{/if}}
-    {{#if data.primarycheck.value}}
-        <li class="tag">{{localize "PF2E.SpellPrimaryCheckLabel"}}</li>
-    {{/if}}
-    {{#if data.secondarycheck.value}}
-        <li class="tag">{{localize "PF2E.SpellSecondaryChecksLabel"}}</li>
+    {{#if item.isRitual}}
+        {{#if data.secondarycasters.value}}
+            <li class="tag">{{localize "PF2E.SpellSecondaryCasters"}}</li>
+        {{/if}}
+        {{#if data.primarycheck.value}}
+            <li class="tag">{{localize "PF2E.SpellPrimaryCheckLabel"}}</li>
+        {{/if}}
+        {{#if data.secondarycheck.value}}
+            <li class="tag">{{localize "PF2E.SpellSecondaryChecksLabel"}}</li>
+        {{/if}}
     {{/if}}
 </ol>
 {{#if (or data.prepared.value data.concentration.value data.ritual.value)}}

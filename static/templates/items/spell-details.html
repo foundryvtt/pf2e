@@ -56,10 +56,12 @@
     </select>
 </div>
 
+{{#unless item.isRitual}}
 <div class="form-group">
     <label>{{localize "PF2E.TraitCantrip"}}</label>
     <input class="toggle-trait" type="checkbox" {{checked item.isCantrip}} data-trait="cantrip"/>
 </div>
+{{/unless}}
 
 <ol class="form-list">
     <li class="form-group">
@@ -209,7 +211,7 @@
     <input type="checkbox" name="data.hasCounteractCheck.value" value="true" data-dtype="Boolean" {{checked data.hasCounteractCheck.value}}/>
 </div>
 
-{{#if isRitual}}
+{{#if item.isRitual}}
     <ol class="form-list">
         <li class="form-group">
             <label>
