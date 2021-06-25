@@ -2,6 +2,7 @@ import { SpellPF2e } from '@item/spell';
 import { ItemSheetPF2e } from '../sheet/base';
 import { ItemSheetDataPF2e, SpellSheetData } from '../sheet/data-types';
 import { SpellSystemData } from './data';
+import { objectHasKey } from '@module/utils';
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     override getData(): SpellSheetData {
@@ -33,8 +34,28 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
             spellScalingModes: CONFIG.PF2E.spellScalingModes,
-            isRitual: this.item.isRitual,
         };
+    }
+
+    override activateListeners(html: JQuery<HTMLElement>): void {
+        super.activateListeners(html);
+
+        html.find('.toggle-trait').on('change', (evt) => {
+            const target = evt.target as HTMLInputElement;
+            const trait = target.dataset.trait ?? '';
+            if (!objectHasKey(CONFIG.PF2E.spellTraits, trait)) {
+                console.warn('Toggled trait is invalid');
+                return;
+            }
+
+            if (target.checked && !this.item.traits.has(trait)) {
+                const newTraits = this.item.data.data.traits.value.concat([trait]);
+                this.item.update({ 'data.traits.value': newTraits });
+            } else if (!target.checked && this.item.traits.has(trait)) {
+                const newTraits = this.item.data.data.traits.value.filter((t) => t !== trait);
+                this.item.update({ 'data.traits.value': newTraits });
+            }
+        });
     }
 
     private formatSpellComponents(data: SpellSystemData): string[] {
