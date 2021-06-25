@@ -31,6 +31,28 @@
     </select>
 </div>
 
+<div class="form-group">
+    <label>{{localize "PF2E.Rarity"}}</label>
+    <select name="data.traits.rarity.value" data-dtype="String">
+        {{#select data.traits.rarity.value}}
+        {{#each rarity as |label key|}}
+        <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>{{localize "PF2E.SpellSchoolLabel"}}</label>
+    <select name="data.school.value" data-dtype="String">
+        {{#select data.school.value}}
+            {{#each magicSchools as |name sch|}}
+                <option value="{{sch}}">{{localize name}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
+</div>
+
 <div class="form-group scalable">
     <label>
         {{localize "PF2E.SpellTraditionsLabel"}}
@@ -45,17 +67,6 @@
     </ul>
 </div>
 
-<div class="form-group">
-    <label>{{localize "PF2E.SpellSchoolLabel"}}</label>
-    <select name="data.school.value" data-dtype="String">
-        {{#select data.school.value}}
-            {{#each magicSchools as |name sch|}}
-                <option value="{{sch}}">{{localize name}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-</div>
-
 {{#unless item.isRitual}}
 <div class="form-group">
     <label>{{localize "PF2E.TraitCantrip"}}</label>
@@ -63,12 +74,13 @@
 </div>
 {{/unless}}
 
+<div class="form-group">
+    <label>{{localize "PF2E.Counteractable"}}</label>
+    <input type="checkbox" name="data.hasCounteractCheck.value" value="true" data-dtype="Boolean" {{checked data.hasCounteractCheck.value}}/>
+</div>
+
 <ol class="form-list">
-    <li class="form-group">
-        <label>
-            {{localize "PF2E.CastLabel"}}
-        </label>
-    </li>
+    <h3>{{localize "PF2E.CastLabel"}}</h3>
 
     <div class="form-group">
         <label>{{localize "PF2E.SpellTimeLabel"}}</label>
@@ -80,15 +92,15 @@
         <div class="details-container-flex-row">
             <label>
                 <input type="checkbox" name="data.components.material" {{checked data.components.material}} data-dtype="Boolean"/>
-                Material
+                {{localize "PF2E.SpellComponentM"}}
             </label>
             <label>
                 <input type="checkbox" name="data.components.somatic" {{checked data.components.somatic}} data-dtype="Boolean"/>
-                Somatic
+                {{localize "PF2E.SpellComponentS"}}
             </label>
             <label>
                 <input type="checkbox" name="data.components.verbal" {{checked data.components.verbal}} data-dtype="Boolean"/>
-                Verbal
+                {{localize "PF2E.SpellComponentV"}}
             </label>
         </div>
     </div>
@@ -104,120 +116,9 @@
     </div>
 </ol>
 
-<div class="form-group">
-    <label>{{localize "PF2E.SpellDamageLabel"}}</label>
-    <div class="details-container-two-columns">
-        <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="String"/>
-        <div style="display: flex; align-self: center;">
-            <label style="flex: 4;">{{localize "PF2E.SpellAbilityModLabel"}}</label>
-            <input type="checkbox" name="data.damage.applyMod" value="0" data-dtype="Boolean" {{checked data.damage.applyMod}} style="flex: 1; margin: 0;"/>
-        </div>
-    </div>
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.SpellDamageTypeLabel"}}</label>
-    <select name="data.damageType.value" data-dtype="String">
-        {{#select data.damageType.value}}
-            <option value=""></option>
-            {{#each damageTypes as |name type|}}
-                <option value="{{type}}">{{localize name}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.SpellScalingLabel"}}</label>
-    <select name="data.scaling.mode">
-        {{#select data.scaling.mode}}
-            {{#each spellScalingModes as |name key|}}
-                <option value="{{key}}">{{localize name}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-    <input type="text" data-dtype="String" name="data.scaling.formula" value="{{data.scaling.formula}}" placeholder="Formula" />
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.SpellSaveLabel"}}</label>
-    <div class="details-container-two-columns">
-    <select name="data.save.basic" data-dtype="String">
-        {{#select data.save.basic}}
-        <option value=""></option>
-        <option value="basic">{{localize "PF2E.SpellBasicSaveOption"}}</option>
-        {{/select}}
-    </select>
-    <select name="data.save.value" data-dtype="String">
-        {{#select data.save.value}}
-        <option value=""></option>
-        {{#each saves as |ability a|}}
-        <option value="{{a}}">{{localize ability}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-    </div>
-</div>
-<div class="form-group scalable">
-    <label>{{localize "PF2E.Rarity"}}</label>
-    <select name="data.traits.rarity.value" data-dtype="String">
-        {{#select data.traits.rarity.value}}
-        {{#each rarity as |label key|}}
-        <option value="{{key}}">{{localize label}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.SpellTargetLabel"}}</label>
-    <input type="text" name="data.target.value" value="{{data.target.value}}" data-dtype="String"/>
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.SpellAreaLabel"}}</label>
-    <div class="details-container-two-columns">
-        <select name="data.area.value" data-dtype="String">
-            <option value=""></option>
-            {{#select data.area.value}}
-            {{#each areaSizes as |label key|}}
-            <option value="{{key}}">{{localize label}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-        <select name="data.area.areaType" data-dtype="String">
-            <option value=""></option>
-            {{#select data.area.areaType}}
-            {{#each areaTypes as |label key|}}
-            <option value="{{key}}">{{localize label}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.SpellRangeLabel"}}</label>
-    <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="String"/>
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.SpellDurationLabel"}}</label>
-    <input type="text" name="data.duration.value" value="{{data.duration.value}}" data-dtype="String"/>
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.Counteractable"}}</label>
-    <input type="checkbox" name="data.hasCounteractCheck.value" value="true" data-dtype="Boolean" {{checked data.hasCounteractCheck.value}}/>
-</div>
-
 {{#if item.isRitual}}
     <ol class="form-list">
-        <li class="form-group">
-            <label>
-                {{localize "PF2E.SpellRitualLabel"}}
-            </label>
-        </li>
+        <h3>{{localize "PF2E.SpellRitualLabel"}}</h3>
 
         <div class="form-group">
             <label>{{localize "PF2E.SpellPrimaryCheckLabel"}}</label>
@@ -235,6 +136,107 @@
         </div>
     </ol>
 {{/if}}
+
+<ol class="form-list">
+    <h3>{{localize "PF2E.Usage"}}</h3>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellTargetLabel"}}</label>
+        <input type="text" name="data.target.value" value="{{data.target.value}}" data-dtype="String"/>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellAreaLabel"}}</label>
+        <div class="details-container-two-columns">
+            <select name="data.area.value" data-dtype="String">
+                <option value=""></option>
+                {{#select data.area.value}}
+                {{#each areaSizes as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <select name="data.area.areaType" data-dtype="String">
+                <option value=""></option>
+                {{#select data.area.areaType}}
+                {{#each areaTypes as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellRangeLabel"}}</label>
+        <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="String"/>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellDurationLabel"}}</label>
+        <input type="text" name="data.duration.value" value="{{data.duration.value}}" data-dtype="String"/>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellSaveLabel"}}</label>
+        <div class="details-container-two-columns">
+        <select name="data.save.basic" data-dtype="String">
+            {{#select data.save.basic}}
+            <option value=""></option>
+            <option value="basic">{{localize "PF2E.SpellBasicSaveOption"}}</option>
+            {{/select}}
+        </select>
+        <select name="data.save.value" data-dtype="String">
+            {{#select data.save.value}}
+            <option value=""></option>
+            {{#each saves as |ability a|}}
+            <option value="{{a}}">{{localize ability}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+        </div>
+    </div>
+</ol>
+
+<ol class="form-list">
+    <h3>{{localize "PF2E.DamageLabel"}}</h3>
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellDamageLabel"}}</label>
+        <div class="details-container-flex-row">
+            <input type="text" name="data.damage.value" value="{{data.damage.value}}" data-dtype="String"/>
+            <label>
+                <span>&nbsp;{{localize "PF2E.SpellAbilityModLabel"}}</span>
+                <input type="checkbox" name="data.damage.applyMod" value="0" data-dtype="Boolean" {{checked data.damage.applyMod}}/>
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellDamageTypeLabel"}}</label>
+        <select name="data.damageType.value" data-dtype="String">
+            {{#select data.damageType.value}}
+                <option value=""></option>
+                {{#each damageTypes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellScalingLabel"}}</label>
+        <div class="details-container-flex-row">
+            <select name="data.scaling.mode">
+                {{#select data.scaling.mode}}
+                    {{#each spellScalingModes as |name key|}}
+                        <option value="{{key}}">{{localize name}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+            <input type="text" data-dtype="String" name="data.scaling.formula" value="{{data.scaling.formula}}" placeholder="Formula" />
+        </div>
+    </div>
+</ol>
 
 <div class="form-group-stacked">
     <label>
