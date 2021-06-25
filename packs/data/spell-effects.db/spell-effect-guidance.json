@@ -4,13 +4,16 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Implemented: Adds +1 to perception, attack, skill check rolls</p>\n<p>Not implemented: End on use</p>"
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Guidance]{Guidance}</p>\n<p>You have divine guidance, granting you a +1 status bonus to one attack roll, Perception check, saving throw, or skill check you attempt before the duration ends. You choose which roll to use the bonus on before rolling. If you use the bonus, the spell ends. Either way, you are then temporarily immune for 1 hour.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
         },
         "level": {
             "value": 1
-        },
-        "rarity": {
-            "value": "common"
         },
         "rules": [
             {
@@ -21,7 +24,7 @@
                         "guidance"
                     ]
                 },
-                "selector": "perception",
+                "selector": "attack",
                 "type": "status",
                 "value": 1
             },
@@ -33,7 +36,7 @@
                         "guidance"
                     ]
                 },
-                "selector": "attack",
+                "selector": "perception",
                 "type": "status",
                 "value": 1
             },
@@ -65,15 +68,25 @@
         "source": {
             "value": ""
         },
-        "traits": {
-            "value": []
+        "start": {
+            "initiative": null,
+            "value": 0
         },
-        "usage": {
-            "value": "held-in-one-hand"
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/guidance.jpg",
+    "img": "systems/pf2e/icons/spells/guidance.webp",
     "name": "Spell Effect: Guidance",
     "permission": {
         "default": 0

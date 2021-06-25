@@ -1,8 +1,8 @@
-<form class="{{cssClass}} crb-style" autocomplete="off">
+<form class="{{cssClass}} crb-style{{#if isProficiencyLocked}} proficiency-lock{{/if}}" autocomplete="off">
     <aside>
         <img
             class="logo"
-            src="systems/pf2e/assets/pathfinder_logo.png"
+            src="systems/pf2e/assets/pathfinder_logo.webp"
             height="56"
             alt=""
             srcset=""
@@ -25,10 +25,6 @@
             {{>
             systems/pf2e/templates/actors/crb-style/sidebar/actor-perception.html}}
 
-            <!-- Class DC -->
-            {{>
-            systems/pf2e/templates/actors/crb-style/sidebar/actor-class-dc.html}}
-
             <!-- Initiative -->
             {{>
               systems/pf2e/templates/actors/crb-style/sidebar/actor-initiative.html}}
@@ -36,6 +32,10 @@
             <!-- Saves -->
             {{>
               systems/pf2e/templates/actors/crb-style/sidebar/actor-saves.html}}
+
+            <!-- Class DC -->
+            {{>
+                systems/pf2e/templates/actors/crb-style/sidebar/actor-class-dc.html}}
 
             <!-- Resistances -->
             {{>
@@ -54,7 +54,7 @@
         </a>
 
         <a class="item" data-tab="actions" data-tab-title="{{localize 'PF2E.TabActionsLabel'}}">
-            <i class="fas fa-bullseye"></i>
+            <span class="activity-icon" style="font-size: 23px; color: var(--tertiary); margin: 0; padding: 0 0 1px 0;">A</span>
         </a>
 
         <a class="item" data-tab="effects" data-tab-title="{{localize 'PF2E.TabEffectsLabel'}}">
@@ -70,7 +70,7 @@
         </a>
 
         <a class="item" data-tab="skills" data-tab-title="{{localize 'PF2E.TabSkillsLabel'}}">
-            <i class="fas fa-hand-sparkles"></i>
+            <i class="fas fa-hand-paper"></i>
         </a>
 
         <a class="item" data-tab="feats" data-tab-title="{{localize 'PF2E.TabFeatsLabel'}}">
@@ -81,9 +81,11 @@
             <i class="fas fa-book-reader"></i>
         </a>
 
-        <a class="item" data-tab="pfs" data-tab-title="{{localize 'PF2E.TabPathfinderSociety'}}">
-            <img class="pfs-icon" src="systems/pf2e/assets/icons/pfs.svg" alt="Pathfinder Society">
-        </a>
+        {{#if showPFSTab}}
+            <a class="item" data-tab="pfs" data-tab-title="{{localize 'PF2E.TabPathfinderSociety'}}">
+                <img class="pfs-icon" src="systems/pf2e/assets/icons/pfs.svg" alt="Pathfinder Society">
+            </a>
+        {{/if}}
     </nav>
 
     <!-- BODY -->
@@ -99,7 +101,7 @@
             {{> systems/pf2e/templates/actors/crb-style/tabs/actor-effects.html }}
 
             <!-- INVENTORY -->
-            {{> systems/pf2e/templates/actors/crb-style/tabs/actor-inventory.html }}
+            {{> systems/pf2e/templates/actors/crb-style/tabs/inventory.html}}
 
             <!-- SPELLBOOK -->
             {{> systems/pf2e/templates/actors/crb-style/tabs/actor-spellbook.html }}

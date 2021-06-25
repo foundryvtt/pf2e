@@ -1,0 +1,55 @@
+<header class="npc-sheet-header">
+    <div id="name" class="flexrow bottom-separator" style="width: 100%; align-items: baseline;">
+        <input class="name-value" name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'PF2E.CharacterNamePlaceholder'}}"/>
+        <div class="level-container">
+            <label class="level-label">{{localize "PF2E.NPC.Creature"}}</label>
+            <input class="level" name="data.details.level.value" type="number" value="{{data.details.level.value}}" placeholder="1" data-dtype="Number"/>
+        </div>
+    </div>
+    <div class="flexrow" style="justify-content: space-between; width: 100%;">
+        <div class="flexrow" style="flex: auto;">
+            {{!-- TRAITS HERE --}}
+            <select class="rarity-select traits-list-item rarity {{#if data.traits.rarity.value }} {{data.traits.rarity.value }} {{else}} common {{/if}}" name="data.traits.rarity.value" data-dtype="String">
+                {{#select data.traits.rarity.value}}
+                {{#each rarity as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <select class="alignment-select traits-list-item alignment" name="data.details.alignment.value" data-dtype="String">
+                {{#select data.details.alignment.value}}
+                {{#each alignment as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+            <select class="size-select traits-list-item size" name="data.traits.size.value" data-dtype="String">
+                {{#select data.traits.size.value}}
+                {{#each actorSizes as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        {{#if options.editable}}
+        <div class="adjustment-select flexrow" style="flex: auto; justify-content: flex-end;">
+            <div class="adjustment elite trait {{#if isElite}}active{{/if}}">
+                <a class="npc-elite-adjustment">{{ localize 'PF2E.NPC.Adjustment.EliteLabel' }}</a>
+            </div>
+            <div class="adjustment weak trait {{#if isWeak}}active{{/if}}">
+                <a class="npc-weak-adjustment">{{ localize 'PF2E.NPC.Adjustment.WeakLabel' }}</a>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+    <div class="flexrow">
+        {{#each traits as |trait key|}}
+            <div class="traits-list-item trait {{key}}">{{localize trait}}</div>
+        {{/each}}
+        {{# if options.editable }}
+            <div class="trait-controls" style="flex: 0 0 32px;">
+                <a class="trait-edit" data-trait-selector="basic" data-config-types="monsterTraits" data-property="data.traits.traits" title="{{localize 'PF2E.NPC.EditTraits'}}"><i class="fas fa-edit"></i></a>
+            </div>
+        {{/if}}
+    </div>
+</header>

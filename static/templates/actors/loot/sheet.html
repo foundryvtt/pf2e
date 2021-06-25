@@ -1,0 +1,19 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <!-- HEADER -->
+    <div class="sheet-header">
+        {{#if owner}}
+            <h1 class="charname">
+                <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.loot.LootNamePlaceholder"}}" />
+            </h1>
+        {{else}}
+            <h1 class="charname">{{actor.name}}</h1>
+        {{/if}}
+        <div class="traits-bar">
+            <span class="trait">{{data.lootSheetType}}</span>
+        </div>
+    </div>
+    <!-- SIDEBAR -->
+    {{> systems/pf2e/templates/actors/loot/sidebar.html}}
+    <!-- BODY -->
+    {{> systems/pf2e/templates/actors/loot/inventory.html}}
+</form>

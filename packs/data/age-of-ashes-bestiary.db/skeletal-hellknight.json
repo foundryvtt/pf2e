@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "20"
+                "value": 20
             },
             "allSaves": {
                 "value": ""
@@ -59,12 +59,11 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "",
-                "max": "25",
+                "details": "negative healing",
+                "max": 25,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "25"
+                "value": 25
             },
             "init": {
                 "bonus": 0,
@@ -108,7 +107,6 @@
                         "value": "25 feet"
                     }
                 ],
-                "special": "",
                 "value": "25 feet"
             }
         },
@@ -126,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "LE"
@@ -142,7 +141,7 @@
             },
             "creatureType": "Undead",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "-",
@@ -155,11 +154,9 @@
             },
             "level": {
                 "min": 1,
-                "value": "2"
+                "value": 2
             },
-            "nethysUrl": "-",
             "recallKnowledgeText": "Recall Knowledge : DC 26",
-            "sidebarText": "",
             "source": {
                 "value": "Pathfinder #145: Hellknight Hill"
             }
@@ -411,11 +408,18 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
-                "custom": "death effects, disease, paralyzed, poison, unconscious",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "death effects",
+                    "disease",
+                    "paralyzed",
+                    "poison",
+                    "unconscious"
                 ]
             },
             "dr": [],
@@ -446,25 +450,26 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "PhUe9NLaMWI1oIUJ",
+            "_id": "RM2o84xGWPlNLzvX",
             "data": {
-                "attack": {
+                "MAP": {
                     "value": ""
                 },
-                "attackEffects": {
-                    "value": [
-                        "Invoke Reckoning"
-                    ]
+                "ability": {
+                    "value": "str"
                 },
+                "baseItem": "halberd",
                 "bonus": {
-                    "total": 11,
-                    "value": 11
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -480,23 +485,25 @@
                 },
                 "damage": {
                     "damageType": "piercing",
-                    "die": "1d10+4"
+                    "dice": 1,
+                    "die": "d10",
+                    "value": ""
                 },
-                "damageRolls": [
-                    {
-                        "damage": "1d10+4",
-                        "damageType": "piercing"
-                    }
-                ],
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This polearm has a relatively short, 5‑foot shaft. The business end is a long spike with an axe blade attached.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "polearm"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -505,17 +512,33 @@
                 "hp": {
                     "value": 0
                 },
-                "identified": {
-                    "value": false
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
+                },
+                "level": {
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
+                },
+                "potencyRune": {
+                    "value": 1
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -524,69 +547,327 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "35 gp"
                 },
                 "property1": {
                     "critDamage": "",
                     "critDamageType": "",
-                    "critDice": 0,
+                    "critDice": null,
                     "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
                     "damageType": "",
-                    "dice": 0,
+                    "dice": null,
                     "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
                     "value": ""
                 },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
+                "propertyRune1": {
                     "value": ""
                 },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
                     "value": ""
                 },
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
+                "range": {
+                    "value": "reach"
                 },
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "halberd",
                 "source": {
                     "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
-                        "reach 10 feet",
-                        "versatile S"
+                        "reach",
+                        "versatile-s"
                     ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {}
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.dgWxsYm0DWHb27h6"
+                }
             },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Halberd",
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/halberd.webp",
+            "name": "+1 Halberd",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
+            "type": "weapon"
+        },
+        {
+            "_id": "nbuEzRHIhlz3CDXi",
+            "data": {
+                "armor": {
+                    "value": 5
+                },
+                "armorType": {
+                    "value": "heavy"
+                },
+                "baseItem": "half-plate",
+                "brokenThreshold": {
+                    "value": null
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "check": {
+                    "value": -3
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Half plate consists of most of the upper body plates used in full plate, with lighter or sparser steel plate protection for the arms and legs. This provides some of the protection of full plate with greater flexibility and speed. A suit of this armor comes with an undercoat of padded armor and a pair of gauntlets.</p>"
+                },
+                "dex": {
+                    "value": 1
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": "3"
+                },
+                "group": {
+                    "value": "plate"
+                },
+                "hardness": {
+                    "value": null
+                },
+                "hp": {
+                    "value": null
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "maxHp": {
+                    "value": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": null
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "18 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "resilient": {},
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "not": [
+                                "unburdened-iron"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "speed",
+                        "type": "untyped",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 15,
+                                    "value": -10
+                                },
+                                {
+                                    "start": 16,
+                                    "value": -5
+                                }
+                            ],
+                            "field": "actor|data.abilities.str.value"
+                        }
+                    }
+                ],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "half-plate",
+                "source": {
+                    "value": ""
+                },
+                "speed": {
+                    "value": -10
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strength": {
+                    "value": 16
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornarmor"
+                },
+                "weight": {
+                    "value": "4"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.pRoikbRo5HFW6YUB"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/armor/halfplate.webp",
+            "name": "Half Plate",
+            "permission": {
+                "default": 0
+            },
+            "sort": 200000,
+            "type": "armor"
+        },
+        {
+            "_id": "PhUe9NLaMWI1oIUJ",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "Invoke Reckoning"
+                    ]
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "pyb93jaictc1lmd5c3eh": {
+                        "damage": "1d10+4",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "reach-10",
+                        "versatile-s"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Halberd",
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
             "type": "melee"
         },
         {
@@ -599,136 +880,53 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 10,
                     "value": 10
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "die": "1d6+4"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "8bthf5up1zyone8hddfi": {
                         "damage": "1d6+4",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
             "type": "melee"
         },
         {
-            "_id": "2fzrY9AdNI93pvoj",
+            "_id": "TUjFQZpxYqVI1mXM",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -739,51 +937,50 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> A creature within the monster’s reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it’s using. <b>Effect</b> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn’t count toward the monster’s multiple attack penalty, and its multiple attack penalty doesn’t apply to this Strike."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
             "type": "action"
         },
         {
             "_id": "z89EX9zy3v9pZxJc",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -794,22 +991,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " The skeletal Hellknight can direct the actions of the nearby skeleton guards, commanding them to perform tactics such as flanking foes and focusing their attacks on specific targets. As long as the skeletal Hellknight is active and commanding the skeletons, they gain the Attack of Opportunity reaction."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The skeletal Hellknight can direct the actions of the nearby skeleton guards, commanding them to perform tactics such as flanking foes and focusing their attacks on specific targets. As long as the skeletal Hellknight is active and commanding the skeletons, they gain the Attack of Opportunity reaction.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "divine",
                         "necromancy"
@@ -825,49 +1021,47 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Command Skeletons",
-            "sort": 400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
             "type": "action"
         },
         {
             "_id": "x94Pe7R5UrLKdRbG",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "reaction"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " <b>Trigger</b> The skeletal Hellknight hits a foe with a Strike. <b>Effect</b> The skeletal Hellknight causes the creature struck to endure the pain of an Order of the Nail’s reckoning—a rite of mortification Hellknights of that order use to focus their minds. The creature struck feels as if nails are being driven into their body, and must succeed at a DC 17 Will save or be stunned 1 from the pain. On a critical failure, the pain manifests as actual puncture wounds, dealing an additional [[/r 2d6 # points of piercing damage]] points of piercing damage to the victim."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Trigger</strong> The skeletal Hellknight hits a foe with a Strike.</p>\n<p><strong>Effect</strong> The skeletal Hellknight causes the creature struck to endure the pain of an Order of the Nail's reckoning—a rite of mortification Hellknights of that order use to focus their minds. The creature struck feels as if nails are being driven into their body, and must succeed at a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"17\" data-pf2-traits=\"divine,enchantment,mental,damaging-effect\" data-pf2-label=\"Invoke Reckoning DC\" data-pf2-show-dc=\"gm\">Will</span> save or be stunned 1 from the pain. On a critical failure, the pain manifests as actual puncture wounds, dealing an additional [[/r 2d6 #piercing]] points of piercing damage to the victim.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "divine",
                         "enchantment",
@@ -884,16 +1078,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Invoke Reckoning",
-            "sort": 500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -904,7 +1097,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -914,23 +1106,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -941,7 +1141,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -951,23 +1150,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "lore"
         }
     ],
@@ -976,13 +1183,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "Aii18rhNPMLW4Pxh",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -992,15 +1201,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Skeletal Hellknight",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

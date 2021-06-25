@@ -1,6 +1,7 @@
 {
     "_id": "0NZuvpCVr21WcQtH",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>As long as this locket of horn and silver is closed, you don't need to sleep. However, you can still overexert your body with too much activity, so you still need to rest to avoid becoming fatigued or to remove the fatigued condition. You also gain a +4 item bonus on saving throws against mental illusions, magical effects that would make you unconscious, and effects that would make you fatigued. Each time dawn occurs, you regain the ability to make your daily preparations as if you had rested for 8 hours. Daily preparations still take about an hour, as normal.</p>\n<p><strong>Activate (</strong>Two Actions) envision, Interact; <strong>Requirements</strong> You aren't fatigued; <strong>Effect</strong> You open the locket to unleash the dreams it has kept at bay. You become fatigued and cast one of the following spells at 9th level (DC 41): hallucination, sleep, or weird.</p>"
+            "value": "<p>As long as this locket of horn and silver is closed, you don't need to sleep. However, you can still overexert your body with too much activity, so you still need to rest to avoid becoming fatigued or to remove the fatigued condition.</p>\n<p>You also gain a +4 item bonus on saving throws against mental illusions, magical effects that would make you unconscious, and effects that would make you fatigued.</p>\n<p>Each time dawn occurs, you regain the ability to make your daily preparations as if you had rested for 8 hours. Daily preparations still take about an hour, as normal.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Envision, interact</p>\n<p><strong>Requirements</strong> You aren't fatigued</p>\n<p><strong>Effect</strong> You open the locket to unleash the dreams it has kept at bay. You become fatigued and cast one of the following spells at 9th level (DC 41): @Compendium[pf2e.spells-srd.Hallucination]{Hallucination}, @Compendium[pf2e.spells-srd.Sleep]{Sleep}, or @Compendium[pf2e.spells-srd.Weird]{Weird}.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+4 item bonus on saving throws against mental illusions, magical effects that would make you unconscious, and effects that would make you fatigued</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "19"
+            "value": 19
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,26 @@
             "value": "36,000 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Locket of Sealed Nightmare (illusions, unconscious, fatigue",
+                "predicate": {
+                    "any": [
+                        "illusion",
+                        "unconscious",
+                        "fatigue"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 4
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +98,6 @@
             "rarity": {
                 "value": "rare"
             },
-            "usage": {
-                "value": "wornnecklace"
-            },
             "value": [
                 "illusion",
                 "invested",
@@ -81,14 +105,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornnecklace"
         },
         "weight": {
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/locket-of-sealed-nightmares.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/locket-of-sealed-nightmares.webp",
     "name": "Locket of Sealed Nightmares",
     "permission": {
         "default": 0

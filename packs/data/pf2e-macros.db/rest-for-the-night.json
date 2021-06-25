@@ -1,8 +1,8 @@
 {
     "_id": "0GU2sdy3r2MeC56x",
     "actorIds": [],
-    "author": "gE95JAZb6BOLkaNX",
-    "command": "let toChat = (content) => {\r\n    let chatData = {\r\n        user: game.user.id,\r\n        content,\r\n        speaker: ChatMessage.getSpeaker(),\r\n    }\r\n    ChatMessage.create(chatData, {})\r\n}\r\n\r\nlet applyChanges = false;\r\nnew Dialog({\r\n  title: `Rest`,\r\n  content: `\r\n    <div>Rest for the night?</div>\r\n    `,\r\n  buttons: {\r\n    yes: {\r\n      icon: \"<i class='fas fa-check'></i>\",\r\n      label: `Rest`,\r\n      callback: () => applyChanges = true\r\n    },\r\n    no: {\r\n      icon: \"<i class='fas fa-times'></i>\",\r\n      label: `Cancel`\r\n    },\r\n  },\r\n  default: \"yes\",\r\n  close: html => {\r\n    if (applyChanges) {\r\n        for ( let token of canvas.tokens.controlled ) {\r\n            const {name} = token;\r\n            console.log(token);\r\n            const spellcastingEntries = token.actor.data.items.filter(i => i.type === \"spellcastingEntry\" && i.name !== \"Scrolls\");\r\n            const {sp, hp} = token.actor.data.data.attributes;\r\n            const {abilities} = token.actor.data.data;\r\n            const {level, keyability} = token.actor.data.data.details;\r\n            const hpRestored = Math.max(abilities.con.mod,1)*level.value;\r\n\r\n            toChat(`${name} goes to bed. ${hpRestored} HP restored. SP fully restored. Resolve points refreshed. `);\r\n            token.actor.update({\r\n                'data.attributes.hp.value': Math.clamped(0, hp.value+hpRestored, hp.max),\r\n                'data.attributes.sp.value': sp.max,\r\n                'data.attributes.resolve.value': abilities[keyability.value].mod\r\n            });\r\n           \r\n        }\r\n      }\r\n    }\r\n}).render(true);",
+    "author": "4rlSA43v1xPa1vsy",
+    "command": "game.pf2e.actions.restForTheNight({ actors: [token?.actor ?? actor ?? game.user.character].filter((actor) => actor) })",
     "flags": {},
     "img": "icons/svg/sleep.svg",
     "name": "Rest for the Night",

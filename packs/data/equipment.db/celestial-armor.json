@@ -2,15 +2,12 @@
     "_id": "2uHcTZ40oZ62R9gy",
     "data": {
         "armor": {
-            "label": "AC Bonus",
-            "type": "Number",
             "value": 4
         },
         "armorType": {
-            "label": "Armor Category",
-            "type": "String",
             "value": "medium"
         },
+        "baseItem": "chain-mail",
         "brokenThreshold": {
             "value": null
         },
@@ -18,9 +15,7 @@
             "value": ""
         },
         "check": {
-            "label": "Check Penalty",
-            "type": "String",
-            "value": "0"
+            "value": 0
         },
         "collapsed": {
             "value": false
@@ -30,27 +25,19 @@
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><span>This suit of +2 resilient chain mail is made of fine white links of a strange and slightly translucent pale metal, and the sleeves and skirt are fashioned into smaller trails that resemble feathers. Unlike normal chain mail, celestial armor has no Speed reduction, its armor check penalty is 0, and its Bulk is 1.&nbsp;<br></span></p>\n<p><span>You gain a +1 circumstance bonus to AC and saving throws against fiends. You appear radiant while you wear the armor, giving you a +2 item bonus to Diplomacy checks against all creatures except fiends.<br></span></p>\n<p>If you are not good, you are drained 2 while wearing <em>celestial armor</em>. You can’t recover from this condition while wearing the armor.</p>\n<p><strong>Activate</strong> command;&nbsp;<strong>Frequency</strong> once per day; <strong>Effect</strong> The armor sprouts glowing wings that grant you a fly Speed of 30 feet. The wings shed bright light in a 40-foot radius (and dim light to the next 40 feet). The wings fade away after 10 minutes.</p>\n<hr>\n<p><span><strong>Craft Requirements</strong> You are good.</span></p>"
+            "value": "<p>This suit of +2 resilient chain mail is made of fine white links of a strange and slightly translucent pale metal, and the sleeves and skirt are fashioned into smaller trails that resemble feathers. Unlike normal chain mail, celestial armor has no Speed reduction, its armor check penalty is 0, and its Bulk is 1.</p>\n<p>You gain a +1 circumstance bonus to AC and saving throws against fiends. You appear radiant while you wear the armor, giving you a +2 item bonus to Diplomacy checks against all creatures except fiends.</p>\n<p>If you are not good, you are drained 2 while wearing <em>celestial armor</em>. You can't recover from this condition while wearing the armor.</p>\n<hr />\n<p><strong>Activate</strong> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The armor sprouts glowing wings that grant you a fly Speed of 30 feet. The wings shed bright light in a 40-foot radius (and dim light to the next 40 feet). The wings fade away after 10 minutes.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Celestial Armor]{Effect: Celestial Armor}</p>\n<hr />\n<p><strong>Craft Requirements</strong> You are good.</p>\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 circumstance bonus to AC and saving throws against fiends.</li>\n<li>+2 item bonus to Diplomacy checks against all creatures except fiends.</li>\n</ul>"
         },
         "dex": {
-            "label": "Dex Modifier Cap",
-            "type": "String",
-            "value": "1"
+            "value": 1
         },
         "equipped": {
-            "label": "Equipped",
-            "type": "Boolean",
             "value": false
         },
         "equippedBulk": {
             "value": "1"
         },
         "group": {
-            "label": "Group",
-            "type": "String",
             "value": "chain"
         },
         "hardness": {
@@ -59,15 +46,23 @@
         "hp": {
             "value": null
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 13
         },
         "maxHp": {
@@ -76,12 +71,9 @@
         "negateBulk": {
             "value": "0"
         },
-        "potency": {
-            "label": "Armor Potency",
-            "type": "String"
-        },
+        "potency": {},
         "potencyRune": {
-            "value": "2"
+            "value": 2
         },
         "preciousMaterial": {
             "value": ""
@@ -90,45 +82,7 @@
             "value": ""
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "2,500 gp"
-        },
-        "property1": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 1",
-            "type": "Number",
-            "value": ""
-        },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 2",
-            "type": "Number",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 3",
-            "type": "Number",
-            "value": ""
         },
         "propertyRune1": {
             "value": ""
@@ -143,45 +97,105 @@
             "value": ""
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
-        },
-        "rarity": {
-            "value": "common"
         },
         "resiliencyRune": {
             "value": "resilient"
         },
-        "resilient": {
-            "label": "Resilient",
-            "type": "String"
+        "resilient": {},
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Celestial Armor (vs. fiends)",
+                "predicate": {
+                    "all": [
+                        "target:fiend"
+                    ]
+                },
+                "roll-options": [
+                    "all",
+                    "ac"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Attacker is a fiend",
+                "property": "flags.pf2e.rollOptions.all.target:fiend"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Celestial Armor (vs. fiends)",
+                "predicate": {
+                    "all": [
+                        "target:fiend"
+                    ]
+                },
+                "roll-options": [
+                    "all",
+                    "saving-throw"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Celestial Armor (non-fiends)",
+                "predicate": {
+                    "not": [
+                        "target:fiend"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "not": [
+                        "unburdened-iron"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "speed",
+                "type": "untyped",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 15,
+                            "value": -5
+                        }
+                    ],
+                    "field": "actor|data.abilities.str.value"
+                }
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "speed": {
-            "label": "Speed Penalty",
-            "type": "String",
-            "value": "0 ft"
+            "value": 0
         },
         "stackGroup": {
             "value": ""
         },
         "strength": {
-            "label": "Required Strength",
-            "type": "String",
-            "value": "16"
+            "value": 16
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "divine",
                 "flexible",
@@ -192,16 +206,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornarmor"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "2"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/celestial-armor.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/celestial-armor.webp",
     "name": "Celestial Armor",
     "permission": {
         "default": 0

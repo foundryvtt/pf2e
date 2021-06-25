@@ -13,37 +13,49 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Whenever you <a class=\"entity-link\" data-pack=\"pf2e.actionspf2e\" data-id=\"m0f2B7G9eaaTmhFL\" draggable=\"true\"><i class=\"fas fa-suitcase\"></i> Devise a Strategem</a>, you can also attempt a check to <a class=\"entity-link\" data-pack=\"pf2e.actionspf2e\" data-id=\"KygTSeDvsFoSO6HW\" draggable=\"true\"><i class=\"fas fa-suitcase\"></i> Recall Knowledge</a> as part of that action. If you critically succeed at the Recall Knowledge check, you notice a weakness and gain a +1 circumstance bonus to your attack roll from Devise a Stratagem.</p>\n<p>If you immediately convey this information to your allies as part of the check, each ally gains a +1 circumstance bonus to their next attack roll against the subject, as long as their attack is made before the beginning of your next turn.</p>"
+            "value": "<p>Whenever you @Compendium[pf2e.actionspf2e.Devise a Stratagem]{Devise a Strategem}, you can also attempt a check to @Compendium[pf2e.actionspf2e.Recall Knowledge (Arcana)]{Recall Knowledge} as part of that action. If you critically succeed at the Recall Knowledge check, you notice a weakness and gain a +1 circumstance bonus to your attack roll from Devise a Stratagem.</p>\n<p>If you immediately convey this information to your allies as part of the check, each ally gains a +1 circumstance bonus to their next attack roll against the subject, as long as their attack is made before the beginning of your next turn.</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Known Weakness]{Effect: Known Weakness}</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Known Weakness (critically succeeded on Recall Knowledge)",
+                "predicate": {
+                    "all": [
+                        "devise-a-strategem",
+                        "known-weakness"
+                    ]
+                },
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "investigator"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Known Weaknesses",
     "permission": {
         "default": 0

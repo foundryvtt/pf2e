@@ -13,38 +13,62 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>tenets of evil</p>\n<hr>\n<p>Because you know your mind is superior, you scoff at anyone who would alter your mental state—but this hubris gets the better of you when you’re wrong.</p>\n<p>You gain a +2 circumstance bonus to saves against mental effects. If you succeed at a save against a mental effect, you critically succeed instead; similarly, if you fail at a save against a mental effect, you critically fail instead.</p>"
+            "value": "<p>Because you know your mind is superior, you scoff at anyone who would alter your mental state-but this hubris gets the better of you when you're wrong.</p>\n<p>You gain a +2 circumstance bonus to saves against mental effects. If you succeed at a save against a mental effect, you critically succeed instead; similarly, if you fail at a save against a mental effect, you critically fail instead.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
-            "value": "tenets of evil"
+            "value": [
+                {
+                    "value": "tenets of evil"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Conceited Mindset (vs. mental)",
+                "predicate": {
+                    "all": [
+                        "mental"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "mental"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> If you succeed at a save against a mental effect, you critically succeed instead; similarly, if you fail at a save against a mental effect, you critically fail instead.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
-                "value": "common"
+                "value": "uncommon"
             },
             "value": [
-                "uncommon",
                 "champion"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Conceited Mindset",
     "permission": {
         "default": 0

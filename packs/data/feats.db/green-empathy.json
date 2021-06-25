@@ -5,62 +5,60 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> leaf order</p>\n<hr>\n<p>You can communicate with plants on a basic level and use Diplomacy to Make an Impression on them and to make very simple Requests of them. Non-creature plants typically can’t fulfill most requests you might ask of them unless you have access to other magic such as speak with plants. Because of your affiliation with the leaf order, plants have a sense that you support them, so you gain a +2 circumstance bonus on your check to Make a Request of a plant using Green Empathy.</p>"
+            "value": "<p>You can communicate with plants on a basic level and use Diplomacy to Make an Impression on them and to make very simple Requests of them. Non-creature plants typically can't fulfill most requests you might ask of them unless you have access to other magic such as speak with plants.</p>\n<p>Because of your affiliation with the leaf order, plants have a sense that you support them, so you gain a +2 circumstance bonus on your check to Make a Request of a plant using Green Empathy.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "6"
+            "value": 6
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "leaf order"
+            "value": [
+                {
+                    "value": "leaf order"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:make-a-request",
+                        "target:plant"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "druid"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Green Empathy",
     "permission": {
         "default": 0

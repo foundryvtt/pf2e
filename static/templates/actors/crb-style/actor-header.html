@@ -23,17 +23,8 @@
             </div>
         {{/if}}
         <div class="dots">
-            <h4>
-                {{localize 'PF2E.HeroPointsLabel'}}
-            </h4>
-            <input
-                type="hidden"
-                name="data.attributes.heroPoints.rank"
-                data-max="3"
-                value="{{data.attributes.heroPoints.rank}}"
-                data-dtype="Number"
-            />
-            <span class="click-stat-level" title="{{data.attributes.heroPoints.hover}}">
+            <h4>{{localize "PF2E.HeroPointsLabel"}}</h4>
+            <span class="adjust-stat" data-property="data.attributes.heroPoints.rank" value="{{data.attributes.heroPoints.rank}}" title="{{localize data.attributes.heroPoints.hover}}">
                 {{{data.attributes.heroPoints.icon}}}
             </span>
         </div>
@@ -41,11 +32,11 @@
     <div class="char-level">
         <div class="level">
             <label>
-                {{localize 'PF2E.LevelLabel'}}
+                {{localize "PF2E.LevelLabel"}}
             </label>
             <input
                 name="data.details.level.value"
-                type="text"
+                type="number"
                 value="{{data.details.level.value}}"
                 data-dtype="Number"
                 placeholder="1"
@@ -56,7 +47,7 @@
             <div class="exp-input">
                 <input
                     name="data.details.xp.value"
-                    type="text"
+                    type="number"
                     value="{{data.details.xp.value}}"
                     data-dtype="Number"
                     placeholder="0"
@@ -82,7 +73,7 @@
             </div>
             <div class="info">
                 <a href="https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/wikis/home" target="_blank">Wiki</a>
-                <a href="https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/blob/master/CHANGELOG.md" target="_blank">Changelog</a>
+                <a href="https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/blob/release/CHANGELOG.md" target="_blank">Changelog</a>
             </div>
         </div>
     </div>

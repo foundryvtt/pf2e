@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "25"
+                "value": 25
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "85",
+                "max": 85,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "85"
+                "value": 85
             },
             "init": {
                 "bonus": 0,
@@ -104,12 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "35 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "35"
                     }
                 ],
-                "special": "",
-                "value": "35 feet"
+                "value": "35"
             }
         },
         "currency": {
@@ -142,10 +142,10 @@
             },
             "creatureType": "Animal",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "A swarm of sportlebores is a much more dangerous foe than a single insect.<br><br>",
+            "flavorText": "A swarm of sportlebores is a much more dangerous foe than a single insect.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -155,13 +155,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "7"
+                "value": 7
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=816",
             "recallKnowledgeText": "Recall Knowledge - Animal : DC 23",
-            "sidebarText": "",
             "source": {
-                "value": "Bestiary 2 pg. 251"
+                "value": "Bestiary 2"
             }
         },
         "martial": {
@@ -411,11 +409,15 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
-                "custom": "precision, swarm mind",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "precision",
+                    "swarm-mind"
                 ]
             },
             "dr": [
@@ -470,16 +472,66 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "dl10m47AKrgF3eVj",
+            "_id": "wugLYHXdCUg05j8X",
             "data": {
                 "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": ""
+                },
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> DC 22 Fortitude;</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 hour);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 hour);</p>\n<p><strong>Stage 4</strong> [[/r 4d6 # bludgeoning]] bludgeoning damage (<span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"25\" data-pf2-traits=\"disease,damaging-effect\" data-pf2-label=\"Sportlebore Infestation DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save) as the host painfully vomits out a sportlebore swarm and returns to stage 1 <br /><br /></p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "disease"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Sportlebore Infestation",
+            "permission": {
+                "default": 0
+            },
+            "sort": 100000,
+            "type": "action"
+        },
+        {
+            "_id": "38rv8OhglPWCKDoM",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -490,22 +542,75 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> A creature in the sportlebore swarm's area speaks, uses a verbal component, or opens its mouth; <b>Effect</b> A portion of the sportlebore swarm attempts to surge down the throat of the triggering creature, which must attempt a DC 25 Fortitude save.\n<br><b>Critical Success</b> The creature is unaffected.\n<br><b>Success</b> The creature gets a mouthful of sportlebores. It spits the insects out and avoids further damage, but it can't speak for 1 round, and if it was performing a verbal spellcasting action, the spell fails and the caster wastes the action.\n<br><b>Failure</b> The creature takes [[/r 4d6 # piercing damage]] piercing damage from sportlebore bites, can't speak for 1 round, and loses a spell as noted under Success.\n<br><b>Critical Failure</b> As failure, but the creature is also exposed to <a style=\"text-decoration:underline\" href=\"https://2e.aonprd.com/Hazards.aspx?ID=49\">sportlebore infestation</a>."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "low-light-vision",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Low-Light Vision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "dl10m47AKrgF3eVj",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Trigger</strong> A creature in the sportlebore swarm's area speaks, uses a verbal component, or opens its mouth;</p>\n<p><strong>Effect</strong> A portion of the sportlebore swarm attempts to surge down the throat of the triggering creature, which must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"25\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Pour Down Throat DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature gets a mouthful of sportlebores. It spits the insects out and avoids further damage, but it can't speak for 1 round, and if it was performing a verbal spellcasting action, the spell fails and the caster wastes the action.</p>\n<p><strong>Failure</strong> The creature takes [[/r 4d6 #piercing]] piercing damage from sportlebore bites, can't speak for 1 round, and loses a spell as noted under Success.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is also exposed to sportlebore infestation.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -518,23 +623,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Pour Down Throat",
+            "permission": {
+                "default": 0
             },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Pour Down Throat ",
-            "sort": 100000,
+            "sort": 300000,
             "type": "action"
         },
         {
             "_id": "8RpmS3nHFfxBiGaY",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -545,22 +649,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "This monster doesn’t have a single mind (typically because it’s a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>This monster doesn't have a single mind (typically because it's a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -573,49 +676,47 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Swarm Mind",
-            "sort": 200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
             "type": "action"
         },
         {
             "_id": "zE1qMdAfyFxOdrrK",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Each creature in the sportlebore swarm's area takes [[/r 4d6 # piercing damage]] piercing damage (DC 25 basic Reflex save)."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>Each creature in the sportlebore swarm's area takes [[/r 4d6 # piercing damage]] piercing damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"25\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Bites DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -628,16 +729,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swarming Bites",
-            "sort": 300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -648,7 +748,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -658,23 +757,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -685,7 +792,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -695,23 +801,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
             "type": "lore"
         }
     ],
@@ -720,13 +834,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "3VFHZyjSjNA1jbiO",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -736,15 +852,21 @@
         "disposition": -1,
         "flags": {},
         "height": 2,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Sportlebore Swarm",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 2

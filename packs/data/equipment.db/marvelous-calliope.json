@@ -1,6 +1,7 @@
 {
     "_id": "WKdmAhoji9Y9RC7D",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>This large slide whistle appears to be made of fine brass, the sides of which are engraved with musical notes and dancing clowns.<br></span></p>\n<p><span><strong>Activate</strong> 1 minute (command, envision, Interact); <strong>Effect</strong> You blow a tune upon the slide whistle, causing the whistle to expand. The whistle sprouts from one into several, and then creates a large wooden frame and keyboard. By the time the unfolding is complete, the whistle fully transforms into a calliope, a wagon-sized contraption consisting of several steam whistles played like an organ. The calliope is heavy and anchored in place.<br></span></p>\n<p><span>You have a +1 item bonus to Performance checks to play the calliope. The calliope has a tendency to produce music for a few seconds after you cease playing it, adding a jaunty and overlong conclusion to your music.<br></span></p>\n<p><span>If you use an Interact action to pull the small metal ring on the underside of the <em>marvelous calliope</em>, the calliope collapses back down into a slide whistle.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">D</span> Interact; <strong>Frequency</strong> once per hour; <strong>Effect</strong> You play the calliope, causing it to cast charm on one of the listeners.&nbsp;</span></p>"
+            "value": "<p>This large slide whistle appears to be made of fine brass, the sides of which are engraved with musical notes and dancing clowns.</p>\n<p><strong>Activate</strong> 1 minute (command, envision, Interact)</p>\n<p><strong>Effect</strong> You blow a tune upon the slide whistle, causing the whistle to expand. The whistle sprouts from one into several, and then creates a large wooden frame and keyboard. By the time the unfolding is complete, the whistle fully transforms into a calliope, a wagon-sized contraption consisting of several steam whistles played like an organ. The calliope is heavy and anchored in place.</p>\n<p>You have a +1 item bonus to Performance checks to play the calliope. The calliope has a tendency to produce music for a few seconds after you cease playing it, adding a jaunty and overlong conclusion to your music.</p>\n<p>If you use an Interact action to pull the small metal ring on the underside of the <em>marvelous calliope</em>, the calliope collapses back down into a slide whistle.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> You play the calliope, causing it to cast @Compendium[pf2e.spells-srd.Charm]{Charm} on one of the listeners.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to Performance checks while playing music the calliope</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "4"
+            "value": 4
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,24 @@
             "value": "100 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Marvelous Calliope (playing it)",
+                "predicate": {
+                    "all": [
+                        "playing"
+                    ]
+                },
+                "selector": "performance",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -87,8 +112,10 @@
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/structures/marvelous-calliope.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/structures/marvelous-calliope.webp",
     "name": "Marvelous Calliope",
     "permission": {
         "default": 0

@@ -1,37 +1,30 @@
-<div class="pc pc_ancestry-hp">
-    <label for="ancestry-hp">
-        {{localize 'PF2E.AncestryHP'}}
-    </label>
+<div class="pc pc_land-speed">
+    <label for="land-speed">{{localize "PF2E.Speed"}}</label>
     <span>
-        <input
-            id="ancestry-hp"
-            type="text"
-            name="data.attributes.ancestryhp"
-            data-dtype="Number"
-            value="{{data.attributes.ancestryhp}}"
-            placeholder="0"
-        />
+        <h3 title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} {{localize 'PF2E.TravelSpeed.FeetAcronym'}}</h3>
     </span>
 </div>
-<div class="pc pc_class-hp">
-    <label for="class-hp">
-        {{localize 'PF2E.ClassHP'}}
-    </label>
+<div class="pc pc_size">
+    <label class="pf-title">{{localize "PF2E.Size"}}</label>
     <span>
-        <input
-            id="class-hp"
-            type="number"
-            name="data.attributes.classhp"
-            data-dtype="Number"
-            value="{{data.attributes.classhp}}"
-            placeholder="0"
-        />
+        <h3>{{localize (lookup actorSizes data.traits.size.value)}}</h3>
     </span>
 </div>
+<div class="pc pc_key-ability dropdown">
+    <label for="key-ability">{{localize "PF2E.KeyAbilityLabel"}}</label>
+    <select id="key-ability" name="data.details.keyability.value" {{disabled data.details.keyability.aeOverride}}>
+        {{#select data.details.keyability.value}}
+            {{#each abilities as |label ability|}}
+                <option value="{{ability}}">{{localize label}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="break-column"></div>
+
 <div class="pc pc_flat-bonus-hp">
-    <label for="flat-bonus-hp" title="{{localize 'PF2E.FlatBonusHPTitle'}}">
-        {{localize 'PF2E.BonusHPLabel'}}
-    </label>
+    <label for="flat-bonus-hp" title="{{localize 'PF2E.FlatBonusHPTitle'}}">{{localize 'PF2E.BonusHPLabel'}}</label>
     <span>
         <input
             id="flat-bonus-hp"
@@ -58,75 +51,31 @@
         />
     </span>
 </div>
-<div class="pc pc_land-speed">
-    <label for="land-speed">
-        {{localize 'PF2E.Speed'}}
-    </label>
-    <span class="speed">
-        <input
-            id="land-speed"
-            type="text"
-            name="data.attributes.speed.value"
-            data-dtype="{{data.attributes.speed.type}}"
-            value="{{data.attributes.speed.value}}"
-            placeholder="0"
-        />
-        <span title="{{data.attributes.speed.breakdown}}">{{data.attributes.speed.total}} ft.</span>
-    </span>
-</div>
-<div class="pc pc_ethnicity">
-    <label for="ethnicity">
-        {{localize 'PF2E.Ethnicity'}}
-    </label>
-    <span>
-        <input
-            id="ethnicity"
-            type="text"
-            name="data.details.ethnicity.value"
-            data-dtype="String"
-            value="{{data.details.ethnicity.value}}"
-        />
-    </span>
-</div>
-<div class="pc pc_nationality">
-  <label for="nationality">
-    {{localize 'PF2E.Nationality'}}
-  </label>
-  <span>
-        <input
-          id="nationality"
-          type="text"
-          name="data.details.nationality.value"
-          data-dtype="String"
-          value="{{data.details.nationality.value}}"
-        />
-    </span>
-</div>
-<div class="pc pc_bonus-bulk encumbrance">
-  <label for="bonus-encumbrance-bulk">
+<div class="pc pc_bonus-bulk encumbered">
+<label for="bonus-encumbrance-bulk">
     {{localize 'PF2E.BonusEncumbranceBulkLabel'}}
-  </label>
-  <input
+</label>
+<input
     id="bonus-encumbrance-bulk"
     type="text"
     name="data.attributes.bonusEncumbranceBulk"
     data-dtype="Number"
     value="{{data.attributes.bonusEncumbranceBulk}}"
     placeholder="0"
-  />
+/>
 </div>
 <div class="pc pc_bonus-bulk">
-  <label for="bonus-limit-bulk">
+<label for="bonus-limit-bulk">
     {{localize 'PF2E.BonusLimitBulkLabel'}}
-  </label>
-  <input
+</label>
+<input
     id="bonus-limit-bulk"
     type="text"
     name="data.attributes.bonusLimitBulk"
     data-dtype="Number"
     value="{{data.attributes.bonusLimitBulk}}"
     placeholder="0"
-  />
+/>
 </div>
 {{#if hasStamina}}
 <div class="pc pc_stamina-flat-bonus-sp">
@@ -167,33 +116,7 @@
     </span>
 </div>
 {{/if}}
-<div class="pc pc_size dropdown">
-    <label class="pf-title">
-        {{localize 'PF2E.Size'}}
-    </label>
-    <select
-        name="data.traits.size.value"
-        data-dtype="{{data.traits.size.type}}"
-    >
-        {{#select data.traits.size.value}} {{#each actorSizes as |label size|}}
-        <option value="{{size}}">
-            {{label}}
-        </option>
-        {{/each}} {{/select}}
-    </select>
-</div>
-<div class="pc pc_key-ability dropdown">
-    <label for="key-ability">
-        {{localize 'PF2E.KeyAbilityLabel'}}
-    </label>
-    <select id="key-ability" name="data.details.keyability.value">
-        {{#select data.details.keyability.value}}
-            {{#each abilities as |label ability|}}
-                <option value="{{ability}}">{{label}}</option>
-            {{/each}}
-        {{/select}}
-    </select>
-</div>
+
 <div class="tags">
     <div class="pc pc_speed-types">
         <h4>
@@ -205,8 +128,8 @@
                 {{localize speed.label}} ({{speed.total}})
             </li>
             {{/each}}
-            <li class="tag edit-btn" for="data.attributes.speed.otherSpeeds">
-                <a class="crb-trait-selector" data-options="speedTypes" data-has-values="true">
+            <li class="tag edit-btn">
+                <a class="crb-trait-selector" data-trait-selector="speed-types">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -236,8 +159,8 @@
                 {{localize sense.label}} {{#if sense.value}} ({{sense.value}}) {{/if}}
             </li>
             {{/each}}
-            <li class="tag edit-btn" for="data.traits.senses">
-                <a class="crb-trait-selector" data-options="senses" data-has-values="true" data-allow-empty-values="true">
+            <li class="tag edit-btn">
+                <a class="crb-trait-selector" data-trait-selector="senses">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -265,11 +188,11 @@
     <ul class="tags">
         {{#each data.traits.languages.selected as |v k|}}
         <li class="tag {{k}}">
-            {{v}}
+            {{localize v}}
         </li>
         {{/each}}
-        <li class="tag edit-btn" for="data.traits.languages">
-            <a class="crb-trait-selector" data-options="languages">
+        <li class="tag edit-btn">
+            <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="languages" data-property="data.traits.languages">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -297,11 +220,11 @@
   <ul class="tags">
     {{#each data.traits.traits.selected as |v k|}}
     <li class="tag {{k}}">
-      {{v}}
+      {{localize v}}
     </li>
     {{/each}}
-    <li class="tag edit-btn" for="data.traits.traits">
-      <a class="crb-trait-selector" data-options="monsterTraits">
+    <li class="tag edit-btn">
+      <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="monsterTraits" data-property="data.traits.traits">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

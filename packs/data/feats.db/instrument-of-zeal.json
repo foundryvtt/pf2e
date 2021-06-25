@@ -5,62 +5,74 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> divine ally (blade), tenets of good</p>\n<hr>\n<p>Divine energy fills your weapon. Whenever you critically hit a foe with Blade of Justice or a Retributive Strike, your attack adds an extra damage die, and the target is slowed 1 on its next turn.</p>"
+            "value": "<p>Divine energy fills your weapon. Whenever you critically hit a foe with Blade of Justice or a Retributive Strike, your attack adds an extra damage die, and the target is slowed 1 on its next turn.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "16"
+            "value": 16
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "divine ally (blade), tenets of good"
+            "value": [
+                {
+                    "value": "divine ally (blade)"
+                },
+                {
+                    "value": "tenets of good"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "critical": true,
+                "diceNumber": 1,
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "any": [
+                        "blade-justice",
+                        "retributive-strike"
+                    ]
+                },
+                "selector": "damage"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "blade-justice",
+                        "retributive-strike"
+                    ]
+                },
+                "selector": "damage",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Whenever you critically hit a foe with Blade of Justice or a Retributive Strike, the target is slowed 1 on its next turn.</p>"
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "champion"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Instrument of Zeal",
     "permission": {
         "default": 0

@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "13"
+                "value": 13
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "155",
+                "max": 155,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "155"
+                "value": 155
             },
             "init": {
                 "bonus": 0,
@@ -102,9 +101,15 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "special": "",
-                "value": "swim 20 feet"
+                "otherSpeeds": [
+                    {
+                        "exceptions": "",
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "20"
+                    }
+                ],
+                "value": "0"
             }
         },
         "currency": {
@@ -137,10 +142,10 @@
             },
             "creatureType": "Animal",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "While individually one of these fist-sized jellyfish is merely a nuisance, in great numbers, fire jellyfish can form into dangerous swarms. Bobbing in the water, they create a cloud of stinging tentacles. They were named in part for their bright coloration, but those who are stung by fire jellyfish learn the larger reason for their name—the pain of their stings is comparable to being burned alive.<br><br>",
+            "flavorText": "While individually one of these fist-sized jellyfish is merely a nuisance, in great numbers, fire jellyfish can form into dangerous swarms. Bobbing in the water, they create a cloud of stinging tentacles. They were named in part for their bright coloration, but those who are stung by fire jellyfish learn the larger reason for their name-the pain of their stings is comparable to being burned alive.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -150,13 +155,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "6"
+                "value": 6
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=706",
             "recallKnowledgeText": "Recall Knowledge - Animal : DC 22",
-            "sidebarText": "",
             "source": {
-                "value": "Bestiary 2 pg. 152"
+                "value": "Bestiary 2"
             }
         },
         "martial": {
@@ -406,11 +409,16 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
-                "custom": "mental, precision, swarm mind",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "mental",
+                    "precision",
+                    "swarm-mind"
                 ]
             },
             "dr": [
@@ -472,16 +480,16 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "auQwzWmfz2NSN0Rk",
+            "_id": "xPTfLI21EUbrSp4Z",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -492,22 +500,75 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "This monster doesn’t have a single mind (typically because it’s a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "low-light-vision",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Low-Light Vision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 100000,
+            "type": "action"
+        },
+        {
+            "_id": "auQwzWmfz2NSN0Rk",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This monster doesn't have a single mind (typically because it's a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -520,23 +581,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Swarm Mind",
-            "sort": 100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 200000,
             "type": "action"
         },
         {
             "_id": "0BVpj3wkSrFlhgdK",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -547,22 +607,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Fire jellyfish swarms use Acrobatics to @Compendium[pf2e.actionspf2e.c8TGiZ48ygoSPofx]{Swim}."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>Fire jellyfish swarms use Acrobatics to @Compendium[pf2e.actionspf2e.Swim]{Swim}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -575,49 +634,47 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Agile Swimmer",
-            "sort": 200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
             "type": "action"
         },
         {
             "_id": "lugrDlIHRd8kGDKs",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Each enemy in the swarm's space takes [[/r 3d8 # poison damage]] poison damage (DC 24 basic Reflex save) and is exposed to fire jelly venom."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 3d8 # poison damage]] poison damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"24\" data-pf2-traits=\"poison,damaging-effect\" data-pf2-label=\"Burning Swarm DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save) and is exposed to fire jelly venom.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "poison"
                     ]
@@ -632,23 +689,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Burning Swarm",
-            "sort": 300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
             "type": "action"
         },
         {
             "_id": "nhcCpe4q2AuE5rBl",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -659,22 +715,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Saving Throw</b> DC 24 Fortitude; <b>Maximum Duration</b> 6 rounds; <b>Stage 1</b> @Compendium[pf2e.conditionspf2e.Clumsy] 1 (1 round); <b>Stage 2</b> clumsy 2 (1 round); <b>Stage 3</b> clumsy 3 (1 round)"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Saving Throw</strong> DC 24 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 3} (1 round)</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "poison"
                     ]
@@ -689,16 +744,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Fire Jelly Venom",
-            "sort": 400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -709,7 +763,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -719,23 +772,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
             "type": "lore"
         }
     ],
@@ -744,13 +805,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "7lL7APeHQgkVxU1B",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -760,15 +823,21 @@
         "disposition": -1,
         "flags": {},
         "height": 2,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Fire Jellyfish Swarm",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 2

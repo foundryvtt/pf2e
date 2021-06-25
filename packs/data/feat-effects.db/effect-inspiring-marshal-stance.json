@@ -1,0 +1,64 @@
+{
+    "_id": "kzEPq4aczYb6OD2h",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Inspiring Marshal Stance]{Inspiring Marshal Stance}</p>\n<p>Your marshal's aura grants you and allies a +1 status bonus to\nattack rolls and saves against mental effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Inspiring Marshal Stance",
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Inspiring Marshal Stance",
+                "predicate": {
+                    "all": [
+                        "mental"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.TokenEffectIcon"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/call-to-arms.webp",
+    "name": "Effect: Inspiring Marshal Stance",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

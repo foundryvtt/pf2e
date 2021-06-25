@@ -11,8 +11,13 @@
         "areasize": {
             "value": ""
         },
+        "category": {
+            "value": "focus"
+        },
         "components": {
-            "value": "somatic, verbal"
+            "material": false,
+            "somatic": true,
+            "verbal": true
         },
         "cost": {
             "value": ""
@@ -27,10 +32,13 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You fire a javelin of electricity that leaves a charged field around its target. Make a spell attack roll. The javelin deals 1d6 electricity damage and 1 persistent electricity damage.&nbsp;&nbsp;<br></span></p>\n<p><span id=\"ctl00_MainContent_DetailedOutput\">As long as the target is taking @Compendium[pf2e.conditionspf2e.lDVqvLKA6eF3Df60]{Persistent Damage} from this spell, creatures gain a +1 status bonus to attack rolls with metal weapons or electricity effects against the target, and the target takes a –1 status penalty to saves against electricity effects.<br></span></p>\n<p><span id=\"ctl00_MainContent_DetailedOutput\"><strong>Critical Success</strong> The javelin deals double damage, both initial and persistent.<br><strong>Success</strong> The javelin deals full damage.</span></p>\n<hr>\n<p><strong>Heightened (+1)</strong> The initial damage increases by 1d6, and the @Compendium[pf2e.conditionspf2e.lDVqvLKA6eF3Df60]{Persistent Damage} increases by 1.&nbsp;</p>"
+            "value": "<p><span>You fire a javelin of electricity that leaves a charged field around its target. Make a spell attack roll. The javelin deals 1d6 electricity damage and 1 persistent electricity damage. <br /></span></p>\n<p>As long as the target is taking @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} from this spell, creatures gain a +1 status bonus to attack rolls with metal weapons or electricity effects against the target, and the target takes a -1 status penalty to saves against electricity effects.</p>\n<hr />\n<p><span><strong>Critical Success</strong> The javelin deals double damage, both initial and persistent.</span></p>\n<p><span><strong>Success</strong> The javelin deals full damage.</span></p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage increases by 1d6, and the Persistent Damage increases by 1.</p>"
         },
         "duration": {
             "value": ""
+        },
+        "hasCounteractCheck": {
+            "value": false
         },
         "level": {
             "value": 1
@@ -50,9 +58,17 @@
         "range": {
             "value": "60 feet"
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.electricity-domain",
+                "retain": true
+            }
+        ],
         "save": {
             "basic": "",
             "value": ""
@@ -62,7 +78,7 @@
             "mode": "level1"
         },
         "school": {
-            "value": "evo"
+            "value": "evocation"
         },
         "secondarycasters": {
             "value": ""
@@ -71,12 +87,6 @@
             "value": ""
         },
         "source": {
-            "value": ""
-        },
-        "spellCategorie": {
-            "value": "focus"
-        },
-        "spellCategory": {
             "value": ""
         },
         "spellType": {
@@ -93,9 +103,7 @@
         },
         "traditions": {
             "custom": "",
-            "value": [
-                "focus"
-            ]
+            "value": []
         },
         "traits": {
             "custom": "",
@@ -107,13 +115,12 @@
                 "electricity",
                 "evocation"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/charged-javelin.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/spells/charged-javelin.webp",
     "name": "Charged Javelin",
     "permission": {
         "default": 0

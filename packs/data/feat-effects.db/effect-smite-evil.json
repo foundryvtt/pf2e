@@ -1,0 +1,84 @@
+{
+    "_id": "AlnxieIRjqNqsdVu",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Smite Evil]{Smite Evil}.</p>\n<p>Until the start of your next turn, your Strikes with the weapon your blade ally inhabits against that foe deal an extra 4 good damage, increasing to 6 if you have master proficiency with this weapon.</p>\n<p>If the foe attacks one of your allies, the duration extends to the end of that foe's next turn. If the foe continues to attack your allies each turn, the duration continues to extend.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.TokenEffectIcon"
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Target is subject of your Smite Evil",
+                "property": "flags.pf2e.rollOptions.damage-roll.smite-evil"
+            },
+            {
+                "damageType": "good",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Smite Evil",
+                "name": "smite-not-master",
+                "predicate": {
+                    "all": [
+                        "smite-evil"
+                    ],
+                    "not": [
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "damage",
+                "value": 4
+            },
+            {
+                "damageType": "good",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Smite Evil",
+                "name": "smite-master",
+                "predicate": {
+                    "all": [
+                        "smite-evil"
+                    ],
+                    "any": [
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "damage",
+                "value": 6
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/dutiful-challenge.webp",
+    "name": "Effect: Smite Evil",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

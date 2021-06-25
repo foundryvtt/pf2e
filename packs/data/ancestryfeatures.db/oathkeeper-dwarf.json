@@ -13,20 +13,56 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Growing up, you never tried to lie to get what you wanted, and even when necessary, lying makes you uncomfortable. The especially faithful might even have thought that you were blessed by the dwarven god of duty, @Compendium[pf2e.deities.zhPhYge7VJbIlJvA]{Kols}. You gain a +1 circumstance bonus to Perception checks to @Compendium[pf2e.actionspf2e.1xRFPTFtWtGJ9ELw]{Sense Motive} and to Perception DCs against attempts to @Compendium[pf2e.actionspf2e.ewwCglB7XOPLUz72]{Lie} to you. Furthermore, you gain a +2 circumstance bonus to Diplomacy checks to convince others you speak the truth when you are telling the truth, and you take a –4 circumstance penalty to @Compendium[pf2e.actionspf2e.ewwCglB7XOPLUz72]{Lie} and to your Deception DC against @Compendium[pf2e.actionspf2e.1xRFPTFtWtGJ9ELw]{Sense Motive}.&nbsp;</p>"
+            "value": "<p>Growing up, you never tried to lie to get what you wanted, and even when necessary, lying makes you uncomfortable. The especially faithful might even have thought that you were blessed by the dwarven god of duty, @Compendium[pf2e.deities.Kols]{Kols}.</p>\n<p>You gain a +1 circumstance bonus to Perception checks to @Compendium[pf2e.actionspf2e.Sense Motive]{Sense Motive} and to Perception DCs against attempts to @Compendium[pf2e.actionspf2e.Lie]{Lie} to you.</p>\n<p>Furthermore, you gain a +2 circumstance bonus to Diplomacy checks to convince others you speak the truth when you are telling the truth, and you take a -4 circumstance penalty to lie and to your Deception DC against @Compendium[pf2e.actionspf2e.Sense Motive]{Sense Motive}.</p>"
         },
         "featType": {
-            "value": "ancestryfeature"
+            "value": "heritage"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Oathkeeper Dwarf (Sense Motive)",
+                "predicate": {
+                    "all": [
+                        "action:sense-motive"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Oathkeeper Dwarf (Tell the truth)",
+                "predicate": {
+                    "all": [
+                        "tell-truth"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Oathkeeper Dwarf (Lie)",
+                "predicate": {
+                    "all": [
+                        "action:lie"
+                    ]
+                },
+                "selector": "deception",
+                "type": "circumstance",
+                "value": -4
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +74,12 @@
             "value": [
                 "dwarf"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/ancestry/oathkeeper-dwarf.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/ancestry/oathkeeper-dwarf.webp",
     "name": "Oathkeeper Dwarf",
     "permission": {
         "default": 0

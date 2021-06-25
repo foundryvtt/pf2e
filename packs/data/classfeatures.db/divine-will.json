@@ -13,35 +13,71 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">Your faith grants mastery of your will. Your proficiency rank for Will saves increases to master. When you roll a success on a Will save, you get a critical success instead.&nbsp;</span></p>"
+            "value": "<p>Your faith grants mastery of your will. Your proficiency rank for Will saves increases to master. When you roll a success on a Will save, you get a critical success instead.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "11"
+            "value": 11
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "will",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Will save, you get a critical success instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "selector": "will",
+                "type": "save"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": [
                 "champion"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [
+        {
+            "_id": "7ypr5Y0tAlbzKfpa",
+            "changes": [
+                {
+                    "key": "data.saves.will.rank",
+                    "mode": 4,
+                    "value": "3"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/classes/divine-will.webp",
+            "label": "Divine Will",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/divine-will.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/divine-will.webp",
     "name": "Divine Will",
     "permission": {
         "default": 0

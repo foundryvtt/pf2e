@@ -1,6 +1,7 @@
 {
     "_id": "9uhJ7OB65ZTdUc8b",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>This necklace strung with miniature stone throwing knives. As long as you wear it, you are never without a weapon, a crude surgical tool, or stake for a vampire, if necessary in following Pharasma’s teachings.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Interact; <strong>Effect</strong> You pluck a miniature knife from the necklace, and it grows into a normal stone, steel, or wooden dagger for as long as you&nbsp;hold it, fading away 1 round after it leaves your hand. No matter how many knives you pull from the necklace, you never seem to deplete them. Wooden daggers from the necklace are as effective as ordinary steel daggers and can be useful to stake vampires.</span></p>"
+            "value": "<p><span>This necklace strung with miniature stone throwing knives. As long as you wear it, you are never without a weapon, a crude surgical tool, or stake for a vampire, if necessary in following Pharasma's teachings.<br /></span></p>\n<p><span><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact; <strong>Effect</strong> You pluck a miniature knife from the necklace, and it grows into a normal stone, steel, or wooden dagger for as long as you hold it, fading away 1 round after it leaves your hand. No matter how many knives you pull from the necklace, you never seem to deplete them. Wooden daggers from the necklace are as effective as ordinary steel daggers and can be useful to stake vampires.</span></p>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,52 @@
             "value": "25 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "category": "simple",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Dagger (Necklace of Knives)",
+                "range": "melee",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "thrown 10 ft.",
+                    "versatile s"
+                ]
+            },
+            {
+                "category": "simple",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Dagger (Necklace of Knives) (Thrown)",
+                "range": "ranged",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "thrown 10 ft.",
+                    "versatile s"
+                ]
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +124,6 @@
             "rarity": {
                 "value": "uncommon"
             },
-            "usage": {
-                "value": "held-in-one-hand"
-            },
             "value": [
                 "conjuration",
                 "invested",
@@ -81,14 +131,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worn"
         },
         "weight": {
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/necklace-of-knives.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/necklace-of-knives.webp",
     "name": "Necklace of Knives",
     "permission": {
         "default": 0

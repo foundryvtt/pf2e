@@ -13,20 +13,38 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>@Compendium[pf2e.feats-srd.dNH8OHEvx3vI9NBQ]{Nimble Dodge}</p>\n<hr>\n<p>You can use Nimble Dodge before attempting a Reflex save, in addition to its original trigger. If you do, the circumstance bonus applies to your Reflex save against the triggering effect.</p>\n<p>When you use Nimble Dodge and the triggering attack fails or critically fails, or when you succeed or critically succeed at the saving throw, you can also @Compendium[pf2e.actionspf2e.Bcxarzksqt9ezrs6]{Stride} up to 10 feet as part of the reaction. If you do, the reaction gains the move trait.</p>\n<p>You can use Nimble Roll while @Compendium[pf2e.actionspf2e.cS9nfDRGD83bNU1p]{Flying} or @Compendium[pf2e.actionspf2e.c8TGiZ48ygoSPofx]{Swimming} instead of Striding if you have the corresponding movement type.</p>"
+            "value": "<p>You can use @Compendium[pf2e.feats-srd.Nimble Dodge]{Nimble Dodge} before attempting a Reflex save, in addition to its original trigger. If you do, the circumstance bonus applies to your Reflex save against the triggering effect.</p>\n<p>When you use Nimble Dodge and the triggering attack fails or critically fails, or when you succeed or critically succeed at the saving throw, you can also Stride up to 10 feet as part of the reaction. If you do, the reaction gains the move trait.</p>\n<p>You can use Nimble Roll while Flying or Swimming instead of Striding if you have the corresponding movement type.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "8"
+            "value": 8
         },
+        "location": "",
         "prerequisites": {
-            "value": "Nimble Dodge"
+            "value": [
+                {
+                    "value": "Nimble Dodge"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "nimble-dodge"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -39,13 +57,12 @@
                 "rogue",
                 "swashbuckler"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Nimble Roll",
     "permission": {
         "default": 0

@@ -25,11 +25,9 @@
             "disable": "DC 18 Survival (trained) to safely remove the mold",
             "isComplex": false,
             "level": 2,
-            "reset": "After expanding, the brown mold can’t grow again for 1 day.",
+            "reset": "After expanding, the brown mold can't grow again for 1 day.",
             "routine": ""
         },
-        "flavourText": "",
-        "nethysUrl": "",
         "recallKnowledgeText": "",
         "saves": {
             "fortitude": {
@@ -53,7 +51,6 @@
                 "value": ""
             }
         },
-        "sidebarText": "",
         "source": {
             "value": ""
         },
@@ -67,11 +64,24 @@
                     "critical-hits",
                     "fire",
                     "object-immunities",
-                    "precision-damage; <b>Weaknesses</b> cold 10"
+                    "precision"
                 ]
             },
             "dr": [],
-            "dv": [],
+            "dv": [
+                {
+                    "exceptions": "",
+                    "label": "Cold",
+                    "type": "cold",
+                    "value": "10"
+                }
+            ],
+            "rarity": {
+                "value": "common"
+            },
+            "size": {
+                "value": "med"
+            },
             "traits": {
                 "custom": "",
                 "value": [
@@ -81,8 +91,10 @@
             }
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
             "_id": "NcyiM0WihYrncbSF",
@@ -99,23 +111,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "5 feet. Brown mold deals 2d6 cold damage to nearby creatures."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>5 feet. Brown mold deals 2d6 cold damage to nearby creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "aura",
                         "cold"
@@ -131,9 +141,15 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.png",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Emit Cold",
+            "permission": {
+                "default": 0
+            },
+            "sort": 100000,
             "type": "action"
         },
         {
@@ -151,23 +167,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> Fire comes within 5 feet of the brown mold; <b>Effect</b> The brown mold expands into every square adjacent to its space. As it grows, it pulls more heat from its surroundings, dealing 2d6+6 cold damage (DC 18 basic Fortitude save) to creatures within 10 feet after it expands."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Trigger</strong> Fire comes within 5 feet of the brown mold. <br /><strong>Effect</strong> The brown mold expands into every square adjacent to its space. As it grows, it pulls more heat from its surroundings, dealing [[/r 2d6+6 #cold]] cold damage (<span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"18\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Leech Warmth DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save) to creatures within 10 feet after it expands.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -180,9 +194,15 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Leech Warmth",
+            "permission": {
+                "default": 0
+            },
+            "sort": 200000,
             "type": "action"
         }
     ],
@@ -191,29 +211,39 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "Q8bXKgDm8eguqThB",
         "actorLink": false,
-        "bar1": {},
-        "bar2": {},
+        "alpha": 1,
+        "bar1": {
+            "attribute": null
+        },
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
         "dimSight": 0,
-        "displayBars": 0,
-        "displayName": 0,
-        "disposition": -1,
+        "displayBars": 20,
+        "displayName": 20,
+        "disposition": 0,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/hazard.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Brown Mold",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

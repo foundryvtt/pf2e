@@ -1,6 +1,7 @@
 {
     "_id": "pDw2wi0znVb8Dysg",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>When tied over your eyes, this ragged strip of black linen gives you a +3 item bonus to Intimidation checks and darkvision. You can see through the blindfold, but only using darkvision.<br></span></p>\n<p><span>The first time a particular creature sees you in a day, it must succeed at a DC 37 Will save or be frightened 1. This is an emotion, fear, and mental effect, and your allies become immune to it after about a week.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">F</span> command; <strong>Frequency</strong> once per minute; <strong>Trigger</strong> You damage a creature with a Strike; <strong>Effect</strong> Your target is gripped by intense fear. This has the effect of a DC 37 @Compendium[pf2e.spells-srd.tlcrVRqW1MSKJ5IC]{Phantasmal Killer} spell, but it is an enchantment instead of an illusion. The creature is then temporarily immune for 24 hours.</span></p>"
+            "value": "<p>When tied over your eyes, this ragged strip of black linen gives you a +3 item bonus to Intimidation checks and darkvision. You can see through the blindfold, but only using darkvision.</p>\n<p>The first time a particular creature sees you in a day, it must succeed at a DC 37 Will save or be frightened 1. This is an emotion, fear, and mental effect, and your allies become immune to it after about a week.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">F</span> command</p>\n<p><strong>Frequency</strong> once per minute</p>\n<p><strong>Trigger</strong> You damage a creature with a Strike</p>\n<p><strong>Effect</strong> Your target is gripped by intense fear. This has the effect of a DC 37 @Compendium[pf2e.spells-srd.Phantasmal Killer]{Phantasmal Killer} spell, but it is an enchantment instead of an illusion. The creature is then temporarily immune for 24 hours.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+3 item bonus to Intimidation checks</li>\n<li>Darkvision</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "17"
+            "value": 17
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,23 @@
             "value": "15,000 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "intimidation",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "PF2E.RuleElement.Sense",
+                "label": "PF2E.SensesDarkvision",
+                "selector": "darkvision"
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +95,6 @@
             "rarity": {
                 "value": "common"
             },
-            "usage": {
-                "value": "held-in-one-hand"
-            },
             "value": [
                 "emotion",
                 "enchantment",
@@ -84,14 +105,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worneyepiece"
         },
         "weight": {
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/dread-blindfold.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/dread-blindfold.webp",
     "name": "Dread Blindfold",
     "permission": {
         "default": 0

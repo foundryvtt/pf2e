@@ -1,33 +1,33 @@
-<h4 class="sidebar-summary">{{localize "PF2E.ConsumableHeading"}}</h4>
+<h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeConsumable")}}</h4>
 
 <div class="inventory-details">
     <div class="form-group">
         <label>{{localize "PF2E.LevelLabel"}}</label>
-        <input type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="{{data.level.type}}"/>
+        <input type="number" name="data.level.value" value="{{data.level.value}}" data-dtype="Number"/>
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.QuantityLabel"}}</label>
-        <input type="text" name="data.quantity.value" value="{{data.quantity.value}}" data-dtype="{{data.quantity.type}}"/>
+        <input type="number" name="data.quantity.value" value="{{data.quantity.value}}" data-dtype="Number"/>
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.Rarity"}}</label>
         <select name="data.traits.rarity.value" data-dtype="String">
             {{#select data.traits.rarity.value}}
-            {{#each rarity as |label key|}}
-            <option value="{{key}}">{{localize label}}</option>
-            {{/each}}
+                {{#each rarity as |label key|}}
+                    <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
-	<div class="form-group">
+    <div class="form-group">
         <label>{{localize "PF2E.Usage"}}</label>
         <select name="data.traits.usage.value" data-dtype="String">
             {{#select data.traits.usage.value}}
-            {{#each usage as |label key|}}
-            <option value="{{key}}">{{localize label}}</option>
-            {{/each}}
+                {{#each usage as |label key|}}
+                    <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
@@ -35,52 +35,65 @@
         <label>{{localize "PF2E.BulkLabel"}}</label>
         <select name="data.weight.value" data-dtype="String" {{#if bulkDisabled}}disabled="disabled"{{/if}}>
             {{#select data.weight.value}}
-            <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
-            {{#each bulkTypes as |name type|}}
-            <option value="{{type}}">{{name}}</option>
-            {{/each}}
+                <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
+                {{#each bulkTypes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
-
+    <!-- Equipped Bulk -->
     <div class="form-group">
         <label>{{localize "PF2E.EquippedBulkLabel"}}</label>
         <select name="data.equippedBulk.value" data-dtype="String" {{#if bulkDisabled}}disabled="disabled"{{/if}}>
-        {{#select data.equippedBulk.value}}
-        <option value="">{{localize "PF2E.EquippedSameBulkValue"}}</option>
-        <option value="0">{{localize "PF2E.NegligibleOption"}}</option>
-        {{#each bulkTypes as |name type|}}
-        <option value="{{type}}">{{localize name}}</option>
-        {{/each}}
-        {{/select}}
+            {{#select data.equippedBulk.value}}
+                <option value="">{{localize "PF2E.EquippedSameBulkValue"}}</option>
+                <option value="0">{{localize "PF2E.NegligibleOption"}}</option>
+                {{#each bulkTypes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
         </select>
     </div>
-
+    <!-- Stack Group -->
     <div class="form-group">
         <label>{{localize "PF2E.StackGroupLabel"}}</label>
         <select name="data.stackGroup.value" data-dtype="String">
             {{#select data.stackGroup.value}}
-            <option value="">{{localize "PF2E.NoStackGroup"}}</option>
-            {{#each stackGroups as |name type|}}
-            <option value="{{type}}">{{localize name}}</option>
-            {{/each}}
+                <option value="">{{localize "PF2E.NoStackGroup"}}</option>
+                {{#each stackGroups as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
-
+    <!-- Size -->
+    <div class="form-group">
+        <label>{{localize "PF2E.Size"}}</label>
+        <select name="data.size.value" data-dtype="String">
+            {{#select data.size.value}}
+                {{#each sizes as |name value|}}
+                    <option value="{{value}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <!-- Price -->
     <div class="form-group">
         <label>{{localize "PF2E.PriceLabel"}}</label>
-        <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="{{data.price.type}}"/>
+        <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="String" />
     </div>
-</div>
-
-<ol class="item-tags">
-    <li class="tag">{{lookup consumableTypes data.consumableType.value}}</li>
-</ol>
-
-<div class="form-group consumable-details">
-    <label>{{data.charges.label}}</label>
-    <input type="text" name="data.charges.value" value="{{data.charges.value}}" data-dtype="{{data.charges.type}}"/>
-    <span class="flex0">/</span>
-    <input type="text" name="data.charges.max" value="{{data.charges.max}}" data-dtype="{{data.charges.type}}"/>
+    <!-- Charges -->
+    <div class="form-group consumable-details">
+        <label>{{localize "PF2E.ConsumableChargesLabel"}}</label>
+        <input type="number" name="data.charges.value" value="{{data.charges.value}}" data-dtype="Number"/>
+        <span class="flex0">/</span>
+        <input type="number" name="data.charges.max" value="{{data.charges.max}}" data-dtype="Number"/>
+    </div>
+    <!-- Traits -->
+    <ol class="item-tags">
+        {{#each traits as |trait|}}
+            <li class="tag">{{localize trait.label}}</li>
+        {{/each}}
+    </ol>
 </div>

@@ -1,6 +1,7 @@
 {
     "_id": "QJ1PhbtbLzwhRlY0",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>This long and billowing scarf is typically woven of silk or sheer fabric and adorned with bells or other jangling bits of shiny metal. It grants a +2 item bonus to Performance checks to dance.</p>\n<p><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Interact; <strong>Requirements</strong> On your most recent action, you succeeded at a Performance check to dance; <strong>Effect</strong> You become concealed until the beginning of your next turn. You can also Stride up to half your Speed or Step.</p>"
+            "value": "<p>This long and billowing scarf is typically woven of silk or sheer fabric and adorned with bells or other jangling bits of shiny metal. It grants a +2 item bonus to Performance checks to dance.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact; <strong>Requirements</strong> On your most recent action, you succeeded at a Performance check to dance; <strong>Effect</strong> You become concealed until the beginning of your next turn. You can also Stride up to half your Speed or Step.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Performance checks to dance</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "9"
+            "value": 9
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,23 @@
             "value": "650 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "any": [
+                        "dance"
+                    ]
+                },
+                "selector": "performance",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +95,6 @@
             "rarity": {
                 "value": "common"
             },
-            "usage": {
-                "value": "held-in-one-hand"
-            },
             "value": [
                 "illusion",
                 "invested",
@@ -82,14 +103,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornbelt"
         },
         "weight": {
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/dancing-scarf.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/dancing-scarf.webp",
     "name": "Dancing Scarf (Greater)",
     "permission": {
         "default": 0

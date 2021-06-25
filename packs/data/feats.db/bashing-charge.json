@@ -13,24 +13,41 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>trained in Athletics</p>\n<hr>\n<p>You smash, bust, and charge through solid obstacles without hesitation. @Compendium[pf2e.actionspf2e.Bcxarzksqt9ezrs6]{Stride} twice. Once during your movement, if your movement passes through or ends adjacent to a door, window, fence, wall, or similar obstacle, you can attempt an Athletics check to @Compendium[pf2e.actionspf2e.SjmKHgI7a5Z9JzBx]{Force Open} the obstacle with a +1 circumstance bonus to the roll; on a failure, your movement ends at that obstacle.</p>"
+            "value": "<p>You smash, bust, and charge through solid obstacles without hesitation. @Compendium[pf2e.actionspf2e.Stride]{Stride} twice.</p>\n<p>Once during your movement, if your movement passes through or ends adjacent to a door, window, fence, wall, or similar obstacle, you can attempt an Athletics check to @Compendium[pf2e.actionspf2e.Force Open]{Force Open} the obstacle with a +1 circumstance bonus to the roll; on a failure, your movement ends at that obstacle.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
-            "value": "trained in Athletics"
+            "value": [
+                {
+                    "value": "trained in Athletics"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Bashing Charge (force open obstacle)",
+                "predicate": {
+                    "all": [
+                        "action:force-open"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
@@ -38,13 +55,11 @@
                 "barbarian",
                 "flourish"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Bashing Charge",
     "permission": {
         "default": 0

@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "22"
+                "value": 22
             },
             "allSaves": {
                 "value": ""
@@ -59,12 +59,11 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 20 ",
-                "max": "135",
+                "details": "regeneration 20 (deactivated by acid or sonic)",
+                "max": 135,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "135"
+                "value": 135
             },
             "init": {
                 "bonus": 0,
@@ -104,16 +103,19 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Burrow",
-                        "value": "20 feet"
+                        "exceptions": "",
+                        "label": "Burrow",
+                        "type": "burrow",
+                        "value": "20"
                     },
                     {
-                        "type": "Climb",
-                        "value": "20 feet"
+                        "exceptions": "",
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
                     }
                 ],
-                "special": "",
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -130,6 +132,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -146,10 +149,10 @@
             },
             "creatureType": "Giant",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Insatiable scavengers stalking the eternal gloom of the Darklands, cavern trolls consume all in their path—even rocks and minerals when more nourishing sustenance is scarce. These rocky goliaths can tunnel through stone with their iron-sharp claws.<br> Cavern trolls rarely venture to the surface world, for they have a debilitating vulnerability to sunlight that petrifies them on sustained contact. Unlike common trolls, cavern trolls can regenerate wounds dealt by fire. The crystalline nature of their skin, however, permits sonic attacks to neutralize their signature regeneration.<br> As cavern trolls age, their flinty skin becomes studded with small crystals and stones of various composition. Paragons of their kind have toothy maws replete with large, crystalline fangs. A typical cavern troll stands 14 feet in height and weighs about 2,000 pounds.",
+            "flavorText": "Insatiable scavengers stalking the eternal gloom of the Darklands, cavern trolls consume all in their path-even rocks and minerals when more nourishing sustenance is scarce. These rocky goliaths can tunnel through stone with their iron-sharp claws.<br /> Cavern trolls rarely venture to the surface world, for they have a debilitating vulnerability to sunlight that petrifies them on sustained contact. Unlike common trolls, cavern trolls can regenerate wounds dealt by fire. The crystalline nature of their skin, however, permits sonic attacks to neutralize their signature regeneration.<br /> As cavern trolls age, their flinty skin becomes studded with small crystals and stones of various composition. Paragons of their kind have toothy maws replete with large, crystalline fangs. A typical cavern troll stands 14 feet in height and weighs about 2,000 pounds.",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -159,13 +162,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "6"
+                "value": 6
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=832",
             "recallKnowledgeText": "",
-            "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Additional Lore\" title=\"Sidebar - Additional Lore\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_2_AdditionalLore.png\"> Nar-Voth Delicacies</h3>Both cavern trolls and xorns&#x2014;squat, tripartite earth elementals&#x2014;share a voracious appetite for deposits of precious minerals. When either group encounters the other, a frenzy of claws and ravenous gorging ensues until only one side remains. Powerful cavern trolls who consume a critical mass of xorns can gain @Compendium[pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW]{Tremorsense} and rule as monarchs over their subterranean kin.",
             "source": {
-                "value": "Bestiary 2 pg. 265"
+                "value": "Bestiary 2"
             }
         },
         "martial": {
@@ -415,11 +416,14 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
-                "custom": "bleed",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "bleed"
                 ]
             },
             "dr": [],
@@ -451,10 +455,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "VL2af2GD7VsPiI1u",
@@ -466,128 +470,45 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 16,
                     "value": 16
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "piercing",
-                    "die": "2d10+8"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "4w80hkfa6mifdmwxlf27": {
                         "damage": "2d10+8",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
-                        "reach 10 feet"
+                        "reach-10"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Jaws",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "melee"
         },
@@ -601,129 +522,46 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 16,
                     "value": 16
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "die": "2d6+8"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "15szkax6u7st28p1zg9i": {
                         "damage": "2d6+8",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile",
-                        "reach 10 feet"
+                        "reach-10"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Claw",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "melee"
         },
@@ -737,140 +575,108 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 16,
                     "value": 16
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "die": "1d12+8"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d12+8",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "brutal",
-                        "range increment 120 feet"
+                        "range-increment-120"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weaponType": {
                     "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Rock",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "melee"
+        },
+        {
+            "_id": "FcLtb9IKlH2X8wBl",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
+            "type": "action"
         },
         {
             "_id": "tuQ8FrXL4iChAQA1",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -881,22 +687,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "If exposed to direct sunlight, a cavern troll immediately becomes @Compendium[pf2e.conditionspf2e.Slowed] 1 and can't use reactions or Trample. The slowed value increases by 1 each time the cavern troll ends its turn in sunlight. If the cavern troll's actions are reduced to 0 in this way, they become @Compendium[pf2e.conditionspf2e.Petrified] until they spends at least 1 minute in darkness. Spells like @Compendium[pf2e.spells-srd.a3aQxCpoj1q1NQxC]{Sunburst} that create magical sunlight cannot petrify a cavern troll, but the troll is slowed 1 for 1d4 rounds after being exposed to such an effect."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>If exposed to direct sunlight, a cavern troll immediately becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 and can't use reactions or Trample. The slowed value increases by 1 each time the cavern troll ends its turn in sunlight. If the cavern troll's actions are reduced to 0 in this way, they become @Compendium[pf2e.conditionitems.Petrified]{Petrified} until they spends at least 1 minute in darkness. Spells like @Compendium[pf2e.spells-srd.Sunburst]{Sunburst} that create magical sunlight cannot petrify a cavern troll, but the troll is slowed 1 for 1d4 rounds after being exposed to such an effect.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -909,78 +714,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Sunlight Petrification",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "9vqW2EvJzrXzopZo",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
+            "permission": {
+                "default": 0
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Attack of Opportunity",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "NeNmtnyEZWgdz1J2",
+            "_id": "jG3O965IQDZgxg9B",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -991,51 +740,104 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> The monster must have a free hand but can Release anything it’s holding as part of this reaction. <b>Trigger</b> The monster is targeted with a thrown rock Strike or a rock would fall on the monster. <b>Effect</b> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "8SI23rDwK2QYJaxP",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster must have a free hand but can @Compendium[pf2e.actionspf2e.Release]{Release} anything it's holding as part of this reaction.</p>\n<p><strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster.</p>\n<p><strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "catch-rock",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
                 },
                 "weapon": {
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uG0Z8PsyZtsYuvGR"
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Catch Rock",
-            "sort": 600000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "zjnoHz79Gmki1uH4",
+            "_id": "BtLt92JdieUMFygu",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1046,106 +848,104 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionspf2e.Dying] condition never increases beyond @Compendium[pf2e.conditionspf2e.Dying] 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to @Compendium[pf2e.conditionspf2e.Dying] 4."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "regeneration",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Regeneration",
-            "sort": 700000,
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Regeneration 20 (deactivated by acid or sonic)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "mDOb0MStlfgxiLi8",
+            "_id": "dF7LLSCwf5DeGcNU",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "claw<br>A Rend entry lists a Strike the monster has. <b>Requirements</b> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round. <b>Effect</b> The monster automatically deals that Strike’s damage again to the enemy."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>claw</p>\n<p><strong>Requirements</strong> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round.</p>\n<p><strong>Effect</strong> The monster automatically deals that Strike's damage again to the enemy.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "rend",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.3JOi2cMcGhT3eze1"
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Rend",
-            "sort": 800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "action"
         },
         {
             "_id": "BczEX9fZ2q5qXxKI",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1156,22 +956,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A cavern troll can burrow through solid stone at a Speed of 10 feet. It can leave a tunnel if it desires."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A cavern troll can burrow through solid stone at a Speed of 10 feet. It can leave a tunnel if it desires.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1184,71 +983,69 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Rock Tunneler",
-            "sort": 900000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
             "type": "action"
         },
         {
-            "_id": "b2vNqFcqZ13pDtT9",
+            "_id": "e9VfAq0loJF4o49U",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "throw-rock",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.a0tx6exmB9v9CUsj"
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Throw Rock",
-            "sort": 1000000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1259,7 +1056,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1269,23 +1065,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -1296,7 +1100,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1306,23 +1109,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1300000,
             "type": "lore"
         }
     ],
@@ -1331,13 +1142,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "8WAc7n2M4Ks00yvj",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1347,15 +1160,21 @@
         "disposition": -1,
         "flags": {},
         "height": 2,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Cavern Troll",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 2

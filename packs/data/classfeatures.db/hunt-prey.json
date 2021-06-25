@@ -13,35 +13,74 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">When you focus your attention on a single foe, you become unstoppable in your pursuit. You gain the Hunt Prey action.&nbsp;</span></p>"
+            "value": "<p>When you focus your attention on a single foe, you become unstoppable in your pursuit. You gain the Hunt Prey action.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Target is your Hunted Prey",
+                "property": "flags.pf2e.rollOptions.all.hunted-prey"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "To Seek hunted prey",
+                "predicate": {
+                    "all": [
+                        "action:seek",
+                        "hunted-prey"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "To Track hunted prey",
+                "predicate": {
+                    "all": [
+                        "action:track",
+                        "hunted-prey"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": [
                 "ranger"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/hunt-prey.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/hunt-prey.webp",
     "name": "Hunt Prey",
     "permission": {
         "default": 0

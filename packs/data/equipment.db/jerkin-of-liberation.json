@@ -2,15 +2,12 @@
     "_id": "COsToVFlA36UmkB7",
     "data": {
         "armor": {
-            "label": "AC Bonus",
-            "type": "Number",
             "value": 2
         },
         "armorType": {
-            "label": "Armor Category",
-            "type": "String",
             "value": "light"
         },
+        "baseItem": "studded-leather-armor",
         "brokenThreshold": {
             "value": null
         },
@@ -18,9 +15,7 @@
             "value": ""
         },
         "check": {
-            "label": "Check Penalty",
-            "type": "String",
-            "value": "-1"
+            "value": -1
         },
         "collapsed": {
             "value": false
@@ -30,27 +25,19 @@
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p>This +2 greater resilient studded leather is traditionally inscribed with a symbol of either Norgorber or Cayden Cailean. Its leather is light as silk, and its buttons and studs are gleaming crystal. While you wear it, you get a +15-foot item bonus to your Speed, and effects that attempt to impose penalties on your Speed must first counteract the jerkin of liberation or they have no effect on you.</p>\n<p>In addition, you are hard to incapacitate. You use the jerkin's item level or your own level, whichever is higher, to determine effects of the incapacitation trait.</p>"
+            "value": "<p>This +2 greater resilient studded leather is traditionally inscribed with a symbol of either Norgorber or Cayden Cailean. Its leather is light as silk, and its buttons and studs are gleaming crystal. While you wear it, you get a +15-foot item bonus to your Speed, and effects that attempt to impose penalties on your Speed must first counteract the jerkin of liberation or they have no effect on you.</p>\n<p>In addition, you are hard to incapacitate. You use the jerkin's item level or your own level, whichever is higher, to determine effects of the incapacitation trait.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+15-foot item bonus to your Speed</li>\n</ul>"
         },
         "dex": {
-            "label": "Dex Modifier Cap",
-            "type": "String",
-            "value": "3"
+            "value": 3
         },
         "equipped": {
-            "label": "Equipped",
-            "type": "Boolean",
-            "value": true
+            "value": false
         },
         "equippedBulk": {
             "value": "1"
         },
         "group": {
-            "label": "Group",
-            "type": "String",
             "value": "leather"
         },
         "hardness": {
@@ -59,15 +46,23 @@
         "hp": {
             "value": null
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 17
         },
         "maxHp": {
@@ -76,12 +71,9 @@
         "negateBulk": {
             "value": "0"
         },
-        "potency": {
-            "label": "Armor Potency",
-            "type": "String"
-        },
+        "potency": {},
         "potencyRune": {
-            "value": "2"
+            "value": 2
         },
         "preciousMaterial": {
             "value": ""
@@ -90,45 +82,7 @@
             "value": ""
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "14,000 gp"
-        },
-        "property1": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 1",
-            "type": "Number",
-            "value": ""
-        },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 2",
-            "type": "Number",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 3",
-            "type": "Number",
-            "value": ""
         },
         "propertyRune1": {
             "value": ""
@@ -143,45 +97,40 @@
             "value": ""
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
-        },
-        "rarity": {
-            "value": "common"
         },
         "resiliencyRune": {
             "value": "greaterResilient"
         },
-        "resilient": {
-            "label": "Resilient",
-            "type": "String"
+        "resilient": {},
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "speed",
+                "type": "item",
+                "value": 15
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "speed": {
-            "label": "Speed Penalty",
-            "type": "String",
-            "value": ""
+            "value": 0
         },
         "stackGroup": {
             "value": ""
         },
         "strength": {
-            "label": "Required Strength",
-            "type": "String",
-            "value": "12"
+            "value": 12
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "uncommon"
             },
-            "type": "String",
             "value": [
                 "abjuration",
                 "invested",
@@ -189,16 +138,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornarmor"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "2"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/jerkin-of-liberation.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/jerkin-of-liberation.webp",
     "name": "Jerkin of Liberation",
     "permission": {
         "default": 0

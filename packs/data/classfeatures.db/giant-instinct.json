@@ -13,35 +13,152 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">Your rage gives you the raw power and size of a giant. This doesn’t necessarily mean you revere giants—you might scoff at them or even aspire to slay them! You could instead seem like a giant to other people due to your exceptional strength or larger-than-life emotions and ego.</span></p>\n<h2 class=\"title\">Anathema</h2>\n<p>Failing to face a personal challenge of strength is anathema.</p>\n<h2 class=\"title\">Titan Mauler (Instinct Ability)</h2>\n<p>You can use a weapon built for a Large creature if you are Small or Medium (both normally and when raging). If you’re not Small or Medium, you can use a weapon built for a creature one size larger than you. You gain access to this larger weapon, of any weapon type otherwise available at character creation. It has the normal Price and Bulk for a weapon of its size (page 295). When wielding such a weapon in combat, increase your additional damage from Rage from 2 to 6, but you have the clumsy 1 condition (page 618) because of the weapon’s unwieldy size. You can’t remove this clumsy condition or ignore its penalties by any means while wielding the weapon.</p>\n<h2 class=\"title\">Specialization Ability</h2>\n<p>Increase the damage from Rage when using a larger weapon from 6 to 10; if you have greater weapon specialization, increase it from 10 to 18.</p>\n<h2 class=\"title\">Raging Resistance</h2>\n<p>You resist bludgeoning damage and your choice of cold, electricity, or fire, chosen when you gain raging resistance.&nbsp;</p>"
+            "value": "<p>Your rage gives you the raw power and size of a giant. This doesn't necessarily mean you revere giants-you might scoff at them or even aspire to slay them! You could instead seem like a giant to other people due to your exceptional strength or larger-than-life emotions and ego.</p>\n<h2 class=\"title\">Anathema</h2>\n<p>Failing to face a personal challenge of strength is anathema.</p>\n<h2 class=\"title\">Titan Mauler (Instinct Ability)</h2>\n<p>You can use a weapon built for a Large creature if you are Small or Medium (both normally and when raging). If you're not Small or Medium, you can use a weapon built for a creature one size larger than you. You gain access to this larger weapon, of any weapon type otherwise available at character creation. It has the normal Price and Bulk for a weapon of its size. When wielding such a weapon in combat, increase your additional damage from Rage from 2 to 6, but you have the @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} condition because of the weapon's unwieldy size. You can't remove this clumsy condition or ignore its penalties by any means while wielding the weapon.</p>\n<h2 class=\"title\">Specialization Ability</h2>\n<p>Increase the damage from Rage when using a larger weapon from 6 to 10; if you have greater weapon specialization, increase it from 10 to 18.</p>\n<h2 class=\"title\">Raging Resistance</h2>\n<p>You resist bludgeoning damage and your choice of cold, electricity, or fire, chosen when you gain raging resistance.</p>\n<hr />\n<p><em>Note: You need to manually apply Clumsy 1 when you enter rage. Remember to alter the size of your weapon to ensure your Instinct Ability works correctly.</em></p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "oversized-rage",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "weapon:oversized"
+                    ],
+                    "not": [
+                        "ranged",
+                        "agile"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 6
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 10
+                        },
+                        {
+                            "start": 15,
+                            "value": 18
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "oversized-rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "weapon:oversized",
+                        "agile"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 3
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 5
+                        },
+                        {
+                            "start": 15,
+                            "value": 9
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "normal-rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ],
+                    "not": [
+                        "agile",
+                        "weapon:oversized",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "normal-rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile"
+                    ],
+                    "not": [
+                        "weapon:oversized",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": [
                 "barbarian"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/giant-instinct.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/giant-instinct.webp",
     "name": "Giant Instinct",
     "permission": {
         "default": 0

@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "9"
+                "value": 9
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "35",
+                "max": 35,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "35"
+                "value": 35
             },
             "init": {
                 "bonus": 0,
@@ -104,16 +103,19 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "5 feet"
+                        "exceptions": "",
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "5"
                     },
                     {
-                        "type": "Swim",
-                        "value": "10 feet"
+                        "exceptions": "",
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "10"
                     }
                 ],
-                "special": "",
-                "value": "5 feet"
+                "value": "5"
             }
         },
         "currency": {
@@ -146,10 +148,10 @@
             },
             "creatureType": "Ooze",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "An amoeba swarm consists of thousands of individual single-celled organisms held together by acrid-smelling slime. As ravenous as they are mindless, amoeba swarms use no tactics.<br><br>",
+            "flavorText": "An amoeba swarm consists of thousands of individual single-celled organisms held together by acrid-smelling slime. As ravenous as they are mindless, amoeba swarms use no tactics.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -159,13 +161,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "1"
+                "value": 1
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=750",
             "recallKnowledgeText": "Recall Knowledge - Ooze : DC 15",
-            "sidebarText": "",
             "source": {
-                "value": "Bestiary 2 pg. 192"
+                "value": "Bestiary 2"
             }
         },
         "martial": {
@@ -415,11 +415,19 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
-                "custom": "acid, critical hits, mental, precision, unconscious, visual",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "acid",
+                    "critical-hits",
+                    "mental",
+                    "precision",
+                    "unconscious",
+                    "visual"
                 ]
             },
             "dr": [
@@ -476,16 +484,16 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "fO8E1sNI1DHDU5Dq",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -496,22 +504,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "An amoeba swarm can sense nearby creatures through vibration and air or water movement."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>An amoeba swarm can sense nearby creatures through vibration and air or water movement.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -524,15 +531,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "interaction"
-                    }
-                }
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Motion Sense 60 feet",
+            "permission": {
+                "default": 0
             },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Motion Sense",
             "sort": 100000,
             "type": "action"
         },
@@ -540,33 +546,32 @@
             "_id": "DsM9HKBiut2efUZZ",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The amoeba swarm slithers over each creature in its space, dealing [[/r 1d6 # acid damage]] acid damage (DC 14 basic Reflex save). A creature that critically fails is @Compendium[pf2e.conditionspf2e.Sickened] 1."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The amoeba swarm slithers over each creature in its space, dealing [[/r 1d6 #acid]] acid damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"14\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Slither DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). A creature that critically fails is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -579,15 +584,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swarming Slither",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "action"
         },
@@ -595,7 +599,7 @@
             "_id": "zEg1F3xL2SCNwVj7",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -606,22 +610,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "An amoeba's acid damages only organic material—not metal, stone, or other inorganic substances."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>An amoeba's acid damages only organic material-not metal, stone, or other inorganic substances.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -634,15 +637,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Weak Acid",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "action"
         },
@@ -654,7 +656,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -664,22 +665,48 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Water",
+                        "predicate": {
+                            "all": [
+                                "terrain:water"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+3 in Water",
+                        "options": "terrain:water"
+                    }
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth ",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "lore"
         }
@@ -689,13 +716,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "kapPWNOxXOLcd4VF",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -705,15 +734,21 @@
         "disposition": -1,
         "flags": {},
         "height": 2,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Amoeba Swarm",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 2

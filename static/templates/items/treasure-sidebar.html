@@ -1,14 +1,13 @@
-<h4 class="sidebar-summary">{{localize "PF2E.ItemSummary"}}</h4>
+<h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeTreasure")}}</h4>
 
 <div class="inventory-details">
     <div class="form-group">
         <label>{{localize "PF2E.LevelLabel"}}</label>
-        <input type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="{{data.level.type}}"/>
+        <input type="number" name="data.level.value" value="{{data.level.value}}" data-dtype="Number"/>
     </div>
-    
     <div class="form-group">
         <label>{{localize "PF2E.QuantityLabel"}}</label>
-        <input type="text" name="data.quantity.value" value="{{data.quantity.value}}" data-dtype="Number"/>
+        <input type="number" name="data.quantity.value" value="{{data.quantity.value}}" data-dtype="Number"/>
     </div>
 
     <div class="form-group">
@@ -21,10 +20,9 @@
             {{/select}}
         </select>
     </div>
-    
     <div class="form-group">
         <label>{{localize "PF2E.ValueLabel"}}</label>
-        <input type="text" name="data.value.value" value="{{data.value.value}}" data-dtype="Number"/>
+        <input type="number" name="data.value.value" value="{{data.value.value}}" data-dtype="Number"/>
     </div>
 
     <div class="form-group">
@@ -44,7 +42,7 @@
         {{#select data.weight.value}}
         <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
         {{#each bulkTypes as |name type|}}
-        <option value="{{type}}">{{name}}</option>
+        <option value="{{type}}">{{localize name}}</option>
         {{/each}}
         {{/select}}
         </select>
@@ -60,5 +58,16 @@
             {{/each}}
             {{/select}}
         </select>
+    </div>
+
+    <div class="form-group">
+      <label>{{localize "PF2E.Size"}}</label>
+      <select name="data.size.value" data-dtype="String">
+        {{#select data.size.value}}
+        {{#each sizes as |name value|}}
+            <option value="{{value}}">{{localize name}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
     </div>
 </div>

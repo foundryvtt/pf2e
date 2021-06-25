@@ -63,7 +63,6 @@
                 "max": 54,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
                 "value": 54
             },
             "init": {
@@ -103,7 +102,6 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
                 "value": "40 feet "
             }
         },
@@ -138,7 +136,7 @@
             },
             "creatureType": "",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavourText": "",
@@ -152,11 +150,9 @@
                 "min": 1,
                 "value": 4
             },
-            "nethysUrl": "",
             "recallKnowledgeText": "",
-            "sidebarText": "",
             "source": {
-                "value": ""
+                "value": "NPC Gallery (GMG)"
             }
         },
         "items": {
@@ -486,14 +482,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {
-            "npcNotes": {
-                "value": ""
-            }
-        }
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "39GhyUETK7qdM7et",
@@ -520,11 +512,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -624,6 +617,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -637,15 +631,24 @@
                     "value": "primal"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Primal Prepared Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -674,11 +677,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -742,6 +746,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -752,18 +757,27 @@
                     "value": 11
                 },
                 "tradition": {
-                    "value": "Focus"
+                    "value": "focus"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Druid Order Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spellcastingEntry"
         },
@@ -771,85 +785,65 @@
             "_id": "Khe3nVM6rXWs0irx",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
                 "areasize": {
                     "value": ""
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": "3d8"
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": "acid"
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>You conjure an arrow of acid that continues corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus 1d6 persistent acid damage. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionspf2e.lDVqvLKA6eF3Df60]{Persistent Damage}.</p>\n<hr>\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that continues corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus 1d6 persistent acid damage. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 2
                 },
                 "location": {
                     "value": "39GhyUETK7qdM7et"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "120 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -857,9 +851,7 @@
                     "mode": "level2"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "evo"
+                    "value": "evocation"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -867,51 +859,33 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=2"
                 },
-                "spellCategorie": {
-                    "value": "spell"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "attack"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 creature or object"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "primal"
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
+                    "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "type": "String",
                     "value": [
                         "acid",
                         "attack",
@@ -922,11 +896,14 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/acid-arrow.jpg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
@@ -934,85 +911,65 @@
             "_id": "2jFrn1rUePGVaegs",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "burst",
-                    "label": "Area",
-                    "type": "String",
                     "value": 20
                 },
                 "areasize": {
                     "value": "all squares in a 20-foot-radius burst that contain plants"
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>Plants in the area entangle creatures. The area counts as difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a –10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it is also @Compendium[pf2e.conditionspf2e.eIcWbB5o3pP6OIMe]{Immobilized} for 1 round. Creatures can attempt to Escape at entangle's DC to remove these effects.</p>"
+                    "value": "<p>Plants in the area entangle creatures. The area counts as difficult terrain. Each round that a creature starts its turn in the area, it must attempt a Reflex save. On a failure, it takes a -10-foot circumstance penalty to its Speeds until it leaves the area, and on a critical failure, it is also @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for 1 round. Creatures can attempt to Escape at entangle's DC to remove these effects.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": "1 minute"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 2
                 },
                 "location": {
                     "value": "39GhyUETK7qdM7et"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "120 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": "reflex"
                 },
                 "scaling": {
@@ -1020,9 +977,7 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "trs"
+                    "value": "transmutation"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -1030,50 +985,32 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=103"
                 },
-                "spellCategorie": {
-                    "value": "spell"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "utility"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": ""
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "primal"
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
+                    "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "type": "String",
                     "value": [
                         "plant",
                         "transmutation"
@@ -1083,11 +1020,14 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/entangle.jpg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/entangle.webp",
             "name": "Entangle",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "spell"
         },
@@ -1095,85 +1035,65 @@
             "_id": "i5U5ajRLuep6obuR",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
                 "areasize": {
                     "value": ""
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>Tiny clinging hairs sprout across the creature's hands and feet, offering purchase on nearly any surface. The target gains a climb Speed equal to its Speed.</p>\n<hr>\n<p><strong>Heightened (5th)</strong> The duration increases to 1 hour.</p>"
+                    "value": "<p>Tiny clinging hairs sprout across the creature's hands and feet, offering purchase on nearly any surface. The target gains a climb Speed equal to its Speed.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The duration increases to 1 hour.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": "10 minutes"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 2
                 },
                 "location": {
                     "value": "39GhyUETK7qdM7et"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "touch"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -1181,9 +1101,7 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "trs"
+                    "value": "transmutation"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -1191,51 +1109,33 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=299"
                 },
-                "spellCategorie": {
-                    "value": "spell"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "utility"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 creature"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "primal"
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
+                    "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "type": "String",
                     "value": [
                         "transmutation"
                     ]
@@ -1244,1435 +1144,80 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/spider-climb.jpg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/spider-climb.webp",
             "name": "Spider Climb",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
-            "type": "spell"
-        },
-        {
-            "_id": "JeKaPmoouPfvUvWQ",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "line",
-                    "label": "Area",
-                    "type": "String",
-                    "value": 60
-                },
-                "areasize": {
-                    "value": "60-foot line"
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>A violent wind issues forth from your palm, blowing from the point where you are when you cast the spell to the line's opposite end. The wind extinguishes small non-magical fires, disperses fog and mist, blows objects of light Bulk or less around, and pushes larger objects. Large or smaller creatures in the area must attempt a Fortitude save. Large or smaller creatures that later move into the gust must attempt the save on entering.</p>\r<p>\n<hr><b>Critical Success</b> The creature is unaffected.</p>\r<p>\n<b>Success</b> The creature can't move against the wind.</p>\r<p>\n<b>Failure</b> The creature is knocked @Compendium[pf2e.conditionspf2e.j91X7x0XSomq8d60]{Prone}. If it was flying, it suffers the effects of critical failure instead.</p>\r<p>\n<b>Critical Failure</b> The creature is pushed 30 feet in the wind's direction, knocked @Compendium[pf2e.conditionspf2e.j91X7x0XSomq8d60]{Prone}, and takes 2d6 bludgeoning damage.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "until the start of your next turn"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 1
-                },
-                "location": {
-                    "value": "39GhyUETK7qdM7et"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "evo"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=143"
-                },
-                "spellCategorie": {
-                    "value": "spell"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "type": "String",
-                    "value": [
-                        "air",
-                        "evocation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/gust-of-wind.jpg",
-            "name": "Gust of Wind",
-            "sort": 600000,
-            "type": "spell"
-        },
-        {
-            "_id": "m4y8PLW6eA4HPkis",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "line",
-                    "label": "Area",
-                    "type": "String",
-                    "value": 60
-                },
-                "areasize": {
-                    "value": "60-foot line"
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>A violent wind issues forth from your palm, blowing from the point where you are when you cast the spell to the line's opposite end. The wind extinguishes small non-magical fires, disperses fog and mist, blows objects of light Bulk or less around, and pushes larger objects. Large or smaller creatures in the area must attempt a Fortitude save. Large or smaller creatures that later move into the gust must attempt the save on entering.</p>\r<p>\n<hr><b>Critical Success</b> The creature is unaffected.</p>\r<p>\n<b>Success</b> The creature can't move against the wind.</p>\r<p>\n<b>Failure</b> The creature is knocked @Compendium[pf2e.conditionspf2e.j91X7x0XSomq8d60]{Prone}. If it was flying, it suffers the effects of critical failure instead.</p>\r<p>\n<b>Critical Failure</b> The creature is pushed 30 feet in the wind's direction, knocked @Compendium[pf2e.conditionspf2e.j91X7x0XSomq8d60]{Prone}, and takes 2d6 bludgeoning damage.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "until the start of your next turn"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 1
-                },
-                "location": {
-                    "value": "39GhyUETK7qdM7et"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "evo"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=143"
-                },
-                "spellCategorie": {
-                    "value": "spell"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "type": "String",
-                    "value": [
-                        "air",
-                        "evocation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/gust-of-wind.jpg",
-            "name": "Gust of Wind",
-            "sort": 700000,
-            "type": "spell"
-        },
-        {
-            "_id": "25rKytG6k9C4jTYB",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You lengthen your stride beyond what should be possible. You gain a +10-foot status bonus to your Speed.</p>\n<hr>\n<p><strong>Heightened (2nd)</strong> The duration increases to 8 hours.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "1 hour"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 1
-                },
-                "location": {
-                    "value": "39GhyUETK7qdM7et"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "trs"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=175"
-                },
-                "spellCategorie": {
-                    "value": "spell"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "type": "String",
-                    "value": [
-                        "transmutation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/longstrider.jpg",
-            "name": "Longstrider (already cast)",
-            "sort": 800000,
-            "type": "spell"
-        },
-        {
-            "_id": "Azy1rDVrZ34Z1RiR",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "emanation",
-                    "label": "Area",
-                    "type": "String",
-                    "value": 30
-                },
-                "areasize": {
-                    "value": "30-foot emanation"
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your&nbsp;detect magic&nbsp;spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an&nbsp;invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened (3rd)</strong>&nbsp;You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.<br style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\"><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 0
-                },
-                "location": {
-                    "value": "39GhyUETK7qdM7et"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "div"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": ""
-                },
-                "spellCategorie": {
-                    "value": "spell"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "custom": "",
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "label": "Spell Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {
-                        "cantrip": "Cantrip",
-                        "detection": "Detection",
-                        "divination": "Divination"
-                    },
-                    "type": "String",
-                    "value": [
-                        "detection",
-                        "cantrip",
-                        "divination"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/detect-magic.jpg",
-            "name": "Detect Magic ",
-            "sort": 900000,
-            "type": "spell"
-        },
-        {
-            "_id": "I7MhodRdSJO1FucY",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": true,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": "1d4"
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": "electricity"
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr>\n<p><strong>Heightened (+1)</strong>&nbsp;The damage increases by 1d4.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 0
-                },
-                "location": {
-                    "value": "39GhyUETK7qdM7et"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "30 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "basic",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": "reflex"
-                },
-                "scaling": {
-                    "formula": "1d4",
-                    "mode": "level1"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "evo"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": ""
-                },
-                "spellCategorie": {
-                    "value": "spell"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "save"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 or 2 creatures"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "custom": "",
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "label": "Spell Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {
-                        "cantrip": "Cantrip",
-                        "electricity": "Electricity",
-                        "evocation": "Evocation"
-                    },
-                    "type": "String",
-                    "value": [
-                        "electricity",
-                        "cantrip",
-                        "evocation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/electric-arc.jpg",
-            "name": "Electric Arc",
-            "sort": 1000000,
-            "type": "spell"
-        },
-        {
-            "_id": "8EusTSyOhhYq93PH",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>In your mind's eye, you see a path northward. You immediately know which direction is north (if it exists at your current location).</p>\n<hr>\n<p><strong>Heightened (7th)</strong>&nbsp;You can instead know the direction to a familiar location, such as a previous home or a favorite tavern.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 0
-                },
-                "location": {
-                    "value": "39GhyUETK7qdM7et"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "div"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": ""
-                },
-                "spellCategorie": {
-                    "value": "spell"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "custom": "",
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "divine",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "label": "Spell Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {
-                        "cantrip": "Cantrip",
-                        "detection": "Detection",
-                        "divination": "Divination"
-                    },
-                    "type": "String",
-                    "value": [
-                        "detection",
-                        "cantrip",
-                        "divination"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/know-direction.jpg",
-            "name": "Know Direction",
-            "sort": 1100000,
-            "type": "spell"
-        },
-        {
-            "_id": "CVaAVxW5x9xchu7z",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the&nbsp;light&nbsp;spell on the first object ends.</p>\n<hr>\n<p><strong>Heightened (4th)</strong>&nbsp;The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "until the next time you make your daily preparations"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 0
-                },
-                "location": {
-                    "value": "39GhyUETK7qdM7et"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "touch"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "evo"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": ""
-                },
-                "spellCategorie": {
-                    "value": "spell"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 object of 1 Bulk or less, either unattended or possessed by you or a willing ally"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "custom": "",
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "label": "Spell Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {
-                        "cantrip": "Cantrip",
-                        "evocation": "Evocation",
-                        "light": "Light"
-                    },
-                    "type": "String",
-                    "value": [
-                        "light",
-                        "cantrip",
-                        "evocation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/light.jpg",
-            "name": "Light",
-            "sort": 1200000,
-            "type": "spell"
-        },
-        {
-            "_id": "lQPPWlzzqn2Wb7Ox",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr>\n<p><strong>Critical Success</strong>&nbsp;The target gains the @Compendium[pf2e.conditionspf2e.eIcWbB5o3pP6OIMe]{Immobilized} condition and takes a –10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @Compendium[pf2e.conditionspf2e.eIcWbB5o3pP6OIMe]{Immobilized} condition.<br><strong>Success&nbsp;</strong>The target takes a –10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.<br><strong>Failure&nbsp;</strong>The target is unaffected.</p>\n<hr>\n<p><strong>Heightened (2nd)</strong>&nbsp;The effects last for 2 rounds.<br><strong>Heightened (4th)</strong>&nbsp;The effects last for 1 minute.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 0
-                },
-                "location": {
-                    "value": "39GhyUETK7qdM7et"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "30 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "con"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": ""
-                },
-                "spellCategorie": {
-                    "value": "spell"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "attack"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "custom": "",
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "label": "Spell Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {
-                        "cantrip": "Cantrip",
-                        "conjuration": "Conjuration",
-                        "plant": "Plant"
-                    },
-                    "type": "String",
-                    "value": [
-                        "plant",
-                        "cantrip",
-                        "conjuration"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details",
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
-                }
-            },
-            "img": "systems/pf2e/icons/spells/tanglefoot.jpg",
-            "name": "Tanglefoot",
-            "sort": 1300000,
             "type": "spell"
         },
         {
             "_id": "WDh9ckIWTBGFCwIr",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
                 "areasize": {
                     "value": ""
                 },
+                "category": {
+                    "value": "focus"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": "1d12"
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": "electricity"
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>You surround a foe in a swirling storm of violent winds, roiling clouds, and crackling lightning. The storm deals 1d12 electricity damage. The target must attempt a basic Reflex save. On a failure, the target also is @Compendium[pf2e.conditionspf2e.i3OJZU2nk64Df3xm]{Clumsy} 2 for 1 round and takes 1 persistent electricity damage.</p>\n<hr>\n<p><strong>Heightened (+1)</strong> The initial damage increases by 1d12, and the persistent electricity damage on a failure increases by 1.&nbsp;</p>"
+                    "value": "<p>You surround a foe in a swirling storm of violent winds, roiling clouds, and crackling lightning. The storm deals 1d12 electricity damage. The target must attempt a basic Reflex save. On a failure, the target also is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 2 for 1 round and takes 1 persistent electricity damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The initial damage increases by 1d12, and the persistent electricity damage on a failure increases by 1.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 2
                 },
                 "location": {
                     "value": "rOByuN6ced5xWzp9"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "30 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "basic",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": "reflex"
                 },
                 "scaling": {
@@ -2680,9 +1225,7 @@
                     "mode": "level1"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "evo"
+                    "value": "evocation"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -2690,46 +1233,27 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=479"
                 },
-                "spellCategorie": {
-                    "value": "focus"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "save"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 creature"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "focus"
-                    ]
+                    "value": []
                 },
                 "traits": {
-                    "label": "Spell Traits",
+                    "custom": "",
                     "rarity": {
                         "value": "uncommon"
                     },
@@ -2739,7 +1263,6 @@
                         "electricity": "Electricity",
                         "evocation": "Evocation"
                     },
-                    "type": "String",
                     "value": [
                         "air",
                         "druid",
@@ -2751,587 +1274,1065 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {
                 "dynamiceffects": {
                     "alwaysActive": false,
                     "equipActive": false
                 }
             },
-            "img": "systems/pf2e/icons/spells/tempest-surge.jpg",
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/tempest-surge.webp",
             "name": "Tempest Surge",
-            "sort": 1400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "0OzSGNJ8fmj9Z2dh",
+            "_id": "JeKaPmoouPfvUvWQ",
             "data": {
-                "attack": {
+                "ability": {
                     "value": ""
                 },
-                "attackEffects": {
-                    "value": []
+                "area": {
+                    "areaType": "line",
+                    "value": 60
                 },
-                "bonus": {
-                    "total": 9,
-                    "value": "9"
+                "areasize": {
+                    "value": "60-foot line"
                 },
-                "brokenThreshold": {
-                    "value": 0
+                "category": {
+                    "value": "spell"
                 },
-                "bulkCapacity": {
-                    "value": ""
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
+                "cost": {
                     "value": ""
                 },
                 "damage": {
-                    "damageType": "slashing",
-                    "die": "1d6+2"
+                    "applyMod": false,
+                    "value": ""
                 },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+2",
-                        "damageType": "slashing"
-                    }
+                "damageType": {
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>A violent wind issues forth from your palm, blowing from the point where you are when you cast the spell to the line's opposite end. The wind extinguishes small non-magical fires, disperses fog and mist, blows objects of light Bulk or less around, and pushes larger objects. Large or smaller creatures in the area must attempt a Fortitude save. Large or smaller creatures that later move into the gust must attempt the save on entering.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature can't move against the wind.</p>\n<p><strong>Failure</strong> The creature is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}. If it was flying, it suffers the effects of critical failure instead.</p>\n<p><strong>Critical Failure</strong> The creature is pushed 30 feet in the wind's direction, knocked @Compendium[pf2e.conditionitems.Prone]{Prone}, and takes 2d6 bludgeoning damage.</p>"
                 },
-                "equipped": {
+                "duration": {
+                    "value": "until the start of your next turn"
+                },
+                "hasCounteractCheck": {
                     "value": false
                 },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
+                "level": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
+                "location": {
+                    "value": "39GhyUETK7qdM7et"
                 },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": null,
                 "source": {
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=143"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
+                "time": {
+                    "value": "2"
                 },
-                "traits": {
-                    "selected": {
-                        "forceful": "Forceful",
-                        "sweep": "Sweep"
-                    },
+                "traditions": {
                     "value": [
-                        "forceful",
-                        "sweep"
+                        "arcane",
+                        "primal"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Scimitar",
-            "sort": 1900000,
-            "type": "melee"
-        },
-        {
-            "_id": "DgGWQZ2UfWzKedET",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "total": 10,
-                    "value": "10"
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "piercing",
-                    "die": "1d8+1"
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d8+1",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
                 },
                 "traits": {
                     "custom": "",
-                    "selected": {
-                        "deadly-d10": "Deadly d10",
-                        "propulsive": "Propulsive",
-                        "range-increment-100": "Range Increment 100 ft",
-                        "reload-0": "Reload 0",
-                        "volley-30": "Volley 30 ft."
+                    "rarity": {
+                        "value": "common"
                     },
                     "value": [
-                        "deadly-d10",
-                        "propulsive",
-                        "range-increment-100",
-                        "reload-0",
-                        "volley-30"
+                        "air",
+                        "evocation"
                     ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weaponType": {
-                    "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
+            "name": "Gust of Wind",
+            "permission": {
+                "default": 0
             },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Composite Longbow",
-            "sort": 2000000,
-            "type": "melee"
+            "sort": 700000,
+            "type": "spell"
         },
         {
-            "_id": "eplixHfDeknEF97x",
+            "_id": "m4y8PLW6eA4HPkis",
             "data": {
-                "actionCategory": {
+                "ability": {
                     "value": ""
                 },
-                "actionType": {
-                    "value": "action"
+                "area": {
+                    "areaType": "line",
+                    "value": 60
                 },
-                "actions": {
-                    "value": 2
+                "areasize": {
+                    "value": "60-foot line"
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Frequency</b> once per day; <br>\n<b>Requirements</b> The Rain-Scribe must be in natural terrain. <br>\n<b>Effect</b> The Rain- Scribe shifts their coloration and the coloration of their gear to match the surroundings and then immediately Sneaks, even while being observed. The Rain-Scribe must end their movement concealed or behind cover to remain hidden or undetected."
+                    "value": "<p>A violent wind issues forth from your palm, blowing from the point where you are when you cast the spell to the line's opposite end. The wind extinguishes small non-magical fires, disperses fog and mist, blows objects of light Bulk or less around, and pushes larger objects. Large or smaller creatures in the area must attempt a Fortitude save. Large or smaller creatures that later move into the gust must attempt the save on entering.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature can't move against the wind.</p>\n<p><strong>Failure</strong> The creature is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}. If it was flying, it suffers the effects of critical failure instead.</p>\n<p><strong>Critical Failure</strong> The creature is pushed 30 feet in the wind's direction, knocked @Compendium[pf2e.conditionitems.Prone]{Prone}, and takes 2d6 bludgeoning damage.</p>"
                 },
-                "rarity": {
-                    "value": "common"
+                "duration": {
+                    "value": "until the start of your next turn"
                 },
-                "requirements": {
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "39GhyUETK7qdM7et"
+                },
+                "materials": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
+                "prepared": {
+                    "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": null,
                 "source": {
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=143"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
                     "value": ""
                 },
-                "traits": {
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
                     "value": [
-                        "illusion",
-                        "primal",
-                        "visual"
+                        "arcane",
+                        "primal"
                     ]
                 },
-                "trigger": {
-                    "value": ""
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "air",
+                        "evocation"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
                 }
             },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/gust-of-wind.webp",
+            "name": "Gust of Wind",
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
+            "type": "spell"
+        },
+        {
+            "_id": "25rKytG6k9C4jTYB",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You lengthen your stride beyond what should be possible. You gain a +10-foot status bonus to your Speed.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The duration increases to 8 hours.</p>"
+                },
+                "duration": {
+                    "value": "1 hour"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "39GhyUETK7qdM7et"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "transmutation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=175"
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "transmutation"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/longstrider.webp",
+            "name": "Longstrider (already cast)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
+            "type": "spell"
+        },
+        {
+            "_id": "Azy1rDVrZ34Z1RiR",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "emanation",
+                    "value": 30
+                },
+                "areasize": {
+                    "value": "30-foot emanation"
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.<br style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\"><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "39GhyUETK7qdM7et"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "divination"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "selected": {
+                        "cantrip": "Cantrip",
+                        "detection": "Detection",
+                        "divination": "Divination"
+                    },
+                    "value": [
+                        "detection",
+                        "cantrip",
+                        "divination"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/detect-magic.webp",
+            "name": "Detect Magic",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
+            "type": "spell"
+        },
+        {
+            "_id": "I7MhodRdSJO1FucY",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": true,
+                    "value": "1d4"
+                },
+                "damageType": {
+                    "value": "electricity"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "39GhyUETK7qdM7et"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "basic",
+                    "value": "reflex"
+                },
+                "scaling": {
+                    "formula": "1d4",
+                    "mode": "level1"
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 or 2 creatures"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "arcane",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "selected": {
+                        "cantrip": "Cantrip",
+                        "electricity": "Electricity",
+                        "evocation": "Evocation"
+                    },
+                    "value": [
+                        "electricity",
+                        "cantrip",
+                        "evocation"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/electric-arc.webp",
+            "name": "Electric Arc",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
+            "type": "spell"
+        },
+        {
+            "_id": "8EusTSyOhhYq93PH",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>In your mind's eye, you see a path northward. You immediately know which direction is north (if it exists at your current location).</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can instead know the direction to a familiar location, such as a previous home or a favorite tavern.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "39GhyUETK7qdM7et"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "divination"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "selected": {
+                        "cantrip": "Cantrip",
+                        "detection": "Detection",
+                        "divination": "Divination"
+                    },
+                    "value": [
+                        "detection",
+                        "cantrip",
+                        "divination"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/know-direction.webp",
+            "name": "Know Direction",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1200000,
+            "type": "spell"
+        },
+        {
+            "_id": "CVaAVxW5x9xchu7z",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                },
+                "duration": {
+                    "value": "until the next time you make your daily preparations"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "39GhyUETK7qdM7et"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 object of 1 Bulk or less, either unattended or possessed by you or a willing ally"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "selected": {
+                        "cantrip": "Cantrip",
+                        "evocation": "Evocation",
+                        "light": "Light"
+                    },
+                    "value": [
+                        "light",
+                        "cantrip",
+                        "evocation"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/light.webp",
+            "name": "Light",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1300000,
+            "type": "spell"
+        },
+        {
+            "_id": "lQPPWlzzqn2Wb7Ox",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition.<br /><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.<br /><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.<br /><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "39GhyUETK7qdM7et"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "conjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "attack"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "arcane",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "selected": {
+                        "cantrip": "Cantrip",
+                        "conjuration": "Conjuration",
+                        "plant": "Plant"
+                    },
+                    "value": [
+                        "plant",
+                        "cantrip",
+                        "conjuration"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
+                "dynamiceffects": {
+                    "alwaysActive": false,
+                    "equipActive": false
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Chameleon Step",
-            "sort": 2100000,
-            "type": "action"
-        },
-        {
-            "_id": "FdydG8MzIkPE5sIr",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/tanglefoot.webp",
+            "name": "Tanglefoot",
+            "permission": {
+                "default": 0
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Acrobatics",
-            "sort": 2200000,
-            "type": "lore"
-        },
-        {
-            "_id": "v7iq6Shbz6rrb2QZ",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Arcana",
-            "sort": 2300000,
-            "type": "lore"
-        },
-        {
-            "_id": "zpkSnE4Yb8emKEUX",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics",
-            "sort": 2400000,
-            "type": "lore"
-        },
-        {
-            "_id": "GUUkhuuNE4PZHlml",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Nature",
-            "sort": 2500000,
-            "type": "lore"
-        },
-        {
-            "_id": "RRXROktY8EjxJeCO",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth",
-            "sort": 2600000,
-            "type": "lore"
-        },
-        {
-            "_id": "2s4eTAo87q0S2taZ",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Survival",
-            "sort": 2700000,
-            "type": "lore"
+            "sort": 1400000,
+            "type": "spell"
         },
         {
             "_id": "uFeozcdOlTnjRuoX",
@@ -3340,13 +2341,10 @@
                     "value": ""
                 },
                 "ability": {
-                    "label": "Offensive Ability",
-                    "type": "String",
                     "value": "dex"
                 },
+                "baseItem": null,
                 "bonus": {
-                    "label": "Item Bonus",
-                    "type": "String",
                     "value": 0
                 },
                 "bonusDamage": {
@@ -3368,16 +2366,12 @@
                     "damageType": "piercing",
                     "dice": 1,
                     "die": "d8",
-                    "label": "damage",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p><span class=\"fontstyle0\">This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow’s range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil’s favored weapon, it also applies to composite longbows unless otherwise stated.</span> </p>"
+                    "value": "<p>This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow's range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil's favored weapon, it also applies to composite longbows unless otherwise stated.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -3386,13 +2380,9 @@
                     "value": ""
                 },
                 "group": {
-                    "label": "Weapon Group",
-                    "type": "String",
                     "value": "bow"
                 },
                 "hands": {
-                    "label": "Hands",
-                    "type": "String",
                     "value": ""
                 },
                 "hardness": {
@@ -3401,16 +2391,24 @@
                 "hp": {
                     "value": 0
                 },
-                "identified": {
-                    "value": false
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "label": "Item Level",
-                    "type": "Number",
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -3419,7 +2417,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -3428,8 +2426,6 @@
                     "value": ""
                 },
                 "price": {
-                    "label": "Price",
-                    "type": "String",
                     "value": "20 gp"
                 },
                 "property1": {
@@ -3442,10 +2438,8 @@
                     "damageType": "",
                     "dice": null,
                     "die": "",
-                    "label": "Primary Property",
                     "strikeConditionType": "",
                     "strikeConditionValue": null,
-                    "type": "String",
                     "value": ""
                 },
                 "property2": {
@@ -3456,8 +2450,6 @@
                     "damageType": "",
                     "dice": 0,
                     "die": "",
-                    "label": "Secondary Property",
-                    "type": "String",
                     "value": ""
                 },
                 "property3": {
@@ -3468,8 +2460,6 @@
                     "damageType": "",
                     "dice": 0,
                     "die": "",
-                    "label": "Tertiary Property",
-                    "type": "String",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -3485,26 +2475,20 @@
                     "value": ""
                 },
                 "quantity": {
-                    "label": "Quantity",
-                    "type": "Number",
                     "value": 1
                 },
                 "range": {
-                    "label": "Weapon Range",
-                    "type": "String",
                     "value": "100"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "reload": {
-                    "label": "Reload",
-                    "type": "String",
                     "value": ""
                 },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": ""
                 },
                 "splashDamage": {
@@ -3518,8 +2502,9 @@
                 },
                 "traits": {
                     "custom": "",
-                    "label": "Weapon Traits",
-                    "type": "String",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "deadly-d10",
                         "propulsive",
@@ -3530,225 +2515,22 @@
                     "value": "held-in-one-hand"
                 },
                 "weaponType": {
-                    "label": "Weapon Category",
-                    "type": "String",
                     "value": "martial"
                 },
                 "weight": {
-                    "label": "Bulk",
-                    "type": "Number",
                     "value": "2"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/equipment/composite-longbow.png",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/composite-longbow.webp",
             "name": "Composite Longbow",
-            "sort": 2800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1500000,
             "type": "weapon"
-        },
-        {
-            "_id": "0fV5FgkJseJMqYMr",
-            "data": {
-                "armor": {
-                    "label": "AC Bonus",
-                    "type": "Number",
-                    "value": 3
-                },
-                "armorType": {
-                    "label": "Armor Category",
-                    "type": "String",
-                    "value": "medium"
-                },
-                "brokenThreshold": {
-                    "value": null
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "check": {
-                    "label": "Check Penalty",
-                    "type": "String",
-                    "value": "-2"
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p><span class=\"fontstyle0\">A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.</span></p>"
-                },
-                "dex": {
-                    "label": "Dex Modifier Cap",
-                    "type": "String",
-                    "value": "2"
-                },
-                "equipped": {
-                    "label": "Equipped",
-                    "type": "Boolean",
-                    "value": true
-                },
-                "equippedBulk": {
-                    "value": "2"
-                },
-                "group": {
-                    "label": "Group",
-                    "type": "String",
-                    "value": "leather"
-                },
-                "hardness": {
-                    "value": null
-                },
-                "hp": {
-                    "value": null
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "label": "Item Level",
-                    "type": "Number",
-                    "value": null
-                },
-                "maxHp": {
-                    "value": null
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "potency": {
-                    "label": "Armor Potency",
-                    "type": "String"
-                },
-                "potencyRune": {
-                    "value": ""
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "label": "Price",
-                    "type": "String",
-                    "value": "2 gp"
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "label": "Property Rune 1",
-                    "type": "Number",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "label": "Property Rune 2",
-                    "type": "Number",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "label": "Property Rune 3",
-                    "type": "Number",
-                    "value": ""
-                },
-                "propertyRune1": {
-                    "value": ""
-                },
-                "propertyRune2": {
-                    "value": ""
-                },
-                "propertyRune3": {
-                    "value": ""
-                },
-                "propertyRune4": {
-                    "value": ""
-                },
-                "quantity": {
-                    "label": "Quantity",
-                    "type": "Number",
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "resiliencyRune": {
-                    "value": ""
-                },
-                "resilient": {
-                    "label": "Resilient",
-                    "type": "String"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": ""
-                },
-                "speed": {
-                    "label": "Speed Penalty",
-                    "type": "String",
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "strength": {
-                    "label": "Required Strength",
-                    "type": "String",
-                    "value": "14"
-                },
-                "traits": {
-                    "label": "Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "type": "String",
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "label": "Bulk",
-                    "type": "Number",
-                    "value": "3"
-                }
-            },
-            "flags": {
-                "_sheetTab": "description"
-            },
-            "img": "systems/pf2e/icons/equipment/armor/hide.jpg",
-            "name": "Hide",
-            "sort": 2900000,
-            "type": "armor"
         },
         {
             "_id": "F7jP3q3RnojPsKAo",
@@ -3757,13 +2539,10 @@
                     "value": ""
                 },
                 "ability": {
-                    "label": "Offensive Ability",
-                    "type": "String",
                     "value": "str"
                 },
+                "baseItem": null,
                 "bonus": {
-                    "label": "Item Bonus",
-                    "type": "String",
                     "value": 0
                 },
                 "bonusDamage": {
@@ -3785,16 +2564,12 @@
                     "damageType": "slashing",
                     "dice": 1,
                     "die": "d6",
-                    "label": "damage",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>This one‑handed curved blade is sharp on one side.</p>"
+                    "value": "<p>This one-handed curved blade is sharp on one side.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -3803,13 +2578,9 @@
                     "value": ""
                 },
                 "group": {
-                    "label": "Weapon Group",
-                    "type": "String",
                     "value": "sword"
                 },
                 "hands": {
-                    "label": "Hands",
-                    "type": "String",
                     "value": ""
                 },
                 "hardness": {
@@ -3818,16 +2589,24 @@
                 "hp": {
                     "value": 0
                 },
-                "identified": {
-                    "value": false
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "label": "Item Level",
-                    "type": "Number",
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -3836,7 +2615,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -3845,8 +2624,6 @@
                     "value": ""
                 },
                 "price": {
-                    "label": "Price",
-                    "type": "String",
                     "value": "1 gp"
                 },
                 "property1": {
@@ -3859,10 +2636,8 @@
                     "damageType": "",
                     "dice": null,
                     "die": "",
-                    "label": "Primary Property",
                     "strikeConditionType": "",
                     "strikeConditionValue": null,
-                    "type": "String",
                     "value": ""
                 },
                 "property2": {
@@ -3873,8 +2648,6 @@
                     "damageType": "",
                     "dice": 0,
                     "die": "",
-                    "label": "Secondary Property",
-                    "type": "String",
                     "value": ""
                 },
                 "property3": {
@@ -3885,8 +2658,6 @@
                     "damageType": "",
                     "dice": 0,
                     "die": "",
-                    "label": "Tertiary Property",
-                    "type": "String",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -3902,26 +2673,20 @@
                     "value": ""
                 },
                 "quantity": {
-                    "label": "Quantity",
-                    "type": "Number",
                     "value": 1
                 },
                 "range": {
-                    "label": "Weapon Range",
-                    "type": "String",
                     "value": "melee"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "reload": {
-                    "label": "Reload",
-                    "type": "String",
                     "value": ""
                 },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": ""
                 },
                 "splashDamage": {
@@ -3935,8 +2700,9 @@
                 },
                 "traits": {
                     "custom": "",
-                    "label": "Weapon Traits",
-                    "type": "String",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "forceful",
                         "sweep"
@@ -3946,23 +2712,199 @@
                     "value": "held-in-one-hand"
                 },
                 "weaponType": {
-                    "label": "Weapon Category",
-                    "type": "String",
                     "value": "martial"
                 },
                 "weight": {
-                    "label": "Bulk",
-                    "type": "Number",
                     "value": "1"
                 }
             },
-            "flags": {
-                "_sheetTab": "description"
-            },
-            "img": "systems/pf2e/icons/equipment/scimitar.png",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/scimitar.webp",
             "name": "Scimitar",
-            "sort": 3000000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1600000,
             "type": "weapon"
+        },
+        {
+            "_id": "0fV5FgkJseJMqYMr",
+            "data": {
+                "armor": {
+                    "value": 3
+                },
+                "armorType": {
+                    "value": "medium"
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": null
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "check": {
+                    "value": -2
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.</p>"
+                },
+                "dex": {
+                    "value": 2
+                },
+                "equipped": {
+                    "value": true
+                },
+                "equippedBulk": {
+                    "value": "2"
+                },
+                "group": {
+                    "value": "leather"
+                },
+                "hardness": {
+                    "value": null
+                },
+                "hp": {
+                    "value": null
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": null
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "2 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property2": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "property3": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": 0,
+                    "critDie": "",
+                    "damageType": "",
+                    "dice": 0,
+                    "die": "",
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "resilient": {},
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "speed": {
+                    "value": 0
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strength": {
+                    "value": 14
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "3"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/armor/hide.webp",
+            "name": "Hide",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1700000,
+            "type": "armor"
         },
         {
             "_id": "0rMfR44nLkD4jsZZ",
@@ -3974,16 +2916,13 @@
                 },
                 "autoDestroy": {
                     "_deprecated": true,
-                    "label": "Destroy on Empty",
-                    "type": "Boolean",
                     "value": true
                 },
                 "autoUse": {
                     "_deprecated": true,
-                    "label": "Consume on Use",
-                    "type": "Boolean",
                     "value": true
                 },
+                "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -3992,23 +2931,17 @@
                 },
                 "charges": {
                     "_deprecated": true,
-                    "label": "Charges",
-                    "max": 1,
-                    "type": "Number",
-                    "value": 1
+                    "max": 0,
+                    "value": 0
                 },
                 "collapsed": {
                     "value": false
                 },
                 "consumableType": {
-                    "label": "Consumable Type",
-                    "type": "String",
                     "value": "ammo"
                 },
                 "consume": {
                     "_deprecated": true,
-                    "label": "Roll on Consume",
-                    "type": "String",
                     "value": ""
                 },
                 "containerId": {
@@ -4016,10 +2949,8 @@
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p><span class=\"fontstyle0\">These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</span> </p>"
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -4037,16 +2968,24 @@
                 "hp": {
                     "value": 0
                 },
-                "identified": {
-                    "value": false
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "label": "Item Level",
-                    "type": "Number",
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -4061,13 +3000,9 @@
                     "value": ""
                 },
                 "price": {
-                    "label": "Price",
-                    "type": "String",
                     "value": "1 sp"
                 },
                 "quantity": {
-                    "label": "Quantity",
-                    "type": "Number",
                     "value": 20
                 },
                 "range": {
@@ -4075,13 +3010,17 @@
                     "units": "",
                     "value": null
                 },
-                "rarity": {
-                    "value": "common"
+                "rules": [],
+                "size": {
+                    "value": "med"
                 },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": ""
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
                 },
                 "stackGroup": {
                     "value": "arrows"
@@ -4092,6 +3031,7 @@
                     "value": null
                 },
                 "traits": {
+                    "custom": "",
                     "rarity": {
                         "value": "common"
                     },
@@ -4111,17 +3051,18 @@
                     "value": 0
                 },
                 "weight": {
-                    "label": "Bulk",
-                    "type": "Number",
                     "value": "L"
                 }
             },
-            "flags": {
-                "_sheetTab": "description"
-            },
-            "img": "systems/pf2e/icons/equipment/weapons/arrows.jpg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
             "name": "Arrows",
-            "sort": 3100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1800000,
             "type": "consumable"
         },
         {
@@ -4140,6 +3081,7 @@
                     "_deprecated": true,
                     "value": true
                 },
+                "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -4167,7 +3109,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>@Compendium[pf2e.spells-srd.BBvV7qoXGdw09q1C]{Speak with Animals}</p>\n<p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you’re the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don’t need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>"
+                    "value": "<p>@Compendium[pf2e.spells-srd.Speak with Animals]{Speak with Animals}</p>\n<p>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.</p>\n<p>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).</p>\n<p>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -4185,14 +3127,24 @@
                 "hp": {
                     "value": 0
                 },
-                "identified": {
-                    "value": false
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": "3"
+                    "value": 3
                 },
                 "maxHp": {
                     "value": 0
@@ -4210,18 +3162,24 @@
                     "value": "12 gp"
                 },
                 "quantity": {
-                    "value": "1"
+                    "value": 1
                 },
                 "range": {
                     "long": null,
                     "units": "",
                     "value": null
                 },
-                "rarity": {
-                    "value": "common"
+                "rules": [],
+                "size": {
+                    "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
                 },
                 "stackGroup": {
                     "value": ""
@@ -4232,6 +3190,7 @@
                     "value": null
                 },
                 "traits": {
+                    "custom": "",
                     "rarity": {
                         "value": "common"
                     },
@@ -4254,11 +3213,457 @@
                     "value": "-"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/equipment/consumables/other-consumables/spell-scroll.jpg",
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/consumables/other-consumables/spell-scroll.webp",
             "name": "Scroll of Speak with Animals",
-            "sort": 3200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1900000,
             "type": "consumable"
+        },
+        {
+            "_id": "0OzSGNJ8fmj9Z2dh",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 9
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+2",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "selected": {
+                        "forceful": "Forceful",
+                        "sweep": "Sweep"
+                    },
+                    "value": [
+                        "forceful",
+                        "sweep"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Scimitar",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2000000,
+            "type": "melee"
+        },
+        {
+            "_id": "DgGWQZ2UfWzKedET",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d8+1",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "selected": {
+                        "deadly-d10": "Deadly d10",
+                        "propulsive": "Propulsive",
+                        "range-increment-100": "Range Increment 100 ft",
+                        "reload-0": "Reload 0",
+                        "volley-30": "Volley 30 ft."
+                    },
+                    "value": [
+                        "deadly-d10",
+                        "propulsive",
+                        "range-increment-100",
+                        "reload-0",
+                        "volley-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Composite Longbow",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2100000,
+            "type": "melee"
+        },
+        {
+            "_id": "eplixHfDeknEF97x",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Frequency</strong> once per day; <br />\n<strong>Requirements</strong> The Rain-Scribe must be in natural terrain. <br />\n<strong>Effect</strong> The Rain- Scribe shifts their coloration and the coloration of their gear to match the surroundings and then immediately Sneaks, even while being observed. The Rain-Scribe must end their movement concealed or behind cover to remain hidden or undetected.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "illusion",
+                        "primal",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Chameleon Step",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2200000,
+            "type": "action"
+        },
+        {
+            "_id": "FdydG8MzIkPE5sIr",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2300000,
+            "type": "lore"
+        },
+        {
+            "_id": "v7iq6Shbz6rrb2QZ",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Arcana",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2400000,
+            "type": "lore"
+        },
+        {
+            "_id": "zpkSnE4Yb8emKEUX",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 8
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2500000,
+            "type": "lore"
+        },
+        {
+            "_id": "GUUkhuuNE4PZHlml",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Nature",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2600000,
+            "type": "lore"
+        },
+        {
+            "_id": "RRXROktY8EjxJeCO",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2700000,
+            "type": "lore"
+        },
+        {
+            "_id": "2s4eTAo87q0S2taZ",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2800000,
+            "type": "lore"
         }
     ],
     "name": "Rain-Scribe",
@@ -4266,13 +3671,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "2SBKFCog4JY3WrOW",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -4282,15 +3689,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
-        "name": "Rain-scribe",
+        "mirrorX": false,
+        "mirrorY": false,
+        "name": "Rain-Scribe",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

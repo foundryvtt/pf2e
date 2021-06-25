@@ -1,0 +1,88 @@
+{
+    "_id": "MV6XIuAgN9uSA0Da",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>You've learned to move quickly to avoid explosions, dragon's breath, and worse. Your proficiency rank for Reflex saves increases to master. When you roll a success on a Reflex save, you get a critical success instead.</p>"
+        },
+        "featType": {
+            "value": "classfeature"
+        },
+        "level": {
+            "value": 7
+        },
+        "location": "",
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "reflex",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Reflex save, you get a critical success instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "selector": "reflex",
+                "type": "save"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "ranger",
+                "rogue",
+                "swashbuckler"
+            ]
+        }
+    },
+    "effects": [
+        {
+            "_id": "cDnkNxjoHQ88utsn",
+            "changes": [
+                {
+                    "key": "data.saves.reflex.rank",
+                    "mode": 4,
+                    "value": "3"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/classes/evasion.webp",
+            "label": "Evasion (Level 7)",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/evasion.webp",
+    "name": "Evasion (Level 7)",
+    "permission": {
+        "default": 0
+    },
+    "type": "feat"
+}

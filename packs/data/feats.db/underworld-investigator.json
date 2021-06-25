@@ -13,38 +13,62 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your work as an investigator makes you familiar with the criminal element. You might be a criminal yourself, or you might have gained an understanding of how they operate from the outside. You become trained in Underworld Lore, and you gain your @Compendium[pf2e.actionspf2e.xTK2zsWFyxSJvYbX]{Pursue a Lead} circumstance bonus to Thievery checks to @Compendium[pf2e.actionspf2e.EwgTZBWsc8qKaViP]{Investigate} the subject of your lead (such as checks to @Compendium[pf2e.actionspf2e.RDXXE7wMrSPCLv5k]{Steal} a clue from a suspect or @Compendium[pf2e.actionspf2e.2EE4aF4SZpYf0R6H]{Pick a Lock} to open a safe with damning documents).&nbsp;</p>"
+            "value": "<p>Your work as an investigator makes you familiar with the criminal element. You might be a criminal yourself, or you might have gained an understanding of how they operate from the outside.</p>\n<p>You become trained in Underworld Lore, and you gain your @Compendium[pf2e.actionspf2e.Pursue a Lead]{Pursue a Lead} circumstance bonus to Thievery checks to investigate the subject of your lead (such as checks to Steal a clue from a suspect or Pick a Lock to open a safe with damning documents).</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Pursue a Lead (Underworld Investigator)",
+                "predicate": {
+                    "all": [
+                        "pursue-a-lead"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "thievery",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "start": 9,
+                            "value": 2
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "investigator"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Underworld Investigator",
     "permission": {
         "default": 0

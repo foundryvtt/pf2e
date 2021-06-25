@@ -5,62 +5,59 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Requirements</strong> Shining Oath</p>\n<hr>\n<p>Your aura protects against necromantic effects. You and all allies within 15 feet gain resistance 5 to negative energy and a +1 status bonus to saves against necromancy effects.</p>"
+            "value": "<p>Your aura protects against necromantic effects. You and all allies within 15 feet gain resistance 5 to negative energy and a +1 status bonus to saves against necromancy effects.</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Aura of Life]{Effect: Aura of Life}</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "14"
+            "value": 14
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "Shining Oath"
+            "value": [
+                {
+                    "value": "Shining Oath"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "necromancy"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "champion"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Aura of Life",
     "permission": {
         "default": 0

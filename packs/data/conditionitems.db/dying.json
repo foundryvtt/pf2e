@@ -14,7 +14,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You are bleeding out or otherwise at death&rsquo;s door. While you have this condition, you are @Compendium[pf2e.conditionitems.Unconscious]. Dying always includes a value, and if it ever reaches dying 4, you die. If you&rsquo;re dying, you must attempt a recovery check (page 459) at the start of your turn each round to determine whether you get better or worse. Your dying condition increases by 1 if you take damage while dying, or by 2 if you take damage from an enemy&rsquo;s critical hit or a critical failure on your save.<br /><br />If you lose the dying condition by succeeding at a recovery check and are still at 0 Hit Points, you remain&nbsp;@Compendium[pf2e.conditionitems.Unconscious], but you can wake up as described in that condition. You lose the dying condition automatically and wake up if you ever have 1 Hit Point or more. Any time you lose the dying condition, you gain the @Compendium[pf2e.conditionitems.Wounded] 1 condition, or increase your&nbsp;@Compendium[pf2e.conditionitems.Wounded] condition value by 1 if you already have that condition.</p>"
+            "value": "<p>You are bleeding out or otherwise at death's door. While you have this condition, you are @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}. Dying always includes a value, and if it ever reaches dying 4, you die. If you're dying, you must attempt a recovery check at the start of your turn each round to determine whether you get better or worse. Your dying condition increases by 1 if you take damage while dying, or by 2 if you take damage from an enemy's critical hit or a critical failure on your save.<br /><br />If you lose the dying condition by succeeding at a recovery check and are still at 0 Hit Points, you remain unconscious, but you can wake up as described in that condition. You lose the dying condition automatically and wake up if you ever have 1 Hit Point or more. Any time you lose the dying condition, you gain the @Compendium[pf2e.conditionitems.Wounded]{Wounded} 1 condition, or increase your wounded condition value by 1 if you already have that condition.</p>"
         },
         "duration": {
             "perpetual": true,
@@ -25,16 +25,13 @@
         "hud": {
             "img": {
                 "useStatusName": true,
-                "value": "system/pf2e/icons/conditions-2/dying.png"
+                "value": "systems/pf2e/icons/conditions-2/dying.webp"
             },
             "selectable": true,
             "statusName": "dying"
         },
         "modifiers": [],
         "overrides": [],
-        "rarity": {
-            "value": "common"
-        },
         "references": {
             "children": [],
             "immunityFrom": [],
@@ -42,17 +39,19 @@
             "overrides": []
         },
         "removable": true,
+        "rules": [],
         "source": {
             "value": ""
         },
         "sources": {
-            "hud": false
+            "hud": true
         },
         "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": []
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         },
         "value": {
             "immutable": false,
@@ -61,8 +60,13 @@
             "value": 1
         }
     },
-    "flags": {},
-    "img": "systems/pf2e/icons/conditions/dying.png",
+    "effects": [],
+    "flags": {
+        "pf2e": {
+            "condition": true
+        }
+    },
+    "img": "systems/pf2e/icons/conditions/dying.webp",
     "name": "Dying",
     "permission": {
         "default": 0

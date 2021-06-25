@@ -5,63 +5,93 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "action"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": "1"
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> weapon specialization</p>\n<hr>\n<p>You aim for your prey’s weak spots, making your shot more challenging but dealing more damage if you hit. Make a ranged Strike against your hunted prey at a –2 penalty. You gain a +4 circumstance bonus to damage on that Strike. This bonus increases to +6 at 11th level and +8 at 15th level.</p>"
+            "value": "<p>You aim for your prey's weak spots, making your shot more challenging but dealing more damage if you hit.</p>\n<p>Make a ranged Strike against your hunted prey at a -2 penalty. You gain a +4 circumstance bonus to damage on that Strike. This bonus increases to +6 at 11th level and +8 at 15th level.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "8"
+            "value": 8
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "weapon specialization"
+            "value": [
+                {
+                    "value": "weapon specialization"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Use Deadly Aim",
+                "property": "flags.pf2e.rollOptions.all.deadly-aim"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "deadly-aim"
+                    ]
+                },
+                "selector": "attack",
+                "type": "circumstance",
+                "value": -2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "deadly-aim"
+                    ]
+                },
+                "selector": "damage",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 10,
+                            "start": 8,
+                            "value": 4
+                        },
+                        {
+                            "end": 14,
+                            "start": 11,
+                            "value": 6
+                        },
+                        {
+                            "start": 15,
+                            "value": 8
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "ranger",
                 "open"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Deadly Aim",
     "permission": {
         "default": 0

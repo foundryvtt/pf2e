@@ -1,6 +1,7 @@
 {
     "_id": "g2oaOGSpttfH1q6W",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>This wide leather belt grants you a +1 item bonus to Athletics checks and increases the amount you can easily carry. You can carry Bulk equal to 6 + your Strength modifier before becoming encumbered, and you can hold and carry a total Bulk up to 11 + your Strength modifier.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">D</span> Interact; <strong>Effect</strong> You lift an object of up to 8 Bulk as though it were weightless. This requires two hands, and if the object is locked or otherwise held in place, you can attempt to Force it Open using Athletics as part of this activation. The object still has its full weight and Bulk for all other purposes—you just ignore that weight. The effect lasts until the end of your next turn.</span></p>"
+            "value": "<p>This wide leather belt grants you a +1 item bonus to Athletics checks and increases the amount you can easily carry. You can carry Bulk equal to 6 + your Strength modifier before becoming encumbered, and you can hold and carry a total Bulk up to 11 + your Strength modifier.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact</p>\n<p><strong>Effect</strong> You lift an object of up to 8 Bulk as though it were weightless. This requires two hands, and if the object is locked or otherwise held in place, you can attempt to Force it Open using Athletics as part of this activation. The object still has its full weight and Bulk for all other purposes-you just ignore that weight. The effect lasts until the end of your next turn.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to Athletics checks</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "4"
+            "value": 4
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,18 @@
             "value": "80 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "athletics",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +90,6 @@
             "rarity": {
                 "value": "common"
             },
-            "usage": {
-                "value": "held-in-one-hand"
-            },
             "value": [
                 "invested",
                 "magical",
@@ -81,14 +97,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornbelt"
         },
         "weight": {
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/lifting-belt.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/lifting-belt.webp",
     "name": "Lifting Belt",
     "permission": {
         "default": 0

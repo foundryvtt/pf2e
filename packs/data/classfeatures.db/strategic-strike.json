@@ -13,20 +13,68 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>When you strike carefully and with forethought, you deal a telling blow. When making a Strike that adds your Intelligence modifier on your attack roll due to @Compendium[world.actions-apg-data-entry.4KKeiTqStqhTtaEE]{Devising a Strategem}, you deal an additional 1d6 precision damage.</p>\n<p>As your investigator level increases, so too does the deadliness of your strategic strike. Increase the number of dice by one at 5th, 9th, 13th, and 17th levels.&nbsp;</p>"
+            "value": "<p>When you strike carefully and with forethought, you deal a telling blow. When making a Strike that adds your Intelligence modifier on your attack roll due to @Compendium[pf2e.classfeatures.Devise a Stratagem]{Devising a Stratagem}, you deal an additional 1d6 precision damage.</p>\n<p>As your investigator level increases, so too does the deadliness of your strategic strike. Increase the number of dice by one at 5th, 9th, 13th, and 17th levels.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "category": "precision",
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "devise-a-stratagem"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "end": 12,
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        },
+                        {
+                            "end": 16,
+                            "start": 13,
+                            "value": {
+                                "diceNumber": 4
+                            }
+                        },
+                        {
+                            "start": 17,
+                            "value": {
+                                "diceNumber": 5
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +86,12 @@
             "value": [
                 "investigator"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/strategic-strike.webp",
     "name": "Strategic Strike",
     "permission": {
         "default": 0

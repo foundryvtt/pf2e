@@ -13,24 +13,58 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Requirements</strong> Your most recent action was to @Compendium[pf2e.actionspf2e.QNAVeNKtHA0EUw4X]{Feint}, @Compendium[pf2e.actionspf2e.DCb62iCBrJXy0Ik6]{Request}, <br>or @Compendium[pf2e.actionspf2e.2u915NdUyQan6uKF]{Demoralize}, and you failed but didn’t critically fail.</p>\n<hr>\n<p>After your attempt to influence someone goes poorly, you add another bit of information or ask a pointed question, possibly salvaging your previous attempt.</p>\n<p>Reroll the failed check and use the new result. If the target of the failed check is the subject of a lead you’re pursuing, double your bonus from @Compendium[pf2e.actionspf2e.xTK2zsWFyxSJvYbX]{Pursue a Lead} on the rerolled check. That creature is temporarily immune to Just One More Thing for 1 day.</p>\n<p>You can also use this action if you failed, but didn’t critically fail, at a check to @Compendium[pf2e.actionspf2e.ewwCglB7XOPLUz72]{Lie}, @Compendium[pf2e.actionspf2e.plBGdZhqq5JBl1D8]{Gather Information}, @Compendium[pf2e.actionspf2e.OX4fy22hQgUHDr0q]{Make an Impression}, or @Compendium[pf2e.actionspf2e.tHCqgwjtQtzNqVvd]{Coerce}. In this case, rather than spending 1 action, adding Just One More Thing takes you half the amount of time you initially spent on the check, to a minimum of 1 more round.</p>"
+            "value": "<p><strong>Requirements</strong> Your most recent action was to Feint, Request, or Demoralize, and you failed but didn't critically fail.</p>\n<hr />\n<p>After your attempt to influence someone goes poorly, you add another bit of information or ask a pointed question, possibly salvaging your previous attempt.</p>\n<p>Reroll the failed check and use the new result. If the target of the failed check is the subject of a lead you're pursuing, double your bonus from @Compendium[pf2e.actionspf2e.Pursue a Lead]{Pursue a Lead} on the rerolled check. That creature is temporarily immune to Just One More Thing for 1 day.</p>\n<p>You can also use this action if you failed, but didn't critically fail, at a check to Lie, Gather Information, Make an Impression, or Coerce. In this case, rather than spending 1 action, adding Just One More Thing takes you half the amount of time you initially spent on the check, to a minimum of 1 more round.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "10"
+            "value": 10
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Just One More Thing",
+                "property": "flags.pf2e.rollOptions.all.just-one-more-thing"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "just-one-more-thing"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "just-one-more-thing"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
@@ -38,13 +72,11 @@
                 "fortune",
                 "investigator"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Just One More Thing",
     "permission": {
         "default": 0

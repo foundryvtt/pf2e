@@ -1,0 +1,303 @@
+.entries-list {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+
+    .spellcasting-entry {
+        display: block;
+        width: 100%;
+        margin: 0px;
+
+        &:not(:first-child) {
+            margin-top: 24px;
+        }
+
+        .header {
+            background-color: $primary-accent;
+            color: $light-text;
+            display: flex;
+            flex: 1 0 auto;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 4px 12px;
+            border-radius: 3px 3px 0px 0px;
+
+            .values {
+                display: flex;
+                flex: 1;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                align-items: baseline;
+
+                .name {
+                    width: max-content;
+                    h4 {
+                        margin: 0 4px;
+                    }
+                    padding-right: 6px;
+                }
+
+                .inline-field {
+                    flex: 0;
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    justify-content: flex-start;
+                    align-items: baseline;
+
+                    label {
+                        flex: 1;
+                    }
+
+                    .attack-input {
+                        flex: 1 0 32px;
+                        text-align: center;
+                        background-color: $light-text;
+                        font-weight: bold;
+                        margin-left: 4px;
+                        margin-right: 8px;
+                        width: 32px;
+                    }
+
+                    .dc-input {
+                        flex: 1 0 32px;
+                        text-align: center;
+                        background-color: $light-text;
+                        font-weight: bold;
+                        margin-left: 4px;
+                        margin-right: 8px;
+                        width: 32px;
+                    }
+                }
+
+                .ability-score {
+                    select {
+                        margin-left: 4px;
+                        max-width: 55px;
+                        padding: 2px !important;
+                    }
+                }
+            }
+        }
+
+        .body {
+            border: 1px solid $primary-accent;
+            border-radius: 0px 0px 3px 3px;
+
+            .sub-header {
+                flex: 1 0 auto;
+                background-color: $secondary-accent;
+                color: $light-text;
+                display: grid;
+                grid-template-columns: 26px auto 64px 80px 64px;
+                column-gap: 6px;
+                padding: 4px 8px;
+                text-align: center;
+
+                .focus-point-container {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: baseline;
+                    grid-column: 1/span 2;
+
+                    .focus-label {
+                        align-self: flex-start;
+                        text-align: center;
+                    }
+
+                    .focus-points {
+                        text-align: center;
+                        background-color: $light-text;
+                        font-weight: bold;
+                        margin-left: 4px;
+                        margin-right: 8px;
+                        width: 25px;
+                    }
+
+                    .focus-pool {
+                        text-align: center;
+                        background-color: $light-text;
+                        font-weight: bold;
+                        margin-left: 4px;
+                        margin-right: 8px;
+                        width: 25px;
+                    }
+                }
+
+                .controls {
+                    flex: 0;
+                    text-align: right;
+                    justify-content: flex-end;
+                }
+            }
+
+            .section {
+
+                .section-header {
+                    display: flex;
+                    flex: 1 0 auto;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    align-items: baseline;
+                    background-color: $secondary-accent;
+                    color: $light-text;
+                    padding: 4px 8px;
+                    text-align: center;
+
+                    .level-prepared-toggle {
+                        align-self: flex-start;
+                    }
+
+                    h4 {
+                        padding-left: 10px;
+                        margin: 0px;
+                    }
+
+                    .spell-slots-input {
+                        text-align: center;
+                        background-color: #f5efe0;
+                        font-weight: bold;
+                        margin-left: 4px;
+                        margin-right: 8px;
+                        width: 25px;
+                    }
+
+                    .spell-max-input {
+                        text-align: center;
+                        background-color: #f5efe0;
+                        font-weight: bold;
+                        margin-left: 4px;
+                        margin-right: 8px;
+                        width: 25px;
+                    }
+                }
+
+                .spells-list {
+                    list-style: none;
+                    margin: 0px;
+                    padding: 0px;
+                    display: grid;
+
+                    .spell {
+                        padding: 2px 6px;
+
+                        &:not(:last-child) {
+                            border-bottom: 1px solid $faded-color;
+                        }
+
+                        .spell-header {
+                            display: grid;
+                            grid-template-columns: 26px auto 64px 80px 70px;
+                            column-gap: 6px;
+
+                            > * {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+
+                            .spell-icon {
+                                border: 2px solid $faded-color;
+                                border-radius: 3px;
+                                width: 26px;
+                                height: 26px;
+                                &:hover {
+                                    cursor: pointer;
+                                    max-height: 26px;
+                                    background: url("/icons/svg/d20-black.svg") no-repeat center;
+                                    background-size: contain;
+                                    img {
+                                        visibility: hidden;
+                                    }
+                                }
+                            }
+
+                            .spell-name {
+                                align-items: baseline;
+                                justify-content: initial;
+                                margin-left: 8px;
+                                a {
+                                    font-weight: 600;
+                                    position: relative;
+                                    top: -1px;
+                                    &.expended {
+                                        color: rgba($body-color, 0.5);
+                                        text-decoration: line-through;
+                                    }
+                                }
+                                .activity-icon {
+                                    font-size: 1.4rem;
+                                }
+
+                                &.empty {
+                                    height: 26px;
+                                    padding-top: 5px;
+                                    grid-column: 1/span 4;
+                                }
+                            }
+
+                            .controls {
+                                justify-content: flex-end;
+                                > a {
+                                    margin-left: 2px;
+                                    height: 18px;
+                                }
+                                .item-chat {
+                                    position: relative;
+                                    top: 1px;
+                                }
+                                visibility: hidden;
+                            }
+                        }
+
+                        &.unprepared {
+                            .spell-header {
+                                grid-template-columns: auto 64px 80px 70px;
+                                .spell-icon {
+                                    visibility: hidden;
+                                }
+                            }
+                        }
+
+                        &:hover .spell-header .controls {
+                            visibility: visible;
+                        }
+                    }
+
+                    .spell-body .spell-detail {
+                        padding-top: 8px;
+
+                        .tag {
+                            font-size: 8px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.footer {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.btn {
+    width: auto !important;
+    cursor: pointer;
+    margin: 8px;
+    padding: 6px 12px;
+    font-size: 10px;
+    line-height: 16px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+    background: $primary-accent;
+    color: $light-text;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 3px;
+    border: none;
+}

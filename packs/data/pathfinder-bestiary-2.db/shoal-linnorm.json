@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "38"
+                "value": 38
             },
             "allSaves": {
                 "value": "+1 status to all saves vs. magic"
@@ -59,12 +59,11 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 10 ",
-                "max": "295",
+                "details": "regeneration 10 (deactivated by cold iron)",
+                "max": 295,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "295"
+                "value": 295
             },
             "init": {
                 "bonus": 0,
@@ -104,16 +103,19 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "100 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "100"
                     },
                     {
-                        "type": "Swim",
-                        "value": "100 feet"
+                        "exceptions": "",
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "100"
                     }
                 ],
-                "special": "",
-                "value": "35 feet"
+                "value": "35"
             }
         },
         "currency": {
@@ -130,6 +132,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -146,10 +149,10 @@
             },
             "creatureType": "Dragon",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Shoal linnorms occupy rocky shoreline shallows and slither along lonely coastlines. While they do not intentionally seek out large settlements, these linnorms nonetheless beleaguer fishers headed out from small coastal towns, and they may even follow skiffs back to their home port to appraise the town's defenses and plan a raid. Shoal linnorms tend to hunt large prey, both underwater and on land. Their preferred quarries includes giant squid and grizzly bears—meals rich in fat, which the linnorms metabolize into the fiery steam that courses through their veins.<br><br>",
+            "flavorText": "Shoal linnorms occupy rocky shoreline shallows and slither along lonely coastlines. While they do not intentionally seek out large settlements, these linnorms nonetheless beleaguer fishers headed out from small coastal towns, and they may even follow skiffs back to their home port to appraise the town's defenses and plan a raid. Shoal linnorms tend to hunt large prey, both underwater and on land. Their preferred quarries includes giant squid and grizzly bears-meals rich in fat, which the linnorms metabolize into the fiery steam that courses through their veins.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -159,13 +162,63 @@
             },
             "level": {
                 "min": 1,
-                "value": "15"
+                "value": 15
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=720",
             "recallKnowledgeText": "Recall Knowledge - Dragon : DC 36",
-            "sidebarText": "",
             "source": {
-                "value": "Bestiary 2 pg. 164"
+                "value": "Bestiary 2"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot6": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot7": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot8": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 36,
+                        "value": 26
+                    }
+                }
+            },
+            "QbjjKmqSkCf93Xw5": {
+                "data": {
+                    "spelldc": {
+                        "dc": 36,
+                        "value": 26
+                    }
+                }
             }
         },
         "martial": {
@@ -415,11 +468,17 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
-                "custom": "curse, fire, paralyzed, sleep",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "curse",
+                    "fire",
+                    "paralyzed",
+                    "sleep"
                 ]
             },
             "dr": [],
@@ -457,10 +516,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "QbjjKmqSkCf93Xw5",
@@ -488,11 +547,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -556,11 +616,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "36",
+                    "dc": 36,
                     "item": 0,
                     "mod": 0,
                     "value": 26
@@ -569,95 +630,90 @@
                     "value": "primal"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Primal Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "xJZfeP18N9FJrBxt",
+            "_id": "C3660uLElTZLdhwb",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to Escape an effect that has them @Compendium[pf2e.conditionspf2e.eIcWbB5o3pP6OIMe]{Immobilized}, @Compendium[pf2e.conditionspf2e.kWc1fhmv9LBiTuei]{Grabbed}, or @Compendium[pf2e.conditionspf2e.VcDeM8A5oI6VqhbM]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
+                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @Compendium[pf2e.actionspf2e.Escape]{Escape} an effect that has them @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": "10 minutes"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "QbjjKmqSkCf93Xw5"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "touch"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -665,41 +721,31 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "abj"
+                    "value": "abjuration"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "freedom-of-movement",
                 "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=128"
-                },
-                "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "utility"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 creature touched"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "divine",
@@ -707,99 +753,93 @@
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/freedom-of-movement.jpg",
-            "name": "Freedom of Movement ",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.aqRYNoSvxsVfqglH"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
+            "name": "Freedom of Movement (Constant)",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "J8i7cr8sUNeRft2T",
+            "_id": "lIhRNM5msYgcZJCL",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>You see things within 60 feet as they actually are. The GM rolls a secret counteract check against any illusion or transmutation in the area, but only for the purpose of determining whether you see through it (for instance, if the check succeeds against a polymorph spell, you can see the creature’s true form, but you don’t end the polymorph spell).</p>"
+                    "value": "<p>You see things within 60 feet as they actually are. The GM rolls a secret counteract check against any illusion or transmutation in the area, but only for the purpose of determining whether you see through it (for instance, if the check succeeds against a polymorph spell, you can see the creature's true form, but you don't end the polymorph spell).</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": "10 minutes"
                 },
+                "hasCounteractCheck": {
+                    "value": true
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 6
                 },
                 "location": {
                     "value": "QbjjKmqSkCf93Xw5"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": ""
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -807,41 +847,31 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "div"
+                    "value": "divination"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-seeing",
                 "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=344"
-                },
-                "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "utility"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": ""
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "divine",
@@ -850,20 +880,28 @@
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "divination",
                         "revelation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/true-seeing.jpg",
-            "name": "True Seeing",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/true-seeing.webp",
+            "name": "True Seeing (Constant)",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
@@ -874,134 +912,52 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "shoal linnorm venom"
+                        "Shoal Linnorm Venom"
                     ]
                 },
                 "bonus": {
-                    "total": 31,
                     "value": 31
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "piercing",
-                    "die": "3d12+16"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "3d12+16",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "magical",
-                        "reach 20 feet"
+                        "reach-20"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Jaws",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "melee"
         },
@@ -1015,130 +971,47 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 31,
                     "value": 31
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "die": "3d8+16"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "3d8+16",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile",
                         "magical",
-                        "reach 15 feet"
+                        "reach-15"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Claw",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "melee"
         },
@@ -1154,137 +1027,54 @@
                     ]
                 },
                 "bonus": {
-                    "total": 31,
                     "value": 31
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "die": "4d6+16"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "4d6+16",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "magical",
-                        "reach 25 feet"
+                        "reach-25"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Tail",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "melee"
         },
         {
-            "_id": "2oTY3Ohbh0C59vOv",
+            "_id": "pL08UYEZoKBSYUzv",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1295,22 +1085,246 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "When a creature slays a shoal linnorm, it must succeed at a DC 38 Will save or become cursed. As long as the curse of drowning persists, the character must spend 3 actions when drinking any liquid. Attempting to drink liquid faster causes the victim to begin drowning, immediately running out of air and falling unconscious."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "puOX1L9eYq450jRo",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scent",
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "5UFt8Dv6NCEOpZlE",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Constant Spells",
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "Q6Z6sPX8M68AUOXI",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "2oTY3Ohbh0C59vOv",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>When a creature slays a shoal linnorm, it must succeed at a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"38\" data-pf2-traits=\"curse,primal,water\" data-pf2-label=\"Curse of Drowning DC\" data-pf2-show-dc=\"gm\">Will</span> save or become cursed. As long as the curse of drowning persists, the character must spend 3 actions when drinking any liquid. Attempting to drink liquid faster causes the victim to begin drowning, immediately running out of air and falling unconscious.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "curse",
                         "primal",
@@ -1327,23 +1341,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Curse of Drowning",
-            "sort": 700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
             "type": "action"
         },
         {
-            "_id": "JiBu4pOYoMUCvAKw",
+            "_id": "UuDDHSI5hH9lHpZv",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -1354,51 +1367,50 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Tail only.<br><b>Trigger</b> A creature within the monster’s reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it’s using. <b>Effect</b> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn’t count toward the monster’s multiple attack penalty, and its multiple attack penalty doesn’t apply to this Strike."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>Tail only.</p>\n<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1200000,
             "type": "action"
         },
         {
-            "_id": "xdcR3l3iekCECcMF",
+            "_id": "4CyhH5ZkHNlxJtIP",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1409,77 +1421,75 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionspf2e.Dying] condition never increases beyond @Compendium[pf2e.conditionspf2e.Dying] 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to @Compendium[pf2e.conditionspf2e.Dying] 4."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "regeneration",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Regeneration",
-            "sort": 900000,
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Regeneration 10 (deactivated by cold iron)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1300000,
             "type": "action"
         },
         {
             "_id": "CThMS3QhSA3Obh7Z",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The shoal linnorm exhales scalding steam that deals [[/r 12d8 # fire damage]] fire damage in a 60-foot cone (DC 36 basic Reflex save). The steam lingers until the end of the linnorm's next turn; anyone who enters the area or begins their turn in the area takes [[/r 6d8 # fire damage]] fire damage (DC 36 Reflex save negates). During this time, the steam is so thick that it impedes movement as well as sight, turning the area into difficult terrain. All creatures in the steam become @Compendium[pf2e.conditionspf2e.Concealed], and all creatures outside the steam become concealed to creatures within it. The shoal linnorm can't use Breath Weapon again for 1d4 rounds."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The shoal linnorm exhales scalding steam that deals [[/r 12d8 #fire]] fire damage in a 60-foot cone (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"36\" data-pf2-traits=\"evocation,fire,primal,water,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The steam lingers until the end of the linnorm's next turn; anyone who enters the area or begins their turn in the area takes [[/r 6d8 #fire]] fire damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"36\" data-pf2-traits=\"evocation,fire,primal,water,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">Reflex</span> save negates). During this time, the steam is so thick that it impedes movement as well as sight, turning the area into difficult terrain. All creatures in the steam become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the steam become concealed to creatures within it.</p>\n<p>The shoal linnorm can't use Breath Weapon again for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "evocation",
                         "fire",
@@ -1497,23 +1507,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 1000000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1400000,
             "type": "action"
         },
         {
             "_id": "hREXXxR78zjxAtPW",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1524,22 +1533,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Saving Throw</b> DC 36 Fortitude; <b>Maximum Duration</b> 10 rounds; <b>Stage 1</b> [[/r 4d6 # fire damage]] fire damage and @Compendium[pf2e.conditionspf2e.Enfeebled] 1 (1 round); <b>Stage 2</b> [[/r 6d6 # fire damage]] fire damage and enfeebled 2 (1 round)."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Saving Throw</strong> DC 36 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 10 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 4d6 #fire]] fire damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 6d6 #fire]] fire damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "fire",
                         "poison"
@@ -1555,23 +1563,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Shoal Linnorm Venom",
-            "sort": 1100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1500000,
             "type": "action"
         },
         {
-            "_id": "B7txWxgRhRFv5og5",
+            "_id": "Y24jpiGNojJwV4RQ",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "free"
@@ -1582,44 +1589,43 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The monster can use Grab as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has grabbed. <br><b>Effect</b> The monster automatically Grabs the target until the end of the monster’s next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can’t be used to Strike creatures until the grab is ended.<br><br> Using Grab extends the duration of the monster’s Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape] action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "improved-grab",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
-            "sort": 1200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1630,7 +1636,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1640,23 +1645,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1667,7 +1680,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1677,23 +1689,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1704,7 +1724,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1714,23 +1733,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1900000,
             "type": "lore"
         }
     ],
@@ -1739,13 +1766,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "nipVBTEgG6itWJSW",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1755,15 +1784,21 @@
         "disposition": -1,
         "flags": {},
         "height": 4,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Shoal Linnorm",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 4

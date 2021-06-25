@@ -13,37 +13,60 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>trained in Athletics</p>\n<hr>\n<p>You know how to calculatedly manipulate joints and body weight. In addition to using @Compendium[pf2e.actionspf2e.m0f2B7G9eaaTmhFL]{Devise a Strategem} to modify a Strike, you can use it to modify a @Compendium[pf2e.actionspf2e.Dt6B1slsBy8ipJu9]{Disarm}, @Compendium[pf2e.actionspf2e.PMbdMWc2QroouFGD]{Grapple}, @Compendium[pf2e.actionspf2e.7blmbDrQFNfdT731]{Shove}, or @Compendium[pf2e.actionspf2e.ge56Lu1xXVFYUnLP]{Trip} attempt, substituting your Devise a Stratagem roll for the Athletics check. You must apply the substitution to the first eligible attack you make, whether it’s a @Compendium[pf2e.actionspf2e.VjxZFuUXrCU94MWR]{Strike} or one of the Athletics actions.</p>\n<p>You can also use your Intelligence modifier instead of Strength for the Athletics check when you substitute your Devise a Stratagem roll, unless you’re using a weapon for the maneuver and the weapon doesn’t fit the restrictions for using Intelligence with a stratagem.</p>"
+            "value": "<p>You know how to calculatedly manipulate joints and body weight. In addition to using @Compendium[pf2e.actionspf2e.Devise a Stratagem]{Devise a Strategem} to modify a Strike, you can use it to modify a @Compendium[pf2e.actionspf2e.Disarm]{Disarm}, @Compendium[pf2e.actionspf2e.Grapple]{Grapple}, @Compendium[pf2e.actionspf2e.Shove]{Shove}, or @Compendium[pf2e.actionspf2e.Trip]{Trip} attempt, substituting your Devise a Stratagem roll for the Athletics check. You must apply the substitution to the first eligible attack you make, whether it's a @Compendium[pf2e.actionspf2e.Strike]{Strike} or one of the Athletics actions.</p>\n<p>You can also use your Intelligence modifier instead of Strength for the Athletics check when you substitute your Devise a Stratagem roll, unless you're using a weapon for the maneuver and the weapon doesn't fit the restrictions for using Intelligence with a stratagem.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
-            "value": "trained in Athletics"
+            "value": [
+                {
+                    "value": "trained in Athletics"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "devise-a-stratagem"
+                    ],
+                    "any": [
+                        "action:disarm",
+                        "action:grapple",
+                        "action:shove",
+                        "action:trip"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "athletics",
+                "type": "ability",
+                "value": "@abilities.int.mod"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "investigator"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Athletic Strategist",
     "permission": {
         "default": 0

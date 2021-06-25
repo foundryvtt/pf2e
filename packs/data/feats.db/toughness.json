@@ -5,63 +5,73 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
-      "description": {
-        "chat": "",
-        "label": "Description",
-        "type": "String",
-        "unidentified": "",
-        "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
-      },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
+        },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "general"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.RecoveryCheckDC"
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "general"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [
+        {
+            "_id": "Qp1gKcCLQ8O4d1Lo",
+            "changes": [
+                {
+                    "key": "data.attributes.hp.modifiers",
+                    "mode": 2,
+                    "value": "{ \"modifier\": \"@data.details.level.value * 1\", \"type\": \"untyped\" }"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "rounds": null,
+                "seconds": null,
+                "startRound": null,
+                "startTime": null,
+                "startTurn": null,
+                "turns": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/feats/feats.webp",
+            "label": "Toughness",
+            "origin": "",
+            "tint": "",
+            "transfer": true
+        }
+    ],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Toughness",
     "permission": {
         "default": 0

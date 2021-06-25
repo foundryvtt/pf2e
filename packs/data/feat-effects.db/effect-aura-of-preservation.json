@@ -1,0 +1,69 @@
+{
+    "_id": "18FHJoazfEmgNkfk",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Aura Of Preservation]{Aura Of Preservation}</p>\n<p>Your allies within 15 feet gain a +1 status bonus to Fortitude and Will saves against effects from aberrations.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 14
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.TokenEffectIcon"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Aura of Preservation (vs. aberrations)",
+                "predicate": {
+                    "all": [
+                        "target:aberration"
+                    ]
+                },
+                "selector": "fortitude",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Aura of Preservation (vs. aberrations)",
+                "predicate": {
+                    "all": [
+                        "target:aberration"
+                    ]
+                },
+                "selector": "will",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/destructive-aura.webp",
+    "name": "Effect: Aura of Preservation",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

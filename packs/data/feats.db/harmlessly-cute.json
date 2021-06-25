@@ -13,20 +13,30 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">Your size and demeanor make it easy for you to convince others that you mean no harm. You gain the <a class=\"entity-link\" data-pack=\"pf2e.feats-srd\" data-id=\"KIK2Eza9TK47MEb2\" draggable=\"true\"><i class=\"fas fa-suitcase\"></i> Shameless Request</a>&nbsp;skill feat as a bonus feat. Additionally, you gain a +1 circumstance bonus to initiative checks when you roll Deception for initiative.&nbsp;</span></p>"
+            "value": "<p>Your size and demeanor make it easy for you to convince others that you mean no harm. You gain the @Compendium[pf2e.feats-srd.Shameless Request]{Shameless Request}skill feat as a bonus feat. Additionally, you gain a +1 circumstance bonus to initiative checks when you roll Deception for initiative.</p>"
         },
         "featType": {
             "value": "ancestry"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "deception"
+                    ]
+                },
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +48,11 @@
             "value": [
                 "leshy"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Harmlessly Cute",
     "permission": {
         "default": 0

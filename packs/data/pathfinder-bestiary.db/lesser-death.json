@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "39"
+                "value": 39
             },
             "allSaves": {
                 "value": "+1 status to all saves vs. magic"
@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "255",
+                "max": 255,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "255"
+                "value": 255
             },
             "init": {
                 "bonus": 0,
@@ -108,7 +107,6 @@
                         "value": "40 feet"
                     }
                 ],
-                "special": "",
                 "value": "50 feet"
             }
         },
@@ -142,10 +140,10 @@
             },
             "creatureType": "Undead",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "No one is quite sure what lesser deaths are, though some claim that they are avatars of the grim reaper. Unlike that strange hunter, however, lesser deaths hunt in packs on rare occasions. More often than not, they manifest from cursed magic items. Other times, they are just the enactors of death, hunting in the same way the grim reaper does— silently, with neither remorse nor quarter. Rarely, multiple lesser deaths work together to cull a large population, their scythes cutting through crowds and leaving entire cities devoid of life, inspiring  false rumors of multiple grim reapers.<br><br>",
+            "flavorText": "No one is quite sure what lesser deaths are, though some claim that they are avatars of the grim reaper. Unlike that strange hunter, however, lesser deaths hunt in packs on rare occasions. More often than not, they manifest from cursed magic items. Other times, they are just the enactors of death, hunting in the same way the grim reaper does- silently, with neither remorse nor quarter. Rarely, multiple lesser deaths work together to cull a large population, their scythes cutting through crowds and leaving entire cities devoid of life, inspiring  false rumors of multiple grim reapers.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -155,13 +153,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "16"
+                "value": 16
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=251",
             "recallKnowledgeText": "Recall Knowledge : DC 40",
-            "sidebarText": "",
             "source": {
-                "value": "Bestiary pg. 197"
+                "value": "Bestiary"
             }
         },
         "martial": {
@@ -413,9 +409,13 @@
         "traits": {
             "ci": [],
             "di": {
-                "custom": "death effects, disease, paralyzed, poison, unconscious",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "death effects",
+                    "disease",
+                    "paralyzed",
+                    "poison",
+                    "unconscious"
                 ]
             },
             "dr": [],
@@ -445,10 +445,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "kPwMrlDyI4wNk8oT",
@@ -476,11 +476,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -544,6 +545,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -557,15 +559,24 @@
                     "value": "divine"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Divine Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -573,79 +584,59 @@
             "_id": "AEMTtuPOS6mWx2SV",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>You see things within 60 feet as they actually are. The GM rolls a secret counteract check against any illusion or transmutation in the area, but only for the purpose of determining whether you see through it (for instance, if the check succeeds against a polymorph spell, you can see the creature’s true form, but you don’t end the polymorph spell).</p>"
+                    "value": "<p>You see things within 60 feet as they actually are. The GM rolls a secret counteract check against any illusion or transmutation in the area, but only for the purpose of determining whether you see through it (for instance, if the check succeeds against a polymorph spell, you can see the creature's true form, but you don't end the polymorph spell).</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": "10 minutes"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 6
                 },
                 "location": {
                     "value": "kPwMrlDyI4wNk8oT"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": ""
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -653,41 +644,25 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "div"
+                    "value": "divination"
                 },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=344"
                 },
-                "spellCategory": {
-                    "value": ""
-                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "utility"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": ""
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "divine",
@@ -696,8 +671,10 @@
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "divination",
                         "revelation"
@@ -707,9 +684,14 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/spells/true-seeing.jpg",
-            "name": "True Seeing ",
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/true-seeing.webp",
+            "name": "True Seeing",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spell"
         },
@@ -717,85 +699,65 @@
             "_id": "VAZxT0KhYzbN5C4X",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
                 "areasize": {
                     "value": ""
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>Magic empowers the target to act faster. It gains the @Compendium[pf2e.conditionspf2e.nlCjDvLMf2EkV2dl]{Quickened} condition and can use the extra action each round only for Strike and Stride actions.</p>\n<hr>\n<p><strong>Heightened </strong> You can target up to 6 creatures.</p>"
+                    "value": "<p>Magic empowers the target to act faster. It gains the @Compendium[pf2e.conditionitems.Quickened]{Quickened} condition and can use the extra action each round only for Strike and Stride actions.</p>\n<hr />\n<p><strong>Heightened</strong> You can target up to 6 creatures.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": "1 minute"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 3
                 },
                 "location": {
                     "value": "kPwMrlDyI4wNk8oT"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "30 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -803,9 +765,7 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "trs"
+                    "value": "transmutation"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -813,37 +773,23 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=147"
                 },
-                "spellCategory": {
-                    "value": ""
-                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "utility"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 creature"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "occult",
@@ -851,11 +797,10 @@
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
+                    "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "type": "String",
                     "value": [
                         "transmutation"
                     ]
@@ -864,11 +809,14 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/haste.jpg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/haste.webp",
             "name": "Haste",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
@@ -876,79 +824,59 @@
             "_id": "Le3PrTEPe2PmGYQR",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>You can see @Compendium[pf2e.conditionspf2e.zJxUflt9np0q4yML]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @Compendium[pf2e.conditionspf2e.DmAIPqOBomZ7H95W]{Concealed} to you.</p>\n<hr>\n<p><strong>Heightened </strong> The spell has a duration of 8 hours.</p>"
+                    "value": "<p>You can see @Compendium[pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @Compendium[pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened</strong> The spell has a duration of 8 hours.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": "10 minutes"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 2
                 },
                 "location": {
                     "value": "kPwMrlDyI4wNk8oT"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": ""
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -956,41 +884,25 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "div"
+                    "value": "divination"
                 },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=271"
                 },
-                "spellCategory": {
-                    "value": ""
-                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "utility"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": ""
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "divine",
@@ -998,8 +910,10 @@
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "divination",
                         "revelation"
@@ -1009,17 +923,21 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/see-invisibility.jpg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "spell"
         },
         {
             "_id": "T1WoVpFcfULHq0ob",
             "data": {
+                "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -1034,8 +952,6 @@
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
                     "value": ""
                 },
@@ -1051,8 +967,18 @@
                 "hp": {
                     "value": 0
                 },
-                "identified": {
-                    "value": false
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1073,14 +999,16 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "0 gp"
                 },
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
+                "rules": [],
+                "size": {
+                    "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1088,6 +1016,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
@@ -1097,9 +1029,14 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "scythe",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "equipment"
         },
@@ -1113,136 +1050,53 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 32,
                     "value": 32
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "die": "3d10+14"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "ctjv6iu15pa5kdgjmeaw": {
                         "damage": "3d10+14",
                         "damageType": "slashing"
                     },
-                    {
+                    "hp2i3xhhbobahc89mysj": {
                         "damage": "1d12",
                         "damageType": "negative"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile",
                         "deadly 2d10",
                         "magical",
-                        "reach 10 feet",
+                        "reach-10",
                         "trip"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Keen Scythe",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "melee"
         },
@@ -1250,7 +1104,7 @@
             "_id": "uCvZSYozUXxyyf1b",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1261,22 +1115,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The lesser death can choose whether or not it counts as undead for effects that affect undead differently. Even if it does not count as undead, the grim reaper still never counts as a living creature."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The lesser death can choose whether or not it counts as undead for effects that affect undead differently. Even if it does not count as undead, the grim reaper still never counts as a living creature.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1289,15 +1142,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "interaction"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Death's Grace",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "action"
         },
@@ -1305,7 +1157,7 @@
             "_id": "hwUA4Pu9qRQurhWj",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1316,22 +1168,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The lesser death automatically knows the Hit Points, conditions, afflictions, and emotions of all creatures it can see."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The lesser death automatically knows the Hit Points, conditions, afflictions, and emotions of all creatures it can see.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1344,15 +1195,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "interaction"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Status Sight",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "action"
         },
@@ -1360,7 +1210,7 @@
             "_id": "Ohby2hZPzWDoCkLo",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1371,22 +1221,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " 20 feet. Living creatures in the aura must roll twice on all d20 rolls and use the lower result."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>20 feet. Living creatures in the aura must roll twice on all d20 rolls and use the lower result.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "aura",
                         "divination",
@@ -1404,15 +1253,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Aura of Misfortune",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "action"
         },
@@ -1420,7 +1268,7 @@
             "_id": "2zzkls69X5IQduiO",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1431,22 +1279,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The lesser death can choose whether or not it takes positive damage."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The lesser death can choose whether or not it takes positive damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1459,15 +1306,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Negative Healing",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "action"
         },
@@ -1475,7 +1321,7 @@
             "_id": "L107mBB0Pcsz3T2q",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -1486,22 +1332,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "; <b>Trigger</b> A creature within 60 feet makes a ranged attack or uses an action that has the concentrate, manipulate, or move trait. <b>Effect</b> The lesser death teleports to a square adjacent to the triggering creature and makes a melee Strike against it. If the Strike hits, the lesser death disrupts the triggering action."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>; <strong>Trigger</strong> A creature within 60 feet makes a ranged attack or uses an action that has the concentrate, manipulate, or move trait. <strong>Effect</strong> The lesser death teleports to a square adjacent to the triggering creature and makes a melee Strike against it. If the Strike hits, the lesser death disrupts the triggering action.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "teleportation"
                     ]
@@ -1516,15 +1361,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Lurking Death",
+            "permission": {
+                "default": 0
+            },
             "sort": 1100000,
             "type": "action"
         },
@@ -1532,7 +1376,7 @@
             "_id": "UJUSN0sChxOuRWw8",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1543,26 +1387,25 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " Any scythe gains the agile trait, can’t be disarmed, and becomes a <i>+3 @Compendium[pf2e.equipment-srd.woxl2FrrgAcJDu0t]{Striking } @Compendium[pf2e.equipment-srd.hg3IogR8ue2IWwgS]{Keen} scythe</i> while the grim reaper wields it. If the grim reaper Strikes a creature with a weakness to any specific type of damage, the scythe’s damage counts as that type of damage, in addition to slashing."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>Any scythe gains the agile trait, can't be disarmed, and becomes a <i>+3 @Compendium[pf2e.equipment-srd.Striking (Major)]{Striking } @Compendium[pf2e.equipment-srd.Keen]{Keen} scythe</i> while the grim reaper wields it. If the grim reaper Strikes a creature with a weakness to any specific type of damage, the scythe's damage counts as that type of damage, in addition to slashing.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "divine",
                         "evocation",
-                        "agile trait, can&#x2019;t be disarmed, and becomes a <i>+3 "
+                        "agile trait, can&#x2019;t be disarmed, and becomes a <i>+3"
                     ]
                 },
                 "trigger": {
@@ -1575,15 +1418,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Infuse Weapon",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
             "type": "action"
         },
@@ -1595,7 +1437,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1605,22 +1446,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "lore"
         },
@@ -1632,7 +1481,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1642,22 +1490,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
             "sort": 1400000,
             "type": "lore"
         },
@@ -1669,7 +1525,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1679,22 +1534,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
+            "permission": {
+                "default": 0
+            },
             "sort": 1500000,
             "type": "lore"
         },
@@ -1706,7 +1569,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1716,22 +1578,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
+            "permission": {
+                "default": 0
+            },
             "sort": 1600000,
             "type": "lore"
         },
@@ -1743,7 +1613,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1753,22 +1622,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
+            "permission": {
+                "default": 0
+            },
             "sort": 1700000,
             "type": "lore"
         },
@@ -1780,7 +1657,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1790,22 +1666,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
+            "permission": {
+                "default": 0
+            },
             "sort": 1800000,
             "type": "lore"
         },
@@ -1817,7 +1701,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1827,22 +1710,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 1900000,
             "type": "lore"
         }
@@ -1852,13 +1743,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "pkNWilK2pHZ5TDsd",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1868,15 +1761,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Lesser Death",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

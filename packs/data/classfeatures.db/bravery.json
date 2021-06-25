@@ -13,35 +13,68 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">Having faced countless foes and the chaos of battle, you have learned how to stand strong in the face of fear and keep on fighting. Your proficiency rank for Will saves increases to expert. When you roll a success at a Will save against a fear effect, you get a critical success instead. In addition, anytime you gain the frightened condition, reduce its value by 1.&nbsp;</span></p>"
+            "value": "<p>Having faced countless foes and the chaos of battle, you have learned how to stand strong in the face of fear and keep on fighting. Your proficiency rank for Will saves increases to expert. When you roll a success at a Will save against a fear effect, you get a critical success instead. In addition, anytime you gain the frightened condition, reduce its value by 1.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "3"
+            "value": 3
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "fear"
+                    ]
+                },
+                "selector": "will",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success at a Will save against a fear effect, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": [
                 "fighter"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [
+        {
+            "_id": "nwXaEwn2ZKPeYoxL",
+            "changes": [
+                {
+                    "key": "data.saves.will.rank",
+                    "mode": 4,
+                    "value": "2"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/classes/bravery.webp",
+            "label": "Bravery",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/bravery.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/bravery.webp",
     "name": "Bravery",
     "permission": {
         "default": 0

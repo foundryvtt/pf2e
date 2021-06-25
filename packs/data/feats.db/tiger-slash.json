@@ -5,63 +5,92 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "action"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": "2"
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> Tiger Stance</p>\n<p><strong>Requirements</strong> You are in Tiger Stance</p>\n<hr>\n<p>You make a fierce swipe with both hands. Make a tiger claw Strike. It deals two extra weapon damage dice (three extra dice if you’re 14th level or higher), and you can push the target 5 feet away as if you had successfully Shoved them. If the attack is a critical success and deals damage, add your Strength modifier to the persistent bleed damage from your tiger claw.</p>"
+            "value": "<p><strong>Requirements</strong> You are in @Compendium[pf2e.feats-srd.Tiger Stance]{Tiger Stance}</p>\n<hr />\n<p>You make a fierce swipe with both hands. Make a tiger claw Strike. It deals two extra weapon damage dice (three extra dice if you're 14th level or higher), and you can push the target 5 feet away as if you had successfully @Compendium[pf2e.actionspf2e.Shove]{Shoved} them.</p>\n<p>If the attack is a critical success and deals damage, add your Strength modifier to the persistent bleed damage from your tiger claw.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "6"
+            "value": 6
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "Tiger Stance"
+            "value": [
+                {
+                    "value": "Tiger Stance"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Tiger Slash",
+                "property": "flags.pf2e.rollOptions.all.tiger-slash"
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "label": "Tiger Slash",
+                "predicate": {
+                    "all": [
+                        "tiger-slash"
+                    ]
+                },
+                "selector": "tiger-claw-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 13,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 14,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "tiger-slash"
+                    ]
+                },
+                "selector": "tiger-claw-damage",
+                "text": "<p class='compact-text'><strong>Tiger Slash</strong> Add your Strength modifier to the persistent bleed damage.</p>"
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "monk"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Tiger Slash",
     "permission": {
         "default": 0

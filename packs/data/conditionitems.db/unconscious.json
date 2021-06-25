@@ -21,7 +21,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You&rsquo;re sleeping, or you&rsquo;ve been knocked out. You can&rsquo;t act. You take a &ndash;4 status penalty to AC, Perception, and Reflex saves, and you have the @Compendium[pf2e.conditionitems.Blinded] and @Compendium[pf2e.conditionitems.Flat-Footed] conditions. When you gain this condition, you fall @Compendium[pf2e.conditionitems.Prone] and drop items you are wielding or holding unless the effect states otherwise or the GM determines you&rsquo;re in a position in which you wouldn&rsquo;t.<br /><br />If you&rsquo;re unconscious because you&rsquo;re @Compendium[pf2e.conditionitems.Dying], you can&rsquo;t wake up while you have 0 Hit Points. If you are restored to 1 Hit Point or more via healing, you lose the @Compendium[pf2e.conditionitems.Dying] and unconscious conditions and can act normally on your next turn.<br /><br />If you are unconscious and at 0 Hit Points, but not @Compendium[pf2e.conditionitems.Dying], you naturally return to 1 Hit Point and awaken after sufficient time passes. The GM determines how long you remain unconscious, from a minimum of 10 minutes to several hours. If you receive healing during this time, you lose the unconscious condition and can act normally on your next turn.<br /><br />If you&rsquo;re unconscious and have more than 1 Hit Point (typically because you are asleep or unconscious due to an effect), you wake up in one of the following ways. Each causes you to lose the unconscious condition.</p>\n<ul>\n<li>You take damage, provided the damage doesn&rsquo;t reduce you to 0 Hit Points. If the damage reduces you to 0 Hit Points, you remain unconscious and gain the @Compendium[pf2e.conditionitems.Dying] condition as normal.</li>\n<li>You receive healing, other than the natural healing you get from resting.</li>\n<li>Someone shakes you awake with an @Compendium[pf2e.actionspf2e.pvQ5rY2zrtPI614F]{Interact} action.</li>\n<li>There&rsquo;s loud noise going on around you&mdash;though this isn&rsquo;t automatic. At the start of your turn, you automatically attempt a Perception check against the noise&rsquo;s DC (or the lowest DC if there is more than one noise), waking up if you succeed. If creatures are attempting to stay quiet around you, this Perception check uses their Stealth DCs. Some magical effects make you sleep so deeply that they don&rsquo;t allow you to attempt this Perception check.</li>\n<li>If you are simply asleep, the GM decides you wake up either because you have had a restful night&rsquo;s sleep or something disrupted that rest.</li>\n</ul>"
+            "value": "<p>You're sleeping, or you've been knocked out. You can't act. You take a -4 status penalty to AC, Perception, and Reflex saves, and you have the @Compendium[pf2e.conditionitems.Blinded]{Blinded} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} conditions. When you gain this condition, you fall @Compendium[pf2e.conditionitems.Prone]{Prone} and drop items you are wielding or holding unless the effect states otherwise or the GM determines you're in a position in which you wouldn't.<br /><br />If you're unconscious because you're @Compendium[pf2e.conditionitems.Dying]{Dying}, you can't wake up while you have 0 Hit Points. If you are restored to 1 Hit Point or more via healing, you lose the dying and unconscious conditions and can act normally on your next turn.<br /><br />If you are unconscious and at 0 Hit Points, but not dying, you naturally return to 1 Hit Point and awaken after sufficient time passes. The GM determines how long you remain unconscious, from a minimum of 10 minutes to several hours. If you receive healing during this time, you lose the unconscious condition and can act normally on your next turn.<br /><br />If you're unconscious and have more than 1 Hit Point (typically because you are asleep or unconscious due to an effect), you wake up in one of the following ways. Each causes you to lose the unconscious condition.</p>\n<ul>\n<li>You take damage, provided the damage doesn't reduce you to 0 Hit Points. If the damage reduces you to 0 Hit Points, you remain unconscious and gain the dying condition as normal.</li>\n<li>You receive healing, other than the natural healing you get from resting.</li>\n<li>Someone shakes you awake with an @Compendium[pf2e.actionspf2e.Interact]{Interact} action.</li>\n<li>There's loud noise going on around you-though this isn't automatic. At the start of your turn, you automatically attempt a Perception check against the noise's DC (or the lowest DC if there is more than one noise), waking up if you succeed. If creatures are attempting to stay quiet around you, this Perception check uses their Stealth DCs. Some magical effects make you sleep so deeply that they don't allow you to attempt this Perception check.</li>\n<li>If you are simply asleep, the GM decides you wake up either because you have had a restful night's sleep or something disrupted that rest.</li>\n</ul>"
         },
         "duration": {
             "perpetual": true,
@@ -32,7 +32,7 @@
         "hud": {
             "img": {
                 "useStatusName": true,
-                "value": "system/pf2e/icons/conditions-2/unconscious.png"
+                "value": "systems/pf2e/icons/conditions-2/unconscious.webp"
             },
             "selectable": true,
             "statusName": "unconscious"
@@ -55,9 +55,6 @@
             }
         ],
         "overrides": [],
-        "rarity": {
-            "value": "common"
-        },
         "references": {
             "children": [],
             "immunityFrom": [],
@@ -65,17 +62,19 @@
             "overrides": []
         },
         "removable": true,
+        "rules": [],
         "source": {
             "value": ""
         },
         "sources": {
-            "hud": false
+            "hud": true
         },
         "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": []
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         },
         "value": {
             "immutable": false,
@@ -84,8 +83,13 @@
             "value": 1
         }
     },
-    "flags": {},
-    "img": "systems/pf2e/icons/conditions/unconscious.png",
+    "effects": [],
+    "flags": {
+        "pf2e": {
+            "condition": true
+        }
+    },
+    "img": "systems/pf2e/icons/conditions/unconscious.webp",
     "name": "Unconscious",
     "permission": {
         "default": 0

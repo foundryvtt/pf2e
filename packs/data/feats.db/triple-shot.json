@@ -5,63 +5,63 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> Double Shot</p>\n<hr>\n<p>You can quickly fire multiple shots with greater control. When you use Double Shot, you can make the attacks against the same target. You can add an additional action to Double Shot to make three ranged Strikes instead of two. If you do, the penalty is –4. All attacks count toward your multiple attack penalty, but the penalty doesn’t increase until after you’ve made all of them.</p>"
+            "value": "<p>You can quickly fire multiple shots with greater control.</p>\n<p>When you use @Compendium[pf2e.feats-srd.Double Shot]{Double Shot}, you can make the attacks against the same target. You can add an additional action to Double Shot to make three ranged Strikes instead of two. If you do, the penalty is -4. All attacks count toward your multiple attack penalty, but the penalty doesn't increase until after you've made all of them.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "6"
+            "value": 6
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "Double Shot"
+            "value": [
+                {
+                    "value": "Double Shot"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Triple Shot",
+                "predicate": {
+                    "all": [
+                        "ranged",
+                        "triple-shot"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "value": -4
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "fighter"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Triple Shot",
     "permission": {
         "default": 0

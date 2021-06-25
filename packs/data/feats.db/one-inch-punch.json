@@ -13,37 +13,118 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>expert strikes</p>\n<hr>\n<p>You put all your force into a single mighty, carefully controlled blow. Make an unarmed @Compendium[pf2e.actionspf2e.VjxZFuUXrCU94MWR]{Strike}. If you spend two actions and this Strike hits, you deal an extra die of weapon damage. You can instead spend 3 actions to perform an even more powerful attack, dealing a second additional die of weapon damage on a hit.</p>\n<p>If you’re at least 10th level, the number of additional dice you add from this feat doubles, for a total of 2 additional dice if you spend 2 actions or 4 additional dice if you spend 3 actions. If you’re at least 18th level, the number of additional dice you add from this feat triples, for a total of 3 additional dice if you spend 2 actions or 6 additional dice if you spend 3 actions.</p>"
+            "value": "<p>You put all your force into a single mighty, carefully controlled blow. Make an unarmed Strike. If you spend two actions and this Strike hits, you deal an extra die of weapon damage. You can instead spend 3 actions to perform an even more powerful attack, dealing a second additional die of weapon damage on a hit.</p>\n<p>If you're at least 10th level, the number of additional dice you add from this feat doubles, for a total of 2 additional dice if you spend 2 actions or 4 additional dice if you spend 3 actions.</p>\n<p>If you're at least 18th level, the number of additional dice you add from this feat triples, for a total of 3 additional dice if you spend 2 actions or 6 additional dice if you spend 3 actions.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "6"
+            "value": 6
         },
+        "location": "",
         "prerequisites": {
-            "value": "expert strikes"
+            "value": [
+                {
+                    "value": "expert strikes"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "One Inch Punch (2 actions)",
+                "property": "flags.pf2e.rollOptions.all.one-inch-punch-2"
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "One Inch Punch (3 actions)",
+                "property": "flags.pf2e.rollOptions.all.one-inch-punch-3"
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "melee",
+                        "unarmed",
+                        "one-inch-punch-2"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 9,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 17,
+                            "start": 10,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 18,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "melee",
+                        "unarmed",
+                        "one-inch-punch-3"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 9,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "end": 17,
+                            "start": 10,
+                            "value": {
+                                "diceNumber": 4
+                            }
+                        },
+                        {
+                            "start": 18,
+                            "value": {
+                                "diceNumber": 6
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "monk"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "One-Inch Punch",
     "permission": {
         "default": 0

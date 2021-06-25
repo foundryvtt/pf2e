@@ -1,0 +1,100 @@
+{
+    "_id": "BtMemftiktI0Mn6X",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>You've learned every possible edge to use against your foes.</p>\n<p>When you use @Compendium[pf2e.actionspf2e.Hunt Prey]{Hunt Prey} you can gain a different hunter's edge benefit instead of the one you selected at 1st level.</p>\n<p>This feat grants @Compendium[pf2e.classfeatures.Hunter's Edge: Precision]{Hunter's Edge: Precision}.</p>"
+        },
+        "featType": {
+            "value": "class"
+        },
+        "level": {
+            "value": 18
+        },
+        "location": "",
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "hunter's edge"
+                },
+                {
+                    "value": "masterful hunter"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "First attack on hunted prey this round",
+                "property": "flags.pf2e.rollOptions.all.first-attack"
+            },
+            {
+                "damageType": "precision",
+                "dieSize": "d8",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "first-attack"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 10,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 18,
+                            "start": 11,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 19,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Manifold Edge (Precision)",
+    "permission": {
+        "default": 0
+    },
+    "type": "feat"
+}

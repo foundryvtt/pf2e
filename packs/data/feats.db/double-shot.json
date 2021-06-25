@@ -5,63 +5,60 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "action"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": "2"
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Requirements</strong> You are wielding a ranged weapon with reload 0</p>\n<hr>\n<p>You shoot twice in blindingly fast succession. Make two Strikes, each against a separate target and with a –2 penalty. Both attacks count toward your multiple attack penalty, but the penalty doesn’t increase until after you’ve made both of them.</p>"
+            "value": "<p><strong>Requirements</strong> You are wielding a ranged weapon with reload 0</p>\n<hr />\n<p>You shoot twice in blindingly fast succession. Make two Strikes, each against a separate target and with a -2 penalty. Both attacks count toward your multiple attack penalty, but the penalty doesn't increase until after you've made both of them.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "4"
+            "value": 4
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Double Shot",
+                "predicate": {
+                    "all": [
+                        "ranged",
+                        "double-shot"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "value": -2
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "fighter",
                 "flourish"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Double Shot",
     "permission": {
         "default": 0

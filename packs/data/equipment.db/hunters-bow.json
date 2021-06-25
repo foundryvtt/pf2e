@@ -1,0 +1,198 @@
+{
+    "_id": "RapaDb10oJZOjujo",
+    "data": {
+        "MAP": {
+            "value": ""
+        },
+        "ability": {
+            "value": "dex"
+        },
+        "baseItem": "shortbow",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "brokenThreshold": {
+            "value": 0
+        },
+        "bulkCapacity": {
+            "value": ""
+        },
+        "collapsed": {
+            "value": false
+        },
+        "containerId": {
+            "value": ""
+        },
+        "damage": {
+            "damageType": "piercing",
+            "dice": 1,
+            "die": "d6",
+            "value": ""
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>Stealthy hunters and rogues can use this +1 magic shortbow to attack from hiding. If you use this bow to Strike a target that can’t see you and you get a critical hit, the target takes an extra [[/r 1d6 # piercing]] damage (this is in addition to sneak attack damage if you’re a rogue).</p>"
+        },
+        "equipped": {
+            "value": false
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": {
+            "value": "bow"
+        },
+        "hands": {
+            "value": ""
+        },
+        "hardness": {
+            "value": 0
+        },
+        "hp": {
+            "value": 0
+        },
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
+        },
+        "invested": {
+            "value": false
+        },
+        "level": {
+            "value": 3
+        },
+        "maxHp": {
+            "value": 0
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": 1
+        },
+        "preciousMaterial": {
+            "value": ""
+        },
+        "preciousMaterialGrade": {
+            "value": ""
+        },
+        "price": {
+            "value": "60 gp"
+        },
+        "property1": {
+            "critDamage": "",
+            "critDamageType": "",
+            "critDice": 0,
+            "critDie": "",
+            "criticalConditionType": "",
+            "criticalConditionValue": null,
+            "damageType": "",
+            "dice": 0,
+            "die": "",
+            "strikeConditionType": "",
+            "strikeConditionValue": null,
+            "value": ""
+        },
+        "propertyRune1": {
+            "value": ""
+        },
+        "propertyRune2": {
+            "value": ""
+        },
+        "propertyRune3": {
+            "value": ""
+        },
+        "propertyRune4": {
+            "value": ""
+        },
+        "quantity": {
+            "value": 1
+        },
+        "range": {
+            "value": "60"
+        },
+        "reload": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Attacker is hidden, undetected, or unnoticed",
+                "property": "flags.pf2e.rollOptions.damage-roll.self:hidden"
+            },
+            {
+                "critical": true,
+                "damageType": "piercing",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "any": [
+                        "self:hidden",
+                        "self:undetected",
+                        "self:unnoticed",
+                        "target:blinded"
+                    ]
+                },
+                "selector": "{item|_id}-damage"
+            }
+        ],
+        "size": {
+            "value": "med"
+        },
+        "source": {
+            "value": ""
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "stackGroup": {
+            "value": ""
+        },
+        "strikingRune": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "deadly-d10",
+                "evocation",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weaponType": {
+            "value": "martial"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/hunters-bow.webp",
+    "name": "Hunter's Bow",
+    "permission": {
+        "default": 0
+    },
+    "type": "weapon"
+}

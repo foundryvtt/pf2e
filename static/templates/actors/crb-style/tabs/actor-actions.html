@@ -10,11 +10,10 @@
             </ol>
 
             <div class="actions-panels">
-
                 <div id="encounter" class="actions-panel active">
-                    <div class="actions-options">
+                    <div class="actions-options item-list">
                         {{#each data.toggles.actions as |toggle idx|}}
-                        <div class="actions-option">
+                        <div class="actions-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
                             <label>
                                 <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}}>
                                 <span>{{localize toggle.label}}</span>
@@ -23,11 +22,15 @@
                         {{/each}}
                     </div>
 
-                    <ol class="actions-list inventory-list directory-list strikes-list">
-                        <li class="item action-header">
-                            <h3 class="pf-heading pf-actions">{{localize 'PF2E.StrikesLabel'}} ({{localize 'PF2E.ExperimentalLabel'}})</h3>
+                    <ol class="actions-list item-list inventory-list directory-list strikes-list">
+                        <li class="action-header">
+                            <h3 class="pf-heading pf-actions">{{localize 'PF2E.StrikesLabel'}}</h3>
+                            <div class="item-controls">
+                                <a class="item-control toggle-unready-strikes" title="{{localize 'PF2E.ToggleUnreadyStrikes'}}"><i class="fas fa-tshirt"{{#if actor.flags.pf2e.showUnreadyStrikes}} style="color: rgba(0, 0, 0, 0.4);"{{/if}}></i></a>
+                            </div>
                         </li>
                         {{#each actor.data.actions as |action ai|}}
+                        {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
                         <li class="item expandable" data-action-index="{{ai}}">
                             <div class="item-name rollable">
                                 <div class="item-image action-strike" style="background-image: url({{action.imageUrl}})">
@@ -39,8 +42,16 @@
                                         {{#each action.variants as |variant vi|}}
                                         <button type="button" class="tag variant-strike" data-variant-index="{{vi}}">{{variant.label}}</button>
                                         {{/each}}
-                                        <button type="button" class="tag damage-strike">{{localize 'Damage'}}</button>
-                                        <button type="button" class="tag critical-strike">{{localize 'Critical'}}</button>
+                                        <button type="button" class="tag damage-strike">{{localize 'PF2E.DamageLabel'}}</button>
+                                        <button type="button" class="tag critical-strike">{{localize 'PF2E.CriticalDamageLabel'}}</button>
+                                        {{#if action.ammo}}
+                                        <select name="ammo-used">
+                                            <option value="">{{localize 'PF2E.NoAmmoLabel'}}</option>
+                                            {{#each action.ammo as |item|}}
+                                            <option value="{{ item._id }}" {{#if (eq action.selectedAmmoId item._id)}}selected{{/if}}>{{ item.name }} ({{ item.data.quantity.value }})</option>
+                                            {{/each}}
+                                        </select>
+                                        {{/if}}
                                     </div>
                                 </div>
                             </div>
@@ -57,17 +68,18 @@
                                 </div>
                                 <div class="item-properties tags">
                                     {{#each action.traits as |trait|}}
-                                    <span class="tag tag_secondary {{trait.cssClass}}" {{#if trait.toggle}}data-roll-name="{{trait.rollName}}" data-roll-option="{{trait.rollOption}}"{{/if}}>{{trait.label}}</span>
+                                    <span class="tag tag_secondary {{trait.cssClass}}" {{#if trait.description}}title="{{trait.description}}"{{/if}} {{#if trait.toggle}}data-roll-name="{{trait.rollName}}" data-roll-option="{{trait.rollOption}}"{{/if}}>{{trait.label}}</span>
                                     {{/each}}
                                 </div>
                             </div>
                         </li>
+                        {{/if}}
                         {{/each}}
                         {{#each actor.actions as |section sid|}}
-                            <li class="item action-header">
+                            <li class="action-header">
                                 <h3 class="pf-heading pf-actions">{{section.label}}</h3>
-                                {{#if ../owner}}
-                                <div class="item-controls" style="display: flex">
+                                {{#if @root.owner}}
+                                <div class="item-controls">
                                     <a class="item-control item-create" title="{{localize 'PF2E.CreateActionTitle'}}" data-type="action" data-action-type="{{sid}}"><i class="fas fa-plus"></i></a>
                                     <a class="item-control action-browse" title="{{localize 'PF2E.OpenActionBrowserTitle'}}" data-type="feat"><i class="fas fa-search"></i></a>
                                 </div>
@@ -80,11 +92,9 @@
                                     <div class="item-image" style="background-image: url({{action.img}})">
                                         <i class="fas fa-comment-alt"></i>
                                     </div>
-                                    <h4>
-                                        {{action.name}}
-                                    </h4>
+                                    <h4>{{action.name}}</h4>
                                 </div>
-                                {{#if ../../owner}}
+                                {{#if @root.owner}}
                                 <div class="item-controls">
                                     <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
                                     {{#unless action.feat}}
@@ -100,8 +110,8 @@
                 </div>
 
                 <div id="exploration" class="actions-panel">
-                    <ol class="actions-list inventory-list directory-list strikes-list">
-                        <li class="item action-header">
+                    <ol class="actions-list item-list inventory-list directory-list strikes-list">
+                        <li class="action-header">
                             <h3 class="pf-heading pf-actions">{{localize 'PF2E.ActionsActionsHeader'}}</h3>
                             {{#if owner}}
                             <div class="item-controls" style="display: flex">
@@ -134,8 +144,8 @@
                 </div>
 
                 <div id="downtime" class="actions-panel">
-                    <ol class="actions-list inventory-list directory-list strikes-list">
-                        <li class="item action-header">
+                    <ol class="actions-list item-list inventory-list directory-list strikes-list">
+                        <li class="action-header">
                             <h3 class="pf-heading pf-actions">{{localize 'PF2E.ActionsActionsHeader'}}</h3>
                             {{#if owner}}
                             <div class="item-controls" style="display: flex">

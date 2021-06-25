@@ -5,62 +5,66 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
             "value": "<p>You have incredible breath control, which grants you advantages when air is hazardous or sparse. You can hold your breath for 25 times as long as usual before suffocating. You gain a +1 circumstance bonus to saving throws against inhaled threats, such as inhaled poisons, and if you roll a success on such a saving throw, you get a critical success instead.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "general"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Breath control (vs. inhaled)",
+                "predicate": {
+                    "all": [
+                        "inhaled"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "inhaled"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong>If you roll a success on a saving throw against an inhaled threat, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "general"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Breath Control",
     "permission": {
         "default": 0

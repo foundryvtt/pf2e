@@ -13,20 +13,32 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You can recall pertinent facts on topics that aren’t your specialty. Your proficiency bonus to untrained skill checks to @Compendium[pf2e.actionspf2e.1OagaWtBpVXExToo]{Recall Knowledge} is equal to your level instead of +0.&nbsp;</p>"
+            "value": "<p>You can recall pertinent facts on topics that aren't your specialty. Your proficiency bonus to untrained skill checks to @Compendium[pf2e.actionspf2e.Recall Knowledge (Lore)]{Recall Knowledge} is equal to your level instead of +0.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "3"
+            "value": 3
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Keen Recollection (to Recall Knowledge)",
+                "predicate": {
+                    "all": [
+                        "action:recall-knowledge"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "proficiency",
+                "value": "@details.level.value"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +50,12 @@
             "value": [
                 "investigator"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/keen-recollection.webp",
     "name": "Keen Recollection",
     "permission": {
         "default": 0

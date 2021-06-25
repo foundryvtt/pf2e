@@ -5,63 +5,75 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "action"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": "2"
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p>By spending a moment to focus, you can ensure your attack strikes true. Make a ranged weapon Strike. On this Strike, you gain a +2 circumstance bonus to the attack roll and ignore the target’s concealed condition.</p>"
+            "value": "<p>By spending a moment to focus, you can ensure your attack strikes true.</p>\n<p>Make a ranged weapon Strike. On this Strike, you gain a +2 circumstance bonus to the attack roll and ignore the target's @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "8"
+            "value": 8
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Incredible Aim",
+                "property": "flags.pf2e.rollOptions.attack-roll.incredible-aim"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "ranged",
+                        "incredible-aim"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "incredible-aim"
+                    ]
+                },
+                "selector": "attack",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> You ignore the target's @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition.</p>"
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "concentrate",
                 "fighter"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Incredible Aim",
     "permission": {
         "default": 0

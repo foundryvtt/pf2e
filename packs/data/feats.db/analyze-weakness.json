@@ -13,37 +13,80 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>Sneak attack 2d6</p>\n<p><strong>Requirements</strong> You must have identified a creature with <br>@Compendium[pf2e.actionspf2e.1OagaWtBpVXExToo]{Recall Knowledge}.</p>\n<hr>\n<p>Your knowledge of a creature’s physiology and understanding of tactics helps you attack with pinpoint accuracy. You carefully study a creature that you’ve identified to scope out particularly weak points in its positioning or physical form.</p>\n<p>The next time you deal sneak attack damage to the chosen creature with a @Compendium[pf2e.actionspf2e.VjxZFuUXrCU94MWR]{Strike} before the end of your turn, add an additional 2d6 precision damage.</p>\n<p>At 11th and 17th levels, if your additional damage from sneak attack increases, increase the additional damage from Analyze Weakness to 3d6 at 11th level and 4d6 at 17th level.</p>"
+            "value": "<p><strong>Requirements</strong> You must have identified a creature with <br />@Compendium[pf2e.actionspf2e.Recall Knowledge (Lore)]{Recall Knowledge}.</p>\n<hr />\n<p>Your knowledge of a creature's physiology and understanding of tactics helps you attack with pinpoint accuracy. You carefully study a creature that you've identified to scope out particularly weak points in its positioning or physical form.</p>\n<p>The next time you deal sneak attack damage to the chosen creature with a Strike before the end of your turn, add an additional 2d6 precision damage.</p>\n<p>At 11th and 17th levels, if your additional damage from sneak attack increases, increase the additional damage from Analyze Weakness to 3d6 at 11th level and 4d6 at 17th level.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "6"
+            "value": 6
         },
+        "location": "",
         "prerequisites": {
-            "value": "sneak attack 2d6"
+            "value": [
+                {
+                    "value": "sneak attack 2d6"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Apply Analyze Weakness damage",
+                "property": "flags.pf2e.rollOptions.damage-roll.analyze-weakness"
+            },
+            {
+                "damageType": "precision",
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "analyze-weakness"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 10,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "end": 16,
+                            "start": 11,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        },
+                        {
+                            "start": 17,
+                            "value": {
+                                "diceNumber": 4
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "rogue"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Analyze Weakness",
     "permission": {
         "default": 0

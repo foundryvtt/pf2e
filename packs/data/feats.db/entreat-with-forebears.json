@@ -13,37 +13,116 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>a bloodline that corresponds with a creature trait</p>\n<hr>\n<p>Something about your presence causes creatures of your bloodline to, consciously or not, recognize you as one of their own, and you become inured to their tricks.</p>\n<p>You gain a +1 circumstance bonus to Diplomacy, Deception, and Intimidation checks when interacting with creatures that have the trait corresponding to your bloodline, and you gain a +1 circumstance bonus to Perception and saving throws against such creatures.</p>\n<p>For example, an aberrant bloodline sorcerer would gain this benefit against creatures with the aberration trait. The GM is the final arbiter of which creatures match your bloodline.</p>"
+            "value": "<p>Something about your presence causes creatures of your bloodline to, consciously or not, recognize you as one of their own, and you become inured to their tricks.</p>\n<p>You gain a +1 circumstance bonus to Diplomacy, Deception, and Intimidation checks when interacting with creatures that have the trait corresponding to your bloodline, and you gain a +1 circumstance bonus to Perception and saving throws against such creatures.</p>\n<p>For example, an aberrant bloodline sorcerer would gain this benefit against creatures with the aberration trait. The GM is the final arbiter of which creatures match your bloodline.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
-            "value": "a bloodline that corresponds with a creature trait"
+            "value": [
+                {
+                    "value": "a bloodline that corresponds with a creature trait"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Apply Entreat with Forebears",
+                "property": "flags.pf2e.rollOptions.all.target:forebear"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "target:forebear"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "target:forebear"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "target:forebear"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "target:forebear"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "target:forebear"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "sorcerer"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Entreat With Forebears",
     "permission": {
         "default": 0

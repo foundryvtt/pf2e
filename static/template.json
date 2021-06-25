@@ -1,1304 +1,1375 @@
 {
-  "Actor": {
-    "types": ["character", "npc", "hazard", "loot", "familiar"],
-    "templates": {
-      "common": {
-        "abilities": {
-          "str": {
-            "value": 10,
-            "min": 3,
-            "mod": 0
-          },
-          "dex": {
-            "value": 10,
-            "min": 3,
-            "mod": 0
-          },
-          "con": {
-            "value": 10,
-            "min": 3,
-            "mod": 0
-          },
-          "int": {
-            "value": 10,
-            "min": 3,
-            "mod": 0
-          },
-          "wis": {
-            "value": 10,
-            "min": 3,
-            "mod": 0
-          },
-          "cha": {
-            "value": 10,
-            "min": 3,
-            "mod": 0
-          }
+    "Actor": {
+        "types": [
+            "character",
+            "npc",
+            "hazard",
+            "loot",
+            "familiar",
+            "vehicle"
+        ],
+        "templates": {
+            "common": {
+                "abilities": {
+                    "str": {
+                        "value": 10,
+                        "mod": 0
+                    },
+                    "dex": {
+                        "value": 10,
+                        "mod": 0
+                    },
+                    "con": {
+                        "value": 10,
+                        "mod": 0
+                    },
+                    "int": {
+                        "value": 10,
+                        "mod": 0
+                    },
+                    "wis": {
+                        "value": 10,
+                        "mod": 0
+                    },
+                    "cha": {
+                        "value": 10,
+                        "mod": 0
+                    }
+                },
+                "saves": {
+                    "fortitude": {
+                        "ability": "con",
+                        "value": 0,
+                        "saveDetail": ""
+                    },
+                    "reflex": {
+                        "ability": "dex",
+                        "value": 0,
+                        "saveDetail": ""
+                    },
+                    "will": {
+                        "ability": "wis",
+                        "value": 0,
+                        "saveDetail": ""
+                    }
+                },
+                "attributes": {
+                    "ac": {
+                        "value": 10,
+                        "dex": 0,
+                        "check": 0,
+                        "details": ""
+                    },
+                    "allSaves": {
+                        "value": ""
+                    },
+                    "shield": {
+                        "value": 0,
+                        "max": 0,
+                        "brokenThreshold": 0,
+                        "hardness": 0,
+                        "ac": 0
+                    },
+                    "hp": {
+                        "value": 10,
+                        "max": 10,
+                        "temp": 0,
+                        "details": ""
+                    },
+                    "perception": {
+                        "ability": "wis",
+                        "value": 0
+                    },
+                    "initiative": {
+                        "ability": "perception"
+                    },
+                    "speed": {
+                        "value": "25",
+                        "otherSpeeds": []
+                    }
+                },
+                "details": {
+                    "alignment": {
+                        "value": "N"
+                    },
+                    "level": {
+                        "value": 1
+                    }
+                },
+                "statusEffects": [],
+                "schema": {
+                    "version": {
+                        "value": ""
+                    }
+                },
+                "traits": {
+                    "size": {
+                        "value": "med"
+                    },
+                    "senses": [],
+                    "traits": {
+                        "value": [],
+                        "custom": ""
+                    },
+                    "languages": {
+                        "value": [],
+                        "selected": [],
+                        "custom": ""
+                    },
+                    "di": {
+                        "value": [],
+                        "custom": ""
+                    },
+                    "dr": [],
+                    "dv": [],
+                    "ci": []
+                }
+            }
         },
-        "saves": {
-          "fortitude": {
-            "rank": 0,
-            "ability": "con",
-            "item": 0,
-            "value": 0,
-            "breakdown": "",
-            "saveDetail": ""
-          },
-          "reflex": {
-            "rank": 0,
-            "ability": "dex",
-            "item": 0,
-            "value": 0,
-            "breakdown": "",
-            "saveDetail": ""
-          },
-          "will": {
-            "rank": 0,
-            "ability": "wis",
-            "item": 0,
-            "value": 0,
-            "breakdown": "",
-            "saveDetail": ""
-          }
+        "character": {
+            "templates": [
+                "common"
+            ],
+            "saves": {
+                "fortitude": {
+                    "rank": 0
+                },
+                "reflex": {
+                    "rank": 0
+                },
+                "will": {
+                    "rank": 0
+                }
+            },
+            "attributes": {
+                "perception": {
+                    "rank": 0
+                },
+                "dying": {
+                    "max": 4
+                },
+                "wounded": {
+                    "max": 3
+                },
+                "doomed": {
+                    "max": 3
+                },
+                "heroPoints": {
+                    "rank": 0,
+                    "max": 3
+                },
+                "classDC": {
+                    "rank": 0,
+                    "ability": "str",
+                    "item": 0,
+                    "value": 0
+                },
+                "perception": {
+                    "rank": 0
+                },
+                "flatbonushp": 0,
+                "levelbonushp": 0,
+                "bonusLimitBulk": 0,
+                "bonusEncumbranceBulk": 0,
+                "sp": {
+                    "value": 0,
+                    "max": 0,
+                    "details": ""
+                },
+                "flatbonussp": 0,
+                "levelbonussp": 0,
+                "resolve": {
+                    "value": 0
+                }
+            },
+            "details": {
+                "biography": {
+                    "value": "",
+                    "public": ""
+                },
+                "deity": {
+                    "value": "",
+                    "image": "systems/pf2e/assets/sheet/deity.webp"
+                },
+                "keyability": {
+                    "value": "str"
+                },
+                "heritage": {
+                    "value": ""
+                },
+                "xp": {
+                    "value": 0,
+                    "min": 0,
+                    "max": 1000,
+                    "pct": 0
+                },
+                "age": {
+                    "value": ""
+                },
+                "height": {
+                    "value": ""
+                },
+                "weight": {
+                    "value": ""
+                },
+                "gender": {
+                    "value": ""
+                },
+                "ethnicity": {
+                    "value": ""
+                },
+                "nationality": {
+                    "value": ""
+                }
+            },
+            "skills": {
+                "acr": {
+                    "value": 0,
+                    "ability": "dex",
+                    "armor": 1,
+                    "rank": 0,
+                    "mod": 0
+                },
+                "arc": {
+                    "value": 0,
+                    "ability": "int",
+                    "rank": 0,
+                    "mod": 0
+                },
+                "ath": {
+                    "value": 0,
+                    "ability": "str",
+                    "armor": 1,
+                    "rank": 0,
+                    "mod": 0
+                },
+                "cra": {
+                    "value": 0,
+                    "ability": "int",
+                    "rank": 0,
+                    "mod": 0
+                },
+                "dec": {
+                    "value": 0,
+                    "ability": "cha",
+                    "rank": 0,
+                    "mod": 0
+                },
+                "dip": {
+                    "value": 0,
+                    "ability": "cha",
+                    "rank": 0,
+                    "mod": 0
+                },
+                "itm": {
+                    "value": 0,
+                    "ability": "cha",
+                    "rank": 0,
+                    "mod": 0
+                },
+                "med": {
+                    "value": 0,
+                    "ability": "wis",
+                    "rank": 0,
+                    "mod": 0
+                },
+                "nat": {
+                    "value": 0,
+                    "ability": "wis",
+                    "rank": 0,
+                    "mod": 0
+                },
+                "occ": {
+                    "value": 0,
+                    "ability": "int",
+                    "rank": 0,
+                    "mod": 0
+                },
+                "prf": {
+                    "value": 0,
+                    "ability": "cha",
+                    "rank": 0,
+                    "mod": 0
+                },
+                "rel": {
+                    "value": 0,
+                    "ability": "wis",
+                    "rank": 0,
+                    "mod": 0
+                },
+                "soc": {
+                    "value": 0,
+                    "ability": "int",
+                    "rank": 0,
+                    "mod": 0
+                },
+                "ste": {
+                    "value": 0,
+                    "ability": "dex",
+                    "armor": 1,
+                    "rank": 0,
+                    "mod": 0
+                },
+                "sur": {
+                    "value": 0,
+                    "ability": "wis",
+                    "rank": 0,
+                    "mod": 0
+                },
+                "thi": {
+                    "value": 0,
+                    "ability": "dex",
+                    "armor": 1,
+                    "rank": 0,
+                    "mod": 0
+                }
+            },
+            "martial": {
+                "unarmored": {
+                    "rank": 0,
+                    "value": 0
+                },
+                "light": {
+                    "rank": 0,
+                    "value": 0
+                },
+                "medium": {
+                    "rank": 0,
+                    "value": 0
+                },
+                "heavy": {
+                    "rank": 0,
+                    "value": 0
+                },
+                "simple": {
+                    "rank": 0,
+                    "value": 0
+                },
+                "martial": {
+                    "rank": 0,
+                    "value": 0
+                },
+                "advanced": {
+                    "rank": 0,
+                    "value": 0
+                },
+                "unarmed": {
+                    "rank": 0,
+                    "value": 0
+                }
+            },
+            "pfs": {
+                "playerNumber": "",
+                "characterNumber": "",
+                "levelBump": false,
+                "fame": 0,
+                "currentFaction": "EA",
+                "school": "none",
+                "reputation": {
+                    "EA": 0,
+                    "GA": 0,
+                    "HH": 0,
+                    "VS": 0,
+                    "RO": 0,
+                    "VW": 0
+                }
+            }
         },
-        "attributes": {
-          "ac": {
-            "min": 0,
-            "value": 0,
-            "dex": 0,
-            "item": 0,
-            "check": 0,
-            "details": ""
-          },
-          "allSaves": {
-            "value": ""
-          },
-          "shield": {
-            "value": 0,
-            "min": 0,
-            "max": 0,
-            "brokenThreshold": 0,
-            "hardness": 0,
-            "ac": 0
-          },
-          "hp": {
-            "value": 10,
-            "min": 0,
-            "max": 10,
-            "temp": 0,
-            "tempmax": 0,
-            "details": ""
-          },
-          "sp": {
-            "value": 0,
-            "min": 0,
-            "max": 0,
-            "details": ""
-          },
-          "flatbonushp": 0,
-          "levelbonushp": 0,
-          "flatbonussp": 0,
-          "levelbonussp": 0,
-          "ancestryhp": 0,
-          "classhp": 0,
-          "bonusLimitBulk": 0,
-          "bonusEncumbranceBulk": 0,
-          "resolve": {
-            "value": 0
-          },
-          "perception": {
-            "rank": 0,
-            "ability": "wis",
-            "item": 0,
-            "value": 0,
-            "breakdown": ""
-          },
-          "classDC": {
-            "rank": 0,
-            "ability": "str",
-            "item": 0,
-            "value": 0,
-            "breakdown": ""
-          },
-          "initiative": {
-            "circumstance": 0,
-            "status": 0,
-            "ability": ""
-          },
-          "init": {
-            "bonus": 0,
-            "value": 0
-          },
-          "speed": {
-            "value": "25",
-            "special": "",
-            "otherSpeeds": []
-          }
+        "npc": {
+            "templates": [
+                "common"
+            ],
+            "traits": {
+                "rarity": {
+                    "value": "common"
+                }
+            },
+            "details": {
+                "source": {
+                    "value": ""
+                },
+                "recallKnowledgeText": "",
+                "creatureType": ""
+            }
         },
-        "details": {
-          "alignment": {
-            "value": "N"
-          },
-          "biography": {
-            "value": "",
-            "public": ""
-          },
-          "class": {
-            "value": ""
-          },
-          "ancestry": {
-            "value": ""
-          },
-          "heritage": {
-            "value": ""
-          },
-          "deity": {
-            "value": "",
-            "image": "systems/pf2e/assets/sheet/deity.png"
-          },
-          "level": {
-            "value": 1,
-            "min": 1
-          },
-          "keyability": {
-            "value": "str"
-          }
+        "hazard": {
+            "templates": [],
+            "source": {
+                "value": ""
+            },
+            "recallKnowledgeText": "",
+            "creatureType": "",
+            "saves": {
+                "fortitude": {
+                    "rank": 0,
+                    "saveDetail": ""
+                },
+                "reflex": {
+                    "rank": 0,
+                    "saveDetail": ""
+                },
+                "will": {
+                    "rank": 0,
+                    "saveDetail": ""
+                }
+            },
+            "attributes": {
+                "hasHealth": true,
+                "ac": {
+                    "value": 10
+                },
+                "hp": {
+                    "value": 10,
+                    "max": 10,
+                    "temp": 0,
+                    "details": ""
+                },
+                "hardness": 0,
+                "stealth": {
+                    "value": 0,
+                    "details": ""
+                }
+            },
+            "details": {
+                "isComplex": false,
+                "level": 1,
+                "disable": "",
+                "description": "",
+                "reset": "",
+                "routine": ""
+            },
+            "statusEffects": [],
+            "schema": {
+                "version": {
+                    "value": ""
+                }
+            },
+            "traits": {
+                "rarity": {
+                    "value": "common"
+                },
+                "size": {
+                    "value": "med"
+                },
+                "traits": {
+                    "value": [],
+                    "custom": ""
+                },
+                "di": {
+                    "custom": "",
+                    "value": [],
+                    "selected": {}
+                },
+                "dr": [],
+                "dv": [],
+                "ci": []
+            }
         },
-        "skills": {
-          "acr": {
-            "value": 0,
-            "ability": "dex",
-            "armor": 1,
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "arc": {
-            "value": 0,
-            "ability": "int",
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "ath": {
-            "value": 0,
-            "ability": "str",
-            "armor": 1,
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "cra": {
-            "value": 0,
-            "ability": "int",
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "dec": {
-            "value": 0,
-            "ability": "cha",
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "dip": {
-            "value": 0,
-            "ability": "cha",
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "itm": {
-            "value": 0,
-            "ability": "cha",
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "med": {
-            "value": 0,
-            "ability": "wis",
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "nat": {
-            "value": 0,
-            "ability": "wis",
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "occ": {
-            "value": 0,
-            "ability": "int",
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "prf": {
-            "value": 0,
-            "ability": "cha",
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "rel": {
-            "value": 0,
-            "ability": "wis",
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "soc": {
-            "value": 0,
-            "ability": "int",
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "ste": {
-            "value": 0,
-            "ability": "dex",
-            "armor": 1,
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "sur": {
-            "value": 0,
-            "ability": "wis",
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          },
-          "thi": {
-            "value": 0,
-            "ability": "dex",
-            "armor": 1,
-            "rank": 0,
-            "item": 0,
-            "mod": 0,
-            "breakdown": ""
-          }
+        "loot": {
+            "templates": [],
+            "attributes": {},
+            "details": {
+                "description": {
+                    "value": ""
+                }
+            },
+            "traits": {
+                "size": {
+                    "value": "med"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "traits": {
+                    "value": [],
+                    "custom": ""
+                },
+                "di": {
+                    "custom": "",
+                    "value": [],
+                    "selected": {}
+                },
+                "dr": [],
+                "dv": [],
+                "ci": []
+            },
+            "lootSheetType": "Loot",
+            "hiddenWhenEmpty": false
         },
-        "martial": {
-          "unarmored": {
-            "rank": 0,
-            "value": 0,
-            "breakdown": ""
-          },
-          "light": {
-            "rank": 0,
-            "value": 0,
-            "breakdown": ""
-          },
-          "medium": {
-            "rank": 0,
-            "value": 0,
-            "breakdown": ""
-          },
-          "heavy": {
-            "rank": 0,
-            "value": 0,
-            "breakdown": ""
-          },
-          "simple": {
-            "rank": 0,
-            "value": 0,
-            "breakdown": ""
-          },
-          "martial": {
-            "rank": 0,
-            "value": 0,
-            "breakdown": ""
-          },
-          "advanced": {
-            "rank": 0,
-            "value": 0,
-            "breakdown": ""
-          },
-          "unarmed": {
-            "rank": 0,
-            "value": 0,
-            "breakdown": ""
-          }
+        "familiar": {
+            "templates": [],
+            "master": {
+                "id": null,
+                "ability": null
+            },
+            "attributes": {
+                "hp": {
+                    "value": 0,
+                    "max": 0,
+                    "temp": 0,
+                    "details": ""
+                },
+                "ac": {
+                    "value": 10
+                },
+                "perception": {
+                    "value": 0
+                },
+                "speed": {
+                    "otherSpeeds": []
+                }
+            },
+            "details": {
+                "creature": {
+                    "value": ""
+                }
+            },
+            "saves": {
+                "fortitude": {
+                    "value": 0
+                },
+                "reflex": {
+                    "value": 0
+                },
+                "will": {
+                    "value": 0
+                }
+            },
+            "skills": {},
+            "traits": {
+                "size": {
+                    "value": "tiny"
+                },
+                "traits": {
+                    "value": [],
+                    "custom": ""
+                }
+            }
         },
-        "statusEffects": [],
-        "schema": {
-          "version": {
-            "value": ""
-          }
-        },
-        "traits": {
-          "size": {
-            "value": "med"
-          },
-          "senses": [],
-          "traits": {
-            "value": [],
-            "custom": ""
-          },
-          "languages": {
-            "value": [],
-            "selected": [],
-            "custom": ""
-          },
-          "di": {
-            "value": [],
-            "custom": ""
-          },
-          "dr": [],
-          "dv": [],
-          "ci": []
-        },
-        "currency": {
-          "pp": {
-            "value": 0
-          },
-          "gp": {
-            "value": 0
-          },
-          "sp": {
-            "value": 0
-          },
-          "cp": {
-            "value": 0
-          }
-        },
-        "spells": {
-          "spell0": {
-            "max": 0
-          },
-          "spell1": {
-            "max": 0
-          },
-          "spell2": {
-            "max": 0
-          },
-          "spell3": {
-            "max": 0
-          },
-          "spell4": {
-            "max": 0
-          },
-          "spell5": {
-            "max": 0
-          },
-          "spell6": {
-            "max": 0
-          },
-          "spell7": {
-            "max": 0
-          },
-          "spell8": {
-            "max": 0
-          },
-          "spell9": {
-            "max": 0
-          },
-          "spell10": {
-            "max": 0
-          },
-          "spell11": {
-            "max": 0
-          }
+        "vehicle": {
+            "templates": [],
+            "attributes": {
+                "ac": {
+                    "value": 10,
+                    "check": 0,
+                    "details": ""
+                },
+                "hardness": 0,
+                "hp": {
+                    "value": 10,
+                    "max": 10,
+                    "temp": 0,
+                    "brokenThreshold": 5,
+                    "details": ""
+                }
+            },
+            "saves": {
+                "fortitude": {
+                    "rank": 0,
+                    "item": 0,
+                    "value": 0,
+                    "saveDetail": ""
+                }
+            },
+            "details": {
+                "description": "",
+                "level": {
+                    "value": 1
+                },
+                "price": 0,
+                "space": {
+                    "long": 0,
+                    "wide": 0,
+                    "high": 0
+                },
+                "crew": "1 pilot",
+                "passengers": "",
+                "pilotingCheck": "",
+                "AC": 0,
+                "speed": 0
+            },
+            "traits": {
+                "rarity": {
+                    "value": "common"
+                },
+                "size": {
+                    "value": "lg"
+                },
+                "traits": {
+                    "value": [],
+                    "custom": ""
+                },
+                "di": {
+                    "value": ["critical-hits","object-immunities","precision"],
+                    "custom": ""
+                },
+                "dr": [],
+                "dv": [],
+                "ci": []
+            }
         }
-      }
     },
-    "character": {
-      "templates": [
-        "common"
-      ],
-      "attributes": {
-        "dying": {
-          "value": 0,
-          "max": 4
+    "Item": {
+        "types": [
+            "weapon",
+            "melee",
+            "armor",
+            "equipment",
+            "consumable",
+            "treasure",
+            "lore",
+            "martial",
+            "spell",
+            "spellcastingEntry",
+            "ancestry",
+            "background",
+            "class",
+            "feat",
+            "action",
+            "backpack",
+            "kit",
+            "condition",
+            "effect"
+        ],
+        "templates": {
+            "itemDescription": {
+                "description": {
+                    "value": ""
+                },
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": [],
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "custom": ""
+                },
+                "rules": [],
+                "slug": null
+            },
+            "physicalItem": {
+                "quantity": {
+                    "value": 1
+                },
+                "baseItem": null,
+                "hp": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "weight": {
+                    "value": 0
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "equipped": {
+                    "value": false
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "containerId": {
+                    "value": null
+                },
+                "preciousMaterial": {
+                    "value": null
+                },
+                "preciousMaterialGrade": {
+                    "value": null
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "size": {
+                    "value": "med"
+                },
+                "identification": {
+                    "status": "identified",
+                    "unidentified": {
+                        "name": "",
+                        "img": "",
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        }
+
+                    },
+                    "misidentified": {}
+                }
+            },
+            "itemLevel": {
+                "level": {
+                    "value": 0
+                }
+            },
+            "activatedEffect": {
+                "activation": {
+                    "type": "",
+                    "cost": 0,
+                    "condition": ""
+                },
+                "duration": {
+                    "value": null,
+                    "units": ""
+                },
+                "target": {
+                    "value": null,
+                    "units": "",
+                    "type": ""
+                },
+                "range": {
+                    "value": null,
+                    "long": null,
+                    "units": ""
+                },
+                "uses": {
+                    "value": 0,
+                    "max": 0,
+                    "per": null
+                },
+                "spell": {
+                    "data":null,
+                    "heightenedLevel":null
+                }
+            },
+            "magicItem": {
+                "invested": {
+                    "value": null
+                }
+            },
+            "status": {
+                "active": true,
+                "removable": true,
+                "references": {
+                    "children": [],
+                    "overrides": [],
+                    "immunityFrom": []
+                },
+                "hud": {
+                    "statusName": "",
+                    "selectable": true,
+                    "img": {
+                        "useStatusName": true,
+                        "value": ""
+                    }
+                },
+                "duration": {
+                    "perpetual": true,
+                    "value": 0,
+                    "text": ""
+                },
+                "modifiers": []
+            }
         },
-        "wounded": {
-          "value": 0,
-          "max": 3
+        "backpack": {
+            "templates": [
+                "itemDescription",
+                "physicalItem",
+                "itemLevel"
+            ],
+            "capacity": {
+                "type": "weight",
+                "value": 0,
+                "weightless": false
+            },
+            "currency": {
+                "cp": 0,
+                "sp": 0,
+                "gp": 0,
+                "pp": 0
+            },
+            "usage": {
+                "value": "wornbackpack"
+            }
         },
-        "doomed": {
-          "value": 0,
-          "max": 3
+        "treasure": {
+            "templates": [
+                "itemDescription",
+                "physicalItem",
+                "itemLevel"
+            ],
+            "denomination": {
+                "value": "gp"
+            },
+            "value": {
+                "value": 0
+            }
         },
-        "heroPoints": {
-          "rank": 0,
-          "max": 3
-        }
-      },
-      "details": {
+        "weapon": {
+            "templates": [
+                "itemDescription",
+                "physicalItem",
+                "itemLevel",
+                "magicItem"
+            ],
+            "weaponType": {
+                "value": "simple"
+            },
+            "group": {
+                "value": null
+            },
+            "hands": {
+                "value": false
+            },
+            "bonus": {
+                "value": 0
+            },
+            "damage": {
+                "value": "",
+                "dice": 1,
+                "die": "d6",
+                "damageType": "slashing"
+            },
+            "bonusDamage": {
+                "value": 0
+            },
+            "splashDamage": {
+                "value": 0
+            },
+            "range": {
+                "value": ""
+            },
+            "reload": {
+                "value": ""
+            },
+            "ability": {
+                "value": ""
+            },
+            "MAP": {
+                "value": ""
+            },
+            "potencyRune": {
+                "value": 0
+            },
+            "strikingRune": {
+                "value": ""
+            },
+            "specific": {
+                "value": false
+            },
+            "propertyRune1": {
+                "value": null
+            },
+            "propertyRune2": {
+                "value": null
+            },
+            "propertyRune3": {
+                "value": null
+            },
+            "propertyRune4": {
+                "value": null
+            },
+            "usage": {
+                "value": "held-in-one-hand"
+            },
+            "property1": {
+                "value": "",
+                "dice": 0,
+                "die": "",
+                "damageType": "",
+                "critDice": 0,
+                "critDie": "",
+                "critDamage": "",
+                "critDamageType": ""
+            }
+        },
+        "armor": {
+            "templates": [
+                "itemDescription",
+                "physicalItem",
+                "itemLevel",
+                "magicItem"
+            ],
+            "armor": {
+                "value": 0
+            },
+            "armorType": {
+                "value": "light"
+            },
+            "group": {
+                "value": null
+            },
+            "strength": {
+                "value": 0
+            },
+            "dex": {
+                "value": 0
+            },
+            "check": {
+                "value": 0
+            },
+            "speed": {
+                "value": 0
+            },
+            "potencyRune": {
+                "value": 0
+            },
+            "resiliencyRune": {
+                "value": ""
+            },
+            "propertyRune1": {
+                "value": ""
+            },
+            "propertyRune2": {
+                "value": ""
+            },
+            "propertyRune3": {
+                "value": ""
+            },
+            "propertyRune4": {
+                "value": ""
+            },
+            "usage": {
+                "value": "wornarmor"
+            }
+        },
+        "melee": {
+            "templates": [
+                "itemDescription"
+            ],
+            "weaponType": {
+                "value": "melee"
+            },
+            "attack": {
+                "value": ""
+            },
+            "damageRolls": {},
+            "bonus": {
+                "value": 0
+            },
+            "attackEffects": {
+                "value": []
+            }
+        },
+        "consumable": {
+            "templates": [
+                "itemDescription",
+                "physicalItem",
+                "activatedEffect",
+                "itemLevel"
+            ],
+            "consumableType": {
+                "value": "potion"
+            },
+            "uses": {
+                "value": 0,
+                "max": 0,
+                "per": null,
+                "autoUse": true,
+                "autoDestroy": true
+            },
+            "charges": {
+                "value": 0,
+                "max": 0,
+                "_deprecated": true
+            },
+            "consume": {
+                "value": "",
+                "_deprecated": true
+            },
+            "autoUse": {
+                "value": true,
+                "_deprecated": true
+            },
+            "autoDestroy": {
+                "value": true,
+                "_deprecated": true
+            },
+            "usage": {
+                "value": "held-in-one-hand"
+            },
+            "spell": {
+                "data": null,
+                "heightenedLevel": null
+            }
+        },
+        "equipment": {
+            "templates": [
+                "itemDescription",
+                "physicalItem",
+                "magicItem",
+                "itemLevel"
+            ],
+            "usage": {
+                "value": ""
+            }
+        },
+        "ancestry": {
+            "templates": [
+                "itemDescription"
+            ],
+            "hp": 6,
+            "size": "med",
+            "reach": 5,
+            "speed": 25,
+            "boosts": {
+                "0": { "value": [] },
+                "1": { "value": [] },
+                "2": { "value": ["str", "dex", "con", "int", "wis", "cha"] }
+            },
+            "flaws": {
+                "0": { "value": [] }
+            },
+            "languages": {
+                "value": ["common"],
+                "custom": ""
+            },
+            "additionalLanguages": {
+                "count": 0,
+                "value": [],
+                "custom": ""
+            },
+            "items": {},
+            "vision": "normal"
+        },
         "background": {
-          "value": ""
+            "templates": [
+                "itemDescription"
+            ],
+            "boosts": {
+                "0": { "value": [] },
+                "1": { "value": [] }
+            },
+            "items": {},
+            "trainedLore": "",
+            "trainedSkills": {
+                "value": []
+            }
         },
-        "xp": {
-          "value": 0,
-          "min": 0,
-          "max": 1000,
-          "pct": 0
+        "class": {
+            "templates": [
+                "itemDescription"
+            ],
+            "keyAbility": { "value": [] },
+            "items": {},
+            "hp": 0,
+            "trainedSkills": {
+                "value": [],
+                "additional": 0
+            },
+            "perception": 0,
+            "savingThrows": {
+                "fortitude": 0,
+                "reflex": 0,
+                "will": 0
+            },
+            "attacks": {
+                "simple": 0,
+                "martial": 0,
+                "advanced": 0,
+                "unarmed": 0,
+                "other": { "name": "", "rank": 0 }
+            },
+            "defenses": {
+                "unarmored": 0,
+                "light": 0,
+                "medium": 0,
+                "heavy": 0
+            },
+            "classDC": 0,
+            "ancestryFeatLevels": { "value": [ 1, 5, 9, 13, 17 ] },
+            "classFeatLevels": { "value": [ 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 ] },
+            "generalFeatLevels": { "value": [ 3, 7, 11, 15, 19 ] },
+            "skillFeatLevels": { "value": [ 2, 4, 6, 8, 10, 12, 14, 16, 18, 20 ] },
+            "skillIncreaseLevels": { "value": [ 3, 5, 7, 9, 11, 13, 15, 17, 19 ] },
+            "abilityBoostLevels": { "value": [ 5, 10, 15, 20 ] }
         },
-        "age": {
-          "value": ""
+        "feat": {
+            "templates": [
+                "itemDescription",
+                "itemLevel"
+            ],
+            "featType": {
+                "value": "bonus"
+            },
+            "actionType": {
+                "value": ""
+            },
+            "actionCategory": {
+                "value": ""
+            },
+            "actions": {
+                "value": ""
+            },
+            "prerequisites": {
+                "value": []
+            },
+            "location": ""
         },
-        "height": {
-          "value": ""
+        "lore": {
+            "templates": [
+                "itemDescription"
+            ],
+            "mod": {
+                "value": 0
+            },
+            "proficient": {
+                "value": 0
+            }
         },
-        "weight": {
-          "value": ""
+        "martial": {},
+        "action": {
+            "templates": [
+                "itemDescription"
+            ],
+            "actionType": {
+                "value": ""
+            },
+            "actionCategory": {
+                "value": ""
+            },
+            "weapon": {
+                "value": ""
+            },
+            "actions": {
+                "value": ""
+            },
+            "requirements": {
+                "value": ""
+            },
+            "trigger": {
+                "value": ""
+            }
         },
-        "gender": {
-          "value": ""
+        "spell": {
+            "templates": [
+                "itemDescription",
+                "itemLevel"
+            ],
+            "spellType": {
+                "value": "attack"
+            },
+            "category": {
+                "value": "spell"
+            },
+            "traditions": {
+                "value": []
+            },
+            "school": {
+                "value": "evocation"
+            },
+            "components": {
+                "material": false,
+                "somatic": false,
+                "verbal": false
+            },
+            "materials": {
+                "value": ""
+            },
+            "target": {
+                "value": ""
+            },
+            "range": {
+                "value": ""
+            },
+            "area": {
+                "value": ""
+            },
+            "time": {
+                "value": "2"
+            },
+            "duration": {
+                "value": ""
+            },
+            "damage": {
+                "value": "",
+                "applyMod": false
+            },
+            "damageType": {
+                "value": ""
+            },
+            "scaling": {
+                "mode": "",
+                "formula": ""
+            },
+            "save": {
+                "value": "",
+                "basic": ""
+            },
+            "sustained": {
+                "value": false
+            },
+            "cost": {
+                "value": ""
+            },
+            "ability": {
+                "value": ""
+            },
+            "prepared": {
+                "value": ""
+            },
+            "location": {
+                "value": ""
+            },
+            "hasCounteractCheck": {
+                "value": false
+            }
         },
-        "ethnicity": {
-          "value": ""
+        "spellcastingEntry": {
+            "templates": [
+                "itemDescription"
+            ],
+            "ability": {
+                "value": ""
+            },
+            "spelldc": {
+                "value": 0,
+                "dc": 0,
+                "mod": 0
+            },
+            "tradition": {
+                "value": ""
+            },
+            "focus": {
+                "points": 1,
+                "pool": 1
+            },
+            "prepared": {
+                "value": ""
+            },
+            "showUnpreparedSpells": {
+                "value": false
+            },
+            "proficiency": {
+                "value": 0
+            },
+            "displayLevels": {},
+            "slots": {
+                "slot0": {
+                    "prepared": [],
+                    "value": 0,
+                    "max": 0
+                },
+                "slot1": {
+                    "prepared": [],
+                    "value": 0,
+                    "max": 0
+                },
+                "slot2": {
+                    "prepared": [],
+                    "value": 0,
+                    "max": 0
+                },
+                "slot3": {
+                    "prepared": [],
+                    "value": 0,
+                    "max": 0
+                },
+                "slot4": {
+                    "prepared": [],
+                    "value": 0,
+                    "max": 0
+                },
+                "slot5": {
+                    "prepared": [],
+                    "value": 0,
+                    "max": 0
+                },
+                "slot6": {
+                    "prepared": [],
+                    "value": 0,
+                    "max": 0
+                },
+                "slot7": {
+                    "prepared": [],
+                    "value": 0,
+                    "max": 0
+                },
+                "slot8": {
+                    "prepared": [],
+                    "value": 0,
+                    "max": 0
+                },
+                "slot9": {
+                    "prepared": [],
+                    "value": 0,
+                    "max": 0
+                },
+                "slot10": {
+                    "prepared": [],
+                    "value": 0,
+                    "max": 0
+                },
+                "slot11": {
+                    "prepared": [],
+                    "value": 0,
+                    "max": 0
+                }
+            },
+            "signatureSpells": {
+                "value": []
+            }
         },
-        "nationality": {
-          "value": ""
+        "kit": {
+            "templates": [
+                "itemDescription"
+            ],
+            "items": {}
+        },
+        "condition": {
+            "templates": [
+                "itemDescription",
+                "status"
+            ],
+            "base": "",
+            "group": "",
+            "value": {
+                "isValued": false,
+                "immutable": false,
+                "value": 0,
+                "modifiers": []
+            },
+            "sources": {
+                "hud": false,
+                "values": []
+            },
+            "alsoApplies": {
+                "linked": [],
+                "unlinked": []
+            },
+            "overrides": []
+        },
+        "effect": {
+            "templates": [
+                "itemDescription"
+            ],
+            "level": {
+                "value": 1
+            },
+            "duration": {
+                "value": 0,
+                "unit": "rounds",
+                "sustained": false,
+                "expiry": "turn-start"
+            },
+            "start": {
+                "value": 0,
+                "initiative": null
+            },
+            "target": null,
+            "tokenIcon": {
+                "show": false
+            }
         }
-      },
-      "pfs": {
-        "playerNumber": "",
-        "characterNumber": "",
-        "levelBump": false,
-        "fame": 0,
-        "currentFaction": "EA",
-        "school": "none",
-        "reputation": {
-          "EA": 0,
-          "GA": 0,
-          "HH": 0,
-          "VS": 0,
-          "RO": 0,
-          "VW": 0
-        }
-      }
-    },
-    "npc": {
-      "templates": [
-        "common"
-      ],
-      "traits": {
-        "rarity": {
-          "value": "common"
-        }
-      },
-      "details": {
-        "source": {
-          "value": ""
-        },
-        "flavourText": "",
-        "nethysUrl": "",
-        "recallKnowledgeText": "",
-        "sidebarText": "",
-        "creatureType": ""
-      }
-    },
-    "hazard": {
-      "templates": [],
-      "source": {
-        "value": ""
-      },
-      "flavourText": "",
-      "nethysUrl": "",
-      "recallKnowledgeText": "",
-      "sidebarText": "",
-      "creatureType": "",
-      "saves": {
-        "fortitude": {
-          "rank": 0,
-          "saveDetail": ""
-        },
-        "reflex": {
-          "rank": 0,
-          "saveDetail": ""
-        },
-        "will": {
-          "rank": 0,
-          "saveDetail": ""
-        }
-      },
-      "attributes": {
-        "hasHealth": true,
-        "ac": {
-          "value": 0
-        },
-        "hp": {
-          "value": 10,
-          "max": 10,
-          "temp": 0,
-          "tempmax": 0,
-          "details": ""
-        },
-        "hardness": 0,
-        "stealth": {
-          "value": 0,
-          "details": ""
-        }
-      },
-      "details": {
-        "isComplex": false,
-        "level": 1,
-        "disable": "",
-        "description": "",
-        "reset": "",
-        "routine": ""
-      },
-      "statusEffects": [],
-      "schema": {
-        "version": {
-          "value": ""
-        }
-      },
-      "traits": {
-        "traits": {
-          "value": [],
-          "custom": ""
-        },
-        "di": {
-          "custom": "",
-          "value": [],
-          "selected": {}
-        },
-        "dr": [],
-        "dv": [],
-        "ci": []
-      }
-    },
-    "loot": {
-      "templates": [],
-      "details": {
-        "description": {
-          "value": ""
-        }
-      },
-      "lootSheetType": "Loot"
-    },
-    "familiar": {
-      "templates": [],
-      "master": {
-        "id": "",
-        "name": "",
-        "level": 0
-      },
-      "attributes": {
-        "hp": {
-          "value": 0
-        },
-        "ac": {
-          "value": 10
-        },
-        "perception": {
-          "value": 0
-        },
-        "speed": {
-          "otherSpeeds": []
-        }
-      },
-      "details": {
-        "level": {
-          "value": 0
-        },
-        "creature": {
-          "value": ""
-        }
-      },
-      "saves": {
-        "fortitude": {
-          "value": 0
-        },
-        "reflex": {
-          "value": 0
-        },
-        "will": {
-          "value": 0
-        }
-      },
-      "skills": {},
-      "traits": {
-        "size": {
-          "value": "tiny"
-        },
-        "traits": {
-          "value": ["minion"]
-        }
-      }
     }
-  },
-  "Item": {
-    "types": [
-      "weapon",
-      "melee",
-      "armor",
-      "equipment",
-      "consumable",
-      "treasure",
-      "lore",
-      "martial",
-      "spell",
-      "spellcastingEntry",
-      "feat",
-      "action",
-      "backpack",
-      "kit",
-      "condition",
-      "effect"
-    ],
-    "templates": {
-      "itemDescription": {
-        "description": {
-          "value": "",
-          "chat": "",
-          "unidentified": ""
-        },
-        "source": {
-          "value": ""
-        },
-        "traits": {
-          "value": []
-        },
-        "rarity": {
-          "value": "common"
-        },
-        "usage": {
-          "value": "held-in-one-hand"
-        },
-        "rules": []
-      },
-      "physicalItem": {
-        "quantity": {
-          "value": 1
-        },
-        "hp": {
-          "value": 0
-        },
-        "maxHp": {
-          "value": 0
-        },
-        "hardness": {
-          "value": 0
-        },
-        "brokenThreshold": {
-          "value": 0
-        },
-        "weight": {
-          "value": 0
-        },
-        "equippedBulk": {
-          "value": ""
-        },
-        "price": {
-          "value": 0
-        },
-        "invested": {
-          "value": false
-        },
-        "equipped": {
-          "value": false
-        },
-        "identified": {
-          "value": false
-        },
-        "stackGroup": {
-          "value": ""
-        },
-        "bulkCapacity": {
-          "value": ""
-        },
-        "negateBulk": {
-          "value": "0"
-        },
-        "containerId": {
-          "value": ""
-        },
-        "preciousMaterial": {
-          "value": ""
-        },
-        "preciousMaterialGrade": {
-          "value": ""
-        },
-        "collapsed": {
-          "value": false
-        }
-      },
-      "itemLevel": {
-        "level": {
-          "value": 0
-        }
-      },
-      "activatedEffect": {
-        "activation": {
-          "type": "",
-          "cost": 0,
-          "condition": ""
-        },
-        "duration": {
-          "value": null,
-          "units": ""
-        },
-        "target": {
-          "value": null,
-          "units": "",
-          "type": ""
-        },
-        "range": {
-          "value": null,
-          "long": null,
-          "units": ""
-        },
-        "uses": {
-          "value": 0,
-          "max": 0,
-          "per": null
-        }
-      },
-      "magicItem": {
-        "property1": {
-          "value": "",
-          "dice": 0,
-          "die": "",
-          "damageType": "",
-          "critDice": 0,
-          "critDie": "",
-          "critDamage": "",
-          "critDamageType": ""
-        },
-        "property2": {
-          "value": "",
-          "dice": 0,
-          "die": "",
-          "damageType": "",
-          "critDice": 0,
-          "critDie": "",
-          "critDamage": "",
-          "critDamageType": ""
-        },
-        "property3": {
-          "value": "",
-          "dice": 0,
-          "die": "",
-          "damageType": "",
-          "critDice": 0,
-          "critDie": "",
-          "critDamage": "",
-          "critDamageType": ""
-        }
-      },
-      "status": {
-        "active": true,
-        "removable": true,
-        "references": {
-          "children": [],
-          "overrides": [],
-          "immunityFrom": []
-        },
-        "hud": {
-          "statusName": "",
-          "selectable": true,
-          "img": {
-            "useStatusName": true,
-            "value": ""
-          }
-        },
-        "duration": {
-          "perpetual": true,
-          "value": 0,
-          "text": ""
-        },
-        "modifiers": []
-      }
-    },
-    "backpack": {
-      "templates": [
-        "itemDescription",
-        "physicalItem",
-        "itemLevel"
-      ],
-      "capacity": {
-        "type": "weight",
-        "value": 0,
-        "weightless": false
-      },
-      "currency": {
-        "cp": 0,
-        "sp": 0,
-        "ep": 0,
-        "gp": 0,
-        "pp": 0
-      }
-    },
-    "treasure": {
-      "templates": [
-        "itemDescription",
-        "physicalItem",
-        "itemLevel"
-      ],
-      "denomination": {
-        "value": "gp"
-      },
-      "value": {
-        "value": 0
-      }
-    },
-    "weapon": {
-      "templates": [
-        "itemDescription",
-        "physicalItem",
-        "itemLevel",
-        "magicItem"
-      ],
-      "weaponType": {
-        "value": ""
-      },
-      "group": {
-        "value": ""
-      },
-      "hands": {
-        "value": ""
-      },
-      "bonus": {
-        "value": 0
-      },
-      "damage": {
-        "value": "",
-        "dice": 1,
-        "die": "d6",
-        "damageType": "slashing"
-      },
-      "bonusDamage": {
-        "value": 0
-      },
-      "splashDamage": {
-        "value": 0
-      },
-      "range": {
-        "value": ""
-      },
-      "reload": {
-        "value": ""
-      },
-      "ability": {
-        "value": ""
-      },
-      "MAP": {
-        "value": ""
-      },
-      "potencyRune": {
-        "value": ""
-      },
-      "strikingRune": {
-        "value": ""
-      },
-      "propertyRune1": {
-        "value": ""
-      },
-      "propertyRune2": {
-        "value": ""
-      },
-      "propertyRune3": {
-        "value": ""
-      },
-      "propertyRune4": {
-        "value": ""
-      }
-    },
-    "armor": {
-      "templates": [
-        "itemDescription",
-        "physicalItem",
-        "itemLevel",
-        "magicItem"
-      ],
-      "armor": {
-        "value": 0
-      },
-      "armorType": {
-        "value": ""
-      },
-      "group": {
-        "value": ""
-      },
-      "strength": {
-        "value": 0
-      },
-      "dex": {
-        "value": 0
-      },
-      "check": {
-        "value": 0
-      },
-      "speed": {
-        "value": 0
-      },
-      "potencyRune": {
-        "value": ""
-      },
-      "resiliencyRune": {
-        "value": ""
-      },
-      "propertyRune1": {
-        "value": ""
-      },
-      "propertyRune2": {
-        "value": ""
-      },
-      "propertyRune3": {
-        "value": ""
-      },
-      "propertyRune4": {
-        "value": ""
-      }
-    },
-    "melee": {
-      "templates": [
-        "itemDescription",
-        "physicalItem",
-        "magicItem"
-      ],
-      "attack": {
-        "value": ""
-      },
-      "damageRolls": {},
-      "bonus": {
-        "value": 0
-      },
-      "attackEffects": {
-        "value": []
-      }
-    },
-    "consumable": {
-      "templates": [
-        "itemDescription",
-        "physicalItem",
-        "activatedEffect",
-        "itemLevel"
-      ],
-      "consumableType": {
-        "value": "potion"
-      },
-      "uses": {
-        "value": 0,
-        "max": 0,
-        "per": null,
-        "autoUse": true,
-        "autoDestroy": true
-      },
-      "charges": {
-        "value": 1,
-        "max": 1,
-        "_deprecated": true
-      },
-      "consume": {
-        "value": "",
-        "_deprecated": true
-      },
-      "autoUse": {
-        "value": true,
-        "_deprecated": true
-      },
-      "autoDestroy": {
-        "value": true,
-        "_deprecated": true
-      }
-    },
-    "equipment": {
-      "templates": [
-        "itemDescription",
-        "physicalItem",
-        "itemLevel"
-      ]
-    },
-    "feat": {
-      "templates": [
-        "itemDescription",
-        "itemLevel"
-      ],
-      "featType": {
-        "value": ""
-      },
-      "actionType": {
-        "value": ""
-      },
-      "actionCategory": {
-        "value": ""
-      },
-      "actions": {
-        "value": ""
-      },
-      "prerequisites": {
-        "value": ""
-      }
-    },
-    "lore": {
-      "templates": [
-        "itemDescription"
-      ],
-      "featType": "",
-      "mod": {
-        "value": 0
-      },
-      "proficient": {
-        "value": 0
-      },
-      "item": {
-        "value": 0
-      }
-    },
-    "martial": {
-      "templates": [
-        "itemDescription"
-      ],
-      "proficient": {
-        "value": 0
-      },
-      "item": {
-        "value": 0
-      }
-    },
-    "action": {
-      "templates": [
-        "itemDescription"
-      ],
-      "actionType": {
-        "value": ""
-      },
-      "actionCategory": {
-        "value": ""
-      },
-      "weapon": {
-        "value": ""
-      },
-      "actions": {
-        "value": ""
-      },
-      "requirements": {
-        "value": ""
-      },
-      "trigger": {
-        "value": ""
-      },
-      "skill_requirements": {
-        "skill": "",
-        "rank": ""
-      }
-    },
-    "spell": {
-      "templates": [
-        "itemDescription",
-        "itemLevel"
-      ],
-      "spellType": {
-        "value": ""
-      },
-	  "spellCategory": {
-        "value": ""
-      },
-      "traditions": {
-        "value": []
-      },
-      "school": {
-        "value": ""
-      },
-      "components": {
-        "value": ""
-      },
-      "materials": {
-        "value": ""
-      },
-      "target": {
-        "value": ""
-      },
-      "range": {
-        "value": ""
-      },
-      "area": {
-        "value": ""
-      },
-      "time": {
-        "value": ""
-      },
-      "duration": {
-        "value": ""
-      },
-      "damage": {
-        "value": "",
-        "applyMod": false
-      },
-      "damageType": {
-        "value": ""
-      },
-      "scaling": {
-        "mode": "",
-        "formula": ""
-      },
-      "save": {
-        "basic": ""
-      },
-      "sustained": {
-        "value": false
-      },
-      "cost": {
-        "value": ""
-      },
-      "ability": {
-        "value": ""
-      },
-      "prepared": {
-        "value": ""
-      },
-      "location": {
-        "value": ""
-      }
-    },
-    "spellcastingEntry": {
-      "templates": [
-        "itemDescription"
-      ],
-      "ability": {
-        "value": ""
-      },
-      "spelldc": {
-        "value": 0,
-        "dc": 0,
-        "item": 0,
-        "mod": 0
-      },
-      "tradition": {
-        "value": ""
-      },
-      "focus": {
-        "points": 1,
-        "pool": 1
-      },
-      "prepared": {
-        "value": ""
-      },
-      "showUnpreparedSpells": {
-        "value": false
-      },
-      "item": {
-        "value": 0
-      },
-      "proficiency": {
-        "value": 0
-      },
-      "displayLevels": {
-      },
-      "slots": {
-        "slot0": {
-          "prepared": [],
-          "value": 0,
-          "max": 0
-        },
-        "slot1": {
-          "prepared": [],
-          "value": 0,
-          "max": 0
-        },
-        "slot2": {
-          "prepared": [],
-          "value": 0,
-          "max": 0
-        },
-        "slot3": {
-          "prepared": [],
-          "value": 0,
-          "max": 0
-        },
-        "slot4": {
-          "prepared": [],
-          "value": 0,
-          "max": 0
-        },
-        "slot5": {
-          "prepared": [],
-          "value": 0,
-          "max": 0
-        },
-        "slot6": {
-          "prepared": [],
-          "value": 0,
-          "max": 0
-        },
-        "slot7": {
-          "prepared": [],
-          "value": 0,
-          "max": 0
-        },
-        "slot8": {
-          "prepared": [],
-          "value": 0,
-          "max": 0
-        },
-        "slot9": {
-          "prepared": [],
-          "value": 0,
-          "max": 0
-        },
-        "slot10": {
-          "prepared": [],
-          "value": 0,
-          "max": 0
-        },
-        "slot11": {
-          "prepared": [],
-          "value": 0,
-          "max": 0
-        }
-      }
-    },
-    "kit": {
-      "templates": [
-        "itemDescription"
-      ],
-      "items": {}
-    },
-    "condition": {
-      "templates": [
-        "itemDescription",
-        "status"
-      ],
-      "base": "",
-      "group": "",
-      "value": {
-        "isValued": false,
-        "immutable": false,
-        "value": 0,
-        "modifiers": []
-      },
-      "sources": {
-        "hud": false,
-        "values": []
-      },
-      "alsoApplies": {
-        "linked": [],
-        "unlinked": []
-      },
-      "overrides": []
-    },
-    "effect": {
-      "templates": [
-        "itemDescription"
-      ],
-      "level": {
-        "value": 1
-      }
-    }
-  }
 }

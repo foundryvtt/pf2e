@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "17"
+                "value": 17
             },
             "allSaves": {
                 "value": ""
@@ -59,12 +59,11 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": ")",
-                "max": "18",
+                "details": "(fast healing 2 (when touching ice or snow))",
+                "max": 18,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "18"
+                "value": 18
             },
             "init": {
                 "bonus": 0,
@@ -104,12 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "25 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "25"
                     }
                 ],
-                "special": "",
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "currency": {
@@ -126,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -142,10 +143,10 @@
             },
             "creatureType": "Elemental",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Though capable of the same depths of cruelty as their fire mephit kin, ice mephits carry theirs out in a more calculating way. Unlike most mephits, these pale blue mephits prefer solitude to company. Lacking in empathy, they are known for their callousness, and have a reputation for brutal honesty. They also have few moral qualms about acting selfishly and exploiting weakness for their own gain, should the chance arise.<br><br>",
+            "flavorText": "Though capable of the same depths of cruelty as their fire mephit kin, ice mephits carry theirs out in a more calculating way. Unlike most mephits, these pale blue mephits prefer solitude to company. Lacking in empathy, they are known for their callousness, and have a reputation for brutal honesty. They also have few moral qualms about acting selfishly and exploiting weakness for their own gain, should the chance arise.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -155,13 +156,35 @@
             },
             "level": {
                 "min": 1,
-                "value": "1"
+                "value": 1
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=660",
             "recallKnowledgeText": "Recall Knowledge - Elemental : DC 17",
-            "sidebarText": "",
             "source": {
-                "value": "Bestiary 2 pg. 112"
+                "value": "Bestiary 2"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 17,
+                        "value": 9
+                    }
+                }
+            },
+            "3PMo2s4e4A2PWtKx": {
+                "data": {
+                    "spelldc": {
+                        "dc": 17,
+                        "value": 9
+                    }
+                }
             }
         },
         "martial": {
@@ -411,11 +434,18 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
-                "custom": "bleed, cold, paralyzed, poison, sleep",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "bleed",
+                    "cold",
+                    "paralyzed",
+                    "poison",
+                    "sleep"
                 ]
             },
             "dr": [],
@@ -453,10 +483,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "3PMo2s4e4A2PWtKx",
@@ -484,11 +514,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -552,11 +583,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "17",
+                    "dc": 17,
                     "item": 0,
                     "mod": 0,
                     "value": 9
@@ -565,95 +597,90 @@
                     "value": "arcane"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Arcane Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "nXRcKAqPOi05moAT",
+            "_id": "tMLJwrzc7C9mSGWk",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": true,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": "1d4"
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": "negative"
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionspf2e.MIRkyAjyBeXivMa7]{Enfeebled} 1 for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionspf2e.AJh5ex99aV6VTggg]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionspf2e.sDPxOjQ9kx2RZE8D]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr>\n<p><strong>Heightened </strong> The negative damage to living creatures increases by 1d4.</p>"
+                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage to living creatures increases by 1d4.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "3PMo2s4e4A2PWtKx"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "touch"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "basic",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": "fortitude"
                 },
                 "scaling": {
@@ -661,41 +688,31 @@
                     "mode": "level1"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
+                    "value": "necromancy"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "chill-touch",
                 "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=35"
-                },
-                "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "save"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 living or undead creature"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "divine",
@@ -703,103 +720,95 @@
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "cantrip",
                         "necromancy",
                         "negative"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {
-                "_sheetTab": "details"
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.mAMEt4FFbdqoRnkN"
+                }
             },
-            "img": "systems/pf2e/icons/spells/chill-touch.jpg",
-            "name": "Chill Touch - Cantrips ",
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/chill-touch.webp",
+            "name": "Chill Touch",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "3ccc4ezn5VrI5SM0",
+            "_id": "roG1L564EjXTDyGw",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": true,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": "1d4"
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": "cold"
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals cold damage equal to 1d4 + your spellcasting ability modifier.</p>\n<hr>\n<p><strong>Critical Success</strong>&nbsp;The target takes double damage and takes a –10-foot status penalty to its Speeds for 1 round.<br><strong>Success&nbsp;</strong>The target takes normal damage.</p>\n<hr>\n<p><strong>Heightened </strong>&nbsp;The damage increases by 1d4.</p>"
+                    "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals cold damage equal to 1d4 + your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "3PMo2s4e4A2PWtKx"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "120 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -807,42 +816,32 @@
                     "mode": "level1"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "evo"
+                    "value": "evocation"
                 },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
+                "secondarycasters": {
                     "value": ""
                 },
-                "spellCategory": {
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "ray-of-frost",
+                "source": {
                     "value": ""
                 },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "attack"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 creature"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2 Actions"
+                    "value": "2"
                 },
                 "traditions": {
                     "custom": "",
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "primal"
@@ -850,24 +849,29 @@
                 },
                 "traits": {
                     "custom": "",
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "attack",
                         "cold",
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {
-                "_sheetTab": "details"
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gYjPm7YwGtEa1oxh"
+                }
             },
-            "img": "systems/pf2e/icons/spells/ray-of-frost.jpg",
-            "name": "Ray of Frost - Cantrips ",
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/ray-of-frost.webp",
+            "name": "Ray of Frost",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
@@ -881,141 +885,58 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 9,
                     "value": 9
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "die": "1d4"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d4",
                         "damageType": "slashing"
                     },
-                    {
+                    "1": {
                         "damage": "1d4",
                         "damageType": "cold"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile",
                         "finesse"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Claw",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "melee"
         },
         {
-            "_id": "a29GFo7lbKhSTAYm",
+            "_id": "W0kFuPmuWmicQuUc",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1026,22 +947,75 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A monster with this ability regains the given number of Hit Points each round at the beginning of its turn."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "a29GFo7lbKhSTAYm",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1054,49 +1028,47 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Fast Healing 2 (when touching ice or snow)",
+            "permission": {
+                "default": 0
             },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Fast Healing",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
             "_id": "kFLwkDqwtyueOpyG",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The ice mephit breathes shards of ice in a 15-foot cone that deals [[/r 1d6 # cold damage]] cold damage and [[/r 1d6 # piercing damage]] piercing damage to each creature within the area (DC 17 basic Reflex save). The ice mephit can't use Breath Weapon again for 1d4 rounds."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The ice mephit breathes shards of ice in a 15-foot cone that deals [[/r 1d6 # cold damage]] cold damage and [[/r 1d6 # piercing damage]] piercing damage to each creature within the area (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"arcane,cold,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p>The ice mephit can't use Breath Weapon again for [[/r 1d4]] rounds.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "arcane",
                         "cold"
@@ -1112,16 +1084,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 600000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -1132,7 +1103,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1142,23 +1112,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -1169,7 +1147,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1179,23 +1156,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "lore"
         }
     ],
@@ -1204,13 +1189,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "6Me4Q1JDupyCCnGg",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1220,15 +1207,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Ice Mephit",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

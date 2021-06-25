@@ -1,63 +1,45 @@
-# PF2e System
+# PF2e System for FoundryVTT
 
-A community contributed game system for Pathfinder Second Edition.
+> ⚔️ This is a community created game system to run Pathfinder Second Edition games on FoundryVTT.
 
 This system uses trademarks and/or copyrights owned by Paizo Inc., which are used under Paizo's Community Use Policy. We are expressly prohibited from charging you to use or access this content. This system is not published, endorsed, or specifically approved by Paizo Inc. For more information about Paizo's Community Use Policy, please visit paizo.com/communityuse. For more information about Paizo Inc. and Paizo products, please visit paizo.com.
 
-### System Version
-This is community created game system to run Pathfinder Second Edition games on virtual table top platforms. 
+## Shoutouts
 
-Patch Notes:
-See CHANGELOG
+A huge thanks to the large team of contributers and a special thanks to the following for code and art that we have used in this project:
 
+- __[Fatman#0714](https://www.reddit.com/user/FatMani)__ for creating the amazing token markers for the Pathfinder conditions used in the system.
+- __Furyspark#7513__ and __Dan Gomme__ for the great work creating the Pathfinder measurement templates in the Pathfinder 1e system which I have incorporated into this system.
+- __[@fyjham-ts](https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB)__ for the raw data I used (and __FS#5443__ for pointing me to it).
+- __Felix#6196__ for the creation of [Spell Browser](https://github.com/syl3r86/Spell-Browser) and kind permission to allow me to incorporate it into this system.
+- __[u/baughberick](https://www.reddit.com/user/baughberick/)__ for the creation of the Pathfinder2eActions font.
 
-Please Note:
-- Functionality is not complete with plenty of work remaining. 
-- If you find any issues or have any feedback please let me know.
+## WIP and Feedback
 
-### VTT Support:
-Tested with the following virtual table top platforms: 
-*  Foundry VTT v0.5.3.
+> 🛠️ Please note that the functionality of this project is not complete and there is plenty of work remaining.
 
-Note: The following modules are recommended with Foundry VTT:
-* Combat Utility Belt: This module amoung many other great things it does addes labelled conditions for status effects. 
+If you have any suggestions or feedback, please contact me on Discord @ **hooking[UTC+12]#0492** or drop by the #pf2e channel on the Foundry Discord server.
 
-### Shoutouts
+## Licenses
 
-A huge thanks to:
+**Project Licensing:**
 
-- @yeroon#2590 for the healthbar and shield bar changes
-- @Cranic#0211 for adding support for adjustable Multi-Attack Penalties on weapons
-- @FrisGuardian#8347 for cleaing up some of the UI in the project!
-- @ohporter for getting involved and fixing issues with the roll logic
-- Trey#9048 for picking up the project where I had left it, fixing some anoying bugs and adding new features all in a matter of days!
-- FS#5443 for the addition of multi-attack buttons!
-- Overdox#9174 for contributing hugely to the SRD compendium packs!
-- @fyjham-ts https://github.com/fyjham-ts/Pathfinder-2E-Spell-DB for the raw data I used (and FS#5443 for pointing me to it).
-- Felix#6196 for the creation of Spell Browser (https://github.com/syl3r86/Spell-Browser) and kind permission to allow me to incorporate it into this system.
-- fryguy#3851 for contributing to the project with improvements to the NPC sheet!
-- Moo Man#7518  and CatoThe1stElder#9725 for the wfrp4e system which I used for inspiration on my inventory onDrop method.
-- u/baughberick (https://www.reddit.com/user/baughberick/) for the creation of the Pathfinder2eActions font.
+- All HTML, CSS and Javascript in this project is licensed under the Apache License v2.
 
-### Feedback
+**Content Usage and Licensing:**
 
-If you have any suggestions or feedback, please contact me on discord (hooking#0492)
+- Any Pathfinder Second Edition information used under the Paizo Inc. Community Use Policy (<https://paizo.com/community/communityuse>)
+- Game system information and mechanics are licensed under the Open Game License (OPEN GAME LICENSE Version 1.0a).
+- License information for the art used in this project is included in the ./packs/ folder alongside the JSON of where it is referenced.
 
-### Licenses
+**Virtual Table Top Platform Licenses:**
 
-Project Licensing:
-*  All HTML, CSS and Javascript in this project is licensed under the Apache License v2.
+- Foundry VTT support is covered by the following license: [Limited License Agreement for module development 09/02/2020](https://foundryvtt.com/article/license/).
 
+## Patch Notes
 
-Content Usage and Licensing:
-*  Any Pathfinder Second Edition information used under the Paizo Inc. Community Use Policy (https://paizo.com/community/communityuse)
-*  Game system information and mechanics are licensed under the Open Game License (OPEN GAME LICENSE Version 1.0a).
-*  License information for the art used in this project is included in the ./packs/ folder alongside the JSON of where it is referenced.
+See [CHANGELOG.md](./CHANGELOG.md)
 
+## Contributing
 
-Virtual Table Top Platform Licenses:
-*  Foundry VTT support is covered by the following license: [Limited License Agreement for module development 09/02/2020](https://foundryvtt.com/article/license/).
-
-### Contributing
-
-See CONTRIBUTING.md
+See [CONTRIBUTING.md](./CONTRIBUTING.md)

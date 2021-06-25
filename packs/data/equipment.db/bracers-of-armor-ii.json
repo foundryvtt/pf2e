@@ -1,6 +1,7 @@
 {
     "_id": "8mhSUxEvNuXDP8Ki",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>These stiff leather armguards grant you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to brac<em>ers of armor</em> as though they were light armor.&nbsp;</span></p>"
+            "value": "<p>These stiff leather armguards grant you a +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5. You can affix talismans to brac<em>ers of armor</em> as though they were light armor.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li> +2 item bonus to AC and saving throws, and a maximum Dexterity modifier of +5.</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "14"
+            "value": 14
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,28 @@
             "value": "4,000 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "ac",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.DexterityModifierCap",
+                "value": 5
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +100,6 @@
             "rarity": {
                 "value": "common"
             },
-            "usage": {
-                "value": "held-in-one-hand"
-            },
             "value": [
                 "abjuration",
                 "invested",
@@ -81,14 +107,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornbracers"
         },
         "weight": {
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/bracers-of-armor.webp",
     "name": "Bracers of Armor II",
     "permission": {
         "default": 0

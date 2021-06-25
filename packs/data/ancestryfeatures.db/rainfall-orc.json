@@ -13,20 +13,45 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span class=\"fontstyle0\">You were born in a rain forest with only tangles of trees<br>providing protection from torrential rainstorms and flash<br>floods. You’ve learned to move adeptly through jungle<br>terrain and resist the various ailments common in humid<br>environs. You gain a +2 circumstance bonus to Athletics<br>checks to @Compendium[pf2e.actionspf2e.pprgrYQ1QnIDGZiy]{Climb} or @Compendium[pf2e.actionspf2e.c8TGiZ48ygoSPofx]{Swim} and a +1 circumstance bonus to<br>saving throws against diseases.</span></p>"
+            "value": "<p>You were born in a rain forest with only tangles of trees<br />providing protection from torrential rainstorms and flash<br />floods. You've learned to move adeptly through jungle<br />terrain and resist the various ailments common in humid<br />environs.</p>\n<p>You gain a +2 circumstance bonus to Athletics<br />checks to @Compendium[pf2e.actionspf2e.Climb]{Climb}or @Compendium[pf2e.actionspf2e.Swim]{Swim}and a +1 circumstance bonus to<br />saving throws against diseases.</p>"
         },
         "featType": {
-            "value": "ancestryfeature"
+            "value": "heritage"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rainfall Orc (Climb or Swim)",
+                "predicate": {
+                    "any": [
+                        "action:climb",
+                        "action:swim"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rainfall Orc (vs. disease)",
+                "predicate": {
+                    "all": [
+                        "disease"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +63,12 @@
             "value": [
                 "orc"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/ancestry/rainfall-orc.webp",
     "name": "Rainfall Orc",
     "permission": {
         "default": 0

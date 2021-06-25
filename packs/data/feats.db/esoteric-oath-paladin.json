@@ -1,0 +1,96 @@
+{
+    "_id": "c2h9Z8exSFhraJ8j",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>You've sworn an oath to slay the alien abominations that lurk in the remote corners of Golarion. Add the following tenet to your champion's code, after the other tenets. \"You must slay evil aberrations you encounter as long as you have a reasonable chance of success.\"</p>\n<p>Your @Compendium[pf2e.actionspf2e.Retributive Strike]{Retributive Strike} gains a +4 circumstance bonus to damage against an evil aberration, or +6 if you have master proficiency with the weapon you used.</p>\n<p>You don't consider evil aberrations to be legitimate authorities, even in nations they rule.</p>"
+        },
+        "featType": {
+            "value": "class"
+        },
+        "level": {
+            "value": 2
+        },
+        "location": "",
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "tenets of good"
+                },
+                {
+                    "value": "paladin cause"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Retributive Strike against an evil aberration",
+                "property": "flags.pf2e.rollOptions.damage-roll.esoteric-oath"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Esoteric Oath",
+                "name": "esoteric-not-master",
+                "predicate": {
+                    "all": [
+                        "esoteric-oath"
+                    ],
+                    "not": [
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "damage",
+                "value": 4
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Esoteric Oath",
+                "name": "esoteric-master",
+                "predicate": {
+                    "all": [
+                        "esoteric-oath"
+                    ],
+                    "any": [
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "damage",
+                "value": 6
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "champion",
+                "oath"
+            ]
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Esoteric Oath (Paladin)",
+    "permission": {
+        "default": 0
+    },
+    "type": "feat"
+}

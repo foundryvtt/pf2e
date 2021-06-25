@@ -5,63 +5,62 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> scoundrel racket, Debilitating Strike</p>\n<hr>\n<p>You learn new debilitations that grant you tactical advantages against your foes. Add the following debilitations to the list you can choose from when you use Debilitating Strike.&nbsp;</p>\n<ul>\n<li><strong>Debilitation</strong> The target can’t use reactions.</li>\n<li><strong>Debilitation</strong> The target can’t flank or contribute to allies’ flanking.</li>\n</ul>"
+            "value": "<p>You learn new debilitations that grant you tactical advantages against your foes. Add the following debilitations to the list you can choose from when you use @Compendium[pf2e.actionspf2e.Debilitating Strike]{Debilitating Strike}.</p>\n<ul>\n<li><strong>Debilitation</strong> The target can't use reactions.</li>\n<li><strong>Debilitation</strong> The target can't flank or contribute to allies' flanking.</li>\n</ul>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "10"
+            "value": 10
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "scoundrel racket, Debilitating Strike"
+            "value": [
+                {
+                    "value": "scoundrel racket"
+                },
+                {
+                    "value": "Debilitating Strike"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "target:flatFooted"
+                    ]
+                },
+                "selector": "damage",
+                "text": "<span class='pf2-icon'>f</span> @Compendium[pf2e.feats-srd.Tactical Debilitations]{Tactical Debilitations}"
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "rogue"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Tactical Debilitations",
     "permission": {
         "default": 0

@@ -13,37 +13,49 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "You’ve studied your celestial heritage with the intent of better defending yourself, and you’ve found that your techniques are equally powerful against celestials, fiends, and other divine entities. You gain a +1 circumstance bonus to all saving throws against divine effects."
+            "value": "<p>You've studied your celestial heritage with the intent of better defending yourself, and you've found that your techniques are equally powerful against celestials, fiends, and other divine entities. You gain a +1 circumstance bonus to all saving throws against divine effects.</p>"
         },
         "featType": {
             "value": "ancestry"
         },
         "level": {
-            "value": "9"
+            "value": 9
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Divine Countermeasures (vs. divine effects)",
+                "predicate": {
+                    "all": [
+                        "divine"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "aasimar"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Divine Countermeasures",
     "permission": {
         "default": 0

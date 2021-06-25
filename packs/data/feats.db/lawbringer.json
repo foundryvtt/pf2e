@@ -19,18 +19,54 @@
             "value": "ancestry"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Lawbringer (vs. emotion effects)",
+                "predicate": {
+                    "all": [
+                        "emotion"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "emotion"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a save against an emotion effect, you get a critical success instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "emotion"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
@@ -38,13 +74,12 @@
                 "aasimar",
                 "lineage"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Lawbringer",
     "permission": {
         "default": 0

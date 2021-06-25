@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "22"
+                "value": 22
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "55",
+                "max": 55,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "55"
+                "value": 55
             },
             "init": {
                 "bonus": 0,
@@ -103,7 +102,6 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
                 "value": "fly 20 feet"
             }
         },
@@ -137,10 +135,10 @@
             },
             "creatureType": "Spirit",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "When a creature dies, and for whatever reason its spirit is unable or unwilling to leave the site of its death, that spirit may manifest as a poltergeist: a restless invisible spirit that is still able to manipulate physical objects. Many poltergeists perished in a way that resulted from or has led to extreme emotional trauma.<br><br>",
+            "flavorText": "When a creature dies, and for whatever reason its spirit is unable or unwilling to leave the site of its death, that spirit may manifest as a poltergeist: a restless invisible spirit that is still able to manipulate physical objects. Many poltergeists perished in a way that resulted from or has led to extreme emotional trauma.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -150,13 +148,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "5"
+                "value": 5
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=334",
             "recallKnowledgeText": "Recall Knowledge : DC 20",
-            "sidebarText": "<h3 class=\"title\">Distrubed Rest</h3>One of the most common ways for a poltergeist to form is when its burial site is desecrated by the construction of a dwelling. This is usually an accident, but some evil creatures seek out such burial sites, intentionally creating poltergeists to serve as guardians.<h3 class=\"title\">Poltergeist Treasure</h3>A poltergeist needs items to hurl as weapons, and over the centuries of use, only durable objects survive its rampages. Silver dinnerware, hatchets, and books might all be found in a poltergeist&#x2019;s collection.",
             "source": {
-                "value": "Bestiary pg. 264"
+                "value": "Bestiary"
             }
         },
         "martial": {
@@ -408,16 +404,21 @@
         "traits": {
             "ci": [],
             "di": {
-                "custom": "death effects, disease, paralyzed, poison, precision, unconscious",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "death effects",
+                    "disease",
+                    "paralyzed",
+                    "poison",
+                    "precision",
+                    "unconscious"
                 ]
             },
             "dr": [
                 {
-                    "exceptions": "force or ghost touch or positive; double resistance against non-magical",
-                    "label": "All Damage",
-                    "type": "all damage",
+                    "exceptions": "force or ghost touch or positive; double resistance vs. non-magical",
+                    "label": "All",
+                    "type": "all",
                     "value": "5"
                 }
             ],
@@ -448,10 +449,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "wBKGpIKY3BTANzqY",
@@ -479,11 +480,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -547,6 +549,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -560,15 +563,24 @@
                     "value": "occult"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Occult Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -576,79 +588,59 @@
             "_id": "OEwmQQDbleoK1HcR",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": "force"
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
                     "value": "<p>With a rush of telekinetic power, you move a foe or something they carry. You can attempt to Disarm, Shove, or Trip the target using a spell attack roll instead of an Athletics check.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "3"
+                    "value": 3
                 },
                 "location": {
                     "value": "wBKGpIKY3BTANzqY"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "60 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -656,49 +648,35 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "evo"
+                    "value": "evocation"
                 },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=333"
                 },
-                "spellCategory": {
-                    "value": ""
-                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "attack"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 creature"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "occult"
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "attack",
                         "evocation",
@@ -709,11 +687,14 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/telekinetic-maneuver.webp",
+            "name": "Telekinetic Maneuver",
+            "permission": {
+                "default": 0
             },
-            "img": "systems/pf2e/icons/spells/telekinetic-maneuver.jpg",
-            "name": "Telekinetic Maneuver ",
             "sort": 200000,
             "type": "spell"
         },
@@ -721,79 +702,59 @@
             "_id": "PQtYX0LsSwVsxZLo",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr>\n<p><strong>Heightened </strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened </strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened </strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
+                    "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": "sustained"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "wBKGpIKY3BTANzqY"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "30 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -801,49 +762,35 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "evo"
+                    "value": "evocation"
                 },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=177"
                 },
-                "spellCategory": {
-                    "value": ""
-                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "utility"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 unattended object of light Bulk or less"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "occult"
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "cantrip",
                         "evocation"
@@ -853,11 +800,14 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/mage-hand.webp",
+            "name": "Mage Hand - Cantrips",
+            "permission": {
+                "default": 0
             },
-            "img": "systems/pf2e/icons/spells/mage-hand.jpg",
-            "name": "Mage Hand - Cantrips ",
             "sort": 300000,
             "type": "spell"
         },
@@ -871,112 +821,29 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 13,
                     "value": 13
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "die": "2d12"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "afw854mi4ui6f02xhxld": {
                         "damage": "2d12",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "evocation",
                         "magical",
@@ -986,21 +853,18 @@
                         "versatile P"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weaponType": {
                     "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Telekinetic Object",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "melee"
         },
@@ -1008,7 +872,7 @@
             "_id": "Yi4K7PbKaZWlXxWj",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1019,22 +883,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A poltergeist is tied to a location and can’t travel more than 120 feet from the place where it was created or formed. Some poltergeists are instead bound to a specific room, building, or similar area"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A poltergeist is tied to a location and can't travel more than 120 feet from the place where it was created or formed. Some poltergeists are instead bound to a specific room, building, or similar area</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1047,15 +910,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "interaction"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Site Bound",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "action"
         },
@@ -1063,7 +925,7 @@
             "_id": "smEk0yh1Pe95Nvsc",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1074,22 +936,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A poltergeist is naturally invisible. It becomes visible only when it uses Frighten."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A poltergeist is naturally invisible. It becomes visible only when it uses Frighten.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1102,15 +963,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Natural Invisibility",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "action"
         },
@@ -1118,7 +978,7 @@
             "_id": "pvdHMw62l3uanob8",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1129,22 +989,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " When a poltergeist is destroyed, it re-forms, fully healed, where it was destroyed after 2d4 days. A poltergeist can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>When a poltergeist is destroyed, it re-forms, fully healed, where it was destroyed after 2d4 days. A poltergeist can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "necromancy",
                         "occult"
@@ -1160,15 +1019,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Rejuvenation",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "action"
         },
@@ -1176,7 +1034,7 @@
             "_id": "KZ4sC23Z3r4PS4V6",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -1187,22 +1045,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> A creature approaches within 10 feet of the poltergeist. <b>Effect</b> The poltergeist makes a telekinetic object Strike against the triggering creature."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of the poltergeist. <strong>Effect</strong> The poltergeist makes a telekinetic object Strike against the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1215,15 +1072,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Telekinetic Defense",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "action"
         },
@@ -1231,7 +1087,7 @@
             "_id": "v8X1W0LmbkWRpOS6",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -1242,22 +1098,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " <b>Requirement</b> The poltergeist must be invisible. <b>Effect</b> The poltergeist becomes visible, appearing as a skeletal, ghostlike humanoid. Each creature within 30 feet must attempt a DC 21 Will save, becoming @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} 2 on a failure. On a critical failure, it’s also fleeing for as long as it’s @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened}. On a success, the creature is temporarily immune for 1 minute. At the start of its next turn, the poltergeist becomes invisible again."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Requirement</strong> The poltergeist must be invisible. <strong>Effect</strong> The poltergeist becomes visible, appearing as a skeletal, ghostlike humanoid. Each creature within 30 feet must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"21\" data-pf2-traits=\"concentrate,emotion,fear,incapacitation,mental\" data-pf2-label=\"Frighten DC\" data-pf2-show-dc=\"gm\">Will</span> save, becoming @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2 on a failure. On a critical failure, it's also fleeing for as long as it's @Compendium[pf2e.conditionitems.Frightened]{Frightened}. On a success, the creature is temporarily immune for 1 minute. At the start of its next turn, the poltergeist becomes invisible again.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "concentrate",
                         "emotion",
@@ -1276,15 +1131,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Frighten",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "action"
         },
@@ -1292,7 +1146,7 @@
             "_id": "RJlLjrzqdXREWyPR",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -1303,22 +1157,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " The poltergeist telekinetically throws numerous small objects, such as dozens of pieces of silverware or books, either spreading them out among multiple foes or directing them at one target. <ul><li>When this effect is spread out among multiple foes, the poltergeist makes a telekinetic object Strike at a &#x2013;2 penalty against each creature within 30 feet. These count as one attack for the poltergeist&#x2019;s multiple attack penalty, and the penalty doesn&#x2019;t increase until after all the attacks.</li><li>When this effect has only one target, the poltergeist makes a telekinetic object Strike against the target, and the damage increases to 3d12. It deals [[/r 1d12 # damage]] damage on a failure, and no damage on a critical failure.</li></ul>"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The poltergeist telekinetically throws numerous small objects, such as dozens of pieces of silverware or books, either spreading them out among multiple foes or directing them at one target.</p><ul><li>When this effect is spread out among multiple foes, the poltergeist makes a telekinetic object Strike at a –2 penalty against each creature within 30 feet. These count as one attack for the poltergeist’s multiple attack penalty, and the penalty doesn’t increase until after all the attacks.</li><li>When this effect has only one target, the poltergeist makes a telekinetic object Strike against the target, and the damage increases to 3d12. It deals [[/r 1d12 # damage]] damage on a failure, and no damage on a critical failure.</li></ul>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "concentrate",
                         "evocation",
@@ -1335,15 +1188,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Telekinetic Storm",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "action"
         },
@@ -1355,7 +1207,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1365,22 +1216,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
+            "permission": {
+                "default": 0
+            },
             "sort": 1100000,
             "type": "lore"
         },
@@ -1392,7 +1251,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1402,22 +1260,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
             "type": "lore"
         },
@@ -1429,7 +1295,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1439,22 +1304,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "lore"
         }
@@ -1464,13 +1337,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "k3Lt3bWBadXvlIbG",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1480,15 +1355,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Poltergeist",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

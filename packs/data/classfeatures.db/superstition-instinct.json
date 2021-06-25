@@ -13,20 +13,191 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>A deep distrust of magic drives you to forgo and&nbsp;counter the metaphysical nonsense of spellcasters.&nbsp;Whether you’re a member of a superstitious family&nbsp;or culture that distrusts magic, a warrior in constant&nbsp;battle against wizards and witches, a survivor of a&nbsp;magical accident that instilled an intense aversion in&nbsp;your mind and body, or a scion of a bloodline known&nbsp;for its magic resistance, your rage is inimical to magic.&nbsp;</p>\n<p>This makes you an excellent mage hunter but slow&nbsp;to trust practitioners of magical arts. Your extremely&nbsp;restrictive anathema grants you powers beyond those&nbsp;of other instincts.</p>\n<h2>Anathema</h2>\n<p>Willingly accepting the effects of magic spells (including&nbsp;from scrolls, wands, and the like), even from your allies,&nbsp;is anathema to your instinct. You can still drink potions&nbsp;and invest and activate most magic items you find,&nbsp;though items that cast spells are subject to the same&nbsp;restrictions as all other spells. If an ally insists on using&nbsp;magic on you despite your unwillingness, and you have&nbsp;no reason to believe they will stop, continuing to travel&nbsp;with that ally of your own free will counts as willingly&nbsp;accepting their spells (as do similar circumstances) and&nbsp;thus is also anathema to your instinct.</p>\n<h2>Supersticious Resiliance (Instinct Ability)</h2>\n<p>While raging, you gain a +2 status bonus to all saves&nbsp;against magic. Increase your damage from Rage from&nbsp;2 to 4 against creatures that can cast spells. Once every&nbsp;10 minutes, when you Rage, you regain Hit Points&nbsp;equal to the temporary Hit Points you gain from that&nbsp;Rage action.</p>\n<h2>Specialization Ability&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 7th</h2>\n<p>Increase the damage from Rage from 4 to 8 against&nbsp;creatures that can cast spells. If you have greater raging&nbsp;specialization, instead increase the damage from Rage&nbsp;to 12 against creatures with spells and 8 against other&nbsp;creatures.</p>\n<h2>Raging Resistance&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 9th</h2>\n<p>Choose two associated magical traditions: arcane and&nbsp;occult, arcane and primal, divine and occult, or divine&nbsp;and primal. The resistance from your raging resistance&nbsp;class feature applies against all damage you take from&nbsp;spells cast with these two traditions of magic, regardless&nbsp;of the type of damage dealt by the spell.</p>"
+            "value": "<p>A deep distrust of magic drives you to forgo and counter the metaphysical nonsense of spellcasters. Whether you're a member of a superstitious family or culture that distrusts magic, a warrior in constant battle against wizards and witches, a survivor of a magical accident that instilled an intense aversion in your mind and body, or a scion of a bloodline known for its magic resistance, your rage is inimical to magic.</p>\n<p>This makes you an excellent mage hunter but slow to trust practitioners of magical arts. Your extremely restrictive anathema grants you powers beyond those of other instincts.</p>\n<h2>Anathema</h2>\n<p>Willingly accepting the effects of magic spells (including from scrolls, wands, and the like), even from your allies, is anathema to your instinct. You can still drink potions and invest and activate most magic items you find, though items that cast spells are subject to the same restrictions as all other spells. If an ally insists on using magic on you despite your unwillingness, and you have no reason to believe they will stop, continuing to travel with that ally of your own free will counts as willingly accepting their spells (as do similar circumstances) and thus is also anathema to your instinct.</p>\n<h2>Supersticious Resiliance (Instinct Ability)</h2>\n<p>While raging, you gain a +2 status bonus to all saves against magic. Increase your damage from Rage from 2 to 4 against creatures that can cast spells. Once every 10 minutes, when you Rage, you regain Hit Points equal to the temporary Hit Points you gain from that Rage action.</p>\n<h2>Specialization Ability 7th</h2>\n<p>Increase the damage from Rage from 4 to 8 against creatures that can cast spells. If you have greater raging specialization, instead increase the damage from Rage to 12 against creatures with spells and 8 against other creatures.</p>\n<h2>Raging Resistance 9th</h2>\n<p>Choose two associated magical traditions: arcane and occult, arcane and primal, divine and occult, or divine and primal. The resistance from your raging resistance class feature applies against all damage you take from spells cast with these two traditions of magic, regardless of the type of damage dealt by the spell.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Superstition Instinct (vs. magic)",
+                "predicate": {
+                    "all": [
+                        "magic",
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "saving-throw",
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Target is a spellcaster",
+                "property": "flags.pf2e.rollOptions.all.target:caster"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "caster-rage",
+                "predicate": {
+                    "all": [
+                        "target:caster",
+                        "rage"
+                    ],
+                    "not": [
+                        "agile",
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 4
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 8
+                        },
+                        {
+                            "start": 15,
+                            "value": 12
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "caster-rage-agile",
+                "predicate": {
+                    "all": [
+                        "target:caster",
+                        "rage",
+                        "agile"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 2
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 4
+                        },
+                        {
+                            "start": 15,
+                            "value": 6
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "normal-rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ],
+                    "not": [
+                        "agile",
+                        "target:caster",
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 14,
+                            "value": 2
+                        },
+                        {
+                            "start": 15,
+                            "value": 8
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "normal-rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile"
+                    ],
+                    "not": [
+                        "target:caster",
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 14,
+                            "value": 1
+                        },
+                        {
+                            "start": 15,
+                            "value": 4
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +209,12 @@
             "value": [
                 "barbarian"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/superstition-instinct.webp",
     "name": "Superstition Instinct",
     "permission": {
         "default": 0

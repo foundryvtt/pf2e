@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "21"
+                "value": 21
             },
             "allSaves": {
                 "value": ""
@@ -59,12 +59,11 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "",
-                "max": "77",
+                "details": "(negative healing)",
+                "max": 77,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "77"
+                "value": 77
             },
             "init": {
                 "bonus": 0,
@@ -103,8 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -121,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "NE"
@@ -137,10 +136,10 @@
             },
             "creatureType": "Humanoid",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Urdefhan spellcasters with a knack for the divine are invariably unholy worshippers of daemonkind, typically taking on one of Abaddon's Four Horsemen of the Apocalypse as their patron deity. With their unholy gifts, these urdefhan tormentors summon daemons into battle and bolster their allies with profane magic, preferring to stick to the sidelines rather than enter the fray directly.<br><br>",
+            "flavorText": "Urdefhan spellcasters with a knack for the divine are invariably unholy worshippers of daemonkind, typically taking on one of Abaddon's Four Horsemen of the Apocalypse as their patron deity. With their unholy gifts, these urdefhan tormentors summon daemons into battle and bolster their allies with profane magic, preferring to stick to the sidelines rather than enter the fray directly.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -150,13 +149,70 @@
             },
             "level": {
                 "min": 1,
-                "value": "5"
+                "value": 5
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=841",
             "recallKnowledgeText": "Recall Knowledge - Humanoid : DC 20",
-            "sidebarText": "",
             "source": {
-                "value": "Bestiary 2 pg. 273"
+                "value": "Bestiary 2"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 23,
+                        "value": 15
+                    }
+                }
+            },
+            "1": {
+                "data": {
+                    "spelldc": {
+                        "dc": 23,
+                        "value": 13
+                    }
+                }
+            },
+            "BZPlONnpK4OvYZZs": {
+                "data": {
+                    "spelldc": {
+                        "dc": 23,
+                        "value": 13
+                    }
+                }
+            },
+            "i3JP3msktn7Ld1pK": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0
+                        },
+                        "slot2": {
+                            "max": 0
+                        },
+                        "slot3": {
+                            "max": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 23,
+                        "value": 15
+                    }
+                }
             }
         },
         "martial": {
@@ -406,11 +462,16 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
-                "custom": "death effects, disease, fear",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "death effects",
+                    "disease",
+                    "fear effects"
                 ]
             },
             "dr": [],
@@ -448,10 +509,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "i3JP3msktn7Ld1pK",
@@ -479,11 +540,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -547,6 +609,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -560,15 +623,24 @@
                     "value": "divine"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Divine Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -598,11 +670,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -666,6 +739,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -679,1457 +753,154 @@
                     "value": "ritual"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Rituals",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "AlOEcMMGjVAQLn5L",
+            "_id": "8lW3t7a7vhVy9IkU",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "label": "Area",
-                    "type": "String",
                     "value": 30
                 },
+                "areasize": {
+                    "value": "varies"
+                },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "to"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": "1d8"
+                    "value": "3d8"
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": "negative"
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr>\n<p><strong>Heightened </strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": ""
                 },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "3"
-                },
-                "location": {
-                    "value": "i3JP3msktn7Ld1pK"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "varies"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=146"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
+                "hasCounteractCheck": {
                     "value": false
                 },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 living creature or 1 willing undead creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "1"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "divine"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "necromancy",
-                        "negative"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "description"
-            },
-            "img": "systems/pf2e/icons/spells/harm.jpg",
-            "name": "Harm",
-            "sort": 300000,
-            "type": "spell"
-        },
-        {
-            "_id": "uHc9eF01N9nlPmDd",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": "mental"
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You block the target's motor impulses before they can leave its mind, threatening to freeze the target in place. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionspf2e.dfCMdR4wnpbYNTix]{Stunned} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionspf2e.6uEgoh53GbXuHpTF]{Paralyzed} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionspf2e.6uEgoh53GbXuHpTF]{Paralyzed} for 4 rounds. At the end of each of its turns, it can attempt a new Will save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>\n<hr />\n<p><strong>Heightened </strong> You can target up to 10 creatures.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "varies"
-                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 3
                 },
                 "location": {
                     "value": "i3JP3msktn7Ld1pK"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "30 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "enc"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=213"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "save"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "enchantment",
-                        "incapacitation",
-                        "mental"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/paralyze.jpg",
-            "name": "Paralyze",
-            "sort": 400000,
-            "type": "spell"
-        },
-        {
-            "_id": "LWHYqKmJWaU15NzM",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "burst",
-                    "label": "Area",
-                    "type": "String",
-                    "value": 20
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "material, somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr>\n<p><strong>Heightened </strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionspf2e.DmAIPqOBomZ7H95W]{Concealed}.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "1 minute"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 2
-                },
-                "location": {
-                    "value": "i3JP3msktn7Ld1pK"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "120 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "evo"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=59"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "3"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "darkness",
-                        "evocation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/darkness.jpg",
-            "name": "Darkness",
-            "sort": 500000,
-            "type": "spell"
-        },
-        {
-            "_id": "mt8cRIJoV2u2ubQd",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You snuff the life out of a creature on the brink of death. The target must attempt a Will save. If this kills it, you gain 10 temporary HP and a +1 status bonus to attack and damage rolls for 10 minutes.</p>\r<p>\n<hr><b>Critical Success</b> The target is unaffected.</p>\r<p>\n<b>Success</b> The target's @Compendium[pf2e.conditionspf2e.yZRUzMqrMmfLu0V1]{Dying} value increases by 1.</p>\r<p>\n<b>Failure</b> The target dies.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 2
-                },
-                "location": {
-                    "value": "i3JP3msktn7Ld1pK"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "touch"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=63"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "save"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 living creature that has 0 HP"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "death",
-                        "necromancy"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/death-knell.jpg",
-            "name": "Death Knell",
-            "sort": 600000,
-            "type": "spell"
-        },
-        {
-            "_id": "IqjGTmJWf7W2kgLt",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You create a reservoir of vitality from necromantic energy, gaining a number of temporary Hit Points equal to 6 plus your spellcasting ability modifier.</p>\n<hr>\n<p><strong>Heightened </strong> The temporary Hit Points increase by 3.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "8 hours"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 2
-                },
-                "location": {
-                    "value": "i3JP3msktn7Ld1pK"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=108"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "necromancy"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/false-life.jpg",
-            "name": "False Life",
-            "sort": 700000,
-            "type": "spell"
-        },
-        {
-            "_id": "qXUIMZI1PObbXRtA",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "emanation",
-                    "label": "Area",
-                    "type": "String",
-                    "value": 30
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "to"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": "1d8"
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": "negative"
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr>\n<p><strong>Heightened </strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "2"
-                },
-                "location": {
-                    "value": "i3JP3msktn7Ld1pK"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "varies"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
+                    "basic": "basic",
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d8",
+                    "mode": "level1"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
+                    "value": "necromancy"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "harm",
                 "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=146"
-                },
-                "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 living creature or 1 willing undead creature"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "1"
+                    "value": "1 to 3"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "divine"
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "necromancy",
                         "negative"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {
-                "_sheetTab": "description"
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wdA52JJnsuQWeyqz"
+                }
             },
-            "img": "systems/pf2e/icons/spells/harm.jpg",
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
-            "sort": 800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "VgkL1nTjd9sve6TX",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p><strong>Trigger:&nbsp;</strong>a creature within range is falling</p>\n<hr>\n<p>You cause the air itself to arrest a fall. The target's fall slows to 60 feet per round, and the portion of the fall during the spell's duration doesn't count when calculating falling damage. If the target reaches the ground while the spell is in effect, it takes no damage from the fall. The spell ends as soon as the target lands.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "1 minute"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 1
-                },
-                "location": {
-                    "value": "i3JP3msktn7Ld1pK"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "60 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "abj"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=111"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 falling creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "reaction"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "abjuration"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/feather-fall.jpg",
-            "name": "Feather Fall ",
-            "sort": 900000,
-            "type": "spell"
-        },
-        {
-            "_id": "kiYsEQbn5fxRGhMy",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "line",
-                    "label": "Area",
-                    "type": "String",
-                    "value": 30
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": "2d4"
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": "negative"
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and 1 persistent bleed damage to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\r<p>\n<hr><b>Critical Success</b> The creature is unaffected.</p>\r<p>\n<b>Success</b> The creature takes half the negative damage and no persistent bleed damage.</p>\r<p>\n<b>Failure</b> The creature takes full damage.</p>\r<p>\n<b>Critical Failure</b> The creature takes double negative damage and double persistent bleed damage.</p>\r<p>\n<hr><b>Heightened </b> The negative damage increases by 2d4, and the persistent bleed damage increases by 1.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 1
-                },
-                "location": {
-                    "value": "i3JP3msktn7Ld1pK"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=141"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "save"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "necromancy",
-                        "negative"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/grim-tendrils.jpg",
-            "name": "Grim Tendrils",
-            "sort": 1000000,
-            "type": "spell"
-        },
-        {
-            "_id": "hSnL7Y0Pd84CL3Nb",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "emanation",
-                    "label": "Area",
-                    "type": "String",
-                    "value": 30
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "to"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": "1d8"
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": "negative"
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr>\n<p><strong>Heightened </strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 1
-                },
-                "location": {
-                    "value": "i3JP3msktn7Ld1pK"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "varies"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=146"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 living creature or 1 willing undead creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "1"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "divine"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "necromancy",
-                        "negative"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "description"
-            },
-            "img": "systems/pf2e/icons/spells/harm.jpg",
-            "name": "Harm",
-            "sort": 1100000,
-            "type": "spell"
-        },
-        {
-            "_id": "9MAh1J1NKTxjlS6y",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>A ray with the power to sap a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save in order to determine the spell's effect. If you critically succeed on your attack roll, use the outcome for one degree of success worse than the result of its save.</p>\r<p>\n<hr><b>Critical Success</b> The target is unaffected.</p>\r<p>\n<b>Success</b> The target becomes @Compendium[pf2e.conditionspf2e.MIRkyAjyBeXivMa7]{Enfeebled} 1.</p>\r<p>\n<b>Failure</b> The target becomes @Compendium[pf2e.conditionspf2e.MIRkyAjyBeXivMa7]{Enfeebled} 2.</p>\r<p>\n<b>Critical Failure</b> The target becomes @Compendium[pf2e.conditionspf2e.MIRkyAjyBeXivMa7]{Enfeebled} 3.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "1 minute"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 1
-                },
-                "location": {
-                    "value": "i3JP3msktn7Ld1pK"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "30 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=244"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "attack"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "attack",
-                        "necromancy"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.jpg",
-            "name": "Ray of Enfeeblement",
-            "sort": 1200000,
-            "type": "spell"
-        },
-        {
-            "_id": "R89j0taLqNRASCwk",
+            "_id": "jOS9PRfyB0vV8k2W",
             "data": {
                 "ability": {
                     "value": ""
@@ -2141,8 +912,13 @@
                 "areasize": {
                     "value": ""
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "value": ""
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2157,13 +933,648 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You call upon the powers of Abaddon to grant you the assistance of a daemon. You call upon a daemon whose level can be no more than double <em>daemonic pact’s</em> spell level, two daemons whose levels are each at least 2 less than double the spell level, or three daemons whose levels are each at least 3 less than double the spell level. <br></span></p>\n<p><span id=\"ctl00_MainContent_DetailedOutput\"><strong>Critical Success</strong> You conjure the daemon or daemons, and they require nothing in return for their service.<br><strong>Success</strong> You conjure the daemon or daemons, who serve you willingly, but require a sacrifice in the form of spilled blood (either another creature’s or your own).<br><strong>Failure</strong> You don’t conjure any daemons.<br><strong>Critical Failure</strong> You don’t conjure any daemons, and the self-sacrifice required to perform the ritual leaves you @Compendium[pf2e.conditionspf2e.4D2KBtexWXa6oUMR]{Drained} 1 (or drained 2 if the spell level is 5 or higher).</span></p>"
+                    "value": "<p>You block the target's motor impulses before they can leave its mind, threatening to freeze the target in place. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is Paralyzed for 4 rounds. At the end of each of its turns, it can attempt a new Will save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 10 creatures.</p>"
+                },
+                "duration": {
+                    "value": "varies"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "value": "i3JP3msktn7Ld1pK"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "paralyze",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "enchantment",
+                        "incapacitation",
+                        "mental"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.DCQHaLrYXMI37dvW"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/paralyze.webp",
+            "name": "Paralyze",
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
+            "type": "spell"
+        },
+        {
+            "_id": "dHdL4mc20NPll2Iv",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "burst",
+                    "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
+                },
+                "duration": {
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "i3JP3msktn7Ld1pK"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "darkness",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "darkness",
+                        "evocation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Darkness"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/darkness.webp",
+            "name": "Darkness",
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
+            "type": "spell"
+        },
+        {
+            "_id": "GpkN630aBwqxc2Sr",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You snuff the life out of a creature on the brink of death. The target must attempt a Will save. If this kills it, you gain 10 temporary HP and a +1 status bonus to attack and damage rolls for 10 minutes.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target's @Compendium[pf2e.conditionitems.Dying]{Dying} value increases by 1.</p>\n<p><strong>Failure</strong> The target dies.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "value": "1"
+                    "value": 2
+                },
+                "location": {
+                    "value": "i3JP3msktn7Ld1pK"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "death-knell",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 living creature that has 0 HP"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "death",
+                        "necromancy"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.dLdRqT6UxTKlsPgp"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/death-knell.webp",
+            "name": "Death Knell",
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
+            "type": "spell"
+        },
+        {
+            "_id": "nm6SpVLCsZtyeAPo",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You create a reservoir of vitality from necromantic energy, gaining a number of temporary Hit Points equal to 6 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The temporary Hit Points increase by 3.</p>"
+                },
+                "duration": {
+                    "value": "8 hours"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "i3JP3msktn7Ld1pK"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "false-life",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "necromancy"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.8ViwItUgwT4lOvvb"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/false-life.webp",
+            "name": "False Life",
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
+            "type": "spell"
+        },
+        {
+            "_id": "X8zyd1qQyglkeWQP",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "emanation",
+                    "value": 30
+                },
+                "areasize": {
+                    "value": "varies"
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": "2d8"
+                },
+                "damageType": {
+                    "value": "negative"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "i3JP3msktn7Ld1pK"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "varies"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "basic",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "1d8",
+                    "mode": "level1"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "harm",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 living creature or 1 willing undead creature"
+                },
+                "time": {
+                    "value": "1 to 3"
+                },
+                "traditions": {
+                    "value": [
+                        "divine"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "necromancy",
+                        "negative"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wdA52JJnsuQWeyqz"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/harm.webp",
+            "name": "Harm",
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
+            "type": "spell"
+        },
+        {
+            "_id": "2CJjwBgkIpTZc1ut",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "ritual"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You call upon the powers of Abaddon to grant you the assistance of a daemon. You call upon a daemon whose level can be no more than double <em>daemonic pact's</em> spell level, two daemons whose levels are each at least 2 less than double the spell level, or three daemons whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> You conjure the daemon or daemons, and they require nothing in return for their service.</p>\n<p><strong>Success</strong> You conjure the daemon or daemons, who serve you willingly, but require a sacrifice in the form of spilled blood (either another creature's or your own).</p>\n<p><strong>Failure</strong> You don't conjure any daemons.</p>\n<p><strong>Critical Failure</strong> You don't conjure any daemons, and the self-sacrifice required to perform the ritual leaves you @Compendium[pf2e.conditionitems.Drained]{Drained 1} (or @Compendium[pf2e.conditionitems.Drained]{Drained 2} if the spell level is 5 or higher).</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
                 },
                 "location": {
                     "value": "BZPlONnpK4OvYZZs"
@@ -2175,14 +1586,12 @@
                     "value": ""
                 },
                 "primarycheck": {
-                    "value": "Religion "
+                    "value": "Religion (expert; you must be a daemon or an urdefhan)"
                 },
                 "range": {
                     "value": ""
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "value": ""
@@ -2192,7 +1601,7 @@
                     "mode": "none"
                 },
                 "school": {
-                    "value": "con"
+                    "value": "conjuration"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -2200,13 +1609,8 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "daemonic-pact",
                 "source": {
-                    "value": ""
-                },
-                "spellCategorie": {
-                    "value": "ritual"
-                },
-                "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
@@ -2223,9 +1627,7 @@
                 },
                 "traditions": {
                     "custom": "",
-                    "value": [
-                        "ritual"
-                    ]
+                    "value": []
                 },
                 "traits": {
                     "custom": "",
@@ -2235,115 +1637,541 @@
                     "value": [
                         "conjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/daemonic-pact.jpg",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Vpohy4XH1DaH95hT"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/daemonic-pact.webp",
             "name": "Daemonic Pact",
-            "sort": 1300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "F9GW6bnqD0kuiISd",
+            "_id": "cXiAbItR9q9FYi5R",
             "data": {
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
+                "ability": {
                     "value": ""
                 },
-                "collapsed": {
-                    "value": false
+                "area": {
+                    "areaType": "",
+                    "value": null
                 },
-                "containerId": {
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p><strong>Trigger</strong> a creature within range is falling</p>\n<hr />\n<p>You cause the air itself to arrest a fall. The target's fall slows to 60 feet per round, and the portion of the fall during the spell's duration doesn't count when calculating falling damage. If the target reaches the ground while the spell is in effect, it takes no damage from the fall. The spell ends as soon as the target lands.</p>"
                 },
-                "equipped": {
-                    "value": false
+                "duration": {
+                    "value": "1 minute"
                 },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
+                "hasCounteractCheck": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
+                "location": {
+                    "value": "i3JP3msktn7Ld1pK"
                 },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "60 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "abjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "feather-fall",
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 falling creature"
+                },
+                "time": {
+                    "value": "reaction"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "primal"
+                    ]
                 },
                 "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration"
+                    ]
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "warhammer",
-            "sort": 1400000,
-            "type": "equipment"
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.TTwOKGqmZeKSyNMH"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/feather-fall.webp",
+            "name": "Feather Fall (Self only)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
+            "type": "spell"
         },
         {
-            "_id": "cqI7kqooduGDEqz6",
+            "_id": "3VORr9peDbXidFSQ",
             "data": {
-                "attack": {
+                "ability": {
                     "value": ""
                 },
-                "attackEffects": {
-                    "value": []
+                "area": {
+                    "areaType": "line",
+                    "value": 30
                 },
+                "areasize": {
+                    "value": "30-foot line"
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": "2d4"
+                },
+                "damageType": {
+                    "value": "negative"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and 1 persistent bleed damage to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half the negative damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double negative damage and double persistent bleed damage.</p>\n<hr /><strong>Heightened (+1)</strong> The negative damage increases by 2d4, and the persistent bleed damage increases by 1."
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "i3JP3msktn7Ld1pK"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "2d4",
+                    "mode": "level1"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "grim-tendrils",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "necromancy",
+                        "negative"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.k34hDOfIIMAxNL4a"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/grim-tendrils.webp",
+            "name": "Grim Tendrils",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
+            "type": "spell"
+        },
+        {
+            "_id": "RrttyuyuYZlaysJF",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "emanation",
+                    "value": 30
+                },
+                "areasize": {
+                    "value": "varies"
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": "1d8"
+                },
+                "damageType": {
+                    "value": "negative"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "i3JP3msktn7Ld1pK"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "varies"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "basic",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "1d8",
+                    "mode": "level1"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "harm",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 living creature or 1 willing undead creature"
+                },
+                "time": {
+                    "value": "1 to 3"
+                },
+                "traditions": {
+                    "value": [
+                        "divine"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "necromancy",
+                        "negative"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wdA52JJnsuQWeyqz"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/harm.webp",
+            "name": "Harm",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1200000,
+            "type": "spell"
+        },
+        {
+            "_id": "raZSPfbGPmMFsqqt",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A ray with the power to sap a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save in order to determine the spell's effect. If you critically succeed on your attack roll, use the outcome for one degree of success worse than the result of its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}.</p>"
+                },
+                "duration": {
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "i3JP3msktn7Ld1pK"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "ray-of-enfeeblement",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "attack"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "attack",
+                        "necromancy"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.J7Y7tl0bbdz7TcCc"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
+            "name": "Ray of Enfeeblement",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1300000,
+            "type": "spell"
+        },
+        {
+            "_id": "5hJ3b0ZkfA2yOGLc",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "warhammer",
                 "bonus": {
-                    "total": 12,
-                    "value": 12
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -2359,23 +2187,25 @@
                 },
                 "damage": {
                     "damageType": "bludgeoning",
-                    "die": "1d8+5"
+                    "dice": 1,
+                    "die": "d8",
+                    "value": ""
                 },
-                "damageRolls": [
-                    {
-                        "damage": "1d8+5",
-                        "damageType": "bludgeoning"
-                    }
-                ],
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This weapon has a wooden shaft ending in a large, heavy metal head. Thehead of the hammer might be single‑sided or double‑sided, but it's always capable of delivering powerful bludgeoning blows.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "hammer"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -2384,17 +2214,33 @@
                 "hp": {
                     "value": 0
                 },
-                "identified": {
-                    "value": false
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
+                },
+                "level": {
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
+                },
+                "potencyRune": {
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -2403,51 +2249,65 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "1 gp"
                 },
                 "property1": {
                     "critDamage": "",
                     "critDamageType": "",
-                    "critDice": 0,
+                    "critDice": null,
                     "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
                     "damageType": "",
-                    "dice": 0,
+                    "dice": null,
                     "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
                     "value": ""
                 },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
+                "propertyRune1": {
                     "value": ""
                 },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
                     "value": ""
                 },
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
+                "range": {
+                    "value": ""
                 },
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "warhammer",
                 "source": {
                     "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "shove"
                     ]
@@ -2455,15 +2315,77 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {}
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.rXt4629QSg7KDTgJ"
+                }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/warhammer.webp",
             "name": "Warhammer",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1400000,
+            "type": "weapon"
+        },
+        {
+            "_id": "cqI7kqooduGDEqz6",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "ge27nhikrjgkhovj4b5x": {
+                        "damage": "1d8+5",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "shove"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Warhammer",
+            "permission": {
+                "default": 0
+            },
             "sort": 1500000,
             "type": "melee"
         },
@@ -2479,134 +2401,103 @@
                     ]
                 },
                 "bonus": {
-                    "total": 14,
                     "value": 14
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "piercing",
-                    "die": "2d6+5"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "x81ahj505p9rsse842ir": {
                         "damage": "2d6+5",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Jaws",
+            "permission": {
+                "default": 0
+            },
             "sort": 1600000,
             "type": "melee"
         },
         {
-            "_id": "g5TUPRPR9gHfXrfU",
+            "_id": "fJJc56GDg0EB3oit",
             "data": {
                 "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": ""
+                },
+                "description": {
+                    "value": "<p>A creature with greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal @Compendium[pf2e.bestiary-ability-glossary-srd.Darkvision]{Darkvision}. A creature with greater darkvision, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Greater Darkvision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "6no2LBNfSHP8w9DB",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -2617,22 +2508,75 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "When an urdefhan dies, its invisible flesh quickly rots away and sublimates into a foul-smelling gas that fills a 5-foot emanation around the body. This gas deals [[/r 5d6 # negative damage]] negative damage to creatures in this area as their flesh curdles and rots as well (DC 21 basic Fortitude save)."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "negative-healing",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Negative Healing",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1800000,
+            "type": "action"
+        },
+        {
+            "_id": "g5TUPRPR9gHfXrfU",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>When an urdefhan dies, its invisible flesh quickly rots away and sublimates into a foul-smelling gas that fills a 5-foot emanation around the body.</p>\n<p>This gas deals [[/r 5d6 #negative]] negative damage to creatures in this area as their flesh curdles and rots as well (<span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"21\" data-pf2-traits=\"divine,necromancy,negative,damaging-effect\" data-pf2-label=\"Necrotic Decay DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "divine",
                         "necromancy",
@@ -2649,49 +2593,47 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Necrotic Decay",
-            "sort": 1700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1900000,
             "type": "action"
         },
         {
             "_id": "J2UWT1TZOpg7ODbW",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Frequency</b> once per day; <b>Effect</b> The urdefhan lets out a battle cry, sending itself and its allies into a fanatical frenzy. Each ally that hears the call gains a +1 status bonus to attack rolls, damage rolls, and saving throws, and takes a –1 status penalty to AC. Affected allies must use at least one of their actions to Strike each round, if they are able even if it means attacking an ally, object, or thin air). This lasts for 2d4 rounds."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Effect</strong> The urdefhan lets out a battle cry, sending itself and its allies into a fanatical frenzy. Each ally that hears the call gains a +1 status bonus to attack rolls, damage rolls, and saving throws, and takes a -1 status penalty to AC. Affected allies must use at least one of their actions to Strike each round, if they are able even if it means attacking an ally, object, or thin air).</p>\n<p>This lasts for [[/r 2d4 #rounds]] rounds.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "auditory",
                         "divine",
@@ -2710,49 +2652,47 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Stoke the Fervent",
-            "sort": 1800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2000000,
             "type": "action"
         },
         {
             "_id": "cLUNjff4ATgKuIj8",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> The urdefhan damaged a creature with a jaws Strike on its last action; <b>Effect</b> The urdefhan maintains contact, turning the creature's flesh translucent around the site of the injury. The urdefhan chooses one of two options, each of which requires a DC 22 Fortitude save. If the jaws Strike was a critical hit, the creature suffers both effects, using the same save result for both. <ul><li><b>Drain Blood</b> The urdefhan drinks some of the creature&apos;s blood. On a failed save, the creature is @Compendium[pf2e.conditionspf2e.Drained] 1 and the urdefhan regains 5 HP (or, on a critical failure, it’s drained 2 and the urdefhan regains 10 HP).</li><li><b>Drain Vitality</b> The urdefhan draws out some of the creature&apos;s vital essence. The creature becomes @Compendium[pf2e.conditionspf2e.Enfeebled] 1 for 1 hour on a failed save (or enfeebled 2 for 1 hour on a critical failure).</li></ul>"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Requirements</strong> The urdefhan damaged a creature with a jaws Strike on its last action;</p>\n<p><strong>Effect</strong> The urdefhan maintains contact, turning the creature's flesh translucent around the site of the injury. The urdefhan chooses one of two options, each of which requires a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"necromancy\" data-pf2-label=\"Wicked Bite DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. If the jaws Strike was a critical hit, the creature suffers both effects, using the same save result for both.</p>\n<ul>\n<li><strong>Drain Blood</strong> The urdefhan drinks some of the creature's blood. On a failed save, the creature is @Compendium[pf2e.conditionitems.Drained]{Drained 1} and the urdefhan regains 5 HP (or, on a critical failure, it's @Compendium[pf2e.conditionitems.Drained]{Drained 2} and the urdefhan regains 10 HP).</li>\n<li><strong>Drain Vitality</strong> The urdefhan draws out some of the creature's vital essence. The creature becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 hour on a failed save (or @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} for 1 hour on a critical failure).</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "necromancy"
                     ]
@@ -2767,16 +2707,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Wicked Bite",
-            "sort": 1900000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -2787,7 +2726,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -2797,23 +2735,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2000000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -2824,7 +2770,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -2834,23 +2779,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 2100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -2861,7 +2814,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -2871,23 +2823,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -2898,7 +2858,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -2908,23 +2867,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 2300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2500000,
             "type": "lore"
         },
         {
@@ -2935,7 +2902,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -2945,23 +2911,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2600000,
             "type": "lore"
         }
     ],
@@ -2970,13 +2944,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "FJr7Rc9MQEwxjAcz",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -2986,15 +2962,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Urdefhan Tormentor",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

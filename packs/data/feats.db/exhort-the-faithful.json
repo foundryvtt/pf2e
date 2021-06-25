@@ -13,24 +13,74 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>expert in Religion, follower of a specific religion</p>\n<hr>\n<p>Your knowledge of the tenets of your faith gives you insight into the best ways to get others of your faith to help you or to follow your directions.</p>\n<p>When you <a class=\"entity-link\" data-pack=\"pf2e.actionspf2e\" data-id=\"DCb62iCBrJXy0Ik6\" draggable=\"true\"><i class=\"fas fa-suitcase\"></i> Request</a> something of or <a class=\"entity-link\" data-pack=\"pf2e.actionspf2e\" data-id=\"tHCqgwjtQtzNqVvd\" draggable=\"true\"><i class=\"fas fa-suitcase\"></i> Coerce</a> members of your own faith, you can attempt a Religion check instead of Diplomacy or Intimidation, and you gain a +2 circumstance bonus to the check. On a critically failed attempt to make a Request, the target’s attitude toward you doesn’t worsen.</p>"
+            "value": "<p>Your knowledge of the tenets of your faith gives you insight into the best ways to get others of your faith to help you or to follow your directions.</p>\n<p>When you @Compendium[pf2e.actionspf2e.Request]{Request} something of or @Compendium[pf2e.actionspf2e.Coerce]{Coerce} members of your own faith, you can attempt a Religion check instead of Diplomacy or Intimidation, and you gain a +2 circumstance bonus to the check. On a critically failed attempt to make a Request, the target's attitude toward you doesn't worsen.</p>"
         },
         "featType": {
             "value": "skill"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
-            "value": "expert in Religion, follower of a specific religion"
+            "value": [
+                {
+                    "value": "expert in Religion"
+                },
+                {
+                    "value": "follower of a specific religion"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Exhort the Faithful (Request members of your faith)",
+                "predicate": {
+                    "all": [
+                        "action:request",
+                        "member-of-your-faith"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Exhort the Faithful (Coerce members of your faith)",
+                "predicate": {
+                    "all": [
+                        "action:coerce",
+                        "member-of-your-faith"
+                    ]
+                },
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Exhort the Faithful (Request/Coerce members of your faith)",
+                "predicate": {
+                    "all": [
+                        "member-of-your-faith"
+                    ],
+                    "any": [
+                        "action:request",
+                        "action:coerce"
+                    ]
+                },
+                "selector": "religion",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
@@ -38,13 +88,11 @@
                 "general",
                 "skill"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Exhort The Faithful",
     "permission": {
         "default": 0

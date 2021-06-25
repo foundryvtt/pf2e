@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "25"
+                "value": 25
             },
             "allSaves": {
                 "value": ""
@@ -59,12 +59,11 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "",
-                "max": "95",
+                "details": "(negative healing)",
+                "max": 95,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "95"
+                "value": 95
             },
             "init": {
                 "bonus": 0,
@@ -102,9 +101,15 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "special": "",
-                "value": "fly 40 feet"
+                "otherSpeeds": [
+                    {
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "40"
+                    }
+                ],
+                "value": "0"
             }
         },
         "currency": {
@@ -121,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "LE"
@@ -137,10 +143,10 @@
             },
             "creatureType": "Undead",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "When an evil mortal creature dies, it sometimes returns to haunt the area of its death as a specter, a hateful remnant, always seeking to slay others—particularly humanoids—in an attempt to distribute its pain among as many souls as it can. A specter maintains a strange semblance of its prior identity, but with a corrupted sense of purpose. It cannot be reasoned with.<br><br> A specter denied the opportunity to harm living humanoids grows increasingly agonized and irrational, akin to the mindset of a starving person forever denied a release from agony through death.<br><br>",
+            "flavorText": "When an evil mortal creature dies, it sometimes returns to haunt the area of its death as a specter, a hateful remnant, always seeking to slay others-particularly humanoids-in an attempt to distribute its pain among as many souls as it can. A specter maintains a strange semblance of its prior identity, but with a corrupted sense of purpose. It cannot be reasoned with.<br /><br /> A specter denied the opportunity to harm living humanoids grows increasingly agonized and irrational, akin to the mindset of a starving person forever denied a release from agony through death.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -150,13 +156,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "7"
+                "value": 7
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=812",
             "recallKnowledgeText": "Recall Knowledge - Undead : DC 23",
-            "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Related Creatures\" title=\"Sidebar - Related Creatures\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_4_RelatedCreatures.png\"> Spectral Thralls</h3>Specters often keep a few humanoid thralls to torment, preventing the agony of pain starvation, but since they can&apos;t minimize the negative damage they inflict with their vile touch, humanoid thralls who are too low level generally don&apos;t last long.",
             "source": {
-                "value": "Bestiary 2 pg. 248"
+                "value": "Bestiary 2"
             }
         },
         "martial": {
@@ -406,16 +410,24 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
-                "custom": "death effects, disease, paralyzed, poison, precision, unconscious",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "death effects",
+                    "disease",
+                    "paralyzed",
+                    "poison",
+                    "precision",
+                    "unconscious"
                 ]
             },
             "dr": [
                 {
-                    "exceptions": "force, ghost touch, or positive",
+                    "exceptions": "force, ghost touch, or positive, double vs non-magical",
                     "label": "All",
                     "type": "all",
                     "value": "5"
@@ -423,12 +435,11 @@
             ],
             "dv": [],
             "languages": {
-                "custom": "telepathy 100 feet ",
+                "custom": "telepathy 100 feet (with spectral thralls only)",
                 "selected": [],
                 "value": [
                     "common",
-                    "necril",
-                    "custom"
+                    "necril"
                 ]
             },
             "rarity": {
@@ -449,10 +460,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "zjVbARImBBAx6EKv",
@@ -461,141 +472,57 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "spectral corruption"
-                    ]
+                    "custom": "",
+                    "value": []
                 },
                 "bonus": {
-                    "total": 18,
-                    "value": 18
+                    "value": 16
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "negative",
-                    "die": "6d6"
-                },
-                "damageRolls": [
-                    {
-                        "damage": "6d6",
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+8",
                         "damageType": "negative"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "finesse"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Vile Touch",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "melee"
         },
         {
-            "_id": "ahacYP3rlZmKA8pE",
+            "_id": "VzobMtkoa82xICPm",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -606,22 +533,187 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "30 feet, DC 22<br>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster’s Frightful Presence for 1 minute.<br><br> <b>Critical Success</b> The creature is unaffected by the presence.<br> <b>Success</b> The creature is @Compendium[pf2e.conditionspf2e.Frightened] 1.<br> <b>Failure</b> The creature is @Compendium[pf2e.conditionspf2e.Frightened] 2.<br> <b>Critical Failure</b> The creature is @Compendium[pf2e.conditionspf2e.Frightened] 4."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "9yk5MBYML8Z0OmtD",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Telepathy (with spectral thralls only)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "ZqBQutg0Cvs5YcxR",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Negative Healing",
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "BPJS4QzIXUC3Zmwf",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>30 feet, DC 22</p>\n<p>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "frightful-presence",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "aura",
                         "emotion",
@@ -632,30 +724,30 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.etMnv73EIdEZrYYu"
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Frightful Presence",
-            "sort": 200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
             "type": "action"
         },
         {
             "_id": "RGaUdIjwMpgnNYGg",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -666,22 +758,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A specter that goes for more than a month without dealing negative damage to a living humanoid becomes desperate and almost feral. It changes alignment from lawful evil to chaotic evil, loses control of any corrupted thralls it might have, and becomes @Compendium[pf2e.conditionspf2e.Quickened]. It can use its additional action only to make vile touch Strikes against humanoid targets. At the end of any turn in which it deals any amount of negative damage to a living humanoid, it reverts to lawful evil and is no longer quickened, but any thralls it lost control of remain free."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A specter that goes for more than a month without dealing negative damage to a living humanoid becomes desperate and almost feral. It changes alignment from lawful evil to chaotic evil, loses control of any corrupted thralls it might have, and becomes @Compendium[pf2e.conditionitems.Quickened]{Quickened}. It can use its additional action only to make vile touch Strikes against humanoid targets. At the end of any turn in which it deals any amount of negative damage to a living humanoid, it reverts to lawful evil and is no longer quickened, but any thralls it lost control of remain free.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "humanoid"
                     ]
@@ -696,23 +787,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Pain Starvation",
-            "sort": 300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
             "type": "action"
         },
         {
             "_id": "qh8LFXVLWjILfZZx",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -723,22 +813,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A specter caught in sunlight is @Compendium[pf2e.conditionspf2e.Clumsy] 2 and @Compendium[pf2e.conditionspf2e.Slowed] 2 for as long as it remains in the sunlight."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A specter caught in sunlight is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} for as long as it remains in the sunlight.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -751,49 +840,47 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Sunlight Powerlessness",
-            "sort": 400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
             "type": "action"
         },
         {
             "_id": "OSiq1CXChzTT7udW",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "action"
                 },
                 "actions": {
-                    "value": ""
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "When the specter damages a living creature with its vile touch Strike, the specter gains 5 temporary Hit Points and the target creature must attempt a DC 25 Will save to avoid becoming corrupted. <br><b>Critical Success</b> The creature is unaffected and is temporarily immune to spectral corruption for 1 minute. <br><b>Success</b> The creature is @Compendium[pf2e.conditionspf2e.Stupefied] 2 for 1 hour. <br><b>Failure</b> The creature succumbs to the corruption and becomes a spectral thrall. The creature is controlled by the specter, obeying the specter's telepathic or spoken orders, though a spectral thrall does not obey obviously self-destructive orders. It can attempt a new Will save at the end of each of its turns; on a success, it is no longer controlled by the specter but becomes stupefied 2 for 1 hour. <br><b>Critical Failure</b> As failure, but the creature remains a thrall to the specter until the curse is removed or until the specter succumbs to pain starvation; it can't attempt new Will saves to recover on its own."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The specter makes a vile touch Strike. If it damages a living creature, the specter gains 5 temporary Hit Points and the target creature must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"24\" data-pf2-traits=\"curse,divine,enchantment,incapacitation,mental\" data-pf2-label=\"Spectral Corruption DC\" data-pf2-show-dc=\"gm\">Will</span> save to avoid becoming corrupted.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to spectral corruption for 1 minute.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 hour.</p>\n<p><strong>Failure</strong> The creature succumbs to the corruption and becomes a spectral thrall temporarily. The creature is @Compendium[pf2e.conditionitems.Controlled]{Controlled} by the specter, obeying the specter's telepathic or spoken orders, though a spectral thrall does not obey obviously self-destructive orders. This lasts until the end of the thrall's next turn, at which point it is no longer controlled but becomes @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 hour.</p>\n<p><strong>Critical Failure</strong> As failure, but the duration is unlimited. The thrall can attempt a new Will save at the end of each of its turns; on a success, it is no longer controlled by the specter but becomes @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 hour.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "curse",
                         "divine",
@@ -812,16 +899,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Spectral Corruption",
-            "sort": 500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -832,7 +918,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -842,23 +927,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 600000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -869,7 +962,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -879,23 +971,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -906,7 +1006,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -916,23 +1015,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
             "type": "lore"
         }
     ],
@@ -941,13 +1048,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "HNEUSYnInffvGPHK",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -957,15 +1066,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Specter",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

@@ -13,38 +13,50 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your features reshape into those of a type of fiend who serves your deity; for example, as a demon you might have putrid scales, twisted horns, and red eyes. You gain a <a class=\"entity-link\" data-pack=\"pf2e.actionspf2e\" data-id=\"cS9nfDRGD83bNU1p\" draggable=\"true\"><i class=\"fas fa-suitcase\"></i> Fly</a> Speed equal to your Speed. You gain <a class=\"entity-link\" data-pack=\"pf2e.ancestryfeatures\" data-id=\"HHVQDp61ehcpdiU8\" draggable=\"true\"><i class=\"fas fa-suitcase\"></i> Darkvision</a> if you don’t already have it, and you gain the fiend trait and the trait appropriate to the type of servitor you’ve become (such as daemon, demon, or devil).&nbsp;&nbsp;</p>"
+            "value": "<p>Your features reshape into those of a type of fiend who serves your deity; for example, as a demon you might have putrid scales, twisted horns, and red eyes.</p>\n<p>You gain a fly Speed equal to your Speed. You gain @Compendium[pf2e.ancestryfeatures.Darkvision]{Darkvision} if you don't already have it, and you gain the fiend trait and the trait appropriate to the type of servitor you've become (such as daemon, demon, or devil).</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "18"
+            "value": 18
         },
+        "location": "",
         "prerequisites": {
-            "value": "tenets of evil"
+            "value": [
+                {
+                    "value": "tenets of evil"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.BaseSpeed",
+                "selector": "fly",
+                "value": "@attributes.speed.value"
+            },
+            {
+                "key": "PF2E.RuleElement.Sense",
+                "label": "PF2E.SensesDarkvision",
+                "selector": "darkvision"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
-                "value": "common"
+                "value": "uncommon"
             },
             "value": [
-                "uncommon",
                 "champion"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Fiendish Form",
     "permission": {
         "default": 0

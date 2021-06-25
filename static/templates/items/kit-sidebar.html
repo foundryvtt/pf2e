@@ -1,7 +1,7 @@
-<h4 class="sidebar-summary">{{localize "PF2E.ItemSummary"}}</h4>
+<h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeKit")}}</h4>
 
 <div class="inventory-details">
-    
+
     <div class="form-group">
         <label>{{localize "PF2E.Rarity"}}</label>
         <select name="data.traits.rarity.value" data-dtype="String">
@@ -12,7 +12,7 @@
             {{/select}}
         </select>
     </div>
-    
+
     <div class="form-group">
         <label>{{localize "PF2E.BulkLabel"}}</label>
         <select name="data.weight.value" data-dtype="String">
@@ -40,6 +40,6 @@
 
     <div class="form-group">
         <label>{{localize "PF2E.PriceLabel"}}</label>
-        <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="{{data.price.type}}"/>
+        <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="String" />
     </div>
 </div>

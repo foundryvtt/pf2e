@@ -5,13 +5,19 @@
             "value": ""
         },
         "area": {
-            "value": "30-foot line"
+            "areaType": "line",
+            "value": 30
         },
         "areasize": {
-            "value": ""
+            "value": "30-foot line"
+        },
+        "category": {
+            "value": "spell"
         },
         "components": {
-            "value": "somatic, verbal"
+            "material": false,
+            "somatic": true,
+            "verbal": true
         },
         "cost": {
             "value": ""
@@ -26,10 +32,13 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Extending a finger, you fire a beam of negative energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 2d8 #persistent negative]]&nbsp; persistent negative damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 4d8 #persistent negative]] persistent negative damage and becomes @Compendium[pf2e.conditionspf2e.4D2KBtexWXa6oUMR]{Drained} 1.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 4d8 #persistent negative]] persistent negative damage and becomes Drained 2 and @Compendium[pf2e.conditionspf2e.3uh1r86TzbQvosxv]{Doomed} 1.</p>\n<hr>\n<p><strong>Heightened (+2)</strong> The persistent negative damage increases by [[/r 1d8&nbsp;#persistent negative]] on a success, or by [[/r 2d8&nbsp;#persistent negative]]&nbsp;on a failure or critical failure.</p>"
+            "value": "<p>Extending a finger, you fire a beam of negative energy that weakens the life force of any creature it touches. Each living creature in the line must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 2d8 #persistent negative]] persistent negative damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 4d8 #persistent negative]] persistent negative damage and becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 4d8 #persistent negative]] persistent negative damage and becomes @Compendium[pf2e.conditionitems.Drained]{Drained 2} and @Compendium[pf2e.conditionitems.Doomed]{Doomed 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The persistent negative damage increases by [[/r 1d8 #persistent negative]] on a success, or by [[/r 2d8 #persistent negative]] on a failure or critical failure.</p>"
         },
         "duration": {
             "value": ""
+        },
+        "hasCounteractCheck": {
+            "value": false
         },
         "level": {
             "value": 4
@@ -49,19 +58,17 @@
         "range": {
             "value": ""
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [],
         "save": {
             "basic": "",
-            "value": ""
+            "value": "fortitude"
         },
         "scaling": {
             "formula": "2d8",
             "mode": "level2"
         },
         "school": {
-            "value": "nec"
+            "value": "necromancy"
         },
         "secondarycasters": {
             "value": ""
@@ -72,14 +79,8 @@
         "source": {
             "value": ""
         },
-        "spellCategorie": {
-            "value": "spell"
-        },
-        "spellCategory": {
-            "value": ""
-        },
         "spellType": {
-            "value": "attack"
+            "value": "save"
         },
         "sustained": {
             "value": false
@@ -106,13 +107,12 @@
                 "necromancy",
                 "negative"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/enervation.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/spells/enervation.webp",
     "name": "Enervation",
     "permission": {
         "default": 0

@@ -1,5 +1,8 @@
-/* global Handlebars TextEditor */
-export default function registerHandlebarsHelpers() {
+export function registerHandlebarsHelpers() {
+    Handlebars.registerHelper('pad', (value, length, character) => {
+        return `${value}`.padStart(length, character);
+    });
+
     Handlebars.registerHelper('add', (a, b) => {
         return a + b;
     });
@@ -13,7 +16,21 @@ export default function registerHandlebarsHelpers() {
             fn = opts.inverse;
             break;
         }
-        return fn(this);
+
+        return fn();
+    });
+
+    Handlebars.registerHelper('any', (...args) => {
+        const opts = args.pop();
+        return args.some((v) => !!v) ? opts : opts.inverse;
+    });
+
+    Handlebars.registerHelper('disabled', (condition: unknown) => {
+        return condition ? 'disabled' : '';
+    });
+
+    Handlebars.registerHelper('not', (arg) => {
+        return !arg;
     });
 
     Handlebars.registerHelper('lower', (str) => {
@@ -25,24 +42,27 @@ export default function registerHandlebarsHelpers() {
     });
 
     Handlebars.registerHelper('percentage', (value, max) => {
-        return (max / 100) * value;
+        return (value * 100) / max;
     });
 
-    Handlebars.registerHelper('strip_tags', (value, options) => {
-        function strip_tags(input, allowed?) { // eslint-disable-line camelcase
-            const _phpCastString = (phpValue) => {
+    Handlebars.registerHelper('strip_tags', (value) => {
+        // eslint-disable-next-line camelcase
+        function strip_tags(input: unknown, allowed?: string): string {
+            const _phpCastString = (phpValue: unknown): string => {
+                if (typeof phpValue === 'string') {
+                    return phpValue;
+                }
+
                 const type = typeof phpValue;
                 switch (type) {
                     case 'boolean':
                         return phpValue ? '1' : '';
-                    case 'string':
-                        return phpValue;
                     case 'number':
                         if (Number.isNaN(phpValue)) {
                             return 'NAN';
                         }
 
-                        if (!Number.isFinite(phpValue)) {
+                        if (phpValue === Infinity) {
                             return `${phpValue < 0 ? '-' : ''}INF`;
                         }
 
@@ -60,42 +80,46 @@ export default function registerHandlebarsHelpers() {
 
                         return '';
                     case 'function':
-                        // fall through
+                    // fall through
                     default:
                         throw new Error('Unsupported value type');
                 }
             };
 
             // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
-            allowed = ((`${allowed || ''}`).toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
+            allowed = (`${allowed || ''}`.toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
 
             const tags = /<\/?([a-z0-9]*)\b[^>]*>?/gi;
             const commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
 
             let after = _phpCastString(input);
             // removes tha '<' char at the end of the string to replicate PHP's behaviour
-            after = (after.substring(after.length - 1) === '<') ? after.substring(0, after.length - 1) : after;
+            after = after.substring(after.length - 1) === '<' ? after.substring(0, after.length - 1) : after;
 
             // recursively remove tags to ensure that the returned string doesn't contain forbidden tags after previous passes (e.g. '<<bait/>switch/>')
-            while (true) {
-                const before = after;
-                after = before.replace(commentsAndPhpTags, '').replace(tags, ($0, $1) => (allowed.indexOf(`<${$1.toLowerCase()}>`) > -1 ? $0 : ''));
+            let before: string;
+            do {
+                before = after;
+                after = before
+                    .replace(commentsAndPhpTags, '')
+                    .replace(tags, ($0, $1) => (allowed!.indexOf(`<${$1.toLowerCase()}>`) > -1 ? $0 : ''));
 
                 // return once no more tags are removed
                 if (before === after) {
                     return after;
                 }
-            }
+            } while (before !== after);
+            return '';
         }
 
         return strip_tags(String(value));
     });
 
-  Handlebars.registerHelper('enrichHTML', (html) => {
-    return TextEditor.enrichHTML(html);
-  });
+    Handlebars.registerHelper('enrichHTML', (html) => {
+        return TextEditor.enrichHTML(html);
+    });
 
-  Handlebars.registerHelper('json', (html) => {
-    return JSON.stringify(html);
-  });
+    Handlebars.registerHelper('json', (html) => {
+        return JSON.stringify(html);
+    });
 }

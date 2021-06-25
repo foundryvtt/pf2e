@@ -1,0 +1,27 @@
+<div class="sidebar_title">
+  <h2>
+      {{localize 'PF2E.HitPointsHeader'}}
+  </h2>
+</div>
+<div class="hitpoints">
+  <div class="hp-big">
+    <div class="container temp-hp" title="{{localize "PF2E.ShieldBrokenThresholdLabel"}}">
+      <label for="data.attributes.hp.brokenThreshold">{{localize "PF2E.vehicle.BrokenThresholdShortLabel"}}</label>
+      <div class="data-value">
+        <h2>{{data.attributes.hp.brokenThreshold}}</h2>
+      </div>
+    </div>
+    <div class="container current-hp" title="{{localize "PF2E.vehicle.CurrentHPTitel"}}">
+      <label for="data.attributes.hp.value">{{localize "PF2E.CurrentHitPointsShortLabel"}}</label>
+      <div class="data-value">
+        <input name="data.attributes.hp.value" type="number" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0" size="1"/>
+      </div>
+    </div>
+    <div class="container max-hp" title="{{localize "PF2E.vehicle.MaxHPTitle"}}">
+      <label for="data.attributes.hp.max">{{localize "PF2E.MaxHitPointsShortLabel"}}</label>
+      <div class="data-value">
+        <input name="data.attributes.hp.max" type="number" value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="0" size="1"/>
+      </div>
+    </div>
+  </div>
+</div>

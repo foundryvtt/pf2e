@@ -1,6 +1,7 @@
 {
     "_id": "uiJAR3jQbQHhiP3Q",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>This bright red-and-gold cape is often interlaced with glittery threads and serves as a distraction. While wearing the cape, you gain a +2 item bonus to Deception checks.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">D</span> Interact; <strong>Frequency</strong> once per day; <strong>Effect</strong> You cast @Compendium[pf2e.spells-srd.VlNcjmYyu95vOUe8]{Dimension Door}. The&nbsp;space you leave and the one you appear in are filled with puffs of smoke that make anyone within concealed until they leave the smoke or the end of your next turn, at which point the smoke dissipates. Strong winds immediately disperse the smoke.</span></p>"
+            "value": "<p>This bright red-and-gold cape is often interlaced with glittery threads and serves as a distraction. While wearing the cape, you gain a +2 item bonus to Deception checks.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You cast @Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door}. The space you leave and the one you appear in are filled with puffs of smoke that make anyone within concealed until they leave the smoke or the end of your next turn, at which point the smoke dissipates. Strong winds immediately disperse the smoke.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Deception checks</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "10"
+            "value": 10
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,18 @@
             "value": "980 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "deception",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +90,6 @@
             "rarity": {
                 "value": "uncommon"
             },
-            "usage": {
-                "value": "worncloak"
-            },
             "value": [
                 "conjuration",
                 "invested",
@@ -81,14 +97,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worncloak"
         },
         "weight": {
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/cape-of-the-mountebank.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/cape-of-the-mountebank.webp",
     "name": "Cape of the Mountebank",
     "permission": {
         "default": 0

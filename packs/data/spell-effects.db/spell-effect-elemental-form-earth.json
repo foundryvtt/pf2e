@@ -1,0 +1,255 @@
+{
+    "_id": "8eWLR0WCf5258z8X",
+    "data": {
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Elemental Form]{Elemental Form}</p>\n<p>You call upon the power of the planes to transform into a Medium elemental battle form. While in this form, you gain the earth trait and the elemental trait. You have hands in this battle form and can take manipulate actions. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>10 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can use. You're trained with them. Your attack modifier is +18, and your damage bonus is +9. These are Strength based. If your corresponding unarmed attack modifier is higher, you can use it instead.</li>\n<li>Athletics modifier of +20; ignore this change if your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of elemental you choose:</p>\n<ul>\n<li><strong>Earth</strong>\n<ul>\n<li>Speed 20 feet, burrow Speed 20 feet;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> fist, <strong>Damage</strong> 2d10 bludgeoning.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> Your battle form is Large and your attacks have 10-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 15 temporary HP, an attack modifier of +23, a damage bonus of +13, and Acrobatics or Athletics +23.</p>\n<p><strong>Heightened (7th)</strong> Your battle form is Huge and your attacks have 15-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 20 temporary HP, an attack modifier of +25, a damage bonus of +11, double the number of damage dice (including @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}), and Acrobatics or Athletics +25.</p>\n<hr />\n<p><em>Note: To heighten this effect, import it into your Item Directory and edit the level before adding it to the target</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FixedProficiency",
+                "label": "Elemental Form",
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "polymorph",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": "19 + @details.level.value"
+                        },
+                        {
+                            "start": 6,
+                            "value": "22 + @details.level.value"
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.TempHP",
+                "label": " Form",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": 10
+                        },
+                        {
+                            "end": 6,
+                            "start": 6,
+                            "value": 15
+                        },
+                        {
+                            "start": 7,
+                            "value": 20
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.Sense",
+                "label": "PF2E.SensesDarkvision",
+                "selector": "darkvision"
+            },
+            {
+                "ability": "str",
+                "key": "PF2E.RuleElement.FixedProficiency",
+                "label": "Elemental Form",
+                "selector": "attack",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": 18
+                        },
+                        {
+                            "end": 6,
+                            "start": 6,
+                            "value": 23
+                        },
+                        {
+                            "start": 7,
+                            "value": 25
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "ability": "str",
+                "key": "PF2E.RuleElement.FixedProficiency",
+                "label": "Elemental Form",
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": 9
+                        },
+                        {
+                            "end": 6,
+                            "start": 6,
+                            "value": 13
+                        },
+                        {
+                            "start": 7,
+                            "value": 11
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FixedProficiency",
+                "label": "Elemental Form",
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "athletics",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": 20
+                        },
+                        {
+                            "end": 6,
+                            "start": 6,
+                            "value": 23
+                        },
+                        {
+                            "start": 7,
+                            "value": 25
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.TokenSize",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": 1
+                        },
+                        {
+                            "end": 6,
+                            "start": 6,
+                            "value": 2
+                        },
+                        {
+                            "start": 7,
+                            "value": 3
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.BaseSpeed",
+                "selector": "land-speed",
+                "value": 20
+            },
+            {
+                "key": "PF2E.RuleElement.BaseSpeed",
+                "selector": "burrow",
+                "value": 20
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 2,
+                        "die": "d10"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Earth fist",
+                "range": "melee",
+                "traits": [
+                    "melee"
+                ]
+            },
+            {
+                "critical": false,
+                "key": "PF2E.RuleElement.DamageDice",
+                "label": "Elemental Form",
+                "predicate": {},
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "start": 7,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.polymorph",
+                "retain": true
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/elemental-form.webp",
+    "name": "Spell Effect: Elemental Form (Earth)",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

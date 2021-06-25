@@ -1,0 +1,90 @@
+{
+    "_id": "X7RD0JRxhJV9u2LC",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Disrupting Weapons]{Disrupting Weapons}</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.EffectTarget",
+                "scope": "weapon"
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Attacking Undead",
+                "property": "flags.pf2e.rollOptions.damage-roll.disrupting-weapons"
+            },
+            {
+                "damageType": "positive",
+                "dieSize": "d4",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "any": [
+                        "disrupting-weapons",
+                        "target:undead"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 5,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/disrupting-weapons.webp",
+    "name": "Spell Effect: Disrupting Weapons",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

@@ -1,0 +1,75 @@
+{
+    "_id": "bIU1q05vzkKBtFj2",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Necrotic Infusion]{Necrotic Infusion}.</p>\n<p>If the next action you use is to cast @Compendium[pf2e.spells-srd.Harm]{Harm} to restore Hit Points to a single undead creature, the target then deals an additional 1d6 negative damage with its melee weapons and unarmed attacks until the end of its next turn. If the <em>harm</em> spell is at least 5th level, this damage increases to 2d6, and if the <em>harm</em> spell is at least 8th level, the damage increases to 3d6.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.TokenEffectIcon"
+            },
+            {
+                "damageType": "negative",
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 7,
+                            "start": 5,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 8,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/harm.webp",
+    "name": "Effect: Necrotic Infusion",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

@@ -13,37 +13,47 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You know good artisanship when you see it and can wax poetic about crafting techniques and forms.</p>\n<p>You become trained in Crafting and gain a +1 circumstance bonus on all Crafting checks made to @Compendium[pf2e.actionspf2e.B0Eu3EfwIa9kyDEA]{Recall Knowledge}. If you would automatically become trained in Crafting (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>In addition, you gain the @Compendium[world.feats-apg-data-entry.54QgGnYbgw6hM3Uc]{Crafter’s Appraisal} skill feat, enabling you to identify magic items using the Crafting skill.</p>"
+            "value": "<p>You know good artisanship when you see it and can wax poetic about crafting techniques and forms.</p><p>You become trained in Crafting and gain a +1 circumstance bonus on all Crafting checks made to @Compendium[pf2e.actionspf2e.Recall Knowledge (Crafting)]{Recall Knowledge}. If you would automatically become trained in Crafting (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>In addition, you gain the @Compendium[pf2e.feats-srd.Crafter's Appraisal]{Crafter's Appraisal} skill feat, enabling you to identify magic items using the Crafting skill.</p>"
         },
         "featType": {
             "value": "ancestry"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:recall-knowledge"
+                    ]
+                },
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "dwarf"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Eye For Treasure",
     "permission": {
         "default": 0

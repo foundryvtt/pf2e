@@ -1,0 +1,61 @@
+<section class="sheet-sidebar sidebar sidebar-loot">
+    <img class="actor-icon" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
+    {{#if owner}}
+        {{editor content=data.details.description.value target="data.details.description.value" button=true user=user editable=editable}}
+    {{else}}
+        <div class="description">{{{enrichHTML data.details.description.value}}}</section>
+    {{/if}}
+    {{#if user.isGM}}
+        {{#if isLoot}}
+            <section class="loot-distribution">
+                <button class= "split-coins" type="button" name="split-coins" value="1"><i class="fa fa-coins"></i> {{localize "PF2E.loot.SplitCoinsLabel"}}</button>
+                <button class= "loot-npcs" type="button" name="loot-npc"><i class="fas fa-box-open"></i> {{localize "PF2E.loot.LootNPCsLabel"}}</button>
+            </section>
+        {{/if}}
+        <hr />
+
+        <!-- GM SETTINGS -->
+        <section class="gm-settings">
+            <h3 class="gm-settings">{{localize "PF2E.loot.GMSettings"}}</h3>
+            <h4 class="sheet-type">
+                {{localize "PF2E.loot.SheetType"}}
+                <i class="fas fa-info-circle help" onclick="$('.sheet-type-info').toggle();"></i>
+                <select name="data.lootSheetType">
+                    {{#select data.lootSheetType}}
+                        <option value="Loot">{{localize "PF2E.loot.LootLabel"}}</option>
+                        <option value="Merchant">{{localize "PF2E.loot.MerchantLabel"}}</option>
+                    {{/select}}
+                </select>
+            </h4>
+            <div class="sheet-type-info">
+                <p>
+                    <strong>{{localize "PF2E.loot.LootLabel"}}</strong>: {{localize "PF2E.loot.LootDescription"}}
+                </p>
+                <p>
+                    <strong>{{localize "PF2E.loot.MerchantLabel"}}</strong>: {{localize "PF2E.loot.MerchantDescription"}}
+                </p>
+            </div>
+            {{#if isLoot}}
+                <div class="hidden-when-empty">
+                    <h4>
+                        <span>{{localize "PF2E.loot.HiddenWhenEmpty.Label"}}</span>
+                        {{#if data.hiddenWhenEmpty}}
+                            <span class="eye">
+                                (
+                                {{#if actor.inventory.empty}}
+                                    <i class="fas fa-eye-slash" title="{{localize "PF2E.loot.HiddenWhenEmpty.CurrentlyHidden"}}"></i>
+                                {{else}}
+                                    <i class="fas fa-eye" title="{{localize "PF2E.loot.HiddenWhenEmpty.CurrentlyVisible"}}"></i>
+                                {{/if}}
+                                )
+                            </span>
+                        {{/if}}
+
+                        <input type="checkbox" name="data.hiddenWhenEmpty" data-dtype="Boolean" {{checked data.hiddenWhenEmpty}} />
+                    </h4>
+                    <span>{{localize "PF2E.loot.HiddenWhenEmpty.Hint"}}</span>
+                </div>
+            {{/if}}
+        </section>
+    {{/if}}
+</section>

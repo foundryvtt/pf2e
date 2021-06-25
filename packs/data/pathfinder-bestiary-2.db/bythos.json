@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "39"
+                "value": 39
             },
             "allSaves": {
                 "value": "+1 status to all saves vs. magic"
@@ -59,12 +59,11 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 15 ",
-                "max": "245",
+                "details": "regeneration 15 (deactivated by chaotic)",
+                "max": 245,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "245"
+                "value": 245
             },
             "init": {
                 "bonus": 0,
@@ -102,9 +101,15 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "special": "",
-                "value": "fly 35 feet"
+                "otherSpeeds": [
+                    {
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "35"
+                    }
+                ],
+                "value": ""
             }
         },
         "currency": {
@@ -121,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "LN"
@@ -137,10 +143,10 @@
             },
             "creatureType": "Monitor",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "The bythos is a guardian of space and time, and at all times seeks out those who misuse planar and temporal magic. A bythos is a roughly humanoid creature with four arms and a body made of swirling clouds and mist. Despite its appearance, its body feels like dry stone. A bythos seeks out paradoxes caused by irresponsible planar or dimensional travelers and repairs breaches where the barriers between planes have become thin or damaged. If the mortals responsible remain in the area and cannot be convinced to cease their activities, the bythos has no qualms about removing them. Using its ability to manipulate time, a bythos might cause an opponent to quickly die of old age as time speeds up around them, or cause a target to disappear from time and space.<br><br>",
+            "flavorText": "The bythos is a guardian of space and time, and at all times seeks out those who misuse planar and temporal magic. A bythos is a roughly humanoid creature with four arms and a body made of swirling clouds and mist. Despite its appearance, its body feels like dry stone. A bythos seeks out paradoxes caused by irresponsible planar or dimensional travelers and repairs breaches where the barriers between planes have become thin or damaged. If the mortals responsible remain in the area and cannot be convinced to cease their activities, the bythos has no qualms about removing them. Using its ability to manipulate time, a bythos might cause an opponent to quickly die of old age as time speeds up around them, or cause a target to disappear from time and space.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -150,13 +156,79 @@
             },
             "level": {
                 "min": 1,
-                "value": "16"
+                "value": 16
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=539",
             "recallKnowledgeText": "Recall Knowledge - Monitor : DC 37",
-            "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Related Creatures\" title=\"Sidebar - Related Creatures\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_4_RelatedCreatures.png\"> Guardians of Time</h3>Bythos aeons have no innate ability to directly enter the mysterious Dimension of Time, but many know of the hidden routes in the Great Beyond one can use to travel to this strange realm. A bythos prefers to destroy those who seek entrance to the Dimension of Time rather than risk the knowledge of how to reach it spreading too far.",
             "source": {
-                "value": "Bestiary 2 pg. 10"
+                "value": "Bestiary 2"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot6": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot7": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot8": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 37,
+                        "value": 27
+                    }
+                }
+            },
+            "1": {
+                "data": {
+                    "spelldc": {
+                        "dc": 37,
+                        "value": 27
+                    }
+                }
+            },
+            "BsMDAmQotZFAU0Z7": {
+                "data": {
+                    "spelldc": {
+                        "dc": 37,
+                        "value": 27
+                    }
+                }
+            },
+            "xoV74Ad4ZTLkT5re": {
+                "data": {
+                    "spelldc": {
+                        "dc": 37,
+                        "value": 27
+                    }
+                }
             }
         },
         "martial": {
@@ -406,6 +478,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -444,10 +519,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "xoV74Ad4ZTLkT5re",
@@ -475,11 +550,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -543,11 +619,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "37",
+                    "dc": 37,
                     "item": 0,
                     "mod": 0,
                     "value": 27
@@ -556,15 +633,24 @@
                     "value": "divine"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Divine Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -594,11 +680,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -662,11 +749,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "37",
+                    "dc": 37,
                     "item": 0,
                     "mod": 0,
                     "value": 27
@@ -675,671 +763,90 @@
                     "value": "ritual"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Rituals",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "F0KDlPR4zliFgnGo",
+            "_id": "fjNBgwnXVFm9Yc36",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "10 minutes "
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You gain a vague glimpse of the future. During the casting of this spell, ask about the results of a particular course of action. The spell can predict results up to 30 minutes into the future and reveals the GM's best guess among the following outcomes:</p>\n<ul>\n<li><strong>Weal</strong> The results will be good.</li>\n<li><strong>Woe</strong> The results will be bad.</li>\n<li><strong>Weal</strong> and Woe The results will be a mix of good and bad.</li>\n<li><strong>Nothing</strong> There won't be particularly good or bad results.</li>\n</ul>\n<p>The GM rolls a secret DC 6 flat check. On a failure, the result is always “nothing.” This makes it impossible to tell whether a “nothing” result is accurate. If anyone asks about the same topic as the first casting of augury during an additional casting, the GM uses the secret roll result from the first casting. If circumstances change, though, it's possible to get a different result.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "8"
-                },
-                "location": {
-                    "value": "xoV74Ad4ZTLkT5re"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "div"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=15"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": ""
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "divination",
-                        "prediction"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "description"
-            },
-            "img": "systems/pf2e/icons/spells/augury.jpg",
-            "name": "Augury ",
-            "sort": 300000,
-            "type": "spell"
-        },
-        {
-            "_id": "HXIH0E5rE1ZTMRCR",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": " material, somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You and the targets are instantly transported to any location within range, as long as you can identify the location precisely both by its position relative to your starting position and by its appearance (or other identifying features). Incorrect knowledge of the location's appearance usually causes the spell to fail, but it could instead lead to teleporting to an unwanted location or some other unusual mishap determined by the GM. Teleport is not precise over great distances. The targets appear at a distance from the intended destination equal to roughly 1 percent of the total distance traveled, in a direction determined by the GM. For short journeys, this lack of precision is irrelevant, but for long distances this could be up to 1 mile.</p>\n<hr>\n<p><strong>Heightened </strong> You and the other targets can travel to any location within 1,000 miles.</p>\n<p><strong>Heightened </strong> You and the other targets can travel to any location on the same planet. If you travel more than 1,000 miles, you arrive only 10 miles off target.</p>\n<p><strong>Heightened </strong> You and the other targets can travel to any location on another planet within the same solar system. Assuming you have accurate knowledge of the location's position and appearance, you arrive on the new planet 100 miles off target.</p>\n<p><strong>Heightened </strong> As the 9th-level version, but you and the other targets can travel to any planet within the same galaxy.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "8"
-                },
-                "location": {
-                    "value": "xoV74Ad4ZTLkT5re"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "100 miles"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "con"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=338"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "you and up to 4 targets touched, either willing creatures or objects roughly the size of a creature."
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "10 minutes"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "conjuration",
-                        "teleportation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/teleport.jpg",
-            "name": "Teleport",
-            "sort": 400000,
-            "type": "spell"
-        },
-        {
-            "_id": "8PbBNNZeRMAN2jRe",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You interfere with the target's ability to teleport and travel between dimensions. Dimensional anchor attempts to counteract any teleportation effect, or any effect that would move the target to a different plane. The duration is determined by the target's Will save.</p>\r<p>\n<hr><b>Critical Success</b> The target is unaffected.</p>\r<p>\n<b>Success</b> The effect's duration is 1 minute.</p>\r<p>\n<b>Failure</b> The effect's duration is 10 minutes.</p>\r<p>\n<b>Critical Failure</b> The effect's duration is 1 hour.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "varies"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "7"
-                },
-                "location": {
-                    "value": "xoV74Ad4ZTLkT5re"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "30 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "abj"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=70"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "save"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "abjuration"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/dimensional-anchor.jpg",
-            "name": "Dimensional Anchor",
-            "sort": 500000,
-            "type": "spell"
-        },
-        {
-            "_id": "6rQAjtdG4sOk2L9x",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You create a shimmering barrier that attempts to counteract teleportation effects and planar travel into or out of the area, including items that allow access to extradimensional spaces (such as a bag of holding). Dimensional lock tries to counteract any attempt to summon a creature into the area but doesn't stop the creature from departing when the summoning ends.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 7
-                },
-                "location": {
-                    "value": "xoV74Ad4ZTLkT5re"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "120 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "abj"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=71"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": ""
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "abjuration"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/dimensional-lock.jpg",
-            "name": "Dimensional Lock",
-            "sort": 600000,
-            "type": "spell"
-        },
-        {
-            "_id": "DJhjSXUmcXLmOtCE",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
                 "areasize": {
                     "value": ""
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>Magic empowers the target to act faster. It gains the @Compendium[pf2e.conditionspf2e.nlCjDvLMf2EkV2dl]{Quickened} condition and can use the extra action each round only for Strike and Stride actions.</p>\n<hr>\n<p><strong>Heightened </strong> You can target up to 6 creatures.</p>"
+                    "value": "<p>You gain a vague glimpse of the future. During the casting of this spell, ask about the results of a particular course of action. The spell can predict results up to 30 minutes into the future and reveals the GM's best guess among the following outcomes:</p>\n<ul>\n<li><strong>Weal</strong> The results will be good.</li>\n<li><strong>Woe</strong> The results will be bad.</li>\n<li><strong>Weal</strong> and Woe The results will be a mix of good and bad.</li>\n<li><strong>Nothing</strong> There won't be particularly good or bad results.</li>\n</ul>\n<p>The GM rolls a secret DC 6 flat check. On a failure, the result is always \"nothing.\" This makes it impossible to tell whether a \"nothing\" result is accurate. If anyone asks about the same topic as the first casting of augury during an additional casting, the GM uses the secret roll result from the first casting. If circumstances change, though, it's possible to get a different result.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "1 minute"
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "7"
+                    "value": 8
                 },
                 "location": {
                     "value": "xoV74Ad4ZTLkT5re"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "30 feet"
+                    "value": ""
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -1347,9 +854,7 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "trs"
+                    "value": "divination"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -1357,1398 +862,56 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "augury",
                 "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=147"
-                },
-                "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "utility"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 creature"
+                    "value": ""
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
+                    "value": "10 minutes"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
-                        "arcane",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "type": "String",
-                    "value": [
-                        "transmutation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/haste.jpg",
-            "name": "Haste",
-            "sort": 700000,
-            "type": "spell"
-        },
-        {
-            "_id": "qJ7B5JpsZncGVSe6",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "focus, material, somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": "1d20"
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Shadow Plane, or the Abyss. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20×25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 7
-                },
-                "location": {
-                    "value": "xoV74Ad4ZTLkT5re"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "touch"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "con"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=222"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 willing creature, or up to 8 willing creatures joining hands"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": " 10 minutes"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "conjuration",
-                        "teleportation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/plane-shift.jpg",
-            "name": "Plane Shift",
-            "sort": 800000,
-            "type": "spell"
-        },
-        {
-            "_id": "tgpHw27KfReF8STx",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You dilate the flow of time around the target, slowing its actions.</p>\r<p>\n<hr><b>Critical Success</b> The target is unaffected.</p>\r<p>\n<b>Success</b> The target is @Compendium[pf2e.conditionspf2e.xYTAsEpcJE1Ccni3]{Slowed} 1 for 1 round.</p>\r<p>\n<b>Failure</b> The target is @Compendium[pf2e.conditionspf2e.xYTAsEpcJE1Ccni3]{Slowed} 1 for 1 minute.</p>\r<p>\n<b>Critical Failure</b> The target is @Compendium[pf2e.conditionspf2e.xYTAsEpcJE1Ccni3]{Slowed} 2 for 1 minute.</p>\r<p>\n<hr><b>Heightened </b> You can target up to 10 creatures.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "1 minute"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "6"
-                },
-                "location": {
-                    "value": "xoV74Ad4ZTLkT5re"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "30 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "trs"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=289"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "save"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "transmutation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/slow.jpg",
-            "name": "Slow",
-            "sort": 900000,
-            "type": "spell"
-        },
-        {
-            "_id": "7BJcEqpBYREgrYB4",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You interfere with the target's ability to teleport and travel between dimensions. Dimensional anchor attempts to counteract any teleportation effect, or any effect that would move the target to a different plane. The duration is determined by the target's Will save.</p>\r<p>\n<hr><b>Critical Success</b> The target is unaffected.</p>\r<p>\n<b>Success</b> The effect's duration is 1 minute.</p>\r<p>\n<b>Failure</b> The effect's duration is 10 minutes.</p>\r<p>\n<b>Critical Failure</b> The effect's duration is 1 hour.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "varies"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 4
-                },
-                "location": {
-                    "value": "xoV74Ad4ZTLkT5re"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "30 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "abj"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=70"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "save"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
                         "divine",
                         "occult"
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
-                        "abjuration"
+                        "divination",
+                        "prediction"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/dimensional-anchor.jpg",
-            "name": "Dimensional Anchor ",
-            "sort": 1000000,
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.41TZEjhO6D1nWw2X"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/augury.webp",
+            "name": "Augury (At will)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "aNHpJbgvbOZz2Kpc",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "total": 32,
-                    "value": 32
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "die": "2d8+16"
-                },
-                "damageRolls": [
-                    {
-                        "damage": "2d8+16",
-                        "damageType": "bludgeoning"
-                    },
-                    {
-                        "damage": "2d8",
-                        "damageType": "cold"
-                    },
-                    {
-                        "damage": "2d8",
-                        "damageType": "lawful"
-                    }
-                ],
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "lawful",
-                        "magical",
-                        "reach 10 feet"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Fist",
-            "sort": 1100000,
-            "type": "melee"
-        },
-        {
-            "_id": "52OH24WzpzdT3ptJ",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "When a bythos conveys information, it does so wordlessly through psychic projections. This acts as telepathy with a range of 100 feet but is understandable to all creatures regardless of whether they have a language. The meaning to non-aeons can be vague and is often mysterious. A bythos can use this ability to communicate flawlessly with any other aeon on the same plane."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "interaction"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Envisioning",
-            "sort": 1200000,
-            "type": "action"
-        },
-        {
-            "_id": "Ai8J0A4OuhkDr7Cx",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "30 feet. A creature that ends its turn in the aura must attempt a DC 34 Will save. If it fails, it's @Compendium[pf2e.conditionspf2e.Confused] for 1 round (or 1d4 rounds on a critical failure)."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "aura",
-                        "divine",
-                        "enchantment",
-                        "emotion",
-                        "incapacitation",
-                        "mental",
-                        "visual"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Confusing Gaze",
-            "sort": 1300000,
-            "type": "action"
-        },
-        {
-            "_id": "x5lmNBtvBd1z0Azh",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<b>Trigger </b>The bythos fails or critically fails a check; <b>Frequency </b>once per day; <b>Effect </b>The bythos rerolls the triggering check and takes the better result."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "fortune"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Temporal Reversion",
-            "sort": 1400000,
-            "type": "action"
-        },
-        {
-            "_id": "5fqektBaTqyqzwWT",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionspf2e.Dying] condition never increases beyond @Compendium[pf2e.conditionspf2e.Dying] 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to @Compendium[pf2e.conditionspf2e.Dying] 4."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Regeneration",
-            "sort": 1500000,
-            "type": "action"
-        },
-        {
-            "_id": "4PafOhYr090tdIQE",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "The bythos make two fist Strikes against a single target. If both Strikes hit, the target attempts a DC 37 Fortitude save. Creatures that don't get weaker with age or don't age are immune (GM’s discretion). If a creature becomes @Compendium[pf2e.conditionspf2e.Clumsy] 4, @Compendium[pf2e.conditionspf2e.Drained] 4, and @Compendium[pf2e.conditionspf2e.Enfeebled] 4 due to Aging Strikes, it dies of old age.<br><b>Success </b>The creature is unaffected.<br><b>Failure </b>The creature becomes clumsy 1, drained 1, and enfeebled 1, or increases each of these conditions by 1. This effect is cumulative with other aging strikes from bythoses, to a maximum of clumsy 4, drained 4, and enfeebled 4.<br><b>Critical Failure</b> As failure, but the creature becomes clumsy 2, drained 2, and enfeebled 2, or increases these conditions by 2."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "divine",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Aging Strikes",
-            "sort": 1600000,
-            "type": "action"
-        },
-        {
-            "_id": "WPlqW6SIzbL8jscs",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "The bythos focuses its gaze on a creature it can see within 30 feet. The target must attempt a save against the bythos's confusing gaze. A bythos can't use this ability against the same creature more than once per turn."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "concentrate"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Focused Gaze",
-            "sort": 1700000,
-            "type": "action"
-        },
-        {
-            "_id": "Qgjku7yO52q21NCG",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "The bythos makes four fist Strikes. Its multiple attack penalty increases normally with each attack."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Temporal Flurry",
-            "sort": 1800000,
-            "type": "action"
-        },
-        {
-            "_id": "bBQMy1lr5xW6rBgj",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "The bythos touches a creature or object to displace it from time. The target attempts a DC 37 Fortitude save.<br> <b>Critical Success</b> The target is unaffected.<br> <b>Success </b>Time flows around the target; the target is @Compendium[pf2e.conditionspf2e.Slowed] 1 for 1 round.<br> <b>Failure </b>The target disappears from the present moment and reappears in the same location 1d4 rounds later as if no time had passed for it. If a creature or object occupies that space when the target returns, the target appears in the closest available space to its original location.<br> <b>Critical Failure</b> As failure, but the target is slowed 1 for an extra 1d4 rounds after it returns."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "divine",
-                        "conjuration",
-                        "incapacitation",
-                        "teleportation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Temporal Strike",
-            "sort": 1900000,
-            "type": "action"
-        },
-        {
-            "_id": "UDVKJjSo1G0YpMX1",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 29
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Arcana",
-            "sort": 2000000,
-            "type": "lore"
-        },
-        {
-            "_id": "Nj11eKYaW38swS39",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 32
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics",
-            "sort": 2100000,
-            "type": "lore"
-        },
-        {
-            "_id": "Ce4c2m1dlhexN5PV",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Deception",
-            "sort": 2200000,
-            "type": "lore"
-        },
-        {
-            "_id": "Q5D7wdmjjLhJkZdU",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Intimidation",
-            "sort": 2300000,
-            "type": "lore"
-        },
-        {
-            "_id": "vQhehU6CUeiDM3OB",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 30
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Nature",
-            "sort": 2400000,
-            "type": "lore"
-        },
-        {
-            "_id": "wfPsMvVpV5TIxShE",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 29
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Occultism",
-            "sort": 2500000,
-            "type": "lore"
-        },
-        {
-            "_id": "HSCCRqLNi64KlbDp",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 30
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Religion",
-            "sort": 2600000,
-            "type": "lore"
-        },
-        {
-            "_id": "jJLIFnkZXQxiA4uv",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "featType": "",
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 26
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth",
-            "sort": 2700000,
-            "type": "lore"
-        },
-        {
-            "_id": "sKYRn6cT96dBQFRq",
+            "_id": "GXXWozDHxwpERohz",
             "data": {
                 "ability": {
                     "value": ""
@@ -2759,11 +922,16 @@
                 "areasize": {
                     "value": ""
                 },
+                "category": {
+                    "value": "ritual"
+                },
                 "components": {
-                    "value": ""
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
                 },
                 "cost": {
-                    "value": "reagents to construct the magical prison worth a total value of 800 gp × the target’s level"
+                    "value": "reagents to construct the magical prison worth a total value of 800 gp × the target's level"
                 },
                 "damage": {
                     "applyMod": false,
@@ -2775,13 +943,16 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You perform a ritual to imprison a creature in one of several forms. While some versions of this ritual offer all of the forms, others include only a single form or only a few of them. Whichever form you use, the effect can’t be counteracted, though it can be ended by @Compendium[pf2e.spells-srd.4ddJSjC9Zz5DX0oG]{Freedom}. Some forms of <em>imprisonment</em> can be ended by other means. Because the ritual requires the target to remain within 10 feet at all times, it typically requires you to subdue the target first.</span></p>\n<ul>\n<li><strong>Chains</strong> You bind the creature with chains, rendering it unable to use any actions other than to speak. Other creatures that attempt to approach, harm the chains, or free the trapped creature in any way must succeed at a Will save or be unable to do so forever. The chains have Hardness equal to 5 × the <em>imprisonment</em> ritual’s spell level, and double that many Hit Points. Destroying the chains frees the target.</li>\n<li><strong>Object </strong> You either shrink the creature to an inch in height or transform it into an insubstantial form whose body trails away into wisps below its head. Either way, you trap it inside a gem, jar, bottle, lamp, or similar container. The creature ceases aging and doesn’t require food or drink. The creature is still aware of its surroundings and can move within the container and speak, but it can’t use any other&nbsp;actions. Destroying the container kills the target rather than freeing it. This form of <em>imprisonment</em> is also transmutation magic.</li>\n<li><strong>Oubliette </strong> You entomb the target in a state of suspended animation deep beneath the surface of the ground and out of tune with reality so that it can’t be reached by any means. You also prevent divinations from revealing the location where the <em>imprisonment</em> occurred. Powerful magic such as @Compendium[pf2e.spells-srd.6dDtGIUerazSHIOu]{Wish} can reveal the location of the imprisonment, but even such magic can’t free the target from the oubliette; only a 10th-level @Compendium[pf2e.spells-srd.4ddJSjC9Zz5DX0oG]{Freedom} ritual can do so.</li>\n<li><strong>Prison</strong> You render the creature completely unable to leave a particular confined area or structure of your choice, such as a jail cell or sealed cave. The magic also prevents the creature from damaging its prison, either directly or indirectly, to break free. If the creature’s prison is entirely destroyed by some external force, the creature is freed, though for some larger or natural prisons, this might be unfeasible.</li>\n<li><strong>Slumber </strong> You put the creature into an eternal sleep. It ceases aging and doesn’t require food or drink. A single sincere physical display of affection from a creature who genuinely loves the target—whether romantically, filially, or otherwise—frees it from the slumber. This form of <em>imprisonment</em> is also enchantment magic.</li>\n<li><strong>Temporal Stasis</strong> You send the creature into a state of suspended animation outside the flow of time. The creature doesn’t grow older and can’t be affected by any effect from within the normal timestream. While casting this ritual, you can optionally name any amount of time for the stasis; after this duration elapses, the stasis ends. Unlike other forms of <em>imprisonment</em>, temporal stasis can be counteracted by a @Compendium[pf2e.spells-srd.9HpwDN4MYQJnW0LG]{Dispel Magic} or @Compendium[pf2e.spells-srd.o6YCGx4lycsYpww4]{Haste} spell. This form of <em>imprisonment</em> is also transmutation magic.</li>\n</ul>\n<p><strong>Critical Success</strong> You imprison the target. You can either use a form of <em>imprisonment</em> that usually requires 1 additional spell level, or give any creatures trying to use a <em>freedom</em> ritual to rescue the target a –2 circumstance penalty to checks associated with that ritual.<br><strong>Success</strong> You imprison the target.<br><strong>Failure</strong> You fail to imprison the target.<br><strong>Critical Failure</strong> You imprison yourself and the secondary casters in the same way you intended to imprison the target.</p>\n<hr>\n<p><strong>Heightened </strong> You can use the object form of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 18th level. The base cost increases to 2,000 gp.<br><strong>Heightened </strong> You can use the object and oubliette forms of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 20th level. The base cost increases to 6,000 gp.&nbsp;</p>"
+                    "value": "<p>You perform a ritual to imprison a creature in one of several forms. While some versions of this ritual offer all of the forms, others include only a single form or only a few of them. Whichever form you use, the effect can't be counteracted, though it can be ended by @Compendium[pf2e.spells-srd.Freedom]{Freedom}. Some forms of <em>imprisonment</em> can be ended by other means. Because the ritual requires the target to remain within 10 feet at all times, it typically requires you to subdue the target first.</p>\n<ul>\n<li><strong>Chains</strong> You bind the creature with chains, rendering it unable to use any actions other than to speak. Other creatures that attempt to approach, harm the chains, or free the trapped creature in any way must succeed at a Will save or be unable to do so forever. The chains have Hardness equal to 5 × the <em>imprisonment</em> ritual's spell level, and double that many Hit Points. Destroying the chains frees the target.</li>\n<li><strong>Object (9th level or higher)</strong> You either shrink the creature to an inch in height or transform it into an insubstantial form whose body trails away into wisps below its head. Either way, you trap it inside a gem, jar, bottle, lamp, or similar container. The creature ceases aging and doesn't require food or drink. The creature is still aware of its surroundings and can move within the container and speak, but it can't use any other actions. Destroying the container kills the target rather than freeing it. This form of <em>imprisonment</em> is also transmutation magic.</li>\n<li><strong>Oubliette (10th level only)</strong> You entomb the target in a state of suspended animation deep beneath the surface of the ground and out of tune with reality so that it can't be reached by any means. You also prevent divinations from revealing the location where the <em>imprisonment</em> occurred. Powerful magic such as @Compendium[pf2e.spells-srd.Wish]{Wish} can reveal the location of the imprisonment, but even such magic can't free the target from the oubliette; only a 10th-level @Compendium[pf2e.spells-srd.Freedom]{Freedom} ritual can do so.</li>\n<li><strong>Prison</strong> You render the creature completely unable to leave a particular confined area or structure of your choice, such as a jail cell or sealed cave. The magic also prevents the creature from damaging its prison, either directly or indirectly, to break free. If the creature's prison is entirely destroyed by some external force, the creature is freed, though for some larger or natural prisons, this might be unfeasible.</li>\n<li><strong>Slumber (sleep effect)</strong> You put the creature into an eternal sleep. It ceases aging and doesn't require food or drink. A single sincere physical display of affection from a creature who genuinely loves the target-whether romantically, filially, or otherwise-frees it from the slumber. This form of <em>imprisonment</em> is also enchantment magic.</li>\n<li><strong>Temporal Stasis</strong> You send the creature into a state of suspended animation outside the flow of time. The creature doesn't grow older and can't be affected by any effect from within the normal timestream. While casting this ritual, you can optionally name any amount of time for the stasis; after this duration elapses, the stasis ends. Unlike other forms of <em>imprisonment</em>, temporal stasis can be counteracted by a @Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic} or @Compendium[pf2e.spells-srd.Haste]{Haste} spell. This form of <em>imprisonment</em> is also transmutation magic.</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> You imprison the target. You can either use a form of <em>imprisonment</em> that usually requires 1 additional spell level, or give any creatures trying to use a <em>freedom</em> ritual to rescue the target a -2 circumstance penalty to checks associated with that ritual.</p>\n<p><strong>Success</strong> You imprison the target.</p>\n<p><strong>Failure</strong> You fail to imprison the target.</p>\n<p><strong>Critical Failure</strong> You imprison yourself and the secondary casters in the same way you intended to imprison the target.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can use the object form of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 18th level. The base cost increases to 2,000 gp.</p>\n<p><strong>Heightened (10th)</strong> You can use the object and oubliette forms of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 20th level. The base cost increases to 6,000 gp.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "value": "8"
+                    "value": 8
                 },
                 "location": {
                     "value": "BsMDAmQotZFAU0Z7"
@@ -2798,9 +969,7 @@
                 "range": {
                     "value": "10 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "value": ""
@@ -2810,7 +979,7 @@
                     "mode": "none"
                 },
                 "school": {
-                    "value": "evo"
+                    "value": "evocation"
                 },
                 "secondarycasters": {
                     "value": "6"
@@ -2818,13 +987,8 @@
                 "secondarycheck": {
                     "value": "Crafting, Society"
                 },
+                "slug": "imprisonment",
                 "source": {
-                    "value": ""
-                },
-                "spellCategorie": {
-                    "value": "ritual"
-                },
-                "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
@@ -2850,16 +1014,1883 @@
                     "value": [
                         "evocation"
                     ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.2CNqkt2s2IYkVnv6"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/imprisonment.webp",
+            "name": "Imprisonment (Temporal stasis only)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
+            "type": "spell"
+        },
+        {
+            "_id": "plVz8IeAopj42hFb",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You and the targets are instantly transported to any location within range, as long as you can identify the location precisely both by its position relative to your starting position and by its appearance (or other identifying features). Incorrect knowledge of the location's appearance usually causes the spell to fail, but it could instead lead to teleporting to an unwanted location or some other unusual mishap determined by the GM. Teleport is not precise over great distances. The targets appear at a distance from the intended destination equal to roughly 1 percent of the total distance traveled, in a direction determined by the GM. For short journeys, this lack of precision is irrelevant, but for long distances this could be up to 1 mile.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You and the other targets can travel to any location within 1,000 miles.</p>\n<p><strong>Heightened (8th)</strong> You and the other targets can travel to any location on the same planet. If you travel more than 1,000 miles, you arrive only 10 miles off target.</p>\n<p><strong>Heightened (9th)</strong> You and the other targets can travel to any location on another planet within the same solar system. Assuming you have accurate knowledge of the location's position and appearance, you arrive on the new planet 100 miles off target.</p>\n<p><strong>Heightened (10th)</strong> As the 9th-level version, but you and the other targets can travel to any planet within the same galaxy.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": {
+                    "value": "xoV74Ad4ZTLkT5re"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "100 miles"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "conjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "teleport",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "you and up to 4 targets touched, either willing creatures or objects roughly the size of a creature."
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "conjuration",
+                        "teleportation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.69L70wKfGDY66Mk9"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/teleport.webp",
+            "name": "Teleport",
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
+            "type": "spell"
+        },
+        {
+            "_id": "8toWUIsIb9u5JpnA",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You interfere with the target's ability to teleport and travel between dimensions. Dimensional anchor attempts to counteract any teleportation effect, or any effect that would move the target to a different plane. The duration is determined by the target's Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The effect's duration is 1 minute.</p>\n<p><strong>Failure</strong> The effect's duration is 10 minutes.</p>\n<p><strong>Critical Failure</strong> The effect's duration is 1 hour.</p>"
+                },
+                "duration": {
+                    "value": "varies"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "xoV74Ad4ZTLkT5re"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "abjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimensional-anchor",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.ksLCg62cLOojw3gN"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/dimensional-anchor.webp",
+            "name": "Dimensional Anchor",
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
+            "type": "spell"
+        },
+        {
+            "_id": "iw4o6IxQrcRCakGv",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": "60-foot burst"
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You create a shimmering barrier that attempts to counteract teleportation effects and planar travel into or out of the area, including items that allow access to extradimensional spaces (such as a bag of holding). Dimensional lock tries to counteract any attempt to summon a creature into the area but doesn't stop the creature from departing when the summoning ends.</p>"
+                },
+                "duration": {
+                    "value": "1 day"
+                },
+                "hasCounteractCheck": {
+                    "value": true
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "xoV74Ad4ZTLkT5re"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "abjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimensional-lock",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "abjuration"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XZE4BawIlTf88Yl9"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/dimensional-lock.webp",
+            "name": "Dimensional Lock",
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
+            "type": "spell"
+        },
+        {
+            "_id": "MSXVqnTnNsepUGYw",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Magic empowers the target to act faster. It gains the @Compendium[pf2e.conditionitems.Quickened]{Quickened} condition and can use the extra action each round only for Strike and Stride actions.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 6 creatures.</p>"
+                },
+                "duration": {
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "xoV74Ad4ZTLkT5re"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "transmutation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "haste",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "transmutation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Haste"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/haste.webp",
+            "name": "Haste",
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
+            "type": "spell"
+        },
+        {
+            "_id": "vvep5bKps7VshJDV",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Shadow Plane, or the Abyss. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20x25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "value": "xoV74Ad4ZTLkT5re"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "conjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "plane-shift",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 willing creature, or up to 8 willing creatures joining hands"
+                },
+                "time": {
+                    "value": "10 minutes"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "conjuration",
+                        "teleportation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.5bTt2CvYHPvaR7QQ"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/plane-shift.webp",
+            "name": "Plane Shift",
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
+            "type": "spell"
+        },
+        {
+            "_id": "0GEb6GJGULHkb9BF",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You dilate the flow of time around the target, slowing its actions.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is Slowed 1 for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Slowed 2 for 1 minute.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> You can target up to 10 creatures.</p>"
+                },
+                "duration": {
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 6
+                },
+                "location": {
+                    "value": "xoV74Ad4ZTLkT5re"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "transmutation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "slow",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "transmutation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.WsUwpfmhKrKwoIe3"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/slow.webp",
+            "name": "Slow",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
+            "type": "spell"
+        },
+        {
+            "_id": "rChIZqOgM2sc4XDf",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You interfere with the target's ability to teleport and travel between dimensions. Dimensional anchor attempts to counteract any teleportation effect, or any effect that would move the target to a different plane. The duration is determined by the target's Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The effect's duration is 1 minute.</p>\n<p><strong>Failure</strong> The effect's duration is 10 minutes.</p>\n<p><strong>Critical Failure</strong> The effect's duration is 1 hour.</p>"
+                },
+                "duration": {
+                    "value": "varies"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "xoV74Ad4ZTLkT5re"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "abjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimensional-anchor",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.ksLCg62cLOojw3gN"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/dimensional-anchor.webp",
+            "name": "Dimensional Anchor (At will)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
+            "type": "spell"
+        },
+        {
+            "_id": "aNHpJbgvbOZz2Kpc",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 32
+                },
+                "damageRolls": {
+                    "snqdn3iz77ft5l7qn9wh": {
+                        "damage": "2d8+16",
+                        "damageType": "bludgeoning"
+                    },
+                    "l8b14f45irgc27ppo4sb": {
+                        "damage": "2d8",
+                        "damageType": "cold"
+                    },
+                    "hkgifkpvl9igpg38667b": {
+                        "damage": "2d8",
+                        "damageType": "lawful"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "lawful",
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Fist",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1200000,
+            "type": "melee"
+        },
+        {
+            "_id": "vtC1BWVjxbgjcJ2H",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "52OH24WzpzdT3ptJ",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>When a bythos conveys information, it does so wordlessly through psychic projections. This acts as @Compendium[pf2e.bestiary-ability-glossary-srd.Telepathy]{Telepathy} with a range of 100 feet but is understandable to all creatures regardless of whether they have a language.</p>\n<p>The meaning to non-aeons can be vague and is often mysterious. A bythos can use this ability to communicate flawlessly with any other aeon on the same plane.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Envisioning",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "3c01H24sjgfJHyvI",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1500000,
+            "type": "action"
+        },
+        {
+            "_id": "Ai8J0A4OuhkDr7Cx",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>30 feet.</p>\n<p>A creature that ends its turn in the aura must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"34\" data-pf2-traits=\"aura,divine,enchantment,emotion,incapacitation,mental,visual\" data-pf2-label=\"Confusing Gaze DC\" data-pf2-show-dc=\"gm\">Will</span> save. If it fails, it's @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round (or [[/r 1d4 #rounds]] rounds on a critical failure).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divine",
+                        "enchantment",
+                        "emotion",
+                        "incapacitation",
+                        "mental",
+                        "visual"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Confusing Gaze",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "x5lmNBtvBd1z0Azh",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Trigger</strong> The bythos fails or critically fails a check;</p>\n<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Effect</strong> The bythos rerolls the triggering check and takes the better result.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "fortune"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Temporal Reversion",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "v1Nae4WDwZunhsHt",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "regeneration",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Regeneration 15 (deactivated by chaotic)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1800000,
+            "type": "action"
+        },
+        {
+            "_id": "4PafOhYr090tdIQE",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "2"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The bythos make two fist Strikes against a single target. If both Strikes hit, the target attempts a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"37\" data-pf2-traits=\"divine,necromancy\" data-pf2-label=\"Aging Strikes DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. Creatures that don't get weaker with age or don't age are immune (GM's discretion).</p>\n<p>If a creature becomes clumsy 4, drained 4, and enfeebled 4 due to Aging Strikes, it dies of old age.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, @Compendium[pf2e.conditionitems.Drained]{Drained 1}, and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}, or increases each of these conditions by 1. This effect is cumulative with other aging strikes from bythoses, to a maximum of clumsy 4, drained 4, and enfeebled 4.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, @Compendium[pf2e.conditionitems.Drained]{Drained 2}, and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}, or increases these conditions by 2.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "divine",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Aging Strikes",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1900000,
+            "type": "action"
+        },
+        {
+            "_id": "WPlqW6SIzbL8jscs",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The bythos focuses its gaze on a creature it can see within 30 feet. The target must attempt a save against the bythos's confusing gaze. A bythos can't use this ability against the same creature more than once per turn.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "concentrate"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Focused Gaze",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2000000,
+            "type": "action"
+        },
+        {
+            "_id": "Qgjku7yO52q21NCG",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The bythos makes four fist Strikes. Its multiple attack penalty increases normally with each attack.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Temporal Flurry",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2100000,
+            "type": "action"
+        },
+        {
+            "_id": "bBQMy1lr5xW6rBgj",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "2"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The bythos touches a creature or object to displace it from time. The target attempts a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"37\" data-pf2-traits=\"divine,conjuration,incapacitation,teleportation,damaging-effect\" data-pf2-label=\"Temporal Strike DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> Time flows around the target; the target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target disappears from the present moment and reappears in the same location [[/r 1d4 #rounds]] rounds later as if no time had passed for it. If a creature or object occupies that space when the target returns, the target appears in the closest available space to its original location.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for an extra [[/r 1d4 #rounds]] rounds after it returns.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "divine",
+                        "conjuration",
+                        "incapacitation",
+                        "teleportation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Temporal Strike",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2200000,
+            "type": "action"
+        },
+        {
+            "_id": "UDVKJjSo1G0YpMX1",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 29
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/spells/imprisonment.jpg",
-            "name": "Imprisonment ",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Arcana",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2300000,
+            "type": "lore"
+        },
+        {
+            "_id": "Nj11eKYaW38swS39",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 32
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2400000,
+            "type": "lore"
+        },
+        {
+            "_id": "Ce4c2m1dlhexN5PV",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 25
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2500000,
+            "type": "lore"
+        },
+        {
+            "_id": "Q5D7wdmjjLhJkZdU",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 25
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2600000,
+            "type": "lore"
+        },
+        {
+            "_id": "vQhehU6CUeiDM3OB",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 30
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Nature",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2700000,
+            "type": "lore"
+        },
+        {
+            "_id": "wfPsMvVpV5TIxShE",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 29
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Occultism",
+            "permission": {
+                "default": 0
+            },
             "sort": 2800000,
-            "type": "spell"
+            "type": "lore"
+        },
+        {
+            "_id": "HSCCRqLNi64KlbDp",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 30
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Religion",
+            "permission": {
+                "default": 0
+            },
+            "sort": 2900000,
+            "type": "lore"
+        },
+        {
+            "_id": "jJLIFnkZXQxiA4uv",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 26
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
+            "sort": 3000000,
+            "type": "lore"
         }
     ],
     "name": "Bythos",
@@ -2867,13 +2898,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "qjAtPDIi7OyUGsNy",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -2883,15 +2916,21 @@
         "disposition": -1,
         "flags": {},
         "height": 2,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Bythos",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 2

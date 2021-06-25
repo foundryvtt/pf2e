@@ -13,37 +13,65 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Long-lived elves have seen civilizations rise and fall, often at the hands of outside forces. As a result, they have developed a wariness of others who might seek to influence or control them.</p>\n<p>You’ve been trained to resist such manipulation, gaining a +2 circumstance bonus to saving throws against effects that would make you controlled, such as @Compendium[pf2e.spells-srd.OsOhx3TGIZ7AhD0P]{Dominate}, and to Perception checks to @Compendium[pf2e.actionspf2e.1xRFPTFtWtGJ9ELw]{Sense Motive} when trying to determine if a creature is under the influence of such an effect.</p>\n<p>When you roll a success on a saving throw against such an effect, you get a critical success instead.</p>"
+            "value": "<p>Long-lived elves have seen civilizations rise and fall, often at the hands of outside forces. As a result, they have developed a wariness of others who might seek to influence or control them.</p>\n<p>You've been trained to resist such manipulation, gaining a +2 circumstance bonus to saving throws against effects that would make you controlled, such as @Compendium[pf2e.spells-srd.Dominate]{Dominate}, and to Perception checks to @Compendium[pf2e.actionspf2e.Sense Motive]{Sense Motive} when trying to determine if a creature is under the influence of such an effect.</p>\n<p>When you roll a success on a saving throw against such an effect, you get a critical success instead.</p>"
         },
         "featType": {
             "value": "ancestry"
         },
         "level": {
-            "value": "5"
+            "value": 5
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Against Control Effects",
+                "predicate": {
+                    "all": [
+                        "control-effects"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "To Determine if Under a Control Effect",
+                "predicate": {
+                    "all": [
+                        "control-effects"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a saving throw against an effect that would make you controlled, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "elf"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Ancestral Suspicion",
     "permission": {
         "default": 0

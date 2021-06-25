@@ -1,0 +1,68 @@
+{
+    "_id": "ND1Gfo1yJZ87Ia34",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Wild Morph]{Wild Morph} if you have @Compendium[pf2e.feats-srd.Insect Shape]{Insect Shape}.</p>\n<p>You transform your mouth into wild jaws, an unarmed attack you're trained in that deals 1d8 piercing damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "ability": "str",
+                "key": "PF2E.RuleElement.FixedProficiency",
+                "selector": "attack",
+                "value": "2+ @details.level.value"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Jaws",
+                "range": "melee",
+                "traits": [
+                    "unarmed"
+                ]
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/wild-morph.webp",
+    "name": "Spell Effect: Wild Morph (Wild Jaws)",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

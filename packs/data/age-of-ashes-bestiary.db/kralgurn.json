@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+8",
+                "mod": 8,
                 "value": 26
             },
             "wis": {
@@ -35,12 +35,16 @@
         },
         "attributes": {
             "ac": {
+                "base": 36,
+                "breakdown": "Base Armor Class 10, Base Modifier +22, Dexterity +4",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "36"
+                "name": "ac",
+                "totalModifier": 26,
+                "value": 36
             },
             "allSaves": {
                 "value": "+2 status to all saves vs. magic"
@@ -60,11 +64,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "255",
+                "max": 255,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "255"
+                "value": 255
             },
             "init": {
                 "bonus": 0,
@@ -79,9 +82,12 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 24,
+                "breakdown": "Base Modifier +20, Wisdom +4",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
+                "totalModifier": 24,
                 "value": 24
             },
             "resolve": {
@@ -89,9 +95,9 @@
             },
             "shield": {
                 "ac": 0,
-                "brokenThreshold": 0,
+                "brokenThreshold": "0",
                 "hardness": 0,
-                "max": 0,
+                "max": "0",
                 "min": 0,
                 "value": 0
             },
@@ -103,7 +109,6 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
                 "value": "25 feet"
             }
         },
@@ -121,6 +126,8 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "LE"
@@ -137,7 +144,7 @@
             },
             "creatureType": "Humanoid",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "_",
@@ -150,13 +157,51 @@
             },
             "level": {
                 "min": 1,
-                "value": "14"
+                "value": 14
             },
-            "nethysUrl": "_",
             "recallKnowledgeText": "recall knowledge Society DC 42",
-            "sidebarText": "",
             "source": {
                 "value": "Pathfinder #148: Fires of the Haunted City"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": "0",
+                            "value": "0"
+                        },
+                        "slot2": {
+                            "max": "0",
+                            "value": "0"
+                        },
+                        "slot3": {
+                            "max": "0",
+                            "value": "0"
+                        },
+                        "slot4": {
+                            "max": "0",
+                            "value": "0"
+                        },
+                        "slot5": {
+                            "max": "0",
+                            "value": "0"
+                        },
+                        "slot6": {
+                            "max": "0",
+                            "value": "0"
+                        },
+                        "slot7": {
+                            "max": "0",
+                            "value": "0"
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 34,
+                        "value": 24
+                    }
+                }
             }
         },
         "martial": {
@@ -204,26 +249,35 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "breakdown": "",
+                "base": 28,
+                "breakdown": "Base Modifier +24, Constitution +4",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 28,
                 "value": 28
             },
             "reflex": {
                 "ability": "dex",
-                "breakdown": "",
+                "base": 22,
+                "breakdown": "Base Modifier +18, Dexterity +4",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 22,
                 "value": 22
             },
             "will": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 25,
+                "breakdown": "Base Modifier +21, Wisdom +4",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 25,
                 "value": 25
             }
         },
@@ -236,134 +290,236 @@
             "acr": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +4",
+                "expanded": "acrobatics",
                 "item": 0,
+                "label": "Acrobatics",
+                "lore": false,
                 "mod": 0,
+                "name": "Acrobatics",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             },
             "arc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "arcana",
                 "item": 0,
+                "label": "Arcana",
+                "lore": false,
                 "mod": 0,
+                "name": "Arcana",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "ath": {
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "base": 28,
+                "breakdown": "Base Modifier +20, Strength +8",
+                "expanded": "athletics",
                 "item": 0,
+                "itemID": "uddHrbyk6cy7koQo",
+                "label": "Athletics",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Athletics",
+                "rank": 1,
+                "totalModifier": 28,
+                "value": 28,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "crafting",
                 "item": 0,
+                "label": "Crafting",
+                "lore": false,
                 "mod": 0,
+                "name": "Crafting",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "dec": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +3",
+                "expanded": "deception",
                 "item": 0,
+                "label": "Deception",
+                "lore": false,
                 "mod": 0,
+                "name": "Deception",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 3,
+                "value": 3,
+                "visible": false
             },
             "dip": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +3",
+                "expanded": "diplomacy",
                 "item": 0,
+                "label": "Diplomacy",
+                "lore": false,
                 "mod": 0,
+                "name": "Diplomacy",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 3,
+                "value": 3,
+                "visible": false
             },
             "itm": {
                 "ability": "cha",
-                "breakdown": "",
+                "base": 28,
+                "breakdown": "Base Modifier +25, Charisma +3",
+                "expanded": "intimidation",
                 "item": 0,
+                "itemID": "prFxBSv3DvJk6pe7",
+                "label": "Intimidation",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Intimidation",
+                "rank": 1,
+                "totalModifier": 28,
+                "value": 28,
+                "visible": true
             },
             "med": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +4",
+                "expanded": "medicine",
                 "item": 0,
+                "label": "Medicine",
+                "lore": false,
                 "mod": 0,
+                "name": "Medicine",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             },
             "nat": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +4",
+                "expanded": "nature",
                 "item": 0,
+                "label": "Nature",
+                "lore": false,
                 "mod": 0,
+                "name": "Nature",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             },
             "occ": {
                 "ability": "int",
-                "breakdown": "",
+                "base": 25,
+                "breakdown": "Base Modifier +25, Intelligence +0",
+                "expanded": "occultism",
                 "item": 0,
+                "itemID": "sfPTE0MvJWvfcoQL",
+                "label": "Occultism",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Occultism",
+                "rank": 1,
+                "totalModifier": 25,
+                "value": 25,
+                "visible": true
             },
             "prf": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +3",
+                "expanded": "performance",
                 "item": 0,
+                "label": "Performance",
+                "lore": false,
                 "mod": 0,
+                "name": "Performance",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 3,
+                "value": 3,
+                "visible": false
             },
             "rel": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +4",
+                "expanded": "religion",
                 "item": 0,
+                "label": "Religion",
+                "lore": false,
                 "mod": 0,
+                "name": "Religion",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             },
             "soc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "society",
                 "item": 0,
+                "label": "Society",
+                "lore": false,
                 "mod": 0,
+                "name": "Society",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "ste": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +4",
+                "expanded": "stealth",
                 "item": 0,
+                "label": "Stealth",
+                "lore": false,
                 "mod": 0,
+                "name": "Stealth",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             },
             "sur": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +4",
+                "expanded": "survival",
                 "item": 0,
+                "label": "Survival",
+                "lore": false,
                 "mod": 0,
+                "name": "Survival",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             },
             "thi": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +4",
+                "expanded": "thievery",
                 "item": 0,
+                "label": "Thievery",
+                "lore": false,
                 "mod": 0,
+                "name": "Thievery",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 4,
+                "value": 4,
+                "visible": false
             }
         },
         "spells": {
@@ -406,6 +562,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -441,10 +600,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "nKfHeaA4JlYimGVv",
@@ -472,11 +631,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -540,6 +700,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -553,15 +714,24 @@
                     "value": "occult"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Occult Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -569,79 +739,65 @@
             "_id": "8iXRt7u1RV1d0T6l",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is @Compendium[pf2e.conditionspf2e.i3OJZU2nk64Df3xm]{Clumsy} 1. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>\n<hr>\n<p><strong>Heightened </strong> The creature instead grows to size Huge. The status bonus to melee damage is +4 and reach increases by 10 feet (or by 15 feet if it started out Tiny), The spell has no effect on a Huge or larger creature.</p>\n<p><strong>Heightened </strong> Choose either the 2nd-level or 4th-level version of this spell and apply its effects to 10 willing creatures.</p>"
+                    "value": "<p>Bolstered by magical power, the target grows to size Large. Its equipment grows with it but returns to natural size if removed. The creature is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 1. Its reach increases by 5 feet (or by 10 feet if it started out Tiny), and it gains a +2 status bonus to melee damage. This spell has no effect on a Large or larger creature.</p>\n<hr />\n<p><strong>Heightened</strong> The creature instead grows to size Huge. The status bonus to melee damage is +4 and reach increases by 10 feet (or by 15 feet if it started out Tiny), The spell has no effect on a Huge or larger creature.</p>\n<p><strong>Heightened</strong> Choose either the 2nd-level or 4th-level version of this spell and apply its effects to 10 willing creatures.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": "5 minutes"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 2
                 },
                 "location": {
                     "value": "nKfHeaA4JlYimGVv"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "30 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -649,49 +805,41 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "trs"
+                    "value": "transmutation"
                 },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=102"
-                },
-                "spellCategory": {
+                "secondarycasters": {
                     "value": ""
                 },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=102"
+                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "utility"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 willing creature"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "primal"
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "polymorph",
                         "transmutation"
@@ -701,11 +849,14 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/enlarge.webp",
+            "name": "Enlarge (Self Only)",
+            "permission": {
+                "default": 0
             },
-            "img": "systems/pf2e/icons/spells/enlarge.jpg",
-            "name": "Enlarge ",
             "sort": 200000,
             "type": "spell"
         },
@@ -713,79 +864,65 @@
             "_id": "00ZiXeY0oUXlHGX0",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "material, somatic"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": false
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionspf2e.zJxUflt9np0q4yML]{Invisible}. This makes it @Compendium[pf2e.conditionspf2e.VRSef5y1LmL2Hkjf]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionspf2e.iU0fEDdBp3rXpTMC]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr>\n<p><strong>Heightened </strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": "10 minutes"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 2
                 },
                 "location": {
                     "value": "nKfHeaA4JlYimGVv"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "touch"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -793,49 +930,41 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "ill"
+                    "value": "illusion"
                 },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=164"
-                },
-                "spellCategory": {
+                "secondarycasters": {
                     "value": ""
                 },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": null,
+                "source": {
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=164"
+                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "utility"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 creature"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "occult"
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "illusion"
                     ]
@@ -844,685 +973,32 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/invisibility.webp",
+            "name": "Invisibility (Self Only)",
+            "permission": {
+                "default": 0
             },
-            "img": "systems/pf2e/icons/spells/invisibility.jpg",
-            "name": "Invisibility ",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "B6ZEYTRs6m8o6uD6",
+            "_id": "BFNXF7LIEPpdAngu",
             "data": {
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
+                "MAP": {
                     "value": ""
                 },
-                "collapsed": {
-                    "value": false
+                "ability": {
+                    "value": "dex"
                 },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+1 striking composite longbow ",
-            "sort": 200000,
-            "type": "equipment"
-        },
-        {
-            "_id": "UqJdsKowRP2IpLp8",
-            "data": {
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "manacles",
-            "sort": 300000,
-            "type": "equipment"
-        },
-        {
-            "_id": "BvUIDJmoop2EYXR1",
-            "data": {
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+1 resilient scale mail",
-            "sort": 400000,
-            "type": "equipment"
-        },
-        {
-            "_id": "heefROJVa1vnPPzR",
-            "data": {
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "scroll of discern location",
-            "sort": 500000,
-            "type": "equipment"
-        },
-        {
-            "_id": "IfLybIyZZSorJ8Kh",
-            "data": {
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+2 striking corrosive whip",
-            "sort": 600000,
-            "type": "equipment"
-        },
-        {
-            "_id": "O8RoDHh2mHlQgpuj",
-            "data": {
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "50 gp",
-            "sort": 700000,
-            "type": "equipment"
-        },
-        {
-            "_id": "AkuMvwXObEyEbsN4",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
+                "baseItem": "composite-longbow",
                 "bonus": {
-                    "total": 31,
-                    "value": 31
-                },
-                "brokenThreshold": {
                     "value": 0
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "die": "2d4+16"
-                },
-                "damageRolls": [
-                    {
-                        "damage": "2d4+16",
-                        "damageType": "slashing"
-                    },
-                    {
-                        "damage": "1d6",
-                        "damageType": "acid"
-                    }
-                ],
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
+                "bonusDamage": {
                     "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": [
-                        "disarm",
-                        "magical",
-                        "nonlethal",
-                        "reach",
-                        "trip"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Corrosive Whip",
-            "sort": 800000,
-            "type": "melee"
-        },
-        {
-            "_id": "L0ZHkQFYtz2JK3hH",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "total": 27,
-                    "value": 27
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -1538,14 +1014,938 @@
                 },
                 "damage": {
                     "damageType": "piercing",
-                    "die": "2d8+12"
+                    "dice": 1,
+                    "die": "d8",
+                    "value": ""
                 },
-                "damageRolls": [
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow's range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil's favored weapon, it also applies to composite longbows unless otherwise stated.</p>"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "bow"
+                },
+                "hands": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": 1
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "120 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "range": {
+                    "value": "100"
+                },
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "composite-longbow",
+                "source": {
+                    "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": "striking"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "deadly-d10",
+                        "propulsive",
+                        "volley-30"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "martial"
+                },
+                "weight": {
+                    "value": "2"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.dUC8Fsa6FZtVikS3"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/composite-longbow.webp",
+            "name": "+1 Striking Composite Longbow",
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
+            "type": "weapon"
+        },
+        {
+            "_id": "AjstPqHuQD2eALaa",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "whip",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d4",
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This long strand of thick leather, often braided, delivers a painful but nonlethal slash at a distance, usually accompanied by a distinctive cracking sound.</p>"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "flail"
+                },
+                "hands": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": 2
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1500 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": "corrosive"
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "range": {
+                    "value": "reach"
+                },
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "whip",
+                "source": {
+                    "value": ""
+                },
+                "splashDamage": {
+                    "value": null
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": "striking"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "disarm",
+                        "finesse",
+                        "nonlethal",
+                        "reach",
+                        "trip"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "martial"
+                },
+                "weight": {
+                    "value": "1"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.f1gwoTkf3Nn0v3PN"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/whip.webp",
+            "name": "+2 Striking Corrosive Whip",
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
+            "type": "weapon"
+        },
+        {
+            "_id": "kuz9wy1VxfKf0baT",
+            "data": {
+                "armor": {
+                    "value": 3
+                },
+                "armorType": {
+                    "value": "medium"
+                },
+                "baseItem": "scale-mail",
+                "brokenThreshold": {
+                    "value": null
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "check": {
+                    "value": -2
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scale mail consists of many metal scales sewn onto a reinforced leather backing, often in the form of a long shirt that protects the torso, arms, and legs.</p>"
+                },
+                "dex": {
+                    "value": 2
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": "2"
+                },
+                "group": {
+                    "value": "composite"
+                },
+                "hardness": {
+                    "value": null
+                },
+                "hp": {
+                    "value": null
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": 1
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "504 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "resiliencyRune": {
+                    "value": "resilient"
+                },
+                "resilient": {},
+                "rules": [
                     {
-                        "damage": "2d8+12",
-                        "damageType": "piercing"
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "not": [
+                                "unburdened-iron"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "speed",
+                        "type": "untyped",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 13,
+                                    "value": -5
+                                }
+                            ],
+                            "field": "actor|data.abilities.str.value"
+                        }
                     }
                 ],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "scale-mail",
+                "source": {
+                    "value": ""
+                },
+                "speed": {
+                    "value": -5
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strength": {
+                    "value": 14
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornarmor"
+                },
+                "weight": {
+                    "value": "3"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.YMQr577asquZIP65"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/armor/scale-mail.webp",
+            "name": "+1 Resilient Scale Mail",
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
+            "type": "armor"
+        },
+        {
+            "_id": "cN3sFBIeXep54Lj9",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You can manacle someone who is willing or otherwise at your mercy as an exploration activity taking 10-30 seconds depending on the creature's size and how many manacles you apply. A two‑legged creature with its legs bound takes a -15‑foot circumstance penalty to its Speeds, and a two‑handed creature with its wrists bound has to succeed at a DC 5 flat check any time it uses a manipulate action or else that action fails. This DC may be higher depending on how tightly the manacles constrain the hands. A creature bound to a stationary object is immobilized. For creatures with more or fewer limbs, the GM determines what effect manacles have, if any.Freeing a creature from good manacles requires five successful DC 32 Thievery checks.</p>"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 9
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "250 gp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "manacles-good",
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "-"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.5g0rE5yMsTH3E2LJ"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/manacles.webp",
+            "name": "Manacles (Good)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
+            "type": "equipment"
+        },
+        {
+            "_id": "5bUBH4Fw5RH0HS81",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "max": "1",
+                    "value": "1"
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "value": "scroll"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><span>Casting a Spell from a scroll requires holding the scroll in one hand and activating it with a Cast a Spell activity using the normal number of actions for that spell.<br /></span></p>\n<p><span>To Cast a Spell from a scroll, the spell must appear on your spell list. Because you're the one Casting the Spell, use your spell attack roll and spell DC. The spell also gains the appropriate trait for your tradition (arcane, divine, occult, or primal).<br /></span></p>\n<p><span>Any physical material components and costs are provided when a scroll is created, so you don't need to provide them when Casting a Spell from a scroll. You must replace any required material component for that spell with a somatic component. If the spell requires a focus, you must have that focus to Cast the Spell from a scroll.</span></p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 15
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1,300 gp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "scroll-of-8th-level-spell",
+                "source": {
+                    "value": ""
+                },
+                "spell": {
+                    "data": {
+                        "_id": "CeSh8QcVnqP5OlLj",
+                        "data": {
+                            "ability": {
+                                "value": ""
+                            },
+                            "area": {
+                                "areaType": "",
+                                "value": null
+                            },
+                            "areasize": {
+                                "value": ""
+                            },
+                            "category": {
+                                "value": "spell"
+                            },
+                            "components": {
+                                "material": true,
+                                "somatic": true,
+                                "verbal": true
+                            },
+                            "cost": {
+                                "value": ""
+                            },
+                            "damage": {
+                                "applyMod": false,
+                                "value": ""
+                            },
+                            "damageType": {
+                                "value": ""
+                            },
+                            "description": {
+                                "chat": "",
+                                "unidentified": "",
+                                "value": "<p>You learn the name of the target's exact location (including the building, community, and country) and plane of existence. You can target a creature only if you've seen it in person, have one of its significant belongings, or have a piece of its body. To target an object, you must have touched it or have a fragment of it. Discern location automatically overcomes protections against detection and divination of lower level than this spell, even if they would normally have a chance to block it.</p>"
+                            },
+                            "duration": {
+                                "value": ""
+                            },
+                            "level": {
+                                "value": 8
+                            },
+                            "location": {
+                                "value": ""
+                            },
+                            "materials": {
+                                "value": ""
+                            },
+                            "prepared": {
+                                "value": ""
+                            },
+                            "primarycheck": {
+                                "value": ""
+                            },
+                            "range": {
+                                "value": "unlimited"
+                            },
+                            "rules": [],
+                            "save": {
+                                "basic": "",
+                                "value": ""
+                            },
+                            "scaling": {
+                                "formula": "",
+                                "mode": "none"
+                            },
+                            "school": {
+                                "value": "divination"
+                            },
+                            "secondarycasters": {
+                                "value": ""
+                            },
+                            "secondarycheck": {
+                                "value": ""
+                            },
+                            "slug": "discern-location",
+                            "source": {
+                                "value": "https://2e.aonprd.com/Spells.aspx?ID=75"
+                            },
+                            "spellType": {
+                                "value": "utility"
+                            },
+                            "sustained": {
+                                "value": false
+                            },
+                            "target": {
+                                "value": "1 creature or object"
+                            },
+                            "time": {
+                                "value": "10 minutes"
+                            },
+                            "traditions": {
+                                "value": [
+                                    "arcane",
+                                    "divine",
+                                    "occult"
+                                ]
+                            },
+                            "traits": {
+                                "rarity": {
+                                    "value": "uncommon"
+                                },
+                                "value": [
+                                    "detection",
+                                    "divination"
+                                ]
+                            }
+                        },
+                        "effects": [],
+                        "flags": {
+                            "core": {
+                                "sourceId": "Compendium.pf2e.spells-srd.CeSh8QcVnqP5OlLj"
+                            }
+                        },
+                        "img": "systems/pf2e/icons/spells/discern-location.webp",
+                        "name": "Discern Location",
+                        "permission": {
+                            "default": 0
+                        },
+                        "type": "spell"
+                    },
+                    "heightenedLevel": 8
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "scroll",
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.iPki3yuoucnj7bIt"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/consumables/other-consumables/spell-scroll.webp",
+            "name": "Scroll of Discern Location (Level 8)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
+            "type": "consumable"
+        },
+        {
+            "_id": "oROuAVLauMLxgIs2",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "denomination": {
+                    "value": "gp"
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -1563,11 +1963,24 @@
                 "hp": {
                     "value": 0
                 },
-                "identified": {
-                    "value": false
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
+                },
+                "level": {
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -1584,80 +1997,170 @@
                 "price": {
                     "value": 0
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
                 "quantity": {
-                    "value": 1
+                    "value": 50
                 },
-                "rarity": {
-                    "value": "common"
+                "rules": [],
+                "size": {
+                    "value": "med"
                 },
+                "slug": "gold-pieces",
                 "source": {
                     "value": ""
                 },
                 "stackGroup": {
-                    "value": ""
+                    "value": "coins"
                 },
                 "traits": {
-                    "value": [
-                        "deadly 1d10",
-                        "magical",
-                        "range increment 60 feet",
-                        "reload 0",
-                        "volley 30 feet"
-                    ]
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weaponType": {
-                    "value": "ranged"
+                "value": {
+                    "value": 1
                 },
                 "weight": {
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {}
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.B6B7tBWJSqOBz5zz"
+                }
             },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Composite Longbow",
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
+            "name": "Gold Pieces",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
+            "type": "treasure"
+        },
+        {
+            "_id": "AkuMvwXObEyEbsN4",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 31
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d4+16",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "disarm",
+                        "magical",
+                        "nonlethal",
+                        "reach",
+                        "trip"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Corrosive Whip",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
+            "type": "melee"
+        },
+        {
+            "_id": "L0ZHkQFYtz2JK3hH",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+12",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "deadly-d10",
+                        "magical",
+                        "range-increment-60",
+                        "reload-0",
+                        "volley-30"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Composite Longbow",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
             "type": "melee"
         },
         {
             "_id": "3vMq9pWLY70GeGAw",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1668,22 +2171,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "When first exposed to bright light, the monster is @Compendium[pf2e.conditionspf2e.XgEqL1kFApUbl5Z2]{Blinded} until the end of its next turn. After this exposure, light doesn’t blind the monster again until after it spends 1 hour in darkness. However, as long as the monster is in an area of bright light, it’s @Compendium[pf2e.conditionspf2e.TkIyaNPgTZFBCCuh]{Dazzled}."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>When first exposed to bright light, the monster is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn. After this exposure, light doesn't blind the monster again until after it spends 1 hour in darkness. However, as long as the monster is in an area of bright light, it's @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1696,23 +2198,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Light Blindness",
-            "sort": 1000000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1200000,
             "type": "action"
         },
         {
             "_id": "XNuFniZQghj9Oixw",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -1723,24 +2224,23 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " Kralgurn’s Attacks of Opportunity not only wound creatures, but also shatter their confidence. If Kralgurn hits and deals damage with an Attack of Opportunity, the target is @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} 2, or @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} 4 on a critical hit."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>Kralgurn's Attacks of Opportunity not only wound creatures, but also shatter their confidence. If Kralgurn hits and deals damage with an Attack of Opportunity, the target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2, or @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4 on a critical hit.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
-                        "emotions",
+                        "emotion",
                         "fear",
                         "mental"
                     ]
@@ -1755,49 +2255,47 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Intimidating Attack of Opportunity",
+            "permission": {
+                "default": 0
             },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Attack of Opportunity",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "action"
         },
         {
             "_id": "8G3jRgClaGonQIo6",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "When Kralgurn attacks a @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} creature, he gains a circumstance bonus to damage equal to three times the target’s @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} value."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>When Kralgurn attacks a @Compendium[pf2e.conditionitems.Frightened]{Frightened} creature, he gains a circumstance bonus to damage equal to three times the target's @Compendium[pf2e.conditionitems.Frightened]{Frightened} value.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1810,16 +2308,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Fearsome Brute",
-            "sort": 1200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1830,7 +2327,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1840,23 +2336,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1867,7 +2371,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1877,23 +2380,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1904,7 +2415,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1914,23 +2424,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1700000,
             "type": "lore"
         }
     ],
@@ -1939,13 +2457,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "MFTMMXiwvW1aqOzs",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1955,15 +2475,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Kralgurn",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

@@ -1,6 +1,7 @@
 {
-    "_id": "9Itj7SLzmWRzDilY",
+    "_id": "gufc2pmaYn9jzFVL",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You cease aging, and if you were older than young adult in age, you become a young adult again. You gain a +4 status bonus to saves against <em>death </em>effects and resistance to negative damage equal to half your level. Once per day, from any distance, Abrogail Thrune II can recite a mandatory appearance clause in your Thrune contract as a 3-action activity to summon you to her side, where you are <em>controlled </em>by Abrogail for 1 minute before you return.</p>\n<p><strong>Activate</strong>&nbsp;<span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">2</span> Command;</p>\n<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Effect</strong> You recite a hold harmless provision from your Thrune contract. Reduce your doomed value to 0. Abrogail Thrune II is immediately made aware that you have used this ability.</p>"
+            "value": "<p>You cease aging, and if you were older than young adult in age, you become a young adult again. You gain a +4 status bonus to saves against death<em> </em>effects and resistance to negative damage equal to half your level.</p>\n<p>Once per day, from any distance, Abrogail Thrune II can recite a mandatory appearance clause in your Thrune contract as a 3-action activity to summon you to her side, where you are <em>controlled </em>by Abrogail for 1 minute before you return.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">2</span> Command</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You recite a hold harmless provision from your Thrune contract. Reduce your doomed value to 0. Abrogail Thrune II is immediately made aware that you have used this ability.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+4 status bonus to saves against death<em> </em>effects</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "20"
+            "value": 20
         },
         "maxHp": {
             "value": 0
@@ -52,13 +63,27 @@
             "value": ""
         },
         "price": {
-            "value": ""
+            "value": "0 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Unending Youth (vs. death)",
+                "predicate": {
+                    "all": [
+                        "death"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 4
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -88,8 +113,10 @@
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/other/infernal-contracts/unending-youth.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/contracts/infernal-contracts/unending-youth.webp",
     "name": "Unending Youth",
     "permission": {
         "default": 0

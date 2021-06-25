@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "24"
+                "value": 24
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "95",
+                "max": 95,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "95"
+                "value": 95
             },
             "init": {
                 "bonus": 0,
@@ -103,8 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -137,10 +135,10 @@
             },
             "creatureType": "Animal",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Iguanodons are large, herbivorous dinosaurs that inhabit swamps and forests where they browse on the abundant vegetation. The iguanodon is capable of moving on two feet or on four, quickly switching from one stance to the other depending on whether it needs to move through dense foliage or to reach delectable morsels hanging up in the canopy.<br><br>Although iguanodons are herbivores, they are notoriously quick to anger. Their thumb spikes make their claws particularly devastating weapons. A well-placed blow from one of these claws can turn a hungry predator into a cowering beast with one swift strike. Iguanodons are 30 feet long and weigh 6,000 pounds.<br><br>",
+            "flavorText": "Iguanodons are large, herbivorous dinosaurs that inhabit swamps and forests where they browse on the abundant vegetation. The iguanodon is capable of moving on two feet or on four, quickly switching from one stance to the other depending on whether it needs to move through dense foliage or to reach delectable morsels hanging up in the canopy.<br /><br />Although iguanodons are herbivores, they are notoriously quick to anger. Their thumb spikes make their claws particularly devastating weapons. A well-placed blow from one of these claws can turn a hungry predator into a cowering beast with one swift strike. Iguanodons are 30 feet long and weigh 6,000 pounds.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -150,13 +148,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "6"
+                "value": 6
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=616",
             "recallKnowledgeText": "Recall Knowledge - Animal : DC 22",
-            "sidebarText": "",
             "source": {
-                "value": "Bestiary 2 pg. 82"
+                "value": "Bestiary 2"
             }
         },
         "martial": {
@@ -406,6 +402,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -436,10 +435,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "R4jXbSxWyqNtYJyp",
@@ -451,129 +450,59 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 17,
                     "value": 17
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "piercing",
-                    "die": "2d8+9"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d8+9",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [
+                    {
+                        "damageType": "slashing",
+                        "diceNumber": 1,
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "label": "Gouging Lunge",
+                        "predicate": {
+                            "all": [
+                                "gouging-lunge"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
-                        "deadly d10",
-                        "reach 10 feet"
+                        "deadly-d10",
+                        "reach-10"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Thumb Spike",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "melee"
         },
@@ -587,162 +516,191 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 15,
                     "value": 15
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "die": "2d10+9"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "gy0dvqgndgshz9pzxbo5": {
                         "damage": "2d10+9",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "reach-15"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Tail",
+            "permission": {
+                "default": 0
+            },
+            "sort": 200000,
+            "type": "melee"
+        },
+        {
+            "_id": "5YDssRfPpgId4gTE",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [
-                        "reach 15 feet"
-                    ]
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "trigger": {
+                    "value": ""
                 },
-                "weight": {
-                    "value": 0
+                "weapon": {
+                    "value": ""
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {}
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
             },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Tail",
-            "sort": 200000,
-            "type": "melee"
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Low-Light Vision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "YUHuvUIG5Z4hJRM4",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scent",
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
+            "type": "action"
         },
         {
             "_id": "filzxUgupqvL1ZQq",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The iguanodon makes a thumb spike Strike at an adjacent foe and then Strides up to 15 feet, dragging its thumb spike across the foe to gouge out a brutal wound. If this Strike hits, it deals an extra [[/r 1d8 # points of slashing damage]] points of slashing damage and the following Stride does not trigger reactions from the creature struck. This thumb spike Strike counts as two attacks when calculating the iguanodon's multiple attack penalty."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The iguanodon makes a thumb spike Strike at an adjacent foe and then Strides up to 15 feet, dragging its thumb spike across the foe to gouge out a brutal wound. If this Strike hits, it deals an extra [[/r 1d8 #slashing]] points of slashing damage and the following Stride does not trigger reactions from the creature struck. This thumb spike Strike counts as two attacks when calculating the iguanodon's multiple attack penalty.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.gouging-lunge"
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -755,16 +713,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Gouging Lunge",
-            "sort": 300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -775,7 +732,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -785,23 +741,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
             "type": "lore"
         }
     ],
@@ -810,13 +774,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "SsR4wiSWA7xhlkH9",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -826,15 +792,21 @@
         "disposition": -1,
         "flags": {},
         "height": 3,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Iguanodon",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 3

@@ -2,15 +2,12 @@
     "_id": "8HxM35X8DDt2gw9d",
     "data": {
         "armor": {
-            "label": "AC Bonus",
-            "type": "Number",
             "value": 1
         },
         "armorType": {
-            "label": "Armor Category",
-            "type": "String",
             "value": "light"
         },
+        "baseItem": "leather-armor",
         "brokenThreshold": {
             "value": null
         },
@@ -18,9 +15,7 @@
             "value": ""
         },
         "check": {
-            "label": "Check Penalty",
-            "type": "String",
-            "value": ""
+            "value": 0
         },
         "collapsed": {
             "value": false
@@ -30,27 +25,19 @@
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><span class=\"fontstyle0\">Shining, slippery eelskin covers the plates of this +1 resilient greater slick leather armor . The armor gives you the ability to breathe water and grants you a +2 item bonus to Athletics checks to Swim and Stealth checks you attempt in the water.</span></p>\n<p><span class=\"fontstyle0\"><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">D</span> Command, Interact; <strong>Frequency</strong> once per hour; <strong>Effect</strong> You cast a 2nd-level @Compendium[pf2e.spells-srd.r3NeUnsgt9mS03Sn]{Shocking Grasp} with a DC of 29. <br><br><strong>Craft Requirements</strong> Supply one casting of <em>shocking grasp</em>.</span></span></p>"
+            "value": "<p>Shining, slippery eelskin covers the plates of this +1 resilient greater slick leather armor . The armor gives you the ability to breathe water and grants you a +2 item bonus to Athletics checks to Swim and Stealth checks you attempt in the water.</p>\n<hr />\n<p><strong>Activate</strong><span class=\"pf2-icon\">D</span>Command, Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> You cast a 2nd-level @Compendium[pf2e.spells-srd.Shocking Grasp]{Shocking Grasp} with a DC of 29.</p>\n<hr />\n<p><strong>Craft Requirements</strong> Supply one casting of<em>shocking grasp</em>.</p>\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Athletics checks to Swim</li>\n<li>+2 item bonus to Stealth checks you attempt in the water</li>\n</ul>"
         },
         "dex": {
-            "label": "Dex Modifier Cap",
-            "type": "String",
-            "value": "4"
+            "value": 4
         },
         "equipped": {
-            "label": "Equipped",
-            "type": "Boolean",
             "value": false
         },
         "equippedBulk": {
             "value": "1"
         },
         "group": {
-            "label": "Group",
-            "type": "String",
             "value": "leather"
         },
         "hardness": {
@@ -59,15 +46,23 @@
         "hp": {
             "value": null
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 10
         },
         "maxHp": {
@@ -76,12 +71,9 @@
         "negateBulk": {
             "value": "0"
         },
-        "potency": {
-            "label": "Armor Potency",
-            "type": "String"
-        },
+        "potency": {},
         "potencyRune": {
-            "value": "1"
+            "value": 1
         },
         "preciousMaterial": {
             "value": ""
@@ -90,45 +82,7 @@
             "value": ""
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "950 gp"
-        },
-        "property1": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 1",
-            "type": "Number",
-            "value": ""
-        },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 2",
-            "type": "Number",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 3",
-            "type": "Number",
-            "value": ""
         },
         "propertyRune1": {
             "value": "greaterSlick"
@@ -143,45 +97,58 @@
             "value": ""
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
-        },
-        "rarity": {
-            "value": "common"
         },
         "resiliencyRune": {
             "value": "resilient"
         },
-        "resilient": {
-            "label": "Resilient",
-            "type": "String"
+        "resilient": {},
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Electric Eelskin (Swim)",
+                "predicate": {
+                    "all": [
+                        "action:swim"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Electric Eelskin (Water)",
+                "predicate": {
+                    "all": [
+                        "terrain:water"
+                    ]
+                },
+                "selector": "stealth",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "speed": {
-            "label": "Speed Penalty",
-            "type": "String",
-            "value": ""
+            "value": 0
         },
         "stackGroup": {
             "value": ""
         },
         "strength": {
-            "label": "Required Strength",
-            "type": "String",
-            "value": ""
+            "value": 0
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "invested",
                 "magical",
@@ -189,16 +156,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornarmor"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "2"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/electric-eelskin.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/electric-eelskin.webp",
     "name": "Electric Eelskin",
     "permission": {
         "default": 0

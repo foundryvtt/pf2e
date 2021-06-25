@@ -13,20 +13,41 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You hatched into a warren among narrow tunnels and countless kin. Your body is flexible. When @Compendium[pf2e.actionspf2e.pprgrYQ1QnIDGZiy]{Climbing} rock walls, stalactites, and other natural stone features, you move at half your Speed on a success and at full Speed on a critical success (and you move at full Speed on a success if you have @Compendium[pf2e.feats-srd.P04Hw8E6WAWARKHP]{Quick Climb}). This doesn’t affect you if you’re using a climb Speed. If you roll a success on an Acrobatics check to @Compendium[pf2e.actionspf2e.kMcV8e5EZUxa6evt]{Squeeze}, you get a critical success instead.</p>"
+            "value": "<p>You hatched into a warren among narrow tunnels and countless kin. Your body is flexible.</p>\n<p>When @Compendium[pf2e.actionspf2e.Climb]{Climbing} rock walls, stalactites, and other natural stone features, you move at half your Speed on a success and at full Speed on a critical success (and you move at full Speed on a success if you have @Compendium[pf2e.feats-srd.Quick Climb]{Quick Climb}). This doesn't affect you if you're using a climb Speed.</p>\n<p>If you roll a success on an Acrobatics check to @Compendium[pf2e.actionspf2e.Squeeze]{Squeeze}, you get a critical success instead.</p>"
         },
         "featType": {
-            "value": "ancestryfeature"
+            "value": "heritage"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:climb",
+                        "natural-stone"
+                    ]
+                },
+                "selector": "athletics",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you climb natural stone, you move at half your Speed on a success, and full speed on a critical success.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:squeeze"
+                    ]
+                },
+                "selector": "acrobatics",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success to Squeeze, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +59,12 @@
             "value": [
                 "kobold"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/ancestry/cavern-kobold.webp",
     "name": "Cavern Kobold",
     "permission": {
         "default": 0

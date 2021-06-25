@@ -13,20 +13,36 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You reposition, maneuver, and bewilder your foes with daring feats of physical prowess. You are trained in Athletics. You gain @Compendium[pf2e.classfeatures.LzYi0OuOoypNb6jd]{Panache} during an encounter whenever you successfully @Compendium[pf2e.actionspf2e.PMbdMWc2QroouFGD]{Grapple}, @Compendium[pf2e.actionspf2e.7blmbDrQFNfdT731]{Shove}, or @Compendium[pf2e.actionspf2e.ge56Lu1xXVFYUnLP]{Trip} a foe.</p>"
+            "value": "<p>You reposition, maneuver, and bewilder your foes with daring feats of physical prowess. You are trained in Athletics. You gain @Compendium[pf2e.classfeatures.Panache]{Panache} during an encounter whenever you successfully @Compendium[pf2e.actionspf2e.Grapple]{Grapple}, @Compendium[pf2e.actionspf2e.Shove]{Shove}, or @Compendium[pf2e.actionspf2e.Trip]{Trip} a foe.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "panache"
+                    ],
+                    "any": [
+                        "action:grapple",
+                        "action:shove",
+                        "action:trip"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +54,33 @@
             "value": [
                 "swashbuckler"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [
+        {
+            "_id": "jN2zsW3Digzr7WDx",
+            "changes": [
+                {
+                    "key": "data.skills.ath.rank",
+                    "mode": 4,
+                    "value": "1"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/classes/gymnast-style.webp",
+            "label": "Gymnast Style",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/gymnast-style.webp",
     "name": "Gymnast Style",
     "permission": {
         "default": 0

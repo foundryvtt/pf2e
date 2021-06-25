@@ -1,6 +1,7 @@
 {
     "_id": "dRVDcmkaB2p8zPcs",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>Woven from swaths of rich brocade silk and embroidered with ancient Azlanti script in golden thread, this stole imparts a noble appearance to even the homeliest of individuals when draped over the shoulders. While wearing a stole of civility, you receive a +2 item bonus to Diplomacy checks to Make an Impression with humans or Make a Request of humans, and a +2 item bonus to Intimidation checks against humans. The stole also grants you full understanding of the Azlanti language.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> envision; <strong>Frequency</strong> once per day; <strong>Requirements</strong> you are a human; <strong>Effect</strong> You gain 10 temporary Hit Points, which last for 10 minutes.&nbsp;</span></p>"
+            "value": "<p>Woven from swaths of rich brocade silk and embroidered with ancient Azlanti script in golden thread, this stole imparts a noble appearance to even the homeliest of individuals when draped over the shoulders.</p>\n<p>While wearing a stole of civility, you receive a +2 item bonus to Diplomacy checks to Make an Impression with humans or Make a Request of humans, and a +2 item bonus to Intimidation checks against humans.</p>\n<p>The stole also grants you full understanding of the Azlanti language.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> you are a human</p>\n<p><strong>Effect</strong> You gain 10 temporary Hit Points, which last for 10 minutes.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Stole of Civility]{Effect: Stole of Civility}</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>a +2 item bonus to Diplomacy checks to Make an Impression with humans or Make a Request of humans</li>\n<li>a +2 item bonus to Intimidation checks against humans.</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "9"
+            "value": 9
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,51 @@
             "value": "700 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Target is human (Stole of Civility)",
+                "property": "flags.pf2e.rollOptions.skill-check.target:human"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Stole of Civility (humans)",
+                "predicate": {
+                    "all": [
+                        "target:human"
+                    ]
+                },
+                "roll-options": [
+                    "skill-check"
+                ],
+                "selector": "intimidation",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Stole of Civility (Impress or Request humans)",
+                "predicate": {
+                    "all": [
+                        "target:human"
+                    ],
+                    "any": [
+                        "action:make-a-request",
+                        "action:make-an-impression"
+                    ]
+                },
+                "roll-options": [
+                    "skill-check"
+                ],
+                "selector": "diplomacy",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -87,8 +139,10 @@
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/stole-of-civility.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/stole-of-civility.webp",
     "name": "Stole of Civility",
     "permission": {
         "default": 0

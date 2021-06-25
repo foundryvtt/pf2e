@@ -5,63 +5,81 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> sneak attack</p>\n<hr>\n<p>Your attacks deal more damage, even against creatures that aren’t flat-footed. When you succeed or critically succeed at a Strike against a creature that isn’t flat-footed, you also deal 1d6 precision damage. This applies only if you’re using a weapon or unarmed attack you could deal sneak attack damage with. At 14th level, if you would normally deal 3d6 or more sneak attack damage to flat-footed creatures, you deal 2d6 precision damage to creatures that aren’t flat-footed.</p>"
+            "value": "<p>Your attacks deal more damage, even against creatures that aren't flat-footed.</p>\n<p>When you succeed or critically succeed at a Strike against a creature that isn't flat-footed, you also deal 1d6 precision damage. This applies only if you're using a weapon or unarmed attack you could deal sneak attack damage with.</p>\n<p>At 14th level, if you would normally deal 3d6 or more sneak attack damage to flat-footed creatures, you deal 2d6 precision damage to creatures that aren't flat-footed.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "8"
+            "value": 8
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "sneak attack"
+            "value": [
+                {
+                    "value": "sneak attack"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "damageType": "precision",
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "any": [
+                        "finesse",
+                        "agile",
+                        "ranged"
+                    ],
+                    "not": [
+                        "target:flatFooted"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 10,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "start": 14,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "rogue"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Sly Striker",
     "permission": {
         "default": 0

@@ -10,7 +10,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Persistent damage comes from effects like acid, being on fire, or many other situations. It appears as “X persistent [type] damage,” where “X” is the amount of damage dealt and “[type]” is the damage type. Instead of taking persistent damage immediately, you take it at the end of each of your turns as long as you have the condition, rolling any damage dice anew each time. After you take persistent damage, roll a <strong>DC 15</strong> flat check to see if you recover from the persistent damage. If you succeed, the condition ends.</p>"
+            "value": "<p>Persistent damage comes from effects like acid, being on fire, or many other situations. It appears as \"X persistent [type] damage,\" where \"X\" is the amount of damage dealt and \"[type]\" is the damage type. Instead of taking persistent damage immediately, you take it at the end of each of your turns as long as you have the condition, rolling any damage dice anew each time. After you take persistent damage, roll a <a class=\"inline-roll roll\" title=\"DC 15 flat check\" data-mode=\"roll\" data-flavor=\"DC 15 flat check\" data-formula=\"1d20\"><i class=\"fas fa-dice-d20\"></i> 1d20</a> <strong>DC 15</strong> flat check to see if you recover from the persistent damage. If you succeed, the condition ends.</p>"
         },
         "duration": {
             "perpetual": true,
@@ -21,16 +21,13 @@
         "hud": {
             "img": {
                 "useStatusName": true,
-                "value": "system/pf2e/icons/conditions-2/persistentDamage.png"
+                "value": "systems/pf2e/icons/conditions-2/persistentDamage.webp"
             },
             "selectable": true,
             "statusName": "persistentDamage"
         },
         "modifiers": [],
         "overrides": [],
-        "rarity": {
-            "value": "common"
-        },
         "references": {
             "children": [],
             "immunityFrom": [],
@@ -38,17 +35,19 @@
             "overrides": []
         },
         "removable": true,
+        "rules": [],
         "source": {
             "value": ""
         },
         "sources": {
-            "hud": false
+            "hud": true
         },
         "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": []
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         },
         "value": {
             "immutable": false,
@@ -57,8 +56,13 @@
             "value": 1
         }
     },
-    "flags": {},
-    "img": "systems/pf2e/icons/conditions/persistentDamage.png",
+    "effects": [],
+    "flags": {
+        "pf2e": {
+            "condition": true
+        }
+    },
+    "img": "systems/pf2e/icons/conditions/persistentDamage.webp",
     "name": "Persistent Damage",
     "permission": {
         "default": 0

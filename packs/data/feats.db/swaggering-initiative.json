@@ -13,38 +13,48 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Trigger</strong> You are about to roll initiative.</p>\n<hr>\n<p>You swagger readily into any fight—even an ambush. You gain a +2 circumstance bonus to your initiative roll and can @Compendium[pf2e.actionspf2e.pvQ5rY2zrtPI614F]{Interact} to draw a weapon.&nbsp;</p>"
+            "value": "<p><strong>Trigger</strong> You are about to roll initiative.</p>\n<hr />\n<p>You swagger readily into any fight-even an ambush. You gain a +2 circumstance bonus to your initiative roll and can @Compendium[pf2e.actionspf2e.Interact]{Interact} to draw a weapon.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "4"
+            "value": 4
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "swaggering-initiative"
+                    ]
+                },
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "swashbuckler"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Swaggering Initiative",
     "permission": {
         "default": 0

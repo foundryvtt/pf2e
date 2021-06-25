@@ -5,13 +5,10 @@
             "value": ""
         },
         "ability": {
-            "label": "Offensive Ability",
-            "type": "String",
             "value": "dex"
         },
+        "baseItem": "longbow",
         "bonus": {
-            "label": "Item Bonus",
-            "type": "String",
             "value": 2
         },
         "bonusDamage": {
@@ -33,16 +30,12 @@
             "damageType": "piercing",
             "dice": 1,
             "die": "d8",
-            "label": "damage",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p>Constructed of a flexible, white wood and with ornate, twisting designs carved into its surface, this +2 striking composite longbow appears to have been made by elves. Sometimes when you loose an arrow, its whistling in flight sounds like a voice whispering in Elven, wishing for the swift defeat of your enemies.</p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> command; <strong>Effect</strong> You swear an oath to destroy one creature you can see. For the next 7 days or until that creature is slain, your attacks with the bow against that creature deal 1d6 additional damage, and you gain a +2 circumstance bonus to Survival checks to Track that creature. Your critical hits against the target gain the bow’s critical specialization effect; if they would already do so, they instead increase the DC of the Athletics check to Escape when&nbsp;critically hit to DC 20. <br></span></p>\n<p><span>After you activate the bow, you can’t activate it again for 7 days. If you kill the creature you’ve sworn an oath against, the oath ends and you need to wait only 10 minutes before you can activate it again.</span></p>"
+            "value": "<p>Constructed of a flexible, white wood and with ornate, twisting designs carved into its surface, this +2 striking composite longbow appears to have been made by elves. Sometimes when you loose an arrow, its whistling in flight sounds like a voice whispering in Elven, wishing for the swift defeat of your enemies.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> command</p>\n<p><strong>Effect</strong> You swear an oath to destroy one creature you can see. For the next 7 days or until that creature is slain, your attacks with the bow against that creature deal 1d6 additional damage, and you gain a +2 circumstance bonus to Survival checks to Track that creature.</p>\n<p>Your critical hits against the target gain the bow's critical specialization effect; if they would already do so, they instead increase the DC of the Athletics check to Escape when critically hit to DC 20.</p>\n<p>After you activate the bow, you can't activate it again for 7 days. If you kill the creature you've sworn an oath against, the oath ends and you need to wait only 10 minutes before you can activate it again.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>1d6 additional damage with Oathbow against sworn target</li>\n<li>+2 circumstance bonus to Survival checks to Track the Oathbow's sworn target</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -51,13 +44,9 @@
             "value": ""
         },
         "group": {
-            "label": "Weapon Group",
-            "type": "String",
             "value": "bow"
         },
         "hands": {
-            "label": "Hands",
-            "type": "String",
             "value": ""
         },
         "hardness": {
@@ -66,15 +55,23 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 11
         },
         "maxHp": {
@@ -84,7 +81,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": "2"
+            "value": 2
         },
         "preciousMaterial": {
             "value": ""
@@ -93,8 +90,6 @@
             "value": ""
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "1,300 gp"
         },
         "property1": {
@@ -104,37 +99,11 @@
             "critDie": "",
             "criticalConditionType": "",
             "criticalConditionValue": null,
-            "damageType": "piercing",
-            "dice": 1,
-            "die": "d8",
-            "label": "Primary Property",
+            "damageType": "",
+            "dice": null,
+            "die": "",
             "strikeConditionType": "",
             "strikeConditionValue": null,
-            "type": "String",
-            "value": "Striking"
-        },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Secondary Property",
-            "type": "String",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Tertiary Property",
-            "type": "String",
             "value": ""
         },
         "propertyRune1": {
@@ -150,26 +119,49 @@
             "value": ""
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
         },
         "range": {
-            "label": "Weapon Range",
-            "type": "String",
             "value": "100"
         },
-        "rarity": {
-            "value": "common"
-        },
         "reload": {
-            "label": "Reload",
-            "type": "String",
             "value": ""
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Target is Oathbow's sworn target",
+                "property": "flags.pf2e.rollOptions.all.target:oathbow"
+            },
+            {
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "label": "Oathbow's sworn target",
+                "predicate": {
+                    "all": [
+                        "target:oathbow"
+                    ]
+                },
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Oathbow (tracking Oathbow's sworn target)",
+                "predicate": {
+                    "all": [
+                        "target:oathbow"
+                    ]
+                },
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
+        },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "splashDamage": {
@@ -183,11 +175,9 @@
         },
         "traits": {
             "custom": "",
-            "label": "Weapon Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "deadly-d10",
                 "divination",
@@ -200,18 +190,16 @@
             "value": "held-in-one-hand"
         },
         "weaponType": {
-            "label": "Weapon Category",
-            "type": "String",
             "value": "martial"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "2"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/oathbow.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/oathbow.webp",
     "name": "Oathbow",
     "permission": {
         "default": 0

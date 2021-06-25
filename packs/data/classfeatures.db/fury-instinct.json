@@ -13,35 +13,115 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">Your rage comes from a deep and purely personal well within you. You use your rage as you choose.</span></p>\n<h2 class=\"title\">Anathema and Instinct Ability</h2>\n<p>You don’t have an anathema or an instinct ability. Instead, you gain an additional 1st-level barbarian feat.</p>\n<h2 class=\"title\">Specialization Ability</h2>\n<p>Increase the additional damage from Rage from 2 to 6. If you have greater weapon specialization, instead increase the additional damage from Rage to 12.</p>\n<h2 class=\"title\">Raging Resistance</h2>\n<p>You resist physical weapon damage, but not physical damage from other sources (such as unarmed attacks).&nbsp;</p>"
+            "value": "<p>Your rage comes from a deep and purely personal well within you. You use your rage as you choose.</p>\n<h2 class=\"title\">Anathema and Instinct Ability</h2>\n<p>You don't have an anathema or an instinct ability. Instead, you gain an additional 1st-level barbarian feat.</p>\n<h2 class=\"title\">Specialization Ability</h2>\n<p>Increase the additional damage from Rage from 2 to 6. If you have greater weapon specialization, instead increase the additional damage from Rage to 12.</p>\n<h2 class=\"title\">Raging Resistance</h2>\n<p>You resist physical weapon damage, but not physical damage from other sources (such as unarmed attacks).</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ],
+                    "not": [
+                        "agile",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 2
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 6
+                        },
+                        {
+                            "start": 15,
+                            "value": 12
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 1
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 3
+                        },
+                        {
+                            "start": 15,
+                            "value": 6
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": [
                 "barbarian"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/fury-instinct.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/fury-instinct.webp",
     "name": "Fury Instinct",
     "permission": {
         "default": 0

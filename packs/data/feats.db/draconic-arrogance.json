@@ -13,24 +13,46 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> @Compendium[pf2e.classfeatures.VDot7CDcXElxmkkz]{Dragon Instinct}</p>\n<hr>\n<p>Few can sway you from your goals while the fury of combat fills you. While raging, you gain a +2 status bonus to saving throws against emotion effects.</p>"
+            "value": "<p>Few can sway you from your goals while the fury of combat fills you. While raging, you gain a +2 status bonus to saving throws against emotion effects.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": "dragon instinct"
+            "value": [
+                {
+                    "value": "dragon instinct"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Draconic Arrogance (vs. emotion)",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "emotion"
+                    ]
+                },
+                "roll-options": [
+                    "saving-throw",
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
@@ -38,13 +60,11 @@
                 "barbarian",
                 "rage"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Draconic Arrogance",
     "permission": {
         "default": 0

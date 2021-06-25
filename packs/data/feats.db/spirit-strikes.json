@@ -19,32 +19,94 @@
             "value": "ancestry"
         },
         "level": {
-            "value": "9"
+            "value": 9
         },
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Target Undead Creature",
+                "property": "flags.pf2e.rollOptions.damage-roll.spirit-strikes-positive"
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Target Living Creature",
+                "property": "flags.pf2e.rollOptions.damage-roll.spirit-strikes-negative"
+            },
+            {
+                "damageType": "positive",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Spirit Strike against Undead",
+                "predicate": {
+                    "all": [
+                        "spirit-strikes-positive"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
+            },
+            {
+                "damageType": "negative",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Spirit Strike against Living",
+                "predicate": {
+                    "all": [
+                        "spirit-strikes-negative"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "selector": "damage",
+                "traits": [
+                    "magical"
+                ]
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "spirit-strikes-negative"
+                    ]
+                },
+                "selector": "damage",
+                "traits": [
+                    "negative"
+                ]
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "spirit-strikes-positive"
+                    ]
+                },
+                "selector": "damage",
+                "traits": [
+                    "positive"
+                ]
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "duskwalker"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Spirit Strikes",
     "permission": {
         "default": 0

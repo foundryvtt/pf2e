@@ -64,7 +64,6 @@
                 "max": 45,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
                 "value": 45
             },
             "init": {
@@ -104,7 +103,6 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
                 "value": "35 feet"
             }
         },
@@ -138,7 +136,7 @@
             },
             "creatureType": "",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavourText": "",
@@ -152,14 +150,12 @@
                 "min": 1,
                 "value": 3
             },
-            "nethysUrl": "",
             "rarity": {
                 "value": ""
             },
             "recallKnowledgeText": "",
-            "sidebarText": "",
             "source": {
-                "value": ""
+                "value": "Pathfinder Adventure: The Fall of Plaguestone"
             }
         },
         "martial": {
@@ -411,10 +407,10 @@
         "traits": {
             "ci": [],
             "di": {
-                "custom": "Visual Effects",
+                "custom": "",
                 "value": [
                     "acid",
-                    "custom"
+                    "visual"
                 ]
             },
             "dr": [],
@@ -441,21 +437,65 @@
             }
         }
     },
-    "flags": {
-        "exportSource": {
-            "coreVersion": "0.5.5",
-            "system": "pf2e",
-            "systemVersion": "0.569.2",
-            "world": "plaguestone"
-        },
-        "pf2e_updatednpcsheet": {
-            "npcNotes": {
-                "value": ""
-            }
-        }
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
+        {
+            "_id": "Xw1S2BC5EEKdRyD5",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "1dfru2u5swkr57uw3q4bl": {
+                        "damage": "1d8+4",
+                        "damageType": "piercing"
+                    },
+                    "1jxviufyjze98o76oiwl0n": {
+                        "damage": "1d6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "permission": {
+                "default": 0
+            },
+            "sort": 100000,
+            "type": "melee"
+        },
         {
             "_id": "AAfX9iCUSEremClg",
             "data": {
@@ -471,28 +511,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The wolf dealt damage to a creature with its jaws during the previous action.</p>\n<p><strong> Effect</strong> The wolf tears at the creature’s flesh, dealing 1d6+2 slashing damage and 1 persistent acid damage.</p>"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Trigger</strong> The wolf dealt damage to a creature with its jaws during the previous action.</p>\n<p><strong>Effect</strong> The wolf tears at the creature's flesh, dealing 1d6+2 slashing damage and 1 persistent acid damage.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -505,10 +538,15 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Tear",
-            "sort": 100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 200000,
             "type": "action"
         },
         {
@@ -526,29 +564,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature critically hits a mutant wolf while adjacent to it.</p>\n<p><strong>Effect</strong> The wound causes gore to spray from a ruptured pustule. The triggering creature takes 3d6 acid damage (DC 19 basic Reflex save). This occurs even if the attack kills the wolf.</p>"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Trigger</strong> A creature critically hits a mutant wolf while adjacent to it.</p>\n<p><strong>Effect</strong> The wound causes gore to spray from a ruptured pustule. The triggering creature takes [[/r 3d6 #acid]] acid damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"19\" data-pf2-traits=\"acid,damaging-effect\" data-pf2-label=\"Gore Spray DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). This occurs even if the attack kills the wolf.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "acid"
                     ]
@@ -563,144 +593,16 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Gore Spray",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "Xw1S2BC5EEKdRyD5",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": "11"
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damageRolls": {
-                    "1dfru2u5swkr57uw3q4bl": {
-                        "damage": "1d8+4",
-                        "damageType": "piercing"
-                    },
-                    "1jxviufyjze98o76oiwl0n": {
-                        "damage": "1d6",
-                        "damageType": "acid"
-                    }
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weaponType": {
-                    "value": "melee"
-                },
-                "weight": {
-                    "value": 0
-                }
+            "permission": {
+                "default": 0
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Jaws",
             "sort": 300000,
-            "type": "melee"
+            "type": "action"
         },
         {
             "_id": "ees3KnaN59jHFo4U",
@@ -710,7 +612,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -720,22 +621,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "/icons/svg/d20-black.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "lore"
         },
@@ -747,7 +656,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -757,22 +665,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "/icons/svg/d20-black.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "lore"
         },
@@ -784,7 +700,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -794,22 +709,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "/icons/svg/d20-black.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "lore"
         }
@@ -819,13 +742,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "WV8sdgARGVUb39WM",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -835,15 +760,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Mutant Wolf",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

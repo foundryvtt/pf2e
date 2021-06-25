@@ -1,0 +1,82 @@
+{
+    "_id": "4U9BWv0rSpGbU0wr",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Ki Strike]{Ki Strike} if you have @Compendium[pf2e.feats-srd.Sacred Ki]{Sacred Ki} and selecting evil.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Ki Strike",
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "damageType": "evil",
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "label": "Ki Strike",
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 16,
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 17,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/ki-strike.webp",
+    "name": "Spell Effect: Ki Strike (Evil)",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

@@ -1,6 +1,7 @@
 {
     "_id": "0yeM77XLNrB0a0LF",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>This elegant silver band often resembles curling fig leaves and fits around your brow. You gain a +2 item bonus to Deception and Diplomacy checks. When you invest the circlet, you either increase your Charisma score by 2 or increase it to 18, whichever would give you a higher score.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">D</span> envision; <strong>Frequency</strong> once per hour; <strong>Effect</strong> You cast a 4th-level @Compendium[pf2e.spells-srd.vLA0q0WOK2YPuJs6]{Charm}spell (DC 38).</span></p>"
+            "value": "<p>This elegant silver band often resembles curling fig leaves and fits around your brow. You gain a +2 item bonus to Deception and Diplomacy checks. When you invest the circlet, you either increase your Charisma score by 2 or increase it to 18, whichever would give you a higher score.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> envision</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> You cast a 4th-level @Compendium[pf2e.spells-srd.Charm]{Charm} spell (DC 38).</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Diplomacy checks</li>\n<li>+2 item bonus to Deception checks</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "17"
+            "value": 17
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,24 @@
             "value": "15,000 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "deception",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "diplomacy",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +96,6 @@
             "rarity": {
                 "value": "common"
             },
-            "usage": {
-                "value": "worncirclet"
-            },
             "value": [
                 "apex",
                 "enchantment",
@@ -82,14 +104,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worncirclet"
         },
         "weight": {
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/apex-items/circlet-of-persuasion.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/apex-items/circlet-of-persuasion.webp",
     "name": "Circlet of Persuasion",
     "permission": {
         "default": 0

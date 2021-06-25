@@ -13,20 +13,35 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">When you focus your will into your limbs, your blows are as unyielding as the hardest of metals. Your unarmed attacks are treated as adamantine.&nbsp;</span></p>"
+            "value": "<p>When you focus your will into your limbs, your blows are as unyielding as the hardest of metals. Your unarmed attacks are treated as adamantine.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "17"
+            "value": 17
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "unarmed"
+                    ],
+                    "not": [
+                        "suppress-adamantine-strike"
+                    ]
+                },
+                "selector": "damage",
+                "traits": [
+                    "adamantine"
+                ]
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +53,12 @@
             "value": [
                 "monk"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/adamantine-strikes.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/adamantine-strikes.webp",
     "name": "Adamantine Strikes",
     "permission": {
         "default": 0

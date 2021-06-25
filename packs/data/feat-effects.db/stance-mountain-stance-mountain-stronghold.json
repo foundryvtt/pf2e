@@ -1,0 +1,83 @@
+{
+    "_id": "LXbVcutEIW8eWZEz",
+    "data": {
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Mountain Stance]{Mountain Stance} if you have @Compendium[pf2e.feats-srd.Mountain Stronghold]{Mountain Stronghold}, which increases the Dexterity modifier cap to your AC to +1.</p>\n<p>You enter the stance of an implacable mountain—a technique first discovered by dwarven monks—allowing you to strike with the weight of an avalanche. The only Strikes you can make are falling stone unarmed attacks. These deal 1d8 bludgeoning damage; are in the brawling group; and have the forceful, nonlethal, and unarmed traits.<br /><br />While in Mountain Stance, you gain a +4 item bonus to AC and a +2 circumstance bonus to any defenses against being Shoved or Tripped.</p>\n<p>However, you have a Dexterity modifier cap to your AC of +1, and your Speeds are all reduced by 5 feet. The item bonus to AC from Mountain Stance is cumulative with armor potency runes on your explorer's clothing, mage armor, and bracers of armor.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Falling Stone",
+                "range": "melee",
+                "traits": [
+                    "forceful",
+                    "unarmed",
+                    "nonlethal"
+                ]
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Mountain Stance",
+                "selector": "ac",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "PF2E.RuleElement.DexterityModifierCap",
+                "label": "Mountain Stance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.TokenEffectIcon"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "speed",
+                "value": -5
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/features/feats/mountain-stance.webp",
+    "name": "Stance: Mountain Stance (Mountain Stronghold)",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

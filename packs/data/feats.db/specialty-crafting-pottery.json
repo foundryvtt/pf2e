@@ -1,0 +1,82 @@
+{
+    "_id": "8XC2xJ7Y1xlr6Xor",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>Your training focused on Crafting one particular kind of item. You gain a +1 circumstance bonus to Crafting checks to Craft ceramic items. If you are a master in Crafting, this bonus increases to +2.</p>\n<hr />\n<p><strong>Sample Items</strong>: Ceramic goods</p>\n<p>If it's unclear whether the specialty applies, the GM decides. Some specialties might apply only partially. For example, if you were making a morningstar and had specialty in woodworking, the GM might give you half your bonus because the item requires both blacksmithing and woodworking.</p>"
+        },
+        "featType": {
+            "value": "skill"
+        },
+        "level": {
+            "value": 1
+        },
+        "location": "",
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Crafting"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:craft",
+                        "pottery"
+                    ]
+                },
+                "selector": "crafting",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": 2
+                        },
+                        {
+                            "end": 2,
+                            "start": 1,
+                            "value": 1
+                        }
+                    ],
+                    "field": "actor|data.skills.cra.rank"
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "general",
+                "skill"
+            ]
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Specialty Crafting (Pottery)",
+    "permission": {
+        "default": 0
+    },
+    "type": "feat"
+}

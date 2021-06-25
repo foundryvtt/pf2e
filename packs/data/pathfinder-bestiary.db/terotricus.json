@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "42"
+                "value": 42
             },
             "allSaves": {
                 "value": "+1 status to all saves vs. magic"
@@ -59,12 +59,11 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 25 ",
-                "max": "370",
+                "details": "regeneration 25 (deactivated by cold)",
+                "max": 370,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "370"
+                "value": 370
             },
             "init": {
                 "bonus": 0,
@@ -102,9 +101,24 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "special": "",
-                "value": "35 feet"
+                "otherSpeeds": [
+                    {
+                        "label": "Burrow",
+                        "type": "burrow",
+                        "value": "25"
+                    },
+                    {
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "25"
+                    },
+                    {
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "35"
+                    }
+                ],
+                "value": "35"
             }
         },
         "currency": {
@@ -121,6 +135,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -137,10 +152,10 @@
             },
             "creatureType": "Fungus",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "The legendary terotricus is a massive slime-mold that hails from the Abyss. Its collective consciousness encapsulates entire regions, spreading as far as its ever-growing cloud of spores will take it. Once it has seeped onto the Material Plane from the Abyssal realm, a terotricus’s agenda is to feed on all living creatures, infecting them with its spores, and its presence can spell doom for any in its way.<br><br> Terotricuses move by rapidly expanding and contracting their slimy “bodies,” which are capable of burrowing through soil, gliding across water, and scrabbling up steep slopes. These behemoths of rot don’t need to travel to see their plans come to fruition, though; their spores easily latch onto demons and other denizens of the Abyss, who in turn bring this blight to the Material Plane when the flends are summoned.<br><br> When a terotricus infects a creature with its spores, web-like fungal growths start appearing on the victim’s skin until they cover the entire body, at which point the victim’s mind is also subdued and bent to the terotricus’s will. The terotricus’s favored victims include animals, elves, and fey, though it is happy to infect any creature it can catch. Cults of Treerazer occasionally attempt to make contact with a terotricus, but such acts almost always simply result in a new sect of spore-blighted slaves.<br><br>",
+            "flavorText": "<p>The legendary terotricus is a massive slime-mold that hails from the Abyss. Its collective consciousness encapsulates entire regions, spreading as far as its ever-growing cloud of spores will take it. Once it has seeped onto the Material Plane from the Abyssal realm, a terotricus's agenda is to feed on all living creatures, infecting them with its spores, and its presence can spell doom for any in its way.</p>\n<p><br />Terotricuses move by rapidly expanding and contracting their slimy \"bodies,\" which are capable of burrowing through soil, gliding across water, and scrabbling up steep slopes. These behemoths of rot don't need to travel to see their plans come to fruition, though; their spores easily latch onto demons and other denizens of the Abyss, who in turn bring this blight to the Material Plane when the flends are summoned.</p>\n<p><br />When a terotricus infects a creature with its spores, web-like fungal growths start appearing on the victim's skin until they cover the entire body, at which point the victim's mind is also subdued and bent to the terotricus's will. The terotricus's favored victims include animals, elves, and fey, though it is happy to infect any creature it can catch. Cults of Treerazer occasionally attempt to make contact with a terotricus, but such acts almost always simply result in a new sect of spore-blighted slaves.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -150,13 +165,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "19"
+                "value": 19
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=393",
             "recallKnowledgeText": "Recall Knowledge : DC 44",
-            "sidebarText": "<h3 class=\"title\">Terotricus Myths</h3>The Kellids of Sarkoris dealt with their fair share of terotricuses during the era of the Worldwound, and these people developed unique rituals to purify tainted grounds with the help of ancestral spirits and feathers acquired from celestials. Far south of there, in what is now known as the Sodden Lands, wastelanders who learn of the presence of a terotricus&#x2014;or &#x201C;swampblight,&#x201D; as they&#x2019;re called there&#x2014;carry lanterns blessed by angels in the hopes that these lights will keep the terotricus at bay.",
             "source": {
-                "value": "Bestiary pg. 311"
+                "value": "Bestiary"
             }
         },
         "martial": {
@@ -408,13 +421,17 @@
         "traits": {
             "ci": [],
             "di": {
-                "custom": "controlled, disease, paralyzed, sleep",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "controlled",
+                    "paralyzed",
+                    "disease",
+                    "sleep"
                 ]
             },
             "dr": [
                 {
+                    "exceptions": "",
                     "label": "Fire",
                     "type": "fire",
                     "value": "15"
@@ -427,11 +444,6 @@
                     "value": "15"
                 },
                 {
-                    "label": "Cold Iron",
-                    "type": "coldiron",
-                    "value": "15"
-                },
-                {
                     "label": "Good",
                     "type": "good",
                     "value": "15"
@@ -440,6 +452,11 @@
                     "label": "Slashing",
                     "type": "slashing",
                     "value": "10"
+                },
+                {
+                    "label": "Cold Iron",
+                    "type": "coldiron",
+                    "value": "15"
                 }
             ],
             "languages": {
@@ -468,10 +485,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "4Iw8N4ANO4rwmrYg",
@@ -480,144 +497,63 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Improved Grab or Improved Push 20 feet "
+                        "Improved Grab",
+                        "Improved Push"
                     ]
                 },
                 "bonus": {
-                    "total": 37,
                     "value": 37
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "die": "4d10+16"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "qqnd3wt3cgrrverc0yci": {
                         "damage": "4d10+16",
                         "damageType": "bludgeoning"
                     },
-                    {
+                    "h1l03e7zn3spsfbwyqgb": {
                         "damage": "2d6",
                         "damageType": "chaotic"
                     },
-                    {
+                    "4qdwn97etif23fslz0ux": {
                         "damage": "2d6",
                         "damageType": "evil"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "chaotic",
                         "evil",
                         "magical",
-                        "reach 20 feet"
+                        "reach-20"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Tentacle",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "melee"
         },
@@ -628,156 +564,71 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "spore blight",
                         "sticky spores"
                     ]
                 },
                 "bonus": {
-                    "total": 37,
                     "value": 37
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "poison",
-                    "die": "4d8+6"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "7lmdgh7k5znyft3snpn3": {
                         "damage": "4d8+6",
                         "damageType": "poison"
                     },
-                    {
+                    "hyvpifbojdctsdyzqdle": {
                         "damage": "2d6",
                         "damageType": "chaotic"
                     },
-                    {
+                    "xxy8izksk8a6wnslgpuv": {
                         "damage": "2d6",
                         "damageType": "evil"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "chaotic",
                         "evil",
                         "magical",
-                        "range increment 80 feet"
+                        "range-increment-80"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weaponType": {
                     "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Spores",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "melee"
         },
         {
-            "_id": "9YuL1pu4ZHOAaxcZ",
+            "_id": "wDhxFGVoT8pJoV4M",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -788,22 +639,129 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "; 30 feet. A creature entering the aura or starting its turn there is exposed to spore blight."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "RzkYPr0bMWGWj9s4",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 120 Feet",
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "9YuL1pu4ZHOAaxcZ",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}, disease; 30 feet.</p>\n<p>A creature entering the aura or starting its turn there is exposed to spore blight.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "aura",
                         "disease"
@@ -819,159 +777,169 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spore Cloud",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "YFZY9kSm3yBZDWqF",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<b>Requirements</b> The monster’s last action was a success with a Strike that lists Improved Grab in its damage entry, or it has a creature grabbed using this action. <b>Effect</b> The monster automatically Grabs the target until the end of the monster’s next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can’t be used to Strike creatures until the grab is ended. Using Improved Grab extends the duration of the monster’s Improved Grab until the end of its next turn for all creatures grabbed by it, but this costs an action. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
+            "permission": {
+                "default": 0
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Improved Grab",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "IHt8UgMRkfZIvNsv",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<b>Requirements</b> The monster’s last action was a success with a Strike that lists Push in its damage entry. <b>Effect</b> The monster automatically knocks the target away from the monster. Unless otherwise noted in the ability description, the creature is pushed 5 feet. If the attack was a critical hit, this distance is doubled."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Improved Push",
             "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "UT1biGVs3jsmAWcz",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.9xFBHMzNHhGbTKKM"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "O1bOjRoY3AbOWiXZ",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "regeneration",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 35 (deactivated by cold)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
             "type": "action"
         },
         {
             "_id": "7O6Ud0aHDjF3hlFD",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " <b>Frequency</b> once per day. <b>Requirement</b> The terotricus is in a swamp or forested area. <b>Effect</b> The terotricus drains nutrients from nearby trees and undergrowth while simultaneously infesting them with fungal growth. All non-magical plant life (though not plant creatures) within a 60-foot emanation withers and sprouts foul mold and slimy mushrooms, removing any cover and concealment provided by trees and undergrowth. The terotricus is healed 200 Hit Points."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Frequency</strong> once per day.</p>\n<p><strong>Requirement</strong> The terotricus is in a swamp or forested area.</p>\n<p><strong>Effect</strong> The terotricus drains nutrients from nearby trees and undergrowth while simultaneously infesting them with fungal growth. All non-magical plant life (though not plant creatures) within a 60-foot emanation withers and sprouts foul mold and slimy mushrooms, removing any cover and concealment provided by trees and undergrowth. The terotricus is healed 200 Hit Points.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "healing",
                         "necromancy",
@@ -988,23 +956,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Infest Environs",
-            "sort": 600000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
             "type": "action"
         },
         {
             "_id": "fvSVZqV8GEHEzMVu",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1015,22 +982,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " Plants and fungi are immune. <b>Saving Throw</b> Fortitude DC 40; <b>Stage 1</b> enfeebled 2 (1 day); <b>Stage 2</b> enfeebled 4 and slowed 1 (1 day); <b>Stage 3</b> controlled by the terotricus (as dominate; 5d8 days); <b>Stage 4</b> dead."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>Plants and fungi are immune.</p>\n<hr />\n<p><strong>Saving Throw</strong> <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"40\" data-pf2-traits=\"\" data-pf2-label=\"Sticky Spores DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<p><strong>Stage 1</strong>@Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}(1 day);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled4} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 day);</p>\n<p><strong>Stage 3</strong>@Compendium[pf2e.conditionitems.Controlled]{Controlled} by the terotricus (as @Compendium[pf2e.spells-srd.Dominate]{Dominate}; [[/r 5d8 #days]] days);</p>\n<p><strong>Stage 4</strong> dead.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "disease"
                     ]
@@ -1045,23 +1011,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spore Blight",
-            "sort": 700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "action"
         },
         {
             "_id": "1Vdy1h0xvUBMB9Mg",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1072,22 +1037,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A creature hit by a terotricus’s spores must succeed at a DC 40 Reflex save or take a –10-foot status penalty to all its Speeds for 1 minute. On a critical failure, the creature is immobilized until it Escapes (DC 40)."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A creature hit by a terotricus's spores must succeed at a <span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"40\" data-pf2-traits=\"\" data-pf2-label=\"Sticky Spores DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or take a -10-foot status penalty to all its Speeds for 1 minute. On a critical failure, the creature is immobilized until it Escapes (DC 40).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1100,16 +1064,123 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sticky Spores",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "eDk2y4Jw9s28yjXS",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Sticky Spores",
-            "sort": 800000,
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "W3lLKGh07cal0OCP",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Push]{Push} as a free action triggered by a hit with its initial attack.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "improved-push",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.6l7e7CHQLESlI57U"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Push (20 Feet, 40 Feet on a Critical Hit)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1120,7 +1191,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1130,23 +1200,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -1157,7 +1235,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1167,23 +1244,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1000000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -1194,7 +1279,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1204,23 +1288,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1231,7 +1323,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1241,23 +1332,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1268,7 +1367,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1278,23 +1376,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1700000,
             "type": "lore"
         }
     ],
@@ -1303,13 +1409,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "cZsaAKlEYWZUO1CV",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1319,15 +1427,21 @@
         "disposition": -1,
         "flags": {},
         "height": 4,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Terotricus",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 4

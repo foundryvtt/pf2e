@@ -1,6 +1,7 @@
 {
     "_id": "7JVgLiNTAs4clEW8",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>These brass goggles are engraved with flame patterns and have thick, heavy lenses. While worn, they give you a +1 item bonus to Crafting checks to Craft alchemical items and a +1 item bonus to attack rolls with alchemical bombs. You can also ignore lesser cover when making Strikes with alchemical bombs.&nbsp;</span></p>"
+            "value": "<p>These brass goggles are engraved with flame patterns and have thick, heavy lenses.</p>\n<p>While worn, they give you a +1 item bonus to Crafting checks to Craft alchemical items and a +1 item bonus to attack rolls with alchemical bombs.</p>\n<p>You can also ignore lesser cover when making Strikes with alchemical bombs.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to Crafting alchemical item</li>\n<li>+1 item bonus to attack rolls with bombs</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "4"
+            "value": 4
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,38 @@
             "value": "100 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Alchemist Goggles (craft alchemical items)",
+                "predicate": {
+                    "all": [
+                        "alchemical",
+                        "action:craft"
+                    ]
+                },
+                "selector": "crafting",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Alchemist Goggles (alchemical bombs)",
+                "predicate": {
+                    "all": [
+                        "alchemical",
+                        "bomb"
+                    ]
+                },
+                "selector": "attack",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +110,6 @@
             "rarity": {
                 "value": "common"
             },
-            "usage": {
-                "value": "held-in-one-hand"
-            },
             "value": [
                 "invested",
                 "magical",
@@ -81,14 +117,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worneyepiece"
         },
         "weight": {
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/alchemist-goggles.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/alchemist-goggles.webp",
     "name": "Alchemist Goggles",
     "permission": {
         "default": 0

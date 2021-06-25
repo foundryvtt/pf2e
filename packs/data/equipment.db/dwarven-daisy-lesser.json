@@ -7,6 +7,7 @@
         "ability": {
             "value": "dex"
         },
+        "baseItem": "alchemical-bomb",
         "bonus": {
             "value": 0
         },
@@ -34,7 +35,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>A dwarven daisy is a string of dozens of firecrackers that create tiny, loud explosions. The string ends with a short, wrapped fuse. Pulling off the wrapping in a quick motion lights the fuse and is done as part of the action to Strike. A dwarven daisy deals the listed fire damage and splash damage. A dwarven daisy also has a chance to dazzle its target. A creature struck by a dwarven daisy must succeed at a Fortitude save or become dazzled for 1 round. <br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Strike</span></p>\n<p><span>The firework deals 1d6 fire damage and 1 fire splash damage. The DC is 16.</span></p>"
+            "value": "<p>A dwarven daisy is a string of dozens of firecrackers that create tiny, loud explosions. The string ends with a short, wrapped fuse. Pulling off the wrapping in a quick motion lights the fuse and is done as part of the action to Strike. A dwarven daisy deals the listed fire damage and splash damage. A dwarven daisy also has a chance to dazzle its target. A creature struck by a dwarven daisy must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"alchemical,bomb,consumable,fire,splash,damaging-effect\" data-pf2-label=\"Dwarven Daisy (Lesser) DC\" data-pf2-dc=\"16\" data-pf2-show-dc=\"all\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>The firework deals 1d6 fire damage and 1 fire splash damage. The DC is 16.</p>"
         },
         "equipped": {
             "value": false
@@ -54,14 +55,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
         "maxHp": {
             "value": 0
@@ -70,7 +81,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": ""
+            "value": null
         },
         "preciousMaterial": {
             "value": ""
@@ -95,26 +106,6 @@
             "strikeConditionValue": null,
             "value": ""
         },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "value": ""
-        },
         "propertyRune1": {
             "value": ""
         },
@@ -128,18 +119,24 @@
             "value": ""
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
         "range": {
             "value": "20"
         },
-        "rarity": {
-            "value": "common"
-        },
         "reload": {
             "value": "1"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'><strong>Effect:</strong> Target must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"alchemical,bomb,consumable,fire,splash,damaging-effect\" data-pf2-label=\"Dwarven Daisy (Lesser) DC\" data-pf2-dc=\"16\" data-pf2-show-dc=\"all\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>"
+            }
+        ],
+        "size": {
+            "value": "med"
+        },
         "source": {
             "value": ""
         },
@@ -175,8 +172,10 @@
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/consumables/ammunition/dwarven-daisy.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/consumables/ammunition/dwarven-daisy.webp",
     "name": "Dwarven Daisy (Lesser)",
     "permission": {
         "default": 0

@@ -13,38 +13,60 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>@Compendium[pf2e.feats-srd.hT4INKGtly4QY8KN]{Domain Initiate}</p>\n<hr>\n<p>Residual energy from your domain spells bolsters your defenses. When you spend a Focus Point to cast a domain spell, you gain a +1 status bonus to your AC until the start of your next turn.</p>"
+            "value": "<p>Residual energy from your domain spells bolsters your defenses. When you spend a Focus Point to cast a domain spell, you gain a +1 status bonus to your AC until the start of your next turn.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "10"
+            "value": 10
         },
+        "location": "",
         "prerequisites": {
-            "value": "Domain Initiate"
+            "value": [
+                {
+                    "value": "Domain Initiate"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Spend a Focus Point on a Domain Spell",
+                "property": "flags.pf2e.rollOptions.ac.shield-of-faith"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "shield-of-faith"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "cleric"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Shield Of Faith",
     "permission": {
         "default": 0

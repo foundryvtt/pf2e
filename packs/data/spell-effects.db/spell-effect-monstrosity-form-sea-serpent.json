@@ -1,0 +1,218 @@
+{
+    "_id": "Eik8Fj8nGo2GLcbn",
+    "data": {
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>Granted by casting @Compendium[pf2e.spells-srd.Monstrosity Form]{Monstrosity Form}</p>\n<p>You transform into the shape of a legendary monster, assuming a Huge battle form. You must have enough space to expand into or the spell is lost. While in this form, you gain the animal trait. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 20 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>20 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can use. You're trained with them. Your attack modifier is +28, and you use the listed damage. These attacks are Strength based (for the purpose of the @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} condition, for example). If your unarmed attack modifier is higher, you can use it instead.</li>\n<li>Athletics modifier of +30, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of monster you choose:</p>\n<ul>\n<li><strong>Sea Serpent</strong>\n<ul>\n<li>Speed 20 feet, swim Speed 90 feet;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> jaws (reach 15 feet), <strong>Damage</strong> 2d12+20 piercing;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> tail (reach 25 feet), <strong>Damage</strong> 2d8+20 bludgeoning;</li>\n<li><strong>Spine Rake</strong> <span class=\"pf2-icon\">2</span> (move) You extend your spines and Swim or Stride. Each creature you're adjacent to at any point during your movement takes 4d8+10 slashing damage (basic Reflex against your spell DC).</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (9th)</strong> You instead gain AC = 22 + your level, 25 temporary HP, attack modifier +31, increase damage by one damage die, and Athletics +33.</p>\n<hr />\n<p><em>Note: To heighten this effect, import it into your Item Directory and edit the level before adding it to the target</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 8
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FixedProficiency",
+                "label": "Monstrosity Form",
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "polymorph",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": "20 + @details.level.value"
+                        },
+                        {
+                            "start": 9,
+                            "value": "22 + @details.level.value"
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.TempHP",
+                "label": "Monstrosity Form",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 20
+                        },
+                        {
+                            "start": 9,
+                            "value": 25
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.Sense",
+                "label": "PF2E.SensesDarkvision",
+                "selector": "darkvision"
+            },
+            {
+                "ability": "str",
+                "key": "PF2E.RuleElement.FixedProficiency",
+                "label": "Monstrosity Form",
+                "selector": "attack",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 28
+                        },
+                        {
+                            "start": 9,
+                            "value": 31
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FixedProficiency",
+                "label": "Monstrosity Form",
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "athletics",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 30
+                        },
+                        {
+                            "start": 9,
+                            "value": 33
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.TokenSize",
+                "value": "huge"
+            },
+            {
+                "key": "PF2E.RuleElement.BaseSpeed",
+                "selector": "land-speed",
+                "value": 20
+            },
+            {
+                "key": "PF2E.RuleElement.BaseSpeed",
+                "selector": "swim",
+                "value": 90
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 2,
+                        "die": "d12"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Sea Serpent Jaws",
+                "range": "melee",
+                "traits": [
+                    "melee",
+                    "reach-15"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 2,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Sea Serpent Tail",
+                "range": "melee",
+                "traits": [
+                    "melee",
+                    "reach-25"
+                ]
+            },
+            {
+                "critical": false,
+                "key": "PF2E.RuleElement.DamageDice",
+                "label": "Monstrosity Form",
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "ability": "str",
+                "key": "PF2E.RuleElement.FixedProficiency",
+                "label": "Monstrosity Form",
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": 20
+            },
+            {
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.polymorph",
+                "retain": true
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/monstrosity-form.webp",
+    "name": "Spell Effect: Monstrosity Form (Sea Serpent)",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

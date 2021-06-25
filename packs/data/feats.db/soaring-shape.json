@@ -5,63 +5,61 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> Wild Shape</p>\n<hr>\n<p>Wings free you from the shackles of the ground below. Add the bat and bird forms in aerial form to your wild shape list. If you have Insect Shape, you also add the wasp form to your wild shape list. If you have Ferocious Shape, you also add the pterosaur form to your wild shape list. Whenever you use wild shape to gain a form that grants you a specific Acrobatics modifier, you gain a +1 status bonus to Acrobatics checks.</p>"
+            "value": "<p>Wings free you from the shackles of the ground below.</p>\n<p>Add the bat and bird forms in @Compendium[pf2e.spells-srd.Aerial Form]{Aerial Form} to your <em>wild shape</em> list.</p>\n<p>If you have @Compendium[pf2e.feats-srd.Insect Shape]{Insect Shape}, you also add the wasp form to your <em>wild shape</em> list. If you have @Compendium[pf2e.feats-srd.Ferocious Shape]{Ferocious Shape}, you also add the pterosaur form to your <em>wild shape</em> list.</p>\n<p>Whenever you use <em>wild shape</em> to gain a form that grants you a specific Acrobatics modifier, you gain a +1 status bonus to Acrobatics checks.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "8"
+            "value": 8
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "Wild Shape"
+            "value": [
+                {
+                    "value": "Wild Shape"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "In a form that gives an Acrobatics modifier",
+                "predicate": {
+                    "all": [
+                        "polymorph",
+                        "form-gives-acrobatics"
+                    ]
+                },
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "druid"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Soaring Shape",
     "permission": {
         "default": 0

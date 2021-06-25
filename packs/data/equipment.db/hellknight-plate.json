@@ -2,15 +2,12 @@
     "_id": "lCgXeV52eYYl5cUX",
     "data": {
         "armor": {
-            "label": "AC Bonus",
-            "type": "Number",
             "value": 6
         },
         "armorType": {
-            "label": "Armor Category",
-            "type": "String",
             "value": "heavy"
         },
+        "baseItem": "hellknight-plate",
         "brokenThreshold": {
             "value": null
         },
@@ -18,9 +15,7 @@
             "value": ""
         },
         "check": {
-            "label": "Check Penalty",
-            "type": "String",
-            "value": "-3"
+            "value": -3
         },
         "collapsed": {
             "value": false
@@ -30,27 +25,19 @@
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><span>Few armors in the Inner Sea region are as memorable as the iconic Hellknight plate. While each order has its own flourishes, Hellknight plate is instantly recognizable to any who know of the Hellknights. Hellknights go to extreme measures to punish non-Hellknights who get their hands on Hellknight plate, and the reward is not usually worth the risk, since for non-Hellknights, the armor is functionally similar to @Compendium[pf2e.equipment-srd.Gq1cZWSKOtJhKd2p]{Full Plate}.&nbsp;</span></p>"
+            "value": "<p><span>Few armors in the Inner Sea region are as memorable as the iconic Hellknight plate. While each order has its own flourishes, Hellknight plate is instantly recognizable to any who know of the Hellknights. Hellknights go to extreme measures to punish non-Hellknights who get their hands on Hellknight plate, and the reward is not usually worth the risk, since for non-Hellknights, the armor is functionally similar to @Compendium[pf2e.equipment-srd.Full Plate]{Full Plate}. </span></p>"
         },
         "dex": {
-            "label": "Dex Modifier Cap",
-            "type": "String",
-            "value": "0"
+            "value": 0
         },
         "equipped": {
-            "label": "Equipped",
-            "type": "Boolean",
             "value": false
         },
         "equippedBulk": {
             "value": "4"
         },
         "group": {
-            "label": "Group",
-            "type": "String",
             "value": "plate"
         },
         "hardness": {
@@ -59,15 +46,23 @@
         "hp": {
             "value": null
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 2
         },
         "maxHp": {
@@ -76,12 +71,9 @@
         "negateBulk": {
             "value": "0"
         },
-        "potency": {
-            "label": "Armor Potency",
-            "type": "String"
-        },
+        "potency": {},
         "potencyRune": {
-            "value": ""
+            "value": null
         },
         "preciousMaterial": {
             "value": ""
@@ -90,45 +82,7 @@
             "value": ""
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "35 gp"
-        },
-        "property1": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 1",
-            "type": "Number",
-            "value": ""
-        },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 2",
-            "type": "Number",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 3",
-            "type": "Number",
-            "value": ""
         },
         "propertyRune1": {
             "value": ""
@@ -143,60 +97,61 @@
             "value": ""
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
-        },
-        "rarity": {
-            "value": "common"
         },
         "resiliencyRune": {
             "value": ""
         },
-        "resilient": {
-            "label": "Resilient",
-            "type": "String"
+        "resilient": {},
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Bulwark (vs. damaging effects)",
+                "predicate": {
+                    "all": [
+                        "damage"
+                    ]
+                },
+                "selector": "reflex",
+                "type": "ability",
+                "value": 3
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "speed": {
-            "label": "Speed Penalty",
-            "type": "String",
-            "value": "-10 ft"
+            "value": -10
         },
         "stackGroup": {
             "value": ""
         },
         "strength": {
-            "label": "Required Strength",
-            "type": "String",
-            "value": "18"
+            "value": 18
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "uncommon"
             },
-            "type": "String",
             "value": [
                 "bulwark"
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornarmor"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "5"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/armor/hellknight-plate.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/armor/hellknight-plate.webp",
     "name": "Hellknight Plate",
     "permission": {
         "default": 0

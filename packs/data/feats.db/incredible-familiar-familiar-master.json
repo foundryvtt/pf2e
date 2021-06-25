@@ -13,37 +13,45 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> <a class=\"entity-link\" data-pack=\"pf2e.feats-srd\" data-lookup=\"4oagp3jjUbYhu1lY\" draggable=\"true\"><i class=\"fas fa-suitcase\"></i> Enhanced Familiar</a></p>\n<hr>\n<p>Your familiar is infused with even more magic than other familiars. You can select six familiar or master abilities each day, instead of four.</p>"
+            "value": "<p>Your familiar is infused with even more magic than other familiars. You can select six familiar or master abilities each day, instead of four.</p>"
         },
         "featType": {
             "value": "archetype"
         },
         "level": {
-            "value": "10"
+            "value": 10
         },
         "prerequisites": {
-            "value": "Enhanced Familiar"
+            "value": [
+                {
+                    "value": "Enhanced Familiar"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "familiar-abilities",
+                "type": "base",
+                "value": 6
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "archetype"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Incredible Familiar (Familiar Master)",
     "permission": {
         "default": 0

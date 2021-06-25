@@ -22,14 +22,12 @@
         "creatureType": "",
         "details": {
             "description": "A blast of energy damages all creatures within\r\n20 feet, with particularly severe damage to fiends.",
-            "disable": "Thievery DC 27 (expert) to identify the proper\r\nsequence of buttons in the divots, or dispel magic (4th level; counteract DC 25) to suppress the magical effect for 1 hour",
+            "disable": "<p>Thievery DC 27 (expert) to identify the proper sequence of buttons in the divots, or @Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic} (4th level; counteract DC 25) to suppress the magical effect for 1 hour</p>",
             "isComplex": false,
             "level": 7,
             "reset": "The trap resets after 1 hour.",
             "routine": ""
         },
-        "flavourText": "",
-        "nethysUrl": "",
         "recallKnowledgeText": "",
         "saves": {
             "fortitude": {
@@ -53,9 +51,8 @@
                 "value": ""
             }
         },
-        "sidebarText": "",
         "source": {
-            "value": ""
+            "value": "Pathfinder Adventure: The Slithering"
         },
         "statusEffects": [],
         "traits": {
@@ -67,23 +64,26 @@
             },
             "dr": [],
             "dv": [],
+            "rarity": {
+                "value": "uncommon"
+            },
+            "size": {
+                "value": "med"
+            },
             "traits": {
                 "custom": "",
                 "value": [
                     "magical",
-                    "uncommon"
+                    "mechanical",
+                    "trap"
                 ]
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {
-            "npcNotes": {
-                "value": ""
-            }
-        }
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
             "_id": "qnGVlOvfyHP5LeK0",
@@ -100,29 +100,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong>: The door is touched without first pressing the correct sequence of buttons;</p>\n<p><strong>Effect</strong>: A blast of energy ripples outward from the door, dealing 4d10 force damage to all creatures within 20 feet and forcing them to make a DC 25 Fortitude save. Fiends treat the result of their saving throw as one degree worse.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionspf2e.fesd1n5eVhpCSS18]{Sickened} 1.</p>\n<p><strong>Critical Failure </strong>The creature takes double damage and is sickened 2; while it is sickened, it’s also @Compendium[pf2e.conditionspf2e.xYTAsEpcJE1Ccni3]{Slowed} 1.</p>"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Trigger</strong>: The door is touched without first pressing the correct sequence of buttons;</p>\n<p><strong>Effect</strong>: A blast of energy ripples outward from the door, dealing [[/r 4d10 #force]] force damage to all creatures within 20 feet and forcing them to make a <span data-pf2-saving-throw=\"fortitude\" data-pf2-label=\"Forceful Blast DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">Fortitude</span> save. <em data-visibility=\"gm\">Fiends treat the result of their saving throw as one degree worse.</em></p>\n<hr />\n<p><em data-visibility=\"gm\"><strong>Critical Success</strong> The creature is unaffected.</em></p>\n<p><em data-visibility=\"gm\"><strong>Success</strong> The creature takes half damage.</em></p>\n<p><em data-visibility=\"gm\"><strong>Failure</strong> The creature takes full damage and is@Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</em></p>\n<p><em data-visibility=\"gm\"><strong>Critical Failure</strong> The creature takes double damage and is@Compendium[pf2e.conditionitems.Sickened]{Sickened 2}; while it is sickened, it's also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}.</em></p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "divine",
                         "evocation"
@@ -138,9 +130,14 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Forceul Blast",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Forceful Blast",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "action"
         }
@@ -150,31 +147,39 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "nVa7a7fBFa3gEEN9",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
         "dimSight": 0,
         "displayBars": 20,
         "displayName": 20,
-        "disposition": -1,
+        "disposition": 0,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/hazard.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Fiendripping Blast Trap",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

@@ -2,6 +2,12 @@
     --border-width: 1px;
 }
 
+#sidebar {
+    --header-color: white;
+    --header-bg: var(--primary);
+    --body-padding: 0.25em 0.5em;
+}
+
 /* Toolbar UI */
 #controls .scene-control,
 #controls .control-tool {
@@ -13,7 +19,7 @@
     color: rgba(255, 255, 255, 0.9);
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
     background: var(--primary);
-    background-image: url('../../assets/sheet/nav-item.png');
+    background-image: url('../../assets/sheet/nav-item.webp');
     background-size: contain;
     background-blend-mode: overlay;
     border-radius: 3px;
@@ -81,7 +87,7 @@
 #navigation #scene-list .scene.context {
     border: none;
     padding: 0;
-    background-image: url('../../assets/dark_tire.png');
+    background-image: url('../../assets/dark-tire.webp');
 }
 
 #navigation #scene-list .scene.view .scene-name,
@@ -89,12 +95,12 @@
     border-style: solid;
     border-image-outset: 0;
     border-width: 9px;
-    border-image: url('../../assets/sheet/corner-box.png') 9 repeat;
+    border-image: url('../../assets/sheet/corner-box.webp') 9 repeat;
 }
 
 #navigation #scene-list .scene.gm {
     background-color: var(--alt);
-    border: 1px solid #493C31;
+    border: 1px solid #493c31;
     box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5),
         inset 0 0 0 2px rgba(255, 255, 255, 0.2),
         inset 0 0 0 3px rgba(255, 255, 255, 0.1);
@@ -106,4 +112,85 @@
 
 #navigation #nav-toggle:hover {
     box-shadow: none;
+}
+
+/* Sidebar UI */
+
+#chat-log .message {
+    padding: 0;
+    margin: 6px;
+    color: var(--body);
+    border-radius: 0;
+    background: url('../../assets/sheet/background.webp');
+
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    /* prettier-ignore */
+    box-shadow:
+        0 0 0 1px var(--tertiary),
+        0 0 0 2px #9f725b,
+        inset 0 0 3px rgba(255,255,255,0.5);
+}
+
+#chat-log .message .message-header {
+    display: grid;
+    grid:
+        'sender info' minmax(min-content, max-content)
+        'text text' minmax(min-content, max-content)
+        / 2fr 1fr;
+    color: var(--body);
+}
+
+#chat-log .message .message-header .message-sender {
+    grid-area: sender;
+    font-size: small;
+    font-weight: 400;
+    color: var(--header-color);
+    background-color: var(--header-bg);
+    padding: var(--body-padding);
+    padding-right: 0;
+
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+    background-image: url('../../assets/chat-header.webp');
+}
+
+#chat-log .message .message-header .message-metadata {
+    grid-area: info;
+    color: var(--header-color);
+    background-color: var(--header-bg);
+    padding: var(--body-padding);
+
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+    background-image: url('../../assets/chat-header.webp');
+}
+
+#chat-log .message .message-header .flavor-text,
+#chat-log .message .message-header .whisper-to {
+    grid-area: text;
+    padding: var(--body-padding);
+}
+
+#chat-log .message .message-content {
+    padding: var(--body-padding);
+}
+
+.pf2e.chat-card .card-header {
+    display: flex;
+    align-items: center;
+    border: none;
+}
+
+.pf2e.chat-card .card-header h3 {
+    line-height: normal;
+}
+
+.pf2e.chat-card .card-content {
+    border-style: double;
+    border-image-slice: 11;
+    border-image-width: 14px;
+    border-image-repeat: repeat;
+    border-image-source: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='33' height='33' overflow='scroll'%3E%3Cstyle%3E.st1%7Bstroke:%23231f20;stroke-miterlimit:10%7D.st1,.st2%7Bfill:none%7D%3C/style%3E%3Cg opacity='.25'%3E%3Cpath class='st1' d='M.5 20v-7'/%3E%3Cpath class='st2' d='M13 20v-7'/%3E%3Cpath class='st1' d='M13 .5h7'/%3E%3Cpath class='st2' d='M13 13h7'/%3E%3Cpath class='st1' d='M32.5 13v7'/%3E%3Cpath class='st2' d='M20 13v7'/%3E%3Cpath class='st1' d='M20 32.5h-7'/%3E%3Cpath class='st2' d='M20 20h-7'/%3E%3Cg%3E%3Cpath class='st1' d='M.5.5h3.1v3.1H.5zM3.6 3.6h3.1v3.1H3.6zM6.8 3.6h3.1v3.1H6.8zM3.6 6.8h3.1v3.1H3.6zM3.6 6.8H.5V13M13 .5H6.8v3.1'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st1' d='M29.4.5h3.1v3.1h-3.1zM26.3 3.6h3.1v3.1h-3.1zM26.3 6.8h3.1v3.1h-3.1zM23.1 3.6h3.1v3.1h-3.1zM26.3 3.6V.5H20'/%3E%3Cpath class='st1' d='M32.5 13V6.8h-3.1'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st1' d='M29.4 29.4h3.1v3.1h-3.1z'/%3E%3Cpath class='st1' d='M26.3 26.3h3.1v3.1h-3.1zM23.1 26.3h3.1v3.1h-3.1zM26.3 23.1h3.1v3.1h-3.1z'/%3E%3Cpath class='st1' d='M29.4 26.3h3.1V20M20 32.5h6.3v-3.1'/%3E%3C/g%3E%3Cg%3E%3Cpath class='st1' d='M.5 29.4h3.1v3.1H.5zM3.6 26.3h3.1v3.1H3.6zM3.6 23.1h3.1v3.1H3.6zM6.8 26.3h3.1v3.1H6.8z'/%3E%3Cpath class='st1' d='M6.8 29.4v3.1H13M.5 20v6.3h3.1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.pf2e.chat-card .card-content p {
+    padding: 0.5em;
 }

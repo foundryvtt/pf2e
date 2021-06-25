@@ -1,53 +1,55 @@
 <div class="tab effects actions-pane" data-group="primary" data-tab="effects">
-    <ol class="effects-list inventory-list directory-list strikes-list">
-        <li class="item action-header">
+    <ol class="effects-list inventory-list directory-list item-list">
+        <li class="action-header">
             <h3 class="item-name pf-heading pf-actions">{{localize 'PF2E.ConditionsLabel'}}</h3>
         </li>
         {{#each data.effects.conditions as |item ii|}}
         <li class="item effects expandable" data-item-id="{{item.id}}" data-action-index="{{ii}}">
-          <div class="item-name rollable">
-            <div class="item-image action-strike" style="background-image: url({{item.img}})">
-              <i class="fas fa-comment-alt"></i>
+            <div class="item-name rollable">
+                <div class="item-image" style="background-image: url({{item.img}})">
+                    <i class="fas fa-comment-alt"></i>
+                </div>
+                <h4 class="action-name">{{item.name}}{{#unless item.active}}<span> (Inactive)</span>{{/unless}}</h4>
             </div>
-            <h4 class="action-name">{{item.name}}{{#unless item.active}}<span>  (Inactive)</span>{{/unless}}</h4>
-          </div>
-          <div class="item-controls">
-            <a class="item-control item-delete" title="{{localize PF2E.DeleteItemTitle}}"><i class="fas fa-trash"></i></a>
-          </div>
-          <div class="item-summary">
-            <div class="item-description">
-              <p>{{{enrichHTML item.description}}}</p>
+            <div class="item-controls">
+                <a class="item-control item-delete" title="{{localize PF2E.DeleteItemTitle}}"><i
+                        class="fas fa-trash"></i></a>
             </div>
-            {{#if item.references}}
-            <div class="condition-references">
-              {{#if item.parents.length}}
-              <div class="condition-parents">
-                <p>Applied From:{{#each item.parents as |parent|}} <span data-item-id="{{parent.id}}">{{{enrichHTML parent.text}}}</span>{{/each}}</p>
-              </div>
-              {{/if}}
-              {{#if item.children.length}}
-              <div class="condition-children">
-                <p>Also Applied:{{#each item.children as |child|}} {{{enrichHTML child.text}}}{{/each}}</p>
-              </div>
-              {{/if}}
-              {{#if item.overrides.length}}
-              <div class="condition-overriding">
-                <p>Overriding:{{#each item.overrides as |o|}} {{{enrichHTML o.text}}}{{/each}}</p>
-              </div>
-              {{/if}}
-              {{#if item.overriddenBy.length}}
-              <div class="condition-overridden">
-                <p>Overridden by:{{#each item.overriddenBy as |o|}} {{{enrichHTML o.text}}}{{/each}}</p>
-              </div>
-              {{/if}}
+            <div class="item-summary">
+                <div class="item-description">
+                    <p>{{{enrichHTML item.description}}}</p>
+                </div>
+                {{#if item.references}}
+                <div class="condition-references">
+                    {{#if item.parents.length}}
+                    <div class="condition-parents">
+                        <p>Applied From:{{#each item.parents as |parent|}} <span
+                                data-item-id="{{parent.id}}">{{{enrichHTML parent.text}}}</span>{{/each}}</p>
+                    </div>
+                    {{/if}}
+                    {{#if item.children.length}}
+                    <div class="condition-children">
+                        <p>Also Applied:{{#each item.children as |child|}} {{{enrichHTML child.text}}}{{/each}}</p>
+                    </div>
+                    {{/if}}
+                    {{#if item.overrides.length}}
+                    <div class="condition-overriding">
+                        <p>Overriding:{{#each item.overrides as |o|}} {{{enrichHTML o.text}}}{{/each}}</p>
+                    </div>
+                    {{/if}}
+                    {{#if item.overriddenBy.length}}
+                    <div class="condition-overridden">
+                        <p>Overridden by:{{#each item.overriddenBy as |o|}} {{{enrichHTML o.text}}}{{/each}}</p>
+                    </div>
+                    {{/if}}
+                </div>
+                {{/if}}
             </div>
-            {{/if}}
-          </div>
         </li>
         {{/each}}
 
-        <li class="item action-header">
-            <h3 class="item-name pf-heading pf-actions">{{localize 'Effects'}}</h3>
+        <li class="action-header">
+            <h3 class="item-name pf-heading pf-actions">{{localize 'PF2E.EffectsLabel'}}</h3>
         </li>
         {{#each items as |item ii|}}
         {{#if (eq item.type 'effect') }}
@@ -60,13 +62,46 @@
             </div>
             {{#if ../owner}}
             <div class="item-controls">
-                <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
-                <a class="item-control item-delete" title="{{localize PF2E.DeleteItemTitle}}"><i class="fas fa-trash"></i></a>
+                <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i
+                        class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title="{{localize PF2E.DeleteItemTitle}}"><i
+                        class="fas fa-trash"></i></a>
             </div>
             <div class="item-summary"></div>
             {{/if}}
         </li>
         {{/if}}
+        {{/each}}
+
+        <li class="action-header">
+            <h3 class="item-name pf-heading pf-actions">{{localize "PF2E.FeatDeityBoonCursesHeader"}}</h3>
+            {{#if owner}}
+            <div class="item-controls">
+                <a class="item-control item-create" title="{{localize "PF2E.CreateFeatTitle"}}" data-type="feat" data-feat-type="deityboon"><i class="fas fa-plus"></i></a>
+                <a class="item-control feat-browse" title="{{localize "PF2E.OpenFeatBrowserTitle"}}" data-type="feat"><i class="fas fa-search"></i></a>
+            </div>
+            {{/if}}
+        </li>
+
+        {{#each actor.deityBoonsCurses as |feat|}}
+            <li class="item feat-item" data-item-id="{{feat._id}}">
+                <div class="item-name rollable">
+                    <div class="feat-slot-title">
+                    </div>
+                    <div class="item-image" style="background-image: url({{feat.img}})">
+                        <i class="fas fa-comment-alt"></i>
+                    </div>
+                    <h4>
+                        {{feat.name}}
+                    </h4>
+                </div>
+                {{#if ../owner}}
+                <div class="item-controls">
+                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                </div>
+                {{/if}}
+            </li>
         {{/each}}
     </ol>
 </div>

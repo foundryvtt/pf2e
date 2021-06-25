@@ -5,63 +5,82 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> Strength 16, expert in Intimidation</p>\n<hr>\n<p>In situations where you can physically menace the target when you Coerce or Demoralize, you gain a +1 circumstance bonus to your Intimidation check and you ignore the penalty for not sharing a language. If your Strength score is 20 or higher and you are a master in Intimidation, this bonus increases to +2.</p>"
+            "value": "<p>In situations where you can physically menace the target when you Coerce or Demoralize, you gain a +1 circumstance bonus to your Intimidation check and you ignore the penalty for not sharing a language. If your Strength score is 20 or higher and you are a master in Intimidation, this bonus increases to +2.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "skill"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "Strength 16, expert in Intimidation"
+            "value": [
+                {
+                    "value": "Strength 16"
+                },
+                {
+                    "value": "expert in Intimidation"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Intimidating Prowess (physically menace with Coerce or Demoralize)",
+                "predicate": {
+                    "all": [
+                        "target:physically-menaced"
+                    ],
+                    "any": [
+                        "action:coerce",
+                        "action:demoralize"
+                    ]
+                },
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 3,
+                            "value": "round(@abilities.str.mod / 3)"
+                        },
+                        {
+                            "end": 2,
+                            "start": 2,
+                            "value": 1
+                        }
+                    ],
+                    "field": "actor|data.skills.itm.rank"
+                }
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "general",
                 "skill"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Intimidating Prowess",
     "permission": {
         "default": 0

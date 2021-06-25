@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "18"
+                "value": 18
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "20",
+                "max": 20,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "20"
+                "value": 20
             },
             "init": {
                 "bonus": 0,
@@ -112,7 +111,6 @@
                         "value": "15 feet"
                     }
                 ],
-                "special": "",
                 "value": "20 feet"
             }
         },
@@ -146,10 +144,10 @@
             },
             "creatureType": "Animal",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "While cockroaches tend to gather in cramped spaces, a disturbed colony is sometimes prone to swarming, where hundreds or even thousands of the insects scurry out of their hiding places in a raft of shiny brown and black carapaces on thousands of skittering legs. Given how disgusting many find cockroaches to be, encountering such a swarm can be alarming to even the most seasoned adventurers. The creatures are relentless when disturbed; in contrast to the insects' normally skittish and harmless nature, as swarms they pursue the creature or creatures that provoked them and harry them with thousands of stinging bites.<br><br>",
+            "flavorText": "While cockroaches tend to gather in cramped spaces, a disturbed colony is sometimes prone to swarming, where hundreds or even thousands of the insects scurry out of their hiding places in a raft of shiny brown and black carapaces on thousands of skittering legs. Given how disgusting many find cockroaches to be, encountering such a swarm can be alarming to even the most seasoned adventurers. The creatures are relentless when disturbed; in contrast to the insects' normally skittish and harmless nature, as swarms they pursue the creature or creatures that provoked them and harry them with thousands of stinging bites.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -159,13 +157,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "2"
+                "value": 2
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=586",
             "recallKnowledgeText": "Recall Knowledge - Animal : DC 16",
-            "sidebarText": "",
             "source": {
-                "value": "Bestiary 2 pg. 53"
+                "value": "Bestiary 2"
             }
         },
         "martial": {
@@ -415,11 +411,15 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
-                "custom": "precision, swarm mind",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "precision",
+                    "swarm-mind"
                 ]
             },
             "dr": [
@@ -463,7 +463,7 @@
                 "value": "darkvision, scent (imprecise) 60 feet"
             },
             "size": {
-                "value": "sm"
+                "value": "lg"
             },
             "traits": {
                 "custom": "",
@@ -474,16 +474,16 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "j8BUnBP4Ahs3QmLx",
+            "_id": "gsfeTAQtmgDaEQI7",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -494,22 +494,129 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "This monster doesn’t have a single mind (typically because it’s a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 100000,
+            "type": "action"
+        },
+        {
+            "_id": "SaUKY4rTuI0N39ad",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Scent",
+            "permission": {
+                "default": 0
+            },
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "j8BUnBP4Ahs3QmLx",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This monster doesn't have a single mind (typically because it's a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -522,23 +629,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Swarm Mind",
-            "sort": 100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
             "type": "action"
         },
         {
             "_id": "gI0Pt3FCseRtdPpl",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -549,22 +655,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Each enemy in the swarm's space takes [[/r 1d8 # piercing damage]] piercing damage (DC 18 basic Reflex save)."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 1d8 # piercing damage]] piercing damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"18\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Bites DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -577,16 +682,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Swarming Bites",
-            "sort": 200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -597,7 +701,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -607,23 +710,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -634,7 +745,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -644,23 +754,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
             "type": "lore"
         }
     ],
@@ -669,13 +787,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "8HJNH3aDTJyJi3pU",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -684,19 +804,26 @@
         "displayName": 20,
         "disposition": -1,
         "flags": {},
-        "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "height": 2,
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
+        "lightColor": null,
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Cockroach Swarm",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
-        "width": 1
+        "width": 2
     },
     "type": "npc"
 }

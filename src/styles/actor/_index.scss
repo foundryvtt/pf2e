@@ -15,7 +15,7 @@ $header-height: 89px;   /* Adjust height of the header */
 
     font-family: $body-serif;
 
-    background: url('../assets/sheet/header.png'), url('../assets/sheet-bg.jpg');
+    background: url('../assets/sheet/header.webp'), url('../assets/sheet/background.webp');
     background-repeat: repeat-x, no-repeat;
     background-size: auto $header-height, cover;
     background-attachment: local;
@@ -35,66 +35,53 @@ $header-height: 89px;   /* Adjust height of the header */
         margin-left: -22px;
     }
     .sheet-body {
-        grid-area: content;
-        position: relative;
+      grid-area: content;
+      position: relative;
 
-        .sheet-content,
-        .sheet-content .inventory {
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            padding-top: 18px;
+      .sheet-content,
+      .sheet-content .inventory {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 8px;
 
-            & > .tab:not(.inventory),
-            .inventory .inventory-list {
-                flex-grow: 1;
-                min-height: 0;
-                overflow: hidden scroll;
-                @include scrollbar;
-                padding-right: $window-p-right;
-                mask-image: linear-gradient(
-                    180deg,
-                    rgba(white, 1) 0%,
-                    rgba(white, 1) 1%,
-                    rgba(white, 1) 98%,
-                    rgba(white, 0) 100%
-                );
-            }
-
-            &.tab[data-tab] {
-                display: none;
-                &.active {
-                    display: initial;
-                }
-            }
+        & > .tab:not(.inventory),
+        .inventory .inventory-list {
+          @include scrollbar;
+          flex-grow: 1;
+          min-height: 0;
+          overflow: hidden scroll;
+          padding-right: $window-p-right;
         }
+
+        &.tab[data-tab] {
+          display: none;
+          &.active {
+            display: initial;
+          }
+        }
+      }
+
+      .sheet-content {
+        color: var(--body);
+        @import 'character', 'npc';
+
+        footer {
+          @include micro;
+          color: var(--primary);
+          text-align: right;
+          line-height: 1.4;
+          margin: 1em 1em 0;
+        }
+      }
     }
 
     /* Navigation */
     @import 'nav';
-
-    .sheet-content {
-        color: var(--body);
-        @import 'character', 'npc';
-    }
-
-    footer {
-        text-align: right;
-        @include micro;
-        color: var(--primary);
-        line-height: 1.4;
-        margin: 1em 8px;
-
-        p,
-        a {
-            font-weight: 700;
-            color: var(--primary);
-        }
-    }
 
     /* Read-Only Sheet */
     &.limited {
@@ -104,3 +91,19 @@ $header-height: 89px;   /* Adjust height of the header */
 
 /* Character Type Imports */
 @import 'familiar';
+.vehicle {
+    @import 'vehicle';
+}
+
+@import "hazard";
+
+.npc {
+    @import 'npc';
+}
+
+@import 'loot';
+
+/* Mystification data revealed to GMs */
+.gm-mystified-data {
+    opacity: 0.75;
+}

@@ -2,108 +2,82 @@
     <ol class="overflow-list skills-pane">
         <h3 class="item-name pf-heading pf-actions core-title">{{localize "PF2E.CoreSkillsHeader"}}</h3>
         <ol class="skills-list">
-
             <!-- Core Skills -->
-            {{#each data.skills as |skill s|}}
-            {{#unless skill.lore}}
-            <li class="skill" data-skill="{{s}}">
-                <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
-                <h4 class="skill-name rollable">{{skill.label}}</h4>
-                {{!-- <div class="skill-prof skill-container">
-                    <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number"/>
-                    <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{skill.rank}}" title="{{skill.hover}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span>
-                </div> --}}
-        
-                {{!-- {{#if skill.armor}}
-                <h4 class="skill-armor" title="{{localize 'PF2E.ArmorCheckPenalty'}}"><i class="fas fa-shield-alt"></i></h4>
-                {{/if}} --}}
-                    <div class="skill-prof button-group">
-                        <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number"/>
-                        <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{skill.rank}}" title="{{skill.hover}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span>
-                    <div class="hover-container">
-                        <h6 class="hover" data-tooltip-content="#{{../uid}}-{{skill.name}}-modifiers">{{localize 'PF2E.ModifiersTitle'}}</h6>
-                    </div>
-                </div>
-                {{#with skill}}
-                {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title=label }}
-                {{/with}}
-            </li>
-            {{/unless}}
+            {{#each data.skills as |skill key|}}
+                {{#unless skill.lore}}
+                    <li class="skill" data-skill="{{key}}">
+                        <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
+                        <h4 class="skill-name rollable">{{localize skill.label}}</h4>
+                        <div class="skill-prof button-group">
+                            <span class="skill-proficiency pf-value pf-rank adjust-stat" data-property="data.skills.{{key}}.rank" value="{{skill.rank}}" title="{{localize skill.hover}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span>
+                            <div class="hover-container">
+                                <h6 class="hover" data-tooltip-content="#{{../uid}}-{{skill.name}}-modifiers">{{localize "PF2E.ModifiersTitle"}}</h6>
+                            </div>
+                        </div>
+                        {{#with skill}}
+                            {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title=label }}
+                        {{/with}}
+                    </li>
+                {{/unless}}
             {{/each}}
         </ol>
 
         <!-- Lore Header -->
         <ol class="lore-header inventory-header directory-list">
             <li class="item action-header">
-                <h3 class="item-name pf-heading pf-actions">{{localize 'PF2E.LoreSkillsHeader'}}</h3>
+                <h3 class="item-name pf-heading pf-actions">{{localize "PF2E.LoreSkillsHeader"}}</h3>
                 {{#if owner}}
-                <div class="item-controls">
-                    <a class="item-control item-create pf-heading" title="{{localize 'PF2E.CreateActionTitle'}}" data-type="lore"><i class="fas fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
-                </div>
+                    <div class="item-controls">
+                        <a class="item-control item-create pf-heading" title="{{localize 'PF2E.CreateSkillTitle'}}" data-type="lore"><i class="fas fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
+                    </div>
                 {{/if}}
             </li>
         </ol>
         <ol class="lores-list">
             <!-- Lore Skills -->
             {{#each data.skills as |skill idx|}}
-            {{#if skill.lore}}
-            <li class="skill item" data-skill="{{skill.shortform}}" data-item-id="{{skill.itemID}}" data-item-type="lore">
-                <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>        
-                <div class="skill-name lore-name-input item-name-input">
-                    <input name="item-name-skill-{{skill.itemID}}" data-item-id="{{skill.itemID}}" type="text" data-dtype="String" value="{{skill.name}}" style="color: white;"/>
-                </div>
-                <div class="skill-prof button-group skill-container">
-                    <input type="hidden" name="data.items.{{idx}}.data.proficient.value" data-stat-type="item" value="{{skill.rank}}" data-dtype="Number"/>
-                    <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{skill.value}}" title="{{skill.breakdown}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span>
-                    {{#if ../owner}}
-                     <div class="item-controls pf-redbackground">
-                         <a class="item-control item-delete skill-armor" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
-                     </div>
-                     {{/if}}
-                </div>
-            </li>
-        {{/if}}
-        {{/each}}
+                {{#if skill.lore}}
+                    <li class="skill item" data-skill="{{skill.shortform}}" data-item-id="{{skill.itemID}}" data-item-type="lore">
+                        <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
+                        <div class="skill-name lore-name-input item-name-input">
+                            <input name="item-name-skill-{{skill.itemID}}" data-item-id="{{skill.itemID}}" type="text" data-dtype="String" value="{{skill.name}}" style="color: white;"/>
+                        </div>
+                        <div class="skill-prof button-group skill-container">
+                            <span class="skill-proficiency pf-value pf-rank adjust-item-stat" data-property="data.proficient.value" value="{{skill.rank}}" title="{{skill.breakdown}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span>
+                            {{#if ../owner}}
+                                <div class="item-controls pf-redbackground">
+                                    <a class="item-control item-delete skill-armor" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
+                                </div>
+                            {{/if}}
+                        </div>
+                    </li>
+                {{/if}}
+            {{/each}}
         </ol>
-        <!-- Martial Header -->
-        <ol class="lore-header inventory-header directory-list">
-            <li class="item action-header">
-            <h3 class="item-name pf-heading pf-actions">{{localize 'PF2E.MartialSkillsHeader'}}</h3>
+        <!-- Combat Proficiencies Header -->
+        <ol class="lore-header inventory-header directory-list combat-proficiencies">
+            <li class="action-header">
+                <h3 class="item-name pf-heading pf-actions">{{localize "PF2E.MartialSkillsHeader"}}</h3>
                 {{#if owner}}
-                <div class="item-controls">
-                    <a class="item-control item-create pf-heading" title="{{localize 'PF2E.CreateActionTitle'}}" data-type="martial"><i class="fas fa-plus"></i>{{localize 'PF2E.AddShortLabel'}}</a>
-                </div>
+                    <div class="item-controls">
+                        <a class="item-control add pf-heading" title="{{localize "PF2E.AddCombatProficiency.Title"}}"><i class="fas fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
+                    </div>
                 {{/if}}
             </li>
         </ol>
-        <ol class="martial-list">
-            <!-- Martial Skills -->
-            {{#each data.martial as |martial s|}}
-            <li class="skill" data-skill="{{s}}" data-item-id="{{martial._id}}">
-                <h1 class="skill-score lore-score" title="{{martial.breakdown}}">{{numberFormat martial.value decimals=0 sign=true}}</h1>        
-                <h4 class="skill-name lore-name-input">{{martial.label}}</h4>
-                <div class="skill-prof button-group skill-container">
-                    <input type="hidden" name="data.martial.{{s}}.rank" value="{{martial.rank}}" data-dtype="Number"/>
-                    <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{martial.rank}}" title="{{martial.hover}}">{{localize (add 'PF2E.ProficiencyLevel' martial.rank)}}</span>
-                </div>
-            </li>
-            {{/each}}
-            {{#each actor.martialSkills as |martial mid|}}
-            <li class="item skill" data-skill="{{mid}}" data-item-id="{{martial._id}}" data-item-type="martial">
-                <h1 class="skill-score" title="{{martial.data.breakdown}}">{{numberFormat martial.data.value decimals=0 sign=true}}</h1>        
-                <div class="skill-name lore-name-input item-name-input">
-                <input name="item-name-skill-{{martial._id}}" data-item-id="{{martial._id}}" type="text" data-dtype="String" value="{{martial.name}}" style="color: white;"/>
-                </div>
-                <div class="skill-prof button-group skill-container">
-                    <input type="hidden" name="data.items.{{mid}}.data.proficient.value" data-stat-type="item" value="{{martial.data.proficient.value}}" data-dtype="Number"/>
-                    <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{martial.data.proficient.value}}" title="{{martial.data.hover}}">{{localize (add 'PF2E.ProficiencyLevel' martial.data.proficient.value)}}</span>
-                    {{#if ../owner}}
-                    <div class="item-controls pf-redbackground" style="text-align: center">
-                        <a class="item-control item-delete skill-armor" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
-                    </div>
+        <ol class="combat-list">
+            <!-- Combat Proficiencies -->
+            {{#each data.martial as |proficiency key|}}
+                <li class="skill{{#if proficiency.custom}} custom{{/if}}" data-skill="{{key}}">
+                    {{#if proficiency.custom}}
+                        <a class="delete"><i class="fa fa-trash"></i></a>
                     {{/if}}
-                </div>
-            </li>
+                    <h1 class="skill-score lore-score" title="{{localize proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</h1>
+                    <h4 class="skill-name lore-name-input">{{localize proficiency.label}}</h4>
+                    <div class="skill-prof button-group skill-container">
+                        <span class="skill-proficiency pf-value pf-rank adjust-stat" data-property="data.martial.{{key}}.rank" value="{{proficiency.rank}}" title="{{localize proficiency.hover}}">{{localize (add 'PF2E.ProficiencyLevel' proficiency.rank)}}</span>
+                    </div>
+                </li>
             {{/each}}
         </ol>
     </ol>

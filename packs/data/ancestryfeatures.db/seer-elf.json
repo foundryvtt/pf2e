@@ -13,20 +13,33 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You have an inborn ability to detect and understand magical phenomena. You can cast the @Compendium[pf2e.spells-srd.gpzpAAAJ1Lza2JVl]{Detect Magic} cantrip as an arcane innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up.</p>\n<p><span id=\"ctl00_MainContent_DetailedOutput\">In addition, you gain a +1 circumstance bonus to checks to @Compendium[pf2e.actionspf2e.eReSHVEPCsdkSL4G]{Identify Magic} and to @Compendium[pf2e.actionspf2e.d9gbpiQjChYDYA2L]{Decipher Writing} of a magical nature. These skill actions typically use the Arcana, Nature, Occultism, or Religion skill.</span></p>"
+            "value": "<p>You have an inborn ability to detect and understand magical phenomena. You can cast the @Compendium[pf2e.spells-srd.Detect Magic]{Detect Magic} cantrip as an arcane innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up.</p>\n<p>In addition, you gain a +1 circumstance bonus to checks to @Compendium[pf2e.actionspf2e.Identify Magic]{Identify Magic} and to @Compendium[pf2e.actionspf2e.Decipher Writing]{Decipher Writing} of a magical nature. These skill actions typically use the Arcana, Nature, Occultism, or Religion skill.</p>"
         },
         "featType": {
-            "value": "ancestryfeature"
+            "value": "heritage"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Seer Elf (Identity Magic or Decipher Writing)",
+                "predicate": {
+                    "any": [
+                        "action:identify-magic",
+                        "action:decipher-writing"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +51,12 @@
             "value": [
                 "elf"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/ancestry/seer-elf.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/ancestry/seer-elf.webp",
     "name": "Seer Elf",
     "permission": {
         "default": 0

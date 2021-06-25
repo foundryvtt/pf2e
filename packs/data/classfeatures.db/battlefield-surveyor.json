@@ -13,35 +13,69 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">Whether taking stock of an enemy army or simply standing guard, you excel at observing your foes. Your proficiency rank for Perception increases to master. In addition, you gain a +2 circumstance bonus to Perception checks for initiative, making you faster to react during combat.&nbsp;</span></p>"
+            "value": "<p>Whether taking stock of an enemy army or simply standing guard, you excel at observing your foes. Your proficiency rank for Perception increases to master. In addition, you gain a +2 circumstance bonus to Perception checks for initiative, making you faster to react during combat.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "7"
+            "value": 7
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "perception"
+                    ]
+                },
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": [
                 "fighter"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [
+        {
+            "_id": "afb5nXpj8Mr5fEN0",
+            "changes": [
+                {
+                    "key": "data.attributes.perception.rank",
+                    "mode": 4,
+                    "value": "3"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/classes/battlefield-surveyor.webp",
+            "label": "Battlefield Surveyor",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/battlefield-surveyor.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/battlefield-surveyor.webp",
     "name": "Battlefield Surveyor",
     "permission": {
         "default": 0

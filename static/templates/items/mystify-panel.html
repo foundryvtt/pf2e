@@ -1,0 +1,19 @@
+<div class="tab item-mystification" data-tab="mystification">
+    <div class="form-group mystification-status">
+        <label for="toggle-mystification">Mystification Status</label>
+        <div class="form-fields">
+            <select name="data.identification.status" data-dtype="String">
+                {{#select data.identification.status}}
+                    <option value="identified">Identified</option>
+                    <option value="unidentified">Unidentified</option>
+                {{/select}}
+            </select>
+        </div>
+    </div>
+    <p>{{localize "PF2E.identification.UnidentifiedHint"}}</p>
+    <div class="identification-data unidentified">
+        <img class="mystify-control image-picker" src="{{data.identification.unidentified.img}}" data-edit="data.identification.unidentified.img" title="{{localize PF2E.Item.NameLabel}}" />
+        <input type="text" name="data.identification.unidentified.name" value="{{data.identification.unidentified.name}}" class="mystify-control" title="{{localize PF2E.Item.IconLabel}}" />
+        {{editor content=data.identification.unidentified.data.description.value target="data.identification.unidentified.data.description.value" button=true owner=owner editable=editable}}
+    </div>
+</div>

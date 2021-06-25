@@ -62,6 +62,21 @@
                     }
                 }
 
+                &.select-shield {
+                    width: 160px;
+                    ul {
+                        li.item {
+                            .data {
+                                position: relative;
+                                top: -2px;
+                            }
+                            .tag {
+                                width: auto;
+                            }
+                        }
+                    }
+                }
+
                 ul {
                     list-style: none;
                     @include p-reset;
@@ -153,7 +168,7 @@
                             @include flex-center;
                             color: var(--tertiary);
                             width: min-content;
-                            .remove-modifier {
+                            .remove-modifier, .toggle-automation {
                                 white-space: nowrap;
                             }
                         }
@@ -171,10 +186,39 @@
                             padding-top: 2px;
                         }
 
-                        .remove-modifier {
+                        .remove-modifier, .toggle-automation {
                           grid-area: close;
                           font-size: 0.8rem;
                           cursor: pointer;
+                        }
+
+                        .toggle-automation {
+                          font-size: 12px;
+                          &:hover {
+                            opacity: 0.6;
+                            &:after {
+                              color: red;
+                              content: "\f715"; // Font Awesome "slash"
+                              position: absolute;
+                              right: 13px;
+                            }
+                          }
+                          &.disabled {
+                            opacity: 0.6;
+                            &:after {
+                              color: red;
+                              content: "\f715"; // Font Awesome "slash"
+                              position: absolute;
+                              right: 13px;
+                            }
+                            &:hover {
+                              opacity: initial;
+                              &:after {
+                                content: none;
+                              }
+                            }
+
+                          }
                         }
 
                         &.add-modifier {

@@ -1,0 +1,69 @@
+{
+    "_id": "4iakL7fDcZ8RT6Tu",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Face in the Crowd]{Face in the Crowd}.</p>\n<p>You gain a +2 status bonus to Deception and Stealth checks to go unnoticed among the crowd, and you ignore difficult terrain caused by the crowd.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Unnoticed in crowd",
+                "predicate": {
+                    "all": [
+                        "terrain:crowd"
+                    ]
+                },
+                "selector": "stealth",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Unnoticed in crowd",
+                "predicate": {
+                    "all": [
+                        "terrain:crowd"
+                    ]
+                },
+                "selector": "deception",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/face-in-the-crowd.webp",
+    "name": "Spell Effect: Face in the Crowd",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

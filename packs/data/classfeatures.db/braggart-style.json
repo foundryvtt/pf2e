@@ -13,20 +13,34 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You boast, taunt, and psychologically needle your foes.&nbsp;</p>\n<p>You are trained in Intimidation. You gain @Compendium[pf2e.classfeatures.LzYi0OuOoypNb6jd]{Panache} during an encounter whenever you successfully @Compendium[pf2e.actionspf2e.2u915NdUyQan6uKF]{Demoralize} a foe.</p>"
+            "value": "<p>You boast, taunt, and psychologically needle your foes.</p>\n<p>You are trained in Intimidation. You gain @Compendium[pf2e.classfeatures.Panache]{Panache} during an encounter whenever you successfully @Compendium[pf2e.actionspf2e.Demoralize]{Demoralize} a foe.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "panache"
+                    ],
+                    "any": [
+                        "action:demoralize"
+                    ]
+                },
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +52,33 @@
             "value": [
                 "swashbuckler"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [
+        {
+            "_id": "Uv6UmXye2r9LdXXf",
+            "changes": [
+                {
+                    "key": "data.skills.itm.rank",
+                    "mode": 4,
+                    "value": "1"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/classes/braggart-style.webp",
+            "label": "Braggart Style",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/braggart-style.webp",
     "name": "Braggart Style",
     "permission": {
         "default": 0

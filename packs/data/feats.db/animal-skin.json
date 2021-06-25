@@ -5,66 +5,92 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> animal instinct</p>\n<hr>\n<p>Your proficiency in unarmored defense increases to expert. While you are raging and unarmored, your skin transforms into a thick hide resembling your animal’s skin. You gain a +1 status bonus to AC instead of taking a –1 penalty to AC; if you have the greater juggernaut class feature, this status bonus increases to +2. The thickness of your hide gives you a Dexterity modifier cap to your AC of +3.</p>"
+            "value": "<p>Your proficiency in unarmored defense increases to expert.</p>\n<p>While you are raging and unarmored, your skin transforms into a thick hide. You gain a +2 item bonus to AC (+3 if you have the greater juggernaut class feature). The thickness of your hide gives you a Dexterity modifier cap to your AC of +3. This item bonus to AC is cumulative with armor potency runes on your explorer's clothing, mage armor, and bracers of armor.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "6"
+            "value": 6
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "animal instinct"
+            "value": [
+                {
+                    "value": "Animal Instinct"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.DexterityModifierCap",
+                "label": "Animal Skin",
+                "value": 3
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Animal Skin",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "item",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 12,
+                            "value": 1
+                        },
+                        {
+                            "start": 13,
+                            "value": 2
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.animal-skin",
+                "retain": true
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "barbarian",
-                "instinct",
                 "morph",
                 "primal",
                 "transmutation"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Animal Skin",
     "permission": {
         "default": 0

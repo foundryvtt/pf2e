@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "19"
+                "value": 19
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "30",
+                "max": 30,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "30"
+                "value": 30
             },
             "init": {
                 "bonus": 0,
@@ -104,12 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "40 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "40"
                     }
                 ],
-                "special": "",
-                "value": "10 feet"
+                "value": "10"
             }
         },
         "currency": {
@@ -142,10 +142,10 @@
             },
             "creatureType": "Animal",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "A flock of ravens is known as an unkindness. Certainly the name lives up to its meaning when a swarm of ravens decides to work together. In most cases, a raven swarm like the one presented here won't attack larger foes, but when manipulated by supernatural forces or simple desperation born from hunger, an unkindness of ravens can be a surprisingly dangerous foe.<br><br>",
+            "flavorText": "A flock of ravens is known as an unkindness. Certainly the name lives up to its meaning when a swarm of ravens decides to work together. In most cases, a raven swarm like the one presented here won't attack larger foes, but when manipulated by supernatural forces or simple desperation born from hunger, an unkindness of ravens can be a surprisingly dangerous foe.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -155,13 +155,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "3"
+                "value": 3
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=782",
             "recallKnowledgeText": "Recall Knowledge - Animal : DC 18",
-            "sidebarText": "",
             "source": {
-                "value": "Bestiary 2 pg. 221"
+                "value": "Bestiary 2"
             }
         },
         "martial": {
@@ -411,11 +409,15 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
-                "custom": "precision, swarm mind",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "precision",
+                    "swarm-mind"
                 ]
             },
             "dr": [
@@ -470,16 +472,16 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "llgAm8MQ01n7hFrf",
+            "_id": "Nnavq7mhKrb8vMx5",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -490,22 +492,75 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "This monster doesn’t have a single mind (typically because it’s a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "low-light-vision",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Low-Light Vision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 100000,
+            "type": "action"
+        },
+        {
+            "_id": "llgAm8MQ01n7hFrf",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This monster doesn't have a single mind (typically because it's a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -518,23 +573,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Swarm Mind",
-            "sort": 100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 200000,
             "type": "action"
         },
         {
             "_id": "5qgx9qhXAceS6uLh",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -545,22 +599,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "There are few things as dangerously persistent in the natural world as an angry unkindness of ravens. A raven swarm can hound its prey through most barriers. Simple latches, unsecured chimney flues, loosely shuttered windows, and similar obstacles rarely keep an unkindness away. A raven swarm attempts a Thievery check to bypass many of these simple obstructions, typically against DC 20."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>There are few things as dangerously persistent in the natural world as an angry unkindness of ravens. A raven swarm can hound its prey through most barriers. Simple latches, unsecured chimney flues, loosely shuttered windows, and similar obstacles rarely keep an unkindness away. A raven swarm attempts a Thievery check to bypass many of these simple obstructions, typically against DC 20.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -573,49 +626,47 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Enraged Cunning",
-            "sort": 200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
             "type": "action"
         },
         {
             "_id": "WVChw6DFgtcfsrAf",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The ravens' angry pecking deals [[/r 1d8 # piercing damage]] piercing damage to each enemy in the swarm's space (DC 20 basic Reflex save). A creature that critically fails its save is @Compendium[pf2e.conditionspf2e.Blinded] for 1d4 rounds as the ravens focus their attacks on the target's vulnerable face."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The ravens' angry pecking deals [[/r 1d8 #piercing]] piercing damage to each enemy in the swarm's space (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"20\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Beaks DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). A creature that critically fails its save is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for [[/r 1d4 #rounds]] rounds as the ravens focus their attacks on the target's vulnerable face.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -628,16 +679,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swarming Beaks",
-            "sort": 300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -648,7 +698,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -658,23 +707,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -685,7 +742,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -695,23 +751,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
             "type": "lore"
         }
     ],
@@ -720,13 +784,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "wrzlJufGEfMg5kVE",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -736,15 +802,21 @@
         "disposition": -1,
         "flags": {},
         "height": 2,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Raven Swarm",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 2

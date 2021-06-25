@@ -13,20 +13,34 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your ears are finely tuned, able to detect even the slightest whispers of sound. As long as you can hear normally, you can use the @Compendium[pf2e.actionspf2e.BlAOM2X92SI6HMtJ]{Seek} action to sense @Compendium[pf2e.conditionspf2e.VRSef5y1LmL2Hkjf]{Undetected} creatures in a 60-foot cone instead of a 30-foot cone. You also gain a +2 circumstance bonus to locate @Compendium[pf2e.conditionspf2e.VRSef5y1LmL2Hkjf]{Undetected} creatures that you could hear within 30 feet with a @Compendium[pf2e.actionspf2e.BlAOM2X92SI6HMtJ]{Seek} action.</p>"
+            "value": "<p>Your ears are finely tuned, able to detect even the slightest whispers of sound.</p>\n<p>As long as you can hear normally, you can use the @Compendium[pf2e.actionspf2e.Seek]{Seek} action to sense @Compendium[pf2e.conditionitems.Undetected]{Undetected} creatures in a 60-foot cone instead of a 30-foot cone.</p>\n<p>You also gain a +2 circumstance bonus to locate undetected creatures that you could hear within 30 feet with a seek action.</p>"
         },
         "featType": {
-            "value": "ancestryfeature"
+            "value": "heritage"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Whisper Elf (locate audible undetected within range)",
+                "predicate": {
+                    "all": [
+                        "target:undetected",
+                        "target:within-30-feet",
+                        "target:audible"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +52,12 @@
             "value": [
                 "elf"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/ancestry/whisper-elf.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/ancestry/whisper-elf.webp",
     "name": "Whisper Elf",
     "permission": {
         "default": 0

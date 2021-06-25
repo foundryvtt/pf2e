@@ -13,35 +13,63 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">Your rage makes it difficult to control you. Your proficiency rank for Will saves increases to master. When you roll a success on a Will save, you get a critical success instead.&nbsp;</span></p>"
+            "value": "<p>Your rage makes it difficult to control you. Your proficiency rank for Will saves increases to master. When you roll a success on a Will save, you get a critical success instead.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "15"
+            "value": 15
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "will",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a Will save, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": [
                 "barbarian"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [
+        {
+            "_id": "fI3Nglqrn6s1dtap",
+            "changes": [
+                {
+                    "key": "data.saves.will.rank",
+                    "mode": 4,
+                    "value": "3"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/classes/indomitable-will.webp",
+            "label": "Indomitable Will",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/indomitable-will.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/indomitable-will.webp",
     "name": "Indomitable Will",
     "permission": {
         "default": 0

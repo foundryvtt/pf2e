@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "26"
+                "value": 26
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "120",
+                "max": 120,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "120"
+                "value": 120
             },
             "init": {
                 "bonus": 0,
@@ -103,7 +102,6 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
                 "value": "25 feet"
             }
         },
@@ -137,7 +135,7 @@
             },
             "creatureType": "",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavourText": "",
@@ -149,13 +147,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "8"
+                "value": 8
             },
-            "nethysUrl": "",
             "recallKnowledgeText": "",
-            "sidebarText": "",
             "source": {
-                "value": "Pathfinder #154: Siege of the Dinosaurs pg. 81"
+                "value": "Pathfinder #154: Siege of the Dinosaurs"
             }
         },
         "martial": {
@@ -407,9 +403,22 @@
         "traits": {
             "ci": [],
             "di": {
-                "custom": "bleed, death effects, disease, doomed, drained, fatigued, healing, mental, necromancy, nonlethal, paralyzed, poison, sickened, unconscious",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "bleed",
+                    "death effects",
+                    "disease",
+                    "doomed",
+                    "drained",
+                    "fatigued",
+                    "healing",
+                    "mental",
+                    "necromancy",
+                    "nonlethal attacks",
+                    "paralyzed",
+                    "poison",
+                    "sickened",
+                    "unconscious"
                 ]
             },
             "dr": [
@@ -445,10 +454,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "1fJFJOb1u8PBT1qs",
@@ -476,11 +485,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -544,6 +554,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -557,15 +568,24 @@
                     "value": "arcane"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Arcane Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -573,79 +593,59 @@
             "_id": "LJ6afc4z8MBNJkla",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": " material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>You learn the direction to the target (if you picked a specific object, such as “my mother’s sword”) or the nearest target (if you picked a type of object, such as “swords”). If the target is a specific object, you must have observed it directly with your own senses. If it's a type of object, you still need to have an accurate mental image of the type of object. If there's lead or running water between you and the target, this spell can't locate the object. This means you might find a type of object farther away if the nearest one is behind lead or running water.</p>\n<hr>\n<p><strong>Heightened </strong> You can target a specific creature or ancestry instead of an object, but you must have met or seen up close the creature or ancestry you want to target.</p>"
+                    "value": "<p>You learn the direction to the target (if you picked a specific object, such as \"my mother's sword\") or the nearest target (if you picked a type of object, such as \"swords\"). If the target is a specific object, you must have observed it directly with your own senses. If it's a type of object, you still need to have an accurate mental image of the type of object. If there's lead or running water between you and the target, this spell can't locate the object. This means you might find a type of object farther away if the nearest one is behind lead or running water.</p>\n<hr />\n<p><strong>Heightened</strong> You can target a specific creature or ancestry instead of an object, but you must have met or seen up close the creature or ancestry you want to target.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": "sustained"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 3
                 },
                 "location": {
                     "value": "1fJFJOb1u8PBT1qs"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "500 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -653,41 +653,25 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "div"
+                    "value": "divination"
                 },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=173"
                 },
-                "spellCategory": {
-                    "value": ""
-                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "utility"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 specific object or type of object"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "10 minutes"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "divine",
@@ -695,8 +679,10 @@
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "detection",
                         "divination"
@@ -706,11 +692,14 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/locate.jpg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/locate.webp",
             "name": "Locate",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spell"
         },
@@ -718,79 +707,59 @@
             "_id": "llIsdfzdbowHXw2j",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": "mental"
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>With a cursory mental touch, you attempt to read the target's mind. It must attempt a Will save. The target then becomes temporarily immune to your mind reading for 1 hour.</p>\r<p>\n<hr><b>Critical Success</b> The target perceives vague surface thoughts from you when you Cast the Spell.</p>\r<p>\n<b>Success</b> You find out whether the target's Intelligence modifier is higher than, equal to, or lower than yours.</p>\r<p>\n<b>Failure</b> You perceive vague surface thoughts from the target when you Cast the Spell, and you find out whether its Intelligence modifier is higher than, equal to, or lower than yours.</p>\r<p>\n<b>Critical Failure</b> As failure, and for the duration of the spell, you can Sustain the Spell to detect the target's surface thoughts again. The target doesn't receive any additional saves.</p>"
+                    "value": "<p>With a cursory mental touch, you attempt to read the target's mind. It must attempt a Will save. The target then becomes temporarily immune to your mind reading for 1 hour.</p>\n<hr /><strong>Critical Success</strong> The target perceives vague surface thoughts from you when you Cast the Spell.\n<p><strong>Success</strong> You find out whether the target's Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Failure</strong> You perceive vague surface thoughts from the target when you Cast the Spell, and you find out whether its Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Critical Failure</strong> As failure, and for the duration of the spell, you can Sustain the Spell to detect the target's surface thoughts again. The target doesn't receive any additional saves.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": "1 round or sustained up to 1 minute"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 3
                 },
                 "location": {
                     "value": "1fJFJOb1u8PBT1qs"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "30 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": "will"
                 },
                 "scaling": {
@@ -798,41 +767,25 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "div"
+                    "value": "divination"
                 },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=194"
                 },
-                "spellCategory": {
-                    "value": ""
-                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "save"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 creature"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "occult"
@@ -840,8 +793,9 @@
                 },
                 "traits": {
                     "custom": "",
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "uncommon",
                         "detection",
@@ -853,11 +807,14 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/mind-reading.jpg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/mind-reading.webp",
             "name": "Mind Reading",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
@@ -865,79 +822,59 @@
             "_id": "zMDLBWv3zpVkMNOH",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "10 minutes "
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": ""
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>You gain a vague glimpse of the future. During the casting of this spell, ask about the results of a particular course of action. The spell can predict results up to 30 minutes into the future and reveals the GM's best guess among the following outcomes:</p>\n<ul>\n<li><strong>Weal</strong> The results will be good.</li>\n<li><strong>Woe</strong> The results will be bad.</li>\n<li><strong>Weal</strong> and Woe The results will be a mix of good and bad.</li>\n<li><strong>Nothing</strong> There won't be particularly good or bad results.</li>\n</ul>\n<p>The GM rolls a secret DC 6 flat check. On a failure, the result is always “nothing.” This makes it impossible to tell whether a “nothing” result is accurate. If anyone asks about the same topic as the first casting of augury during an additional casting, the GM uses the secret roll result from the first casting. If circumstances change, though, it's possible to get a different result.</p>"
+                    "value": "<p>You gain a vague glimpse of the future. During the casting of this spell, ask about the results of a particular course of action. The spell can predict results up to 30 minutes into the future and reveals the GM's best guess among the following outcomes:</p>\n<ul>\n<li><strong>Weal</strong> The results will be good.</li>\n<li><strong>Woe</strong> The results will be bad.</li>\n<li><strong>Weal</strong> and Woe The results will be a mix of good and bad.</li>\n<li><strong>Nothing</strong> There won't be particularly good or bad results.</li>\n</ul>\n<p>The GM rolls a secret DC 6 flat check. On a failure, the result is always \"nothing.\" This makes it impossible to tell whether a \"nothing\" result is accurate. If anyone asks about the same topic as the first casting of augury during an additional casting, the GM uses the secret roll result from the first casting. If circumstances change, though, it's possible to get a different result.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 2
                 },
                 "location": {
                     "value": "1fJFJOb1u8PBT1qs"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": ""
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -945,49 +882,35 @@
                     "mode": "none"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "div"
+                    "value": "divination"
                 },
+                "slug": null,
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=15"
                 },
-                "spellCategory": {
-                    "value": ""
-                },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "utility"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": ""
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": ""
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "divine",
                         "occult"
                     ]
                 },
                 "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "divination",
                         "prediction"
@@ -997,17 +920,21 @@
                     "value": "held-in-one-hand"
                 }
             },
-            "flags": {
-                "_sheetTab": "description"
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/augury.webp",
+            "name": "Augury",
+            "permission": {
+                "default": 0
             },
-            "img": "systems/pf2e/icons/spells/augury.jpg",
-            "name": "Augury ",
             "sort": 400000,
             "type": "spell"
         },
         {
             "_id": "4kdQdIvvKzIRj2JS",
             "data": {
+                "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -1022,8 +949,6 @@
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
                     "value": ""
                 },
@@ -1039,8 +964,18 @@
                 "hp": {
                     "value": 0
                 },
-                "identified": {
-                    "value": false
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1061,14 +996,16 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "0 gp"
                 },
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
+                "rules": [],
+                "size": {
+                    "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1076,6 +1013,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
@@ -1085,10 +1026,15 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/equipment.svg",
             "name": "metal harrow deck",
-            "sort": 200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
             "type": "equipment"
         },
         {
@@ -1103,127 +1049,44 @@
                     ]
                 },
                 "bonus": {
-                    "total": 17,
                     "value": 17
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "die": "2d12+6"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "4goluknhdl7istpqksso": {
                         "damage": "2d12+6",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
             "type": "melee"
         },
         {
@@ -1238,134 +1101,51 @@
                     ]
                 },
                 "bonus": {
-                    "total": 18,
                     "value": 18
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "die": "2d8+6"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "k9fxgd9l6yq1azmc5kq1": {
                         "damage": "2d8+6",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Harrow Card",
-            "sort": 400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
             "type": "melee"
         },
         {
             "_id": "P55ThVkZipK0fIVo",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1376,22 +1156,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A harrow doll can cast augury as part of a harrow reading, which takes the usual 10 minutes. When casting locate, the harrow doll doesn't need to have previously observed a specific object to learn its direction, but instead can detail the direction only vaguely, using such phrases as “beside a weeping mound” or “beneath the lost sky.” When the harrow doll casts mind reading, there is no effect if the target critically succeeds its save. Each time a harrow doll makes a harrow reading, it also changes which saving throw is affected by its fortune's favor ability."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A harrow doll can cast augury as part of a harrow reading, which takes the usual 10 minutes. When casting locate, the harrow doll doesn't need to have previously observed a specific object to learn its direction, but instead can detail the direction only vaguely, using such phrases as \"beside a weeping mound\" or \"beneath the lost sky.\" When the harrow doll casts mind reading, there is no effect if the target critically succeeds its save. Each time a harrow doll makes a harrow reading, it also changes which saving throw is affected by its fortune's favor ability.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1404,23 +1183,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "interaction"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Uncanny Divination",
-            "sort": 500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
             "type": "action"
         },
         {
             "_id": "sMH395MKnCnUaAGg",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1431,22 +1209,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Whenever the harrow doll attempts a specific type of saving throw, it rolls twice and takes the higher result. The type of saving throw is determined by the suit that featured most prominently in the doll's most recent harrow reading: Fortitude (Hammers or Shields), Reflex (Keys or Books), or Will (Stars or Crowns). If the suit of its latest harrow reading is unknown, roll 1d6 at the beginning of combat to randomly determine it."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>Whenever the harrow doll attempts a specific type of saving throw, it rolls twice and takes the higher result. The type of saving throw is determined by the suit that featured most prominently in the doll's most recent harrow reading: Fortitude (Hammers or Shields), Reflex (Keys or Books), or Will (Stars or Crowns). If the suit of its latest harrow reading is unknown, roll 1d6 at the beginning of combat to randomly determine it.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "fortune"
                     ]
@@ -1461,23 +1238,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Fortune's Favor",
-            "sort": 600000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "action"
         },
         {
             "_id": "PQCJPgjYoVwBLXyY",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1488,22 +1264,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A creature struck by one of the harrow doll's cards must attempt a DC 25 Will save or be cursed with misfortune, which forces the creature to roll twice and take the lower result on its next roll of a specific type, determined by the card's suit (roll 1d6 to randomly determine the suit). A creature can be cursed with only one effect from harrowing misfortune at a time, with a new curse overriding any previous curse. The curse ends after 1 minute or after the specified roll is made, whichever comes first. The suits and their effects are: Hammers (melee attack roll), Keys (Reflex save), Shields (Fortitude save), Books (skill check), Stars (Will save), and Crowns (spell attack roll)."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A creature struck by one of the harrow doll's cards must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"25\" data-pf2-traits=\"curse,misfortune\" data-pf2-label=\"Harrowing Misfortune DC\" data-pf2-show-dc=\"gm\">Will</span> save or be cursed with misfortune, which forces the creature to roll twice and take the lower result on its next roll of a specific type, determined by the card's suit (roll 1d6 to randomly determine the suit). A creature can be cursed with only one effect from harrowing misfortune at a time, with a new curse overriding any previous curse. The curse ends after 1 minute or after the specified roll is made, whichever comes first. The suits and their effects are: Hammers (melee attack roll), Keys (Reflex save), Shields (Fortitude save), Books (skill check), Stars (Will save), and Crowns (spell attack roll).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "curse",
                         "misfortune"
@@ -1519,16 +1294,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Harrowing Misfortune",
-            "sort": 700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1539,7 +1313,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1549,23 +1322,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Lore",
-            "sort": 800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
             "type": "lore"
         }
     ],
@@ -1574,13 +1355,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "IVpSJcoRLGgUfqW7",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1590,15 +1373,21 @@
         "disposition": -1,
         "flags": {},
         "height": 2,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Harrow Doll",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 2

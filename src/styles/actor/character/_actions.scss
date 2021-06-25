@@ -95,6 +95,37 @@
     }
 
     .actions-list {
+        .action-header {
+            margin-top: 8px;
+            margin-left: 0;
+            padding: 0;
+            padding-bottom: 2px;
+            padding-left: 8px;
+            height: 32px;
+            border: none;
+            flex-wrap: nowrap;
+
+            h3 {
+                color: white;
+                cursor: default;
+            }
+
+            .item-controls {
+                display: flex;
+                min-width: 40px;
+                justify-content: space-evenly;
+                margin-right: 1em;
+            }
+
+            &:first-child {
+                margin-top: 0;
+            }
+
+            & + li {
+                border-top: none;
+            }
+        }
+
         .item {
             display: flex;
             flex-wrap: wrap;
@@ -140,6 +171,7 @@
                         @include frame-icon;
                         height: 32px;
                         width: 32px;
+                        padding: 11px;
                     }
 
                     &:hover {
@@ -159,40 +191,6 @@
                             }
                         }
                     }
-                }
-            }
-
-            &.action-header {
-                margin-top: 8px;
-                margin-left: 0;
-                padding: 0;
-                padding-bottom: 2px;
-                padding-left: 8px;
-                height: 32px;
-                border: none;
-                flex-wrap: nowrap;
-
-                h3 {
-                    color: white;
-                    cursor: default;
-                }
-
-                .item-controls {
-                    background: none;
-                    @include p-reset;
-                }
-
-                .item-controls {
-                    color: var(--primary);
-                    font-size: 12px;
-                }
-
-                &:first-child {
-                    margin-top: 0;
-                }
-
-                & + li {
-                    border-top: none;
                 }
             }
 
@@ -296,13 +294,12 @@
 
             .button-group {
                 display: flex;
-                align-items: center;
                 flex-wrap: nowrap;
+
                 button {
                     margin: 0;
                     border: none;
                     cursor: pointer;
-                    @include micro;
                     padding: 5px;
                     color: white;
                     width: 70px;
@@ -311,7 +308,6 @@
                     border-radius: 2px;
                     flex: 0;
                     white-space: nowrap;
-                    margin-left: 4px;
                     flex: 0;
 
                     &:first-child {
@@ -322,6 +318,15 @@
                         box-shadow: none;
                         text-shadow: 0 0 2px white;
                     }
+                }
+
+                select, button {
+                    @include micro;
+                    margin-left: 4px;
+                }
+
+                select {
+                    width: 100%;
                 }
             }
         }

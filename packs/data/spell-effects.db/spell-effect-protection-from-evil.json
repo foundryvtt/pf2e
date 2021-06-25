@@ -1,0 +1,123 @@
+{
+    "_id": "nEqBnsrvJZzh8Bil",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Protection]{Protection} when cast against evil creatures.</p>\n<p>The target gains a +1 status bonus to Armor Class and saving throws against creatures and effects of the chosen alignment.</p>\n<p>This bonus increases to +3 against effects from such creatures that would directly control the target and against attacks made by summoned creatures of the chosen alignment.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Protection from Evil",
+                "property": "flags.pf2e.rollOptions.all.protection-evil"
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Protection from Evil (direct control or summoned)",
+                "property": "flags.pf2e.rollOptions.all.protection-evil-enhanced"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Protection from Evil",
+                "predicate": {
+                    "any": [
+                        "target:evil",
+                        "evil",
+                        "protection-evil"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Protection from Evil",
+                "predicate": {
+                    "any": [
+                        "target:evil",
+                        "evil",
+                        "protection-evil"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Protection from Evil (direct control or summoned)",
+                "predicate": {
+                    "any": [
+                        "target:evil",
+                        "evil",
+                        "protection-evil-enhanced"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 3
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Protection from Evil (direct control or summoned)",
+                "predicate": {
+                    "any": [
+                        "target:evil",
+                        "evil",
+                        "protection-evil-enhanced"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 3
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/protection.webp",
+    "name": "Spell Effect: Protection from Evil",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

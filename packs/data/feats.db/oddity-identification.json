@@ -5,63 +5,67 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> trained in Occultism</p>\n<hr>\n<p>You have a sense for spells that twist minds or reveal secrets. You gain a +2 circumstance bonus to Occultism checks to Identify Magic with the mental, possession, prediction, or scrying traits.</p>"
+            "value": "<p>You have a sense for spells that twist minds or reveal secrets. You gain a +2 circumstance bonus to Occultism checks to Identify Magic with the mental, possession, prediction, or scrying traits.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "skill"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "trained in Occultism"
+            "value": [
+                {
+                    "value": "trained in Occultism"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Oddity Identification (identify magic with specific traits)",
+                "predicate": {
+                    "all": [
+                        "action:identify-magic"
+                    ],
+                    "any": [
+                        "mental",
+                        "possession",
+                        "prediction",
+                        "scrying"
+                    ]
+                },
+                "selector": "occultism",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "general",
                 "skill"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Oddity Identification",
     "permission": {
         "default": 0

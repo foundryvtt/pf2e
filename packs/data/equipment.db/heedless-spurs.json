@@ -1,6 +1,7 @@
 {
     "_id": "LfiGXU03Khb1o6fs",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>These wicked-looking spiked metal wheels fit around the ankles and jingle when the wearer walks, imposing a –1 item penalty on Stealth checks. If used as a weapon, they are treated as a spiked gauntlet.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Interact; <strong>Frequency</strong> once per 10 minutes; <strong>Requirements</strong> You are riding a mount; <strong>Effect</strong> You kick both spurs into your mount's flank. Your mount takes 2d6 persistent bleed damage and gains the quickened condition for 1 minute or until the persistent bleed damage ends, whichever comes first. It can use the extra action only to Stride.</span></p>"
+            "value": "<p>These wicked-looking spiked metal wheels fit around the ankles and jingle when the wearer walks, imposing a -1 item penalty on Stealth checks. If used as a weapon, they are treated as a @Compendium[pf2e.equipment-srd.Spiked Gauntlet]{Spiked Gauntlet}.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p><strong>Frequency</strong> once per 10 minutes</p>\n<p><strong>Requirements</strong> You are riding a mount</p>\n<p><strong>Effect</strong> You kick both spurs into your mount's flank. Your mount takes 2d6 persistent bleed damage and gains the quickened condition for 1 minute or until the persistent bleed damage ends, whichever comes first. It can use the extra action only to Stride.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li> -1 item penalty on Stealth checks</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "15"
+            "value": 15
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,18 @@
             "value": "5,200 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "stealth",
+                "type": "item",
+                "value": -1
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,23 +90,22 @@
             "rarity": {
                 "value": "rare"
             },
-            "usage": {
-                "value": "wornanklets"
-            },
             "value": [
                 "abjuration",
                 "magical"
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornanklets"
         },
         "weight": {
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/heedless-spurs.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/heedless-spurs.webp",
     "name": "Heedless Spurs",
     "permission": {
         "default": 0

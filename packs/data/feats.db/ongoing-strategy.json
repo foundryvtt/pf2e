@@ -13,37 +13,86 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>@Compendium[pf2e.classfeatures.2Fe4YZCvAr9Yf6w7]{Strategic Strike}</p>\n<hr>\n<p>You’re constantly studying small aspects of everyone’s movements, even if you don’t have a stratagem in place ahead of time.</p>\n<p>On any @Compendium[pf2e.actionspf2e.VjxZFuUXrCU94MWR]{Strike} for which you didn’t @Compendium[pf2e.actionspf2e.m0f2B7G9eaaTmhFL]{Devise a Strategem}, you still deal precision damage equal to your number of strategic strike damage dice so long as the weapon or unarmed attack you used is one that would have let you use your Intelligence modifier had you Devised a Stratagem.</p>"
+            "value": "<p>You're constantly studying small aspects of everyone's movements, even if you don't have a stratagem in place ahead of time.</p>\n<p>On any Strike for which you didn't @Compendium[pf2e.actionspf2e.Devise a Stratagem]{Devise a Strategem}, you still deal precision damage equal to your number of strategic strike damage dice so long as the weapon or unarmed attack you used is one that would have let you use your Intelligence modifier had you Devised a Stratagem.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "10"
+            "value": 10
         },
+        "location": "",
         "prerequisites": {
-            "value": "strategic strike"
+            "value": [
+                {
+                    "value": "strategic strike"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "damageType": "precision",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "any": [
+                        "agile",
+                        "finesse",
+                        "ranged",
+                        "takedown-expert"
+                    ],
+                    "not": [
+                        "devise-a-stratagem"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": 1
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": 2
+                        },
+                        {
+                            "end": 12,
+                            "start": 9,
+                            "value": 3
+                        },
+                        {
+                            "end": 16,
+                            "start": 13,
+                            "value": 4
+                        },
+                        {
+                            "start": 17,
+                            "value": 5
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "investigator"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Ongoing Strategy",
     "permission": {
         "default": 0

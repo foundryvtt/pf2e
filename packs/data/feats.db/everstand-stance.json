@@ -13,41 +13,47 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\"><strong>Requirements</strong> You are wielding a shield.<br></span></p>\n<hr>\n<p>You brace your shield with both hands, enhancing its potential for both offense and defense. When in this stance, you wield the shield with both hands. When wielding a shield this way, increase the weapon damage die of the shield’s boss or spikes by one step, and increase the shield’s Hardness by 2 when using the @Compendium[pf2e.feats-srd.jM72TjJ965jocBV8]{Shield Block} reaction.</p>"
+            "value": "<p><strong>Requirements</strong> You are wielding a shield.<br /></p>\n<hr />\n<p>You brace your shield with both hands, enhancing its potential for both offense and defense. When in this stance, you wield the shield with both hands. When wielding a shield this way, increase the weapon damage die of the shield's boss or spikes by one step, and increase the shield's Hardness by 2 when using the @Compendium[pf2e.feats-srd.Shield Block]{Shield Block} reaction.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": "You are wielding a shield"
+            "value": [
+                {
+                    "value": "You are wielding a shield"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "In Everstand Stance",
+                "property": "flags.pf2e.rollOptions.all.stance:everstand"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
             "rarity": {
-                "value": "common"
+                "value": "uncommon"
             },
             "value": [
-                "uncommon",
                 "champion",
                 "fighter",
                 "stance"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Everstand Stance",
     "permission": {
         "default": 0

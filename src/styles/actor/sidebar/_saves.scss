@@ -112,7 +112,7 @@ ul.sidebar-saves {
         }
 
         .save-rank {
-            background-color: var(--secondary);
+            background-color: #{$rank-untrained};
             box-shadow: inset 0 0 0 1px rgba(white, 0.1);
 
             h4 {
@@ -120,6 +120,11 @@ ul.sidebar-saves {
                 font-weight: 400;
             }
         }
+
+        .save-rank[value='1'] { background: #{$rank-trained}; }
+        .save-rank[value='2'] { background: #{$rank-expert}; }
+        .save-rank[value='3'] { background: #{$rank-master}; }
+        .save-rank[value='4'] { background: #{$rank-legendary}; }
 
         .button {
             box-shadow: inset 0 0 0 1px rgba(white, 0.4);

@@ -13,38 +13,56 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>master in Perception</p>\n<hr>\n<p>You have refined your palate and have a discerning sense of taste that can detect abnormalities in the flavor and texture of food and beverages. When eating food or drinking a beverage, you automatically attempt to identify the ingredients, which might alert you to the presence of alterations or additives, such as poisons. The GM rolls a secret Perception check using the poison’s level to determine the DC; on a success, you learn that the food or drink was poisoned, but not the specific poison used.</p>\n<p>If you lick or taste something while Investigating or attempting to @Compendium[pf2e.actionspf2e.1OagaWtBpVXExToo]{Recall Knowledge} to identify something, if the taste would provide relevant additional information (at the GM’s discretion), you gain a +2 circumstance bonus to your check.</p>"
+            "value": "<p>You have refined your palate and have a discerning sense of taste that can detect abnormalities in the flavor and texture of food and beverages. When eating food or drinking a beverage, you automatically attempt to identify the ingredients, which might alert you to the presence of alterations or additives, such as poisons. The GM rolls a secret Perception check using the poison's level to determine the DC; on a success, you learn that the food or drink was poisoned, but not the specific poison used.</p>\n<p>If you lick or taste something while Investigating or attempting to @Compendium[pf2e.actionspf2e.Recall Knowledge (Lore)]{Recall Knowledge} to identify something, if the taste would provide relevant additional information (at the GM's discretion), you gain a +2 circumstance bonus to your check.</p>"
         },
         "featType": {
             "value": "general"
         },
         "level": {
-            "value": "7"
+            "value": 7
         },
+        "location": "",
         "prerequisites": {
-            "value": "master in Perception"
+            "value": [
+                {
+                    "value": "master in Perception"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Supertaster (recall knowledge or investigate via taste)",
+                "predicate": {
+                    "all": [
+                        "taste"
+                    ],
+                    "any": [
+                        "action:recall-knowledge",
+                        "action:investigate"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "general"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Supertaster",
     "permission": {
         "default": 0

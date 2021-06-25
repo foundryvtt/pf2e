@@ -10,26 +10,53 @@
         "actions": {
             "value": ""
         },
-        "containerId": {
-            "value": ""
-        },
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You can @Compendium[pf2e.actionspf2e.49y9Ec4bDii8pcD3]{Subsist} on food that most folks would consider spoiled. You can keep yourself fed with poor meals in a settlement as long as garbage is readily available, without using the @Compendium[pf2e.actionspf2e.49y9Ec4bDii8pcD3]{Subsist} downtime activity. You can eat and drink things when you are @Compendium[pf2e.conditionspf2e.fesd1n5eVhpCSS18]{Sickened}.<br></span></p>\n<p><span id=\"ctl00_MainContent_DetailedOutput\">You gain a +2 circumstance bonus to saving throws against afflictions, against gaining the @Compendium[pf2e.conditionspf2e.fesd1n5eVhpCSS18]{Sickened} condition, and to remove the @Compendium[pf2e.conditionspf2e.fesd1n5eVhpCSS18]{Sickened} condition. When you roll a success on a Fortitude save affected by this bonus, you get a critical success instead. All these benefits apply only when the affliction or condition resulted from something you ingested.</span></p>"
+            "value": "<p>You can @Compendium[pf2e.actionspf2e.Subsist]{Subsist}on food that most folks would consider spoiled. You can keep yourself fed with poor meals in a settlement as long as garbage is readily available, without using the subsist downtime activity. You can eat and drink things when you are @Compendium[pf2e.conditionitems.Sickened]{Sickened}.<br /></p>\n<p>You gain a +2 circumstance bonus to saving throws against afflictions, against gaining the sickened condition, and to remove the sickened condition. When you roll a success on a Fortitude save affected by this bonus, you get a critical success instead. All these benefits apply only when the affliction or condition resulted from something you ingested.</p>"
         },
         "featType": {
-            "value": "ancestryfeature"
+            "value": "heritage"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Irongut Goblin (vs. afflictions & sickened)",
+                "predicate": {
+                    "all": [
+                        "ingested"
+                    ],
+                    "any": [
+                        "affliction",
+                        "sickened"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "ingested"
+                    ],
+                    "any": [
+                        "affliction",
+                        "sickened"
+                    ]
+                },
+                "selector": "fortitude",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> If you roll a success on a save against an ingested affliction or to avoid gaining the sickened condition, treat it as a critical success</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -44,13 +71,12 @@
             "value": [
                 "goblin"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/ancestry/irongut-goblin.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/ancestry/irongut-goblin.webp",
     "name": "Irongut Goblin",
     "permission": {
         "default": 0

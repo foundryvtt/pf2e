@@ -13,20 +13,34 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You are friendly, clever, and full of humor, always knowing&nbsp;just what to say in any situation. Your witticisms leave&nbsp;foes unprepared for the skill and speed of your attacks.&nbsp;</p>\n<p>You are trained in Diplomacy and gain the @Compendium[pf2e.feats-srd.0GF2j54roPFIDmXf]{Bon Mot} skill feat (page 203). You gain @Compendium[pf2e.classfeatures.LzYi0OuOoypNb6jd]{Panache} during an encounter whenever you succeed at a Bon Mot against a foe.</p>"
+            "value": "<p>You are friendly, clever, and full of humor, always knowing just what to say in any situation. Your witticisms leave foes unprepared for the skill and speed of your attacks.</p>\n<p>You are trained in Diplomacy and gain the @Compendium[pf2e.feats-srd.Bon Mot]{Bon Mot} skill feat. You gain @Compendium[pf2e.classfeatures.Panache]{Panache} during an encounter whenever you succeed at a Bon Mot against a foe.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "panache"
+                    ],
+                    "any": [
+                        "action:bon-mot"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +52,33 @@
             "value": [
                 "swashbuckler"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [
+        {
+            "_id": "qimKABhZLCDKt5yH",
+            "changes": [
+                {
+                    "key": "data.skills.dip.rank",
+                    "mode": 4,
+                    "value": "1"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/classes/wit-style.webp",
+            "label": "Wit Style",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/wit-style.webp",
     "name": "Wit Style",
     "permission": {
         "default": 0

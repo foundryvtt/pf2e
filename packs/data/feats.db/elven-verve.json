@@ -13,20 +13,34 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">While all elves are immune to the paralyzing touch of ghouls, you can shake off flesh-numbing magic of all kinds. You gain a +1 circumstance bonus to saves against effects that would impose the <a class=\"entity-link\" data-pack=\"pf2e.conditionspf2e\" data-id=\"eIcWbB5o3pP6OIMe\" draggable=\"true\"><i class=\"fas fa-book-open\"></i> Immobilized</a>, <a class=\"entity-link\" data-pack=\"pf2e.conditionspf2e\" data-id=\"6uEgoh53GbXuHpTF\" draggable=\"true\"><i class=\"fas fa-book-open\"></i> Paralyzed</a>, or <a class=\"entity-link\" data-pack=\"pf2e.conditionspf2e\" data-id=\"xYTAsEpcJE1Ccni3\" draggable=\"true\"><i class=\"fas fa-book-open\"></i> Slowed</a> conditions. When you would be immobilized, paralyzed, or slowed for at least 2 rounds, reduce that duration by 1 round.</span></p>"
+            "value": "<p>While all elves are immune to the paralyzing touch of ghouls, you can shake off flesh-numbing magic of all kinds. You gain a +1 circumstance bonus to saves against effects that would impose the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized},@Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}, or @Compendium[pf2e.conditionitems.Slowed]{Slowed}conditions. When you would be immobilized, paralyzed, or slowed for at least 2 rounds, reduce that duration by 1 round.</p>"
         },
         "featType": {
             "value": "ancestry"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Against effects that would make you Immobilized, Paralyzed, or Slowed",
+                "predicate": {
+                    "any": [
+                        "effect:slowed",
+                        "effect:immobilized",
+                        "effect:paralyzed"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +52,11 @@
             "value": [
                 "elf"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Elven Verve",
     "permission": {
         "default": 0

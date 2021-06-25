@@ -13,37 +13,49 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You make a telegraphed attack to learn about your foe.</p>\n<p>Make a melee @Compendium[pf2e.actionspf2e.VjxZFuUXrCU94MWR]{Strike}. On a hit, you can immediately attempt a check to @Compendium[pf2e.actionspf2e.KygTSeDvsFoSO6HW]{Recall Knowledge} about the target. On a critical hit, you gain a +2 circumstance bonus to the check to Recall Knowledge.</p>\n<p>The target is temporarily immune to Combat Assessment for 1 day.</p>"
+            "value": "<p>You make a telegraphed attack to learn about your foe.</p>\n<p>Make a melee @Compendium[pf2e.actionspf2e.Strike]{Strike}. On a hit, you can immediately attempt a check to @Compendium[pf2e.actionspf2e.Recall Knowledge (Arcana)]{Recall Knowledge} about the target. On a critical hit, you gain a +2 circumstance bonus to the check to Recall Knowledge.</p>\n<p>The target is temporarily immune to Combat Assessment for 1 day.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Combat Assessment (critical hit)",
+                "predicate": {
+                    "all": [
+                        "action:recall-knowledge",
+                        "critical-assessment"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "fighter"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Combat Assessment",
     "permission": {
         "default": 0

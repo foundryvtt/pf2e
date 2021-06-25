@@ -1,23 +1,23 @@
-<h4 class="sidebar-summary">{{localize "PF2E.ArmorArmorSummary"}}</h4>
+<h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeArmor")}}</h4>
 
 <div class="inventory-details">
     <div class="form-group">
         <label>{{localize "PF2E.LevelLabel"}}</label>
-        <input type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="{{data.level.type}}"/>
+        <input type="number" name="data.level.value" value="{{data.level.value}}" data-dtype="Number" />
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.QuantityLabel"}}</label>
-        <input type="text" name="data.quantity.value" value="{{data.quantity.value}}" data-dtype="{{data.quantity.type}}"/>
+        <input type="number" name="data.quantity.value" value="{{data.quantity.value}}" data-dtype="Number" />
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.Rarity"}}</label>
         <select name="data.traits.rarity.value" data-dtype="String">
             {{#select data.traits.rarity.value}}
-            {{#each rarity as |label key|}}
-            <option value="{{key}}">{{localize label}}</option>
-            {{/each}}
+                {{#each rarity as |label key|}}
+                    <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
@@ -26,10 +26,10 @@
         <label>{{localize "PF2E.BulkLabel"}}</label>
         <select name="data.weight.value" data-dtype="String">
             {{#select data.weight.value}}
-            <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
-            {{#each bulkTypes as |name type|}}
-            <option value="{{type}}">{{name}}</option>
-            {{/each}}
+                <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
+                {{#each bulkTypes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
@@ -37,34 +37,34 @@
     <div class="form-group">
         <label>{{localize "PF2E.EquippedBulkLabel"}}</label>
         <select name="data.equippedBulk.value" data-dtype="String" {{#if bulkDisabled}}disabled="disabled"{{/if}}>
-        {{#select data.equippedBulk.value}}
-        <option value="">{{localize "PF2E.EquippedSameBulkValue"}}</option>
-        <option value="0">{{localize "PF2E.NegligibleOption"}}</option>
-        {{#each bulkTypes as |name type|}}
-        <option value="{{type}}">{{localize name}}</option>
-        {{/each}}
-        {{/select}}
+            {{#select data.equippedBulk.value}}
+                <option value="">{{localize "PF2E.EquippedSameBulkValue"}}</option>
+                <option value="0">{{localize "PF2E.NegligibleOption"}}</option>
+                {{#each bulkTypes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
         </select>
     </div>
-    
+    <div class="form-group">
+        <label>{{localize "PF2E.Size"}}</label>
+        <select name="data.size.value" data-dtype="String">
+            {{#select data.size.value}}
+                {{#each sizes as |name value|}}
+                    <option value="{{value}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
     <div class="form-group">
         <label>{{localize "PF2E.PriceLabel"}}</label>
-        <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="{{data.price.type}}"/>
+        <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="String"/>
     </div>
+
+    <ol class="item-tags">
+        {{#each traits as |trait|}}
+            <li class="tag">{{localize trait.label}}</li>
+        {{/each}}
+    </ol>
 </div>
-
-<ol class="item-tags">
-    {{#if data.armor.value}}<li class="tag">{{data.armor.value}} {{localize "PF2E.ArmorArmorLabel"}}</li>{{/if}}
-    <li class="tag">{{lookup armorTypes data.armorType.value}}</li>
-    <li class="tag">{{lookup armorGroups data.group.value}}</li>
-    {{#if data.strength.value}}<li class="tag">{{data.strength.value}} {{localize "PF2E.ArmorStrengthRequiredLabel"}}</li>{{/if}}
-    {{#if data.dex.value}}<li class="tag">{{data.dex.value}} {{localize "PF2E.ArmorDexLabel"}}</li>{{/if}}
-    {{#if data.check.value}}<li class="tag">{{data.check.value}} {{localize "PF2E.ArmorCheckLabel"}}</li>{{/if}}
-    {{#if data.speed.value}}<li class="tag">{{data.speed.value}} {{localize "PF2E.ArmorSpeedLabel"}}</li>{{/if}}
-</ol>
-
-<ol class="item-tags">
-    {{#if data.equipped.value}}
-    <li class="tag">{{localize "PF2E.ArmorEquippedLabel"}}</li>
-    {{/if}}
-</ol>

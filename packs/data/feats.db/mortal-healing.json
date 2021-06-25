@@ -13,20 +13,37 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\"><strong>Prerequisites</strong> Godless Healing, you follow the Laws of Mortality<br></span></p>\n<hr>\n<p>You grant greater healing when the gods don’t interfere. When you roll a success to <a class=\"entity-link\" data-pack=\"pf2e.actionspf2e\" data-id=\"1kGNdIIhuglAjIp9\" draggable=\"true\"><i class=\"fas fa-suitcase\"></i> Treat Wounds</a> for a creature that hasn’t regained Hit Points from divine magic in the past 24 hours, you get a critical success on your check instead and restore the corresponding amount of Hit Points.</p>"
+            "value": "<p>You grant greater healing when the gods don't interfere. When you roll a success to @Compendium[pf2e.actionspf2e.Treat Wounds]{Treat Wounds} for a creature that hasn't regained Hit Points from divine magic in the past 24 hours, you get a critical success on your check instead and restore the corresponding amount of Hit Points.</p>"
         },
         "featType": {
             "value": "skill"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
-            "value": "Godless Healing, you follow the Laws of Mortality"
+            "value": [
+                {
+                    "value": "Godless Healing"
+                },
+                {
+                    "value": "You follow the Laws of Mortality"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:treat-wounds"
+                    ]
+                },
+                "selector": "medicine",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success to @Compendium[pf2e.actionspf2e.Treat Wounds]{Treat Wounds} for a creature that hasn't regained Hit Points from divine magic in the past 24 hours, you get a critical success on your check instead and restore the corresponding amount of Hit Points. </p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -39,13 +56,11 @@
                 "general",
                 "skill"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Mortal Healing",
     "permission": {
         "default": 0

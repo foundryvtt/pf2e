@@ -1,6 +1,7 @@
 {
     "_id": "xzN8mFG2Z70SaXLa",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>This gaudy and extravagant cloak is adorned with brilliant gems and a fur trim. While wearing the cloak, you gain instant fame and notoriety, granting you a +2 item bonus to Diplomacy checks to Make an Impression. Creatures attempting to learn about you gain the same bonus to Gather Information about you.</p>\n<p><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">D</span> command; <strong>Frequency</strong> twice per day; <strong>Effect</strong> You wield your great stature to make a Request of a creature. If you roll a success on the check, you get a critical success instead.</p>"
+            "value": "<p>This gaudy and extravagant cloak is adorned with brilliant gems and a fur trim. While wearing the cloak, you gain instant fame and notoriety, granting you a +2 item bonus to Diplomacy checks to Make an Impression. Creatures attempting to learn about you gain the same bonus to Gather Information about you.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> command</p>\n<p><strong>Frequency</strong> twice per day</p>\n<p><strong>Effect</strong> You wield your great stature to make a Request of a creature. If you roll a success on the check, you get a critical success instead.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Diplomacy checks to Make an Impression</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "9"
+            "value": 9
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,24 @@
             "value": "1,300 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Cloak of Repute (Make an Impression)",
+                "predicate": {
+                    "any": [
+                        "action:make-an-impression"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +96,6 @@
             "rarity": {
                 "value": "common"
             },
-            "usage": {
-                "value": "worncloak"
-            },
             "value": [
                 "enchantment",
                 "invested",
@@ -81,14 +103,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worncloak"
         },
         "weight": {
             "value": "1"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/cloak-of-repute.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/cloak-of-repute.webp",
     "name": "Cloak of Repute (Greater)",
     "permission": {
         "default": 0

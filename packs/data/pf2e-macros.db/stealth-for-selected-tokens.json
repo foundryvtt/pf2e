@@ -1,0 +1,14 @@
+{
+    "_id": "yBuEphSaJJ7V9Yw3",
+    "author": "ru9MkwAaWXaeSZph",
+    "command": "const tokens = canvas.tokens.controlled.filter((t) => ['character', 'npc', 'familiar'].includes(t.actor.data.type));\n\nif (tokens.length === 0) {\n    ui.notifications.error(`You must select at least one npc/pc token`);\n} else {\n    tokens.map((p) => p.actor).forEach((actor) => actor.data.data.skills.ste.roll({event, options: ['secret']}));\n}",
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/surprice-attack.webp",
+    "name": "Stealth For Selected Tokens",
+    "permission": {
+        "default": 0
+    },
+    "scope": "global",
+    "type": "script"
+}

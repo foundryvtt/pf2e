@@ -13,21 +13,46 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">Your body produces a nearly endless supply of hard seedpods. You gain a seedpod ranged unarmed attack that deals 1d4 bludgeoning damage; these Strikes have the manipulate trait. On a critical hit, a seedpod bursts, issuing forth a tangle of vegetation that imposes a –10-foot circumstance penalty on the target’s Speed for 1 round. Seedpods do not add critical specialization effects.&nbsp;</span></p>"
+            "value": "<p>Your body produces a nearly endless supply of hard seedpods. You gain a seedpod ranged unarmed attack that deals 1d4 bludgeoning damage; these Strikes have the manipulate trait. On a critical hit, a seedpod bursts, issuing forth a tangle of vegetation that imposes a -10-foot circumstance penalty on the target's Speed for 1 round. Seedpods do not add critical specialization effects.</p>"
         },
         "featType": {
             "value": "ancestry"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning ",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Seedpod",
+                "range": "ranged",
+                "traits": [
+                    "ranged",
+                    "manipulate",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'>A seedpod bursts, issuing forth a tangle of vegetation that imposes a -10-foot circumstance penalty on the target's Speed for 1 round.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -39,13 +64,11 @@
             "value": [
                 "leshy"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Seedpod",
     "permission": {
         "default": 0

@@ -7,6 +7,7 @@
         "ability": {
             "value": "str"
         },
+        "baseItem": "dwarven-war-axe",
         "bonus": {
             "value": 4
         },
@@ -27,14 +28,14 @@
         },
         "damage": {
             "damageType": "slashing",
-            "dice": 4,
+            "dice": 1,
             "die": "d8",
             "value": ""
         },
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>The blade of this +4 major striking keen returning speed dwarven waraxe is carved with an intricate design depicting countless generations of great dwarven warriors and leaders. The axe has the thrown 30 feet weapon trait, in addition to the normal weapon traits for a dwarven waraxe. Strikes with the axe deal an additional 1d6 damage to orcs. While the axe is in your possession, you gain a +4 item bonus when Crafting armor, jewelry, metalworking, stonemasonry, snares, traps, and weapons. If you are a dwarf, you gain greater darkvision while holding the axe. If you are not a dwarf, you are stupefied 4 while holding the axe, and if you are an orc, you are also drained 4 and enfeebled 4 while holding it.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">T</span> envision, Interact; <strong>Frequency</strong> once per week; <strong>Effect</strong> The axe casts a 10th-level summon elemental spell to conjure an elite elemental avalanche.&nbsp;The spell is automatically sustained, requiring no action on your part but still allowing you to command the elemental on each of your turns. You can Dismiss the Spell.<br></span></p>\n<p><span><strong>Destruction</strong> If an orc beheads a dwarven king with the <em>Axe of the Dwarven Lords</em>, the axe rusts away to nothing.</span></p>"
+            "value": "<p>The blade of this +4 major striking @Compendium[pf2e.equipment-srd.Keen]{Keen} @Compendium[pf2e.equipment-srd.Returning]{Returning} @Compendium[pf2e.equipment-srd.Speed]{Speed} dwarven waraxe is carved with an intricate design depicting countless generations of great dwarven warriors and leaders.</p>\n<p>The axe has the thrown 30 feet weapon trait, in addition to the normal weapon traits for a dwarven waraxe. Strikes with the axe deal an additional 1d6 damage to orcs.</p>\n<p>While the axe is in your possession, you gain a +4 item bonus when Crafting armor, jewelry, metalworking, stonemasonry, snares, traps, and weapons.</p>\n<p>If you are a dwarf, you gain greater darkvision while holding the axe. If you are not a dwarf, you are stupefied 4 while holding the axe, and if you are an orc, you are also drained 4 and enfeebled 4 while holding it.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">T</span> envision, Interact</p>\n<p><strong>Frequency</strong> once per week</p>\n<p><strong>Effect</strong> The axe casts a 10th-level @Compendium[pf2e.spells-srd.Summon Elemental]{Summon Elemental} spell to conjure an elite elemental avalanche. The spell is automatically sustained, requiring no action on your part but still allowing you to command the elemental on each of your turns. You can Dismiss the Spell.</p>\n<hr />\n<p><strong>Destruction</strong> If an orc beheads a dwarven king with the <em>Axe of the Dwarven Lords</em>, the axe rusts away to nothing.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+4 item bonus when Crafting armor, jewelry, metalworking, stonemasonry, snares, traps, and weapons.</li>\n<li>+1d6 damage vs. orcs (use toggle on the Action page or target a creature with the orc trait to apply)</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -54,14 +55,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "26"
+            "value": 26
         },
         "maxHp": {
             "value": 0
@@ -70,7 +81,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": "4"
+            "value": 4
         },
         "preciousMaterial": {
             "value": ""
@@ -79,7 +90,7 @@
             "value": ""
         },
         "price": {
-            "value": ""
+            "value": "0 gp"
         },
         "property1": {
             "critDamage": "",
@@ -95,26 +106,6 @@
             "strikeConditionValue": null,
             "value": ""
         },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "value": ""
-        },
         "propertyRune1": {
             "value": "keen"
         },
@@ -128,16 +119,54 @@
             "value": ""
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
         "range": {
             "value": ""
         },
-        "rarity": {
-            "value": "common"
-        },
         "reload": {
             "value": ""
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:craft"
+                    ],
+                    "any": [
+                        "armor",
+                        "jewelry",
+                        "metalworking",
+                        "stonemasonry",
+                        "snare",
+                        "trap",
+                        "weapon"
+                    ]
+                },
+                "selector": "crafting",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "target:orc"
+                    ]
+                },
+                "selector": "damage"
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Target is an orc",
+                "property": "flags.pf2e.rollOptions.damage-roll.orc"
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -176,8 +205,10 @@
             "value": "3"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/artifacts/axe-of-the-dwarven-lords.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/artifacts/axe-of-the-dwarven-lords.webp",
     "name": "Axe of the Dwarven Lords",
     "permission": {
         "default": 0

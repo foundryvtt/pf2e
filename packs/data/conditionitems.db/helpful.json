@@ -10,7 +10,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>This condition reflects a creature&rsquo;s disposition toward a particular character, and it affects only creatures that are not player characters. A creature that is helpful to a character wishes to actively aid that character. It will accept reasonable @Compendium[pf2e.actionspf2e.DCb62iCBrJXy0Ik6]{Requests} from that character, as long as such requests aren&rsquo;t at the expense of the helpful creature&rsquo;s goals or quality of life. If the character or one of their allies uses a hostile action against the creature, the creature gains a worse attitude condition depending on the severity of the hostile action, as determined by the GM.</p>"
+            "value": "<p>This condition reflects a creature's disposition toward a particular character, and only supernatural effects (like a spell) can impose this condition on a PC. A creature that is helpful to a character wishes to actively aid that character. It will accept reasonable @Compendium[pf2e.actionspf2e.Request]{Requests} from that character, as long as such requests aren't at the expense of the helpful creature's goals or quality of life. If the character or one of their allies uses a hostile action against the creature, the creature gains a worse attitude condition depending on the severity of the hostile action, as determined by the GM.</p>"
         },
         "duration": {
             "perpetual": true,
@@ -21,21 +21,18 @@
         "hud": {
             "img": {
                 "useStatusName": true,
-                "value": "system/pf2e/icons/conditions-2/helpful.png"
+                "value": "systems/pf2e/icons/conditions-2/helpful.webp"
             },
             "selectable": true,
             "statusName": "helpful"
         },
         "modifiers": [],
         "overrides": [
-            "Helpful",
-            "Hostile",
+            "Friendly",
             "Indifferent",
-            "Unfriendly"
+            "Unfriendly",
+            "Hostile"
         ],
-        "rarity": {
-            "value": "common"
-        },
         "references": {
             "children": [],
             "immunityFrom": [],
@@ -43,6 +40,7 @@
             "overrides": []
         },
         "removable": true,
+        "rules": [],
         "source": {
             "value": ""
         },
@@ -50,10 +48,11 @@
             "hud": false
         },
         "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": []
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         },
         "value": {
             "immutable": false,
@@ -62,8 +61,13 @@
             "value": 1
         }
     },
-    "flags": {},
-    "img": "systems/pf2e/icons/conditions/helpful.png",
+    "effects": [],
+    "flags": {
+        "pf2e": {
+            "condition": true
+        }
+    },
+    "img": "systems/pf2e/icons/conditions/helpful.webp",
     "name": "Helpful",
     "permission": {
         "default": 0

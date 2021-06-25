@@ -13,20 +13,32 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You have a powerful tail, likely because you descend from a community of monkey goblins. You gain a +2 circumstance bonus to Athletics checks to @Compendium[pf2e.actionspf2e.pprgrYQ1QnIDGZiy]{Climb}, you gain @Compendium[pf2e.feats-srd.09PurtIanNUPfNRq]{Combat Climber} as a bonus feat, and you reduce the number of free hands required to @Compendium[pf2e.actionspf2e.pprgrYQ1QnIDGZiy]{Climb} or @Compendium[pf2e.actionspf2e.ge56Lu1xXVFYUnLP]{Trip} by one.&nbsp;</span></p>"
+            "value": "<p>You have a powerful tail, likely because you descend from a community of monkey goblins. You gain a +2 circumstance bonus to Athletics checks to @Compendium[pf2e.actionspf2e.Climb]{Climb}, you gain @Compendium[pf2e.feats-srd.Combat Climber]{Combat Climber}as a bonus feat, and you reduce the number of free hands required to climb or @Compendium[pf2e.actionspf2e.Trip]{Trip}by one.</p>"
         },
         "featType": {
-            "value": "ancestryfeature"
+            "value": "heritage"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Tailed Goblin (Climb)",
+                "predicate": {
+                    "all": [
+                        "action:climb"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +50,12 @@
             "value": [
                 "goblin"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/ancestry/tailed-goblin.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/ancestry/tailed-goblin.webp",
     "name": "Tailed Goblin",
     "permission": {
         "default": 0

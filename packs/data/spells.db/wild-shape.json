@@ -2,87 +2,86 @@
     "_id": "8RWfKConLYFZpQ9X",
     "data": {
         "ability": {
-            "label": "Spellcasting Ability",
-            "type": "String",
             "value": ""
         },
         "area": {
             "areaType": "",
-            "label": "Area",
-            "type": "String",
             "value": null
         },
         "areasize": {
             "value": ""
         },
+        "category": {
+            "value": "focus"
+        },
         "components": {
-            "label": "Spell Components",
-            "type": "String",
-            "value": "somatic, verbal"
+            "material": false,
+            "somatic": true,
+            "verbal": true
         },
         "cost": {
-            "label": "Cost",
-            "type": "String",
             "value": ""
         },
         "damage": {
             "applyMod": false,
-            "label": "Spell Damage",
-            "type": "String",
             "value": ""
         },
         "damageType": {
-            "label": "Damage Type",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p>You infuse yourself with primal essence and transform yourself into another form. You can polymorph into any form listed in @Compendium[pf2e.spells-srd.gfPjmG6Fe6D3MFjl]{Pest Form}, which lasts 10 minutes. All other wild shape forms last 1 minute. You can add more forms to your wild shape list with druid feats; your feat might grant you some or all of the forms from a given polymorph spell. When you transform into a form granted by a spell, you gain all the effects of the form you chose from a version of the spell heightened to wild shape's level. Wild shape allows you to use your own shapeshifting training more easily than most polymorph spells. When you choose to use your own attack modifier while polymorphed instead of the form's default attack modifier, you gain a +2 status bonus to your attack rolls.</p>\n<hr>\n<p><strong>Heightened (2nd)</strong> You can also wild shape into the forms listed in @Compendium[pf2e.spells-srd.wp09USMB3GIW1qbp]{Animal Form}.</p>"
+            "value": "<p>You infuse yourself with primal essence and transform into another form.</p>\n<p>You can polymorph into any form listed in @Compendium[pf2e.spells-srd.Pest Form]{Pest Form}, which lasts 10 minutes. All other wild shape forms last 1 minute. You can add more forms to your wild shape list with druid feats; your feat might grant you some or all of the forms from a given polymorph spell.</p>\n<p>When you transform into a form granted by a spell, you gain all the effects of the form you chose from a version of the spell heightened to wild shape's level.</p>\n<p>Wild shape allows you to use your own shapeshifting training more easily than most polymorph spells. When you choose to use your own attack modifier while polymorphed instead of the form's default attack modifier, you gain a +2 status bonus to your attack rolls.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You can also wild shape into the forms listed in @Compendium[pf2e.spells-srd.Animal Form]{Animal Form}.</p>"
         },
         "duration": {
-            "label": "Duration",
-            "type": "String",
             "value": "1 minute (or longer)"
         },
+        "hasCounteractCheck": {
+            "value": false
+        },
         "level": {
-            "label": "Spell Level",
-            "type": "Number",
             "value": 1
         },
         "location": {
-            "label": "Spellcasting Entry Location",
-            "type": "String",
             "value": ""
         },
         "materials": {
-            "label": "Materials",
-            "type": "String",
             "value": ""
         },
         "prepared": {
-            "label": "Prepared Spell",
-            "type": "String",
             "value": ""
         },
         "primarycheck": {
             "value": ""
         },
         "range": {
-            "label": "Range",
-            "type": "String",
             "value": ""
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Use your own attack proficiency with Wild Shape",
+                "property": "flags.pf2e.rollOptions.attack-roll.own-modifier"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "own-modifier",
+                        "polymorph"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "save": {
             "basic": "",
-            "label": "Saving Throw",
-            "type": "String",
             "value": ""
         },
         "scaling": {
@@ -90,9 +89,7 @@
             "mode": "none"
         },
         "school": {
-            "label": "Spell School",
-            "type": "String",
-            "value": "trs"
+            "value": "transmutation"
         },
         "secondarycasters": {
             "value": ""
@@ -101,61 +98,39 @@
             "value": ""
         },
         "source": {
-            "label": "Source",
-            "type": "String",
-            "value": "https://2e.aonprd.com/Spells.aspx?ID=481"
-        },
-        "spellCategorie": {
-            "value": "focus"
-        },
-        "spellCategory": {
             "value": ""
         },
         "spellType": {
-            "label": "Spell Type",
-            "type": "String",
             "value": "utility"
         },
         "sustained": {
-            "label": "Can be Sustained",
-            "type": "Boolean",
             "value": false
         },
         "target": {
-            "label": "Target",
-            "type": "String",
             "value": ""
         },
         "time": {
-            "label": "Casting Time",
-            "type": "String",
             "value": "2"
         },
         "traditions": {
-            "label": "Spell Traditions",
-            "type": "String",
-            "value": [
-                "focus"
-            ]
+            "value": []
         },
         "traits": {
-            "label": "Spell Traits",
+            "custom": "",
             "rarity": {
                 "value": "uncommon"
             },
-            "type": "String",
             "value": [
                 "druid",
                 "polymorph",
                 "transmutation"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/wild-shape.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/spells/wild-shape.webp",
     "name": "Wild Shape",
     "permission": {
         "default": 0

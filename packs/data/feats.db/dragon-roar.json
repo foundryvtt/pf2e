@@ -5,52 +5,56 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "action"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": "1"
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> Dragon Stance</p>\n<p><strong>Requirements</strong> You are in Dragon Stance</p>\n<hr>\n<p>You bellow, instilling fear in your enemies. Enemies within a 15-foot emanation must succeed at a Will save against your Intimidation DC or be frightened 1 (frightened 2 on a critical failure). When a creature frightened by the roar begins its turn adjacent to you, it can’t reduce its frightened value below 1 on that turn. Your first attack that hits a frightened creature after you roar and before the end of your next turn gains a +4 circumstance bonus to damage. After you use Dragon Roar, you can’t use it again for 1d4 rounds. Its effects end immediately if you leave Dragon Stance. Creatures in the area of your roar are then temporarily immune for 1 minute.</p>"
+            "value": "<p><strong>Requirements</strong> You are in @Compendium[pf2e.feats-srd.Dragon Stance]{Dragon Stance}</p>\n<hr />\n<p>You bellow, instilling fear in your enemies. Enemies within a 15-foot emanation must succeed at a Will save against your Intimidation DC or be @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 2} on a critical failure). When a creature frightened by the roar begins its turn adjacent to you, it can't reduce its frightened value below 1 on that turn.</p>\n<p>Your first attack that hits a frightened creature after you roar and before the end of your next turn gains a +4 circumstance bonus to damage.</p>\n<p>After you use Dragon Roar, you can't use it again for [[/r 1d4 #rounds]] rounds. Its effects end immediately if you leave Dragon Stance. Creatures in the area of your roar are then temporarily immune for 1 minute.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "6"
+            "value": 6
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "Dragon Stance"
+            "value": [
+                {
+                    "value": "Dragon Stance"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Dragon Roar: First attack vs. frightened creature",
+                "property": "flags.pf2e.rollOptions.all.dragon-roar"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "dragon-roar"
+                    ]
+                },
+                "selector": "damage",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "monk",
                 "auditory",
@@ -58,13 +62,11 @@
                 "fear",
                 "mental"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Dragon Roar",
     "permission": {
         "default": 0

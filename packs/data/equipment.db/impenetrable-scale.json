@@ -2,15 +2,12 @@
     "_id": "aLA7pikfeNIAAGLw",
     "data": {
         "armor": {
-            "label": "AC Bonus",
-            "type": "Number",
             "value": 3
         },
         "armorType": {
-            "label": "Armor Category",
-            "type": "String",
             "value": "medium"
         },
+        "baseItem": "scale-mail",
         "brokenThreshold": {
             "value": null
         },
@@ -18,9 +15,7 @@
             "value": ""
         },
         "check": {
-            "label": "Check Penalty",
-            "type": "String",
-            "value": "-2"
+            "value": -2
         },
         "collapsed": {
             "value": false
@@ -30,27 +25,19 @@
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<section class=\"content\">\n<p>Made of overlapping, lustrous black scales of standard-grade adamantine, this +2 greater resilient fortification adamantine scale mail seems to momentarily thicken at the point of impact when hit. Whenever the armor’s fortification rune successfully turns a significant foe’s critical hit into a normal hit, one of the scales on the armor turns violet. You gain resistance to physical damage equal to the number of violet scales, to a maximum of 8.</p>\n<p>At dawn each day, all the violet scales return to normal.</p>\n<hr></section>\n<section class=\"content extra\">\n<p><strong>Craft Requirements</strong> The initial raw materials must include 1,600 gp of adamantine.</p>\n</section>"
+            "value": "<p>Made of overlapping, lustrous black scales of standard-grade adamantine, this +2 greater resilient @Compendium[pf2e.equipment-srd.Fortification]{Fortification} adamantine scale mail seems to momentarily thicken at the point of impact when hit.</p>\n<p>Whenever the armor's fortification rune successfully turns a significant foe's critical hit into a normal hit, one of the scales on the armor turns violet. You gain resistance to physical damage equal to the number of violet scales, to a maximum of 8.</p>\n<p>At dawn each day, all the violet scales return to normal.</p>\n<hr />\n<p><strong>Craft Requirements</strong> The initial raw materials must include 1,600 gp of adamantine.</p>"
         },
         "dex": {
-            "label": "Dex Modifier Cap",
-            "type": "String",
-            "value": "2"
+            "value": 2
         },
         "equipped": {
-            "label": "Equipped",
-            "type": "Boolean",
             "value": false
         },
         "equippedBulk": {
             "value": "3"
         },
         "group": {
-            "label": "Group",
-            "type": "String",
             "value": "composite"
         },
         "hardness": {
@@ -59,15 +46,23 @@
         "hp": {
             "value": null
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 17
         },
         "maxHp": {
@@ -76,12 +71,9 @@
         "negateBulk": {
             "value": "0"
         },
-        "potency": {
-            "label": "Armor Potency",
-            "type": "String"
-        },
+        "potency": {},
         "potencyRune": {
-            "value": "2"
+            "value": 2
         },
         "preciousMaterial": {
             "value": "adamantine"
@@ -90,45 +82,7 @@
             "value": "standard"
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "12,800 gp"
-        },
-        "property1": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 1",
-            "type": "Number",
-            "value": ""
-        },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 2",
-            "type": "Number",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 3",
-            "type": "Number",
-            "value": ""
         },
         "propertyRune1": {
             "value": "fortification"
@@ -143,45 +97,56 @@
             "value": ""
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
-        },
-        "rarity": {
-            "value": "common"
         },
         "resiliencyRune": {
             "value": "greaterResilient"
         },
-        "resilient": {
-            "label": "Resilient",
-            "type": "String"
+        "resilient": {},
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "not": [
+                        "unburdened-iron"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "speed",
+                "type": "untyped",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 13,
+                            "value": -5
+                        }
+                    ],
+                    "field": "actor|data.abilities.str.value"
+                }
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "speed": {
-            "label": "Speed Penalty",
-            "type": "String",
-            "value": "-5 ft"
+            "value": -5
         },
         "stackGroup": {
             "value": ""
         },
         "strength": {
-            "label": "Required Strength",
-            "type": "String",
-            "value": "14"
+            "value": 14
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "uncommon"
             },
-            "type": "String",
             "value": [
                 "abjuration",
                 "invested",
@@ -189,16 +154,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornarmor"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "4"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/impenetrable-scale.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/impenetrable-scale.webp",
     "name": "Impenetrable Scale",
     "permission": {
         "default": 0

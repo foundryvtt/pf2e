@@ -1,6 +1,7 @@
 {
     "_id": "1M4SSDuTv2SwBltC",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -15,14 +16,10 @@
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><span class=\"fontstyle0\">Maps are uncommon. Most maps you can find are simple and functional. A survey map details a single location in excellent detail. One of these maps gives you a +1 item bonus to Survival checks and any skill checks to Recall Knowledge, provided the checks are related to the location detailed on the map. Maps sometimes come in atlases, containing a number of maps of the same quality, often on similar topics. An atlas costs five times as much as a single map and requires both hands to use. The GM determines what maps are available in any location.</span> </p>"
+            "value": "<p>Maps are uncommon. Most maps you can find are simple and functional. A survey map details a single location in excellent detail.</p>\n<p>One of these maps gives you a +1 item bonus to Survival checks and any skill checks to Recall Knowledge, provided the checks are related to the location detailed on the map.</p>\n<p>Maps sometimes come in atlases, containing a number of maps of the same quality, often on similar topics. An atlas costs five times as much as a single map and requires both hands to use.</p>\n<p>The GM determines what maps are available in any location.</p>\n<hr />\n<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\">Automatically applied effects:</p>\n<ul style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\">\n<li style=\"box-sizing: border-box; user-select: text;\">+1 item bonus to Survival checks in mapped area</li>\n<li style=\"box-sizing: border-box; user-select: text;\">+1 item bonus to any skill checks to Recall Knowledge about mapped area</li>\n</ul>"
         },
         "equipped": {
-            "label": "Equipped",
-            "type": "Boolean",
             "value": false
         },
         "equippedBulk": {
@@ -34,15 +31,23 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 3
         },
         "maxHp": {
@@ -58,27 +63,49 @@
             "value": ""
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "50 gp"
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Survey Map (mapped area)",
+                "predicate": {
+                    "all": [
+                        "mapped-area"
+                    ]
+                },
+                "selector": "survival",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Survey Map (Recall knowledge on mapped area)",
+                "predicate": {
+                    "all": [
+                        "mapped-area",
+                        "action:recall-knowledge"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "stackGroup": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "uncommon"
             },
@@ -91,13 +118,13 @@
             "value": "held-in-one-hand"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/adventuring-gear/survey-map.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/survey-map.webp",
     "name": "Survey Map (Atlas)",
     "permission": {
         "default": 0

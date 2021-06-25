@@ -1,0 +1,58 @@
+{
+    "_id": "YxYr18vleIt2t3RS",
+    "data": {
+        "description": {
+            "value": "<p>This weapon is empowered by flickering flame. The weapon deals an additional [[/r 1d6 # fire]] fire damage on a successful Strike, plus [[/r 1d10 # fire]] persistent fire damage on a critical hit.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "selector": "{item|data.target}-damage"
+            },
+            {
+                "key": "PF2E.RuleElement.EffectTarget",
+                "scope": "weapon"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "{item|data.target}-damage",
+                "text": "<strong>Flaming</strong>: On a critical hit, the weapon deals [[/r 1d10 # fire]] persistent fire damage"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp",
+    "name": "Effect: Blade Ally Flaming Rune",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "33"
+                "value": 33
             },
             "allSaves": {
                 "value": "+1 status to all saves vs. magic"
@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "regeneration 20 ",
-                "max": "210",
+                "max": 210,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "210"
+                "value": 210
             },
             "init": {
                 "bonus": 0,
@@ -103,7 +102,6 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
                 "value": "25 feet"
             }
         },
@@ -137,10 +135,10 @@
             },
             "creatureType": "Undead",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Not all would-be dragonslayers who die a valiant death rest peacefully amid the annals of legend. Sometimes, a draconic necromancer is so impressed by its fallen foe that the dragon ritually raises the dead warrior to serve the dragon in undeath. These undead guardians are infused with a fraction of the power of the dragon who slew them, channeling the same energy as their draconic masters’ breath.<br>Dragonscarred dead are similar to skeletal champions or graveknights in that they are not merely reanimated servants who mindlessly follow orders, but are instead powerful wardens who maintain the same agency they bore in life. While a dragonscarred dead is often magically compelled to follow its reanimator’s commands, some of these undead dragonslayers manage to escape their masters and pursue their own vile agendas—which may involve rallying allies to challenge their draconic creator once more and finish the dire mission they started in life.</br>",
+            "flavorText": "Not all would-be dragonslayers who die a valiant death rest peacefully amid the annals of legend. Sometimes, a draconic necromancer is so impressed by its fallen foe that the dragon ritually raises the dead warrior to serve the dragon in undeath. These undead guardians are infused with a fraction of the power of the dragon who slew them, channeling the same energy as their draconic masters' breath.<br />Dragonscarred dead are similar to skeletal champions or graveknights in that they are not merely reanimated servants who mindlessly follow orders, but are instead powerful wardens who maintain the same agency they bore in life. While a dragonscarred dead is often magically compelled to follow its reanimator's commands, some of these undead dragonslayers manage to escape their masters and pursue their own vile agendas-which may involve rallying allies to challenge their draconic creator once more and finish the dire mission they started in life.</br>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -150,11 +148,9 @@
             },
             "level": {
                 "min": 1,
-                "value": "13"
+                "value": 13
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=472",
             "recallKnowledgeText": "Recall Knowledge - Undead : DC 33",
-            "sidebarText": "<h3 class=\"title\">Other Types</h3>For dragonscarred dead created by non-fire dragons, replace fire in traits, immunities, and breath-seared sword damage with the type appropriate for the creator dragon’s breath weapon. The dragonscarred dead’s regeneration is deactivated as follows: acid (deactivated by electricity), cold (fire), electricity (acid), poison (fire or cold).",
             "source": {
                 "value": "Pathfinder #148: Fires of the Haunted City"
             }
@@ -408,9 +404,14 @@
         "traits": {
             "ci": [],
             "di": {
-                "custom": "death effects, disease, fire, paralyzed, poison, unconscious",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "death effects",
+                    "disease",
+                    "fire",
+                    "paralyzed",
+                    "poison",
+                    "unconscious"
                 ]
             },
             "dr": [],
@@ -453,14 +454,15 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "DMWe9k2Ek2SFNpuq",
             "data": {
+                "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -475,8 +477,6 @@
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
                     "value": ""
                 },
@@ -492,8 +492,18 @@
                 "hp": {
                     "value": 0
                 },
-                "identified": {
-                    "value": false
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -514,14 +524,16 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "0 gp"
                 },
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
+                "rules": [],
+                "size": {
+                    "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -529,6 +541,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
@@ -538,9 +554,14 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/equipment.svg",
             "name": "broken greatsword",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "equipment"
         },
@@ -554,137 +575,54 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 27,
                     "value": 27
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "die": "1d12+9"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "tyuzt95zhvdfb06uadpw": {
                         "damage": "1d12+9",
                         "damageType": "slashing"
                     },
-                    {
+                    "mq6lzbondtqh0k4qjcji": {
                         "damage": "2d6",
                         "damageType": "negative"
                     },
-                    {
+                    "fgmrdwjorb6klds07t9t": {
                         "damage": "3d6",
                         "damageType": "fire"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "magical",
                         "versatile P"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Breath-seared Greatsword",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "melee"
         },
@@ -692,7 +630,7 @@
             "_id": "l69fOTyMIBdJNWTY",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -703,22 +641,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " The dragonscarred dead is immediately aware of any intruder that enters the lair of its creator dragon. It does not know the exact location of the intruder but remains aware of the intruder’s presence until the intruder either leaves or is destroyed."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The dragonscarred dead is immediately aware of any intruder that enters the lair of its creator dragon. It does not know the exact location of the intruder but remains aware of the intruder's presence until the intruder either leaves or is destroyed.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "arcane",
                         "detection",
@@ -735,15 +672,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "interaction"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Guardian Sense",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "action"
         },
@@ -751,7 +687,7 @@
             "_id": "4F44yeZmuOFxMjya",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -762,22 +698,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " 60 feet, DC 29<br> 60 feet, DC 29. A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster’s Frightful Presence for 1 minute.<br><br> <b>Critical Success</b> The creature is unaffected by the presence.<br> <b>Success</b> The creature is @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} 1.<br> <b>Failure</b> The creature is @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} 2.<br> <b>Critical Failure</b> The creature is @Compendium[pf2e.conditionspf2e.TBSHQspnbcqxsmjL]{Frightened} 4."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>60 feet, DC 29<br /> 60 feet, DC 29. A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /> <strong>Critical Success</strong> The creature is unaffected by the presence.<br /> <strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.<br /> <strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "aura",
                         "emotion",
@@ -795,15 +730,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Frightful Presence",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "action"
         },
@@ -811,7 +745,7 @@
             "_id": "4K4yW5oQfO6cRjez",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -822,22 +756,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The dragonscarred dead’s weapon is magically scorched by a dragon’s breath. When wielded by the dragonscarred dead who carried it in life, the sword deals an extra [[/r 2d6 # negative damage]] negative damage and [[/r 3d6 # fire damage]] fire damage. In the hands of any other creature, it is merely a broken greatsword."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The dragonscarred dead's weapon is magically scorched by a dragon's breath. When wielded by the dragonscarred dead who carried it in life, the sword deals an extra [[/r 2d6 # negative damage]] negative damage and [[/r 3d6 # fire damage]] fire damage. In the hands of any other creature, it is merely a broken greatsword.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -850,15 +783,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Breath-Seared Sword",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "action"
         },
@@ -866,7 +798,7 @@
             "_id": "KOEGii7EkPZsq9Iz",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -877,22 +809,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": " The dragonscarred dead focuses its boundless frustration in a gaze targeting one creature it can see within 30 feet. That creature must attempt a DC 30 Will save.<br><br> <b>Critical Success</b> The creature is unaffected.<br> <b>Success</b> The creature is @Compendium[pf2e.conditionspf2e.dfCMdR4wnpbYNTix]{Stunned} 1.<br> <b>Failure</b> The creature is @Compendium[pf2e.conditionspf2e.dfCMdR4wnpbYNTix]{Stunned}.<br> <b>Critical Failure</b> The creature is stunned for 1d4 rounds and is fatigued."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The dragonscarred dead focuses its boundless frustration in a gaze targeting one creature it can see within 30 feet. That creature must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"30\" data-pf2-traits=\"arcane,enchantment,mental,visual\" data-pf2-label=\"Glare of Rage DC\" data-pf2-show-dc=\"gm\">Will</span> save.<br /><br /> <strong>Critical Success</strong> The creature is unaffected.<br /> <strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned}.<br /> <strong>Critical Failure</strong> The creature is stunned for 1d4 rounds and is fatigued.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "arcane",
                         "enchantment",
@@ -910,15 +841,14 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Glare of Rage",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "action"
         },
@@ -930,7 +860,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -940,22 +869,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "lore"
         },
@@ -967,7 +904,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -977,22 +913,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Draconic Lore",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "lore"
         },
@@ -1004,7 +948,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1014,22 +957,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "lore"
         }
@@ -1039,13 +990,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "scPhFbBqlmD2fQHa",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1055,15 +1008,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Dragonscarred Dead",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

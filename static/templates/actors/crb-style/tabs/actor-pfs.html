@@ -1,31 +1,32 @@
-<div class="tab feats feats-pane" data-group="primary" data-tab="pfs">
+<div class="tab feats pfs-pane" data-group="primary" data-tab="pfs">
     <div class="pfs">
         <div class="organized-play spacing">
-            <label for="pfs-player-number">{{localize 'PF2E.PFS.OrganizedPlayNumber'}}</label>
-            <label for="pfs-character-number">{{localize 'PF2E.PFS.CharacterNumber'}}</label>
+            <label for="{{uid}}-pfs-player-number">{{localize 'PF2E.PFS.OrganizedPlayNumber'}}</label>
+            <label for="{{uid}}-pfs-character-number">{{localize 'PF2E.PFS.CharacterNumber'}}</label>
             <span>
-                <input id="pfs-player-number" name="data.pfs.playerNumber" value="{{data.pfs.playerNumber}}" type="text" maxlength="10">&ndash;
+                <input id="{{uid}}-pfs-player-number" name="data.pfs.playerNumber" value="{{data.pfs.playerNumber}}" type="text" maxlength="10">&ndash;
             </span>
             <span>
-                <input id="pfs-character-number" name="data.pfs.characterNumber" value="{{data.pfs.characterNumber}}" type="text" maxlength="4">
+                <input id="{{uid}}-pfs-character-number" name="data.pfs.characterNumber" value="{{data.pfs.characterNumber}}" type="text" maxlength="4">
             </span>
         </div>
         <div>
-            <label for="pfs-level-bump">{{localize 'PF2E.PFS.LevelBump'}}</label>
+            <label for="{{uid}}-pfs-level-bump">{{localize 'PF2E.PFS.LevelBump'}}</label>
             <div class="level-bump toggle">
-                <input id="pfs-level-bump" name="data.pfs.levelBump" data-dtype="Boolean" type="checkbox" {{#if data.pfs.levelBump}}checked{{/if}}>
-                <label for="pfs-level-bump"></label>
+                <input id="{{uid}}-pfs-level-bump" name="data.pfs.levelBump" data-dtype="Boolean" type="checkbox" {{#if data.pfs.levelBump}}checked{{/if}}>
+                <label for="{{uid}}-pfs-level-bump"></label>
             </div>
         </div>
     </div>
     <div class="pfs">
         <div class="spacing">
-            <label for="pfs-current-faction">{{localize 'PF2E.PFS.CurrentFaction'}}</label>
+            <label for="{{uid}}-pfs-current-faction">{{localize 'PF2E.PFS.CurrentFaction'}}</label>
             <span
                 class="pf-value pf-small"
                 title="{{localize 'PF2E.PFS.CurrentFaction'}}"
             >
                 <select
+                id="{{uid}}-pfs-current-faction"
                 name="data.pfs.currentFaction"
                 data-dtype="text"
                 >
@@ -38,9 +39,9 @@
             </span>
         </div>
         <div>
-            <label for="pfs-fame">{{localize 'PF2E.PFS.Fame'}}</label>
+            <label for="{{uid}}-pfs-fame">{{localize 'PF2E.PFS.Fame'}}</label>
             <span>
-                <input id="pfs-fame" name="data.pfs.fame" value="{{data.pfs.fame}}" type="number">
+                <input id="{{uid}}-pfs-fame" name="data.pfs.fame" value="{{data.pfs.fame}}" type="number">
             </span>
         </div>
     </div>
@@ -84,6 +85,35 @@
         </li>
         {{/each}}
         {{/if}}
+        {{/each}}
+
+        <li class="item action-header">
+            <h3 class="item-name pf-heading pf-actions">{{localize "PF2E.FeatPFSBoonHeader"}}</h3>
+            {{#if owner}}
+            <div class="item-controls">
+                <a class="item-control item-create" title="{{localize "PF2E.CreateFeatTitle"}}" data-type="feat" data-feat-type="pfsboon"><i class="fas fa-plus"></i></a>
+                <a class="item-control feat-browse" title="{{localize "PF2E.OpenFeatBrowserTitle"}}" data-type="feat"><i class="fas fa-search"></i></a>
+            </div>
+            {{/if}}
+        </li>
+
+        {{#each actor.pfsBoons as |feat|}}
+            <li class="item feat-item" data-item-id="{{feat._id}}">
+                <div class="item-name rollable">
+                    <div class="feat-slot-title">
+                    </div>
+                    <img class="item-image" src="{{feat.img}}" alt="{{feat.name}}">
+                    <h4>
+                        {{feat.name}}
+                    </h4>
+                </div>
+                {{#if ../owner}}
+                <div class="item-controls">
+                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                </div>
+                {{/if}}
+            </li>
         {{/each}}
     </ol>
 </div>

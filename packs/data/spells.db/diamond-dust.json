@@ -11,8 +11,13 @@
         "areasize": {
             "value": "15-foot emanation centered on you"
         },
+        "category": {
+            "value": "focus"
+        },
         "components": {
-            "value": "somatic, verbal"
+            "material": false,
+            "somatic": true,
+            "verbal": true
         },
         "cost": {
             "value": ""
@@ -27,10 +32,13 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You supercool the nearby air, forming a cloud of dancing ice crystals in an emanation around you. A creature other than you that enters the area or ends its turn within the area takes 2d6 cold damage. A creature can take this damage only once per turn. The crystals scatter and refract light; if a light effect enters diamond dust&rsquo;s area, any creatures that effect goes on to affect gain a +2 status bonus to AC and saves against it. While the spell persists, you can activate or deactivate this aura by using a single action, which has the</span> <span id=\"ctl00_MainContent_DetailedOutput\">concentrate</span> <span id=\"ctl00_MainContent_DetailedOutput\">trait. You can Dismiss this spell.</span></p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.&nbsp;</p>"
+            "value": "<p>You supercool the nearby air, forming a cloud of dancing ice crystals in an emanation around you. A creature other than you that enters the area or ends its turn within the area takes 2d6 cold damage. A creature can take this damage only once per turn. The crystals scatter and refract light; if a light effect enters diamond dust's area, any creatures that effect goes on to affect gain a +2 status bonus to AC and saves against it. While the spell persists, you can activate or deactivate this aura by using a single action, which has the concentrate trait. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
         },
         "duration": {
             "value": "1 minute"
+        },
+        "hasCounteractCheck": {
+            "value": false
         },
         "level": {
             "value": 4
@@ -50,9 +58,17 @@
         "range": {
             "value": ""
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.cold-domain",
+                "retain": true
+            }
+        ],
         "save": {
             "basic": "basic",
             "value": "fortitude"
@@ -62,7 +78,7 @@
             "mode": "level2"
         },
         "school": {
-            "value": "evo"
+            "value": "evocation"
         },
         "secondarycasters": {
             "value": ""
@@ -71,12 +87,6 @@
             "value": ""
         },
         "source": {
-            "value": ""
-        },
-        "spellCategorie": {
-            "value": "focus"
-        },
-        "spellCategory": {
             "value": ""
         },
         "spellType": {
@@ -93,9 +103,7 @@
         },
         "traditions": {
             "custom": "",
-            "value": [
-                "focus"
-            ]
+            "value": []
         },
         "traits": {
             "custom": "",
@@ -107,13 +115,12 @@
                 "cold",
                 "evocation"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/diamond-dust.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/spells/diamond-dust.webp",
     "name": "Diamond Dust",
     "permission": {
         "default": 0

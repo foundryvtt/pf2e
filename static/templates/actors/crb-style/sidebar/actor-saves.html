@@ -1,27 +1,14 @@
 <div class="sidebar_title">
-  <h2>Saves</h2>
-  <!-- <h2>View Modifiers</h2> -->
+    <h2>{{localize "PF2E.SavesHeader"}}</h2>
 </div>
 <ul class="sidebar-saves">
 {{#each data.saves as |save sid|}}
   <li class="roll-data" data-save="{{sid}}">
+    <h2 class="save-label">{{localize save.label}}</h2>
 
-    <h2 class="save-label">
-      {{save.label}}
-    </h2>
-
-    <div class="save-rank">
-      <input
-        type="hidden"
-        name="data.saves.{{sid}}.rank"
-        value="{{save.rank}}"
-        data-dtype="Number"
-      />
-
-      <h4 class="click-stat-level">
-          <span>
-              {{save.rankName}}
-          </span>
+    <div class="save-rank adjust-stat" data-property="data.saves.{{sid}}.rank" value="{{save.rank}}">
+      <h4>
+          <span>{{save.rankName}}</span>
       </h4>
     </div>
 

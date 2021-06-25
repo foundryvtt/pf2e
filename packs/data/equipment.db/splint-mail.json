@@ -2,15 +2,12 @@
     "_id": "6AhDKX1dwRwFpQsU",
     "data": {
         "armor": {
-            "label": "AC Bonus",
-            "type": "Number",
             "value": 5
         },
         "armorType": {
-            "label": "Armor Category",
-            "type": "String",
             "value": "heavy"
         },
+        "baseItem": "splint-mail",
         "brokenThreshold": {
             "value": null
         },
@@ -18,9 +15,7 @@
             "value": ""
         },
         "check": {
-            "label": "Check Penalty",
-            "type": "String",
-            "value": "-3"
+            "value": -3
         },
         "collapsed": {
             "value": false
@@ -30,27 +25,19 @@
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><span class=\"fontstyle0\">This type of armor is chain mail reinforced with flexible, interlocking metal plates, typically located on the wearer’s torso, upper arms, and legs. A suit of this armor comes with an undercoat of padded armor (see above) and a pair of gauntlets (page 285).</span> </p>"
+            "value": "<p>This type of armor is chain mail reinforced with flexible, interlocking metal plates, typically located on the wearer's torso, upper arms, and legs. A suit of this armor comes with an undercoat of padded armor (see above) and a pair of gauntlets.</p>"
         },
         "dex": {
-            "label": "Dex Modifier Cap",
-            "type": "String",
-            "value": "1"
+            "value": 1
         },
         "equipped": {
-            "label": "Equipped",
-            "type": "Boolean",
             "value": false
         },
         "equippedBulk": {
             "value": "3"
         },
         "group": {
-            "label": "Group",
-            "type": "String",
             "value": "composite"
         },
         "hardness": {
@@ -59,15 +46,23 @@
         "hp": {
             "value": null
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 1
         },
         "maxHp": {
@@ -76,12 +71,9 @@
         "negateBulk": {
             "value": "0"
         },
-        "potency": {
-            "label": "Armor Potency",
-            "type": "String"
-        },
+        "potency": {},
         "potencyRune": {
-            "value": ""
+            "value": null
         },
         "preciousMaterial": {
             "value": ""
@@ -90,45 +82,7 @@
             "value": ""
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "13 gp"
-        },
-        "property1": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 1",
-            "type": "Number",
-            "value": ""
-        },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 2",
-            "type": "Number",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 3",
-            "type": "Number",
-            "value": ""
         },
         "propertyRune1": {
             "value": ""
@@ -143,57 +97,73 @@
             "value": ""
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
-        },
-        "rarity": {
-            "value": "common"
         },
         "resiliencyRune": {
             "value": ""
         },
-        "resilient": {
-            "label": "Resilient",
-            "type": "String"
+        "resilient": {},
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "not": [
+                        "unburdened-iron"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "speed",
+                "type": "untyped",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 15,
+                            "value": -10
+                        },
+                        {
+                            "start": 16,
+                            "value": -5
+                        }
+                    ],
+                    "field": "actor|data.abilities.str.value"
+                }
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "speed": {
-            "label": "Speed Penalty",
-            "type": "String",
-            "value": "-10 ft"
+            "value": -10
         },
         "stackGroup": {
             "value": ""
         },
         "strength": {
-            "label": "Required Strength",
-            "type": "String",
-            "value": "16"
+            "value": 16
         },
         "traits": {
-            "label": "Traits",
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
-            "value": ""
+            "value": []
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornarmor"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "4"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/armor/splint-mail.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/armor/splint-mail.webp",
     "name": "Splint Mail",
     "permission": {
         "default": 0

@@ -1,0 +1,65 @@
+{
+    "_id": "tNryw0Rl4L8LF8Yq",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Gravity Weapon]{Gravity Weapon} if your weapon deals 4 dice of damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "First weapon strike this round",
+                "property": "flags.pf2e.rollOptions.damage-roll.gravity-weapon"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Gravity Weapon",
+                "predicate": {
+                    "all": [
+                        "gravity-weapon"
+                    ],
+                    "not": [
+                        "unarmed"
+                    ]
+                },
+                "selector": "mundane-damage",
+                "type": "status",
+                "value": 8
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/gravity-weapon.webp",
+    "name": "Spell Effect: Gravity Weapon (4 Dice)",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

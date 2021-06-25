@@ -1,6 +1,7 @@
 {
     "_id": "sgH9U2fKqWCedKNO",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">A patchwork of humanoid flesh makes up this grotesque mask stitched together with black silk or wire. It is distinctive for its bulbous orange eye— crafted from a magical glass bauble—and wide row of teeth. When worn, the mask amplifies your ability to sense fear in other creatures. You automatically know the value of the @Compendium[pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened} condition of any @Compendium[pf2e.conditionitems.1wQY3JYyhMYeeV2G]{Observed} creature, and you gain a +1 item bonus to Perception checks to @Compendium[pf2e.actionspf2e.BlAOM2X92SI6HMtJ]{Seek} frightened creatures. Whenever you deal precision damage to a frightened creature, you deal 1 additional precision damage. If you are not evil, you are @Compendium[pf2e.conditionitems.4D2KBtexWXa6oUMR]{Drained} 2 while wearing the <em>Skinsaw mask</em>.</span></p>"
+            "value": "<p>A patchwork of humanoid flesh makes up this grotesque mask stitched together with black silk or wire. It is distinctive for its bulbous orange eye- crafted from a magical glass bauble-and wide row of teeth.</p>\n<p>When worn, the mask amplifies your ability to sense fear in other creatures.</p>\n<p>You automatically know the value of the @Compendium[pf2e.conditionitems.Frightened]{Frightened} condition of any @Compendium[pf2e.conditionitems.Observed]{Observed} creature, and you gain a +1 item bonus to Perception checks to @Compendium[pf2e.actionspf2e.Seek]{Seek} frightened creatures. Whenever you deal precision damage to a frightened creature, you deal 1 additional precision damage.</p>\n<p>If you are not evil, you are @Compendium[pf2e.conditionitems.Drained]{Drained} 2 while wearing the<em>Skinsaw mask</em>.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to Perception checks to Seek frightened creatures</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "3"
+            "value": 3
         },
         "maxHp": {
             "value": 0
@@ -55,12 +66,26 @@
             "value": "30 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Skinsaw Mask (Seek Frightened target)",
+                "predicate": {
+                    "all": [
+                        "action:seek",
+                        "target:frightened"
+                    ]
+                },
+                "selector": "perception",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": {
+            "value": "med"
         },
-        "rules": [],
         "source": {
             "value": ""
         },
@@ -72,9 +97,6 @@
             "rarity": {
                 "value": "uncommon"
             },
-            "usage": {
-                "value": "wornmask"
-            },
             "value": [
                 "divination",
                 "divine",
@@ -84,14 +106,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornmask"
         },
         "weight": {
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/skinsaw-mask.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/skinsaw-mask.webp",
     "name": "Skinsaw Mask",
     "permission": {
         "default": 0

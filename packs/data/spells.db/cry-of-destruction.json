@@ -2,87 +2,75 @@
     "_id": "0H1ozccQGGFLUwFI",
     "data": {
         "ability": {
-            "label": "Spellcasting Ability",
-            "type": "String",
             "value": ""
         },
         "area": {
-            "areaType": "",
-            "label": "Area",
-            "type": "String",
-            "value": null
+            "areaType": "cone",
+            "value": "15"
         },
         "areasize": {
             "value": "15-foot cone"
         },
+        "category": {
+            "value": "focus"
+        },
         "components": {
-            "label": "Spell Components",
-            "type": "String",
-            "value": "somatic, verbal"
+            "material": false,
+            "somatic": true,
+            "verbal": true
         },
         "cost": {
-            "label": "Cost",
-            "type": "String",
             "value": ""
         },
         "damage": {
             "applyMod": false,
-            "label": "Spell Damage",
-            "type": "String",
             "value": "1d8"
         },
         "damageType": {
-            "label": "Damage Type",
-            "type": "String",
             "value": "sonic"
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p>Your voice booms, smashing what's in front of you. Each creature and unattended object in the area takes 1d8 sonic damage. If you already dealt damage to an enemy this turn with a Strike or spell, increase the damage dice from this spell to d12s.</p>\n<hr>\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
+            "value": "<p>Your voice booms, smashing what's in front of you. Each creature and unattended object in the area takes 1d8 sonic damage. If you already dealt damage to an enemy this turn with a Strike or spell, increase the damage dice from this spell to d12s.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
         },
         "duration": {
-            "label": "Duration",
-            "type": "String",
             "value": ""
         },
+        "hasCounteractCheck": {
+            "value": false
+        },
         "level": {
-            "label": "Spell Level",
-            "type": "Number",
             "value": 1
         },
         "location": {
-            "label": "Spellcasting Entry Location",
-            "type": "String",
             "value": ""
         },
         "materials": {
-            "label": "Materials",
-            "type": "String",
             "value": ""
         },
         "prepared": {
-            "label": "Prepared Spell",
-            "type": "String",
             "value": ""
         },
         "primarycheck": {
             "value": ""
         },
         "range": {
-            "label": "Range",
-            "type": "String",
             "value": ""
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.sonic-domain",
+                "retain": true
+            }
+        ],
         "save": {
             "basic": "basic",
-            "label": "Saving Throw",
-            "type": "String",
             "value": "fortitude"
         },
         "scaling": {
@@ -90,9 +78,7 @@
             "mode": "level1"
         },
         "school": {
-            "label": "Spell School",
-            "type": "String",
-            "value": "evo"
+            "value": "evocation"
         },
         "secondarycasters": {
             "value": ""
@@ -101,61 +87,39 @@
             "value": ""
         },
         "source": {
-            "label": "Source",
-            "type": "String",
-            "value": "https://2e.aonprd.com/Spells.aspx?ID=410"
-        },
-        "spellCategorie": {
-            "value": "focus"
-        },
-        "spellCategory": {
             "value": ""
         },
         "spellType": {
-            "label": "Spell Type",
-            "type": "String",
             "value": "save"
         },
         "sustained": {
-            "label": "Can be Sustained",
-            "type": "Boolean",
             "value": false
         },
         "target": {
-            "label": "Target",
-            "type": "String",
             "value": ""
         },
         "time": {
-            "label": "Casting Time",
-            "type": "String",
             "value": "2"
         },
         "traditions": {
-            "label": "Spell Traditions",
-            "type": "String",
-            "value": [
-                "focus"
-            ]
+            "value": []
         },
         "traits": {
-            "label": "Spell Traits",
+            "custom": "",
             "rarity": {
                 "value": "uncommon"
             },
-            "type": "String",
             "value": [
                 "cleric",
                 "evocation",
                 "sonic"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/cry-of-destruction.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/spells/cry-of-destruction.webp",
     "name": "Cry of Destruction",
     "permission": {
         "default": 0

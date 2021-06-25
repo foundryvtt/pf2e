@@ -13,20 +13,45 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You have adapted particularly well to living in forested environments. As long as you are in a forest or jungle, you gain a +2 circumstance bonus to Stealth checks to @Compendium[pf2e.actionspf2e.XMcnh4cSI32tljXa]{Hide} and @Compendium[pf2e.actionspf2e.VMozDqMMuK5kpoX4]{Sneak}, Survival checks to @Compendium[pf2e.actionspf2e.49y9Ec4bDii8pcD3]{Subsist}, and your Survival DC to @Compendium[pf2e.actionspf2e.SB7cMECVtE06kByk]{Cover Tracks}.&nbsp;</span></p>"
+            "value": "<p>You have adapted particularly well to living in forested environments. As long as you are in a forest or jungle, you gain a +2 circumstance bonus to Stealth checks to @Compendium[pf2e.actionspf2e.Hide]{Hide}and @Compendium[pf2e.actionspf2e.Sneak]{Sneak}, Survival checks to @Compendium[pf2e.actionspf2e.Subsist]{Subsist}, and your Survival DC to @Compendium[pf2e.actionspf2e.Cover Tracks]{Cover Tracks}.</p>"
         },
         "featType": {
-            "value": "ancestryfeature"
+            "value": "heritage"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Treedweller Goblin (Subsist)",
+                "predicate": {
+                    "any": [
+                        "action:subsist"
+                    ]
+                },
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Treedweller Goblin (Hide or Sneak)",
+                "predicate": {
+                    "any": [
+                        "action:hide",
+                        "action:sneak"
+                    ]
+                },
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +63,12 @@
             "value": [
                 "goblin"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/ancestry/treedweller-goblin.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/ancestry/treedweller-goblin.webp",
     "name": "Treedweller Goblin",
     "permission": {
         "default": 0

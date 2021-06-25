@@ -1,18 +1,56 @@
 {
     "compilerOptions": {
-      "target": "es2017",
-      "module": "commonjs",
-      "lib": ["esnext", "dom"],
-      "noImplicitAny": false,
-      "forceConsistentCasingInFileNames": true,
-      "esModuleInterop": true,
-      "sourceMap": true,
-      "baseUrl": ".",
-      "removeComments": false,
-      "resolveJsonModule": true,
-      "paths": {
-        "foundry": ["types/foundry-pc-types"]
-      },
-      "types": ["jquery", "webpack-env", "jest"]
+        "target": "es2017",
+        "module": "commonjs",
+        "lib": ["esnext", "dom"],
+        "noEmit": true,
+
+        "noImplicitOverride": true,
+        "noImplicitThis": true,
+        "strictBindCallApply": true,
+        "strictFunctionTypes": true,
+        "strictPropertyInitialization": true,
+        "strictNullChecks": true,
+
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+
+        "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "baseUrl": ".",
+        "allowUnusedLabels": false,
+        "removeComments": false,
+        "resolveJsonModule": true,
+        "paths": {
+            "@actor": ["src/module/actor/index"],
+            "@actor/*": ["src/module/actor/*"],
+            "@item": ["src/module/item/index"],
+            "@item/*": ["src/module/item/*"],
+            "@system/*": ["src/module/system/*"],
+            "@module/*": ["src/module/*"],
+            "@scripts/*": ["src/scripts/*"],
+            // https://github.com/Hypercubed/mini-signals/issues/20
+            "mini-signals": [
+                "node_modules/resource-loader/typings/mini-signals.d.ts"
+            ]
+        },
+        "types": [
+            "jquery",
+            "tooltipster",
+            "jest",
+            "node",
+            "handlebars"
+        ],
+        "typeRoots": [
+            "node_modules/@types",
+            "node_modules/handlebars",
+            "types/foundry"
+        ]
     },
-  }
+    "ts-node": {
+        "files": true
+    }
+}

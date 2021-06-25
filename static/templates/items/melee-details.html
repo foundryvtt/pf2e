@@ -1,62 +1,64 @@
-
 <div class="form-group">
     <label>{{localize "PF2E.NPCWeaponAttackLabel"}}</label>
-    <input type="text" name="data.bonus.value" value="{{data.bonus.value}}" data-dtype="{{data.bonus.type}}"/>
+    <input type="number" name="data.bonus.value" value="{{data.bonus.value}}" data-dtype="Number"/>
 </div>
 
 <ol class="form-list">
     {{#if data.damageRolls}}
-    {{#each data.damageRolls as |damageRoll did|}}
-    <li class="damage-part flexrow" data-damage-part="{{did}}">
-        <div class="form-group">
-            <label>{{localize "PF2E.DamageLabel"}}</label>
-            <input type="text" name="data.damageRolls.{{did}}.damage" value="{{lookup this "damage"}}" data-dtype="String" style="margin-right:5px"/>
-        </div>
-        <div class="form-group">
-            <label>{{localize "PF2E.NPCWeaponDamageTypeLabel"}}</label>
-                <select name="data.damageRolls.{{did}}.damageType" data-dtype="String">
-                    {{#select (lookup this "damageType")}}
-                    {{#each ../weaponDamage as |name type|}}
-                    <option value="{{type}}">{{name}}</option>
-                    {{/each}}
-                    {{/select}}
-                </select>
-        </div>
-        <div style="flex:0; margin-left:5px; display:flex; align-items:center;">
-            <a class="damage-control delete-damage"><i class="fas fa-minus"></i></a>
-        </div>
-    </li>
-    {{/each}}
+        {{#each data.damageRolls as |damageRoll did|}}
+            <li class="damage-part flexrow" data-damage-part="{{did}}">
+                <div class="form-group">
+                    <label>{{localize "PF2E.DamageLabel"}}</label>
+                    <input type="text" name="data.damageRolls.{{did}}.damage" value="{{lookup this "damage"}}" data-dtype="String" style="margin-right:5px"/>
+                </div>
+                <div class="form-group">
+                    <label>{{localize "PF2E.NPCWeaponDamageTypeLabel"}}</label>
+                    <select name="data.damageRolls.{{did}}.damageType" data-dtype="String">
+                        {{#select (lookup this "damageType")}}
+                            {{#each @root.damageTypes as |label type|}}
+                                <option value="{{type}}">{{localize label}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                <div style="flex:0; margin-left:5px; display:flex; align-items:center;">
+                    <a class="damage-control delete-damage"><i class="fas fa-minus"></i></a>
+                </div>
+            </li>
+        {{/each}}
     {{/if}}
-        <div class="form-group" style="display:flex; align-items:center;">
-            <label>
-                <a class="damage-control add-damage">{{localize "PF2E.NPCWeaponAddDamage"}} <i class="fas fa-plus"></i></a>
-            </label>
-        </div>  
+    <div class="form-group" style="display:flex; align-items:center;">
+        <label>
+            <a class="damage-control add-damage">{{localize "PF2E.NPCWeaponAddDamage"}} <i class="fas fa-plus"></i></a>
+        </label>
+    </div>
 </ol>
 
 <div class="form-group-stacked">
-    <label for="data.attackEffects">
+    <label>
         {{localize "PF2E.NPCWeaponAttackEffect"}}
-        <a class="trait-selector" data-options="attackEffects"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-trait-selector="basic" data-config-types="attackEffects" data-property="data.attackEffects"><i class="fas fa-edit"></i></a>
     </label>
 
     <ul class="traits-list pf-value pf-large">
-        {{#each data.attackEffects.value as |v k|}}
-            <span class="tag {{k}}">{{v}}</span>
+        {{#each attackEffects as |attackEffect|}}
+            {{#if attackEffect.selected}}
+                <li class="tag" data-attack-effect="{{attackEffect.value}}">{{localize attackEffect.label}}</li>
+            {{/if}}
         {{/each}}
     </ul>
 </div>
 
 <div class="form-group-stacked">
-    <label for="data.traits">
+    <label>
         {{localize "PF2E.TraitsLabel"}}
-        <a class="trait-selector" data-options="weaponTraits"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-trait-selector="basic" data-config-types="weaponTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
     </label>
-
     <ul class="traits-list pf-value pf-large">
-        {{#each data.traits.value as |v k|}}
-            <span class="tag {{k}}">{{v}}</span>
+        {{#each traits as |trait|}}
+            {{#if trait.selected}}
+                <li class="tag" data-trait="{{trait.value}}">{{localize trait.label}}</li>
+            {{/if}}
         {{/each}}
     </ul>
 </div>

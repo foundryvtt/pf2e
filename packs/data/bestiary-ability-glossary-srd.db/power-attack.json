@@ -1,0 +1,67 @@
+{
+    "_id": "0B39GdScyZMPWalX",
+    "data": {
+        "actionCategory": {
+            "value": "offensive"
+        },
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": "2"
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> The monster makes a melee Strike. This counts as two attacks when calculating the monster's multiple attack penalty. If this Strike hits, the monster deals an extra die of weapon damage.</p>"
+        },
+        "requirements": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "property": "flags.pf2e.rollOptions.damage-roll.power-attack"
+            },
+            {
+                "diceNumber": 1,
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "melee",
+                        "power-attack"
+                    ]
+                },
+                "selector": "damage"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        },
+        "trigger": {
+            "value": ""
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weapon": {
+            "value": ""
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Power Attack",
+    "permission": {
+        "default": 0
+    },
+    "type": "action"
+}

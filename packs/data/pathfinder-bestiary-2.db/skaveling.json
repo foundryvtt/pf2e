@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "22"
+                "value": 22
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "80",
+                "max": 80,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "80"
+                "value": 80
             },
             "init": {
                 "bonus": 0,
@@ -104,12 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "30 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "30"
                     }
                 ],
-                "special": "",
-                "value": "15 feet"
+                "value": "15"
             }
         },
         "currency": {
@@ -142,10 +142,10 @@
             },
             "creatureType": "Undead",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Hideous necromantic rituals give rise to skavelings, or ghoul bats, monstrosities that are not true ghouls but instead are specifically crafted undead creatures. Their creators are the bloodsucking urdefhans of the Darklands, who create skavelings from giant bats specially raised on diets of toxic fungus and the flesh of ghouls—especially brains harvested from these undead. Upon reaching maturity, these giant bats are ritually slain via the use of cytillesh oil. While this poison simply rots away the flesh of most creatures, one of these specially prepared bats will immediately rise from death as a skaveling after succumbing to its effects.<br><br> Despite its tattered wings and sagging skin, a skaveling is more than capable of flight, even when carrying a creature mounted on its back—urdefhans often use skavelings as mounts in this way. Their intelligence is more advanced than that of the typical giant bat, and in combat they function more as allies than as mere mounts, capable of making their own tactical decisions. Yet even though they can reason and think, skavelings remain loyal to the urdefhans who created them, and they never take actions in a fight that would knowingly put their masters in harm's way.<br><br>",
+            "flavorText": "Hideous necromantic rituals give rise to skavelings, or ghoul bats, monstrosities that are not true ghouls but instead are specifically crafted undead creatures. Their creators are the bloodsucking urdefhans of the Darklands, who create skavelings from giant bats specially raised on diets of toxic fungus and the flesh of ghouls-especially brains harvested from these undead. Upon reaching maturity, these giant bats are ritually slain via the use of cytillesh oil. While this poison simply rots away the flesh of most creatures, one of these specially prepared bats will immediately rise from death as a skaveling after succumbing to its effects.<br /><br /> Despite its tattered wings and sagging skin, a skaveling is more than capable of flight, even when carrying a creature mounted on its back-urdefhans often use skavelings as mounts in this way. Their intelligence is more advanced than that of the typical giant bat, and in combat they function more as allies than as mere mounts, capable of making their own tactical decisions. Yet even though they can reason and think, skavelings remain loyal to the urdefhans who created them, and they never take actions in a fight that would knowingly put their masters in harm's way.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -155,13 +155,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "5"
+                "value": 5
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=803",
             "recallKnowledgeText": "Recall Knowledge - Undead : DC 20",
-            "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Additional Lore\" title=\"Sidebar - Additional Lore\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_2_AdditionalLore.png\"> Skaveling Intellect</h3>As a curious side effect of its creation, a skaveling absorbs many of the memories and thoughts of the ghoul brains it was fed. While it was merely an oversized animal in life, in undeath these memories coalesce into a strange form of intelligence that affords the skaveling the ability to speak and reason, all the better to serve its urdefhan masters.",
             "source": {
-                "value": "Bestiary 2 pg. 241"
+                "value": "Bestiary 2"
             }
         },
         "martial": {
@@ -411,10 +409,19 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
-                "value": []
+                "value": [
+                    "death effects",
+                    "disease",
+                    "paralyzed",
+                    "poison",
+                    "unconscious"
+                ]
             },
             "dr": [],
             "dv": [],
@@ -440,10 +447,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "ChobeFNcesw2DX01",
@@ -452,125 +459,50 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "2d8+8",
-                        "ghoul fever",
-                        "paralysis"
+                        "Ghoul Fever",
+                        "Paralysis"
                     ]
                 },
                 "bonus": {
-                    "total": 15,
                     "value": 15
                 },
-                "brokenThreshold": {
-                    "value": 0
+                "damageRolls": {
+                    "j7rd51qs71pxtb0qhtg9": {
+                        "damage": "2d8+8",
+                        "damageType": "piercing"
+                    }
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {},
-                "damageRolls": [],
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Fangs",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "melee"
         },
@@ -581,134 +513,59 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "2d4+8",
-                        "paralysis"
+                        "Paralysis"
                     ]
                 },
                 "bonus": {
-                    "total": 15,
                     "value": 15
                 },
-                "brokenThreshold": {
-                    "value": 0
+                "damageRolls": {
+                    "yc9bzqdu6ogljimuiiiv": {
+                        "damage": "2d4+8",
+                        "damageType": "bludgeoning"
+                    }
                 },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {},
-                "damageRolls": [],
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Wing",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "melee"
         },
         {
-            "_id": "h35hRTaiSXOfVZFA",
+            "_id": "wKTyf3x01s0VjUOw",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -719,22 +576,75 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A skaveling can use its hearing as a precise sense at the listed range"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "h35hRTaiSXOfVZFA",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A skaveling can use its hearing as a precise sense at the listed range</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -747,49 +657,47 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "interaction"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Echolocation",
-            "sort": 300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
             "type": "action"
         },
         {
             "_id": "x183YuDiYXsrOlKc",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The skaveling unleashes a horrifying screech that chills the very bones of those close enough to feel it. The screech can be heard for miles, but each creature in a 20-foot emanation must also attempt a DC 22 Will save. The skaveling can't use Bone-Chilling Screech again for 1d4 rounds. <br><b>Critical Success</b> The creature is unaffected and is temporarily immune to Bone- Chilling Screech for 24 hours. <br><b>Success</b> The creature is @Compendium[pf2e.conditionspf2e.Frightened] 1. <br><b>Failure</b> The creature is frightened 2. <br><b>Critical Failure</b> The creature is frightened 2 and @Compendium[pf2e.conditionspf2e.Stunned] 1 by fear."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The skaveling unleashes a horrifying screech that chills the very bones of those close enough to feel it. The screech can be heard for miles, but each creature in a 20-foot emanation must also attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"22\" data-pf2-traits=\"auditory,emotion,fear,mental,necromancy,occult\" data-pf2-label=\"Bone-Chilling Screech DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<p>The skaveling can't use Bone-Chilling Screech again for [[/r 1d4 #rounds]] rounds.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Bone- Chilling Screech for 24 hours.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} and @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} by fear.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "auditory",
                         "emotion",
@@ -809,23 +717,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Bone-Chilling Screech",
-            "sort": 400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
             "type": "action"
         },
         {
             "_id": "aOFgYZJ7qXDOoWDH",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -836,22 +743,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Saving Throw</b> DC 22 Fortitude; <b>Stage 1</b> carrier with no ill effect (1 day); <b>Stage 2</b> [[/r 2d6 # negative damage]] negative damage and regains half as many Hit Points from all healing (1 day); <b>Stage 3</b> as stage 2 (1 day); <b>Stage 4</b> [[/r 2d6 # negative damage]] negative damage and gains no benefit from healing (1 day); <b>Stage 5</b> as stage 4 (1 day); <b>Stage 6</b> dead, and rises as a ghoul the next midnight"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Saving Throw</strong> DC 22 Fortitude;</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day);</p>\n<p><strong>Stage 2</strong> [[/r 2d6 #negative]] negative damage and regains half as many Hit Points from all healing (1 day);</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day);</p>\n<p><strong>Stage 4</strong> [[/r 2d6 #negative]] negative damage and gains no benefit from healing (1 day);</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day);</p>\n<p><strong>Stage 6</strong> dead, and rises as a ghoul the next midnight</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "disease"
                     ]
@@ -866,23 +772,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Ghoul Fever",
-            "sort": 500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
             "type": "action"
         },
         {
             "_id": "2doPyPIBLoDzjzk9",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -893,22 +798,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Any creature hit by the skaveling's Strikes must attempt a DC 22 Fortitude save. <br><b>Critical Success</b> The creature is unaffected. <br><b>Success</b> The creature is @Compendium[pf2e.conditionspf2e.Slowed] 1. <br><b>Failure</b> The creature is @Compendium[pf2e.conditionspf2e.Paralyzed]. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each save."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>Any creature hit by the skaveling's Strikes must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"incapacitation,occult,necromancy\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each save.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "incapacitation",
                         "occult",
@@ -925,16 +829,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Paralysis",
-            "sort": 600000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -945,7 +848,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -955,23 +857,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -982,7 +892,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -992,23 +901,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -1019,7 +936,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1029,23 +945,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 900000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
             "type": "lore"
         }
     ],
@@ -1054,13 +978,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "LQL8HU6tISXZwlOw",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1070,15 +996,21 @@
         "disposition": -1,
         "flags": {},
         "height": 2,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Skaveling",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 2

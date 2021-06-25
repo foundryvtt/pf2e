@@ -1,6 +1,6 @@
 .character {
     h3 {
-        margin-top: 1em;
+        margin-top: 0.75em;
         font-family: $serif;
         font-weight: 600;
         color: var(--primary);
@@ -19,7 +19,7 @@
     input {
         font-family: $body-serif;
         font-weight: bold;
-        width: calc(100% - 8px);
+        width: calc(100% - 6px);
         border-bottom: 1px solid #d3ccbc;
         text-transform: capitalize;
         &::placeholder {
@@ -32,17 +32,59 @@
                 color: transparent;
             }
         }
+        &[type="number"] {
+          padding-bottom: 0;
+          padding-left: 4px;
+        }
     }
     select {
-        width: calc(100% - 8px);
+        width: calc(100% - 6px);
         background-color: var(--alt);
         border: 1px solid darken($alt-color, 8);
+        &:disabled {
+          cursor: initial;
+        }
     }
+
+    hr {
+      margin: 10px 6px 10px 0;
+    }
+
+    .pc {
+        h3 {
+            grid-area: mod;
+            border: none;
+            @include p-reset;
+            background-color: rgba($body-color, 0.1);
+            height: 26px;
+            padding: 8px 4px 6px;
+            color: var(--body);
+            font-family: $body-serif;
+            font-size: 14px;
+            font-weight: 700;
+            width: calc(100% - 6px);
+            i {
+              position: relative;
+              right: -2px;
+              top: -2px;
+              float: right;
+            }
+
+            span.value {
+              display: inline-block;
+              max-width: 87%;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+        }
+    }
+
     .character-details {
         display: grid;
         grid:
             'img alignment deity' 30px
-            'img details details' 150px
+            'img details details' auto
             / 120px 120px 1fr;
         margin-top: 4px;
 
@@ -69,7 +111,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: url('../assets/sheet/banner-bg.png') repeat-x center;
+            background: url('../assets/sheet/banner-bg.webp') repeat-x center;
             height: 31px;
             z-index: 1;
 
@@ -84,7 +126,7 @@
                 text-transform: capitalize;
                 margin-top: 2px;
             }
-            
+
             input[type='text'] {
                 font-family: $body-serif;
                 font-size: 14px;
@@ -99,7 +141,7 @@
                 width: 15px;
                 top: 0;
                 right: -11px;
-                background: url('../assets/sheet/banner-bg2.png') no-repeat
+                background: url('../assets/sheet/banner-bg2.webp') no-repeat
                     right;
             }
         }
@@ -127,7 +169,6 @@
 
                 input {
                     text-align: right;
-                    background-color: transparent;
                 }
             }
             img {
@@ -143,8 +184,8 @@
         .detail-sheet {
             grid-area: details;
             display: grid;
-            grid-template-columns: 2fr 3fr;
-            grid-template-rows: repeat(3, 42px);
+            grid-template-columns: 2fr 2fr;
+            grid-template-rows: repeat(2, 42px);
             grid-row-gap: 8px;
             padding-left: 12px;
             margin-top: 8px;
@@ -158,6 +199,36 @@
             }
             .detail-small {
                 display: flex;
+            }
+        }
+    }
+
+    .character-background {
+        display: flex;
+        flex-wrap: wrap;
+
+        .pc {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex: 20%;
+            margin-bottom: 8px;
+
+            span {
+              width: 100%;
+            }
+
+            &_ethnicity,
+            &_nationality {
+              flex: 50%;
+              margin-bottom: 0;
+            }
+
+            label,
+            h4 {
+                margin: 0;
+                white-space: nowrap;
             }
         }
     }
@@ -188,6 +259,12 @@
                 }
             }
 
+            &_land-speed,
+            &_size,
+            &_key-ability {
+                flex: 30%;
+            }
+
             &_speed-types {
                 flex: 50%;
             }
@@ -207,12 +284,9 @@
             &_bonus-bulk {
               flex: 1 20%;
 
-              &.encumbrance {
-                  margin-right: 8px;
+              &.encumbered {
+                  margin-right: 7px;
               }
-            }
-            &_ethnicity {
-                flex: 1 40%;
             }
 
             label,
@@ -240,7 +314,8 @@
 
             .tags,
             select,
-            input {
+            input,
+            h3 {
                 margin-top: 4px;
             }
         }
@@ -271,6 +346,10 @@
             .ability-name {
                 grid-area: label;
                 margin: 0;
+                &:hover {
+                    cursor: pointer;
+                    color: #0c1466;
+                }
             }
             .ability-id {
                 filter: opacity(0.5);
@@ -300,8 +379,10 @@
             .ability-mod {
                 grid-area: mod;
                 border: none;
-                @include p-reset;
                 background-color: rgba($body-color, 0.1);
+                font-family: $serif;
+                font-weight: 700;
+                @include p-reset;
             }
 
             .ability-mod,

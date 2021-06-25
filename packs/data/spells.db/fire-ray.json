@@ -2,87 +2,75 @@
     "_id": "oJKZi8OQgmVXHOc0",
     "data": {
         "ability": {
-            "label": "Spellcasting Ability",
-            "type": "String",
             "value": ""
         },
         "area": {
             "areaType": "",
-            "label": "Area",
-            "type": "String",
-            "value": null
+            "value": ""
         },
         "areasize": {
             "value": ""
         },
+        "category": {
+            "value": "focus"
+        },
         "components": {
-            "label": "Spell Components",
-            "type": "String",
-            "value": "somatic, verbal"
+            "material": false,
+            "somatic": true,
+            "verbal": true
         },
         "cost": {
-            "label": "Cost",
-            "type": "String",
             "value": ""
         },
         "damage": {
             "applyMod": false,
-            "label": "Spell Damage",
-            "type": "String",
             "value": "2d6"
         },
         "damageType": {
-            "label": "Damage Type",
-            "type": "String",
             "value": "fire"
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p>A blazing band of fire arcs through the air. Make a spell attack roll. The ray deals 2d6 fire damage.</p>\n<p><strong>Critical Success</strong> The ray deals double damage and 1d4 persistent fire damage.</p>\n<p><strong>Success</strong> The ray deals full damage.</p>\n<hr>\n<p><strong>Heightened (+1)</strong> The ray's initial damage increases by 2d6, and the persistent fire damage on a critical success increases by 1d4.</p>"
+            "value": "<p>A blazing band of fire arcs through the air. Make a spell attack roll. The ray deals 2d6 fire damage.</p>\n<hr />\n<p><strong>Critical Success</strong> The ray deals double damage and 1d4 persistent fire damage.</p>\n<p><strong>Success</strong> The ray deals full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The ray's initial damage increases by 2d6, and the persistent fire damage on a critical success increases by 1d4.</p>"
         },
         "duration": {
-            "label": "Duration",
-            "type": "String",
             "value": ""
         },
+        "hasCounteractCheck": {
+            "value": false
+        },
         "level": {
-            "label": "Spell Level",
-            "type": "Number",
             "value": 1
         },
         "location": {
-            "label": "Spellcasting Entry Location",
-            "type": "String",
             "value": ""
         },
         "materials": {
-            "label": "Materials",
-            "type": "String",
             "value": ""
         },
         "prepared": {
-            "label": "Prepared Spell",
-            "type": "String",
             "value": ""
         },
         "primarycheck": {
             "value": ""
         },
         "range": {
-            "label": "Range",
-            "type": "String",
             "value": "60 feet"
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.fire-domain",
+                "retain": true
+            }
+        ],
         "save": {
             "basic": "",
-            "label": "Saving Throw",
-            "type": "String",
             "value": ""
         },
         "scaling": {
@@ -90,9 +78,7 @@
             "mode": "level1"
         },
         "school": {
-            "label": "Spell School",
-            "type": "String",
-            "value": "evo"
+            "value": "evocation"
         },
         "secondarycasters": {
             "value": ""
@@ -101,62 +87,40 @@
             "value": ""
         },
         "source": {
-            "label": "Source",
-            "type": "String",
-            "value": "https://2e.aonprd.com/Spells.aspx?ID=422"
-        },
-        "spellCategorie": {
-            "value": "focus"
-        },
-        "spellCategory": {
             "value": ""
         },
         "spellType": {
-            "label": "Spell Type",
-            "type": "String",
             "value": "attack"
         },
         "sustained": {
-            "label": "Can be Sustained",
-            "type": "Boolean",
             "value": false
         },
         "target": {
-            "label": "Target",
-            "type": "String",
-            "value": "1 creature or object"
+            "value": "1 creature"
         },
         "time": {
-            "label": "Casting Time",
-            "type": "String",
             "value": "2"
         },
         "traditions": {
-            "label": "Spell Traditions",
-            "type": "String",
-            "value": [
-                "focus"
-            ]
+            "value": []
         },
         "traits": {
-            "label": "Spell Traits",
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "attack",
                 "cleric",
                 "evocation",
                 "fire"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/fire-ray.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/spells/fire-ray.webp",
     "name": "Fire Ray",
     "permission": {
         "default": 0

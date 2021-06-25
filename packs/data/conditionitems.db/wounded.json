@@ -10,7 +10,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You have been seriously injured. If you lose the @Compendium[pf2e.conditionitems.Dying] condition and do not already have the wounded condition, you become wounded 1. If you already have the wounded condition when you lose the @Compendium[pf2e.conditionitems.Dying] condition, your wounded condition value increases by 1. If you gain the @Compendium[pf2e.conditionitems.Dying] condition while wounded, increase your @Compendium[pf2e.conditionitems.Dying] condition value by your wounded value.<br /><br />The wounded condition ends if someone successfully restores Hit Points to you with @Compendium[pf2e.actionspf2e.1kGNdIIhuglAjIp9]{Treat Wounds}, or if you are restored to full Hit Points and rest for 10 minutes.</p>"
+            "value": "<p>You have been seriously injured. If you lose the @Compendium[pf2e.conditionitems.Dying]{Dying} condition and do not already have the wounded condition, you become wounded 1. If you already have the wounded condition when you lose the dying condition, your wounded condition value increases by 1. If you gain the dying condition while wounded, increase your dying condition value by your wounded value.<br /><br />The wounded condition ends if someone successfully restores Hit Points to you with @Compendium[pf2e.actionspf2e.Treat Wounds]{Treat Wounds}, or if you are restored to full Hit Points and rest for 10 minutes.</p>"
         },
         "duration": {
             "perpetual": true,
@@ -21,16 +21,13 @@
         "hud": {
             "img": {
                 "useStatusName": true,
-                "value": "system/pf2e/icons/conditions-2/wounded.png"
+                "value": "systems/pf2e/icons/conditions-2/wounded.webp"
             },
             "selectable": true,
             "statusName": "wounded"
         },
         "modifiers": [],
         "overrides": [],
-        "rarity": {
-            "value": "common"
-        },
         "references": {
             "children": [],
             "immunityFrom": [],
@@ -38,27 +35,34 @@
             "overrides": []
         },
         "removable": true,
+        "rules": [],
         "source": {
             "value": ""
         },
         "sources": {
-            "hud": false
+            "hud": true
         },
         "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": []
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         },
         "value": {
             "immutable": false,
-            "isValued": false,
+            "isValued": true,
             "modifiers": [],
             "value": 1
         }
     },
-    "flags": {},
-    "img": "systems/pf2e/icons/conditions/wounded.png",
+    "effects": [],
+    "flags": {
+        "pf2e": {
+            "condition": true
+        }
+    },
+    "img": "systems/pf2e/icons/conditions/wounded.webp",
     "name": "Wounded",
     "permission": {
         "default": 0

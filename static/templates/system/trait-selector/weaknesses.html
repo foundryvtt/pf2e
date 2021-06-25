@@ -1,0 +1,14 @@
+<form class="window flexcol" autocomplete="off" onsubmit="event.preventDefault();">
+    <ol class="trait-list">
+        {{#each choices as |choice key|}}
+        <li class="trait-item">
+            <div class="form-group form-fields">
+                <input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked choice.selected}}>
+                <label class="trait-label" style="margin-left: 5px; margin-right: 5px;">{{choice.label}}</label>
+                <input type="number" id="input_value_{{key}}" name="{{key}}" value="{{choice.value}}" placeholder="0" data-dtype="Number"/>
+            </div>
+        </li>
+        {{/each}}
+    </ol>
+    <button class="trait-footer" type="submit" name="submit" value="1"><i class="far fa-save"></i>{{localize "PF2E.UpdateActorLabel"}}</button>
+</form>

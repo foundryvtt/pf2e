@@ -13,35 +13,52 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">Focusing your will into your physical attacks imbues them with mystical energy. Your unarmed attacks become magical, allowing them to get past resistances to non-magical attacks. However, you still need an item such as @Compendium[pf2e.equipment-srd.FNDq4NFSN0g2HKWO]{Handwraps of Mighty Blows (+1)} to gain an item bonus to attack rolls or increase your attacks’ weapon damage dice.&nbsp;</span></p>"
+            "value": "<p>Focusing your will into your physical attacks imbues them with mystical energy. Your unarmed attacks become magical, allowing them to get past resistances to non-magical attacks. However, you still need an item such as @Compendium[pf2e.equipment-srd.Handwraps of Mighty Blows]{Handwraps of Mighty Blows (+1)} to gain an item bonus to attack rolls or increase your attacks' weapon damage dice.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "3"
+            "value": 3
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "unarmed"
+                    ],
+                    "not": [
+                        "suppress-mystic-strike"
+                    ]
+                },
+                "selector": "damage",
+                "traits": [
+                    "magical"
+                ]
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": [
                 "monk"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/mystic-strikes.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/mystic-strikes.webp",
     "name": "Mystic Strikes",
     "permission": {
         "default": 0

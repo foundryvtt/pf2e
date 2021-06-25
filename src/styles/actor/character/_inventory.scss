@@ -19,7 +19,14 @@
         padding: 2px;
         @include button;
         background-color: var(--sub);
-        margin: 0 0 8px;
+        margin: 0 0 1px;
+
+        .label {
+            margin: 4px 10px 4px 4px;
+            color: white;
+            font-weight: bold;
+            justify-content: flex-start;
+        }
 
         .denomination {
             width: 100%;
@@ -56,25 +63,25 @@
 
             &.pp {
                 .currency-image {
-                    background: url('../icons/equipment/treasure/currency/platinum-pieces.jpg')
+                    background: url('../icons/equipment/treasure/currency/platinum-pieces.webp')
                         no-repeat;
                 }
             }
             &.gp {
                 .currency-image {
-                    background: url('../icons/equipment/treasure/currency/gold-pieces.jpg')
+                    background: url('../icons/equipment/treasure/currency/gold-pieces.webp')
                         no-repeat;
                 }
             }
             &.sp {
                 .currency-image {
-                    background: url('../icons/equipment/treasure/currency/silver-pieces.jpg')
+                    background: url('../icons/equipment/treasure/currency/silver-pieces.webp')
                         no-repeat;
                 }
             }
             &.cp {
                 .currency-image {
-                    background: url('../icons/equipment/treasure/currency/copper-pieces.jpg')
+                    background: url('../icons/equipment/treasure/currency/copper-pieces.webp')
                         no-repeat;
                 }
             }
@@ -88,7 +95,7 @@
         }
 
         .add-coins-popup,
-        .sell-all-treasure {
+        .remove-coins-popup {
             height: 100%;
             button {
                 @include flex-center;
@@ -113,6 +120,7 @@
 
         .add-coins-popup {
             button {
+                width: 30px;
                 font-size: 15px;
                 font-weight: 600;
                 padding-bottom: 4px;
@@ -121,13 +129,83 @@
             }
         }
 
-        .sell-all-treasure {
-            margin: 0 1px 0px 5px;
+        .remove-coins-popup {
             button {
-                font-size: 11px;
-                padding: 5px 6px 6px 10px;
+                width: 30px;
+                font-size: 15px;
+                font-weight: 600;
+                padding-bottom: 4px;
+                margin-left: 2px;
+                margin-right: 6px;
+                padding-top: 3px;
             }
         }
+
+    }
+
+    .wealth {
+        display: flex;
+        margin-bottom: 10px;
+
+        .wealth-label {
+            padding: 0;
+        }
+
+        h3.item-name {
+            flex-grow: 1;
+            line-height: 1;
+            color: white;
+            margin-bottom: 0;
+            font-weight: bold;
+            margin: 0 5px;
+            margin-left: 5px;
+
+            span {
+                margin-left: 5px;
+                font-size: 12px;
+                font-weight: normal;
+                text-transform: uppercase;
+            }
+
+            .sell-all-treasure {
+                height: 100%;
+                button {
+                    @include flex-center;
+                    @include p-reset;
+                    line-height: 1;
+                    color: rgba(black, 0.75);
+                    background-color: var(--tertiary);
+                    border: none;
+                    padding: 3px 8px;
+                    margin-top: 1px;
+                    border-radius: 1px;
+                    box-shadow: 0 0 0 1px rgba(black, 0.25),
+                        inset 0 0 0 1px rgba(white, 0.25), 0 0 3px rgba(black, 0.5);
+
+                    &:hover {
+                        background-color: var(--primary);
+                        color: white;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .sell-all-treasure {
+                margin: 0 1px 0px 5px;
+                button {
+                    font-size: 11px;
+                    padding: 5px 6px 6px 10px;
+                }
+            }
+
+        }
+
+        ol {
+            padding-right: 0;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            margin-right: 0;
+        };
     }
 
     .item-name {
@@ -139,8 +217,9 @@
         h3,
         h4 {
             margin-right: auto;
-            line-height: 10px;
+            line-height: 12px;
             padding: 2px;
+            word-break: break-word;
             cursor: pointer;
 
             &:hover {
@@ -157,7 +236,7 @@
             width: 24px;
             box-shadow: inset 0 0 0 1px var(--tertiary);
             background-size: cover;
-            padding: 1px;
+            padding: 12px;
             cursor: pointer;
             margin-right: 4px;
         }
@@ -199,7 +278,7 @@
     }
 
     .item-controls {
-        flex: 0 0 75px;
+        flex: 0 0 90px;
         justify-content: flex-end;
 
         .item-control {
@@ -211,6 +290,14 @@
                 color: rgba(black, 0.4);
                 &.active {
                     color: var(--secondary);
+                }
+            }
+            &.item-toggle-invest {
+                i {
+                    font-family: 'Noto Sans JP', sans-serif;
+                    font-size: 16px;
+                    position: relative;
+                    top: -2px;
                 }
             }
         }
@@ -233,6 +320,7 @@
 
         .item-description {
             grid-area: content;
+            margin-bottom: 4px;
         }
 
         .item-properties {
@@ -291,7 +379,7 @@
         justify-content: flex-start;
         position: relative;
         overflow-y: scroll;
-        height: calc(100% - 42px);
+        height: calc(100% - 60px);
 
         .item-list {
             flex-direction: column;
@@ -408,9 +496,9 @@
         h3 {
             font-size: 14px;
             text-transform: capitalize;
-            padding-left: 2px;
             text-shadow: 0 0 2px rgba(black, 0.75);
-            margin-left: 0;
+            margin: 2px;
+            margin-left: 4px;
             cursor: default;
             &:hover {
                 color: white;
@@ -430,7 +518,9 @@
     }
 
     .currency,
-    .encumbrance {
+    .encumbrance,
+    .treasure-wealth,
+    .wealth {
         margin-right: 23px;
     }
 
@@ -438,7 +528,7 @@
         margin-top: 8px;
         display: grid;
         grid:
-            'img bar' min-content
+            'img bar overflow' min-content
             / 24px 1fr;
         align-items: center;
 
@@ -474,6 +564,22 @@
             justify-content: space-between;
             width: 100%;
             text-shadow: 0 0 2px black;
+        }
+        .encumbrance-light-bulk-overflow {
+            position: relative;
+            z-index: 3;
+            grid-area: overflow;
+            color: black;
+            font-family: $serif;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 0 8px;
+            padding-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-shadow: 0 0 2px white;
         }
         .bar-bg {
             position: relative;

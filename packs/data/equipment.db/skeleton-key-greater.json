@@ -1,6 +1,7 @@
 {
     "_id": "AFE073UYI0mkWuUs",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>A grinning skull tops the bow of this macabre key. This key can be used in place of thieves’ tools when attempting to Pick a Lock, and it grants a +2 item bonus to the Thievery check. If the <em>skeleton key</em> becomes broken due to a critical failure on the check, it works as normal thieves’ tools and loses its benefits until repaired.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">F</span> Interact; <strong>Frequency</strong> once per hour; <strong>Trigger</strong> You attempt to Pick a Lock but haven’t rolled yet; <strong>Effect</strong> The key casts @Compendium[pf2e.spells-srd.6Ot4N22t5tPD51BO]{Knock} on the&nbsp;lock you’re trying to pick.</span></p>"
+            "value": "<p>A grinning skull tops the bow of this macabre key. This key can be used in place of thieves' tools when attempting to Pick a Lock, and it grants a +2 item bonus to the Thievery check.</p>\n<p>If the <em>skeleton key</em> becomes broken due to a critical failure on the check, it works as normal thieves' tools and loses its benefits until repaired.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">F</span> Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You attempt to Pick a Lock but haven't rolled yet</p>\n<p><strong>Effect</strong> The key casts @Compendium[pf2e.spells-srd.Knock]{Knock} on the lock you're trying to pick.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Thievery checks to Pick a Lock</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "11"
+            "value": 11
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,24 @@
             "value": "1,250 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Skeleton Key, Greater (Pick a Lock)",
+                "predicate": {
+                    "all": [
+                        "action:pick-a-lock"
+                    ]
+                },
+                "selector": "thievery",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -86,8 +111,10 @@
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/held-items/skeleton-key.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/held-items/skeleton-key.webp",
     "name": "Skeleton Key (Greater)",
     "permission": {
         "default": 0

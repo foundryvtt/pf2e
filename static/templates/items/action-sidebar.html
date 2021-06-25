@@ -1,12 +1,14 @@
-<h4 class="sidebar-summary">{{localize "PF2E.ActionActionSummary"}}</h4>
+<h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeAction")}}</h4>
 
-<span class="item-summary">{{lookup featTypes data.featType.value }}</span>
-{{# if data.requirements.value }}<span class="item-summary">{{ data.requirements.value }}</span>{{/if}}
+{{#if data.featType.value}}
+    <span class="item-summary">{{lookup featTypes data.featType.value}}</span>
+{{/if}}
+{{#if data.requirements.value}}<span class="item-summary">{{data.requirements.value}}</span>{{/if}}
 
-{{#if itemTags.length}}
 <ol class="item-tags">
-    {{#each itemTags}}
-    <li class="tag">{{this}}</li>
+    {{#each traits as |trait|}}
+        {{#if trait.selected}}
+            <li class="tag">{{localize trait.label}}</li>
+        {{/if}}
     {{/each}}
 </ol>
-{{/if}}

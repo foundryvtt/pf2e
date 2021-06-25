@@ -13,35 +13,49 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You specialize in explosions and other violent alchemical reactions. You start with the formulas for two 1st-level alchemical bombs in your formula book, in addition to your other formulas.<br></span></p>\n<p><span id=\"ctl00_MainContent_DetailedOutput\">When throwing an alchemical bomb with the splash trait, you can deal splash damage to only your primary target instead of the usual splash area.</span></p>\n<h2 class=\"title\">Field Discovery<span style=\"float: right;\">Level 5</span></h2>\n<p>When using advanced alchemy to make bombs during your daily preparations, you can use a batch of reagents to create any three bombs instead of just two of the same bomb.</p>\n<h2 class=\"title\">Perpetual Infusions<span style=\"float: right;\">Level 7</span></h2>\n<p>Choose two of the following formulas: @Compendium[pf2e.equipment-srd.M1k5QQc1qQLxzyCK]{Acid Flask (Lesser)}, @Compendium[pf2e.equipment-srd.yd3kEK21YknZLlcT]{Alchemist's Fire (Lesser)}, @Compendium[pf2e.equipment-srd.AFR01HVd7DcZvkpP]{Bottled Lightning (Lesser)}, @Compendium[pf2e.equipment-srd.EpxmUtLpCkE8R6KJ]{Frost Vial (Lesser)}, @Compendium[pf2e.equipment-srd.T6Appwwl6nUl56Xj]{Tanglefoot Bag (Lesser)}, @Compendium[pf2e.equipment-srd.Xnqglykl3Cif8rN9]{Thunderstone (Lesser)}.</p>\n<h2 class=\"title\">Perpetual Potency<span style=\"float: right;\">Level 11</span></h2>\n<p>The moderate versions of the bombs you chose for perpetual infusions.</p>\n<h2 class=\"title\">Greater Field Discovery<span style=\"float: right;\">Level 13</span></h2>\n<p>You can increase the splash on your bombs to damage creatures within 10 feet, or 15 feet if you have @Compendium[pf2e.feats-srd.gyVcJfZTmBytLsXq]{Expanded Splash}.</p>\n<h2 class=\"title\">Perpetual Perfection<span style=\"float: right;\">Level 17</span></h2>\n<p>The greater versions of the bombs you chose for perpetual infusions.</p>"
+            "value": "<p>You specialize in explosions and other violent alchemical reactions. You start with the formulas for two 1st-level alchemical bombs in your formula book, in addition to your other formulas.</p>\n<p>Your research field adds a number of formulas to your formula book; these are your signature items. When using a batch of @Compendium[pf2e.classfeatures.Infused Reagents]{Infused Reagents} to create your signature items using @Compendium[pf2e.classfeatures.Advanced Alchemy]{Advanced Alchemy}, you create three items instead of two. Each time you gain a level, you can swap one of your signature items with another formula in your formula book. This new signature item must be on your research field's list of possible signature items.</p>\n<p>When throwing an alchemical bomb with the splash trait, you can deal splash damage to only your primary target instead of the usual splash area.</p>\n<h2 class=\"title\">@Compendium[pf2e.classfeatures.Field Discovery (Bomber)]{Field Discovery}<span style=\"float: right;\">Level 5</span></h2>\n<p>When using Advanced Alchemy to make bombs during your daily preparations, you can use a batch of reagents to create any three bombs instead of just two of the same bomb.</p>\n<h2 class=\"title\">@Compendium[pf2e.classfeatures.Perpetual Infusions (Bomber)]{Perpetual Infusions}<span style=\"float: right;\">Level 7</span></h2>\n<p>You have learned how to create perpetual alchemical infusions that can provide a near-infinite supply of certain simple items. You gain the ability to create two 1st-level alchemical items using @Compendium[pf2e.classfeatures.Quick Alchemy]{Quick Alchemy} without spending a batch of infused reagents. The items you can select depend on your research field and must be in your formula book.</p>\n<p>Choose two of the following formulas: @Compendium[pf2e.equipment-srd.Acid Flask (Lesser)]{Acid Flask (Lesser)}, @Compendium[pf2e.equipment-srd.Alchemist's Fire (Lesser)]{Alchemist's Fire (Lesser)}, @Compendium[pf2e.equipment-srd.Bottled Lightning (Lesser)]{Bottled Lightning (Lesser)}, @Compendium[pf2e.equipment-srd.Frost Vial (Lesser)]{Frost Vial (Lesser)}, @Compendium[pf2e.equipment-srd.Tanglefoot Bag (Lesser)]{Tanglefoot Bag (Lesser)}, @Compendium[pf2e.equipment-srd.Thunderstone (Lesser)]{Thunderstone (Lesser)}.</p>\n<h2 class=\"title\">@Compendium[pf2e.classfeatures.Perpetual Potency (Bomber)]{Perpetual Potency}<span style=\"float: right;\">Level 11</span></h2>\n<p>Your perpetual infusions improve, allowing you to use Quick Alchemy to create more powerful items with no cost. The items you can select depend on your research field and must be in your formula book.</p>\n<p>The moderate versions of the bombs you chose for perpetual infusions.</p>\n<h2 class=\"title\">@Compendium[pf2e.classfeatures.Greater Field Discovery (Bomber)]{Greater Field Discovery}<span style=\"float: right;\">Level 13</span></h2>\n<p>You can increase the splash on your bombs to damage creatures within 10 feet, or 15 feet if you have @Compendium[pf2e.feats-srd.Expanded Splash]{Expanded Splash}.</p>\n<h2 class=\"title\">@Compendium[pf2e.classfeatures.Perpetual Perfection (Bomber)]{Perpetual Perfection}<span style=\"float: right;\">Level 17</span></h2>\n<p>You have perfected your perpetual infusions, allowing you to use Quick Alchemy to create even more powerful items at no cost. The items you can select depend on your research field and must be in your formula book.</p>\n<p>The greater versions of the bombs you chose for perpetual infusions.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "alchemical",
+                        "bomb",
+                        "splash"
+                    ]
+                },
+                "selector": "damage",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> You can deal splash damage to only your primary target instead of the usual splash area.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": [
                 "alchemist"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/bomber.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/bomber.webp",
     "name": "Bomber",
     "permission": {
         "default": 0

@@ -13,39 +13,59 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong><a class=\"entity-link\" data-pack=\"pf2e.classfeatures\" data-id=\"4ripp6EfdVpS0d60\" draggable=\"true\"><i class=\"fas fa-suitcase\"></i> Enigma (Bard Muse)</a>, expert in Occultism</p>\n<hr>\n<p>Careful research into the art of rituals has made you better at performing them. You gain a +2 circumstance bonus to all primary and secondary checks you attempt as part of casting a ritual.</p>"
+            "value": "<p>Careful research into the art of rituals has made you better at performing them. You gain a +2 circumstance bonus to all primary and secondary checks you attempt as part of casting a ritual.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "4"
+            "value": 4
         },
+        "location": "",
         "prerequisites": {
-            "value": "enigma muse, expert in Occultism"
+            "value": [
+                {
+                    "value": "enigma muse"
+                },
+                {
+                    "value": "expert in Occultism"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Ritual Researcher (ritual casting)",
+                "predicate": {
+                    "all": [
+                        "ritual"
+                    ],
+                    "any": [
+                        "primary-check",
+                        "secondary-check"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
-                "value": "common"
+                "value": "uncommon"
             },
             "value": [
-                "uncommon",
                 "bard"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Ritual Researcher",
     "permission": {
         "default": 0

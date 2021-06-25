@@ -5,62 +5,57 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> ruffian racket</p>\n<hr>\n<p>The brutality of your critical hits shakes your foes’ confidence. Whenever your Strike is a critical hit and deals damage, the target is @Compendium[pf2e.conditionitems.TBSHQspnbcqxsmjL]{Frightened} 1.</p>"
+            "value": "<p>The brutality of your critical hits shakes your foes' confidence.</p>\n<p>Whenever your Strike is a critical hit and deals damage, the target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "ruffian racket"
+            "value": [
+                {
+                    "value": "ruffian racket"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "damage",
+                "text": "<p class='compact-text'>When you critically hit and deal damage, the target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}</p>"
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "rogue"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Brutal Beating",
     "permission": {
         "default": 0

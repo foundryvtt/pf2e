@@ -18,10 +18,10 @@
                 name="data.details.alignment.value"
                 data-dtype="text"
                 >
-                    {{#select data.details.alignment.value}} 
+                    {{#select data.details.alignment.value}}
                         {{#each alignment as |label key|}}
-                        <option value="{{key}}">{{label}}</option>
-                        {{/each}} 
+                        <option value="{{key}}">{{localize label}}</option>
+                        {{/each}}
                     {{/select}}
                 </select>
             </span>
@@ -47,124 +47,74 @@
             />
         </div>
         <div class="detail-sheet">
-            <div class="pc pc_ancestry">
-                <label for="pc_ancestry">
-                    {{localize 'PF2E.Ancestry'}}
-                </label>
-                <span title="{{localize 'PF2E.AncestryTitle'}}">
-                    <input
-                        id="pc pc_ancestry"
-                        name="data.details.ancestry.value"
-                        type="text"
-                        value="{{data.details.ancestry.value}}"
-                        data-dtype="String"
-                    />
-                </span>
-            </div>
-            <div class="pc pc_heritage">
-                <label for="pc_heritage">
-                    {{localize 'PF2E.Heritage'}}
-                </label>
-                <span title="{{localize 'PF2E.HeritageTitle'}}">
-                    <input
-                        id="pc pc_heritage"
-                        name="data.details.heritage.value"
-                        type="text"
-                        value="{{data.details.heritage.value}}"
-                        data-dtype="String"
-                    />
-                </span>
-            </div>
-            <div class="pc pc_class">
-                <label for="pc_class">
-                    {{localize 'PF2E.Class'}}
-                </label>
-                <span title="{{localize 'PF2E.ClassTitle'}}">
-                    <input
-                        id="pc pc_class"
-                        name="data.details.class.value"
-                        type="text"
-                        value="{{data.details.class.value}}"
-                        data-dtype="String"
-                    />
-                </span>
-            </div>
-            <div class="pc pc_background">
-                <label for="pc_background">
-                    {{localize 'PF2E.Background'}}
-                </label>
-                <span title="{{localize 'PF2E.BackgroundTitle'}}">
-                    <input
-                        id="pc pc_background"
-                        name="data.details.background.value"
-                        type="text"
-                        value="{{data.details.background.value}}"
-                        data-dtype="String"
-                    />
-                </span>
-            </div>
-            <div class="pc pc_gender">
-                <label for="pc_gender">
-                    {{localize 'PF2E.Gender'}}
-                </label>
-                <span title="{{localize 'PF2E.GenderTitle'}}">
-                    <input
-                        id="pc pc_gender"
-                        name="data.details.gender.value"
-                        type="text"
-                        value="{{data.details.gender.value}}"
-                        data-dtype="String"
-                    />
-                </span>
-            </div>
-            <div class="detail-small">
-                <div class="pc pc_age">
-                    <label for="pc_age">
-                        {{localize 'PF2E.Age'}}
-                    </label>
-                    <span title="{{localize 'PF2E.AgeTitle'}}">
-                        <input
-                            id="pc pc_age"
-                            name="data.details.age.value"
-                            type="text"
-                            value="{{data.details.age.value}}"
-                            data-dtype="String"
-                        />
-                    </span>
-                </div>
-                <div class="pc pc_height">
-                    <label for="pc_height">
-                        {{localize 'PF2E.Height'}}
-                    </label>
-                    <span title="{{localize 'PF2E.HeightTitle'}}">
-                        <input
-                            id="pc pc_height"
-                            name="data.details.height.value"
-                            type="text"
-                            value="{{data.details.height.value}}"
-                            data-dtype="String"
-                        />
-                    </span>
-                </div>
-                <div class="pc pc_weight">
-                    <label for="pc_weight">
-                        {{localize 'PF2E.Weight'}}
-                    </label>
-                    <span title="{{localize 'PF2E.WeightTitle'}}">
-                        <input
-                            id="pc pc_weight"
-                            name="data.details.weight.value"
-                            type="text"
-                            value="{{data.details.weight.value}}"
-                            data-dtype="String"
-                        />
-                    </span>
-                </div>
-            </div>
+          <div class="pc pc_ancestry item" data-item-id="{{ancestryItemId}}">
+            <label for="pc_ancestry">
+              {{localize 'PF2E.Ancestry'}}
+            </label>
+            <span title="{{localize 'PF2E.AncestryTitle'}}">
+              <h3>
+                <span class="value">{{data.details.ancestry}}</span>
+                {{#if ancestryItemId}}
+                  <a class="item-edit"><i class="fas fa-edit"></i></a>
+                {{else}}
+                  <a class="open-compendium" data-compendium="pf2e.ancestries"><i class="fas fa-plus-circle"></i></a>
+                {{/if}}
+              </h3>
+            </span>
+          </div>
+          <div class="pc pc_heritage">
+            <label for="pc_heritage">
+              {{localize 'PF2E.Heritage'}}
+            </label>
+            <span title="{{localize 'PF2E.HeritageTitle'}}">
+              <input
+              id="pc pc_heritage"
+              name="data.details.heritage.value"
+              type="text"
+              value="{{data.details.heritage.value}}"
+              data-dtype="String"
+              />
+            </span>
+          </div>
+          <div class="pc pc_class item" data-item-id="{{classItemId}}">
+            <label for="pc_class">
+              {{localize 'PF2E.Class'}}
+            </label>
+            <span title="{{localize 'PF2E.ClassTitle'}}">
+              <h3>
+                <span class="value">{{data.details.class}}</span>
+                {{#if classItemId}}
+                  <a class="item-edit"><i class="fas fa-edit"></i></a>
+                {{else}}
+                  <a class="open-compendium" data-compendium="pf2e.classes"><i class="fas fa-plus-circle"></i></a>
+                {{/if}}
+              </h3>
+            </span>
+          </div>
+          <div class="pc pc_background item" data-item-id="{{backgroundItemId}}">
+            <label for="pc_background">
+              {{localize 'PF2E.Background'}}
+            </label>
+            <span title="{{localize 'PF2E.BackgroundTitle'}}">
+              <h3>
+                <span class="value">{{data.details.background}}</span>
+                {{#if backgroundItemId}}
+                  <a class="item-edit"><i class="fas fa-edit"></i></a>
+                {{else}}
+                  <a class="open-compendium" data-compendium="pf2e.backgrounds"><i class="fas fa-plus-circle"></i></a>
+                {{/if}}
+              </h3>
+            </span>
+          </div>
         </div>
     </section>
 
-    <hr style="margin-top: 1rem;">
+    <hr />
+    <section class="character-background">
+        {{> systems/pf2e/templates/actors/crb-style/character-background.html}}
+    </section>
+
+    <hr />
     <section class="character-traits">
         {{> systems/pf2e/templates/actors/crb-style/character-traits.html}}
     </section>
@@ -173,22 +123,16 @@
     <section class="character-abilities">
         {{> systems/pf2e/templates/actors/crb-style/character-abilities.html}}
     </section>
-    
+
     <footer>
-        <p>
-            This system for FoundryVTT uses trademarks and/or copyrights owned
-            by Paizo Inc., which are used under Paizo's Community Use Policy. We
-            are expressly prohibited from charging you to use or access this
-            content. This system for FoundryVTT is not published, endorsed, or
-            specifically approved by Paizo Inc. For more information about
-            Paizo's Community Use Policy, please visit
-            <a href="https://paizo.com/community/communityuse">
-                paizo.com/communityuse.
-            </a>
-            For more information about Paizo Inc. and Paizo products, please
-            visit
-            <a href="https://paizo.com/">paizo.com</a>
-            .
-        </p>
+      This system for FoundryVTT uses trademarks and/or copyrights owned
+      by Paizo Inc., which are used under Paizo's Community Use Policy. We
+      are expressly prohibited from charging you to use or access this
+      content. This system for FoundryVTT is not published, endorsed, or
+      specifically approved by Paizo Inc. For more information about
+      Paizo's Community Use Policy, please visit
+      <a href="https://paizo.com/community/communityuse">paizo.com/communityuse</a>.
+      For more information about Paizo Inc. and Paizo products, please
+      visit <a href="https://paizo.com/">paizo.com</a>.
     </footer>
 </div>

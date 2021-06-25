@@ -64,7 +64,6 @@
                 "max": 30,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
                 "value": 30
             },
             "init": {
@@ -104,7 +103,6 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
                 "value": "35 feet"
             }
         },
@@ -138,7 +136,7 @@
             },
             "creatureType": "",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavourText": "",
@@ -152,14 +150,12 @@
                 "min": 1,
                 "value": 2
             },
-            "nethysUrl": "",
             "rarity": {
                 "value": ""
             },
             "recallKnowledgeText": "",
-            "sidebarText": "",
             "source": {
-                "value": ""
+                "value": "Pathfinder Adventure: The Fall of Plaguestone"
             }
         },
         "martial": {
@@ -440,21 +436,68 @@
             }
         }
     },
-    "flags": {
-        "exportSource": {
-            "coreVersion": "0.5.5",
-            "system": "pf2e",
-            "systemVersion": "0.569.2",
-            "world": "plaguestone"
-        },
-        "pf2e_updatednpcsheet": {
-            "npcNotes": {
-                "value": ""
-            }
-        }
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
+        {
+            "_id": "WJyRm55Q5UYPHJEX",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "Knockdown"
+                    ]
+                },
+                "bonus": {
+                    "value": 11
+                },
+                "damageRolls": {
+                    "lm5sf1g498ss3djrw4h2z": {
+                        "damage": "1d6+2",
+                        "damageType": "piercing"
+                    },
+                    "zmukpd8xh4ngxdry3shrg": {
+                        "damage": "1d4",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "permission": {
+                "default": 0
+            },
+            "sort": 100000,
+            "type": "melee"
+        },
         {
             "_id": "4qqgHXd5u2hOYOxU",
             "data": {
@@ -470,28 +513,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The wolf unleashes a terrifying howl, allowing it to Demoralize all enemies within 30 feet. Wolves within 100 feet can spend a reaction to join the howl, causing the effect to emanate from them as well. This affects additional enemies within 30 feet of them and uses the caustic wolf’s Intimidation check with a –4 circumstance penalty. Enemies cannot be affected by the howl more than once, even if they are near more than one howling wolf. All creatures targeted by this effect are temporarily immune for 24 hours.</p>"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The wolf unleashes a terrifying howl, allowing it to Demoralize all enemies within 30 feet. Wolves within 100 feet can spend a reaction to join the howl, causing the effect to emanate from them as well. This affects additional enemies within 30 feet of them and uses the caustic wolf's Intimidation check with a -4 circumstance penalty. Enemies cannot be affected by the howl more than once, even if they are near more than one howling wolf. All creatures targeted by this effect are temporarily immune for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -504,10 +540,15 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.png",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Howl",
-            "sort": 100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 200000,
             "type": "action"
         },
         {
@@ -525,28 +566,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The wolf unleashes a stream of bright green acid from its mouth, coating all creatures in a 30-foot line. All creatures in the line take 3d6 acid damage (DC 16 basic Reflex save). The caustic wolf cannot use this ability again for 1 minute.</p>"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The wolf unleashes a stream of bright green acid from its mouth, coating all creatures in a 30-foot line. All creatures in the line take [[/r 3d6 #acid]] acid damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"16\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Acid Breath DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p>The caustic wolf cannot use this ability again for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -559,147 +593,16 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.png",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Acid Breath",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "WJyRm55Q5UYPHJEX",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "custom": "",
-                    "value": [
-                        "Knockdown"
-                    ]
-                },
-                "bonus": {
-                    "value": "11"
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damageRolls": {
-                    "lm5sf1g498ss3djrw4h2z": {
-                        "damage": "1d6+2",
-                        "damageType": "piercing"
-                    },
-                    "zmukpd8xh4ngxdry3shrg": {
-                        "damage": "1d4",
-                        "damageType": "acid"
-                    }
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weaponType": {
-                    "value": "melee"
-                },
-                "weight": {
-                    "value": 0
-                }
+            "permission": {
+                "default": 0
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Jaws",
             "sort": 300000,
-            "type": "melee"
+            "type": "action"
         },
         {
             "_id": "86ea408vBsTfjRA7",
@@ -709,7 +612,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -719,22 +621,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "/icons/svg/d20-black.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "lore"
         },
@@ -746,7 +656,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -756,22 +665,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "/icons/svg/d20-black.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "lore"
         },
@@ -783,7 +700,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -793,22 +709,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "/icons/svg/d20-black.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "lore"
         },
@@ -820,7 +744,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -830,22 +753,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "/icons/svg/d20-black.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "lore"
         }
@@ -855,13 +786,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "PFBclNHc78MqYjBB",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -871,15 +804,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Caustic Wolf",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

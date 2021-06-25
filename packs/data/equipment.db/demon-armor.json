@@ -2,15 +2,12 @@
     "_id": "hYBZK1kaGPeR85CH",
     "data": {
         "armor": {
-            "label": "AC Bonus",
-            "type": "Number",
             "value": 6
         },
         "armorType": {
-            "label": "Armor Category",
-            "type": "String",
             "value": "heavy"
         },
+        "baseItem": "full-plate",
         "brokenThreshold": {
             "value": null
         },
@@ -18,9 +15,7 @@
             "value": ""
         },
         "check": {
-            "label": "Check Penalty",
-            "type": "String",
-            "value": "-3"
+            "value": -3
         },
         "collapsed": {
             "value": false
@@ -30,27 +25,19 @@
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><span>Crafted from black iron, this crude suit of +2 resilient full plate is designed to make you look like a horned demon, with your face peering out of the screaming maw of the beast.<br></span></p>\n<p><span>While wearing the armor, you can attack with the helmet’s horns. They are a martial melee weapon with the effects of a <em>+2 weapon potency rune</em>. They deal 2d8 piercing damage and have the deadly d12 trait. On a critical hit with the horns, the target must attempt a DC 30 Fortitude save against the Abyssal plague disease. The horns can’t be etched with any runes. <br></span></p>\n<p><span>If you aren’t evil, you’re drained 2 and can’t recover from this condition while wearing <em>demon armor</em>.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">D</span> Command; <strong>Frequency</strong> once per day; <strong>Effect</strong> You cast @Compendium[pf2e.spells-srd.VlNcjmYyu95vOUe8]{Dimension Door}.&nbsp;<br></span></p>\n<p><span><strong>Craft Requirements</strong> You are evil; supply one casting of <em>dimension door</em>.&nbsp;</span></p>"
+            "value": "<p>Crafted from black iron, this crude suit of +2 resilient full plate is designed to make you look like a horned demon, with your face peering out of the screaming maw of the beast.</p>\n<p>While wearing the armor, you can attack with the helmet's horns. They are a martial melee weapon with the effects of a <em>+2 weapon potency rune</em>. They deal 2d8 piercing damage and have the deadly d12 trait. On a critical hit with the horns, the target must attempt a DC 30 Fortitude save against the Abyssal plague disease. The horns can't be etched with any runes.</p>\n<p>If you aren't evil, you're drained 2 and can't recover from this condition while wearing <em>demon armor</em>.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Command; <strong>Frequency</strong> once per day; <strong>Effect</strong> You cast @Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door}.</p>\n<p><strong>Craft Requirements</strong> You are evil; supply one casting of <em>dimension door</em>.</p>"
         },
         "dex": {
-            "label": "Dex Modifier Cap",
-            "type": "String",
-            "value": "0"
+            "value": 0
         },
         "equipped": {
-            "label": "Equipped",
-            "type": "Boolean",
             "value": false
         },
         "equippedBulk": {
             "value": "4"
         },
         "group": {
-            "label": "Group",
-            "type": "String",
             "value": "plate"
         },
         "hardness": {
@@ -59,15 +46,23 @@
         "hp": {
             "value": null
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 13
         },
         "maxHp": {
@@ -76,12 +71,9 @@
         "negateBulk": {
             "value": "0"
         },
-        "potency": {
-            "label": "Armor Potency",
-            "type": "String"
-        },
+        "potency": {},
         "potencyRune": {
-            "value": "2"
+            "value": 2
         },
         "preciousMaterial": {
             "value": ""
@@ -90,45 +82,7 @@
             "value": ""
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "2,500 gp"
-        },
-        "property1": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 1",
-            "type": "Number",
-            "value": ""
-        },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 2",
-            "type": "Number",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 3",
-            "type": "Number",
-            "value": ""
         },
         "propertyRune1": {
             "value": ""
@@ -143,45 +97,72 @@
             "value": ""
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
-        },
-        "rarity": {
-            "value": "common"
         },
         "resiliencyRune": {
             "value": "resilient"
         },
-        "resilient": {
-            "label": "Resilient",
-            "type": "String"
+        "resilient": {},
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Bulwark",
+                "predicate": {
+                    "all": [
+                        "damaging-effect"
+                    ]
+                },
+                "selector": "reflex",
+                "type": "ability",
+                "value": 3
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "not": [
+                        "unburdened-iron"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "speed",
+                "type": "untyped",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 17,
+                            "value": -10
+                        },
+                        {
+                            "start": 18,
+                            "value": -5
+                        }
+                    ],
+                    "field": "actor|data.abilities.str.value"
+                }
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "speed": {
-            "label": "Speed Penalty",
-            "type": "String",
-            "value": "-10 ft"
+            "value": -10
         },
         "stackGroup": {
             "value": ""
         },
         "strength": {
-            "label": "Required Strength",
-            "type": "String",
-            "value": "18"
+            "value": 18
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "bulwark",
                 "divine",
@@ -191,16 +172,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornarmor"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "5"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/demon-armor.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/demon-armor.webp",
     "name": "Demon Armor",
     "permission": {
         "default": 0

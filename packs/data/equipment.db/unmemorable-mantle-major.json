@@ -1,6 +1,7 @@
 {
     "_id": "HcjEb07UjWchysx5",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>This long, shoddy cloak bears a hood and a simple brass clasp. While wearing the cloak, you gain a +3 item bonus to Deception checks to Impersonate an individual and to Lie while in character as that individual.<br></span></p>\n<p><span><strong>Activate</strong> 1 minute (envision, Interact); <strong>Frequency</strong> once&nbsp;<span>every 10 minutes</span>; <strong>Requirements</strong> You are Impersonating someone else; <strong>Effect</strong> While conversing or otherwise casually interacting with other creatures, you can adjust the mantle’s clasp to modify those creatures’ recollections of the last 5 minutes of their interaction with you. Each creature must attempt a DC 38 Will save.<br></span></p>\n<p><span><strong>Critical Success</strong> The creature recalls the interaction clearly and realizes you were trying to alter their memory.<br></span></p>\n<p><span><strong>Success</strong> The creature recalls the interaction clearly.<br></span></p>\n<p><span><strong>Failure</strong> You decide whether or not the creature recalls the interaction. You can also alter minor details the creature recalls about the interaction, such as the time, place, and whether the interaction was favorable, as determined by the GM.</span></p>\n<p><span></span><span><strong>Critical Failure</strong> You decide whether or not the creature recalls the interaction. You can also alter major details the creature recalls about the interaction, such as believing you to be another individual or that the creature agreed to a favor, as determined by the GM.</span></p>"
+            "value": "<p>This long, shoddy cloak bears a hood and a simple brass clasp. While wearing the cloak, you gain a +3 item bonus to Deception checks to Impersonate an individual and to Lie while in character as that individual.</p>\n<hr />\n<p><strong>Activate</strong> 1 minute (envision, Interact)</p>\n<p><strong>Frequency</strong> once every 10 minutes</p>\n<p><strong>Requirements</strong> You are Impersonating someone else</p>\n<p><strong>Effect</strong> While conversing or otherwise casually interacting with other creatures, you can adjust the mantle's clasp to modify those creatures' recollections of the last 5 minutes of their interaction with you. Each creature must attempt a DC 38 Will save.</p>\n<p><strong>Critical Success</strong> The creature recalls the interaction clearly and realizes you were trying to alter their memory.</p>\n<p><strong>Success</strong> The creature recalls the interaction clearly.</p>\n<p><strong>Failure</strong> You decide whether or not the creature recalls the interaction. You can also alter minor details the creature recalls about the interaction, such as the time, place, and whether the interaction was favorable, as determined by the GM.</p>\n<p><strong>Critical Failure</strong> You decide whether or not the creature recalls the interaction. You can also alter major details the creature recalls about the interaction, such as believing you to be another individual or that the creature agreed to a favor, as determined by the GM.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>a +3 item bonus to Deception checks to Impersonate an individual and to Lie while in character as that individual.</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "17"
+            "value": 17
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,25 @@
             "value": "21,750 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Unmemorable Mantle (Impersonate & Lie in character)",
+                "predicate": {
+                    "any": [
+                        "action:impersonate",
+                        "action:lie"
+                    ]
+                },
+                "selector": "deception",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +97,6 @@
             "rarity": {
                 "value": "common"
             },
-            "usage": {
-                "value": "held-in-one-hand"
-            },
             "value": [
                 "illusion",
                 "invested",
@@ -81,14 +104,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worncloak"
         },
         "weight": {
             "value": "1"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/unmemorable-mantle.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/unmemorable-mantle.webp",
     "name": "Unmemorable Mantle (Major)",
     "permission": {
         "default": 0

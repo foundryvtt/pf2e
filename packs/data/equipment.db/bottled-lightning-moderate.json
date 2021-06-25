@@ -5,13 +5,10 @@
             "value": ""
         },
         "ability": {
-            "label": "Offensive Ability",
-            "type": "String",
             "value": "dex"
         },
+        "baseItem": "alchemical-bomb",
         "bonus": {
-            "label": "Item Bonus",
-            "type": "String",
             "value": 1
         },
         "bonusDamage": {
@@ -33,16 +30,12 @@
             "damageType": "electricity",
             "dice": 2,
             "die": "d6",
-            "label": "damage",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p>Bottled lightning is packed with volatile reagents that create a blast of electricity when they are exposed to air. Bottled lightning deals the listed electricity damage and electricity splash damage. On a hit, the target becomes flat-footed until the start of your next turn. Many types grant an item bonus to attack rolls.</p>\n<p>You gain a +1 item bonus to attack rolls. The bomb deals 2d6 electricity damage and 2 electricity splash damage.</p>"
+            "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Bottled lightning is packed with volatile reagents that create a blast of electricity when they are exposed to air. Bottled lightning deals 2d6 electricity damage and 2 electricity splash damage. On a hit, the target becomes flat-footed until the start of your next turn. You gain a +1 item bonus to attack rolls.</p>"
         },
         "equipped": {
             "value": false
@@ -51,13 +44,9 @@
             "value": ""
         },
         "group": {
-            "label": "Weapon Group",
-            "type": "String",
             "value": "bomb"
         },
         "hands": {
-            "label": "Hands",
-            "type": "String",
             "value": ""
         },
         "hardness": {
@@ -66,15 +55,23 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 3
         },
         "maxHp": {
@@ -84,7 +81,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": ""
+            "value": null
         },
         "preciousMaterial": {
             "value": ""
@@ -93,8 +90,6 @@
             "value": ""
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "10 gp"
         },
         "property1": {
@@ -107,34 +102,8 @@
             "damageType": "",
             "dice": null,
             "die": "",
-            "label": "Primary Property",
             "strikeConditionType": "",
             "strikeConditionValue": null,
-            "type": "String",
-            "value": ""
-        },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Secondary Property",
-            "type": "String",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Tertiary Property",
-            "type": "String",
             "value": ""
         },
         "propertyRune1": {
@@ -150,27 +119,25 @@
             "value": ""
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
         },
         "range": {
-            "label": "Weapon Range",
-            "type": "String",
             "value": "20"
         },
-        "rarity": {
-            "value": "common"
-        },
         "reload": {
-            "label": "Reload",
-            "type": "String",
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'><strong>Effect:</strong> Target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of my next turn.</p>"
+            }
+        ],
+        "size": {
+            "value": "med"
+        },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "splashDamage": {
@@ -184,11 +151,9 @@
         },
         "traits": {
             "custom": "",
-            "label": "Weapon Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "alchemical",
                 "bomb",
@@ -201,18 +166,16 @@
             "value": "held-in-one-hand"
         },
         "weaponType": {
-            "label": "Weapon Category",
-            "type": "String",
             "value": "martial"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/bottled-lightning.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/bottled-lightning.webp",
     "name": "Bottled Lightning (Moderate)",
     "permission": {
         "default": 0

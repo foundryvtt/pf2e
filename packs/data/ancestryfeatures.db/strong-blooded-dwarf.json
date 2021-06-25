@@ -16,17 +16,27 @@
             "value": "<p>Your blood runs hearty and strong, and you can shake off toxins. You gain poison resistance equal to half your level (minimum 1), and each of your successful saving throws against a poison affliction reduces its stage by 2, or by 1 for a virulent poison. Each critical success against an ongoing poison reduces its stage by 3, or by 2 for a virulent poison.</p>"
         },
         "featType": {
-            "value": "ancestryfeature"
+            "value": "heritage"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "poison"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Your succesful saving throws against a poison reduce its stage by 2 (or 1 for a virulent poison). Each critical success reduces its stage by 3 (or 2 for a virulent poison).</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +48,12 @@
             "value": [
                 "dwarf"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/ancestry/strong-blooded-dwarf.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/ancestry/strong-blooded-dwarf.webp",
     "name": "Strong-Blooded Dwarf",
     "permission": {
         "default": 0

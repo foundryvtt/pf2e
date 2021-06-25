@@ -1,6 +1,7 @@
 {
     "_id": "ecqz1iUGtyQEkZwy",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>The springy soles of these sturdy leather boots cushion your feet and make each step lighter. These boots give you a +5-foot item bonus to your Speed and a +2 item bonus to Athletics checks to High Jump and Long Jump. In addition, when you use the Leap action, you can move 5 feet further if jumping horizontally or 3 feet higher if jumping vertically.</p>"
+            "value": "<p>The springy soles of these sturdy leather boots cushion your feet and make each step lighter. These boots give you a +5-foot item bonus to your Speed and a +2 item bonus to Athletics checks to High Jump and Long Jump.</p>\n<p>In addition, when you use the Leap action, you can move 5 feet further if jumping horizontally or 3 feet higher if jumping vertically.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+5-foot item bonus to Speed</li>\n<li>+2 item bonus to Athletics checks to High Jump and Long Jump</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "7"
+            "value": 7
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,31 @@
             "value": "340 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "speed",
+                "type": "item",
+                "value": 5
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Boots of Bounding (High & Long Jump",
+                "predicate": {
+                    "any": [
+                        "action:high-jump",
+                        "action:long-jump"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +103,6 @@
             "rarity": {
                 "value": "common"
             },
-            "usage": {
-                "value": "held-in-one-hand"
-            },
             "value": [
                 "invested",
                 "magical",
@@ -81,14 +110,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornshoes"
         },
         "weight": {
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/boots-of-bounding.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/boots-of-bounding.webp",
     "name": "Boots of Bounding",
     "permission": {
         "default": 0

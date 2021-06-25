@@ -1,6 +1,7 @@
 {
     "_id": "lRdrk7Dh9eVlXFHi",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>A <em>dreamstone</em> is a disc-shaped object carved with imagery or words sacred to Desna&mdash;be it her religious symbol, a short prayer, or merely the shape of a single star. When you carry a <em>dreamstone</em>, you find it easier to fall asleep, and you gain improved effects from the resulting rest. You always fall asleep within 5 minutes of lying down with the intention of sleeping, and you require only 2 hours of sleep per day to gain the benefits of 8 hours of sleep, provided you have carried the <em>dreamstone</em> for at least 24 hours prior to resting. As long as you carry a <em>dreamstone</em>, you gain a +2 item bonus to saving throws against sleep effects.<br /></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Interact (metamagic); <strong>Frequency</strong> once per day; <strong>Effect</strong> If the next action you use is to Cast a Spell of 4th level or lower that has the sleep trait&nbsp;or is associated with dreams, the spell slot is not expended.&nbsp;</span></p>"
+            "value": "<p><span>A <em>dreamstone</em> is a disc-shaped object carved with imagery or words sacred to Desna-be it her religious symbol, a short prayer, or merely the shape of a single star. When you carry a <em>dreamstone</em>, you find it easier to fall asleep, and you gain improved effects from the resulting rest. You always fall asleep within 5 minutes of lying down with the intention of sleeping, and you require only 2 hours of sleep per day to gain the benefits of 8 hours of sleep, provided you have carried the <em>dreamstone</em> for at least 24 hours prior to resting. As long as you carry a <em>dreamstone</em>, you gain a +2 item bonus to saving throws against sleep effects.<br /></span></p>\n<p><span><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact (metamagic); <strong>Frequency</strong> once per day; <strong>Effect</strong> If the next action you use is to Cast a Spell of 4th level or lower that has the sleep trait or is associated with dreams, the spell slot is not expended. </span></p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to saving throws against sleep effects</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "9"
+            "value": 9
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,23 @@
             "value": "700 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "any": [
+                        "sleep"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -86,8 +110,10 @@
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/held-items/dreamstone.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/held-items/dreamstone.webp",
     "name": "Dreamstone",
     "permission": {
         "default": 0

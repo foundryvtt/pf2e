@@ -13,20 +13,34 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>To you, a fight is a kind of performance art, and you&nbsp;command your foes&rsquo; attention with mesmerizing motions.&nbsp;</p>\n<p>You are trained in Performance and gain the @Compendium[pf2e.feats-srd.7LB00jkh6JaJr3vS]{Fascinating Performance} skill feat. You gain @Compendium[world.class-features-apg-data-entry.E3RUV3qhFQwcqJ77]{Panache} during an encounter when the result of your Performance check to Perform exceeds the Will DC of an observing foe, even if the foe isn&rsquo;t fascinated.</p>"
+            "value": "<p>To you, a fight is a kind of performance art, and you command your foes' attention with mesmerizing motions.</p>\n<p>You are trained in Performance and gain the @Compendium[pf2e.feats-srd.Fascinating Performance]{Fascinating Performance} skill feat. You gain @Compendium[pf2e.classfeatures.Panache]{Panache} during an encounter when the result of your Performance check to Perform exceeds the Will DC of an observing foe, even if the foe isn't fascinated.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "panache"
+                    ],
+                    "any": [
+                        "action:perform"
+                    ]
+                },
+                "selector": "performance",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +52,33 @@
             "value": [
                 "swashbuckler"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [
+        {
+            "_id": "TYPKKryzGgCp8GcH",
+            "changes": [
+                {
+                    "key": "data.skills.prf.rank",
+                    "mode": 4,
+                    "value": "1"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/classes/battledancer-style.webp",
+            "label": "Battledancer Style",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/battledancer-style.webp",
     "name": "Battledancer Style",
     "permission": {
         "default": 0

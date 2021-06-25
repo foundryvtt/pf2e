@@ -13,38 +13,58 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong><a class=\"entity-link\" data-pack=\"pf2e.feats-srd\" data-id=\"lix0Utu4g8mQ0ZtI\" draggable=\"true\"><i class=\"fas fa-suitcase\"></i> Divine Ally</a> (blade), tenets of evil</p>\n<hr>\n<p>Your blade ally thirsts for the blood of your foes.</p>\n<p>Whenever you critically hit an enemy with the weapon inhabited by your blade ally while dealing extra damage from your champion’s reaction, the target takes persistent bleed damage equal to two of the weapon’s damage dice.</p>"
+            "value": "<p>Your blade ally thirsts for the blood of your foes.</p>\n<p>Whenever you critically hit an enemy with the weapon inhabited by your blade ally while dealing extra damage from your champion's reaction, the target takes persistent bleed damage equal to two of the weapon's damage dice.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "16"
+            "value": 16
         },
+        "location": "",
         "prerequisites": {
-            "value": "divine ally (blade), tenets of evil"
+            "value": [
+                {
+                    "value": "divine ally (blade)"
+                },
+                {
+                    "value": "tenets of evil"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "destructive-vengeance-negative",
+                        "destructive-vengeance-evil",
+                        "selfish-shield-negative",
+                        "selfish-shield-evil",
+                        "iron-command-negative",
+                        "iron-command-evil"
+                    ]
+                },
+                "selector": "damage",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Whenever you critically hit an enemy with the weapon inhabited by your blade ally while dealing extra damage from your champion's reaction, the target takes persistent bleed damage equal to two of the weapon's damage dice.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
-                "value": "common"
+                "value": "uncommon"
             },
             "value": [
-                "uncommon",
                 "champion"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Instrument Of Slaughter",
     "permission": {
         "default": 0

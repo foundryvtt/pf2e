@@ -1,25 +1,25 @@
-<h4 class="sidebar-summary">{{localize "PF2E.FeatFeatSummary"}}</h4>
+<h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeFeat")}}</h4>
 
-<span class="item-summary">{{lookup featTypes data.featType.value }}</span>
-{{# if data.requirements.value }}<span class="item-summary">{{ data.requirements.value }}</span>{{/if}}
+<span class="item-summary">{{localize (lookup featTypes data.featType.value)}}</span>
+{{# if data.requirements.value }}<span class="item-summary">{{data.requirements.value}}</span>{{/if}}
 
 <ol class="item-tags">
-{{#each 
-	data.traits.value as |v|}} <li class="tag">{{v}}
-{{/each}} </li>
-{{#if data.level.value}}
-    <li class="tag">Level {{data.level.value}}</li>
-{{/if}}
-<li class="tag">{{data.traits.rarity.value}}</li>
-{{#if data.actionType.value}}
-	<li class="tag">{{data.actionType.value}}</li>
-{{/if}}
+  {{#if data.level.value}}
+      <li class="tag">{{localize data.level.label}}</li>
+  {{/if}}
+  <li class="tag">{{#with (lookup rarities data.traits.rarity.value) as |rarity|}}{{localize rarity.label}}{{/with}}</li>
+  {{#each traits as |trait|}}
+      {{#if trait.selected}}
+          <li class="tag">{{localize trait.label}}</li>
+      {{/if}}
+  {{/each}}
 </ol>
 
-{{#if itemTags.length}}
-<ol class="item-tags">
-    {{#each itemTags}}
-    <li class="tag">{{this}}</li>
-    {{/each}}
-</ol>
-{{/if}}
+{{#unless (any (eq data.featType.value "classfeature") (eq data.featType.value "ancestryfeature") (eq data.featType.value "curse") (eq data.featType.value "dietyboon") )}}
+  <span class="item-summary">{{localize "PF2E.FeatPrereqLabel"}}</span>
+  <ol class="item-tags">
+  {{#each data.prerequisites.value as |v k|}}
+      <li class="tag {{k}}">{{v.value}}</li>
+  {{/each}}
+  </ol>
+{{/unless}}

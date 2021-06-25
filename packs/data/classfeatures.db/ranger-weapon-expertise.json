@@ -13,35 +13,319 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">You’ve dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple and martial weapons and unarmed attacks increases to expert. You gain access to the critical specialization effects of all simple and martial weapons and unarmed attacks when attacking your hunted prey.&nbsp;</span></p>"
+            "value": "<p>You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple and martial weapons and unarmed attacks increases to expert.</p>\n<p>You gain access to the critical specialization effects of all simple and martial weapons and unarmed attacks when attacking your hunted prey.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "5"
+            "value": 5
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "axe-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: Choose one creature adjacent to the initial target and within reach. If its AC is lower than your attack roll result for the critical hit, you deal damage to that creature equal to the result of the weapon damage die you rolled (including extra dice for its potency rune, if any). This amount isn’t doubled, and no bonuses or other additional dice apply to this damage.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "bomb-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: Increase the radius of the bomb’s splash damage (if any) to 10 feet.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "bow-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} and must spend an Interact action to attempt a DC 10 Athletics check to pull the missile free; it can’t move from its space until it succeeds. The creature doesn’t become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), or could otherwise escape without effort.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ]
+                },
+                "selector": "brawling-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "club-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: You knock the target away from you up to 10 feet (you choose the distance). This is forced movement.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "dart-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: The target takes [[/r 1d6]] @Compendium[pf2e.conditionitems.Persistent Damage]{persistent bleed damage}. You gain an item bonus to this bleed damage equal to the weapon’s item bonus to attack rolls.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "flail-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "hammer-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "knife-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: The target takes [[/r 1d6]] @Compendium[pf2e.conditionitems.Persistent Damage]{persistent bleed damage}. You gain an item bonus to this bleed damage equal to the weapon’s item bonus to attack rolls.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "pick-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: The weapon viciously pierces the target, who takes 2 additional damage per weapon damage die.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "polearm-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: The target is moved 5 feet in a direction of your choice. This is forced movement.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "shield-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: You knock the target back from you 5 feet. This is forced movement.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "sling-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "spear-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: The weapon pierces the target, weakening its attacks. The target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} until the start of your next turn.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "any": [
+                        "weapon:category:simple",
+                        "weapon:category:martial"
+                    ]
+                },
+                "selector": "sword-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong>: The target is made off-balance by your attack, becoming @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": [
                 "ranger"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [
+        {
+            "_id": "r0YG3sfMMLDQUYXu",
+            "changes": [
+                {
+                    "key": "data.martial.simple.rank",
+                    "mode": 4,
+                    "value": "2"
+                },
+                {
+                    "key": "data.martial.martial.rank",
+                    "mode": 4,
+                    "value": "2"
+                },
+                {
+                    "key": "data.martial.unarmed.rank",
+                    "mode": 4,
+                    "value": "2"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/classes/ranger-weapon-expertise.webp",
+            "label": "Ranger Weapon Expertise",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/ranger-weapon-expertise.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/ranger-weapon-expertise.webp",
     "name": "Ranger Weapon Expertise",
     "permission": {
         "default": 0

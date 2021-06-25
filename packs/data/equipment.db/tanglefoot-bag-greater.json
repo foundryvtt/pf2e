@@ -5,13 +5,10 @@
             "value": ""
         },
         "ability": {
-            "label": "Offensive Ability",
-            "type": "String",
             "value": "dex"
         },
+        "baseItem": "alchemical-bomb",
         "bonus": {
-            "label": "Item Bonus",
-            "type": "String",
             "value": 2
         },
         "bonusDamage": {
@@ -33,16 +30,12 @@
             "damageType": "bludgeoning",
             "dice": 1,
             "die": "",
-            "label": "damage",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p>A tanglefoot bag is filled with sticky substances. When you hit a creature with a tanglefoot bag, that creature takes a status penalty to its Speeds for 1 minute. Many types of tanglefoot bag also grant an item bonus on attack rolls.</p>\n<p>On a critical hit, a creature in contact with a solid surface becomes stuck to the surface and immobilized for 1 round, and a creature flying via wings has its wings tangled, causing it to fall safely to the ground and become unable to Fly again for 1 round. Tanglefoot bags are not effective when used on a creature that is in water.</p>\n<p>The target can end any effects by Escaping or spending a total of 3 actions to carefully remove the sticky substances. These Interact actions don’t have to be consecutive, and other creatures can provide the actions as well. You gain a +2 item bonus to attack rolls, the target takes a –15-foot penalty, and the Escape DC is 28.</p>"
+            "value": "<p>A tanglefoot bag is filled with sticky substances. When you hit a creature with a tanglefoot bag, that creature takes a -15-foot status penalty to its Speeds for 1 minute. You gain a +2 item bonus to attack rolls, and the Escape DC is 28.</p>\n<p>On a critical hit, a creature in contact with a solid surface becomes stuck to the surface and @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for 1 round, and a creature flying via wings has its wings tangled, causing it to fall safely to the ground and become unable to Fly again for 1 round. Tanglefoot bags are not effective when used on a creature that is in water.</p>\n<p>The target can end any effects by Escaping or spending a total of 3 actions to carefully remove the sticky substances. These Interact actions don't have to be consecutive, and other creatures can provide the actions as well.</p>"
         },
         "equipped": {
             "value": false
@@ -51,13 +44,9 @@
             "value": ""
         },
         "group": {
-            "label": "Weapon Group",
-            "type": "String",
             "value": "bomb"
         },
         "hands": {
-            "label": "Hands",
-            "type": "String",
             "value": ""
         },
         "hardness": {
@@ -66,15 +55,23 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 11
         },
         "maxHp": {
@@ -84,7 +81,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": ""
+            "value": null
         },
         "preciousMaterial": {
             "value": ""
@@ -93,8 +90,6 @@
             "value": ""
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "250 gp"
         },
         "property1": {
@@ -107,34 +102,8 @@
             "damageType": "",
             "dice": null,
             "die": "",
-            "label": "Primary Property",
             "strikeConditionType": "",
             "strikeConditionValue": null,
-            "type": "String",
-            "value": ""
-        },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Secondary Property",
-            "type": "String",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Tertiary Property",
-            "type": "String",
             "value": ""
         },
         "propertyRune1": {
@@ -150,27 +119,25 @@
             "value": ""
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
         },
         "range": {
-            "label": "Weapon Range",
-            "type": "String",
             "value": "20"
         },
-        "rarity": {
-            "value": "common"
-        },
         "reload": {
-            "label": "Reload",
-            "type": "String",
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'><strong>Effect:</strong> On hit, -15-foot penalty to Speeds. On critical hit, @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for 1 round.</p>"
+            }
+        ],
+        "size": {
+            "value": "med"
+        },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "splashDamage": {
@@ -184,11 +151,9 @@
         },
         "traits": {
             "custom": "",
-            "label": "Weapon Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "alchemical",
                 "bomb",
@@ -199,18 +164,16 @@
             "value": "held-in-one-hand"
         },
         "weaponType": {
-            "label": "Weapon Category",
-            "type": "String",
             "value": "martial"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/tanglefoot-bag.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/tanglefoot-bag.webp",
     "name": "Tanglefoot Bag (Greater)",
     "permission": {
         "default": 0

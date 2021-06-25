@@ -13,37 +13,53 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You throw your weight into a powerful attack that leaves you vulnerable. Make a melee @Compendium[pf2e.actionspf2e.VjxZFuUXrCU94MWR]{Strike}. This counts as three attacks when calculating your multiple attack penalty. If this Strike hits, you get a critical hit. If you roll a critical hit, your attack also gains the deadly d12 trait.</p>\n<p>Whether or not you hit, you become @Compendium[pf2e.conditionspf2e.dfCMdR4wnpbYNTix]{Stunned} 1 and are @Compendium[pf2e.conditionspf2e.AJh5ex99aV6VTggg]{Flat-Footed} until the start of your next turn.</p>"
+            "value": "<p>You throw your weight into a powerful attack that leaves you vulnerable.</p>\n<p>Make a melee Strike. This counts as three attacks when calculating your multiple attack penalty. If this Strike hits, you get a critical hit. If you roll a critical hit, your attack also gains the deadly d12 trait.</p>\n<p>Whether or not you hit, you become @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} and are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "16"
+            "value": 16
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Use Overwhelming Blow",
+                "property": "flags.pf2e.rollOptions.damage-roll.overwhelming-blow"
+            },
+            {
+                "critical": true,
+                "diceNumber": 1,
+                "dieSize": "d12",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "overwhelming-blow"
+                    ]
+                },
+                "selector": "damage"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "fighter"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Overwhelming Blow",
     "permission": {
         "default": 0

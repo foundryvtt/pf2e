@@ -5,64 +5,73 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> master in Athletics</p>\n<hr>\n<p>When Climbing, you move 5 more feet on a success and 10 more feet on a critical success, to a maximum of your Speed. If you’re legendary in Athletics, you gain a climb Speed equal to your Speed.</p>"
+            "value": "<p>When Climbing, you move 5 more feet on a success and 10 more feet on a critical success, to a maximum of your Speed. If you're legendary in Athletics, you gain a climb Speed equal to your Speed.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "skill"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "7"
+            "value": 7
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "master in Athletics"
+            "value": [
+                {
+                    "value": "master in Athletics"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.BaseSpeed",
+                "selector": "climb",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "start": 4,
+                            "value": "@attributes.speed.value"
+                        }
+                    ],
+                    "field": "actor|data.skills.ath.rank"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:climb"
+                    ]
+                },
+                "selector": "athletics",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> You move 5 more feet on a success, and 10 more feet on a critical success.</p>"
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "general",
                 "skill"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Quick Climb",
     "permission": {
         "default": 0

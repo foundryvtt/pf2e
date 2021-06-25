@@ -1,0 +1,21 @@
+<form class="npc-sheet" autocomplete="off">
+    <div class="side-bar">
+        {{> 'systems/pf2e/templates/actors/npc/partials/npc-side-bar.html' }}
+    </div>
+    <div class="npc-body">
+        {{> 'systems/pf2e/templates/actors/npc/partials/npc-header.html' }}
+
+        <nav class="sheet-tabs tabs" data-group="primary">
+            <a class="item" data-tab="main">{{ localize 'PF2E.NPC.MainTab'}}</a>
+            <a class="item" data-tab="inventory">{{ localize 'PF2E.NPC.InventoryTab'}}</a>
+            <a class="item" data-tab="spells">{{ localize 'PF2E.NPC.SpellsTab'}}</a>
+            <a class="item" data-tab="notes">{{ localize 'PF2E.NPC.NotesTab'}}</a>
+        </nav>
+        <section class="sheet-body">
+            {{> 'systems/pf2e/templates/actors/npc/partials/npc-main-tab.html' }}
+            {{> 'systems/pf2e/templates/actors/npc/partials/npc-inventory-tab.html' }}
+            {{> 'systems/pf2e/templates/actors/npc/partials/npc-spells-tab.html' }}
+            {{> 'systems/pf2e/templates/actors/npc/partials/npc-notes-tab.html' }}
+        </section>
+    </div>
+</form>

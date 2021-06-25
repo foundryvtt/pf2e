@@ -1,45 +1,51 @@
-/* global getProperty */
-import {ItemData} from "../../item/dataDefinitions";
-import {CharacterData, NpcData} from "../../actor/actorDataDefinitions";
-import {PF2RuleElement} from "../rule-element";
+import { ItemDataPF2e } from '@item/data';
+import { CharacterData, NPCData } from '@actor/data';
+import { RuleElementPF2e } from '../rule-element';
 
-export class PF2TokenImageRuleElement extends PF2RuleElement {
-
-    ruleData: any;
-    item: ItemData;
-
-    constructor(ruleData: any, item: ItemData) {
-        super();
-        this.ruleData = ruleData;
-        this.item = item;
-    }
-    
-    onCreate(actorData: CharacterData|NpcData, item: ItemData, updates: any) {
+/**
+ * @category RuleElement
+ */
+export class PF2TokenImageRuleElement extends RuleElementPF2e {
+    override onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
         const value = this.ruleData.value;
 
         if (!value) {
             console.warn('PF2E | Token Image requires a non-empty value field');
         }
 
-        mergeObject(updates, {
+        const tokenUpdates: Promise<any>[] = [];
+        tokens.forEach((token) => {
+            tokenUpdates.push(token.update({ img: value }));
+        });
+        Promise.allSettled(tokenUpdates);
+
+        mergeObject(actorUpdates, {
             'token.img': value,
             'flags.pf2e.token.imgsource': item._id,
         });
         if (!getProperty(actorData, 'flags.pf2e.token.img')) {
-            mergeObject(updates, {
+            mergeObject(actorUpdates, {
                 'flags.pf2e.token.img': getProperty(actorData, 'token.img'),
             });
         }
     }
-    
-    onDelete(actorData: CharacterData|NpcData, item: ItemData, updates: any) {
+
+    override onDelete(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
         if (getProperty(actorData, 'flags.pf2e.token.imgsource') === item._id) {
-            mergeObject(updates, {
-                'token.img': getProperty(actorData, 'flags.pf2e.token.img'),
-                'flags.pf2e.token.-=img': null,
-                'flags.pf2e.token.-=imgsource': null,
+            const img = getProperty(actorData, 'flags.pf2e.token.img');
+            const tokenUpdates: Promise<any>[] = [];
+            tokens.forEach((token) => {
+                tokenUpdates.push(token.update({ img }));
             });
+            Promise.allSettled(tokenUpdates);
+
+            mergeObject(actorUpdates, {
+                'token.img': getProperty(actorData, 'flags.pf2e.token.img'),
+                'flags.pf2e.token': {},
+            });
+            const token = getProperty(actorUpdates, 'flags.pf2e.token');
+            token['-=img'] = null;
+            token['-=imgsource'] = null;
         }
     }
-
 }

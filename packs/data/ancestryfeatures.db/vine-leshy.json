@@ -13,20 +13,30 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>The prehensile vines woven into your body grant you unmatched skill at climbing. You do not need to have any hands free to @Compendium[pf2e.actionspf2e.pprgrYQ1QnIDGZiy]{Climb}. Additionally, if you roll a success on an Athletics check to @Compendium[pf2e.actionspf2e.pprgrYQ1QnIDGZiy]{Climb}, you get a critical success instead.</p>"
+            "value": "<p>The prehensile vines woven into your body grant you unmatched skill at climbing. You do not need to have any hands free to @Compendium[pf2e.actionspf2e.Climb]{Climb}. Additionally, if you roll a success on an Athletics check to climb, you get a critical success instead.</p>"
         },
         "featType": {
-            "value": "ancestryfeature"
+            "value": "heritage"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:climb"
+                    ]
+                },
+                "selector": "athletics",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success to Climb, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +48,12 @@
             "value": [
                 "leshy"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/ancestry/vine-leshy.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/ancestry/vine-leshy.webp",
     "name": "Vine Leshy",
     "permission": {
         "default": 0

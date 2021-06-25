@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "17"
+                "value": 17
             },
             "allSaves": {
                 "value": "+2 status to all saves vs. disease and poison"
@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "38",
+                "max": 38,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "38"
+                "value": 38
             },
             "init": {
                 "bonus": 0,
@@ -104,12 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "20 feet"
+                        "exceptions": "",
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
                     }
                 ],
-                "special": "",
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "currency": {
@@ -126,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -142,10 +143,10 @@
             },
             "creatureType": "Humanoid",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Originating from humans long lost from the world of light, morlocks are brutal monsters that dwell in the tangled tunnels of the upper reaches of the Darklands. Their wiry frames mask the strength of their limbs and their swift reactions, and their arms are long enough that they can drop into an uncanny, four-limbed shuffle for speed or stealth. They no longer remember the lives their ancestors led on the surface, although many morlocks still dwell in the shattered ruins of their ancient homes. Some morlocks worship the statues of humans from these bygone eras as gods, but others now worship Lamashtu, Rovagug, or other violent deities.<br><br> Morlock young are insatiable and clamor for even the slightest morsel of food, even consuming their siblings if no other meal presents itself. Most morlocks encourage the practice to ensure their ancestral group as a whole grows stronger.<br><br> A typical morlock stands just over 5 feet tall and weighs roughly 150 pounds.<br><br>",
+            "flavorText": "Originating from humans long lost from the world of light, morlocks are brutal monsters that dwell in the tangled tunnels of the upper reaches of the Darklands. Their wiry frames mask the strength of their limbs and their swift reactions, and their arms are long enough that they can drop into an uncanny, four-limbed shuffle for speed or stealth. They no longer remember the lives their ancestors led on the surface, although many morlocks still dwell in the shattered ruins of their ancient homes. Some morlocks worship the statues of humans from these bygone eras as gods, but others now worship Lamashtu, Rovagug, or other violent deities.<br /><br /> Morlock young are insatiable and clamor for even the slightest morsel of food, even consuming their siblings if no other meal presents itself. Most morlocks encourage the practice to ensure their ancestral group as a whole grows stronger.<br /><br /> A typical morlock stands just over 5 feet tall and weighs roughly 150 pounds.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -155,13 +156,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "2"
+                "value": 2
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=731",
             "recallKnowledgeText": "Recall Knowledge - Humanoid : DC 16",
-            "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Additional Lore\" title=\"Sidebar - Additional Lore\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_2_AdditionalLore.png\"> Morlock Machinery</h3>Morlocks tend toward brutish actions and violent traditions and have little interest in bettering their societies or creating art. However, they have a strange obsession with ancient machinery and magical items, particularly clockwork constructions. Their knack for tinkering helps keep ancient guardians and traps functional, even if their work backfires now and then.",
             "source": {
-                "value": "Bestiary 2 pg. 174"
+                "value": "Bestiary 2"
             }
         },
         "martial": {
@@ -411,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -442,14 +444,27 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "YwZphDZB899jppuY",
+            "_id": "ers0Uxw4RthQloqt",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "club",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -462,17 +477,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This is a piece of stout wood shaped or repurposed to bludgeon an enemy. Clubs can be intricately carved pieces of martial art or as simple as a tree branch or piece of wood.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "club"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -481,8 +506,18 @@
                 "hp": {
                     "value": 0
                 },
-                "identified": {
-                    "value": false
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -496,6 +531,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": null
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -503,35 +541,93 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "0 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": "",
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": "",
+                    "damageType": "",
+                    "dice": "",
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": "",
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
+                "range": {
+                    "value": "10"
                 },
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "club",
                 "source": {
                     "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
-                    "value": []
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "thrown-10"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "simple"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "club",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.c58wczIzH2gzeXQL"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/club.webp",
+            "name": "Club",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
             "_id": "EK9tHuUdNF8lzwwK",
@@ -543,126 +639,43 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 9,
                     "value": 9
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "die": "1d6+4"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d6+4",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Club",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "melee"
         },
@@ -676,128 +689,45 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 9,
                     "value": 9
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "piercing",
-                    "die": "1d4+4"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d4+4",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Jaws",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "melee"
         },
@@ -811,139 +741,53 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 8,
                     "value": 8
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "bludgeoning",
-                    "die": "1d6+4"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d6+4",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
-                        "range increment 10 feet"
+                        "range-increment-10"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weaponType": {
                     "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Club",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "melee"
         },
         {
-            "_id": "MU23h0DmMaI2ryMU",
+            "_id": "p7noKat6TFz6jbdi",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -954,77 +798,190 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "When first exposed to bright light, the monster is @Compendium[pf2e.conditionspf2e.Blinded] until the end of its next turn. After this exposure, light doesn’t blind the monster again until after it spends 1 hour in darkness. However, as long as the monster is in an area of bright light, it’s @Compendium[pf2e.conditionspf2e.Dazzled]."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "Q7jKiBxoI41B4SFk",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>When first exposed to bright light, the monster is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn. After this exposure, light doesn't blind the monster again until after it spends 1 hour in darkness. However, as long as the monster is in an area of bright light, it's @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "light-blindness",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
                 },
                 "weapon": {
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "interaction"
-                    }
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Light Blindness",
-            "sort": 500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "221vTnBeuZNIp9gS",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "poison",
+                                "disease"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "+2 Status Bonus on Saves vs Disease and Poison",
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
             "type": "action"
         },
         {
             "_id": "3vycv9ThXOQbgNBf",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The morlock tinkers with an adjacent construct or mechanical hazard. They attempt a Crafting check against the construct's or hazard's Fortitude DC. The morlock can't succeed if the target's level is more than double the morlock's. <br><b>Critical Success</b> The target gains 4d6 HP and a +1 circumstance bonus to attack rolls for 1 minute. <br><b>Success</b> The target gains 2d6 HP. <br><b>Critical Failure</b> The morlock injures itself, taking [[/r 2d6 # damage]] damage (typically bludgeoning, piercing, or slashing, but potentially a different type at the GM’s discretion)."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The morlock tinkers with an adjacent construct or mechanical hazard. They attempt a Crafting check against the construct's or hazard's Fortitude DC. The morlock can't succeed if the target's level is more than double the morlock's.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains [[/r 4d6 #HP]] HP and a +1 circumstance bonus to attack rolls for 1 minute.</p>\n<p><strong>Success</strong> The target gains [[/r 2d6 #HP]] HP.</p>\n<p><strong>Critical Failure</strong> The morlock injures itself, taking [[/r 2d6]] damage (typically bludgeoning, piercing, or slashing, but potentially a different type at the GM's discretion).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1037,49 +994,47 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Instinctual Tinker",
-            "sort": 600000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
             "type": "action"
         },
         {
             "_id": "HaYQ8Cd4C0hYSFdc",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The morlock Strides up to twice its Speed, during which it attempts a @Compendium[pf2e.actionspf2e.2HJ4yuEFY1Cast4h]{High Jump} or a @Compendium[pf2e.actionspf2e.JUvAvruz7yRQXfz2]{Long Jump}. At any point during its movement, the morlock can make a melee Strike against an enemy in its reach. The morlock then can't use Leap Attack for 1 round."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The morlock Strides up to twice its Speed, during which it attempts a @Compendium[pf2e.actionspf2e.High Jump]{High Jump} or a @Compendium[pf2e.actionspf2e.Long Jump]{Long Jump}. At any point during its movement, the morlock can make a melee Strike against an enemy in its reach.</p>\n<p>The morlock then can't use Leap Attack for 1 round.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1092,23 +1047,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Leap Attack",
-            "sort": 700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "action"
         },
         {
-            "_id": "Ih2fJI6ujKAEz32k",
+            "_id": "l8NKwiC1ZahJ0ein",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1119,54 +1073,68 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A morlock's Strikes deal an extra [[/r 1d6 # precision damage]] precision damage to @Compendium[pf2e.conditionspf2e.Flat-Footed] creatures.<br>When the monster Strikes a creature that has the @Compendium[pf2e.conditionspf2e.Flat-Footed] condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A morlock's Strikes deal an extra [[/r 1d6 #precision]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "source": {
                     "value": ""
                 },
                 "traits": {
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Sneak Attack",
-            "sort": 800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
             "type": "action"
         },
         {
             "_id": "Y6Rqq2ahFM07WKRm",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1177,22 +1145,37 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A morlock can share the same space as another morlock, but no more than two morlocks can occupy the same space. When morlocks share the same space, they gain a +1 circumstance bonus to attack rolls."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A morlock can share the same space as another morlock, but no more than two morlocks can occupy the same space. When morlocks share the same space, they gain a +1 circumstance bonus to attack rolls.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.swarming-stance"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "swarming-stance"
+                            ]
+                        },
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1205,16 +1188,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Swarming Stance",
-            "sort": 900000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1225,7 +1207,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1235,23 +1216,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1000000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -1262,7 +1251,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1272,23 +1260,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics ",
-            "sort": 1100000,
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -1299,7 +1295,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1309,23 +1304,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Crafting ",
-            "sort": 1200000,
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Crafting (Repair only)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -1336,7 +1339,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1346,23 +1348,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1500000,
             "type": "lore"
         }
     ],
@@ -1371,13 +1381,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "DYBZniwR1Ip4inVr",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1387,15 +1399,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Morlock",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

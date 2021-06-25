@@ -1,288 +1,186 @@
-/* global ui, CONST */
-import { CONFIG as PF2ECONFIG } from './scripts/config';
-import registerSettings from './module/settings';
-import loadTemplates from './module/templates';
-import { initiativeFormula } from './module/combat';
-import registerHandlebarsHelpers from './module/handlebars';
-import ItemPF2e from './module/item/item';
-import ActorPF2e from './module/actor/actor';
-import { PlayerConfigPF2e } from './module/user/playerconfig';
-import { PF2eSystem } from './module/pf2e-system';
-import registerActors from './module/register-actors';
-import {registerSheets} from './module/register-sheets';
-import PF2eCombatTracker from './module/system/PF2eCombatTracker';
-import { PF2Check } from './module/system/rolls';
-import * as migrations from './module/migration';
-import { DicePF2e } from './scripts/dice';
-import { PF2eStatusEffects } from "./scripts/actor/statusEffects";
-import { PF2eConditionManager } from "./module/conditions"
-import {FamiliarData} from "./module/actor/actorDataDefinitions";
+import { ActorPF2e } from '@actor/index';
+import { CheckPF2e } from '@system/rolls';
+import { HooksPF2e } from '@scripts/hooks';
 
-require('./styles/pf2e.scss');
+import '@system/measure';
+import './styles/pf2e.scss';
 
-// load in the scripts (that were previously just included by <script> tags instead of in the bundle
-require("./scripts/init.ts");
-require("./scripts/actor/statusEffects.ts");
-require("./scripts/dice.ts");
-require("./scripts/chat/chatdamagebuttonsPF2e.ts");
-require("./scripts/chat/crit-fumble-cards.ts");
-require("./scripts/actor/sheet/itemBehaviour.ts");
-require("./scripts/system/canvasDropHandler");
-
-Hooks.once('init', () => {
-  console.log('PF2e | Initializing Pathfinder 2nd Edition System');
-
-  CONFIG.PF2E = PF2ECONFIG;
-  // Temporarily overload CONFIG until we're refactored out.
-  for (const k in CONFIG.PF2E) {
-    if (Object.prototype.hasOwnProperty.call(CONFIG.PF2E, k)) {
-      CONFIG[k] = CONFIG.PF2E[k];
-    }
-  }
-  // Assign actor/item classes.
-  CONFIG.Item.entityClass = ItemPF2e;
-  CONFIG.Actor.entityClass = ActorPF2e;
-  // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
-  CONFIG.Combat.initiative.decimals = 1;
-  // Assign the PF2e Combat Tracker
-  CONFIG.ui.combat = PF2eCombatTracker;
-
-  PlayerConfigPF2e.hookOnRenderSettings();
-
-  registerSettings();
-  loadTemplates();
-  registerActors();
-  registerSheets();
-  registerHandlebarsHelpers();
-  // @ts-ignore
-  Combat.prototype._getInitiativeFormula = initiativeFormula;
-
-  // expose a few things to the global world, so that other modules can use our stuff
-  // instead of being locked in our world after we started building with webpack
-  // which enforced modules being private
-  (window as any).DicePF2e = DicePF2e;
-  (window as any).PF2eStatusEffects = PF2eStatusEffects;
-  (window as any).PF2eConditionManager = PF2eConditionManager;
-});
-
-/* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
-function _updateMinionActors(master: ActorPF2e = undefined) {
-  game.actors.entities.filter((actor): actor is ActorPF2e & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
-    .filter(minion => !!minion.data.data?.master?.id)
-    .filter(minion => !master || minion.data.data.master.id === master.data._id)
-    .forEach(minion => minion.update({ 'data.master.updated': new Date().toISOString() }));
-}
-
-Hooks.once('ready', () => {
-  PlayerConfigPF2e.init();
-  PlayerConfigPF2e.activateColorScheme();
-
-  // update minion-type actors to trigger another prepare data cycle with the master actor already prepared and ready
-  _updateMinionActors();
-});
+HooksPF2e.listen();
 
 /* -------------------------------------------- */
 /*  Foundry VTT Setup                           */
 /* -------------------------------------------- */
 
-/**
- * This function runs after game data has been requested and loaded from the servers, so entities exist
- */
-Hooks.once('setup', () => {
-
-  (window as any).PF2e = new PF2eSystem();
-
-  // Localize CONFIG objects once up-front
-  const toLocalize = [
-    'abilities', 'skills', 'martialSkills', 'currencies', 'saves', 'armorTraits', 'preciousMaterialGrades',
-    'armorPotencyRunes', 'armorResiliencyRunes', 'armorPropertyRunes', 'weaponPotencyRunes', 'weaponStrikingRunes',
-    'weaponPropertyRunes',
-    'damageTypes', 'weaponDamage', 'healingTypes', 'weaponTypes', 'weaponGroups', 'consumableTraits',
-    'weaponDescriptions', 'weaponTraits', 'traitsDescriptions', 'weaponHands', 'equipmentTraits',
-    'itemBonuses', 'damageDie', 'weaponRange', 'weaponMAP', 'weaponReload', 'armorTypes',
-    'armorGroups', 'consumableTypes', 'magicTraditions', 'preparationType', 'spellTraits',
-    'featTraits', 'areaTypes', 'areaSizes', 'classTraits', 'ancestryTraits', 'alignment',
-    'skillList', 'spellComponents', 'spellTypes', 'spellTraditions', 'spellSchools',
-    'spellLevels', 'featTypes', 'featActionTypes', 'actionTypes', 'actionTypes', 'actionsNumber',
-    'actionCategories', 'proficiencyLevels', 'heroPointLevels', 'actorSizes', 'bulkTypes',
-    'conditionTypes', 'immunityTypes', 'resistanceTypes', 'weaknessTypes', 'languages',
-    'monsterTraits', 'spellScalingModes', 'attackEffects', 'hazardTraits', 'attributes',
-    'speedTypes', 'senses', 'preciousMaterials'
-  ];
-  for (const o of toLocalize) {
-    CONFIG.PF2E[o] = Object.entries(CONFIG.PF2E[o]).reduce((obj, e: any) => {
-      obj[e[0]] = game.i18n.localize(e[1]);
-      return obj;
-    }, {});
-  }
-});
-
-/* -------------------------------------------- */
-
-/**
- * Once the entire VTT framework is initialized, check to see if we should perform a data migration
- */
-Hooks.once("ready", () => {
-
-  // Determine whether a system migration is required and feasible
-  const currentVersion = game.settings.get("pf2e", "worldSchemaVersion");
-  const NEEDS_MIGRATION_VERSION = Number(game.system.data.schema);
-  const COMPATIBLE_MIGRATION_VERSION = 0.411;
-  const needMigration = (currentVersion < NEEDS_MIGRATION_VERSION) || (currentVersion === null);
-
-  // Perform the migration
-  if ( needMigration && game.user.isGM ) {
-    if ( currentVersion && (currentVersion < COMPATIBLE_MIGRATION_VERSION) ) {
-      ui.notifications.error(`Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`, {permanent: true});
-    }
-    migrations.migrateWorld();
-  }
-});
-
-// Activate global listeners
-Hooks.on('renderChatLog', (log, html) => ItemPF2e.chatListeners(html));
-
 // Chat hooks - refactor out.
 /**
  * Hook into chat log context menu to add damage application options
  */
-Hooks.on('getChatLogEntryContext', (html, options) => {
-  const canApplyDamage = (li) => {
-    const { messageId } = li.data();
-    const message = game.messages.get(messageId);
+Hooks.on('getChatLogEntryContext', (_html, options) => {
+    const canApplyDamage: ContextOptionCondition = (li) => {
+        const messageId = li.attr('data-message-id') ?? '';
+        const message = game.messages.get(messageId, { strict: true });
 
-    return canvas.tokens.controlled.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes('Damage');
-  };
-  const canApplyHealing = (li) => {
-    const { messageId } = li.data();
-    const message = game.messages.get(messageId);
+        return !!(canvas.tokens.controlled.length && message.isRoll && message.data.flavor?.includes('Damage'));
+    };
+    const canApplyHealing: ContextOptionCondition = (li) => {
+        const messageId = li.attr('data-message-id') ?? '';
+        const message = game.messages.get(messageId, { strict: true });
 
-    return canvas.tokens.controlled.length && message.isRoll && message.data && message.data.flavor && message.data.flavor.includes('Healing');
-  };
-  const canApplyInitiative = (li) => {
-    const { messageId } = li.data();
-    const message = game.messages.get(messageId);
+        return !!(
+            canvas.tokens.controlled.length &&
+            message.isRoll &&
+            message.data &&
+            message.data.flavor &&
+            message.data.flavor.includes('Healing')
+        );
+    };
+    const canApplyInitiative: ContextOptionCondition = (li) => {
+        const messageId = li.attr('data-message-id') ?? '';
+        const message = game.messages.get(messageId, { strict: true });
 
-    // Rolling PC iniative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
-    // Avoid potential confusion and misunderstanding by just allowing NPCs to roll
-    const validActor = (canvas.tokens.controlled?.[0]?.actor?.data?.type === "npc") ?? false;
-    const validRollType = (message?.data?.flavor?.includes('Skill Check') || message?.data?.flavor?.includes('Perception Check')) ?? false;
-    return validActor && message.isRoll && validRollType;
-  };
+        // Rolling PC iniative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
+        // Avoid potential confusion and misunderstanding by just allowing NPCs to roll
+        const validActor = canvas.tokens.controlled[0]?.actor?.data.type === 'npc';
+        const validRollType =
+            message.data.flavor?.includes('Skill Check') || message.data.flavor?.includes('Perception Check') || false;
+        return validActor && message.isRoll && validRollType;
+    };
 
-  const canHeroPointReroll = (li): boolean => {
-    const message = game.messages.get(li.data('messageId'));
-    const actorId = message.data.speaker.actor;
-    const canReroll = message.getFlag('pf2e', 'canReroll');
-    if (canReroll && actorId) {
-      const actor = game.actors.get(actorId);
-      return actor.owner && actor.data.data.attributes.heroPoints.rank >= 1 && (message.isAuthor || game.user.isGM);
-    }
-    return false;
-  };
-  const canReroll = (li): boolean => {
-    const message = game.messages.get(li.data('messageId'));
-    const actorId = message.data.speaker.actor;
-    const canRerollMessage = message.getFlag('pf2e', 'canReroll');
-    if (canRerollMessage && actorId) {
-      const actor = game.actors.get(actorId);
-      return actor.owner && (message.isAuthor || game.user.isGM);
-    }
-    return false;
-  };
+    const canHeroPointReroll: ContextOptionCondition = (li): boolean => {
+        const message = game.messages.get(li.data('messageId'), { strict: true });
 
-  options.push(
-    {
-      name: 'Apply Damage',
-      icon: '<i class="fas fa-user-minus"></i>',
-      condition: canApplyDamage,
-      callback: (li) => ActorPF2e.applyDamage(li, 1),
-    },
-    {
-      name: 'Apply Healing',
-      icon: '<i class="fas fa-user-plus"></i>',
-      condition: canApplyHealing,
-      callback: (li) => ActorPF2e.applyDamage(li, -1),
-    },
-    {
-      name: 'Double Damage',
-      icon: '<i class="fas fa-user-injured"></i>',
-      condition: canApplyDamage,
-      callback: (li) => ActorPF2e.applyDamage(li, 2),
-    },
-    {
-      name: 'Half Damage',
-      icon: '<i class="fas fa-user-shield"></i>',
-      condition: canApplyDamage,
-      callback: (li) => ActorPF2e.applyDamage(li, 0.5),
-    },
-    {
-      name: 'Set as Initiative',
-      icon: '<i class="fas fa-fist-raised"></i>',
-      condition: canApplyInitiative,
-      callback: (li) => ActorPF2e.setCombatantInitiative(li),
-    },
-    {
-      name: 'PF2E.RerollMenu.HeroPoint',
-      icon: '<i class="fas fa-hospital-symbol"></i>',
-      condition: canHeroPointReroll,
-      callback: li => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), {heroPoint: true})
-    },
-    {
-      name: 'PF2E.RerollMenu.KeepNew',
-      icon: '<i class="fas fa-dice"></i>',
-      condition: canReroll,
-      callback: li => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')))
-    },
-    {
-      name: 'PF2E.RerollMenu.KeepWorst',
-      icon: '<i class="fas fa-dice-one"></i>',
-      condition: canReroll,
-      callback: li => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), {keep: 'worst'})
-    },
-    {
-      name: 'PF2E.RerollMenu.KeepBest',
-      icon: '<i class="fas fa-dice-six"></i>',
-      condition: canReroll,
-      callback: li => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), {keep: 'best'})
-    },
-  );
-  return options;
+        const actorId = message.data.speaker.actor ?? '';
+        const actor = game.actors.get(actorId);
+        const canReroll = !!message.getFlag('pf2e', 'canReroll');
+        return (
+            canReroll &&
+            actor?.data.type === 'character' &&
+            actor.isOwner &&
+            actor.data.data.attributes.heroPoints?.rank >= 1 &&
+            (message.isAuthor || game.user.isGM)
+        );
+    };
+    const canReroll: ContextOptionCondition = (li): boolean => {
+        const message = game.messages.get(li.data('messageId'), { strict: true });
+        const actorId = message.data.speaker.actor ?? '';
+        const isOwner = !!game.actors.get(actorId)?.isOwner;
+        const canRerollMessage = !!message.getFlag('pf2e', 'canReroll');
+        return canRerollMessage && isOwner && (message.isAuthor || game.user.isGM);
+    };
+
+    options.push(
+        {
+            name: 'Apply Damage',
+            icon: '<i class="fas fa-user-minus"></i>',
+            condition: canApplyDamage,
+            callback: (li: JQuery) => ActorPF2e.applyDamage(li, 1),
+        },
+        {
+            name: 'Apply Healing',
+            icon: '<i class="fas fa-user-plus"></i>',
+            condition: canApplyHealing,
+            callback: (li: JQuery) => ActorPF2e.applyDamage(li, -1),
+        },
+        {
+            name: 'Double Damage',
+            icon: '<i class="fas fa-user-injured"></i>',
+            condition: canApplyDamage,
+            callback: (li) => ActorPF2e.applyDamage(li, 2),
+        },
+        {
+            name: 'Half Damage',
+            icon: '<i class="fas fa-user-shield"></i>',
+            condition: canApplyDamage,
+            callback: (li) => ActorPF2e.applyDamage(li, 0.5),
+        },
+        {
+            name: 'Set as Initiative',
+            icon: '<i class="fas fa-fist-raised"></i>',
+            condition: canApplyInitiative,
+            callback: (li) => ActorPF2e.setCombatantInitiative(li),
+        },
+        {
+            name: 'PF2E.RerollMenu.HeroPoint',
+            icon: '<i class="fas fa-hospital-symbol"></i>',
+            condition: canHeroPointReroll,
+            callback: (li) =>
+                CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'), { strict: true }), {
+                    heroPoint: true,
+                }),
+        },
+        {
+            name: 'PF2E.RerollMenu.KeepNew',
+            icon: '<i class="fas fa-dice"></i>',
+            condition: canReroll,
+            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'), { strict: true })),
+        },
+        {
+            name: 'PF2E.RerollMenu.KeepWorst',
+            icon: '<i class="fas fa-dice-one"></i>',
+            condition: canReroll,
+            callback: (li) =>
+                CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'), { strict: true }), {
+                    keep: 'worst',
+                }),
+        },
+        {
+            name: 'PF2E.RerollMenu.KeepBest',
+            icon: '<i class="fas fa-dice-six"></i>',
+            condition: canReroll,
+            callback: (li) =>
+                CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'), { strict: true }), {
+                    keep: 'best',
+                }),
+        },
+    );
 });
 
-Hooks.on('preCreateActor', (actor, dir) => {
-  if (game.settings.get('pf2e', 'defaultTokenSettings')) {
-    // Set wounds, advantage, and display name visibility
-    mergeObject(actor, {
-      'token.bar1': { attribute: 'attributes.hp' }, // Default Bar 1 to Wounds
-      'token.displayName': CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER, // Default display name to be on owner hover
-      'token.displayBars': CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER, // Default display bars to be on owner hover
-      'token.disposition': CONST.TOKEN_DISPOSITIONS.HOSTILE, // Default disposition to hostile
-      'token.name': actor.name, // Set token name to actor name
+// effect panel
+Hooks.on('updateUser', () => {
+    game.pf2e.effectPanel.refresh();
+});
+
+// world clock application
+Hooks.on('getSceneControlButtons', (controls: any[]) => {
+    controls
+        .find((c) => c.name === 'token')
+        .tools.push({
+            name: 'worldclock',
+            title: 'CONTROLS.WorldClock',
+            icon: 'fas fa-clock',
+            visible: game.user.isGM || game.settings.get('pf2e', 'worldClock.playersCanView'),
+            onClick: () => game.pf2e.worldClock!.render(true),
+            button: true,
+        });
+});
+
+Hooks.on('renderChatMessage', (message, html) => {
+    // remove elements the user does not have permission to see
+    html.find('[data-visibility="none"]').remove();
+
+    if (!game.user.isGM) {
+        html.find('[data-visibility="gm"]').remove();
+    }
+
+    const actor = message.data.speaker?.actor ? game.actors.get(message.data.speaker.actor) : undefined;
+    if (!((actor && actor.isOwner) || game.user.isGM || message.isAuthor)) {
+        html.find('[data-visibility="owner"]').remove();
+    }
+
+    // show DC for inline checks if user has sufficient permission
+    html.find('[data-pf2-dc]:not([data-pf2-dc=""])[data-pf2-show-dc]:not([data-pf2-show-dc=""])').each((_idx, elem) => {
+        const dc = elem.dataset.pf2Dc!.trim()!;
+        const role = elem.dataset.pf2ShowDc!.trim();
+        if (
+            role === 'all' ||
+            (role === 'gm' && game.user.isGM) ||
+            (role === 'owner' && ((actor && actor.isOwner) || game.user.isGM || message.isAuthor))
+        ) {
+            elem.innerHTML = game.i18n.format('PF2E.DCWithValue', {
+                dc,
+                text: elem.innerHTML,
+            });
+            elem.removeAttribute('data-pf2-show-dc'); // short-circuit the global DC interpolation
+        }
     });
-
-    // Default characters to HasVision = true and Link Data = true
-    if (actor.type === 'character') {
-      actor.token.vision = true;
-      actor.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
-      actor.token.actorLink = true;
-    }
-  }
-});
-
-Hooks.on('updateActor', (actor, dir) => {
-  // ensure minion-type actors with the updated actor as master should also be updated
-  _updateMinionActors(actor);
-});
-
-Hooks.on('createOwnedItem', (parent, child, options, userId) => {
-    if (parent instanceof ActorPF2e) {
-        parent.onCreateOwnedItem(child, options, userId);
-    }
-});
-
-Hooks.on('deleteOwnedItem', (parent, child, options, userId) => {
-    if (parent instanceof ActorPF2e) {
-        parent.onDeleteOwnedItem(child, options, userId);
-    }
 });

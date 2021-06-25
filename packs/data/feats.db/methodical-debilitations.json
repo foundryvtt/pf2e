@@ -13,37 +13,54 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>@Compendium[pf2e.classfeatures.RyOkmu0W9svavuAB]{Mastermind Racket}, @Compendium[pf2e.classfeatures.9SruVg2lZpNaYLOB]{Debilitating Strikes}</p>\n<hr>\n<p>You strategically craft your debilitations to lessen or negate an enemy’s tactical advantages. Add the following debilitations to the list you can choose from when you use Debilitating Strike.</p>\n<ul>\n<li><strong>Debilitation</strong> The target can’t flank other creatures, and it can’t provide flanking for its allies.</li>\n<li><strong>Debilitation</strong> The target doesn’t gain a circumstance bonus to AC from @Compendium[pf2e.actionspf2e.xjGwis0uaC2305pm]{Raising a Shield}, lesser cover, or standard cover; it gains only a +2 circumstance bonus to AC from greater cover or @Compendium[pf2e.actionspf2e.ust1jJSCZQUhBZIz]{Taking Cover}.</li>\n</ul>"
+            "value": "<p>You strategically craft your debilitations to lessen or negate an enemy's tactical advantages. Add the following debilitations to the list you can choose from when you use @Compendium[pf2e.actionspf2e.Debilitating Strike]{Debilitating Strike}.</p>\n<ul>\n<li><strong>Debilitation</strong> The target can't flank other creatures, and it can't provide flanking for its allies.</li>\n<li><strong>Debilitation</strong> The target doesn't gain a circumstance bonus to AC from @Compendium[pf2e.actionspf2e.Raise a Shield]{Raising a Shield}, lesser cover, or standard cover; it gains only a +2 circumstance bonus to AC from greater cover or @Compendium[pf2e.actionspf2e.Take Cover]{Taking Cover}.</li>\n</ul>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "10"
+            "value": 10
         },
+        "location": "",
         "prerequisites": {
-            "value": "mastermind racket, Debilitating Strike"
+            "value": [
+                {
+                    "value": "mastermind racket"
+                },
+                {
+                    "value": "Debilitating Strike"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "target:flatFooted"
+                    ]
+                },
+                "selector": "damage",
+                "text": "<span class='pf2-icon'>f</span> @Compendium[pf2e.feats-srd.Methodical Debilitations]{Methodical Debilitations}"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "rogue"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Methodical Debilitations",
     "permission": {
         "default": 0

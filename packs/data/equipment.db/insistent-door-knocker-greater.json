@@ -1,6 +1,7 @@
 {
     "_id": "a5dEzZPuxsmTvlWS",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>This dark iron door knocker comes in a variety of shapes, such as a bird clutching a ring in its talons or a gargoyle holding a ring in its mouth. Placing the door knocker on the surface of a door (an Interact action) causes it to attach and remain in place. While in place, the door knocker whispers hints to you while you attempt to unlock the door, granting a +2 item bonus to Thievery checks to Pick a Lock. Removing the door knocker from a surface requires you to use an Interact action.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">D</span> command, Interact; <strong>Frequency</strong> once per day; <strong>Effect</strong> You place the door knocker against a wall, floor, or ceiling. The door knocker fuses in place and creates a usable door within the surface. Any creature can move through the door normally, as if the door had always been there. The door can penetrate up to 5 feet of material, so thick material, such as heavy stone walls, can cause this effect to fail, expending its use for the day. A thin layer of metal in a wall, floor, or ceiling also causes the effect to fail. You can use an Interact action to release the door knocker from the surface and return the surface to its previous shape.</span></p>"
+            "value": "<p>This dark iron door knocker comes in a variety of shapes, such as a bird clutching a ring in its talons or a gargoyle holding a ring in its mouth. Placing the door knocker on the surface of a door (an Interact action) causes it to attach and remain in place. While in place, the door knocker whispers hints to you while you attempt to unlock the door, granting a +2 item bonus to Thievery checks to Pick a Lock. Removing the door knocker from a surface requires you to use an Interact action.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> command, Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You place the door knocker against a wall, floor, or ceiling. The door knocker fuses in place and creates a usable door within the surface. Any creature can move through the door normally, as if the door had always been there. The door can penetrate up to 5 feet of material, so thick material, such as heavy stone walls, can cause this effect to fail, expending its use for the day. A thin layer of metal in a wall, floor, or ceiling also causes the effect to fail. You can use an Interact action to release the door knocker from the surface and return the surface to its previous shape.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Thievery checks to Pick a Lock</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "11"
+            "value": 11
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,24 @@
             "value": "1,250 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Insistent Door Knocker (Pick a Lock)",
+                "predicate": {
+                    "any": [
+                        "action:pick-a-lock"
+                    ]
+                },
+                "selector": "thievery",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -86,8 +111,10 @@
             "value": "1"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/held-items/insistent-door-knocker.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/held-items/insistent-door-knocker.webp",
     "name": "Insistent Door Knocker (Greater)",
     "permission": {
         "default": 0

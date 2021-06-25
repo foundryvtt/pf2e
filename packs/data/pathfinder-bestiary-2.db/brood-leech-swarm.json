@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "19"
+                "value": 19
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "40",
+                "max": 40,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "40"
+                "value": 40
             },
             "init": {
                 "bonus": 0,
@@ -104,12 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "20 feet"
+                        "exceptions": "",
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "20"
                     }
                 ],
-                "special": "",
-                "value": "5 feet"
+                "value": "5"
             }
         },
         "currency": {
@@ -142,10 +142,10 @@
             },
             "creatureType": "Animal",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Most smaller species of leeches do not tend to swarm, but brood leeches are prone to gathering in seething, undulant mats of squirming gluttony. When they gather in sufficient numbers to swarm, they eschew the stealth of a lone leech's feeding methods in favor of swift and merciless feeding. In these situations, their mild venom can affect much larger creatures than their usual prey.<br><br>",
+            "flavorText": "Most smaller species of leeches do not tend to swarm, but brood leeches are prone to gathering in seething, undulant mats of squirming gluttony. When they gather in sufficient numbers to swarm, they eschew the stealth of a lone leech's feeding methods in favor of swift and merciless feeding. In these situations, their mild venom can affect much larger creatures than their usual prey.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -155,13 +155,11 @@
             },
             "level": {
                 "min": 1,
-                "value": "4"
+                "value": 4
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=712",
             "recallKnowledgeText": "Recall Knowledge - Animal : DC 19",
-            "sidebarText": "",
             "source": {
-                "value": "Bestiary 2 pg. 156"
+                "value": "Bestiary 2"
             }
         },
         "martial": {
@@ -411,11 +409,15 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
-                "custom": "precision, swarm mind",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "precision",
+                    "swarm-mind"
                 ]
             },
             "dr": [
@@ -476,16 +478,16 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "storTBRDZBrko2mc",
+            "_id": "Hu5L9AYzwJsXxIDY",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -496,22 +498,75 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "This monster doesn’t have a single mind (typically because it’s a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "tremorsense",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Tremorsense",
+            "permission": {
+                "default": 0
+            },
+            "sort": 100000,
+            "type": "action"
+        },
+        {
+            "_id": "storTBRDZBrko2mc",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This monster doesn't have a single mind (typically because it's a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -524,49 +579,47 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Swarm Mind",
-            "sort": 100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 200000,
             "type": "action"
         },
         {
             "_id": "ome4gBGaz20PH3OU",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Each enemy in the swarm's space takes 2d6 @Compendium[pf2e.conditionspf2e.Persistent Damage] and is exposed to brood leech swarm venom."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 2d6]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} and is exposed to brood leech swarm venom.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -579,23 +632,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Blood Draining Bites",
-            "sort": 200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
             "type": "action"
         },
         {
             "_id": "SZrUoVGK2e5HE1dm",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -606,22 +658,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Saving Throw</b> DC 21 Fortitude; <b>Maximum Duration</b> 6 rounds; <b>Stage 1</b> @Compendium[pf2e.conditionspf2e.Clumsy] 1, @Compendium[pf2e.conditionspf2e.Sickened] 1, and –5-foot status penalty to Speed (1 round); <b>Stage 2</b> clumsy 1, sickened 1, and –10-foot status penalty to Speed (1 round)."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Saving Throw</strong> DC 21 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}, and -5-foot status penalty to Speed (1 round);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}, and -10-foot status penalty to Speed (1 round).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "poison"
                     ]
@@ -636,16 +687,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Brood Leech Swarm Venom",
-            "sort": 300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -656,7 +706,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -666,23 +715,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -693,7 +750,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -703,23 +759,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
             "type": "lore"
         }
     ],
@@ -728,13 +792,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "dvZM7hGNDu8olV7A",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -744,15 +810,21 @@
         "disposition": -1,
         "flags": {},
         "height": 2,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Brood Leech Swarm",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 2

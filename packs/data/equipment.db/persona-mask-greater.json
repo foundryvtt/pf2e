@@ -1,6 +1,7 @@
 {
     "_id": "0PPQl3TEr1yNhhN6",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>Despite covering the entire face, this alabaster mask does not hinder vision or other senses. Wearing the mask grants a +1 item bonus to Performance checks while acting, orating, performing comedy, or singing.<br /></span></p>\n<p><span>The mask grants a +2 bonus and can be activated.<br /></span></p>\n<p><strong>Activate</strong>&nbsp;<span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">R</span>&nbsp;envision (fortune);&nbsp;<strong>Frequency</strong>&nbsp;once per day;&nbsp;<strong>Trigger</strong>&nbsp;You fail a Performance check that benefits from the mask&rsquo;s bonus;&nbsp;<strong>Effect</strong>&nbsp;You change the mask&rsquo;s character and reroll the Performance check, using the second result.</p>\n<p><span><br /><br /></span></p>"
+            "value": "<p>Despite covering the entire face, this alabaster mask does not hinder vision or other senses. Wearing the mask grants a +2 item bonus to Performance checks while acting, orating, performing comedy, or singing.</p>\n<p>The mask can be activated.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">R</span> envision (fortune)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You fail a Performance check that benefits from the mask's bonus</p>\n<p><strong>Effect</strong> You change the mask's character and reroll the Performance check, using the second result.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Performance checks while acting, orating, performing comedy, or singing.</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "9"
+            "value": 9
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,27 @@
             "value": "650 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Persona Mask (acting, orating, comedy, singing)",
+                "predicate": {
+                    "any": [
+                        "acting",
+                        "orating",
+                        "performing-comedy",
+                        "singing"
+                    ]
+                },
+                "selector": "performance",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +99,6 @@
             "rarity": {
                 "value": "common"
             },
-            "usage": {
-                "value": "wornmask"
-            },
             "value": [
                 "fortune",
                 "illusion",
@@ -82,14 +107,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornmask"
         },
         "weight": {
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/persona-mask.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/persona-mask.webp",
     "name": "Persona Mask (Greater)",
     "permission": {
         "default": 0

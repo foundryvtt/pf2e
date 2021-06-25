@@ -20,7 +20,7 @@
         }
 
         h6,
-        .click-stat-level {
+        .pf-rank {
             padding: 2px 4px;
             border-radius: 2px;
             box-shadow: inset 0 0 0 1px rgba(black, 0.5);
@@ -46,7 +46,7 @@
         }
         .skills-list,
         .lores-list,
-        .martial-list {
+        .combat-list {
             list-style: none;
             @include p-reset;
             display: grid;
@@ -91,17 +91,23 @@
                 .skill-prof {
                     grid-area: prof;
                     width: min-content;
-                    .click-stat-level {
-                        background: var(--secondary);
+                    .pf-rank {
+                        background: #{$rank-untrained};
+                        border-radius: 2px;
+                        border: 1px solid rgba(black, 0.5);
+                        padding: 4px;
+                        cursor: pointer;
+                        box-shadow: inset 0 0 0 1px rgba(white, 0.1);
+
                         .fas {
                             display: none;
                         }
                     }
 
-                    span[value='0'] {
-                        background: var(--light);
-                        box-shadow: inset 0 0 0 1px rgba(black, 0.25), inset 0 0 0 2px rgba(white, 0.1);
-                    }
+                    span[value='1'] { background: #{$rank-trained}; }
+                    span[value='2'] { background: #{$rank-expert}; }
+                    span[value='3'] { background: #{$rank-master}; }
+                    span[value='4'] { background: #{$rank-legendary}; }
                 }
 
                 .button-group {
@@ -121,11 +127,32 @@
                         }
                     }
                 }
+
+                // Proficiencies added by the user
+                &.custom {
+                    position: relative;
+                    a.delete {
+                        position: absolute;
+                        top: -8px;
+                        right: -8px;
+                        z-index: -1;
+                        opacity: 0.75;
+                        &:hover {
+                            z-index: 1;
+                            opacity: 1;
+                        }
+                    }
+                    &:hover {
+                        a.delete {
+                            z-index: 1;
+                        }
+                    }
+                }
             }
         }
 
         .lores-list,
-        .martial-list {
+        .combat-list {
             .skill {
                 grid:
                     'score name btn' min-content
@@ -165,7 +192,7 @@
             grid-template-columns: 1fr;
         }
 
-        .martial-list {
+        .combat-list {
             grid-template: repeat(2, 1fr);
 
             .item {

@@ -10,26 +10,42 @@
         "actions": {
             "value": ""
         },
-        "containerId": {
-            "value": ""
-        },
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your sharp claws offer an alternative to the fists other humanoids bring to a fight. You have a claw unarmed attack that deals [[/r 1d4 #slashing]] slashing damage and has the agile and finesse traits.</p>"
+            "value": "<p>Your sharp claws offer an alternative to the fists other humanoids bring to a fight. You have a claw unarmed attack that deals <a class=\"inline-roll roll\" title=\"slashing\" data-mode=\"roll\" data-flavor=\"slashing\" data-formula=\"1d4\"><i class=\"fas fa-dice-d20\"></i> 1d4</a> slashing damage and has the agile and finesse traits.</p>"
         },
         "featType": {
             "value": "ancestryfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Claws",
+                "range": "melee",
+                "traits": [
+                    "finesse",
+                    "agile",
+                    "unarmed"
+                ]
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -44,13 +60,12 @@
             "value": [
                 "lizardfolk"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/ancestry/claws.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/ancestry/claws.webp",
     "name": "Claws",
     "permission": {
         "default": 0

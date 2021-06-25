@@ -1,35 +1,35 @@
-<h4 class="sidebar-summary">{{localize "PF2E.SpellSummary"}}</h4>
+<h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeSpell")}}</h4>
 
-<span class="item-summary">{{data.spellCategorie.value}} {{lookup spellLevels data.level.value }}</span>
-<span class="item-summary">{{lookup spellSchools data.school.value}}</span>
-<span class="item-summary">{{lookup spellTypes data.spellType.value}}</span>
+<span class="item-summary">{{levelLabel}}</span>
+<span class="item-summary">{{localize (lookup magicSchools data.school.value)}}</span>
+<span class="item-summary">{{localize (lookup spellTypes data.spellType.value)}}</span>
 <span class="item-summary">{{data.time.value}}</span>
 
 <ol class="item-tags">
-<li class="tag">{{data.traits.rarity.value}}</li>
-{{#each spellComponents}}
-    <li class="tag">{{this}}</li>
-{{/each}}
-{{#if data.secondarycasters.value}}
-    <li class="tag">{{localize "PF2E.SpellSecondaryCasters"}}</li>
-{{/if}}
-{{#if data.primarycheck.value}}
-    <li class="tag">{{localize "PF2E.SpellPrimaryCheckLabel"}}</li>
-{{/if}}
-{{#if data.secondarycheck.value}}
-    <li class="tag">{{localize "PF2E.SpellSecondaryChecksLabel"}}</li>
-{{/if}}
+    <li class="tag">{{#with (lookup rarities data.traits.rarity.value)}}{{localize this.label}}{{/with}}</li>
+    {{#each spellComponents}}
+        <li class="tag">{{this}}</li>
+    {{/each}}
 </ol>
+{{#if (or data.prepared.value data.concentration.value data.ritual.value)}}
+    <ol class="item-tags">
+        {{#if data.prepared.value}}
+            <li class="tag">{{localize "PF2E.SpellPreparedLabel"}}</li>
+        {{/if}}
+
+        {{#if data.concentration.value}}
+            <li class="tag">{{localize "PF2E.SpellConcentrationLabel"}}</li>
+        {{/if}}
+
+        {{#if data.ritual.value}}
+            <li class="tag">{{localize "PF2E.SpellRitualLabel"}}</li>
+        {{/if}}
+    </ol>
+{{/if}}
 <ol class="item-tags">
-    {{#if data.prepared.value}}
-    <li class="tag">{{localize "PF2E.SpellPreparedLabel"}}</li>
-    {{/if}}
-
-    {{#if data.concentration.value}}
-    <li class="tag">{{localize "PF2E.SpellConcentrationLabel"}}</li>
-    {{/if}}
-
-    {{#if data.ritual.value}}
-    <li class="tag">{{localize "PF2E.SpellRitualLabel"}}</li>
-    {{/if}}
+    {{#each traits as |trait|}}
+        {{#if trait.selected}}
+            <li class="tag">{{localize trait.label}}</li>
+        {{/if}}
+    {{/each}}
 </ol>

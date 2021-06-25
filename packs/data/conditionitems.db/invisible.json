@@ -10,7 +10,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>While invisible, you can&rsquo;t be seen. You&rsquo;re @Compendium[pf2e.conditionitems.Undetected] to everyone. Creatures can @Compendium[pf2e.actionspf2e.BlAOM2X92SI6HMtJ]{Seek} to attempt to detect you; if a creature succeeds at its Perception check against your Stealth DC, you become @Compendium[pf2e.conditionitems.Hidden] to that creature until you @Compendium[pf2e.actionspf2e.VMozDqMMuK5kpoX4]{Sneak} to become @Compendium[pf2e.conditionitems.Undetected] again. If you become invisible while someone can already see you, you start out @Compendium[pf2e.conditionitems.Hidden] to the observer (instead of @Compendium[pf2e.conditionitems.Undetected]) until you successfully @Compendium[pf2e.actionspf2e.VMozDqMMuK5kpoX4]{Sneak}. You can&rsquo;t become @Compendium[pf2e.conditionitems.Observed] while invisible except via special abilities or magic.</p>"
+            "value": "<p>While invisible, you can't be seen. You're @Compendium[pf2e.conditionitems.Undetected]{Undetected} to everyone. Creatures can @Compendium[pf2e.actionspf2e.Seek]{Seek} to attempt to detect you; if a creature succeeds at its Perception check against your Stealth DC, you become @Compendium[pf2e.conditionitems.Hidden]{Hidden} to that creature until you @Compendium[pf2e.actionspf2e.Sneak]{Sneak} to become undetected again. If you become invisible while someone can already see you, you start out hidden to the observer (instead of undetected) until you successfully sneak. You can't become @Compendium[pf2e.conditionitems.Observed]{Observed} while invisible except via special abilities or magic.</p>"
         },
         "duration": {
             "perpetual": true,
@@ -21,16 +21,13 @@
         "hud": {
             "img": {
                 "useStatusName": true,
-                "value": "system/pf2e/icons/conditions-2/invisible.png"
+                "value": "systems/pf2e/icons/conditions-2/invisible.webp"
             },
             "selectable": true,
             "statusName": "invisible"
         },
         "modifiers": [],
         "overrides": [],
-        "rarity": {
-            "value": "common"
-        },
         "references": {
             "children": [],
             "immunityFrom": [],
@@ -38,17 +35,19 @@
             "overrides": []
         },
         "removable": true,
+        "rules": [],
         "source": {
             "value": ""
         },
         "sources": {
-            "hud": false
+            "hud": true
         },
         "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": []
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         },
         "value": {
             "immutable": false,
@@ -57,8 +56,13 @@
             "value": 1
         }
     },
-    "flags": {},
-    "img": "systems/pf2e/icons/conditions/invisible.png",
+    "effects": [],
+    "flags": {
+        "pf2e": {
+            "condition": true
+        }
+    },
+    "img": "systems/pf2e/icons/conditions/invisible.webp",
     "name": "Invisible",
     "permission": {
         "default": 0

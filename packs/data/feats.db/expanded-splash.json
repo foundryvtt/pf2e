@@ -5,62 +5,74 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> Calculated Splash</p>\n<hr>\n<p>The particularly volatile compounds that you brew into your bombs result in them creating especially large and powerful explosions. When you throw an alchemical bomb that has the splash trait, you can add your Intelligence modifier to the bomb’s usual splash damage, and it deals splash damage to every creature within 10 feet of the target.</p>"
+            "value": "<p>You can throw bombs at just the right trajectory to create especially large and powerful explosions. When you throw an alchemical bomb and that bomb has the splash trait, you can add your Intelligence modifier to the bomb's usual splash damage, and it deals splash damage to every creature within 10 feet of the target.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "10"
+            "value": 10
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "Calculated Splash"
+            "value": [
+                {
+                    "value": "Calculated Splash"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Expanded Splash",
+                "predicate": {
+                    "all": [
+                        "alchemical",
+                        "splash",
+                        "bomb"
+                    ]
+                },
+                "selector": "damage",
+                "type": "untyped",
+                "value": "@abilities.int.mod"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "alchemical",
+                        "bomb",
+                        "splash"
+                    ]
+                },
+                "selector": "damage",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> The bomb deals splash damage to every creature within 10 feet of the target.</p>"
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "alchemist"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Expanded Splash",
     "permission": {
         "default": 0

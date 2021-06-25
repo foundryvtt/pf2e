@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "18"
+                "value": 18
             },
             "allSaves": {
                 "value": ""
@@ -59,12 +59,11 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "",
-                "max": "55",
+                "details": "(negative healing)",
+                "max": 55,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "55"
+                "value": 55
             },
             "init": {
                 "bonus": 0,
@@ -103,8 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -121,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "NE"
@@ -137,10 +136,10 @@
             },
             "creatureType": "Humanoid",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "From the moment they are born, urdefhans are prepared for war. Urdefhan warriors are among the least powerful urdefhans one might encounter outside of their eerie underground cities.<br><br>",
+            "flavorText": "From the moment they are born, urdefhans are prepared for war. Urdefhan warriors are among the least powerful urdefhans one might encounter outside of their eerie underground cities.<br /><br />",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -150,13 +149,47 @@
             },
             "level": {
                 "min": 1,
-                "value": "3"
+                "value": 3
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=840",
             "recallKnowledgeText": "Recall Knowledge - Humanoid : DC 18",
-            "sidebarText": "",
             "source": {
-                "value": "Bestiary 2 pg. 272"
+                "value": "Bestiary 2"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 17,
+                        "value": 9
+                    }
+                }
+            },
+            "sZ3V72jPCOJ8oK7p": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0
+                        },
+                        "slot2": {
+                            "max": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 17,
+                        "value": 9
+                    }
+                }
             }
         },
         "martial": {
@@ -406,11 +439,16 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
-                "custom": "death effects, disease, fear",
+                "custom": "",
                 "value": [
-                    "custom"
+                    "death effects",
+                    "disease",
+                    "fear effects"
                 ]
             },
             "dr": [],
@@ -448,10 +486,10 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "sZ3V72jPCOJ8oK7p",
@@ -479,11 +517,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -547,6 +586,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -560,193 +600,421 @@
                     "value": "divine"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Divine Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "5S6N0VZYv0YMHor3",
+            "_id": "3Fuh02OgcrhEFaMl",
             "data": {
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
+                "ability": {
                     "value": ""
                 },
-                "collapsed": {
-                    "value": false
+                "area": {
+                    "areaType": "",
+                    "value": null
                 },
-                "containerId": {
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
+                    "value": "<p>You snuff the life out of a creature on the brink of death. The target must attempt a Will save. If this kills it, you gain 10 temporary HP and a +1 status bonus to attack and damage rolls for 10 minutes.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target's @Compendium[pf2e.conditionitems.Dying]{Dying} value increases by 1.</p>\n<p><strong>Failure</strong> The target dies.</p>"
+                },
+                "duration": {
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
+                "hasCounteractCheck": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 2
                 },
-                "maxHp": {
-                    "value": 0
+                "location": {
+                    "value": "sZ3V72jPCOJ8oK7p"
                 },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
+                "materials": {
                     "value": ""
                 },
-                "preciousMaterialGrade": {
+                "prepared": {
                     "value": ""
                 },
-                "price": {
-                    "value": 0
+                "primarycheck": {
+                    "value": ""
                 },
-                "quantity": {
-                    "value": 1
+                "range": {
+                    "value": "touch"
                 },
-                "rarity": {
-                    "value": "common"
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
                 },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "death-knell",
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 living creature that has 0 HP"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "occult"
+                    ]
                 },
                 "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "death",
+                        "necromancy"
+                    ]
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "composite longbow ",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.dLdRqT6UxTKlsPgp"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/death-knell.webp",
+            "name": "Death Knell",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
-            "type": "equipment"
+            "type": "spell"
         },
         {
-            "_id": "iE5CcizCXeTmAamF",
+            "_id": "MPie4KH85kEeFZ7y",
             "data": {
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
+                "ability": {
                     "value": ""
                 },
-                "collapsed": {
-                    "value": false
+                "area": {
+                    "areaType": "",
+                    "value": null
                 },
-                "containerId": {
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
                     "value": ""
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p><strong>Trigger</strong> a creature within range is falling</p>\n<hr />\n<p>You cause the air itself to arrest a fall. The target's fall slows to 60 feet per round, and the portion of the fall during the spell's duration doesn't count when calculating falling damage. If the target reaches the ground while the spell is in effect, it takes no damage from the fall. The spell ends as soon as the target lands.</p>"
                 },
-                "equipped": {
-                    "value": false
+                "duration": {
+                    "value": "1 minute"
                 },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
+                "hasCounteractCheck": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
+                "location": {
+                    "value": "sZ3V72jPCOJ8oK7p"
                 },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "60 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "abjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "feather-fall",
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 falling creature"
+                },
+                "time": {
+                    "value": "reaction"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "primal"
+                    ]
                 },
                 "traits": {
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "abjuration"
+                    ]
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "rhoka sword",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.TTwOKGqmZeKSyNMH"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/feather-fall.webp",
+            "name": "Feather Fall (Self only)",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
-            "type": "equipment"
+            "type": "spell"
         },
         {
-            "_id": "JOdOOuJwNvlavOFH",
+            "_id": "ywjZXRZCn91owikR",
             "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A ray with the power to sap a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save in order to determine the spell's effect. If you critically succeed on your attack roll, use the outcome for one degree of success worse than the result of its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}.</p>"
+                },
+                "duration": {
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "sZ3V72jPCOJ8oK7p"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "fortitude"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "ray-of-enfeeblement",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "attack"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "attack",
+                        "necromancy"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.J7Y7tl0bbdz7TcCc"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
+            "name": "Ray of Enfeeblement",
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
+            "type": "spell"
+        },
+        {
+            "_id": "FnfyCweSW2HlAzvu",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "dex"
+                },
+                "baseItem": "composite-longbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -759,17 +1027,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This projectile weapon is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Like all longbows, its great size also increases the bow's range and power. You must use two hands to fire it, and it cannot be used while mounted. Any time an ability is specifically restricted to a longbow, such as Erastil's favored weapon, it also applies to composite longbows unless otherwise stated.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "bow"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -778,8 +1056,18 @@
                 "hp": {
                     "value": 0
                 },
-                "identified": {
-                    "value": false
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -793,6 +1081,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": null
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -800,48 +1091,111 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "20 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
+                "range": {
+                    "value": "100"
                 },
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "composite-longbow",
                 "source": {
                     "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
-                    "value": []
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "deadly-d10",
+                        "propulsive",
+                        "volley-30"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "studded leather armor",
-            "sort": 400000,
-            "type": "equipment"
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.dUC8Fsa6FZtVikS3"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/composite-longbow.webp",
+            "name": "Composite Longbow",
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
+            "type": "weapon"
         },
         {
-            "_id": "ZdHLSjspChUCaebu",
+            "_id": "Axe5L3i8OXoYZuLk",
             "data": {
-                "attack": {
+                "MAP": {
                     "value": ""
                 },
-                "attackEffects": {
-                    "value": []
+                "ability": {
+                    "value": "str"
                 },
+                "baseItem": "rhoka-sword",
                 "bonus": {
-                    "total": 12,
-                    "value": 12
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -857,18 +1211,357 @@
                 },
                 "damage": {
                     "damageType": "slashing",
-                    "die": "1d8+6"
+                    "dice": 0,
+                    "die": "d8",
+                    "value": ""
                 },
-                "damageRolls": [
-                    {
-                        "damage": "1d8+6",
-                        "damageType": "slashing"
-                    }
-                ],
                 "description": {
                     "chat": "",
                     "unidentified": "",
+                    "value": "<p>The rhoka sword is the preferred weapon of urdefhan soldiers, though all urdefhans know how to wield these instruments of war.</p>"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
                     "value": ""
+                },
+                "group": {
+                    "value": "sword"
+                },
+                "hands": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": null
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "4 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "range": {
+                    "value": ""
+                },
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "rhoka-sword",
+                "source": {
+                    "value": ""
+                },
+                "splashDamage": {
+                    "value": null
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "deadly-d8",
+                        "two-hand-d10"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "advanced"
+                },
+                "weight": {
+                    "value": "2"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.k8V3wTG1gMU5ksUr"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/rhoka-sword.webp",
+            "name": "Rhoka Sword",
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
+            "type": "weapon"
+        },
+        {
+            "_id": "6ZxkrvZT6bIAUKQ3",
+            "data": {
+                "armor": {
+                    "value": 2
+                },
+                "armorType": {
+                    "value": "light"
+                },
+                "baseItem": "studded-leather-armor",
+                "brokenThreshold": {
+                    "value": null
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "check": {
+                    "value": -1
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
+                },
+                "dex": {
+                    "value": 3
+                },
+                "equipped": {
+                    "value": true
+                },
+                "equippedBulk": {
+                    "value": "1"
+                },
+                "group": {
+                    "value": "leather"
+                },
+                "hardness": {
+                    "value": null
+                },
+                "hp": {
+                    "value": null
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": null
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": null
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "3 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "resilient": {},
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "studded-leather-armor",
+                "source": {
+                    "value": ""
+                },
+                "speed": {
+                    "value": 0
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strength": {
+                    "value": 12
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornarmor"
+                },
+                "weight": {
+                    "value": "2"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ewQZ0VeL38v3qFnN"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
+            "name": "Studded Leather Armor",
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
+            "type": "armor"
+        },
+        {
+            "_id": "ChyMLJEvDfv19jH7",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 0,
+                    "value": 0
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
                 },
                 "equipped": {
                     "value": false
@@ -882,11 +1575,24 @@
                 "hp": {
                     "value": 0
                 },
-                "identified": {
-                    "value": false
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
+                },
+                "level": {
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -901,69 +1607,126 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
+                    "value": "1 sp"
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 20
                 },
-                "rarity": {
-                    "value": "common"
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
                 },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "arrows",
                 "source": {
                     "value": ""
                 },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
                 "stackGroup": {
-                    "value": ""
+                    "value": "arrows"
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
                 },
                 "traits": {
-                    "value": [
-                        "deadly 1d8",
-                        "two-hand 1d10"
-                    ]
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
+                    "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
                     "value": 0
+                },
+                "weight": {
+                    "value": "L"
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {}
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
+                }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
+            "name": "Arrows",
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
+            "type": "consumable"
+        },
+        {
+            "_id": "ZdHLSjspChUCaebu",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 12
+                },
+                "damageRolls": {
+                    "u6frvkq9886mxcoxgq48": {
+                        "damage": "1d8+6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "deadly-d8",
+                        "two-hand-d10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Rhoka Sword",
-            "sort": 500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "melee"
         },
         {
@@ -978,127 +1741,44 @@
                     ]
                 },
                 "bonus": {
-                    "total": 12,
                     "value": 12
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "piercing",
-                    "die": "1d6+6"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "vg2aedjaycb23stecb2y": {
                         "damage": "1d6+6",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
+                "weaponType": {
+                    "value": "melee"
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Jaws",
-            "sort": 600000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
             "type": "melee"
         },
         {
@@ -1111,142 +1791,108 @@
                     "value": []
                 },
                 "bonus": {
-                    "total": 10,
                     "value": 10
                 },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "piercing",
-                    "die": "1d8+4"
-                },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "1acdb6od10ijgs49fxab": {
                         "damage": "1d8+4",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
-                "stackGroup": {
-                    "value": ""
-                },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
-                        "deadly 1d10",
+                        "deadly-d10",
                         "propulsive",
-                        "range increment 100 feet",
-                        "volley 30 feet"
+                        "range-increment-100",
+                        "volley-30"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weaponType": {
                     "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Composite Longbow",
-            "sort": 700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
             "type": "melee"
         },
         {
-            "_id": "M5bYj5m7ymoWlabG",
+            "_id": "0a9bxpI79rMpqyXh",
             "data": {
                 "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": ""
+                },
+                "description": {
+                    "value": "<p>A creature with greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal @Compendium[pf2e.bestiary-ability-glossary-srd.Darkvision]{Darkvision}. A creature with greater darkvision, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Greater Darkvision",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "37D2wZ5XwqQ5zjsE",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1257,22 +1903,75 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "When an urdefhan dies, its invisible flesh quickly rots away and sublimates into a foul-smelling gas that fills a 5-foot emanation around the body. This gas deals [[/r 3d6 # negative damage]] negative damage to creatures in this area as their flesh curdles and rots as well (DC 17 basic Fortitude save)."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "negative-healing",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Negative Healing",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "M5bYj5m7ymoWlabG",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>When an urdefhan dies, its invisible flesh quickly rots away and sublimates into a foul-smelling gas that fills a 5-foot emanation around the body.</p>\n<p>This gas deals [[/r 3d6 #negative]] negative damage to creatures in this area as their flesh curdles and rots as well (<span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"divine,necromancy,negative,damaging-effect\" data-pf2-label=\"Necrotic Decay DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "divine",
                         "necromancy",
@@ -1289,23 +1988,22 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Necrotic Decay",
-            "sort": 800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1400000,
             "type": "action"
         },
         {
-            "_id": "VNycI0Yjg3c4vYe9",
+            "_id": "w1UuelNH4N0BPFBe",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -1316,77 +2014,75 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> A creature within the monster’s reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it’s using. <b>Effect</b> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn’t count toward the monster’s multiple attack penalty, and its multiple attack penalty doesn’t apply to this Strike."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 900000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1500000,
             "type": "action"
         },
         {
             "_id": "cOypeEDeaznFsSdO",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The urdefhan makes one rhoka sword Strike and one jaws Strike against a single creature. Its multiple attack penalty doesn't increase until after both attacks."
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The urdefhan makes one rhoka sword Strike and one jaws Strike against a single creature. Its multiple attack penalty doesn't increase until after both attacks.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1399,49 +2095,47 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Ravenous Attack",
-            "sort": 1000000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1600000,
             "type": "action"
         },
         {
             "_id": "tONGWAraS1nSA49Y",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> The urdefhan damaged a creature with a jaws Strike on its last action; <b>Effect</b> The urdefhan maintains contact, turning the creature's flesh translucent around the site of the injury. The urdefhan chooses one of two options, each of which requires a DC 20 Fortitude save. If the jaws Strike was a critical hit, the creature suffers both effects, using the same save result for both. <ul><li><b>Drain Blood</b> The urdefhan drinks some of the creature&apos;s blood. On a failed save, the creature is @Compendium[pf2e.conditionspf2e.Drained] 1 and the urdefhan regains 5 HP (or, on a critical failure, it’s drained 2 and the urdefhan regains 10 HP).</li><li><b>Drain Vitality</b> The urdefhan draws out some of the creature&apos;s vital essence. The creature becomes @Compendium[pf2e.conditionspf2e.Enfeebled] 1 for 1 hour on a failed save (or enfeebled 2 for 1 hour on a critical failure).</li></ul>"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Requirements</strong> The urdefhan damaged a creature with a jaws Strike on its last action;</p>\n<p><strong>Effect</strong> The urdefhan maintains contact, turning the creature's flesh translucent around the site of the injury. The urdefhan chooses one of two options, each of which requires a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"20\" data-pf2-traits=\"necromancy\" data-pf2-label=\"Wicked Bite DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. If the jaws Strike was a critical hit, the creature suffers both effects, using the same save result for both.</p>\n<ul>\n<li><strong>Drain Blood</strong> The urdefhan drinks some of the creature's blood. On a failed save, the creature is @Compendium[pf2e.conditionitems.Drained]{Drained 1} and the urdefhan regains 5 HP (or, on a critical failure, it's @Compendium[pf2e.conditionitems.Drained]{Drained 2} and the urdefhan regains 10 HP).</li>\n<li><strong>Drain Vitality</strong> The urdefhan draws out some of the creature's vital essence. The creature becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 hour on a failed save (or @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} for 1 hour on a critical failure).</li>\n</ul>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "necromancy"
                     ]
@@ -1456,16 +2150,15 @@
                     "value": ""
                 }
             },
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Wicked Bite",
-            "sort": 1100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1476,7 +2169,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1486,23 +2178,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1513,7 +2213,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1523,23 +2222,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1550,7 +2257,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1560,23 +2266,31 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 1400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1587,7 +2301,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1597,454 +2310,32 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2100000,
             "type": "lore"
-        },
-        {
-            "_id": "8yhOgXU4XUnHOOU4",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>You snuff the life out of a creature on the brink of death. The target must attempt a Will save. If this kills it, you gain 10 temporary HP and a +1 status bonus to attack and damage rolls for 10 minutes.</p>\r<p>\n<hr><b>Critical Success</b> The target is unaffected.</p>\r<p>\n<b>Success</b> The target's @Compendium[pf2e.conditionspf2e.yZRUzMqrMmfLu0V1]{Dying} value increases by 1.</p>\r<p>\n<b>Failure</b> The target dies.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 2
-                },
-                "location": {
-                    "value": "sZ3V72jPCOJ8oK7p"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "touch"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=63"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "save"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 living creature that has 0 HP"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "death",
-                        "necromancy"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/death-knell.jpg",
-            "name": "Death Knell",
-            "sort": 1600000,
-            "type": "spell"
-        },
-        {
-            "_id": "eA6Wg3ASyjWBVIS6",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p><strong>Trigger:&nbsp;</strong>a creature within range is falling</p>\n<hr>\n<p>You cause the air itself to arrest a fall. The target's fall slows to 60 feet per round, and the portion of the fall during the spell's duration doesn't count when calculating falling damage. If the target reaches the ground while the spell is in effect, it takes no damage from the fall. The spell ends as soon as the target lands.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "1 minute"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 1
-                },
-                "location": {
-                    "value": "sZ3V72jPCOJ8oK7p"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "60 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "abj"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=111"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "utility"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 falling creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "reaction"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "abjuration"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/feather-fall.jpg",
-            "name": "Feather Fall ",
-            "sort": 1700000,
-            "type": "spell"
-        },
-        {
-            "_id": "faaV9Nu7YXgPt5Im",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "label": "Area",
-                    "type": "String",
-                    "value": null
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": ""
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>A ray with the power to sap a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save in order to determine the spell's effect. If you critically succeed on your attack roll, use the outcome for one degree of success worse than the result of its save.</p>\r<p>\n<hr><b>Critical Success</b> The target is unaffected.</p>\r<p>\n<b>Success</b> The target becomes @Compendium[pf2e.conditionspf2e.MIRkyAjyBeXivMa7]{Enfeebled} 1.</p>\r<p>\n<b>Failure</b> The target becomes @Compendium[pf2e.conditionspf2e.MIRkyAjyBeXivMa7]{Enfeebled} 2.</p>\r<p>\n<b>Critical Failure</b> The target becomes @Compendium[pf2e.conditionspf2e.MIRkyAjyBeXivMa7]{Enfeebled} 3.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": "1 minute"
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": 1
-                },
-                "location": {
-                    "value": "sZ3V72jPCOJ8oK7p"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "30 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=244"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "attack"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 creature"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "2"
-                },
-                "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "label": "Spell Traits",
-                    "type": "String",
-                    "value": [
-                        "attack",
-                        "necromancy"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "flags": {
-                "_sheetTab": "details"
-            },
-            "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.jpg",
-            "name": "Ray of Enfeeblement",
-            "sort": 1800000,
-            "type": "spell"
         }
     ],
     "name": "Urdefhan Warrior",
@@ -2052,13 +2343,15 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "e5yE4RkwLQojRYHm",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -2068,15 +2361,21 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Urdefhan Warrior",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

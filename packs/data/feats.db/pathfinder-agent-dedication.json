@@ -8,26 +8,34 @@
             "value": "passive"
         },
         "actions": {
-            "value": ""
+            "value": null
         },
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<div><strong>Archetype </strong>@Compendium[pf2e.archetypes.o3C85NHW08Y2inAN]{Pathfinder Agent}</div>\n<div><span id=\"ctl00_MainContent_DetailedOutput\"><strong>Prerequisites</strong> member of the Pathfinder Society<br><strong>Access</strong> You are from Absalom.<br></span></div>\n<hr>\n<p>Your Pathfinder training has broadened your horizons and made you more flexible at various skills, since you never know when you might need an obscure skill to complete your mission. You become trained in one skill of your choice, or expert in a skill of your choice in which you were trained. You also become trained in Pathfinder Lore, or an expert if you were already trained. When using a skill untrained, your proficiency bonus is equal to your level instead of 0. You gain access to wayfinders.</p>\n<p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the Pathfinder Agent archetype.&nbsp;</p>"
+            "value": "<p><strong>Access</strong> You are from Absalom.</p>\n<hr />\n<p>Your Pathfinder training has broadened your horizons and made you more flexible at various skills, since you never know when you might need an obscure skill to complete your mission. You become trained in one skill of your choice, or expert in a skill of your choice in which you were trained. You also become trained in Pathfinder Lore, or an expert if you were already trained. When using a skill untrained, your proficiency bonus is equal to your level instead of 0. You gain access to wayfinders.</p>\n<p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the Pathfinder Agent archetype.</p>"
         },
         "featType": {
             "value": "archetype"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
         "prerequisites": {
-            "value": "member of the Pathfinder Society"
+            "value": [
+                {
+                    "value": "member of the Pathfinder Society"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "skill-check",
+                "type": "proficiency",
+                "value": "@details.level.value"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -37,17 +45,14 @@
                 "value": "uncommon"
             },
             "value": [
-                "uncommon",
                 "archetype",
                 "dedication"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Pathfinder Agent Dedication",
     "permission": {
         "default": 0

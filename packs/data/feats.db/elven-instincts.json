@@ -13,20 +13,30 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">Your senses let you react rapidly. You gain a +2 circumstance bonus to Perception checks made as initiative rolls. Additionally, if your initiative roll result is tied with that of an opponent, you go first, regardless of whether you rolled Perception or not.</span></p>"
+            "value": "<p>Your senses let you react rapidly. You gain a +2 circumstance bonus to Perception checks made as initiative rolls. Additionally, if your initiative roll result is tied with that of an opponent, you go first, regardless of whether you rolled Perception or not.</p>"
         },
         "featType": {
             "value": "ancestry"
         },
         "level": {
-            "value": "5"
+            "value": 5
         },
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "perception"
+                    ]
+                },
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +48,11 @@
             "value": [
                 "elf"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Elven Instincts",
     "permission": {
         "default": 0

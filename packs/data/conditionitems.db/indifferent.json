@@ -10,7 +10,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>This condition reflects a creature&rsquo;s disposition toward a particular character, and it affects only creatures that are not player characters. A creature that is indifferent to a character doesn&rsquo;t really care one way or the other about that character. Assume a creature&rsquo;s attitude to a given character is indifferent unless specified otherwise.</p>"
+            "value": "<p>This condition reflects a creature's disposition toward a particular character, and only supernatural effects (like a spell) can impose this condition on a PC. A creature that is indifferent to a character doesn't really care one way or the other about that character. Assume a creature's attitude to a given character is indifferent unless specified otherwise.</p>"
         },
         "duration": {
             "perpetual": true,
@@ -21,21 +21,18 @@
         "hud": {
             "img": {
                 "useStatusName": true,
-                "value": "system/pf2e/icons/conditions-2/indifferent.png"
+                "value": "systems/pf2e/icons/conditions-2/indifferent.webp"
             },
             "selectable": true,
             "statusName": "indifferent"
         },
         "modifiers": [],
         "overrides": [
+            "Helpful",
             "Friendly",
-            "Hostile",
-            "Friendly",
-            "Unfriendly"
+            "Unfriendly",
+            "Hostile"
         ],
-        "rarity": {
-            "value": "common"
-        },
         "references": {
             "children": [],
             "immunityFrom": [],
@@ -43,6 +40,7 @@
             "overrides": []
         },
         "removable": true,
+        "rules": [],
         "source": {
             "value": ""
         },
@@ -50,10 +48,11 @@
             "hud": false
         },
         "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": []
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         },
         "value": {
             "immutable": false,
@@ -62,8 +61,13 @@
             "value": 1
         }
     },
-    "flags": {},
-    "img": "systems/pf2e/icons/conditions/indifferent.png",
+    "effects": [],
+    "flags": {
+        "pf2e": {
+            "condition": true
+        }
+    },
+    "img": "systems/pf2e/icons/conditions/indifferent.webp",
     "name": "Indifferent",
     "permission": {
         "default": 0

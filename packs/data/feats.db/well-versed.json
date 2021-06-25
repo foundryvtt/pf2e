@@ -13,38 +13,52 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "You’re resilient to performative influences that aren’t your own. You gain a +1 circumstance bonus to saving throws against effects with the auditory, illusion, linguistic, sonic, or visual traits."
+            "value": "<p>You're resilient to performative influences that aren't your own. You gain a +1 circumstance bonus to saving throws against effects with the auditory, illusion, linguistic, sonic, or visual traits.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Well-Versed (vs. performative effects)",
+                "predicate": {
+                    "any": [
+                        "auditory",
+                        "illusion",
+                        "linguistic",
+                        "sonic",
+                        "visual"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "bard"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Well-Versed",
     "permission": {
         "default": 0

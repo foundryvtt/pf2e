@@ -1,0 +1,78 @@
+{
+    "_id": "deG1dtfuQph03Kkg",
+    "data": {
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Shillelagh]{Shillelagh}</p>\n<p>The target grows vines and leaves, brimming with primal energy. The target becomes a +1 striking weapon while in your hands, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two. Additionally, as long as you are on your home plane, attacks you make with the target against aberrations, extraplanar creatures, and undead increase the number of weapon damage dice to three.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.EffectTarget",
+                "scope": "weapon"
+            },
+            {
+                "key": "PF2E.RuleElement.WeaponPotency",
+                "selector": "{item|data.target}-attack",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.Striking",
+                "label": "Shillelagh",
+                "selector": "{item|data.target}-damage",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Get third damage die from Shillelagh",
+                "property": "flags.pf2e.rollOptions.all.shillelagh-third-die"
+            },
+            {
+                "key": "PF2E.RuleElement.Striking",
+                "label": "Shillelagh bonus damage",
+                "predicate": {
+                    "all": [
+                        "shillelagh-third-die"
+                    ]
+                },
+                "selector": "{item|data.target}-damage",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 103462347
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/shillelagh.webp",
+    "name": "Spell Effect: Shillelagh",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

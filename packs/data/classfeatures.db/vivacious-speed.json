@@ -13,20 +13,103 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>When you’ve made an impression, you move even faster than normal, darting about&nbsp;the battlefield with incredible speed. Increase the status bonus to your Speeds when&nbsp;you have panache to a +10-foot status bonus; this bonus increases by 5 feet at 7th,&nbsp;11th, 15th, and 19th levels. When you don’t have panache, you still get half this status&nbsp;bonus to your Speed, rounded down to the nearest 5-foot increment.</p>"
+            "value": "<p>When you've made an impression, you move even faster than normal, darting about the battlefield with incredible speed. Increase the status bonus to your Speeds when you have panache to a +10-foot status bonus; this bonus increases by 5 feet at 7th, 11th, 15th, and 19th levels. When you don't have panache, you still get half this status bonus to your Speed, rounded down to the nearest 5-foot increment.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "3"
+            "value": 3
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "panache"
+                    ]
+                },
+                "roll-options": [
+                    "speed",
+                    "all"
+                ],
+                "selector": "speed",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": 5
+                        },
+                        {
+                            "end": 6,
+                            "start": 3,
+                            "value": 10
+                        },
+                        {
+                            "end": 10,
+                            "start": 7,
+                            "value": 15
+                        },
+                        {
+                            "end": 14,
+                            "start": 11,
+                            "value": 20
+                        },
+                        {
+                            "end": 18,
+                            "start": 15,
+                            "value": 25
+                        },
+                        {
+                            "start": 19,
+                            "value": 30
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Vivacious Speed (Half)",
+                "predicate": {
+                    "not": [
+                        "panache"
+                    ]
+                },
+                "roll-options": [
+                    "speed",
+                    "all"
+                ],
+                "selector": "speed",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": 0
+                        },
+                        {
+                            "end": 10,
+                            "start": 3,
+                            "value": 5
+                        },
+                        {
+                            "end": 18,
+                            "start": 11,
+                            "value": 10
+                        },
+                        {
+                            "start": 19,
+                            "value": 15
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +121,12 @@
             "value": [
                 "swashbuckler"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/vivacious-speed.webp",
     "name": "Vivacious Speed",
     "permission": {
         "default": 0

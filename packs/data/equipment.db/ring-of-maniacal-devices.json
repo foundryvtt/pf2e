@@ -1,6 +1,7 @@
 {
     "_id": "nLvP7U50hLqz26Uy",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>This ring seems like simple tarnished brass, but it enhances your curiosity about traps and devices of all kinds. You can use an Interact action to pull a set of thieves’ tools from&nbsp;the ring. These tools appear in your hand and fold back into the ring if they would leave your possession. They grant you a +2 item bonus to Thievery checks to Disable a Device and to Pick a Lock, and the ring’s insights grant you the same bonus to Crafting checks to Craft and Repair snares and traps.<br></span></p>\n<p><span><strong>Activate</strong> 10 minutes (Interact); <strong>Frequency</strong> once per day; <strong>Effect</strong> You create a 4th-level @Compendium[pf2e.spells-srd.o0l57UfBm9ScEUMW]{Glyph of Warding} containing @Compendium[pf2e.spells-srd.sxQZ6yqTn0czJxVd]{Fireball}. You can have only one <em>glyph of warding</em> from a <em>ring of maniacal devices</em> active at a time, even if you have multiple rings, and the spell ends if you lose your investiture in the ring.</span></p>"
+            "value": "<p>This ring seems like simple tarnished brass, but it enhances your curiosity about traps and devices of all kinds.</p>\n<p>You can use an Interact action to pull a set of thieves' tools from the ring. These tools appear in your hand and fold back into the ring if they would leave your possession.</p>\n<p>They grant you a +2 item bonus to Thievery checks to Disable a Device and to Pick a Lock, and the ring's insights grant you the same bonus to Crafting checks to Craft and Repair snares and traps.</p>\n<hr />\n<p><strong>Activate</strong> 10 minutes (Interact)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You create a 4th-level @Compendium[pf2e.spells-srd.Glyph of Warding]{Glyph of Warding} containing @Compendium[pf2e.spells-srd.Fireball]{Fireball}.</p>\n<p>You can have only one <em>glyph of warding</em> from a <em>ring of maniacal devices</em> active at a time, even if you have multiple rings, and the spell ends if you lose your investiture in the ring.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Thievery checks to Disable a Device and to Pick a Lock</li>\n<li>+2 item bonus to Crafting checks to Craft and Repair snares and traps.</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "11"
+            "value": 11
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,57 @@
             "value": "1,175 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Ring of Maniacal Devices (Disable Devices and Pick a Lock)",
+                "predicate": {
+                    "any": [
+                        "action:disable-device",
+                        "action:pick-a-lock"
+                    ]
+                },
+                "selector": "thievery",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Ring of Maniacal Devices (Craft snares and traps)",
+                "predicate": {
+                    "all": [
+                        "action:craft"
+                    ],
+                    "any": [
+                        "snare",
+                        "trap"
+                    ]
+                },
+                "selector": "crafting",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Ring of Maniacal Devices (Repair snares and traps)",
+                "predicate": {
+                    "all": [
+                        "action:repair"
+                    ],
+                    "any": [
+                        "snare",
+                        "trap"
+                    ]
+                },
+                "selector": "crafting",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +129,6 @@
             "rarity": {
                 "value": "common"
             },
-            "usage": {
-                "value": "wornring"
-            },
             "value": [
                 "divination",
                 "invested",
@@ -81,14 +136,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worn"
         },
         "weight": {
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/ring-of-maniacal-devices.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/ring-of-maniacal-devices.webp",
     "name": "Ring of Maniacal Devices",
     "permission": {
         "default": 0

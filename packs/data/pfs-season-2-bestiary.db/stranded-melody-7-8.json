@@ -1,0 +1,283 @@
+{
+    "_id": "dnClDBmInobiLLDY",
+    "data": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "hardness": 0,
+            "hasHealth": true,
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>Planar winds summoned from beyond sweep through the room, song and sound carried adrift on their current. This air elemental is trapped on the Material Plane and can't escape.</p>",
+            "disable": "<p>DC 27 Performance (expert) twice to duplicate the melody and appease the elemental, or DC 30 Arcana (expert) and then DC 27 Diplomacy (trained) to guide the elemental through a planar tear elsewhere in the manor. Each attempt to Disable the hazard requires two actions, and each successful check to Disable removes one action from the hazard's routine.</p>",
+            "isComplex": true,
+            "level": 8,
+            "reset": "<p>The melody remains for 1 minute, after which it disperses into several holes in the walls. It returns after an hour unless disabled.</p>",
+            "routine": "<p><span class=\"pf2-icon\">2</span> For each action in the routine, the melody makes a solid refrain Strike against one creature in its area. This trap doesn't take a multiple attack penalty.</p>"
+        },
+        "recallKnowledgeText": "",
+        "saves": {
+            "fortitude": {
+                "rank": 0,
+                "saveDetail": "",
+                "value": null
+            },
+            "reflex": {
+                "rank": 0,
+                "saveDetail": "",
+                "value": null
+            },
+            "will": {
+                "rank": 0,
+                "saveDetail": "",
+                "value": null
+            }
+        },
+        "schema": {
+            "version": {
+                "value": ""
+            }
+        },
+        "source": {
+            "value": ""
+        },
+        "statusEffects": [],
+        "traits": {
+            "ci": [],
+            "di": {
+                "custom": "",
+                "selected": {},
+                "value": []
+            },
+            "dr": [],
+            "dv": [],
+            "rarity": {
+                "value": "common"
+            },
+            "size": {
+                "value": "med"
+            },
+            "traits": {
+                "custom": "",
+                "value": [
+                    "environmental",
+                    "magical"
+                ]
+            }
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "RW1FYL6fxCbERvvF",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters area B3;</p>\n<p><strong>Effect</strong> Winds surge into the room. The hazard rolls initiative.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Opening Melody",
+            "permission": {
+                "default": 0
+            },
+            "sort": 100000,
+            "type": "action"
+        },
+        {
+            "_id": "dw8GB6L7SlQR3Hdb",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "ohp9k854inwuu2rd0rl1": {
+                        "damage": "2d10+4",
+                        "damageType": "sonic"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "range-increment-70"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Solid Refrain",
+            "permission": {
+                "default": 0
+            },
+            "sort": 200000,
+            "type": "melee"
+        },
+        {
+            "_id": "E4Fa3vcOTb3f3uaE",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>When a creature fails a Performance check to Disable the melody, the elemental plays along before taking over the performance. Creatures in the area must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-traits=\"arcane,enchantment,mental,auditory,incapacitation\" data-pf2-label=\"Mesmerizing Duet\" data-pf2-dc=\"24\" data-pf2-show-dc=\"gm\">Will</span> save to resist becoming fascinated by the melody.</p>\n<p>Regardless of the result of the saving throw, the creature is then temporarily immune to Mesmerising Duet for 1 hour.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} for 1 round; this fascination does not end when the creature or its allies take damage from the hazard.</p>\n<p><strong>Critical Failure</strong> The creature is fascinated for [[/br 1d4 #rounds]] rounds; this fascination does not end when the creature or its allies take damage from the hazard.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "mental",
+                        "arcane",
+                        "auditory",
+                        "enchantment",
+                        "incapacitation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Mesmerizing Duet",
+            "permission": {
+                "default": 0
+            },
+            "sort": 300000,
+            "type": "action"
+        }
+    ],
+    "name": "Stranded Melody (7-8)",
+    "permission": {
+        "default": 0
+    },
+    "token": {
+        "actorId": "dnClDBmInobiLLDY",
+        "actorLink": false,
+        "alpha": 1,
+        "bar1": {
+            "attribute": null
+        },
+        "bar2": {
+            "attribute": null
+        },
+        "brightLight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "dimSight": 0,
+        "displayBars": 20,
+        "displayName": 20,
+        "disposition": 0,
+        "flags": {},
+        "height": 1,
+        "img": "systems/pf2e/icons/default-icons/hazard.svg",
+        "lightAlpha": 1,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
+        "lightColor": null,
+        "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
+        "name": "Stranded Melody",
+        "randomImg": false,
+        "rotation": 0,
+        "scale": 1,
+        "sightAngle": 0,
+        "tint": null,
+        "vision": false,
+        "width": 1
+    },
+    "type": "hazard"
+}

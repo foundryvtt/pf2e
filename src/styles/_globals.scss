@@ -46,15 +46,27 @@ $btn-frame: $tertiary-color !default;
 $btn-color: #8e0317 !default;
 $btn-radius: 0 !default;
 
+/* rank colors */
+$rank-untrained: $alt-dark;
+$rank-trained: $secondary-color;
+$rank-expert: #3c005e;
+$rank-master: #5e4000;
+$rank-legendary: $primary-color;
+
 /* ----------------------------------------- */
 /* Fonts
 /* ----------------------------------------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Gelasio:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gelasio:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed|Tauri|Teko:500|Changa+One|DM+Serif+Text:400i&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap');
 @import url('../fonts/Eczar/eczar.css');
-// @import url('../fonts/Silkscreen/silkscreen.css');
+@font-face {
+  font-family: 'Noto Sans JP', sans-serif;
+  src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+}
 @font-face {
     font-family: 'Pathfinder2eActions';
     src: url('../fonts/Pathfinder2eActions.ttf');
@@ -139,6 +151,237 @@ p {
 
 a[href] {
     color: var(--primary);
+}
+
+// ensure higher specificity than the sheet styles
+.pf2e.sheet form span.pf2-icon,
+.pf2e.sheet form span[data-pf2-action],
+.pf2e.sheet form span[data-pf2-action] *,
+.pf2e.sheet form span[data-pf2-saving-throw],
+.pf2e.sheet form span[data-pf2-saving-throw] *,
+.pf2e.sheet form span[data-pf2-skill-check],
+.pf2e.sheet form span[data-pf2-skill-check] *,
+.pf2e.sheet form span[data-pf2-perception-check],
+.pf2e.sheet form span[data-pf2-perception-check] *,
+.pf2-icon {
+    display: inline;
+}
+
+.pf2e.sheet form span.pf2-icon,
+.pf2-icon {
+    font-family: 'Pathfinder2eActions';
+    font-size: 1.2em;
+    &.larger {
+        font-size: 1.5em;
+    }
+}
+
+p.compact-text {
+    display: inline-block;
+    font-weight: normal;
+    line-height: 1.0em;
+}
+
+/* ----------------------------------------- */
+/* Styled table
+/* ----------------------------------------- */
+table.pf2-table {
+    border: solid 1px #000000;
+    border-collapse: collapse;
+    font-size: 13px;
+    color: #191813;
+    user-select: text;
+
+    thead, tbody, tr, th, td {
+        box-sizing: border-box;
+        user-select: text;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #eee5c8;
+    }
+    tr:nth-child(even) {
+        background-color: #f6f1e1;
+    }
+
+    th {
+        color: white;
+        font-weight: bold;
+        background-color: #522e2c;
+    }
+
+    th, td {
+        border: solid 1px #808080;
+        padding: 6px 15px;
+        text-align: center;
+    }
+}
+
+/* ----------------------------------------- */
+/* PF2E Action Custom Element
+/* ----------------------------------------- */
+[data-pf2-action]:not([data-pf2-action=""]) {
+    background: #DDD;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+[data-pf2-action][data-pf2-glyph]::before {
+    font-family: 'Pathfinder2eActions';
+    font-size: 1.5em;
+    margin-right: 2px;
+    color: #7a7971;
+}
+
+[data-pf2-action]:not([data-pf2-glyph])::before,
+[data-pf2-action][data-pf2-glyph=""]::before {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    background-image: url('../icons/actions/Passive.webp');
+    background-repeat: no-repeat;
+    background-size: 15px 15px;
+    opacity: 0.4;
+    margin-bottom: -3px;
+    margin-right: 2px;
+    content: '';
+}
+
+[data-pf2-action][data-pf2-glyph="A"]::before,
+[data-pf2-action][data-pf2-glyph="a"]::before,
+[data-pf2-action][data-pf2-glyph="1"]::before {
+    content: 'A';
+}
+[data-pf2-action][data-pf2-glyph="D"]::before,
+[data-pf2-action][data-pf2-glyph="d"]::before,
+[data-pf2-action][data-pf2-glyph="2"]::before {
+    content: 'D';
+}
+[data-pf2-action][data-pf2-glyph="T"]::before,
+[data-pf2-action][data-pf2-glyph="t"]::before,
+[data-pf2-action][data-pf2-glyph="3"]::before {
+    content: 'T';
+}
+[data-pf2-action][data-pf2-glyph="F"]::before,
+[data-pf2-action][data-pf2-glyph="f"]::before {
+    content: 'F';
+}
+[data-pf2-action][data-pf2-glyph="R"]::before,
+[data-pf2-action][data-pf2-glyph="r"]::before {
+    content: 'R';
+}
+
+/* ----------------------------------------- */
+/* PF2E Saving Throw Custom Element
+/* ----------------------------------------- */
+[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]) {
+    background: #ddd;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]):not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
+[data-pf2-saving-throw]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f6cf';
+}
+
+/* ----------------------------------------- */
+/* PF2E Skill Check Custom Element
+/* ----------------------------------------- */
+[data-pf2-skill-check]:not([data-pf2-skill-check=""]) {
+    background: #ddd;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+[data-pf2-skill-check]:not([data-pf2-skill-check=""]):not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
+[data-pf2-skill-check]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f6cf';
+}
+
+/* ----------------------------------------- */
+/* PF2E Perception Check Custom Element
+/* ----------------------------------------- */
+[data-pf2-perception-check] {
+    background: #ddd;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+[data-pf2-perception-check]:not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
+[data-pf2-perception-check]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f6cf';
+}
+
+/* ----------------------------------------- */
+/* PF2E GM Visibility Elements
+/* ----------------------------------------- */
+div[data-visibility="gm"] {
+        box-sizing: border-box;
+        border: 1px dotted;
+        background: #e8e8ef;
+        padding: 2px;
+        margin-bottom: 2px;
+
+        em[data-visibility="gm"] {
+            border: none;
+            padding: 0px;
+            margin-bottom: 0px;
+        }
+    }
+
+em[data-visibility="gm"] {
+    box-sizing: border-box;
+    display: inline-block;
+    border: 1px dotted;
+    background: #e8e8ef;
+    padding: 2px;
+    margin-bottom: 2px;
 }
 
 /* ----------------------------------------- */

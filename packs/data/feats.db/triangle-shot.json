@@ -13,25 +13,51 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>@Compendium[pf2e.feats-srd.YG2RxXE9SMfwo6wP]{Monastic Archer Stance}, @Compendium[pf2e.feats-srd.8bMmGBO6gsMfWZk3]{Stunning Fist}</p>\n<p><strong>Requirements</strong> You are in Monastic Archer Stance and wielding <br>a bow usable with that stance.</p>\n<hr>\n<p>You string three arrows to your bow and fire them all at once. Make three ranged @Compendium[pf2e.actionspf2e.VjxZFuUXrCU94MWR]{Strikes} against a single target with the required weapon, each using your current multiple attack penalty, and you take an additional –2 penalty. This counts as two attacks when calculating your multiple attack penalty, and you combine the attacks’ damage for the purpose of resistances and weaknesses.</p>\n<p>Your @Compendium[pf2e.feats-srd.8bMmGBO6gsMfWZk3]{Stunning Fist} benefit applies to Triangle Shot, even though it isn’t a @Compendium[pf2e.actionspf2e.nbfNETdpee8CVM17]{Flurry of Blows}. If all three Strikes hit, the target takes [[/r 3d6 #persistent bleed]] persistent bleed damage.</p>"
+            "value": "<p><strong>Requirements</strong> You are in @Compendium[pf2e.feats-srd.Monastic Archer Stance]{Monastic Archer Stance} and wielding a bow usable with that stance.</p>\n<hr />\n<p>You string three arrows to your bow and fire them all at once. Make three ranged Strikes against a single target with the required weapon, each using your current multiple attack penalty, and you take an additional -2 penalty. This counts as two attacks when calculating your multiple attack penalty, and you combine the attacks' damage for the purpose of resistances and weaknesses.</p>\n<p>Your @Compendium[pf2e.feats-srd.Stunning Fist]{Stunning Fist} benefit applies to Triangle Shot, even though it isn't a @Compendium[pf2e.actionspf2e.Flurry of Blows]{Flurry of Blows}. If all three Strikes hit, the target takes [[/r 3d6 #persistent bleed]] persistent bleed damage.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "18"
+            "value": 18
         },
+        "location": "",
         "prerequisites": {
-            "value": "Monastic Archer Stance, Stunning Fist"
+            "value": [
+                {
+                    "value": "Monastic Archer Stance"
+                },
+                {
+                    "value": "Stunning Fist"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Triangle Shot (-2 penalty to attack)",
+                "property": "flags.pf2e.rollOptions.attack-roll.triangle-shot"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "triangle-shot",
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "value": -2
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
@@ -40,13 +66,11 @@
                 "flourish",
                 "monk"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Triangle Shot",
     "permission": {
         "default": 0

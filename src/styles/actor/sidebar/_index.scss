@@ -5,7 +5,7 @@ aside {
     font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
-    background: url('../assets/sheet/red_sidebar.png') no-repeat top center;
+    background: url('../assets/sheet/red_sidebar.webp') no-repeat top center;
     background-size: 247px;
     height: 770px;
     width: 247px;
@@ -52,6 +52,10 @@ aside {
             justify-content: space-between;
             align-items: flex-end;
             margin: 1em 0 0.5em;
+
+            &:first-of-type {
+                margin-bottom: -1px;
+            }
             h2,
             h4,
             a {
@@ -89,9 +93,13 @@ aside {
                 text-decoration: none;
             }
         }
-        .dots {
+        a.dots {
             display: flex;
             flex-direction: column;
+
+            > * {
+              cursor: pointer;
+            }
         }
         .data-value {
             display: inline-flex;
@@ -131,6 +139,17 @@ aside {
             display: inline-flex;
             align-items: center;
             padding-bottom: 2px;
+
+            i {
+                font-size: 19px;
+                color: white;
+                margin-left: 5px;
+                animation-play-state: paused;
+                &:hover {
+                    animation-play-state: running;
+                    @include pulse-size;
+                }
+            }
 
             svg {
                 animation-play-state: paused;
@@ -207,9 +226,9 @@ aside {
         @import 'health',
                 'armor',
                 'stamina',
-                'initPercept',
+        'init-percept',
                 'saves',
-                'classDC',
+        'class-dc',
                 'resists';
     }
 }

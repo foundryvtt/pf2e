@@ -5,63 +5,63 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> master in Crafting, Specialty Crafting</p>\n<hr>\n<p>You craft flawless creations with great efficiency. Whenever you roll a success at a Crafting check to make an item of the type you chose with Specialty Crafting, you get a critical success instead.</p>"
+            "value": "<p>You craft flawless creations with great efficiency. Whenever you roll a success at a Crafting check to make an item of the type you chose with Specialty Crafting, you get a critical success instead.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "skill"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "7"
+            "value": 7
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "master in Crafting, Specialty Crafting"
+            "value": [
+                {
+                    "value": "master in Crafting"
+                },
+                {
+                    "value": "Specialty Crafting"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:craft",
+                        "speciality"
+                    ]
+                },
+                "selector": "crafting",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Whenever you roll a success at a Crafting check to make an item of the type you chose with Specialty Crafting, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "general",
                 "skill"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Impeccable Crafting",
     "permission": {
         "default": 0

@@ -1,0 +1,58 @@
+{
+    "_id": "xLXFK4mtzgAF4zvx",
+    "data": {
+        "description": {
+            "value": "<p>An <em>anarchic</em> rune is jagged and asymmetrical, channeling chaotic energy. A weapon with this rune deals an additional 1d6 chaotic damage against lawful targets. If you are lawful, you are @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} while carrying or wielding this weapon.<br /><br />When you critically succeed at a Strike with this weapon against a lawful creature, roll 1d6. On a 1 or 2, you deal double minimum damage; on a 3 or 4, double your damage normally; on a 5 or 6, you deal double maximum damage.<br /><br /><strong>Craft Requirements</strong> You are chaotic.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.EffectTarget",
+                "scope": "weapon"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "{item|data.target}-damage",
+                "text": "<strong>Anarchic</strong>: When you critically succeed at a Strike with this weapon against a lawful creature, roll [[/r 1d6]]. On a 1 or 2, you deal double minimum damage; on a 3 or 4, double your damage normally; on a 5 or 6, you deal double maximum damage."
+            },
+            {
+                "damageType": "chaotic",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "selector": "{item|data.target}-damage"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp",
+    "name": "Effect: Blade Ally Anarchic Rune",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

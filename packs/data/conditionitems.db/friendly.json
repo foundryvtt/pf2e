@@ -10,7 +10,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>This condition reflects a creature&rsquo;s disposition toward a particular character, and it affects only creatures that are not player characters. A creature that is friendly to a character likes that character. The character can attempt to make a @Compendium[pf2e.actionspf2e.DCb62iCBrJXy0Ik6]{Request} of a friendly creature, and the friendly creature is likely to agree to a simple and safe request that doesn&rsquo;t cost it much to fulfill. If the character or one of their allies uses hostile actions against the creature, the creature gains a worse attitude condition depending on the severity of the hostile action, as determined by the GM.</p>"
+            "value": "<p>This condition reflects a creature's disposition toward a particular character, and only supernatural effects (like a spell) can impose this condition on a PC. A creature that is friendly to a character likes that character. The character can attempt to @Compendium[pf2e.actionspf2e.Request]{Make a Request} of a friendly creature, and the friendly creature is likely to agree to a simple and safe request that doesn't cost it much to fulfill. If the character or one of their allies uses hostile actions against the creature, the creature gains a worse attitude condition depending on the severity of the hostile action, as determined by the GM.</p>"
         },
         "duration": {
             "perpetual": true,
@@ -21,21 +21,18 @@
         "hud": {
             "img": {
                 "useStatusName": true,
-                "value": "system/pf2e/icons/conditions-2/friendly.png"
+                "value": "systems/pf2e/icons/conditions-2/friendly.webp"
             },
             "selectable": true,
             "statusName": "friendly"
         },
         "modifiers": [],
         "overrides": [
-            "Friendly",
-            "Hostile",
+            "Helpful",
             "Indifferent",
-            "Unfriendly"
+            "Unfriendly",
+            "Hostile"
         ],
-        "rarity": {
-            "value": "common"
-        },
         "references": {
             "children": [],
             "immunityFrom": [],
@@ -43,6 +40,7 @@
             "overrides": []
         },
         "removable": true,
+        "rules": [],
         "source": {
             "value": ""
         },
@@ -50,10 +48,11 @@
             "hud": false
         },
         "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
             "value": []
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         },
         "value": {
             "immutable": false,
@@ -62,8 +61,13 @@
             "value": 1
         }
     },
-    "flags": {},
-    "img": "systems/pf2e/icons/conditions/friendly.png",
+    "effects": [],
+    "flags": {
+        "pf2e": {
+            "condition": true
+        }
+    },
+    "img": "systems/pf2e/icons/conditions/friendly.webp",
     "name": "Friendly",
     "permission": {
         "default": 0

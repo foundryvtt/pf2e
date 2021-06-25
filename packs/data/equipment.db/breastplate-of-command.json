@@ -2,15 +2,12 @@
     "_id": "RUEAV5LMUGFHcXcW",
     "data": {
         "armor": {
-            "label": "AC Bonus",
-            "type": "Number",
             "value": 4
         },
         "armorType": {
-            "label": "Armor Category",
-            "type": "String",
             "value": "medium"
         },
+        "baseItem": "breastplate",
         "brokenThreshold": {
             "value": null
         },
@@ -18,9 +15,7 @@
             "value": ""
         },
         "check": {
-            "label": "Check Penalty",
-            "type": "String",
-            "value": "-2"
+            "value": -2
         },
         "collapsed": {
             "value": false
@@ -30,27 +25,19 @@
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><span class=\"fontstyle0\">This +1 resilient breastplate is made from shining bronze overlaid with reinforcing golden panels in the shape of lion’s heads. Wearing this breastplate grants you a commanding aura. You gain a +2 item bonus to Diplomacy checks, but you take a –2 item penalty to Stealth checks to Hide and Sneak and Deception checks to Impersonate.</span></p>\n<p><span class=\"fontstyle0\"><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Command; </span></p>\n<p><span class=\"fontstyle0\"><strong>Frequency</strong> once per day; </span></p>\n<p><span class=\"fontstyle0\"><strong>Effect</strong> You grant allies within 100 feet a +2 status bonus to saves against fear effects for 1 minute. When you activate this ability, each affected ally who’s frightened reduces their frightened value by 1.</span></p>"
+            "value": "<p>This +1 resilient breastplate is made from shining bronze overlaid with reinforcing golden panels in the shape of lion's heads. Wearing this breastplate grants you a commanding aura. You gain a +2 item bonus to Diplomacy checks, but you take a -2 item penalty to Stealth checks to Hide and Sneak and Deception checks to Impersonate.</p>\n<p><strong>Activate</strong><span class=\"pf2-icon\">A</span>Command</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You grant allies within 100 feet a +2 status bonus to saves against fear effects for 1 minute. When you activate this ability, each affected ally who's frightened reduces their frightened value by 1.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Breastplate of Command]{Effect: Breastplate of Command}</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Diplomacy checks</li>\n<li>-2 item penalty to Stealth checks to Hide and Sneak</li>\n<li>-2 item penalty to Deception checks to Impersonate</li>\n</ul>"
         },
         "dex": {
-            "label": "Dex Modifier Cap",
-            "type": "String",
-            "value": "1"
+            "value": 1
         },
         "equipped": {
-            "label": "Equipped",
-            "type": "Boolean",
             "value": false
         },
         "equippedBulk": {
             "value": "2"
         },
         "group": {
-            "label": "Group",
-            "type": "String",
             "value": "plate"
         },
         "hardness": {
@@ -59,15 +46,23 @@
         "hp": {
             "value": null
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 10
         },
         "maxHp": {
@@ -76,12 +71,9 @@
         "negateBulk": {
             "value": "0"
         },
-        "potency": {
-            "label": "Armor Potency",
-            "type": "String"
-        },
+        "potency": {},
         "potencyRune": {
-            "value": "1"
+            "value": 1
         },
         "preciousMaterial": {
             "value": ""
@@ -90,45 +82,7 @@
             "value": ""
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "1,000 gp"
-        },
-        "property1": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 1",
-            "type": "Number",
-            "value": ""
-        },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 2",
-            "type": "Number",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Property Rune 3",
-            "type": "Number",
-            "value": ""
         },
         "propertyRune1": {
             "value": ""
@@ -143,45 +97,87 @@
             "value": ""
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
-        },
-        "rarity": {
-            "value": "common"
         },
         "resiliencyRune": {
             "value": "resilient"
         },
-        "resilient": {
-            "label": "Resilient",
-            "type": "String"
+        "resilient": {},
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "diplomacy",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Breastplate of Command (Hide, Sneak)",
+                "predicate": {
+                    "any": [
+                        "action:hide",
+                        "action:sneak"
+                    ]
+                },
+                "selector": "stealth",
+                "type": "item",
+                "value": -2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Breastplate of Command (Impersonate)",
+                "predicate": {
+                    "any": [
+                        "action:impersonate"
+                    ]
+                },
+                "selector": "deception",
+                "type": "item",
+                "value": -2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "not": [
+                        "unburdened-iron"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "speed",
+                "type": "untyped",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 15,
+                            "value": -5
+                        }
+                    ],
+                    "field": "actor|data.abilities.str.value"
+                }
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "speed": {
-            "label": "Speed Penalty",
-            "type": "String",
-            "value": "-5 ft"
+            "value": -5
         },
         "stackGroup": {
             "value": ""
         },
         "strength": {
-            "label": "Required Strength",
-            "type": "String",
-            "value": "16"
+            "value": 16
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "enchantment",
                 "invested",
@@ -189,16 +185,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornarmor"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "3"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/breastplate-of-command.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/breastplate-of-command.webp",
     "name": "Breastplate of Command",
     "permission": {
         "default": 0

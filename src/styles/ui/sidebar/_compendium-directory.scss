@@ -1,0 +1,39 @@
+section#compendium {
+  .directory-header .header-search {
+     a.header-control {
+       visibility: hidden;
+     }
+  }
+  li.directory-item {
+    header.folder-header {
+      h3 {
+        background: rgba(0, 0, 0 ,0);
+        border: none;
+        padding: 0;
+      }
+      .status-icons {
+        float: right;
+        max-width: 24px;
+      }
+    }
+
+    &.collapsed header.folder-header .status-icons {
+      color: #7a7971;
+    }
+
+    ol.subdirectory {
+      li.compendium-pack {
+        h4 {
+          margin-bottom: 0.5rem;
+        }
+        h4, footer {
+          line-height: 16px;
+        }
+      }
+    }
+
+    &.collapsed ol.folder-content {
+      display: none;
+    }
+  }
+}

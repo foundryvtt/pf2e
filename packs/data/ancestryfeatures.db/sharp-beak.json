@@ -13,21 +13,38 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>With your Sharp Beak, you are never without a weapon. You have a beak unarmed attack that deals [[/r 1d6 #piercing]] piercing damage. Your beak is in the brawling weapon group and has the finesse and unarmed traits.</p>"
+            "value": "<p>With your Sharp Beak, you are never without a weapon. You have a beak unarmed attack that deals <a class=\"inline-roll roll\" title=\"piercing\" data-mode=\"roll\" data-flavor=\"piercing\" data-formula=\"1d6\"><i class=\"fas fa-dice-d20\"></i> 1d6</a> piercing damage. Your beak is in the brawling weapon group and has the finesse and unarmed traits.</p>"
         },
         "featType": {
             "value": "ancestryfeature"
         },
         "level": {
-            "value": "0"
+            "value": 0
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Beak",
+                "range": "melee",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -42,13 +59,12 @@
             "value": [
                 "tengu"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/ancestry/sharp-beak.webp",
     "name": "Sharp Beak",
     "permission": {
         "default": 0

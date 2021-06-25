@@ -13,20 +13,35 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You move carefully, feinting and creating false openings to lead your foes into inopportune attacks. You are trained in Deception. You gain @Compendium[pf2e.classfeatures.LzYi0OuOoypNb6jd]{Panache} during an encounter whenever you successfully @Compendium[pf2e.actionspf2e.QNAVeNKtHA0EUw4X]{Feint} or @Compendium[pf2e.actionspf2e.GkmbTGfg8KcgynOA]{Create a Diversion} against a foe.</p>"
+            "value": "<p>You move carefully, feinting and creating false openings to lead your foes into inopportune attacks. You are trained in Deception. You gain @Compendium[pf2e.classfeatures.Panache]{Panache} during an encounter whenever you successfully @Compendium[pf2e.actionspf2e.Feint]{Feint} or @Compendium[pf2e.actionspf2e.Create a Diversion]{Create a Diversion} against a foe.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "panache"
+                    ],
+                    "any": [
+                        "action:feint",
+                        "action:create-a-diversion"
+                    ]
+                },
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +53,33 @@
             "value": [
                 "swashbuckler"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [
+        {
+            "_id": "uPj4gFD9sGn0FcAp",
+            "changes": [
+                {
+                    "key": "data.skills.dec.rank",
+                    "mode": 4,
+                    "value": "1"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/classes/fencer-style.webp",
+            "label": "Fencer Style",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/fencer-style.webp",
     "name": "Fencer Style",
     "permission": {
         "default": 0

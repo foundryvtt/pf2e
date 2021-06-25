@@ -1,6 +1,7 @@
 {
     "_id": "rV7MTDCseZmEZKDw",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -15,14 +16,10 @@
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><span class=\"fontstyle0\">A typical spyglass lets you see eight times farther than normal. A fine spyglass adds a +1 item bonus to Perception checks to notice details at a distance.</span> </p>"
+            "value": "<p>A typical spyglass lets you see eight times farther than normal. A fine spyglass adds a +1 item bonus to Perception checks to notice details at a distance.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to Perception checks to notice details at a distance</li>\n</ul>"
         },
         "equipped": {
-            "label": "Equipped",
-            "type": "Boolean",
             "value": false
         },
         "equippedBulk": {
@@ -34,15 +31,23 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 4
         },
         "maxHp": {
@@ -58,27 +63,36 @@
             "value": ""
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "80 gp"
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Fine Spyglass (Notice details at distance)",
+                "predicate": {
+                    "all": [
+                        "distance"
+                    ]
+                },
+                "selector": "perception",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "stackGroup": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
@@ -91,13 +105,13 @@
             "value": "held-in-one-hand"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/adventuring-gear/spyglass.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/spyglass.webp",
     "name": "Spyglass (Fine)",
     "permission": {
         "default": 0

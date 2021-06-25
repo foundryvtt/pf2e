@@ -13,38 +13,59 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You’ve mastered combat practices that let you get up close and bring down perpetrators alive.</p>\n<p>You can use your Intelligence modifier on attack rolls when you @Compendium[pf2e.actionspf2e.m0f2B7G9eaaTmhFL]{Devise a Strategem} if you’re using a weapon of the club group in one hand (like a @Compendium[pf2e.equipment-srd.V2upqRKTOeYjJoWR]{Club}, @Compendium[pf2e.equipment-srd.FVjTuBCIefAgloUU]{Staff}, or @Compendium[pf2e.equipment-srd.TLQErnOpM9Luy7rL]{Sap}), in addition to the usual weapons, and those @Compendium[pf2e.actionspf2e.VjxZFuUXrCU94MWR]{Strikes} qualify for your @Compendium[pf2e.classfeatures.2Fe4YZCvAr9Yf6w7]{Strategic Strike}.</p>\n<p>Additionally, you can make any of your Strikes nonlethal without taking the normal –2 penalty.</p>"
+            "value": "<p>You've mastered combat practices that let you get up close and bring down perpetrators alive.</p>\n<p>You can use your Intelligence modifier on attack rolls when you @Compendium[pf2e.actionspf2e.Devise a Stratagem]{Devise a Strategem} if you're using a weapon of the club group in one hand (like a club, staff, or sap), in addition to the usual weapons, and those Strikes qualify for your @Compendium[pf2e.classfeatures.Strategic Strike]{Strategic Strike}.</p>\n<p>Additionally, you can make any of your Strikes nonlethal without taking the normal -2 penalty.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "devise-a-stratagem"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "club-weapon-group-attack",
+                "type": "ability",
+                "value": "@abilities.int.mod"
+            },
+            {
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.takedown-expert",
+                "retain": true
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "investigator"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Takedown Expert",
     "permission": {
         "default": 0

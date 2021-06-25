@@ -1,0 +1,206 @@
+{
+    "_id": "EuTZxxwdVeN6Xg3A",
+    "data": {
+        "MAP": {
+            "value": ""
+        },
+        "ability": {
+            "value": "str"
+        },
+        "baseItem": "warhammer",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "brokenThreshold": {
+            "value": 0
+        },
+        "bulkCapacity": {
+            "value": ""
+        },
+        "collapsed": {
+            "value": false
+        },
+        "containerId": {
+            "value": ""
+        },
+        "damage": {
+            "damageType": "bludgeoning",
+            "dice": 1,
+            "die": "d8",
+            "value": ""
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>Sparks of crackling electricity arc from this +1 magic warhammer, and the head thrums with distant thunder. Any hit with this hammer deals [[/r 1 # electricity]] extra electricity damage. You can use a special action while holding the hammer to transform the sparks into lightning bolts.</p>\n<p><strong>Electrify</strong> <span class=\"pf2-icon\">A</span> (concentrate) Until the end of your turn, the hammer deals [[/r 1d6 # electricity]] extra electricity damage instead of just 1. After you use this action, you can’t use it again for 10 minutes.</p>"
+        },
+        "equipped": {
+            "value": false
+        },
+        "equippedBulk": {
+            "value": ""
+        },
+        "group": {
+            "value": "hammer"
+        },
+        "hands": {
+            "value": ""
+        },
+        "hardness": {
+            "value": 0
+        },
+        "hp": {
+            "value": 0
+        },
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
+        },
+        "invested": {
+            "value": false
+        },
+        "level": {
+            "value": 3
+        },
+        "maxHp": {
+            "value": 0
+        },
+        "negateBulk": {
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": 1
+        },
+        "preciousMaterial": {
+            "value": ""
+        },
+        "preciousMaterialGrade": {
+            "value": ""
+        },
+        "price": {
+            "value": "60 gp"
+        },
+        "property1": {
+            "critDamage": "",
+            "critDamageType": "",
+            "critDice": 0,
+            "critDie": "",
+            "criticalConditionType": "",
+            "criticalConditionValue": null,
+            "damageType": "",
+            "dice": 0,
+            "die": "",
+            "strikeConditionType": "",
+            "strikeConditionValue": null,
+            "value": ""
+        },
+        "propertyRune1": {
+            "value": ""
+        },
+        "propertyRune2": {
+            "value": ""
+        },
+        "propertyRune3": {
+            "value": ""
+        },
+        "propertyRune4": {
+            "value": ""
+        },
+        "quantity": {
+            "value": 1
+        },
+        "range": {
+            "value": ""
+        },
+        "reload": {
+            "value": ""
+        },
+        "rules": [
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "electrify"
+                    ]
+                },
+                "selector": "{item|_id}-damage"
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Electrify",
+                "property": "flags.pf2e.rollOptions.damage-roll.electrify"
+            },
+            {
+                "damageType": "electricity",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "not": [
+                        "electrify"
+                    ]
+                },
+                "selector": "{item|_id}-damage",
+                "value": 1
+            }
+        ],
+        "size": {
+            "value": "med"
+        },
+        "source": {
+            "value": ""
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "stackGroup": {
+            "value": ""
+        },
+        "strikingRune": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "electricity",
+                "evocation",
+                "magical",
+                "shove"
+            ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        },
+        "weaponType": {
+            "value": "martial"
+        },
+        "weight": {
+            "value": "1"
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/weapons/warhammer.webp",
+    "name": "Storm Hammer",
+    "permission": {
+        "default": 0
+    },
+    "type": "weapon"
+}

@@ -5,63 +5,76 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "action"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": "1"
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Requirements</strong> You are wielding a melee weapon in two hands</p>\n<hr>\n<p>Your final blow can make an impact even if it rebounds off a foe’s defenses. Make a Strike with the required weapon. After the Strike, your turn ends. The Strike deals one extra weapon damage die, or two extra weapon damage dice if you’re at least 18th level. The Strike also gains the following failure effect.</p>\n<p><strong>Failure</strong> You deal damage equal to one weapon damage die of the required weapon. Increase this to two dice if you’re atleast 18th level.</p>"
+            "value": "<p><strong>Requirements</strong> You are wielding a melee weapon in two hands</p>\n<hr />\n<p>Your final blow can make an impact even if it rebounds off a foe's defenses.</p>\n<p>Make a Strike with the required weapon. After the Strike, your turn ends. The Strike deals one extra weapon damage die, or two extra weapon damage dice if you're at least 18th level. The Strike also gains the following failure effect.</p>\n<p><strong>Failure</strong> You deal damage equal to one weapon damage die of the required weapon. Increase this to two dice if you're at least 18th level.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "class"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "12"
+            "value": 12
         },
+        "location": "",
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "You are wielding a melee weapon in two hands"
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Brutal Finish",
+                "property": "flags.pf2e.rollOptions.damage-roll.brutal-finish"
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "melee",
+                        "brutal-finish"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 17,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "start": 18,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "fighter",
                 "press"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Brutal Finish",
     "permission": {
         "default": 0

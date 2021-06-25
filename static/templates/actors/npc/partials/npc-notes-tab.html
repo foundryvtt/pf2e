@@ -1,0 +1,47 @@
+<div class="tab notes" data-group="primary" data-tab="notes">
+    <div class="flexcol">
+        <div class="flexrow">
+            <div class="recall-knowledge section-container">
+                <div class="section-header">
+                    <h4>{{localize "PF2E.RecallKnowledge.Label"}}</h4>
+                </div>
+                <div class="section-body">
+                    {{#if identificationSkills }}
+                        <div class="tag identification-skills" title="{{identifySkillProgression}}">
+                            <ul>
+                                {{#each identificationSkills as |skill|}}
+                                    <li>{{localize skill}}</li>
+                                {{/each}}
+                            </ul>
+                            {{identifySkillDC}} ({{localize identifySkillAdjustment}})
+                        </div>
+                    {{/if}}
+                    <div id="unspecified-lore" class="tag" title="{{unspecificLoreProgression}}">
+                        {{localize "PF2E.RecallKnowledge.UnspecificLore"}} {{unspecificLoreDC}} ({{localize unspecificLoreAdjustment}})
+                    </div>
+                    <div id="specific-lore" class="tag" title="{{specificLoreProgression}}">
+                        {{localize "PF2E.RecallKnowledge.SpecificLore"}} {{specificLoreDC}} ({{localize specificLoreAdjustment}})
+                    </div>
+                </div>
+            </div>
+            <div id="languages" class="section-container" style="flex: 1;">
+                <div class="section-header" data-attribute="languages" for="data.traits.languages">
+                    <h4>{{localize "PF2E.Languages"}}</h4>
+                    {{# if options.editable }}
+                    <div class="languages-controls controls">
+                        <a class="trait-edit edit" data-trait-selector="basic" data-config-types="languages" data-property="data.traits.languages" title="{{ localize 'PF2E.NPC.EditLanguages' }}"><i class="fas fa-edit"></i></a>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="section-body">
+                    {{#each languages as |language|}}
+                        <div class="tag language">{{localize language}}</div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        <div class="notes-text" style="flex: 1; display: block; margin-top: 12px;">
+            {{ editor content=data.details.flavorText target="data.details.flavorText" button=true editable=editable  }}
+        </div>
+    </div>
+</div>

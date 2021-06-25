@@ -1,11 +1,21 @@
 {
     "_id": "Wkh5rQx3IqInEKdT",
     "data": {
+        "armor": {
+            "value": 0
+        },
+        "armorType": {
+            "value": "unarmored"
+        },
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
         "bulkCapacity": {
             "value": ""
+        },
+        "check": {
+            "value": 0
         },
         "collapsed": {
             "value": false
@@ -16,7 +26,10 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>Embroidered with fine silver thread in ornate arcane patterns, these robes come in one of three colors depending on their attuned alignment. Good robes are white, neutral robes are gray, and evil robes are black. An evil or good robe gains the appropriate trait. The robes benefit only characters who can cast arcane spells and whose alignment on the good-evil axis matches that of the robe. If your alignment does not match that of the robe, or you are not an arcane spellcaster, you are instead stupefied 2 while wearing a robe of the archmagi. This condition can&rsquo;t be removed in any way until you remove the robe.<br /></span></p>\n<p><span>The robes are <em>+2 greater resilient explorer&rsquo;s clothing</em>, and they grant a +1 circumstance bonus to saving throws against arcane spells and resistance 5 to damage from arcane spells.<br /></span></p>\n<p><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">R</span> command; <strong>Frequency</strong> once per day; <strong>Trigger</strong> You attempt a saving throw against an arcane spell, but you haven&rsquo;t rolled yet; <strong>Effect</strong> You automatically succeed at your save against the triggering arcane spell.</p>\n<hr />\n<p><span><strong>Craft Requirements</strong> You are an arcane spellcaster.</span></p>"
+            "value": "<p>Embroidered with fine silver thread in ornate arcane patterns, these robes come in one of three colors depending on their attuned alignment. Good robes are white, neutral robes are gray, and evil robes are black. An evil or good robe gains the appropriate trait. The robes benefit only characters who can cast arcane spells and whose alignment on the good-evil axis matches that of the robe. If your alignment does not match that of the robe, or you are not an arcane spellcaster, you are instead stupefied 2 while wearing a robe of the archmagi. This condition can't be removed in any way until you remove the robe.</p>\n<p>The robes are <em>+2 greater resilient explorer's clothing</em>, and they grant a +1 circumstance bonus to saving throws against arcane spells and resistance 5 to damage from arcane spells.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">R</span> command</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You attempt a saving throw against an arcane spell, but you haven't rolled yet</p>\n<p><strong>Effect</strong> You automatically succeed at your save against the triggering arcane spell.</p>\n<hr />\n<p><strong>Craft Requirements</strong> You are an arcane spellcaster.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 circumstance bonus to saving throws against arcane spells </li>\n</ul>"
+        },
+        "dex": {
+            "value": 5
         },
         "equipped": {
             "value": false
@@ -24,26 +37,42 @@
         "equippedBulk": {
             "value": ""
         },
+        "group": {
+            "value": null
+        },
         "hardness": {
             "value": 0
         },
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "15"
+            "value": 15
         },
         "maxHp": {
             "value": 0
         },
         "negateBulk": {
-            "value": ""
+            "value": "0"
+        },
+        "potencyRune": {
+            "value": 2
         },
         "preciousMaterial": {
             "value": ""
@@ -54,44 +83,76 @@
         "price": {
             "value": "6,500 gp"
         },
-        "quantity": {
-            "value": "1"
+        "propertyRune1": {
+            "value": ""
         },
-        "rarity": {
-            "value": "common"
+        "propertyRune2": {
+            "value": ""
+        },
+        "propertyRune3": {
+            "value": ""
+        },
+        "propertyRune4": {
+            "value": ""
+        },
+        "quantity": {
+            "value": 1
+        },
+        "resiliencyRune": {
+            "value": "greaterResilient"
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Robe of the Archmagi (against arcane spells)",
+                "predicate": {
+                    "all": [
+                        "arcane"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
         },
+        "speed": {
+            "value": 0
+        },
         "stackGroup": {
             "value": ""
+        },
+        "strength": {
+            "value": 0
         },
         "traits": {
             "custom": "",
             "rarity": {
                 "value": "uncommon"
             },
-            "usage": {
-                "value": "held-in-one-hand"
-            },
             "value": [
-                "abjuration",
-                "arcane",
-                "invested"
+                "comfort"
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornarmor"
         },
         "weight": {
             "value": "1"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/robe-of-the-archmagi.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/robe-of-the-archmagi.webp",
     "name": "Robe of the Archmagi",
     "permission": {
         "default": 0
     },
-    "type": "equipment"
+    "type": "armor"
 }

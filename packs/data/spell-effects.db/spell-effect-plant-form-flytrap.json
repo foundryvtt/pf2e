@@ -1,0 +1,213 @@
+{
+    "_id": "JrNHFNxJayevlv2G",
+    "data": {
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Plant Form]{Plant Form}.</p>\n<p>Taking inspiration from verdant creatures, you transform into a Large plant battle form. You must have space to expand into or the spell is lost. You can substitute a similar specific plant to turn into (such as a pitcher plant instead of a flytrap), but this has no effect on the form's Size or statistics. While in this form, you gain the plant trait. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>12 temporary Hit Points.</li>\n<li>Resistance 10 to poison.</li>\n<li>Low-light vision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can use. You're trained with them. Your attack modifier is +17, and your damage bonus is +11. These attacks are Strength based (for the purpose of the @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} condition, for example). If your unarmed attack modifier is higher, you can use it instead.</li>\n<li>Athletics modifier of +19, unless your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of plant you choose:</p>\n<ul>\n<li><strong>Flytrap</strong>\n<ul>\n<li>Speed 15 feet; resistance 10 to acid;</li>\n<li><strong>Melee</strong> <span class=\"pf2-icon\">1</span> leaf (reach 10 feet), <strong>Damage</strong> 2d8 piercing, and you can spend an action after a hit to Grab the target.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> Your battle form is Huge, and the reach of your attacks increases by 5 feet. You instead gain AC = 22 + your level, 24 temporary HP, attack modifier +21, damage bonus +16, and Athletics +22.</p>\n<hr />\n<p><em>Note: To heighten this effect, import it into your Item Directory and edit the level before adding it to the target</em></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FixedProficiency",
+                "label": "Plant Form",
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "polymorph",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": "19 + @details.level.value"
+                        },
+                        {
+                            "start": 6,
+                            "value": "22 + @details.level.value"
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.TempHP",
+                "label": " Form",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": 12
+                        },
+                        {
+                            "start": 6,
+                            "value": 24
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.Sense",
+                "label": "PF2E.SensesLowLightVision",
+                "selector": "lowLightVision"
+            },
+            {
+                "ability": "str",
+                "key": "PF2E.RuleElement.FixedProficiency",
+                "label": "Plant Form",
+                "selector": "attack",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": 17
+                        },
+                        {
+                            "start": 6,
+                            "value": 21
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "ability": "str",
+                "key": "PF2E.RuleElement.FixedProficiency",
+                "label": "Plant Form",
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": 11
+                        },
+                        {
+                            "start": 6,
+                            "value": 16
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FixedProficiency",
+                "label": "Plant Form",
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "athletics",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": 19
+                        },
+                        {
+                            "start": 6,
+                            "value": 22
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.TokenSize",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "start": 5,
+                            "value": 2
+                        },
+                        {
+                            "start": 6,
+                            "value": 3
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.BaseSpeed",
+                "selector": "land-speed",
+                "value": 15
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 2,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Leaf",
+                "range": "melee",
+                "traits": [
+                    "melee",
+                    "reach-10"
+                ]
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "attack",
+                "text": "<p class='compact-text'>You can spend an action immediately after a hit to @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} the target.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.polymorph",
+                "retain": true
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/plant-form.webp",
+    "name": "Spell Effect: Plant Form (Flytrap)",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

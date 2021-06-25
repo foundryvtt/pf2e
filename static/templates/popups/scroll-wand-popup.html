@@ -1,0 +1,19 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+    <label>{{ localize "PF2E.ScrollWandPopup.label" }}</label>
+    <div class="form-group">
+        <p><label>{{ localize "PF2E.ScrollWandPopup.spellLevelLabel" }}</label>
+        <select name="level" data-dtype="Number">
+            {{#each validLevels as |level|}}
+            <option value={{level}}>{{level}}</option>
+            {{/each}}
+        </select></p>
+    </div>
+    <div class="form-group">
+        <p><label>{{ localize "PF2E.ScrollWandPopup.itemTypeLabel" }}</label>
+        <select name="itemType" data-dtype="String">
+            <option value="scroll">{{ localize "PF2E.ScrollWandPopup.scroll" }}</option>
+            <option value="wand">{{ localize "PF2E.ScrollWandPopup.wand" }}</option>
+        </select></p>
+    </div>
+    <button type="submit" name="submit" value="1"><i class="far fa-save"></i>{{ localize "PF2E.ScrollWandPopup.submit" }}</button>
+</form>

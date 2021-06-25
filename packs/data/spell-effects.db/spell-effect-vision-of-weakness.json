@@ -1,0 +1,75 @@
+{
+    "_id": "70qdCBokXBvKIUIQ",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Vision of Weakness]{Vision of Weakness}</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Attacking target of Vision of Weakness",
+                "property": "flags.pf2e.rollOptions.all.vision-of-weakness"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Against target of Vision of Weakness",
+                "predicate": {
+                    "all": [
+                        "vision-of-weakness"
+                    ]
+                },
+                "selector": "attack",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Part of an Attack action against Vision of Weakness target",
+                "predicate": {
+                    "all": [
+                        "attack",
+                        "vision-of-weakness"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/vision-of-weakness.webp",
+    "name": "Spell Effect: Vision of Weakness",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

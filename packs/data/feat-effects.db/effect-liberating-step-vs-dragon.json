@@ -1,0 +1,94 @@
+{
+    "_id": "iyONT1qgeRgoYHsZ",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Dragonslayer Oath (Liberator)]{Dragonslayer Oath (Liberator)}</p>\n<p>If you use Liberating Step triggered by an evil dragon, your ally gains a +4 circumstance bonus to checks granted by your Liberating Step, and the ally can Step twice afterward.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.TokenEffectIcon"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Liberating Step (vs. dragon)",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Liberating Step (vs. dragon)",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Liberating Step (vs. dragon)",
+                "predicate": {
+                    "all": [
+                        "action:escape",
+                        "unarmed"
+                    ]
+                },
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Liberating Step (vs. dragon)",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/summon-dragon.webp",
+    "name": "Effect: Liberating Step (vs. Dragon)",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

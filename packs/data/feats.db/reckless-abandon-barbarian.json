@@ -13,21 +13,74 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<section class=\"details\">\n<p><strong>Trigger</strong> Your turn begins, and you are at half or fewer Hit Points.</p>\n<hr></section>\n<section class=\"content\">\n<p>Your blood boils when you take a beating, and you throw caution to the wind to finish the fight. You gain a +2 circumstance bonus to attack rolls, a –2 penalty to AC, and a –1 penalty to saves. These bonuses and penalties last until your Rage ends or until you are above half Hit Points, whichever comes first.</p>\n</section>"
+            "value": "<p><strong>Trigger</strong> Your turn begins, and you are at half or fewer Hit Points.</p>\n<hr />\n<p>Your blood boils when you take a beating, and you throw caution to the wind to finish the fight. You gain a +2 circumstance bonus to attack rolls, a -2 penalty to AC, and a -1 penalty to saves. These bonuses and penalties last until your Rage ends or until you are above half Hit Points, whichever comes first.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "16"
+            "value": 16
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Reckless Abandon",
+                "property": "flags.pf2e.rollOptions.all.reckless-abandon"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Reckless Abandon",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "reckless-abandon"
+                    ]
+                },
+                "roll-options": [
+                    "attack",
+                    "all"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Reckless Abandon",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "reckless-abandon"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "value": -2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Reckless Abandon",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "reckless-abandon"
+                    ]
+                },
+                "roll-options": [
+                    "saving-throw",
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "value": -1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -44,13 +97,11 @@
                 "barbarian",
                 "rage"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Reckless Abandon (Barbarian)",
     "permission": {
         "default": 0

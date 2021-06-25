@@ -1,6 +1,7 @@
 {
     "_id": "9IwSktj0Xj7A2Ruh",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>These gem-studded golden anklets give you a +3 item bonus to Acrobatics checks. When you invest the anklets, you either increase your Dexterity score by 2 or increase it to 18, whichever would give you a higher score.<br /></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Interact; <strong>Frequency</strong> once per day; <strong>Effect</strong> You click the anklets together, gaining a +20-foot status bonus to all your Speeds and the effects of water walk for&nbsp;the next 10 minutes.</span></p>"
+            "value": "<p>These gem-studded golden anklets give you a +3 item bonus to Acrobatics checks. When you invest the anklets, you either increase your Dexterity score by 2 or increase it to 18, whichever would give you a higher score.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You click the anklets together, gaining a +20-foot status bonus to all your Speeds and the effects of @Compendium[pf2e.spells-srd.Water Walk]{Water Walk} for the next 10 minutes.</p>\n<p>@Compendium[pf2e.equipment-effects.Effect: Anklets of Alacrity]{Effect: Anklets of Alacrity}</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+3 item bonus to Acrobatics</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "17"
+            "value": 17
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,19 @@
             "value": "15,000 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Anklets of Alacrity",
+                "selector": "acrobatics",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -71,9 +91,6 @@
             "rarity": {
                 "value": "common"
             },
-            "usage": {
-                "value": "held-in-one-hand"
-            },
             "value": [
                 "apex",
                 "invested",
@@ -82,14 +99,16 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "wornanklets"
         },
         "weight": {
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/worn-items/apex-items/anklets-of-alacrity.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/worn-items/apex-items/anklets-of-alacrity.webp",
     "name": "Anklets of Alacrity",
     "permission": {
         "default": 0

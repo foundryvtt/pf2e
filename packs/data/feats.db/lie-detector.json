@@ -13,37 +13,99 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites </strong>@Compendium[pf2e.classfeatures.g3mNzNphtVxyR9Xr]{Empiricism Methology} or @Compendium[pf2e.classfeatures.UIHUNNYZyQ3p4Vmo]{Interrogation Methodology}</p>\n<hr>\n<p>You’re adept at noticing the tells of a liar — sweat, flushing, a quavering voice, a quickening pulse.</p>\n<p>You gain a +1 circumstance bonus to Perception checks to @Compendium[pf2e.actionspf2e.1xRFPTFtWtGJ9ELw]{Sense Motive} and to Perception DCs against attempts to @Compendium[pf2e.actionspf2e.ewwCglB7XOPLUz72]{Lie} to you.</p>\n<p>When you determine someone is lying to you, you can use their deceit to your advantage to gain a +1 circumstance bonus to the next Deception, Diplomacy, Intimidation, or Performance check you attempt against that creature within the next minute.</p>"
+            "value": "<p>You're adept at noticing the tells of a liar - sweat, flushing, a quavering voice, a quickening pulse.</p>\n<p>You gain a +1 circumstance bonus to Perception checks to @Compendium[pf2e.actionspf2e.Sense Motive]{Sense Motive} and to Perception DCs against attempts to @Compendium[pf2e.actionspf2e.Lie]{Lie} to you.</p>\n<p>When you determine someone is lying to you, you can use their deceit to your advantage to gain a +1 circumstance bonus to the next Deception, Diplomacy, Intimidation, or Performance check you attempt against that creature within the next minute.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "4"
+            "value": 4
         },
+        "location": "",
         "prerequisites": {
-            "value": "empiricism or interrogation methodology"
+            "value": [
+                {
+                    "value": "empiricism or interrogation methodology"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "action:sense-motive"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Lie Detector (against a known liar)",
+                "predicate": {
+                    "all": [
+                        "known-liar"
+                    ]
+                },
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Lie Detector (against a known liar)",
+                "predicate": {
+                    "all": [
+                        "known-liar"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Lie Detector (against a known liar)",
+                "predicate": {
+                    "all": [
+                        "known-liar"
+                    ]
+                },
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Lie Detector (against a known liar)",
+                "predicate": {
+                    "all": [
+                        "known-liar"
+                    ]
+                },
+                "selector": "performance",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
             "value": [
                 "investigator"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Lie Detector",
     "permission": {
         "default": 0

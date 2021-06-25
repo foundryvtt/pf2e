@@ -13,23 +13,36 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Through a combination of careful manipulation and precise breath control, you can deploy inhaled toxins precisely. When you activate an inhaled poison, you can cause it to fill a 20-foot line that’s 5 feet tall rather than a 10-foot cube. You gain a +3 status bonus to saving throws against inhaled poisons that you activate.</p>"
+            "value": "<p>Through a combination of careful manipulation and precise breath control, you can deploy inhaled toxins precisely. When you activate an inhaled poison, you can cause it to fill a 20-foot line that's 5 feet tall rather than a 10-foot cube. You gain a +3 status bonus to saving throws against inhaled poisons that you activate.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "12"
+            "value": 12
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Shaped Containment (vs. inhaled poisons you activate)",
+                "predicate": {
+                    "all": [
+                        "poison",
+                        "inhaled",
+                        "self-activated"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 3
+            }
+        ],
         "source": {
-            "value": ""
+            "value": "Pathfinder #149: Against the Scarlet Triad"
         },
         "traits": {
             "custom": "",
@@ -39,13 +52,11 @@
             "value": [
                 "alchemist"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Shaped Contaminant",
     "permission": {
         "default": 0

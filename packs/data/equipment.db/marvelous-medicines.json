@@ -1,6 +1,7 @@
 {
     "_id": "aZ8HzjZCOJCV7ZWh",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span>This set of healer’s tools contains a seemingly endless supply of bandages, herbs, and healing items of impeccable quality, granting you a +2 item bonus to Medicine checks.<br></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Treat Poison or 8 hours (Treat Disease); <strong>Effect</strong> You can activate the tools when you use them to Treat Poison in order to produce the effects of @Compendium[pf2e.spells-srd.SUKaxVZW2TlM8lu0]{Neutralize Poison}, or when you Treat Disease in order to produce the effects of @Compendium[pf2e.spells-srd.RneiyehRO6f7LP44]{Remove Disease}. Once these medicines have been used to treat a patient’s poison or disease, they can’t be used again to treat the same affliction for that patient.&nbsp;</span></p>"
+            "value": "<p>This set of healer's tools contains a seemingly endless supply of bandages, herbs, and healing items of impeccable quality, granting you a +2 item bonus to Medicine checks.</p>\n<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Treat Poison or 8 hours (Treat Disease)</p>\n<p><strong>Effect</strong> You can activate the tools when you use them to Treat Poison in order to produce the effects of @Compendium[pf2e.spells-srd.Neutralize Poison]{Neutralize Poison}, or when you Treat Disease in order to produce the effects of @Compendium[pf2e.spells-srd.Remove Disease]{Remove Disease}.</p>\n<p>Once these medicines have been used to treat a patient's poison or disease, they can't be used again to treat the same affliction for that patient.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 item bonus to Medicine checks.</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "12"
+            "value": 12
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,18 @@
             "value": "1,800 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "medicine",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -72,7 +91,7 @@
                 "value": "common"
             },
             "usage": {
-                "value": "held-in-one-hand"
+                "value": "held-in-two-hands"
             },
             "value": [
                 "magical",
@@ -86,8 +105,10 @@
             "value": "1"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/held-items/marvelous-medicines.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/held-items/marvelous-medicines.webp",
     "name": "Marvelous Medicines",
     "permission": {
         "default": 0

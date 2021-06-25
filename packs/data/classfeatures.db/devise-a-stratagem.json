@@ -1,0 +1,75 @@
+{
+    "_id": "lgo65ldX7WkXC8Ir",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>You can play out a battle in your head, using brains rather than brawn to execute an attack.</p>\n<p>You gain the @Compendium[pf2e.actionspf2e.Devise a Stratagem]{Devise a Stratagem} action.</p>"
+        },
+        "featType": {
+            "value": "classfeature"
+        },
+        "level": {
+            "value": 1
+        },
+        "location": "",
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "property": "flags.pf2e.rollOptions.all.devise-a-stratagem"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "devise-a-stratagem"
+                    ],
+                    "any": [
+                        "agile",
+                        "finesse",
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "type": "ability",
+                "value": "@abilities.int.mod"
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/devise-a-stratagem.webp",
+    "name": "Devise a Stratagem",
+    "permission": {
+        "default": 0
+    },
+    "type": "feat"
+}

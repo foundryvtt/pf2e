@@ -5,63 +5,79 @@
             "value": ""
         },
         "actionType": {
-            "label": "Action Type",
-            "type": "String",
             "value": "passive"
         },
         "actions": {
-            "label": "Number of Actions",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p><strong>Prerequisites</strong> Rogue Dedication</p>\n<hr>\n<p>You gain the sneak attack class feature (page 181), except it deals 1d4 damage, increasing to 1d6 at 6th level. You don’t increase the number of dice as you gain levels.</p>"
+            "value": "<p>You gain the @Compendium[pf2e.classfeatures.Sneak Attack]{Sneak Attack} class feature, except it deals 1d4 damage, increasing to 1d6 at 6th level. You don't increase the number of dice as you gain levels.</p>"
         },
         "featType": {
-            "label": "Feat Type",
-            "type": "String",
             "value": "archetype"
         },
         "level": {
-            "label": "Feat Level",
-            "type": "String",
-            "value": "4"
+            "value": 4
         },
         "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": "Rogue Dedication"
+            "value": [
+                {
+                    "value": "Rogue Dedication"
+                }
+            ]
         },
-        "rarity": {
-            "value": "common"
-        },
-        "rules": [],
+        "rules": [
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "target:flatFooted"
+                    ],
+                    "any": [
+                        "finesse",
+                        "agile",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "value": {
+                                "dieSize": "d4"
+                            }
+                        },
+                        {
+                            "start": 6,
+                            "value": {
+                                "dieSize": "d6"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "traits": {
             "custom": "",
-            "label": "Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "archetype"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Sneak Attacker",
     "permission": {
         "default": 0

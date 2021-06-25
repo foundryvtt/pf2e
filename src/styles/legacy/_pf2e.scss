@@ -1,2427 +1,2579 @@
 @font-face {
-  font-family: "Nodesto";
-  src: url('../fonts/NodestoCapsCondensed.otf');
+    font-family: "Nodesto";
+    src: url('../fonts/NodestoCapsCondensed.otf');
 }
+
 @font-face {
-  font-family: "Pathfinder2eActions";
-  src: url('../fonts/Pathfinder2eActions.ttf');
+    font-family: "Pathfinder2eActions";
+    src: url('../fonts/Pathfinder2eActions.ttf');
 }
+
 :root {
-  --primary-background: rgb(69,74,124);
-/*   --secondary-background: #b75b5b;
-  --tertiary-background: darkred;
- */
-  --secondary-background: gray;
-  --tertiary-background: rgb(69,74,124);
-  --alternate-background: darkgray;
+    --primary-background:#454a7c;
+    --secondary-background:gray;
+    --tertiary-background:#454a7c;
+    --alternate-background:darkgray;
 }
+
 /* Nodesto Font */
+
 .nodesto {
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 18px;
-  color: #444;
+    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+    font-size: 18px;
+    color: #444;
 }
+
 /* Flexbox */
+
 .flexrow {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    > * {
+        flex: 1;
+    }
 }
-.flexrow > * {
-  flex: 1;
-}
+
 .flexcol {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+    > * {
+        flex: 1;
+    }
 }
-.flexcol > * {
-  flex: 1;
-}
+
 .tab[data-tab].active {
-  display: initial;
+    display: initial;
 }
+
 /* Damage Tags */
+
 /* ----------------------------------------- */
-/*  Sheet Structure
+/* Sheet Structure                           */
 /* ----------------------------------------- */
-.pf2e.sheet .window-content {
-  padding: 5px;
-  font-size: 13px;
-  overflow-y: hidden;
+
+.window-app .window-content {
+    background: url("../assets/sheet/parchment.webp") repeat;
 }
-.pf2e.sheet .sheet-header {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  flex: 0 0 100%;
-  height: 48px;
+
+.pf2e {
+    &.sheet {
+        .window-content {
+            padding: 5px;
+            font-size: 13px;
+            overflow-y: hidden;
+        }
+
+        .sheet-header {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            flex: 0 0 100%;
+            height: 48px;
+
+            > * {
+                flex: 1;
+            }
+
+            h1 {
+                margin: 0;
+                border: none;
+
+                > input {
+                    height: 44px;
+                    width: 100%;
+                    margin: 2px;
+                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-size: 18px;
+                    color: #444;
+                    font-size: 36px;
+                    border: none;
+                }
+            }
+        }
+
+        .sheet-body {
+            height: calc(100% - 35px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+        }
+
+        form {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+            /* Form Elements */
+            /* Select Fields */
+            /* Sheet Tabs */
+            /* Tags */
+
+            input {
+                &[type="text"], &[type="number"] {
+                    width: calc(100% - 2px);
+                    height: calc(100% - 2px);
+                    background: none;
+                    padding: 0;
+                    margin: 1px 0;
+                    color: #333;
+                    border: 1px solid transparent;
+
+                    &:hover, &:focus {
+                        border: 1px solid black;
+                        box-shadow: 0 0 10px #00005a;
+                    }
+                }
+            }
+
+            select {
+                font-size: 10px;
+                height: 18px;
+                background: rgba(255, 255, 255, 0.5);
+            }
+
+            input:disabled, select:disabled, textarea:disabled {
+                color: #444;
+                border: none;
+            }
+
+            input:disabled:hover, select:disabled:hover, textarea:disabled:hover, input:disabled:focus, select:disabled:focus, textarea:disabled:focus {
+                border: none;
+                box-shadow: none;
+            }
+
+            label {
+                display: block;
+            }
+
+            .mce-panel span {
+                display: inherit;
+            }
+
+            &.editable .rollable:hover {
+                color: #000;
+                text-shadow: 0 0 10px #00005a;
+                cursor: pointer;
+            }
+
+            .sheet-tabs {
+                height: 30px;
+
+                > .list-row {
+                    line-height: 24px;
+                    padding-top: 3px;
+                    font-size: 12px;
+                    text-align: center;
+
+                    &:last-of-type {
+                        padding-right: 4px;
+                    }
+
+                    &.active {
+                        color: #000;
+                        font-weight: 700;
+                    }
+                }
+            }
+
+            .tab {
+                flex: 1;
+                overflow: hidden;
+            }
+
+            .tag {
+                float: left;
+                margin: 0 2px 2px 0;
+                padding: 0 3px;
+                font-size: 10px;
+                line-height: 16px;
+                border: 1px solid #999;
+                border-radius: 3px;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    &.actor {
+        min-width: 650px;
+        min-height: 450px;
+
+        /* NPC Sheet Adjustments */
+        /* ---------------------------------------- */
+        /* Navigation Tabs
+        /* ---------------------------------------- */
+        /* ---------------------------------------- */
+        /* Header Content
+        /* ---------------------------------------- */
+        /* ---------------------------------------- */
+        /* Showcase Content
+        /* ---------------------------------------- */
+        /* Character Details */
+        /* Primary Attributes */
+        /* Status Effects */
+        /* ---------------------------------------- */
+        /* Sidebar Content
+        /* ---------------------------------------- */
+        /* ---------------------------------------- */
+        /* Abilities Tab
+        /* ---------------------------------------- */
+        /* ----------------------------------------- */
+        /* Class List
+        /* ----------------------------------------- */
+        /* ---------------------------------------- */
+        /* Skills Tab
+        /* ---------------------------------------- */
+        /* ----------------------------------------- */
+        /* Traits Tab
+        /* ----------------------------------------- */
+        /* ----------------------------------------- */
+        /* Main Content Tabs
+        /* ----------------------------------------- */
+        /* Biography */
+        /* ----------------------------------------- */
+        /* Inventory Tab
+        /* ----------------------------------------- */
+        /* Inventory List */
+        /* Encumbrance Bar */
+        /* ----------------------------------------- */
+        /* Spellbook Tab
+        /* ----------------------------------------- */
+        /* ----------------------------------------- */
+        /* Feats Tab
+        /* ----------------------------------------- */
+        /* ----------------------------------------- */
+        /* Rest Buttons
+        /* ----------------------------------------- */
+
+        .sidebar {
+            float: left;
+            width: 220px;
+        }
+
+        .content {
+            float: right;
+            width: calc(100% - 220px);
+        }
+
+        .floatright {
+            float: right;
+        }
+
+        .sheet-upper {
+            height: 268px;
+
+            .sheet-header {
+                height: 48px;
+            }
+
+            .sheet-profile, .sheet-showcase {
+                height: 220px;
+            }
+        }
+
+        .sheet-navigation {
+            height: 32px;
+
+            /* width: 100%;
+             */
+            float: right;
+            width: calc(100% - 220px);
+        }
+
+        .sheet-lower {
+            width: 100%;
+            height: calc(100% - 48px);
+
+            .sheet-content {
+                height: calc(100% - 32px);
+            }
+        }
+
+        .sheet-sidebar {
+            height: calc(100% - 48px);
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            overflow-x: hidden;
+            overflow-y: auto;
+
+            > * {
+                flex: 1;
+            }
+
+            .sidebar-summary {
+                overflow-y: hidden;
+            }
+        }
+
+        &.npc-sheet {
+            .sheet-upper {
+                height: 220px;
+
+                .sheet-showcase {
+                    height: calc(220px - 48px);
+                }
+            }
+
+            .sheet-lower {
+                height: calc(100% - 220px - 32px);
+            }
+
+            section.sheet-body {
+                height: calc(100% - 48px);
+            }
+        }
+
+        .sheet-navigation {
+            border-top: 1px solid var(--secondary-background);
+            border-bottom: 1px solid var(--primary-background);
+
+            .sheet-tabs > .list-row {
+                border-radius: 5px 5px 0 0;
+
+                &.active {
+                    border: 1px solid #666;
+                    border-bottom: none;
+
+                    /* box-shadow: 0 0 10px inset #ff6400;
+                     */
+                    background: var(--primary-background);
+                    color: #fff;
+                    text-shadow: none;
+                }
+            }
+        }
+
+        .sheet-header {
+            border-bottom: 1px solid var(--primary-background);
+
+            h1 {
+                margin: 0;
+                border: none;
+
+                &.charname {
+                    flex: 2;
+                }
+            }
+
+            .editsheet {
+                flex: 3;
+                font-size: 10px;
+                text-align: center;
+                margin-top: 3px;
+            }
+
+            h1 > input {
+                height: 40px;
+                width: 100%;
+                margin: 2px;
+                font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                font-size: 18px;
+                color: #444;
+                font-size: 36px;
+            }
+
+            .charlevel {
+                flex: 0 0 150px;
+                height: 44px;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                align-items: flex-end;
+                text-align: right;
+
+                > * {
+                    flex: 1;
+                }
+
+                .level {
+                    flex: 0 0 20px;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: flex-start;
+                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-size: 18px;
+                    color: #444;
+                    font-size: 20px;
+                    line-height: 20px;
+
+                    > {
+                        * {
+                            flex: 1;
+                        }
+
+                        input {
+                            &[type="text"], &[type="number"] {
+                                flex: 0 0 26px;
+                                height: 20px;
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+
+                .xpbar {
+                    width: 100%;
+                    flex: 0 0 8px;
+                    background: #666;
+                    border: 1px solid #000;
+                    border-radius: 3px;
+
+                    .bar {
+                        height: 4px;
+                        margin: 1px;
+                        display: block;
+                        background: #afebff;
+                        border: 1px solid #000;
+                        border-radius: 2px;
+                    }
+                }
+
+                .experience {
+                    flex: 0 0 16px;
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: flex-start;
+                    justify-content: flex-end;
+
+                    > {
+                        * {
+                            flex: 1;
+                        }
+
+                        input {
+                            &[type="text"], &[type="number"] {
+                                flex: 1;
+                                text-align: right;
+                                height: 16px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .details {
+            height: 30px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid var(--secondary-background);
+
+            .character-detail {
+                width: 33.33%;
+                height: 30px;
+                float: left;
+                padding: 3px;
+                border-right: 1px solid var(--secondary-background);
+
+                &:last-child {
+                    border-right: none;
+                }
+
+                > input {
+                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-size: 18px;
+                    color: #444;
+                    font-size: 20px;
+                }
+            }
+        }
+
+        .primary-attributes {
+            height: 80px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            border-bottom: 1px solid var(--secondary-background);
+
+            > * {
+                flex: 1;
+            }
+
+            .attribute {
+                flex: 0 0 25%;
+                height: 79px;
+                padding: 4px;
+                border-right: 1px solid var(--secondary-background);
+
+                &:last-child {
+                    margin-right: 0;
+                    border-right: none;
+                }
+
+                .attribute-name {
+                    position: relative;
+                    height: 22px;
+                    margin: 0 0 2px;
+                    line-height: 22px;
+                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-size: 18px;
+                    color: #444;
+                    text-align: center;
+                    border-bottom: 1px solid var(--secondary-background);
+
+                    .npc-roll-hp {
+                        position: absolute;
+                        right: 2px;
+                    }
+                }
+
+                .attribute-value {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: flex-start;
+                    height: 32px;
+                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-size: 18px;
+                    color: #444;
+                    font-size: 20px;
+                    line-height: 32px;
+                    text-align: center;
+
+                    > * {
+                        flex: 1;
+                    }
+                }
+
+                .attribute-footer {
+                    height: 16px;
+                    text-align: center;
+
+                    span {
+                        display: inline-block;
+                    }
+
+                    input {
+                        max-width: 24px;
+
+                        &.temphp {
+                            max-width: 45%;
+                        }
+
+                        &.hit-dice {
+                            min-width: 16px;
+                            max-width: 16px;
+                            text-align: right;
+                        }
+
+                        &[name="data.attributes.speed.value"] {
+                            max-width: none;
+                            text-align: left;
+                        }
+
+                        &.speed, &.hpformula {
+                            max-width: 90%;
+                        }
+                    }
+
+                    a.rest {
+                        padding: 0 2px;
+                        background: rgba(255, 255, 255, 0.25);
+                        border: 1px solid var(--secondary-background);
+                        border-radius: 2px;
+                    }
+
+                    &.recharge input[type="checkbox"] {
+                        margin: 1px;
+                    }
+                }
+            }
+        }
+
+        .statuses {
+            width: 100%;
+            height: 30px;
+            margin: 0;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+
+            > * {
+                flex: 1;
+            }
+
+            .status {
+                line-height: 30px;
+                padding: 0 6px;
+                border-right: 1px solid var(--secondary-background);
+                font-size: 14px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+
+                > * {
+                    flex: 1;
+                }
+
+                &.death {
+                    flex: 0 0 50%;
+                }
+
+                &:last-child {
+                    border-right: none;
+                }
+
+                h4 {
+                    flex: 1;
+                    margin: 0;
+                    font-size: 12px;
+                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-size: 18px;
+                    color: #444;
+                }
+
+                .status-value {
+                    flex: none;
+
+                    > {
+                        * {
+                            display: inline-block;
+                            margin-right: 5px;
+                        }
+
+                        input {
+                            &[type="text"], &[type="number"] {
+                                height: 20px;
+                                max-width: 20px;
+                                margin: 0;
+                            }
+
+                            &[type="checkbox"] {
+                                position: relative;
+                                top: 2px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        img.sheet-profile {
+            /* border: none;
+             */
+            border: 1px solid var(--secondary-background);
+            object-fit: contain;
+        }
+
+        .sheet-sidebar {
+            border-right: 1px solid var(--primary-background);
+
+            .tab {
+                height: 100%;
+                padding-top: 2px;
+                overflow-y: auto;
+            }
+        }
+
+        .abilities .defense-list {
+            display: grid;
+            grid: "defense" 40px / auto;
+            grid-auto-rows: 40px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .npc-defense-list {
+            display: grid;
+            grid: "defense" 40px / auto;
+            grid-auto-rows: 40px;
+            list-style: none;
+            margin: 0;
+            margin-left: 5px;
+            padding: 0;
+        }
+
+        .pf-heading {
+            /* flex: 0 0 24px;
+             */
+            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-size: 24px;
+            line-height: 24px;
+            color: #fff;
+            background: var(--primary-background);
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .pf-sub-category {
+            font-weight: bold;
+            font-size: 1em;
+            line-height: 20px;
+            color: #fff;
+            background: var(--secondary-background);
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .pf-bluelist {
+            color: #fff;
+            background: var(--primary-background);
+        }
+
+        .pf-add-item-row {
+            font-weight: 700;
+            line-height: 20px;
+            text-align: center;
+            font-size: 10px;
+            background: var(--primary-background);
+        }
+
+        .pf-redbackground {
+            background: var(--secondary-background);
+            color: white;
+            height: 32px;
+            margin-top: 2px;
+        }
+
+        .pf-indent {
+            text-indent: 10px;
+        }
+
+        .pf-width-100 {
+            width: 100%;
+        }
+
+        .pf-title {
+            background: var(--tertiary-background);
+            height: 16px;
+            border: 1px solid var(--tertiary-background);
+            text-align: center;
+            align-self: start;
+            margin-bottom: -1px;
+            color: #fff;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .pf-value {
+            background: #fff;
+            border: 1px solid var(--tertiary-background);
+            text-align: center;
+        }
+
+        .pf-rank {
+            letter-spacing: -3px;
+            font-size: 14px;
+            line-height: 16px;
+        }
+
+        .pf-container {
+            grid: "title" 15px "value" auto / auto;
+            margin-top: 2px;
+            justify-self: center;
+        }
+
+        .pf-small {
+            height: 20px;
+        }
+
+        .pf-large {
+            font-size: 26px;
+            height: 32px;
+        }
+
+        .abilities {
+            .ac-list {
+                display: grid;
+                grid: "score items" 38px "score items" 38px / 73px auto;
+                margin: unset;
+                padding: unset;
+                background: var(--secondary-background);
+            }
+
+            .npc-defence-list {
+                display: grid;
+                grid: "ac current max" 38px / 73px 73px 73px;
+                margin: unset;
+                padding: unset;
+                background: var(--secondary-background);
+
+                .ac-value {
+                    height: 16px;
+                    font-size: 12px;
+                    width: 46px;
+                }
+
+                .ac-item {
+                    height: 13px;
+                    font-size: 11px;
+                    width: 46px;
+                }
+            }
+
+            .ac-grid {
+                display: grid;
+                grid: "item item item" 32px / 33% 33% 33%;
+                margin: unset;
+                margin-top: 1px;
+                padding: unset;
+                background: var(--secondary-background);
+                height: 32px;
+            }
+
+            .ac-list {
+                .ac-value {
+                    height: 16px;
+                    font-size: 12px;
+                    width: 46px;
+                }
+
+                .ac-item {
+                    height: 13px;
+                    font-size: 11px;
+                    width: 46px;
+                }
+            }
+
+            .armor-class {
+                grid-row-start: 1;
+                grid-row-end: 3;
+                grid-column-start: 1;
+                grid-column-end: 2;
+                align-self: center;
+                background: #fff;
+                height: 64px;
+                width: 64px;
+                border: 1px solid;
+                border-radius: 33px;
+                font-size: 42px;
+                text-align: center;
+            }
+
+            .shield-value {
+                grid-row-start: 1;
+                grid-row-end: 3;
+                grid-column-start: 1;
+                grid-column-end: 2;
+                align-self: end;
+                justify-self: end;
+                height: 26px;
+                width: 26px;
+                background: #fff;
+                border: 1px solid;
+                font-size: 22px;
+                text-align: center;
+                border-radius: 14px;
+                margin-right: 2px;
+                margin-bottom: 2px;
+            }
+
+            .hp-list {
+                display: grid;
+                grid: "li" 50px / auto;
+                grid-auto-rows: 40px;
+                margin: unset;
+                margin-top: 4px;
+                padding: unset;
+            }
+
+            .hp-list-small {
+                display: grid;
+                grid: "li" 34px / auto;
+                margin: unset;
+                margin-top: 4px;
+                padding: unset;
+            }
+
+            .li-two-grid {
+                display: grid;
+                grid: "temp current max" 50px / 50% 50%;
+                margin: unset;
+                align-self: center;
+
+                /* margin-top: 1px;
+                 */
+                padding: unset;
+                background: var(--secondary-background);
+            }
+
+            .li-two-grid-small {
+                display: grid;
+                grid: "temp current max" 32px / 50% 50%;
+                margin: unset;
+                align-self: center;
+
+                /* margin-top: 1px;
+                 */
+                padding: unset;
+                background: var(--secondary-background);
+            }
+
+            .li-three-grid {
+                display: grid;
+                grid: "temp current max" 50px / 33% 33% 33%;
+                margin: unset;
+                align-self: center;
+
+                /* margin-top: 1px;
+                 */
+                padding: unset;
+                background: var(--secondary-background);
+            }
+
+            .li-four-grid {
+                display: grid;
+                grid: "one two three four" 32px / 25% 25% 25% 25%;
+                margin: unset;
+                align-self: center;
+
+                /* margin-top: 1px;
+                 */
+                padding: unset;
+                background: var(--secondary-background);
+            }
+
+            .hp-list {
+                .hp-current, .hp-max, .hp-temp {
+                    width: 64px;
+                }
+
+                .hp-conditions {
+                    grid-area: condition;
+                    width: 143px;
+                }
+            }
+        }
+
+        .bio-container {
+            display: grid;
+            grid: "image bio" 220px / 220px auto;
+            margin: unset;
+            padding: unset;
+        }
+
+        .biography {
+            .sheet-profile {
+                grid-area: image;
+            }
+
+            .bio-list {
+                grid-area: bio;
+                display: grid;
+                grid: "bio" 40px / auto auto;
+                grid-auto-rows: 40px;
+                margin: unset;
+                padding: unset;
+                background: var(--secondary-background);
+            }
+
+            .bio-3way {
+                display: grid;
+                grid: "bio" 40px / 33% 33% 33%;
+                grid-auto-rows: 40px;
+                margin: unset;
+                padding: unset;
+                background: var(--secondary-background);
+            }
+        }
+
+        .abilities .bio-list {
+            grid-area: bio;
+            display: grid;
+            grid: "bio" 40px / 102px auto;
+            grid-auto-rows: 40px;
+            margin: unset;
+            padding: unset;
+            height: 32px;
+            background: var(--secondary-background);
+            margin-top: 3px;
+            margin-bottom: 8px;
+
+            .npc-bio-item {
+                width: 100px;
+            }
+        }
+
+        .biography {
+            .bio-3way > * {
+                width: 125px;
+            }
+
+            .bio-list {
+                > * {
+                    width: 94px;
+                }
+
+                .bio-appearance, .bio-attitude {
+                    grid-column-start: 1;
+                    grid-column-end: 3;
+                    width: 170px;
+                }
+
+                .bio-appearance > input, .bio-attitude > input {
+                    text-align: start;
+                    word-break: break-all;
+                }
+            }
+
+            .editor {
+                grid-row-start: 2;
+                grid-row-end: 3;
+                grid-column-start: 1;
+                grid-column-end: 3;
+                height: 230px;
+                padding-left: 8px;
+            }
+        }
+
+        .abilities .npc-defense, .npc-defense {
+            grid-row-start: auto;
+            align-self: center;
+            display: grid;
+            grid: "score name" 32px / 40px auto;
+            background: var(--secondary-background);
+            margin-right: 4px;
+        }
+
+        .abilities .npc-defense .attribute-name {
+            grid-area: auto;
+            margin: 0;
+            background: var(--secondary-background);
+            color: white;
+            align-self: center;
+            font-size: 15px;
+        }
+
+        .npc-defense {
+            .attribute-name, .spelldc-name {
+                grid-area: auto;
+                margin: 0;
+                background: var(--secondary-background);
+                color: white;
+                align-self: center;
+                font-size: 15px;
+            }
+        }
+
+        .abilities .npc-defense {
+            .save-name {
+                grid-area: auto;
+                margin: 0;
+                background: var(--secondary-background);
+                color: white;
+                align-self: center;
+                font-size: 15px;
+            }
+
+            .defense-score {
+                grid-area: auto;
+                font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                font-size: 28px;
+                text-align: center;
+                background: var(--secondary-background);
+                color: white;
+            }
+        }
+
+        .npc-defense .defense-score {
+            grid-area: auto;
+            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-size: 28px;
+            text-align: center;
+            background: var(--secondary-background);
+            color: white;
+        }
+
+        .abilities .npc-defense .defense-score > input, .npc-defense .defense-score > input {
+            width: 30px;
+            height: 30px;
+            margin: 3px;
+            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-size: 28px;
+            text-align: center;
+            background: #fff;
+            border: 1px solid;
+        }
+
+        .list-row .skill-input > input {
+            width: 22px;
+            height: 22px;
+            margin: 1px;
+            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-size: 20px;
+            text-align: center;
+            background: #fff;
+            border: 1px solid;
+        }
+
+        .abilities {
+            .defense {
+                grid-row-start: auto;
+                align-self: center;
+                display: grid;
+                grid: "score name rank item" 32px / 34px auto 52px 52px;
+                background: var(--secondary-background);
+                margin-right: 4px;
+
+                .save-name, .attribute-name, .attribute-name-non-rollable {
+                    grid-area: auto;
+                    margin: 0;
+                    background: var(--secondary-background);
+                    color: white;
+                    align-self: center;
+                    font-size: 15px;
+                }
+            }
+
+            .defense-container {
+                background: var(--secondary-background);
+                width: 48px;
+                margin-top: 2px;
+            }
+
+            .defense {
+                .defense-score {
+                    grid-area: auto;
+                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-size: 28px;
+                    text-align: center;
+                    background: var(--secondary-background);
+                    color: white;
+
+                    > input {
+                        width: 30px;
+                        height: 30px;
+                        margin: 3px;
+                        font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                        font-size: 28px;
+                        text-align: center;
+                        background: #fff;
+                        border: 1px solid;
+                    }
+                }
+
+                .proficiency-name {
+                    grid-area: auto;
+                    font-size: 11px;
+                    height: 13px;
+                }
+
+                .proficiency-rank {
+                    letter-spacing: -3px;
+                    grid-area: auto;
+                    height: 16px;
+                    font-size: 12px;
+                }
+
+                .defense-item {
+                    grid-area: auto;
+                    font-size: 11px;
+                    height: 13px;
+                }
+            }
+
+            .defense-item {
+                grid-area: auto;
+                font-size: 11px;
+                height: 13px;
+            }
+
+            .defense .defense-item-value, .defense-item-value {
+                grid-area: auto;
+                height: 16px;
+                font-size: 12px;
+            }
+        }
+
+        .npc-abilities .ability-title, .abilities .ability-title {
+            flex: 0 0 24px;
+            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-size: 24px;
+            line-height: 24px;
+            color: #fff;
+            background: var(--primary-background);
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .npc-abilities {
+            .abilities-list {
+                display: grid;
+                grid: 38px 38px / 33.3% 33.3% 33.3%;
+                grid-auto-rows: 54px;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .ability {
+                grid-row-start: auto;
+                display: grid;
+                grid: [row1-start] "id" 26px [row1-end] [row2-start] "mod" 26px (([row2-end]) / 100%);
+                height: 26px;
+                line-height: 26px;
+
+                .ability-score {
+                    grid-area: score;
+                    align-self: center;
+                    justify-self: right;
+                    flex: 0 0 26px;
+                    height: 26px;
+                }
+
+                .ability-mod {
+                    flex: 0 0 24px;
+                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    font-size: 24px;
+                    line-height: 26px;
+                    color: #666;
+                    text-align: center;
+
+                    .ability-input {
+                        width: 30px;
+                        height: 30px;
+                        margin: 3px;
+                        font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                        font-size: 28px;
+                        text-align: center;
+                        background: #fff;
+                        border: 1px solid;
+                        border-radius: 4px;
+                        margin-left: 18px;
+                    }
+                }
+
+                .ability-name {
+                    margin: 2px;
+                }
+            }
+        }
+
+        .abilities {
+            .abilities-list {
+                display: grid;
+                grid: "ability ability" 50px / 50%;
+                grid-auto-rows: 50px;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .ability {
+                grid-row-start: auto;
+                display: grid;
+                grid: [row1-start] "header header header header" 16px [row1-end] [row2-start] "id mod score blank" 26px (([row2-end]) / 46%) 31% 18% 5%;
+                height: 36px;
+                line-height: 36px;
+            }
+        }
+
+        .npc-abilities .ability > *, .abilities .ability > * {
+            flex: 1;
+            align-self: center;
+        }
+
+        .npc-abilities .ability .ability-proficiency, .abilities .ability .ability-proficiency {
+            flex: 0 0 20px;
+            height: 100%;
+            text-align: left;
+            padding-left: 3px;
+        }
+
+        .npc-abilities .ability .ability-proficiency i.fa-circle, .abilities .ability .ability-proficiency i.fa-circle {
+            font-size: 10px;
+        }
+
+        .npc-abilities .ability .ability-name {
+            grid-area: header;
+            font-size: 12px;
+            color: #444;
+            margin: 0;
+        }
+
+        .abilities .ability {
+            .ability-name {
+                grid-area: header;
+                font-size: 12px;
+                color: #444;
+                margin: 0;
+            }
+
+            .ability-score {
+                grid-area: score;
+                align-self: center;
+                justify-self: right;
+                flex: 0 0 36px;
+                height: 36px;
+            }
+        }
+
+        .npc-abilities .ability .ability-score > input {
+            width: 20px;
+            height: 20px;
+            margin: 3px;
+            font-size: 12px;
+            color: #444;
+            text-align: center;
+            background: #fff;
+            border: 1px solid;
+        }
+
+        .abilities .ability {
+            .ability-score > input {
+                width: 20px;
+                height: 20px;
+                margin: 3px;
+                font-size: 12px;
+                color: #444;
+                text-align: center;
+                background: #fff;
+                border: 1px solid;
+            }
+
+            .ability-mod {
+                flex: 0 0 24px;
+                font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                font-size: 24px;
+                line-height: 36px;
+                color: #666;
+                text-align: center;
+            }
+        }
+
+        .npc-abilities .npc-defense .ability-name, .abilities .ability .ability-id {
+            flex: 0 0 24px;
+            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-size: 32px;
+            background: var(--secondary-background);
+            border-radius: 8px;
+            line-height: 28px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .npc-abilities .ability .ability-mod, .abilities .ability .ability-mod {
+            grid-area: mod;
+            align-self: center;
+        }
+
+        .npc-abilities .ability .ability-name, .abilities .ability .ability-id {
+            grid-area: id;
+            align-self: center;
+        }
+
+        .class-levels {
+            margin: 0 5px 0 0;
+            height: 156px;
+            overflow: hidden;
+
+            .class-header {
+                line-height: 20px;
+                position: relative;
+                margin: 3px 0 1px;
+
+                h3 {
+                    text-align: center;
+                    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                    color: #444;
+                    font-size: 18px;
+                    color: #222;
+                    margin: 0;
+                }
+
+                a.item-create {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    font-size: 11px;
+                    color: #666;
+                }
+            }
+
+            .class-list {
+                overflow-y: hidden;
+
+                .list-row {
+                    height: 44px;
+                    background: rgba(0, 0, 0, 0.03);
+                    padding: 2px;
+                    border: 1px solid var(--secondary-background);
+                    border-radius: 2px;
+                    margin-bottom: 2px;
+
+                    h4, h5 {
+                        width: calc(100% - 44px);
+                        float: left;
+                        margin: 0;
+                        line-height: 20px;
+                        font-weight: strong;
+                    }
+
+                    .item-header {
+                        flex: 0 0 100%;
+                        height: 20px;
+
+                        .class-levels {
+                            width: 44px;
+                            height: 100%;
+                            float: right;
+                            margin: 0;
+                            font-size: 10px;
+                            text-align: right;
+                            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                            font-size: 18px;
+                            color: #444;
+                            color: #222;
+                        }
+                    }
+
+                    .class-subclass {
+                        flex: 0 0 100%;
+                        height: 20px;
+
+                        .item-controls {
+                            width: 44px;
+                            float: right;
+
+                            a {
+                                text-align: right;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .skills .skills-list {
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid: "skill skill" 36px / 50% 50%;
+            grid-auto-rows: 36px;
+        }
+
+        .spellbook {
+            .skills-list {
+                margin: 0;
+                padding: 0;
+                display: grid;
+                grid: "skill skill" 36px / 50% 50%;
+                grid-auto-rows: 36px;
+            }
+
+            .skill-grid {
+                grid-area: auto;
+                display: grid;
+                grid: "value name rank item" 100% / 35px auto 46px 46px;
+            }
+        }
+
+        .pf-three-grid {
+            grid-area: auto;
+            display: grid;
+            grid: "one two three" 100% / auto 90px 20px;
+        }
+
+        .pf-two-grid {
+            grid-area: auto;
+            display: grid;
+            grid: "one two" 100% / auto 90px;
+        }
+
+        .pf-justify-center {
+            justify-self: center;
+        }
+
+        .skills {
+            .lores-list {
+                margin: 0;
+                padding: 0;
+            }
+
+            .martial {
+                grid-area: auto;
+                display: grid;
+                grid: "name rank space" 100% / auto 46px 20px;
+            }
+
+            .skill {
+                grid-area: auto;
+                display: grid;
+                grid: "value name rank item armor" 100% / 35px auto 46px 46px 20px;
+            }
+        }
+
+        .actions-list .lores-list .list-row, .lores-list .list-row {
+            grid-area: auto;
+            display: grid;
+            grid: "value name rank item armor" 36px / 32px auto 46px 46px 20px;
+        }
+
+        .skill-container .item-item {
+            height: 16px;
+            margin-top: 2px;
+            font-size: 12px;
+        }
+
+        .skills .skill-container, .spellbook .skill-container {
+            display: grid;
+            grid: "title" 12px "value" 18px / auto;
+            background: var(--secondary-background);
+            height: 32px;
+            align-self: center;
+        }
+
+        .skills .skill-container .skill-proficiency, .spellbook .skill-container .skill-proficiency {
+            font-size: 12px;
+        }
+
+        .skills .skill-container > *, .spellbook .skill-container > * {
+            width: 43px;
+        }
+
+        .skills {
+            .skill > *, .list-row > * {
+                flex: 1;
+            }
+        }
+
+        .spellbook .skill-grid > * {
+            flex: 1;
+        }
+
+        .skills .skill-name {
+            margin: 0;
+            align-self: center;
+            background: var(--secondary-background);
+            line-height: 32px;
+            color: white;
+        }
+
+        .spellbook .skill-name {
+            margin: 0;
+            text-align: center;
+            align-self: center;
+            background: var(--secondary-background);
+            line-height: 32px;
+            color: white;
+        }
+
+        .skills {
+            .lore-name, .lore-name-input {
+                margin: 0;
+                align-self: center;
+                background: var(--secondary-background);
+                line-height: 32px;
+                color: white;
+            }
+
+            .skill-proficiency {
+                margin-top: 2px;
+            }
+        }
+
+        .spellbook .skill-proficiency {
+            margin-top: 2px;
+        }
+
+        .skills .skill-item, .spellbook .skill-item {
+            margin-top: 2px;
+            font-size: 11px;
+        }
+
+        .skills {
+            .skill-ability {
+                flex: 0 0 36px;
+                color: #666;
+                text-align: right;
+                margin-right: 4px;
+                flex: 0 0 36px;
+                color: #666;
+                text-align: right;
+                margin-right: 4px;
+            }
+
+            .skill-armor {
+                align-self: center;
+                background: var(--secondary-background);
+                line-height: 32px;
+                color: white;
+                width: 16px;
+                margin: unset;
+            }
+
+            .skill-score {
+                font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                font-size: 28px;
+                text-align: center;
+                align-self: center;
+                background: var(--secondary-background);
+                color: white;
+            }
+        }
+
+        .spellbook .skill-score {
+            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            font-size: 28px;
+            text-align: center;
+            align-self: center;
+            background: var(--secondary-background);
+            color: white;
+        }
+
+        &.locked {
+            .ability-proficiency, .skill-proficiency {
+                text-shadow: none;
+                cursor: default;
+            }
+        }
+
+        .traits {
+            label {
+                font-weight: bold;
+            }
+
+            select {
+                margin: 2px 0;
+            }
+
+            .trait-perception > input {
+                flex: 0 0 32px;
+                text-align: center;
+            }
+
+            .trait-selector {
+                float: right;
+                margin-right: 3px;
+                color: #999;
+                font-size: 10px;
+                line-height: 16px;
+            }
+
+            .traits-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        .traits-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .traits .configure-flags i.fas {
+            float: right;
+            margin-right: 3px;
+            text-align: right;
+            color: #999;
+            line-height: 24px;
+
+            &:hover {
+                color: #111;
+                text-shadow: 0 0 10px #ff6400;
+            }
+        }
+
+        &.npc-sheet .biography .editor {
+            height: 465px;
+        }
+
+        .currency {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid var(--secondary-background);
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            height: 24px;
+            font-size: 12px;
+            line-height: 20px;
+
+            > {
+                * {
+                    flex: 0;
+                }
+
+                .denomination {
+                    flex: 1;
+                }
+            }
+
+            li.denomination {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                padding: 3px 3px 0;
+                justify-content: flex-end;
+                border-right: 1px solid var(--secondary-background);
+
+                > * {
+                    flex: 1;
+                }
+
+                label {
+                    flex: none;
+                    margin-right: 3px;
+                }
+
+                span {
+                    text-align: right;
+                    max-width: 48px;
+                }
+
+                &:last-child {
+                    border-right: none;
+                }
+            }
+        }
+
+        .inventory-header {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            .list-row {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                line-height: 24px;
+                padding: 0;
+                border-bottom: 1px solid var(--secondary-background);
+
+                > * {
+                    flex: 1;
+                }
+
+                .item-name, .melee-name, .npc-skill-name {
+                    /* display: flex;
+                     */
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: flex-start;
+                    cursor: pointer;
+                }
+
+                .item-name > *, .melee-name > *, .npc-skill-name > * {
+                    flex: 1;
+                }
+
+                .item-name h4, .melee-name h4, .npc-skill-name h4 {
+                    flex: 2;
+                    margin: 0;
+                }
+
+                .item-controls {
+                    flex: 0 0 44px;
+                }
+            }
+        }
+
+        .action-header .item-controls {
+            flex: 0 0 44px;
+        }
+
+        .inventory-header .list-row .item-controls a, .action-header .item-controls a {
+            display: block;
+            float: left;
+            width: 44px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .inventory-header .action-header h3 {
+            font-size: 24px;
+            margin: 0;
+            padding-left: 32px;
+            text-align: center;
+        }
+
+        .inventory-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-y: auto;
+            margin-bottom: 2px;
+        }
+
+        .spellcastingEntry-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            height: calc(100% - 20px);
+            overflow-y: auto;
+        }
+
+        .singleColumn-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto;
+        }
+
+        .overflow-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .inventory-list .list-row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            flex-flow: wrap row;
+            justify-content: flex-start;
+            line-height: 1.8em;
+            padding: 0;
+            border-bottom: 1px solid var(--secondary-background);
+
+            > * {
+                flex: 1;
+            }
+
+            .item-name, .melee-name {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                cursor: pointer;
+                padding: 1px 0;
+                &:first-child {
+                    padding-left: 4px;
+                    &.long {
+                        min-width: 230px;
+                    }
+                }
+            }
+
+            .feat-name {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                cursor: pointer;
+            }
+
+            .item-name .item-image, .melee-name .item-image {
+                flex: 0 0 24px;
+                margin-right: 4px;
+                background-size: 24px;
+                background-repeat: no-repeat;
+            }
+
+            .item-name h4, .melee-name h4 {
+                flex: 2;
+                margin: 0;
+            }
+
+            .item-name {
+                .prepared {
+                    color: #666;
+                    margin-left: 3px;
+                    font-size: 10px;
+                }
+
+                .item-charges {
+                    color: #666;
+                    font-size: 12px;
+                    flex: 0;
+                }
+
+                &:hover .item-image {
+                    background-image: url("/icons/svg/d20-grey.svg") !important;
+                }
+
+                .item-image:hover {
+                    background-image: url("/icons/svg/d20-black.svg") !important;
+                }
+            }
+
+            .item-sell-value, .item-quantity {
+                flex: 0 0 64px;
+                font-size: 12px;
+                color: #666;
+                text-align: center;
+                border-right: 1px solid var(--secondary-background);
+            }
+
+            .item-weight {
+                flex: 0 0 64px;
+                font-size: 12px;
+                color: #666;
+                text-align: center;
+                border-right: 1px solid var(--secondary-background);
+                flex: 0 0 42px;
+            }
+        }
+    }
 }
-.pf2e.sheet .sheet-header > * {
-  flex: 1;
-}
-.pf2e.sheet .sheet-header h1 {
-  margin: 0;
-  border: none;
-}
-.pf2e.sheet .sheet-header h1 > input {
-  height: 44px;
-  width: 100%;
-  margin: 2px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 18px;
-  color: #444;
-  font-size: 36px;
-  border: none;
-}
-.pf2e.sheet .sheet-body {
-  height: calc(100% - 48px);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-}
+
 /* ----------------------------------------- */
-/*  Generic Sheet Styling
+/* Generic Sheet Styling
 /* ----------------------------------------- */
-.pf2e.sheet form {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  /* Form Elements */
-  /* Select Fields */
-  /* Sheet Tabs */
-  /* Tags */
-}
-.pf2e.sheet form input[type="text"] {
-  width: calc(100% - 2px);
-  height: calc(100% - 2px);
-  background: none;
-  padding: 0;
-  margin: 1px 0;
-  color: #444;
-  border: 1px solid transparent;
-}
-.pf2e.sheet form input[type="text"]:hover,
-.pf2e.sheet form input[type="text"]:focus {
-  border: 1px solid #111;
-  /* box-shadow: 0 0 8px red; */
-  box-shadow: 0 0 10px rgb(0, 0, 90);
-}
-.pf2e.sheet form select {
-  font-size: 10px;
-  height: 18px;
-  background: rgba(255, 255, 255, 0.5);
-}
-.pf2e.sheet form input:disabled,
-.pf2e.sheet form select:disabled,
-.pf2e.sheet form textarea:disabled {
-  color: #444;
-  border: none;
-}
-.pf2e.sheet form input:disabled:hover,
-.pf2e.sheet form select:disabled:hover,
-.pf2e.sheet form textarea:disabled:hover,
-.pf2e.sheet form input:disabled:focus,
-.pf2e.sheet form select:disabled:focus,
-.pf2e.sheet form textarea:disabled:focus {
-  border: none;
-  box-shadow: none;
-}
-.pf2e.sheet form span,
-.pf2e.sheet form label {
-  display: block;
-}
-.pf2e.sheet form .mce-panel span {
-  display: inherit;
-}
-.pf2e.sheet form.editable .rollable:hover {
-  color: #000;
-  text-shadow: 0 0 10px rgb(0, 0, 90);
-  /* text-shadow: 0 0 10px red; */
-  cursor: pointer;
-}
-.pf2e.sheet form .sheet-tabs {
-  height: 30px;
-}
-.pf2e.sheet form .sheet-tabs > .item {
-  line-height: 24px;
-  padding: 4px 8px 0;
-}
-.pf2e.sheet form .sheet-tabs > .item.active {
-  color: #000;
-  font-weight: 700;
-}
-.pf2e.sheet form .tab {
-  flex: 1;
-  overflow: hidden;
-}
-.pf2e.sheet form .tag {
-  float: left;
-  margin: 0 2px 2px 0;
-  padding: 0 3px;
-  font-size: 10px;
-  line-height: 16px;
-  border: 1px solid #999;
-  border-radius: 3px;
-  background: rgba(0, 0, 0, 0.05);
-}
+
 /* ---------------------------------------- */
-/*  Actor Sheet
+/* Actor Sheet
 /* ---------------------------------------- */
-.pf2e.actor {
-  min-width: 650px;
-  min-height: 450px;
-  /* NPC Sheet Adjustments */
-  /* ---------------------------------------- */
-  /*  Navigation Tabs
-  /* ---------------------------------------- */
-  /* ---------------------------------------- */
-  /*  Header Content
-  /* ---------------------------------------- */
-  /* ---------------------------------------- */
-  /*  Showcase Content
-  /* ---------------------------------------- */
-  /* Character Details */
-  /* Primary Attributes */
-  /* Status Effects */
-  /* ---------------------------------------- */
-  /*  Sidebar Content
-  /* ---------------------------------------- */
-  /* ---------------------------------------- */
-  /*  Abilities Tab
-  /* ---------------------------------------- */
-  /* ----------------------------------------- */
-  /* Class List
-  /* ----------------------------------------- */
-  /* ---------------------------------------- */
-  /*  Skills Tab
-  /* ---------------------------------------- */
-  /* ----------------------------------------- */
-  /* Traits Tab
-  /* ----------------------------------------- */
-  /* ----------------------------------------- */
-  /*  Main Content Tabs
-  /* ----------------------------------------- */
-  /* Biography */
-  /* ----------------------------------------- */
-  /* Inventory Tab
-  /* ----------------------------------------- */
-  /* Inventory List */
-  /* Encumbrance Bar */
-  /* ----------------------------------------- */
-  /*  Spellbook Tab
-  /* ----------------------------------------- */
-  /* ----------------------------------------- */
-  /*  Feats Tab
-  /* ----------------------------------------- */
-  /* ----------------------------------------- */
-  /* Rest Buttons
-  /* ----------------------------------------- */
-}
-.pf2e.actor .sidebar {
-  float: left;
-  width: 220px;
-}
-.pf2e.actor .content {
-  float: right;
-  width: calc(100% - 220px);
-}
-.pf2e.actor .floatright {
-  float: right;
-  /* width: calc(100% - 220px); */
-}
-.pf2e.actor .sheet-upper {
-/*   width: 100%; */
-  height: 268px;
-}
-.pf2e.actor .sheet-upper .sheet-header {
-  height: 48px;
-}
-.pf2e.actor .sheet-upper .sheet-profile {
-  height: 220px;
-}
-.pf2e.actor .sheet-upper .sheet-showcase {
-  height: 220px;
-}
-.pf2e.actor .sheet-navigation {
-  height: 32px;
-  /* width: 100%; */
-  float: right;
-  width: calc(100% - 220px);
-}
-.pf2e.actor .sheet-lower {
-  width: 100%;
 
-  height: calc(100% - 48px);
-}
-.pf2e.actor .sheet-lower .sheet-content {
-  height: calc(100% - 32px);
-}
-.pf2e.actor .sheet-sidebar {
-  height: calc(100% - 48px);
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-.pf2e.actor .sheet-sidebar > * {
-  flex: 1;
-}
-.pf2e.actor.npc-sheet .sheet-upper {
-  height: 220px;
-}
-.pf2e.actor.npc-sheet .sheet-upper .sheet-showcase {
-  height: calc(220px - 48px);
-}
-.pf2e.actor.npc-sheet .sheet-lower {
-  height: calc(100% - 220px - 32px);
-}
-.pf2e.actor .sheet-navigation {
-  border-top: 1px solid var(--secondary-background);
-  border-bottom: 1px solid var(--primary-background);
-}
-.pf2e.actor .sheet-navigation .sheet-tabs > .item {
-  border-radius: 5px 5px 0 0;
-}
-.pf2e.actor .sheet-navigation .sheet-tabs > .item.active {
-  border: 1px solid #666;
-  border-bottom: none;
-  /* box-shadow: 0 0 10px inset #ff6400; */
-  background: var(--primary-background);
-  color: #fff;
-  text-shadow: none;
-}
-.pf2e.actor .sheet-header {
-  border-bottom: 1px solid var(--primary-background);
-}
-.pf2e.actor .sheet-header h1 {
-  margin: 0;
-  border: none;
-}
-.pf2e.actor .sheet-header h1.charname {
-  flex: 2;
-}
-.pf2e.actor .sheet-header .editsheet {
-  flex: 3;
-  font-size: 10px;
-  text-align: center;
-  margin-top: 3px;
-}
-.pf2e.actor .sheet-header h1 > input {
-  height: 40px;
-  width: 100%;
-  margin: 2px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 18px;
-  color: #444;
-  font-size: 36px;
-}
-.pf2e.actor .sheet-header .charlevel {
-  flex: 0 0 150px;
-  height: 44px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: flex-end;
-  text-align: right;
-}
-.pf2e.actor .sheet-header .charlevel > * {
-  flex: 1;
-}
-.pf2e.actor .sheet-header .charlevel .level {
-  flex: 0 0 20px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 18px;
-  color: #444;
-  font-size: 20px;
-  line-height: 20px;
-}
-.pf2e.actor .sheet-header .charlevel .level > * {
-  flex: 1;
-}
-.pf2e.actor .sheet-header .charlevel .level > input[type="text"] {
-  flex: 0 0 26px;
-  height: 20px;
-  text-align: center;
-}
-.pf2e.actor .sheet-header .charlevel .xpbar {
-  width: 100%;
-  flex: 0 0 8px;
-  background: #666;
-  border: 1px solid #000;
-  border-radius: 3px;
-}
-.pf2e.actor .sheet-header .charlevel .xpbar .bar {
-  height: 4px;
-  margin: 1px;
-  display: block;
-  background: #afebff;
-  border: 1px solid #000;
-  border-radius: 2px;
-}
-.pf2e.actor .sheet-header .charlevel .experience {
-  flex: 0 0 16px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  justify-content: flex-end;
-}
-.pf2e.actor .sheet-header .charlevel .experience > * {
-  flex: 1;
-}
-.pf2e.actor .sheet-header .charlevel .experience > input[type="text"] {
-  flex: 1;
-  text-align: right;
-  height: 16px;
-}
-.pf2e.actor .details {
-  height: 30px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border-bottom: 1px solid var(--secondary-background);
-}
-.pf2e.actor .details .character-detail {
-  width: 33.33%;
-  height: 30px;
-  float: left;
-  padding: 3px;
-  border-right: 1px solid var(--secondary-background);
-}
-.pf2e.actor .details .character-detail:last-child {
-  border-right: none;
-}
-.pf2e.actor .details .character-detail > input {
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 18px;
-  color: #444;
-  font-size: 20px;
-}
-.pf2e.actor .primary-attributes {
-  height: 80px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  border-bottom: 1px solid var(--secondary-background);
-}
-.pf2e.actor .primary-attributes > * {
-  flex: 1;
-}
-.pf2e.actor .primary-attributes .attribute {
-  flex: 0 0 25%;
-  height: 79px;
-  padding: 4px;
-  border-right: 1px solid var(--secondary-background);
-}
-.pf2e.actor .primary-attributes .attribute:last-child {
-  margin-right: 0;
-  border-right: none;
-}
-.pf2e.actor .primary-attributes .attribute .attribute-name {
-  position: relative;
-  height: 22px;
-  margin: 0 0 2px;
-  line-height: 22px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 18px;
-  color: #444;
-  text-align: center;
-  border-bottom: 1px solid var(--secondary-background);
-}
-.pf2e.actor .primary-attributes .attribute .attribute-name .npc-roll-hp {
-  position: absolute;
-  right: 2px;
-}
-.pf2e.actor .primary-attributes .attribute .attribute-value {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  height: 32px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 18px;
-  color: #444;
-  font-size: 20px;
-  line-height: 32px;
-  text-align: center;
-}
-.pf2e.actor .primary-attributes .attribute .attribute-value > * {
-  flex: 1;
-}
-.pf2e.actor .primary-attributes .attribute .attribute-footer {
-  height: 16px;
-  text-align: center;
-}
-.pf2e.actor .primary-attributes .attribute .attribute-footer span {
-  display: inline-block;
-}
-.pf2e.actor .primary-attributes .attribute .attribute-footer input {
-  max-width: 24px;
-}
-.pf2e.actor .primary-attributes .attribute .attribute-footer input.temphp {
-  max-width: 45%;
-}
-.pf2e.actor .primary-attributes .attribute .attribute-footer input.hit-dice {
-  min-width: 16px;
-  max-width: 16px;
-  text-align: right;
-}
-.pf2e.actor .primary-attributes .attribute .attribute-footer input[name="data.attributes.speed.value"] {
-  max-width: none;
-  text-align: left;
-}
-.pf2e.actor .primary-attributes .attribute .attribute-footer input.speed,
-.pf2e.actor .primary-attributes .attribute .attribute-footer input.hpformula {
-  max-width: 90%;
-}
-.pf2e.actor .primary-attributes .attribute .attribute-footer a.rest {
-  padding: 0 2px;
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid var(--secondary-background);
-  border-radius: 2px;
-}
-.pf2e.actor .primary-attributes .attribute .attribute-footer.recharge input[type="checkbox"] {
-  margin: 1px;
-}
-.pf2e.actor .statuses {
-  width: 100%;
-  height: 30px;
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-.pf2e.actor .statuses > * {
-  flex: 1;
-}
-.pf2e.actor .statuses .status {
-  line-height: 30px;
-  padding: 0 6px;
-  border-right: 1px solid var(--secondary-background);
-  font-size: 14px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-.pf2e.actor .statuses .status > * {
-  flex: 1;
-}
-.pf2e.actor .statuses .status.death {
-  flex: 0 0 50%;
-}
-.pf2e.actor .statuses .status:last-child {
-  border-right: none;
-}
-.pf2e.actor .statuses .status h4 {
-  flex: 1;
-  margin: 0;
-  font-size: 12px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 18px;
-  color: #444;
-}
-.pf2e.actor .statuses .status .status-value {
-  flex: none;
-}
-.pf2e.actor .statuses .status .status-value > * {
-  display: inline-block;
-  margin-right: 5px;
-}
-.pf2e.actor .statuses .status .status-value > input[type="text"] {
-  height: 20px;
-  max-width: 20px;
-  margin: 0;
-}
-.pf2e.actor .statuses .status .status-value > input[type="checkbox"] {
-  position: relative;
-  top: 2px;
-}
-.pf2e.actor img.sheet-profile {
-  /* border: none; */
-  border: 1px solid var(--secondary-background);
-  object-fit: contain;
-}
-.pf2e.actor .sheet-sidebar {
-  border-right: 1px solid var(--primary-background);
-}
-.pf2e.actor .sheet-sidebar .tab {
-  height: 100%;
-  padding-top: 2px;
-  overflow-y: auto;
-}
-.pf2e.actor .abilities .defense-list {
-  display: grid;
-  grid: "defense" 40px / auto;
-  grid-auto-rows: 40px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.pf2e.actor .npc-defense-list {
-  display: grid;
-  grid: "defense" 40px / auto;
-  grid-auto-rows: 40px;
-  list-style: none;
-  margin: 0;
-  margin-left: 5px;
-  padding: 0;
-}
-.pf2e.actor .pf-heading {
-  /* flex: 0 0 24px; */
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 24px;
-  line-height: 24px;
-  color: #fff;
-  background: var(--primary-background);
-  text-align: center;
-  margin: 0;
-  padding: 0;
-}
-.pf2e.actor .pf-sub-category {
-  /* flex: 0 0 24px; */
-  /* font-family: "Nodesto", "Signika", "Palatino Linotype", serif; */
-  font-weight: bold;
-  font-size: 1em;
-  line-height: 20px;
-  color: #fff;
-  background: var(--secondary-background);
-  text-align: center;
-  margin: 0;
-  padding: 0;
-}
-.pf2e.actor .pf-bluelist {
-  color: #fff;
-  background: var(--primary-background);
-}
-.pf2e.actor .pf-add-item-row {
-  font-weight: 700;
-  line-height: 20px;
-  text-align: center;
-  font-size: 10px;
-  background: var(--primary-background);
-}
-.pf2e.actor .pf-redbackground {
-  background: var(--secondary-background);
-  color: white;
-  height: 32px;
-  margin-top: 2px;
-}
-.pf2e.actor .pf-indent {
-  text-indent: 10px;
-}
-.pf2e.actor .pf-width-100 {
-  width: 100%;
-}
-.pf2e.actor .pf-title {
-  background: var(--tertiary-background);
-  height: 16px;
-  border: 1px solid var(--tertiary-background);
-  text-align: center;
-  align-self: start;
-  margin-bottom: -1px;
-  color: #fff;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-.pf2e.actor .pf-value {
-  background: #fff;
-  border: 1px solid var(--tertiary-background);
-  text-align: center;
-}
-.pf2e.actor .pf-rank {
-  letter-spacing: -3px;
-  font-size: 14px;
-  line-height: 16px;
-}
-.pf2e.actor .pf-container {
-  grid: "title" 15px "value" auto / auto;
-  margin-top: 2px;
-  justify-self: center;
-}
-.pf2e.actor .pf-small {
-  height: 20px;
-}
-.pf2e.actor .pf-large {
-  font-size: 26px;
-  height: 32px;
-}
-.pf2e.actor .abilities .ac-list {
-  display: grid;
-  grid: "score items" 38px "score items" 38px / 73px auto;
-  margin: unset;
-  padding: unset;
-  background: var(--secondary-background);
-}
-.pf2e.actor .abilities .npc-defence-list {
-  display: grid;
-  grid: "ac current max" 38px / 73px 73px 73px;
-  margin: unset;
-  padding: unset;
-  background: var(--secondary-background);
-}
-.pf2e.actor .abilities .npc-defence-list .ac-value {
-  height: 16px;
-  font-size: 12px;
-  width: 46px;
-}
-.pf2e.actor .abilities .npc-defence-list .ac-item {
-  height: 13px;
-  font-size: 11px;
-  width: 46px;
-}
-.pf2e.actor .abilities .ac-grid {
-  display: grid;
-  grid: "item item item" 32px / 33% 33% 33%;
-  margin: unset;
-  margin-top: 1px;
-  padding: unset;
-  background: var(--secondary-background);
-  height: 32px;
-}
-/* .pf2e.actor .abilities .ac-list > * {
-  width: 60px;
-} */
-.pf2e.actor .abilities .ac-list .ac-value {
-  height: 16px;
-  font-size: 12px;
-  width: 46px;
-}
-.pf2e.actor .abilities .ac-list .ac-item {
-  height: 13px;
-  font-size: 11px;
-  width: 46px;
-}
-/* .pf2e.actor .abilities .ac-list .ac-armor-type {
-  grid-area: armor;
-  width: 133px;
-} */
-.pf2e.actor .abilities .armor-class {
-  grid-row-start: 1;
-  grid-row-end: 3;
-  grid-column-start: 1;
-  grid-column-end: 2;
-  align-self: center;
-  background: #fff;
-  height: 64px;
-  width: 64px;
-  border: 1px solid;
-  border-radius: 33px;
-  font-size: 42px;
-  text-align: center;
-}
-.pf2e.actor .abilities .shield-value {
-  grid-row-start: 1;
-  grid-row-end: 3;
-  grid-column-start: 1;
-  grid-column-end: 2;
-  align-self: end;
-  justify-self: end;
-  height: 26px;
-  width: 26px;
-  background: #fff;
-  border: 1px solid;
-  font-size: 22px;
-  text-align: center;
-  border-radius: 14px;
-  margin-right: 2px;
-  margin-bottom: 2px;
-}
-.pf2e.actor .abilities .hp-list {
-  display: grid;
-  grid: "li" 50px / auto;
-  grid-auto-rows: 40px;
-  margin: unset;
-  margin-top: 4px;
-  padding: unset;
-  /* background: var(--secondary-background); */
-}
-.pf2e.actor .abilities .hp-list-small {
-  display: grid;
-  grid: "li" 34px / auto;
-  /* grid-auto-rows: 40px; */
-  margin: unset;
-  margin-top: 4px;
-  padding: unset;
-  /* background: var(--secondary-background); */
-}
-.pf2e.actor .abilities .li-two-grid {
-  display: grid;
-  grid: "temp current max" 50px / 50% 50%;
-  margin: unset;
-  align-self: center;
-  /* margin-top: 1px;  */
-  padding: unset;
-  background: var(--secondary-background);
-}
-.pf2e.actor .abilities .li-two-grid-small {
-  display: grid;
-  grid: "temp current max" 32px / 50% 50%;
-  margin: unset;
-  align-self: center;
-  /* margin-top: 1px;  */
-  padding: unset;
-  background: var(--secondary-background);
-}
-.pf2e.actor .abilities .li-three-grid {
-  display: grid;
-  grid: "temp current max" 50px / 33% 33% 33%;
-  margin: unset;
-  align-self: center;
-  /* margin-top: 1px;  */
-  padding: unset;
-  background: var(--secondary-background);
-}
-.pf2e.actor .abilities .li-four-grid {
-  display: grid;
-  grid: "one two three four" 32px / 25% 25% 25% 25%;
-  margin: unset;
-  align-self: center;
-  /* margin-top: 1px;  */
-  padding: unset;
-  background: var(--secondary-background);
-}
-/* .pf2e.actor .abilities .hp-list > * {
-  width: 46px;
-} */
-/* .pf2e.actor .abilities .hp-list .hp-temp {
-  grid-area: temp;
-}
-.pf2e.actor .abilities .hp-list .hp-dying {
-  grid-area: dying;
-}
-.pf2e.actor .abilities .hp-list .hp-wounds {
-  grid-area: wounds;
-}
-.pf2e.actor .abilities .hp-list .hp-current {
-  grid-area: current;
-}
-.pf2e.actor .abilities .hp-list .hp-max {
-  grid-area: max;
-} */
-.pf2e.actor .abilities .hp-list .hp-current,
-.pf2e.actor .abilities .hp-list .hp-max,
-.pf2e.actor .abilities .hp-list .hp-temp {
-  width: 64px;
-}
-.pf2e.actor .abilities .hp-list .hp-conditions {
-  grid-area: condition;
-  width: 143px;
-}
-.pf2e.actor .bio-container {
-  display: grid;
-  grid: "image bio" 220px / 220px auto;
-  margin: unset;
-  padding: unset;
-}
-.pf2e.actor .biography .sheet-profile {
-  grid-area: image;
-}
-.pf2e.actor .biography .bio-list {
-  grid-area: bio;
-  display: grid;
-  grid: "bio" 40px / auto auto;
-  grid-auto-rows: 40px;
-  margin: unset;
-  padding: unset;
-  background: var(--secondary-background);
-}
-.pf2e.actor .biography .bio-3way {
-  display: grid;
-  grid: "bio" 40px / 33% 33% 33%;
-  grid-auto-rows: 40px;
-  margin: unset;
-  padding: unset;
-  background: var(--secondary-background);
-}
-.pf2e.actor .abilities .bio-list {
-  grid-area: bio;
-  display: grid;
-  grid: "bio" 40px / 102px auto;
-  grid-auto-rows: 40px;
-  margin: unset;
-  padding: unset;
-  height: 32px;
-  background: var(--secondary-background);
-  margin-top: 3px;
-  margin-bottom: 8px;
-}
-.pf2e.actor .abilities .bio-list .npc-bio-item {
-  width: 100px;
-}
-.pf2e.actor .biography .bio-3way > * {
-  width: 125px;
-}
-.pf2e.actor .biography .bio-list > * {
-  width: 94px;
-}
-.pf2e.actor .biography .bio-list .bio-appearance,
-.pf2e.actor .biography .bio-list .bio-attitude {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  width: 170px;
-}
-
-.pf2e.actor .biography .bio-list .bio-appearance > input,
-.pf2e.actor .biography .bio-list .bio-attitude > input {
-  text-align: start;
-  word-break: break-all;
-}
-
-.pf2e.actor .biography .editor {
-  grid-row-start: 2;
-  grid-row-end: 3;
-  grid-column-start: 1;
-  grid-column-end: 3;
-  height: 230px;
-  padding-left: 8px;
-}
-/* .pf2e.actor .abilities .hp-current-value,
-.pf2e.actor .abilities .hp-max-value {
-  background: #fff;
-  height: 32px;
-  width: 64px;
-  border: 1px solid;
-  font-size: 26px;
-  text-align: center;
-} */
-/* .pf2e.actor .abilities .hp-list .hp-temp-title,
-.pf2e.actor .abilities .hp-list .hp-dying-title,
-.pf2e.actor .abilities .hp-list .hp-wounds-title {
-  background: var(--secondary-background);
-  height: 16px;
-  border: 1px solid #000;
-  text-align: center;
-  align-self: start;
-  margin-top: 1px;
-  color: #fff;
-}
-.pf2e.actor .abilities .hp-list .hp-temp-value,
-.pf2e.actor .abilities .hp-list .hp-dying-value,
-.pf2e.actor .abilities .hp-list .hp-wounds-value {
-  height: 20px;
-  background: #fff;
-  align-self: end;
-  border: 1px solid;
-  text-align: center;
-} */
-.pf2e.actor .abilities .npc-defense,
-.pf2e.actor .npc-defense {
-  grid-row-start: auto;
-  align-self: center;
-  display: grid;
-  grid: "score name" 32px / 40px auto;
-  background: var(--secondary-background);
-  margin-right: 4px;
-}
-.pf2e.actor .abilities .npc-defense .attribute-name,
-.pf2e.actor .npc-defense .attribute-name,
-.pf2e.actor .npc-defense .spelldc-name {
-  grid-area: auto;
-  margin: 0;
-  background: var(--secondary-background);
-  color: white;
-  align-self: center;
-  font-size: 15px;
-}
-.pf2e.actor .abilities .npc-defense .save-name {
-  grid-area: auto;
-  margin: 0;
-  background: var(--secondary-background);
-  color: white;
-  align-self: center;
-  font-size: 15px;
-}
-.pf2e.actor .abilities .npc-defense .defense-score,
-.pf2e.actor .npc-defense .defense-score {
-  grid-area: auto;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 28px;
-  text-align: center;
-  background: var(--secondary-background);
-  color: white;
-}
-.pf2e.actor .abilities .npc-defense .defense-score > input,
-.pf2e.actor .npc-defense .defense-score > input {
-  width: 30px;
-  height: 30px;
-  margin: 3px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 28px;
-  text-align: center;
-  background: #fff;
-  border: 1px solid;
-}
-.pf2e.actor .item .skill-input > input {
-  width: 22px;
-  height: 22px;
-  margin: 1px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 20px;
-  text-align: center;
-  background: #fff;
-  border: 1px solid;
-}
-.pf2e.actor .abilities .defense {
-  grid-row-start: auto;
-  align-self: center;
-  display: grid;
-  grid: "score name rank item" 32px / 34px auto 52px 52px;
-  background: var(--secondary-background);
-  margin-right: 4px;
-}
-.pf2e.actor .abilities .defense .save-name {
-  grid-area: auto;
-  margin: 0;
-  background: var(--secondary-background);
-  color: white;
-  align-self: center;
-  font-size: 15px;
-}
-.pf2e.actor .abilities .defense .attribute-name {
-  grid-area: auto;
-  margin: 0;
-  background: var(--secondary-background);
-  color: white;
-  align-self: center;
-  font-size: 15px;
-}
-
-.pf2e.actor .abilities .defense .attribute-name-non-rollable {
-  grid-area: auto;
-  margin: 0;
-  background: var(--secondary-background);
-  color: white;
-  align-self: center;
-  font-size: 15px;
-}
-
-.pf2e.actor .abilities .defense-container {
-  background: var(--secondary-background);
-  width: 48px;
-  margin-top: 2px;
-}
-.pf2e.actor .abilities .defense .defense-score {
-  grid-area: auto;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 28px;
-  text-align: center;
-  background: var(--secondary-background);
-  color: white;
-}
-.pf2e.actor .abilities .defense .defense-score > input {
-  width: 30px;
-  height: 30px;
-  margin: 3px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 28px;
-  text-align: center;
-  background: #fff;
-  border: 1px solid;
-}
-.pf2e.actor .abilities .defense .proficiency-name {
-  grid-area: auto;
-  font-size: 11px;
-  height: 13px;
-}
-.pf2e.actor .abilities .defense .proficiency-rank {
-  letter-spacing: -3px;
-  grid-area: auto;
-  height: 16px;
-  font-size: 12px;
-}
-.pf2e.actor .abilities .defense .defense-item,
-.pf2e.actor .abilities .defense-item {
-  grid-area: auto;
-  font-size: 11px;
-  height: 13px;
-}
-.pf2e.actor .abilities .defense .defense-item-value,
-.pf2e.actor .abilities .defense-item-value {
-  grid-area: auto;
-  height: 16px;
-  font-size: 12px;
-}
-.pf2e.actor .npc-abilities .ability-title,
-.pf2e.actor .abilities .ability-title {
-  flex: 0 0 24px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 24px;
-  line-height: 24px;
-  color: #fff;
-  background: var(--primary-background);
-  text-align: center;
-  margin: 0;
-  /* margin-top: 4px; */
-  padding: 0;
-  /* border-top: 1px solid var(--secondary-background); */
-}
-.pf2e.actor .npc-abilities .abilities-list {
-/*   display: grid;
-  grid: "ability ability ability ability ability ability" 54px / 16.6%;
-  grid-auto-rows: 54px;
-  list-style: none;
-  margin: 0;
-  padding: 0; */
-  display: grid;
-  grid: 38px 38px / 33.3% 33.3% 33.3%;
-  grid-auto-rows: 54px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.pf2e.actor .npc-abilities .ability {
-  /* display: flex; */
-  grid-row-start: auto;
-  display: grid;
-  grid: [row1-start] "id" 26px [row1-end]
-        [row2-start] "mod" 26px [row2-end]
-        / 100%;
-  /* flex-direction: row; */
-  /* flex-wrap: wrap; */
-  /* justify-content: flex-start; */
-  height: 26px;
-  line-height: 26px;
-  /* border-bottom: 1px solid var(--secondary-background); */
-}
-.pf2e.actor .npc-abilities .ability .ability-score {
-  grid-area: score;
-  align-self: center;
-  justify-self: right;
-  flex: 0 0 26px;
-  height: 26px;
-}
-.pf2e.actor .npc-abilities .ability .ability-mod {
-  flex: 0 0 24px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 24px;
-  line-height: 26px;
-  color: #666;
-  text-align: center;
-}
-.pf2e.actor .npc-abilities .ability .ability-mod .ability-input {
-  width: 30px;
-  height: 30px;
-  margin: 3px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 28px;
-  text-align: center;
-  background: #fff;
-  border: 1px solid;
-  border-radius: 4px;
-  margin-left: 18px;
-}
-.pf2e.actor .npc-abilities .ability .ability-name {
-  margin: 2px;
-}
-
-.pf2e.actor .abilities .abilities-list {
-  display: grid;
-  grid: "ability ability" 50px / 50%;
-  grid-auto-rows: 50px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.pf2e.actor .abilities .ability {
-  /* display: flex; */
-  grid-row-start: auto;
-  display: grid;
-  grid: [row1-start] "header header header header" 16px [row1-end]
-        [row2-start] "id mod score blank" 26px [row2-end]
-        / 46% 31% 18% 5%;
-  /* flex-direction: row; */
-  /* flex-wrap: wrap; */
-  /* justify-content: flex-start; */
-  height: 36px;
-  line-height: 36px;
-  /* border-bottom: 1px solid var(--secondary-background); */
-}
-.pf2e.actor .npc-abilities .ability > *,
-.pf2e.actor .abilities .ability > * {
-  flex: 1;
-  align-self: center;
-}
-.pf2e.actor .npc-abilities .ability .ability-proficiency,
-.pf2e.actor .abilities .ability .ability-proficiency {
-  flex: 0 0 20px;
-  height: 100%;
-  text-align: left;
-  padding-left: 3px;
-}
-.pf2e.actor .npc-abilities .ability .ability-proficiency i.fa-circle,
-.pf2e.actor .abilities .ability .ability-proficiency i.fa-circle {
-  font-size: 10px;
-}
-.pf2e.actor .npc-abilities .ability .ability-name,
-.pf2e.actor .abilities .ability .ability-name {
-  grid-area: header;
-  /* font-family: "Nodesto", "Signika", "Palatino Linotype", serif; */
-  font-size: 12px;
-  color: #444;
-  margin: 0;
-}
-.pf2e.actor .abilities .ability .ability-score {
-  grid-area: score;
-  align-self: center;
-  justify-self: right;
-  flex: 0 0 36px;
-  height: 36px;
-}
-.pf2e.actor .npc-abilities .ability .ability-score > input,
-.pf2e.actor .abilities .ability .ability-score > input {
-  width: 20px;
-  height: 20px;
-  margin: 3px;
-  /* font-family: "Nodesto", "Signika", "Palatino Linotype", serif; */
-  font-size: 12px;
-  color: #444;
-  text-align: center;
-  background: #fff;
-  border: 1px solid;
-}
-.pf2e.actor .abilities .ability .ability-mod {
-  flex: 0 0 24px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 24px;
-  line-height: 36px;
-  color: #666;
-  text-align: center;
-}
-.pf2e.actor .npc-abilities .npc-defense .ability-name,
-.pf2e.actor .abilities .ability .ability-id {
-  flex: 0 0 24px;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 32px;
-  background: var(--secondary-background);
-  border-radius: 8px;
-  line-height: 28px;
-  color: #fff;
-  text-align: center;
-}
-.pf2e.actor .npc-abilities .ability .ability-mod,
-.pf2e.actor .abilities .ability .ability-mod {
-  grid-area: mod;
-  align-self: center;
-  /* border-right: 1px solid var(--secondary-background); */
-}
-.pf2e.actor .npc-abilities .ability .ability-name {
-  grid-area: id;
-  align-self: center;
-  /* border-left: 1px solid var(--secondary-background); */
-}
-.pf2e.actor .abilities .ability .ability-id {
-  grid-area: id;
-  align-self: center;
-  /* border-left: 1px solid var(--secondary-background); */
-}
-.pf2e.actor .class-levels {
-  margin: 0 5px 0 0;
-  height: 156px;
-  overflow: hidden;
-}
-.pf2e.actor .class-levels .class-header {
-  line-height: 20px;
-  position: relative;
-  margin: 3px 0 1px;
-}
-.pf2e.actor .class-levels .class-header h3 {
-  text-align: center;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  color: #444;
-  font-size: 18px;
-  color: #222;
-  margin: 0;
-}
-.pf2e.actor .class-levels .class-header a.item-create {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 11px;
-  color: #666;
-}
-.pf2e.actor .class-levels .class-list {
-  overflow-y: hidden;
-}
-.pf2e.actor .class-levels .class-list .item {
-  height: 44px;
-  background: rgba(0, 0, 0, 0.03);
-  padding: 2px;
-  border: 1px solid var(--secondary-background);
-  border-radius: 2px;
-  margin-bottom: 2px;
-}
-.pf2e.actor .class-levels .class-list .item h4,
-.pf2e.actor .class-levels .class-list .item h5 {
-  width: calc(100% - 44px);
-  float: left;
-  margin: 0;
-  line-height: 20px;
-  font-weight: strong;
-}
-.pf2e.actor .class-levels .class-list .item .item-header {
-  flex: 0 0 100%;
-  height: 20px;
-}
-.pf2e.actor .class-levels .class-list .item .item-header .class-levels {
-  width: 44px;
-  height: 100%;
-  float: right;
-  margin: 0;
-  font-size: 10px;
-  text-align: right;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 18px;
-  color: #444;
-  color: #222;
-}
-.pf2e.actor .class-levels .class-list .item .class-subclass {
-  flex: 0 0 100%;
-  height: 20px;
-}
-.pf2e.actor .class-levels .class-list .item .class-subclass .item-controls {
-  width: 44px;
-  float: right;
-}
-.pf2e.actor .class-levels .class-list .item .class-subclass .item-controls a {
-  text-align: right;
-}
-.pf2e.actor .skills .skills-list,
-.pf2e.actor .spellbook .skills-list {
-  margin: 0;
-  padding: 0;
-  /* list-style: none; */
-  display: grid;
-  grid: "skill skill" 36px / 50% 50%;
-  grid-auto-rows: 36px;
-}
-.pf2e.actor .spellbook .skill-grid {
-  grid-area: auto;
-  display: grid;
-  grid: "value name rank item" 100% /  35px auto 46px 46px;
-}
-.pf2e.actor .pf-three-grid {
-  grid-area: auto;
-  display: grid;
-  grid: "one two three" 100% /  auto 90px 20px;
-}
-.pf2e.actor .pf-two-grid {
-  grid-area: auto;
-  display: grid;
-  /* grid: "one two three" 100% /  auto 90px 20px; */
-  grid: "one two" 100% /  auto 90px;
-}
-.pf2e.actor .pf-justify-center {
-  justify-self: center;
-}
-.pf2e.actor .skills .lores-list {
-  margin: 0;
-  padding: 0;
-  /* list-style: none; */
-}
-.pf2e.actor .skills .martial {
-  grid-area: auto;
-  display: grid;
-  grid: "name rank space" 100% /  auto 46px 20px;
-}
-.pf2e.actor .skills .skill {
-  grid-area: auto;
-  display: grid;
-  grid: "value name rank item armor" 100% /  35px auto 46px 46px 20px;
-}
-.pf2e.actor .actions-list .lores-list .item,
-.pf2e.actor .lores-list .item {
-  grid-area: auto;
-  display: grid;
-  grid: "value name rank item armor" 36px /  32px auto 46px 46px 20px;
-}
-.pf2e.actor .skill-container .item-item {
-  height: 16px;
-  margin-top: 2px;
-  font-size: 12px;
-}
-.pf2e.actor .skills .skill-container,
-.pf2e.actor .spellbook .skill-container {
-  display: grid;
-  grid: "title" 12px "value" 18px / auto;
-  background: var(--secondary-background);
-  height: 32px;
-  align-self: center;
-}
-.pf2e.actor .skills .skill-container .skill-proficiency,
-.pf2e.actor .spellbook .skill-container .skill-proficiency {
-  font-size: 12px
-}
-.pf2e.actor .skills .skill-container > *,
-.pf2e.actor .spellbook .skill-container > * {
-  width: 43px;
-}
-.pf2e.actor .skills .skill > *,
-.pf2e.actor .skills .item > *,
-.pf2e.actor .spellbook .skill-grid > * {
-  flex: 1;
-}
-.pf2e.actor .skills .skill-name {
-  margin: 0;
-  align-self: center;
-  background: var(--secondary-background);
-  line-height: 32px;
-  color: white;
-}
-.pf2e.actor .spellbook .skill-name {
-  margin: 0;
-  text-align: center;
-  align-self: center;
-  background: var(--secondary-background);
-  line-height: 32px;
-  color: white;
-}
-.pf2e.actor .skills .lore-name {
-  margin: 0;
-  align-self: center;
-  background: var(--secondary-background);
-  line-height: 32px;
-  color: white;
-}
-.pf2e.actor .skills .lore-name-input {
-  margin: 0;
-  align-self: center;
-  background: var(--secondary-background);
-  line-height: 32px;
-  color: white;
-}
-.pf2e.actor .skills .skill-proficiency,
-.pf2e.actor .spellbook .skill-proficiency {
-  margin-top: 2px;
-}
-.pf2e.actor .skills .skill-item,
-.pf2e.actor .spellbook .skill-item  {
-  margin-top: 2px;
-  font-size: 11px;
-}
-.pf2e.actor .skills .skill-ability {
-  flex: 0 0 36px;
-  color: #666;
-  text-align: right;
-  margin-right: 4px;
-}.pf2e.actor .skills .skill-ability {
-  flex: 0 0 36px;
-  color: #666;
-  text-align: right;
-  margin-right: 4px;
-}
-.pf2e.actor .skills .skill-armor {
-  align-self: center;
-  background: var(--secondary-background);
-  line-height: 32px;
-  color: white;
-  width: 16px;
-  margin: unset;
-}
-.pf2e.actor .skills .skill-score,
-.pf2e.actor .spellbook .skill-score {
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 28px;
-  text-align: center;
-  align-self: center;
-  background: var(--secondary-background);
-  color: white;
-}
-.pf2e.actor.locked .ability-proficiency,
-.pf2e.actor.locked .skill-proficiency {
-  text-shadow: none;
-  cursor: default;
-}
-.pf2e.actor .traits label {
-  font-weight: bold;
-}
-.pf2e.actor .traits select {
-  margin: 2px 0;
-}
-.pf2e.actor .traits .trait-perception > input {
-  flex: 0 0 32px;
-  text-align: center;
-}
-.pf2e.actor .traits .trait-selector {
-  float: right;
-  margin-right: 3px;
-  color: #999;
-  font-size: 10px;
-  line-height: 16px;
-}
-.pf2e.actor .traits .traits-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.pf2e.actor .traits-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.pf2e.actor .traits .configure-flags i.fas {
-  float: right;
-  margin-right: 3px;
-  text-align: right;
-  color: #999;
-  line-height: 24px;
-}
-.pf2e.actor .traits .configure-flags i.fas:hover {
-  color: #111;
-  text-shadow: 0 0 10px #ff6400;
-}
-/* .pf2e.actor .biography .editor {
-  height: 380px;
-  padding-left: 8px;
-} */
 /* ###################### BIO ################################## */
-.pf2e.actor.npc-sheet .biography .editor {
-  height: 465px;
-}
-.pf2e.actor .currency {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  border-bottom: 1px solid var(--secondary-background);
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  height: 24px;
-  font-size: 12px;
-  line-height: 20px;
-}
-.pf2e.actor .currency > * {
-  flex: 0;
-}
-.pf2e.actor .currency > .denomination {
-  flex: 1;
-}
-.pf2e.actor .currency li.denomination {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  padding: 3px 3px 0;
-  justify-content: flex-end;
-  border-right: 1px solid var(--secondary-background);
-}
-.pf2e.actor .currency li.denomination > * {
-  flex: 1;
-}
-.pf2e.actor .currency li.denomination label {
-  flex: none;
-  margin-right: 3px;
-}
-.pf2e.actor .currency li.denomination span {
-  text-align: right;
-  max-width: 48px;
-}
-.pf2e.actor .currency li.denomination:last-child {
-  border-right: none;
-}
-.pf2e.actor .inventory-header {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-/*   height: 100%;
-  overflow-y: auto; */
-  /* Inventory Item */
-  /* Inventory Header */
-}
-.pf2e.actor .inventory-header .item {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  line-height: 24px;
-  padding: 0;
-  border-bottom: 1px solid var(--secondary-background);
-  /* Item Dropdown Summary */
-}
-.pf2e.actor .inventory-header .item > * {
-  flex: 1;
-}
-.pf2e.actor .inventory-header .item .item-name,
-.pf2e.actor .inventory-header .item .melee-name,
-.pf2e.actor .inventory-header .item .npc-skill-name {
-  /* display: flex; */
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  cursor: pointer;
-}
-.pf2e.actor .inventory-header .item .item-name > *,
-.pf2e.actor .inventory-header .item .melee-name > *,
-.pf2e.actor .inventory-header .item .npc-skill-name > * {
-  flex: 1;
-}
-.pf2e.actor .inventory-header .item .item-name h4,
-.pf2e.actor .inventory-header .item .melee-name h4,
-.pf2e.actor .inventory-header .item .npc-skill-name h4 {
-  flex: 2;
-  margin: 0;
-}
-.pf2e.actor .inventory-header .item .item-controls,
-.pf2e.actor .action-header .item-controls {
-  flex: 0 0 44px;
-}
-.pf2e.actor .inventory-header .item .item-controls a,
-.pf2e.actor .action-header .item-controls a {
-  display: block;
-  float: left;
-  width: 44px;
-  font-size: 14px;
-  text-align: center;
-  /* color: #666; */
-}
-.pf2e.actor .inventory-header .action-header h3 {
-  font-size: 24px;
-  margin: 0;
-  padding-left: 32px;
-  text-align: center;
-  /* font-weight: bold; */
-}
-.pf2e.actor .inventory-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-y: auto;
-  margin-bottom: 2px;
-}
-.pf2e.actor .spellcastingEntry-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  height: calc(100% - 20px);
-  overflow-y: auto;
-}
-.pf2e.actor .singleColumn-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  /* height: calc(100% - 20px); */
-  overflow-y: auto;
-}
-.pf2e.actor .overflow-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-y: auto;
-}
-.pf2e.actor .inventory-list .item {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  line-height: 24px;
-  padding: 0;
-  border-bottom: 1px solid var(--secondary-background);
-  /* Item Dropdown Summary */
-}
-.pf2e.actor .inventory-list .item > * {
-  flex: 1;
-}
-.pf2e.actor .inventory-list .item .item-name,
-.pf2e.actor .inventory-list .item .melee-name {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  cursor: pointer;
-}
-.pf2e.actor .inventory-list .item .feat-name {
-  /* display: flex; */
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  cursor: pointer;
-}
-/* .pf2e.actor .inventory-list .item .item-name > * {
-  flex: 1;
-} */
-.pf2e.actor .inventory-list .item .item-name .item-image,
-.pf2e.actor .inventory-list .item .melee-name .item-image {
-  flex: 0 0 24px;
-  margin-right: 6px;
-  background-size: 24px;
-  background-repeat: no-repeat;
-}
-.pf2e.actor .inventory-list .item .item-name h4,
-.pf2e.actor .inventory-list .item .melee-name h4 {
-  flex: 2;
-  margin: 0;
-}
-.pf2e.actor .inventory-list .item .item-name .prepared {
-  color: #666;
-  margin-left: 3px;
-  font-size: 10px;
-}
-.pf2e.actor .inventory-list .item .item-name .item-charges {
-  color: #666;
-  font-size: 12px;
-  flex: 0;
-}
-.pf2e.actor .inventory-list .item .item-name:hover .item-image {
-  background-image: url("/icons/svg/d20-grey.svg") !important;
-}
-.pf2e.actor .inventory-list .item .item-name .item-image:hover {
-  background-image: url("/icons/svg/d20-black.svg") !important;
-}
-.pf2e.actor .inventory-list .item .item-sell-value,
-.pf2e.actor .inventory-list .item .item-quantity,
-.pf2e.actor .inventory-list .item .item-weight {
-  flex: 0 0 64px;
-  font-size: 12px;
-  color: #666;
-  text-align: center;
-  border-right: 1px solid var(--secondary-background);
-}
-
-.pf2e.actor .inventory-list .item .item-weight {
-  flex: 0 0 42px;
-}
 
 .add-coins-popup button, .sell-all-treasure button {
     line-height: 17px;
 }
 
-.pf2e.actor .inventory-list .item .item-quantity {
-  flex: 0 0 64px;
-  display: flex;
-  justify-content: space-between;
-  margin-left: 5px;
-  padding: 0 5px;
+.pf2e.actor {
+    .inventory-list .list-row {
+        .item-quantity {
+            flex: 0 0 64px;
+            display: flex;
+            justify-content: space-between;
+            margin-left: 5px;
+            padding: 0 5px;
+
+            * {
+                display: inline;
+            }
+
+            a {
+                flex: 0.25;
+                font-weight: bold;
+            }
+
+            .hidden {
+                visibility: hidden;
+            }
+        }
+
+        .item-controls {
+            flex: 0 0 60px;
+
+            a {
+                padding-left: 1px;
+                font-size: 10px;
+                text-align: center;
+                color: #666;
+                &:first-child {
+                    padding-left: 8px;
+                }
+            }
+        }
+    }
+
+    .list-row.action-header .item-controls a {
+        display: block;
+        float: left;
+        width: 22px;
+        font-size: 10px;
+        text-align: center;
+        color: #666;
+    }
+
+    .inventory-list {
+        .list-row {
+            .item-controls a.item-toggle-equip {
+                color: #aaa;
+
+                &.active {
+                    color: #666;
+                }
+            }
+
+            .item-summary {
+                flex: 0 0 100%;
+                font-size: 12px;
+                line-height: 16px;
+                padding: 0.25em 0.5em;
+                border-top: 1px solid var(--secondary-background);
+            }
+        }
+
+        .action-header h3 {
+            font-size: 24px;
+            margin: 0;
+            padding: 2px 0;
+            text-align: center;
+        }
+    }
+
+    .action-header .item-controls a {
+        &.item-create, &.item-delete, &.feat-browse, &.action-browse {
+            width: 100%;
+            color: #fff;
+            background: var(--primary-background);
+        }
+    }
+
+    .inventory-header .item-controls a.inventory-browse {
+        width: 100%;
+        color: #fff;
+        background: var(--primary-background);
+    }
+
+    .inventory-list .inventory-header {
+        font-weight: 700;
+        line-height: 20px;
+        background: var(--primary-background);
+
+        &.sub-category {
+            font-weight: 700;
+            line-height: 20px;
+            background: var(--secondary-background);
+        }
+
+        h3 {
+            font-size: 1em;
+            margin: 0;
+            padding-left: 5px;
+            font-weight: bold;
+        }
+
+        .item-sell-value, .item-quantity, .item-weight {
+            color: white;
+        }
+
+        .item-controls a {
+            &.item-create {
+                width: 100%;
+                color: white;
+            }
+
+            &.spell-create, &.spell-browse {
+                color: white;
+            }
+        }
+
+        > * {
+            color: white;
+        }
+    }
+
+    &.character-sheet .inventory-list {
+        height: calc(100% - 42px);
+    }
+
+    .container-capacity {
+        box-sizing: border-box;
+        background: rgba(0, 0, 0, 0.1);
+        height: 20px;
+        position: relative;
+        width: 100%;
+        border-bottom: 1px solid #666;
+
+        .container-capacity-bar {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background: #aaa;
+            height: 19px;
+        }
+
+        .container-capacity-label {
+            position: absolute;
+            height: 20px;
+            font-size: 12px;
+            line-height: 20px;
+            color: #000;
+            padding: 0 3px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        &.over-limit .container-capacity-bar {
+            background: #ec6b6b;
+        }
+    }
+
+    .encumbrance {
+        background: rgba(0, 0, 0, 0.1);
+        height: 12px;
+        margin-top: 5px;
+        border: 1px solid #111;
+        border-radius: 3px;
+        position: relative;
+        width: calc(100% - 20px);
+
+        .encumbrance-bar {
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            background: var(--secondary-background);
+            height: 8px;
+            border: 1px solid #6f5439;
+            border-radius: 3px;
+        }
+
+        .encumbrance-label {
+            position: absolute;
+            top: -3px;
+            height: 16px;
+            font-size: 16px;
+            line-height: 16px;
+            color: #000;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 0 3px;
+        }
+
+        .encumbrance-breakpoint {
+            position: absolute;
+            left: 66%;
+        }
+
+        .arrow-up {
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 4px solid #666;
+        }
+
+        .arrow-down {
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #666;
+        }
+
+        &.encumbered {
+            background-color: yellow;
+        }
+
+        &.over-limit {
+            background-color: red;
+        }
+
+        &.encumbered {
+            .arrow-up {
+                border-bottom: 4px solid #000;
+            }
+
+            .arrow-down {
+                border-top: 4px solid #000;
+            }
+        }
+    }
+
+    .spellbook {
+        .spellcasting-ability {
+            margin: 0;
+            padding: 3px 3px 0;
+            border-bottom: 1px solid var(--secondary-background);
+            font-size: 12px;
+
+            label {
+                line-height: 20px;
+            }
+
+            select {
+                flex: 1;
+            }
+        }
+
+        .inventory-list .list-row {
+            .spell-school-header, .spell-action-header {
+                color: white;
+                flex: 1;
+                font-size: 12px;
+                text-align: center;
+                border-right: 1px solid var(--secondary-background);
+            }
+        }
+
+        .prepared-toggle {
+            flex: 0 0 20px;
+            line-height: 24px;
+            background: var(--primary-background);
+            padding-left: 5px;
+        }
+
+        .level-prepared-toggle {
+            flex: 0 0 20px;
+            line-height: 19px;
+            background: var(--secondary-background);
+            padding-left: 5px;
+            font-size: 0.8em;
+        }
+
+        .level-prepared-header {
+            font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+            letter-spacing: 2px;
+            font-weight: 400;
+            font-size: 20px;
+            opacity: 0.8;
+        }
+
+        .level-prepared-toggle-div {
+            flex: 0 0 25px;
+        }
+
+        .spellbook-item {
+            font-style: oblique;
+            opacity: 0.8;
+        }
+
+        .inventory-list {
+            .spellbook-item h4 {
+                margin-left: 30px;
+            }
+
+            height: calc(100% - 96px);
+        }
+
+        .list-row {
+            .item-name, .melee-name {
+                flex: 2;
+                border-right: 1px solid var(--secondary-background);
+            }
+        }
+    }
+
+    .list-row {
+        .spell-school, .spell-action {
+            flex: 1;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            border-right: 1px solid var(--secondary-background);
+        }
+
+        .spell-slots, .spell-max {
+            flex: 0 0 24px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .spell-slots-input, .spell-max-input {
+            flex: 0 0 24px;
+            font-size: 12px;
+            text-align: center;
+            background: white;
+            border: 1px solid;
+            border-radius: 17px;
+            height: 18px;
+            margin-top: 1px;
+        }
+
+        .spell-max {
+            border-right: 1px solid var(--secondary-background);
+        }
+    }
+
+    .spellbook-empty .item-controls {
+        flex: 1;
+    }
+
+    &.character-sheet .spellbook .item-controls {
+        flex: 0 0 44px;
+    }
+
+    .feats .feats-list {
+        height: 100%;
+
+        .item-name {
+            flex: 2;
+        }
+    }
+
+    .feat-uses {
+        display: inline;
+        font-size: 11px;
+        color: #444;
+    }
+
+    #short-rest-hd {
+        label {
+            flex: 0 0 60px;
+            line-height: 24px;
+        }
+
+        #roll-hd {
+            line-height: 24px;
+            margin-left: 6px;
+        }
+    }
 }
 
-.pf2e.actor .inventory-list .item .item-quantity * {
-  display: inline;
-}
-
-.pf2e.actor .inventory-list .item .item-quantity a {
-  flex: 0.25;
-  font-weight: bold;
-}
-
-.pf2e.actor .inventory-list .item .item-controls {
-  flex: 0 0 80px;
-}
-.pf2e.actor .inventory-list .item .item-controls a,
-.pf2e.actor .item.action-header .item-controls a {
-  display: block;
-  float: left;
-  width: 22px;
-  font-size: 10px;
-  text-align: center;
-  color: #666;
-}
-.pf2e.actor .inventory-list .item .item-controls a.item-toggle-equip {
-  color: #aaa;
-}
-.pf2e.actor .inventory-list .item .item-controls a.item-toggle-equip.active {
-  color: #666;
-}
-.pf2e.actor .inventory-list .item .item-summary {
-  flex: 0 0 100%;
-  font-size: 12px;
-  line-height: 16px;
-  padding: 0.25em 0.5em;
-  border-top: 1px solid var(--secondary-background);
-}
-.pf2e.actor .inventory-list .action-header h3 {
-  font-size: 24px;
-  margin: 0;
-  padding-left: 32px;
-  text-align: center;
-  /* font-weight: bold; */
-}
-.pf2e.actor .action-header .item-controls a.item-create,
-.pf2e.actor .action-header .item-controls a.item-delete,
-.pf2e.actor .action-header .item-controls a.feat-browse,
-.pf2e.actor .action-header .item-controls a.action-browse,
-.pf2e.actor .inventory-header .item-controls a.inventory-browse {
-  width: 100%;
-  color: #fff;
-  background: var(--primary-background);
-}
-.pf2e.actor .inventory-list .inventory-header {
-  font-weight: 700;
-  line-height: 20px;
-  /* background: rgba(0, 0, 0, 0.05); */
-  background: var(--primary-background);
-}
-.pf2e.actor .inventory-list .inventory-header.sub-category {
-  font-weight: 700;
-  line-height: 20px;
-  /* background: rgba(0, 0, 0, 0.05); */
-  background: var(--secondary-background);
-}
-.pf2e.actor .inventory-list .inventory-header h3 {
-  font-size: 1em;
-  margin: 0;
-  padding-left: 5px;
-  font-weight: bold;
-}
-.pf2e.actor .inventory-list .inventory-header .item-sell-value,
-.pf2e.actor .inventory-list .inventory-header .item-quantity,
-.pf2e.actor .inventory-list .inventory-header .item-weight {
-  color: white;
-}
-.pf2e.actor .inventory-list .inventory-header .item-controls a.item-create {
-  width: 100%;
-  color: white;
-}
-.pf2e.actor .inventory-list .inventory-header .item-controls a.spell-create,
-.pf2e.actor .inventory-list .inventory-header .item-controls a.spell-browse {
-  /* width: 100%; */
-  color: white;
-}
-.pf2e.actor .inventory-list .inventory-header > * {
-  color: white;
-}
-.pf2e.actor.character-sheet .inventory-list {
-  height: calc(100% - 42px);
-  /* height: 100%; */
-}
-
-.pf2e.actor .container-metadata {
-    
-}
-
-.pf2e.actor .container-capacity {
-    box-sizing: border-box;
-    background: rgba(0, 0, 0, 0.1);
-    height: 20px;
-    position: relative;
-    width: 100%;
-    border-bottom: 1px solid #666;
-}
-.pf2e.actor .container-capacity .container-capacity-bar {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    background: #aaa;
-    height: 19px;
-    
-}
-.pf2e.actor .container-capacity .container-capacity-label {
-    position: absolute;
-    height: 20px;
-    font-size: 12px;
-    line-height: 20px;
-    color: #000;
-    padding: 0 3px;
-    width: 100%;
-    box-sizing: border-box;
-    text-align: center;
-}
-.pf2e.actor .container-capacity.over-limit .container-capacity-bar {
-    background: #ec6b6b;
-}
-
-.pf2e.actor .encumbrance {
-  background: rgba(0, 0, 0, 0.1);
-  height: 12px;
-  margin-top: 5px;
-  border: 1px solid #111;
-  border-radius: 3px;
-  position: relative;
-  width: calc(100% - 20px);
-}
-.pf2e.actor .encumbrance .encumbrance-bar {
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  background: var(--secondary-background);
-  height: 8px;
-  border: 1px solid #6f5439;
-  border-radius: 3px;
-}
-.pf2e.actor .encumbrance .encumbrance-label {
-  position: absolute;
-  top: -3px;
-  height: 16px;
-  font-size: 16px;
-  line-height: 16px;
-  color: #000;
-  background: rgba(255, 255, 255, 0.4);
-  padding: 0 3px;
-}
-.pf2e.actor .encumbrance .encumbrance-breakpoint {
-  position: absolute;
-  left: 66%;
-}
-.pf2e.actor .encumbrance .arrow-up {
-  bottom: 0;
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 4px solid #666;
-}
-.pf2e.actor .encumbrance .arrow-down {
-  top: 0;
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #666;
-}
-.pf2e.actor .encumbrance.encumbered {
-    background-color: yellow;
-}
-.pf2e.actor .encumbrance.over-limit {
-    background-color: red;
-}
-.pf2e.actor .encumbrance.encumbered .arrow-up {
-  border-bottom: 4px solid #000;
-}
-.pf2e.actor .encumbrance.encumbered .arrow-down {
-  border-top: 4px solid #000;
-}
-.pf2e.actor .spellbook .spellcasting-ability {
-  margin: 0;
-  padding: 3px 3px 0;
-  border-bottom: 1px solid var(--secondary-background);
-  font-size: 12px;
-}
-.pf2e.actor .spellbook .spellcasting-ability label {
-  line-height: 20px;
-}
-.pf2e.actor .spellbook .spellcasting-ability select {
-  flex: 1;
-}
-.pf2e.actor .spellbook .inventory-list .item .spell-school-header,
-.pf2e.actor .spellbook .inventory-list .item .spell-action-header {
-  color: white;
-  flex: 1;
-  font-size: 12px;
-  text-align: center;
-  border-right: 1px solid var(--secondary-background);
-}
-.pf2e.actor .spellbook .prepared-toggle {
-  flex: 0 0 20px;
-  line-height: 24px;
-  background: var(--primary-background);
-  padding-left: 5px;
-}
-.pf2e.actor .spellbook .level-prepared-toggle {
-  flex: 0 0 20px;
-  line-height: 19px;
-  background: var(--secondary-background);
-  padding-left: 5px;
-  font-size: 0.8em;
-}
-.pf2e.actor .spellbook .level-prepared-header {
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  letter-spacing: 2px;
-  font-weight: 400;
-  font-size: 20px;
-  opacity: 0.8;
-}
-.pf2e.actor .spellbook .level-prepared-toggle-div {
-  flex: 0 0 25px;
-}
-.pf2e.actor .spellbook .spellbook-item {
-  font-style: oblique;
-  opacity: 0.8;
-}
-.pf2e.actor .spellbook .inventory-list .spellbook-item h4 {
-  margin-left: 30px;
-}
-.pf2e.actor .spellbook .inventory-list {
-  height: calc(100% - 96px);
-}
-.pf2e.actor .spellbook .item .item-name,
-.pf2e.actor .spellbook .item .melee-name {
-  flex: 2;
-  border-right: 1px solid var(--secondary-background);
-}
-.pf2e.actor .item .spell-school,
-.pf2e.actor .item .spell-action {
-  flex: 1;
-  font-size: 12px;
-  color: #666;
-  text-align: center;
-  border-right: 1px solid var(--secondary-background);
-}
-.pf2e.actor .item .spell-slots,
-.pf2e.actor .item .spell-max {
-  flex: 0 0 24px;
-  font-size: 12px;
-  text-align: center;
-}
-.pf2e.actor .item .spell-slots-input,
-.pf2e.actor .item .spell-max-input {
-  flex: 0 0 24px;
-  font-size: 12px;
-  text-align: center;
-  background: white;
-  border: 1px solid;
-  border-radius: 17px;
-  height: 18px;
-  margin-top: 1px;
-}
-.pf2e.actor .item .spell-max {
-  border-right: 1px solid var(--secondary-background);
-}
-.pf2e.actor .spellbook-empty .item-controls {
-  flex: 1;
-}
-.pf2e.actor.character-sheet .spellbook .item-controls {
-  flex: 0 0 44px;
-}
-.pf2e.actor .feats .feats-list {
-  height: 100%;
-}
-.pf2e.actor .feats .feats-list .item-name {
-  flex: 2;
-}
-.pf2e.actor .feat-uses {
-  display: inline;
-  font-size: 11px;
-  color: #444;
-}
-.pf2e.actor #short-rest-hd label {
-  flex: 0 0 60px;
-  line-height: 24px;
-}
-.pf2e.actor #short-rest-hd #roll-hd {
-  line-height: 24px;
-  margin-left: 6px;
-}
 /* ----------------------------------------- */
+
 /* Trait Selector
 /* ----------------------------------------- */
-#trait-selector .window {
-  overflow-y: hidden;
-}
 
-#trait-selector .trait-list {
-  flex: 1;
-  list-style: none;
-  margin: 0 0 0.5em;
-  padding: 0;
-  overflow-y: auto;
-  scrollbar-width: thin;
-}
+#trait-selector {
+    .window {
+        overflow-y: hidden;
+    }
 
-#trait-selector .trait-header {
-  flex: 0 0 32px;
-  line-height: 32px;
-  text-align: center;
-  margin: 0;
-}
+    .trait-list {
+        flex: 1;
+        list-style: none;
+        margin: 0 0 0.5em;
+        padding: 0;
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
 
-#trait-selector .trait-header .header-search {
-  flex: 1;
-}
+    .trait-header {
+        flex: 0 0 32px;
+        line-height: 32px;
+        text-align: center;
+        margin: 0;
 
-#trait-selector .trait-header .header-search input {
-  background: rgba(255, 255, 245, 0.8);
-  width: calc(100% - 26px);
-  margin: 0 2px;
-}
+        .header-search {
+            flex: 1;
 
-#trait-selector .trait-footer {
-  flex: 0 0 32px;
-  line-height: 32px;
-  margin: 0;
-  margin-bottom: 5px;
-  border-top: 1px solid grey;
+            input {
+                background: rgba(255, 255, 245, 0.8);
+                width: calc(100% - 26px);
+                margin: 0 2px;
+            }
+        }
+    }
+
+    .trait-footer {
+        flex: 0 0 32px;
+        line-height: 32px;
+        margin: 0;
+        margin-bottom: 5px;
+        border-top: 1px solid grey;
+    }
 }
 
 /* ----------------------------------------- */
 /* Special Traits and Flags
 /* ----------------------------------------- */
+
 #actor-flags h3.flags-section {
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid #999;
-  border-radius: 3px;
-  padding: 3px;
-  margin: 0;
-  font-weight: bold;
-  font-size: inherit;
-}
-/* ----------------------------------------- */
-/*  Item Sheet Structure
-/* ----------------------------------------- */
-.pf2e.item form {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-}
-.pf2e.item form > * {
-  flex: 1;
-}
-.pf2e.item form .sheet-header {
-  flex: 0 0 70px;
-  width: 100%;
-  padding-bottom: 6px;
-}
-.pf2e.item form .sheet-content {
-  flex: 1;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-.pf2e.item form .sheet-content > * {
-  flex: 1;
-}
-.pf2e.item form .sheet-content .sheet-sidebar {
-  flex: 0 0 220px;
-  height: 350px;
-}
-.pf2e.item form .sheet-content .sheet-body {
-  flex: 1;
-  height: 350px;
-}
-.pf2e.item form .tab {
-  padding-left: 10px;
-}
-/* ----------------------------------------- */
-/*  Item Sheet Style
-/* ----------------------------------------- */
-.pf2e.item form .form-list {
-  border: 1px solid var(--secondary-background);
-  border-radius: 5px;
-  padding-left: 2px;
-  padding-right: 4px;
-}
-.pf2e.item form .form-group {
-  height: 24px;
-  margin: 2px 0;
-}
-.pf2e.item form .sheet-body input[type="text"] {
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid #AAA;
-  padding: 3px;
-}
-.pf2e.item form .sheet-header {
-  border-bottom: 1px solid var(--secondary-background);
-}
-.pf2e.item form .sheet-header img {
-  flex: 0 0 64px;
-  margin-right: 6px;
-}
-.pf2e.item form .sheet-sidebar {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-}
-.pf2e.item form .sheet-sidebar > * {
-  flex: 1;
-}
-.pf2e.item form .sheet-sidebar .sidebar-summary {
-  flex: 0 0 28px;
-  line-height: 29px;
-  margin: 0 0 0.5em;
-  text-align: center;
-  border-bottom: 1px solid var(--secondary-background);
-}
-.pf2e.item form .sheet-sidebar .item-summary {
-  flex: 0 0 28px;
-  line-height: 28px;
-  text-align: center;
-  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-  font-size: 18px;
-  color: #444;
-}
-.pf2e.item form .sheet-sidebar .item-tags {
-  flex: 0;
-  list-style: none;
-  margin: 0;
-  padding: 8px 0 6px;
-  border-top: 1px solid var(--secondary-background);
-}
-.pf2e.item form .sheet-sidebar .item-tags .tag {
-  display: block;
-  float: none;
-  width: 100%;
-  text-align: center;
-}
-.pf2e.item form .sheet-sidebar .inventory-details {
-  flex: 0;
-}
-.pf2e.item form .sheet-sidebar .inventory-details label {
-  font-weight: bold;
-}
-.pf2e.item form .sheet-sidebar .inventory-details .form-group input {
-  text-align: right;
-}
-.pf2e.item form .sheet-tabs {
-  border-bottom: 1px solid var(--secondary-background);
-}
-.pf2e.item form .sheet-tabs .active {
-  text-decoration: underline;
-}
-.pf2e.item form .editor {
-  height: 100%;
-}
-.pf2e.item form .pf-value {
-  background: #fff;
-  border: 1px solid var(--tertiary-background);
-  text-align: center;
-}
-.pf2e.item form .pf-large {
-  height: 40px;
-}
-.pf2e.item form .item-details {
-  padding: 8px 8px 0;
-  overflow-y: auto;
-}
-.pf2e.item form .item-details label {
-  color: #888;
-  font-weight: bold;
-}
-.pf2e.item form .item-details select {
-  font-size: 12px;
-  height: 24px;
-}
-.pf2e.item form .details-container {
-  display: grid;
-  grid: "dice die type" / 40px 60px auto;
-}
-.pf2e.item form .effects-container {
-  display: grid;
-  grid: "effect number" / auto 40px;
-}
-.pf2e.item form .details-container-two-columns {
-  display: grid;
-  grid: "size type" / 50% 50%;
-}
-.pf2e.item form .details-container-three-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-.pf2e.item form .consumable-details {
-  flex: 0 0 24px;
-}
-.pf2e.item form .consumable-details label {
-  font-weight: bold;
-}
-.pf2e.item form .consumable-details input {
-  flex: 0 0 24px;
-  margin-right: 6px;
-  text-align: right;
-}
-.pf2e.item form .consumable-details span {
-  line-height: 24px;
-}
-.pf2e.item form .consumable-details .max-charges {
-  flex: 0 0 16px;
-  text-align: center;
-}
-.pf2e.item form .consumable-charges label {
-  flex: 0 0 144px;
-}
-.pf2e.item form .consumable-charges input {
-  flex: 0 0 64px;
-  text-align: center;
-}
-.pf2e.item form .consumable-charges span.flex0 {
-  line-height: 24px;
-}
-.pf2e.item form .tool-details {
-  border-top: 1px solid var(--secondary-background);
-  padding-top: 10px;
-}
-.pf2e.item form .tool-details .form-group-stacked {
-  margin-bottom: 8px;
-}
-.pf2e.item form .feat-uses select {
-  flex: 2;
-  margin-right: 5px;
-}
-.pf2e.item form .feat-uses input {
-  flex: 1;
-  text-align: center;
-}
-.pf2e.item form .feat-uses span.sep {
-  flex: 0 0 16px;
-  line-height: 24px;
-  font-size: 14px;
-  text-align: center;
-}
-
-.pf2e.item form .sheet-body .item-rules {
-  overflow-y: scroll;
-}
-.pf2e.item form .sheet-body .item-rules .rules {
-  padding: 7px;
-}
-.pf2e.item form .sheet-body .item-rules .rules .rule-element-header {
-  display: flex;
-  justify-content: space-between;
-}
-.pf2e.item form .sheet-body .item-rules .rules .add-rule-element {
-  text-align: right;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 3px;
+    margin: 0;
+    font-weight: bold;
+    font-size: inherit;
 }
 
 /* ----------------------------------------- */
-/*  Chat Cards
+/* Item Card Structure                       */
 /* ----------------------------------------- */
-.pf2e.chat-card {
-  font-style: normal;
-}
-.pf2e.chat-card .card-header {
-  padding: 3px 0;
-  border-top: 2px groove #FFF;
-  border-bottom: 2px groove #FFF;
-}
-.pf2e.chat-card .card-header img {
-  flex: 0 0 36px;
-  margin-right: 5px;
-}
-.pf2e.chat-card .card-header h3 {
-  flex: 1;
-  margin: 0;
-  line-height: 36px;
-}
-.pf2e.chat-card .card-content {
-  margin: 5px 0;
-}
-.pf2e.chat-card .card-buttons {
-  margin: 5px 0;
-}
-.pf2e.chat-card .card-buttons span {
-  display: block;
-  line-height: 28px;
-  text-align: center;
-  border: 1px solid var(--secondary-background);
-}
-.pf2e.chat-card .card-buttons button {
-  margin: 2px 0;
-}
-.pf2e.chat-card .card-buttons .spell-attack-buttons {
-  display: flex;
-  flex-direction: row;
-  * {
-    flex-grow: 1;
-    flex-basis: 0;
-  }
-  :first-child {
-    flex-grow: 2;
-  }
-}
-.pf2e.chat-card .card-footer {
-  padding: 3px 0 0;
-  border-top: 2px groove #FFF;
-}
-.pf2e.chat-card .card-footer span {
-  border-right: 2px groove #FFF;
-  padding: 0 5px 0 0;
-  font-size: 12px;
-}
-.pf2e.chat-card .card-footer span:last-child {
-  border-right: none;
-  padding-right: 0;
-}
 
-.pf2e.chat-card .card-buttons-multiattack {
-  display: grid;
-  grid-template-columns: auto 40px 40px;
-  grid-column-gap: 4px;
-}
-.pf2e.chat-card .card-buttons-two-column {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 4px;
+.pf2e {
+    &.chat-card {
+        font-style: normal;
+
+        .card-header {
+            padding: 2px 0;
+            border-top: 2px groove #fff;
+            border-bottom: 2px groove #fff;
+            align-items: center;
+            min-height: 36px;
+
+            img {
+                flex: 0 0 36px;
+                margin-right: 5px;
+                height: 36px;
+                width: 36px;
+            }
+
+            h3 {
+                flex: 1;
+                margin: 0;
+            }
+
+            h4 {
+                flex: 0;
+                margin: 0 5px 0 0;
+                white-space: nowrap;
+            }
+        }
+
+        .tags {
+            margin: 3px 0 0;
+        }
+
+        .card-content {
+            margin: 4px 0;
+
+            p {
+                margin: 4px 0;
+            }
+        }
+
+        .card-buttons {
+            margin: 5px 0;
+
+            span {
+                display: block;
+                line-height: 28px;
+                text-align: center;
+                border: 1px solid var(--secondary-background);
+            }
+
+            button {
+                margin: 2px 0;
+            }
+
+            .spell-attack-buttons {
+                display: flex;
+                flex-direction: row;
+
+                * {
+                    flex-grow: 1;
+                    flex-basis: 0;
+                }
+
+                :first-child {
+                    flex-grow: 2;
+                }
+            }
+        }
+
+        .card-footer {
+            padding: 3px 0 0;
+            border-top: 2px groove #fff;
+
+            span {
+                border-right: 2px groove #fff;
+                padding: 0 5px 0 0;
+                font-size: 12px;
+
+                &:last-child {
+                    border-right: none;
+                    padding-right: 0;
+                }
+            }
+        }
+
+        .card-buttons-multiattack {
+            display: grid;
+            grid-template-columns: auto 40px 40px;
+            grid-column-gap: 4px;
+        }
+
+        .card-buttons-two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-column-gap: 4px;
+        }
+    }
+
+
+    /* ----------------------------------------- */
+    /* Item Buttons
+    /* ----------------------------------------- */
+
+    &.sheet {
+        .item-buttons {
+            button {
+                font-size: 10px;
+                line-height: 12px;
+                margin: 0;
+            }
+
+            span {
+                padding: 0;
+            }
+        }
+
+        .melee-buttons {
+            button {
+                font-size: 10px;
+                line-height: 12px;
+                margin: 0;
+                border: 1px groove darkgray;
+            }
+
+            span {
+                padding: 0;
+                margin-top: 3px;
+            }
+        }
+    }
 }
 
 /* ----------------------------------------- */
-/*  Item Buttons
+/* Spell Browser
 /* ----------------------------------------- */
-.pf2e.sheet .item-buttons button {
-  font-size: 10px;
-  line-height: 12px;
-  margin: 0;
-}
-.pf2e.sheet .item-buttons span {
-  padding:0;
-}
-.pf2e.sheet .melee-buttons button {
-  font-size: 10px;
-  line-height: 12px;
-  margin: 0;
-  border: 1px groove darkgray;
-}
-.pf2e.sheet .melee-buttons span {
-  padding:0;
-  margin-top: 3px;
-}
-/* ----------------------------------------- */
-/*  Spell Browser
-/* ----------------------------------------- */
-/*  core foundry changes  */
-#compendium.flexcolumn.active {
-  display: flex;
-  flex-direction: column;
-}
-#compendium.flexcolumn > .directory-list {
-  width: 100%;
-  height: auto;
-  flex-basis: 0;
-  flex-grow: 1;
-}
-#compendium.flexcolumn > .directory-footer {
-  height: auto;
-}
-#compendium.flexcolumn > .directory-footer > * {
-  margin-top: 5px;
+
+#compendium {
+    &.flexcolumn {
+        &.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        > {
+            .directory-list {
+                width: 100%;
+                height: auto;
+                flex-basis: 0;
+                flex-grow: 1;
+            }
+
+            .directory-footer {
+                height: auto;
+
+                > * {
+                    margin-top: 5px;
+                }
+            }
+        }
+
+        .spell-browser-btn {
+            margin-left: 2%;
+            margin-right: 0;
+        }
+    }
+
+    .create-compendium {
+        flex-basis: 100%;
+    }
 }
 
-#compendium.flexcolumn .spell-browser-btn {
-  margin-left:2%;
-  margin-right:0;
-}
+/* spellbrowser */
 
-/* #compendium .directory-footer {
-  display:block;
-} */
+/* resizing */
 
-#compendium .create-compendium {
-  flex-basis: 100%;
-}
-
-/*  spellbrowser  */
-/*  resizing  */
 .spell-browser-window {
-  resize:both;
-  overflow:auto;
-  /*min-width:600px;
-  min-height:350px;*/
-  max-width:1100px;
-  max-height:90vh;
+    resize: both;
+    overflow: auto;
+    max-width: 1100px;
+    max-height: 90vh;
 }
+
 button > i.far {
-  pointer-events: none;
+    pointer-events: none;
 }
 
-// Updated NPC Sheet Styles
+/* Updated NPC Sheet Styles */
 
-.pf2e.actor .sheet-header .charname.updatednpcsheet {
-	flex: 1.5;
-}
-.pf2e.actor .sheet-header .charlevel.updatednpcsheet {
-	flex: 1;
+.pf2e.actor .sheet-header {
+    .charname.updatednpcsheet {
+        flex: 1.5;
+    }
+
+    .charlevel.updatednpcsheet {
+        flex: 1;
+    }
 }
 
 .npc-detail-text {
@@ -2431,518 +2583,716 @@ button > i.far {
     flex-wrap: wrap;
 }
 
-.pf2e.sheet form .npc-detail-text input[type="text"]{
-    background: rgba(255,255,255,0.8);
-    color: black;
-    border: 1px solid black;
+.pf2e.sheet form .npc-detail-text {
+    input {
+        &[type="text"], &[type="number"] {
+            background: rgba(255, 255, 255, 0.8);
+            color: black;
+            border: 1px solid black;
+        }
+    }
+
+    textarea {
+        height: fit-content;
+        overflow-y: hidden;
+        resize: none;
+        width: calc(100% - 2px);
+        min-height: 26px;
+        font-family: inherit;
+    }
 }
 
-.npc-detail-text input.ac-detail {
-    /*width: 73px;*/
-}
+.pf2e {
+    &.sheet form .defense-list input.stat-detail {
+        display: flex;
+        font-size: 13px;
+        height: 18px;
+        background: rgba(183, 91, 91, 0.2);
+        color: black;
+        border: 1px solid black;
+        width: calc(100% - 4px);
+    }
 
-.npc-detail-text input.hp-detail {
-    /*width: 140px;*/
-}
+    &.actor .sheet-header .charlevel .level > input[type="checkbox"] {
+        flex: 0 0 26px;
+    }
 
-.npc-detail-text textarea {
-	height: fit-content;
-	overflow-y: hidden;
-	resize: none;
-	width: calc(100% - 2px);
-	min-height: 26px;
-	font-family: inherit;
-}
+    &.sheet form .defense-list.stats-section {
+        grid-auto-rows: auto;
+        grid: "defense" auto;
+    }
 
-.pf2e.sheet form .defense-list input.stat-detail {
-	display: flex;
-    font-size: 13px;
-    height: 18px;
-    background: rgba(183, 91, 91, 0.2);
-    color: black;
-    border: 1px solid black;
-    width: calc(100% - 4px);
-}
+    &.updatedNPCSheet form .inventory-list.toggles-list {
+        min-height: min-content;
+        width: 100%;
 
-.pf2e.actor .sheet-header .charlevel .level > input[type="checkbox"] {
-	flex: 0 0 26px;
-}
+        .actions-options {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0.5rem 1rem;
 
-.pf2e.sheet form .defense-list.stats-section {
-	grid-auto-rows: auto;
-	grid: "defense" auto;
-}
+            .actions-option {
+                display: flex;
+                align-items: center;
+                width: 100%;
 
-.pf2e.updatedNPCSheet form .inventory-list .item .item-name h4, .pf2e.updatedNPCSheet form .inventory-list .item .melee-name h4 {
-	flex: 2;
-	line-height: 1.4em;
-	padding-top: .2em;
-}
-.pf2e.updatedNPCSheet form .inventory-list .item .melee-name div.melee-buttons {
-  max-width: 80%;
-	display: inline-flex;
-	justify-content: flex-end;
-	align-items: flex-end;
-	flex-wrap: wrap;
-}
+                label {
+                    width: 100%;
 
-.pf2e.actor .inventory-list .item .spell-buttons {
-  flex: none;
-  display: inline-flex;
-	justify-content: flex-end;
-	align-items: flex-end;
-	flex-wrap: wrap;
-}
+                    * {
+                        display: inline;
+                        vertical-align: middle;
+                    }
 
+                    input {
+                        margin: 0;
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    &.updatedNPCSheet form .inventory-list .list-row {
+        .item-name h4 {
+            flex: 2;
+            line-height: 1.4em;
+            padding-top: 0.2em;
+        }
+
+        .melee-name {
+            h4 {
+                flex: 2;
+                line-height: 1.4em;
+                padding-top: 0.2em;
+            }
+
+            div.melee-buttons {
+                max-width: 80%;
+                display: inline-flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+                flex-wrap: wrap;
+            }
+
+            h4 span.strike {
+                font-weight: normal;
+                display: inline;
+            }
+        }
+    }
+
+    &.actor .inventory-list .list-row .spell-buttons {
+        flex: none;
+        display: inline-flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        flex-wrap: wrap;
+    }
+
+    &.sheet form.updatedNPCSheet {
+        overflow-y: scroll;
+
+        .contentcontainer {
+            position: relative;
+            display: block;
+            background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+            z-index: 2;
+        }
+
+        .bgcontainer {
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-position: center center;
+            opacity: 0.15;
+            content: none;
+            z-index: 1;
+            position: absolute;
+            pointer-events: none;
+
+            &.hidden {
+                visibility: hidden;
+            }
+        }
+
+        .npc-title-bar {
+            display: flex;
+            margin-bottom: 0.1em;
+            width: 100%;
+            justify-content: space-between;
+            border-bottom: 2px solid #782e22;
+            margin: 0 0 0.5rem;
+
+            h1 {
+                font-family: 'Oswald', sans-serif;
+                font-weight: 600;
+                text-transform: uppercase;
+                margin-bottom: 0;
+                border-bottom: 0;
+            }
+
+            .name {
+                justify-content: flex-start;
+                font-variant: small-caps;
+            }
+
+            .level, .editNPCButton {
+                flex-shrink: 0;
+            }
+        }
+
+        hr {
+            border-top: 2px solid black;
+            margin-block-start: 0;
+        }
+
+        .list-row hr {
+            border-width: 1px;
+            border-top-color: #111;
+            margin-block-start: 0.5em;
+        }
+
+        h1.editNPCButton {
+            display: flex;
+            justify-content: end;
+            flex-direction: column;
+            margin-left: 4em;
+            font-size: 10px;
+            font-weight: normal;
+        }
+    }
+}
 
 @font-face {
-  font-family: 'Oswald';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/oswald/v26/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiZQ.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/oswald/v26/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiZQ.woff2) format("woff2");
+    unicode-range: U0-0FF, U131, U152-153, U2BB-2BC, U2C 6, U2DA, U2DC, U2000-206F, U2074, U20AC, U2122, U2191, U2193, U2212, U2215, UFEFF, UFFFD;
 }
 
-.pf2e.sheet form.updatedNPCSheet {
-  overflow-y: scroll;
-}
-.pf2e.sheet form.updatedNPCSheet .contentcontainer{
-  position:relative;
-  display:block;
-  background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0));
-  z-index:2;
-}
-.pf2e.sheet form.updatedNPCSheet .bgcontainer{
-  top:0;
-  bottom:0;
-  width:100%;
-  height:100%;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center center;
-  opacity: 0.25;
-  content:"";
-  z-index:1;
-  position: absolute;
-  pointer-events: none;
-}
-.pf2e.sheet form.updatedNPCSheet .bgcontainer.hidden{
-  visibility:hidden;
-}
-/*
-  HEADER
-*/
-.pf2e.sheet form.updatedNPCSheet .npc-title-bar {
-  display: flex;
-  margin-bottom: 0.1em;
-  width: 100%;
-  justify-content: space-between;
-  border-bottom: 2px solid #782e22;
-  margin: 0 0 0.5rem;
-}
-.pf2e.sheet form.updatedNPCSheet .npc-title-bar h1{
-  font-family:'Oswald', sans-serif;
-  font-weight:600;
-  text-transform:uppercase;
-  margin-bottom: 0;
-  border-bottom: 0;
-}
-// .pf2e.sheet form.updatedNPCSheet .npc-title-bar *{
-//   margin-bottom:0.1em;
-// }
-.pf2e.sheet form.updatedNPCSheet .npc-title-bar .name {
-  justify-content:flex-start;
-  font-variant: small-caps;
-}
-.pf2e.sheet form.updatedNPCSheet .npc-title-bar .level, .pf2e.sheet form.updatedNPCSheet .npc-title-bar .editNPCButton {
-  flex-shrink: 0;
-}
+/* HEADER */
 
-.pf2e.sheet form.updatedNPCSheet hr {
-  border-top:2px solid black;
-  margin-block-start: 0;
-}
-.pf2e.sheet form.updatedNPCSheet .item hr {
-  border-width:1px;
-  border-top-color:#111;
-  margin-block-start: 0.5em;
-}
-.pf2e.sheet form.updatedNPCSheet .editNPCButton {
-  display:flex;
-  justify-content:flex-end;
-  margin-left: 1em;
-}
-.pf2e.sheet form.updatedNPCSheet .editNPCButton *{
-  align-self: center;
-}
+/* TRAITS */
 
-/*
-  TRAITS
-*/
 .traits-bar {
-  display: flex;
-  align-items: flex-start;
-}
-.traits-bar .trait {
-  background-color: #5E0000;
-  border-color: #d8c483;
-  border-style: double;
-  border-width: 2px;
-  padding: 0 1em;
-  color: white;
-  text-transform:uppercase;
-  font-family:'Teko', sans-serif;
-  padding-top:0.2em;
+    display: flex;
+    align-items: flex-start;
 
-}
-.traits-bar .trait.alignment {
-  background-color: #5E657A;
-}
-.traits-bar .trait.size {
- background-color: #447B5C;
-}
-.traits-bar .trait.uncommon {
-    background-color: #c45500;
-}
-.traits-bar .trait.rare {
-    background-color: #0c1466;
-}
-.traits-bar .trait.unique {
-    background-color: #54166e;
-}
+    .trait {
+        background-color: #5e0000;
+        border-color: #d8c483;
+        border-style: double;
+        border-width: 2px;
+        padding: 0 1em;
+        color: white;
+        text-transform: uppercase;
+        font-family: 'Teko', sans-serif;
+        padding-top: 0.2em;
 
-/*
-  Top-section
-*/
-.pf2e.sheet form.updatedNPCSheet .top-section{
-  display:flex;
-}
-.pf2e.sheet form.updatedNPCSheet .top-section .top-stats-container{
-  flex: 2;
-  order: 1;
-}
-.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container{
-  flex: 1;
-  order: 2;
-  padding-right:0.2em;
-  display:flex;
-  flex-direction:column;
-  min-width: 160px;
-}
-.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container *{
-  text-align:right;
-}
-.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container .hp-current{
-  height:24px;
-  font-size:20px;
-  display:inline-flex;
-  flex-direction:row;
-}
-.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container .hp-current label{
-  width:auto;
-  flex:5;
-}
-.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container .hp-current input{
-  width:auto;
-  flex:1;
-}
-.pf2e.sheet form.updatedNPCSheet .top-section .top-quick-container textarea{
-  resize:none;
-  flex:2;
+        &.alignment {
+            background-color: #5e657a;
+        }
 
+        &.size {
+            background-color: #447b5c;
+        }
+
+        &.uncommon {
+            background-color: #c45500;
+        }
+
+        &.rare {
+            background-color: #0c1466;
+        }
+
+        &.unique {
+            background-color: #54166e;
+        }
+    }
 }
 
+/* Top-section */
 
-/*
-  Items
-*/
-.pf2e.sheet form.updatedNPCSheet .inventory-list{
-  height: auto;
-  border-top:1px solid var(--secondary-background);
+.pf2e.sheet form {
+    &.updatedNPCSheet {
+        .top-section {
+            display: flex;
+
+            .top-stats-container {
+                flex: 2;
+                order: 1;
+            }
+
+            .top-quick-container {
+                flex: 1;
+                order: 2;
+                padding-right: 0.2em;
+                display: flex;
+                flex-direction: column;
+                min-width: 160px;
+
+                * {
+                    text-align: right;
+                }
+
+                .hp-current {
+                    height: 24px;
+                    font-size: 20px;
+                    display: inline-flex;
+                    flex-direction: row;
+
+                    label {
+                        width: auto;
+                        flex: 5;
+                    }
+
+                    input {
+                        width: auto;
+                        flex: 1;
+                    }
+                }
+
+                textarea {
+                    resize: none;
+                    flex: 2;
+                }
+            }
+        }
+
+        .inventory-list {
+            height: auto;
+            border-top: 1px solid var(--secondary-background);
+        }
+
+        .list-row .item-name.rollable .item-image {
+            min-height: 24px;
+        }
+    }
+
+    .list-row .melee-name.rollable .item-image {
+        min-height: 24px;
+    }
+
+    &.updatedNPCSheet {
+        .list-row {
+            .item-controls {
+                display: flex;
+                align-items: center;
+            }
+
+            &.inventory-header.sub-category.attack-header {
+                display: none;
+            }
+        }
+
+        .item-control:hover {
+            color: #111;
+            text-shadow: 0 0 10px #ff6400;
+        }
+    }
 }
-.pf2e.sheet form.updatedNPCSheet .inventory-list .item:last-of-type{
-  //border-bottom:0;
-}
-.pf2e.sheet form.updatedNPCSheet .item .item-name.rollable .item-image, .pf2e.sheet form .item .melee-name.rollable .item-image{
-  min-height:24px;
-}
-.pf2e.sheet form.updatedNPCSheet .item .item-controls{
-  display: flex;
-  align-items: center;
-}
+
+/* Items */
+
 /** Hide Attack headers */
-.pf2e.sheet form.updatedNPCSheet .item.inventory-header.sub-category.attack-header{
-  display: none;
-}
-.pf2e.sheet form.updatedNPCSheet .item-control:hover {
-  color: #111;
-  text-shadow: 0 0 10px #ff6400;
-}
 
 .container-held-items {
     margin-left: 10px;
 }
 
-li.item.hover-container {
+li.list-row.hover-container {
     background-color: #aaa !important;
 }
-/*
-  Stats
-*/
 
-.pf2e.sheet form.updatedNPCSheet .inline-stats{
-  display: block;
+/* Stats */
+
+.pf2e.sheet form.updatedNPCSheet {
+    .inline-stats {
+        display: block;
+
+        * {
+            display: inline;
+            justify-content: flex-start;
+            padding-left: 0.05em;
+        }
+
+        > .stat-list {
+            > span.stat-minortitle {
+                padding-right: 0.2em;
+            }
+        }
+        .stat-detail {
+            &.perception:before {
+                white-space: pre-wrap;
+            }
+
+            &.speed + .speed:before {
+                content: ", ";
+                white-space: pre-wrap;
+            }
+        }
+    }
+
+    .stats-line {
+        display: block;
+
+        &.recall-knowledge button {
+            font-size: 10px;
+            line-height: 12px;
+            margin: 0;
+            border: 1px groove darkgray;
+            background: rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            width: auto;
+        }
+    }
+
+    .stat-list {
+        display: inline-flex;
+        flex-wrap: wrap;
+    }
+
+    .skill-variants {
+        display: inline-flex;
+
+        *:not(:last-of-type):after {
+            content: ",";
+        }
+    }
+
+    .stat-list, .stat-value {
+        &:not(:last-of-type):after {
+            content: ",";
+            padding-right: 0.2em;
+        }
+
+        ul.skill-list {
+            display: inline;
+            list-style-type: none;
+            padding: 0;
+
+            li {
+                display: inline;
+                padding: 0;
+                &:not(:last-of-type):after {
+                    content: ",";
+                }
+            }
+        }
+    }
+
+    .stat-list.major-stat:not(:last-of-type):after {
+        display: inline;
+    }
+
+    span .stat-title {
+        font-weight: bold;
+        margin-right: 0.25em;
+
+        &.ability-name {
+            text-transform: capitalize;
+        }
+    }
+
+    .rollable label {
+        cursor: pointer;
+    }
 }
-.pf2e.sheet form.updatedNPCSheet .inline-stats *{
-  display: inline;
-  justify-content: flex-start;
+
+#token-hud {
+    .status-effects {
+        width: 175px;
+        grid-template-columns: 35px 35px 35px 35px 35px;
+
+        .effect-control {
+            width: 34px;
+            height: 34px;
+            opacity: 0.4;
+        }
+
+        .pf2e-effect-control {
+            width: 34px;
+            height: 34px;
+            margin: 0;
+            padding: 0;
+            border: none;
+            opacity: 0.4;
+
+            &:hover {
+                opacity: 0.75;
+            }
+
+            &.active {
+                opacity: 1;
+            }
+
+            &.overlay {
+                opacity: 1;
+                border: 1px solid #ff6400;
+            }
+        }
+    }
+
+    .pf2e-effect-img-container {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+
+    .pf2e-effect-value {
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        font-size: 13px;
+        line-height: 1em;
+        border-radius: 50%;
+        width: 1.1em;
+        height: 1.1em;
+        background: #fff;
+        border: 0.1em solid darkred;
+        color: #111;
+        text-align: center;
+        font-weight: bold;
+    }
 }
-.pf2e.sheet form.updatedNPCSheet .inline-stats .stat-detail.perception:before {
-  content: "; ";
-  white-space: pre-wrap;
-}
-.pf2e.sheet form.updatedNPCSheet .inline-stats .stat-detail.speed + .speed:before {
-  content: ", ";
-  white-space: pre-wrap;
-}
-.pf2e.sheet form.updatedNPCSheet .stats-line {
-  display: block;
-}
-.pf2e.sheet form.updatedNPCSheet .stat-list {
-}
-.pf2e.sheet form.updatedNPCSheet .stat-list * {
-  display: inline-flex;
-  flex-wrap: wrap;
-}
-.pf2e.sheet form.updatedNPCSheet .stat-list *:not(:last-of-type){
-  padding-right:0.25em;
-}
-.pf2e.sheet form.updatedNPCSheet .stat-list:not(:last-of-type):after {
-  content: ",";
-  padding-right: 0.25em;
-}
-.pf2e.sheet form.updatedNPCSheet .stat-value *:not(:last-of-type){
-  padding-right:0.25em;
-}
-.pf2e.sheet form.updatedNPCSheet .stat-value:not(:last-of-type):after {
-  content: ",";
-  padding-right: 0.25em;
-}
-.pf2e.sheet form.updatedNPCSheet .stat-list.major-stat:not(:last-of-type):after {
-  content: ";";
-  display: inline;
-}
-.pf2e.sheet form.updatedNPCSheet span .stat-title{
-  font-weight: bold;
-  margin-right: 0.2em;
-}
-.pf2e.sheet form.updatedNPCSheet span .stat-title.ability-name{
-  text-transform: capitalize;
-}
-.pf2e.sheet form.updatedNPCSheet .rollable label{
-  cursor: pointer;
-}
-#token-hud .status-effects {
-  width: 175px;
-  grid-template-columns: 35px 35px 35px 35px 35px;
-}
-#token-hud .status-effects .effect-control {
-  width: 34px;
-  height: 34px;
-  opacity: 0.4;
-}
-#token-hud .status-effects .pf2e-effect-control {
-  width: 34px;
-  height: 34px;
-  margin: 0;
-  padding: 0;
-  border: none;
-  opacity: 0.4;
-}
-#token-hud .status-effects .pf2e-effect-control:hover {
-  opacity: 0.75;
-}
-#token-hud .status-effects .pf2e-effect-control.active {
-  opacity: 1;
-}
-#token-hud .status-effects .pf2e-effect-control.overlay {
-  opacity: 1;
-  border: 1px solid #ff6400;
-}
-#token-hud .pf2e-effect-img-container {
-  position: relative;
-  text-align: center;
-  color: white;
-}
-#token-hud .pf2e-effect-value {
-  position: absolute;
-  top: -1px;
-  right: -1px;
-  font-size: 13px;
-  line-height: 1em;
-  border-radius: 50%;
-  width: 1.1em;
-  height: 1.1em;
-  background: #fff;
-  border: 0.1em solid darkred;
-  color: #111;
-  text-align: center;
-  font-weight: bold;
-}
+
 .dice-total-shield-btn.shield-activated {
-  background-color: #333;
-  color: white;
+    background-color: #333;
+    color: white;
 }
-.message-content .dice-roll .statuseffect-message {
-  word-break: normal;
-  font-weight: 400;
-  font-size: 12px;
-  text-align: left;
-}
-.message-content .dice-roll .statuseffect-message ul {
-  list-style-type: none;
-}
-.message-content .dice-roll .statuseffect-message li {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 24px;
-}
-.message-content .dice-roll .statuseffect-message li:not(:last-child) {
-  margin-bottom: 3px;
-}
-.message-content .dice-roll .statuseffect-message li img {
-  width: 24px;
-  height: 24px;
-  vertical-align: middle;
-  margin-right: 3px;
-}
-.message-content .dice-roll .statuseffect-li {
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-}
-.message-content .dice-roll .statuseffect-li-text {
-  display: inline-block;
-  width: 200px;
-}
-.message-content .dice-roll .statuseffect-rules {
-  visibility: hidden;
-  width: 264px;
-  padding: 8px;
-  position: absolute;
-  z-index: 1;
-  bottom: 110%;
-  left: -42px;
-  text-align: left;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: normal;
 
-  background: url(../../../ui/parchment.jpg) repeat;
-  border: 1px solid #999;
-  border-radius: 3px;
-  box-shadow: 0 0 3px #FFF inset;
-  opacity: 0;
-  transition: opacity 1s;
+.message-content .dice-roll {
+    .statuseffect-message {
+        word-break: normal;
+        font-weight: 400;
+        font-size: 12px;
+        text-align: left;
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 24px;
+
+            &:not(:last-child) {
+                margin-bottom: 3px;
+            }
+
+            img {
+                width: 24px;
+                height: 24px;
+                vertical-align: middle;
+                margin-right: 3px;
+            }
+        }
+    }
+
+    .statuseffect-li {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .statuseffect-li-text {
+        display: inline-block;
+        width: 200px;
+    }
+
+    .statuseffect-rules {
+        visibility: hidden;
+        width: 264px;
+        padding: 8px;
+        position: absolute;
+        z-index: 1;
+        bottom: 110%;
+        left: -42px;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: normal;
+        background: url("../assets/sheet/parchment.webp") repeat;
+        border: 1px solid #999;
+        border-radius: 3px;
+        box-shadow: 0 0 3px #fff inset;
+        opacity: 0;
+        transition: opacity 1s;
+
+        p {
+            margin: 0;
+        }
+    }
 }
-.message-content .dice-roll .statuseffect-rules p {
-  margin: 0;
-}
+
 .statuseffect-li-text:hover + .statuseffect-rules {
-  visibility: visible;
-  opacity: 1;
+    visibility: visible;
+    opacity: 1;
 }
+
 .status-effects .status-effect-summary {
-  visibility: hidden;
-  width: 174px;
-  padding: 3px;
-  position: absolute;
-  z-index: 1;
-  top: -30px;
-  left: 0px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: normal;
+    visibility: hidden;
+    width: 174px;
+    padding: 3px;
+    position: absolute;
+    z-index: 1;
+    top: -30px;
+    left: 0px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    box-sizing: content-box;
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 15px #000;
+    border: 1px solid #333;
+    border-radius: 4px;
 
-  box-sizing: content-box;
-  background: rgba(0, 0, 0, 0.6);
-  box-shadow: 0 0 15px #000;
-  border: 1px solid #333;
-  border-radius: 4px;
+    &.active {
+        visibility: visible;
+    }
 }
-.status-effects .status-effect-summary.active {
-  visibility: visible;
-}
+
 input[type="number"] {
-  width: calc(100% - 2px);
-  min-width: 20px;
-  height: 24px;
-  background: rgba(0, 0, 0, 0.05);
-  padding: 1px 3px;
-  margin: 0;
-  color: #191813;
-  font-family: inherit;
-  font-size: inherit;
-  text-align: inherit;
-  line-height: inherit;
-  border: 1px solid #7a7971;
-  border-radius: 3px;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-.dice-roll .dice-tooltip.dmg-tooltip span {
-  font-size: 10px;
-}
-.dice-roll .dice-tooltip.dmg-tooltip span:not(:first-child) {
-  display: block;
-  border-top: 1px;
-  border-top-color: #999;
-  border-top-style: solid;
-}
-.npc-title-bar .creature-adjustment {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: 1em;
-}
-.npc-title-bar .creature-adjustment *{
-  width:100%;
-}
-.sheet-header .creature-adjustment, .npc-title-bar .creature-adjustment a.hidden  {
-  font-size: 12px;
-}
-.sheet-header .creature-adjustment a, .npc-title-bar .creature-adjustment a.hidden  {
-  margin-left: 1px;
-  background-color: var(--secondary-background);
-  border-color: #bbb68f;
-}
-.sheet-header .creature-adjustment a.active, .npc-title-bar .creature-adjustment a.hidden  {
-  margin-left: 1px;
-  background-color: #5E0000;
-  border-color: #bbb68f;
-}
-.sheet-header .creature-adjustment a.hidden , .npc-title-bar .creature-adjustment a.hidden {
-  display: none;
-}
-#chat-log {
-  display: flex;
-  flex-direction: column;
+    width: calc(100% - 2px);
+    min-width: 20px;
+    height: 26px;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 1px 3px;
+    margin: 0;
+    color: #191813;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: inherit;
+    line-height: inherit;
+    border: 1px solid #7a7971;
+    border-radius: 3px;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
-#chat-log .message:first-child {
-  margin-top: auto;
+.dice-roll .dice-tooltip.dmg-tooltip span {
+    font-size: 10px;
+
+    &:not(:first-child) {
+        display: block;
+        border-top: 1px;
+        border-top-color: #999;
+        border-top-style: solid;
+    }
+}
+
+.npc-title-bar .creature-adjustment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: 1em;
+
+    * {
+        width: 100%;
+    }
+}
+
+.sheet-header .creature-adjustment, .npc-title-bar .creature-adjustment a.hidden {
+    font-size: 12px;
+}
+
+.sheet-header .creature-adjustment a, .npc-title-bar .creature-adjustment a.hidden {
+    margin-left: 1px;
+    background-color: var(--secondary-background);
+    border-color: #bbb68f;
+}
+
+.sheet-header .creature-adjustment a.active, .npc-title-bar .creature-adjustment a.hidden {
+    margin-left: 1px;
+    background-color: #5e0000;
+    border-color: #bbb68f;
+}
+
+.sheet-header .creature-adjustment a.hidden, .npc-title-bar .creature-adjustment a.hidden {
+    display: none;
+}
+
+#chat-log {
+    display: flex;
+    flex-direction: column;
+
+    .message:first-child {
+        margin-top: auto;
+    }
 }
 
 .activity-icon {
-  display: inline !important;
-  margin: 0;
-  padding: 0;
-  font-family: Pathfinder2eActions;
-  font-size: 1.2em;
+    display: inline !important;
+    margin: 0;
+    padding: 0;
+    font-family: Pathfinder2eActions;
+    font-size: 1.2em;
+}
+
+.recall-knowledge-table {
+    th {
+        padding: 5px 8px;
+    }
+
+    td {
+        text-align: center;
+        padding: 5px 8px;
+
+        &:first-child {
+            text-align: right;
+        }
+    }
+
+    th:first-child {
+        text-align: right;
+    }
+}
+
+button {
+    &:hover {
+        box-shadow: 0 0 3px #c00;
+    }
+
+    &:active {
+        box-shadow: 0 0 5px red;
+    }
+}
+
+.chat-damage-buttons {
+    display: flex;
+    margin-top: 3px;
+
+    button {
+        flex: 1 1 0;
+    }
+}
+
+.chat-damage-buttons-overlay {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    display: flex;
+    align-items: center;
+
+    button {
+        width: 22px;
+        height: 22px;
+        font-size: 10px;
+        line-height: 1px;
+        padding-left: 5px;
+    }
 }

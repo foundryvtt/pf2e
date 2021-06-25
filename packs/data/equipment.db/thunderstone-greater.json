@@ -5,13 +5,10 @@
             "value": ""
         },
         "ability": {
-            "label": "Offensive Ability",
-            "type": "String",
             "value": "dex"
         },
+        "baseItem": "alchemical-bomb",
         "bonus": {
-            "label": "Item Bonus",
-            "type": "String",
             "value": 2
         },
         "bonusDamage": {
@@ -33,16 +30,12 @@
             "damageType": "sonic",
             "dice": 3,
             "die": "d4",
-            "label": "damage",
-            "type": "String",
             "value": ""
         },
         "description": {
             "chat": "",
-            "label": "Description",
-            "type": "String",
             "unidentified": "",
-            "value": "<p>When this stone hits a creature or a hard surface, it explodes with a deafening bang. A thunderstone deals the listed sonic damage and sonic splash damage, and each creature within 10 feet of the space in which the stone exploded must succeed at a Fortitude saving throw with the listed DC or be deafened until the end of its next turn. Many types of thunderstone grant an item bonus to attack rolls.</p>\n<p>You gain a +2 item bonus to attack rolls. The bomb deals 3d4 sonic damage and 3 sonic splash damage, and the DC is 28.</p>"
+            "value": "<p>When this stone hits a creature or a hard surface, it explodes with a deafening bang. A thunderstone deals the listed sonic damage and sonic splash damage, and each creature within 10 feet of the space in which the stone exploded must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"\" data-pf2-label=\"\" data-pf2-dc=\"28\" data-pf2-show-dc=\"all\">Fortitude</span> saving throw with the listed DC or be @Compendium[pf2e.conditionitems.Deafened]{Deafened} until the end of its next turn. Many types of thunderstone grant an item bonus to attack rolls.</p>\n<p>You gain a +2 item bonus to attack rolls. The bomb deals 3d4 sonic damage and 3 sonic splash damage, and the DC is 28.</p>"
         },
         "equipped": {
             "value": false
@@ -51,13 +44,9 @@
             "value": ""
         },
         "group": {
-            "label": "Weapon Group",
-            "type": "String",
             "value": "bomb"
         },
         "hands": {
-            "label": "Hands",
-            "type": "String",
             "value": ""
         },
         "hardness": {
@@ -66,15 +55,23 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "label": "Item Level",
-            "type": "Number",
             "value": 11
         },
         "maxHp": {
@@ -84,7 +81,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": ""
+            "value": null
         },
         "preciousMaterial": {
             "value": ""
@@ -93,8 +90,6 @@
             "value": ""
         },
         "price": {
-            "label": "Price",
-            "type": "String",
             "value": "250 gp"
         },
         "property1": {
@@ -107,34 +102,8 @@
             "damageType": "",
             "dice": null,
             "die": "",
-            "label": "Primary Property",
             "strikeConditionType": "",
             "strikeConditionValue": null,
-            "type": "String",
-            "value": ""
-        },
-        "property2": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Secondary Property",
-            "type": "String",
-            "value": ""
-        },
-        "property3": {
-            "critDamage": "",
-            "critDamageType": "",
-            "critDice": 0,
-            "critDie": "",
-            "damageType": "",
-            "dice": 0,
-            "die": "",
-            "label": "Tertiary Property",
-            "type": "String",
             "value": ""
         },
         "propertyRune1": {
@@ -150,27 +119,25 @@
             "value": ""
         },
         "quantity": {
-            "label": "Quantity",
-            "type": "Number",
             "value": 1
         },
         "range": {
-            "label": "Weapon Range",
-            "type": "String",
             "value": "20"
         },
-        "rarity": {
-            "value": "common"
-        },
         "reload": {
-            "label": "Reload",
-            "type": "String",
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'><strong>Effect:</strong> All creatures within 10 feet must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"\" data-pf2-label=\"\" data-pf2-dc=\"28\" data-pf2-show-dc=\"all\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round.</p>"
+            }
+        ],
+        "size": {
+            "value": "med"
+        },
         "source": {
-            "label": "Source",
-            "type": "String",
             "value": ""
         },
         "splashDamage": {
@@ -184,11 +151,9 @@
         },
         "traits": {
             "custom": "",
-            "label": "Weapon Traits",
             "rarity": {
                 "value": "common"
             },
-            "type": "String",
             "value": [
                 "alchemical",
                 "bomb",
@@ -201,18 +166,16 @@
             "value": "held-in-one-hand"
         },
         "weaponType": {
-            "label": "Weapon Category",
-            "type": "String",
             "value": "martial"
         },
         "weight": {
-            "label": "Bulk",
-            "type": "Number",
             "value": "L"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/thunderstone.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/thunderstone.webp",
     "name": "Thunderstone (Greater)",
     "permission": {
         "default": 0

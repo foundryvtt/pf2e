@@ -13,20 +13,30 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><span id=\"ctl00_MainContent_DetailedOutput\">When taking advantage of an opening, you both hinder and harm your foe. You gain the @Compendium[pf2e.actionspf2e.bp0Up04x3dzGK5bB]{Debilitating Strike} free action.&nbsp;</span></p>"
+            "value": "<p>When taking advantage of an opening, you both hinder and harm your foe. You gain the @Compendium[pf2e.actionspf2e.Debilitating Strike]{Debilitating Strike} free action.</p>"
         },
         "featType": {
             "value": "classfeature"
         },
         "level": {
-            "value": "9"
+            "value": 9
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "target:flatFooted"
+                    ]
+                },
+                "selector": "damage",
+                "text": "<p class='compact-text'><strong>Debilitation choices:</strong></p><p data-visibility='owner'><span class='pf2-icon'>f</span>@Compendium[pf2e.actionspf2e.Debilitating Strike]{Debilitating Strike}</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +48,12 @@
             "value": [
                 "rogue"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/classes/debilitating-strikes.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/classes/debilitating-strikes.webp",
     "name": "Debilitating Strikes",
     "permission": {
         "default": 0

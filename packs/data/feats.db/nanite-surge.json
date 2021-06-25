@@ -1,0 +1,75 @@
+{
+    "_id": "JS24EjgLYcHB9E3T",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p><strong>Frequency</strong> once per hour<br /><strong>Trigger</strong> You attempt a skill check requiring three actions or fewer.</p>\n<hr />\n<p>You stimulate your nanites, forcing your body to temporarily increase its efficiency. You gain a +2 status bonus to the triggering skill check. In addition, your circuitry glows, lighting a 10-foot emanation with dim light for 1 round.</p>"
+        },
+        "featType": {
+            "value": "ancestry"
+        },
+        "level": {
+            "value": 1
+        },
+        "location": "",
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Activate Nanite Surge",
+                "property": "flags.pf2e.rollOptions.all.nanite-surge"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "nanite-surge"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "android",
+                "concentrate"
+            ]
+        },
+        "usage": {
+            "value": ""
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Nanite Surge",
+    "permission": {
+        "default": 0
+    },
+    "type": "feat"
+}

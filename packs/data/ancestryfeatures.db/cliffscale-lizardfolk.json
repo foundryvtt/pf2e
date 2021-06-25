@@ -13,20 +13,30 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your toes are adapted for gripping and climbing. You gain the @Compendium[pf2e.feats-srd.09PurtIanNUPfNRq]{Combat Climber} feat as a bonus feat, and as long as you aren&rsquo;t wearing footwear, you can use the sticky pads on your feet to climb, leaving your hands free. Additionally, if you roll a success on an Athletics check to climb, you get a critical success instead.&nbsp;</p>"
+            "value": "<p>Your toes are adapted for gripping and climbing.</p>\n<p>You gain the @Compendium[pf2e.feats-srd.Combat Climber]{Combat Climber} feat as a bonus feat, and as long as you aren't wearing footwear, you can use the sticky pads on your feet to climb, leaving your hands free.</p>\n<p>Additionally, if you roll a success on an Athletics check to climb, you get a critical success instead.</p>"
         },
         "featType": {
-            "value": "ancestryfeature"
+            "value": "heritage"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": ""
+            "value": []
         },
-        "rarity": {
-            "value": "common"
-        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:climb"
+                    ]
+                },
+                "selector": "athletics",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success to Climb, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,13 +48,12 @@
             "value": [
                 "lizardfolk"
             ]
-        },
-        "usage": {
-            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/ancestry/cliifscale-lizardfolk.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/features/ancestry/cliifscale-lizardfolk.webp",
     "name": "Cliffscale Lizardfolk",
     "permission": {
         "default": 0

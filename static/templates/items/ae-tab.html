@@ -1,0 +1,36 @@
+<table>
+    <thead>
+        <tr>
+            <th>
+                {{#if activeEffects.canEdit}}
+                    <a data-action="create"><i class="fas fa-plus-circle"></i></a>
+                {{/if}}
+            </th>
+            <th>
+                {{localize 'Name'}}
+            </th>
+            <th>{{localize 'PF2E.ActiveEffects.Duration.Label'}}</th>
+            <th>{{localize 'PF2E.ActiveEffects.Controls.Label'}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each activeEffects.effects as |effect|}}
+            <tr data-effect-id="{{effect.id}}">
+                <td class="icon">{{#if effect.iconPath}}<img src="{{effect.iconPath}}" />{{/if}}</td>
+                <td class="name">{{effect.name}}</td>
+                <td class="duration">{{effect.duration}}</td>
+                <td class="controls">
+                    <input type="checkbox" data-action="enable" title="{{#if effect.enabled }}{{localize 'PF2E.ActiveEffects.Controls.Disable'}}{{else}}{{localize 'PF2E.ActiveEffects.Controls.Enable'}}{{/if}}" {{checked effect.enabled}} />
+                    {{#if @root.activeEffects.canEdit}}
+                        <a data-action="edit" title="{{localize 'PF2E.ActiveEffects.Controls.Edit'}}">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    {{/if}}
+                    <a data-action="delete" title="{{localize 'PF2E.ActiveEffects.Controls.Delete'}}">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

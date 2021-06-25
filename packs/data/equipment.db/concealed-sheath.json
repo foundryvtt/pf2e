@@ -1,6 +1,7 @@
 {
     "_id": "laU7xnX42wXch2Dv",
     "data": {
+        "baseItem": null,
         "brokenThreshold": {
             "value": 0
         },
@@ -16,7 +17,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>&nbsp;This leather sheath is large enough to hold an item of up to light Bulk and is typically used for daggers, wands, thieves&rsquo; tools, and similar objects. You can affix it to the inside of a boot, under a bracer or sleeve, or in other inconspicuous locations to gain a +1 item bonus to Stealth checks and DCs to hide or conceal the item within</p>"
+            "value": "<p>This leather sheath is large enough to hold an item of up to light Bulk and is typically used for daggers, wands, thieves' tools, and similar objects.</p>\n<p>You can affix it to the inside of a boot, under a bracer or sleeve, or in other inconspicuous locations to gain a +1 item bonus to Stealth checks and DCs to hide or conceal the item within.</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+1 item bonus to Stealth checks to hide items</li>\n</ul>"
         },
         "equipped": {
             "value": false
@@ -30,14 +31,24 @@
         "hp": {
             "value": 0
         },
-        "identified": {
-            "value": false
+        "identification": {
+            "misidentified": {},
+            "status": "identified",
+            "unidentified": {
+                "data": {
+                    "description": {
+                        "value": ""
+                    }
+                },
+                "img": "",
+                "name": ""
+            }
         },
         "invested": {
             "value": false
         },
         "level": {
-            "value": "3"
+            "value": 3
         },
         "maxHp": {
             "value": 0
@@ -55,10 +66,25 @@
             "value": "25 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
-        "rarity": {
-            "value": "common"
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Concealed Sheath (hide or conceal contents)",
+                "predicate": {
+                    "all": [
+                        "action:conceal-an-object",
+                        "target:contents"
+                    ]
+                },
+                "selector": "stealth",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": {
+            "value": "med"
         },
         "source": {
             "value": ""
@@ -67,23 +93,23 @@
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
-            },
-            "usage": {
-                "value": "worn"
             },
             "value": []
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "worn"
         },
         "weight": {
             "value": "-"
         }
     },
+    "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/equipment/adventuring-gear/concealed-sheath.jpg",
+    "folder": null,
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/concealed-sheath.webp",
     "name": "Concealed Sheath",
     "permission": {
         "default": 0
