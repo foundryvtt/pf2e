@@ -18,6 +18,7 @@ import { Migration636NumifyArmorData } from '@module/migration/migrations/636-nu
 import { Migration637CleanMeleeItems } from '@module/migration/migrations/637-clean-melee-items';
 import { Migration638SpellComponents } from '@module/migration/migrations/638-spell-components';
 import { Migration639NormalizeLevelAndPrice } from '@module/migration/migrations/639-normalize-level-and-price';
+import { Migration640CantripsAreNotZeroLevel } from '@module/migration/migrations/640-cantrips-are-not-zero-level';
 
 import { MigrationBase } from '@module/migration/base';
 import * as fs from 'fs-extra';
@@ -42,6 +43,7 @@ const migrations: MigrationBase[] = [
     new Migration637CleanMeleeItems(),
     new Migration638SpellComponents(),
     new Migration639NormalizeLevelAndPrice(),
+    new Migration640CantripsAreNotZeroLevel(),
 ];
 
 global.deepClone = function (original: any): any {

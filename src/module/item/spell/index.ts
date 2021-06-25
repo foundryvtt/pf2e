@@ -22,7 +22,9 @@ export class SpellPF2e extends ItemPF2e {
         if (isAutoScaling && this.actor) {
             return Math.ceil(this.actor.level / 2);
         }
-        return castLevel ?? this.level;
+
+        // Spells cannot go lower than base level
+        return Math.max(this.level, castLevel ?? this.level);
     }
 
     get isCantrip(): boolean {
@@ -74,7 +76,7 @@ export class SpellPF2e extends ItemPF2e {
         }
         if (this.data.data.duration.value === '' && this.actor) {
             const hasDangerousSorcery = this.actor.itemTypes.feat.some((feat) => feat.slug === 'dangerous-sorcery');
-            if (hasDangerousSorcery && !this.isFocusSpell && this.level !== 0) {
+            if (hasDangerousSorcery && !this.isFocusSpell && !this.isCantrip) {
                 console.debug(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.name}`);
                 parts.push(castLevel);
             }
@@ -114,13 +116,13 @@ export class SpellPF2e extends ItemPF2e {
         super.prepareBaseData();
         this.data.isFocusSpell = this.data.data.category.value === 'focus';
         this.data.isRitual = this.data.data.category.value === 'ritual';
-        this.data.isCantrip = this.level === 0 || (this.traits.has('cantrip') && !this.data.isRitual);
+        this.data.isCantrip = this.traits.has('cantrip') && !this.data.isRitual;
     }
 
     override getChatData(
         this: Embedded<SpellPF2e>,
         htmlOptions: EnrichHTMLOptions = {},
-        rollOptions: { spellLvl?: number } = {},
+        rollOptions: { spellLvl?: number | string } = {},
     ) {
         const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
         const systemData = this.data.data;
@@ -164,8 +166,8 @@ export class SpellPF2e extends ItemPF2e {
             return null;
         })();
 
-        const baseLevel = Math.max(1, systemData.level.value);
-        const level = Math.max(1, toNumber((rollOptions || {}).spellLvl ?? systemData.heightenedLevel?.value) ?? 1);
+        const baseLevel = systemData.level.value;
+        const level = this.computeCastLevel(toNumber(rollOptions?.spellLvl) ?? systemData.heightenedLevel?.value);
         const heightened = (level ?? baseLevel) - baseLevel;
         const levelLabel = (() => {
             const category = this.isCantrip
