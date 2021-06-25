@@ -6,7 +6,7 @@ export class MeleePF2e extends ItemPF2e {
         return MeleeData;
     }
 
-    override getChatData(this: Embedded<MeleePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<MeleePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
 

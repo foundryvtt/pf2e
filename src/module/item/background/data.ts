@@ -6,7 +6,6 @@ import { BackgroundPF2e } from '.';
 export type BackgroundSource = BaseNonPhysicalItemSource<'background', BackgroundSystemData>;
 
 export class BackgroundData extends BaseNonPhysicalItemData<BackgroundPF2e> {
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/background.svg';
 }
 

@@ -5,7 +5,7 @@ import { ItemPF2e } from '@item/index';
 import type { ContainerPF2e } from '@item/index';
 import { MystifiedTraits } from '@item/data/values';
 import { getUnidentifiedPlaceholderImage } from '../identification';
-import { IdentificationStatus, MystifiedData } from './data';
+import { IdentificationStatus, MystifiedData, PhysicalItemTrait } from './data';
 import { coinsToString, extractPriceFromItem } from '@item/treasure/helpers';
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
@@ -28,6 +28,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.isEquipped;
     }
 
+    get price(): string {
+        return this.data.data.price.value;
+    }
+
     get identificationStatus(): IdentificationStatus {
         return this.data.data.identification.status;
     }
@@ -41,13 +45,14 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get isMagical(): boolean {
-        const traits = this.traits;
-        return ['magical', 'arcane', 'primal', 'divine', 'occult'].some((trait) => traits.has(trait));
+        const traits: Set<string> = this.traits;
+        const magicTraits = ['magical', 'arcane', 'primal', 'divine', 'occult'] as const;
+        return magicTraits.some((trait) => traits.has(trait));
     }
 
     get isInvested(): boolean | null {
-        const traits: string[] = this.data.data.traits.value;
-        if (!traits.includes('invested')) return null;
+        const traits: Set<string> = this.traits;
+        if (!traits.has('invested')) return null;
         return this.data.isEquipped && this.data.isIdentified && this.data.data.invested?.value === true;
     }
 
@@ -123,7 +128,6 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         super.prepareDerivedData();
         this.data.isMagical = this.isMagical;
         this.data.isInvested = this.isInvested;
-        this.data.data.traits.value.sort();
     }
 
     /** Can the provided item stack with this item? */
@@ -172,6 +176,13 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         };
     }
 
+    override getChatData(): Record<string, unknown> {
+        return {
+            rarity: CONFIG.PF2E.rarityTraits[this.rarity],
+            description: { value: this.description },
+        };
+    }
+
     async setIdentificationStatus(status: IdentificationStatus): Promise<void> {
         if (this.identificationStatus === status) return;
 
@@ -211,4 +222,6 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
 export interface PhysicalItemPF2e {
     readonly data: PhysicalItemData;
+
+    get traits(): Set<PhysicalItemTrait>;
 }

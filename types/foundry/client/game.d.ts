@@ -8,6 +8,7 @@ declare global {
         combat: CombatTracker;
         compendium: CompendiumDirectory;
         controls: SceneControls;
+        items: ItemDirectory;
         notifications: Notifications;
         settings: Settings;
         tables: RollTableDirectory;

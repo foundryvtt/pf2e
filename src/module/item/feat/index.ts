@@ -13,7 +13,7 @@ export class FeatPF2e extends ItemPF2e {
         };
     }
 
-    override getChatData(this: Embedded<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const properties = [
             `Level ${data.level.value || 0}`,
