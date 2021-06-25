@@ -36,8 +36,8 @@ export class AncestryBackgroundClassManager {
 
         if (classFeaturesToCreate.length > 0) {
             await actor.createEmbeddedDocuments('Item', classFeaturesToCreate, { keepId: true, render: false });
+            classItem.setFlag(game.system.id, 'insertedClassFeaturesLevel', actor.level);
         }
-        classItem.setFlag(game.system.id, 'insertedClassFeaturesLevel', actor.level);
     }
 
     protected static async getClassFeaturesForLevel(
