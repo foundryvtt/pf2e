@@ -7,7 +7,8 @@ export class TreasurePF2e extends PhysicalItemPF2e {
     }
 
     /** Set non-coinage treasure price from its numeric value and denomination */
-    override prepareBaseData() {
+    override prepareBaseData(): void {
+        super.prepareBaseData();
         const systemData = this.data.data;
         if (systemData.stackGroup.value !== 'coins') {
             const value = systemData.value.value;
