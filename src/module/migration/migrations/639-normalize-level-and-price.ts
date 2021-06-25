@@ -5,6 +5,7 @@ import { MigrationBase } from '../base';
 
 /** Normalize stringy level and price values */
 export class Migration639NormalizeLevelAndPrice extends MigrationBase {
+    static override version = 0.639;
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if ('level' in itemData.data) {
             itemData.data.level.value = Number(itemData.data.level.value) || 0;
