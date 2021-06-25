@@ -7,7 +7,6 @@ import type { ClassPF2e } from '.';
 export type ClassSource = BaseNonPhysicalItemSource<'class', ClassSystemData>;
 
 export class ClassData extends BaseNonPhysicalItemData<ClassPF2e> {
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/class.svg';
 }
 

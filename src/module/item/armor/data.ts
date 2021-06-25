@@ -11,7 +11,6 @@ import type { ArmorPF2e } from '.';
 export type ArmorSource = BasePhysicalItemSource<'armor', ArmorSystemData>;
 
 export class ArmorData extends BasePhysicalItemData<ArmorPF2e> {
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/armor.svg';
 }
 

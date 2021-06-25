@@ -9,7 +9,6 @@ import type { EquipmentPF2e } from '.';
 export type EquipmentSource = BasePhysicalItemSource<'equipment', EquipmentSystemData>;
 
 export class EquipmentData extends BasePhysicalItemData<EquipmentPF2e> {
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/equipment.svg';
 }
 

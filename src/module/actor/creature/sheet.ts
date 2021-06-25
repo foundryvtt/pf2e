@@ -14,9 +14,12 @@ import { SkillData } from './data';
  * @category Actor
  */
 export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends ActorSheetPF2e<ActorType> {
-    protected override renderItemSummary(div: JQuery, item: Embedded<ItemPF2e>, chatData: any) {
+    protected override renderItemSummary(
+        div: JQuery,
+        item: Embedded<ItemPF2e>,
+        chatData: any = item.getChatData({ secrets: this.actor.isOwner }),
+    ) {
         super.renderItemSummary(div, item, chatData);
-
         const buttons = $('<div class="item-buttons"></div>');
         switch (item.data.type) {
             case 'action':
@@ -35,21 +38,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                             )}</button>`,
                         );
                     }
-                }
-                break;
-            case 'weapon':
-                // The two handed trait is working differently now and is toggled from the action tab (for players).
-                // It is currently only used in the old npc sheet.
-                // If this gets deprecated sometime, maybe the two handed support should be moved somewhere else.
-                if (chatData.isTwohanded && this.actor.type !== 'character') {
-                    if (chatData.wieldedTwoHands)
-                        buttons.append(
-                            '<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i><i class="far fa-hand-paper"></i></button></span>',
-                        );
-                    else
-                        buttons.append(
-                            '<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i></button></span>',
-                        );
                 }
                 break;
             case 'spell':

@@ -1356,9 +1356,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 summary.slideUp(200, () => summary.remove());
             }
         } else {
-            const chatData = item.getChatData({ secrets: this.actor.isOwner });
             const div = $('<div class="item-summary"/>');
-            this.renderItemSummary(div, item, chatData);
+            this.renderItemSummary(div, item);
             li.append(div);
             if (!options.instant) {
                 div.hide().slideDown(200);
@@ -1370,45 +1369,63 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     /**
      * Called when an item summary is expanded and needs to be filled out.
+     * @todo Move this to templates
      */
-    protected renderItemSummary(div: JQuery, _item: ItemPF2e, chatData: any) {
+    protected renderItemSummary(
+        div: JQuery,
+        item: Embedded<ItemPF2e>,
+        chatData = item.getChatData({ secrets: this.actor.isOwner }),
+    ) {
         const localize = game.i18n.localize.bind(game.i18n);
 
-        const description = TextEditor.enrichHTML(chatData.description.value);
-        div.append(`<div class="item-description">${description}</div></div>`);
-
         const props = $('<div class="item-properties tags"></div>');
+        if (item instanceof PhysicalItemPF2e) {
+            const mystifiedClass = item.isIdentified ? '' : ' mystified';
+            const rarityLabel = CONFIG.PF2E.rarityTraits[item.rarity];
+            props.append(`<span class="tag tag_secondary${mystifiedClass}">${localize(rarityLabel)}</span>`);
+        }
+
         if (Array.isArray(chatData.properties)) {
+            const mystifiedClass = item instanceof PhysicalItemPF2e && !item.isIdentified ? ' mystified' : '';
             chatData.properties
-                .filter((property: unknown) => typeof property === 'string')
-                .forEach((property: string) => {
-                    props.append(`<span class="tag tag_secondary">${localize(property)}</span>`);
+                .filter((property): property is string => typeof property === 'string')
+                .forEach((property) => {
+                    props.append(`<span class="tag tag_secondary${mystifiedClass}">${localize(property)}</span>`);
                 });
         }
-        if (chatData.critSpecialization)
-            props.append(
-                `<span class="tag" title="${localize(
-                    chatData.critSpecialization.description,
-                )}" style="background: rgb(69,74,124); color: white;">${localize(
-                    chatData.critSpecialization.label,
-                )}</span>`,
-            );
+
         // append traits (only style the tags if they contain description data)
-        for (const trait of chatData.traits ?? []) {
-            if (trait.excluded) continue;
-            const label: string = game.i18n.localize(trait.label);
-            const mystifiedClass = trait.mystified ? 'mystified' : [];
-            if (trait.description) {
-                const classes: string = ['tag', mystifiedClass].flat().join(' ');
-                const description: string = game.i18n.localize(trait.description);
-                props.append(`<span class="${classes}" title="${description}">${label}</span>`);
-            } else {
-                const classes: string = ['tag', 'tag_alt', mystifiedClass].flat().join(' ');
-                props.append(`<span class="${classes}">${label}</span>`);
+        const traits = chatData['traits'];
+        if (Array.isArray(traits)) {
+            for (const trait of traits) {
+                if (trait.excluded) continue;
+                const label: string = game.i18n.localize(trait.label);
+                const mystifiedClass = trait.mystified ? 'mystified' : [];
+                if (trait.description) {
+                    const classes = ['tag', mystifiedClass].flat().join(' ');
+                    const description = game.i18n.localize(trait.description);
+                    const $trait = $(`<span class="${classes}" title="${description}">${label}</span>`).tooltipster({
+                        animation: 'fade',
+                        maxWidth: 400,
+                        theme: 'crb-hover',
+                        contentAsHTML: true,
+                    });
+                    props.append($trait);
+                } else {
+                    const classes: string = ['tag', 'tag_alt', mystifiedClass].flat().join(' ');
+                    props.append(`<span class="${classes}">${label}</span>`);
+                }
             }
         }
 
+        if (item instanceof PhysicalItemPF2e && item.data.data.stackGroup.value !== 'coins') {
+            const priceLabel = game.i18n.format('PF2E.Item.Physical.PriceLabel', { price: item.price });
+            div.append($(`<p>${priceLabel}</p>`));
+        }
+
         div.append(props);
+        const description = TextEditor.enrichHTML(item.description);
+        div.append(`<div class="item-description">${description}</div></div>`);
     }
 
     /** Opens an item container */

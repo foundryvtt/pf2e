@@ -1,7 +1,7 @@
 import { ItemPF2e } from '@item/index';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ordinal, toNumber } from '@module/utils';
-import { SpellData } from './data';
+import { SpellData, SpellTrait } from './data';
 
 export class SpellPF2e extends ItemPF2e {
     static override get schema(): typeof SpellData {
@@ -123,7 +123,7 @@ export class SpellPF2e extends ItemPF2e {
         this: Embedded<SpellPF2e>,
         htmlOptions: EnrichHTMLOptions = {},
         rollOptions: { spellLvl?: number | string } = {},
-    ) {
+    ): Record<string, unknown> {
         const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
         const systemData = this.data.data;
 
@@ -132,7 +132,7 @@ export class SpellPF2e extends ItemPF2e {
             console.warn(
                 `PF2e System | Oprhaned spell ${this.name} (${this.id}) on actor ${this.actor.name} (${this.actor.id})`,
             );
-            return systemData;
+            return { ...systemData };
         }
 
         const spellDC =
@@ -206,4 +206,6 @@ export class SpellPF2e extends ItemPF2e {
 
 export interface SpellPF2e {
     readonly data: SpellData;
+
+    get traits(): Set<SpellTrait>;
 }
