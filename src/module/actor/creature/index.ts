@@ -397,10 +397,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 export interface CreaturePF2e {
     readonly data: CreatureData;
 
-    /**
-     * See implementation in class
-     * @override
-     */
+    /** See implementation in class */
     updateEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
         updateData: EmbeddedDocumentUpdateData<this>[],

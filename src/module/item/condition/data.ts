@@ -6,7 +6,6 @@ import { ConditionPF2e } from '.';
 export type ConditionSource = BaseNonPhysicalItemSource<'condition', ConditionSystemData>;
 
 export class ConditionData extends BaseNonPhysicalItemData<ConditionPF2e> {
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/condition.svg';
 }
 

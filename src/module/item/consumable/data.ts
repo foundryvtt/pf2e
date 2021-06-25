@@ -11,7 +11,6 @@ import type { ConsumablePF2e } from '.';
 export type ConsumableSource = BasePhysicalItemSource<'consumable', ConsumableSystemData>;
 
 export class ConsumableData extends BasePhysicalItemData<ConsumablePF2e> {
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/consumable.svg';
 }
 
