@@ -919,6 +919,9 @@ export class CompendiumBrowser extends Application {
         }, null);
 
         if (highestElement) {
+            const isSheet = /^actor-\w+$/.test(highestElement.id);
+            const sheetForm = isSheet && highestElement.querySelector('form.editable');
+            const dropTarget = isSheet && sheetForm instanceof HTMLElement ? sheetForm : highestElement;
             const newEvent = new DragEvent(event.type, {
                 ...event,
                 clientX: event.clientX,
@@ -926,7 +929,7 @@ export class CompendiumBrowser extends Application {
                 dataTransfer: new DataTransfer(),
             });
             newEvent.dataTransfer?.setData('text/plain', event.dataTransfer.getData('text/plain'));
-            highestElement.dispatchEvent(newEvent);
+            dropTarget.dispatchEvent(newEvent);
         }
     }
 
