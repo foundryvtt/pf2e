@@ -10,14 +10,13 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         // Create a level label to show in the summary.
         // This one is a longer version than the chat card
         const levelLabel = (() => {
-            const level = Math.max(1, this.item.level);
             const category =
                 this.item.isCantrip && this.item.isFocusSpell
                     ? game.i18n.localize('PF2E.SpellCategoryFocusCantrip')
                     : this.item.isCantrip
                     ? game.i18n.localize('PF2E.TraitCantrip')
                     : game.i18n.localize(CONFIG.PF2E.spellCategories[this.item.data.data.category.value]);
-            return game.i18n.format('PF2E.SpellLevel', { category, level });
+            return game.i18n.format('PF2E.SpellLevel', { category, level: this.item.level });
         })();
 
         return {
