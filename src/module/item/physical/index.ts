@@ -172,6 +172,12 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         };
     }
 
+    override getChatData() {
+        return {
+            rarity: CONFIG.PF2E.rarityTraits[this.rarity],
+        };
+    }
+
     async setIdentificationStatus(status: IdentificationStatus): Promise<void> {
         if (this.identificationStatus === status) return;
 
