@@ -3,7 +3,6 @@ import { TRADITION_TRAITS } from '../data/values';
 import { RuneValuationData, WEAPON_VALUATION_DATA } from '../runes';
 import { LocalizePF2e } from '@module/system/localize';
 import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup, WeaponTrait } from './data';
-import { CreaturePF2e } from '@actor';
 import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from '@item/treasure/helpers';
 import { sluggify } from '@module/utils';
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from '@item/physical/materials';
@@ -79,6 +78,20 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const highestPrice =
             coinValueInCopper(modifiedPrice) > coinValueInCopper(basePrice) ? modifiedPrice : basePrice;
         systemData.price.value = coinsToString(highestPrice);
+        systemData.level.value = runesData
+            .map((runeData) => runeData.level)
+            .concat(materialData?.level ?? 0)
+            .reduce((highest, level) => (level > highest ? level : highest), 0);
+        const rarityOrder = {
+            common: 0,
+            uncommon: 1,
+            rare: 2,
+            unique: 3,
+        };
+        systemData.traits.rarity.value = runesData
+            .map((runeData) => runeData.rarity)
+            .concat(materialData?.rarity ?? 'common')
+            .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), 'common');
 
         // Set the name according to the precious material and runes
         if (this.isIdentified) this.data.name = this.generateMagicName();
@@ -101,7 +114,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return MATERIAL_VALUATION_DATA[material?.type ?? ''][material?.grade ?? 'low'];
     }
 
-    override getChatData(this: Embedded<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
 
         return this.processChatData(htmlOptions, {
@@ -185,4 +198,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
 export interface WeaponPF2e {
     readonly data: WeaponData;
+
+    get traits(): Set<WeaponTrait>;
 }

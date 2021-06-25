@@ -42,7 +42,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         return new SpellPF2e(spellData, { parent: this.actor }) as Embedded<SpellPF2e>;
     }
 
-    override getChatData(this: Embedded<ConsumablePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<ConsumablePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const translations = LocalizePF2e.translations.PF2E;
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);

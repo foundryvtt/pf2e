@@ -1,3 +1,4 @@
+import { CreatureTrait } from '@actor/creature/data';
 import { Size } from '@module/data';
 import { ABCItemPF2e } from '../abc';
 import { AncestryData } from './data';
@@ -22,4 +23,6 @@ export class AncestryPF2e extends ABCItemPF2e {
 
 export interface AncestryPF2e {
     readonly data: AncestryData;
+
+    get traits(): Set<CreatureTrait>;
 }
