@@ -1089,10 +1089,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         }
 
-        const container = $(event.target).closest('[data-item-is-container="true"]');
-        const containerId = container[0]?.dataset?.itemId?.trim();
-        if (item instanceof PhysicalItemPF2e && (containerId || (item.isInContainer && !containerId))) {
-            await this.actor.stashOrUnstash(item, containerId);
+        const $container = $(event.target).closest('[data-item-is-container="true"]');
+        const containerId = $container.attr('data-item-id') ?? '';
+        const container = this.actor.physicalItems.get(containerId);
+        if (
+            item instanceof PhysicalItemPF2e &&
+            (!container || container instanceof ContainerPF2e) &&
+            item.container?.id !== container?.id
+        ) {
+            await this.actor.stowOrUnstow(item, container);
             return [item];
         }
 

@@ -719,7 +719,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 const sp = 'sp' in this.data.data.attributes ? this.data.data.attributes.sp : { value: 0 };
                 if (isDelta) {
                     if (value < 0) {
-                        const { update, delta } = this._calculateHealthDelta({ hp, sp, delta: value });
+                        const { update, delta } = this.calculateHealthDelta({ hp, sp, delta: value });
                         value = delta;
                         for (const [k, v] of Object.entries(update)) {
                             updateActorData[k] = v;
@@ -765,6 +765,10 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (!(item instanceof PhysicalItemPF2e)) {
             return Promise.reject(new Error('Only physical items (with quantities) can be transfered between actors'));
         }
+        const container = targetActor.physicalItems.get(containerId ?? '');
+        if (!(!container || container instanceof ContainerPF2e)) {
+            throw ErrorPF2e('containerId refers to a non-container');
+        }
 
         // Loot transfers can be performed by non-owners when a GM is online */
         const gmMustTransfer = (source: ActorPF2e, target: ActorPF2e): boolean => {
@@ -776,7 +780,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (gmMustTransfer(this, targetActor)) {
             const source = { tokenId: this.token?.id, actorId: this.id, itemId: item.id };
             const target = { tokenId: targetActor.token?.id, actorId: targetActor.id };
-            await new ItemTransfer(source, target, quantity, containerId).request();
+            await new ItemTransfer(source, target, quantity, container?.id).request();
             return null;
         }
 
@@ -824,7 +828,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
         const movedItem = targetActor.physicalItems.get(result.id);
         if (!movedItem) return null;
-        await targetActor.stashOrUnstash(movedItem, containerId);
+        await targetActor.stowOrUnstow(movedItem, container);
 
         return item;
     }
@@ -855,14 +859,12 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param getItem     Lambda returning the item.
      * @param containerId Id of the container that will contain the item.
      */
-    async stashOrUnstash(item: Embedded<PhysicalItemPF2e>, containerId?: string): Promise<void> {
-        if (containerId && this.physicalItems.get(containerId) instanceof ContainerPF2e) {
-            if (!isCycle(item.id, containerId, [item.data])) {
-                await item.update({
-                    'data.containerId.value': containerId,
-                    'data.equipped.value': false,
-                });
-            }
+    async stowOrUnstow(item: Embedded<PhysicalItemPF2e>, container?: Embedded<ContainerPF2e>): Promise<void> {
+        if (container && !isCycle(item.id, container.id, [item.data])) {
+            await item.update({
+                'data.containerId.value': container.id,
+                'data.equipped.value': false,
+            });
         } else {
             await item.update({ 'data.containerId.value': null });
         }
@@ -872,7 +874,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * Handle how changes to a Token attribute bar are applied to the Actor.
      * This allows for game systems to override this behavior and deploy special logic.
      */
-    _calculateHealthDelta(args: { hp: { value: number; temp: number }; sp: { value: number }; delta: number }) {
+    private calculateHealthDelta(args: { hp: { value: number; temp: number }; sp: { value: number }; delta: number }) {
         const update: any = {};
         const { hp, sp } = args;
         let { delta } = args;
