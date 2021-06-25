@@ -1594,7 +1594,6 @@ export const PF2ECONFIG = {
     },
 
     spellLevels: {
-        0: 'PF2E.SpellLevel0',
         1: 'PF2E.SpellLevel1',
         2: 'PF2E.SpellLevel2',
         3: 'PF2E.SpellLevel3',

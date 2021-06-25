@@ -48,6 +48,7 @@ import { SaveString, SkillAbbreviation } from '@actor/creature/data';
 import { AbilityString } from '@actor/data/base';
 import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
 import { FolderPF2e } from '@module/folder';
+import { OneToTen } from '@module/data';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -222,14 +223,19 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
      * @param spellData        The spell data being prepared
      */
     protected prepareSpell(actorData: ActorDataPF2e, spellbook: any, spellData: SpellSheetData) {
+        const item = this.actor.items.get(spellData._id);
+        if (!(item instanceof SpellPF2e)) {
+            return;
+        }
+
+        const { isCantrip, isFocusSpell, isRitual } = item;
         const heightenedLevel = spellData.data.heightenedLevel?.value;
-        const castingLevel =
-            heightenedLevel ?? (Number(spellData.data.level.value) < 11 ? Number(spellData.data.level.value) : 10);
-        const spellcastingEntry = this.actor.items.get(spellData.data.location.value)?.data ?? null;
+        const castingLevel = isCantrip ? 0 : heightenedLevel ?? Math.min(10, Number(spellData.data.level.value));
+        const spellcastingEntry = item.spellcasting?.data;
 
         // if the spellcaster entry cannot be found (maybe it was deleted?)
-        if (spellcastingEntry?.type !== 'spellcastingEntry') {
-            console.debug(`PF2e System | Spellcasting entry not found for spell ${spellData.name} (${spellData._id})`);
+        if (!spellcastingEntry) {
+            console.error(`PF2e System | Spellcasting entry not found for spell ${spellData.name} (${spellData._id})`);
             return;
         }
 
@@ -252,10 +258,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         for (let spellLevel = maxSpellLevelToShow; spellLevel >= 0; spellLevel--) {
             if (!isNotLevelBasedSpellcasting || spellLevel === castingLevel) {
                 const slotKey = `slot${spellLevel}` as keyof typeof slots;
+                const isCantrip = spellLevel === 0;
+                const label = isCantrip ? 'PF2E.TraitCantrip' : CONFIG.PF2E.spellLevels[spellLevel as OneToTen];
                 spellbook[spellLevel] ??= {
-                    isCantrip: spellLevel === 0,
+                    isCantrip,
                     isFocus: spellLevel === 11,
-                    label: CONFIG.PF2E.spellLevels[spellLevel as keyof ConfigPF2e['PF2E']['spellLevels']],
+                    label,
                     spells: [],
                     prepared: [],
                     uses: spellcastingEntry ? Number(slots[slotKey].value) || 0 : 0,
@@ -278,12 +286,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Add the spell to the spellbook at the appropriate level
         spellData.data.school.str = CONFIG.PF2E.magicSchools[spellData.data.school.value];
+
         // Add chat data
         try {
-            const item = this.actor.items.get(spellData._id);
-            if (item instanceof SpellPF2e) {
-                spellData.spellInfo = item.getChatData();
-            }
+            spellData.spellInfo = item.getChatData();
         } catch (err) {
             console.debug(
                 `PF2e System | Character Sheet | Could not load chat data for spell ${spellData._id}`,
@@ -295,11 +301,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             spellcastingEntry.data.prepared.value === 'spontaneous' &&
             spellcastingEntry.data.tradition.value !== 'focus';
         const signatureSpells = spellcastingEntry.data.signatureSpells?.value ?? [];
-        const isCantrip = spellData.isCantrip;
-        const isFocusSpell = spellData.isFocusSpell;
-        const isRitual = spellData.isRitual;
 
         if (isSpontaneous && signatureSpells.includes(spellData._id) && !isCantrip && !isFocusSpell && !isRitual) {
+            // Signature Spell (add to every level)
             spellData.data.isSignatureSpell = true;
 
             for (let spellLevel = spellData.data.level.value; spellLevel <= maxSpellLevelToShow; spellLevel++) {
@@ -308,6 +312,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 }
             }
         } else {
+            // Regular Spell
             spellbook[castingLevel].spells.push(spellData);
         }
     }
@@ -388,16 +393,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     /**
-     * Prepare Spell SLot
      * Saves the prepared spell slot data to the actor
      * @param spellLevel The level of the spell slot
      * @param spellSlot The number of the spell slot
      * @param spell The item details for the spell
      * @param entryId The ID of the spellcastingEntry
      */
-    private allocatePreparedSpellSlot(spellLevel: number, spellSlot: number, spell: SpellSource, entryId: string) {
-        if (spell.data.level.value > spellLevel) {
-            console.warn(`Attempted to add level ${spell.data.level.value} spell to level ${spellLevel} spell slot.`);
+    private allocatePreparedSpellSlot(spellLevel: number, spellSlot: number, spell: SpellPF2e, entryId: string) {
+        if (spell.level > spellLevel && !(spellLevel === 0 && spell.isCantrip)) {
+            console.warn(`Attempted to add level ${spell.level} spell to level ${spellLevel} spell slot.`);
             return;
         }
         if (CONFIG.debug.hooks)
@@ -410,7 +414,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const updates: any = {
                 _id: entryId,
                 [key]: {
-                    id: spell._id,
+                    id: spell.id,
                 },
             };
             const slot = getProperty(entry, `data.data.slots.slot${spellLevel}.prepared`);
@@ -1014,7 +1018,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // if they are dragging onto another spell, it's just sorting the spells
         // or moving it from one spellcastingEntry to another
-        if (itemData.type === 'spell') {
+        if (item instanceof SpellPF2e && itemData.type === 'spell') {
             if (dropSlotType === 'spellLevel') {
                 const { itemId, level } = $(event.target).closest('.item').data();
 
@@ -1056,7 +1060,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const entryId = $(event.target).parents('.item').attr('data-entry-id') ?? '';
 
                 if (Number.isInteger(dropId) && Number.isInteger(spellLvl) && entryId) {
-                    const allocated = this.allocatePreparedSpellSlot(spellLvl, dropId, itemData, entryId);
+                    const allocated = this.allocatePreparedSpellSlot(spellLvl, dropId, item, entryId);
                     if (allocated) return allocated;
                 }
             } else if (dropContainerType === 'spellcastingEntry') {
