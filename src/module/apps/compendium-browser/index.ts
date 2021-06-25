@@ -111,6 +111,9 @@ export class CompendiumBrowser extends Application {
     navigationTab!: Tabs;
     data!: TabData<object>;
 
+    /** Is the user currently dragging a document from the browser? */
+    userIsDragging = false;
+
     constructor(options = {}) {
         super(options);
 
@@ -872,6 +875,7 @@ export class CompendiumBrowser extends Application {
 
     /** Set drag data and lower opacity of the application window to reveal any tokens */
     protected override _onDragStart(event: ElementDragEvent): void {
+        this.userIsDragging = true;
         this.element.animate({ opacity: 0.125 }, 250);
 
         const $item = $(event.target);
@@ -888,12 +892,15 @@ export class CompendiumBrowser extends Application {
         );
 
         $item.one('dragend', () => {
+            this.userIsDragging = false;
             this.element.animate({ opacity: 1 }, 500);
         });
     }
 
     /** Simulate a drop event on the DOM element directly beneath the compendium browser */
     protected override _onDrop(event: ElementDragEvent): void {
+        if (!this.userIsDragging) return;
+
         // Get all elements beneath the compendium browser
         const browserZIndex = Number(this.element.css('zIndex'));
         const dropCandidates = Array.from(document.body.querySelectorAll('*')).filter(
