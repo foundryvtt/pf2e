@@ -1,6 +1,6 @@
 import { ItemPF2e } from '@item/index';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
-import { ordinal } from '@module/utils';
+import { ordinal, toNumber } from '@module/utils';
 import { SpellData } from './data';
 
 export class SpellPF2e extends ItemPF2e {
@@ -22,7 +22,9 @@ export class SpellPF2e extends ItemPF2e {
         if (isAutoScaling && this.actor) {
             return Math.ceil(this.actor.level / 2);
         }
-        return Math.min(this.level, castLevel ?? this.level);
+
+        // Spells cannot go lower than base level
+        return Math.max(this.level, castLevel ?? this.level);
     }
 
     get isCantrip(): boolean {
@@ -120,7 +122,7 @@ export class SpellPF2e extends ItemPF2e {
     override getChatData(
         this: Embedded<SpellPF2e>,
         htmlOptions: EnrichHTMLOptions = {},
-        rollOptions: { spellLvl?: number } = {},
+        rollOptions: { spellLvl?: number | string } = {},
     ) {
         const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
         const systemData = this.data.data;
@@ -165,7 +167,7 @@ export class SpellPF2e extends ItemPF2e {
         })();
 
         const baseLevel = systemData.level.value;
-        const level = this.computeCastLevel(rollOptions?.spellLvl ?? systemData.heightenedLevel?.value);
+        const level = this.computeCastLevel(toNumber(rollOptions?.spellLvl) ?? systemData.heightenedLevel?.value);
         const heightened = (level ?? baseLevel) - baseLevel;
         const levelLabel = (() => {
             const category = this.isCantrip
