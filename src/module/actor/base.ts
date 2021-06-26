@@ -1178,7 +1178,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Increase a valued condition, or create a new one if not present */
     async increaseCondition(
         conditionSlug: ConditionType | Embedded<ConditionPF2e>,
-        { min, max = 4 }: { min?: number | null; max?: number | null } = {},
+        { min, max = Number.MAX_SAFE_INTEGER }: { min?: number | null; max?: number | null } = {},
     ): Promise<void> {
         const existing = typeof conditionSlug === 'string' ? this.getCondition(conditionSlug) : conditionSlug;
         if (existing) {
