@@ -5,6 +5,15 @@ import { ChatCards } from './listeners/cards';
 import { CriticalHitAndFumbleCards } from './crit-fumble-cards';
 
 export class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
+    /**
+     * Avoid triggering Foundry 0.8.8 bug in which a speaker with no alias and a deleted actor can cause and unhandled
+     * exception to be thrown
+     */
+    override get alias(): string {
+        const speaker = this.data.speaker;
+        return speaker.alias ?? game.actors.get(speaker.actor ?? '')?.name ?? this.user?.name ?? '';
+    }
+
     override async getHTML(): Promise<JQuery> {
         const $html = await super.getHTML();
         ChatCards.listen($html);

@@ -2,7 +2,7 @@ import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
 import { ItemDataPF2e } from '@item/data';
 import { LocalizePF2e } from '@system/localize';
-import { AESheetData, SheetOptions, SheetSelections } from './data-types';
+import { AESheetData, ItemSheetDataPF2e, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e, LorePF2e } from '@item/index';
 import { PF2RuleElementData } from '@module/rules/rules-data-definitions';
 import Tagify from '@yaireo/tagify';
@@ -15,12 +15,6 @@ import {
 } from '@module/system/trait-selector';
 import { ErrorPF2e, sluggify, tupleHasValue } from '@module/utils';
 import { ActiveEffectPF2e } from '@module/active-effect';
-
-export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
-    user: { isGM: boolean };
-    enabledRulesUI: boolean;
-    activeEffects: AESheetData;
-}
 
 export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     static override get defaultOptions() {
@@ -51,10 +45,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves;
 
-        const { type } = this.item;
+        const itemData: ItemDataPF2e = data.item;
+
         mergeObject(data, {
             hasSidebar: true,
-            sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
+            sidebarTemplate: () => `systems/pf2e/templates/items/${itemData.type}-sidebar.html`,
             hasDetails: [
                 'consumable',
                 'equipment',
@@ -67,13 +62,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 'backpack',
                 'condition',
                 'lore',
-            ].includes(type),
-            detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`,
+            ].includes(itemData.type),
+            detailsTemplate: () => `systems/pf2e/templates/items/${itemData.type}-details.html`,
         }); // Damage types
-
-        const itemData: ItemDataPF2e = data.item;
-        // Expose the saved traits for editing purposes;
-        data.data.traits.value = this.item.toObject().data.traits.value.filter((trait) => !!trait);
 
         const dt = duplicate(CONFIG.PF2E.damageTypes);
         if (itemData.type === 'spell') mergeObject(dt, CONFIG.PF2E.healingTypes);
@@ -86,49 +77,20 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         data.usage = CONFIG.PF2E.usageTraits; // usage data
         data.stackGroups = CONFIG.PF2E.stackGroups;
 
-        if (type === 'treasure') {
+        if (itemData.type === 'treasure') {
             data.currencies = CONFIG.PF2E.currencies;
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.sizes = CONFIG.PF2E.actorSizes;
-        } else if (type === 'consumable') {
+        } else if (itemData.type === 'consumable') {
             data.consumableTypes = CONFIG.PF2E.consumableTypes;
+            data.traits = this.prepareOptions(CONFIG.PF2E.consumableTraits, itemData.data.traits, {
+                selectedOnly: true,
+            });
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.consumableTraits = CONFIG.PF2E.consumableTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
-        } else if (type === 'weapon') {
-            const materials: Partial<typeof CONFIG.PF2E.preciousMaterials> = duplicate(CONFIG.PF2E.preciousMaterials);
-            delete materials.dragonhide;
-            const slots = getPropertySlots(data);
-            this.assignPropertySlots(data, slots);
-            data.preciousMaterials = materials;
-            data.weaponPotencyRunes = CONFIG.PF2E.weaponPotencyRunes;
-            data.weaponStrikingRunes = CONFIG.PF2E.weaponStrikingRunes;
-            data.weaponPropertyRunes = CONFIG.PF2E.weaponPropertyRunes;
-            data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
-            data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
-
-            data.traits = this.prepareOptions(CONFIG.PF2E.weaponTraits, data.data.traits, { selectedOnly: true });
-            data.baseTraits = this.prepareOptions(CONFIG.PF2E.weaponTraits, this.item.toObject().data.traits, {
-                selectedOnly: true,
-            });
-
-            data.categories = CONFIG.PF2E.weaponCategories;
-            data.groups = CONFIG.PF2E.weaponGroups;
-            data.baseTypes = LocalizePF2e.translations.PF2E.Weapon.Base;
-
-            data.itemBonuses = CONFIG.PF2E.itemBonuses;
-            data.damageDie = CONFIG.PF2E.damageDie;
-            data.damageDice = CONFIG.PF2E.damageDice;
-            data.conditionTypes = CONFIG.PF2E.conditionTypes;
-            data.weaponDamage = CONFIG.PF2E.damageTypes;
-            data.weaponRange = CONFIG.PF2E.weaponRange;
-            data.weaponReload = CONFIG.PF2E.weaponReload;
-            data.weaponMAP = CONFIG.PF2E.weaponMAP;
-            data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.sizes = CONFIG.PF2E.actorSizes;
-            data.isBomb = type === 'weapon' && data.data?.group?.value === 'bomb';
-        } else if (type === 'melee') {
+        } else if (itemData.type === 'melee') {
             // Melee Data
             data.hasSidebar = false;
             data.detailsActive = true;
@@ -142,23 +104,29 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 }, CONFIG.PF2E.attackEffects) ?? {};
             data.attackEffects = this.prepareOptions(attackEffectOptions, data.data.attackEffects);
             data.traits = this.prepareOptions(CONFIG.PF2E.weaponTraits, data.data.traits);
-        } else if (type === 'condition') {
+        } else if (itemData.type === 'condition') {
             // Condition types
 
             data.conditions = [];
-        } else if (type === 'equipment') {
+        } else if (itemData.type === 'equipment') {
             // Equipment data
+            data.traits = this.prepareOptions(CONFIG.PF2E.equipmentTraits, itemData.data.traits, {
+                selectedOnly: true,
+            });
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
-        } else if (type === 'backpack') {
+        } else if (itemData.type === 'backpack') {
             // Backpack data
+            data.traits = this.prepareOptions(CONFIG.PF2E.equipmentTraits, itemData.data.traits, {
+                selectedOnly: true,
+            });
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
             // this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
-        } else if (type === 'armor') {
+        } else if (itemData.type === 'armor') {
             // Armor data
             const slots = getPropertySlots(data);
             this.assignPropertySlots(data, slots);
@@ -169,17 +137,19 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.groups = CONFIG.PF2E.armorGroups;
             data.baseTypes = LocalizePF2e.translations.PF2E.Item.Armor.Base;
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, data.data.traits, { selectedOnly: true });
-            data.baseTraits = this.prepareOptions(CONFIG.PF2E.armorTraits, this.item.toObject().data.traits, {
-                selectedOnly: true,
-            });
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
             data.sizes = CONFIG.PF2E.actorSizes;
-        } else if (type === 'lore') {
+
+            // Armor has derived traits: base traits are shown for editing
+            data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, itemData.data.traits, { selectedOnly: true });
+            data.baseTraits = this.prepareOptions(CONFIG.PF2E.armorTraits, itemData.toObject().data.traits, {
+                selectedOnly: true,
+            });
+        } else if (itemData.type === 'lore') {
             // Lore-specific data
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;
-        } else if (type === 'effect') {
+        } else if (itemData.type === 'effect') {
             // Effect-specific data
             if (this?.actor?.items) {
                 const scopes = new Set<string>();
@@ -203,9 +173,11 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
     protected getBaseData(): ItemSheetDataPF2e<TItem> {
-        const itemData = this.item.data;
+        const itemData = this.item.clone({}, { keepId: true }).data;
         const isEditable = this.isEditable;
         return {
+            hasSidebar: false,
+            hasDetails: true,
             cssClass: isEditable ? 'editable' : 'locked',
             editable: isEditable,
             document: this.item,

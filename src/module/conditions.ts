@@ -2,7 +2,6 @@ import { ModifierPF2e } from './modifiers';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import type { ConditionData, ConditionSource } from '@item/condition/data';
 import { ConditionPF2e } from '@item/condition';
-import { ErrorPF2e } from './utils';
 import { ActorPF2e } from '@actor/base';
 import { TokenPF2e } from './canvas/token';
 
@@ -145,7 +144,10 @@ export class ConditionManager {
         let appliedCondition: ConditionData;
 
         conditions.forEach((condition) => {
-            if (appliedCondition === undefined || condition.data.value.value > appliedCondition.data.value.value) {
+            if (
+                appliedCondition === undefined ||
+                Number(condition.data.value.value) > Number(appliedCondition.data.value.value)
+            ) {
                 // First condition, or new max achieved.
 
                 if (!condition.data.active) {
@@ -413,53 +415,52 @@ export class ConditionManager {
         );
         if (exists) return null;
 
-        const item = await ConditionPF2e.create(condition, { parent: actor });
-        if (!item) throw ErrorPF2e('Unexpected failure creating new condition');
+        condition._id = randomID(16);
+        const conditionsToCreate = this.createAdditionallyAppliedConditions(condition);
+        conditionsToCreate.push(condition);
 
-        let needsItemUpdate = false;
-        const itemUpdate = {
-            data: {
-                references: {
-                    children: [] as { id: string; type: 'condition' }[],
-                },
-            },
-        };
+        actor.createEmbeddedDocuments('Item', conditionsToCreate, { keepId: true }).then((result) => {
+            return result.find((item) => item.id === condition._id) as ConditionPF2e;
+        });
 
-        // Needs synchronicity.
-        for await (const linkedConditionName of condition.data.alsoApplies.linked) {
-            const conditionSource = this.getCondition(linkedConditionName.condition).toObject();
-            if (linkedConditionName.value) {
-                conditionSource.data.value.value = linkedConditionName.value;
+        return null;
+    }
+
+    private static createAdditionallyAppliedConditions(baseCondition: ConditionSource): ConditionSource[] {
+        const conditionsToCreate: ConditionSource[] = [];
+
+        baseCondition.data.alsoApplies.linked.forEach((linkedCondition) => {
+            const conditionSource = this.getCondition(linkedCondition.condition).toObject();
+            if (linkedCondition.value) {
+                conditionSource.data.value.value = linkedCondition.value;
             }
+            conditionSource._id = randomID(16);
+            conditionSource.data.references.parent = { id: baseCondition._id, type: 'condition' };
+            baseCondition.data.references.children.push({ id: conditionSource._id, type: 'condition' });
+            conditionSource.data.sources.hud = baseCondition.data.sources.hud;
 
-            conditionSource.data.references.parent = { id: item.id, type: 'condition' };
-            conditionSource.data.sources.hud = condition.data.sources.hud;
+            // Add linked condition to the list of items to create
+            conditionsToCreate.push(conditionSource);
+            // Add conditions that are applied by the previously added linked condition
+            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource));
+        });
 
-            const linkedItem = await this.createConditions(conditionSource, actor);
-
-            if (linkedItem) {
-                itemUpdate.data!.references.children.push({ id: linkedItem.id, type: 'condition' });
-                needsItemUpdate = true;
-            }
-        }
-
-        for await (const unlinkedConditionName of condition.data.alsoApplies.unlinked) {
-            const conditionSource = this.getCondition(unlinkedConditionName.condition).toObject();
-            if (unlinkedConditionName.value) {
+        baseCondition.data.alsoApplies.unlinked.forEach((unlinkedCondition) => {
+            const conditionSource = this.getCondition(unlinkedCondition.condition).toObject();
+            if (unlinkedCondition.value) {
                 conditionSource.name = `${conditionSource.name} ${conditionSource.data.value.value}`;
-                conditionSource.data.value.value = unlinkedConditionName.value;
+                conditionSource.data.value.value = unlinkedCondition.value;
             }
+            conditionSource._id = randomID(16);
+            conditionSource.data.sources.hud = baseCondition.data.sources.hud;
 
-            conditionSource.data.sources.hud = condition.data.sources.hud;
+            // Add unlinked condition to the list of items to create
+            conditionsToCreate.push(conditionSource);
+            // Add conditions that are applied by the previously added condition
+            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource));
+        });
 
-            await this.createConditions(conditionSource, actor);
-        }
-
-        if (needsItemUpdate) {
-            await item.update(itemUpdate);
-        }
-
-        return item;
+        return conditionsToCreate;
     }
 
     /**
@@ -670,7 +671,7 @@ export class ConditionManager {
             if (a.data.base === b.data.base) {
                 // Both are same base
 
-                if (a.data.value.isValued) {
+                if (a.data.value.isValued && b.data.value.isValued) {
                     // Valued condition
                     // Sort values by descending order.
                     return b.data.value.value - a.data.value.value;

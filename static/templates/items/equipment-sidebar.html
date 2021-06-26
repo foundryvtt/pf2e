@@ -1,4 +1,4 @@
-<h4 class="sidebar-summary">{{localize "PF2E.EquipmentSummary"}}</h4>
+<h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeEquipment")}}</h4>
 
 <div class="inventory-details">
     <div class="form-group">
@@ -86,7 +86,12 @@
 
     <ol class="item-tags">
       {{#if data.equipped.value}}
-        <li class="tag">{{localize "PF2E.EquipmentEquippedLabel"}}</li>
+          <li class="tag">{{localize "PF2E.EquipmentEquippedLabel"}}</li>
       {{/if}}
+    </ol>
+    <ol class="item-tags">
+        {{#each traits as |trait|}}
+            <li class="tag">{{localize trait.label}}</li>
+        {{/each}}
     </ol>
 </div>

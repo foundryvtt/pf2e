@@ -1,5 +1,6 @@
 import { ActionPF2e } from '@item/action';
-import { ItemSheetDataPF2e, ItemSheetPF2e } from './base';
+import { ItemSheetDataPF2e } from '@item/sheet/data-types';
+import { ItemSheetPF2e } from '../sheet/base';
 
 export class ActionSheetPF2e extends ItemSheetPF2e<ActionPF2e> {
     override getData() {

@@ -193,7 +193,7 @@
         <a class="trait-selector" data-trait-selector="basic" data-config-types="armorTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="traits-list pf-value pf-large">
-        {{#each traits as |trait|}}
+        {{#each baseTraits as |trait|}}
             {{#if trait.selected}}
                 <li class="tag" data-trait="{{trait.value}}">{{localize trait.label}}</li>
             {{/if}}

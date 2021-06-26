@@ -2,7 +2,7 @@ import { AbilityString } from '@actor/data/base';
 import { TrickMagicItemCastData } from '@item/data';
 import { ItemLevelData, ItemSystemData, ItemTraits } from '@item/data/base';
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from '@item/data/non-physical';
-import { ValuesList, ZeroToTen } from '@module/data';
+import { ValuesList, OneToTen } from '@module/data';
 import type { SpellPF2e } from '.';
 
 export type SpellSource = BaseNonPhysicalItemSource<'spell', SpellSystemData>;
@@ -13,7 +13,6 @@ export class SpellData extends BaseNonPhysicalItemData<SpellPF2e> {
     isFocusSpell!: boolean;
     isRitual!: boolean;
 
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/spell.svg';
 }
 
@@ -32,7 +31,7 @@ export type SpellTraits = ItemTraits<SpellTrait>;
 export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     traits: SpellTraits;
     level: {
-        value: ZeroToTen;
+        value: OneToTen;
     };
     spellType: {
         value: string;

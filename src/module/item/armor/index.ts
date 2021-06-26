@@ -87,13 +87,9 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         const hasTraditionTraits = TRADITION_TRAITS.some((trait) => baseTraits.includes(trait));
         const magicTraits: 'magical'[] = fromRunes.length > 0 && !hasTraditionTraits ? ['magical'] : [];
         this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
-
-        // Set these again in case the above would entail different values
-        this.data.isMagical = this.isMagical;
-        this.data.isInvested = this.isInvested;
     }
 
-    override getChatData(this: Embedded<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const localize = game.i18n.localize.bind(game.i18n);
         const properties = [

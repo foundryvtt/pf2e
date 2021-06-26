@@ -1,8 +1,10 @@
-import { ActorPF2e } from '@actor/index';
+import type { ActorPF2e } from '@actor/index';
 import { groupBy } from '@module/utils';
-import { ItemDataPF2e, ItemType, PhysicalItemData, TreasureData } from '@item/data';
-import { PhysicalItemPF2e, TreasurePF2e } from '@item/index';
+import type { ItemDataPF2e, ItemType, PhysicalItemData, TreasureData } from '@item/data';
+import type { PhysicalItemPF2e } from '@item/index';
 import { isPhysicalData } from '@item/data/helpers';
+
+export const DENOMINATIONS = ['cp', 'sp', 'gp', 'pp'] as const;
 
 export interface Coins {
     pp: number;
@@ -15,7 +17,27 @@ export function coinValueInCopper(coins: Coins) {
     return coins.cp + coins.sp * 10 + coins.gp * 100 + coins.pp * 1000;
 }
 
-function toCoins(denomination: string, value: number): Coins {
+/** Convert a `Coins` object into a price string */
+export function coinsToString(coins: Coins): string {
+    if (DENOMINATIONS.every((denomination) => coins[denomination] === 0)) {
+        return '0 gp';
+    }
+
+    const denomination = DENOMINATIONS.reduce((highest, denomination) => {
+        return coins[denomination] > 0 ? denomination : highest;
+    });
+
+    const value = {
+        pp: coins['pp'],
+        gp: coins['pp'] * 10 + coins['gp'],
+        sp: coins['pp'] * 100 + coins['gp'] * 10 + coins['sp'],
+        cp: coinValueInCopper(coins),
+    }[denomination];
+
+    return `${value} ${denomination}`;
+}
+
+export function toCoins(denomination: string, value: number): Coins {
     return {
         pp: denomination === 'pp' ? value : 0,
         gp: denomination === 'gp' ? value : 0,
@@ -36,7 +58,7 @@ function noCoins(): Coins {
     };
 }
 
-function combineCoins(first: Coins, second: Coins): Coins {
+export function combineCoins(first: Coins, second: Coins): Coins {
     return {
         pp: first.pp + second.pp,
         gp: first.gp + second.gp,
@@ -66,17 +88,18 @@ function calculateValueOfTreasure(items: PhysicalItemData[]) {
 
 /**
  * Converts the price of an item to the Coin structure
- * @param item
+ * @param itemData
  */
-export function extractPriceFromItem(item: PhysicalItemData, quantityOverride?: number): Coins {
+export function extractPriceFromItem(
+    itemData: { data: { price: { value: string }; quantity: { value: number } } },
+    quantity: number = itemData.data.quantity.value,
+): Coins {
     // This requires preprocessing, as large gold values contain , for their value
-    const priceTag = item.data.price?.value?.toString()?.trim()?.replace(/,/g, '') ?? '';
-    const regex = /^(\d+)(?:\s*)(pp|gp|sp|cp)$/;
-    const match = regex.exec(priceTag);
+    const priceTag = String(itemData.data.price.value).trim().replace(/,/g, '');
+    const match = /^(\d+)\s*([pgsc]p)$/.exec(priceTag);
     if (match) {
         const [value, denomination] = match.slice(1, 3);
-        const quantity = quantityOverride ?? item.data.quantity.value;
-        return toCoins(denomination, parseInt(value, 10) * quantity);
+        return toCoins(denomination, (Number(value) || 0) * quantity);
     } else {
         return toCoins('gp', 0);
     }
@@ -170,14 +193,14 @@ async function addFromCompendium(actor: ActorPF2e, compendiumId: string, quantit
         throw Error('unable to get pack!');
     }
     const item = await pack.getDocument(compendiumId);
-    if (item instanceof TreasurePF2e) {
+    if (item?.data.type === 'treasure') {
         item.data.update({ 'data.quantity.value': quantity });
         await actor.createEmbeddedDocuments('Item', [item.toObject()]);
     }
 }
 
 async function increaseItemQuantity(item: Embedded<PhysicalItemPF2e>, quantity: number) {
-    if (item instanceof TreasurePF2e) {
+    if (item.data.type === 'treasure') {
         await item.update({ 'data.quantity.value': item.quantity + quantity });
     }
 }
@@ -226,7 +249,7 @@ export async function addCoins(
     );
     const coinsByDenomination = groupBy(
         topLevelCoins,
-        (item) => item instanceof TreasurePF2e && item.data.data.denomination.value,
+        (item) => item.data.type === 'treasure' && item.data.data.denomination.value,
     );
 
     for await (const denomination of CURRENCIES) {
@@ -297,7 +320,7 @@ export async function sellAllTreasure(actor: ActorPF2e): Promise<void> {
 export async function sellTreasure(actor: ActorPF2e, itemId: string): Promise<void> {
     const item = actor.physicalItems.get(itemId);
     if (
-        item instanceof TreasurePF2e &&
+        item?.data.type === 'treasure' &&
         item.data.data.denomination.value !== undefined &&
         item.data.data.denomination.value !== null &&
         item.data.data.stackGroup.value !== 'coins'
