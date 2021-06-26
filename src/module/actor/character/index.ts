@@ -49,19 +49,19 @@ export class CharacterPF2e extends CreaturePF2e {
         return CharacterData;
     }
 
-    get ancestry(): AncestryPF2e | null {
+    get ancestry(): Embedded<AncestryPF2e> | null {
         return this.itemTypes.ancestry[0] ?? null;
     }
 
-    get background(): BackgroundPF2e | null {
+    get background(): Embedded<BackgroundPF2e> | null {
         return this.itemTypes.background[0] ?? null;
     }
 
-    get class(): ClassPF2e | null {
+    get class(): Embedded<ClassPF2e> | null {
         return this.itemTypes.class[0] ?? null;
     }
 
-    get heritage(): FeatPF2e | null {
+    get heritage(): Embedded<FeatPF2e> | null {
         return this.itemTypes.feat.find((feat) => feat.featType.value === 'heritage') ?? null;
     }
 
@@ -97,9 +97,8 @@ export class CharacterPF2e extends CreaturePF2e {
 
     /** Adjustments from ABC items are made after all items are prepared but before active effects are applied. */
     override applyActiveEffects(): void {
-        this.prepareAncestry();
-        this.prepareBackground();
-        this.prepareClass();
+        this.ancestry?.prepareActorData();
+        this.class?.prepareActorData();
         super.applyActiveEffects();
     }
 
@@ -145,25 +144,17 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Calculate HP and SP
         {
-            const ancestryHP = systemData.attributes.ancestryhp ?? 0;
-            const classHP = systemData.attributes.classhp ?? 0;
             const hitPoints = systemData.attributes.hp;
-            const modifiers = hitPoints.modifiers.concat(
-                new ModifierPF2e('PF2E.AncestryHP', ancestryHP, MODIFIER_TYPE.UNTYPED),
-            );
+            const modifiers = [...hitPoints.modifiers];
 
             if (game.settings.get('pf2e', 'staminaVariant')) {
                 const bonusSpPerLevel = (systemData.attributes.levelbonussp ?? 1) * this.level;
-                const halfClassHp = Math.floor(classHP / 2);
-
+                const halfClassHp = Math.floor((this.class?.hpPerLevel ?? 0) / 2);
                 systemData.attributes.sp.max =
                     (halfClassHp + systemData.abilities.con.mod) * this.level +
                     bonusSpPerLevel +
                     systemData.attributes.flatbonussp;
-
-                modifiers.push(new ModifierPF2e('PF2E.ClassHP', halfClassHp * this.level, MODIFIER_TYPE.UNTYPED));
             } else {
-                modifiers.push(new ModifierPF2e('PF2E.ClassHP', classHP * this.level, MODIFIER_TYPE.UNTYPED));
                 modifiers.push(
                     new ModifierPF2e(
                         'PF2E.AbilityCon',
@@ -1221,44 +1212,6 @@ export class CharacterPF2e extends CreaturePF2e {
         };
 
         data.attributes.initiative = stat;
-    }
-
-    private prepareAncestry() {
-        const ancestry = this.ancestry;
-
-        const actorData = this.data;
-        actorData.data.details.ancestry = ancestry?.name ?? null;
-
-        if (ancestry) {
-            actorData.data.attributes.ancestryhp = ancestry.hitPoints;
-            actorData.data.attributes.speed.value = String(ancestry.speed);
-            actorData.data.traits.size.value = ancestry.size;
-
-            // Add traits from ancestry and heritage
-            const ancestryTraits: Set<string> = ancestry?.traits ?? new Set();
-            const heritageTraits: Set<string> = this.heritage?.traits ?? new Set();
-            const traitSet = new Set(
-                [...ancestryTraits, ...heritageTraits].filter(
-                    (trait) => !['common', 'versatile heritage'].includes(trait),
-                ),
-            );
-            for (const trait of Array.from(traitSet).sort()) {
-                this.data.data.traits.traits.value.push(trait);
-            }
-        }
-    }
-
-    private prepareBackground() {
-        this.data.data.details.background = this.background?.name ?? null;
-    }
-
-    private prepareClass(): void {
-        const classItem = this.class;
-        this.data.data.details.class = classItem?.name ?? null;
-
-        if (classItem) {
-            this.data.data.attributes.classhp = classItem.hpPerLevel ?? 0;
-        }
     }
 
     /** Toggle the invested state of an owned magical item */
