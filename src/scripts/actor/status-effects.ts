@@ -175,7 +175,7 @@ export class StatusEffects {
                     if (effect !== undefined) {
                         $icon.attr('data-value', effect.data.value.value);
 
-                        if (effect.data.value.value > 0) {
+                        if (effect.data.value.isValued) {
                             $($value).removeAttr('style').text(effect.data.value.value);
                         }
                     }
@@ -215,18 +215,18 @@ export class StatusEffects {
                     if ($icon.hasClass('active')) {
                         // icon is active.
                         if (
-                            condition === undefined ||
-                            (condition !== undefined && !condition.data.active) ||
-                            (condition !== undefined && condition.data.value.value < 1)
+                            !condition ||
+                            (condition && !condition.data.active) ||
+                            (condition && !condition.data.value.isValued)
                         ) {
                             $icon.removeClass('active');
                             $value.attr('style', 'display:none').text('0');
-                        } else if (condition !== undefined && condition.data.value.value > 0) {
+                        } else if (condition?.data.value.isValued) {
                             // Update the value
 
                             $value.text(condition.data.value.value);
                         }
-                    } else if (condition !== undefined && condition.data.active && condition.data.value.value > 0) {
+                    } else if (condition && condition.data.active && condition.data.value.isValued) {
                         $icon.addClass('active');
                         $value.removeAttr('style').text(condition.data.value.value);
                     }
@@ -305,7 +305,7 @@ export class StatusEffects {
                     .map((condition) => condition.id);
 
                 await game.pf2e.ConditionManager.removeConditionFromToken(conditionIds, this);
-            } else if (condition) {
+            } else if (condition?.data.value.isValued) {
                 this.statusEffectChanged = true;
                 await game.pf2e.ConditionManager.updateConditionValue(
                     condition._id,
@@ -318,7 +318,7 @@ export class StatusEffects {
             }
         } else if (event.type === 'click') {
             this.statusEffectChanged = true;
-            if (condition) {
+            if (condition?.data.value.isValued) {
                 await game.pf2e.ConditionManager.updateConditionValue(
                     condition._id,
                     this,
