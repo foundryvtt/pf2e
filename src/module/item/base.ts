@@ -14,14 +14,13 @@ import { ItemDataPF2e, ItemSourcePF2e, TraitChatData } from './data';
 import { isItemSystemData } from './data/helpers';
 import { MeleeSystemData } from './melee/data';
 import { getAttackBonus, getStrikingDice } from './runes';
-import { SpellFacade } from './spell/facade';
 import { ItemSheetPF2e } from './sheet/base';
-import { UserPF2e } from '@module/user';
 import { AbilityString } from '@actor/data/base';
 import { isCreatureData } from '@actor/data/helpers';
 import { NPCSystemData } from '@actor/npc/data';
 import { HazardSystemData } from '@actor/hazard/data';
 import { CheckPF2e } from '@system/rolls';
+import { ItemTrait } from './data/base';
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -50,7 +49,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return this.getFlag('core', 'sourceId');
     }
 
-    get traits(): Set<string> {
+    get traits(): Set<ItemTrait> {
         return new Set(this.data.data.traits.value);
     }
 
@@ -58,60 +57,20 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return this.data.data.description.value;
     }
 
-    protected override async _preCreate(
-        data: PreDocumentId<this['data']['_source']>,
-        options: DocumentModificationContext,
-        user: UserPF2e,
-    ): Promise<void> {
-        await super._preCreate(data, options, user);
-
-        const itemData = this.data;
-        const updateData: any = {};
-
-        if (this.isOwned && user.id === game.userId) {
-            if (itemData.type === 'effect') {
-                const data = itemData.data;
-                if (data.start === undefined) {
-                    updateData.data = {
-                        start: {
-                            value: 0,
-                            initiative: null,
-                        },
-                    };
-                } else {
-                    updateData.data = {
-                        start: data.start,
-                    };
-                }
-                updateData.data.start.value = game.time.worldTime;
-                if (game.combat && game.combat.turns?.length > game.combat.turn) {
-                    updateData.data.start.initiative = game.combat.turns[game.combat.turn].initiative;
-                }
-            }
-        }
-
-        // Changing the createData does not change the resulting item; the data has to be updated.
-        if (!isObjectEmpty(updateData)) {
-            itemData.update(updateData);
-        }
-    }
-
     protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
-        if (this.isOwned) {
-            if (this.actor) {
-                // Rule Elements
-                if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
-                const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
-                const tokens = this.actor.getAllTokens();
-                const actorUpdates = {};
-                for (const rule of rules) {
-                    rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
-                }
-                this.actor.update(actorUpdates);
-
-                // Effect Panel
-                game.pf2e.effectPanel.refresh();
+        if (this.actor) {
+            // Rule Elements
+            if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
+            const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
+            const tokens = this.actor.getAllTokens();
+            const actorUpdates = {};
+            for (const rule of rules) {
+                rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
             }
+            this.actor.update(actorUpdates);
+
+            // Effect Panel
+            game.pf2e.effectPanel.refresh();
         }
 
         super._onCreate(data, options, userId);
@@ -196,6 +155,12 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return ChatMessagePF2e.create(chatData, { renderSheet: false });
     }
 
+    /** Refresh the Item Directory if this item isn't owned */
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+        if (!this.isOwned && ui.items) ui.items.render();
+    }
+
     /* -------------------------------------------- */
     /*  Chat Card Data                              */
     /* -------------------------------------------- */
@@ -218,15 +183,15 @@ export class ItemPF2e extends Item<ActorPF2e> {
         this: Embedded<ItemPF2e>,
         htmlOptions: EnrichHTMLOptions = {},
         _rollOptions: Record<string, any> = {},
-    ): unknown {
+    ): Record<string, unknown> {
         return this.processChatData(htmlOptions, {
             ...duplicate(this.data.data),
-            traits: this.traitChatData({}),
+            traits: this.traitChatData(),
         });
     }
 
-    protected traitChatData(dictionary: Record<string, string>): TraitChatData[] {
-        const traits: string[] = duplicate(this.data.data.traits.value);
+    protected traitChatData(dictionary: Record<string, string> = {}): TraitChatData[] {
+        const traits: string[] = [...this.traits].sort();
         const customTraits = this.data.data.traits.custom
             .trim()
             .split(/\s*[,;|]\s*/)
@@ -248,7 +213,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /* -------------------------------------------- */
-    /*  Roll Attacks
+    /*  Roll Attacks                                */
     /* -------------------------------------------- */
 
     /**
@@ -672,11 +637,17 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
     rollSpellDamage(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent) {
-        let item = this.toObject();
-        if (item.type === 'consumable' && item.data.spell?.data) {
-            item = item.data.spell.data;
+        // If this is a consumable, roll spell damage on the consumable instead
+        if (this instanceof CONFIG.PF2E.Item.documentClasses.consumable && this.data.data.spell?.data) {
+            this.embeddedSpell?.rollSpellDamage(event);
+            return;
         }
-        if (item.type !== 'spell') throw new Error('Wrong item type!');
+
+        if (!(this instanceof CONFIG.PF2E.Item.documentClasses.spell)) {
+            throw new Error('Wrong item type!');
+        }
+
+        const item = this.toObject();
 
         // Get data
         const itemData = item.data;
@@ -684,9 +655,8 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const isHeal = itemData.spellType.value === 'heal';
         const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[itemData.damageType.value]);
 
-        const spellLvl = ItemPF2e.findSpellLevel(event);
-        const spell = new SpellFacade(item, { castingActor: this.actor, castLevel: spellLvl });
-        const parts = spell.damageParts;
+        const castLevel = ItemPF2e.findSpellLevel(event);
+        const parts = this.computeDamageParts(castLevel);
 
         // Append damage type to title
         const damageLabel = game.i18n.localize(isHeal ? 'PF2E.SpellTypeHeal' : 'PF2E.DamageLabel');
@@ -694,10 +664,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
         if (damageType && !isHeal) title += ` (${damageType})`;
 
         // Add item to roll data
-        if (!spell.spellcastingEntry?.data && spell.data.data.trickMagicItemData) {
-            rollData.mod = rollData.abilities[spell.data.data.trickMagicItemData.ability].mod;
+        if (!this.spellcasting?.data && this.data.data.trickMagicItemData) {
+            rollData.mod = rollData.abilities[this.data.data.trickMagicItemData.ability].mod;
         } else {
-            rollData.mod = rollData.abilities[spell.spellcastingEntry?.ability ?? 'int'].mod;
+            rollData.mod = rollData.abilities[this.spellcasting?.ability ?? 'int'].mod;
         }
         rollData.item = itemData;
 

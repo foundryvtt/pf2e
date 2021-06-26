@@ -228,6 +228,32 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.createEmbeddedDocuments(embeddedName, data, context) as Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
     }
 
+    protected override _onCreateEmbeddedDocuments(
+        embeddedName: 'Item' | 'ActiveEffect',
+        documents: ActiveEffect[] | Item<ActorPF2e>[],
+        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
+        options: DocumentModificationContext,
+        userId: string,
+    ) {
+        // Fix bug in Foundry 0.8.8 where 'render = false' is not working when creating embedded documents
+        if (options.render !== false) {
+            super._onCreateEmbeddedDocuments(embeddedName, documents, result, options, userId);
+        }
+    }
+
+    protected override _onDeleteEmbeddedDocuments(
+        embeddedName: 'Item' | 'ActiveEffect',
+        documents: ActiveEffect[] | Item<ActorPF2e>[],
+        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
+        options: DocumentModificationContext,
+        userId: string,
+    ) {
+        // Fix bug in Foundry 0.8.8 where 'render = false' is not working when deleting embedded documents
+        if (options.render !== false) {
+            super._onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId);
+        }
+    }
+
     /** Synchronize the token image with the actor image, if the token does not currently have an image */
     private prepareTokenImg() {
         const useSystemTokenSettings = game.settings.get('pf2e', 'defaultTokenSettings');
@@ -693,7 +719,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 const sp = 'sp' in this.data.data.attributes ? this.data.data.attributes.sp : { value: 0 };
                 if (isDelta) {
                     if (value < 0) {
-                        const { update, delta } = this._calculateHealthDelta({ hp, sp, delta: value });
+                        const { update, delta } = this.calculateHealthDelta({ hp, sp, delta: value });
                         value = delta;
                         for (const [k, v] of Object.entries(update)) {
                             updateActorData[k] = v;
@@ -739,6 +765,10 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (!(item instanceof PhysicalItemPF2e)) {
             return Promise.reject(new Error('Only physical items (with quantities) can be transfered between actors'));
         }
+        const container = targetActor.physicalItems.get(containerId ?? '');
+        if (!(!container || container instanceof ContainerPF2e)) {
+            throw ErrorPF2e('containerId refers to a non-container');
+        }
 
         // Loot transfers can be performed by non-owners when a GM is online */
         const gmMustTransfer = (source: ActorPF2e, target: ActorPF2e): boolean => {
@@ -750,7 +780,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (gmMustTransfer(this, targetActor)) {
             const source = { tokenId: this.token?.id, actorId: this.id, itemId: item.id };
             const target = { tokenId: targetActor.token?.id, actorId: targetActor.id };
-            await new ItemTransfer(source, target, quantity, containerId).request();
+            await new ItemTransfer(source, target, quantity, container?.id).request();
             return null;
         }
 
@@ -798,7 +828,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
         const movedItem = targetActor.physicalItems.get(result.id);
         if (!movedItem) return null;
-        await targetActor.stashOrUnstash(movedItem, containerId);
+        await targetActor.stowOrUnstow(movedItem, container);
 
         return item;
     }
@@ -829,14 +859,12 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param getItem     Lambda returning the item.
      * @param containerId Id of the container that will contain the item.
      */
-    async stashOrUnstash(item: Embedded<PhysicalItemPF2e>, containerId?: string): Promise<void> {
-        if (containerId && this.physicalItems.get(containerId) instanceof ContainerPF2e) {
-            if (!isCycle(item.id, containerId, [item.data])) {
-                await item.update({
-                    'data.containerId.value': containerId,
-                    'data.equipped.value': false,
-                });
-            }
+    async stowOrUnstow(item: Embedded<PhysicalItemPF2e>, container?: Embedded<ContainerPF2e>): Promise<void> {
+        if (container && !isCycle(item.id, container.id, [item.data])) {
+            await item.update({
+                'data.containerId.value': container.id,
+                'data.equipped.value': false,
+            });
         } else {
             await item.update({ 'data.containerId.value': null });
         }
@@ -846,7 +874,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * Handle how changes to a Token attribute bar are applied to the Actor.
      * This allows for game systems to override this behavior and deploy special logic.
      */
-    _calculateHealthDelta(args: { hp: { value: number; temp: number }; sp: { value: number }; delta: number }) {
+    private calculateHealthDelta(args: { hp: { value: number; temp: number }; sp: { value: number }; delta: number }) {
         const update: any = {};
         const { hp, sp } = args;
         let { delta } = args;
@@ -1133,7 +1161,8 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         for await (const condition of conditionList) {
             const data = condition.data.data;
-            const value = data.value.isValued ? Math.max(data.value.value - 1, 0) : null;
+            const value =
+                typeof data.value.value === 'number' && data.value.isValued ? Math.max(data.value.value - 1, 0) : null;
 
             for await (const token of tokens) {
                 if (!token) continue;
@@ -1149,26 +1178,27 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Increase a valued condition, or create a new one if not present */
     async increaseCondition(
         conditionSlug: ConditionType | Embedded<ConditionPF2e>,
-        { max }: { max: number } = { max: 4 },
+        { min, max = Number.MAX_SAFE_INTEGER }: { min?: number | null; max?: number | null } = {},
     ): Promise<void> {
-        const condition = typeof conditionSlug === 'string' ? this.getCondition(conditionSlug) : conditionSlug;
-
-        // Get the current canvas tokens, or create ephemeral one if none are present
-        const tokens = await (async () => {
-            const canvasTokens = this.getActiveTokens();
-            if (canvasTokens.length === 0) {
-                return [new TokenDocumentPF2e(await this.getTokenData(), { actor: this, parent: canvas.scene }).object];
-            }
-            return canvasTokens;
-        })();
-
-        for (const token of tokens) {
-            if (!token) continue;
-            if (condition && condition.value !== null && condition.value + 1 <= max) {
-                await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value + 1);
-            } else if (!condition && typeof conditionSlug === 'string') {
-                await game.pf2e.ConditionManager.addConditionToToken(conditionSlug, token);
-            }
+        const existing = typeof conditionSlug === 'string' ? this.getCondition(conditionSlug) : conditionSlug;
+        if (existing) {
+            const conditionValue = (() => {
+                if (existing.value === null) return null;
+                return min && max
+                    ? Math.min(Math.max(min, existing.value), max)
+                    : max
+                    ? Math.min(existing.value + 1, max)
+                    : existing.value + 1;
+            })();
+            await existing.update({ 'data.value.value': conditionValue });
+        } else if (typeof conditionSlug === 'string') {
+            const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
+            const conditionValue =
+                typeof conditionSource?.data.value.value === 'number' && min && max
+                    ? Math.min(Math.max(min, conditionSource.data.value.value), max)
+                    : null;
+            conditionSource.data.value.value &&= conditionValue;
+            await this.createEmbeddedDocuments('Item', [conditionSource]);
         }
     }
 }

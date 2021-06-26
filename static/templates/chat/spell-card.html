@@ -2,11 +2,12 @@
     <header class="card-header flexrow">
         <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
         <h3>{{item.name}}</h3>
+        <h4>{{data.levelLabel}}</h4>
     </header>
 
     <div class="item-properties tags">
         {{#each data.traits}}
-            <span class="tag tag_alt" title="{{localize this.description}}">{{localize this.label}}</span>
+            <span class="tag" title="{{localize this.description}}">{{localize this.label}}</span>
         {{/each}}
     </div>
 

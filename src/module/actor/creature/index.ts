@@ -273,6 +273,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 dc: '{dc}', // Replace variable with variable, which will be replaced with the actual value in CheckModifiersDialog.Roll()
             }),
             value: 10 + recoveryMod + dying,
+            visibility: 'all',
         };
 
         const notes: RollNotePF2e[] = [
@@ -396,10 +397,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 export interface CreaturePF2e {
     readonly data: CreatureData;
 
-    /**
-     * See implementation in class
-     * @override
-     */
+    /** See implementation in class */
     updateEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
         updateData: EmbeddedDocumentUpdateData<this>[],

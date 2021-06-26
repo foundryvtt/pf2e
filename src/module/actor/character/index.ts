@@ -717,7 +717,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 damage: { dice: 1, die: 'd4', damageType: 'bludgeoning' },
                 group: { value: 'brawling' },
                 range: { value: 'melee' },
-                strikingRune: { value: '' },
+                strikingRune: { value: null },
                 traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
                 equipped: {
                     value: true, // consider checking for free hands
@@ -798,6 +798,9 @@ export class CharacterPF2e extends CreaturePF2e {
                     'attack-roll',
                     'all',
                 ];
+                if (item.data.baseItem && !selectors.includes(`${item.data.baseItem}-attack`)) {
+                    selectors.push(`${item.data.baseItem}-attack`);
+                }
 
                 const itemGroup = item.data.group.value ?? '';
                 if (itemGroup) {

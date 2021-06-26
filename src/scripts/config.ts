@@ -21,6 +21,9 @@ import {
 } from '@item/index';
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from '@actor/index';
 import { ConditionType } from '@item/condition/data';
+import { WeaponPropertyRuneType } from '@item/weapon/data';
+import { PreciousMaterialGrade, PreciousMaterialType } from '@item/physical/data';
+import { DamageType } from '@module/damage-calculation';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
@@ -189,6 +192,7 @@ const traitsDescriptions = {
     'reach-25': 'PF2E.TraitDescriptionReach25',
     'reach-30': 'PF2E.TraitDescriptionReach30',
     repeating: 'PF2E.TraitDescriptionRepeating',
+    saggorak: 'PF2E.TraitDescriptionSaggorak',
     shove: 'PF2E.TraitDescriptionShove',
     sweep: 'PF2E.TraitDescriptionSweep',
     tethered: 'PF2E.TraitDescriptionTethered',
@@ -347,7 +351,7 @@ const damageTraits = Object.fromEntries(
     Object.entries(damageTypes).filter(
         (entry): entry is [keyof typeof traitsDescriptions, string] => entry[0] in traitsDescriptions,
     ),
-);
+) as Record<DamageType, string>;
 
 const creatureTraits = {
     ...ancestryTraits,
@@ -583,6 +587,63 @@ const consumableTraits = {
     visual: 'PF2E.TraitVisual',
 };
 
+const preciousMaterialGrades: Record<PreciousMaterialGrade, string> = {
+    low: 'PF2E.PreciousMaterialLowGrade',
+    standard: 'PF2E.PreciousMaterialStandardGrade',
+    high: 'PF2E.PreciousMaterialHighGrade',
+};
+
+const preciousMaterials: Record<PreciousMaterialType, string> = {
+    adamantine: 'PF2E.PreciousMaterialAdamantine',
+    coldIron: 'PF2E.PreciousMaterialColdIron',
+    darkwood: 'PF2E.PreciousMaterialDarkwood',
+    dragonhide: 'PF2E.PreciousMaterialDragonhide',
+    mithral: 'PF2E.PreciousMaterialMithral',
+    orichalcum: 'PF2E.PreciousMaterialOrichalcum',
+    silver: 'PF2E.PreciousMaterialSilver',
+    sovereignSteel: 'PF2E.PreciousMaterialSovereignSteel',
+    warpglass: 'PF2E.PreciousMaterialWarpglass',
+};
+
+const weaponPropertyRunes: Record<WeaponPropertyRuneType, string> = {
+    kinWarding: 'PF2E.WeaponPropertyRuneKinWarding',
+    returning: 'PF2E.WeaponPropertyRuneReturning',
+    ghostTouch: 'PF2E.WeaponPropertyRuneGhostTouch',
+    disrupting: 'PF2E.WeaponPropertyRuneDisrupting',
+    pacifying: 'PF2E.WeaponPropertyRunePacifying',
+    fearsome: 'PF2E.WeaponPropertyRuneFearsome',
+    shifting: 'PF2E.WeaponPropertyRuneShifting',
+    conducting: 'PF2E.WeaponPropertyRuneConducting',
+    wounding: 'PF2E.WeaponPropertyRuneWounding',
+    bloodbane: 'PF2E.WeaponPropertyRuneBloodbane',
+    corrosive: 'PF2E.WeaponPropertyRuneCorrosive',
+    cunning: 'PF2E.WeaponPropertyRuneCunning',
+    flaming: 'PF2E.WeaponPropertyRuneFlaming',
+    frost: 'PF2E.WeaponPropertyRuneFrost',
+    shock: 'PF2E.WeaponPropertyRuneShock',
+    thundering: 'PF2E.WeaponPropertyRuneThundering',
+    grievous: 'PF2E.WeaponPropertyRuneGrievous',
+    serrating: 'PF2E.WeaponPropertyRuneSerrating',
+    anarchic: 'PF2E.WeaponPropertyRuneAnarchic',
+    axiomatic: 'PF2E.WeaponPropertyRuneAxiomatic',
+    holy: 'PF2E.WeaponPropertyRuneHoly',
+    unholy: 'PF2E.WeaponPropertyRuneUnholy',
+    greaterFearsome: 'PF2E.WeaponPropertyRuneGreaterFearsome',
+    dancing: 'PF2E.WeaponPropertyRuneDancing',
+    spellStoring: 'PF2E.WeaponPropertyRuneSpellStoring',
+    greaterBloodbane: 'PF2E.WeaponPropertyRuneGreaterBloodbane',
+    keen: 'PF2E.WeaponPropertyRuneKeen',
+    greaterDisrupting: 'PF2E.WeaponPropertyRuneGreaterDisrupting',
+    greaterCorrosive: 'PF2E.WeaponPropertyRuneGreaterCorrosive',
+    greaterFlaming: 'PF2E.WeaponPropertyRuneGreaterFlaming',
+    greaterFrost: 'PF2E.WeaponPropertyRuneGreaterFrost',
+    greaterShock: 'PF2E.WeaponPropertyRuneGreaterShock',
+    greaterThundering: 'PF2E.WeaponPropertyRuneGreaterThundering',
+    ancestralEchoing: 'PF2E.WeaponPropertyRuneAncestralEchoing',
+    speed: 'PF2E.WeaponPropertyRuneSpeed',
+    vorpal: 'PF2E.WeaponPropertyRuneVorpal',
+};
+
 const conditionTypes: Record<ConditionType, string> = {
     blinded: 'PF2E.ConditionTypeBlinded',
     broken: 'PF2E.ConditionTypeBroken',
@@ -738,23 +799,8 @@ export const PF2ECONFIG = {
         cp: 'PF2E.CurrencyCP',
     },
 
-    preciousMaterialGrades: {
-        low: 'PF2E.PreciousMaterialLowGrade',
-        standard: 'PF2E.PreciousMaterialStandardGrade',
-        high: 'PF2E.PreciousMaterialHighGrade',
-    },
-
-    preciousMaterials: {
-        adamantine: 'PF2E.PreciousMaterialAdamantine',
-        coldIron: 'PF2E.PreciousMaterialColdIron',
-        darkwood: 'PF2E.PreciousMaterialDarkwood',
-        dragonhide: 'PF2E.PreciousMaterialDragonhide',
-        mithral: 'PF2E.PreciousMaterialMithral',
-        orichalcum: 'PF2E.PreciousMaterialOrichalcum',
-        silver: 'PF2E.PreciousMaterialSilver',
-        'sovereign steel': 'PF2E.PreciousMaterialSovereignSteel',
-        warpglass: 'PF2E.PreciousMaterialWarpglass',
-    },
+    preciousMaterialGrades,
+    preciousMaterials,
 
     armorPotencyRunes: {
         '1': 'PF2E.ArmorPotencyRune1',
@@ -799,55 +845,17 @@ export const PF2ECONFIG = {
         greaterWinged: 'PF2E.ArmorPropertyRuneGreaterWinged',
     },
     weaponPotencyRunes: {
-        '1': 'PF2E.WeaponPotencyRune1',
-        '2': 'PF2E.WeaponPotencyRune2',
-        '3': 'PF2E.WeaponPotencyRune3',
-        '4': 'PF2E.WeaponPotencyRune4',
+        1: 'PF2E.WeaponPotencyRune1',
+        2: 'PF2E.WeaponPotencyRune2',
+        3: 'PF2E.WeaponPotencyRune3',
+        4: 'PF2E.WeaponPotencyRune4',
     },
     weaponStrikingRunes: {
         striking: 'PF2E.ArmorStrikingRune',
         greaterStriking: 'PF2E.ArmorGreaterStrikingRune',
         majorStriking: 'PF2E.ArmorMajorStrikingRune',
     },
-    weaponPropertyRunes: {
-        kinWarding: 'PF2E.WeaponPropertyRuneKinWarding',
-        returning: 'PF2E.WeaponPropertyRuneReturning',
-        ghostTouch: 'PF2E.WeaponPropertyRuneGhostTouch',
-        disrupting: 'PF2E.WeaponPropertyRuneDisrupting',
-        pacifying: 'PF2E.WeaponPropertyRunePacifying',
-        fearsome: 'PF2E.WeaponPropertyRuneFearsome',
-        shifting: 'PF2E.WeaponPropertyRuneShifting',
-        conducting: 'PF2E.WeaponPropertyRuneConducting',
-        wounding: 'PF2E.WeaponPropertyRuneWounding',
-        bloodbane: 'PF2E.WeaponPropertyRuneBloodbane',
-        corrosive: 'PF2E.WeaponPropertyRuneCorrosive',
-        cunning: 'PF2E.WeaponPropertyRuneCunning',
-        flaming: 'PF2E.WeaponPropertyRuneFlaming',
-        frost: 'PF2E.WeaponPropertyRuneFrost',
-        shock: 'PF2E.WeaponPropertyRuneShock',
-        thundering: 'PF2E.WeaponPropertyRuneThundering',
-        grievous: 'PF2E.WeaponPropertyRuneGrievous',
-        serrating: 'PF2E.WeaponPropertyRuneSerrating',
-        anarchic: 'PF2E.WeaponPropertyRuneAnarchic',
-        axiomatic: 'PF2E.WeaponPropertyRuneAxiomatic',
-        holy: 'PF2E.WeaponPropertyRuneHoly',
-        unholy: 'PF2E.WeaponPropertyRuneUnholy',
-        greaterFearsome: 'PF2E.WeaponPropertyRuneGreaterFearsome',
-        dancing: 'PF2E.WeaponPropertyRuneDancing',
-        spellStoring: 'PF2E.WeaponPropertyRuneSpellStoring',
-        greaterBloodbane: 'PF2E.WeaponPropertyRuneGreaterBloodbane',
-        keen: 'PF2E.WeaponPropertyRuneKeen',
-        greaterDisrupting: 'PF2E.WeaponPropertyRuneGreaterDisrupting',
-        greaterCorrosive: 'PF2E.WeaponPropertyRuneGreaterCorrosive',
-        greaterFlaming: 'PF2E.WeaponPropertyRuneGreaterFlaming',
-        greaterFrost: 'PF2E.WeaponPropertyRuneGreaterFrost',
-        greaterShock: 'PF2E.WeaponPropertyRuneGreaterShock',
-        greaterThundering: 'PF2E.WeaponPropertyRuneGreaterThundering',
-        ancestralEchoing: 'PF2E.WeaponPropertyRuneAncestralEchoing',
-        speed: 'PF2E.WeaponPropertyRuneSpeed',
-        vorpal: 'PF2E.WeaponPropertyRuneVorpal',
-    },
-
+    weaponPropertyRunes,
     damageTypes,
 
     resistanceTypes: {
@@ -1136,6 +1144,7 @@ export const PF2ECONFIG = {
         'deadly-d6': 'PF2E.TraitDeadlyD6',
         'deadly-d8': 'PF2E.TraitDeadlyD8',
         'deadly-2d8': 'PF2E.TraitDeadly2D8',
+        'deadly-3d8': 'PF2E.TraitDeadly3D8',
         'deadly-d10': 'PF2E.TraitDeadlyD10',
         'deadly-2d10': 'PF2E.TraitDeadly2D10',
         'deadly-3d10': 'PF2E.TraitDeadly3D10',
@@ -1227,6 +1236,7 @@ export const PF2ECONFIG = {
         'reload-2': 'PF2E.TraitReload2',
         repeating: 'PF2E.TraitRepeating',
         resonant: 'PF2E.TraitResonant',
+        saggorak: 'PF2E.TraitSaggorak',
         shove: 'PF2E.TraitShove',
         silver: 'PF2E.PreciousMaterialSilver',
         staff: 'PF2E.TraitStaff',
@@ -1397,6 +1407,7 @@ export const PF2ECONFIG = {
         mechanical: 'PF2E.TraitMechanical',
         summon: 'PF2E.TraitSummon',
         trap: 'PF2E.TraitTrap',
+        virulent: 'PF2E.TraitVirulent',
     },
 
     traitsDescriptions,
@@ -1583,7 +1594,6 @@ export const PF2ECONFIG = {
     },
 
     spellLevels: {
-        0: 'PF2E.SpellLevel0',
         1: 'PF2E.SpellLevel1',
         2: 'PF2E.SpellLevel2',
         3: 'PF2E.SpellLevel3',
@@ -1872,6 +1882,7 @@ export const PF2ECONFIG = {
         algollthu: 'PF2E.LanguageAlghollthu',
         amurrun: 'PF2E.LanguageAmurrun',
         anadi: 'PF2E.LanguageAnadi',
+        arcadian: 'PF2E.LanguageArcadian',
         aquan: 'PF2E.LanguageAquan',
         arboreal: 'PF2E.LanguageArboreal',
         auran: 'PF2E.LanguageAuran',

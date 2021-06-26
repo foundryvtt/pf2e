@@ -7,53 +7,39 @@
             </div>
             <dl id="sorter">
                 <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
-                <dd><select class="null" name="sortorder">
-                    <option value="true" selected>{{localize "PF2E.BrowserSortyByNameLabel"}}</option>
-                </select></dd>
+                <dd>
+                    <select class="order">
+                        <option value="name" selected>{{localize "PF2E.BrowserSortyByNameLabel"}}</option>
+                    </select>
+                    <a class="direction" data-type="alpha" data-direction="asc"><i class="fas fa-sort-alpha-up"></i></a>
+                </dd>
             </dl>
         </div>
-        <button class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
-        <div class="filtercontainer" id="actionTraitfilter">
-            <h3>{{localize "PF2E.BrowserFilterSkills"}}</h3>
-            <dl>
-                {{#each skills as |skill key|}}
-                <label><dt><input type="checkbox" name="skills-{{lower key}}"></dt><dd>{{localize skill}}</dd></label>
-                {{/each}}
-            </dl>
-        </div>
-        <div class="filtercontainer" id="actionTraitfilter">
-            <h3>{{localize "PF2E.BrowserFilterProficiencyRequirements"}}</h3>
-            <dl style="display:none;">
-                {{#each proficiencies as |proficiency key|}}
-                <label><dt><input type="checkbox" name="proficiencies-{{lower key}}"></dt><dd>{{localize proficiency}}</dd></label>
-                {{/each}}
-            </dl>
-        </div>
+        <button type="button" class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
         <div class="filtercontainer" id="actionTraitfilter">
             <h3>{{localize "PF2E.BrowserFilterTraits"}}</h3>
             <dl style="display:none;">
                 {{#each actionTraits as |trait key|}}
-                <label><dt><input type="checkbox" name="traits-{{lower key}}"></dt><dd>{{localize trait}}</dd></label>
+                    <label><dt><input type="checkbox" name="traits-{{lower key}}"></dt><dd>{{localize trait}}</dd></label>
                 {{/each}}
             </dl>
         </div>
     </div>
-    <ul>
+    <ul class="item-list result-list">
         {{#each actions as |item id|}}
-        <li class="spell flexrow draggable"
-          data-entry-compendium="{{item.compendium}}"
-          data-entry-id="{{item._id}}" data-item-category="actions"
-            {{#each item.data as |attrib id|}}
-                data-{{lower id}}="{{lower attrib.value}}"
-            {{/each}}
-          >
-            <div class="spell-image">
-                <img class="" src="{{item.img}}" title="{{item.name}}" width="32" height="32" loading="lazy"/>
-            </div>
-            <div class="spell-name">
-                <span class="item-edit" ><a>{{item.name}}</a></span>
-            </div>
-        </li>
+            <li class="item flexrow"
+                data-entry-compendium="{{item.compendium}}"
+                data-entry-id="{{item._id}}" data-item-category="actions"
+                {{#each item.data as |attrib id|}}
+                {{#if (ne id description)}}data-{{lower id}}="{{lower attrib.value}}"{{/if}}
+                {{/each}}>
+                <div class="image">
+                    <img class="" src="{{item.img}}" title="{{item.name}}" width="32" height="32" loading="lazy"/>
+                </div>
+                <div class="name">
+                    <a class="item-link">{{item.name}}</a>
+                </div>
+            </li>
         {{/each}}
     </ul>
 

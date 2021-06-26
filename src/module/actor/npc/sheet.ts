@@ -648,7 +648,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 continue;
             }
 
-            // Add prepared spells to spellcastinEntry
+            // Add prepared spells to spellcastingEntry
             if (entry.data.prepared && spellbooks[entry._id]) {
                 type SpellbookSection = { prepared: Array<SheetItemData<SpellData> | { _id?: unknown }> };
 

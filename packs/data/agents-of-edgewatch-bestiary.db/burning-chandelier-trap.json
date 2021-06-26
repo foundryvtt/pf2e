@@ -28,7 +28,6 @@
             "reset": "The trap deactivates and resets 1 minute after there are no living creatures remaining in the room.",
             "routine": "(4 actions) For every chandelier disabled, the trap's actions are reduced by 1. For each of the trap's actions, a different chandelier attacks a random creature in the room. A chandelier uses its swinging chandelier attack if it can, but it can't make melee attacks against creatures in the cage, the closet, or the gap between the two double doors leading into the vault. Against a creature it can't reach with a melee attack, it uses a flame dart attack instead. The trap doesn't take multiple attack penalties."
         },
-        "flavourText": "",
         "recallKnowledgeText": "",
         "saves": {
             "fortitude": {
@@ -52,7 +51,6 @@
                 "value": ""
             }
         },
-        "sidebarText": "",
         "source": {
             "value": ""
         },
@@ -87,6 +85,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
@@ -136,8 +135,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Extending Chandeliers",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "action"
         },
@@ -187,8 +190,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "swinging chandelier",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "melee"
         },
@@ -240,8 +247,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "flame dart",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "melee"
         }
@@ -253,10 +264,13 @@
     "token": {
         "actorId": "FmiOJ9HEdCBDB89z",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -268,17 +282,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Burning Chandelier Trap",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

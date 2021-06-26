@@ -47,6 +47,9 @@ function createItem({
             quantity: {
                 value: 1,
             },
+            size: {
+                value: 'med',
+            },
         },
     } as unknown as PhysicalItemData;
 }

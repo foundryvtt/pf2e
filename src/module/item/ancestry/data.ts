@@ -9,7 +9,6 @@ import type { AncestryPF2e } from '.';
 export type AncestrySource = BaseNonPhysicalItemSource<'ancestry', AncestrySystemData>;
 
 export class AncestryData extends BaseNonPhysicalItemData<AncestryPF2e> {
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/ancestry.svg';
 }
 

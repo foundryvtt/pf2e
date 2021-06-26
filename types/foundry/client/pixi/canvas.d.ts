@@ -69,6 +69,9 @@ declare class Canvas<
     sight: SightLayer;
 
     _initiative(): void;
+
+    /** Event handler for the drop portion of a drag-and-drop event. */
+    protected _onDrop(event: DragEvent): void;
 }
 
 interface CanvasDimensions {

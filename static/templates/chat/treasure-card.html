@@ -4,11 +4,15 @@
         <h3>{{item.name}}</h3>
     </header>
 
-    <div class="card-content">{{{data.description.value}}}</div>
-
+    {{#if data.description.value}}
+        <div class="card-content">
+            {{{data.description.value}}}
+        </div>
+    {{/if}}
     <footer class="card-footer">
-        {{#each data.properties}}
-            <span>{{localize this}}</span>
-        {{/each}}
+        {{#if (and item.isIdentified (ne item.data.data.stackGroup.value "coins"))}}
+            <span>{{localize "PF2E.Item.Physical.LevelLabel" level=item.level}}</span>
+            <span>{{localize "PF2E.Item.Physical.PriceLabel" price=item.price}}</span>
+        {{/if}}
     </footer>
 </div>

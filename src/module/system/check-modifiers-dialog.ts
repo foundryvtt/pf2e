@@ -4,6 +4,7 @@ import { RollNotePF2e } from '../notes';
 import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
 import { LocalizePF2e } from './localize';
 import { RollDataPF2e } from './rolls';
+import { DegreeAdjustment } from '@module/degree-of-success';
 
 export interface CheckModifiersContext {
     /** Any options which should be used in the roll. */
@@ -119,8 +120,6 @@ export class CheckModifiersDialog extends Application {
 
         // Add the degree of success if a DC was supplied
         if (ctx.dc !== undefined) {
-            const showDC = game.settings.get('pf2e', 'metagame.showDC').toString();
-            flavor += `<div data-visibility="${ctx.dc.visibility ?? showDC}">`;
             const degreeOfSuccess = getDegreeOfSuccess(roll, ctx.dc);
             const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
             ctx.outcome = degreeOfSuccessText;
@@ -130,13 +129,24 @@ export class CheckModifiersDialog extends Application {
             roll.data.degreeOfSuccess = degreeOfSuccess.value;
 
             const dcLabel = game.i18n.format(ctx.dc.label ?? 'PF2E.DCLabel', { dc: ctx.dc.value });
-            flavor += `<div><b>${dcLabel}</b></div>`;
+            const showDC = game.settings.get('pf2e', 'metagame.showDC').toString();
+            flavor += `<div data-visibility="${ctx.dc.visibility ?? showDC}"><b>${dcLabel}</b></div>`;
 
             let adjustmentLabel = '';
             if (degreeOfSuccess.degreeAdjustment !== undefined) {
-                adjustmentLabel = degreeOfSuccess.degreeAdjustment
-                    ? game.i18n.localize('PF2E.OneDegreeBetter')
-                    : game.i18n.localize('PF2E.OneDegreeWorse');
+                switch (degreeOfSuccess.degreeAdjustment) {
+                    case DegreeAdjustment.INCREASE_BY_TWO:
+                        adjustmentLabel = game.i18n.localize('PF2E.TwoDegreesBetter');
+                        break;
+                    case DegreeAdjustment.INCREASE:
+                        adjustmentLabel = game.i18n.localize('PF2E.OneDegreeBetter');
+                        break;
+                    case DegreeAdjustment.LOWER:
+                        adjustmentLabel = game.i18n.localize('PF2E.OneDegreeWorse');
+                        break;
+                    case DegreeAdjustment.LOWER_BY_TWO:
+                        adjustmentLabel = game.i18n.localize('PF2E.TwoDegreesWorse');
+                }
                 adjustmentLabel = ` (${adjustmentLabel})`;
 
                 ctx.unadjustedOutcome = DegreeOfSuccessText[degreeOfSuccess.unadjusted];
@@ -144,7 +154,10 @@ export class CheckModifiersDialog extends Application {
 
             const resultLabel = game.i18n.localize('PF2E.ResultLabel');
             const degreeLabel = game.i18n.localize(`PF2E.${ctx.dc.scope ?? 'CheckOutcome'}.${degreeOfSuccessText}`);
-            flavor += `<div class="degree-of-success"><b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel}</span></b>${adjustmentLabel}</div>`;
+            const showResults = game.settings.get('pf2e', 'metagame.showResults').toString();
+            flavor += `<div data-visibility="${
+                ctx.dc.visibility ?? showResults
+            }" class="degree-of-success"><b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel}</span></b>${adjustmentLabel}`;
             flavor += '</div>';
         }
 

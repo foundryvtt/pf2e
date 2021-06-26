@@ -7,6 +7,8 @@ import { UserPF2e } from '@module/user';
 import { LootData, LootSource } from './data';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ItemSourcePF2e } from '@item/data';
+import { TokenDocumentPF2e } from '@module/token-document';
+import { ScenePF2e } from '@module/scene';
 
 export class LootPF2e extends ActorPF2e {
     static override get schema(): typeof LootData {
@@ -65,12 +67,20 @@ export class LootPF2e extends ActorPF2e {
     }
 
     /** Hide this actor's token(s) when in loot (rather than merchant) mode, empty, and configured thus */
-    async toggleTokenHiding() {
-        const hiddenStatus = this.hiddenWhenEmpty && this.items.size === 0;
-        const tokenDocs = this.getActiveTokens().map((token) => token.document);
-        for await (const tokenDoc of tokenDocs) {
-            await tokenDoc.update({ hidden: hiddenStatus });
-        }
+    async toggleTokenHiding(): Promise<void> {
+        if (!this.hiddenWhenEmpty) return;
+        const hiddenStatus = this.items.size === 0;
+        const scenesAndTokens: [ScenePF2e, TokenDocumentPF2e[]][] = game.scenes.contents.map((scene) => [
+            scene,
+            scene.tokens.filter((tokenDoc) => tokenDoc.actor === this),
+        ]);
+        const promises = scenesAndTokens.map(([scene, tokenDocs]) =>
+            scene.updateEmbeddedDocuments(
+                'Token',
+                tokenDocs.map((tokenDoc) => ({ _id: tokenDoc.id, hidden: hiddenStatus })),
+            ),
+        );
+        await Promise.allSettled(promises);
     }
 
     /* -------------------------------------------- */
@@ -121,5 +131,4 @@ export interface LootPF2e extends ActorPF2e {
 
     getFlag(scope: string, key: string): any;
     getFlag(scope: 'core', key: 'sourceId'): string | undefined;
-    getFlag(scope: 'pf2e', key: 'editLoot.value'): boolean | undefined;
 }

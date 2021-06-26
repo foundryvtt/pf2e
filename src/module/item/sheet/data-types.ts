@@ -1,12 +1,10 @@
-/** Item sheet form types */
-
+import { ItemPF2e } from '@item';
 import { ABCFeatureEntryData } from '@item/abc/data';
 import { AncestryPF2e } from '@item/ancestry';
 import { BackgroundPF2e } from '@item/background';
 import { ClassPF2e } from '@item/class';
 import { FeatPF2e } from '@item/feat';
 import { SpellPF2e } from '@item/spell';
-import { ItemSheetDataPF2e } from './base';
 
 export interface SheetOption {
     value: string;
@@ -35,14 +33,21 @@ export interface AESheetData {
     effects: ActiveEffectSummary[];
 }
 
-export interface ABCSheetData<TItem extends AncestryPF2e | BackgroundPF2e | ClassPF2e> extends ItemSheetData<TItem> {
-    item: RawObject<TItem['data']>;
-    data: RawObject<TItem['data']>['data'];
-    activeEffects: AESheetData;
+export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     hasSidebar: boolean;
-    sidebarTemplate: () => string;
+    hasDetails: boolean;
+    sidebarTemplate?: () => string;
+    detailsTemplate?: () => string;
+    item: TItem['data'];
+    data: TItem['data']['data'];
+    user: { isGM: boolean };
+    enabledRulesUI: boolean;
+    activeEffects: AESheetData;
+}
+
+export interface ABCSheetData<TItem extends AncestryPF2e | BackgroundPF2e | ClassPF2e>
+    extends ItemSheetDataPF2e<TItem> {
     hasDetails: true;
-    detailsTemplate: () => string;
 }
 
 export interface AncestrySheetData extends ABCSheetData<AncestryPF2e> {
@@ -89,6 +94,7 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
 }
 
 export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
+    levelLabel: string;
     magicSchools: ConfigPF2e['PF2E']['magicSchools'];
     spellCategories: ConfigPF2e['PF2E']['spellCategories'];
     spellLevels: ConfigPF2e['PF2E']['spellLevels'];
@@ -100,5 +106,4 @@ export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     areaSizes: ConfigPF2e['PF2E']['areaSizes'];
     areaTypes: ConfigPF2e['PF2E']['areaTypes'];
     spellScalingModes: ConfigPF2e['PF2E']['spellScalingModes'];
-    isRitual: boolean;
 }

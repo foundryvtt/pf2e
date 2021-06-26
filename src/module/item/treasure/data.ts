@@ -4,7 +4,6 @@ import { TreasurePF2e } from '.';
 export type TreasureSource = BasePhysicalItemSource<'treasure', TreasureSystemData>;
 
 export class TreasureData extends BasePhysicalItemData<TreasurePF2e> {
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/treasure.svg';
 }
 

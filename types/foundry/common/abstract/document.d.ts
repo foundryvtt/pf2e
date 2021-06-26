@@ -91,15 +91,15 @@ declare global {
                  * @returns The cloned Document instance
                  */
                 clone<T extends this>(
-                    data: PreCreate<T['data']['_source']> | undefined,
+                    data: DeepPartial<T['data']['_source']> | undefined,
                     options: { save?: false | undefined; keepId?: boolean },
                 ): T;
                 clone<T extends this>(
-                    data: PreCreate<T['data']['_source']> | undefined,
+                    data: DeepPartial<T['data']['_source']> | undefined,
                     options: { save: true; keepId?: boolean },
                 ): Promise<T>;
                 clone<T extends this>(
-                    data?: PreCreate<T['data']['_source']>,
+                    data?: DeepPartial<T['data']['_source']>,
                     options?: { save?: boolean; keepId?: boolean },
                 ): T | Promise<T>;
 
