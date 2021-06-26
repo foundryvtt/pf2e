@@ -30,6 +30,7 @@ import { coerce } from './intimidation/coerce';
 import { demoralize } from './intimidation/demoralize';
 import { hide } from './stealth/hide';
 import { sneak } from './stealth/sneak';
+import { RollNotePF2e } from '@module/notes';
 
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
 
@@ -126,6 +127,7 @@ export class ActionsPF2e {
         checkType: CheckType,
         event: JQuery.Event,
         difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC,
+        extraNotes: RollNotePF2e[] = [],
     ) {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
@@ -197,7 +199,7 @@ export class ActionsPF2e {
                         dc,
                         type: checkType,
                         options: finalOptions,
-                        notes: stat.notes ?? [],
+                        notes: (stat.notes ?? []).concat(extraNotes),
                         traits,
                         title: `${game.i18n.localize(title)} - ${game.i18n.localize(subtitle)}`,
                     },
