@@ -75,17 +75,7 @@ export interface ConditionSystemData extends ItemSystemData {
     ];
     base: string;
     group: string;
-    value: {
-        isValued: boolean;
-        immutable: boolean;
-        value: number;
-        modifiers: [
-            {
-                value: number;
-                source: string;
-            },
-        ];
-    };
+    value: ConditionValueData;
     sources: {
         hud: boolean;
     };
@@ -105,5 +95,29 @@ export interface ConditionSystemData extends ItemSystemData {
     };
     overrides: string[];
 }
+
+type ConditionValueData =
+    | {
+          isValued: true;
+          immutable: boolean;
+          value: number;
+          modifiers: [
+              {
+                  value: number;
+                  source: string;
+              },
+          ];
+      }
+    | {
+          isValued: false;
+          immutable: boolean;
+          value: null;
+          modifiers: [
+              {
+                  value: number;
+                  source: string;
+              },
+          ];
+      };
 
 export type ConditionType = typeof CONDITION_TYPES[number];

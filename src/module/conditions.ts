@@ -144,7 +144,10 @@ export class ConditionManager {
         let appliedCondition: ConditionData;
 
         conditions.forEach((condition) => {
-            if (appliedCondition === undefined || condition.data.value.value > appliedCondition.data.value.value) {
+            if (
+                appliedCondition === undefined ||
+                Number(condition.data.value.value) > Number(appliedCondition.data.value.value)
+            ) {
                 // First condition, or new max achieved.
 
                 if (!condition.data.active) {
@@ -668,7 +671,7 @@ export class ConditionManager {
             if (a.data.base === b.data.base) {
                 // Both are same base
 
-                if (a.data.value.isValued) {
+                if (a.data.value.isValued && b.data.value.isValued) {
                     // Valued condition
                     // Sort values by descending order.
                     return b.data.value.value - a.data.value.value;
