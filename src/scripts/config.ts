@@ -24,6 +24,7 @@ import { ConditionType } from '@item/condition/data';
 import { WeaponPropertyRuneType } from '@item/weapon/data';
 import { PreciousMaterialGrade, PreciousMaterialType } from '@item/physical/data';
 import { DamageType } from '@module/damage-calculation';
+import { ClassTrait } from '@item/class/data';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
@@ -81,7 +82,7 @@ const ancestryItemTraits = {
     plant: 'PF2E.TraitPlant',
 };
 
-const classTraits = {
+const classTraits: Record<ClassTrait, string> = {
     alchemist: 'PF2E.TraitAlchemist',
     barbarian: 'PF2E.TraitBarbarian',
     bard: 'PF2E.TraitBard',

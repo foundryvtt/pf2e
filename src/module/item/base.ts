@@ -57,6 +57,15 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return this.data.data.description.value;
     }
 
+    /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
+    override async delete(context: DocumentModificationContext = {}) {
+        if (this.actor) {
+            await this.actor.deleteEmbeddedDocuments('Item', [this.id], context);
+            return this;
+        }
+        return super.delete(context);
+    }
+
     protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
         if (this.actor) {
             // Rule Elements

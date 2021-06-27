@@ -357,7 +357,7 @@ declare global {
                  */
                 updateEmbeddedDocuments(
                     embeddedName: string,
-                    updateData: EmbeddedDocumentUpdateData<this>[],
+                    updateData: EmbeddedDocumentUpdateData<Document>[],
                     context?: DocumentModificationContext,
                 ): Promise<Document[]>;
 
@@ -369,11 +369,11 @@ declare global {
                  * @param [context={}] Additional context which customizes the deletion workflow
                  * @return An array of deleted Document instances
                  */
-                deleteEmbeddedDocuments<T extends Document = Document>(
+                deleteEmbeddedDocuments(
                     embeddedName: string,
                     dataId: string[],
                     context?: DocumentModificationContext,
-                ): Promise<T[]>;
+                ): Promise<Document[]>;
 
                 /* -------------------------------------------- */
                 /*  Flag Operations                             */
