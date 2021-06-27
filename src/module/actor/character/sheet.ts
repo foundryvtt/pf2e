@@ -58,9 +58,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     override getData() {
         const sheetData = super.getData();
 
-        sheetData.ancestryItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'ancestry')?._id ?? '';
-        sheetData.backgroundItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'background')?._id ?? '';
-        sheetData.classItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'class')?._id ?? '';
+        // ABC
+        sheetData.ancestry = this.actor.ancestry;
+        sheetData.background = this.actor.background;
+        sheetData.class = this.actor.class;
 
         // Update hero points label
         sheetData.data.attributes.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);

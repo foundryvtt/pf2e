@@ -47,65 +47,59 @@
             />
         </div>
         <div class="detail-sheet">
-          <div class="pc pc_ancestry item" data-item-id="{{ancestryItemId}}">
-            <label for="pc_ancestry">
-              {{localize 'PF2E.Ancestry'}}
-            </label>
-            <span title="{{localize 'PF2E.AncestryTitle'}}">
-              <h3>
-                <span class="value">{{data.details.ancestry}}</span>
-                {{#if ancestryItemId}}
-                  <a class="item-edit"><i class="fas fa-edit"></i></a>
-                {{else}}
-                  <a class="open-compendium" data-compendium="pf2e.ancestries"><i class="fas fa-plus-circle"></i></a>
-                {{/if}}
-              </h3>
-            </span>
-          </div>
-          <div class="pc pc_heritage">
-            <label for="pc_heritage">
-              {{localize 'PF2E.Heritage'}}
-            </label>
-            <span title="{{localize 'PF2E.HeritageTitle'}}">
-              <input
-              id="pc pc_heritage"
-              name="data.details.heritage.value"
-              type="text"
-              value="{{data.details.heritage.value}}"
-              data-dtype="String"
-              />
-            </span>
-          </div>
-          <div class="pc pc_class item" data-item-id="{{classItemId}}">
-            <label for="pc_class">
-              {{localize 'PF2E.Class'}}
-            </label>
-            <span title="{{localize 'PF2E.ClassTitle'}}">
-              <h3>
-                <span class="value">{{data.details.class}}</span>
-                {{#if classItemId}}
-                  <a class="item-edit"><i class="fas fa-edit"></i></a>
-                {{else}}
-                  <a class="open-compendium" data-compendium="pf2e.classes"><i class="fas fa-plus-circle"></i></a>
-                {{/if}}
-              </h3>
-            </span>
-          </div>
-          <div class="pc pc_background item" data-item-id="{{backgroundItemId}}">
-            <label for="pc_background">
-              {{localize 'PF2E.Background'}}
-            </label>
-            <span title="{{localize 'PF2E.BackgroundTitle'}}">
-              <h3>
-                <span class="value">{{data.details.background}}</span>
-                {{#if backgroundItemId}}
-                  <a class="item-edit"><i class="fas fa-edit"></i></a>
-                {{else}}
-                  <a class="open-compendium" data-compendium="pf2e.backgrounds"><i class="fas fa-plus-circle"></i></a>
-                {{/if}}
-              </h3>
-            </span>
-          </div>
+            <div class="pc pc_ancestry item" data-item-id="{{ancestry.id}}">
+                <label for="pc_ancestry">
+                    {{localize "PF2E.Ancestry"}}
+                </label>
+                <span title="{{localize "PF2E.AncestryTitle"}}">
+                    <h3>
+                        <span class="value">{{ancestry.name}}</span>
+                        {{#if ancestry}}
+                            <a class="item-edit"><i class="fas fa-edit"></i></a>
+                        {{else}}
+                            <a class="open-compendium" data-compendium="pf2e.ancestries"><i class="fas fa-plus-circle"></i></a>
+                        {{/if}}
+                    </h3>
+                </span>
+            </div>
+            <div class="pc pc_heritage">
+                <label for="pc_heritage">
+                    {{localize "PF2E.Heritage"}}
+                </label>
+                <span title="{{localize "PF2E.HeritageTitle"}}">
+                    <input id="pc pc_heritage" name="data.details.heritage.value" type="text" value="{{data.details.heritage.value}}" data-dtype="String" />
+                </span>
+            </div>
+            <div class="pc pc_class item" data-item-id="{{class.id}}">
+                <label for="pc_class">
+                    {{localize "PF2E.Class"}}
+                </label>
+                <span title="{{localize "PF2E.ClassTitle"}}">
+                    <h3>
+                        <span class="value">{{class.name}}</span>
+                        {{#if class}}
+                            <a class="item-edit"><i class="fas fa-edit"></i></a>
+                        {{else}}
+                            <a class="open-compendium" data-compendium="pf2e.classes"><i class="fas fa-plus-circle"></i></a>
+                        {{/if}}
+                    </h3>
+                </span>
+            </div>
+            <div class="pc pc_background item" data-item-id="{{background.id}}">
+                <label for="pc_background">
+                    {{localize "PF2E.Background"}}
+                </label>
+                <span title="{{localize "PF2E.BackgroundTitle"}}">
+                    <h3>
+                        <span class="value">{{background.name}}</span>
+                        {{#if background}}
+                            <a class="item-edit"><i class="fas fa-edit"></i></a>
+                        {{else}}
+                            <a class="open-compendium" data-compendium="pf2e.backgrounds"><i class="fas fa-plus-circle"></i></a>
+                        {{/if}}
+                    </h3>
+                </span>
+            </div>
         </div>
     </section>
 
