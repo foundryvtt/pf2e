@@ -46,7 +46,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     get hasLowLightVision(): boolean {
-        return this.visionLevel === VisionLevels.LOWLIGHT;
+        return this.visionLevel >= VisionLevels.LOWLIGHT;
     }
 
     override get canSee(): boolean {

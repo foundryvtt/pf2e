@@ -3,13 +3,16 @@ import * as PIXI from 'pixi.js';
 
 declare global {
     interface Config<
+        TAmbientLight extends AmbientLight = AmbientLight,
         TActiveEffect extends ActiveEffect = ActiveEffect,
         TActor extends Actor = Actor,
         TChatMessage extends ChatMessage<TActor> = ChatMessage<TActor>,
         TCombatant extends Combatant = Combatant,
         TCombat extends Combat = Combat,
+        TFogExploration extends FogExploration = FogExploration,
         TFolder extends Folder = Folder,
         TItem extends Item = Item,
+        TLightingLayer extends LightingLayer = LightingLayer,
         TMacro extends Macro = Macro,
         TScene extends Scene = Scene,
         TTokenDocument extends TokenDocument = TokenDocument,
@@ -35,10 +38,23 @@ declare global {
         /** Configuration for the Actor document */
         Actor: {
             documentClass: {
-                new (data: PreCreate<TActor['data']['_source']>, options?: DocumentConstructionContext<TActor>): TActor;
+                new (data: PreCreate<TActor['data']['_source']>, context?: DocumentConstructionContext<TActor>): TActor;
             };
             collection: Actors<TActor>;
             sheetClasses: Record<string, Record<string, typeof ActorSheet>>;
+        };
+
+        /**
+         * Configuration for the FogExploration document
+         */
+        FogExploration: {
+            documentClass: {
+                new (
+                    data: PreCreate<TFogExploration['data']['_source']>,
+                    context?: DocumentConstructionContext<TFogExploration>,
+                ): TFogExploration;
+            };
+            collection: typeof WorldCollection;
         };
 
         /** Configuration for the Folder document */
@@ -46,7 +62,7 @@ declare global {
             documentClass: {
                 new (
                     data: PreCreate<TFolder['data']['_source']>,
-                    options?: DocumentConstructionContext<TFolder>,
+                    context?: DocumentConstructionContext<TFolder>,
                 ): TFolder;
             };
             collection: typeof Folders;
@@ -152,6 +168,14 @@ declare global {
         /*  Embedded Documents                          */
         /* -------------------------------------------- */
 
+        /** Configuration for the AmbientLight embedded document type and its representation on the game Canvas */
+        AmbientLight: {
+            documentClass: typeof AmbientLightDocument;
+            objectClass: ConstructorOf<TAmbientLight>;
+            layerClass: ConstructorOf<TLightingLayer>;
+            sheetClass: typeof LightConfig;
+        };
+
         /** Configuration for the ActiveEffect embedded document type */
         ActiveEffect: {
             documentClass: {
@@ -213,8 +237,8 @@ declare global {
                 tokens: typeof TokenLayer;
                 foreground: typeof PlaceablesLayer;
                 sounds: typeof PlaceablesLayer;
-                lighting: typeof LightingLayer;
-                sight: typeof PlaceablesLayer;
+                lighting: ConstructorOf<TLightingLayer>;
+                sight: ConstructorOf<SightLayer<TFogExploration>>;
                 effects: typeof PlaceablesLayer;
                 controls: typeof PlaceablesLayer;
             };

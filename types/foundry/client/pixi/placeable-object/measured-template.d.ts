@@ -23,47 +23,28 @@ declare class MeasuredTemplate extends PlaceableObject<MeasuredTemplateDocument>
     /** A convenience accessor for the fill color as a numeric hex code */
     get fillColor(): number;
 
-    static get layer(): TemplateLayer;
-
     override get layer(): TemplateLayer;
 
     /* -------------------------------------------- */
     /*  Rendering                                   */
     /* -------------------------------------------- */
-    /**
-     * Draw the ControlIcon for the MeasuredTemplate
-     */
+
+    /** Draw the ControlIcon for the MeasuredTemplate */
     protected _drawControlIcon(): ControlIcon;
 
-    /**
-     * Draw the Text label used for the MeasuredTemplate
-     */
+    /** Draw the Text label used for the MeasuredTemplate */
     protected _drawRulerText(): PIXI.Text;
 
-    /**
-     * Get a Circular area of effect given a radius of effect
-     */
+    /** Get a Circular area of effect given a radius of effect */
     protected _getCircleShape(distance: number): PIXI.Circle;
 
-    /* -------------------------------------------- */
-
-    /**
-     * Get a Conical area of effect given a direction, angle, and distance
-     */
+    /** Get a Conical area of effect given a direction, angle, and distance */
     protected _getConeShape(direction: number, angle: number, distance: number): PIXI.Polygon;
 
-    /* -------------------------------------------- */
-
-    /**
-     * Get a Rectangular area of effect given a width and height
-     */
+    /** Get a Rectangular area of effect given a width and height */
     protected _getRectShape(direction: number, distance: number): PIXI.Rectangle;
 
-    /* -------------------------------------------- */
-
-    /**
-     * Get a rotated Rectangular area of effect given a width, height, and direction
-     */
+    /** Get a rotated Rectangular area of effect given a width, height, and direction */
     protected _getRayShape(direction: number, distance: number, width: number): PIXI.Polygon;
 
     /** Draw the rotation control handle and assign event listeners */
@@ -83,11 +64,11 @@ declare class MeasuredTemplate extends PlaceableObject<MeasuredTemplateDocument>
     /*  Interactivity                               */
     /* -------------------------------------------- */
 
-    protected override _canControl(user: User, event?: Event): boolean;
+    protected override _canControl(user: User, event?: PIXI.InteractionEvent): boolean;
 
-    protected override _canConfigure(user: User, event?: Event): boolean;
+    protected override _canConfigure(user: User, event?: PIXI.InteractionEvent): boolean;
 
-    protected override _canView(user: User, event?: Event): boolean;
+    protected override _canView(user: User, event?: PIXI.InteractionEvent): boolean;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers               */

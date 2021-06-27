@@ -12,7 +12,7 @@ export const CombatConstructor: ClientDocumentMixin<typeof foundry.documents.Bas
 
 export const ChatMessageConstructor: ClientDocumentMixin<typeof foundry.documents.BaseChatMessage>;
 
-export const DrawingConstructor: CanvasDocumentMixin<typeof foundry.documents.BaseDrawing, DrawingLayer>;
+export const DrawingConstructor: CanvasDocumentMixin<typeof foundry.documents.BaseDrawing, DrawingsLayer>;
 
 export const FogExplorationConstructor: ClientDocumentMixin<typeof foundry.documents.BaseFogExploration>;
 

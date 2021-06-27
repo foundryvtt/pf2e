@@ -3,7 +3,9 @@ import { ItemPF2e } from '@item/base';
 import { MystifiedTraits } from '@item/data/values';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
+import { FogExplorationPF2e } from '@module/fog-exploration';
 import { LightingLayerPF2e } from '@module/canvas/lighting-layer';
+import { SightLayerPF2e } from '@module/canvas/sight-layer';
 import { TokenPF2e } from '@module/canvas/token';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { CombatPF2e } from '@module/combat';
@@ -20,6 +22,7 @@ import { TokenDocumentPF2e } from '@module/token-document';
 import { TokenConfigPF2e } from '@module/token-document/sheet';
 import { PlayerConfigPF2e } from '@module/user/player-config';
 import { PF2ECONFIG } from '../config';
+import { AmbientLightPF2e } from '@module/canvas';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -35,17 +38,20 @@ export function listen(): void {
         CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
         CONFIG.Combat.documentClass = CombatPF2e;
         CONFIG.Combatant.documentClass = CombatantPF2e;
+        CONFIG.FogExploration.documentClass = FogExplorationPF2e;
         CONFIG.Folder.documentClass = FolderPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
 
         CONFIG.Scene.documentClass = ScenePF2e;
         CONFIG.Scene.sheetClass = SceneConfigPF2e;
 
+        CONFIG.AmbientLight.objectClass = AmbientLightPF2e;
         CONFIG.Token.documentClass = TokenDocumentPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
         CONFIG.Token.sheetClass = TokenConfigPF2e;
 
         CONFIG.Canvas.layers.lighting = LightingLayerPF2e;
+        CONFIG.Canvas.layers.sight = SightLayerPF2e;
 
         // Automatically advance world time by 6 seconds each round
         CONFIG.time.roundTime = 6;

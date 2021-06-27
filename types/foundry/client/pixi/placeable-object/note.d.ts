@@ -1,3 +1,3 @@
 declare class Note extends PlaceableObject<NoteDocument> {
-    /** @todo Fill ... some day ... maybe. */
+    /** @todo fill in some day ... maybe. */
 }
