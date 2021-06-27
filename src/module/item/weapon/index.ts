@@ -1,9 +1,8 @@
 import { PhysicalItemPF2e } from '../physical';
 import { TRADITION_TRAITS } from '../data/values';
-import { getAttackBonus, RuneValuationData, WEAPON_VALUATION_DATA } from '../runes';
+import { RuneValuationData, WEAPON_VALUATION_DATA } from '../runes';
 import { LocalizePF2e } from '@module/system/localize';
 import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup, WeaponTrait } from './data';
-import { CreaturePF2e } from '@actor';
 import { coinsToString, coinValueInCopper, combineCoins, extractPriceFromItem, toCoins } from '@item/treasure/helpers';
 import { sluggify } from '@module/utils';
 import { MaterialGradeData, MATERIAL_VALUATION_DATA } from '@item/physical/materials';
@@ -80,8 +79,26 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             coinValueInCopper(modifiedPrice) > coinValueInCopper(basePrice) ? modifiedPrice : basePrice;
         systemData.price.value = coinsToString(highestPrice);
 
+        const baseLevel = this.level;
+        systemData.level.value = runesData
+            .map((runeData) => runeData.level)
+            .concat(materialData?.level ?? 0)
+            .reduce((highest, level) => (level > highest ? level : highest), baseLevel);
+
+        const rarityOrder = {
+            common: 0,
+            uncommon: 1,
+            rare: 2,
+            unique: 3,
+        };
+        const baseRarity = this.rarity;
+        systemData.traits.rarity.value = runesData
+            .map((runeData) => runeData.rarity)
+            .concat(materialData?.rarity ?? 'common')
+            .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);
+
         // Set the name according to the precious material and runes
-        if (this.isIdentified) this.data.name = this.generateMagicName();
+        this.data.name = this.generateMagicName();
     }
 
     getRunesData(): RuneValuationData[] {
@@ -101,58 +118,13 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return MATERIAL_VALUATION_DATA[material?.type ?? ''][material?.grade ?? 'low'];
     }
 
-    override getChatData(this: Embedded<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
-        const data = this.data.data;
-        const actorData = this.actor.data;
-        const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
-        const twohandedTrait = data.traits.value.find((trait: string) => trait.match(twohandedRegex)) !== undefined;
+    override getChatData(this: Embedded<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
 
-        const isFinesse = this.traits.has('finesse');
-        const proficiency = {
-            type: 'default',
-            value: 0,
-        };
-
-        let attackRoll = 0;
-        let canAttack = false;
-        if (this.actor instanceof CreaturePF2e && !this.actor.pack) {
-            // calculate attackRoll modifier (for _onItemSummary)
-            const abl =
-                isFinesse && actorData.data.abilities.dex.mod > actorData.data.abilities.str.mod
-                    ? 'dex'
-                    : data.ability.value || 'str';
-
-            // if a default martial proficiency then lookup the martial value, else find the martialSkill item and get the value from there.
-            const prof = data.weaponType.value || 'simple';
-            if (Object.keys(CONFIG.PF2E.weaponTypes).includes(prof)) {
-                proficiency.type = 'martial';
-                proficiency.value = (actorData.data as any).martial?.[prof]?.value || 0;
-            } else {
-                console.warn(`PF2E | Could not find martial skill for ${prof}`);
-            }
-            attackRoll = getAttackBonus(data) + (actorData.data.abilities?.[abl]?.mod ?? 0) + proficiency.value;
-            canAttack = true;
-        }
-
-        const properties = [data.group.value ? CONFIG.PF2E.weaponGroups[data.group.value] : null].filter(
-            (property) => property,
-        );
-
-        const { map2, map3 } = this.calculateMap();
-
         return this.processChatData(htmlOptions, {
-            ...data,
+            ...super.getChatData(),
+            group: this.group ? CONFIG.PF2E.weaponGroups[this.group] : null,
             traits,
-            proficiency,
-            properties,
-            attackRoll,
-            canAttack,
-            isTwohanded: !!twohandedTrait,
-            wieldedTwoHands: !!data.hands.value,
-            isFinesse,
-            map2,
-            map3,
         });
     }
 
@@ -210,7 +182,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     override getMystifiedData(status: IdentificationStatus, { source = false } = {}): MystifiedData {
         const mystifiedData = super.getMystifiedData(status);
-        if (status === 'identified') mystifiedData.name = source ? mystifiedData.name : this.generateMagicName();
+        if (source) mystifiedData.name = this.data._source.name;
         return mystifiedData;
     }
 
@@ -230,4 +202,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
 export interface WeaponPF2e {
     readonly data: WeaponData;
+
+    get traits(): Set<WeaponTrait>;
 }

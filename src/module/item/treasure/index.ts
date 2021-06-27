@@ -17,7 +17,7 @@ export class TreasurePF2e extends PhysicalItemPF2e {
         }
     }
 
-    override getChatData(this: Embedded<TreasurePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<TreasurePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const traits = this.traitChatData({});
 

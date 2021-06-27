@@ -6,7 +6,6 @@ import type { LorePF2e } from '.';
 export type LoreSource = BaseNonPhysicalItemSource<'lore', LoreSystemData>;
 
 export class LoreData extends BaseNonPhysicalItemData<LorePF2e> {
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/lore.svg';
 }
 

@@ -13,7 +13,6 @@ export class SpellData extends BaseNonPhysicalItemData<SpellPF2e> {
     isFocusSpell!: boolean;
     isRitual!: boolean;
 
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/spell.svg';
 }
 

@@ -107,12 +107,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const inventoryItems = items.filter((itemData): itemData is InventoryItem => itemData.isPhysical);
         for (const itemData of inventoryItems) {
             itemData.isContainer = itemData.type === 'backpack';
-            if (!itemData.isIdentified) {
-                const item = this.actor.physicalItems.get(itemData._id);
-                if (item) {
-                    itemData.data.identification.identified = item.getMystifiedData('identified');
-                }
-            }
         }
 
         // Calculate financial and total wealth
@@ -1089,10 +1083,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         }
 
-        const container = $(event.target).closest('[data-item-is-container="true"]');
-        const containerId = container[0]?.dataset?.itemId?.trim();
-        if (item instanceof PhysicalItemPF2e && (containerId || (item.isInContainer && !containerId))) {
-            await this.actor.stashOrUnstash(item, containerId);
+        const $container = $(event.target).closest('[data-item-is-container="true"]');
+        const containerId = $container.attr('data-item-id') ?? '';
+        const container = this.actor.physicalItems.get(containerId);
+        if (
+            item instanceof PhysicalItemPF2e &&
+            (!container || container instanceof ContainerPF2e) &&
+            item.container?.id !== container?.id
+        ) {
+            await this.actor.stowOrUnstow(item, container);
             return [item];
         }
 
@@ -1141,10 +1140,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // get the item type of the drop target
         const dropSlotType = $(event.target).closest('.item').attr('data-item-type');
-        const dropContainerType =
-            this.actor.type === 'loot'
-                ? 'actorInventory'
-                : $(event.target).parents('.item-container').attr('data-container-type');
+        const containerAttribute = $(event.target).parents('.item-container').attr('data-container-type');
+        const unspecificInventory = this._tabs[0]?.active === 'inventory' && !containerAttribute;
+        const dropContainerType = unspecificInventory ? 'actorInventory' : containerAttribute;
 
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
@@ -1196,7 +1194,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         } else if (item instanceof KitPF2e) {
             item.dumpContents(this.actor);
             return [item];
-        } else if (itemData.type === 'condition' && itemData.flags.pf2e?.condition) {
+        } else if (itemData.type === 'condition') {
             const value = data.value;
             if (typeof value === 'number' && itemData.data.value.isValued) {
                 itemData.data.value.value = value;
@@ -1213,7 +1211,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const condition = await game.pf2e.ConditionManager.addConditionToToken(itemData, token);
                 return condition ? [condition] : [];
             } else {
-                await actor.increaseCondition(itemData.data.slug);
+                await actor.increaseCondition(itemData.data.slug, { min: itemData.data.value.value });
                 return [item];
             }
         } else if (itemData.type === 'effect' && data && 'level' in data) {
@@ -1356,9 +1354,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 summary.slideUp(200, () => summary.remove());
             }
         } else {
-            const chatData = item.getChatData({ secrets: this.actor.isOwner });
             const div = $('<div class="item-summary"/>');
-            this.renderItemSummary(div, item, chatData);
+            this.renderItemSummary(div, item);
             li.append(div);
             if (!options.instant) {
                 div.hide().slideDown(200);
@@ -1370,45 +1367,63 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     /**
      * Called when an item summary is expanded and needs to be filled out.
+     * @todo Move this to templates
      */
-    protected renderItemSummary(div: JQuery, _item: ItemPF2e, chatData: any) {
+    protected renderItemSummary(
+        div: JQuery,
+        item: Embedded<ItemPF2e>,
+        chatData = item.getChatData({ secrets: this.actor.isOwner }),
+    ) {
         const localize = game.i18n.localize.bind(game.i18n);
 
-        const description = TextEditor.enrichHTML(chatData.description.value);
-        div.append(`<div class="item-description">${description}</div></div>`);
-
         const props = $('<div class="item-properties tags"></div>');
+        if (item instanceof PhysicalItemPF2e) {
+            const mystifiedClass = item.isIdentified ? '' : ' mystified';
+            const rarityLabel = CONFIG.PF2E.rarityTraits[item.rarity];
+            props.append(`<span class="tag tag_secondary${mystifiedClass}">${localize(rarityLabel)}</span>`);
+        }
+
         if (Array.isArray(chatData.properties)) {
+            const mystifiedClass = item instanceof PhysicalItemPF2e && !item.isIdentified ? ' mystified' : '';
             chatData.properties
-                .filter((property: unknown) => typeof property === 'string')
-                .forEach((property: string) => {
-                    props.append(`<span class="tag tag_secondary">${localize(property)}</span>`);
+                .filter((property): property is string => typeof property === 'string')
+                .forEach((property) => {
+                    props.append(`<span class="tag tag_secondary${mystifiedClass}">${localize(property)}</span>`);
                 });
         }
-        if (chatData.critSpecialization)
-            props.append(
-                `<span class="tag" title="${localize(
-                    chatData.critSpecialization.description,
-                )}" style="background: rgb(69,74,124); color: white;">${localize(
-                    chatData.critSpecialization.label,
-                )}</span>`,
-            );
+
         // append traits (only style the tags if they contain description data)
-        for (const trait of chatData.traits ?? []) {
-            if (trait.excluded) continue;
-            const label: string = game.i18n.localize(trait.label);
-            const mystifiedClass = trait.mystified ? 'mystified' : [];
-            if (trait.description) {
-                const classes: string = ['tag', mystifiedClass].flat().join(' ');
-                const description: string = game.i18n.localize(trait.description);
-                props.append(`<span class="${classes}" title="${description}">${label}</span>`);
-            } else {
-                const classes: string = ['tag', 'tag_alt', mystifiedClass].flat().join(' ');
-                props.append(`<span class="${classes}">${label}</span>`);
+        const traits = chatData['traits'];
+        if (Array.isArray(traits)) {
+            for (const trait of traits) {
+                if (trait.excluded) continue;
+                const label: string = game.i18n.localize(trait.label);
+                const mystifiedClass = trait.mystified ? 'mystified' : [];
+                if (trait.description) {
+                    const classes = ['tag', mystifiedClass].flat().join(' ');
+                    const description = game.i18n.localize(trait.description);
+                    const $trait = $(`<span class="${classes}" title="${description}">${label}</span>`).tooltipster({
+                        animation: 'fade',
+                        maxWidth: 400,
+                        theme: 'crb-hover',
+                        contentAsHTML: true,
+                    });
+                    props.append($trait);
+                } else {
+                    const classes: string = ['tag', 'tag_alt', mystifiedClass].flat().join(' ');
+                    props.append(`<span class="${classes}">${label}</span>`);
+                }
             }
         }
 
+        if (item instanceof PhysicalItemPF2e && item.data.data.stackGroup.value !== 'coins') {
+            const priceLabel = game.i18n.format('PF2E.Item.Physical.PriceLabel', { price: item.price });
+            div.append($(`<p>${priceLabel}</p>`));
+        }
+
         div.append(props);
+        const description = TextEditor.enrichHTML(item.description);
+        div.append(`<div class="item-description">${description}</div></div>`);
     }
 
     /** Opens an item container */
