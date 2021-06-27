@@ -17,7 +17,7 @@ export class FakeScene {
         return this.data.name ?? '';
     }
 
-    addToken(token: Partial<TokenData>) {
+    addToken(token: Partial<foundry.data.TokenData>) {
         this.data.tokens ??= [];
 
         this.data.tokens.push({

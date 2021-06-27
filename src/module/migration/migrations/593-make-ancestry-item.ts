@@ -1,10 +1,10 @@
 import { MigrationBase } from '../base';
 
 export class Migration593AddAncestryItem extends MigrationBase {
-    static version = 0.593;
-    requiresFlush = true;
+    static override version = 0.593;
+    override requiresFlush = true;
 
-    async updateActor(actor: any) {
+    override async updateActor(actor: any) {
         if (actor.type !== 'character') return;
 
         const ancestryItem = actor.items.find((x: any) => x.type === 'ancestry');

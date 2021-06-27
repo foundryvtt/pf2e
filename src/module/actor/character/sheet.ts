@@ -7,7 +7,6 @@ import { FeatSource } from '@item/feat/data';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { MagicTradition, PreparationType } from '@item/spellcasting-entry/data';
-import { ConditionManager } from '@module/conditions';
 import { ProficiencyModifier } from '@module/modifiers';
 import { ZeroToThree } from '@module/data';
 import { CharacterPF2e } from '.';
@@ -15,10 +14,10 @@ import { CreatureSheetPF2e } from '../creature/sheet';
 import { ManageCombatProficiencies } from '../sheet/popups/manage-combat-proficiencies';
 import { ErrorPF2e } from '@module/utils';
 import { LorePF2e } from '@item';
+import { AncestryBackgroundClassManager } from '@item/abc/abc-manager';
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ['default', 'sheet', 'actor', 'pc'],
             width: 700,
@@ -28,7 +27,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
     }
 
-    get template() {
+    override get template() {
         let style = 'crb-style';
         if (!game.user.isGM && this.actor.limited) {
             style = 'limited';
@@ -36,8 +35,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return `systems/pf2e/templates/actors/${style}/actor-sheet.html`;
     }
 
-    /** @override */
-    protected async _updateObject(event: Event, formData: any): Promise<void> {
+    protected override async _updateObject(event: Event, formData: any): Promise<void> {
         // update shield hp
         const heldShield = this.actor.heldShield;
         if (heldShield) {
@@ -52,18 +50,18 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const actorClasses = this.actor.itemTypes.class;
         if (updatedLevel != previousLevel && actorClasses.length > 0) {
             for await (const actorClass of actorClasses) {
-                await actorClass.ensureClassFeaturesForLevel(this.actor);
+                await AncestryBackgroundClassManager.ensureClassFeaturesForLevel(actorClass, this.actor);
             }
         }
     }
 
-    /** @override */
-    getData() {
+    override getData() {
         const sheetData = super.getData();
 
-        sheetData.ancestryItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'ancestry')?._id ?? '';
-        sheetData.backgroundItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'background')?._id ?? '';
-        sheetData.classItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'class')?._id ?? '';
+        // ABC
+        sheetData.ancestry = this.actor.ancestry;
+        sheetData.background = this.actor.background;
+        sheetData.class = this.actor.class;
 
         // Update hero points label
         sheetData.data.attributes.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
@@ -116,7 +114,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         sheetData.data.effects = {};
 
-        sheetData.data.effects.conditions = ConditionManager.getFlattenedConditions(
+        sheetData.data.effects.conditions = game.pf2e.ConditionManager.getFlattenedConditions(
             sheetData.actor.items.filter((i: any) => i.flags.pf2e?.condition && i.type === 'condition'),
         );
         // Show the PFS tab only if the setting for it is enabled.
@@ -127,8 +125,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Return data for rendering
         return sheetData;
     }
-
-    /* -------------------------------------------- */
 
     /**
      * Organize and classify Items for Character sheets
@@ -507,11 +503,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         // put the feats in their feat slots
-        const allFeatSlots = Object.values(featSlots).flatMap((x) => x.feats);
+        const allFeatSlots = Object.values(featSlots).flatMap((slot) => slot.feats);
         for (const feat of tempFeats) {
-            let slotIndex = allFeatSlots.findIndex((x) => x.id === feat.data.location);
-            if (slotIndex !== -1 && allFeatSlots[slotIndex].feat !== undefined) {
-                console.error(`Foundry VTT | Duplicate feats in same index! ${feat.name}`);
+            let slotIndex = allFeatSlots.findIndex((slotted) => slotted.id === feat.data.location);
+            const existing = allFeatSlots[slotIndex]?.feat;
+            if (slotIndex !== -1 && existing) {
+                console.debug(`Foundry VTT | Multiple feats with same index: ${feat.name}, ${existing.name}`);
                 slotIndex = -1;
             }
 
@@ -650,7 +647,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
      * Activate event listeners using the prepared sheet HTML
      * @param html The prepared HTML object ready to be rendered into the DOM
      */
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // ACTIONS
@@ -980,15 +977,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         this.actor.updateEmbeddedDocuments('ActiveEffect', effectUpdates);
     }
 
-    protected async _onDropItemCreate(itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        if (['ancestry', 'background', 'class'].includes(itemData.type)) {
-            const items = await this.actor.createEmbeddedDocuments('Item', [itemData]);
-            if (items.length > 0) return items;
-        }
-
-        return super._onDropItemCreate(itemData);
-    }
-
     private isFeatValidInFeatSlot(_slotId: string, featSlotType: string, feat: FeatSource) {
         let featType = feat.data?.featType?.value;
         if (featType === 'archetype') {
@@ -1024,7 +1012,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    private getNearestSlotId(event: ElementDragEvent) {
+    private getNearestSlotId(event: ElementDragEvent): JQuery.PlainObject {
         const data = $(event.target).closest('.item').data();
         if (!data) {
             return { slotId: undefined, featType: undefined };
@@ -1062,8 +1050,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
-    /** @override */
-    protected async _onDropItem(event: ElementDragEvent, data: DropCanvasData): Promise<unknown> {
+    protected override async _onDropItem(
+        event: ElementDragEvent,
+        data: DropCanvasData<'Item', ItemPF2e>,
+    ): Promise<ItemPF2e[]> {
         const actor = this.actor;
         const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
         if (isSameActor) {
@@ -1073,11 +1063,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        const itemData = item?.toObject();
+        if (!item) throw ErrorPF2e('Unable to create item from drop data!');
+        const itemData = item.toObject();
 
         const { slotId, featType }: { slotId?: string; featType?: string } = this.getNearestSlotId(event);
 
-        if (itemData?.type === 'feat') {
+        if (itemData.type === 'feat') {
             if (slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
                 itemData.data.location = slotId;
                 const items = await Promise.all([
@@ -1091,6 +1082,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 ]);
                 return items.flatMap((item) => item);
             }
+        } else if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
+            return AncestryBackgroundClassManager.addABCFromDrop(itemData, actor);
         }
 
         return super._onDropItem(event, data);
@@ -1101,29 +1094,30 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
      * @param event
      * @param itemData
      */
-    protected async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
+    protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         if (itemData.type === 'feat') {
             const { slotId, featType } = this.getNearestSlotId(event);
-
-            if (this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
-                return this.actor.updateEmbeddedDocuments('Item', [
-                    {
-                        _id: itemData._id,
-                        'data.location': slotId,
-                    },
-                    ...this.actor.items
-                        .filter((x) => x.data.type === 'feat' && x.data.data.location === slotId)
-                        .map((x) => ({ _id: x.id, 'data.location': '' })),
-                ]);
-            } else {
-                // if they're dragging it away from a slot
-                if (itemData.data.location) {
+            if (slotId && featType) {
+                if (this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
                     return this.actor.updateEmbeddedDocuments('Item', [
                         {
                             _id: itemData._id,
-                            'data.location': '',
+                            'data.location': slotId,
                         },
+                        ...this.actor.items
+                            .filter((x) => x.data.type === 'feat' && x.data.data.location === slotId)
+                            .map((x) => ({ _id: x.id, 'data.location': '' })),
                     ]);
+                } else {
+                    // if they're dragging it away from a slot
+                    if (itemData.data.location) {
+                        return this.actor.updateEmbeddedDocuments('Item', [
+                            {
+                                _id: itemData._id,
+                                'data.location': '',
+                            },
+                        ]);
+                    }
                 }
             }
         }
@@ -1131,8 +1125,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return super._onSortItem(event, itemData);
     }
 
-    /** @override */
-    protected _onSubmit(event: any): Promise<Record<string, unknown>> {
+    protected override _onSubmit(event: any): Promise<Record<string, unknown>> {
         // Limit SP value to data.attributes.sp.max value
         if (event?.currentTarget?.name === 'data.attributes.sp.value') {
             event.currentTarget.value = Math.clamped(
@@ -1215,9 +1208,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return icons[level];
     }
 
-    /**
-     * Get the font-awesome icon used to display hero points
-     */
+    /** Get the font-awesome icon used to display hero points */
     private getHeroPointsIcon(level: ZeroToThree) {
         const icons = {
             0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',

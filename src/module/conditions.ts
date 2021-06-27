@@ -2,7 +2,6 @@ import { ModifierPF2e } from './modifiers';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import type { ConditionData, ConditionSource } from '@item/condition/data';
 import { ConditionPF2e } from '@item/condition';
-import { ErrorPF2e } from './utils';
 import { ActorPF2e } from '@actor/base';
 import { TokenPF2e } from './canvas/token';
 
@@ -22,32 +21,28 @@ export class ConditionManager {
      */
     public static get conditions(): Map<string, ConditionData> {
         if (ConditionManager.__conditionsCache.size === 0) {
-            ConditionManager.__conditionsCache = new Map<string, ConditionData>();
+            this.__conditionsCache = new Map<string, ConditionData>();
 
-            ConditionManager._compediumConditions.forEach((condition, name) =>
-                ConditionManager.__conditionsCache.set(name, deepClone(condition)),
+            this._compediumConditions.forEach((condition, name) =>
+                this.__conditionsCache.set(name, deepClone(condition)),
             );
-            ConditionManager._customConditions.forEach((condition, name) =>
-                ConditionManager.__conditionsCache.set(name, deepClone(condition)),
-            );
+            this._customConditions.forEach((condition, name) => this.__conditionsCache.set(name, deepClone(condition)));
 
-            Object.freeze(ConditionManager.__conditionsCache);
+            Object.freeze(this.__conditionsCache);
         }
 
-        return ConditionManager.__conditionsCache;
+        return this.__conditionsCache;
     }
 
     /** Gets a list of condition names. */
     public static get conditionsNames(): IterableIterator<string> {
-        return Array.from(ConditionManager._compediumConditions.keys())
-            .concat(Array.from(ConditionManager._customConditions.keys()))
-            .values();
+        return Array.from(this._compediumConditions.keys()).concat(Array.from(this._customConditions.keys())).values();
     }
 
     /** Gets a list of status names. */
     public static get statusNames(): IterableIterator<string> {
-        return Array.from(ConditionManager._compendiumConditionStatusNames.keys())
-            .concat(Array.from(ConditionManager._customStatusNames.keys()))
+        return Array.from(this._compendiumConditionStatusNames.keys())
+            .concat(Array.from(this._customStatusNames.keys()))
             .values();
     }
 
@@ -56,8 +51,8 @@ export class ConditionManager {
             (await game.packs.get<CompendiumCollection<ConditionPF2e>>('pf2e.conditionitems')?.getDocuments()) ?? [];
 
         for (const condition of content) {
-            ConditionManager._compediumConditions.set(condition.name.toLowerCase(), condition.data);
-            ConditionManager._compendiumConditionStatusNames.set(condition.data.data.hud.statusName, condition.data);
+            this._compediumConditions.set(condition.name.toLowerCase(), condition.data);
+            this._compendiumConditionStatusNames.set(condition.data.data.hud.statusName, condition.data);
         }
 
         Object.freeze(ConditionManager._compediumConditions);
@@ -90,7 +85,7 @@ export class ConditionManager {
         if (ConditionManager._customStatusNames.has(statusName)) {
             return deepClone(ConditionManager._customStatusNames.get(statusName));
         } else {
-            const conditionData = ConditionManager._compendiumConditionStatusNames.get(statusName);
+            const conditionData = this._compendiumConditionStatusNames.get(statusName);
             return conditionData === undefined ? undefined : deepClone(conditionData);
         }
     }
@@ -115,8 +110,8 @@ export class ConditionManager {
 
         data.flags.pf2e.condition = true;
 
-        ConditionManager._customConditions.set(name, data);
-        ConditionManager._customStatusNames.set(data.data.hud.statusName, data);
+        this._customConditions.set(name, data);
+        this._customStatusNames.set(data.data.hud.statusName, data);
 
         return true;
     }
@@ -130,7 +125,7 @@ export class ConditionManager {
         name = name.toLocaleLowerCase();
 
         if (ConditionManager._customConditions.has(name)) {
-            ConditionManager._customConditions.delete(name);
+            this._customConditions.delete(name);
             return true;
         }
 
@@ -149,7 +144,10 @@ export class ConditionManager {
         let appliedCondition: ConditionData;
 
         conditions.forEach((condition) => {
-            if (appliedCondition === undefined || condition.data.value.value > appliedCondition.data.value.value) {
+            if (
+                appliedCondition === undefined ||
+                Number(condition.data.value.value) > Number(appliedCondition.data.value.value)
+            ) {
                 // First condition, or new max achieved.
 
                 if (!condition.data.active) {
@@ -184,7 +182,7 @@ export class ConditionManager {
                 updates.set(update._id, update);
             }
 
-            ConditionManager.clearOverrides(condition, updates);
+            this.clearOverrides(condition, updates);
         });
 
         return appliedCondition!;
@@ -220,7 +218,7 @@ export class ConditionManager {
                 updates.set(update._id, update);
             }
 
-            ConditionManager.clearOverrides(condition, updates);
+            this.clearOverrides(condition, updates);
         });
 
         return appliedCondition!;
@@ -312,10 +310,10 @@ export class ConditionManager {
 
                 if (ConditionManager.getCondition(base).data.value.isValued) {
                     // Condition is normally valued.
-                    appliedCondition = ConditionManager.processValuedCondition(list, updates);
+                    appliedCondition = this.processValuedCondition(list, updates);
                 } else {
                     // Condition is not valued.
-                    appliedCondition = ConditionManager.processToggleCondition(list, updates);
+                    appliedCondition = this.processToggleCondition(list, updates);
                 }
 
                 appliedConditions.set(base, appliedCondition);
@@ -347,7 +345,7 @@ export class ConditionManager {
                             // List of conditions that have been overridden.
 
                             const overridden = updates.get(conditionData._id) ?? conditionData.toObject();
-                            ConditionManager.processOverride(overridden, overrider, updates);
+                            this.processOverride(overridden, overrider, updates);
                         });
                 }
             });
@@ -401,11 +399,11 @@ export class ConditionManager {
      * @param token The token to add the condition to.
      */
     static async addConditionToToken(name: string | ConditionSource, token: TokenPF2e): Promise<ConditionPF2e | null> {
-        const conditionSource = typeof name === 'string' ? ConditionManager.getCondition(name).toObject() : name;
+        const conditionSource = typeof name === 'string' ? this.getCondition(name).toObject() : name;
 
         if (token.actor) {
-            const condition = await ConditionManager.createConditions(conditionSource, token.actor);
-            if (condition) ConditionManager.processConditions(token);
+            const condition = await this.createConditions(conditionSource, token.actor);
+            if (condition) this.processConditions(token);
             return condition;
         }
         return null;
@@ -417,53 +415,52 @@ export class ConditionManager {
         );
         if (exists) return null;
 
-        const item = await ConditionPF2e.create(condition, { parent: actor });
-        if (!item) throw ErrorPF2e('Unexpected failure creating new condition');
+        condition._id = randomID(16);
+        const conditionsToCreate = this.createAdditionallyAppliedConditions(condition);
+        conditionsToCreate.push(condition);
 
-        let needsItemUpdate = false;
-        const itemUpdate = {
-            data: {
-                references: {
-                    children: [] as { id: string; type: 'condition' }[],
-                },
-            },
-        };
+        actor.createEmbeddedDocuments('Item', conditionsToCreate, { keepId: true }).then((result) => {
+            return result.find((item) => item.id === condition._id) as ConditionPF2e;
+        });
 
-        // Needs synchronicity.
-        for await (const linkedConditionName of condition.data.alsoApplies.linked) {
-            const conditionSource = ConditionManager.getCondition(linkedConditionName.condition).toObject();
-            if (linkedConditionName.value) {
-                conditionSource.data.value.value = linkedConditionName.value;
+        return null;
+    }
+
+    private static createAdditionallyAppliedConditions(baseCondition: ConditionSource): ConditionSource[] {
+        const conditionsToCreate: ConditionSource[] = [];
+
+        baseCondition.data.alsoApplies.linked.forEach((linkedCondition) => {
+            const conditionSource = this.getCondition(linkedCondition.condition).toObject();
+            if (linkedCondition.value) {
+                conditionSource.data.value.value = linkedCondition.value;
             }
+            conditionSource._id = randomID(16);
+            conditionSource.data.references.parent = { id: baseCondition._id, type: 'condition' };
+            baseCondition.data.references.children.push({ id: conditionSource._id, type: 'condition' });
+            conditionSource.data.sources.hud = baseCondition.data.sources.hud;
 
-            conditionSource.data.references.parent = { id: item.id, type: 'condition' };
-            conditionSource.data.sources.hud = condition.data.sources.hud;
+            // Add linked condition to the list of items to create
+            conditionsToCreate.push(conditionSource);
+            // Add conditions that are applied by the previously added linked condition
+            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource));
+        });
 
-            const linkedItem = await ConditionManager.createConditions(conditionSource, actor);
-
-            if (linkedItem) {
-                itemUpdate.data!.references.children.push({ id: linkedItem.id, type: 'condition' });
-                needsItemUpdate = true;
-            }
-        }
-
-        for await (const unlinkedConditionName of condition.data.alsoApplies.unlinked) {
-            const conditionSource = ConditionManager.getCondition(unlinkedConditionName.condition).toObject();
-            if (unlinkedConditionName.value) {
+        baseCondition.data.alsoApplies.unlinked.forEach((unlinkedCondition) => {
+            const conditionSource = this.getCondition(unlinkedCondition.condition).toObject();
+            if (unlinkedCondition.value) {
                 conditionSource.name = `${conditionSource.name} ${conditionSource.data.value.value}`;
-                conditionSource.data.value.value = unlinkedConditionName.value;
+                conditionSource.data.value.value = unlinkedCondition.value;
             }
+            conditionSource._id = randomID(16);
+            conditionSource.data.sources.hud = baseCondition.data.sources.hud;
 
-            conditionSource.data.sources.hud = condition.data.sources.hud;
+            // Add unlinked condition to the list of items to create
+            conditionsToCreate.push(conditionSource);
+            // Add conditions that are applied by the previously added condition
+            conditionsToCreate.push(...this.createAdditionallyAppliedConditions(conditionSource));
+        });
 
-            await ConditionManager.createConditions(conditionSource, actor);
-        }
-
-        if (needsItemUpdate) {
-            await item.update(itemUpdate);
-        }
-
-        return item;
+        return conditionsToCreate;
     }
 
     /**
@@ -474,8 +471,8 @@ export class ConditionManager {
     static async removeConditionFromToken(id: string | string[], token: TokenPF2e): Promise<void> {
         id = id instanceof Array ? id : [id];
         if (token.actor) {
-            const deleted = await ConditionManager.deleteConditions(id, token.actor);
-            if (deleted.length > 0) ConditionManager.processConditions(token);
+            const deleted = await this.deleteConditions(id, token.actor);
+            if (deleted.length > 0) this.processConditions(token);
         }
     }
 
@@ -502,7 +499,7 @@ export class ConditionManager {
         if (condition instanceof ConditionPF2e && token.actor) {
             if (value === 0) {
                 // Value is zero, remove the status.
-                await ConditionManager.deleteConditions([id], token.actor);
+                await this.deleteConditions([id], token.actor);
             } else {
                 // Apply new value.
                 await condition.update({ 'data.value.value': value });
@@ -510,14 +507,14 @@ export class ConditionManager {
             }
         }
 
-        ConditionManager.processConditions(token);
+        this.processConditions(token);
     }
 
     static getFlattenedConditions(items: ConditionData[]): any[] {
         const conditions = new Map<string, any>();
 
         items
-            .sort((a: ConditionData, b: ConditionData) => ConditionManager.sortCondition(a, b))
+            .sort((a: ConditionData, b: ConditionData) => this.sortCondition(a, b))
             .forEach((c: ConditionData) => {
                 // Sorted list of conditions.
                 // First by active, then by base (lexicographically), then by value (descending).
@@ -674,7 +671,7 @@ export class ConditionManager {
             if (a.data.base === b.data.base) {
                 // Both are same base
 
-                if (a.data.value.isValued) {
+                if (a.data.value.isValued && b.data.value.isValued) {
                     // Valued condition
                     // Sort values by descending order.
                     return b.data.value.value - a.data.value.value;

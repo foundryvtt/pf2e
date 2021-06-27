@@ -1,0 +1,96 @@
+{
+    "_id": "pUYL0ILL3r8VBFm0",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Dragon Claws]{Dragon Claws} if your bloodline is silver or white.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Dragon Claw",
+                "range": "melee",
+                "traits": [
+                    "unarmed",
+                    "finesse"
+                ]
+            },
+            {
+                "critical": false,
+                "damageType": "cold",
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "label": "Dragon Claw",
+                "selector": "dragon-claw-damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/spells/dragon-claws.webp",
+    "name": "Spell Effect: Dragon Claw (Cold)",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

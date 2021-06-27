@@ -70,7 +70,7 @@
             "value": false
         },
         "level": {
-            "value": "11"
+            "value": 11
         },
         "maxHp": {
             "value": 0
@@ -79,7 +79,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": 0
+            "value": null
         },
         "preciousMaterial": {
             "value": ""
@@ -88,7 +88,7 @@
             "value": ""
         },
         "price": {
-            "value": "250"
+            "value": "250 gp"
         },
         "property1": {
             "critDamage": "",
@@ -125,7 +125,13 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'><strong>Effect:</strong> The bomb also deals [[/r 3d4 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}. On a critical hit, Target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} until the start of my next turn.</p>"
+            }
+        ],
         "size": {
             "value": "med"
         },
@@ -160,6 +166,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/redpitch-bomb.webp",
     "name": "Redpitch Bomb (Greater)",
     "permission": {

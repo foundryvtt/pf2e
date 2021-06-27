@@ -8,9 +8,6 @@ interface MoveLootFormData extends FormData {
 }
 type MoveLootCallback = (quantity: number) => void;
 
-/**
- * @category Other
- */
 export class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
     onSubmitCallback: MoveLootCallback;
 
@@ -20,16 +17,14 @@ export class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
         this.onSubmitCallback = callback;
     }
 
-    /** @override */
-    getData() {
+    override getData() {
         return {
             ...super.getData(),
             maxQuantity: this.options.maxQuantity,
         };
     }
 
-    /** @override */
-    static get defaultOptions(): FormApplicationOptions {
+    static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
 
         options.id = 'MoveLootPopup';
@@ -41,13 +36,13 @@ export class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
         return options;
     }
 
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // Subscribe to events
     }
 
-    async _updateObject(_event: ElementDragEvent, formData: MoveLootFormData) {
+    override async _updateObject(_event: ElementDragEvent, formData: MoveLootFormData) {
         if (this.onSubmitCallback) {
             this.onSubmitCallback(formData.quantity);
         }

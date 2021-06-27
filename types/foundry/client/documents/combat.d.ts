@@ -52,8 +52,7 @@ declare global {
         /** The numeric turn of the combat round in the Combat encounter */
         get turn(): number;
 
-        /** @override */
-        get visible(): boolean;
+        override get visible(): boolean;
 
         /* -------------------------------------------- */
         /*  Methods                                     */
@@ -80,8 +79,7 @@ declare global {
         /** Advance the combat to the next turn */
         nextTurn(): Promise<this>;
 
-        /** @override */
-        prepareDerivedData(): void;
+        override prepareDerivedData(): void;
 
         /** Rewind the combat to the previous round */
         previousRound(): Promise<this>;
@@ -143,17 +141,21 @@ declare global {
         /*  Event Handlers                              */
         /* -------------------------------------------- */
 
-        /** @override */
-        _onCreate(data: this['data']['_source'], options: DocumentModificationContext, userId: string): void;
+        protected override _onCreate(
+            data: this['data']['_source'],
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
-        /** @override */
-        _onUpdate(data: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void;
+        protected override _onUpdate(
+            changed: DeepPartial<this['data']['_source']>,
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
-        /** @override */
-        _onDelete(options: DocumentModificationContext, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext, userId: string): void;
 
-        /** @override */
-        _onCreateEmbeddedDocuments(
+        protected override _onCreateEmbeddedDocuments(
             type: 'Combatant',
             documents: TCombatant[],
             result: TCombatant['data']['_source'][],
@@ -161,8 +163,7 @@ declare global {
             userId: string,
         ): void;
 
-        /** @override */
-        _onUpdateEmbeddedDocuments(
+        protected override _onUpdateEmbeddedDocuments(
             embeddedName: 'Combatant',
             documents: TCombatant[],
             result: TCombatant['data']['_source'][],
@@ -170,8 +171,7 @@ declare global {
             userId: string,
         ): void;
 
-        /** @override */
-        _onDeleteEmbeddedDocuments(
+        protected override _onDeleteEmbeddedDocuments(
             embeddedName: 'Combatant',
             documents: TCombatant[],
             result: TCombatant['data']['_source'][],

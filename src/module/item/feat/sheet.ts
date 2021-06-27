@@ -1,9 +1,9 @@
 import { FeatPF2e } from '@item/feat';
-import { FeatSheetData } from '../sheet/data-types';
-import { ItemSheetDataPF2e, ItemSheetPF2e } from '../sheet/base';
+import { FeatSheetData, ItemSheetDataPF2e } from '../sheet/data-types';
+import { ItemSheetPF2e } from '../sheet/base';
 
 export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
-    getData(): FeatSheetData {
+    override getData(): FeatSheetData {
         const data: ItemSheetDataPF2e<FeatPF2e> = super.getData();
         return {
             ...data,

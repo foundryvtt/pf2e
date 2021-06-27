@@ -17,10 +17,10 @@ type MaybeOldData = ItemSourcePF2e & {
 };
 
 export class Migration628UpdateIdentificationData extends MigrationBase {
-    static version = 0.628;
+    static override version = 0.628;
 
     private get defaultData(): IdentificationData {
-        const data: IdentificationData = {
+        const data: Omit<IdentificationData, 'identified'> = {
             status: 'identified',
             unidentified: {
                 name: '',
@@ -36,7 +36,7 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
         return JSON.parse(JSON.stringify(data));
     }
 
-    async updateItem(itemData: MaybeOldData): Promise<void> {
+    override async updateItem(itemData: MaybeOldData): Promise<void> {
         if (!isPhysicalData(itemData)) return;
 
         // Items are occasionally lack a `rarity` property due to missing a previous migration

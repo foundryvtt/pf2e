@@ -5,12 +5,15 @@
             <div class="hint" style="display:none;">
                 {{{localize "PF2E.FeatBrowserSearchHint"}}}
             </div>
-            <dl id="sorter">
+            <dl>
                 <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
-                <dd><select class="null" name="sortorder">
-                    <option value="true" selected>{{localize "PF2E.BrowserSortyByNameLabel"}}</option>
-                    <option value="false">{{localize "PF2E.BrowserSortyByLevelLabel"}}</option>
-                </select></dd>
+                <dd>
+                    <select class="order">
+                        <option value="name" selected>{{localize "PF2E.BrowserSortyByNameLabel"}}</option>
+                        <option value="level">{{localize "PF2E.BrowserSortyByLevelLabel"}}</option>
+                    </select>
+                    <a class="direction" data-type="alpha" data-direction="asc"><i class="fas fa-sort-alpha-up"></i></a>
+                </dd>
             </dl>
         </div>
         <div class="filtercontainer" id="featTypefilter">
@@ -70,20 +73,20 @@
             </dl>
         </div>
     </div>
-    <ul>
+    <ul class="item-list result-list">
         {{#each feats as |feat id|}}
-        <li class="spell flexrow draggable" data-entry-compendium="{{feat.compendium}}" data-entry-id="{{feat._id}}" data-item-category="feats"
+        <li class="item flexrow" data-entry-compendium="{{feat.compendium}}" data-entry-id="{{feat._id}}" data-item-category="feats"
             {{#each feat.data as |attrib id|}}
-                data-{{lower id}}="{{lower attrib.value}}"
+                {{#if (and (lookup attrib "value") (ne id "description"))}}data-{{lower id}}="{{lower attrib.value}}"{{/if}}
             {{/each}}
           >
-            <div class="spell-image">
+            <div class="image">
                 <img class="" src="{{feat.img}}" title="{{feat.name}}" width="32" height="32" loading="lazy"/>
             </div>
-            <div class="spell-name">
-                <span class="item-edit"><a>{{feat.name}}</a></span>
+            <div class="name">
+                <a class="item-link">{{feat.name}}</a>
             </div>
-            <div class="spell-tags">
+            <div class="level">
                 <span title="Feat level">{{feat.data.level.formated}}</span>
             </div>
         </li>

@@ -4,8 +4,7 @@ import { TreasurePF2e } from '.';
 export type TreasureSource = BasePhysicalItemSource<'treasure', TreasureSystemData>;
 
 export class TreasureData extends BasePhysicalItemData<TreasurePF2e> {
-    /** @override */
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/treasure.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/treasure.svg';
 }
 
 export interface TreasureData extends Omit<TreasureSource, '_id' | 'effects'> {

@@ -128,7 +128,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "<p>Drow have a reputation for evil due to demon worship in their major settlements. However, like members of any ancestry, drow can have any alignment, especially when removed from the demon lords&rsquo; sinister influence.</p>\n<hr />\n<p>The rare few drow who specialize in the repeating hand crossbow command respect not only for their skills but for their luck and swagger.</p>",
+            "flavorText": "<p>Drow have a reputation for evil due to demon worship in their major settlements. However, like members of any ancestry, drow can have any alignment, especially when removed from the demon lords' sinister influence.</p>\n<hr />\n<p>The rare few drow who specialize in the repeating hand crossbow command respect not only for their skills but for their luck and swagger.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -141,7 +141,6 @@
                 "value": 8
             },
             "recallKnowledgeText": "",
-            "sidebarText": "",
             "source": {
                 "value": ""
             }
@@ -306,6 +305,8 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "KH1Dn1fEk70IWAtF",
@@ -422,7 +423,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
+            "img": "icons/svg/item-bag.svg",
             "name": "Divine Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -443,7 +449,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -543,8 +551,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Darkness"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/darkness.webp",
             "name": "Darkness (At Will)",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spell"
         },
@@ -565,7 +577,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -664,8 +678,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.HRb2doyaLtaoCfi3"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/faerie-fire.webp",
             "name": "Faerie Fire (At Will)",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
@@ -686,7 +704,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -710,7 +730,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "KH1Dn1fEk70IWAtF"
@@ -787,8 +807,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.kl2q6JvBZwed4B6v"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/dancing-lights.webp",
             "name": "Dancing Lights",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "spell"
         },
@@ -961,8 +985,12 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Repeating Hand Crossbow"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/weapon.svg",
             "name": "+1 Repeating Hand Crossbow",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "weapon"
         },
@@ -1049,7 +1077,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -1139,8 +1167,12 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.tH5GirEy7YB3ZgCk"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
             "name": "Rapier",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "weapon"
         },
@@ -1161,7 +1193,7 @@
                     "value": ""
                 },
                 "check": {
-                    "value": "-1"
+                    "value": -1
                 },
                 "collapsed": {
                     "value": false
@@ -1175,7 +1207,7 @@
                     "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
                 },
                 "dex": {
-                    "value": "3"
+                    "value": 3
                 },
                 "equipped": {
                     "value": true
@@ -1219,7 +1251,7 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -1258,13 +1290,13 @@
                     "value": ""
                 },
                 "speed": {
-                    "value": ""
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
                 "strength": {
-                    "value": "12"
+                    "value": 12
                 },
                 "traits": {
                     "custom": "",
@@ -1286,8 +1318,12 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.ewQZ0VeL38v3qFnN"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
             "name": "Studded Leather Armor",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "armor"
         },
@@ -1393,8 +1429,12 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.oJZe5rRitvioUgRh"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/equipment.svg",
             "name": "Shootist Bandolier",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "equipment"
         },
@@ -1547,8 +1587,12 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Magazine with 5 Bolts"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/consumable.svg",
             "name": "Magazine with 5 Bolts",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "consumable"
         },
@@ -1708,10 +1752,66 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.nn2HAN1XKkKHfVnM"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/consumable.svg",
             "name": "Stupor Poison",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "consumable"
+        },
+        {
+            "_id": "WVPQDcIaUdkMfawy",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 18
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+9",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "deadly-d8",
+                        "disarm",
+                        "finesse"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Rapier",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
+            "type": "melee"
         },
         {
             "_id": "cfM8s4VVlCf81rzl",
@@ -1725,25 +1825,8 @@
                         "Stupor Poison"
                     ]
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 20
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "piercing",
-                    "die": "1d6+9"
                 },
                 "damageRolls": {
                     "0": {
@@ -1754,48 +1837,9 @@
                 "description": {
                     "value": "<p>Reload 3 for magazine reload</p>"
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -1811,119 +1855,16 @@
                 },
                 "weaponType": {
                     "value": "ranged"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Repeating Hand Crossbow",
-            "sort": 1100000,
-            "type": "melee"
-        },
-        {
-            "_id": "WVPQDcIaUdkMfawy",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "baseItem": null,
-                "bonus": {
-                    "value": 18
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "piercing",
-                    "die": "1d6+9"
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+9",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "deadly-d8",
-                        "disarm",
-                        "finesse"
-                    ]
-                },
-                "weight": {
-                    "value": 0
-                }
+            "permission": {
+                "default": 0
             },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Rapier",
             "sort": 1200000,
             "type": "melee"
         },
@@ -1972,8 +1913,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "action"
         },
@@ -2022,8 +1967,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "At-Will Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 1400000,
             "type": "action"
         },
@@ -2072,8 +2021,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Light Blindness",
+            "permission": {
+                "default": 0
+            },
             "sort": 1500000,
             "type": "action"
         },
@@ -2136,8 +2089,12 @@
                     "sourceId": "Item.9xFBHMzNHhGbTKKM"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "+1 Status Bonus on Saves vs Magic",
+            "permission": {
+                "default": 0
+            },
             "sort": 1600000,
             "type": "action"
         },
@@ -2182,8 +2139,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Shootist’s Luck",
+            "permission": {
+                "default": 0
+            },
             "sort": 1700000,
             "type": "action"
         },
@@ -2226,8 +2187,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Distracting Shot",
+            "permission": {
+                "default": 0
+            },
             "sort": 1800000,
             "type": "action"
         },
@@ -2270,8 +2235,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Reloading Trick",
+            "permission": {
+                "default": 0
+            },
             "sort": 1900000,
             "type": "action"
         },
@@ -2314,8 +2283,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Shootist’s Draw",
+            "permission": {
+                "default": 0
+            },
             "sort": 2000000,
             "type": "action"
         },
@@ -2358,8 +2331,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Sneak Attack",
+            "permission": {
+                "default": 0
+            },
             "sort": 2100000,
             "type": "action"
         },
@@ -2414,8 +2391,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "+2 Status To All Saves vs. Mental",
+            "permission": {
+                "default": 0
+            },
             "sort": 2200000,
             "type": "action"
         },
@@ -2458,8 +2439,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Stupor Poison",
+            "permission": {
+                "default": 0
+            },
             "sort": 2300000,
             "type": "action"
         },
@@ -2493,8 +2478,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
+            "permission": {
+                "default": 0
+            },
             "sort": 2400000,
             "type": "lore"
         },
@@ -2528,8 +2517,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
             "sort": 2500000,
             "type": "lore"
         },
@@ -2563,8 +2556,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
+            "permission": {
+                "default": 0
+            },
             "sort": 2600000,
             "type": "lore"
         },
@@ -2598,8 +2595,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
+            "permission": {
+                "default": 0
+            },
             "sort": 2700000,
             "type": "lore"
         },
@@ -2633,8 +2634,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 2800000,
             "type": "lore"
         },
@@ -2668,8 +2673,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
+            "permission": {
+                "default": 0
+            },
             "sort": 2900000,
             "type": "lore"
         }
@@ -2681,8 +2690,13 @@
     "token": {
         "actorId": "rArZ2y5xqSWeUU0G",
         "actorLink": false,
-        "bar1": {},
-        "bar2": {},
+        "alpha": 1,
+        "bar1": {
+            "attribute": null
+        },
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -2694,17 +2708,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Drow Shootist",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

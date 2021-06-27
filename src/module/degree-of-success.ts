@@ -14,17 +14,22 @@ export enum DegreeOfSuccess {
     CRITICAL_SUCCESS,
 }
 
-export enum DegreeAdjustment {
-    LOWER,
-    INCREASE,
-}
+export const DegreeAdjustment = {
+    LOWER_BY_TWO: -2,
+    LOWER: -1,
+    INCREASE: 1,
+    INCREASE_BY_TWO: 2,
+} as const;
 
-export function adjustDegreeOfSuccess(adjustment: DegreeAdjustment, degreeOfSuccess: DegreeOfSuccess): DegreeOfSuccess {
-    if (adjustment === DegreeAdjustment.INCREASE) {
-        return DegreeOfSuccess[DegreeOfSuccess[Math.clamped(degreeOfSuccess + 1, 0, 3)]];
-    } else {
-        return DegreeOfSuccess[DegreeOfSuccess[Math.clamped(degreeOfSuccess - 1, 0, 3)]];
-    }
+export type DegreeAdjustmentValues = typeof DegreeAdjustment[keyof typeof DegreeAdjustment];
+
+export function adjustDegreeOfSuccess(
+    adjustment: DegreeAdjustmentValues,
+    degreeOfSuccess: DegreeOfSuccess,
+): DegreeOfSuccess {
+    return DegreeOfSuccess[
+        DegreeOfSuccess[Math.clamped(degreeOfSuccess + adjustment, 0, 3)] as keyof typeof DegreeOfSuccess
+    ];
 }
 
 /**

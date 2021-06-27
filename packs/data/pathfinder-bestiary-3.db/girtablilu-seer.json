@@ -130,7 +130,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "<p>Girtablilus are desert-dwelling guardians with the upper bodies of muscular humanoids and the lower bodies of massive scorpions. They are most often found defending ancient temples and religious artifacts with zealous fervor. Some believe they were created by a long-dead god millennia ago to act as guardians, but girtablilus consider the subject of their origin taboo and refuse to address the theory.</p>\n<p>Because girtablilus accept a wide range of religions and belief systems, some outsiders believe they also worship their own ancient pantheon. Instead, girtablilus exclusively revere and protect sites dedicated to deities considered lost to civilization. In this way, they act as preservers of holy practices that have otherwise been forgotten beneath the desert&rsquo;s shifting sands.</p>\n<p>Though girtablilus are used to explorers seeking entrance to the sites they defend, they might welcome those who earnestly wish to learn or offer reverence. A few even proudly share their beliefs with others, eager for the opportunity to preach to someone new. But girtablilus show no mercy to those who attempt to desecrate the sites and objects of their worship, or to those who would violate the tenets of their faith.</p>\n<p>Girtablilus are skilled fighters who keep trained giant scorpions as pets, and they remain unmatched when it comes to fighting in the desert. They require relatively little food or water, and they rely on their stamina to outlast their enemies. When necessary, they can stalk their quarry for days or even weeks, coordinating with their pets to drive their prey in circles. Once exhausted, few foes can stand up to a girtablilu&rsquo;s physical prowess&mdash;or their deadly venom.</p>\n<hr />\n<p>The highest position of authority in a girtablilu community is the group&rsquo;s religious leader. This sacred duty requires years of study, meditation, and dedication to awaken a mystical font of divine magic within the girtablilu. These seers ensure that every action taken by the community falls in line with even the most obscure dogma of their tradition, and they don&rsquo;t hesitate to turn their fury on members of their own community who violate their mandates.</p>",
+            "flavorText": "<p>Girtablilus are desert-dwelling guardians with the upper bodies of muscular humanoids and the lower bodies of massive scorpions. They are most often found defending ancient temples and religious artifacts with zealous fervor. Some believe they were created by a long-dead god millennia ago to act as guardians, but girtablilus consider the subject of their origin taboo and refuse to address the theory.</p>\n<p>Because girtablilus accept a wide range of religions and belief systems, some outsiders believe they also worship their own ancient pantheon. Instead, girtablilus exclusively revere and protect sites dedicated to deities considered lost to civilization. In this way, they act as preservers of holy practices that have otherwise been forgotten beneath the desert's shifting sands.</p>\n<p>Though girtablilus are used to explorers seeking entrance to the sites they defend, they might welcome those who earnestly wish to learn or offer reverence. A few even proudly share their beliefs with others, eager for the opportunity to preach to someone new. But girtablilus show no mercy to those who attempt to desecrate the sites and objects of their worship, or to those who would violate the tenets of their faith.</p>\n<p>Girtablilus are skilled fighters who keep trained giant scorpions as pets, and they remain unmatched when it comes to fighting in the desert. They require relatively little food or water, and they rely on their stamina to outlast their enemies. When necessary, they can stalk their quarry for days or even weeks, coordinating with their pets to drive their prey in circles. Once exhausted, few foes can stand up to a girtablilu's physical prowess-or their deadly venom.</p>\n<hr />\n<p>The highest position of authority in a girtablilu community is the group's religious leader. This sacred duty requires years of study, meditation, and dedication to awaken a mystical font of divine magic within the girtablilu. These seers ensure that every action taken by the community falls in line with even the most obscure dogma of their tradition, and they don't hesitate to turn their fury on members of their own community who violate their mandates.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -143,9 +143,8 @@
                 "value": 12
             },
             "recallKnowledgeText": "",
-            "sidebarText": "",
             "source": {
-                "value": ""
+                "value": "Bestiary 3"
             }
         },
         "items": {
@@ -334,6 +333,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -509,8 +509,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Divine Spontaneous Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -531,7 +535,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -628,8 +634,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.peCF6VArm8urfwxZ"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/blade-barrier.webp",
             "name": "Blade Barrier",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spell"
         },
@@ -650,7 +660,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "varies"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -750,8 +762,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/heal.webp",
             "name": "Heal",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
@@ -772,7 +788,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -870,8 +888,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.PHVHBbdHeQRfjLmE"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/spiritual-blast.webp",
             "name": "Spirit Blast",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "spell"
         },
@@ -892,7 +914,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -988,8 +1012,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.hVU9msO9yGkxKZ3J"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/divine-wrath.webp",
             "name": "Divine Wrath",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "spell"
         },
@@ -1010,7 +1038,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "varies"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -1107,8 +1137,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.wdA52JJnsuQWeyqz"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/harm.webp",
             "name": "Harm",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "spell"
         },
@@ -1129,7 +1163,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1227,8 +1263,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.OyFCwQuw8XRazsNr"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/remove-curse.webp",
             "name": "Remove Curse",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "spell"
         },
@@ -1249,7 +1289,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1347,8 +1389,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.aqRYNoSvxsVfqglH"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
             "name": "Freedom of Movement",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "spell"
         },
@@ -1369,7 +1415,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1467,8 +1515,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.SUKaxVZW2TlM8lu0"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/neutralize-poison.webp",
             "name": "Neutralize Poison",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "spell"
         },
@@ -1489,7 +1541,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1590,8 +1644,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.KSAEhNfZyXMO7Z7V"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/outcastss-curse.webp",
             "name": "Outcast's Curse",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "spell"
         },
@@ -1612,7 +1670,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1711,8 +1771,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.yM3KTTSAIHhyuP14"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/dream-message.webp",
             "name": "Dream Message",
+            "permission": {
+                "default": 0
+            },
             "sort": 1100000,
             "type": "spell"
         },
@@ -1733,7 +1797,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1832,8 +1898,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.o0l57UfBm9ScEUMW"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/glyph-of-warding.webp",
             "name": "Glyph of Warding",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
             "type": "spell"
         },
@@ -1854,7 +1924,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": "1 vial of holy water"
@@ -1951,8 +2023,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.y3jlOfgsQH1JjkJE"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/sanctified-ground.webp",
             "name": "Sanctified Ground",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "spell"
         },
@@ -1973,7 +2049,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2071,8 +2149,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.41TZEjhO6D1nWw2X"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/augury.webp",
             "name": "Augury",
+            "permission": {
+                "default": 0
+            },
             "sort": 1400000,
             "type": "spell"
         },
@@ -2093,7 +2175,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2193,8 +2277,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.b515AZlB0sridKSq"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/calm-emotions.webp",
             "name": "Calm Emotions",
+            "permission": {
+                "default": 0
+            },
             "sort": 1500000,
             "type": "spell"
         },
@@ -2215,7 +2303,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2313,8 +2403,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Mt6ZzkVX8Q4xigFq"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/create-food.webp",
             "name": "Create Food",
+            "permission": {
+                "default": 0
+            },
             "sort": 1600000,
             "type": "spell"
         },
@@ -2335,7 +2429,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2434,8 +2530,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.WzLKjSw6hsBhuklC"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/create-water.webp",
             "name": "Create Water",
+            "permission": {
+                "default": 0
+            },
             "sort": 1700000,
             "type": "spell"
         },
@@ -2456,7 +2556,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2553,8 +2655,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.qXTB7Ec9yYh5JPPV"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/purify-food-and-drink.webp",
             "name": "Purify Food and Drink",
+            "permission": {
+                "default": 0
+            },
             "sort": 1800000,
             "type": "spell"
         },
@@ -2575,7 +2681,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2672,8 +2780,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.8xRzLhwGL7Dgy3EZ"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/sanctuary.webp",
             "name": "Sanctuary",
+            "permission": {
+                "default": 0
+            },
             "sort": 1900000,
             "type": "spell"
         },
@@ -2694,7 +2806,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2718,7 +2832,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "vitqepoKHJZc9Xbm"
@@ -2795,8 +2909,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.4gBIw4IDrSfFHik4"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
+            "permission": {
+                "default": 0
+            },
             "sort": 2000000,
             "type": "spell"
         },
@@ -2817,7 +2935,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2841,7 +2961,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "vitqepoKHJZc9Xbm"
@@ -2919,8 +3039,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
             "name": "Detect Magic",
+            "permission": {
+                "default": 0
+            },
             "sort": 2100000,
             "type": "spell"
         },
@@ -2941,7 +3065,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2965,7 +3091,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "vitqepoKHJZc9Xbm"
@@ -3039,8 +3165,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.RA7VKcen3p56rVyZ"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/forbidding-ward.webp",
             "name": "Forbidding Ward",
+            "permission": {
+                "default": 0
+            },
             "sort": 2200000,
             "type": "spell"
         },
@@ -3061,7 +3191,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "verbal"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -3085,7 +3217,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "vitqepoKHJZc9Xbm"
@@ -3161,8 +3293,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.izcxFQFwf3woCnFs"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/guidance.webp",
             "name": "Guidance",
+            "permission": {
+                "default": 0
+            },
             "sort": 2300000,
             "type": "spell"
         },
@@ -3183,7 +3319,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -3198,7 +3336,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic (pages 297-298).</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -3207,7 +3345,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "vitqepoKHJZc9Xbm"
@@ -3285,8 +3423,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.OhD2Z6rIGGD5ocZA"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/read-aura.webp",
             "name": "Read Aura",
+            "permission": {
+                "default": 0
+            },
             "sort": 2400000,
             "type": "spell"
         },
@@ -3455,8 +3597,12 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.AnwzlOs0njF9Jqnr"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/armor/hide.webp",
             "name": "+1 Resilient Hide",
+            "permission": {
+                "default": 0
+            },
             "sort": 2500000,
             "type": "armor"
         },
@@ -3472,21 +3618,8 @@
                         "Grab"
                     ]
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 24
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "0": {
@@ -3497,48 +3630,9 @@
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -3552,15 +3646,16 @@
                 },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Pincer",
+            "permission": {
+                "default": 0
+            },
             "sort": 2600000,
             "type": "melee"
         },
@@ -3576,21 +3671,8 @@
                         "Girtablilu Venom"
                     ]
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 24
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "0": {
@@ -3601,48 +3683,9 @@
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -3656,15 +3699,16 @@
                 },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Stinger",
+            "permission": {
+                "default": 0
+            },
             "sort": 2700000,
             "type": "melee"
         },
@@ -3713,8 +3757,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
             "sort": 2800000,
             "type": "action"
         },
@@ -3763,8 +3811,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Tremorsense (Imprecise) 60 Feet",
+            "permission": {
+                "default": 0
+            },
             "sort": 2900000,
             "type": "action"
         },
@@ -3810,8 +3862,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Divine Aegis",
+            "permission": {
+                "default": 0
+            },
             "sort": 3000000,
             "type": "action"
         },
@@ -3854,8 +3910,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Desert Stride",
+            "permission": {
+                "default": 0
+            },
             "sort": 3100000,
             "type": "action"
         },
@@ -3900,8 +3960,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Girtablilu Venom",
+            "permission": {
+                "default": 0
+            },
             "sort": 3200000,
             "type": "action"
         },
@@ -3950,8 +4014,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
+            "permission": {
+                "default": 0
+            },
             "sort": 3300000,
             "type": "action"
         },
@@ -4000,8 +4068,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
+            "permission": {
+                "default": 0
+            },
             "sort": 3400000,
             "type": "action"
         },
@@ -4035,8 +4107,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
+            "permission": {
+                "default": 0
+            },
             "sort": 3500000,
             "type": "lore"
         },
@@ -4070,8 +4146,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
+            "permission": {
+                "default": 0
+            },
             "sort": 3600000,
             "type": "lore"
         },
@@ -4105,8 +4185,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
+            "permission": {
+                "default": 0
+            },
             "sort": 3700000,
             "type": "lore"
         },
@@ -4140,8 +4224,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
+            "permission": {
+                "default": 0
+            },
             "sort": 3800000,
             "type": "lore"
         }
@@ -4153,11 +4241,12 @@
     "token": {
         "actorId": "DmQM0QTSPJ7YtpMg",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
         "bar2": {
-            "attribute": ""
+            "attribute": null
         },
         "brightLight": 0,
         "brightSight": 0,
@@ -4170,13 +4259,12 @@
         "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
-            "speed": 5,
-            "type": ""
+            "speed": 5
         },
-        "lightColor": "",
+        "lightColor": null,
         "lockRotation": false,
         "mirrorX": false,
         "mirrorY": false,
@@ -4184,8 +4272,8 @@
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
-        "tint": "",
+        "sightAngle": 0,
+        "tint": null,
         "vision": false,
         "width": 2
     },

@@ -6,9 +6,9 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseToken extends abstract.Document {
-            static get schema(): typeof data.TokenData;
+            static override get schema(): typeof data.TokenData;
 
-            static get metadata(): TokenMetadata;
+            static override get metadata(): TokenMetadata;
 
             /** A convenience reference to the name which should be displayed for the Token */
             get name(): string;

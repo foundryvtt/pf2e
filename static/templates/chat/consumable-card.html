@@ -1,4 +1,4 @@
-<div class="pf2e chat-card weapon-card" data-actor-id="{{actor.id}}" data-item-id="{{item._id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+<div class="pf2e chat-card weapon-card" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
     <header class="card-header flexrow">
         <img src="{{item.img}}" title="{{item.name}}" width="36" height="36" />
         <h3>{{item.name}}</h3>
@@ -16,16 +16,22 @@
             {{/each}}
         </div>
     {{/if}}
-
-    <div class="card-content">{{{data.description.value}}}</div>
-
+    <div class="card-content">
+        {{{data.description.value}}}
+    </div>
     <div class="card-buttons">
         {{#if (and data.usesCharges data.isUsable)}}
             {{#if data.hasCharges}}
-                <button data-action="consume">{{localize "PF2E.ConsumableUseLabel"}} {{data.consumableType}}</button>
+                <button type="button" data-action="consume">{{localize "PF2E.ConsumableUseLabel"}} {{data.consumableType}}</button>
             {{else}}
-                <button disabled="disabled">{{localize "PF2E.ConsumableNoChargesLabel"}}</button>
+                <button type="button" disabled="disabled">{{localize "PF2E.ConsumableNoChargesLabel"}}</button>
             {{/if}}
         {{/if}}
     </div>
+    <footer class="card-footer">
+        {{#if item.isIdentified}}
+            <span>{{localize "PF2E.Item.Physical.LevelLabel" level=item.level}}</span>
+            <span>{{localize "PF2E.Item.Physical.PriceLabel" price=item.price}}</span>
+        {{/if}}
+    </footer>
 </div>

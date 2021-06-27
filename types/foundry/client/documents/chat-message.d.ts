@@ -42,15 +42,13 @@ declare global {
         /**
          * Return whether the ChatMessage is visible to the current User.
          * Messages may not be visible if they are private whispers.
-         * @override
          */
-        get visible(): boolean;
+        override get visible(): boolean;
 
         /** The User who created the chat message. */
         get user(): User<TActor> | undefined;
 
-        /** @override */
-        prepareData(): void;
+        override prepareData(): void;
 
         /**
          * Transform a provided object of ChatMessage data by applying a certain rollMode to the data object.
@@ -122,10 +120,16 @@ declare global {
             alias: string;
         };
 
-        /**
-         * A helper to prepare the speaker object based on a target User
-         */
-        static _getSpeakerFromUser({ scene, user, alias }: { scene?: Scene | null; user: User; alias?: string }): {
+        /** A helper to prepare the speaker object based on a target User */
+        protected static _getSpeakerFromUser({
+            scene,
+            user,
+            alias,
+        }: {
+            scene?: Scene | null;
+            user: User;
+            alias?: string;
+        }): {
             scene: string | null;
             actor: null;
             token: null;
@@ -151,25 +155,25 @@ declare global {
         /** Render the HTML for the ChatMessage which should be added to the log */
         getHTML(): Promise<JQuery>;
 
-        /** @override */
-        protected _preUpdate(
+        protected override _preUpdate(
             data: Partial<foundry.data.ChatMessageSource>,
             options: DocumentModificationContext,
             user: User,
         ): Promise<void>;
 
-        /** @override */
-        protected _onCreate(
+        protected override _onCreate(
             data: foundry.data.ChatMessageSource,
             options: DocumentModificationContext,
             userId: string,
         ): void;
 
-        /** @override */
-        protected _onUpdate(data: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void;
+        protected override _onUpdate(
+            changed: DeepPartial<this['data']['_source']>,
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
-        /** @override */
-        protected _onDelete(options: DocumentModificationContext, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext, userId: string): void;
 
         /** Export the content of the chat message into a standardized log format */
         export(): string;

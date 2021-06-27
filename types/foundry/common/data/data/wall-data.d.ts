@@ -28,7 +28,7 @@ declare module foundry {
             TDocument extends documents.BaseWall = documents.BaseWall,
         > extends abstract.DocumentData<TDocument> {
             /** The data schema for a WallData object */
-            static defineSchema(): abstract.DocumentSchema;
+            static override defineSchema(): abstract.DocumentSchema;
         }
 
         interface WallData extends WallSource {

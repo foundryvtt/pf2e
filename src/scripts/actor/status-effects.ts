@@ -1,4 +1,3 @@
-import { ConditionManager } from '@module/conditions';
 import { LocalizePF2e } from '@system/localize';
 import { StatusEffectIconType } from '@scripts/config';
 import { ErrorPF2e } from '@module/utils';
@@ -116,7 +115,7 @@ export class StatusEffects {
      */
     static _updateStatusIcons() {
         const effects: string[] = [];
-        const conditions = Array.from(ConditionManager.conditions.values()).filter(
+        const conditions = Array.from(game.pf2e.ConditionManager.conditions.values()).filter(
             (c) => c.data.group !== 'detection' && c.data.group !== 'attitudes',
         );
         conditions
@@ -157,7 +156,7 @@ export class StatusEffects {
 
             if (src.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
                 const statusName = this._getStatusFromImg(src);
-                const condition = ConditionManager.getConditionByStatusName(statusName);
+                const condition = game.pf2e.ConditionManager.getConditionByStatusName(statusName);
                 if (!condition) continue;
 
                 $icon.attr('data-effect', statusName);
@@ -176,7 +175,7 @@ export class StatusEffects {
                     if (effect !== undefined) {
                         $icon.attr('data-value', effect.data.value.value);
 
-                        if (effect.data.value.value > 0) {
+                        if (effect.data.value.isValued) {
                             $($value).removeAttr('style').text(effect.data.value.value);
                         }
                     }
@@ -206,7 +205,7 @@ export class StatusEffects {
                 // Icon is a condition
 
                 const condition = appliedConditions.find((e) => e.name === conditionName)?.data;
-                const conditionBase = ConditionManager.getConditionByStatusName(status);
+                const conditionBase = game.pf2e.ConditionManager.getConditionByStatusName(status);
 
                 if (conditionBase?.data.value.isValued) {
                     // Valued condition
@@ -216,18 +215,18 @@ export class StatusEffects {
                     if ($icon.hasClass('active')) {
                         // icon is active.
                         if (
-                            condition === undefined ||
-                            (condition !== undefined && !condition.data.active) ||
-                            (condition !== undefined && condition.data.value.value < 1)
+                            !condition ||
+                            (condition && !condition.data.active) ||
+                            (condition && !condition.data.value.isValued)
                         ) {
                             $icon.removeClass('active');
                             $value.attr('style', 'display:none').text('0');
-                        } else if (condition !== undefined && condition.data.value.value > 0) {
+                        } else if (condition?.data.value.isValued) {
                             // Update the value
 
                             $value.text(condition.data.value.value);
                         }
-                    } else if (condition !== undefined && condition.data.active && condition.data.value.value > 0) {
+                    } else if (condition && condition.data.active && condition.data.value.isValued) {
                         $icon.addClass('active');
                         $value.removeAttr('style').text(condition.data.value.value);
                     }
@@ -305,27 +304,35 @@ export class StatusEffects {
                     .filter((condition) => condition.fromSystem && condition.data.data.base === status)
                     .map((condition) => condition.id);
 
-                await ConditionManager.removeConditionFromToken(conditionIds, this);
-            } else if (condition) {
+                await game.pf2e.ConditionManager.removeConditionFromToken(conditionIds, this);
+            } else if (condition?.data.value.isValued) {
                 this.statusEffectChanged = true;
-                await ConditionManager.updateConditionValue(condition._id, this, condition.data.value.value - 1);
+                await game.pf2e.ConditionManager.updateConditionValue(
+                    condition._id,
+                    this,
+                    condition.data.value.value - 1,
+                );
                 if (this.data.actorLink) {
                     StatusEffects.updateHUD($icon.parent().parent(), this.actor);
                 }
             }
         } else if (event.type === 'click') {
             this.statusEffectChanged = true;
-            if (condition) {
-                await ConditionManager.updateConditionValue(condition._id, this, condition.data.value.value + 1);
+            if (condition?.data.value.isValued) {
+                await game.pf2e.ConditionManager.updateConditionValue(
+                    condition._id,
+                    this,
+                    condition.data.value.value + 1,
+                );
 
                 if (this.data.actorLink) {
                     StatusEffects.updateHUD($icon.parent().parent(), this.actor);
                 }
             } else {
-                const newCondition = ConditionManager.getCondition(status).toObject();
+                const newCondition = game.pf2e.ConditionManager.getCondition(status).toObject();
                 newCondition.data.sources.hud = true;
 
-                await ConditionManager.addConditionToToken(newCondition, this);
+                await game.pf2e.ConditionManager.addConditionToToken(newCondition, this);
             }
         }
     }
@@ -364,17 +371,17 @@ export class StatusEffects {
 
             if (conditionIds.length > 0) {
                 this.statusEffectChanged = true;
-                await ConditionManager.removeConditionFromToken(conditionIds, this);
+                await game.pf2e.ConditionManager.removeConditionFromToken(conditionIds, this);
             } else if (this.data.effects.includes(src)) {
                 await this.toggleEffect(src);
             }
         } else if (event.type === 'click') {
             if (!condition && status) {
-                const newCondition = ConditionManager.getCondition(status).toObject();
+                const newCondition = game.pf2e.ConditionManager.getCondition(status).toObject();
                 newCondition.data.sources.hud = true;
                 this.statusEffectChanged = true;
 
-                await ConditionManager.addConditionToToken(newCondition, this);
+                await game.pf2e.ConditionManager.addConditionToToken(newCondition, this);
             }
         }
     }
@@ -521,7 +528,7 @@ export class StatusEffects {
             const value = status.value;
             const source = status.source ? status.source : 'PF2eStatusEffects.setStatus';
 
-            const condition = ConditionManager.getConditionByStatusName(statusName);
+            const condition = game.pf2e.ConditionManager.getConditionByStatusName(statusName);
 
             if (!condition) {
                 console.log(`PF2e System | '${statusName}' is not a vaild condition!`);
@@ -551,14 +558,14 @@ export class StatusEffects {
                         continue;
                     }
 
-                    await ConditionManager.updateConditionValue(effect._id, token, newValue);
+                    await game.pf2e.ConditionManager.updateConditionValue(effect._id, token, newValue);
                 } else if (Number(value) > 0) {
                     // No effect, but value is a number and is greater than 0.
                     // Add a new condition with the value.
                     const conditionData = condition.toObject();
                     conditionData.data.source.value = source;
                     conditionData.data.value.value = Number(value);
-                    await ConditionManager.addConditionToToken(conditionData, token);
+                    await game.pf2e.ConditionManager.addConditionToToken(conditionData, token);
                 }
             } else if (!value) {
                 // Value was not provided.
@@ -571,13 +578,13 @@ export class StatusEffects {
                 if (effect !== undefined && status.toggle) {
                     // Condition exists and toggle was true
                     // Remove it.
-                    await ConditionManager.removeConditionFromToken([effect._id], token);
+                    await game.pf2e.ConditionManager.removeConditionFromToken([effect._id], token);
                 } else if (effect === undefined) {
                     // Effect does not exist.  Create it.
                     const conditionData = condition.toObject();
                     // Set the source to this function.
                     conditionData.data.source.value = source;
-                    await ConditionManager.addConditionToToken(conditionData, token);
+                    await game.pf2e.ConditionManager.addConditionToToken(conditionData, token);
                 }
             }
         }

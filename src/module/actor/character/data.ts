@@ -28,7 +28,7 @@ import type { CharacterPF2e } from '.';
 export type CharacterSource = BaseCreatureSource<'character', CharacterSystemData>;
 
 export class CharacterData extends BaseCreatureData<CharacterPF2e, CharacterSystemData> {
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/mystery-man.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/mystery-man.svg';
 }
 
 export interface CharacterData extends Omit<CharacterSource, 'effects' | 'items' | 'token'> {
@@ -93,11 +93,6 @@ export interface CharacterSystemData extends CreatureSystemData {
             /** The minimum level (almost always '1'). */
             min: number;
         };
-
-        /** Prepared/sheet data */
-        ancestry: string;
-        background: string;
-        class: string;
     };
 
     attributes: CharacterAttributes;
@@ -197,10 +192,6 @@ interface CharacterAttributes extends BaseCreatureAttributes {
 
     /** The amount of bonus HP gained per level (due a feat or similar). */
     levelbonushp: number;
-    /** The amount of HP provided per level by the character's class. */
-    classhp: number;
-    /** The amount of HP provided at level 1 by the character's ancestry. */
-    ancestryhp: number;
     /** A flat bonus (i.e., not scaling with level) to hit points. */
     flatbonushp: number;
     /** A flat-bonus (i.e., not scaling with level) to stamina points. */

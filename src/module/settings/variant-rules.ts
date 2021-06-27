@@ -95,8 +95,7 @@ const SETTINGS = {
 };
 
 export class VariantRulesSettings extends FormApplication {
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             title: 'PF2E.SETTINGS.Variant.Title',
             id: 'variant-rules-settings',
@@ -106,10 +105,8 @@ export class VariantRulesSettings extends FormApplication {
             closeOnSubmit: true,
         });
     }
-    /* -------------------------------------------- */
 
-    /** @override */
-    getData() {
+    override getData() {
         const data: any = {};
         for (const [k, v] of Object.entries(SETTINGS)) {
             data[k] = {
@@ -130,13 +127,10 @@ export class VariantRulesSettings extends FormApplication {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** @override */
-    activateListeners(html: JQuery) {
+    override activateListeners(html: JQuery) {
         super.activateListeners(html);
         html.find('button[name="reset"]').on('click', (event) => this.onResetDefaults(event));
     }
-
-    /* -------------------------------------------- */
 
     /**
      * Handle button click to reset default settings
@@ -150,14 +144,15 @@ export class VariantRulesSettings extends FormApplication {
         return this.render();
     }
 
-    /** @override */
-    protected async _onSubmit(event: Event, options: OnSubmitFormOptions = {}): Promise<Record<string, unknown>> {
+    protected override async _onSubmit(
+        event: Event,
+        options: OnSubmitFormOptions = {},
+    ): Promise<Record<string, unknown>> {
         event.preventDefault();
         return super._onSubmit(event, options);
     }
 
-    /** @override */
-    protected async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
+    protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
         for await (const key of Object.keys(SETTINGS)) {
             game.settings.set('pf2e', key, data[key]);
         }

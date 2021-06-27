@@ -4,9 +4,9 @@ import { MartialSource } from '@item/deprecated';
 import { MigrationBase } from '../base';
 
 export class Migration634PurgeMartialItems extends MigrationBase {
-    static version = 0.634;
+    static override version = 0.634;
 
-    async updateActor(actorData: ActorSourcePF2e): Promise<void> {
+    override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         const martialItems = actorData.items.filter(
             (itemData): itemData is MartialSource => itemData.type === 'martial',
         );

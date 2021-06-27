@@ -42,6 +42,11 @@ import { Migration632DeleteOrphanedSpells } from './migrations/632-delete-orphan
 import { Migration633DeleteUnidentifiedTraits } from './migrations/633-delete-unidentified-traits';
 import { Migration634PurgeMartialItems } from './migrations/634-purge-martial-items';
 import { Migration635NumifyACAndQuantity } from './migrations/635-numify-ac-and-quantity';
+import { Migration636NumifyArmorData } from './migrations/636-numify-armor-data';
+import { Migration637CleanMeleeItems } from './migrations/637-clean-melee-items';
+import { Migration638SpellComponents } from './migrations/638-spell-components';
+import { Migration639NormalizeLevelAndPrice } from './migrations/639-normalize-level-and-price';
+import { Migration640CantripsAreNotZeroLevel } from './migrations/640-cantrips-are-not-zero-level';
 
 export class Migrations {
     private static list = [
@@ -88,6 +93,11 @@ export class Migrations {
         Migration633DeleteUnidentifiedTraits,
         Migration634PurgeMartialItems,
         Migration635NumifyACAndQuantity,
+        Migration636NumifyArmorData,
+        Migration637CleanMeleeItems,
+        Migration638SpellComponents,
+        Migration639NormalizeLevelAndPrice,
+        Migration640CantripsAreNotZeroLevel,
     ];
 
     static get latestVersion(): number {

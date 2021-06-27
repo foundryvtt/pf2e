@@ -2,18 +2,16 @@ declare module foundry {
     module documents {
         /** The Item document model. */
         class BaseItem extends abstract.Document {
-            static get schema(): ConstructorOf<data.ItemData<BaseItem, BaseActiveEffect>>;
+            static override get schema(): ConstructorOf<data.ItemData<BaseItem, BaseActiveEffect>>;
 
-            static get metadata(): ItemMetadata;
+            static override get metadata(): ItemMetadata;
 
             /** A reference to the Collection of ActiveEffect instances in the Item document, indexed by _id. */
             get effects(): this['data']['effects'];
 
-            /** @override */
-            canUserModify(user: BaseUser, action: UserAction, data?: DocumentUpdateData<this>): boolean;
+            override canUserModify(user: BaseUser, action: UserAction, data?: DocumentUpdateData<this>): boolean;
 
-            /** @override */
-            testUserPermission(
+            override testUserPermission(
                 user: BaseUser,
                 permission: DocumentPermission | UserAction,
                 { exact }?: { exact?: boolean },

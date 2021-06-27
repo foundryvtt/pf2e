@@ -13,12 +13,17 @@ import { Migration631FixSenseRuleElementSelector } from '@module/migration/migra
 import { Migration632DeleteOrphanedSpells } from '@module/migration/migrations/632-delete-orphaned-spells';
 import { Migration633DeleteUnidentifiedTraits } from '@module/migration/migrations/633-delete-unidentified-traits';
 import { Migration634PurgeMartialItems } from '@module/migration/migrations/634-purge-martial-items';
+import { Migration635NumifyACAndQuantity } from '@module/migration/migrations/635-numify-ac-and-quantity';
+import { Migration636NumifyArmorData } from '@module/migration/migrations/636-numify-armor-data';
+import { Migration637CleanMeleeItems } from '@module/migration/migrations/637-clean-melee-items';
+import { Migration638SpellComponents } from '@module/migration/migrations/638-spell-components';
+import { Migration639NormalizeLevelAndPrice } from '@module/migration/migrations/639-normalize-level-and-price';
+import { Migration640CantripsAreNotZeroLevel } from '@module/migration/migrations/640-cantrips-are-not-zero-level';
 
 import { MigrationBase } from '@module/migration/base';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
-import { Migration635NumifyACAndQuantity } from '@module/migration/migrations/635-numify-ac-and-quantity';
 
 const migrations: MigrationBase[] = [
     new Migration621RemoveConfigSpellSchools(),
@@ -34,6 +39,11 @@ const migrations: MigrationBase[] = [
     new Migration633DeleteUnidentifiedTraits(),
     new Migration634PurgeMartialItems(),
     new Migration635NumifyACAndQuantity(),
+    new Migration636NumifyArmorData(),
+    new Migration637CleanMeleeItems(),
+    new Migration638SpellComponents(),
+    new Migration639NormalizeLevelAndPrice(),
+    new Migration640CantripsAreNotZeroLevel(),
 ];
 
 global.deepClone = function (original: any): any {

@@ -1,5 +1,269 @@
 # Patch Notes:
 
+## Version 2.5.0
+### Bug Fixes
+* (stwlam) Fix bug causing derived traits on armor to be wiped. Closes #1521
+* (stwlam) Fix tokens becoming unhidden when not in hidden-when-empty mode. Closes #1526
+* (stwlam) Reduce memory consumption of compendium browser and add some features (resizeable window, choose sort direction, sorting by equipment price), ability to drop an actor or item directly beneath the compendium browser window. Closes #625, #1375, #1325
+* (stwlam) Fix sortability of items within a container. Closes #1533
+* (stwlam) Safely interpolate action names during macro creation. Closes #1536
+* (stwlam) Fix the default permission of the Raise a Shield macro. Closes #1525
+* (stwlam) Fix dropping conditions on tokenless actors
+* (Drental) Fix +-4 modifier to spell dc/attack from elite/weak adjustment. Closes #1424
+* (In3luki) Fix rollMode setting not working for rerolls
+* (In3luki) Fix class feats being added multiple times when character level is decreased and then increased again
+
+### Content Changes
+* (rectulo) Delete page reference from legendary sneak general skill feat description
+* (rectulo) Delete page reference from hidden condition description
+* (rectulo) Remove extraneous HTML from steal the sky archetype feat description
+* (rectulo) Clean up excessive line breaks in combat reading bard class feat description
+* (rectulo) Add missing requirements to cross the final horizon archetype feat
+* (rectulo & Njini) Fix guiding chisel description text to include missing sentences for Activate, Frequency, and Effect
+* (rectulo & Njini) Correct link to _see invisibility_ in robe of eyes description
+* (TMun) Update auldegrund grimcarver so he does fire, not fifire damage
+* (TMun) Corrects dragon claws spell effect duration from 1 round to 1 minute. Closes #1534
+* (TMun) Add Ganzi Skillful tail feat
+* (Drental) Remove page references
+* (SpartanCPA) Correct NPC lore descriptions
+* (SpartanCPA) Split Cantrip Expansion into two feats for prepared vs. spontaneous
+* (SpartanCPA) NPC Gallery Audit (Devotees, Downtrodden, Explorers, Healers, Laborers, Magistrates, Poacher)
+* (SpartanCPA) Traits needed for Agents of Edgewatch Book 6
+* (SpartanCPA) Add source to Bestiary 3, PFS NPCs, April Fool's Bestiary, Pathfinder Blog Bestiary, Beginner Box, Age of Ashes book 5, Extinction Curse book 3, The Fall of Plaguestone, Little Trouble in Big Absalom, Troubles in Otari, and The Slithering compendium entries, for proper filtering in the compendium browser
+* (SpartanCPA) Add missing entries from Menace Under Otari, removed filth fever from giant rat in Beginner Box
+* (Tikael) Fix Ancient White Dragon Ground Slam DC. Closes #1522
+* (Tikael) Add new no-prep character Wendlyn
+* (Tikael) Change familiar abilities to unlimited duration
+* (Tikael) Add instructions for making specific scrolls and wands to the generic items
+* (Tikael) Fix broken links in the alchemist class features preventing proper automation. Closes #1535
+* (mathmanpi) Fix Piranha Swarm bludgeoning resistance
+* (Shandyan) Add automation to aphorite versatile heritage and feats (axiomatic lore, intuitive crafting, lemma of vision)
+* (Shandyan) Azarketi automation part 1
+
+### Core System Improvements
+* (Tikael) Stop striking and weapon potency from warning about values of zero
+* (Friz) Add separate option to allow GM to control visibility of both DC and results
+* (BoMbY) Make recovery DC/result always visible to players
+* (In3luki) Create new conditions in a single database transaction, which should improve speed and reliability when applying conditions
+* (In3luki) Add 'two-degrees-better' and 'two-degrees-worse' to DC modifiers
+* (In3luki) Refactor ABC item creation for better reliability on character creation and level-up
+* (stwlam) Finish cleaning up display of traits on item sheets
+* (stwlam) Initial implementation of material and rune-base weapon names, prices, etc.
+* (stwlam) Make item cards and summaries fancier
+* (stwlam) Remove attack and damage buttons from weapon chat cards
+* (Supe) Show final heightened spell level in chat card title
+* (Supe) Spells with cantrip trait are always cantrips (unless ritual)
+* (Supe) Cantrips can no longer be 0th level, and will now show the heightened level in the chat card
+* (Supe) Updated spell editor arrangement
+* (Tikael) Add skills and perception to the inline button options
+* (nikolaj-a) Add weapon base item value to attack and damage selectors
+* (nikolaj-a) Increase line height slightly for the compact roll notes
+* (nikolaj-a) Add notes for outcome of the trip action
+
+
+## Version 2.4.0
+### Bug Fixes
+* (Drental) Fix NPC damage rolls with non-dice values
+* (Drental) Fix light bulk label for armor and treasure
+* (stwlam) Fix consumption of wands
+* (Chup) Fixed actions and inventory of vehicle sheet. Closes #1167 and #1494
+* (nikolaj-a) Make rules tab in item sheet less temperamental on syntax error
+
+### Content Changes
+* (SpartanCPA) NPC Gallery Audit (Criminals)
+* (SpartanCPA) Remove page references to the Core Rulebook
+* (SpartanCPA) Add action category definitions where needed to NPCs in Extinction Curse
+* (Shandyan) Ranger and Rogue Critical Specialisation, plus Ruffian Sneak Attack
+* (Shandyan) Update Giant Instinct to use new `weapon:oversized` predicate
+* (Shandyan) Add automation for aasimar heritage and ancestry feats (angelkin, blessed blood, call of elysium, celestial eyes, celestial lore, celestial strikes, celestial wings, divine countermeasures, emberkin, enforced order, eternal wings, garuda's squall, idyllkin, lawbringer, musetouched, plumekith, truespeech)
+* (Shandyan) Add automation for android ancestry features (constructed, emotionally unaware), heritages (artisan, impersonator, laborer, and warrior android), and feats (android lore, emotionless, nanite surge, nightvision adaptation, offensive subroutine, protective subroutine, and proximity alert)
+* (TMun) Convert impossible volley into three versions
+* (TMun) Add 45, 75 and 90 foot options to support emanations with +15 foot per level heightening for NPCs
+* (TMun) Correct spells for Quelaunt. Closes #1508
+* (TMun) Lionlodge compendium additions
+* (rectulo) Clean up reflecting riposte fighter class feat description text
+* (rectulo) Clean up prescient planner general feat description text
+* (rectulo) Clean up bargain hunter general skill feat description text
+* (rectulo) Fix typo in terrified retreat feat prerequisite
+* (rectulo) Remove page reference from foil senses general skill feat
+* (rectulo) Correct level for eldritch researcher feat
+* (Drental) Fix Take Cover macro to properly add the cover effect on NPC actors
+* (Drental) Fix perception and stealth for selected tokens macros
+* (Tikael) Add default weapon potency and striking rule elements to handwraps
+
+### Core System Improvements
+* (In3luki) Update AdjustDegreeOfSuccess rule element to support attack rolls
+* (Drental) Clarify the text for the standard flatfooted toggle
+* (stwlam) Make console error for multiple feats in same slot a debug message
+* (stwlam) Move Rest for the Night macro to typescript, fix for 0.8. Closes #1510
+* (Tikael) Add min and max properties to flat modifier
+* (Tikael) Change WeaponPotency and Striking rule elements to use the values from the item
+
+
+## Version 2.3.0
+### Bug Fixes
+* (stwlam) Prevent error during localization of custom attributes and other properties
+* (stwlam) Prevent distortion of smaller loot actor icons. Closes #1504
+* (stwlam) Fix decrementing consumable quantities
+* (stwlam) Fix bug causing extra "0" entry to get added to item data
+* (stwlam) Fix Raise a Shield macro
+* (nikolaj-a) Fix PC strike options for damage rolls
+* (nikolaj-a) Fix show target AC in strike chat card
+
+### New Features
+* (stwlam) Implement basic rules-based vision mechanics. This feature is still experimental and has been included for user feedback
+
+### Content Changes
+* (SpartanCPA) Add "Splash 10 ft" trait
+* (SpartanCPA) Rename Wizard and Witch Spell Effects
+* (SpartanCPA) Correct base item of Spiritsight Crossbow
+* (SpartanCPA) Add Damage Dice override to Crossbow Ace. Closes #1509
+* (SpartanCPA) Extinction Curse Book 5 - Adventure Toolbox Monsters
+* (Drental) Fix skinsaw murderer weapon damage
+* (rectulo) Clean up the verdant presence druid feat description text
+* (rectulo) Clean up tenacious blood sorcerer class feat description text
+* (rectulo) Correct formatting of Cloak of Immolation description
+* (rectulo) Add prerequisites for denier of destruction cleric class feat
+* (Friz) Add rule elements for persistent damage and other notes to alchemical bombs
+
+### Core System Improvements
+* (stwlam) Move automation settings to a menu
+* (stwlam) Fix journal-entry styling with tables
+* (stwlam) Call a `pf2e.systemReady` hook to help modules know when it is safe to access system-specific applications
+* (stwlam) Add ability to hide a loot token when its inventory is empty
+* (stwlam) Remove previously applied monkey patch for exporting a folder to compendium, since the fix was now included in core Foundry
+* (stwlam) Allow drag and drop of folders with sub-folders of items to an actor
+* (Drental) Add DC visibility to metagame settings
+* (Supe) Capture spell level for drag data
+* (nikolaj-a) Set level of effect when dragged from spell chat card
+* (nikolaj-a) Add support for the Defy Death orc feat
+* (nikolaj-a) Allow "none" as an option for check DC visibility in the chat cards
+* (nikolaj-a) Add support for targeting and DC resolving for action macros
+* (nikolaj-a) Add built-in action and associated macro for hide, sense motive, and sneak
+
+
+## Version 2.2.0
+### Bug Fixes
+* (stwlam) Restore functionality of "Skip Defeated" in combat tracker. Closes #1493
+* (stwlam) Fix version displayed in migration messages
+* (stwlam) Fix application of active effects modifying properties set by ABC items
+* (stwlam) Fix Tough familiar ability
+* (stwlam) Fix bulk adjustments according to creature and item sizes
+* (stwlam) Issue a warning about orphaned spells instead of blocking the data preparation
+* (nikolaj-a) Fix NPC sidebar effect rendering
+
+### Content Changes
+* (rectulo) Change azaersis roads from class feat to hobgoblin ancestry feat
+* (rectulo) Remove unused styling from the reckless abandon barbarian feat
+* (rectulo) Remove page reference from auspicious mount champion feat
+* (Friz) Add roll notes to the Burn It! feat to remind of the extra damage for alchemical items
+* (Friz) Fix blight bomb damage so the persistent damage component is in a roll note. Closes #1479
+* (Shandyan) Alchemist feature formatting
+* (SpartanCPA) Fix Persistent Damage. Closes #1487
+
+### Core System Improvements
+* (stwlam) Work around Foundry 0.8.6 bug by overriding Folder#exportToCompendium
+* (stwlam) Remove all deprecated objects attached to the global namespace
+* (stwlam) Remove Calendar/Weather integration for World Clock
+* (In3luki) Add special styling for elements that are only visible to the GM. Closes #1481
+* (In3luki) Add even more checks to the crit card buttons
+* (Drental) Add macro to open compendium browser
+* (Supe) Maintain actor sheet scroll position and expanded item summaries
+* (BoMbY) Convert recovery check to roll with DC and notes
+* (nikolaj-a) Flag to disable ABP for individual actors
+* (nikolaj-a) Add weapon category option to PC strikes
+* (nikolaj-a) Add weapon size options to PC strikes
+
+
+## Version 2.1.1
+### Content Changes
+* (SpartanCPA) Remove Rule Element from the Bestiary "Low-Light Vision" ability
+* (nikolaj-a) Fix misspelled flat modifier rule elements for hamatula, hellcat, hezrou, and hound archon
+
+
+## Version 2.1.0
+### Bug Fixes
+* (stwlam) Fix updating tokens from NPC attitudes
+* (stwlam) Purge martial items, set any weapon with a martial item's ID as a category to "simple"
+* (stwlam) Fix setting of non-default token image
+* (stwlam) Fix updating spontaneous spell slot value on character sheet
+* (stwlam) Get intended changes of numeric values on actor sheets despite modification via data preparation (fixes the broken animal companions)
+* (stwlam) Ensure derived traits are not unintentionally saved
+* (In3luki) Fix the degree of success for rerolled checks not applying the modifier
+* (In3luki) Fix attack rolls not displaying the degree of success against targeted tokens for NPCs
+* (In3luki) Fix derived data being saved for weak or elite NPCs
+* (In3luki) Fix critical card drawing for spell attacks
+* (In3luki) Remove the attack buttons from the chat card if the weapon is not on a creature
+* (In3luki) Fix chat damage buttons not applying damage to shields
+* (In3luki) Adjust the level of elite or weak NPCs by 1. Closes #1426
+* (nikolaj-a) Fix available scroll and wand heightening levels
+
+### Content Changes
+* (TMun) Add cursebound trait to Brain Drain Oracle Focus Spell. Closes #1454
+* (TMun) Add 15 foot cone to Cry of Destruction Spell. Closes #1464
+* (TMun) Add rule element for Razor Claws lizardfolk feat. Closes #1449
+* (TMun) Correct Gorilla Stance modifiers. Closes #1443
+* (TMun) Correct bomb snare craft requirements. Closes #1440
+* (TMun) Add ranger tag to the three masterful hunter class features. Closes #1437
+* (TMun) Add text on focus points to Oracle Class. Closes #1428
+* (TMun) Correct damage from 1d6 to 1d10 for taw launche, and change default from strength to dexterity for modifier. Closes #1422
+* (TMun) Correct Gibtas Bounder from AV bestiary. Add missing passives. Correct attack traits and damage. Correct descriptions of attacks. Correct flags on attacks for range. Closes #1401
+* (TMun) Corrects level of pearly white aeon stone from 35 to 3. Closes #1474
+* (TMun) Add ringmaster's introduction from Extinction Curse book 6. Closes #1476
+* (TMun) Add Pathfinder Society mentor boon automation. Closes #1458
+* (TMun) Update to Lizardfolk Defender
+* (TMun) Add hazards for both tiers of quest 9 of Pathfinder Society. Add Aeon Nexus, Automatic Fire Suppression, and Grasping Limbs. Closes #1448
+* (TMun) Correct Level for Malarunk. Closes #1478
+* (TMun) Add pregens from Lionlodge (One-Shot 2)
+* (Shandyan) Formatting for alchemist feats to add links to conditions, pre-req feats, features, items etc. Add placeholder features for research field-specific features to add to alchemist class item
+* (Shandyan) Rogue automation, including some formatting, effects, and feats. Analyze weakness, brutal beating, bullseye, deadly poison weapon, improved poison weapon, nimble dodge, nimble roll, poison weapon, predictable!, sly striker, you're next. Added duration tracker for debilitating strike and enduring debilitations
+* (Shandyan) Sorcerer automation, including spell effects, feat formatting, and rule elements for bloodline resistance, diverting vortex, entreat with forebears
+    * Feats: anoint ally, bloodline resistance, diverting vortex, entreat with forebears
+    * Spells: angelic wings, arcane countermeasures, celestial brand, diabolic edict, dragon claws, dragon wings, elemental motion, glutton's jaw, nymph's token, unusual anatomy
+* (Shandyan) Swashbuckler automation, including effects. Formatting of actions, features and feats. Rule elements and effect links for Charmed Life, Flamboyant Cruelty, Swaggering Initiative, and Vivacious Bravado
+* (Shandyan) Witch automation, including effects
+    * Feats: Eldritch Nails, Living Hair, and Witch's Cauldron
+    * Spells: Blood Ward, Discern Secrets, Nudge Fate, and Stoke the Heart
+* (Shandyan) Wizard automation, including effects
+    * Spells: Augment Summoning, Physical Boost, and Shifting Form
+* (Shandyan) Correct areas and other details for sorcerer focus spells
+* (Shandya) Rules elements to upgrade saving throws from class features
+* (stwlam) Add token size active effect to Spell Effect: Pest Form
+* (stwlam) Several Abomination Vaults and a single Pathfinder Society NPC were missing their image
+* (SpartanCPA) Add active effect support to Ancestral Weapon Familiarity feats
+* (SpartanCPA) Add rollable button to Dragon's Rage Breath feat to properly roll dice based on character level
+* (SpartanCPA) Add "Thrown 15 ft." weapon trait
+* (SpartanCPA) NPC Gallery brush-up
+* (SpartanCPA) Reformat tables in equipment descriptions
+* (SpartanCPA) Correct typo in Grunka and change description for both Grunka and Pelmo from Agents of Edgewatch book 1
+* (SpartanCPA) Brush-up of goblins, hobgoblins, and goblin dog from Bestiary 1
+* (rectulo & In3luki) Update enforce oath with prerequisites
+* (rectulo) Clarify reactive transformation prerequisites
+* (rectulo) Clean up guiding finish description
+* (rectulo) Add requirements to tangled forest rake description
+* (rectulo) Update tourmaline sphere aeon stone description
+* (bapacibl) Add positive trait to healing potions. Closes #1407
+* (SLATE) Fix Sarenrae boons and curses to her properly spelled name
+
+### Core System Improvements
+* (stwlam) Re-arrange type declarations to speed up load times
+* (stwlam) Propagate AEs modifying actors' prototype tokens to the corresponding tokens on the canvas
+* (stwlam) Remove setting to treat coin stacks in different containers separately for bulk calculation, as this was deprecated by the bulk errata
+* (stwlam) Prevent character importers from creating martial items, since these are no longer used
+* (stwlam) Normalize sidebar view between armor and weapons
+* (stwlam) Allow journal entry width to increase when resizing the window
+* (stwlam) Allow the GM to drop a spell anywhere on a loot actor to create a scroll or wand, including on the token
+* (mdizo) Isolate and improve journal entry styles
+* (In3luki) Add a rule element to adjust the degree of success of checks with a DC
+* (In3luki) Remove support for the old roll syntax for strikes and various other checks
+* (In3luki) Support RollNote outcome field for checks using any adjusted outcome
+* (In3luki) Always show RollNotes for checks without a DC
+* (In3luki) Update RollNotes on rerolled checks with a DC
+* (Supe) Expose RuleElementPF2e class as `game.pf2e.RuleElement` for use by modules
+* (Supe) Maintain scroll position when item sheet is edited
+* (nikolaj-a) Move strike targeting logic from the sheet to the actor, allowing easier usage from macros and modules (this also fixes Token Action HUD integration)
+
+
 ## Version 2.0.3
 ### Bug Fixes
 * (stwlam) Fix UPGRADE Active Effect changes on non-existent data properties
@@ -35,8 +299,8 @@ This version brings support for the Foundry VTT version 0.8.x line, starting fro
 
 ### Content Changes
 * (Drental) Add Cunning Rune to weapon runes. Closes #1438
-* (Fraser Stanton) Fix damage type of Noxious Vapors. Closes #1405
-* (Fraser Stanton) Fix spelling error in description of Lifting Belt. Closes #1425
+* (Friz) Fix damage type of Noxious Vapors. Closes #1405
+* (Friz) Fix spelling error in description of Lifting Belt. Closes #1425
 * (SpartanCPA) Favor sheet checkbox over a rule element for applying token icon of spell effects
 * (kageru) Correct Fire Mephit spell DC
 * (stwlam) Add fear trait to Demoralize action, remove skill trait. Closes #1444

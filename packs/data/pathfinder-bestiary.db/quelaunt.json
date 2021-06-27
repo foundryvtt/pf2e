@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+6",
+                "mod": 6,
                 "value": 22
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 36,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -43,7 +44,7 @@
                 "value": 36
             },
             "allSaves": {
-                "value": ""
+                "value": "+2 To Will Saves vs. Emotion"
             },
             "ancestryhp": 0,
             "bonusEncumbranceBulk": 0,
@@ -102,7 +103,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "40 feet"
+                "value": "40"
             }
         },
         "currency": {
@@ -119,6 +120,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -151,9 +153,72 @@
                 "value": 15
             },
             "recallKnowledgeText": "Recall Knowledge : DC 34",
-            "sidebarText": "<h3 class=\"title\">Other Quelaunts</h3>Perhaps the most frightening tales of quelaunts attribute them with abilities beyond those detailed here, suggesting that quelaunts might be an entire category of alien menace that has only recently turned its awful attention to humanity.",
             "source": {
-                "value": "Bestiary pg. 273"
+                "value": ""
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot2": {
+                            "value": 0
+                        },
+                        "slot3": {
+                            "value": 0
+                        },
+                        "slot4": {
+                            "value": 0
+                        },
+                        "slot7": {
+                            "value": 3
+                        }
+                    }
+                }
+            },
+            "1": {
+                "data": {
+                    "slots": {
+                        "slot2": {
+                            "value": 0
+                        },
+                        "slot3": {
+                            "value": 0
+                        },
+                        "slot4": {
+                            "value": 0
+                        },
+                        "slot7": {
+                            "value": 3
+                        }
+                    }
+                }
+            },
+            "KyWT6DPfwI2KXz6G": {
+                "data": {
+                    "slots": {
+                        "slot2": {
+                            "max": 0
+                        },
+                        "slot3": {
+                            "max": 0
+                        },
+                        "slot4": {
+                            "max": 0
+                        },
+                        "slot7": {
+                            "max": 3
+                        }
+                    }
+                }
+            },
+            "UPr5yGyNCCUcWX3d": {
+                "data": {
+                    "focus": {
+                        "points": 0,
+                        "pool": 0
+                    }
+                }
             }
         },
         "martial": {
@@ -417,7 +482,7 @@
             ],
             "dv": [],
             "languages": {
-                "custom": ", telepathy 100 feet",
+                "custom": "Telepathy (100 feet); Cannot Speak Any Language",
                 "selected": [],
                 "value": [
                     "aklo",
@@ -443,13 +508,14 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "KyWT6DPfwI2KXz6G",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "description": {
                     "chat": "",
@@ -525,9 +591,9 @@
                         "value": 0
                     },
                     "slot7": {
-                        "max": 0,
+                        "max": 3,
                         "prepared": [],
-                        "value": 0
+                        "value": 3
                     },
                     "slot8": {
                         "max": 0,
@@ -548,7 +614,7 @@
                     "dc": "39",
                     "item": 0,
                     "mod": 0,
-                    "value": 29
+                    "value": 31
                 },
                 "tradition": {
                     "value": "occult"
@@ -566,134 +632,155 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Occult Innate Spells",
+            "name": "Innate Occult Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "BCagyVyMG8TsfkYy",
+            "_id": "UPr5yGyNCCUcWX3d",
             "data": {
                 "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "category": {
-                    "value": "spell"
-                },
-                "components": {
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": "mental"
+                    "value": "cha"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for that turn as it sobs uncontrollably.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for 1 minute.</p>\n<hr /><strong>Heightened</strong> The area increases to a 60-foot cone."
-                },
-                "duration": {
-                    "value": "1 or more rounds"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": "7"
-                },
-                "location": {
-                    "value": "KyWT6DPfwI2KXz6G"
-                },
-                "materials": {
                     "value": ""
+                },
+                "displayLevels": {},
+                "focus": {
+                    "points": 0,
+                    "pool": 0
                 },
                 "prepared": {
                     "value": ""
                 },
-                "range": {
-                    "value": ""
+                "proficiency": {
+                    "value": 0
                 },
                 "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
+                "showUnpreparedSpells": {
+                    "value": true
                 },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                "signatureSpells": {
+                    "value": []
                 },
-                "school": {
-                    "value": "enchantment"
+                "slots": {
+                    "slot0": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot1": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot10": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot11": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot2": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot3": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot4": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot5": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot6": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot7": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot8": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot9": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    }
                 },
                 "slug": null,
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=57"
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
                     "value": ""
                 },
-                "time": {
-                    "value": "2"
+                "spelldc": {
+                    "dc": 39,
+                    "mod": 0,
+                    "value": 31
                 },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
+                "tradition": {
+                    "value": "focus"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "emotion",
-                        "enchantment",
-                        "mental"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
+                    "value": []
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/spells/chrusing-dispair.webp",
-            "name": "Crushing Dispair",
+            "folder": null,
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "At-Will Focus Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
-            "type": "spell"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "DxHkEEG3BoIVHjGN",
+            "_id": "GQXhzdun5RNKjhPx",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
-                    "value": "spell"
+                    "value": "focus"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -703,24 +790,24 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for that turn as it sobs uncontrollably.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for 1 minute.</p>\n<hr /><strong>Heightened</strong> The area increases to a 60-foot cone."
+                    "value": "<p>You strengthen a target's ambition, increase its resentment of allies, and make its allegiances more susceptible to change. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes a -1 status penalty to its saving throws and other defenses against attempts to Coerce it, Request something of it, or use mental effects to convince it to do something (such as a @Compendium[pf2e.spells-srd.Suggestion]{Suggestion} spell). This penalty applies only if the target is being encouraged to advance its own ambitions.</p>\n<p><strong>Failure</strong> As success, but the penalty is -2.</p>\n<p><strong>Critical Failure</strong> The target is overcome with ambition, taking whatever actions would advance its own agenda over those of anyone else, even without attempts to convince it.</p>"
                 },
                 "duration": {
-                    "value": "1 or more rounds"
+                    "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
                 "level": {
-                    "value": "7"
+                    "value": 8
                 },
                 "location": {
-                    "value": "KyWT6DPfwI2KXz6G"
+                    "value": "UPr5yGyNCCUcWX3d"
                 },
                 "materials": {
                     "value": ""
@@ -728,13 +815,16 @@
                 "prepared": {
                     "value": ""
                 },
-                "range": {
+                "primarycheck": {
                     "value": ""
+                },
+                "range": {
+                    "value": "60 feet"
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -743,9 +833,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "blind-ambition",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=57"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -754,54 +850,63 @@
                     "value": false
                 },
                 "target": {
-                    "value": ""
+                    "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
                 },
                 "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult"
-                    ]
+                    "value": []
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
+                        "uncommon",
                         "emotion",
+                        "mental",
                         "enchantment",
-                        "mental"
+                        "cleric"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/chrusing-dispair.webp",
-            "name": "Crushing Dispair",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Blind Ambition"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/blind-ambition.webp",
+            "name": "Blind Ambition (At Will)",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "FP4ups6Nys4hXTgZ",
+            "_id": "mG5ltpJtXC7h37Ls",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": null
+                    "areaType": "emanation",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": "15-foot emanation"
                 },
                 "category": {
-                    "value": "spell"
+                    "value": "focus"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -811,12 +916,265 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for that turn as it sobs uncontrollably.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for 1 minute.</p>\n<hr /><strong>Heightened</strong> The area increases to a 60-foot cone."
+                    "value": "<p>You become intensely entrancing, and creatures are distracted by you as long as they remain within the area. You can exclude any creatures you choose from the effects. When a creature enters the area for the first time, it must attempt a Will saving throw. If a creature leaves and reenters, it uses the results of its original save.</p>\n<p>Emanation is 75 feet at 8th level</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and temporarily immune for 1 hour.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} with you for its next action, then is temporarily immune for 1 hour.</p>\n<p><strong>Failure</strong> The creature is Fascinated with you.</p>\n<p><strong>Critical Failure</strong> The creature is Fascinated with you, and its attitude toward you improves by one step.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the size of the emanation by 15 feet.</p>"
+                },
+                "duration": {
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": {
+                    "value": "UPr5yGyNCCUcWX3d"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "captivating-adoration",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "uncommon",
+                        "visual",
+                        "emotion",
+                        "mental",
+                        "enchantment",
+                        "cleric"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Captivating Adoration"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/captivating-adoration.webp",
+            "name": "Captivating Adoration (At Will)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 400000,
+            "type": "spell"
+        },
+        {
+            "_id": "haUO8rhht2ZadfFw",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "focus"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You make the target overconfident, leading it to ascribe failure to external factors. If the target fails at an attack roll or skill check, it takes a -1 status penalty to attack rolls and skill checks until the end of its turn (or the end of its next turn, if it attempted the roll outside its turn). If the creature fails a second time while taking this penalty, the penalty increases to -2. The duration depends on the target's Will save. After attempting its save, the creature becomes temporarily immune for 24 hours.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The duration is 1 round.</p>\n<p><strong>Failure</strong> The duration is 10 minutes.</p>\n<p><strong>Critical Failure</strong> The duration is 24 hours.</p>"
+                },
+                "duration": {
+                    "value": "varies"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": {
+                    "value": "UPr5yGyNCCUcWX3d"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "enchantment"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "delusional-pride",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": []
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "emotion",
+                        "uncommon",
+                        "mental",
+                        "enchantment",
+                        "cleric"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Delusional Pride"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/delusional-pride.webp",
+            "name": "Delusional Pride (At Will)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 500000,
+            "type": "spell"
+        },
+        {
+            "_id": "IVhu9nuAu3XZJtZM",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": "30-foot cone"
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The area increases to a 60-foot cone.</p>"
                 },
                 "duration": {
                     "value": "1 or more rounds"
@@ -825,7 +1183,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "KyWT6DPfwI2KXz6G"
@@ -836,13 +1194,16 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": ""
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -851,9 +1212,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "crushing-despair",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=57"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -883,33 +1250,43 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.GaRQlC9Yw1BGKHfN"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/chrusing-dispair.webp",
-            "name": "Crushing Dispair",
-            "sort": 400000,
+            "name": "Crushing Despair",
+            "permission": {
+                "default": 0
+            },
+            "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "Qv5DeJ1qDMVoJiBQ",
+            "_id": "Jk4IKR3T9Yg1uS2t",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -944,6 +1321,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "touch"
                 },
@@ -959,9 +1339,15 @@
                 "school": {
                     "value": "transmutation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "air-walk",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=6"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -990,33 +1376,43 @@
                         "air",
                         "transmutation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.b5sGjGlBf58f8jn0"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/air-walk.webp",
-            "name": "Air Walk ",
-            "sort": 500000,
+            "name": "Air Walk (Constant)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "CDRCJS7dAnoj4Sk8",
+            "_id": "sTPCkN9Q8dDFFIK3",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1026,12 +1422,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 3 and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr /><strong>Heightened</strong> You can target up to five creatures."
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -1040,7 +1436,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "3"
+                    "value": 3
                 },
                 "location": {
                     "value": "KyWT6DPfwI2KXz6G"
@@ -1049,6 +1445,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1066,9 +1465,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fear",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=110"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -1101,20 +1506,25 @@
                         "fear",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/fear.webp",
-            "name": "Fear",
-            "sort": 600000,
+            "name": "Fear (At Will)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "gJpQ3DRxxISAtdj5",
+            "_id": "MXq3sZQCIQe1HvNf",
             "data": {
                 "ability": {
                     "value": ""
@@ -1123,11 +1533,16 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1137,12 +1552,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The target is overtaken with uncontrollable laughter. It must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is plagued with uncontrollable laugher. It can't use reactions.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 and can't use reactions.</p>\n<p><strong>Critical Failure</strong> The target falls @Compendium[pf2e.conditionitems.Prone]{Prone} and can't use actions or reactions for 1 round. It then suffers the failure effects.</p>"
+                    "value": "<p>The target is overtaken with uncontrollable laughter. It must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is plagued with uncontrollable laugher. It can't use reactions.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>\n<p><strong>Critical Failure</strong> The target falls @Compendium[pf2e.conditionitems.Prone]{Prone} and can't use actions or reactions for 1 round. It then suffers the failure effects.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -1162,6 +1577,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -1177,9 +1595,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "hideous-laughter",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=150"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -1209,16 +1633,21 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.tlSE7Ly8vi1Dgddv"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/hideous-laughter.webp",
             "name": "Hideous Laughter",
-            "sort": 700000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 900000,
             "type": "spell"
         },
         {
@@ -1230,25 +1659,8 @@
                 "attackEffects": {
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 30
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damage": {
-                    "damageType": "slashing",
-                    "die": "3d8+12"
                 },
                 "damageRolls": {
                     "8b4m8ibns69dcpoqko3l": {
@@ -1261,78 +1673,9 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -1346,22 +1689,304 @@
                         "reach-10"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Claw",
-            "sort": 800000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1000000,
             "type": "melee"
+        },
+        {
+            "_id": "F29fZkd5IEJnrm3X",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "PcZlEIt8YHtvvfMm",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy (100 feet)",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "Nx9MSacAcR7AMtSC",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "wf3MbY00H5haDSse",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "bOcWbKQhhlIYVcyX",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "emotion"
+                            ]
+                        },
+                        "selector": "will",
+                        "type": "untyped",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.jugf1z2e4BgxjAbz"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 To Will Saves vs. Emotion",
+            "permission": {
+                "default": 0
+            },
+            "sort": 1500000,
+            "type": "action"
         },
         {
             "_id": "TuTut6BPwHgd3Xp7",
@@ -1407,9 +2032,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Emotional Focus",
-            "sort": 900000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1422,7 +2051,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
@@ -1456,9 +2085,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Emotional Frenzy",
-            "sort": 1000000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1471,12 +2104,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Frequency</strong> once per round; <strong>Effect</strong> The quelaunt feeds on the emotional unrest of a single creature within 30 feet that's under a harmful emotion effect. The target must succeed at a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"37\" data-pf2-traits=\"attack,emotion,incapacitation,mental,damaging-effect\" data-pf2-label=\"Feed on Emotion DC\" data-pf2-show-dc=\"gm\">Will</span> save or take [[/r 4d10 # mental damage]] mental damage and be stunned for 1 round. If the target fails its saving throw, the quelaunt regains the same number of Hit Points and Feed on Emotion does not cost the quelaunt an action, allowing it to use another action this turn.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> The quelaunt feeds on the emotional unrest of a single creature within 30 feet that's under a harmful emotion effect. The target must succeed at a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"37\" data-pf2-traits=\"attack,emotion,incapacitation,mental,damaging-effect\" data-pf2-label=\"Feed on Emotion DC\" data-pf2-show-dc=\"gm\">Will</span> save or take [[/r 4d10 #mental]] mental damage and be @Compendium[pf2e.conditionitems.Stunned]{Stunned} for 1 round. If the target fails its saving throw, the quelaunt regains the same number of Hit Points and Feed on Emotion does not cost the quelaunt an action, allowing it to use another action this turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1510,9 +2143,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Feed on Emotion",
-            "sort": 1100000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1525,7 +2162,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
@@ -1561,9 +2198,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Rapid Strikes",
-            "sort": 1200000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -1581,7 +2222,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature fails a saving throw to resist one of the quelaunt's innate spells or emotional focus spells. <strong>Effect</strong> As the quelaunt invades the triggering creature's mind and plants the seeds of negative emotions, it also strips away the target's feelings of hope or positivity. The quelaunt can immediately end a single emotion effect from which the triggering creature is benefiting.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature fails a saving throw to resist one of the quelaunt's innate spells or emotional focus spells.</p>\n<p><strong>Effect</strong> As the quelaunt invades the triggering creature's mind and plants the seeds of negative emotions, it also strips away the target's feelings of hope or positivity. The quelaunt can immediately end a single emotion effect from which the triggering creature is benefiting.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1613,9 +2254,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Spiral of Despair",
-            "sort": 1300000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -1653,9 +2298,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1400000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1693,9 +2342,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1500000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1733,9 +2386,13 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1600000,
+            "permission": {
+                "default": 0
+            },
+            "sort": 2300000,
             "type": "lore"
         }
     ],
@@ -1746,10 +2403,13 @@
     "token": {
         "actorId": "x26dyZZZRvZpzK2X",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1761,17 +2421,19 @@
         "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Quelaunt",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 2

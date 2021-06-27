@@ -1,6 +1,6 @@
 import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemLevelData, ItemSystemData, ItemTraits } from '../data/base';
 import type { PhysicalItemPF2e } from '@item/physical';
-import type { PHYSICAL_ITEM_TYPES } from '../data/values';
+import type { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from '../data/values';
 import { EquipmentTrait } from '@item/equipment/data';
 import { ArmorTrait } from '@item/armor/data';
 import { WeaponTrait } from '@item/weapon/data';
@@ -43,6 +43,9 @@ export interface MagicItemSystemData extends PhysicalSystemData {
     };
 }
 
+export type PreciousMaterialType = typeof PRECIOUS_MATERIAL_TYPES[number];
+export type PreciousMaterialGrade = 'low' | 'standard' | 'high';
+
 export interface ActivatedEffectData {
     activation: {
         type: string;
@@ -70,7 +73,7 @@ export interface ActivatedEffectData {
     };
 }
 
-export type IdentificationStatus = 'identified' | 'unidentified' | 'misidentified';
+export type IdentificationStatus = 'identified' | 'unidentified';
 
 export interface MystifiedData {
     name: string;
@@ -86,6 +89,7 @@ export type IdentifiedData = DeepPartial<MystifiedData>;
 
 export interface IdentificationData {
     status: IdentificationStatus;
+    identified: MystifiedData;
     unidentified: MystifiedData;
     misidentified: {};
 }
@@ -121,7 +125,7 @@ export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
         value: string;
     };
     price: {
-        value: number;
+        value: string;
     };
     equipped: {
         value: boolean;
@@ -140,10 +144,10 @@ export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
         value: string | null;
     };
     preciousMaterial: {
-        value: string;
+        value: Exclude<PreciousMaterialType, 'dragonhide'> | null;
     };
     preciousMaterialGrade: {
-        value: string;
+        value: PreciousMaterialGrade | null;
     };
     collapsed: {
         value: boolean;

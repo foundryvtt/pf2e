@@ -5,8 +5,7 @@ import { EffectPF2e } from '.';
 export type EffectSource = BaseNonPhysicalItemSource<'effect', EffectSystemData>;
 
 export class EffectData extends BaseNonPhysicalItemData<EffectPF2e> {
-    /** @override */
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/effect.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/effect.svg';
 }
 
 export interface EffectData extends Omit<EffectSource, '_id' | 'effects'> {

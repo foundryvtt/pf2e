@@ -126,8 +126,7 @@ declare global {
         /*  Event Handlers                              */
         /* -------------------------------------------- */
 
-        /** @override */
-        _onCreateEmbeddedDocuments(
+        protected override _onCreateEmbeddedDocuments(
             embeddedName: 'TableResult',
             documents: TableResult[],
             result: foundry.data.TableResultSource[],
@@ -135,8 +134,7 @@ declare global {
             userId: string,
         ): void;
 
-        /** @inheritdoc */
-        _onDeleteEmbeddedDocuments(
+        protected override _onDeleteEmbeddedDocuments(
             embeddedName: 'TableResult',
             documents: TableResult[],
             result: foundry.data.TableResultSource[],
@@ -148,8 +146,7 @@ declare global {
         /*  Importing and Exporting                     */
         /* -------------------------------------------- */
 
-        /** @override */
-        toCompendium(pack: CompendiumCollection<this>): foundry.data.RollTableSource;
+        override toCompendium(pack: CompendiumCollection<this>): foundry.data.RollTableSource;
 
         /**
          * Create a new RollTable entity using all of the Entities from a specific Folder as new results.

@@ -6,13 +6,11 @@ import { getArmorBonus } from '../runes';
 import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from './data';
 
 export class ArmorPF2e extends PhysicalItemPF2e {
-    /** @override */
-    static get schema(): typeof ArmorData {
+    static override get schema(): typeof ArmorData {
         return ArmorData;
     }
 
-    /** @override */
-    isStackableWith(item: PhysicalItemPF2e): boolean {
+    override isStackableWith(item: PhysicalItemPF2e): boolean {
         if (this.isEquipped || item.isEquipped) return false;
         return super.isStackableWith(item);
     }
@@ -78,8 +76,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         return this.hitPoints.current <= this.brokenThreshold;
     }
 
-    /** @override */
-    prepareBaseData(): void {
+    override prepareBaseData(): void {
         super.prepareBaseData();
 
         // Add traits from potency rune
@@ -90,13 +87,9 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         const hasTraditionTraits = TRADITION_TRAITS.some((trait) => baseTraits.includes(trait));
         const magicTraits: 'magical'[] = fromRunes.length > 0 && !hasTraditionTraits ? ['magical'] : [];
         this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
-
-        // Set these again in case the above would entail different values
-        this.data.isMagical = this.isMagical;
-        this.data.isInvested = this.isInvested;
     }
 
-    getChatData(this: Embedded<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const localize = game.i18n.localize.bind(game.i18n);
         const properties = [
@@ -116,8 +109,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         });
     }
 
-    /** @override */
-    generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
+    override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const translations = LocalizePF2e.translations.PF2E;
         const base = this.baseType ? translations.Item.Armor.Base[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.armorGroups[this.group] : null;

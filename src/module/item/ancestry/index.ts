@@ -1,10 +1,12 @@
+import { CreatureTrait } from '@actor/creature/data';
+import { CharacterPF2e } from '@actor';
 import { Size } from '@module/data';
 import { ABCItemPF2e } from '../abc';
 import { AncestryData } from './data';
+import { ModifierPF2e, MODIFIER_TYPE } from '@module/modifiers';
 
 export class AncestryPF2e extends ABCItemPF2e {
-    /** @override */
-    static get schema(): typeof AncestryData {
+    static override get schema(): typeof AncestryData {
         return AncestryData;
     }
 
@@ -19,8 +21,40 @@ export class AncestryPF2e extends ABCItemPF2e {
     get size(): Size {
         return this.data.data.size;
     }
+
+    /** Prepare a character's data derived from their ancestry */
+    prepareActorData(this: Embedded<AncestryPF2e>): void {
+        if (!(this.actor instanceof CharacterPF2e)) {
+            console.error('Only a character can have an ancestry');
+            return;
+        }
+
+        const actorData = this.actor.data;
+        actorData.data.attributes.speed.value = String(this.speed);
+        actorData.data.traits.size.value = this.size;
+
+        const hitPoints: { modifiers: readonly ModifierPF2e[] } = actorData.data.attributes.hp;
+        hitPoints.modifiers = [
+            ...hitPoints.modifiers,
+            new ModifierPF2e('PF2E.AncestryHP', this.hitPoints, MODIFIER_TYPE.UNTYPED),
+        ];
+
+        // Add traits from ancestry and heritage
+        const ancestryTraits: Set<string> = this?.traits ?? new Set();
+        const heritageTraits: Set<string> = this.actor.heritage?.traits ?? new Set();
+        const traits = Array.from(
+            new Set(
+                [...ancestryTraits, ...heritageTraits].filter(
+                    (trait) => !['common', 'versatile heritage'].includes(trait),
+                ),
+            ),
+        ).sort();
+        actorData.data.traits.traits.value.push(...traits);
+    }
 }
 
 export interface AncestryPF2e {
     readonly data: AncestryData;
+
+    get traits(): Set<CreatureTrait>;
 }

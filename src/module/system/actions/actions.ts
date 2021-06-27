@@ -1,8 +1,17 @@
 import type { ActorPF2e } from '@actor/base';
+import { CreaturePF2e } from '@actor';
 import { SKILL_EXPANDED } from '@actor/data/values';
-import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from '../../modifiers';
+import {
+    ensureProficiencyOption,
+    CheckModifier,
+    StatisticModifier,
+    ModifierPF2e,
+    ModifierPredicate,
+} from '../../modifiers';
 import { CheckPF2e } from '../rolls';
+import { StatisticWithDC } from '@system/statistic';
 import { seek } from './basic/seek';
+import { senseMotive } from './basic/sense-motive';
 import { balance } from './acrobatics/balance';
 import { maneuverInFlight } from './acrobatics/maneuver-in-flight';
 import { squeeze } from './acrobatics/squeeze';
@@ -25,6 +34,10 @@ import { makeAnImpression } from './diplomacy/make-an-impression';
 import { request } from './diplomacy/request';
 import { coerce } from './intimidation/coerce';
 import { demoralize } from './intimidation/demoralize';
+import { hide } from './stealth/hide';
+import { sneak } from './stealth/sneak';
+import { RollNotePF2e } from '@module/notes';
+import { DegreeOfSuccessString } from '@system/check-degree-of-success';
 
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
 
@@ -45,6 +58,7 @@ export class ActionsPF2e {
     static exposeActions(actions: { [key: string]: Function }) {
         // basic
         actions.seek = seek;
+        actions.senseMotive = senseMotive;
 
         // acrobatics
         actions.balance = balance;
@@ -77,6 +91,10 @@ export class ActionsPF2e {
         // intimidation
         actions.coerce = coerce;
         actions.demoralize = demoralize;
+
+        // stealth
+        actions.hide = hide;
+        actions.sneak = sneak;
     }
 
     static resolveStat(stat: string): {
@@ -103,6 +121,22 @@ export class ActionsPF2e {
         }
     }
 
+    static note(
+        selector: string,
+        translationPrefix: string,
+        outcome: DegreeOfSuccessString,
+        translationKey?: string,
+    ): RollNotePF2e {
+        const visibility = game.settings.get('pf2e', 'metagame.showResults');
+        const translated = game.i18n.localize(translationKey ?? `${translationPrefix}.Notes.${outcome}`);
+        return new RollNotePF2e(
+            selector,
+            `<p class="compact-text">${translated}</p>`,
+            new ModifierPredicate(),
+            visibility === 'all' ? [outcome] : [],
+        );
+    }
+
     static simpleRollActionCheck(
         actors: ActorPF2e | ActorPF2e[] | undefined,
         statName: string,
@@ -115,6 +149,8 @@ export class ActionsPF2e {
         traits: string[],
         checkType: CheckType,
         event: JQuery.Event,
+        difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC,
+        extraNotes?: (selector: string) => RollNotePF2e[],
     ) {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
@@ -128,6 +164,9 @@ export class ActionsPF2e {
             rollers.push(game.user.character);
         }
 
+        const targets = Array.from(game.user.targets).filter((token) => token.actor instanceof CreaturePF2e);
+        const target = targets[0];
+
         if (rollers.length) {
             rollers.forEach((actor) => {
                 let flavor = '';
@@ -139,14 +178,51 @@ export class ActionsPF2e {
                 const stat = getProperty(actor, statName) as StatisticModifier;
                 const check = new CheckModifier(flavor, stat, modifiers ?? []);
                 const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
+                {
+                    // options for roller's conditions
+                    const conditions = actor.itemTypes.condition.filter((condition) => condition.fromSystem);
+                    finalOptions.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
+                }
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
+                const dc = (() => {
+                    if (target && target.actor instanceof CreaturePF2e) {
+                        const targetOptions: string[] = [];
+
+                        // target's conditions
+                        const conditions = target.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
+                        targetOptions.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
+
+                        // target's traits
+                        const targetTraits = (target.actor.data.data.traits.traits.custom ?? '')
+                            .split(/[;,\\|]/)
+                            .map((value) => value.trim())
+                            .concat(target.actor.data.data.traits.traits.value ?? [])
+                            .filter((value) => !!value)
+                            .map((trait) => `target:${trait}`);
+                        targetOptions.push(...targetTraits);
+
+                        // try to resolve target's defense stat and calculate DC
+                        const dc = difficultyClassStatistic?.(target.actor)?.dc({
+                            options: finalOptions.concat(targetOptions),
+                        });
+                        if (dc) {
+                            return {
+                                label: game.i18n.format(dc.labelKey, { creature: target.name, dc: '{dc}' }),
+                                value: dc.value,
+                                adjustments: stat.adjustments ?? [],
+                            };
+                        }
+                    }
+                    return undefined;
+                })();
                 CheckPF2e.roll(
                     check,
                     {
                         actor,
+                        dc,
                         type: checkType,
                         options: finalOptions,
-                        notes: stat.notes ?? [],
+                        notes: (stat.notes ?? []).concat(extraNotes ? extraNotes(statName) : []),
                         traits,
                         title: `${game.i18n.localize(title)} - ${game.i18n.localize(subtitle)}`,
                     },

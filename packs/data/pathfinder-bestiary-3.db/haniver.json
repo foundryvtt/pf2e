@@ -142,7 +142,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "<p>Gremlins arose long ago in the First World, living embodiments of nature&rsquo;s ability to wear away, erode, and decompose. On the Material Plane, their encounters with mortal civilizations twisted them into creatures devoted to chaos, sabotage, and traps, each variety specializing in a particular brand of mayhem.</p>\n<hr />\n<p>Hanivers are the most benign type of gremlin&mdash;capricious fey who skim the waves on rubbery fin-wings. Though they don&rsquo;t actively sabotage their environment, sailors bemoan these gremlins&rsquo; grasping fingers. Hanivers&rsquo; incessant curiosity compels them to examine any object that draws their attention. Such treasures might include an overturned fruit basket, a sack of coins, or a shark&rsquo;s gleaming teeth (often still in the shark&rsquo;s mouth, to the fey&rsquo;s regret). Should hanivers like what they find, they steal it, making them a bane to fishers and dockworkers everywhere.</p>",
+            "flavorText": "<p>Gremlins arose long ago in the First World, living embodiments of nature's ability to wear away, erode, and decompose. On the Material Plane, their encounters with mortal civilizations twisted them into creatures devoted to chaos, sabotage, and traps, each variety specializing in a particular brand of mayhem.</p>\n<hr />\n<p>Hanivers are the most benign type of gremlin-capricious fey who skim the waves on rubbery fin-wings. Though they don't actively sabotage their environment, sailors bemoan these gremlins' grasping fingers. Hanivers' incessant curiosity compels them to examine any object that draws their attention. Such treasures might include an overturned fruit basket, a sack of coins, or a shark's gleaming teeth (often still in the shark's mouth, to the fey's regret). Should hanivers like what they find, they steal it, making them a bane to fishers and dockworkers everywhere.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -155,9 +155,8 @@
                 "value": -1
             },
             "recallKnowledgeText": "",
-            "sidebarText": "",
             "source": {
-                "value": ""
+                "value": "Bestiary 3"
             }
         },
         "items": {
@@ -337,6 +336,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -462,8 +462,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Primal Innate Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -484,7 +488,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -586,8 +592,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spell"
         },
@@ -608,7 +618,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -708,8 +720,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.yV7Ouzaoe7DHLESI"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/ventriloquism.webp",
             "name": "Ventriloquism (At Will)",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
@@ -730,7 +746,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -754,7 +772,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "UhYMXBFbLKSgflDh"
@@ -831,8 +849,12 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Qw3fnUlaUbnn7ipC"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/prestidigitation.webp",
             "name": "Prestidigitation",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "spell"
         },
@@ -846,21 +868,8 @@
                     "custom": "",
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 7
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "0": {
@@ -871,48 +880,9 @@
                 "description": {
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -927,15 +897,16 @@
                 },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Bite",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "melee"
         },
@@ -984,8 +955,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Darkvision",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "action"
         },
@@ -1034,8 +1009,12 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
                 }
             },
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "At-Will Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "action"
         },
@@ -1080,8 +1059,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Rearrange Possessions",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "action"
         },
@@ -1115,8 +1098,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "lore"
         },
@@ -1150,8 +1137,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "lore"
         },
@@ -1185,8 +1176,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
+            "permission": {
+                "default": 0
+            },
             "sort": 1100000,
             "type": "lore"
         },
@@ -1220,8 +1215,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
             "type": "lore"
         },
@@ -1273,8 +1272,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "lore"
         }
@@ -1286,10 +1289,13 @@
     "token": {
         "actorId": "9RNisBYwGOCQan1S",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1301,17 +1307,19 @@
         "height": 0.5,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Haniver",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 0.5

@@ -159,6 +159,10 @@ a[href] {
 .pf2e.sheet form span[data-pf2-action] *,
 .pf2e.sheet form span[data-pf2-saving-throw],
 .pf2e.sheet form span[data-pf2-saving-throw] *,
+.pf2e.sheet form span[data-pf2-skill-check],
+.pf2e.sheet form span[data-pf2-skill-check] *,
+.pf2e.sheet form span[data-pf2-perception-check],
+.pf2e.sheet form span[data-pf2-perception-check] *,
 .pf2-icon {
     display: inline;
 }
@@ -175,7 +179,7 @@ a[href] {
 p.compact-text {
     display: inline-block;
     font-weight: normal;
-    line-height: 1.0em;
+    line-height: 1.4em;
 }
 
 /* ----------------------------------------- */
@@ -288,12 +292,91 @@ table.pf2-table {
     font-weight: 500;
 }
 
+[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]):not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
 [data-pf2-saving-throw]::before {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     margin-right: 5px;
     color: #7a7971;
     content: '\f6cf';
+}
+
+/* ----------------------------------------- */
+/* PF2E Skill Check Custom Element
+/* ----------------------------------------- */
+[data-pf2-skill-check]:not([data-pf2-skill-check=""]) {
+    background: #ddd;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+[data-pf2-skill-check]:not([data-pf2-skill-check=""]):not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
+[data-pf2-skill-check]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f6cf';
+}
+
+/* ----------------------------------------- */
+/* PF2E Perception Check Custom Element
+/* ----------------------------------------- */
+[data-pf2-perception-check] {
+    background: #ddd;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+[data-pf2-perception-check]:not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
+[data-pf2-perception-check]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f6cf';
+}
+
+/* ----------------------------------------- */
+/* PF2E GM Visibility Elements
+/* ----------------------------------------- */
+[data-visibility="gm"]:is(div, em, p) {
+        box-sizing: border-box;
+        border: 1px dotted;
+        background: #e8e8ef;
+        padding: 2px;
+        margin-bottom: 2px;
+
+        em[data-visibility="gm"] {
+            border: none;
+            padding: 0;
+            margin-bottom: 0;
+        }
+    }
+
+em[data-visibility="gm"] {
+    display: inline-block;
 }
 
 /* ----------------------------------------- */

@@ -91,15 +91,15 @@ declare global {
                  * @returns The cloned Document instance
                  */
                 clone<T extends this>(
-                    data: PreCreate<T['data']['_source']> | undefined,
+                    data: DeepPartial<T['data']['_source']> | undefined,
                     options: { save?: false | undefined; keepId?: boolean },
                 ): T;
                 clone<T extends this>(
-                    data: PreCreate<T['data']['_source']> | undefined,
+                    data: DeepPartial<T['data']['_source']> | undefined,
                     options: { save: true; keepId?: boolean },
                 ): Promise<T>;
                 clone<T extends this>(
-                    data?: PreCreate<T['data']['_source']>,
+                    data?: DeepPartial<T['data']['_source']>,
                     options?: { save?: boolean; keepId?: boolean },
                 ): T | Promise<T>;
 
@@ -357,7 +357,7 @@ declare global {
                  */
                 updateEmbeddedDocuments(
                     embeddedName: string,
-                    updateData: EmbeddedDocumentUpdateData<this>[],
+                    updateData: EmbeddedDocumentUpdateData<Document>[],
                     context?: DocumentModificationContext,
                 ): Promise<Document[]>;
 
@@ -369,11 +369,11 @@ declare global {
                  * @param [context={}] Additional context which customizes the deletion workflow
                  * @return An array of deleted Document instances
                  */
-                deleteEmbeddedDocuments<T extends Document = Document>(
+                deleteEmbeddedDocuments(
                     embeddedName: string,
                     dataId: string[],
                     context?: DocumentModificationContext,
-                ): Promise<T[]>;
+                ): Promise<Document[]>;
 
                 /* -------------------------------------------- */
                 /*  Flag Operations                             */
@@ -429,7 +429,7 @@ declare global {
                  * @param user    The User requesting the document creation
                  */
                 protected _preCreate(
-                    data: PreCreate<this['data']['_source']>,
+                    data: PreDocumentId<this['data']['_source']>,
                     options: DocumentModificationContext,
                     user: documents.BaseUser,
                 ): Promise<void>;
@@ -453,7 +453,7 @@ declare global {
                  * @param options Additional options which modify the deletion request
                  * @param user    The User requesting the document deletion
                  */
-                _preDelete(options: DocumentModificationContext, user: documents.BaseUser): Promise<void>;
+                protected _preDelete(options: DocumentModificationContext, user: documents.BaseUser): Promise<void>;
 
                 /**
                  * Perform follow-up operations after a Document of this type is created.
@@ -475,7 +475,7 @@ declare global {
                  * @param userId  The ID of the User requesting the document update
                  */
                 protected _onUpdate(
-                    changed: DocumentUpdateData<this>,
+                    changed: DeepPartial<this['data']['_source']>,
                     options: DocumentModificationContext,
                     userId: string,
                 ): void;
@@ -579,12 +579,12 @@ declare global {
      * @property [pack]              A Compendium pack identifier within which the Documents should be modified
      * @property [noHook=false]      Block the dispatch of preCreate hooks for this operation
      * @property [index=false]       Return an index of the Document collection, used only during a get operation.
+     * @property [keepId=false]        When performing a creation operation, keep the provided _id instead of clearing it.
      * @property [temporary=false]   Create a temporary document which is not saved to the database. Only used during creation.
      * @property [render=true]       Automatically re-render existing applications associated with the document.
      * @property [renderSheet=false] Automatically create and render the Document sheet when the Document is first created.
      * @property [diff=true]         Difference each update object against current Document data to reduce the size of the transferred data. Only used during update.
      * @property [recursive=true]    Merge objects recursively. If false, inner objects will be replaced explicitly. Use with caution!
-     * @property [isUndo]            Is the operation undoing a previous operation, only used by embedded Documents within a Scene
      * @property [deleteAll]         Whether to delete all documents of a given type, regardless of the array of ids provided. Only used during a delete operation.
      */
     interface DocumentModificationContext {
@@ -592,12 +592,12 @@ declare global {
         pack?: string;
         noHook?: boolean;
         index?: boolean;
+        keepId?: boolean;
         temporary?: boolean;
         render?: boolean;
         renderSheet?: boolean;
         diff?: boolean;
         recursive?: boolean;
-        isUndo?: boolean;
         deleteAll?: boolean;
     }
 
@@ -608,6 +608,8 @@ declare global {
     type PreCreate<T extends foundry.abstract.DocumentSource> = T extends { name: string; type: string }
         ? DeepPartial<T> & { name: string; type: T['type'] }
         : DeepPartial<T>;
+
+    type PreDocumentId<T extends foundry.abstract.DocumentSource> = Omit<T, '_id'> & { _id: null };
 
     type DocumentUpdateData<T extends foundry.abstract.Document = foundry.abstract.Document> =
         | Partial<T['data']['_source']>

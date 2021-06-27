@@ -11,7 +11,7 @@ interface ItemsDiff {
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static WORLD_SCHEMA_VERSION = 0.635;
+    static LATEST_SCHEMA_VERSION = 0.64;
 
     static MINIMUM_SAFE_VERSION = 0.6;
 
@@ -22,7 +22,7 @@ export class MigrationRunnerBase {
     }
 
     needsMigration(currentVersion: number): boolean {
-        return currentVersion < (this.constructor as typeof MigrationRunnerBase).WORLD_SCHEMA_VERSION;
+        return currentVersion < (this.constructor as typeof MigrationRunnerBase).LATEST_SCHEMA_VERSION;
     }
 
     diffItems(orig: ItemSourcePF2e[], updated: ItemSourcePF2e[]): ItemsDiff {

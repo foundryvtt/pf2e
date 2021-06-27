@@ -35,7 +35,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>When this stone hits a creature or a hard surface, it explodes with a deafening bang. A thunderstone deals the listed sonic damage and sonic splash damage, and each creature within 10 feet of the space in which the stone exploded must succeed at a Fortitude saving throw with the listed DC or be deafened until the end of its next turn. Many types of thunderstone grant an item bonus to attack rolls.</p>\n<p>You gain a +3 item bonus to attack rolls. The bomb deals 4d4 sonic damage and 4 sonic splash damage, and the DC is 36.</p>"
+            "value": "<p>When this stone hits a creature or a hard surface, it explodes with a deafening bang. A thunderstone deals the listed sonic damage and sonic splash damage, and each creature within 10 feet of the space in which the stone exploded must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"\" data-pf2-label=\"\" data-pf2-dc=\"36\" data-pf2-show-dc=\"all\">Fortitude</span> saving throw with the listed DC or be @Compendium[pf2e.conditionitems.Deafened]{Deafened} until the end of its next turn. Many types of thunderstone grant an item bonus to attack rolls.</p>\n<p>You gain a +3 item bonus to attack rolls. The bomb deals 4d4 sonic damage and 4 sonic splash damage, and the DC is 36.</p>"
         },
         "equipped": {
             "value": false
@@ -81,7 +81,7 @@
             "value": "0"
         },
         "potencyRune": {
-            "value": 0
+            "value": null
         },
         "preciousMaterial": {
             "value": ""
@@ -127,7 +127,13 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'><strong>Effect:</strong> All creatures within 10 feet must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"\" data-pf2-label=\"\" data-pf2-dc=\"36\" data-pf2-show-dc=\"all\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round.</p>"
+            }
+        ],
         "size": {
             "value": "med"
         },
@@ -168,6 +174,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/thunderstone.webp",
     "name": "Thunderstone (Major)",
     "permission": {

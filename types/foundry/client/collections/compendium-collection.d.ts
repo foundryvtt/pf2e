@@ -198,8 +198,9 @@ declare global {
 
     type CompendiumIndex = Collection<{
         _id: string;
+        type: string;
         name: string;
-        image: string;
+        img: string;
     }>;
 
     type CompendiumDocument = Actor | Item | JournalEntry | Macro | Playlist | RollTable | Scene;

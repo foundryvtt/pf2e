@@ -144,6 +144,19 @@ declare global {
                 toObject<D extends DocumentData, B extends true>(this: D, source?: B): D['_source'];
                 toObject<D extends DocumentData, B extends false>(this: D, source: B): RawObject<D>;
                 toObject<D extends DocumentData, B extends boolean>(source?: B): D['_source'] | RawObject<D>;
+
+                /**
+                 * Extract the source data for the DocumentData into a simple object format that can be serialized.
+                 * @returns The document source data expressed as a plain object
+                 */
+                toJSON(): this['_source'];
+
+                /**
+                 * Create a DocumentData instance using a provided serialized JSON string.
+                 * @param json Serialized document data in string format
+                 * @returns A constructed data instance
+                 */
+                static fromJSON<T extends DocumentData>(this: ConstructorOf<T>, json: string): T;
             }
         }
     }

@@ -2,14 +2,12 @@ import { ItemPF2e } from '../base';
 import { ConditionData } from './data';
 
 export class ConditionPF2e extends ItemPF2e {
-    /** @override */
-    static get schema(): typeof ConditionData {
+    static override get schema(): typeof ConditionData {
         return ConditionData;
     }
 
     get value(): number | null {
-        const value = this.data.data.value;
-        return value.isValued ? value.value : null;
+        return this.data.data.value.value;
     }
 
     get duration(): number | null {
@@ -29,6 +27,13 @@ export class ConditionPF2e extends ItemPF2e {
     /** Is the condition found in the token HUD menu? */
     get isInHUD(): boolean {
         return this.data.data.sources.hud;
+    }
+
+    /** Ensure value.isValued and value.value are in sync */
+    override prepareBaseData() {
+        super.prepareBaseData();
+        const systemData = this.data.data;
+        systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
     }
 }
 

@@ -25,7 +25,27 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Activate Nanite Surge",
+                "property": "flags.pf2e.rollOptions.all.nanite-surge"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "nanite-surge"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -45,6 +65,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Nanite Surge",
     "permission": {

@@ -11,9 +11,9 @@ import { ItemTransfer } from './item-transfer';
 import { TokenEffect } from '@module/rules/rule-element';
 import { ActorSheetPF2e } from './sheet/base';
 import { ChatMessagePF2e } from '@module/chat-message';
-import { isMagicItemData } from '@item/data/helpers';
+import { hasInvestedProperty } from '@item/data/helpers';
 import { SUPPORTED_ROLL_OPTIONS } from './data/values';
-import { SaveData, SaveString, SkillAbbreviation, SkillData } from './creature/data';
+import { SaveData, SaveString, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from './creature/data';
 import { AbilityString, BaseActorDataPF2e } from './data/base';
 import { ActorDataPF2e, ActorSourcePF2e } from './data';
 import { TokenDocumentPF2e } from '@module/token-document';
@@ -52,8 +52,20 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return this.data.data.details.level.value;
     }
 
-    /** @override */
-    get temporaryEffects(): TemporaryEffect[] {
+    /**
+     * Whether the actor can see, given its token placement in the current scene.
+     * A meaningful implementation is found in `CreaturePF2e`.
+     */
+    get canSee(): boolean {
+        return true;
+    }
+
+    get visionLevel(): VisionLevel {
+        return VisionLevels.NORMAL;
+    }
+
+    /** Add effect icons from effect items and rule elements */
+    override get temporaryEffects(): TemporaryEffect[] {
         const tokenIcon = (data: ConditionData) => {
             const folder = CONFIG.PF2E.statusEffects.effectsIconFolder;
             const statusName = data.data.hud.statusName;
@@ -79,26 +91,26 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return null;
     }
 
-    /** As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
-     *  overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
-     * @override
+    /**
+     * As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
+     * overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
      */
-    static create<A extends ActorPF2e>(
+    static override create<A extends ActorPF2e>(
         this: ConstructorOf<A>,
         data: PreCreate<A['data']['_source']>,
         context?: DocumentModificationContext,
     ): Promise<A | undefined>;
-    static create<A extends ActorPF2e>(
+    static override create<A extends ActorPF2e>(
         this: ConstructorOf<A>,
         data: PreCreate<A['data']['_source']>[],
         context?: DocumentModificationContext,
     ): Promise<A[]>;
-    static create<A extends ActorPF2e>(
+    static override create<A extends ActorPF2e>(
         this: ConstructorOf<A>,
         data: PreCreate<A['data']['_source']>[] | PreCreate<A['data']['_source']>,
         context?: DocumentModificationContext,
     ): Promise<A[] | A | undefined>;
-    static async create<A extends ActorPF2e>(
+    static override async create<A extends ActorPF2e>(
         this: ConstructorOf<A>,
         data: PreCreate<A['data']['_source']>[] | PreCreate<A['data']['_source']>,
         context: DocumentModificationContext = {},
@@ -150,18 +162,14 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.create(data, context) as Promise<A[] | A | undefined>;
     }
 
-    /** @override */
-    prepareBaseData(): void {
+    override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.tokenEffects = [];
         this.prepareTokenImg();
     }
 
-    /**
-     * Prepare physical item getters on this actor and containers
-     * @override
-     */
-    prepareEmbeddedEntities(): void {
+    /** Prepare physical item getters on this actor and containers */
+    override prepareEmbeddedEntities(): void {
         super.prepareEmbeddedEntities();
         const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
             (item) => item instanceof PhysicalItemPF2e,
@@ -177,11 +185,8 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /**
-     * Disable active effects from a physical item if it isn't equipped and (if applicable) invested
-     * @override
-     */
-    applyActiveEffects() {
+    /** Disable active effects from a physical item if it isn't equipped and (if applicable) invested */
+    override applyActiveEffects() {
         for (const effect of this.effects) {
             const itemId = effect.data.origin?.match(/Item\.([0-9a-z]+)/i)?.[1] ?? '';
             const item = this.items.get(itemId);
@@ -206,11 +211,8 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /**
-     * Prevent character importers from creating martial items
-     * @override
-     */
-    createEmbeddedDocuments(
+    /** Prevent character importers from creating martial items */
+    override createEmbeddedDocuments(
         embeddedName: 'ActiveEffect' | 'Item',
         data: PreCreate<foundry.data.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
         context: DocumentModificationContext = {},
@@ -224,6 +226,32 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         return super.createEmbeddedDocuments(embeddedName, data, context) as Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
+    }
+
+    protected override _onCreateEmbeddedDocuments(
+        embeddedName: 'Item' | 'ActiveEffect',
+        documents: ActiveEffect[] | Item<ActorPF2e>[],
+        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
+        options: DocumentModificationContext,
+        userId: string,
+    ) {
+        // Fix bug in Foundry 0.8.8 where 'render = false' is not working when creating embedded documents
+        if (options.render !== false) {
+            super._onCreateEmbeddedDocuments(embeddedName, documents, result, options, userId);
+        }
+    }
+
+    protected override _onDeleteEmbeddedDocuments(
+        embeddedName: 'Item' | 'ActiveEffect',
+        documents: ActiveEffect[] | Item<ActorPF2e>[],
+        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
+        options: DocumentModificationContext,
+        userId: string,
+    ) {
+        // Fix bug in Foundry 0.8.8 where 'render = false' is not working when deleting embedded documents
+        if (options.render !== false) {
+            super._onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId);
+        }
     }
 
     /** Synchronize the token image with the actor image, if the token does not currently have an image */
@@ -408,7 +436,11 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param skill {String}    The skill id
      */
     rollAttribute(event: JQuery.Event, attributeName: string) {
-        const skl = this.data.data.attributes[attributeName];
+        if (!objectHasKey(this.data.data.attributes, attributeName)) {
+            throw ErrorPF2e(`Unrecognized attribute "${attributeName}"`);
+        }
+
+        const attribute = this.data.data.attributes[attributeName];
         const parts = ['@mod', '@itemBonus'];
         const configAttributes = CONFIG.PF2E.attributes;
         if (objectHasKey(configAttributes, attributeName)) {
@@ -417,10 +449,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             DicePF2e.d20Roll({
                 event,
                 parts,
-                data: {
-                    mod: skl.value - (skl.item ?? 0),
-                    itemBonus: skl.item,
-                },
+                data: { mod: attribute.value },
                 title: flavor,
                 speaker: ChatMessage.getSpeaker({ actor: this }),
             });
@@ -631,7 +660,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param isDelta   Whether the number represents a relative change (true) or an absolute change (false)
      * @param isBar     Whether the new value is part of an attribute bar, or just a direct value
      */
-    async modifyTokenAttribute(
+    override async modifyTokenAttribute(
         attribute: string,
         value: number,
         isDelta = false,
@@ -690,7 +719,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 const sp = 'sp' in this.data.data.attributes ? this.data.data.attributes.sp : { value: 0 };
                 if (isDelta) {
                     if (value < 0) {
-                        const { update, delta } = this._calculateHealthDelta({ hp, sp, delta: value });
+                        const { update, delta } = this.calculateHealthDelta({ hp, sp, delta: value });
                         value = delta;
                         for (const [k, v] of Object.entries(update)) {
                             updateActorData[k] = v;
@@ -736,6 +765,10 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (!(item instanceof PhysicalItemPF2e)) {
             return Promise.reject(new Error('Only physical items (with quantities) can be transfered between actors'));
         }
+        const container = targetActor.physicalItems.get(containerId ?? '');
+        if (!(!container || container instanceof ContainerPF2e)) {
+            throw ErrorPF2e('containerId refers to a non-container');
+        }
 
         // Loot transfers can be performed by non-owners when a GM is online */
         const gmMustTransfer = (source: ActorPF2e, target: ActorPF2e): boolean => {
@@ -747,7 +780,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         if (gmMustTransfer(this, targetActor)) {
             const source = { tokenId: this.token?.id, actorId: this.id, itemId: item.id };
             const target = { tokenId: targetActor.token?.id, actorId: targetActor.id };
-            await new ItemTransfer(source, target, quantity, containerId).request();
+            await new ItemTransfer(source, target, quantity, container?.id).request();
             return null;
         }
 
@@ -776,8 +809,9 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const newItemData = item.toObject();
         newItemData.data.quantity.value = quantity;
         newItemData.data.equipped.value = false;
-        if (isMagicItemData(newItemData)) {
-            newItemData.data.invested.value = false;
+        if (hasInvestedProperty(newItemData)) {
+            const traits: Set<string> = item.traits;
+            newItemData.data.invested.value = traits.has('invested') ? false : null;
         }
 
         // Stack with an existing item if possible
@@ -795,7 +829,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
         const movedItem = targetActor.physicalItems.get(result.id);
         if (!movedItem) return null;
-        await targetActor.stashOrUnstash(movedItem, containerId);
+        await targetActor.stowOrUnstow(movedItem, container);
 
         return item;
     }
@@ -826,14 +860,12 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param getItem     Lambda returning the item.
      * @param containerId Id of the container that will contain the item.
      */
-    async stashOrUnstash(item: Embedded<PhysicalItemPF2e>, containerId?: string): Promise<void> {
-        if (containerId && this.physicalItems.get(containerId) instanceof ContainerPF2e) {
-            if (!isCycle(item.id, containerId, [item.data])) {
-                await item.update({
-                    'data.containerId.value': containerId,
-                    'data.equipped.value': false,
-                });
-            }
+    async stowOrUnstow(item: Embedded<PhysicalItemPF2e>, container?: Embedded<ContainerPF2e>): Promise<void> {
+        if (container && !isCycle(item.id, container.id, [item.data])) {
+            await item.update({
+                'data.containerId.value': container.id,
+                'data.equipped.value': false,
+            });
         } else {
             await item.update({ 'data.containerId.value': null });
         }
@@ -843,7 +875,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * Handle how changes to a Token attribute bar are applied to the Actor.
      * This allows for game systems to override this behavior and deploy special logic.
      */
-    _calculateHealthDelta(args: { hp: { value: number; temp: number }; sp: { value: number }; delta: number }) {
+    private calculateHealthDelta(args: { hp: { value: number; temp: number }; sp: { value: number }; delta: number }) {
         const update: any = {};
         const { hp, sp } = args;
         let { delta } = args;
@@ -1056,20 +1088,21 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /* Conditions                                   */
     /* -------------------------------------------- */
 
-    /** Get a condition on this actor, returning:
-     *  - the highest-valued if there are multiple of a valued condition
-     *  - the longest-lasting if there are multiple of a condition with a duration
-     *  - the last applied if any are present and are neither valued nor with duration
-     *  - otherwise `null`
-     * @param conditionType the slug of a core condition (subject to change when user-created conditions are introduced)
+    /**
+     * Get a condition on this actor, returning:
+     *   - the highest-valued if there are multiple of a valued condition
+     *   - the longest-lasting if there are multiple of a condition with a duration
+     *   - the last applied if any are present and are neither valued nor with duration
+     *   - otherwise `null`
+     * @param slug the slug of a core condition (subject to change when user-created conditions are introduced)
      * @param [options.all=false] return all conditions of the requested type in the order described above
      */
     getCondition(
-        conditionType: ConditionType,
+        slug: ConditionType,
         { all }: { all: boolean } = { all: false },
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null {
         const conditions = this.itemTypes.condition
-            .filter((condition) => condition.slug === conditionType)
+            .filter((condition) => condition.slug === slug)
             .sort((conditionA, conditionB) => {
                 const [valueA, valueB] = [conditionA.value ?? 0, conditionB.value ?? 0] as const;
                 const [durationA, durationB] = [conditionA.duration ?? 0, conditionB.duration ?? 0] as const;
@@ -1086,6 +1119,14 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             });
 
         return all ? conditions : conditions[0] ?? null;
+    }
+
+    /**
+     * Does this actor have the provided condition?
+     * @param slug The slug of the queried condition
+     */
+    hasCondition(slug: ConditionType): boolean {
+        return this.itemTypes.condition.some((condition) => condition.slug === slug);
     }
 
     /** Decrease the value of condition or remove it entirely */
@@ -1121,7 +1162,8 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         for await (const condition of conditionList) {
             const data = condition.data.data;
-            const value = data.value.isValued ? Math.max(data.value.value - 1, 0) : null;
+            const value =
+                typeof data.value.value === 'number' && data.value.isValued ? Math.max(data.value.value - 1, 0) : null;
 
             for await (const token of tokens) {
                 if (!token) continue;
@@ -1137,26 +1179,27 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Increase a valued condition, or create a new one if not present */
     async increaseCondition(
         conditionSlug: ConditionType | Embedded<ConditionPF2e>,
-        { max }: { max: number } = { max: 4 },
+        { min, max = Number.MAX_SAFE_INTEGER }: { min?: number | null; max?: number | null } = {},
     ): Promise<void> {
-        const condition = typeof conditionSlug === 'string' ? this.getCondition(conditionSlug) : conditionSlug;
-
-        // Get the current canvas tokens, or create ephemeral one if none are present
-        const tokens = await (async () => {
-            const canvasTokens = this.getActiveTokens();
-            if (canvasTokens.length === 0) {
-                return [new TokenDocumentPF2e(await this.getTokenData(), { actor: this, parent: canvas.scene }).object];
-            }
-            return canvasTokens;
-        })();
-
-        for (const token of tokens) {
-            if (!token) continue;
-            if (condition && condition.value !== null && condition.value + 1 <= max) {
-                await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, condition.value + 1);
-            } else if (!condition && typeof conditionSlug === 'string') {
-                await game.pf2e.ConditionManager.addConditionToToken(conditionSlug, token);
-            }
+        const existing = typeof conditionSlug === 'string' ? this.getCondition(conditionSlug) : conditionSlug;
+        if (existing) {
+            const conditionValue = (() => {
+                if (existing.value === null) return null;
+                return min && max
+                    ? Math.min(Math.max(min, existing.value), max)
+                    : max
+                    ? Math.min(existing.value + 1, max)
+                    : existing.value + 1;
+            })();
+            await existing.update({ 'data.value.value': conditionValue });
+        } else if (typeof conditionSlug === 'string') {
+            const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
+            const conditionValue =
+                typeof conditionSource?.data.value.value === 'number' && min && max
+                    ? Math.min(Math.max(min, conditionSource.data.value.value), max)
+                    : null;
+            conditionSource.data.value.value &&= conditionValue;
+            await this.createEmbeddedDocuments('Item', [conditionSource]);
         }
     }
 }
@@ -1165,7 +1208,7 @@ export interface ActorPF2e {
     readonly data: ActorDataPF2e;
     _sheet: ActorSheetPF2e<ActorPF2e> | ActorSheet<ActorPF2e, ItemPF2e> | null;
 
-    readonly itemTypes: {
+    get itemTypes(): {
         [K in ItemType]: Embedded<InstanceType<ConfigPF2e['PF2E']['Item']['documentClasses'][K]>>[];
     };
 

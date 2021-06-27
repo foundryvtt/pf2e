@@ -6,8 +6,7 @@ import { ConditionPF2e } from '.';
 export type ConditionSource = BaseNonPhysicalItemSource<'condition', ConditionSystemData>;
 
 export class ConditionData extends BaseNonPhysicalItemData<ConditionPF2e> {
-    /** @override */
-    static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/condition.svg';
+    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/condition.svg';
 }
 
 export interface ConditionData extends Omit<ConditionSource, '_id' | 'effects'> {
@@ -76,17 +75,7 @@ export interface ConditionSystemData extends ItemSystemData {
     ];
     base: string;
     group: string;
-    value: {
-        isValued: boolean;
-        immutable: boolean;
-        value: number;
-        modifiers: [
-            {
-                value: number;
-                source: string;
-            },
-        ];
-    };
+    value: ConditionValueData;
     sources: {
         hud: boolean;
     };
@@ -106,5 +95,29 @@ export interface ConditionSystemData extends ItemSystemData {
     };
     overrides: string[];
 }
+
+type ConditionValueData =
+    | {
+          isValued: true;
+          immutable: boolean;
+          value: number;
+          modifiers: [
+              {
+                  value: number;
+                  source: string;
+              },
+          ];
+      }
+    | {
+          isValued: false;
+          immutable: boolean;
+          value: null;
+          modifiers: [
+              {
+                  value: number;
+                  source: string;
+              },
+          ];
+      };
 
 export type ConditionType = typeof CONDITION_TYPES[number];

@@ -15,8 +15,7 @@ export abstract class TraitSelectorBase<
 
     protected abstract get configTypes(): readonly SelectableTagField[];
 
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: 'trait-selector',
             classes: ['pf2e'],
@@ -25,7 +24,7 @@ export abstract class TraitSelectorBase<
         });
     }
 
-    protected abstract _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
+    protected abstract override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 
     /**
      * Builds an object of all keys of this.configTypes from CONFIG.PF2E

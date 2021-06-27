@@ -2,8 +2,7 @@ import { ItemPF2e } from '../base';
 import { SpellcastingEntryData } from './data';
 
 export class SpellcastingEntryPF2e extends ItemPF2e {
-    /** @override */
-    static get schema(): typeof SpellcastingEntryData {
+    static override get schema(): typeof SpellcastingEntryData {
         return SpellcastingEntryData;
     }
 
@@ -21,6 +20,10 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
 
     get isInnate(): boolean {
         return this.data.data.prepared.value === 'innate';
+    }
+
+    get isFocusPool(): boolean {
+        return this.tradition === 'focus';
     }
 }
 

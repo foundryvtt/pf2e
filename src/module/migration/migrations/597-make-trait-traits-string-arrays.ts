@@ -3,9 +3,9 @@ import { ItemSourcePF2e } from '@item/data';
 
 /** Change `delimiter`-delimited string traits into arrays of strings */
 export class Migration597MakeTraitTraitsArrays extends MigrationBase {
-    static version = 0.597;
+    static override version = 0.597;
 
-    async updateItem(itemData: ItemSourcePF2e) {
+    override async updateItem(itemData: ItemSourcePF2e) {
         const traits: { value: unknown } = itemData.data.traits;
         const delimiter = /[;,|]+\s*/;
         const dromedarify = (text: string) => text.slice(0, 1).toLowerCase() + text.slice(1);

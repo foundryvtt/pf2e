@@ -29,9 +29,9 @@ function darknessLevelAtTime(time: DateTime) {
     );
 }
 
-/** Derivate a animateDarkness parameters from a time interval */
+/** Calculate animateDarkness parameters from a time interval */
 function intervalToTransition(interval: Interval, compactInterval: Interval): DarknessTransition {
-    const currentDarkness = canvas.lighting.darknessLevel;
+    const currentDarkness = canvas.lighting!.darknessLevel;
     const targetDarkness = darknessLevelAtTime(interval.end);
     const darknessDiff = Math.abs((currentDarkness ?? targetDarkness) - targetDarkness);
 
@@ -48,7 +48,7 @@ function intervalToTransition(interval: Interval, compactInterval: Interval): Da
 }
 
 async function runAnimation(transition: DarknessTransition) {
-    if (canvas.lighting.darknessLevel === transition.target) {
+    if (!canvas.lighting || canvas.lighting.darknessLevel === transition.target) {
         return;
     }
     const duration = Math.min(Math.trunc(100 * transition.duration) / 100, 6000);
@@ -61,32 +61,11 @@ async function runAnimation(transition: DarknessTransition) {
 
 /** Animate the increase or decrease of the scene darkness level in the syncDarkness setting is enabled */
 export async function animateDarkness(this: WorldClock, timeDiff: number): Promise<void> {
-    if (!this.syncDarkness || !canvas.lighting.globalLight) {
+    if (!this.syncDarkness || !canvas.lighting?.globalLight) {
         return;
     }
 
-    const fromAboutTime = (): DateTime => {
-        const aboutTimeDate = (window as any).Gametime.DTNow() as {
-            days: number;
-            hours: number;
-            minutes: number;
-            months: number;
-            seconds: number;
-            years: number;
-        };
-
-        const dt = DateTime.fromObject({
-            year: aboutTimeDate.years,
-            month: aboutTimeDate.months + 1,
-            day: aboutTimeDate.days,
-            hour: aboutTimeDate.hours,
-            minute: aboutTimeDate.minutes,
-            second: aboutTimeDate.seconds,
-        });
-        return dt;
-    };
-
-    const newTime = this.usingCalendarWeather ? fromAboutTime() : this.worldTime;
+    const newTime = this.worldTime;
     const oldTime = newTime.minus({ seconds: timeDiff });
 
     const fullInterval = Interval.fromDateTimes(oldTime, newTime);

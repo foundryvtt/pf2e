@@ -2,14 +2,14 @@ declare module foundry {
     module documents {
         /** The TableResult document model. */
         class BaseTableResult extends abstract.Document {
-            static get schema(): typeof data.RollTableData;
+            static override get schema(): typeof data.RollTableData;
 
-            static get metadata(): TableResultMetadata;
+            static override get metadata(): TableResultMetadata;
 
             /** Is a user able to update an existing TableResult? */
             protected static _canUpdate(user: BaseUser, doc: BaseTableResult, data: data.TableResultData): boolean;
 
-            testUserPermission(
+            override testUserPermission(
                 user: BaseUser,
                 permission: DocumentPermission | UserAction,
                 { exact }?: { exact?: boolean },

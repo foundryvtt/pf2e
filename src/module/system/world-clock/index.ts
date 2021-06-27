@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { animateDarkness } from './animate-darkness';
 import { LocalizePF2e } from '../localize';
+import { ordinal } from '@module/utils';
 
 interface WorldClockData {
     date: string;
@@ -15,13 +16,6 @@ export class WorldClock extends Application {
 
     readonly animateDarkness = animateDarkness;
 
-    /** Whether the Calendar/Weather module is installed and active */
-    readonly usingCalendarWeather = ((): boolean => {
-        const calendarWeather = game.modules.get('calendar-weather');
-        return calendarWeather !== undefined && calendarWeather.active;
-    })();
-
-    /** @override */
     constructor() {
         super();
 
@@ -32,10 +26,6 @@ export class WorldClock extends Application {
             game.settings.set('pf2e', 'worldClock.worldCreatedOn', settingValue);
         } else if (!DateTime.fromISO(settingValue).isValid) {
             game.settings.set('pf2e', 'worldClock.worldCreatedOn', defaultValue);
-        }
-
-        if (this.usingCalendarWeather) {
-            console.debug('PF2e System | Deferring to Calendar/Weather module for date/time management');
         }
     }
 
@@ -69,8 +59,7 @@ export class WorldClock extends Application {
         return this.worldCreatedOn.plus({ seconds: game.time.worldTime });
     }
 
-    /** @override */
-    static get defaultOptions() {
+    static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: 'world-clock',
             width: 400,
@@ -131,28 +120,7 @@ export class WorldClock extends Application {
         }
     }
 
-    /** The ordinal suffix of the month's day (in English: "st", "nd", "rd", or "th") */
-    private get ordinalSuffix() {
-        const rule = new Intl.PluralRules(game.i18n.lang, {
-            type: 'ordinal',
-        }).select(this.worldTime.day);
-        const ruleKey = rule[0].toUpperCase() + rule.slice(1);
-        return this.translations.OrdinalSuffixes[ruleKey];
-    }
-
-    /** @override */
-    getData(options?: ApplicationOptions): WorldClockData {
-        if (this.usingCalendarWeather) {
-            // Allow the Calendar/Weather module to manage the value and appearance of the date/time
-            const $app = $('#calendar-time-container');
-            const calendarDate = $app.find('span#calendar-date').text().trim();
-            const weekday = $app.find('span#calendar-weekday').text().trim();
-            const date = `${weekday}, ${calendarDate}`;
-            const time = $app.find('div#start-stop-clock .calendar-time-disp').text().trim();
-
-            return { date, time, options, user: game.user };
-        }
-
+    override getData(options?: ApplicationOptions): WorldClockData {
         const date =
             this.dateTheme === 'CE'
                 ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
@@ -160,9 +128,8 @@ export class WorldClock extends Application {
                       era: this.era,
                       year: this.year,
                       month: this.month,
-                      day: this.worldTime.day,
+                      day: ordinal(this.worldTime.day),
                       weekday: this.weekday,
-                      ordinalSuffix: this.ordinalSuffix,
                   });
 
         const time =
@@ -173,8 +140,7 @@ export class WorldClock extends Application {
         return { date, time, options, user: game.user };
     }
 
-    /** @override */
-    protected _getHeaderButtons(): ApplicationHeaderButton[] {
+    protected override _getHeaderButtons(): ApplicationHeaderButton[] {
         const settingsButton: ApplicationHeaderButton[] = game.user.isGM
             ? [
                   {
@@ -196,9 +162,8 @@ export class WorldClock extends Application {
         return settingsButton.concat(...super._getHeaderButtons());
     }
 
-    /** @override */
-    // Advance the world time by a static or input value
-    activateListeners($html: JQuery) {
+    /** Advance the world time by a static or input value */
+    override activateListeners($html: JQuery) {
         super.activateListeners($html);
 
         $html.on('click', 'button[data-advance-time]', (event) => {

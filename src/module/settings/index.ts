@@ -4,6 +4,7 @@ import { HomebrewElements } from './homebrew';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { objectHasKey } from '@module/utils';
 import { MigrationRunner } from '@module/migration/runner';
+import { AutomationSettings } from './automation';
 
 export function registerSettings() {
     game.settings.register('pf2e', 'worldSchemaVersion', {
@@ -11,7 +12,7 @@ export function registerSettings() {
         hint: 'PF2E.SETTINGS.WorldSchemaVersion.Hint',
         scope: 'world',
         config: true,
-        default: MigrationRunner.WORLD_SCHEMA_VERSION,
+        default: MigrationRunner.LATEST_SCHEMA_VERSION,
         type: Number,
     });
 
@@ -56,15 +57,6 @@ export function registerSettings() {
             [CONST.TOKEN_DISPLAY_MODES.OWNER]: 'TOKEN.DISPLAY_OWNER',
             [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: 'TOKEN.DISPLAY_ALWAYS',
         },
-    });
-
-    game.settings.register('pf2e', 'automation.lootableNPCs', {
-        name: 'PF2E.SETTINGS.Automation.LootableNPCs.Name',
-        hint: 'PF2E.SETTINGS.Automation.LootableNPCs.Hint',
-        scope: 'world',
-        config: true,
-        default: false,
-        type: Boolean,
     });
 
     game.settings.register('pf2e', 'ignoreCoinBulk', {
@@ -140,22 +132,6 @@ export function registerSettings() {
         type: Boolean,
     });
 
-    game.settings.register('pf2e', 'effectAutoExpire', {
-        name: 'PF2E.SETTINGS.effectAutoExpire.name',
-        hint: 'PF2E.SETTINGS.effectAutoExpire.hint',
-        scope: 'world',
-        config: true,
-        default: true,
-        type: Boolean,
-        onChange: () => {
-            game.actors.forEach((actor) => {
-                actor.prepareData();
-                actor.sheet.render(false);
-                actor.getActiveTokens().forEach((token) => token.drawEffects());
-            });
-        },
-    });
-
     game.settings.register('pf2e', 'critFumbleButtons', {
         name: game.i18n.localize('PF2E.SETTINGS.critFumbleCardButtons.name'),
         hint: game.i18n.localize('PF2E.SETTINGS.critFumbleCardButtons.hint'),
@@ -209,13 +185,23 @@ export function registerSettings() {
         type: Boolean,
     });
 
+    game.settings.registerMenu('pf2e', 'automation', {
+        name: 'PF2E.SETTINGS.Automation.Name',
+        label: 'PF2E.SETTINGS.Automation.Label',
+        hint: 'PF2E.SETTINGS.Automation.Hint',
+        icon: 'fas fa-robot',
+        type: AutomationSettings,
+        restricted: true,
+    });
+    AutomationSettings.registerSettings();
+
     game.settings.registerMenu('pf2e', 'variantRules', {
         name: 'PF2E.SETTINGS.Variant.Name',
-        label: 'PF2E.SETTINGS.Variant.Label', // The text label used in the button
+        label: 'PF2E.SETTINGS.Variant.Label',
         hint: 'PF2E.SETTINGS.Variant.Hint',
-        icon: 'fas fa-book', // A Font Awesome icon used in the submenu button
-        type: VariantRulesSettings, // A FormApplication subclass which should be created
-        restricted: true, // Restrict this submenu to gamemaster only?
+        icon: 'fas fa-book',
+        type: VariantRulesSettings,
+        restricted: true,
     });
     VariantRulesSettings.registerSettings();
 
@@ -266,5 +252,39 @@ export function registerSettings() {
         config: true,
         default: false,
         type: Boolean,
+    });
+
+    const metagameDcChoices = {
+        none: 'PF2E.SETTINGS.Metagame.ShowDC.None',
+        gm: 'PF2E.SETTINGS.Metagame.ShowDC.Gm',
+        owner: 'PF2E.SETTINGS.Metagame.ShowDC.Owner',
+        all: 'PF2E.SETTINGS.Metagame.ShowDC.All',
+    };
+
+    const metagameResultsChoices = {
+        none: 'PF2E.SETTINGS.Metagame.ShowResults.None',
+        gm: 'PF2E.SETTINGS.Metagame.ShowResults.Gm',
+        owner: 'PF2E.SETTINGS.Metagame.ShowResults.Owner',
+        all: 'PF2E.SETTINGS.Metagame.ShowResults.All',
+    };
+
+    game.settings.register('pf2e', 'metagame.showDC', {
+        name: 'PF2E.SETTINGS.Metagame.ShowDC.Name',
+        hint: 'PF2E.SETTINGS.Metagame.ShowDC.Hint',
+        scope: 'world',
+        config: true,
+        default: 'gm',
+        type: String,
+        choices: metagameDcChoices,
+    });
+
+    game.settings.register('pf2e', 'metagame.showResults', {
+        name: 'PF2E.SETTINGS.Metagame.ShowResults.Name',
+        hint: 'PF2E.SETTINGS.Metagame.ShowResults.Hint',
+        scope: 'world',
+        config: true,
+        default: 'gm',
+        type: String,
+        choices: metagameResultsChoices,
     });
 }

@@ -8,10 +8,18 @@ import { ActorPF2e } from '@actor/index';
  * @category RuleElement
  */
 export class PF2FlatModifierRuleElement extends RuleElementPF2e {
-    onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: RuleElementSyntheticsPF2e) {
+    override onBeforePrepareData(
+        actorData: CharacterData | NPCData,
+        { statisticsModifiers }: RuleElementSyntheticsPF2e,
+    ) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const label = super.getDefaultLabel(this.ruleData, this.item);
-        const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
+        const resolvedValue = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
+        const value = Math.clamped(
+            resolvedValue,
+            this.ruleData.min ?? resolvedValue,
+            this.ruleData.max ?? resolvedValue,
+        );
         if (selector && label && value) {
             const modifier = new ModifierPF2e(
                 this.ruleData.name ?? label,

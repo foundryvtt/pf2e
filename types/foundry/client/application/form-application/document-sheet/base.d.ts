@@ -25,21 +25,17 @@ declare global {
         TDocument extends foundry.abstract.Document = foundry.abstract.Document,
         TOptions extends DocumentSheetOptions = DocumentSheetOptions,
     > extends FormApplication<TDocument, TOptions> {
-        /** @override */
         constructor(object: TDocument, options: Partial<DocumentSheetOptions>);
 
-        /** @override */
-        static get defaultOptions(): DocumentSheetOptions;
+        static override get defaultOptions(): DocumentSheetOptions;
 
         /**
          * A convenience accessor for the object property of the inherited FormApplication instance
          */
         get document(): TDocument;
 
-        /** @override */
-        getData(options?: DocumentSheetOptions): DocumentSheetData<foundry.abstract.Document>;
+        override getData(options?: DocumentSheetOptions): DocumentSheetData<foundry.abstract.Document>;
 
-        /** @override */
-        protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
+        protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
     }
 }

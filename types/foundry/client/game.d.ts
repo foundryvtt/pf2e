@@ -8,6 +8,7 @@ declare global {
         combat: CombatTracker;
         compendium: CompendiumDirectory;
         controls: SceneControls;
+        items: ItemDirectory;
         notifications: Notifications;
         settings: Settings;
         tables: RollTableDirectory;
@@ -240,7 +241,7 @@ declare global {
                 Folder: string[];
                 Item: string[];
                 JournalEntry: string[];
-                Macro: string[];
+                Macro: ['chat', 'script'];
                 Playlist: string[];
                 RollTable: string[];
                 Scene: string[];

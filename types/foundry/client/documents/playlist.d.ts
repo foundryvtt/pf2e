@@ -38,8 +38,7 @@ declare global {
         /** An indicator for whether any Sound within the Playlist is currently playing */
         get playing(): boolean;
 
-        /** @override */
-        get visible(): boolean;
+        override get visible(): boolean;
 
         /**
          * Begin simultaneous playback for all sounds in the Playlist.
@@ -94,21 +93,21 @@ declare global {
         /** Define the sorting order for the Sounds within this Playlist. For internal use. */
         protected _sortSounds(a: PlaylistSound, b: PlaylistSound): number;
 
-        /** @override */
-        protected _preUpdate(
+        protected override _preUpdate(
             data: DocumentUpdateData<this>,
             options: DocumentModificationContext,
             user: User,
         ): Promise<void>;
 
-        /** @override */
-        protected _onUpdate(data: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void;
+        protected override _onUpdate(
+            changed: DeepPartial<this['data']['_source']>,
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
-        /** @override */
-        protected _onDelete(options: DocumentModificationContext, userId: string): void;
+        protected override _onDelete(options: DocumentModificationContext, userId: string): void;
 
-        /** @override */
-        protected _onCreateEmbeddedDocuments(
+        protected override _onCreateEmbeddedDocuments(
             embeddedName: 'PlaylistSound',
             documents: PlaylistSound[],
             result: foundry.data.PlaylistSoundSource[],
@@ -116,8 +115,7 @@ declare global {
             userId: string,
         ): void;
 
-        /** @override */
-        protected _onUpdateEmbeddedDocuments(
+        protected override _onUpdateEmbeddedDocuments(
             embeddedName: 'PlaylistSound',
             documents: PlaylistSound[],
             result: foundry.data.PlaylistSoundSource[],
@@ -125,8 +123,7 @@ declare global {
             userId: string,
         ): void;
 
-        /** @override */
-        protected _onDeleteEmbeddedDocuments(
+        protected override _onDeleteEmbeddedDocuments(
             embeddedName: 'PlaylistSound',
             documents: ClientDocument[],
             result: PlaylistSound[],
@@ -134,17 +131,15 @@ declare global {
             userId: string,
         ): void;
 
-        /**
-         * Handle callback logic when an individual sound within the Playlist concludes playback naturally
-         */
+        /** Handle callback logic when an individual sound within the Playlist concludes playback naturally */
         protected _onSoundEnd(sound: PlaylistSound): Promise<this | undefined>;
+
         /**
          * Handle callback logic when playback for an individual sound within the Playlist is started.
          * Schedule auto-preload of next track
          */
         protected _onSoundStart(sound: PlaylistSound): Promise<void>;
 
-        /** @override */
-        toCompendium(pack: CompendiumCollection<this>): foundry.data.PlaylistSource;
+        override toCompendium(pack: CompendiumCollection<this>): foundry.data.PlaylistSource;
     }
 }

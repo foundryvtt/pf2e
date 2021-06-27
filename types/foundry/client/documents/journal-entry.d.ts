@@ -13,11 +13,8 @@ declare global {
         /*  Properties                                  */
         /* -------------------------------------------- */
 
-        /**
-         * A boolean indicator for whether or not the JournalEntry is visible to the current user in the directory sidebar
-         * @override
-         */
-        get visible(): boolean;
+        /** A boolean indicator for whether or not the JournalEntry is visible to the current user in the directory sidebar */
+        override get visible(): boolean;
 
         /**
          * Return a reference to the Note instance for this Journal Entry in the current Scene, if any.
@@ -54,10 +51,12 @@ declare global {
         /*  Event Handlers                              */
         /* -------------------------------------------- */
 
-        /** @override */
-        _onUpdate(changed: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void;
+        override _onUpdate(
+            changed: DeepPartial<this['data']['_source']>,
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
-        /** @override */
-        _onDelete(options: DocumentModificationContext, userId: string): void;
+        override _onDelete(options: DocumentModificationContext, userId: string): void;
     }
 }

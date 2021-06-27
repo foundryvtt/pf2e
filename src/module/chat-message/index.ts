@@ -5,8 +5,16 @@ import { ChatCards } from './listeners/cards';
 import { CriticalHitAndFumbleCards } from './crit-fumble-cards';
 
 export class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
-    /** @override */
-    async getHTML(): Promise<JQuery> {
+    /**
+     * Avoid triggering Foundry 0.8.8 bug in which a speaker with no alias and a deleted actor can cause and unhandled
+     * exception to be thrown
+     */
+    override get alias(): string {
+        const speaker = this.data.speaker;
+        return speaker.alias ?? game.actors.get(speaker.actor ?? '')?.name ?? this.user?.name ?? '';
+    }
+
+    override async getHTML(): Promise<JQuery> {
         const $html = await super.getHTML();
         ChatCards.listen($html);
 
@@ -18,7 +26,11 @@ export class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         return $html;
     }
 
-    _onCreate(data: foundry.data.ChatMessageSource, options: DocumentModificationContext, userId: string) {
+    protected override _onCreate(
+        data: foundry.data.ChatMessageSource,
+        options: DocumentModificationContext,
+        userId: string,
+    ) {
         super._onCreate(data, options, userId);
 
         // Handle critical hit and fumble card drawing

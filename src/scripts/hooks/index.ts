@@ -10,23 +10,22 @@ import * as UpdateScene from './update-scene';
 import * as UpdateWorldTime from './update-world-time';
 import * as RenderActorDirectory from './render-actor-directory';
 import * as RenderChatMessage from './render-chat-message';
+import * as DropCanvasData from './drop-canvas-data';
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
-export namespace PF2E {
-    export const Hooks = {
-        listen(): void {
-            CanvasInit.listen();
-            CanvasReady.listen();
-            CloseWorldClockSettings.listen();
-            Init.listen();
-            HotbarDrop.listen();
-            Ready.listen();
-            RenderActorDirectory.listen();
-            RenderChatMessage.listen();
-            Setup.listen();
-            TurnChanges.listen();
-            UpdateScene.listen();
-            UpdateWorldTime.listen();
-        },
-    };
-}
+export const HooksPF2e = {
+    listen(): void {
+        CanvasInit.listen();
+        CanvasReady.listen();
+        CloseWorldClockSettings.listen();
+        DropCanvasData.listen();
+        Init.listen();
+        HotbarDrop.listen();
+        Ready.listen();
+        RenderActorDirectory.listen();
+        RenderChatMessage.listen();
+        Setup.listen();
+        TurnChanges.listen();
+        UpdateScene.listen();
+        UpdateWorldTime.listen();
+    },
+};

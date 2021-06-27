@@ -1,14 +1,11 @@
-import { ActorPF2e, NPCPF2e } from '@actor/index';
+import { ActorPF2e } from '@actor/index';
 import { CheckPF2e } from '@system/rolls';
-import { RuleElements } from '@module/rules/rules';
-import { PF2E } from '@scripts/hooks';
+import { HooksPF2e } from '@scripts/hooks';
 
 import '@system/measure';
 import './styles/pf2e.scss';
-// load in the scripts (that were previously just included by <script> tags instead of in the bundle
-require('./scripts/system/canvas-drop-handler');
 
-PF2E.Hooks.listen();
+HooksPF2e.listen();
 
 /* -------------------------------------------- */
 /*  Foundry VTT Setup                           */
@@ -143,40 +140,6 @@ Hooks.on('updateUser', () => {
     game.pf2e.effectPanel.refresh();
 });
 
-Hooks.on('preCreateToken', (_scene: Scene, token: foundry.data.TokenData) => {
-    const actor = game.actors.get(token.actorId);
-    if (actor) {
-        actor.items.forEach((item) => {
-            const rules = RuleElements.fromRuleElementData(item.data.data.rules ?? [], item.data);
-            for (const rule of rules) {
-                if (rule.ignored) continue;
-                rule.onCreateToken(actor.data, item.data, token);
-            }
-        });
-    }
-});
-
-Hooks.on(
-    'updateToken',
-    (
-        tokenDoc: TokenDocument,
-        updateData: DocumentUpdateData<TokenDocument>,
-        _options: DocumentModificationContext,
-        userID: string,
-    ) => {
-        const actor = tokenDoc.actor;
-        if (actor instanceof NPCPF2e && typeof updateData.disposition === 'number' && game.userId === userID) {
-            actor.updateAttitudeFromDisposition(updateData.disposition);
-        }
-
-        game.pf2e.effectPanel.refresh();
-    },
-);
-
-Hooks.on('controlToken', () => {
-    game.pf2e?.effectPanel.refresh();
-});
-
 // world clock application
 Hooks.on('getSceneControlButtons', (controls: any[]) => {
     controls
@@ -193,6 +156,8 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
 
 Hooks.on('renderChatMessage', (message, html) => {
     // remove elements the user does not have permission to see
+    html.find('[data-visibility="none"]').remove();
+
     if (!game.user.isGM) {
         html.find('[data-visibility="gm"]').remove();
     }

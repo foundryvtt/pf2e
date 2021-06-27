@@ -48,7 +48,7 @@ describe('test migration runner', () => {
             },
         },
         actors: new FakeActors(),
-        i18n: { format: () => {} },
+        i18n: { format: (stringId: string, data: object): string => {} },
         items: new FakeEntityCollection<FakeItem>(),
         macros: new FakeEntityCollection<FakeMacro>(),
         messages: new FakeEntityCollection<FakeChatMessage>(),
@@ -106,14 +106,14 @@ describe('test migration runner', () => {
 
     test('expect needs upgrade when version older', () => {
         settings.worldSchemaVersion = 5;
-        MigrationRunner.WORLD_SCHEMA_VERSION = 11;
+        MigrationRunner.LATEST_SCHEMA_VERSION = 11;
         const migrationRunner = new MigrationRunner([new Version10(), new Version11()]);
         expect(migrationRunner.needsMigration()).toEqual(true);
     });
 
     test("expect doesn't need upgrade when version at latest", () => {
         settings.worldSchemaVersion = 11;
-        MigrationRunner.WORLD_SCHEMA_VERSION = 11;
+        MigrationRunner.LATEST_SCHEMA_VERSION = 11;
         const migrationRunner = new MigrationRunner([new Version10(), new Version11()]);
         expect(migrationRunner.needsMigration()).toEqual(false);
     });
@@ -129,7 +129,7 @@ describe('test migration runner', () => {
 
     test('expect update causes version to be updated', async () => {
         game.actors.set(characterData._id, new FakeActor(characterData));
-        MigrationRunner.WORLD_SCHEMA_VERSION = 12;
+        MigrationRunner.LATEST_SCHEMA_VERSION = 12;
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
         await migrationRunner.runMigration();

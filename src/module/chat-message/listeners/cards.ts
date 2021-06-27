@@ -18,18 +18,18 @@ export const ChatCards = {
             // Confirm roll permission
             if (!game.user.isGM && game.user.id !== senderId && action !== 'save') return;
 
-            // Get the Actor from a synthetic Token
-            let actor: ActorPF2e | null = null;
-            const tokenKey = card.attr('data-token-id');
-            if (tokenKey) {
-                const [sceneId, tokenId] = tokenKey.split('.');
-                const scene = game.scenes.get(sceneId);
-                const token = scene?.tokens.get(tokenId);
-                if (!token) return;
-                actor = token.actor;
-            } else {
-                actor = game.actors.get(card.attr('data-actor-id') ?? '') ?? null;
-            }
+            // Get the synthetic Actor from a Token
+            const actor = ((): ActorPF2e | null => {
+                const tokenKey = card.attr('data-token-id');
+                if (tokenKey) {
+                    const [sceneId, tokenId] = tokenKey.split('.');
+                    const scene = game.scenes.get(sceneId);
+                    const token = scene?.tokens.get(tokenId);
+                    return token?.actor ?? null;
+                } else {
+                    return game.actors.get(card.attr('data-actor-id') ?? '') ?? null;
+                }
+            })();
 
             if (!actor) return;
 

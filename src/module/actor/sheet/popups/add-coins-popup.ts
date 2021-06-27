@@ -9,7 +9,7 @@ interface AddCoinsFormData extends Coins {
  * @category Other
  */
 export class AddCoinsPopup extends FormApplication<ActorPF2e> {
-    static get defaultOptions() {
+    static override get defaultOptions() {
         const options = super.defaultOptions;
         options.id = 'add-coins';
         options.classes = [];
@@ -19,7 +19,7 @@ export class AddCoinsPopup extends FormApplication<ActorPF2e> {
         return options;
     }
 
-    async _updateObject(_event: Event, formData: AddCoinsFormData) {
+    override async _updateObject(_event: Event, formData: AddCoinsFormData) {
         const actor = this.object;
         addCoins(actor, {
             coins: {

@@ -32,13 +32,14 @@ import { TokenDocumentPF2e } from '@module/token-document';
 import { UserPF2e } from '@module/user';
 import { ScenePF2e } from '@module/scene';
 import { CompendiumBrowser } from '@module/apps/compendium-browser';
-import { TokenPF2e } from '@module/canvas/token';
 import { remigrate } from '@scripts/system/remigrate';
+import { FolderPF2e } from '@module/folder';
+import { CanvasPF2e } from '@module/canvas';
 
 declare global {
     interface Game {
         pf2e: {
-            actions: { [key: string]: Function };
+            actions: Record<string, Function>;
             compendiumBrowser: CompendiumBrowser;
             worldClock: WorldClock;
             effectPanel: EffectPanel;
@@ -74,8 +75,10 @@ declare global {
             ChatMessagePF2e,
             CombatantPF2e,
             CombatPF2e,
+            FolderPF2e,
             ItemPF2e,
             MacroPF2e,
+            ScenePF2e,
             TokenDocumentPF2e
         > {
         debug: Config['debug'] & {
@@ -92,8 +95,10 @@ declare global {
             ChatMessagePF2e,
             CombatantPF2e,
             CombatPF2e,
+            FolderPF2e,
             ItemPF2e,
             MacroPF2e,
+            ScenePF2e,
             TokenDocumentPF2e
         >['ui'] & {
             combat: typeof CombatTrackerPF2e;
@@ -102,27 +107,16 @@ declare global {
     }
 
     const CONFIG: ConfigPF2e;
-    const canvas: Canvas<TokenPF2e>;
+    const canvas: CanvasPF2e;
     namespace globalThis {
         // eslint-disable-next-line no-var
         var game: Game<ActorPF2e, ChatMessagePF2e, CombatPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
     }
 
-    interface Window {
-        DicePF2e: typeof DicePF2e;
-        PF2eStatusEffects: typeof StatusEffects;
-        PF2eConditionManager: typeof ConditionManager;
-        PF2ModifierType: typeof MODIFIER_TYPE;
-        PF2Modifier: typeof ModifierPF2e;
-        AbilityModifier: typeof AbilityModifier;
-        ProficiencyModifier: typeof ProficiencyModifier;
-        PF2StatisticModifier: typeof StatisticModifier;
-        PF2CheckModifier: typeof CheckModifier;
-        PF2Check: typeof CheckPF2e;
-    }
-
     interface ClientSettings {
         get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
+        get(module: 'pf2e', setting: 'automation.rulesBasedVision'): boolean;
+        get(module: 'pf2e', setting: 'automation.effectExpiration'): boolean;
         get(module: 'pf2e', setting: 'automation.lootableNPCs'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettings'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;

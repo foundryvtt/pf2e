@@ -28,7 +28,6 @@
             "reset": "The trap still causes creatures to fall forever if they fall in, but the trapdoor must be reset manually for the trap to become hidden again.",
             "routine": ""
         },
-        "flavourText": "",
         "recallKnowledgeText": "",
         "saves": {
             "fortitude": {
@@ -52,7 +51,6 @@
                 "value": ""
             }
         },
-        "sidebarText": "",
         "source": {
             "value": ""
         },
@@ -87,6 +85,7 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
@@ -104,7 +103,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature walks onto the trapdoor. <br /><strong>Effect</strong> The triggering creature falls in and continues to fall, potentially forever. That creature can try to Grab an Edge to avoid falling (page 472). The DC to Climb the walls or Grab an Edge is 26.The pit contains many handholds, so the falling creature can try to Grab an Edge again every 6 seconds. If the creature succeeds, it can start to Climb out from that point (though it might be a very long climb, depending on how far the creature fell). Since the creature falls endlessly, it can rest and even prepare spells while falling, though items dropped while falling are usually lost forever.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature walks onto the trapdoor. <br /><strong>Effect</strong> The triggering creature falls in and continues to fall, potentially forever. That creature can try to Grab an Edge to avoid falling. The DC to Climb the walls or Grab an Edge is 26.The pit contains many handholds, so the falling creature can try to Grab an Edge again every 6 seconds. If the creature succeeds, it can start to Climb out from that point (though it might be a very long climb, depending on how far the creature fell). Since the creature falls endlessly, it can rest and even prepare spells while falling, though items dropped while falling are usually lost forever.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -133,8 +132,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Infinite Pitfall",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "action"
         }
@@ -146,10 +149,13 @@
     "token": {
         "actorId": "xkqjwu1ox0pQLOnb",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -161,17 +167,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Bottomless Pit",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

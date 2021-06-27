@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 18,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -119,9 +120,10 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
-                "value": "N"
+                "value": "NE"
             },
             "ancestry": {
                 "value": ""
@@ -138,6 +140,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
+            "flavorText": "<p>Charlatans use pretense and misdirection to swindle money and other valuables from the credulous and confused. Selling snake oil (literally or figuratively), distracting marks to pick their pockets, or faking mediumship are classic grifts.</p>\n<hr />\n<p>Some criminals are the desperate who have no option but to break the law to survive, while others choose a life of crime for thrills, forming gangs or underworld guilds that specialize in certain illegal ventures.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -150,9 +153,8 @@
                 "value": 3
             },
             "recallKnowledgeText": "",
-            "sidebarText": "",
             "source": {
-                "value": "NPC Gallery"
+                "value": "NPC Gallery (GMG)"
             }
         },
         "items": {
@@ -161,11 +163,11 @@
                     "slots": {
                         "slot1": {
                             "max": "3",
-                            "value": "3"
+                            "value": 3
                         },
                         "slot2": {
                             "max": "2",
-                            "value": "2"
+                            "value": 2
                         }
                     },
                     "spelldc": {
@@ -185,6 +187,26 @@
                     "spelldc": {
                         "dc": 19,
                         "value": 0
+                    }
+                }
+            },
+            "E6mEj83zq80Y7pG6": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 3
+                        },
+                        "slot2": {
+                            "max": 2
+                        }
+                    }
+                }
+            },
+            "skldpzuAPlZFfnrB": {
+                "data": {
+                    "focus": {
+                        "points": 1,
+                        "pool": 1
                     }
                 }
             }
@@ -470,13 +492,14 @@
     },
     "effects": [],
     "flags": {},
+    "folder": null,
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "E6mEj83zq80Y7pG6",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "description": {
                     "chat": "",
@@ -593,8 +616,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Spontaneous Occult Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -602,7 +629,7 @@
             "_id": "skldpzuAPlZFfnrB",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
                 },
                 "description": {
                     "chat": "",
@@ -701,7 +728,7 @@
                     "dc": 19,
                     "item": 0,
                     "mod": 0,
-                    "value": 0
+                    "value": 10
                 },
                 "tradition": {
                     "value": "focus"
@@ -719,20 +746,24 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Focus Spells",
+            "permission": {
+                "default": 0
+            },
             "sort": 200000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "qXwAIOD0By0bdkwQ",
+            "_id": "NBjqDNsXTJbzewMH",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -741,7 +772,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -756,7 +789,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell (Identifying Spells section on page 305).</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -800,9 +833,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "charm",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=34"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -834,27 +867,32 @@
                         "incapacitation",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLA0q0WOK2YPuJs6"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/charm.webp",
             "name": "Charm",
+            "permission": {
+                "default": 0
+            },
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "tcsm1rpbYiGpBGrz",
+            "_id": "MI0GsO4q4fsEGXbT",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -863,7 +901,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -878,7 +918,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You create an illusion that causes you to appear as another creature of the same body shape,and with roughly similar height (within 6 inches) and weight (within 50 pounds), as yourself. The disguise is typically good enough to hide your identity, but not to impersonate a specific individual. The spell doesn't change your voice, scent, or mannerisms. You can change the appearance of your clothing and worn items, such as making your armor look like a dress. Held items are unaffected, and any worn item you remove returns to its true appearance.</p>\n<p>Casting illusory disguise counts as setting up a disguise for the Impersonate use of Deception; it ignores any circumstance penalties you might take for disguising yourself as a dissimilar creature, it gives you a +4 status bonus to Deception checks to prevent others from seeing through your disguise, and you add your level even if you're untrained. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened</strong> The spell also disguises your voice and scent, and it gains the auditory trait.</p>\n<p><strong>Heightened</strong> You can appear as any creature of the same size, even a specific individual. You must have seen an individual to take on their appearance. The spell also disguises your voice and scent, and it gains the auditory trait.</p>"
+                    "value": "<p>You create an illusion that causes you to appear as another creature of the same body shape, and with roughly similar height (within 6 inches) and weight (within 50 pounds), as yourself. The disguise is typically good enough to hide your identity, but not to impersonate a specific individual. The spell doesn't change your voice, scent, or mannerisms. You can change the appearance of your clothing and worn items, such as making your armor look like a dress. Held items are unaffected, and any worn item you remove returns to its true appearance.</p>\n<p>Casting illusory disguise counts as setting up a disguise for the @Compendium[pf2e.action-macros.Impersonate: Deception]{Impersonate} use of Deception; it ignores any circumstance penalties you might take for disguising yourself as a dissimilar creature, it gives you a +4 status bonus to Deception checks to prevent others from seeing through your disguise, and you add your level even if you're untrained. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The spell also disguises your voice and scent, and it gains the auditory and olfactory traits.</p>\n<p><strong>Heightened (3rd)</strong> You can appear as any creature of the same size, even a specific individual. You must have seen an individual to take on their appearance. The spell also disguises your voice and scent, and it gains the auditory and olfactory traits.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Illusory Disguise]{Spell Effect: Illusory Disguise}</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -922,9 +962,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "illusory-disguise",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=159"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -953,20 +993,25 @@
                         "illusion",
                         "visual"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.i35dpZFI7jZcRoBo"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
+            "permission": {
+                "default": 0
+            },
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "rSSHlS1o1T2Qttct",
+            "_id": "Kz4DpCaVJuZjm4Pc",
             "data": {
                 "ability": {
                     "value": ""
@@ -982,7 +1027,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -997,7 +1044,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -1041,9 +1088,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "invisibility",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=164"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1071,20 +1118,25 @@
                     "value": [
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XXqE1eY3w3z6xJCB"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/invisibility.webp",
             "name": "Invisibility",
+            "permission": {
+                "default": 0
+            },
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "dxg5vUFK7vYKXWhR",
+            "_id": "ZEJu78TtoYdHKZ8S",
             "data": {
                 "ability": {
                     "value": ""
@@ -1100,7 +1152,9 @@
                     "value": "focus"
                 },
                 "components": {
-                    "value": "somatic or verbal"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": false
                 },
                 "cost": {
                     "value": ""
@@ -1159,9 +1213,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "counter-performance",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=381"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1189,27 +1243,32 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.WILXkjU5Yq3yw10r"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/counter-performance.webp",
             "name": "Counter Performance",
+            "permission": {
+                "default": 0
+            },
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "TIzxL4JtkUdNlSoI",
+            "_id": "YHDQBQd28bmuu9YT",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1218,7 +1277,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1233,7 +1294,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You create an illusion that causes you to appear as another creature of the same body shape,and with roughly similar height (within 6 inches) and weight (within 50 pounds), as yourself. The disguise is typically good enough to hide your identity, but not to impersonate a specific individual. The spell doesn't change your voice, scent, or mannerisms. You can change the appearance of your clothing and worn items, such as making your armor look like a dress. Held items are unaffected, and any worn item you remove returns to its true appearance.</p>\n<p>Casting illusory disguise counts as setting up a disguise for the Impersonate use of Deception; it ignores any circumstance penalties you might take for disguising yourself as a dissimilar creature, it gives you a +4 status bonus to Deception checks to prevent others from seeing through your disguise, and you add your level even if you're untrained. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened</strong> The spell also disguises your voice and scent, and it gains the auditory trait.</p>\n<p><strong>Heightened</strong> You can appear as any creature of the same size, even a specific individual. You must have seen an individual to take on their appearance. The spell also disguises your voice and scent, and it gains the auditory trait.</p>"
+                    "value": "<p>You create an illusion that causes you to appear as another creature of the same body shape, and with roughly similar height (within 6 inches) and weight (within 50 pounds), as yourself. The disguise is typically good enough to hide your identity, but not to impersonate a specific individual. The spell doesn't change your voice, scent, or mannerisms. You can change the appearance of your clothing and worn items, such as making your armor look like a dress. Held items are unaffected, and any worn item you remove returns to its true appearance.</p>\n<p>Casting illusory disguise counts as setting up a disguise for the @Compendium[pf2e.action-macros.Impersonate: Deception]{Impersonate} use of Deception; it ignores any circumstance penalties you might take for disguising yourself as a dissimilar creature, it gives you a +4 status bonus to Deception checks to prevent others from seeing through your disguise, and you add your level even if you're untrained. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The spell also disguises your voice and scent, and it gains the auditory and olfactory traits.</p>\n<p><strong>Heightened (3rd)</strong> You can appear as any creature of the same size, even a specific individual. You must have seen an individual to take on their appearance. The spell also disguises your voice and scent, and it gains the auditory and olfactory traits.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Illusory Disguise]{Spell Effect: Illusory Disguise}</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -1277,9 +1338,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "illusory-disguise",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=159"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1308,27 +1369,32 @@
                         "illusion",
                         "visual"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.i35dpZFI7jZcRoBo"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/illusory-disguise.webp",
             "name": "Illusory Disguise",
+            "permission": {
+                "default": 0
+            },
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "rHtVBMXeEzGy3Dqo",
+            "_id": "RtPaSgJ6f5MFt4PD",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1337,7 +1403,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "material, somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1352,7 +1420,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You alter the appearance of an item's magic aura. You can choose to have the target's aura appear as that of common magic item of twice magic aura's level or lower, or to have it register as being under the effects of a spell of your choice of magic aura's level or lower. If the target is magical, you can instead choose to have it appear as entirely non-magical. A caster using detect magic or read aura of an equal or higher spell level can attempt to disbelieve the illusion from magic aura. Magic aura doesn't mask the aura of spells that are 9th level or higher or of items that are 19th level or higher.</p>\n<hr />\n<p><strong>Heightened</strong> You can target a creature instead of an object. When you do, you can either conceal the auras of all magic items it has or have that creature's aura appear as if it were under the effect of a spell you know.</p>"
+                    "value": "<p>You alter the appearance of an item's magic aura. You can choose to have the target's aura appear as that of common magic item of twice magic aura's level or lower, or to have it register as being under the effects of a spell of your choice of magic aura's level or lower. If the target is magical, you can instead choose to have it appear as entirely non-magical. A caster using @Compendium[pf2e.spells-srd.Detect Magic]{Detect Magic} or @Compendium[pf2e.spells-srd.Read Aura]{Read Aura} of an equal or higher spell level can attempt to disbelieve the illusion from magic aura. Magic aura doesn't mask the aura of spells that are 9th level or higher or of items that are 19th level or higher.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target a creature instead of an object. When you do, you can either conceal the auras of all magic items it has or have that creature's aura appear as if it were under the effect of a spell you know.</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -1396,9 +1464,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "magic-aura",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=178"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1427,20 +1495,25 @@
                         "uncommon",
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/prestidigitation.webp",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.PRrZ7anETWPm90YY"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/spells/magic-aura.webp",
             "name": "Magic Aura",
+            "permission": {
+                "default": 0
+            },
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "d1bO6Y9E8OODht6w",
+            "_id": "zaIuxgVQxcNuYl6K",
             "data": {
                 "ability": {
                     "value": ""
@@ -1456,7 +1529,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": true,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1471,7 +1546,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You summon an unseen servant, which you can command as part of Sustaining the Spell. It serves you until its Hit Points are reduced to 0, at which point the spell ends, or until you stop Sustaining the Spell. The unseen servant gains the summoned trait.</p>\n<p><strong>Unseen Servant</strong> [Creature] [-1] [No Alignment] [Medium]</p>\n<hr />\n<p><strong>AC</strong> 13, <strong>Fort</strong> +0, <strong>Ref</strong> +4, <strong>Will</strong> +0 <strong>HP</strong> 4;</p>\n<p><strong>Immunities</strong> disease, mental, non-magical attacks, paralysis, poison, precision, @Compendium[pf2e.conditionitems.Unconscious]{Unconscious};</p>\n<p><strong>Resistances</strong> all damage 5</p>\n<p><strong>Speed</strong> fly 30 feet</p>\n<p><strong>Force Body</strong> An unseen servant's physical body is made of force. It can't use attack actions. It can move and use Interact actions to do things such as fetch objects, open unstuck or unlocked doors, hold chairs, and clean. It can't pass through solid objects.</p>"
+                    "value": "<p>You summon an unseen servant, which you can command as part of Sustaining the Spell. It serves you until its Hit Points are reduced to 0, at which point the spell ends, or until you stop Sustaining the Spell. The unseen servant gains the summoned trait.</p>\n<p><strong>Unseen Servant</strong> [Creature] [-1] [No Alignment] [Medium]</p>\n<hr />\n<p><strong>AC</strong> 13, <strong>Fort</strong> +0, <strong>Ref</strong> +4, <strong>Will</strong> +0 <strong>HP</strong> 4;</p>\n<p><strong>Immunities</strong> disease, mental, non-magical attacks, paralysis, poison, precision, unconscious;</p>\n<p><strong>Resistances</strong> all damage 5 (except force or ghost touch)</p>\n<p><strong>Speed</strong> fly 30 feet</p>\n<p><strong>Force Body</strong> An unseen servant's physical body is made of force. It can't use attack actions. It can move and use Interact actions to do things such as fetch objects, open unstuck or unlocked doors, hold chairs, and clean. It can't pass through solid objects.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -1515,9 +1590,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "unseen-servant",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=352"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1529,7 +1604,7 @@
                     "value": ""
                 },
                 "time": {
-                    "value": "2"
+                    "value": "3"
                 },
                 "traditions": {
                     "value": [
@@ -1546,20 +1621,25 @@
                         "conjuration",
                         "mindless"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.xqmHD8JIjak15lRk"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/unseen-servant.webp",
             "name": "Unseen Servant",
+            "permission": {
+                "default": 0
+            },
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "4i8TifpIeUdvNAr4",
+            "_id": "CqFddpLL6MHU0SiK",
             "data": {
                 "ability": {
                     "value": ""
@@ -1575,7 +1655,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1590,7 +1672,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Whenever you speak or make any other sound vocally, you can make your vocalization seem to originate from somewhere else within 60 feet, and you can change that apparent location freely as you vocalize. Any creature that hears the sound can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened</strong> The spell's duration increases to 1 hour, and you can also change the tone, quality, and other aspects of your voice. Before a creature can attempt to disbelieve your illusion, it must actively attempt a Perception check or otherwise use actions to interact with the sound.</p>"
+                    "value": "<p>Whenever you speak or make any other sound vocally, you can make your vocalization seem to originate from somewhere else within 60 feet, and you can change that apparent location freely as you vocalize. Any creature that hears the sound can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The spell's duration increases to 1 hour, and you can also change the tone, quality, and other aspects of your voice. Before a creature can attempt to disbelieve your illusion, it must actively attempt a Perception check or otherwise use actions to interact with the sound.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -1634,9 +1716,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "ventriloquism",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=356"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1667,20 +1749,25 @@
                         "auditory",
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.yV7Ouzaoe7DHLESI"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/ventriloquism.webp",
             "name": "Ventriloquism",
+            "permission": {
+                "default": 0
+            },
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "FtB4EhlpOMrXPvyE",
+            "_id": "Hp5WD69RJYdVxcQV",
             "data": {
                 "ability": {
                     "value": ""
@@ -1696,7 +1783,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1711,7 +1800,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -1720,7 +1809,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "E6mEj83zq80Y7pG6"
@@ -1755,9 +1844,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "daze",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=61"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -1789,20 +1878,25 @@
                         "mental",
                         "nonlethal"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4gBIw4IDrSfFHik4"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
+            "permission": {
+                "default": 0
+            },
             "sort": 1100000,
             "type": "spell"
         },
         {
-            "_id": "YpX5bvB1UQKlgtH0",
+            "_id": "XnFPPGqsZt3Noxio",
             "data": {
                 "ability": {
                     "value": ""
@@ -1818,7 +1912,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1833,7 +1929,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened</strong> The range increases to 120 feet.</p>"
+                    "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 120 feet.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -1842,7 +1938,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "E6mEj83zq80Y7pG6"
@@ -1877,9 +1973,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "ghost-sound",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=132"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1909,20 +2005,25 @@
                         "cantrip",
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.atlgGNI1E1Ox3O3a"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
             "name": "Ghost Sound",
+            "permission": {
+                "default": 0
+            },
             "sort": 1200000,
             "type": "spell"
         },
         {
-            "_id": "u3dekluSLotLZUmw",
+            "_id": "HThaF7PRIzJ1zZ6o",
             "data": {
                 "ability": {
                     "value": ""
@@ -1938,7 +2039,9 @@
                     "value": "focus"
                 },
                 "components": {
-                    "value": "verbal"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -1953,7 +2056,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You inspire your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>"
+                    "value": "<p>You inspire yourself and your allies with words or tunes of encouragement. You and all allies in the area gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Inspire Courage]{Spell Effect: Inspire Courage}</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -1962,7 +2065,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "skldpzuAPlZFfnrB"
@@ -1997,9 +2100,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "inspire-courage",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=386"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -2030,20 +2133,25 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.IAjvwqgiDr3qGYxY"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/inspire-courage.webp",
             "name": "Inspire Courage",
+            "permission": {
+                "default": 0
+            },
             "sort": 1300000,
             "type": "spell"
         },
         {
-            "_id": "FicCn5Y7ySlqcQ9b",
+            "_id": "vH4lgUOh2nkzFRTO",
             "data": {
                 "ability": {
                     "value": ""
@@ -2052,11 +2160,16 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2071,7 +2184,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
+                    "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -2080,7 +2193,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "E6mEj83zq80Y7pG6"
@@ -2089,6 +2202,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2106,9 +2222,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "mage-hand",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=177"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -2137,20 +2259,25 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.pwzdSlJgYqN7bs2w"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
             "name": "Mage Hand",
+            "permission": {
+                "default": 0
+            },
             "sort": 1400000,
             "type": "spell"
         },
         {
-            "_id": "lunFCDAvYVcULTzG",
+            "_id": "2r4zOo4lOh4yZrcT",
             "data": {
                 "ability": {
                     "value": ""
@@ -2166,7 +2293,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": false,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2181,7 +2310,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You mouth words quietly, but instead of coming out of your mouth, they're transferred directly to the ears of the target. While others can't hear your words any better than if you normally mouthed them, the target can hear your words as if they were standing next to you.</p>\n<p>The target can give a brief response as a reaction, or as a free action on their next turn if they wish, but they must be able to see you and be within range to do so. If they respond, their response is delivered directly to your ear, just like the original message.</p>\n<hr />\n<p><strong>Heightened</strong> The spell's range increases to 500 feet.</p>"
+                    "value": "<p>You mouth words quietly, but instead of coming out of your mouth, they're transferred directly to the ears of the target. While others can't hear your words any better than if you normally mouthed them, the target can hear your words as if they were standing next to you.</p>\n<p>The target can give a brief response as a reaction, or as a free action on their next turn if they wish, but they must be able to see you and be within range to do so. If they respond, their response is delivered directly to your ear, just like the original message.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The spell's range increases to 500 feet.</p>"
                 },
                 "duration": {
                     "value": "see below"
@@ -2190,7 +2319,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "E6mEj83zq80Y7pG6"
@@ -2225,9 +2354,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "message",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=190"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -2239,7 +2368,7 @@
                     "value": "1 creature"
                 },
                 "time": {
-                    "value": "2"
+                    "value": "1"
                 },
                 "traditions": {
                     "value": [
@@ -2260,20 +2389,25 @@
                         "linguistic",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLzFcIaSXs7YTIqJ"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/message.webp",
             "name": "Message",
+            "permission": {
+                "default": 0
+            },
             "sort": 1500000,
             "type": "spell"
         },
         {
-            "_id": "8BdCFmQpIMivdjJP",
+            "_id": "qNvbMEmVEO3bXWFW",
             "data": {
                 "ability": {
                     "value": ""
@@ -2289,7 +2423,9 @@
                     "value": "spell"
                 },
                 "components": {
-                    "value": "somatic, verbal"
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
                 },
                 "cost": {
                     "value": ""
@@ -2313,7 +2449,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 1
                 },
                 "location": {
                     "value": "E6mEj83zq80Y7pG6"
@@ -2348,7 +2484,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "prestidigitation",
                 "source": {
                     "value": ""
                 },
@@ -2359,7 +2495,7 @@
                     "value": true
                 },
                 "target": {
-                    "value": "1 object "
+                    "value": "1 object (cook, lift, or tidy only)"
                 },
                 "time": {
                     "value": "2"
@@ -2382,20 +2518,25 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Qw3fnUlaUbnn7ipC"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/spells/prestidigitation.webp",
             "name": "Prestidigitation",
+            "permission": {
+                "default": 0
+            },
             "sort": 1600000,
             "type": "spell"
         },
         {
-            "_id": "VfGYgHv84uuJIPu8",
+            "_id": "tdw32pxvdRqYp9kH",
             "data": {
                 "MAP": {
                     "value": ""
@@ -2403,7 +2544,7 @@
                 "ability": {
                     "value": "str"
                 },
-                "baseItem": null,
+                "baseItem": "sap",
                 "bonus": {
                     "value": 0
                 },
@@ -2434,7 +2575,7 @@
                     "value": "<p>A sap has a soft wrapping around a dense core, typically a leather sheath around a lead rod. Its head is wider than its grip to disperse the force of a blow, as the weapon's purpose is to knock out its victim rather than to draw blood.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -2468,7 +2609,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -2477,7 +2618,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -2491,35 +2632,15 @@
                 "property1": {
                     "critDamage": "",
                     "critDamageType": "",
-                    "critDice": null,
+                    "critDice": "",
                     "critDie": "",
                     "criticalConditionType": "",
-                    "criticalConditionValue": null,
+                    "criticalConditionValue": "",
                     "damageType": "",
-                    "dice": null,
+                    "dice": "",
                     "die": "",
                     "strikeConditionType": "",
-                    "strikeConditionValue": null,
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
+                    "strikeConditionValue": "",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -2547,7 +2668,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "sap",
                 "source": {
                     "value": ""
                 },
@@ -2577,18 +2698,26 @@
                     "value": "martial"
                 },
                 "weight": {
-                    "value": "-"
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.TLQErnOpM9Luy7rL"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/sap.webp",
             "name": "Sap",
+            "permission": {
+                "default": 0
+            },
             "sort": 1700000,
             "type": "weapon"
         },
         {
-            "_id": "bi9KFSPkaTTpjM3Q",
+            "_id": "vpiRFqKuyDErmVPF",
             "data": {
                 "MAP": {
                     "value": ""
@@ -2596,7 +2725,7 @@
                 "ability": {
                     "value": "str"
                 },
-                "baseItem": null,
+                "baseItem": "shortsword",
                 "bonus": {
                     "value": 0
                 },
@@ -2627,7 +2756,7 @@
                     "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -2661,7 +2790,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -2670,7 +2799,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": 0
+                    "value": null
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -2693,26 +2822,6 @@
                     "die": "",
                     "strikeConditionType": "",
                     "strikeConditionValue": null,
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -2740,7 +2849,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "shortsword",
                 "source": {
                     "value": ""
                 },
@@ -2775,14 +2884,22 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.7tKkkF8eZ4iCLJtp"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/weapons/shortsword.webp",
             "name": "Shortsword",
+            "permission": {
+                "default": 0
+            },
             "sort": 1800000,
             "type": "weapon"
         },
         {
-            "_id": "V1bwP8chhB7wYhiu",
+            "_id": "fvXdP5WO0FT7ik6n",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -2800,7 +2917,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This small wooden box contains cosmetics, false facial hair, spirit gum, and a few simple wigs. You usually need a disguise kit to set up a disguise in order to Impersonate someone using the Deception skill. An elite disguise kit adds a +1 item bonus to relevant checks. If you've crafted a large number of disguises, you can replenish your cosmetics supply with replacement cosmetics suitable for the type of your disguise kit.</p>"
+                    "value": "<p>This small wooden box contains cosmetics, false facial hair, spirit gum, and a few simple wigs. You usually need a disguise kit to set up a disguise in order to Impersonate someone using the Deception skill. If you've crafted a large number of disguises, you can replenish your cosmetics supply with replacement cosmetics suitable for the type of your disguise kit.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -2831,7 +2948,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -2855,7 +2972,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "disguise-kit",
                 "source": {
                     "value": ""
                 },
@@ -2880,14 +2997,22 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Jvp0x2Sc82WVpExT"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/adventuring-gear/disguisekit.webp",
             "name": "Disguise Kit",
+            "permission": {
+                "default": 0
+            },
             "sort": 1900000,
             "type": "equipment"
         },
         {
-            "_id": "12A4dqISu1ifbTYB",
+            "_id": "RPDyfXSeyh4Xh4yv",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -2905,7 +3030,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played. A virtuoso instrument gives a +1 item bonus to Performance checks using that instrument.</p>"
+                    "value": "<p>Handheld instruments include bagpipes, a small set of chimes, small drums, fiddles and viols, flutes and recorders, small harps, lutes, trumpets, and similarly sized instruments. The GM might rule that an especially large handheld instrument (like a tuba) has greater Bulk. Heavy instruments such as large drums, a full set of chimes, and keyboard instruments are less portable and generally need to be stationary while played.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -2936,7 +3061,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -2960,7 +3085,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "musical-instrument-handheld",
                 "source": {
                     "value": ""
                 },
@@ -2973,7 +3098,7 @@
                         "value": "common"
                     },
                     "usage": {
-                        "value": "held-in-one-hand"
+                        "value": "held-in-two-hands"
                     },
                     "value": []
                 },
@@ -2985,14 +3110,22 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/musical-instrument-handheld.webp",
-            "name": "Musical Instrument ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.MPv5Yx4w7scZGj2Y"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/musical-instrument-handheld-virtuoso-handheld.webp",
+            "name": "Lute",
+            "permission": {
+                "default": 0
+            },
             "sort": 2000000,
             "type": "equipment"
         },
         {
-            "_id": "ax1iwyvQIZyXmCIG",
+            "_id": "NvZakkmr2Rft01Dj",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -3010,7 +3143,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices using the Thievery skill. Infiltrator thieves' tools add a +1 item bonus to checks to Pick Locks and Disable Devices. If your thieves' tools are broken, you can repair them by replacing the lock picks with replacement picks appropriate to your tools; this doesn't require using the Repair action.</p>"
+                    "value": "<p>You need thieves' tools to Pick Locks or Disable Devices (of some types) using the Thievery skill.</p>\n<p>If your thieves' tools are broken, you can repair them by replacing the lock picks with @Compendium[pf2e.equipment-srd.Thieves' Tools (Replacement Picks)]{Replacement Picks} appropriate to your tools; this doesn't require using the Repair action.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -3041,7 +3174,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -3065,7 +3198,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "thieves-tools",
                 "source": {
                     "value": ""
                 },
@@ -3090,9 +3223,17 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.zvLyCVD8g2PdHJAc"
+                }
+            },
+            "folder": null,
             "img": "systems/pf2e/icons/equipment/adventuring-gear/thieves-tools.webp",
             "name": "Thieves' Tools",
+            "permission": {
+                "default": 0
+            },
             "sort": 2100000,
             "type": "equipment"
         },
@@ -3105,21 +3246,8 @@
                 "attackEffects": {
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 10
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "mozdxc1pm9uwi7azully": {
@@ -3132,78 +3260,9 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -3216,20 +3275,18 @@
                         "versatile-s"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Shortsword",
+            "permission": {
+                "default": 0
+            },
             "sort": 2200000,
             "type": "melee"
         },
@@ -3242,21 +3299,8 @@
                 "attackEffects": {
                     "value": []
                 },
-                "baseItem": null,
                 "bonus": {
                     "value": 7
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
                 },
                 "damageRolls": {
                     "bkk34k1750mqc1j0q9gw8a": {
@@ -3269,78 +3313,9 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "quantity": {
-                    "value": 1
-                },
                 "rules": [],
-                "size": {
-                    "value": "med"
-                },
                 "slug": null,
                 "source": {
-                    "value": ""
-                },
-                "stackGroup": {
                     "value": ""
                 },
                 "traits": {
@@ -3353,20 +3328,18 @@
                         "nonlethal"
                     ]
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weaponType": {
                     "value": "melee"
-                },
-                "weight": {
-                    "value": 0
                 }
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Sap",
+            "permission": {
+                "default": 0
+            },
             "sort": 2300000,
             "type": "melee"
         },
@@ -3374,7 +3347,7 @@
             "_id": "t8D9jbYaoXXUxjCe",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -3414,16 +3387,20 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Versatile Performance",
+            "permission": {
+                "default": 0
+            },
             "sort": 2400000,
             "type": "action"
         },
         {
-            "_id": "nDSQTLlayioWhEjf",
+            "_id": "zmdPdUEf9SjhHnTL",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -3434,7 +3411,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The charlatan deals an extra [[/r 1d6 #precision]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>"
+                    "value": "<p>The charlatan deals an extra [[/r 1d6 #precision]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3458,7 +3435,7 @@
                         "selector": "damage"
                     }
                 ],
-                "slug": null,
+                "slug": "sneak-attack",
                 "source": {
                     "value": ""
                 },
@@ -3472,17 +3449,22 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
+            "folder": null,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
+            "permission": {
+                "default": 0
+            },
             "sort": 2500000,
             "type": "action"
         },
@@ -3521,8 +3503,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
+            "permission": {
+                "default": 0
+            },
             "sort": 2600000,
             "type": "lore"
         },
@@ -3561,8 +3547,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
+            "permission": {
+                "default": 0
+            },
             "sort": 2700000,
             "type": "lore"
         },
@@ -3601,8 +3591,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
+            "permission": {
+                "default": 0
+            },
             "sort": 2800000,
             "type": "lore"
         },
@@ -3641,8 +3635,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
+            "permission": {
+                "default": 0
+            },
             "sort": 2900000,
             "type": "lore"
         },
@@ -3681,8 +3679,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
+            "permission": {
+                "default": 0
+            },
             "sort": 3000000,
             "type": "lore"
         },
@@ -3721,8 +3723,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
+            "permission": {
+                "default": 0
+            },
             "sort": 3100000,
             "type": "lore"
         },
@@ -3761,8 +3767,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
+            "permission": {
+                "default": 0
+            },
             "sort": 3200000,
             "type": "lore"
         },
@@ -3801,8 +3811,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
+            "permission": {
+                "default": 0
+            },
             "sort": 3300000,
             "type": "lore"
         },
@@ -3841,8 +3855,12 @@
             },
             "effects": [],
             "flags": {},
+            "folder": null,
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Underworld Lore",
+            "permission": {
+                "default": 0
+            },
             "sort": 3400000,
             "type": "lore"
         }
@@ -3854,10 +3872,13 @@
     "token": {
         "actorId": "7GGHuOlSzcaF2AdL",
         "actorLink": false,
+        "alpha": 1,
         "bar1": {
-            "attribute": "attributes.hp"
+            "attribute": null
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": null
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -3869,17 +3890,19 @@
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
-        "lightAngle": 360,
+        "lightAngle": 0,
         "lightAnimation": {
             "intensity": 5,
             "speed": 5
         },
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Charlatan",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
-        "sightAngle": 360,
+        "sightAngle": 0,
         "tint": null,
         "vision": false,
         "width": 1

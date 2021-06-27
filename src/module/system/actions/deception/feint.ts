@@ -14,5 +14,6 @@ export function feint(options: SkillActionOptions) {
         ['mental'],
         checkType,
         options.event,
+        (target) => target.perception,
     );
 }

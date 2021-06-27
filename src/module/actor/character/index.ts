@@ -13,7 +13,7 @@ import {
     WISDOM,
 } from '@module/modifiers';
 import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
-import { WeaponDamagePF2e } from '@system/damage/weapon';
+import { ensureWeaponCategory, ensureWeaponSize, WeaponDamagePF2e } from '@system/damage/weapon';
 import { CheckPF2e, DamageRollPF2e, RollParameters } from '@system/rolls';
 import { SKILL_DICTIONARY } from '../data/values';
 import {
@@ -40,39 +40,36 @@ import { SpellAttackRollModifier, SpellDifficultyClass } from '@item/spellcastin
 import { WeaponCategory, WeaponDamage, WeaponData } from '@item/weapon/data';
 import { ZeroToFour } from '@module/data';
 import { AbilityString, DexterityModifierCapData, PerceptionData, StrikeTrait } from '@actor/data/base';
-
 import { SkillAbbreviation, SkillData } from '@actor/creature/data';
 import { ArmorCategory } from '@item/armor/data';
+import { ActiveEffectPF2e } from '@module/active-effect';
 
 export class CharacterPF2e extends CreaturePF2e {
-    /** @override */
-    static get schema(): typeof CharacterData {
+    static override get schema(): typeof CharacterData {
         return CharacterData;
     }
 
-    get ancestry(): AncestryPF2e | null {
+    get ancestry(): Embedded<AncestryPF2e> | null {
         return this.itemTypes.ancestry[0] ?? null;
     }
 
-    get background(): BackgroundPF2e | null {
+    get background(): Embedded<BackgroundPF2e> | null {
         return this.itemTypes.background[0] ?? null;
     }
 
-    get class(): ClassPF2e | null {
+    get class(): Embedded<ClassPF2e> | null {
         return this.itemTypes.class[0] ?? null;
     }
 
-    get heritage(): FeatPF2e | null {
+    get heritage(): Embedded<FeatPF2e> | null {
         return this.itemTypes.feat.find((feat) => feat.featType.value === 'heritage') ?? null;
     }
 
-    /** @override */
-    static get defaultImg() {
-        return CONST.DEFAULT_TOKEN;
+    get keyAbility(): AbilityString {
+        return this.data.data.details.keyability.value || 'str';
     }
 
-    /** @override */
-    prepareBaseData(): void {
+    override prepareBaseData(): void {
         super.prepareBaseData();
 
         // Add any homebrew categories
@@ -98,16 +95,14 @@ export class CharacterPF2e extends CreaturePF2e {
         };
     }
 
-    /** @override */
-    prepareEmbeddedEntities(): void {
-        super.prepareEmbeddedEntities();
-        this.prepareAncestry();
-        this.prepareBackground();
-        this.prepareClass();
+    /** Adjustments from ABC items are made after all items are prepared but before active effects are applied. */
+    override applyActiveEffects(): void {
+        this.ancestry?.prepareActorData();
+        this.class?.prepareActorData();
+        super.applyActiveEffects();
     }
 
-    /** @override */
-    prepareDerivedData(): void {
+    override prepareDerivedData(): void {
         super.prepareDerivedData();
 
         const rules = this.items
@@ -121,7 +116,9 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         const synthetics = this.prepareCustomModifiers(rules);
-        AutomaticBonusProgression.concatModifiers(this.level, synthetics);
+        if (!this.getFlag('pf2e', 'disableABP')) {
+            AutomaticBonusProgression.concatModifiers(this.level, synthetics);
+        }
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
 
@@ -147,25 +144,17 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Calculate HP and SP
         {
-            const ancestryHP = systemData.attributes.ancestryhp ?? 0;
-            const classHP = systemData.attributes.classhp ?? 0;
             const hitPoints = systemData.attributes.hp;
-            const modifiers = hitPoints.modifiers.concat(
-                new ModifierPF2e('PF2E.AncestryHP', ancestryHP, MODIFIER_TYPE.UNTYPED),
-            );
+            const modifiers = [...hitPoints.modifiers];
 
             if (game.settings.get('pf2e', 'staminaVariant')) {
                 const bonusSpPerLevel = (systemData.attributes.levelbonussp ?? 1) * this.level;
-                const halfClassHp = Math.floor(classHP / 2);
-
+                const halfClassHp = Math.floor((this.class?.hpPerLevel ?? 0) / 2);
                 systemData.attributes.sp.max =
                     (halfClassHp + systemData.abilities.con.mod) * this.level +
                     bonusSpPerLevel +
                     systemData.attributes.flatbonussp;
-
-                modifiers.push(new ModifierPF2e('PF2E.ClassHP', halfClassHp * this.level, MODIFIER_TYPE.UNTYPED));
             } else {
-                modifiers.push(new ModifierPF2e('PF2E.ClassHP', classHP * this.level, MODIFIER_TYPE.UNTYPED));
                 modifiers.push(
                     new ModifierPF2e(
                         'PF2E.AbilityCon',
@@ -255,6 +244,7 @@ export class CharacterPF2e extends CreaturePF2e {
             // Create a new modifier from the modifiers, then merge in other fields from the old save data, and finally
             // overwrite potentially changed fields.
             const stat = mergeObject(new StatisticModifier(saveName, modifiers), save, { overwrite: false });
+            stat.notes = notes;
             stat.value = stat.totalModifier;
             stat.breakdown = (stat.modifiers as ModifierPF2e[])
                 .filter((m) => m.enabled)
@@ -718,7 +708,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 damage: { dice: 1, die: 'd4', damageType: 'bludgeoning' },
                 group: { value: 'brawling' },
                 range: { value: 'melee' },
-                strikingRune: { value: '' },
+                strikingRune: { value: null },
                 traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
                 equipped: {
                     value: true, // consider checking for free hands
@@ -799,6 +789,9 @@ export class CharacterPF2e extends CreaturePF2e {
                     'attack-roll',
                     'all',
                 ];
+                if (item.data.baseItem && !selectors.includes(`${item.data.baseItem}-attack`)) {
+                    selectors.push(`${item.data.baseItem}-attack`);
+                }
 
                 const itemGroup = item.data.group.value ?? '';
                 if (itemGroup) {
@@ -814,6 +807,8 @@ export class CharacterPF2e extends CreaturePF2e {
                     .concat(melee ? 'melee' : 'ranged')
                     .concat(`${ability}-attack`);
                 ensureProficiencyOption(defaultOptions, proficiencyRank);
+                ensureWeaponCategory(defaultOptions, weaponCategory);
+                ensureWeaponSize(defaultOptions, item.data.size?.value, this.data.data.traits.size.value);
                 const notes: RollNotePF2e[] = [];
 
                 if (item.data.group?.value === 'bomb') {
@@ -937,10 +932,17 @@ export class CharacterPF2e extends CreaturePF2e {
                 // Add the base attack roll (used for determining on-hit)
                 action.attack = (args: RollParameters) => {
                     const ctx = this.createAttackRollContext(args.event!, ['all', 'attack-roll']);
-                    ctx.options = (args.options ?? []).concat(ctx.options).concat(defaultOptions);
+                    ctx.options = (args.options ?? [])
+                        .concat(ctx.options)
+                        .concat(action.options)
+                        .concat(defaultOptions);
+                    const dc = args.dc ?? ctx.dc;
+                    if (dc !== undefined && action.adjustments !== undefined) {
+                        dc.adjustments = action.adjustments;
+                    }
                     CheckPF2e.roll(
                         new CheckModifier(`${strikeLabel}: ${action.name}`, action),
-                        { actor: this, type: 'attack-roll', options: ctx.options, notes, dc: args.dc ?? ctx.dc },
+                        { actor: this, type: 'attack-roll', options: ctx.options, notes, dc },
                         args.event,
                         args.callback,
                     );
@@ -953,10 +955,17 @@ export class CharacterPF2e extends CreaturePF2e {
                             ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
                         roll: (args: RollParameters) => {
                             const ctx = this.createAttackRollContext(args.event!, ['all', 'attack-roll']);
-                            const options = (args.options ?? []).concat(ctx.options).concat(defaultOptions);
+                            const options = (args.options ?? [])
+                                .concat(ctx.options)
+                                .concat(action.options)
+                                .concat(defaultOptions);
+                            const dc = args.dc ?? ctx.dc;
+                            if (dc !== undefined && action.adjustments !== undefined) {
+                                dc.adjustments = action.adjustments;
+                            }
                             CheckPF2e.roll(
                                 new CheckModifier(`${strikeLabel}: ${action.name}`, action),
-                                { actor: this, type: 'attack-roll', options, notes, dc: args.dc ?? ctx.dc },
+                                { actor: this, type: 'attack-roll', options, notes, dc },
                                 args.event,
                                 args.callback,
                             );
@@ -966,7 +975,10 @@ export class CharacterPF2e extends CreaturePF2e {
                         label: `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map2}`,
                         roll: (args: RollParameters) => {
                             const ctx = this.createAttackRollContext(args.event!, ['all', 'attack-roll']);
-                            const options = (args.options ?? []).concat(ctx.options).concat(defaultOptions);
+                            const options = (args.options ?? [])
+                                .concat(ctx.options)
+                                .concat(action.options)
+                                .concat(defaultOptions);
                             CheckPF2e.roll(
                                 new CheckModifier(`Strike: ${action.name}`, action, [
                                     new ModifierPF2e(
@@ -985,7 +997,10 @@ export class CharacterPF2e extends CreaturePF2e {
                         label: `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map3}`,
                         roll: (args: RollParameters) => {
                             const ctx = this.createAttackRollContext(args.event!, ['all', 'attack-roll']);
-                            const options = (args.options ?? []).concat(ctx.options).concat(defaultOptions);
+                            const options = (args.options ?? [])
+                                .concat(ctx.options)
+                                .concat(action.options)
+                                .concat(defaultOptions);
                             CheckPF2e.roll(
                                 new CheckModifier(`Strike: ${action.name}`, action, [
                                     new ModifierPF2e(
@@ -1003,7 +1018,10 @@ export class CharacterPF2e extends CreaturePF2e {
                 ];
                 action.damage = (args: RollParameters) => {
                     const ctx = this.createDamageRollContext(args.event!);
-                    const options = (args.options ?? []).concat(ctx.options).concat(action.options);
+                    const options = (args.options ?? [])
+                        .concat(ctx.options)
+                        .concat(action.options)
+                        .concat(defaultOptions);
                     const damage = WeaponDamagePF2e.calculate(
                         item,
                         this.data,
@@ -1025,7 +1043,10 @@ export class CharacterPF2e extends CreaturePF2e {
                 };
                 action.critical = (args: RollParameters) => {
                     const ctx = this.createDamageRollContext(args.event!);
-                    const options = (args.options ?? []).concat(ctx.options).concat(action.options);
+                    const options = (args.options ?? [])
+                        .concat(ctx.options)
+                        .concat(action.options)
+                        .concat(defaultOptions);
                     const damage = WeaponDamagePF2e.calculate(
                         item,
                         this.data,
@@ -1133,6 +1154,9 @@ export class CharacterPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         });
+
+        // Refresh vision of controlled tokens linked to this actor in case any of the above changed its senses
+        this.refreshVision();
     }
 
     private prepareInitiative(
@@ -1190,42 +1214,6 @@ export class CharacterPF2e extends CreaturePF2e {
         data.attributes.initiative = stat;
     }
 
-    private prepareAncestry() {
-        const ancestry = this.ancestry;
-        if (ancestry) {
-            const actorData = this.data;
-            actorData.data.details.ancestry = ancestry.name;
-            actorData.data.attributes.ancestryhp = ancestry.hitPoints;
-            actorData.data.attributes.speed.value = String(ancestry.speed);
-            actorData.data.traits.size.value = ancestry.size;
-
-            // Add traits from ancestry and heritage
-            const ancestryTraits: Set<string> = ancestry?.traits ?? new Set();
-            const heritageTraits: Set<string> = this.heritage?.traits ?? new Set();
-            const traitSet = new Set(
-                [...ancestryTraits, ...heritageTraits].filter(
-                    (trait) => !['common', 'versatile heritage'].includes(trait),
-                ),
-            );
-            for (const trait of Array.from(traitSet).sort()) {
-                this.data.data.traits.traits.value.push(trait);
-            }
-        }
-    }
-
-    private prepareBackground() {
-        this.data.data.details.background = this.background?.name ?? '';
-    }
-
-    private prepareClass(): void {
-        const classItem = this.class;
-
-        if (classItem) {
-            this.data.data.details.class = classItem.name ?? '';
-            this.data.data.attributes.classhp = classItem.hpPerLevel ?? 0;
-        }
-    }
-
     /** Toggle the invested state of an owned magical item */
     async toggleInvested(itemId: string): Promise<boolean> {
         const item = this.physicalItems.get(itemId);
@@ -1246,6 +1234,22 @@ export class CharacterPF2e extends CreaturePF2e {
 
     async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
         await this.update({ [`data.martial.-=${key}`]: null });
+    }
+
+    /** Remove any features linked to a to-be-deleted ABC item */
+    override async deleteEmbeddedDocuments(
+        embeddedName: 'ActiveEffect' | 'Item',
+        ids: string[],
+        context: DocumentModificationContext = {},
+    ) {
+        if (embeddedName === 'Item') {
+            const abcItems = [this.ancestry, this.background, this.class].filter(
+                (item): item is Embedded<AncestryPF2e | BackgroundPF2e | ClassPF2e> => !!item && ids.includes(item.id),
+            );
+            const featureIds = abcItems.flatMap((item) => item.getLinkedFeatures().map((feature) => feature.id));
+            ids.push(...featureIds);
+        }
+        return super.deleteEmbeddedDocuments(embeddedName, ids, context) as Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
     }
 }
 

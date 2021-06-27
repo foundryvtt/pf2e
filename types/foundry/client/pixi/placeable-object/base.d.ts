@@ -193,6 +193,14 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
     protected _onRelease(options?: Record<string, unknown>): void;
 
     /**
+     * Rotate the PlaceableObject to a certain angle of facing
+     * @param angle The desired angle of rotation
+     * @param snap  Snap the angle of rotation to a certain target degree increment
+     * @return The rotated object
+     */
+    rotate(angle: number, snap: number): Promise<this> | void;
+
+    /**
      * Determine a new angle of rotation for a PlaceableObject either from an explicit angle or from a delta offset.
      * @param angle An explicit angle, either this or delta must be provided
      * @param delta A relative angle delta, either this or the angle must be provided
@@ -213,64 +221,39 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
     /*  Interactivity                               */
     /* -------------------------------------------- */
 
-    /**
-     * Activate interactivity for the Placeable Object
-     */
+    /** Activate interactivity for the Placeable Object */
     activateListeners(): void;
 
-    /**
-     * Create a standard MouseInteractionManager for the PlaceableObject
-     */
+    /** Create a standard MouseInteractionManager for the PlaceableObject */
     protected _createInteractionManager(): MouseInteractionManager;
 
-    /**
-     * Actions that should be taken for this Placeable Object when a mouseover event occurs
-     */
-    protected _onHoverIn(
-        event: PIXI.interaction.InteractionEvent,
-        { hoverOutOthers }?: { hoverOutOthers?: boolean },
-    ): boolean;
+    /** Actions that should be taken for this Placeable Object when a mouseover event occurs */
+    protected _onHoverIn(event: PIXI.InteractionEvent, { hoverOutOthers }?: { hoverOutOthers?: boolean }): boolean;
 
     /** Actions that should be taken for this Placeable Object when a mouseout event occurs */
-    protected _onHoverOut(event: PIXI.interaction.InteractionEvent): boolean;
+    protected _onHoverOut(event: PIXI.InteractionEvent): boolean;
 
-    /**
-     * Callback actions which occur on a single left-click event to assume control of the object
-     */
-    protected _onClickLeft(event: PIXI.interaction.InteractionEvent): boolean;
+    /** Callback actions which occur on a single left-click event to assume control of the object */
+    protected _onClickLeft(event: PIXI.InteractionEvent): boolean;
 
-    /**
-     * Callback actions which occur on a double left-click event to activate
-     */
-    protected _onClickLeft2(event: PIXI.interaction.InteractionEvent): boolean;
+    /** Callback actions which occur on a double left-click event to activate */
+    protected _onClickLeft2(event: PIXI.InteractionEvent): boolean;
 
-    /**
-     * Callback actions which occur on a single right-click event to configure properties of the object
-     */
-    protected _onClickRight(event: PIXI.interaction.InteractionEvent): void;
+    /** Callback actions which occur on a single right-click event to configure properties of the object */
+    protected _onClickRight(event: PIXI.InteractionEvent): void;
 
-    /**
-     * Callback actions which occur on a double right-click event to configure properties of the object
-     */
-    protected _onClickRight2(event: PIXI.interaction.InteractionEvent): void;
+    /** Callback actions which occur on a double right-click event to configure properties of the object */
+    protected _onClickRight2(event: PIXI.InteractionEvent): void;
 
-    /**
-     * Callback actions which occur when a mouse-drag action is first begun.
-     */
-    protected _onDragLeftStart(event: PIXI.interaction.InteractionEvent): void;
+    /** Callback actions which occur when a mouse-drag action is first begun. */
+    protected _onDragLeftStart(event: PIXI.InteractionEvent): void;
 
-    /**
-     * Callback actions which occur on a mouse-move operation.
-     */
-    protected _onDragLeftMove(event: PIXI.interaction.InteractionEvent): void;
+    /** Callback actions which occur on a mouse-move operation. */
+    protected _onDragLeftMove(event: PIXI.InteractionEvent): void;
 
-    /**
-     * Callback actions which occur on a mouse-move operation.
-     */
-    protected _onDragLeftDrop(event: PIXI.interaction.InteractionEvent): Promise<this['document'][]>;
+    /** Callback actions which occur on a mouse-move operation. */
+    protected _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<this['document'][]>;
 
-    /**
-     * Callback actions which occur on a mouse-move operation.
-     */
-    protected _onDragLeftCancel(event: PIXI.interaction.InteractionEvent): void;
+    /** Callback actions which occur on a mouse-move operation. */
+    protected _onDragLeftCancel(event: PIXI.InteractionEvent): void;
 }

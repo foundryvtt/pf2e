@@ -37,5 +37,6 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
         traits.sort(),
         checkType,
         options.event,
+        (target) => target.perception,
     );
 }

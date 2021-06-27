@@ -35,9 +35,7 @@ declare abstract class CanvasLayer extends PIXI.Container {
      */
     readonly name: string;
 
-    /**
-     * Deconstruct data used in the current layer in preparation to re-draw the canvas
-     */
+    /** Deconstruct data used in the current layer in preparation to re-draw the canvas */
     tearDown(): void;
 
     /**
@@ -52,8 +50,9 @@ declare abstract class CanvasLayer extends PIXI.Container {
      */
     activate(): this | void;
 
-    /**
-     * Deactivate the CanvasLayer, removing interactivity from its children.
-     */
+    /** Deactivate the CanvasLayer, removing interactivity from its children. */
     deactivate(): void;
+
+    /** Get the zIndex that should be used for ordering this layer vertically relative to others in the same Container. */
+    getZIndex(): number;
 }

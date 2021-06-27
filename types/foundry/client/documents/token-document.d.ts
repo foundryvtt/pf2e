@@ -4,7 +4,6 @@ type _Actor = Actor<TokenDocument<_Actor>>;
 
 declare global {
     class TokenDocument<TActor extends Actor = _Actor> extends TokenDocumentConstructor {
-        /** @override */
         constructor(
             data: PreCreate<foundry.data.TokenSource>,
             context: TokenDocumentConstructionContext<TokenDocument>,
@@ -24,7 +23,7 @@ declare global {
         get actor(): TActor | null;
 
         /** An indicator for whether or not the current User has full control over this Token document. */
-        get isOwner(): boolean;
+        override get isOwner(): boolean;
 
         /** A convenient reference for whether this TokenDocument is linked to the Actor it represents, or is a synthetic copy */
         get isLinked(): this['data']['actorLink'];
@@ -38,6 +37,19 @@ declare global {
         /* -------------------------------------------- */
         /*  Methods                                     */
         /* -------------------------------------------- */
+
+        override clone(
+            data: PreCreate<foundry.data.TokenSource> | undefined,
+            options: { save?: false | undefined; keepId?: boolean },
+        ): this;
+        override clone(
+            data?: PreCreate<foundry.data.TokenSource>,
+            options?: { save: true; keepId?: boolean },
+        ): Promise<this>;
+        override clone(
+            data?: PreCreate<foundry.data.TokenSource>,
+            options?: { save?: boolean; keepId?: boolean },
+        ): this;
 
         /**
          * Create a synthetic Actor using a provided Token instance
@@ -68,8 +80,9 @@ declare global {
          */
         modifyActorDocument(update: Record<string, unknown>, options: DocumentModificationContext): Promise<TActor[]>;
 
-        /** @override */
-        // getEmbeddedCollection(embeddedName: 'Item' | 'ActiveEffect'): ReturnType<TActor['getEmbeddedCollection']>;
+        override getEmbeddedCollection(
+            embeddedName: 'Item' | 'ActiveEffect',
+        ): ReturnType<TActor['getEmbeddedCollection']>;
 
         /**
          * Redirect creation of Documents within a synthetic Token Actor to instead update the tokenData override object.
@@ -114,25 +127,24 @@ declare global {
         /*  Event Handlers                              */
         /* -------------------------------------------- */
 
-        /** @override */
-        protected _preUpdate(
+        protected override _preUpdate(
             data: DocumentUpdateData<this>,
             options: DocumentModificationContext,
             user: User,
         ): Promise<void>;
 
-        /**
-         * When the Actor data overrides change for an un-linked Token Actor, simulate the pre-update process.
-         * @override
-         */
+        /** When the Actor data overrides change for an un-linked Token Actor, simulate the pre-update process. */
         protected _preUpdateTokenActor(
-            data: DocumentUpdateData<NonNullable<TActor>>,
+            data: DocumentUpdateData<TActor>,
             options: DocumentModificationContext,
             userId: string,
         ): Promise<void>;
 
-        /** @inheritdoc */
-        protected _onUpdate(data: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void;
+        protected override _onUpdate(
+            changed: DeepPartial<this['data']['_source']>,
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
         /** When the base Actor for a TokenDocument changes, we may need to update its Actor instance */
         protected _onUpdateBaseActor(update?: Record<string, unknown>): void;
@@ -151,13 +163,12 @@ declare global {
         static getTrackedAttributeChoices(attributes: TokenAttributes): TokenAttributes;
     }
 
-    /** Merge declarations */
     interface TokenDocument {
         readonly data: foundry.data.TokenData<this>;
 
         readonly parent: Scene | null;
 
-        _sheet: TokenConfig<this> | null;
+        _sheet: TokenConfig<TokenDocument> | null;
 
         readonly _object: Token<TokenDocument> | null;
     }

@@ -64,7 +64,7 @@ export abstract class RuleElementPF2e {
      */
     get ignored(): boolean {
         const { item } = this;
-        if (game.settings.get('pf2e', 'effectAutoExpire') && item.type === 'effect' && item.data.expired) {
+        if (game.settings.get('pf2e', 'automation.effectExpiration') && item.type === 'effect' && item.data.expired) {
             return true;
         }
         if (!isPhysicalData(item)) return false;
@@ -127,7 +127,7 @@ export abstract class RuleElementPF2e {
      * @param item the item data of the item containing the rule element
      * @param token the token data of the token to be created
      */
-    onCreateToken(_actorData: ActorDataPF2e, _item: ItemDataPF2e, _token: foundry.data.TokenData) {}
+    onCreateToken(_actorData: ActorDataPF2e, _item: ItemDataPF2e, _token: PreDocumentId<foundry.data.TokenSource>) {}
 
     /**
      * Used to look up the label when displaying a rule effect. By default uses the label field on a rule and if absent

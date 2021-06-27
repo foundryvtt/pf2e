@@ -5,15 +5,19 @@
             <div class="hint" style="display:none;">
                 {{{localize "PF2E.InventroyBrowserSearchHint"}}}
             </div>
-            <dl id="sorter">
+            <dl>
                 <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
-                <dd><select class="null" name="sortorder">
-                    <option value="true" selected>{{localize "PF2E.BrowserSortyByNameLabel"}}</option>
-                    <option value="false">{{localize "PF2E.BrowserSortyByLevelLabel"}}</option>
-                </select></dd>
+                <dd>
+                    <select class="order">
+                        <option value="name" selected>{{localize "PF2E.BrowserSortyByNameLabel"}}</option>
+                        <option value="level">{{localize "PF2E.BrowserSortyByLevelLabel"}}</option>
+                        <option value="price">{{localize "PF2E.BrowserSortyByPriceLabel"}}</option>
+                    </select>
+                    <a class="direction" data-type="alpha" data-direction="asc"><i class="fas fa-sort-alpha-up"></i></a>
+                </dd>
             </dl>
         </div>
-        <button class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
+        <button type="button" class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
         <div class="filtercontainer" id="itemTypesfilter">
             <h3>{{localize "PF2E.BrowserFilterInventoryTypes"}}</h3>
             <dl>
@@ -26,7 +30,7 @@
             <h3>{{localize "PF2E.BrowserFilterRarities"}}</h3>
             <dl style="display:none;">
                 {{#each rarities as |rarity key|}}
-                <label><dt><input type="checkbox" name="rarity-{{lower key}}"></dt><dd>{{localize rarity}}</dd></label>
+                    <label><dt><input type="checkbox" name="rarity-{{lower key}}"></dt><dd>{{localize rarity}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -61,43 +65,42 @@
             </dl>
         </div>
         <div class="filtercontainer rangecontainer" id="levelfilter">
-          <h3>{{localize "PF2E.BrowserFilterLevels"}}</h3>
-          <div style="display:none;">
-            <input type="number" name="lowerBound-level" value="0" min="0" max="30">
-            -
-            <input type="number" name="upperBound-level" value="30" min="0" max="30">
-          </div>
+            <h3>{{localize "PF2E.BrowserFilterLevels"}}</h3>
+            <div style="display:none;">
+                <input type="number" name="lowerBound-level" value="0" min="0" max="30">
+                -
+                <input type="number" name="upperBound-level" value="30" min="0" max="30">
+            </div>
         </div>
     </div>
-    <ul>
+    <ul class="item-list result-list">
         {{#each inventoryItems as |item id|}}
-        <li class="spell flexrow draggable" data-entry-compendium="{{item.compendium}}" data-entry-id="{{item._id}}" data-item-category="inventoryItems"
-            {{#each item.data as |attrib id|}}
-                data-{{lower id}}="{{lower attrib.value}}"
-            {{/each}}
-          >
-            <div class="spell-image">
-                <img class="" src="{{item.img}}" title="{{item.name}}" width="32" height="32" loading="lazy"/>
-            </div>
-            <div class="spell-name">
-                <span class="item-edit" ><a>{{item.name}}</a></span>
-            </div>
-            <div class="spell-tags">
-              <span title="Item Price">
-                {{#if (eq item.type 'treasure')}}
-                  {{item.data.value.value}} {{item.data.denomination.value}}
-                {{else}}
-                  {{item.data.price.value}}
-                {{/if}}
-              </span>
-            </div>
-            <div class="spell-tags">
-                <span title="Item level">{{item.data.level.value}}</span>
-            </div>
-            <a class="spell-tags take-item" title="{{localize 'PF2E.CompendiumBrowser.TakeLabel'}}">
-              <i class="fa fa-share" aria-hidden="true"></i>
-            </a>
-        </li>
+            <li class="item flexrow" data-entry-compendium="{{item.compendium}}" data-entry-id="{{item._id}}" data-item-category="inventoryItems"
+                {{#each item.filters as |filterKey|}}{{#if (lookup item.data filterKey)}}{{#with (lookup item.data filterKey) as |property|}}
+                data-{{lower filterKey}}="{{lower property.value}}"
+                {{/with}}{{/if}}{{/each}}>
+                <div class="image">
+                    <img class="" src="{{item.img}}" title="{{item.name}}" width="32" height="32" loading="lazy"/>
+                </div>
+                <div class="name">
+                    <a class="item-link">{{item.name}}</a>
+                </div>
+                <div class="cell">
+                    <span title="Item Price">
+                        {{#if (eq item.type 'treasure')}}
+                            {{item.data.value.value}} {{item.data.denomination.value}}
+                        {{else}}
+                            {{item.data.price.value}}
+                        {{/if}}
+                    </span>
+                </div>
+                <div class="level">
+                    <span title="Item level">{{item.data.level.value}}</span>
+                </div>
+                <a class="controls take-item" title="{{localize 'PF2E.CompendiumBrowser.TakeLabel'}}">
+                    <i class="far fa-hand-rock"></i>
+                </a>
+            </li>
         {{/each}}
     </ul>
 

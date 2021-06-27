@@ -1,11 +1,11 @@
-import type { CharacterPF2e } from '@actor/character';
-import { FeatSource } from '@item/feat/data';
+import { CharacterPF2e } from '@actor';
+import { FeatPF2e } from '@item/feat';
+import { ModifierPF2e, MODIFIER_TYPE } from '@module/modifiers';
 import { ABCItemPF2e } from '../abc';
-import { ClassData } from './data';
+import { ClassData, ClassTrait } from './data';
 
 export class ClassPF2e extends ABCItemPF2e {
-    /** @override */
-    static get schema(): typeof ClassData {
+    static override get schema(): typeof ClassData {
         return ClassData;
     }
 
@@ -13,41 +13,34 @@ export class ClassPF2e extends ABCItemPF2e {
         return this.data.data.hp;
     }
 
-    async addFeatures(actor: CharacterPF2e): Promise<void> {
-        await this.deleteExistingFeatures(actor);
-        await this.ensureClassFeaturesForLevel(actor, 0);
-    }
-
-    async ensureClassFeaturesForLevel(actor: CharacterPF2e, minLevelInput?: number): Promise<void> {
-        const minLevel: number = minLevelInput ?? this.getFlag(game.system.id, 'insertedClassFeaturesLevel') ?? 0;
-        if (minLevel >= actor.level) {
-            // no need to do anything, since we've seen it all
+    /** Prepare a character's data derived from their class */
+    prepareActorData(this: Embedded<ClassPF2e>) {
+        if (!(this.actor instanceof CharacterPF2e)) {
+            console.error('Only a character can have an ancestry');
             return;
         }
 
-        const featuresToAdd = Object.values(this.data.data.items).filter(
-            (entryData) => actor.level >= entryData.level && entryData.level > minLevel,
-        );
+        const hitPoints: { modifiers: readonly ModifierPF2e[] } = this.actor.attributes.hp;
+        const classHP = game.settings.get('pf2e', 'staminaVariant')
+            ? Math.floor((this.hpPerLevel * this.actor.level) / 2)
+            : this.hpPerLevel * this.actor.level;
+        hitPoints.modifiers = [
+            ...hitPoints.modifiers,
+            new ModifierPF2e('PF2E.ClassHP', classHP, MODIFIER_TYPE.UNTYPED),
+        ];
+    }
 
-        // ideally this would be a Promise.all on a map with a filter, but
-        // we're working around a bug in foundry where you're not allowed to
-        // call packs.get() multiple times concurrently, which this avoids.
-        const classFeaturesToCreate: FeatSource[] = [];
-        for await (const feature of featuresToAdd) {
-            const featureData = await this.getFeature(feature);
-            if (!featureData) continue;
-            classFeaturesToCreate.push(featureData);
-        }
-
-        for (const feature of classFeaturesToCreate) {
-            feature.data.location = this.id;
-        }
-
-        await actor.createEmbeddedDocuments('Item', classFeaturesToCreate);
-        await this.setFlag(game.system.id, 'insertedClassFeaturesLevel', actor.level);
+    /** In addition to automatically granted features, retrieve feats with a class trait of this class */
+    override getLinkedFeatures(): Embedded<FeatPF2e>[] {
+        if (!this.actor) return [];
+        const features = super.getLinkedFeatures();
+        const feats = this.actor.itemTypes.feat.filter((feat) => this.slug && feat.traits.has(this.slug));
+        return [...new Set([...features, ...feats])];
     }
 }
 
 export interface ClassPF2e {
     readonly data: ClassData;
+
+    get slug(): ClassTrait | null;
 }

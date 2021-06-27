@@ -23,7 +23,7 @@ declare module foundry {
             type: string;
             img: ImagePath;
             data: object;
-            effects: foundry.data.ActiveEffectSource[];
+            effects: ActiveEffectSource[];
             folder?: string | null;
             sort: number;
             permission: Record<string, PermissionLevel>;
@@ -34,7 +34,7 @@ declare module foundry {
             TDocument extends documents.BaseItem,
             TActiveEffect extends documents.BaseActiveEffect,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): {
+            static override defineSchema(): {
                 _id: typeof fields.DOCUMENT_ID;
                 name: typeof fields.REQUIRED_STRING;
                 type: {
@@ -62,7 +62,7 @@ declare module foundry {
             /** The default icon used for newly created Item documents */
             static DEFAULT_ICON: ImagePath;
 
-            protected _initializeSource(data: this['_source']): this['_source'];
+            protected override _initializeSource(data: this['_source']): this['_source'];
 
             /** A collection of ActiveEffect embedded Documents */
             effects: abstract.EmbeddedCollection<TActiveEffect>;

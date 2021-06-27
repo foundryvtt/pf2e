@@ -1,22 +1,23 @@
 import { CharacterSheetPF2e } from '@actor/character/sheet';
 import { NPCLegacySheetPF2e } from '@actor/npc/legacy-sheet';
-import { ActionSheetPF2e } from '@item/sheet/action';
+import { ActionSheetPF2e } from '@item/action/sheet';
 import { HazardSheetPF2e } from '@actor/hazard/sheet';
 import { LootSheetPF2e } from '@actor/loot/sheet';
 import { FamiliarSheetPF2e } from '@actor/familiar/sheet';
-import { VehicleSheetPF2e } from '@actor/sheet/vehicle';
+import { VehicleSheetPF2e } from '@actor/vehicle/sheet';
 import { NPCSheetPF2e } from '@actor/npc/sheet';
 import { ItemSheetPF2e } from '@item/sheet/base';
-import { KitSheetPF2e } from '@item/sheet/kit';
+import { KitSheetPF2e } from '@item/kit/sheet';
 import { AncestrySheetPF2e } from '@item/ancestry/sheet';
 import { BackgroundSheetPF2e } from '@item/sheet/background';
-import { ClassSheetPF2e } from '@item/sheet/class';
+import { ClassSheetPF2e } from '@item/class/sheet';
 import { SpellSheetPF2e } from '@item/spell/sheet';
 import { LocalizePF2e } from '@system/localize';
-import { PhysicalItemSheetPF2e } from '@item/sheet/physical';
+import { PhysicalItemSheetPF2e } from '@item/physical/sheet';
 import { ActorSheetPF2eDataEntryNPC } from '@actor/npc/data-entry-sheet';
 import { FeatSheetPF2e } from '@item/feat/sheet';
 import { PHYSICAL_ITEM_TYPES } from '@item/data/values';
+import { WeaponSheetPF2e } from '@item/weapon/sheet';
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -102,12 +103,18 @@ export function registerSheets() {
     }
 
     for (const itemType of PHYSICAL_ITEM_TYPES) {
+        if (itemType === 'weapon') continue;
         Items.registerSheet('pf2e', PhysicalItemSheetPF2e, {
             types: [itemType],
             label: game.i18n.format(sheetLabel, { type: localizeType(itemType) }),
             makeDefault: true,
         });
     }
+    Items.registerSheet('pf2e', WeaponSheetPF2e, {
+        types: ['weapon'],
+        label: game.i18n.format(sheetLabel, { type: localizeType('weapon') }),
+        makeDefault: true,
+    });
 
     const sheetEntries = [
         ['action', ActionSheetPF2e],

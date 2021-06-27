@@ -3,16 +3,24 @@ import { TokenPF2e } from './canvas/token';
 import { CombatPF2e } from './combat';
 
 export class CombatantPF2e extends Combatant {
+    /** In order for the Combat Tracker's "Skip Defeated" feature to function, a Combatant instance needs a `defeated`
+     *  property or an ActiveEffect with a flag located at `core.statusId`, corresponding with
+     *  the value of CONFIG.Combat.defeatedStatusId
+     */
+    get defeated(): boolean {
+        return this.data.defeated;
+    }
+
     /**
      * Hide the tracked resource if the combatant represents a non-player-owned actor
      * @todo Make this a configurable with a metagame-knowledge setting
      */
-    updateResource(): { value: number } | null {
+    override updateResource(): { value: number } | null {
         if (this.isNPC && !game.user.isGM) return (this.resource = null);
         return super.updateResource();
     }
 
-    _getInitiativeFormula(): string {
+    override _getInitiativeFormula(): string {
         const { actor } = this;
         if (!actor) return '1d20';
         const actorData = actor.data;
