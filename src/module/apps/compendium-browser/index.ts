@@ -174,9 +174,9 @@ export class CompendiumBrowser extends Application {
 
             for (const packType of types) {
                 const load =
-                    this.settings[packType]?.[pack.collection]?.load ||
-                    pack.collection.includes(packType) ||
-                    (packType === 'bestiary' && pack.collection.includes('npc-'));
+                    this.settings[packType]?.[pack.collection]?.load ??
+                    (pack.collection.includes(packType) ||
+                        (packType === 'bestiary' && pack.collection.includes('npc-')));
 
                 settings[packType]![pack.collection] = {
                     load,
