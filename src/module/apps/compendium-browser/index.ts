@@ -618,6 +618,11 @@ export class CompendiumBrowser extends Application {
             for (const spell of content) {
                 const spellData = spell.data;
                 if (spellData.type === 'spell') {
+                    // Set category of cantrips to "cantrip" until migration can be done
+                    if (spellData.data.traits.value.includes('cantrip')) {
+                        spellData.data.category.value = 'cantrip';
+                    }
+
                     // record the pack the spell was read from
                     spellData.compendium = pack.collection;
 
