@@ -1,7 +1,13 @@
 import type { ActorPF2e } from '@actor/base';
 import { CreaturePF2e } from '@actor';
 import { SKILL_EXPANDED } from '@actor/data/values';
-import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from '../../modifiers';
+import {
+    ensureProficiencyOption,
+    CheckModifier,
+    StatisticModifier,
+    ModifierPF2e,
+    ModifierPredicate,
+} from '../../modifiers';
 import { CheckPF2e } from '../rolls';
 import { StatisticWithDC } from '@system/statistic';
 import { seek } from './basic/seek';
@@ -31,6 +37,7 @@ import { demoralize } from './intimidation/demoralize';
 import { hide } from './stealth/hide';
 import { sneak } from './stealth/sneak';
 import { RollNotePF2e } from '@module/notes';
+import { DegreeOfSuccessString } from '@system/check-degree-of-success';
 
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
 
@@ -114,6 +121,22 @@ export class ActionsPF2e {
         }
     }
 
+    static note(
+        selector: string,
+        translationPrefix: string,
+        outcome: DegreeOfSuccessString,
+        translationKey?: string,
+    ): RollNotePF2e {
+        const visibility = game.settings.get('pf2e', 'metagame.showResults');
+        const translated = game.i18n.localize(translationKey ?? `${translationPrefix}.Notes.${outcome}`);
+        return new RollNotePF2e(
+            selector,
+            `<p class="compact-text">${translated}</p>`,
+            new ModifierPredicate(),
+            visibility === 'all' ? [outcome] : [],
+        );
+    }
+
     static simpleRollActionCheck(
         actors: ActorPF2e | ActorPF2e[] | undefined,
         statName: string,
@@ -127,7 +150,7 @@ export class ActionsPF2e {
         checkType: CheckType,
         event: JQuery.Event,
         difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC,
-        extraNotes: RollNotePF2e[] = [],
+        extraNotes?: (selector: string) => RollNotePF2e[],
     ) {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
@@ -199,7 +222,7 @@ export class ActionsPF2e {
                         dc,
                         type: checkType,
                         options: finalOptions,
-                        notes: (stat.notes ?? []).concat(extraNotes),
+                        notes: (stat.notes ?? []).concat(extraNotes ? extraNotes(statName) : []),
                         traits,
                         title: `${game.i18n.localize(title)} - ${game.i18n.localize(subtitle)}`,
                     },
