@@ -32,7 +32,12 @@ interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF
 export class ItemPF2e extends Item<ActorPF2e> {
     constructor(data: PreCreate<ItemSourcePF2e>, context: ItemConstructionContextPF2e = {}) {
         if (context.pf2e?.ready) {
+            if (data.flags) {
+                data.flags.pf2e ??= {};
+                data.flags.pf2e.constructing = true;
+            }
             super(data, context);
+            if (data.flags?.pf2e) delete data.flags.pf2e.constructing;
         } else {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
@@ -167,7 +172,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     /** Refresh the Item Directory if this item isn't owned */
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        if (!this.isOwned && ui.items) ui.items.render();
+        if (!this.isOwned && ui.items && !this.getFlag('pf2e', 'constructing')) ui.items.render();
     }
 
     /* -------------------------------------------- */
@@ -818,5 +823,9 @@ export interface ItemPF2e {
     readonly data: ItemDataPF2e;
     readonly parent: ActorPF2e | null;
 
-    readonly _sheet: ItemSheetPF2e<this>;
+    _sheet: ItemSheetPF2e<this>;
+
+    getFlag(scope: 'core', key: 'sourceId'): string;
+    getFlag(scope: 'pf2e', key: 'constructing'): true | undefined;
+    getFlag(scope: string, key: string): any;
 }
