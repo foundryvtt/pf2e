@@ -78,20 +78,24 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const highestPrice =
             coinValueInCopper(modifiedPrice) > coinValueInCopper(basePrice) ? modifiedPrice : basePrice;
         systemData.price.value = coinsToString(highestPrice);
+
+        const baseLevel = this.level;
         systemData.level.value = runesData
             .map((runeData) => runeData.level)
             .concat(materialData?.level ?? 0)
-            .reduce((highest, level) => (level > highest ? level : highest), 0);
+            .reduce((highest, level) => (level > highest ? level : highest), baseLevel);
+
         const rarityOrder = {
             common: 0,
             uncommon: 1,
             rare: 2,
             unique: 3,
         };
+        const baseRarity = this.rarity;
         systemData.traits.rarity.value = runesData
             .map((runeData) => runeData.rarity)
             .concat(materialData?.rarity ?? 'common')
-            .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), 'common');
+            .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), baseRarity);
 
         // Set the name according to the precious material and runes
         this.data.name = this.generateMagicName();
