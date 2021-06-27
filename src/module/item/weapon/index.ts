@@ -94,7 +94,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             .reduce((highest, rarity) => (rarityOrder[rarity] > rarityOrder[highest] ? rarity : highest), 'common');
 
         // Set the name according to the precious material and runes
-        if (this.isIdentified) this.data.name = this.generateMagicName();
+        this.data.name = this.generateMagicName();
     }
 
     getRunesData(): RuneValuationData[] {
@@ -178,7 +178,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     override getMystifiedData(status: IdentificationStatus, { source = false } = {}): MystifiedData {
         const mystifiedData = super.getMystifiedData(status);
-        if (status === 'identified') mystifiedData.name = source ? mystifiedData.name : this.generateMagicName();
+        if (source) mystifiedData.name = this.data._source.name;
         return mystifiedData;
     }
 
