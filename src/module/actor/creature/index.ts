@@ -13,7 +13,7 @@ import {
     WeaponPotencyPF2e,
 } from '@module/rules/rules-data-definitions';
 import { ActiveEffectPF2e } from '@module/active-effect';
-import { isMagicItemData } from '@item/data/helpers';
+import { hasInvestedProperty } from '@item/data/helpers';
 import { DegreeOfSuccessAdjustment, PF2CheckDC } from '@system/check-degree-of-success';
 import { CheckPF2e } from '@system/rolls';
 import { VisionLevel, VisionLevels } from './data';
@@ -246,7 +246,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             }
 
             // Uninvested items as they're unequipped
-            if (update['data.equipped.value'] === false && isMagicItemData(item.data)) {
+            if (update['data.equipped.value'] === false && hasInvestedProperty(item.data)) {
                 update['data.invested.value'] = false;
             }
         }
