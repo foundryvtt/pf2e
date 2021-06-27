@@ -73,7 +73,7 @@ export interface ActivatedEffectData {
     };
 }
 
-export type IdentificationStatus = 'identified' | 'unidentified' | 'misidentified';
+export type IdentificationStatus = 'identified' | 'unidentified';
 
 export interface MystifiedData {
     name: string;
@@ -89,6 +89,7 @@ export type IdentifiedData = DeepPartial<MystifiedData>;
 
 export interface IdentificationData {
     status: IdentificationStatus;
+    identified: MystifiedData;
     unidentified: MystifiedData;
     misidentified: {};
 }

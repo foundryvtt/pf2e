@@ -20,7 +20,7 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
     static override version = 0.628;
 
     private get defaultData(): IdentificationData {
-        const data: IdentificationData = {
+        const data: Omit<IdentificationData, 'identified'> = {
             status: 'identified',
             unidentified: {
                 name: '',
