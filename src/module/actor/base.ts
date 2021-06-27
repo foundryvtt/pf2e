@@ -11,7 +11,7 @@ import { ItemTransfer } from './item-transfer';
 import { TokenEffect } from '@module/rules/rule-element';
 import { ActorSheetPF2e } from './sheet/base';
 import { ChatMessagePF2e } from '@module/chat-message';
-import { isMagicItemData } from '@item/data/helpers';
+import { hasInvestedProperty } from '@item/data/helpers';
 import { SUPPORTED_ROLL_OPTIONS } from './data/values';
 import { SaveData, SaveString, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from './creature/data';
 import { AbilityString, BaseActorDataPF2e } from './data/base';
@@ -809,8 +809,9 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const newItemData = item.toObject();
         newItemData.data.quantity.value = quantity;
         newItemData.data.equipped.value = false;
-        if (isMagicItemData(newItemData)) {
-            newItemData.data.invested.value = false;
+        if (hasInvestedProperty(newItemData)) {
+            const traits: Set<string> = item.traits;
+            newItemData.data.invested.value = traits.has('invested') ? false : null;
         }
 
         // Stack with an existing item if possible
