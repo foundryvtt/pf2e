@@ -113,4 +113,7 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     item?: string;
     trickMagicItemData?: TrickMagicItemCastData;
     isSignatureSpell?: boolean;
+    autoHeightenLevel: {
+        value: OneToTen | null;
+    };
 }
