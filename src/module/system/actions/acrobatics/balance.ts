@@ -6,7 +6,7 @@ export function balance(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.Balance',
+        'PF2E.Actions.Balance.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:balance'],
@@ -14,5 +14,12 @@ export function balance(options: SkillActionOptions) {
         ['move'],
         checkType,
         options.event,
+        undefined,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.Balance', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Balance', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Balance', 'failure'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Balance', 'criticalFailure'),
+        ],
     );
 }
