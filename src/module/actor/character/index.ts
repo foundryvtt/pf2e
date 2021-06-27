@@ -40,9 +40,9 @@ import { SpellAttackRollModifier, SpellDifficultyClass } from '@item/spellcastin
 import { WeaponCategory, WeaponDamage, WeaponData } from '@item/weapon/data';
 import { ZeroToFour } from '@module/data';
 import { AbilityString, DexterityModifierCapData, PerceptionData, StrikeTrait } from '@actor/data/base';
-
 import { SkillAbbreviation, SkillData } from '@actor/creature/data';
 import { ArmorCategory } from '@item/armor/data';
+import { ActiveEffectPF2e } from '@module/active-effect';
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -1234,6 +1234,22 @@ export class CharacterPF2e extends CreaturePF2e {
 
     async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
         await this.update({ [`data.martial.-=${key}`]: null });
+    }
+
+    /** Remove any features linked to a to-be-deleted ABC item */
+    override async deleteEmbeddedDocuments(
+        embeddedName: 'ActiveEffect' | 'Item',
+        ids: string[],
+        context: DocumentModificationContext = {},
+    ) {
+        if (embeddedName === 'Item') {
+            const abcItems = [this.ancestry, this.background, this.class].filter(
+                (item): item is Embedded<AncestryPF2e | BackgroundPF2e | ClassPF2e> => !!item && ids.includes(item.id),
+            );
+            const featureIds = abcItems.flatMap((item) => item.getLinkedFeatures().map((feature) => feature.id));
+            ids.push(...featureIds);
+        }
+        return super.deleteEmbeddedDocuments(embeddedName, ids, context) as Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
     }
 }
 
