@@ -1,3 +1,4 @@
+import { CharacterPF2e } from '@actor';
 import { ItemPF2e } from '@item/index';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ordinal, toNumber } from '@module/utils';
@@ -19,7 +20,7 @@ export class SpellPF2e extends ItemPF2e {
 
     private computeCastLevel(castLevel?: number) {
         const isAutoScaling = this.isCantrip || this.isFocusSpell;
-        if (isAutoScaling && this.actor) {
+        if (isAutoScaling && this.actor instanceof CharacterPF2e) {
             return Math.ceil(this.actor.level / 2);
         }
 
