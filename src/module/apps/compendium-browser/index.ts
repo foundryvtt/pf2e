@@ -8,9 +8,10 @@ import { ErrorPF2e, tupleHasValue } from '@module/utils';
 import { ActorPF2e, FamiliarPF2e } from '@actor';
 import { ActionData, FeatData } from '@item/data';
 import { HazardData, NPCData } from '@actor/data';
+import { LocalizePF2e } from '@system/localize';
 
 /** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */
-function sortedObject(obj: object) {
+function sortedObject(obj: Record<string, unknown>) {
     return Object.fromEntries([...Object.entries(obj)].sort());
 }
 
@@ -58,8 +59,8 @@ class PackLoader {
 
     async *loadPacks(entityType: string, packs: string[]) {
         this.loadedPacks[entityType] ??= {};
+        const translations = LocalizePF2e.translations.PF2E.CompendiumBrowser.ProgressBar;
 
-        // TODO: i18n for progress bar
         const progress = new Progress({ steps: packs.length });
         for await (const packId of packs) {
             let data = this.loadedPacks[entityType][packId];
@@ -69,7 +70,7 @@ class PackLoader {
                     progress.advance('');
                     continue;
                 }
-                progress.advance(`Loading ${pack.metadata.label}`);
+                progress.advance(game.i18n.format(translations.LoadingPack, { pack: pack.metadata.label }));
                 if (pack.metadata.entity === entityType) {
                     const content = await pack.getDocuments();
                     data = { pack, content };
@@ -79,12 +80,12 @@ class PackLoader {
                 }
             } else {
                 const { pack } = data;
-                progress.advance(`Loading ${pack.metadata.label}`);
+                progress.advance(game.i18n.format(translations.LoadingPack, { pack: pack.metadata.label }));
             }
 
             yield data;
         }
-        progress.close('Loading complete');
+        progress.close(translations.LoadingComplete);
     }
 }
 
@@ -684,7 +685,7 @@ export class CompendiumBrowser extends Application {
             traditions: CONFIG.PF2E.spellTraditions,
             spells,
             rarities: CONFIG.PF2E.rarityTraits,
-            spellTraits: CONFIG.PF2E.spellOtherTraits,
+            spellTraits: sortedObject({ ...CONFIG.PF2E.spellOtherTraits, ...CONFIG.PF2E.damageTraits }),
         };
     }
 
@@ -712,23 +713,25 @@ export class CompendiumBrowser extends Application {
         super.activateListeners($html);
         this.resetFilters($html);
 
-        $html.find('button.clear-filters').on('click', () => {
+        const $controlArea = $html.find('.control-area');
+
+        $controlArea.find('button.clear-filters').on('click', () => {
             this.resetFilters($html);
             this.filterItems($html.find('.tab.active li'));
         });
 
         // Toggle visibility of filter containers
-        $html.find('.filtercontainer h3').on('click', (event) => {
+        $controlArea.find('.filtercontainer h3').on('click', (event) => {
             $(event.delegateTarget).next().toggle(100);
         });
 
-        // toggle hints
-        $html.find('.control-area input[name=textFilter]').on('contextmenu', () => {
+        // Toggle hints
+        $controlArea.find('input[name=textFilter]').on('contextmenu', () => {
             $html.find('.hint').toggle(100);
         });
 
         // Sort item list
-        const $sort = $html.find('.tab .sortcontainer');
+        const $sort = $controlArea.find('.tab .sortcontainer');
         const $order = $sort.find<HTMLSelectElement>('select.order');
         const $direction = $sort.find('a.direction');
         $order.on('change', () => {
@@ -749,18 +752,18 @@ export class CompendiumBrowser extends Application {
             this.sortResults($list, { sortBy, direction });
         });
 
-        // activating or deactivating filters
-        $html.find<HTMLInputElement>('input[name=textFilter]').on('change paste', (event) => {
+        // Activate or deactivate filters
+        $controlArea.find<HTMLInputElement>('input[name=textFilter]').on('change paste', (event) => {
             this.sorters.text = event.target.value;
             this.filterItems($html.find('.tab.active li'));
         });
-        $html.find<HTMLSelectElement>('#timefilter select').on('change', (event) => {
+        $controlArea.find<HTMLSelectElement>('.timefilter select').on('change', (event) => {
             this.sorters.castingtime = event.target.value;
             this.filterItems($html.find('.tab.active li'));
         });
 
-        // filters for spell level, class and school
-        $html.find<HTMLInputElement>('input[type=checkbox]').on('click', (event) => {
+        // Filters
+        $controlArea.find<HTMLInputElement>('input[type=checkbox]').on('click', (event) => {
             const filterType = event.target.name.split(/-(.+)/)[0];
             const filterTarget = event.target.name.split(/-(.+)/)[1];
             const filterValue = event.target.checked;
@@ -771,8 +774,8 @@ export class CompendiumBrowser extends Application {
             this.filterItems($html.find('.tab.active li'));
         });
 
-        // filter for levels
-        $html.find<HTMLInputElement>('input[name*=Bound]').on('input change paste', (event) => {
+        // Filter for levels
+        $controlArea.find<HTMLInputElement>('input[name*=Bound]').on('input change paste', (event) => {
             const type = event.target.name.split('-')[1] ?? '';
 
             const $parent = $(event.target).closest('div');
