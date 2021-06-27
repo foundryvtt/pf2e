@@ -34,7 +34,8 @@ import { ScenePF2e } from '@module/scene';
 import { CompendiumBrowser } from '@module/apps/compendium-browser';
 import { remigrate } from '@scripts/system/remigrate';
 import { FolderPF2e } from '@module/folder';
-import { CanvasPF2e } from '@module/canvas';
+import { AmbientLightPF2e, CanvasPF2e, LightingLayerPF2e } from '@module/canvas';
+import { FogExplorationPF2e } from '@module/fog-exploration';
 
 declare global {
     interface Game {
@@ -70,13 +71,16 @@ declare global {
 
     interface ConfigPF2e
         extends Config<
+            AmbientLightPF2e,
             ActiveEffectPF2e,
             ActorPF2e,
             ChatMessagePF2e,
             CombatantPF2e,
             CombatPF2e,
+            FogExplorationPF2e,
             FolderPF2e,
             ItemPF2e,
+            LightingLayerPF2e,
             MacroPF2e,
             ScenePF2e,
             TokenDocumentPF2e
@@ -90,13 +94,16 @@ declare global {
             roundTime: number;
         };
         ui: Config<
+            AmbientLightPF2e,
             ActiveEffectPF2e,
             ActorPF2e,
             ChatMessagePF2e,
             CombatantPF2e,
             CombatPF2e,
+            FogExplorationPF2e,
             FolderPF2e,
             ItemPF2e,
+            LightingLayerPF2e,
             MacroPF2e,
             ScenePF2e,
             TokenDocumentPF2e

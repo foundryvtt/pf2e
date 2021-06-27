@@ -1,4 +1,6 @@
-export class LightingLayerPF2e extends LightingLayer {
+import { AmbientLightPF2e } from './ambient-light';
+
+export class LightingLayerPF2e extends LightingLayer<AmbientLightPF2e> {
     /** Set Unrestricted Global Vision based on token vision */
     override hasGlobalIllumination(): boolean {
         const coreHasGlobalLight = super.hasGlobalIllumination();

@@ -18,12 +18,7 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
      * Track the field of vision for the placeable object.
      * This is necessary to determine whether a player has line-of-sight towards a placeable object or vice-versa
      */
-    vision:
-        | {
-              fov: PIXI.Polygon | null;
-              los: PIXI.Polygon | null;
-          }
-        | PointSource<this>;
+    vision: PointSource<this>;
 
     /** A control icon for interacting with the object */
     controlIcon: ControlIcon;
@@ -41,7 +36,7 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
     static embeddedName: string;
 
     /* -------------------------------------------- */
-    /* Properties
+    /* Properties                                   */
     /* -------------------------------------------- */
 
     /**
@@ -84,31 +79,31 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
     can(user: User, action: UserAction): boolean;
 
     /** Can the User access the HUD for this Placeable Object? */
-    protected _canHUD(user: User, event?: Event): boolean;
+    protected _canHUD(user: User, event?: PIXI.InteractionEvent): boolean;
 
     /** Does the User have permission to configure the Placeable Object? */
-    protected _canConfigure(user: User, event?: Event): boolean;
+    protected _canConfigure(user: User, event?: PIXI.InteractionEvent): boolean;
 
     /** Does the User have permission to control the Placeable Object? */
-    protected _canControl(user: User, event?: Event): boolean;
+    protected _canControl(user: User, event?: PIXI.InteractionEvent): boolean;
 
     /** Does the User have permission to view details of the Placeable Object? */
-    protected _canView(user: User, event?: Event): boolean;
+    protected _canView(user: User, event?: PIXI.InteractionEvent): boolean;
 
     /** Does the User have permission to create the underlying Embedded Entity? */
-    protected _canCreate(user: User, event?: Event): boolean;
+    protected _canCreate(user: User, event?: PIXI.InteractionEvent): boolean;
 
     /** Does the User have permission to drag this Placeable Object? */
-    protected _canDrag(user: User, event?: Event): boolean;
+    protected _canDrag(user: User, event?: PIXI.InteractionEvent): boolean;
 
     /** Does the User have permission to hover on this Placeable Object? */
-    protected _canHover(user: User, event?: Event): boolean;
+    protected _canHover(user: User, event?: PIXI.InteractionEvent): boolean;
 
     /** Does the User have permission to update the underlying Embedded Entity? */
-    protected _canUpdate(user: User, event?: Event): boolean;
+    protected _canUpdate(user: User, event?: PIXI.InteractionEvent): boolean;
 
     /** Does the User have permission to delete the underlying Embedded Entity? */
-    protected _canDelete(user: User, event?: Event): boolean;
+    protected _canDelete(user: User, event?: PIXI.InteractionEvent): boolean;
 
     /* -------------------------------------------- */
     /*  Rendering                                   */

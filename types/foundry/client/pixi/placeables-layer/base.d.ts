@@ -5,8 +5,7 @@ declare global {
     abstract class PlaceablesLayer<TPlaceableObject extends PlaceableObject = PlaceableObject> extends CanvasLayer {
         constructor();
 
-        /** Placeable Layer Objects */
-        objects: TPlaceableObject[];
+        objects: PIXI.Application;
 
         /** Preview Object Placement */
         preview: PIXI.Container;
@@ -63,6 +62,9 @@ declare global {
         /* -------------------------------------------- */
         /*  Rendering                                   */
         /* -------------------------------------------- */
+
+        /** Obtain an iterable of objects which should be added to this PlaceableLayer */
+        getDocuments(): TPlaceableObject['document'][];
 
         /**
          * Draw the PlaceablesLayer.
@@ -283,7 +285,7 @@ declare global {
          * Conclude a left-click drag workflow originating from the Canvas stage.
          * @see {Canvas#_onDragLeftDrop}
          */
-        protected _onDragLeftDrop(event: ElementDragEvent): Promise<void>;
+        protected _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<void>;
 
         /**
          * Cancel a left-click drag workflow originating from the Canvas stage.
