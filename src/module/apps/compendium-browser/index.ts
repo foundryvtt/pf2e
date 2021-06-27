@@ -736,7 +736,7 @@ export class CompendiumBrowser extends Application {
         });
 
         // Sort item list
-        const $sort = $controlArea.find('.tab .sortcontainer');
+        const $sort = $controlArea.find('.sortcontainer');
         const $order = $sort.find<HTMLSelectElement>('select.order');
         const $direction = $sort.find('a.direction');
         $order.on('change', () => {
