@@ -6,12 +6,4 @@ export class SightLayerPF2e extends SightLayer<FogExplorationPF2e> {
         const settingEnabled = game.settings.get('pf2e', 'automation.rulesBasedVision');
         return canvas.ready && this.tokenVision && settingEnabled;
     }
-
-    /** Refresh ambient lights */
-    override restrictVisibility(): void {
-        for (const light of canvas.lighting.placeables) {
-            if (light.isVisible) light.updateSource();
-        }
-        super.restrictVisibility();
-    }
 }

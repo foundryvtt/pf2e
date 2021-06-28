@@ -6,7 +6,7 @@ export function disarm(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.Disarm',
+        'PF2E.Actions.Disarm.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:disarm'],
@@ -15,5 +15,10 @@ export function disarm(options: SkillActionOptions) {
         checkType,
         options.event,
         (target) => target.reflex,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.Disarm', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Disarm', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Disarm', 'criticalFailure'),
+        ],
     );
 }
