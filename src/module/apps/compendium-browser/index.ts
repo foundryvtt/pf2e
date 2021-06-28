@@ -166,40 +166,47 @@ export class CompendiumBrowser extends Application {
         };
 
         for (const pack of game.packs) {
-            const type = pack.index.contents[0]?.type;
-            if (type === undefined) continue;
+            const types = new Set(pack.index.map((entry) => entry.type));
+            if (types.size === 0) continue;
 
-            if (type === 'action') {
-                const load = this.settings.action?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
-                settings.action![pack.collection] = {
-                    load,
-                    name: pack.metadata.label,
-                };
-            } else if (type === 'npc') {
+            if (types.has('npc')) {
                 const load = this.settings.bestiary?.[pack.collection]?.load ?? true;
                 settings.bestiary![pack.collection] = {
                     load,
                     name: pack.metadata.label,
                 };
-            } else if (type === 'hazard') {
+            }
+            if (types.has('hazard')) {
                 const load = this.settings.hazard?.[pack.collection]?.load ?? true;
                 settings.hazard![pack.collection] = {
                     load,
                     name: pack.metadata.label,
                 };
-            } else if (['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit'].includes(type)) {
+            }
+
+            if (types.has('action')) {
+                const load = this.settings.action?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
+                settings.action![pack.collection] = {
+                    load,
+                    name: pack.metadata.label,
+                };
+            } else if (
+                ['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit'].some((type) =>
+                    types.has(type),
+                )
+            ) {
                 const load = this.settings.equipment?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
                 settings.equipment![pack.collection] = {
                     load,
                     name: pack.metadata.label,
                 };
-            } else if (type === 'feat') {
+            } else if (types.has('feat')) {
                 const load = this.settings.feat?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
                 settings.feat![pack.collection] = {
                     load,
                     name: pack.metadata.label,
                 };
-            } else if (type === 'spell') {
+            } else if (types.has('spell')) {
                 const load = this.settings.spell?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
                 settings.spell![pack.collection] = {
                     load,
