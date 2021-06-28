@@ -164,7 +164,7 @@ export class CompendiumBrowser extends Application {
             if (type === undefined) continue;
 
             if (type === 'action') {
-                const load = this.settings.action?.[pack.collection]?.load ?? loadDefault[pack.collection] ?? false;
+                const load = this.settings.action?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
                 settings.action![pack.collection] = {
                     load,
                     name: pack.metadata.label,
@@ -182,19 +182,19 @@ export class CompendiumBrowser extends Application {
                     name: pack.metadata.label,
                 };
             } else if (['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit'].includes(type)) {
-                const load = this.settings.equipment?.[pack.collection]?.load ?? loadDefault[pack.collection] ?? false;
+                const load = this.settings.equipment?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
                 settings.equipment![pack.collection] = {
                     load,
                     name: pack.metadata.label,
                 };
             } else if (type === 'feat') {
-                const load = this.settings.feat?.[pack.collection]?.load ?? loadDefault[pack.collection] ?? false;
+                const load = this.settings.feat?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
                 settings.feat![pack.collection] = {
                     load,
                     name: pack.metadata.label,
                 };
             } else if (type === 'spell') {
-                const load = this.settings.spell?.[pack.collection]?.load ?? loadDefault[pack.collection] ?? false;
+                const load = this.settings.spell?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
                 settings.spell![pack.collection] = {
                     load,
                     name: pack.metadata.label,
