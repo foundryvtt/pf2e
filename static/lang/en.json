@@ -84,7 +84,15 @@
         "ActionTypeReaction": "Reaction",
         "ActionWeaponLabel": "Associated Weapon",
         "Actions": {
-            "Balance": "Balance",
+            "Balance": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> You move up to your Speed.",
+                    "success": "<b>Success</b> You move up to your Speed, treating it as difficult terrain (every 5 feet costs 10 feet of movement).",
+                    "failure": "<b>Failure</b> You must remain stationary to keep your balance (wasting the action) or you fall. If you fall, your turn ends.",
+                    "criticalFailure": "<b>Critical Failure</b> You fall and your turn ends."
+                },
+                "Title": "Balance"
+            },
             "Climb": "Climb",
             "Coerce": "Coerce",
             "CreateADiversion": {
@@ -124,7 +132,14 @@
             "Lie": "Lie",
             "LongJump": "Long Jump",
             "MakeAnImpression": "Make an Impression",
-            "ManeuverInFlight": "Maneuver in Flight",
+            "ManeuverInFlight": {
+                "Notes": {
+                    "success": "<b>Success</b> You succeed at the maneuver.",
+                    "failure": "<b>Failure</b> Your maneuver fails. The GM chooses if you simply can't move or if some other detrimental effect happens. The outcome should be appropriate for the maneuver you attempted (for instance, being blown off course if you were trying to fly against a strong wind).",
+                    "criticalFailure": "<b>Critical Failure</b> As failure, but the consequence is more dire."
+                },
+                "Title": "Maneuver in Flight"
+            },
             "RaiseAShield": {
                 "SingleActionTitle": "Raise a Shield",
                 "ReactionTitle": "Reactive Shield",
@@ -159,7 +174,13 @@
                 },
                 "Title": "Trip"
             },
-            "TumbleThrough": "Tumble Through"
+            "TumbleThrough": {
+                "Notes": {
+                    "success": "<b>Success</b> You move through the enemy's space, treating the squares in its space as difficult terrain (every 5 feet costs 10 feet of movement). If you don't have enough Speed to move all the way through its space, you get the same effect as a failure.",
+                    "failure": "<b>Failure</b> Your movement ends, and you trigger reactions as if you had moved out of the square you started in."
+                },
+                "Title": "Tumble Through"
+            }
         },
         "ActionsCheck": {
             "acrobatics": "Acrobatics Skill Check",
@@ -842,8 +863,16 @@
                 "GeneratedName": {
                     "Hint": "This is the name of the base weapon. For most weapons, the base is used to generate a fuller name, taking into account the material composition and/or runes. Giving this weapon a custom name or marking it as \"specific\" will prevent the generated name from appearing.",
                     "Potency": "+{potency} {base}",
+                    "PotencyOneProperty": "+{potency} {property1} {base}",
+                    "PotencyTwoProperties": "+{potency} {property1} {property2} {base}",
+                    "PotencyThreeProperties": "+{potency} {property1} {property2} {base}",
+                    "PotencyFourProperties": "+{potency} {property1} {property2} {property3} {property4} {base}",
                     "Material": "{material} {base}",
                     "PotencyMaterial": "+{potency} {material} {base}",
+                    "PotencyOnePropertyMaterial": "+{potency} {property1} {material} {base}",
+                    "PotencyTwoPropertiesMaterial": "+{potency} {property1} {property2} {material} {base}",
+                    "PotencyThreePropertiesMaterial": "+{potency} {property1} {property2} {property3} {material} {base}",
+                    "PotencyFourPropertiesMaterial": "+{potency} {property1} {property2} {property3} {property4} {material} {base}",
                     "PotencyStriking": "+{potency} {striking} {base}",
                     "PotencyStrikingMaterial": "+{potency} {striking} {material} {base}",
                     "PotencyStrikingOneProperty": "+{potency} {striking} {property1} {base}",
@@ -1928,6 +1957,9 @@
         "TraitDeadly3D8": "Deadly 3d8",
         "TraitDeadly3D10": "Deadly 3d10",
         "TraitDeadly3D12": "Deadly 3d12",
+        "TraitDeadly4D8": "Deadly 4d8",
+        "TraitDeadly4D10": "Deadly 4d10",
+        "TraitDeadly4D12": "Deadly 4d12",
         "TraitDeath": "Death",
         "TraitDedication": "Dedication",
         "TraitDemon": "Demon",
@@ -1981,8 +2013,12 @@
         "TraitDescriptionDeadly2D8": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeadly2D10": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeadly2D12": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
+        "TraitDescriptionDeadly3D8": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeadly3D10": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeadly3D12": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
+        "TraitDescriptionDeadly4D8": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
+        "TraitDescriptionDeadly4D10": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
+        "TraitDescriptionDeadly4D12": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeath": "An effect with the death trait kills you immediately if it reduces you to 0 HP. Some death effects can bring you closer to death or slay you outright without reducing you to 0 HP.",
         "TraitDescriptionDedication": "You must select a feat with this trait to apply an archetype to your character.",
         "TraitDescriptionDetection": "Effects with this trait attempt to determine the presence or location of a person, object, or aura.",

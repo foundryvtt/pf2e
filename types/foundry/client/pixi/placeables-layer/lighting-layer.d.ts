@@ -24,7 +24,7 @@ declare interface LightChannels {
  * @example <caption>The lightingRefresh hook</caption>
  * Hooks.on("lightingRefresh", layer => {});
  */
-declare class LightingLayer extends PlaceablesLayer<AmbientLight> {
+declare class LightingLayer<TAmbientLight extends AmbientLight = AmbientLight> extends PlaceablesLayer<TAmbientLight> {
     constructor();
 
     /** A mapping of light sources which are active within the rendered Scene */
@@ -37,7 +37,7 @@ declare class LightingLayer extends PlaceablesLayer<AmbientLight> {
     version: number;
 
     /** The currently displayed darkness level, which may override the saved Scene value */
-    darknessLevel: number | null;
+    darknessLevel: number;
 
     /** The current client setting for whether global illumination is used or not */
     globalLight: boolean;
@@ -120,6 +120,17 @@ declare class LightingLayer extends PlaceablesLayer<AmbientLight> {
      * @return A Promise which resolves once the animation is complete
      */
     animateDarkness(target?: number, { duration }?: { duration?: number }): Promise<void>;
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    /**
+     * Actions to take when the darkness level of the Scene is changed
+     * @param darkness The new darkness level
+     * @param prior    The prior darkness level
+     */
+    protected _onDarknessChange(darkness: number, prior: number): void;
 
     protected override _onDragLeftStart(event: PIXI.InteractionEvent): Promise<void>;
 

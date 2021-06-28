@@ -1,3 +1,7 @@
-import * as PIXI from 'pixi.js';
-export as namespace PIXI;
-export = PIXI;
+import * as pixiJs from 'pixi.js';
+
+declare global {
+    namespace globalThis {
+        export import PIXI = pixiJs;
+    }
+}

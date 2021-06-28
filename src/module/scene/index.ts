@@ -24,8 +24,8 @@ export interface ScenePF2e {
 }
 
 export enum LightLevels {
-    DARKNESS = 1 / 3,
-    DIM_LIGHT = 2 / 3,
+    DARKNESS = 1 / 4,
+    DIM_LIGHT = 3 / 4,
     BRIGHT_LIGHT = 1,
 }
 

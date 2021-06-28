@@ -174,9 +174,9 @@ export class CompendiumBrowser extends Application {
 
             for (const packType of types) {
                 const load =
-                    this.settings[packType]?.[pack.collection]?.load ||
-                    pack.collection.includes(packType) ||
-                    (packType === 'bestiary' && pack.collection.includes('npc-'));
+                    this.settings[packType]?.[pack.collection]?.load ??
+                    (pack.collection.includes(packType) ||
+                        (packType === 'bestiary' && pack.collection.includes('npc-')));
 
                 settings[packType]![pack.collection] = {
                     load,
@@ -618,6 +618,11 @@ export class CompendiumBrowser extends Application {
             for (const spell of content) {
                 const spellData = spell.data;
                 if (spellData.type === 'spell') {
+                    // Set category of cantrips to "cantrip" until migration can be done
+                    if (spellData.data.traits.value.includes('cantrip')) {
+                        spellData.data.category.value = 'cantrip';
+                    }
+
                     // record the pack the spell was read from
                     spellData.compendium = pack.collection;
 
@@ -731,7 +736,7 @@ export class CompendiumBrowser extends Application {
         });
 
         // Sort item list
-        const $sort = $controlArea.find('.tab .sortcontainer');
+        const $sort = $controlArea.find('.sortcontainer');
         const $order = $sort.find<HTMLSelectElement>('select.order');
         const $direction = $sort.find('a.direction');
         $order.on('change', () => {

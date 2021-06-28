@@ -165,7 +165,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.tokenEffects = [];
-        this.prepareTokenImg();
+        this.preparePrototypeToken();
     }
 
     /** Prepare physical item getters on this actor and containers */
@@ -254,14 +254,20 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
     }
 
-    /** Synchronize the token image with the actor image, if the token does not currently have an image */
-    private prepareTokenImg() {
+    /** Set defaults for this actor's prototype token */
+    private preparePrototypeToken() {
+        // Synchronize the token image with the actor image, if the token does not currently have an image
         const useSystemTokenSettings = game.settings.get('pf2e', 'defaultTokenSettings');
         const tokenImgIsDefault =
             this.data.token.img === (this.data.constructor as typeof BaseActorDataPF2e).DEFAULT_ICON;
         const tokenImgIsActorImg = this.data.token.img === this.img;
         if (useSystemTokenSettings && tokenImgIsDefault && !tokenImgIsActorImg) {
             this.data.token.update({ img: this.img });
+        }
+
+        // Disable (but don't save) manually-configured vision radii
+        if (canvas.sight?.rulesBasedVision) {
+            this.data.token.update({ brightSight: 0, dimSight: 0 });
         }
     }
 
