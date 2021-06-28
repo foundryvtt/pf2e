@@ -384,16 +384,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Ensure minion-type actors with are prepared with their master-derived data */
+    /** Re-prepare familiars when their masters are updated */
     protected override _onUpdate(
         changed: DeepPartial<this['data']['_source']>,
         options: DocumentModificationContext,
         userId: string,
     ): void {
-        if (userId === game.userId) {
-            prepareMinions(this);
-        }
-
+        prepareMinions(this);
         super._onUpdate(changed, options, userId);
     }
 }
