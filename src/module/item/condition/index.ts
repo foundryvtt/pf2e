@@ -7,8 +7,7 @@ export class ConditionPF2e extends ItemPF2e {
     }
 
     get value(): number | null {
-        const value = this.data.data.value;
-        return value.isValued ? value.value : null;
+        return this.data.data.value.value;
     }
 
     get duration(): number | null {
@@ -29,12 +28,20 @@ export class ConditionPF2e extends ItemPF2e {
     get isInHUD(): boolean {
         return this.data.data.sources.hud;
     }
+
+    /** Ensure value.isValued and value.value are in sync */
+    override prepareBaseData() {
+        super.prepareBaseData();
+        const systemData = this.data.data;
+        systemData.value.value = systemData.value.isValued ? Number(systemData.value.value) || 1 : null;
+    }
 }
 
 export interface ConditionPF2e {
     readonly data: ConditionData;
 
-    getFlag(scope: string, key: string): unknown;
     getFlag(scope: 'core', key: 'sourceId'): string | undefined;
+    getFlag(scope: 'pf2e', key: 'constructing'): true | undefined;
     getFlag(scope: 'pf2e', key: 'condition'): true | undefined;
+    getFlag(scope: string, key: string): any;
 }

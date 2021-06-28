@@ -84,8 +84,23 @@
         "ActionTypeReaction": "Reaction",
         "ActionWeaponLabel": "Associated Weapon",
         "Actions": {
-            "Balance": "Balance",
-            "Climb": "Climb",
+            "Balance": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> You move up to your Speed.",
+                    "success": "<b>Success</b> You move up to your Speed, treating it as difficult terrain (every 5 feet costs 10 feet of movement).",
+                    "failure": "<b>Failure</b> You must remain stationary to keep your balance (wasting the action) or you fall. If you fall, your turn ends.",
+                    "criticalFailure": "<b>Critical Failure</b> You fall and your turn ends."
+                },
+                "Title": "Balance"
+            },
+            "Climb": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> You move up, across, or safely down the incline for 5 feet plus 5 feet per 20 feet of your land Speed (a total of 10 feet for most PCs).",
+                    "success": "<b>Success</b> You move up, across, or safely down the incline for 5 feet per 20 feet of your land Speed (a total of 5 feet for most PCs, minimum 5 feet if your Speed is below 20 feet).",
+                    "criticalFailure": "<b>Critical Failure</b> You fall. If you began the climb on stable ground, you fall and land @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
+                },
+                "Title": "Climb"
+            },
             "Coerce": "Coerce",
             "CreateADiversion": {
                 "DistractingWords": "Create a Diversion - Distracting Words",
@@ -93,7 +108,14 @@
                 "Trick": "Create a Diversion - Trick"
             },
             "Demoralize": "Demoralize",
-            "Disarm": "Disarm",
+            "Disarm": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> You knock the item out of the opponent's grasp. It falls to the ground in the opponent's space.",
+                    "success": "<b>Success</b> You weaken your opponent's grasp on the item. Until the start of that creature's turn, attempts to Disarm the opponent of that item gain a +2 circumstance bonus, and the target takes a –2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item.",
+                    "criticalFailure": "<b>Critical Failure</b> You lose your balance and become @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} until the start of your next turn."
+                },
+                "Title": "Disarm"
+            },
             "EncouragingWords": {
                 "Title": "Encouraging Words",
                 "ContentMain": "Select a target DC. Remember that you can't attempt a heal above your proficiency. Attempting to do so will downgrade the DC and amount healed to the highest you're capable of.",
@@ -115,16 +137,53 @@
                 "Cancel": "Cancel"
             },
             "Feint": "Feint",
-            "ForceOpen": "Force Open",
+            "ForceOpen": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> You open the door, window, container, or gate and can avoid damaging it in the process.",
+                    "success": "<b>Success</b> You break the door, window, container, or gate open, and the door, window, container, or gate gains the @Compendium[pf2e.conditionitems.6dNUvdb1dhToNDj3]{Broken} condition. If it's especially sturdy, the GM might have it take damage but not be broken.",
+                    "criticalFailure": "<b>Critical Failure</b> Your attempt jams the door, window, container, or gate shut, imposing a –2 circumstance penalty on future attempts to Force it Open."
+                },
+                "Title": "Force Open"
+            },
             "GatherInformation": "Gather Information",
-            "Grapple": "Grapple",
+            "Grapple": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> Your opponent is @Compendium[pf2e.conditionitems.VcDeM8A5oI6VqhbM]{Restrained} until the end of your next turn unless you move or your opponent @Compendium[pf2e.actionspf2e.SkZAQRkLLkmBQNB9]{Escapes}.",
+                    "success": "<b>Success</b> Your opponent is @Compendium[pf2e.conditionitems.kWc1fhmv9LBiTuei]{Grabbed} until the end of your next turn unless you move or your opponent @Compendium[pf2e.actionspf2e.SkZAQRkLLkmBQNB9]{Escapes}.",
+                    "failure": "<b>Failure</b> You fail to grab your opponent. If you already had the opponent @Compendium[pf2e.conditionitems.kWc1fhmv9LBiTuei]{Grabbed} or @Compendium[pf2e.conditionitems.VcDeM8A5oI6VqhbM]{Restrained} using a Grapple, those conditions on that creature end.",
+                    "criticalFailure": "<b>Critical Failure</b> If you already had the opponent @Compendium[pf2e.conditionitems.kWc1fhmv9LBiTuei]{Grabbed} or @Compendium[pf2e.conditionitems.VcDeM8A5oI6VqhbM]{Restrained}, it breaks free. Your target can either grab you, as if it succeeded at using the @Compendium[pf2e.actionspf2e.PMbdMWc2QroouFGD]{Grapple} action against you, or force you to fall and land @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
+                },
+                "Title": "Grapple"
+            },
             "Hide": "Hide",
-            "HighJump": "High Jump",
+            "HighJump": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> Increase the maximum vertical distance to 8 feet, or increase the maximum vertical distance to 5 feet and maximum horizontal distance to 10 feet.",
+                    "success": "<b>Success</b> Increase the maximum vertical distance to 5 feet.",
+                    "failure": "<b>Failure</b> You @Compendium[pf2e.actionspf2e.d5I6018Mci2SWokk]{Leap} normally.",
+                    "criticalFailure": "<b>Critical Failure</b> You don't @Compendium[pf2e.actionspf2e.d5I6018Mci2SWokk]{Leap} at all, and instead you fall @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone} in your space."
+                },
+                "Title": "High Jump"
+            },
             "Impersonate": "Impersonate",
             "Lie": "Lie",
-            "LongJump": "Long Jump",
+            "LongJump": {
+                "Notes": {
+                    "success": "<b>Success</b> Increase the maximum horizontal distance you @Compendium[pf2e.actionspf2e.d5I6018Mci2SWokk]{Leap} to the desired distance.",
+                    "failure": "<b>Failure</b> You @Compendium[pf2e.actionspf2e.d5I6018Mci2SWokk]{Leap} normally.",
+                    "criticalFailure": "<b>Critical Failure</b> You @Compendium[pf2e.actionspf2e.d5I6018Mci2SWokk]{Leap} normally, but then fall and land @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
+                },
+                "Title": "Long Jump"
+            },
             "MakeAnImpression": "Make an Impression",
-            "ManeuverInFlight": "Maneuver in Flight",
+            "ManeuverInFlight": {
+                "Notes": {
+                    "success": "<b>Success</b> You succeed at the maneuver.",
+                    "failure": "<b>Failure</b> Your maneuver fails. The GM chooses if you simply can't move or if some other detrimental effect happens. The outcome should be appropriate for the maneuver you attempted (for instance, being blown off course if you were trying to fly against a strong wind).",
+                    "criticalFailure": "<b>Critical Failure</b> As failure, but the consequence is more dire."
+                },
+                "Title": "Maneuver in Flight"
+            },
             "RaiseAShield": {
                 "SingleActionTitle": "Raise a Shield",
                 "ReactionTitle": "Reactive Shield",
@@ -139,9 +198,23 @@
             "ShieldBlock": {
                 "SelectAShield": "Select a shield"
             },
-            "Shove": "Shove",
+            "Shove": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> You push your opponent up to 10 feet away from you. You can Stride after it, but you must move the same distance and in the same direction.",
+                    "success": "<b>Success</b> You push your opponent back 5 feet. You can Stride after it, but you must move the same distance and in the same direction.",
+                    "criticalFailure": "<b>Critical Failure</b> You lose your balance, fall, and land @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
+                },
+                "Title": "Shove"
+            },
             "Sneak": "Sneak",
-            "Squeeze": "Squeeze",
+            "Squeeze": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> You squeeze through the tight space in 1 minute per 10 feet of squeezing.",
+                    "success": "<b>Success</b> You squeeze through in 1 minute per 5 feet.",
+                    "criticalFailure": "<b>Critical Failure</b> You become stuck in the tight space. While you're stuck, you can spend 1 minute attempting another Acrobatics check at the same DC. Any result on that check other than a critical failure causes you to become unstuck."
+                },
+                "Title": "Squeeze"
+            },
             "SteelYourResolve": {
                 "Title": "Steel Your Resolve",
                 "Content": "Spend a resolve point and regain stamina?",
@@ -150,9 +223,29 @@
                 "NoStamina": "{name} is tired and needs to go to bed! No resolve points remaining.",
                 "RecoverStamina": "{name} has {ratio} SP and spends a resolve point, recovering half their maximum Stamina."
             },
-            "Swim": "Swim",
-            "Trip": "Trip",
-            "TumbleThrough": "Tumble Through"
+            "Swim": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> You move through the water 10 feet, plus 5 feet per 20 feet of your land Speed (a total of 15 feet for most PCs).",
+                    "success": "<b>Success</b> You move through the water 5 feet, plus 5 feet per 20 feet of your land Speed (a total of 10 feet for most PCs).",
+                    "criticalFailure": "<b>Critical Failure</b> You make no progress, and if you're holding your breath, you lose 1 round of air."
+                },
+                "Title": "Swim"
+            },
+            "Trip": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> The target falls and lands @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone} and takes [[/r 1d6[bludgeoning] # Bludgeoning damage]]{1d6} bludgeoning damage.",
+                    "success": "<b>Success</b> The target falls and lands @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}.",
+                    "criticalFailure": "<b>Critical Failure</b> You lose your balance and fall and land @Compendium[pf2e.conditionitems.j91X7x0XSomq8d60]{Prone}."
+                },
+                "Title": "Trip"
+            },
+            "TumbleThrough": {
+                "Notes": {
+                    "success": "<b>Success</b> You move through the enemy's space, treating the squares in its space as difficult terrain (every 5 feet costs 10 feet of movement). If you don't have enough Speed to move all the way through its space, you get the same effect as a failure.",
+                    "failure": "<b>Failure</b> Your movement ends, and you trigger reactions as if you had moved out of the square you started in."
+                },
+                "Title": "Tumble Through"
+            }
         },
         "ActionsCheck": {
             "acrobatics": "Acrobatics Skill Check",
@@ -453,7 +546,12 @@
             }
         },
         "CompendiumBrowser": {
-            "Title": "Compendium Browser",
+            "AddedItem": "Added {item} to the selected actor(s).",
+            "AddedItemToCharacter": "Added {item} to {character}.",
+            "ProgressBar": {
+                "LoadingPack": "Loading {pack}",
+                "LoadingComplete": "Loading complete"
+            },
             "TabAction": "Actions",
             "TabBestiary": "Bestiary",
             "TabEquipment": "Equipment",
@@ -462,8 +560,7 @@
             "TabSpell": "Spells",
             "TabSettings": "Load Packs",
             "TakeLabel": "Take Item",
-            "AddedItem": "Added {item} to the selected actor(s).",
-            "AddedItemToCharacter": "Added {item} to {character}."
+            "Title": "Compendium Browser"
         },
         "Condition": {
             "ActiveLabel": "Active",
@@ -821,14 +918,26 @@
             "NameLabel": "Name",
             "IconLabel": "Icon",
             "SidebarSummary": "{type} Summary",
+            "Physical": {
+                "LevelLabel": "Item {level}",
+                "PriceLabel": "Price: {price}"
+            },
             "Plural": "Items",
             "Weapon": {
                 "FromMaterialAndRunes": "From material and runes: {value}",
                 "GeneratedName": {
                     "Hint": "This is the name of the base weapon. For most weapons, the base is used to generate a fuller name, taking into account the material composition and/or runes. Giving this weapon a custom name or marking it as \"specific\" will prevent the generated name from appearing.",
                     "Potency": "+{potency} {base}",
+                    "PotencyOneProperty": "+{potency} {property1} {base}",
+                    "PotencyTwoProperties": "+{potency} {property1} {property2} {base}",
+                    "PotencyThreeProperties": "+{potency} {property1} {property2} {base}",
+                    "PotencyFourProperties": "+{potency} {property1} {property2} {property3} {property4} {base}",
                     "Material": "{material} {base}",
                     "PotencyMaterial": "+{potency} {material} {base}",
+                    "PotencyOnePropertyMaterial": "+{potency} {property1} {material} {base}",
+                    "PotencyTwoPropertiesMaterial": "+{potency} {property1} {property2} {material} {base}",
+                    "PotencyThreePropertiesMaterial": "+{potency} {property1} {property2} {property3} {material} {base}",
+                    "PotencyFourPropertiesMaterial": "+{potency} {property1} {property2} {property3} {property4} {material} {base}",
                     "PotencyStriking": "+{potency} {striking} {base}",
                     "PotencyStrikingMaterial": "+{potency} {striking} {material} {base}",
                     "PotencyStrikingOneProperty": "+{potency} {striking} {property1} {base}",
@@ -843,7 +952,7 @@
                 "MaterialAndRunes": {
                     "MaterialOption": "{type} ({grade})",
                     "Title": "Material Composition and Runes",
-                    "Hint": "Precious material and runes allow for in-depth customization of a weapon. Besides improving the its ability to harm enemies, they also affect the weapon's level, rarity, price, and name. To suppress an item's renaming, give it any custom name or mark it as a <i>specific magic weapon</i>."
+                    "Hint": "Precious material and runes allow for in-depth customization of a weapon. Besides improving its ability to harm enemies, they also affect the weapon's level, rarity, price, and name. To suppress a weapon's renaming, give it any custom name or mark it as a <i>specific magic weapon</i>."
                 },
                 "SpecificMagicWeapon": {
                     "Label": "Specific Magic Weapon",
@@ -1696,7 +1805,6 @@
         "SpellLabel": "Spell",
         "SpellLabelPlural": "Spells",
         "SpellLevel": "{category} {level}",
-        "SpellLevel0": "Cantrip",
         "SpellLevel1": "1st Level",
         "SpellLevel10": "10th Level",
         "SpellLevel2": "2nd Level",
@@ -1914,6 +2022,9 @@
         "TraitDeadly3D8": "Deadly 3d8",
         "TraitDeadly3D10": "Deadly 3d10",
         "TraitDeadly3D12": "Deadly 3d12",
+        "TraitDeadly4D8": "Deadly 4d8",
+        "TraitDeadly4D10": "Deadly 4d10",
+        "TraitDeadly4D12": "Deadly 4d12",
         "TraitDeath": "Death",
         "TraitDedication": "Dedication",
         "TraitDemon": "Demon",
@@ -1967,8 +2078,12 @@
         "TraitDescriptionDeadly2D8": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeadly2D10": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeadly2D12": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
+        "TraitDescriptionDeadly3D8": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeadly3D10": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeadly3D12": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
+        "TraitDescriptionDeadly4D8": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
+        "TraitDescriptionDeadly4D10": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
+        "TraitDescriptionDeadly4D12": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeath": "An effect with the death trait kills you immediately if it reduces you to 0 HP. Some death effects can bring you closer to death or slay you outright without reducing you to 0 HP.",
         "TraitDescriptionDedication": "You must select a feat with this trait to apply an archetype to your character.",
         "TraitDescriptionDetection": "Effects with this trait attempt to determine the presence or location of a person, object, or aura.",

@@ -24,6 +24,7 @@ import { ConditionType } from '@item/condition/data';
 import { WeaponPropertyRuneType } from '@item/weapon/data';
 import { PreciousMaterialGrade, PreciousMaterialType } from '@item/physical/data';
 import { DamageType } from '@module/damage-calculation';
+import { ClassTrait } from '@item/class/data';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
@@ -81,7 +82,7 @@ const ancestryItemTraits = {
     plant: 'PF2E.TraitPlant',
 };
 
-const classTraits = {
+const classTraits: Record<ClassTrait, string> = {
     alchemist: 'PF2E.TraitAlchemist',
     barbarian: 'PF2E.TraitBarbarian',
     bard: 'PF2E.TraitBard',
@@ -357,7 +358,6 @@ const creatureTraits = {
     ...ancestryTraits,
     ...damageTraits,
     aberration: 'PF2E.TraitAberration',
-    acid: 'PF2E.TraitAcid',
     aeon: 'PF2E.TraitAeon',
     aesir: 'PF2E.TraitAesir',
     agathion: 'PF2E.TraitAgathion',
@@ -378,7 +378,6 @@ const creatureTraits = {
     celestial: 'PF2E.TraitCelestial',
     'charau-ka': 'PF2E.TraitCharauKa',
     clockwork: 'PF2E.TraitClockwork',
-    cold: 'PF2E.TraitCold',
     couatl: 'PF2E.TraitCouatl',
     construct: 'PF2E.TraitConstruct',
     daemon: 'PF2E.TraitDaemon',
@@ -484,10 +483,7 @@ const creatureTraits = {
     zombie: 'PF2E.TraitZombie',
 };
 
-const spellTraits = {
-    ...classTraits,
-    ...damageTraits,
-    ...spellTraditions,
+const spellOtherTraits = {
     air: 'PF2E.TraitAir',
     attack: 'PF2E.TraitAttack',
     auditory: 'PF2E.TraitAuditory',
@@ -495,6 +491,7 @@ const spellTraits = {
     cantrip: 'PF2E.TraitCantrip',
     composition: 'PF2E.TraitComposition',
     concentrate: 'PF2E.TraitConcentrate',
+    consecration: 'PF2E.TraitConsecration',
     curse: 'PF2E.TraitCurse',
     cursebound: 'PF2E.TraitCursebound',
     darkness: 'PF2E.TraitDarkness',
@@ -515,14 +512,15 @@ const spellTraits = {
     linguistic: 'PF2E.TraitLinguistic',
     litany: 'PF2E.TraitLitany',
     metamagic: 'PF2E.TraitMetamagic',
+    mindless: 'PF2E.TraitMindless',
     misfortune: 'PF2E.TraitMisfortune',
     morph: 'PF2E.TraitMorph',
     move: 'PF2E.TraitMove',
     nonlethal: 'PF2E.TraitNonlethal',
     olfactory: 'PF2E.TraitOlfactory',
     plant: 'PF2E.TraitPlant',
-    possession: 'PF2E.TraitPossession',
     polymorph: 'PF2E.TraitPolymorph',
+    possession: 'PF2E.TraitPossession',
     prediction: 'PF2E.TraitPrediction',
     revelation: 'PF2E.TraitRevelation',
     scrying: 'PF2E.TraitScrying',
@@ -532,6 +530,13 @@ const spellTraits = {
     teleportation: 'PF2E.TraitTeleportation',
     visual: 'PF2E.TraitVisual',
     water: 'PF2E.TraitWater',
+};
+
+const spellTraits = {
+    ...classTraits,
+    ...damageTraits,
+    ...spellTraditions,
+    ...spellOtherTraits,
 };
 
 const consumableTraits = {
@@ -856,6 +861,7 @@ export const PF2ECONFIG = {
         majorStriking: 'PF2E.ArmorMajorStrikingRune',
     },
     weaponPropertyRunes,
+    damageTraits,
     damageTypes,
 
     resistanceTypes: {
@@ -1041,67 +1047,7 @@ export const PF2ECONFIG = {
     },
 
     spellTraditions,
-
-    spellOtherTraits: {
-        acid: 'PF2E.TraitAcid',
-        air: 'PF2E.TraitAir',
-        attack: 'PF2E.TraitAttack',
-        auditory: 'PF2E.TraitAuditory',
-        aura: 'PF2E.TraitAura',
-        chaotic: 'PF2E.TraitChaotic',
-        cold: 'PF2E.TraitCold',
-        concentrate: 'PF2E.TraitConcentrate',
-        consecration: 'PF2E.TraitConsecration',
-        curse: 'PF2E.TraitCurse',
-        darkness: 'PF2E.TraitDarkness',
-        death: 'PF2E.TraitDeath',
-        detection: 'PF2E.TraitDetection',
-        disease: 'PF2E.TraitDisease',
-        divination: 'PF2E.TraitDivination',
-        earth: 'PF2E.TraitEarth',
-        electricity: 'PF2E.TraitElectricity',
-        emotion: 'PF2E.TraitEmotion',
-        evil: 'PF2E.TraitEvil',
-        extradimensional: 'PF2E.TraitExtradimensional',
-        fear: 'PF2E.TraitFear',
-        fire: 'PF2E.TraitFire',
-        force: 'PF2E.TraitForce',
-        fortune: 'PF2E.TraitFortune',
-        fungus: 'PF2E.TraitFungus',
-        good: 'PF2E.TraitGood',
-        healing: 'PF2E.TraitHealing',
-        hex: 'PF2E.TraitHex',
-        incapacitation: 'PF2E.TraitIncapacitation',
-        inhaled: 'PF2E.TraitInhaled',
-        light: 'PF2E.TraitLight',
-        linguistic: 'PF2E.TraitLinguistic',
-        litany: 'PF2E.TraitLitany',
-        mental: 'PF2E.TraitMental',
-        metamagic: 'PF2E.TraitMetamagic',
-        mindless: 'PF2E.TraitMindless',
-        misfortune: 'PF2E.TraitMisfortune',
-        morph: 'PF2E.TraitMorph',
-        move: 'PF2E.TraitMove',
-        necromancy: 'PF2E.TraitNecromancy',
-        negative: 'PF2E.TraitNegative',
-        nonlethal: 'PF2E.TraitNonlethal',
-        olfactory: 'PF2E.TraitOlfactory',
-        plant: 'PF2E.TraitPlant',
-        poison: 'PF2E.TraitPoison',
-        polymorph: 'PF2E.TraitPolymorph',
-        positive: 'PF2E.TraitPositive',
-        possession: 'PF2E.TraitPossession',
-        prediction: 'PF2E.TraitPrediction',
-        revelation: 'PF2E.TraitRevelation',
-        scrying: 'PF2E.TraitScrying',
-        shadow: 'PF2E.TraitShadow',
-        sleep: 'PF2E.TraitSleep',
-        sonic: 'PF2E.TraitSonic',
-        stance: 'PF2E.TraitStance',
-        teleportation: 'PF2E.TraitTeleportation',
-        visual: 'PF2E.TraitVisual',
-        water: 'PF2E.TraitWater',
-    },
+    spellOtherTraits,
 
     magicTraditions: {
         arcane: 'PF2E.TraitArcane',
@@ -1145,12 +1091,15 @@ export const PF2ECONFIG = {
         'deadly-d8': 'PF2E.TraitDeadlyD8',
         'deadly-2d8': 'PF2E.TraitDeadly2D8',
         'deadly-3d8': 'PF2E.TraitDeadly3D8',
+        'deadly-4d8': 'PF2E.TraitDeadly4D8',
         'deadly-d10': 'PF2E.TraitDeadlyD10',
         'deadly-2d10': 'PF2E.TraitDeadly2D10',
         'deadly-3d10': 'PF2E.TraitDeadly3D10',
+        'deadly-4d10': 'PF2E.TraitDeadly4D10',
         'deadly-d12': 'PF2E.TraitDeadlyD12',
         'deadly-2d12': 'PF2E.TraitDeadly2D12',
         'deadly-3d12': 'PF2E.TraitDeadly3D12',
+        'deadly-4d12': 'PF2E.TraitDeadly4D12',
         death: 'PF2E.TraitDeath',
         disarm: 'PF2E.TraitDisarm',
         earth: 'PF2E.TraitEarth',
@@ -1594,7 +1543,6 @@ export const PF2ECONFIG = {
     },
 
     spellLevels: {
-        0: 'PF2E.SpellLevel0',
         1: 'PF2E.SpellLevel1',
         2: 'PF2E.SpellLevel2',
         3: 'PF2E.SpellLevel3',

@@ -45,6 +45,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         // Weapons have derived traits and price: base data is shown for editing
         const baseData = this.item.toObject();
+        sheetData.data.traits.rarity.value = baseData.data.traits.rarity.value;
         const hasModifiedPrice =
             coinValueInCopper(extractPriceFromItem(sheetData.item)) !==
             coinValueInCopper(extractPriceFromItem(baseData));
@@ -87,6 +88,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             traits: this.prepareOptions(CONFIG.PF2E.weaponTraits, sheetData.item.data.traits, { selectedOnly: true }),
             baseTraits: this.prepareOptions(CONFIG.PF2E.weaponTraits, baseData.data.traits, { selectedOnly: true }),
             hasModifiedPrice,
+            baseLevel: baseData.data.level.value,
+            baseRarity: baseData.data.traits.rarity.value,
             basePrice: baseData.data.price.value,
             categories: CONFIG.PF2E.weaponCategories,
             groups: CONFIG.PF2E.weaponGroups,

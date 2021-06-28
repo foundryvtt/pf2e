@@ -6,7 +6,7 @@ export function highJump(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'D',
-        'PF2E.Actions.HighJump',
+        'PF2E.Actions.HighJump.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:stride', 'action:leap', 'action:high-jump'],
@@ -14,5 +14,12 @@ export function highJump(options: SkillActionOptions) {
         ['move'],
         checkType,
         options.event,
+        undefined,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.HighJump', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.HighJump', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.HighJump', 'failure'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.HighJump', 'criticalFailure'),
+        ],
     );
 }

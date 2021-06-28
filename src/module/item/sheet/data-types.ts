@@ -106,5 +106,4 @@ export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     areaSizes: ConfigPF2e['PF2E']['areaSizes'];
     areaTypes: ConfigPF2e['PF2E']['areaTypes'];
     spellScalingModes: ConfigPF2e['PF2E']['spellScalingModes'];
-    isRitual: boolean;
 }

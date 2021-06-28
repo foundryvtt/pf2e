@@ -1,14 +1,14 @@
 import { LocalizePF2e } from '@module/system/localize';
 import { objectHasKey } from '@module/utils';
 import { PhysicalItemPF2e } from '../physical';
-import { EquipmentData } from './data';
+import { EquipmentData, EquipmentTrait } from './data';
 
 export class EquipmentPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof EquipmentData {
         return EquipmentData;
     }
 
-    override getChatData(this: Embedded<EquipmentPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<EquipmentPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
         const properties = [data.equipped.value ? game.i18n.localize('PF2E.EquipmentEquippedLabel') : null].filter(
@@ -38,4 +38,6 @@ export class EquipmentPF2e extends PhysicalItemPF2e {
 
 export interface EquipmentPF2e {
     readonly data: EquipmentData;
+
+    get traits(): Set<EquipmentTrait>;
 }

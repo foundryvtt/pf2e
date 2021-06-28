@@ -1,14 +1,13 @@
 import { AbilityString } from '@actor/data/base';
 import { ItemSystemData } from '@item/data/base';
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from '@item/data/non-physical';
-import { ZeroToEleven } from '@module/data';
+import { OneToTen, ZeroToEleven } from '@module/data';
 import { RollNotePF2e } from '@module/notes';
 import { SpellcastingEntryPF2e } from '.';
 
 export type SpellcastingEntrySource = BaseNonPhysicalItemSource<'spellcastingEntry', SpellcastingEntrySystemData>;
 
 export class SpellcastingEntryData extends BaseNonPhysicalItemData<SpellcastingEntryPF2e> {
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/spellcastingEntry.svg';
 }
 
@@ -71,5 +70,8 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
     slots: Record<`slot${ZeroToEleven}`, SpellSlotData>;
     signatureSpells: {
         value: string[];
+    };
+    autoHeightenLevel: {
+        value: OneToTen | null;
     };
 }

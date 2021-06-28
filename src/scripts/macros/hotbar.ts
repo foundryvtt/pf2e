@@ -48,7 +48,8 @@ export async function createActionMacro(actionIndex: string, actorId: string, sl
     const actor = game.actors.get(actorId);
     const action = (actor as any).data.data.actions[actionIndex];
     const macroName = `${game.i18n.localize('PF2E.WeaponStrikeLabel')}: ${action.name}`;
-    const command = `game.pf2e.rollActionMacro('${actorId}', ${actionIndex}, '${action.name}')`;
+    const actionName = JSON.stringify(action.name);
+    const command = `game.pf2e.rollActionMacro('${actorId}', ${actionIndex}, ${actionName})`;
     const actionMacro =
         game.macros.find((macro) => macro.name === macroName && macro.data.command === command) ??
         (await MacroPF2e.create(

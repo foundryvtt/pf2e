@@ -20,6 +20,7 @@ import { isCreatureData } from '@actor/data/helpers';
 import { NPCSystemData } from '@actor/npc/data';
 import { HazardSystemData } from '@actor/hazard/data';
 import { CheckPF2e } from '@system/rolls';
+import { ItemTrait } from './data/base';
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -29,9 +30,13 @@ interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF
 
 /** Override and extend the basic :class:`Item` implementation */
 export class ItemPF2e extends Item<ActorPF2e> {
+    /** Has this item gone through at least one cycle of data preparation? */
+    private initialized!: boolean;
+
     constructor(data: PreCreate<ItemSourcePF2e>, context: ItemConstructionContextPF2e = {}) {
         if (context.pf2e?.ready) {
             super(data, context);
+            this.initialized = false;
         } else {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
@@ -48,12 +53,21 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return this.getFlag('core', 'sourceId');
     }
 
-    get traits(): Set<string> {
+    get traits(): Set<ItemTrait> {
         return new Set(this.data.data.traits.value);
     }
 
     get description(): string {
         return this.data.data.description.value;
+    }
+
+    /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
+    override async delete(context: DocumentModificationContext = {}) {
+        if (this.actor) {
+            await this.actor.deleteEmbeddedDocuments('Item', [this.id], context);
+            return this;
+        }
+        return super.delete(context);
     }
 
     protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
@@ -154,6 +168,13 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return ChatMessagePF2e.create(chatData, { renderSheet: false });
     }
 
+    /** Refresh the Item Directory if this item isn't owned */
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+        if (!this.isOwned && ui.items && this.initialized) ui.items.render();
+        this.initialized = true;
+    }
+
     /* -------------------------------------------- */
     /*  Chat Card Data                              */
     /* -------------------------------------------- */
@@ -176,15 +197,15 @@ export class ItemPF2e extends Item<ActorPF2e> {
         this: Embedded<ItemPF2e>,
         htmlOptions: EnrichHTMLOptions = {},
         _rollOptions: Record<string, any> = {},
-    ): unknown {
+    ): Record<string, unknown> {
         return this.processChatData(htmlOptions, {
             ...duplicate(this.data.data),
-            traits: this.traitChatData({}),
+            traits: this.traitChatData(),
         });
     }
 
-    protected traitChatData(dictionary: Record<string, string>): TraitChatData[] {
-        const traits: string[] = duplicate(this.data.data.traits.value);
+    protected traitChatData(dictionary: Record<string, string> = {}): TraitChatData[] {
+        const traits: string[] = [...this.traits].sort();
         const customTraits = this.data.data.traits.custom
             .trim()
             .split(/\s*[,;|]\s*/)
@@ -206,7 +227,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /* -------------------------------------------- */
-    /*  Roll Attacks
+    /*  Roll Attacks                                */
     /* -------------------------------------------- */
 
     /**
@@ -802,5 +823,9 @@ export interface ItemPF2e {
     readonly data: ItemDataPF2e;
     readonly parent: ActorPF2e | null;
 
-    readonly _sheet: ItemSheetPF2e<this>;
+    _sheet: ItemSheetPF2e<this>;
+
+    getFlag(scope: 'core', key: 'sourceId'): string;
+    getFlag(scope: 'pf2e', key: 'constructing'): true | undefined;
+    getFlag(scope: string, key: string): any;
 }

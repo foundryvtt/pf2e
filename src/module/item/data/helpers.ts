@@ -29,11 +29,15 @@ export function isPhysicalData(
     return physicalItemTypes.includes(itemData.type);
 }
 
-export function isMagicItemData(itemData: ItemSourcePF2e): itemData is MagicItemSource;
-export function isMagicItemData(itemData: ItemDataPF2e): itemData is MagicItemData;
-export function isMagicItemData(itemData: ItemSourcePF2e | ItemDataPF2e): itemData is MagicItemSource | MagicItemData;
-export function isMagicItemData(itemData: ItemSourcePF2e | ItemDataPF2e): itemData is MagicItemSource | MagicItemData {
-    return isPhysicalData(itemData) && itemData.type !== 'treasure';
+export function hasInvestedProperty(itemData: ItemSourcePF2e): itemData is MagicItemSource;
+export function hasInvestedProperty(itemData: ItemDataPF2e): itemData is MagicItemData;
+export function hasInvestedProperty(
+    itemData: ItemSourcePF2e | ItemDataPF2e,
+): itemData is MagicItemSource | MagicItemData;
+export function hasInvestedProperty(
+    itemData: ItemSourcePF2e | ItemDataPF2e,
+): itemData is MagicItemSource | MagicItemData {
+    return isPhysicalData(itemData) && itemData.data.invested instanceof Object;
 }
 
 export function isLevelItem(item: ItemDataPF2e): item is PhysicalItemData | FeatData | SpellData {

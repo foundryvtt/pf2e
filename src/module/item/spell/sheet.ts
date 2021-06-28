@@ -2,6 +2,7 @@ import { SpellPF2e } from '@item/spell';
 import { ItemSheetPF2e } from '../sheet/base';
 import { ItemSheetDataPF2e, SpellSheetData } from '../sheet/data-types';
 import { SpellSystemData } from './data';
+import { objectHasKey } from '@module/utils';
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     override getData(): SpellSheetData {
@@ -10,14 +11,13 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
         // Create a level label to show in the summary.
         // This one is a longer version than the chat card
         const levelLabel = (() => {
-            const level = Math.max(1, this.item.level);
             const category =
                 this.item.isCantrip && this.item.isFocusSpell
                     ? game.i18n.localize('PF2E.SpellCategoryFocusCantrip')
                     : this.item.isCantrip
                     ? game.i18n.localize('PF2E.TraitCantrip')
                     : game.i18n.localize(CONFIG.PF2E.spellCategories[this.item.data.data.category.value]);
-            return game.i18n.format('PF2E.SpellLevel', { category, level });
+            return game.i18n.format('PF2E.SpellLevel', { category, level: this.item.level });
         })();
 
         return {
@@ -34,8 +34,28 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
             spellScalingModes: CONFIG.PF2E.spellScalingModes,
-            isRitual: this.item.isRitual,
         };
+    }
+
+    override activateListeners(html: JQuery<HTMLElement>): void {
+        super.activateListeners(html);
+
+        html.find('.toggle-trait').on('change', (evt) => {
+            const target = evt.target as HTMLInputElement;
+            const trait = target.dataset.trait ?? '';
+            if (!objectHasKey(CONFIG.PF2E.spellTraits, trait)) {
+                console.warn('Toggled trait is invalid');
+                return;
+            }
+
+            if (target.checked && !this.item.traits.has(trait)) {
+                const newTraits = this.item.data.data.traits.value.concat([trait]);
+                this.item.update({ 'data.traits.value': newTraits });
+            } else if (!target.checked && this.item.traits.has(trait)) {
+                const newTraits = this.item.data.data.traits.value.filter((t) => t !== trait);
+                this.item.update({ 'data.traits.value': newTraits });
+            }
+        });
     }
 
     private formatSpellComponents(data: SpellSystemData): string[] {

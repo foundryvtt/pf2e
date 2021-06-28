@@ -1,7 +1,9 @@
 declare class Canvas<
     TScene extends Scene = Scene,
+    TAmbientLight extends AmbientLight = AmbientLight,
     TToken extends Token = Token,
-    TLightingLayer extends LightingLayer = LightingLayer,
+    TLightingLayer extends LightingLayer<TAmbientLight> = LightingLayer<TAmbientLight>,
+    TSightLayer extends SightLayer = SightLayer,
 > {
     constructor();
 
@@ -9,10 +11,10 @@ declare class Canvas<
     scene: TScene | null;
 
     /** The current pixel dimensions of the displayed Scene, or null if the Canvas is blank. */
-    dimensions: CanvasDimensions | null;
+    dimensions: CanvasDimensions;
 
     /** A reference to the HeadsUpDisplay container which overlays HTML rendering on top of this Canvas. */
-    hud: HeadsUpDisplay | null;
+    hud: HeadsUpDisplay;
 
     /** An Array of pending canvas operations which should trigger on the next re-paint */
     pendingOperations: Record<string, unknown>[];
@@ -62,11 +64,20 @@ declare class Canvas<
 
     msk: PIXI.Graphics;
 
-    grid: GridLayer | null;
+    // Layers
+    background: BackgroundLayer;
+    controls: ControlsLayer;
+    drawings: DrawingsLayer;
+    effects: EffectsLayer;
+    foreground: ForegroundLayer;
+    grid: GridLayer;
     lighting: TLightingLayer;
+    notes: NotesLayer;
+    sight: TSightLayer;
+    sounds: SoundsLayer;
+    templates: TemplateLayer;
     tokens: TokenLayer<TToken>;
-    templates: TemplateLayer | null;
-    sight: SightLayer;
+    walls: WallsLayer;
 
     _initiative(): void;
 

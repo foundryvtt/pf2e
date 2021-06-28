@@ -89,7 +89,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
     }
 
-    override getChatData(this: Embedded<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const localize = game.i18n.localize.bind(game.i18n);
         const properties = [

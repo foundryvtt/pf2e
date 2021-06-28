@@ -5,7 +5,6 @@ import type { KitPF2e } from '.';
 export type KitSource = BaseNonPhysicalItemSource<'kit', KitSystemData>;
 
 export class KitData extends BaseNonPhysicalItemData<KitPF2e> {
-    /** @override */
     static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/feat.svg';
 }
 

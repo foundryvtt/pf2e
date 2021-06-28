@@ -6,7 +6,7 @@ export function tumbleThrough(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.TumbleThrough',
+        'PF2E.Actions.TumbleThrough.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:tumble-through'],
@@ -15,5 +15,9 @@ export function tumbleThrough(options: SkillActionOptions) {
         checkType,
         options.event,
         (target) => target.reflex,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.TumbleThrough', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.TumbleThrough', 'failure'),
+        ],
     );
 }

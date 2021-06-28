@@ -1,5 +1,111 @@
 # Patch Notes:
 
+## Version 2.5.2
+### Bug Fixes
+* (stwlam) Remove risk of stack overflow during lighting refresh
+
+### Content Changes
+* (stwlam) Add Darkvision spell effects
+
+### Core System Improvements
+* (nikolaj-a) Add outcome notes to climb, disarm, force open, grapple, high jump, long jump, shove, and swim action macros
+
+
+## Version 2.5.1
+### Bug Fixes
+* (In3luki) Fix sorting of class features not working on the first drop
+* (stwlam) Fix cantrip filter in compendium browser, organize spell traits better
+* (stwlam) Fix GM info for unidentified items
+* (stwlam) Prevent rarer and higher-level weapons from reverting to common and zero
+* (stwlam) Ensure ABC items take their features with them when deleted. Closes #1541
+* (stwlam) Fix bug triggered by check against non-existent `invested` property
+* (stwlam) Remove "text-transform: capitalize" styling from journal entry headers. Closes #1542
+* (stwlam) Fix loading of compendium browser settings. Closes #1544
+* (stwlam) Fill localization gaps for weapons with potency and property but no striking runes
+* (stwlam) Fix newly-created items not appearing in the item directory until sheet is closed
+* (stwlam) Make compendium browser's spell-category filtering mutually exclusive between "cantrip" and "spell"
+
+### Content Changes
+* (SpartanCPA) Add more deadly dice presets: 4d8, 4d10, 4d12
+* (SpartanCPA) Correct levels of Bard cantrips
+* (SpartanCPA & Peenicks) Agents of Edgewatch Book 6 - Items & Spells
+* (SpartanCPA & Peenicks) Agents of Edgewatch Book 6 - Missing NPCs (Part 1 & 2)
+* (stwlam) Add size active effect to Wisp Fetchling heritage. Closes #1515
+* (Tikael) Add finesse trait to Dragon Claws spell effect strikes
+* (Drental) Add bon mot, veil of dreams, and incredible improviser effects and rule elements
+* (TMun) Brush up Treerazer for 0.8.8/2.5.0. Closes #1429
+* (Bolt) Brush up Troll
+* (Bolt) Fix note order for Aasimar Redeemer
+
+### Core System Improvements
+* (stwlam) Increase dim light on placed lighting to bright for tokens with low-light/darkvision
+* (stwlam) Set token-source dimSight and brightSight to 0 if rules-based vision is enabled
+* (nikolaj-a) Support capping spell auto-heighten level (mostly relevant for dealing with some NPC corner cases)
+* (nikolaj-a) Make new effects have unlimited duration by default
+* (nikolaj-a) Add outcome notes to balance, maneuver in flight, squeeze, and tumble through action macros
+
+
+## Version 2.5.0
+### Bug Fixes
+* (stwlam) Fix bug causing derived traits on armor to be wiped. Closes #1521
+* (stwlam) Fix tokens becoming unhidden when not in hidden-when-empty mode. Closes #1526
+* (stwlam) Reduce memory consumption of compendium browser and add some features (resizeable window, choose sort direction, sorting by equipment price), ability to drop an actor or item directly beneath the compendium browser window. Closes #625, #1375, #1325
+* (stwlam) Fix sortability of items within a container. Closes #1533
+* (stwlam) Safely interpolate action names during macro creation. Closes #1536
+* (stwlam) Fix the default permission of the Raise a Shield macro. Closes #1525
+* (stwlam) Fix dropping conditions on tokenless actors
+* (Drental) Fix +-4 modifier to spell dc/attack from elite/weak adjustment. Closes #1424
+* (In3luki) Fix rollMode setting not working for rerolls
+* (In3luki) Fix class feats being added multiple times when character level is decreased and then increased again
+
+### Content Changes
+* (rectulo) Delete page reference from legendary sneak general skill feat description
+* (rectulo) Delete page reference from hidden condition description
+* (rectulo) Remove extraneous HTML from steal the sky archetype feat description
+* (rectulo) Clean up excessive line breaks in combat reading bard class feat description
+* (rectulo) Add missing requirements to cross the final horizon archetype feat
+* (rectulo & Njini) Fix guiding chisel description text to include missing sentences for Activate, Frequency, and Effect
+* (rectulo & Njini) Correct link to _see invisibility_ in robe of eyes description
+* (TMun) Update auldegrund grimcarver so he does fire, not fifire damage
+* (TMun) Corrects dragon claws spell effect duration from 1 round to 1 minute. Closes #1534
+* (TMun) Add Ganzi Skillful tail feat
+* (Drental) Remove page references
+* (SpartanCPA) Correct NPC lore descriptions
+* (SpartanCPA) Split Cantrip Expansion into two feats for prepared vs. spontaneous
+* (SpartanCPA) NPC Gallery Audit (Devotees, Downtrodden, Explorers, Healers, Laborers, Magistrates, Poacher)
+* (SpartanCPA) Traits needed for Agents of Edgewatch Book 6
+* (SpartanCPA) Add source to Bestiary 3, PFS NPCs, April Fool's Bestiary, Pathfinder Blog Bestiary, Beginner Box, Age of Ashes book 5, Extinction Curse book 3, The Fall of Plaguestone, Little Trouble in Big Absalom, Troubles in Otari, and The Slithering compendium entries, for proper filtering in the compendium browser
+* (SpartanCPA) Add missing entries from Menace Under Otari, removed filth fever from giant rat in Beginner Box
+* (Tikael) Fix Ancient White Dragon Ground Slam DC. Closes #1522
+* (Tikael) Add new no-prep character Wendlyn
+* (Tikael) Change familiar abilities to unlimited duration
+* (Tikael) Add instructions for making specific scrolls and wands to the generic items
+* (Tikael) Fix broken links in the alchemist class features preventing proper automation. Closes #1535
+* (mathmanpi) Fix Piranha Swarm bludgeoning resistance
+* (Shandyan) Add automation to aphorite versatile heritage and feats (axiomatic lore, intuitive crafting, lemma of vision)
+* (Shandyan) Azarketi automation part 1
+
+### Core System Improvements
+* (Tikael) Stop striking and weapon potency from warning about values of zero
+* (Friz) Add separate option to allow GM to control visibility of both DC and results
+* (BoMbY) Make recovery DC/result always visible to players
+* (In3luki) Create new conditions in a single database transaction, which should improve speed and reliability when applying conditions
+* (In3luki) Add 'two-degrees-better' and 'two-degrees-worse' to DC modifiers
+* (In3luki) Refactor ABC item creation for better reliability on character creation and level-up
+* (stwlam) Finish cleaning up display of traits on item sheets
+* (stwlam) Initial implementation of material and rune-base weapon names, prices, etc.
+* (stwlam) Make item cards and summaries fancier
+* (stwlam) Remove attack and damage buttons from weapon chat cards
+* (Supe) Show final heightened spell level in chat card title
+* (Supe) Spells with cantrip trait are always cantrips (unless ritual)
+* (Supe) Cantrips can no longer be 0th level, and will now show the heightened level in the chat card
+* (Supe) Updated spell editor arrangement
+* (Tikael) Add skills and perception to the inline button options
+* (nikolaj-a) Add weapon base item value to attack and damage selectors
+* (nikolaj-a) Increase line height slightly for the compact roll notes
+* (nikolaj-a) Add notes for outcome of the trip action
+
+
 ## Version 2.4.0
 ### Bug Fixes
 * (Drental) Fix NPC damage rolls with non-dice values

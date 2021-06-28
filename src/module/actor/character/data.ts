@@ -93,11 +93,6 @@ export interface CharacterSystemData extends CreatureSystemData {
             /** The minimum level (almost always '1'). */
             min: number;
         };
-
-        /** Prepared/sheet data */
-        ancestry: string | null;
-        background: string | null;
-        class: string | null;
     };
 
     attributes: CharacterAttributes;
@@ -197,10 +192,6 @@ interface CharacterAttributes extends BaseCreatureAttributes {
 
     /** The amount of bonus HP gained per level (due a feat or similar). */
     levelbonushp: number;
-    /** The amount of HP provided per level by the character's class. */
-    classhp: number;
-    /** The amount of HP provided at level 1 by the character's ancestry. */
-    ancestryhp: number;
     /** A flat bonus (i.e., not scaling with level) to hit points. */
     flatbonushp: number;
     /** A flat-bonus (i.e., not scaling with level) to stamina points. */

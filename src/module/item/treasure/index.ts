@@ -7,7 +7,8 @@ export class TreasurePF2e extends PhysicalItemPF2e {
     }
 
     /** Set non-coinage treasure price from its numeric value and denomination */
-    override prepareBaseData() {
+    override prepareBaseData(): void {
+        super.prepareBaseData();
         const systemData = this.data.data;
         if (systemData.stackGroup.value !== 'coins') {
             const value = systemData.value.value;
@@ -16,7 +17,7 @@ export class TreasurePF2e extends PhysicalItemPF2e {
         }
     }
 
-    override getChatData(this: Embedded<TreasurePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<TreasurePF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const traits = this.traitChatData({});
 

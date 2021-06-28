@@ -1,4 +1,4 @@
-import { FeatPF2e, AncestryPF2e, ClassPF2e, BackgroundPF2e, ItemPF2e } from '@item/index';
+import { FeatPF2e, ClassPF2e, ItemPF2e } from '@item/index';
 import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e } from '@item/data';
 import { ABCFeatureEntryData } from '@item/abc/data';
 import { CharacterPF2e } from '@actor/index';
@@ -10,19 +10,28 @@ export class AncestryBackgroundClassManager {
         source: AncestrySource | BackgroundSource | ClassSource,
         actor: CharacterPF2e,
     ): Promise<ItemPF2e[]> {
-        if (source.type === 'ancestry' || source.type === 'background') {
-            await this.deleteExistingFeatures(source, actor);
-            return this.addFeatures(source, actor, true);
-        } else {
-            if (source.type !== 'class') throw ErrorPF2e('Invalid item type for ABC creation!');
+        switch (source.type) {
+            case 'ancestry': {
+                await actor.ancestry?.delete();
+                return this.addFeatures(source, actor, true);
+            }
+            case 'background': {
+                await actor.background?.delete();
+                return this.addFeatures(source, actor, true);
+            }
+            case 'class': {
+                await actor.class?.delete();
 
-            source._id = randomID(16);
-            source.flags.pf2e ??= {};
-            source.flags.pf2e.insertedClassFeaturesLevel = actor.level;
+                source._id = randomID(16);
+                source.flags.pf2e ??= {};
+                source.flags.pf2e.insertedClassFeaturesLevel = actor.level;
 
-            const itemsToCreate: ItemSourcePF2e[] = await this.getClassFeaturesForLevel(source, 0, actor.level);
-            itemsToCreate.push(source);
-            return actor.createEmbeddedDocuments('Item', itemsToCreate, { keepId: true });
+                const itemsToCreate: ItemSourcePF2e[] = await this.getClassFeaturesForLevel(source, 0, actor.level);
+                itemsToCreate.push(source);
+                return actor.createEmbeddedDocuments('Item', itemsToCreate, { keepId: true });
+            }
+            default:
+                throw ErrorPF2e('Invalid item type for ABC creation!');
         }
     }
 
@@ -36,8 +45,8 @@ export class AncestryBackgroundClassManager {
 
         if (classFeaturesToCreate.length > 0) {
             await actor.createEmbeddedDocuments('Item', classFeaturesToCreate, { keepId: true, render: false });
+            classItem.setFlag(game.system.id, 'insertedClassFeaturesLevel', actor.level);
         }
-        classItem.setFlag(game.system.id, 'insertedClassFeaturesLevel', actor.level);
     }
 
     protected static async getClassFeaturesForLevel(
@@ -124,7 +133,6 @@ export class AncestryBackgroundClassManager {
         actor: CharacterPF2e,
         createSource = false,
     ): Promise<ItemPF2e[]> {
-        await this.deleteExistingFeatures(itemSource, actor);
         const itemsToCreate: ItemSourcePF2e[] = [];
         if (createSource) {
             itemSource._id = randomID(16);
@@ -133,20 +141,5 @@ export class AncestryBackgroundClassManager {
         const entriesData = Object.values(itemSource.data.items);
         itemsToCreate.push(...(await this.getFeatures(entriesData, itemSource._id)));
         return actor.createEmbeddedDocuments('Item', itemsToCreate, { keepId: true });
-    }
-
-    protected static async deleteExistingFeatures(
-        itemSource: AncestrySource | BackgroundSource,
-        actor: CharacterPF2e,
-    ): Promise<void> {
-        // Ancestries, backgrounds, and classes are singletons, so we need to remove the others
-        const existingABCIds = actor.itemTypes[itemSource.type].map((item: AncestryPF2e | BackgroundPF2e) => item.id);
-        const existingFeatureIds = actor.itemTypes.feat
-            .filter((feat) => existingABCIds.includes(feat.data.data.location))
-            .map((feat) => feat.id);
-
-        if (existingABCIds.length > 0 || existingFeatureIds.length > 0) {
-            await actor.deleteEmbeddedDocuments('Item', existingABCIds.concat(existingFeatureIds), { render: false });
-        }
     }
 }

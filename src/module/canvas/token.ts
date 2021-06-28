@@ -11,7 +11,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Is the user currently controlling this token? */
     get isControlled(): boolean {
-        return canvas.tokens.controlled.includes(this);
+        return this._controlled;
     }
 
     setPerceivedLightLevel({ updateSource = false } = {}): void {
@@ -31,22 +31,6 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
         this.data.brightSight = perceivedBrightness > lightLevel ? perceivedBrightness * 500 : 0;
         if (updateSource) this.updateSource();
-    }
-
-    /** Refresh vision and the `EffectPanel` upon selecting a token */
-    protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
-        if (game.ready) {
-            this.setPerceivedLightLevel();
-            game.pf2e?.effectPanel.refresh();
-        }
-        super._onControl(options);
-    }
-
-    /** Refresh vision and the `EffectPanel` upon releasing control of a token */
-    protected override _onRelease(options?: Record<string, unknown>) {
-        this.setPerceivedLightLevel();
-        game.pf2e.effectPanel.refresh();
-        super._onRelease(options);
     }
 
     /**
@@ -70,6 +54,28 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
                 sight: { refresh: true },
             });
         }
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    /** Refresh vision and the `EffectPanel` upon selecting a token */
+    protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
+        if (game.ready) {
+            this.setPerceivedLightLevel();
+            canvas.lighting.initializeSources();
+            game.pf2e.effectPanel.refresh();
+        }
+        super._onControl(options);
+    }
+
+    /** Refresh vision and the `EffectPanel` upon releasing control of a token */
+    protected override _onRelease(options?: Record<string, unknown>) {
+        this.setPerceivedLightLevel();
+        canvas.lighting.initializeSources();
+        game.pf2e.effectPanel.refresh();
+        super._onRelease(options);
     }
 
     /** Persist token overrides during movement */
