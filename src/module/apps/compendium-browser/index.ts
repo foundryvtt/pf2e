@@ -150,7 +150,7 @@ export class CompendiumBrowser extends Application {
         };
 
         // NPCs and Hazards are all loaded by default other packs can be set here.
-        const loadDefault = {
+        const loadDefault: Record<string, boolean> = {
             'pf2e.actionspf2e': true,
             'pf2e.equipment-srd': true,
             'pf2e.ancestryfeatures': true,
