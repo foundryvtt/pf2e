@@ -15,8 +15,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     setPerceivedLightLevel({ updateSource = false } = {}): void {
-        const rulesBasedVision = game.settings.get('pf2e', 'automation.rulesBasedVision');
-        if (!(canvas.scene && this.actor && rulesBasedVision && this.observer && this.hasSight)) {
+        if (!(canvas.scene && this.actor && this.observer && this.hasSight && canvas.sight.rulesBasedVision)) {
             return;
         }
 
@@ -64,8 +63,8 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
         if (game.ready) {
             this.setPerceivedLightLevel();
-            canvas.lighting.initializeSources();
             game.pf2e.effectPanel.refresh();
+            if (canvas.sight.rulesBasedVision) canvas.lighting.initializeSources();
         }
         super._onControl(options);
     }
@@ -73,8 +72,9 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Refresh vision and the `EffectPanel` upon releasing control of a token */
     protected override _onRelease(options?: Record<string, unknown>) {
         this.setPerceivedLightLevel();
-        canvas.lighting.initializeSources();
         game.pf2e.effectPanel.refresh();
+        if (canvas.sight.rulesBasedVision) canvas.lighting.initializeSources();
+
         super._onRelease(options);
     }
 

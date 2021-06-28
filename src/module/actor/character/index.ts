@@ -1251,6 +1251,23 @@ export class CharacterPF2e extends CreaturePF2e {
         }
         return super.deleteEmbeddedDocuments(embeddedName, ids, context) as Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
     }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    /** Refresh placed lights if this character's senses changed */
+    protected override _onUpdate(
+        changed: DeepPartial<this['data']['_source']>,
+        options: DocumentModificationContext = {},
+        userId: string,
+    ): void {
+        if (changed.data?.traits?.senses) {
+            canvas.lighting.initializeSources();
+            canvas.perception.schedule({ lighting: { refresh: true }, sight: { refresh: true } });
+        }
+        super._onUpdate(changed, options, userId);
+    }
 }
 
 export interface CharacterPF2e {
