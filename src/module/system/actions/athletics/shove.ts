@@ -6,7 +6,7 @@ export function shove(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.Shove',
+        'PF2E.Actions.Shove.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:shove'],
@@ -15,5 +15,10 @@ export function shove(options: SkillActionOptions) {
         checkType,
         options.event,
         (target) => target.fortitude,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.Shove', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Shove', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Shove', 'criticalFailure'),
+        ],
     );
 }
