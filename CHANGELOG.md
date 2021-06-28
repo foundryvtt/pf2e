@@ -1,5 +1,16 @@
 # Patch Notes:
 
+## Version 2.5.2
+### Bug Fixes
+* (stwlam) Remove risk of stack overflow during lighting refresh
+
+### Content Changes
+* (stwlam) Add Darkvision spell effects
+
+### Core System Improvements
+* (nikolaj-a) Add outcome notes to climb, disarm, force open, grapple, high jump, long jump, shove, and swim action macros
+
+
 ## Version 2.5.1
 ### Bug Fixes
 * (In3luki) Fix sorting of class features not working on the first drop
