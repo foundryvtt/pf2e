@@ -428,6 +428,7 @@ export class CompendiumBrowser extends Application {
             'img',
             'data.stackGroup.value',
             'data.armorType.value',
+            'data.group.value',
             'data.level.value',
             'data.price.value',
             'data.weaponType.value',
