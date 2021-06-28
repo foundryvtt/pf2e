@@ -251,8 +251,7 @@ export class CompendiumBrowser extends Application {
 
         for await (const { pack, content } of packLoader.loadPacks('Item', this.loadedPacks('action'), indexFields)) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loading`);
-            for (const action of content) {
-                const actionData = { ...action };
+            for (const actionData of content) {
                 if (actionData.type === 'action') {
                     // update icons for any passive actions
                     if (actionData.data.actionType.value === 'passive') actionData.img = this._getActionImg('passive');
@@ -294,8 +293,7 @@ export class CompendiumBrowser extends Application {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.contents.length} entries found`,
             );
-            for (const actor of content) {
-                const actorData = { ...actor };
+            for (const actorData of content) {
                 if (actorData.type === 'npc') {
                     // record the pack the feat was read from
                     actorData.compendium = pack.collection;
@@ -363,8 +361,7 @@ export class CompendiumBrowser extends Application {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
             );
-            for (const actor of content) {
-                const actorData = { ...actor };
+            for (const actorData of content) {
                 if (actorData.type === 'hazard') {
                     // record the pack the hazard was read from
                     actorData.compendium = pack.collection;
@@ -443,9 +440,8 @@ export class CompendiumBrowser extends Application {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
             );
-            for (const item of content) {
-                const itemData = { ...item };
-                if (item.data.type === 'treasure' && itemData.data.stackGroup.value === 'coins') continue;
+            for (const itemData of content) {
+                if (itemData.type === 'treasure' && itemData.data.stackGroup.value === 'coins') continue;
                 if (itemTypes.includes(itemData.type)) {
                     // record the pack the feat was read from
                     itemData.compendium = pack.collection;
@@ -515,8 +511,7 @@ export class CompendiumBrowser extends Application {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
             );
-            for (const feat of content) {
-                const featData = { ...feat };
+            for (const featData of content) {
                 if (featData.type === 'feat') {
                     // record the pack the feat was read from
                     featData.compendium = pack.collection;
@@ -638,8 +633,7 @@ export class CompendiumBrowser extends Application {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
             );
-            for (const spell of content) {
-                const spellData = { ...spell };
+            for (const spellData of content) {
                 if (spellData.type === 'spell') {
                     // Set category of cantrips to "cantrip" until migration can be done
                     if (spellData.data.traits.value.includes('cantrip')) {
