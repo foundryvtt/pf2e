@@ -9,7 +9,6 @@ declare global {
     abstract class CompendiumCollection<
         TDocument extends CompendiumDocument = CompendiumDocument,
     > extends DocumentCollection<TDocument> {
-        /** @override */
         constructor(metadata: CompendiumMetadata<TDocument>, options?: ApplicationOptions);
 
         /** The compendium metadata which defines the compendium content and location */
@@ -44,8 +43,7 @@ declare global {
         /** Access the compendium configuration data for this pack */
         get config(): Record<string, unknown>;
 
-        /** @override */
-        get documentName(): string;
+        override get documentName(): string;
 
         /** Track whether the Compendium Collection is locked for editing */
         get locked(): boolean;
@@ -56,14 +54,11 @@ declare global {
         /** A convenience reference to the label which should be used as the title for the Compendium pack. */
         get title(): string;
 
-        /** @override */
-        get(key: string, options: Record<string, unknown>): TDocument | undefined;
+        override get(key: string, options: Record<string, unknown>): TDocument | undefined;
 
-        /** @override */
-        set(id: string, document: TDocument): this;
+        override set(id: string, document: TDocument): this;
 
-        /** @override */
-        delete(id: string): boolean;
+        override delete(id: string): boolean;
 
         /** Load the Compendium index and cache it as the keys and values of the Collection. */
         getIndex(): Promise<CompendiumIndex>;
@@ -138,24 +133,21 @@ declare global {
         /** Request that a Compendium pack be migrated to the latest System data template */
         migrate(options?: Record<string, unknown>): Promise<this>;
 
-        /** @override */
-        _onCreateDocuments(
+        protected override _onCreateDocuments(
             documents: TDocument[],
             result: TDocument['data']['_source'][],
             options: DocumentModificationContext,
             userId: string,
         ): void;
 
-        /** @override */
-        _onUpdateDocuments(
+        protected override _onUpdateDocuments(
             documents: TDocument[],
             result: TDocument['data']['_source'][],
             options: DocumentModificationContext,
             userId: string,
         ): void;
 
-        /** @override */
-        _onDeleteDocuments(
+        protected override _onDeleteDocuments(
             documents: TDocument[],
             result: TDocument['data']['_source'][],
             options: DocumentModificationContext,

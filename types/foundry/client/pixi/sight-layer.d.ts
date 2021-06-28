@@ -20,11 +20,11 @@
  * @example <caption>The sightRefresh hook</caption>
  * Hooks.on("sightRefresh", layer => {});
  */
-declare class SightLayer extends CanvasLayer {
+declare class SightLayer<TFogExploration extends FogExploration = FogExploration> extends CanvasLayer {
     constructor();
 
     /** The FogExploration document which applies to this canvas view */
-    exploration: FogExploration | null;
+    exploration: TFogExploration;
 
     /** A Collection of vision sources which are currently active within the rendered Scene. */
     sources: Collection<PointSource>;
@@ -50,6 +50,15 @@ declare class SightLayer extends CanvasLayer {
     /** A debounced function to save fog of war exploration once a stream of updates have stopped */
     debounceSaveFog: Function;
 
+    /** Unexplored area is obscured by darkness. We need a larger rectangle so that the blur filter doesn't clip */
+    unexplored?: PIXI.Graphics;
+
+    /** Exploration container */
+    explored?: PIXI.Container;
+
+    /** Past exploration updates */
+    revealed?: PIXI.Container;
+
     /**
      * Define the threshold value for the number of distinct Wall endpoints.
      * Below this threshold, exact vision computation is used by casting a Ray at every endpoint.
@@ -63,6 +72,8 @@ declare class SightLayer extends CanvasLayer {
     static FOG_COMMIT_THRESHOLD: number;
 
     static override get layerOptions(): SightLayerOptions;
+
+    saved: PIXI.Sprite;
 
     /** Does the currently viewed Scene support Token field of vision? */
     get tokenVision(): boolean;
@@ -110,7 +121,7 @@ declare class SightLayer extends CanvasLayer {
      * Obtain a vision container from the recycling pool, or create one if no container exists.
      * Assign the container as the current fog exploration and the current LOS polygon.
      */
-    protected _getVisionContainer(): void;
+    protected _getVisionContainer(): PIXI.Container;
 
     /**
      * Return a vision container back to the pool, recycling it for future use.
@@ -138,13 +149,13 @@ declare class SightLayer extends CanvasLayer {
      *
      * @param point     The point in space to test, an object with coordinates x and y.
      * @param tolerance A numeric radial offset which allows for a non-exact match. For example, if
-     *                                tolerance is 2 then the test will pass if the point is within 2px of a vision
-     *                                polygon.
-     * @param [object]  An optional reference to the object whose visibility is being tested
+     *                  tolerance is 2 then the test will pass if the point is within 2px of a vision
+     *                  polygon.
+     * @param [object] An optional reference to the object whose visibility is being tested
      *
      * @return Whether the point is currently visible.
      */
-    testVisibility(point: Point, { tolerance, object }?: { tolerance?: number; object?: PIXI.DisplayObject }): boolean;
+    testVisibility(point: Point, { tolerance, object }?: { tolerance?: number; object?: PlaceableObject }): boolean;
 
     /* -------------------------------------------- */
     /*  Fog of War Management                       */
@@ -177,7 +188,7 @@ declare class SightLayer extends CanvasLayer {
      * @param source The vision source for which the fog layer should update
      * @param force  Force fog to be updated even if the location is already explored
      */
-    updateFog(source: PointSource, force?: boolean): boolean;
+    updateFog(source: PointSource<Token>, force?: boolean): boolean;
 
     /**
      * Choose an adaptive fog rendering resolution which downscales the saved fog textures for larger dimension Scenes

@@ -58,9 +58,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     override getData() {
         const sheetData = super.getData();
 
-        sheetData.ancestryItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'ancestry')?._id ?? '';
-        sheetData.backgroundItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'background')?._id ?? '';
-        sheetData.classItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'class')?._id ?? '';
+        // ABC
+        sheetData.ancestry = this.actor.ancestry;
+        sheetData.background = this.actor.background;
+        sheetData.class = this.actor.class;
 
         // Update hero points label
         sheetData.data.attributes.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
@@ -1096,26 +1097,27 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
         if (itemData.type === 'feat') {
             const { slotId, featType } = this.getNearestSlotId(event);
-
-            if (this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
-                return this.actor.updateEmbeddedDocuments('Item', [
-                    {
-                        _id: itemData._id,
-                        'data.location': slotId,
-                    },
-                    ...this.actor.items
-                        .filter((x) => x.data.type === 'feat' && x.data.data.location === slotId)
-                        .map((x) => ({ _id: x.id, 'data.location': '' })),
-                ]);
-            } else {
-                // if they're dragging it away from a slot
-                if (itemData.data.location) {
+            if (slotId && featType) {
+                if (this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
                     return this.actor.updateEmbeddedDocuments('Item', [
                         {
                             _id: itemData._id,
-                            'data.location': '',
+                            'data.location': slotId,
                         },
+                        ...this.actor.items
+                            .filter((x) => x.data.type === 'feat' && x.data.data.location === slotId)
+                            .map((x) => ({ _id: x.id, 'data.location': '' })),
                     ]);
+                } else {
+                    // if they're dragging it away from a slot
+                    if (itemData.data.location) {
+                        return this.actor.updateEmbeddedDocuments('Item', [
+                            {
+                                _id: itemData._id,
+                                'data.location': '',
+                            },
+                        ]);
+                    }
                 }
             }
         }

@@ -107,12 +107,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const inventoryItems = items.filter((itemData): itemData is InventoryItem => itemData.isPhysical);
         for (const itemData of inventoryItems) {
             itemData.isContainer = itemData.type === 'backpack';
-            if (!itemData.isIdentified) {
-                const item = this.actor.physicalItems.get(itemData._id);
-                if (item) {
-                    itemData.data.identification.identified = item.getMystifiedData('identified');
-                }
-            }
         }
 
         // Calculate financial and total wealth

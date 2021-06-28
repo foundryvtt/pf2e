@@ -5,7 +5,7 @@
             <div class="hint" style="display:none;">
                 {{{localize "PF2E.SpellBrowserSearchHint"}}}
             </div>
-            <dl id="sorter">
+            <dl>
                 <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
                 <dd>
                     <select class="order">
@@ -15,7 +15,7 @@
                     <a class="direction" data-type="alpha" data-direction="asc"><i class="fas fa-sort-alpha-up"></i></a>
                 </dd>
             </dl>
-            <dl id="timefilter">
+            <dl class="timefilter">
                 <dt>{{localize "PF2E.BrowserFilterCastingTime"}}:</dt>
                 <dd><select class="" name="timefilter">
                     <option value="" selected>-</option>
@@ -30,22 +30,31 @@
             <h3>{{localize "PF2E.BrowserFilterSpellCategories"}}</h3>
             <dl>
                 {{#each categories as |category key|}}
-                    <label><dt><input type="checkbox" name="category-{{lower key}}"></dt><dd>{{localize category}}</dd></label>
+                    <label>
+                        <dt><input type="checkbox" name="category-{{lower key}}" /></dt>
+                        <dd>{{localize category}}</dd>
+                    </label>
                 {{/each}}
+                <label>
+                    <dt><input type="checkbox" name="category-cantrip" /></dt>
+                    <dd>{{localize "PF2E.SpellCantripLabel"}}</dd>
+                </label>
             </dl>
         </div>
         <div class="filtercontainer" id="classfilter">
             <h3>{{localize "PF2E.BrowserFilterTraditions"}}</h3>
             <dl>
                 {{#each traditions as |tradition key|}}
-                    <label><dt><input type="checkbox" name="traditions-{{lower key}}"></dt><dd>{{localize tradition}}</dd></label>
+                    <label>
+                        <dt><input type="checkbox" name="traditions-{{lower key}}" /></dt>
+                        <dd>{{localize tradition}}</dd>
+                    </label>
                 {{/each}}
             </dl>
         </div>
         <div class="filtercontainer" id="levelfilter">
             <h3>{{localize "PF2E.BrowserFilterLevels"}}</h3>
             <dl>
-                <label><dt><input type="checkbox" name="level-0"></dt><dd>{{localize "PF2E.SpellCantripLabel"}}</dd></label>
                 <label><dt><input type="checkbox" name="level-1"></dt><dd>{{localize "PF2E.SpellLevel1"}}</dd></label>
                 <label><dt><input type="checkbox" name="level-2"></dt><dd>{{localize "PF2E.SpellLevel2"}}</dd></label>
                 <label><dt><input type="checkbox" name="level-3"></dt><dd>{{localize "PF2E.SpellLevel3"}}</dd></label>

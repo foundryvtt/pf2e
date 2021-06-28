@@ -349,17 +349,17 @@ declare class Token<TDocument extends TokenDocument = TokenDocument> extends Pla
     /** Define additional steps taken when an existing placeable object of this type is deleted */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void;
 
-    protected override _canControl(user: User, event?: Event): boolean;
+    protected override _canControl(user: User, event?: PIXI.InteractionEvent): boolean;
 
-    protected override _canHUD(user: User, event?: Event): boolean;
+    protected override _canHUD(user: User, event?: PIXI.InteractionEvent): boolean;
 
-    protected override _canConfigure(user: User, event?: Event): boolean;
+    protected override _canConfigure(user: User, event?: PIXI.InteractionEvent): boolean;
 
-    protected override _canHover(user: User, event?: Event): boolean;
+    protected override _canHover(user: User, event?: PIXI.InteractionEvent): boolean;
 
-    protected override _canView(user: User, event?: Event): boolean;
+    protected override _canView(user: User, event?: PIXI.InteractionEvent): boolean;
 
-    protected override _canDrag(user: User, event?: Event): boolean;
+    protected override _canDrag(user: User, event?: PIXI.InteractionEvent): boolean;
 
     protected override _onHoverIn(
         event: PIXI.InteractionEvent,

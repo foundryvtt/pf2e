@@ -1,7 +1,8 @@
 declare class Drawing extends PlaceableObject<DrawingDocument> {
-    /** @override */
-    get layer(): DrawingLayer;
+    /** A reference to the User who created the Drawing document. */
+    get author(): User;
+}
 
-    /** @override */
-    static get layer(): DrawingLayer;
+declare interface Drawing {
+    get layer(): DrawingsLayer;
 }

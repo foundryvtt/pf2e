@@ -28,11 +28,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 default: false,
                 type: Boolean,
                 onChange: () => {
-                    const tokens = [...canvas.tokens.controlled];
-                    for (const token of tokens) {
-                        token.release();
-                        token.control();
-                    }
+                    window.location.reload();
                 },
             },
             effectExpiration: {

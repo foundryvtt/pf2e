@@ -99,23 +99,14 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         this.data.isEquipped = systemData.equipped.value;
         this.data.isIdentified = systemData.identification.status === 'identified';
 
-        const traits: string[] = this.data.data.traits.value;
-        this.data.isAlchemical = traits.includes('alchemical');
-        this.data.isCursed = traits.includes('cursed');
+        const traits = this.traits;
+        this.data.isAlchemical = traits.has('alchemical');
+        this.data.isCursed = traits.has('cursed');
 
         // Magic and invested status is determined at the class-instance level since it can be updated later in data
         // preparation
         this.data.isMagical = this.isMagical;
         this.data.isInvested = this.isInvested;
-
-        // Update properties according to identification status
-        const { data } = this;
-
-        const mystifiedData = this.getMystifiedData(this.identificationStatus);
-        mergeObject(data, mystifiedData, { insertKeys: false, insertValues: false });
-
-        // Fill gaps in unidentified data with defaults
-        data.data.identification.unidentified = this.getMystifiedData('unidentified');
 
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.data.data.containerId.value) {
@@ -128,6 +119,22 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         super.prepareDerivedData();
         this.data.isMagical = this.isMagical;
         this.data.isInvested = this.isInvested;
+
+        const systemData = this.data.data;
+        systemData.identification.identified = {
+            name: this.name,
+            img: this.img,
+            data: {
+                description: { value: this.description },
+            },
+        };
+
+        // Update properties according to identification status
+        const mystifiedData = this.getMystifiedData(this.identificationStatus);
+        mergeObject(this.data, mystifiedData, { insertKeys: false, insertValues: false });
+
+        // Fill gaps in unidentified data with defaults
+        systemData.identification.unidentified = this.getMystifiedData('unidentified');
     }
 
     /** Can the provided item stack with this item? */
@@ -145,10 +152,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     /* Retrieve subtitution data for an unidentified or misidentified item, generating defaults as necessary */
     getMystifiedData(status: IdentificationStatus, _options?: Record<string, boolean>): MystifiedData {
-        const mystifiedData: MystifiedData =
-            status === 'identified' || status === 'misidentified'
-                ? this.data._source
-                : this.data.data.identification[status];
+        const mystifiedData: MystifiedData = this.data.data.identification[status];
 
         const name = mystifiedData.name || this.generateUnidentifiedName();
         const img = mystifiedData.img || getUnidentifiedPlaceholderImage(this.data);
