@@ -461,7 +461,7 @@ export class WeaponDamagePF2e {
         if (splashDamage > 0) {
             const modifier = new ModifierPF2e('PF2E.WeaponSplashDamageLabel', splashDamage, MODIFIER_TYPE.UNTYPED);
             //splash damage should not be doubled on a crit
-            modifier.nonCritical = true; 
+            modifier.nonCritical = true;
             numericModifiers.push(modifier);
         }
 
@@ -683,7 +683,7 @@ export class WeaponDamagePF2e {
                         if (!pool) {
                             pool = { categories: {} };
                             dicePool[damageType] = pool;
-                        }    
+                        }
                         let category = pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)];
                         if (!category) {
                             category = {};
@@ -696,7 +696,7 @@ export class WeaponDamagePF2e {
                         if (!pool) {
                             pool = { categories: {} };
                             nonCritPool[damageType] = pool;
-                        }    
+                        }
                         let category = pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)];
                         if (!category) {
                             category = {};
