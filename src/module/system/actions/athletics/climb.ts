@@ -6,7 +6,7 @@ export function climb(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.Climb',
+        'PF2E.Actions.Climb.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:climb'],
@@ -14,5 +14,11 @@ export function climb(options: SkillActionOptions) {
         ['move'],
         checkType,
         options.event,
+        undefined,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.Climb', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Climb', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Climb', 'criticalFailure'),
+        ],
     );
 }
