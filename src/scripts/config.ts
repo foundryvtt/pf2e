@@ -1076,6 +1076,7 @@ export const PF2ECONFIG = {
         agile: 'PF2E.TraitAgile',
         artifact: 'PF2E.TraitArtifact',
         attached: 'PF2E.TraitAttached',
+        auditory: 'PF2E.TraitAuditory',
         backstabber: 'PF2E.TraitBackstabber',
         backswing: 'PF2E.TraitBackswing',
         bomb: 'PF2E.TraitBomb',
