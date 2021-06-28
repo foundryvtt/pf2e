@@ -6,7 +6,7 @@ export function grapple(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.Grapple',
+        'PF2E.Actions.Grapple.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:grapple'],
@@ -15,5 +15,11 @@ export function grapple(options: SkillActionOptions) {
         checkType,
         options.event,
         (target) => target.fortitude,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.Grapple', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Grapple', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Grapple', 'failure'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Grapple', 'criticalFailure'),
+        ],
     );
 }
