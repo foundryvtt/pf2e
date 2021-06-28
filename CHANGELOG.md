@@ -1,5 +1,39 @@
 # Patch Notes:
 
+## Version 2.5.1
+### Bug Fixes
+* (In3luki) Fix sorting of class features not working on the first drop
+* (stwlam) Fix cantrip filter in compendium browser, organize spell traits better
+* (stwlam) Fix GM info for unidentified items
+* (stwlam) Prevent rarer and higher-level weapons from reverting to common and zero
+* (stwlam) Ensure ABC items take their features with them when deleted. Closes #1541
+* (stwlam) Fix bug triggered by check against non-existent `invested` property
+* (stwlam) Remove "text-transform: capitalize" styling from journal entry headers. Closes #1542
+* (stwlam) Fix loading of compendium browser settings. Closes #1544
+* (stwlam) Fill localization gaps for weapons with potency and property but no striking runes
+* (stwlam) Fix newly-created items not appearing in the item directory until sheet is closed
+* (stwlam) Make compendium browser's spell-category filtering mutually exclusive between "cantrip" and "spell"
+
+### Content Changes
+* (SpartanCPA) Add more deadly dice presets: 4d8, 4d10, 4d12
+* (SpartanCPA) Correct levels of Bard cantrips
+* (SpartanCPA & Peenicks) Agents of Edgewatch Book 6 - Items & Spells
+* (SpartanCPA & Peenicks) Agents of Edgewatch Book 6 - Missing NPCs (Part 1 & 2)
+* (stwlam) Add size active effect to Wisp Fetchling heritage. Closes #1515
+* (Tikael) Add finesse trait to Dragon Claws spell effect strikes
+* (Drental) Add bon mot, veil of dreams, and incredible improviser effects and rule elements
+* (TMun) Brush up Treerazer for 0.8.8/2.5.0. Closes #1429
+* (Bolt) Brush up Troll
+* (Bolt) Fix note order for Aasimar Redeemer
+
+### Core System Improvements
+* (stwlam) Increase dim light on placed lighting to bright for tokens with low-light/darkvision
+* (stwlam) Set token-source dimSight and brightSight to 0 if rules-based vision is enabled
+* (nikolaj-a) Support capping spell auto-heighten level (mostly relevant for dealing with some NPC corner cases)
+* (nikolaj-a) Make new effects have unlimited duration by default
+* (nikolaj-a) Add outcome notes to balance, maneuver in flight, squeeze, and tumble through action macros
+
+
 ## Version 2.5.0
 ### Bug Fixes
 * (stwlam) Fix bug causing derived traits on armor to be wiped. Closes #1521
