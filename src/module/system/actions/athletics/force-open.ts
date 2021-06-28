@@ -6,7 +6,7 @@ export function forceOpen(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.ForceOpen',
+        'PF2E.Actions.ForceOpen.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:force-open'],
@@ -14,5 +14,11 @@ export function forceOpen(options: SkillActionOptions) {
         ['attack'],
         checkType,
         options.event,
+        undefined,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.ForceOpen', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.ForceOpen', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.ForceOpen', 'criticalFailure'),
+        ],
     );
 }
