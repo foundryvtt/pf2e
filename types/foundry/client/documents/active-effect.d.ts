@@ -7,7 +7,6 @@ declare global {
      * Each ActiveEffect contains a ActiveEffectData object which provides its source data.
      */
     class ActiveEffect extends ActiveEffectConstructor implements TemporaryEffect {
-        /** @override */
         constructor(
             data: PreCreate<foundry.data.ActiveEffectSource>,
             context?: DocumentConstructionContext<ActiveEffect>,

@@ -120,7 +120,7 @@ declare class Wall extends PlaceableObject<WallDocument> {
     /*  Interaction Event Callbacks                 */
     /* -------------------------------------------- */
 
-    protected _canControl(user: User, event: Event): boolean;
+    protected override _canControl(user: User, event?: PIXI.InteractionEvent): boolean;
 
     protected _onHoverIn(event: PIXI.InteractionEvent, options?: { hoverOutOthers?: boolean }): boolean;
 

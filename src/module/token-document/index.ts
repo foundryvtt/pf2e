@@ -11,6 +11,19 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         return this.parent;
     }
 
+    /** If rules-based vision is enabled, disable (but don't save) manually configured vision radii */
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        if (canvas.sight?.rulesBasedVision) {
+            this.data.update({ brightSight: 0, dimSight: 0 });
+        }
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
     /** Call `onCreateToken` hook of any rule element on this actor's items */
     protected override async _preCreate(
         data: PreDocumentId<this['data']['_source']>,

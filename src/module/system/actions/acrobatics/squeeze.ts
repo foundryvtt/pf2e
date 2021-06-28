@@ -6,7 +6,7 @@ export function squeeze(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph,
-        'PF2E.Actions.Squeeze',
+        'PF2E.Actions.Squeeze.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:squeeze'],
@@ -14,5 +14,11 @@ export function squeeze(options: SkillActionOptions) {
         ['exploration', 'move'],
         checkType,
         options.event,
+        undefined,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.Squeeze', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Squeeze', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Squeeze', 'criticalFailure'),
+        ],
     );
 }

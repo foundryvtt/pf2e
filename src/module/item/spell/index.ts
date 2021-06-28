@@ -1,4 +1,4 @@
-import { ItemPF2e } from '@item/index';
+import { ItemPF2e } from '@item/base';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ordinal, toNumber } from '@module/utils';
 import { SpellData, SpellTrait } from './data';
@@ -20,7 +20,11 @@ export class SpellPF2e extends ItemPF2e {
     private computeCastLevel(castLevel?: number) {
         const isAutoScaling = this.isCantrip || this.isFocusSpell;
         if (isAutoScaling && this.actor) {
-            return Math.ceil(this.actor.level / 2);
+            return (
+                this.data.data.autoHeightenLevel.value ||
+                this.spellcasting?.data.data.autoHeightenLevel.value ||
+                Math.ceil(this.actor.level / 2)
+            );
         }
 
         // Spells cannot go lower than base level
