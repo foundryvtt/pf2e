@@ -91,6 +91,9 @@ declare class LightingLayer<TAmbientLight extends AmbientLight = AmbientLight> e
     /** Does this scene currently benefit from global illumination? */
     hasGlobalIllumination(): boolean;
 
+    /** Initialize all AmbientLight sources which are present on this layer */
+    initializeSources(): void;
+
     /**
      * Refresh the active display of the LightingLayer.
      * Update the scene background color, light sources, and darkness sources
