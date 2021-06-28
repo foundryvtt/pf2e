@@ -70,60 +70,6 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return super.delete(context);
     }
 
-    protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
-        if (this.actor) {
-            // Rule Elements
-            if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
-            const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
-            const tokens = this.actor.getAllTokens();
-            const actorUpdates = {};
-            for (const rule of rules) {
-                rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
-            }
-            this.actor.update(actorUpdates);
-
-            // Effect Panel
-            game.pf2e.effectPanel.refresh();
-        }
-
-        super._onCreate(data, options, userId);
-    }
-
-    protected override _onUpdate(
-        changed: DeepPartial<this['data']['_source']>,
-        options: DocumentModificationContext,
-        userId: string,
-    ): void {
-        if (this.isOwned && this.actor) {
-            game.pf2e.effectPanel.refresh();
-        }
-
-        super._onUpdate(changed, options, userId);
-    }
-
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
-        if (this.isOwned) {
-            if (this.actor) {
-                if (this.data.type === 'effect') {
-                    game.pf2e.effectTracker.unregister(this.data);
-                }
-
-                if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
-                const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
-                const tokens = this.actor.getAllTokens();
-                const actorUpdates = {};
-                for (const rule of rules) {
-                    rule.onDelete(this.actor.data, this.data, actorUpdates, tokens);
-                }
-                this.actor.update(actorUpdates);
-
-                game.pf2e.effectPanel.refresh();
-            }
-        }
-
-        super._onDelete(options, userId);
-    }
-
     /**
      * Create a chat card for this item and send it to the chat log. Many cards contain follow-up options for attack
      * rolls, effect application, etc.
@@ -816,6 +762,64 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const newItem = super.createDialog(data, options) as Promise<ItemPF2e | undefined>;
         game.system.entityTypes.Item = original;
         return newItem;
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
+        if (this.actor) {
+            // Rule Elements
+            if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
+            const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
+            const tokens = this.actor.getAllTokens();
+            const actorUpdates = {};
+            for (const rule of rules) {
+                rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
+            }
+            this.actor.update(actorUpdates);
+
+            // Effect Panel
+            game.pf2e.effectPanel.refresh();
+        }
+
+        super._onCreate(data, options, userId);
+    }
+
+    protected override _onUpdate(
+        changed: DeepPartial<this['data']['_source']>,
+        options: DocumentModificationContext,
+        userId: string,
+    ): void {
+        if (this.isOwned && this.actor) {
+            game.pf2e.effectPanel.refresh();
+        }
+
+        super._onUpdate(changed, options, userId);
+    }
+
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+        if (this.isOwned) {
+            if (this.actor) {
+                if (this.data.type === 'effect') {
+                    game.pf2e.effectTracker.unregister(this.data);
+                }
+
+                if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
+                const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
+                const tokens = this.actor.getAllTokens();
+                const actorUpdates = {};
+                for (const rule of rules) {
+                    rule.onDelete(this.actor.data, this.data, actorUpdates, tokens);
+                }
+                this.actor.update(actorUpdates);
+
+                game.pf2e.effectPanel.refresh();
+            }
+        }
+
+        super._onDelete(options, userId);
     }
 }
 

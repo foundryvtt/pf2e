@@ -59,6 +59,10 @@ export class EffectPF2e extends ItemPF2e {
         return result;
     }
 
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
         data: PreDocumentId<this['data']['_source']>,
