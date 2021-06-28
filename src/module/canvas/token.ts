@@ -64,7 +64,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
         if (game.ready) {
             this.setPerceivedLightLevel();
-            canvas.sight.restrictVisibility();
+            canvas.lighting.initializeSources();
             game.pf2e.effectPanel.refresh();
         }
         super._onControl(options);
@@ -73,7 +73,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Refresh vision and the `EffectPanel` upon releasing control of a token */
     protected override _onRelease(options?: Record<string, unknown>) {
         this.setPerceivedLightLevel();
-        canvas.sight.restrictVisibility();
+        canvas.lighting.initializeSources();
         game.pf2e.effectPanel.refresh();
         super._onRelease(options);
     }
