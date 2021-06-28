@@ -75,6 +75,7 @@ export class ModifierPF2e implements RawModifier {
     damageCategory?: string;
     predicate: RawPredicate = new ModifierPredicate();
     critical?: boolean;
+    nonCritical?: boolean;
     traits?: string[];
     /** Status of automation (rules or active effects) applied to this modifier */
     automation: { key: string | null; enabled: boolean } = {

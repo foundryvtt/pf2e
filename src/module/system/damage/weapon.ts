@@ -459,9 +459,10 @@ export class WeaponDamagePF2e {
         // add splash damage
         const splashDamage = Number(weapon.data.splashDamage?.value) || 0;
         if (splashDamage > 0) {
-            numericModifiers.push(
-                new ModifierPF2e('PF2E.WeaponSplashDamageLabel', splashDamage, MODIFIER_TYPE.UNTYPED),
-            );
+            const modifier = new ModifierPF2e('PF2E.WeaponSplashDamageLabel', splashDamage, MODIFIER_TYPE.UNTYPED);
+            //splash damage should not be doubled on a crit
+            modifier.nonCritical = true; 
+            numericModifiers.push(modifier);
         }
 
         // add bonus damage
@@ -485,6 +486,10 @@ export class WeaponDamagePF2e {
                         }
                         if (m.damageCategory) {
                             modifier.damageCategory = m.damageCategory;
+                        }
+                        //crude workaround to handle Expanded Splash or Calculated Splash rule element correctly
+                        if (m.name === 'Expanded Splash' || m.name === 'Calculated Splash') {
+                            modifier.nonCritical = true;
                         }
                         modifier.ignored = !new ModifierPredicate(m.predicate ?? {}).test(options);
                         numericModifiers.push(modifier);
@@ -586,6 +591,8 @@ export class WeaponDamagePF2e {
 
         const dicePool: DamagePool = {};
         const critPool: DamagePool = {};
+        //separate pool for nonCrit damage
+        const nonCritPool: DamagePool = {};
         dicePool[base.damageType] = {
             base: true,
             categories: {
@@ -671,17 +678,32 @@ export class WeaponDamagePF2e {
                 .filter((nm) => !nm.critical || critical)
                 .forEach((nm) => {
                     const damageType = nm.damageType ?? base.damageType;
-                    let pool = dicePool[damageType];
-                    if (!pool) {
-                        pool = { categories: {} };
-                        dicePool[damageType] = pool;
+                    if (!nm.nonCritical) {
+                        let pool = dicePool[damageType];
+                        if (!pool) {
+                            pool = { categories: {} };
+                            dicePool[damageType] = pool;
+                        }    
+                        let category = pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)];
+                        if (!category) {
+                            category = {};
+                            pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)] = category;
+                        }
+                        category.modifier = (category.modifier ?? 0) + nm.modifier;
+                    } else {
+                        //separate non crit pool that will not get doubled on a crit
+                        let pool = nonCritPool[damageType];
+                        if (!pool) {
+                            pool = { categories: {} };
+                            nonCritPool[damageType] = pool;
+                        }    
+                        let category = pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)];
+                        if (!category) {
+                            category = {};
+                            pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)] = category;
+                        }
+                        category.modifier = (category.modifier ?? 0) + nm.modifier;
                     }
-                    let category = pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)];
-                    if (!category) {
-                        category = {};
-                        pool.categories[nm.damageCategory ?? DamageCategory.fromDamageType(damageType)] = category;
-                    }
-                    category.modifier = (category.modifier ?? 0) + nm.modifier;
                     (nm.traits ?? [])
                         .filter((t) => !damage.traits.includes(t))
                         .forEach((t) => {
@@ -704,6 +726,11 @@ export class WeaponDamagePF2e {
             if (critFormula) {
                 formula += ` + ${critFormula}`;
             }
+        }
+        //separate non crit damage that does not get doubled on a crit
+        const nonCritFormula = this.buildFormula(nonCritPool, partials);
+        if (nonCritFormula) {
+            formula += ` + ${nonCritFormula}`;
         }
 
         return {
