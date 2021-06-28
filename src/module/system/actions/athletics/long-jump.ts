@@ -6,7 +6,7 @@ export function longJump(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'D',
-        'PF2E.Actions.LongJump',
+        'PF2E.Actions.LongJump.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:stride', 'action:leap', 'action:long-jump'],
@@ -14,5 +14,11 @@ export function longJump(options: SkillActionOptions) {
         ['move'],
         checkType,
         options.event,
+        undefined,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.LongJump', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.LongJump', 'failure'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.LongJump', 'criticalFailure'),
+        ],
     );
 }
