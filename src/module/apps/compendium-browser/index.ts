@@ -154,24 +154,54 @@ export class CompendiumBrowser extends Application {
             feat: {},
             spell: {},
         };
-        for (const pack of game.packs.values()) {
-            const types = (() => {
-                if (pack.metadata.entity === 'Item') {
-                    return ['action', 'equipment', 'feat', 'spell'] as const;
-                } else if (pack.metadata.entity === 'Actor') {
-                    return ['bestiary', 'hazard'] as const;
-                }
-                return null;
-            })();
-            if (!types) continue;
 
-            for (const packType of types) {
-                const load =
-                    this.settings[packType]?.[pack.collection]?.load ??
-                    (pack.collection.includes(packType) ||
-                        (packType === 'bestiary' && pack.collection.includes('npc-')));
+        // NPCs and Hazards are all loaded by default other packs can be set here.
+        const loadDefault: Record<string, boolean> = {
+            'pf2e.actionspf2e': true,
+            'pf2e.equipment-srd': true,
+            'pf2e.ancestryfeatures': true,
+            'pf2e.classfeatures': true,
+            'pf2e.feats-srd': true,
+            'pf2e.spells-srd': true,
+        };
 
-                settings[packType]![pack.collection] = {
+        for (const pack of game.packs) {
+            const type = pack.index.contents[0]?.type;
+            if (type === undefined) continue;
+
+            if (type === 'action') {
+                const load = this.settings.action?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
+                settings.action![pack.collection] = {
+                    load,
+                    name: pack.metadata.label,
+                };
+            } else if (type === 'npc') {
+                const load = this.settings.bestiary?.[pack.collection]?.load ?? true;
+                settings.bestiary![pack.collection] = {
+                    load,
+                    name: pack.metadata.label,
+                };
+            } else if (type === 'hazard') {
+                const load = this.settings.hazard?.[pack.collection]?.load ?? true;
+                settings.hazard![pack.collection] = {
+                    load,
+                    name: pack.metadata.label,
+                };
+            } else if (['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit'].includes(type)) {
+                const load = this.settings.equipment?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
+                settings.equipment![pack.collection] = {
+                    load,
+                    name: pack.metadata.label,
+                };
+            } else if (type === 'feat') {
+                const load = this.settings.feat?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
+                settings.feat![pack.collection] = {
+                    load,
+                    name: pack.metadata.label,
+                };
+            } else if (type === 'spell') {
+                const load = this.settings.spell?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
+                settings.spell![pack.collection] = {
                     load,
                     name: pack.metadata.label,
                 };
