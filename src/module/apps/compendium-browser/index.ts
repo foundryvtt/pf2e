@@ -60,8 +60,14 @@ class PackLoader {
                 progress.advance(game.i18n.format(translations.LoadingPack, { pack: pack.metadata.label }));
                 if (pack.metadata.entity === entityType) {
                     const content = await pack.getIndex({ fields: indexFields });
-                    data = { pack, content };
-                    this.loadedPacks[entityType][packId] = data;
+                    const firstResult = content.contents[0] ?? {};
+                    // Every result should have the 'data' property otherwise the indexFields were wrong for that pack
+                    if (firstResult.data !== undefined) {
+                        data = { pack, content };
+                        this.loadedPacks[entityType][packId] = data;
+                    } else {
+                        continue;
+                    }
                 } else {
                     continue;
                 }
