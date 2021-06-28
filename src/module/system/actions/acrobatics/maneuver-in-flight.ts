@@ -6,7 +6,7 @@ export function maneuverInFlight(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.ManeuverInFlight',
+        'PF2E.Actions.ManeuverInFlight.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:maneuver-in-flight'],
@@ -14,5 +14,11 @@ export function maneuverInFlight(options: SkillActionOptions) {
         ['move'],
         checkType,
         options.event,
+        undefined,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.ManeuverInFlight', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.ManeuverInFlight', 'failure'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.ManeuverInFlight', 'criticalFailure'),
+        ],
     );
 }
