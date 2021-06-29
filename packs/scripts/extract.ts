@@ -122,7 +122,9 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
         if (key === '_id') {
             topLevel = entityData;
             delete entityData.folder;
-            delete (entityData as Partial<PackEntry>).permission;
+            if ('type' in entityData && entityData.type !== 'script') {
+                delete (entityData as Partial<PackEntry>).permission;
+            }
         } else if (['_modifiers', '_sheetTab'].includes(key)) {
             delete entityData[key as DocumentKey];
         } else if (entityData[key as DocumentKey] instanceof Object) {

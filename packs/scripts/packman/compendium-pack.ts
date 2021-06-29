@@ -106,8 +106,8 @@ export class CompendiumPack {
                     }
                 }
             }
-            if ('type' in docSource && (docSource.type === 'chat' || docSource.type === 'script')) {
-                docSource.permission = { default: 1 };
+            if ('type' in docSource && docSource.type === 'script') {
+                docSource.permission ??= { default: 1 };
             }
         }
     }
