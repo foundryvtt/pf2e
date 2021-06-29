@@ -29,10 +29,11 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         mergeObject(this.data, overrides, { insertKeys: false });
 
         if (moving) {
+            game.user.setPerceivedLightLevel();
             this.updateSource({ defer: true });
         } else {
             game.user.setPerceivedLightLevel();
-            game.user.setPerceivedLightEmissions();
+            game.user.setPerceivedLightEmissions({ defer: false });
         }
     }
 
@@ -45,9 +46,8 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (game.ready) {
             game.pf2e.effectPanel.refresh();
             if (canvas.sight.rulesBasedVision) {
-                const lightEmitters = canvas.tokens.placeables.filter((token) => token.emitsLight);
-                for (const token of lightEmitters) token.applyOverrides();
-                game.user.refreshSight();
+                const lightEmitters = canvas.tokens.placeables.filter((token) => token.emitsLight && token !== this);
+                for (const token of [this, ...lightEmitters]) token.applyOverrides();
             }
         }
         super._onControl(options);
@@ -69,7 +69,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         dt: number,
         anim: TokenAnimationAttribute<this>[],
         config: TokenAnimationConfig,
-    ) {
+    ): void {
         this.applyOverrides(this.overrides, { moving: true });
         super._onMovementFrame(dt, anim, config);
     }
