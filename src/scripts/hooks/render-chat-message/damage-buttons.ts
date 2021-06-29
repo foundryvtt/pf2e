@@ -126,6 +126,7 @@ function shiftModifyDamage(html: JQuery<HTMLElement>, multiplier: number, attrib
                     <label>${game.i18n.localize('PF2E.UI.shiftModifyDamageLabel')}</label>
                     <input type="number" name="modifier" value="" placeholder="0">
                 </div>
+                <div>Use positive modifier to harm, negative to heal.</div> 
                 </form>
                 <script type="text/javascript">
                 $(function () {
