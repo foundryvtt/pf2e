@@ -241,7 +241,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         // Disable (but don't save) manually-configured vision radii
         if (canvas.sight?.rulesBasedVision) {
-            this.data.token.update({ brightSight: 0, dimSight: 0 });
+            this.data.token.update({ brightSight: 0, dimSight: 0, lightAngle: 360 });
         }
     }
 
