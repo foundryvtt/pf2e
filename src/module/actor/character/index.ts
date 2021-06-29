@@ -446,10 +446,6 @@ export class CharacterPF2e extends CreaturePF2e {
                 ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),
             ];
             const notes: RollNotePF2e[] = [];
-            if (skill.item) {
-                modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', skill.item, MODIFIER_TYPE.ITEM));
-            }
-
             const ignoreArmorCheckPenalty = !(
                 worn &&
                 worn.data.traits.value.includes('flexible') &&
@@ -473,6 +469,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
+            const skillRank = skill.rank;
 
             // preserve backwards-compatibility
             const stat: StatisticModifier = mergeObject(new StatisticModifier(expandedName, modifiers), skill, {
@@ -487,6 +484,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .join(', ');
             stat.value = stat.totalModifier;
             stat.notes = notes;
+            stat.rank = skillRank;
             stat.roll = (args: RollParameters) => {
                 const label = game.i18n.format('PF2E.SkillCheckWithName', {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[skillName]),
@@ -525,7 +523,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                 });
 
-                const loreSkill: SkillData = systemData.skills[shortform];
+                const loreSkill = systemData.skills[shortform];
                 const stat = mergeObject(new StatisticModifier(skill.name, modifiers), loreSkill, {
                     overwrite: false,
                 });
