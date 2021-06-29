@@ -6,7 +6,7 @@ export function senseMotive(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.SenseMotive',
+        'PF2E.Actions.SenseMotive.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:sense-motive'],
