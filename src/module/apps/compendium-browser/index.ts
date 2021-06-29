@@ -108,6 +108,9 @@ export class CompendiumBrowser extends Application {
     /** Is the user currently dragging a document from the browser? */
     userIsDragging = false;
 
+    /** The combined index for hazards and NPCs */
+    hazardNPCIndex: string[];
+
     constructor(options = {}) {
         super(options);
 
@@ -115,6 +118,22 @@ export class CompendiumBrowser extends Application {
         this.initCompendiumList();
         this.injectActorDirectory();
         this.hookTab();
+
+        const npcIndex = [
+            'img',
+            'data.details.level.value',
+            'data.details.alignment.value',
+            'data.details.source.value',
+            'data.traits',
+        ];
+        const hazardIndex = [
+            'img',
+            'data.details.source.value',
+            'data.details.level',
+            'data.details.isComplex',
+            'data.traits',
+        ];
+        this.hazardNPCIndex = [...new Set([...npcIndex, ...hazardIndex])];
     }
 
     override get title() {
@@ -328,13 +347,7 @@ export class CompendiumBrowser extends Application {
 
         const bestiaryActors: Record<string, CompendiumIndexData> = {};
         const sources: Set<string> = new Set();
-        const indexFields = [
-            'img',
-            'data.details.level.value',
-            'data.details.alignment.value',
-            'data.details.source.value',
-            'data.traits',
-        ];
+        const indexFields = this.hazardNPCIndex;
 
         for await (const { pack, content } of packLoader.loadPacks(
             'Actor',
@@ -400,13 +413,7 @@ export class CompendiumBrowser extends Application {
         const hazardActors: Record<string, CompendiumIndexData> = {};
         const sources: Set<string> = new Set();
         const rarities = Object.keys(CONFIG.PF2E.rarityTraits);
-        const indexFields = [
-            'img',
-            'data.details.source.value',
-            'data.details.level',
-            'data.details.isComplex',
-            'data.traits',
-        ];
+        const indexFields = this.hazardNPCIndex;
 
         for await (const { pack, content } of packLoader.loadPacks('Actor', this.loadedPacks('hazard'), indexFields)) {
             console.debug(
