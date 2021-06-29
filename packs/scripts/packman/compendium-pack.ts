@@ -106,6 +106,9 @@ export class CompendiumPack {
                     }
                 }
             }
+            if ('type' in docSource && docSource.type === 'script') {
+                docSource.permission ??= { default: 1 };
+            }
         }
     }
 
@@ -205,10 +208,11 @@ export class CompendiumPack {
             name: (data: { name?: unknown }) => typeof data.name === 'string',
             flags: (data: unknown) => typeof data === 'object' && data !== null && 'flags' in data,
             permission: (data: { permission?: { default: unknown } }) =>
-                typeof data.permission === 'object' &&
-                data.permission !== null &&
-                Object.keys(data.permission).length === 1 &&
-                Number.isInteger(data.permission.default),
+                !data.permission ||
+                (typeof data.permission === 'object' &&
+                    data.permission !== null &&
+                    Object.keys(data.permission).length === 1 &&
+                    Number.isInteger(data.permission.default)),
         });
 
         const failedChecks = checks

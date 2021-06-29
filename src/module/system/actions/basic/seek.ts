@@ -6,7 +6,7 @@ export function seek(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.Seek',
+        'PF2E.Actions.Seek.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:seek'],
@@ -14,5 +14,10 @@ export function seek(options: SkillActionOptions) {
         ['concentrate', 'secret'],
         checkType,
         options.event,
+        undefined,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.Seek', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Seek', 'success'),
+        ],
     );
 }

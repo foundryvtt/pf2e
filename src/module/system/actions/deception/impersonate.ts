@@ -6,7 +6,7 @@ export function impersonate(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph,
-        'PF2E.Actions.Impersonate',
+        'PF2E.Actions.Impersonate.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:impersonate'],

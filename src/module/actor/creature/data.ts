@@ -84,25 +84,6 @@ export interface CreatureTraitsData extends BaseTraitsData {
 
 export type SkillData = StatisticModifier & RawSkillData & Rollable;
 
-export interface Skills {
-    acr: SkillData;
-    arc: SkillData;
-    ath: SkillData;
-    cra: SkillData;
-    dec: SkillData;
-    dip: SkillData;
-    itm: SkillData;
-    med: SkillData;
-    nat: SkillData;
-    occ: SkillData;
-    prf: SkillData;
-    rel: SkillData;
-    soc: SkillData;
-    ste: SkillData;
-    sur: SkillData;
-    thi: SkillData;
-}
-
 /** The full save data for a character; includes statistic modifier and an extra `saveDetail` field for user-provided details. */
 export type SaveData = SkillData & { saveDetail?: string };
 export type Saves = Record<SaveString, SaveData>;

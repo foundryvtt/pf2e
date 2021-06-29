@@ -7,6 +7,8 @@ import { JSDOM } from 'jsdom';
 import type { ActorPF2e } from '@actor/base';
 import type { ItemPF2e } from '@item/base';
 import { sluggify } from '@module/utils';
+import systemJSON from 'system.json';
+import templateJSON from 'static/template.json';
 
 declare global {
     interface Global {
@@ -20,6 +22,7 @@ global.document = window.document;
 global.window = global.document.defaultView!;
 import $ from 'jquery';
 import { ActionSource, ItemSourcePF2e, MeleeSource, SpellSource } from '@item/data';
+import { NPCSystemData } from '@actor/npc/data';
 
 // show error message without needless traceback
 const PackError = (message: string) => {
@@ -89,8 +92,9 @@ const packsPath = (() => {
 
 const tempDataPath = path.resolve(process.cwd(), 'packs/temp-data');
 const dataPath = path.resolve(process.cwd(), 'packs/data');
-const packsMetadata = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'system.json'), 'utf-8'))
-    .packs as CompendiumMetadata[];
+const packsMetadata = systemJSON.packs as unknown as CompendiumMetadata[];
+
+const npcSystemKeys = new Set(Object.keys({ ...templateJSON.Actor.templates.common, ...templateJSON.Actor.npc }));
 
 const idsToNames: Map<string, Map<string, string>> = new Map();
 
@@ -121,10 +125,18 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
     for (const key in entityData) {
         if (key === '_id') {
             topLevel = entityData;
-            if ('folder' in entityData && 'permission' in entityData) {
-                const defaultPermission = entityData.permission['default'] ?? [0];
-                entityData.folder = null;
-                entityData.permission = { default: defaultPermission };
+            delete entityData.folder;
+            if ('type' in entityData) {
+                if (entityData.type !== 'script') {
+                    delete (entityData as Partial<PackEntry>).permission;
+                }
+                if (entityData.type === 'npc') {
+                    for (const key of Object.keys(entityData.data)) {
+                        if (!npcSystemKeys.has(key)) {
+                            delete (entityData.data as NPCSystemData & { extraneous?: unknown })[key as 'extraneous'];
+                        }
+                    }
+                }
             }
         } else if (['_modifiers', '_sheetTab'].includes(key)) {
             delete entityData[key as DocumentKey];
@@ -139,7 +151,7 @@ function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = {
     if (isEmbedded) {
         delete entityData.flags.pf2e_updatednpcsheet;
     } else {
-        entityData.permission = { default: entityData.permission.default ?? 0 };
+        entityData.permission = { default: entityData.permission?.default ?? 0 };
         delete (entityData as Partial<typeof entityData>).sort;
 
         if ('data' in entityData && 'slug' in entityData.data) {
