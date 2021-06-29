@@ -10,6 +10,8 @@ import {
 } from '../../modifiers';
 import { CheckPF2e } from '../rolls';
 import { StatisticWithDC } from '@system/statistic';
+import { RollNotePF2e } from '@module/notes';
+import { DegreeOfSuccessString } from '@system/check-degree-of-success';
 import { seek } from './basic/seek';
 import { senseMotive } from './basic/sense-motive';
 import { balance } from './acrobatics/balance';
@@ -36,8 +38,7 @@ import { coerce } from './intimidation/coerce';
 import { demoralize } from './intimidation/demoralize';
 import { hide } from './stealth/hide';
 import { sneak } from './stealth/sneak';
-import { RollNotePF2e } from '@module/notes';
-import { DegreeOfSuccessString } from '@system/check-degree-of-success';
+import { pickALock } from './thievery/pick-a-lock';
 
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
 
@@ -95,6 +96,9 @@ export class ActionsPF2e {
         // stealth
         actions.hide = hide;
         actions.sneak = sneak;
+
+        // thievery
+        actions.pickALock = pickALock;
     }
 
     static resolveStat(stat: string): {
