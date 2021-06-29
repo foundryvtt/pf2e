@@ -29,8 +29,9 @@ export class UserPF2e extends User<ActorPF2e> {
 
     /** Set this user's perceived light levels emitted by placed ambient lights and tokens */
     setPerceivedLightEmissions({ ambient = true, defer = true } = {}): void {
-        if (ambient) canvas.lighting.initializeSources();
+        if (!(canvas.scene && canvas.sight.rulesBasedVision)) return;
 
+        if (ambient) canvas.lighting.initializeSources();
         const controlleds = canvas.tokens.controlled.filter((token) => token.hasSight);
         for (const token of canvas.tokens.placeables) {
             const perceivedBrightLight = (() => {

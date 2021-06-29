@@ -16,7 +16,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         super.prepareBaseData();
 
         if (canvas.sight?.rulesBasedVision) {
-            this.data.update({ brightSight: 0, dimSight: 0 });
+            this.data.update({ brightSight: 0, dimSight: 0, lightAngle: 360, sightAngle: 360 });
         }
     }
 
