@@ -6,7 +6,8 @@ import {
     BaseCreatureSource,
     CreatureSystemData,
     Saves,
-    Skills,
+    SkillAbbreviation,
+    SkillData,
 } from '@actor/creature/data';
 import {
     AbilityString,
@@ -35,6 +36,10 @@ export interface CharacterData extends Omit<CharacterSource, 'effects' | 'items'
     readonly type: CharacterSource['type'];
     data: CharacterSource['data'];
     readonly _source: CharacterSource;
+}
+
+export interface CharacterSkillData extends SkillData {
+    rank: number;
 }
 
 /** The raw information contained within the actor data object for characters. */
@@ -98,7 +103,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     attributes: CharacterAttributes;
 
     /** Player skills, used for various skill checks. */
-    skills: Skills;
+    skills: Record<SkillAbbreviation, CharacterSkillData>;
 
     /** Pathfinder Society Organized Play */
     pfs: PathfinderSocietyData;

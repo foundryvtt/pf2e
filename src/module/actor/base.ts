@@ -228,32 +228,6 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.createEmbeddedDocuments(embeddedName, data, context) as Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
     }
 
-    protected override _onCreateEmbeddedDocuments(
-        embeddedName: 'Item' | 'ActiveEffect',
-        documents: ActiveEffect[] | Item<ActorPF2e>[],
-        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
-        options: DocumentModificationContext,
-        userId: string,
-    ) {
-        // Fix bug in Foundry 0.8.8 where 'render = false' is not working when creating embedded documents
-        if (options.render !== false) {
-            super._onCreateEmbeddedDocuments(embeddedName, documents, result, options, userId);
-        }
-    }
-
-    protected override _onDeleteEmbeddedDocuments(
-        embeddedName: 'Item' | 'ActiveEffect',
-        documents: ActiveEffect[] | Item<ActorPF2e>[],
-        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
-        options: DocumentModificationContext,
-        userId: string,
-    ) {
-        // Fix bug in Foundry 0.8.8 where 'render = false' is not working when deleting embedded documents
-        if (options.render !== false) {
-            super._onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId);
-        }
-    }
-
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken() {
         // Synchronize the token image with the actor image, if the token does not currently have an image
@@ -1206,6 +1180,36 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     : null;
             conditionSource.data.value.value &&= conditionValue;
             await this.createEmbeddedDocuments('Item', [conditionSource]);
+        }
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    /** Fix bug in Foundry 0.8.8 where 'render = false' is not working when creating embedded documents */
+    protected override _onCreateEmbeddedDocuments(
+        embeddedName: 'Item' | 'ActiveEffect',
+        documents: ActiveEffect[] | Item<ActorPF2e>[],
+        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
+        options: DocumentModificationContext,
+        userId: string,
+    ) {
+        if (options.render !== false) {
+            super._onCreateEmbeddedDocuments(embeddedName, documents, result, options, userId);
+        }
+    }
+
+    /** Fix bug in Foundry 0.8.8 where 'render = false' is not working when deleting embedded documents */
+    protected override _onDeleteEmbeddedDocuments(
+        embeddedName: 'Item' | 'ActiveEffect',
+        documents: ActiveEffect[] | Item<ActorPF2e>[],
+        result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
+        options: DocumentModificationContext,
+        userId: string,
+    ) {
+        if (options.render !== false) {
+            super._onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId);
         }
     }
 }
