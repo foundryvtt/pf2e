@@ -67,6 +67,11 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         }
 
         game.pf2e.effectPanel.refresh();
+
+        // Update perceived light emission from the perspective of other tokens
+        if ('dimLight' in changed || 'brightLight' in changed) {
+            game.user.setPerceivedLightEmissions({ ambient: false, defer: false });
+        }
     }
 }
 

@@ -23,6 +23,7 @@ import { TokenConfigPF2e } from '@module/token-document/sheet';
 import { PlayerConfigPF2e } from '@module/user/player-config';
 import { PF2ECONFIG } from '../config';
 import { AmbientLightPF2e } from '@module/canvas';
+import { UserPF2e } from '@module/user';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -44,6 +45,8 @@ export function listen(): void {
 
         CONFIG.Scene.documentClass = ScenePF2e;
         CONFIG.Scene.sheetClass = SceneConfigPF2e;
+
+        CONFIG.User.documentClass = UserPF2e;
 
         CONFIG.AmbientLight.objectClass = AmbientLightPF2e;
         CONFIG.Token.documentClass = TokenDocumentPF2e;
