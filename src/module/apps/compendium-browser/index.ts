@@ -1200,7 +1200,10 @@ export class CompendiumBrowser extends Application {
                 }
                 case 'level': {
                     return $items
-                        .map((index, element) => ({ value: Number(element.dataset.level) || -10, element, index }))
+                        .map((index, element) => {
+                            const levelString = element.dataset.level?.trim() || '0';
+                            return { value: Number(levelString), element, index };
+                        })
                         .toArray();
                 }
                 case 'price': {
