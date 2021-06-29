@@ -163,7 +163,6 @@ declare global {
     function fromUuid(uuid: CompendiumUUID): Promise<CompendiumDocument | null>;
 
     interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {
-        absPath: string;
         readonly entity: T extends Actor
             ? 'Actor'
             : T extends Item
@@ -179,13 +178,13 @@ declare global {
             : T extends Scene
             ? 'Scene'
             : CompendiumDocumentType;
-        label: string;
-        module: string;
         name: string;
-        package: string;
+        label: string;
         path: string;
+        private?: string;
+        module?: string;
+        package?: string;
         system: string;
-        private: string;
     }
 
     interface CompendiumIndexData {
