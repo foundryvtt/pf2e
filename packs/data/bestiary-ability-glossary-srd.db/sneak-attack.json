@@ -18,7 +18,25 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "target:flatFooted"
+                    ],
+                    "any": [
+                        "finesse",
+                        "agile",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -39,7 +57,7 @@
     "effects": [],
     "flags": {},
     "folder": null,
-    "img": "systems/pf2e/icons/default-icons/action.svg",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
     "name": "Sneak Attack",
     "permission": {
         "default": 0
