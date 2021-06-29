@@ -106,6 +106,9 @@ export class CompendiumPack {
                     }
                 }
             }
+            if ('type' in docSource && docSource.type === 'script') {
+                docSource.permission ??= { default: 1 };
+            }
         }
     }
 
