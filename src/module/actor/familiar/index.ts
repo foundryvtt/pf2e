@@ -5,7 +5,6 @@ import { CheckPF2e, RollParameters } from '@system/rolls';
 import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
 import { CreaturePF2e } from '../creature';
 import { ItemSourcePF2e } from '@item/data';
-import { objectHasKey } from '@module/utils';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ItemPF2e } from '@item/base';
 import { FamiliarData } from './data';
@@ -31,6 +30,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         const systemData = this.data.data;
         systemData.details.level = { value: 0 };
         systemData.traits.size.value = 'tiny';
+        systemData.traits.traits = { value: ['minion'], custom: '' };
         systemData.traits.senses = [{ type: 'lowLightVision', label: 'PF2E.SensesLowLightVision', value: '' }];
     }
 
@@ -53,10 +53,8 @@ export class FamiliarPF2e extends CreaturePF2e {
             .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item.data)), [])
             .filter((rule) => !rule.ignored);
 
-        // Ensure presence of "minion" trait
-        data.traits.traits.value = data.traits.traits.value
-            .concat('minion')
-            .filter((trait, index, self) => self.indexOf(trait) === index);
+        // Ensure uniqueness of traits
+        data.traits.traits.value = [...this.traits].sort();
 
         if (master) {
             data.master.ability ||= 'cha';
@@ -64,7 +62,7 @@ export class FamiliarPF2e extends CreaturePF2e {
 
             const { statisticsModifiers } = this.prepareCustomModifiers(rules);
             const modifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
-            const filter_modifier = (modifier: ModifierPF2e) => !modifierTypes.includes(modifier.type);
+            const filterModifier = (modifier: ModifierPF2e) => !modifierTypes.includes(modifier.type);
 
             if (Object.keys(data.attributes.speed.otherSpeeds).length === 0) {
                 data.attributes.speed.otherSpeeds.push({
@@ -79,7 +77,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 const modifiers: ModifierPF2e[] = [];
                 [`${speed.type}-speed`, 'speed'].forEach((key) => {
                     (statisticsModifiers[key] || [])
-                        .filter(filter_modifier)
+                        .filter(filterModifier)
                         .map((m) => duplicate(m))
                         .forEach((m) => modifiers.push(m));
                 });
@@ -106,11 +104,11 @@ export class FamiliarPF2e extends CreaturePF2e {
                     ...this.data.data.attributes.hp.modifiers,
                 ];
                 (statisticsModifiers.hp || [])
-                    .filter(filter_modifier)
+                    .filter(filterModifier)
                     .map((m) => duplicate(m))
                     .forEach((m) => modifiers.push(m));
                 (statisticsModifiers['hp-per-level'] || [])
-                    .filter(filter_modifier)
+                    .filter(filterModifier)
                     .map((m) => duplicate(m))
                     .forEach((m) => {
                         m.modifier *= data.details.level.value;
@@ -141,7 +139,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 const modifiers: ModifierPF2e[] = [];
                 ['ac', 'dex-based', 'all'].forEach((key) =>
                     (statisticsModifiers[key] || [])
-                        .filter(filter_modifier)
+                        .filter(filterModifier)
                         .map((m) => duplicate(m))
                         .forEach((m) => modifiers.push(m)),
                 );
@@ -175,7 +173,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 const ability = save.ability ?? CONFIG.PF2E.savingThrowDefaultAbilities[saveName];
                 [save.name, `${ability}-based`, 'saving-throw', 'all'].forEach((key) =>
                     (statisticsModifiers[key] || [])
-                        .filter(filter_modifier)
+                        .filter(filterModifier)
                         .map((m) => duplicate(m))
                         .forEach((m) => modifiers.push(m)),
                 );
@@ -206,7 +204,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 ];
                 ['attack', 'mundane-attack', 'attack-roll', 'all'].forEach((key) =>
                     (statisticsModifiers[key] || [])
-                        .filter(filter_modifier)
+                        .filter(filterModifier)
                         .map((m) => duplicate(m))
                         .forEach((m) => modifiers.push(m)),
                 );
@@ -239,7 +237,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 ];
                 ['perception', 'wis-based', 'all'].forEach((key) =>
                     (statisticsModifiers[key] || [])
-                        .filter(filter_modifier)
+                        .filter(filterModifier)
                         .map((m) => duplicate(m))
                         .forEach((m) => modifiers.push(m)),
                 );
@@ -265,7 +263,7 @@ export class FamiliarPF2e extends CreaturePF2e {
 
             // skills
             for (const shortForm of SKILL_ABBREVIATIONS) {
-                const skillName = SKILL_DICTIONARY[shortForm];
+                const longForm = SKILL_DICTIONARY[shortForm];
                 const modifiers = [
                     new ModifierPF2e('PF2E.MasterLevel', data.details.level.value, MODIFIER_TYPE.UNTYPED),
                 ];
@@ -278,14 +276,14 @@ export class FamiliarPF2e extends CreaturePF2e {
                         ),
                     );
                 }
-                const ability = SKILL_EXPANDED[skillName].ability;
-                [skillName, `${ability}-based`, 'skill-check', 'all'].forEach((key) =>
+                const ability = SKILL_EXPANDED[longForm].ability;
+                [longForm, `${ability}-based`, 'skill-check', 'all'].forEach((key) =>
                     (statisticsModifiers[key] || [])
-                        .filter(filter_modifier)
+                        .filter(filterModifier)
                         .map((m) => duplicate(m))
                         .forEach((m) => modifiers.push(m)),
                 );
-                const label = objectHasKey(CONFIG.PF2E.skills, skillName) ? CONFIG.PF2E.skills[skillName] : skillName;
+                const label = CONFIG.PF2E.skills[shortForm] ?? longForm;
                 const stat = new StatisticModifier(label, modifiers);
                 stat.value = stat.totalModifier;
                 stat.ability = ability;
