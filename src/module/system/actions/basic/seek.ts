@@ -6,7 +6,7 @@ export function seek(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.Seek',
+        'PF2E.Actions.Seek.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:seek'],

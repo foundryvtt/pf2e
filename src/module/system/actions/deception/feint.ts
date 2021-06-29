@@ -6,7 +6,7 @@ export function feint(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.Feint',
+        'PF2E.Actions.Feint.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:feint'],
