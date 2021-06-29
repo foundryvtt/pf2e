@@ -804,10 +804,12 @@ export class CompendiumBrowser extends Application {
         });
 
         // Sort item list
-        const $sort = $controlArea.find('.sortcontainer');
-        const $order = $sort.find<HTMLSelectElement>('select.order');
-        const $direction = $sort.find('a.direction');
-        $order.on('change', () => {
+        const $sortContainer = $controlArea.find('.sortcontainer');
+        const $orderSelects = $sortContainer.find<HTMLSelectElement>('select.order');
+        const $directionButtons = $sortContainer.find('a.direction');
+        $orderSelects.on('change', (event) => {
+            const $order = $(event.target);
+            const $direction = $order.next('a.direction');
             const sortBy = $order.val();
             if (!tupleHasValue(['name', 'level', 'price'] as const, sortBy)) return;
 
@@ -816,7 +818,9 @@ export class CompendiumBrowser extends Application {
             const $list = $html.find('.tab.active ul.item-list');
             this.sortResults($list, { sortBy, direction });
         });
-        $direction.on('click', () => {
+        $directionButtons.on('click', (event) => {
+            const $direction = $(event.delegateTarget);
+            const $order = $direction.prev('select.order');
             const sortBy = $order.val();
             if (!tupleHasValue(['name', 'level', 'price'] as const, sortBy)) return;
 
