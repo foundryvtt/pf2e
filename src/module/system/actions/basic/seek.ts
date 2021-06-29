@@ -14,5 +14,10 @@ export function seek(options: SkillActionOptions) {
         ['concentrate', 'secret'],
         checkType,
         options.event,
+        undefined,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.Seek', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Seek', 'success'),
+        ],
     );
 }
