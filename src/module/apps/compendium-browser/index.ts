@@ -215,6 +215,14 @@ export class CompendiumBrowser extends Application {
             }
         }
 
+        for (const tab of ['action', 'bestiary', 'equipment', 'feat', 'hazard', 'spell'] as const) {
+            settings[tab] = Object.fromEntries(
+                Object.entries(settings[tab]!).sort(([_collectionA, dataA], [_collectionB, dataB]) => {
+                    return dataA.name > dataB.name ? 1 : -1;
+                }),
+            );
+        }
+
         this.settings = settings;
     }
 
