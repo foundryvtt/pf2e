@@ -6,7 +6,7 @@ export function gatherInformation(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph,
-        'PF2E.Actions.GatherInformation',
+        'PF2E.Actions.GatherInformation.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:gather-information'],

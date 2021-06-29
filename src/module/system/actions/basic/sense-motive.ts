@@ -6,7 +6,7 @@ export function senseMotive(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.SenseMotive',
+        'PF2E.Actions.SenseMotive.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:sense-motive'],
@@ -15,5 +15,11 @@ export function senseMotive(options: SkillActionOptions) {
         checkType,
         options.event,
         (target) => target.deception,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.SenseMotive', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.SenseMotive', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.SenseMotive', 'failure'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.SenseMotive', 'criticalFailure'),
+        ],
     );
 }

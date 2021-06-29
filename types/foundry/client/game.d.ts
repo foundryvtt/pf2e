@@ -28,10 +28,11 @@ declare global {
         TActor extends Actor = Actor,
         TChatMessage extends ChatMessage<TActor> = ChatMessage<TActor>,
         TCombat extends Combat = Combat,
-        TItem extends Item = Item,
+        TFolder extends Folder = Folder,
+        TItem extends Item<TActor> = Item<TActor>,
         TMacro extends Macro = Macro,
-        TScene extends Scene = Scene,
-        TUser extends User = User,
+        TScene extends Scene<TokenDocument<TActor>> = Scene<TokenDocument<TActor>>,
+        TUser extends User<TActor> = User<TActor>,
     > {
         /**
          * The named view which is currently active.
@@ -111,7 +112,7 @@ declare global {
         playlists: Playlists;
         combats: CombatEncounters<TCombat>;
         tables: RollTables;
-        folders: Folders;
+        folders: Folders<TFolder>;
         packs: Collection<CompendiumCollection<TActor | TItem | JournalEntry | TMacro | Playlist | RollTable | TScene>>;
 
         constructor(view: string, worldData: {}, sessionId: string, socket: io.Socket);

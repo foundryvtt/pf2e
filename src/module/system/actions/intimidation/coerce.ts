@@ -6,7 +6,7 @@ export function coerce(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph,
-        'PF2E.Actions.Coerce',
+        'PF2E.Actions.Coerce.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:coerce'],

@@ -6,7 +6,7 @@ export function request(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.Request',
+        'PF2E.Actions.Request.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:request'],

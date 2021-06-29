@@ -1,5 +1,3 @@
-import { VisionLevels } from '@actor/creature/data';
-import { LightLevels } from '@module/scene';
 import { TokenDocumentPF2e } from '@module/token-document';
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
@@ -14,22 +12,9 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return this._controlled;
     }
 
-    setPerceivedLightLevel({ updateSource = false } = {}): void {
-        if (!(canvas.scene && this.actor && this.observer && this.hasSight && canvas.sight.rulesBasedVision)) {
-            return;
-        }
-
-        const actor = this.actor;
-        const lightLevel = canvas.scene.getLightLevel();
-        const perceivedBrightness = {
-            [VisionLevels.BLINDED]: 0,
-            [VisionLevels.NORMAL]: lightLevel,
-            [VisionLevels.LOWLIGHT]: lightLevel > LightLevels.DARKNESS ? 1 : lightLevel,
-            [VisionLevels.DARKVISION]: 1,
-        }[actor.visionLevel];
-
-        this.data.brightSight = perceivedBrightness > lightLevel ? perceivedBrightness * 500 : 0;
-        if (updateSource) this.updateSource();
+    /** Is this token hidden from the current user's view? */
+    get isHidden(): boolean {
+        return this.data.hidden;
     }
 
     /**
@@ -41,17 +26,13 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         // Propagate any new or removed overrides to the token
         this.overrides = overrides;
         this.data.reset();
-        this.setPerceivedLightLevel();
         mergeObject(this.data, overrides, { insertKeys: false });
 
         if (moving) {
             this.updateSource({ defer: true });
         } else {
-            this.updateSource();
-            canvas.perception.schedule({
-                lighting: { refresh: true },
-                sight: { refresh: true },
-            });
+            game.user.setPerceivedLightLevel();
+            game.user.setPerceivedLightEmissions();
         }
     }
 
@@ -62,19 +43,24 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Refresh vision and the `EffectPanel` upon selecting a token */
     protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
         if (game.ready) {
-            this.setPerceivedLightLevel();
             game.pf2e.effectPanel.refresh();
-            if (canvas.sight.rulesBasedVision) canvas.lighting.initializeSources();
+            if (canvas.sight.rulesBasedVision) {
+                const lightEmitters = canvas.tokens.placeables.filter((token) => token.emitsLight);
+                for (const token of lightEmitters) token.applyOverrides();
+                game.user.refreshSight();
+            }
         }
         super._onControl(options);
     }
 
     /** Refresh vision and the `EffectPanel` upon releasing control of a token */
     protected override _onRelease(options?: Record<string, unknown>) {
-        this.setPerceivedLightLevel();
         game.pf2e.effectPanel.refresh();
-        if (canvas.sight.rulesBasedVision) canvas.lighting.initializeSources();
-
+        if (canvas.sight.rulesBasedVision) {
+            const lightEmitters = canvas.tokens.placeables.filter((token) => token.emitsLight);
+            for (const token of lightEmitters) token.applyOverrides();
+            game.user.refreshSight();
+        }
         super._onRelease(options);
     }
 
