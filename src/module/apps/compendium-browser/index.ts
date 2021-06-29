@@ -22,6 +22,16 @@ function sortedIndexByName(index: Record<string, CompendiumIndexData>): Record<s
     return sorted;
 }
 
+/** Ensure all index fields are present in the index data */
+function hasAllIndexFields(data: CompendiumIndexData, indexFields: string[]): boolean {
+    for (const field of indexFields) {
+        if (getProperty(data, field) === undefined) {
+            return false;
+        }
+    }
+    return true;
+}
+
 function normaliseString(str: string): string {
     // Normalise to NFD to separate diacritics, then remove unwanted characters and convert to lowercase
     // For now, keep only alnums; if we want smarter, we can change it later
@@ -108,6 +118,16 @@ export class CompendiumBrowser extends Application {
     /** Is the user currently dragging a document from the browser? */
     userIsDragging = false;
 
+    npcIndex = [
+        'img',
+        'data.details.level.value',
+        'data.details.alignment.value',
+        'data.details.source.value',
+        'data.traits',
+    ];
+
+    hazardIndex = ['img', 'data.details.level', 'data.details.isComplex', 'data.traits'];
+
     /** The combined index for hazards and NPCs */
     hazardNPCIndex: string[];
 
@@ -119,21 +139,7 @@ export class CompendiumBrowser extends Application {
         this.injectActorDirectory();
         this.hookTab();
 
-        const npcIndex = [
-            'img',
-            'data.details.level.value',
-            'data.details.alignment.value',
-            'data.details.source.value',
-            'data.traits',
-        ];
-        const hazardIndex = [
-            'img',
-            'data.details.source.value',
-            'data.details.level',
-            'data.details.isComplex',
-            'data.traits',
-        ];
-        this.hazardNPCIndex = [...new Set([...npcIndex, ...hazardIndex])];
+        this.hazardNPCIndex = [...new Set([...this.npcIndex, ...this.hazardIndex])];
     }
 
     override get title() {
@@ -323,6 +329,12 @@ export class CompendiumBrowser extends Application {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loading`);
             for (const actionData of content) {
                 if (actionData.type === 'action') {
+                    if (!hasAllIndexFields(actionData, indexFields)) {
+                        console.warn(
+                            `Action '${actionData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
+                        );
+                        continue;
+                    }
                     // update icons for any passive actions
                     if (actionData.data.actionType.value === 'passive') actionData.img = this._getActionImg('passive');
                     // record the pack the feat was read from
@@ -359,6 +371,12 @@ export class CompendiumBrowser extends Application {
             );
             for (const actorData of content) {
                 if (actorData.type === 'npc') {
+                    if (!hasAllIndexFields(actorData, this.npcIndex)) {
+                        console.warn(
+                            `Actor '${actorData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
+                        );
+                        continue;
+                    }
                     // record the pack the feat was read from
                     actorData.compendium = pack.collection;
                     actorData.filters = {};
@@ -421,6 +439,12 @@ export class CompendiumBrowser extends Application {
             );
             for (const actorData of content) {
                 if (actorData.type === 'hazard') {
+                    if (!hasAllIndexFields(actorData, this.hazardIndex)) {
+                        console.warn(
+                            `Hazard '${actorData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
+                        );
+                        continue;
+                    }
                     // record the pack the hazard was read from
                     actorData.compendium = pack.collection;
                     actorData.filters = {};
@@ -479,16 +503,12 @@ export class CompendiumBrowser extends Application {
 
         const inventoryItems: Record<string, CompendiumIndexData> = {};
         const itemTypes = ['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit'];
-        const indexFields = [
-            'img',
-            'data.stackGroup.value',
-            'data.armorType.value',
-            'data.group.value',
-            'data.level.value',
-            'data.price.value',
-            'data.weaponType.value',
-            'data.traits',
-        ];
+        // Define index fields for different types of equipment
+        const kitFields = ['img', 'data.price.value', 'data.traits'];
+        const baseFields = [...kitFields, 'data.stackGroup.value', 'data.level.value'];
+        const armorFields = [...baseFields, 'data.armorType.value', 'data.group.value'];
+        const weaponFields = [...baseFields, 'data.weaponType.value', 'data.group.value'];
+        const indexFields = [...new Set([...armorFields, ...weaponFields])];
 
         for await (const { pack, content } of packLoader.loadPacks(
             'Item',
@@ -501,6 +521,23 @@ export class CompendiumBrowser extends Application {
             for (const itemData of content) {
                 if (itemData.type === 'treasure' && itemData.data.stackGroup.value === 'coins') continue;
                 if (itemTypes.includes(itemData.type)) {
+                    let skip = false;
+                    if (itemData.type === 'weapon') {
+                        if (!hasAllIndexFields(itemData, weaponFields)) skip = true;
+                    } else if (itemData.type === 'armor') {
+                        if (!hasAllIndexFields(itemData, armorFields)) skip = true;
+                    } else if (itemData.type === 'kit') {
+                        if (!hasAllIndexFields(itemData, kitFields)) skip = true;
+                    } else {
+                        if (!hasAllIndexFields(itemData, baseFields)) skip = true;
+                    }
+                    if (skip) {
+                        console.warn(
+                            `Item '${itemData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
+                        );
+                        continue;
+                    }
+
                     // record the pack the feat was read from
                     itemData.compendium = pack.collection;
 
@@ -571,6 +608,12 @@ export class CompendiumBrowser extends Application {
             );
             for (const featData of content) {
                 if (featData.type === 'feat') {
+                    if (!hasAllIndexFields(featData, indexFields)) {
+                        console.warn(
+                            `Feat '${featData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
+                        );
+                        continue;
+                    }
                     // record the pack the feat was read from
                     featData.compendium = pack.collection;
 
@@ -693,6 +736,12 @@ export class CompendiumBrowser extends Application {
             );
             for (const spellData of content) {
                 if (spellData.type === 'spell') {
+                    if (!hasAllIndexFields(spellData, indexFields)) {
+                        console.warn(
+                            `Item '${spellData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
+                        );
+                        continue;
+                    }
                     // Set category of cantrips to "cantrip" until migration can be done
                     if (spellData.data.traits.value.includes('cantrip')) {
                         spellData.data.category.value = 'cantrip';
