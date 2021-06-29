@@ -83,7 +83,8 @@ declare global {
             LightingLayerPF2e,
             MacroPF2e,
             ScenePF2e,
-            TokenDocumentPF2e
+            TokenDocumentPF2e,
+            UserPF2e
         > {
         debug: Config['debug'] & {
             ruleElement: boolean;
@@ -106,7 +107,8 @@ declare global {
             LightingLayerPF2e,
             MacroPF2e,
             ScenePF2e,
-            TokenDocumentPF2e
+            TokenDocumentPF2e,
+            UserPF2e
         >['ui'] & {
             combat: typeof CombatTrackerPF2e;
             compendium: typeof CompendiumDirectoryPF2e;
@@ -117,7 +119,7 @@ declare global {
     const canvas: CanvasPF2e;
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<ActorPF2e, ChatMessagePF2e, CombatPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
+        var game: Game<ActorPF2e, ChatMessagePF2e, CombatPF2e, FolderPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
     }
 
     interface ClientSettings {
