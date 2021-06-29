@@ -77,7 +77,7 @@ export const ExportIntoPfsDb = async (actor: ActorPF2e): Promise<void> => {
     if (actor.data.type !== 'character') {
         console.log(`PFSDB | Cannot export non PC character. (actor.data.type !== 'character')`);
         return;
-    };
+    }
     if (actor.data.data.pfs.characterNumber === '' || actor.data.data.pfs.playerNumber === '') {
         throw Error('PFS DB | No PFS identifier');
     }
