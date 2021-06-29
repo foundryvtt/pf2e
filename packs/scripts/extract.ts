@@ -7,6 +7,7 @@ import { JSDOM } from 'jsdom';
 import type { ActorPF2e } from '@actor/base';
 import type { ItemPF2e } from '@item/base';
 import { sluggify } from '@module/utils';
+import systemJSON from 'system.json';
 
 declare global {
     interface Global {
@@ -89,8 +90,7 @@ const packsPath = (() => {
 
 const tempDataPath = path.resolve(process.cwd(), 'packs/temp-data');
 const dataPath = path.resolve(process.cwd(), 'packs/data');
-const packsMetadata = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'system.json'), 'utf-8'))
-    .packs as CompendiumMetadata[];
+const packsMetadata = systemJSON.packs as unknown as CompendiumMetadata[];
 
 const idsToNames: Map<string, Map<string, string>> = new Map();
 
@@ -121,11 +121,8 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
     for (const key in entityData) {
         if (key === '_id') {
             topLevel = entityData;
-            if ('folder' in entityData && 'permission' in entityData) {
-                const defaultPermission = entityData.permission['default'] ?? [0];
-                entityData.folder = null;
-                entityData.permission = { default: defaultPermission };
-            }
+            delete entityData.folder;
+            delete (entityData as Partial<PackEntry>).permission;
         } else if (['_modifiers', '_sheetTab'].includes(key)) {
             delete entityData[key as DocumentKey];
         } else if (entityData[key as DocumentKey] instanceof Object) {
