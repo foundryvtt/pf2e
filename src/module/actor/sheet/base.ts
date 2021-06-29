@@ -300,8 +300,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             // Signature Spell (add to every level)
             spellData.data.isSignatureSpell = true;
 
-            for (let spellLevel = spellData.data.level.value; spellLevel <= maxSpellLevelToShow; spellLevel++) {
-                if (spellbook[spellLevel].slots) {
+            const baseLevel = spellData.data.level.value;
+            for (let spellLevel = baseLevel; spellLevel <= maxSpellLevelToShow; spellLevel++) {
+                if (spellbook[spellLevel].slots || spellLevel === baseLevel) {
                     spellbook[spellLevel].spells.push(spellData);
                 }
             }
