@@ -38,5 +38,9 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
         checkType,
         options.event,
         (target) => target.perception,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.CreateADiversion', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.CreateADiversion', 'failure'),
+        ],
     );
 }
