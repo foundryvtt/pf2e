@@ -1,5 +1,30 @@
 # Patch Notes:
 
+## Version 2.6.0
+
+This release might break some of the action macros if you're using a language module due to a change in the structure of the translation data. The authors of all known language modules have been notified and should update the modules for the new structure very quickly.
+
+### Bug Fixes
+* (stwlam) Fix issue with the compendium browser where Bestiaries wouldn't properly load if Hazards had been opened first
+
+### Content Changes
+* (SpartanCPA) Tweak Ki Strike duration and token icon
+* (Tikael) Add automation to Grievous Blow feat
+* (Tikael) Add a default sneak attack rule element to the bestiary feature
+* (Tikael) Correct size of Xotani
+* (Bolt) Brush up morlocks
+* (rectulo & Njini) Add heightening effect description to synesthesia
+* (stwlam) Prune unused data from old NPC compendium entries
+
+### Core System Improvements
+* (stwlam) Adjust light emitted by other tokens according to rules-based vision. Closes #1547
+* (stwlam) Move perceived-light management from tokens to the user
+* (In3luki) Ensure all required fields are present when processing a compendium index
+* (In3luki) Add null check to feat prerequisite preparation in the compendium browser
+* (nikolaj-a) Add pick a lock action macro
+* (nikolaj-a) Add outcome notes to create a distraction, seek and sense motive action macros
+
+
 ## Version 2.5.3
 ### Content Changes
 * (SpartanCPA) Agents of Edgewatch Book 6 (Final)
