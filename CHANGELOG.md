@@ -1,5 +1,18 @@
 # Patch Notes:
 
+## Version 2.5.3
+### Content Changes
+* (SpartanCPA) Agents of Edgewatch Book 6 (Final)
+* (SpartanCPA) Add Auditory as an attack trait
+* (SLATE) Fix name and rule elements for Eye of the Night dhampir ancestry feat
+
+### Core System Improvements
+* (In3luki) Greatly improves the loading times of the compendium browser. Closes #1546
+* (stwlam) Ensure each compendium browser tab can only load packs with the correct type of items or actors
+* (stwlam) Sort packs in settings menu of compendium browser
+* (stwlam) Refresh lights when a character's senses are updated
+
+
 ## Version 2.5.2
 ### Bug Fixes
 * (stwlam) Remove risk of stack overflow during lighting refresh

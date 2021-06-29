@@ -1,18 +1,25 @@
 import { Progress } from './progress';
 import { PhysicalItemPF2e } from '@item/physical';
 import { KitPF2e } from '@item/kit';
-import { MagicSchool, SpellData } from '@item/spell/data';
-import { ArmorPF2e, ConsumablePF2e, ContainerPF2e, EquipmentPF2e, ItemPF2e, TreasurePF2e, WeaponPF2e } from '@item';
+import { MagicSchool } from '@item/spell/data';
 import { coinValueInCopper, extractPriceFromItem } from '@item/treasure/helpers';
 import { ErrorPF2e, tupleHasValue } from '@module/utils';
 import { ActorPF2e, FamiliarPF2e } from '@actor';
-import { ActionData, FeatData } from '@item/data';
-import { HazardData, NPCData } from '@actor/data';
 import { LocalizePF2e } from '@system/localize';
 
 /** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */
 function sortedObject(obj: Record<string, unknown>) {
     return Object.fromEntries([...Object.entries(obj)].sort());
+}
+
+function sortedIndexByName(index: Record<string, CompendiumIndexData>): Record<string, CompendiumIndexData> {
+    const sorted: Record<string, CompendiumIndexData> = {};
+    Object.values(index)
+        .sort((entryA, entryB) => (entryA.name > entryB.name ? 1 : entryA.name < entryB.name ? -1 : 0))
+        .forEach((entry) => {
+            sorted[entry._id] = entry;
+        });
+    return sorted;
 }
 
 function normaliseString(str: string): string {
@@ -27,26 +34,6 @@ function normaliseString(str: string): string {
 type SortByOption = 'name' | 'level' | 'price';
 type SortDirection = 'asc' | 'desc';
 
-type InventoryItem<
-    T extends WeaponPF2e | ArmorPF2e | EquipmentPF2e | ConsumablePF2e | TreasurePF2e | ContainerPF2e | KitPF2e =
-        | WeaponPF2e
-        | ArmorPF2e
-        | EquipmentPF2e
-        | ConsumablePF2e
-        | TreasurePF2e
-        | ContainerPF2e
-        | KitPF2e,
-> = T & {
-    data: T['data'] & {
-        compendium?: string;
-        filters?: string[];
-        data: T['data']['data'] & {
-            itemTypes?: { value: string };
-            rarity?: { value: string };
-        };
-    };
-};
-
 class PackLoader {
     loadedPacks: Record<'Actor' | 'Item', Record<string, ClientDocument>>;
 
@@ -57,7 +44,7 @@ class PackLoader {
         };
     }
 
-    async *loadPacks(entityType: string, packs: string[]) {
+    async *loadPacks(entityType: string, packs: string[], indexFields: string[]) {
         this.loadedPacks[entityType] ??= {};
         const translations = LocalizePF2e.translations.PF2E.CompendiumBrowser.ProgressBar;
 
@@ -72,9 +59,15 @@ class PackLoader {
                 }
                 progress.advance(game.i18n.format(translations.LoadingPack, { pack: pack.metadata.label }));
                 if (pack.metadata.entity === entityType) {
-                    const content = await pack.getDocuments();
-                    data = { pack, content };
-                    this.loadedPacks[entityType][packId] = data;
+                    const content = await pack.getIndex({ fields: indexFields });
+                    const firstResult = content.contents[0] ?? {};
+                    // Every result should have the 'data' property otherwise the indexFields were wrong for that pack
+                    if (firstResult.data !== undefined) {
+                        data = { pack, content };
+                        this.loadedPacks[entityType][packId] = data;
+                    } else {
+                        continue;
+                    }
                 } else {
                     continue;
                 }
@@ -161,28 +154,73 @@ export class CompendiumBrowser extends Application {
             feat: {},
             spell: {},
         };
-        for (const pack of game.packs.values()) {
-            const types = (() => {
-                if (pack.metadata.entity === 'Item') {
-                    return ['action', 'equipment', 'feat', 'spell'] as const;
-                } else if (pack.metadata.entity === 'Actor') {
-                    return ['bestiary', 'hazard'] as const;
-                }
-                return null;
-            })();
-            if (!types) continue;
 
-            for (const packType of types) {
-                const load =
-                    this.settings[packType]?.[pack.collection]?.load ??
-                    (pack.collection.includes(packType) ||
-                        (packType === 'bestiary' && pack.collection.includes('npc-')));
+        // NPCs and Hazards are all loaded by default other packs can be set here.
+        const loadDefault: Record<string, boolean> = {
+            'pf2e.actionspf2e': true,
+            'pf2e.equipment-srd': true,
+            'pf2e.ancestryfeatures': true,
+            'pf2e.classfeatures': true,
+            'pf2e.feats-srd': true,
+            'pf2e.spells-srd': true,
+        };
 
-                settings[packType]![pack.collection] = {
+        for (const pack of game.packs) {
+            const types = new Set(pack.index.map((entry) => entry.type));
+            if (types.size === 0) continue;
+
+            if (types.has('npc')) {
+                const load = this.settings.bestiary?.[pack.collection]?.load ?? true;
+                settings.bestiary![pack.collection] = {
                     load,
                     name: pack.metadata.label,
                 };
             }
+            if (types.has('hazard')) {
+                const load = this.settings.hazard?.[pack.collection]?.load ?? true;
+                settings.hazard![pack.collection] = {
+                    load,
+                    name: pack.metadata.label,
+                };
+            }
+
+            if (types.has('action')) {
+                const load = this.settings.action?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
+                settings.action![pack.collection] = {
+                    load,
+                    name: pack.metadata.label,
+                };
+            } else if (
+                ['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit'].some((type) =>
+                    types.has(type),
+                )
+            ) {
+                const load = this.settings.equipment?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
+                settings.equipment![pack.collection] = {
+                    load,
+                    name: pack.metadata.label,
+                };
+            } else if (types.has('feat')) {
+                const load = this.settings.feat?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
+                settings.feat![pack.collection] = {
+                    load,
+                    name: pack.metadata.label,
+                };
+            } else if (types.has('spell')) {
+                const load = this.settings.spell?.[pack.collection]?.load ?? !!loadDefault[pack.collection];
+                settings.spell![pack.collection] = {
+                    load,
+                    name: pack.metadata.label,
+                };
+            }
+        }
+
+        for (const tab of ['action', 'bestiary', 'equipment', 'feat', 'hazard', 'spell'] as const) {
+            settings[tab] = Object.fromEntries(
+                Object.entries(settings[tab]!).sort(([_collectionA, dataA], [_collectionB, dataB]) => {
+                    return dataA.name > dataB.name ? 1 : -1;
+                }),
+            );
         }
 
         this.settings = settings;
@@ -203,9 +241,10 @@ export class CompendiumBrowser extends Application {
     hookTab() {
         this.navigationTab = this._tabs[0];
         const _tabCallback = this.navigationTab.callback;
-        this.navigationTab.callback = (event: any, tabs: Tabs, active: string, ...args: any[]) => {
+        this.navigationTab.callback = async (event: any, tabs: Tabs, active: string, ...args: any[]) => {
             _tabCallback?.(event, tabs, active, ...args);
-            this.loadTab(active);
+            await this.loadTab(active);
+            this.activateResultListeners();
         };
     }
 
@@ -258,12 +297,12 @@ export class CompendiumBrowser extends Application {
     async loadActions() {
         console.debug('PF2e System | Compendium Browser | Started loading feats');
 
-        const actions: Record<string, ActionData> = {};
+        const actions: Record<string, CompendiumIndexData> = {};
+        const indexFields = ['img', 'data.actionType.value'];
 
-        for await (const { pack, content } of packLoader.loadPacks('Item', this.loadedPacks('action'))) {
+        for await (const { pack, content } of packLoader.loadPacks('Item', this.loadedPacks('action'), indexFields)) {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - Loading`);
-            for (const action of content) {
-                const actionData = action.data;
+            for (const actionData of content) {
                 if (actionData.type === 'action') {
                     // update icons for any passive actions
                     if (actionData.data.actionType.value === 'passive') actionData.img = this._getActionImg('passive');
@@ -277,7 +316,7 @@ export class CompendiumBrowser extends Application {
         console.debug('PF2e System | Compendium Browser | Finished loading actions');
 
         return {
-            actions,
+            actions: sortedIndexByName(actions),
             actionTraits: sortedObject(CONFIG.PF2E.featTraits),
             skills: CONFIG.PF2E.skillList,
             proficiencies: CONFIG.PF2E.proficiencyLevels,
@@ -287,18 +326,25 @@ export class CompendiumBrowser extends Application {
     async loadBestiary() {
         console.debug('PF2e System | Compendium Browser | Started loading actors');
 
-        const bestiaryActors: Record<string, NPCData> = {};
+        const bestiaryActors: Record<string, CompendiumIndexData> = {};
         const sources: Set<string> = new Set();
+        const indexFields = [
+            'img',
+            'data.details.level.value',
+            'data.details.alignment.value',
+            'data.details.source.value',
+            'data.traits',
+        ];
 
-        for await (const { pack, content } of packLoader.loadPacks('Actor', this.loadedPacks('bestiary'))) {
+        for await (const { pack, content } of packLoader.loadPacks(
+            'Actor',
+            this.loadedPacks('bestiary'),
+            indexFields,
+        )) {
             console.debug(
-                `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
+                `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.contents.length} entries found`,
             );
-            content.sort((actorA: ActorPF2e, actorB: ActorPF2e) =>
-                actorA.name > actorB.name ? 1 : actorA.name < actorB.name ? -1 : 0,
-            );
-            for (const actor of content) {
-                const actorData = actor.data;
+            for (const actorData of content) {
                 if (actorData.type === 'npc') {
                     // record the pack the feat was read from
                     actorData.compendium = pack.collection;
@@ -338,7 +384,7 @@ export class CompendiumBrowser extends Application {
 
         console.debug('PF2e System | Compendium Browser | Finished loading Bestiary actors');
         return {
-            bestiaryActors,
+            bestiaryActors: sortedIndexByName(bestiaryActors),
             actorSize: CONFIG.PF2E.actorSizes,
             alignment: CONFIG.PF2E.alignment,
             traits: sortedObject(CONFIG.PF2E.monsterTraits),
@@ -351,19 +397,22 @@ export class CompendiumBrowser extends Application {
     async loadHazards() {
         console.debug('PF2e System | Compendium Browser | Started loading actors');
 
-        const hazardActors: Record<string, HazardData> = {};
+        const hazardActors: Record<string, CompendiumIndexData> = {};
         const sources: Set<string> = new Set();
         const rarities = Object.keys(CONFIG.PF2E.rarityTraits);
+        const indexFields = [
+            'img',
+            'data.details.source.value',
+            'data.details.level',
+            'data.details.isComplex',
+            'data.traits',
+        ];
 
-        for await (const { pack, content } of packLoader.loadPacks('Actor', this.loadedPacks('hazard'))) {
+        for await (const { pack, content } of packLoader.loadPacks('Actor', this.loadedPacks('hazard'), indexFields)) {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
             );
-            content.sort((actorA: ActorPF2e, actorB: ActorPF2e) =>
-                actorA.name > actorB.name ? 1 : actorA.name < actorB.name ? -1 : 0,
-            );
-            for (const actor of content) {
-                const actorData = actor.data;
+            for (const actorData of content) {
                 if (actorData.type === 'hazard') {
                     // record the pack the hazard was read from
                     actorData.compendium = pack.collection;
@@ -411,7 +460,7 @@ export class CompendiumBrowser extends Application {
 
         console.debug('PF2e System | Compendium Browser | Finished loading Hazard actors');
         return {
-            hazardActors,
+            hazardActors: sortedIndexByName(hazardActors),
             traits: sortedObject(CONFIG.PF2E.hazardTraits),
             source: [...sources].sort(),
             rarities: CONFIG.PF2E.rarityTraits,
@@ -421,20 +470,29 @@ export class CompendiumBrowser extends Application {
     async loadEquipment() {
         console.debug('PF2e System | Compendium Browser | Started loading feats');
 
-        const inventoryItems: Record<string, InventoryItem['data']> = {};
-
+        const inventoryItems: Record<string, CompendiumIndexData> = {};
         const itemTypes = ['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit'];
+        const indexFields = [
+            'img',
+            'data.stackGroup.value',
+            'data.armorType.value',
+            'data.group.value',
+            'data.level.value',
+            'data.price.value',
+            'data.weaponType.value',
+            'data.traits',
+        ];
 
-        for await (const { pack, content } of packLoader.loadPacks('Item', this.loadedPacks('equipment'))) {
+        for await (const { pack, content } of packLoader.loadPacks(
+            'Item',
+            this.loadedPacks('equipment'),
+            indexFields,
+        )) {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
             );
-            content.sort((itemA: ItemPF2e, itemB: ItemPF2e) =>
-                itemA.name > itemB.name ? 1 : itemA.name < itemB.name ? -1 : 0,
-            );
-            for (const item of content as InventoryItem[]) {
-                const itemData = item.data;
-                if (item.data.type === 'treasure' && item.data.data.stackGroup.value === 'coins') continue;
+            for (const itemData of content) {
+                if (itemData.type === 'treasure' && itemData.data.stackGroup.value === 'coins') continue;
                 if (itemTypes.includes(itemData.type)) {
                     // record the pack the feat was read from
                     itemData.compendium = pack.collection;
@@ -462,7 +520,7 @@ export class CompendiumBrowser extends Application {
 
         console.debug('PF2e System | Compendium Browser | Finished loading inventory items');
         return {
-            inventoryItems,
+            inventoryItems: sortedIndexByName(inventoryItems),
             armorTypes: CONFIG.PF2E.armorTypes,
             armorGroups: CONFIG.PF2E.armorGroups,
             weaponTraits: sortedObject(CONFIG.PF2E.weaponTraits),
@@ -484,22 +542,27 @@ export class CompendiumBrowser extends Application {
     async loadFeats() {
         console.debug('PF2e System | Compendium Browser | Started loading feats');
 
-        const feats: Record<string, FeatData> = {};
+        const feats: Record<string, CompendiumIndexData> = {};
         const classes: Set<string> = new Set();
         const skills: Set<string> = new Set();
         const ancestries: Set<string> = new Set();
         const times: Set<string> = new Set();
         const ancestryList = Object.keys(CONFIG.PF2E.ancestryTraits);
+        const indexFields = [
+            'img',
+            'data.prerequisites.value',
+            'data.actionType.value',
+            'data.actions.value',
+            'data.featType.value',
+            'data.level.value',
+            'data.traits',
+        ];
 
-        for await (const { pack, content } of packLoader.loadPacks('Item', this.loadedPacks('feat'))) {
+        for await (const { pack, content } of packLoader.loadPacks('Item', this.loadedPacks('feat'), indexFields)) {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
             );
-            content.sort((itemA: ItemPF2e, itemB: ItemPF2e) =>
-                itemA.name > itemB.name ? 1 : itemA.name < itemB.name ? -1 : 0,
-            );
-            for (const feat of content) {
-                const featData = feat.data;
+            for (const featData of content) {
                 if (featData.type === 'feat') {
                     // record the pack the feat was read from
                     featData.compendium = pack.collection;
@@ -590,7 +653,7 @@ export class CompendiumBrowser extends Application {
 
         console.debug('PF2e System | Compendium Browser | Finished loading feats');
         return {
-            feats,
+            feats: sortedIndexByName(feats),
             featClasses: CONFIG.PF2E.classTraits,
             featSkills: CONFIG.PF2E.skillList,
             featAncestry: ancestryObj,
@@ -602,21 +665,26 @@ export class CompendiumBrowser extends Application {
     async loadSpells() {
         console.debug('PF2e System | Compendium Browser | Started loading spells');
 
-        const spells: Record<string, SpellData> = {};
+        const spells: Record<string, CompendiumIndexData> = {};
         const classes: Set<string> = new Set();
         const schools: Set<MagicSchool> = new Set();
         const times: Set<string> = new Set();
         const classList = Object.keys(CONFIG.PF2E.classTraits);
+        const indexFields = [
+            'img',
+            'data.level.value',
+            'data.category.value',
+            'data.traditions.value',
+            'data.time',
+            'data.school.value',
+            'data.traits',
+        ];
 
-        for await (const { pack, content } of packLoader.loadPacks('Item', this.loadedPacks('spell'))) {
+        for await (const { pack, content } of packLoader.loadPacks('Item', this.loadedPacks('spell'), indexFields)) {
             console.debug(
                 `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
             );
-            content.sort((itemA: ItemPF2e, itemB: ItemPF2e) =>
-                itemA.name > itemB.name ? 1 : itemA.name < itemB.name ? -1 : 0,
-            );
-            for (const spell of content) {
-                const spellData = spell.data;
+            for (const spellData of content) {
                 if (spellData.type === 'spell') {
                     // Set category of cantrips to "cantrip" until migration can be done
                     if (spellData.data.traits.value.includes('cantrip')) {
@@ -683,12 +751,12 @@ export class CompendiumBrowser extends Application {
 
         console.debug('PF2e System | Compendium Browser | Finished loading spells');
         return {
+            spells: sortedIndexByName(spells),
             classes: classesObj,
             times: [...times].sort(),
             schools: schoolsObj,
             categories: CONFIG.PF2E.spellCategories,
             traditions: CONFIG.PF2E.spellTraditions,
-            spells,
             rarities: CONFIG.PF2E.rarityTraits,
             spellTraits: sortedObject({ ...CONFIG.PF2E.spellOtherTraits, ...CONFIG.PF2E.damageTraits }),
         };
@@ -736,10 +804,12 @@ export class CompendiumBrowser extends Application {
         });
 
         // Sort item list
-        const $sort = $controlArea.find('.sortcontainer');
-        const $order = $sort.find<HTMLSelectElement>('select.order');
-        const $direction = $sort.find('a.direction');
-        $order.on('change', () => {
+        const $sortContainer = $controlArea.find('.sortcontainer');
+        const $orderSelects = $sortContainer.find<HTMLSelectElement>('select.order');
+        const $directionButtons = $sortContainer.find('a.direction');
+        $orderSelects.on('change', (event) => {
+            const $order = $(event.target);
+            const $direction = $order.next('a.direction');
             const sortBy = $order.val();
             if (!tupleHasValue(['name', 'level', 'price'] as const, sortBy)) return;
 
@@ -748,7 +818,9 @@ export class CompendiumBrowser extends Application {
             const $list = $html.find('.tab.active ul.item-list');
             this.sortResults($list, { sortBy, direction });
         });
-        $direction.on('click', () => {
+        $directionButtons.on('click', (event) => {
+            const $direction = $(event.delegateTarget);
+            const $order = $direction.prev('select.order');
             const sortBy = $order.val();
             if (!tupleHasValue(['name', 'level', 'price'] as const, sortBy)) return;
 
@@ -1132,7 +1204,10 @@ export class CompendiumBrowser extends Application {
                 }
                 case 'level': {
                     return $items
-                        .map((index, element) => ({ value: Number(element.dataset.level) || -10, element, index }))
+                        .map((index, element) => {
+                            const levelString = element.dataset.level?.trim() || '0';
+                            return { value: Number(levelString), element, index };
+                        })
                         .toArray();
                 }
                 case 'price': {

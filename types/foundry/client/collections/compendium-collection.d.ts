@@ -61,7 +61,7 @@ declare global {
         override delete(id: string): boolean;
 
         /** Load the Compendium index and cache it as the keys and values of the Collection. */
-        getIndex(): Promise<CompendiumIndex>;
+        getIndex(options?: { fields: string[] }): Promise<CompendiumIndex>;
 
         /**
          * Get a single Document from this Compendium by ID.
@@ -188,12 +188,14 @@ declare global {
         private: string;
     }
 
-    type CompendiumIndex = Collection<{
+    interface CompendiumIndexData {
         _id: string;
         type: string;
         name: string;
-        img: string;
-    }>;
+        [key: string]: any;
+    }
+
+    type CompendiumIndex = Collection<CompendiumIndexData>;
 
     type CompendiumDocument = Actor | Item | JournalEntry | Macro | Playlist | RollTable | Scene;
 }
