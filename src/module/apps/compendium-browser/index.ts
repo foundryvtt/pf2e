@@ -648,8 +648,9 @@ export class CompendiumBrowser extends Application {
                         const skillList = Object.keys(CONFIG.PF2E.skillList);
                         const prereqs = featData.data.prerequisites.value;
                         let prerequisitesArr: string[] = [];
-
-                        prerequisitesArr = prereqs.map((y: { value: string }) => y.value.toLowerCase());
+                        prerequisitesArr = prereqs.map((prerequisite: { value: string }) =>
+                            prerequisite?.value ? prerequisite.value.toLowerCase() : '',
+                        );
 
                         const skillIntersection = skillList.filter((x) =>
                             prerequisitesArr.some((entry) => entry.includes(x)),
