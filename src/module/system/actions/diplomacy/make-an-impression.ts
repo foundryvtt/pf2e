@@ -6,7 +6,7 @@ export function makeAnImpression(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph,
-        'PF2E.Actions.MakeAnImpression',
+        'PF2E.Actions.MakeAnImpression.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:make-an-impression'],
