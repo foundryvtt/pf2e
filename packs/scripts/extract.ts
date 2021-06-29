@@ -126,6 +126,38 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
         if (key === '_id') {
             topLevel = entityData;
             delete entityData.folder;
+
+            if ('type' in entityData && entityData.type === 'equipment') {
+                const regexp = /(fortitude|reflex|will) DC (\d+)/gi;
+                entityData.data.description.value = entityData.data.description.value.replace(
+                    regexp,
+                    (_match, p1, p2) => {
+                        const traits = (entityData.data.traits.value ?? []).join(',');
+                        const type = p1.toLowerCase();
+                        return `<span data-pf2-saving-throw="${type}" data-pf2-dc="${p2}" \ndata-pf2-traits="${traits}" \ndata-pf2-label="${entityData.name} DC" data-pf2-show-dc="gm">${p1}</span>`;
+                    },
+                );
+            }
+            if ('type' in entityData && entityData.type === 'equipment') {
+                const regexp = /DC (\d+) (basic )?(\w+) (save|saving throw)/gi;
+                entityData.data.description.value = entityData.data.description.value.replace(
+                    regexp,
+                    (_match, p1, p2, p3, p4) => {
+                        const traits: string[] = entityData.data.traits.value ?? [];
+                        const traitsList = traits
+                            .concat(
+                                entityData.data.description.value.match(/\[\[.+?#.+?\]\]/gi)
+                                    ? ['damaging-effect']
+                                    : [''],
+                            )
+                            .join(',');
+                        const type = p3.toLowerCase();
+                        return `<span data-pf2-saving-throw="${type}" data-pf2-dc="${p1}" \ndata-pf2-traits="${traitsList}" \ndata-pf2-label="${
+                            entityData.name
+                        } DC" data-pf2-show-dc="gm">${p2 ?? ''}${p3}</span> ${p4}`;
+                    },
+                );
+            }
             if ('type' in entityData) {
                 if (entityData.type !== 'script') {
                     delete (entityData as Partial<PackEntry>).permission;
