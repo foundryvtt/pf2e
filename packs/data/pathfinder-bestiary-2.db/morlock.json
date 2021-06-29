@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+4",
+                "mod": 4,
                 "value": 18
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 17,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -146,7 +147,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Originating from humans long lost from the world of light, morlocks are brutal monsters that dwell in the tangled tunnels of the upper reaches of the Darklands. Their wiry frames mask the strength of their limbs and their swift reactions, and their arms are long enough that they can drop into an uncanny, four-limbed shuffle for speed or stealth. They no longer remember the lives their ancestors led on the surface, although many morlocks still dwell in the shattered ruins of their ancient homes. Some morlocks worship the statues of humans from these bygone eras as gods, but others now worship Lamashtu, Rovagug, or other violent deities.<br /><br /> Morlock young are insatiable and clamor for even the slightest morsel of food, even consuming their siblings if no other meal presents itself. Most morlocks encourage the practice to ensure their ancestral group as a whole grows stronger.<br /><br /> A typical morlock stands just over 5 feet tall and weighs roughly 150 pounds.<br /><br />",
+            "flavorText": "<p>Originating from humans long lost from the world of light, morlocks are brutal monsters that dwell in the tangled tunnels of the upper reaches of the Darklands. Their wiry frames mask the strength of their limbs and their swift reactions, and their arms are long enough that they can drop into an uncanny, four-limbed shuffle for speed or stealth. They no longer remember the lives their ancestors led on the surface, although many morlocks still dwell in the shattered ruins of their ancient homes. Some morlocks worship the statues of humans from these bygone eras as gods, but others now worship Lamashtu, Rovagug, or other violent deities.</p>\n<p>Morlock young are insatiable and clamor for even the slightest morsel of food, even consuming their siblings if no other meal presents itself. Most morlocks encourage the practice to ensure their ancestral group as a whole grows stronger.</p>\n<p>A typical morlock stands just over 5 feet tall and weighs roughly 150 pounds.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -488,7 +489,7 @@
                     "value": "<p>This is a piece of stout wood shaped or repurposed to bludgeon an enemy. Clubs can be intricately carved pieces of martial art or as simple as a tree branch or piece of wood.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -584,6 +585,9 @@
                 "slug": "club",
                 "source": {
                     "value": ""
+                },
+                "specific": {
+                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -918,7 +922,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+2 Status Bonus on Saves vs Disease and Poison",
             "sort": 700000,
             "type": "action"
@@ -1084,7 +1088,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 1000000,
             "type": "action"
@@ -1235,15 +1239,10 @@
             "type": "lore"
         },
         {
-            "_id": "tIAbvJ570qXQY3Po",
+            "_id": "1gu2mF6EgXl6v3eM",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 8
@@ -1263,14 +1262,17 @@
                     },
                     "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "variants": {
+                    "0": {
+                        "label": "Repair only",
+                        "options": ""
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting (Repair only)",
+            "name": "Crafting",
             "sort": 1400000,
             "type": "lore"
         },
@@ -1321,7 +1323,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
