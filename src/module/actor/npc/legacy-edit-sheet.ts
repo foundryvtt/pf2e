@@ -305,7 +305,7 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 case 'weaponDamageCritical':
                     item.rollWeaponDamage(ev, true);
                     break;
-                case 'npcAttack':
+                case 'npcAttack1':
                     item.rollNPCAttack(ev);
                     break;
                 case 'npcAttack2':
@@ -314,7 +314,7 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 case 'npcAttack3':
                     item.rollNPCAttack(ev, 3);
                     break;
-                case 'npcDamage':
+                case 'npcDamageLegacy':
                     item.rollNPCDamage(ev);
                     break;
                 case 'npcDamageCritical':
@@ -329,8 +329,6 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 case 'consume':
                     if (item instanceof ConsumablePF2e) item.consume();
                     break;
-                default:
-                    throw new Error('Unknown action type');
             }
         });
 

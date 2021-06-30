@@ -63,6 +63,12 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         sheetData.npcEliteHidden = this.npcIsWeak ? ' hidden' : '';
         sheetData.npcWeakHidden = this.npcIsElite ? ' hidden' : '';
 
+        if (this.npcIsElite || this.npcIsWeak) {
+            sheetData.notAdjusted = false;
+        } else {
+            sheetData.notAdjusted = true;
+        }
+
         // rarity
         sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
         sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity.value];
