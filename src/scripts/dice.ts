@@ -197,12 +197,13 @@ export class DicePF2e {
         critical = false,
         onClose,
         dialogOptions,
+        combineTerms = false,
     }: {
         event: JQuery.Event;
         partsCritOnly?: any[];
-        parts: any[];
+        parts: (string | number)[];
         actor?: ActorPF2e;
-        data: any;
+        data: Record<string, any>;
         template?: string;
         title: string;
         speaker: foundry.data.ChatSpeakerSource;
@@ -210,6 +211,7 @@ export class DicePF2e {
         critical?: boolean;
         onClose?: any;
         dialogOptions?: object;
+        combineTerms?: boolean;
     }) {
         // Inner roll function
         const rollMode = game.settings.get('core', 'rollMode');
@@ -236,14 +238,17 @@ export class DicePF2e {
             }
 
             const rule = game.settings.get('pf2e', 'critRule');
+            const baseRoll = combineTerms ? this.combineTerms(rollParts.join('+')) : new Roll(rollParts.join('+'));
             if (crit) {
                 if (rule === 'doubledamage') {
-                    rollParts = [`(${rollParts.join('+')}) * 2`];
+                    rollParts = [`(${baseRoll.formula}) * 2`];
                 } else {
-                    const critRoll = new Roll(rollParts.join('+'), data).alter(2, 0, { multiplyNumeric: true });
+                    const critRoll = new Roll(baseRoll.formula, data).alter(2, 0, { multiplyNumeric: true });
                     rollParts = [critRoll.formula];
                 }
                 rollParts = rollParts.concat(partsCritOnly);
+            } else {
+                rollParts = [baseRoll.formula];
             }
 
             const roll = new Roll(rollParts.join('+'), data);
@@ -315,6 +320,29 @@ export class DicePF2e {
                 ).render(true);
             });
         });
+    }
+
+    /** Sum constant values and combine alike dice into single `NumericTerm` and `Die` terms, respectively */
+    private static combineTerms(formula: string): Roll {
+        const roll = new Roll(formula);
+        if (
+            !roll.terms.every((term) => term.expression === ' + ' || term instanceof Die || term instanceof NumericTerm)
+        ) {
+            // This isn't a simple summing of dice: return the roll unaltered
+            return roll;
+        }
+        const dice = roll.terms.filter((term): term is Die => term instanceof Die);
+        const diceByFaces = dice.reduce((counts: Record<number, number>, die) => {
+            counts[die.faces] = (counts[die.faces] ?? 0) + die.number;
+            return counts;
+        }, {});
+        const stringTerms = [4, 6, 8, 10, 12, 20].reduce((terms: string[], faces) => {
+            return typeof diceByFaces[faces] === 'number' ? [...terms, `${diceByFaces[faces]}d${faces}`] : terms;
+        }, []);
+        const numericTerms = roll.terms.filter((term): term is NumericTerm => term instanceof NumericTerm);
+        const constant = numericTerms.reduce((runningTotal, term) => runningTotal + term.number, 0);
+
+        return new Roll([...stringTerms, constant].filter((term) => term !== 0).join('+'));
     }
 
     alter(add: number, multiply: number) {

@@ -631,13 +631,11 @@ export class ItemPF2e extends Item<ActorPF2e> {
         }
         rollData.item = itemData;
 
-        if (this.isOwned) {
-            const traits = this.actor.data.data.traits.traits.value;
-            if (traits.some((trait) => trait === 'elite')) {
-                parts.push(4);
-            } else if (traits.some((trait) => trait === 'weak')) {
-                parts.push(-4);
-            }
+        const traits = this.actor.data.data.traits.traits.value;
+        if (traits.some((trait) => trait === 'elite')) {
+            parts.push(4);
+        } else if (traits.some((trait) => trait === 'weak')) {
+            parts.push(-4);
         }
 
         // Call the roll helper utility
@@ -653,6 +651,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 top: event.clientY - 80,
                 left: window.innerWidth - 710,
             },
+            combineTerms: true,
         });
     }
 
