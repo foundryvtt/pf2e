@@ -73,10 +73,10 @@ export class CharacterPF2e extends CreaturePF2e {
         super.prepareBaseData();
 
         // Add any homebrew categories
-        const { data } = this.data;
+        const systemData = this.data.data;
         const homebrewCategories = game.settings.get('pf2e', 'homebrew.weaponCategories').map((tag) => tag.id);
         for (const category of homebrewCategories) {
-            data.martial[category] ??= {
+            systemData.martial[category] ??= {
                 rank: 0,
                 value: 0,
                 breakdown: '',
@@ -84,7 +84,7 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Toggles
-        this.data.data.toggles = {
+        systemData.toggles = {
             actions: [
                 {
                     label: 'PF2E.TargetFlatFootedLabel',
@@ -93,6 +93,10 @@ export class CharacterPF2e extends CreaturePF2e {
                 },
             ],
         };
+
+        // Hit points from Ancestry and Class
+        systemData.attributes.ancestryhp = 0;
+        systemData.attributes.classhp = 0;
     }
 
     /** Adjustments from ABC items are made after all items are prepared but before active effects are applied. */
@@ -144,24 +148,24 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Calculate HP and SP
         {
+            const ancestryHP = systemData.attributes.ancestryhp;
+            const classHP = systemData.attributes.classhp;
             const hitPoints = systemData.attributes.hp;
-            const modifiers = [...hitPoints.modifiers];
+            const modifiers = [
+                new ModifierPF2e('PF2E.AncestryHP', ancestryHP, MODIFIER_TYPE.UNTYPED),
+                ...hitPoints.modifiers,
+            ];
 
             if (game.settings.get('pf2e', 'staminaVariant')) {
                 const bonusSpPerLevel = (systemData.attributes.levelbonussp ?? 1) * this.level;
-                const halfClassHp = Math.floor((this.class?.hpPerLevel ?? 0) / 2);
+                const halfClassHp = Math.floor(classHP / 2);
                 systemData.attributes.sp.max =
                     (halfClassHp + systemData.abilities.con.mod) * this.level +
                     bonusSpPerLevel +
                     systemData.attributes.flatbonussp;
+                modifiers.push(new ModifierPF2e('PF2E.ClassHP', halfClassHp * this.level, MODIFIER_TYPE.UNTYPED));
             } else {
-                modifiers.push(
-                    new ModifierPF2e(
-                        'PF2E.AbilityCon',
-                        systemData.abilities.con.mod * this.level,
-                        MODIFIER_TYPE.ABILITY,
-                    ),
-                );
+                modifiers.push(new ModifierPF2e('PF2E.ClassHP', classHP * this.level, MODIFIER_TYPE.UNTYPED));
             }
 
             if (systemData.attributes.flatbonushp) {
