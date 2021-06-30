@@ -98,7 +98,7 @@ export interface RawSkillData extends ProficiencyData {
 }
 
 /** A roll function which can be called to roll a given skill. */
-export type RollFunction = (parameters: RollParameters) => void;
+export type RollFunction = (parameters: RollParameters) => string | void | Promise<void>;
 
 /** Basic initiative-relevant data. */
 export interface RawInitiativeData {

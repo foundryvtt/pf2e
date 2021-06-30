@@ -715,9 +715,11 @@ export class CharacterPF2e extends CreaturePF2e {
         };
 
         // powerful fist
-        const fistFeat = this.itemTypes.feat.find((feat) => feat.slug === 'powerful-fist');
+        const fistFeat = this.itemTypes.feat.find((feat) =>
+            ['powerful-fist', 'martial-artist-dedication'].includes(feat.slug ?? ''),
+        );
         if (fistFeat) {
-            unarmed.name = fistFeat.name;
+            unarmed.name = LocalizePF2e.translations.PF2E.Weapon.Base.fist;
             unarmed.data.baseItem = 'fist';
             unarmed.data.damage.die = 'd6';
         }
@@ -866,7 +868,8 @@ export class CharacterPF2e extends CreaturePF2e {
                 }
 
                 const flavor = this.getStrikeDescription(item);
-                const action: CharacterStrike = mergeObject(new StatisticModifier(item.name, modifiers), {
+                const strikeStat = new StatisticModifier(item.name, modifiers);
+                const action: CharacterStrike = mergeObject(strikeStat, {
                     imageUrl: item.img,
                     item: item._id,
                     ready: item.data.equipped.value ?? false,
@@ -1014,56 +1017,38 @@ export class CharacterPF2e extends CreaturePF2e {
                         },
                     },
                 ];
-                action.damage = (args: RollParameters) => {
-                    const ctx = this.createDamageRollContext(args.event!);
-                    const options = (args.options ?? [])
-                        .concat(ctx.options)
-                        .concat(action.options)
-                        .concat(defaultOptions);
-                    const damage = WeaponDamagePF2e.calculate(
-                        item,
-                        this.data,
-                        action.traits,
-                        statisticsModifiers,
-                        damageDice,
-                        proficiencyRank,
-                        options,
-                        rollNotes,
-                        weaponPotency,
-                        synthetics.striking,
-                    );
-                    DamageRollPF2e.roll(
-                        damage,
-                        { type: 'damage-roll', outcome: 'success', options },
-                        args.event,
-                        args.callback,
-                    );
-                };
-                action.critical = (args: RollParameters) => {
-                    const ctx = this.createDamageRollContext(args.event!);
-                    const options = (args.options ?? [])
-                        .concat(ctx.options)
-                        .concat(action.options)
-                        .concat(defaultOptions);
-                    const damage = WeaponDamagePF2e.calculate(
-                        item,
-                        this.data,
-                        action.traits,
-                        statisticsModifiers,
-                        damageDice,
-                        proficiencyRank,
-                        options,
-                        rollNotes,
-                        weaponPotency,
-                        synthetics.striking,
-                    );
-                    DamageRollPF2e.roll(
-                        damage,
-                        { type: 'damage-roll', outcome: 'criticalSuccess', options },
-                        args.event,
-                        args.callback,
-                    );
-                };
+                for (const method of ['damage', 'critical'] as const) {
+                    action[method] = (args: RollParameters): string | void => {
+                        const ctx = this.createDamageRollContext(args.event!);
+                        const options = (args.options ?? [])
+                            .concat(ctx.options)
+                            .concat(action.options)
+                            .concat(defaultOptions);
+                        const damage = WeaponDamagePF2e.calculate(
+                            item,
+                            this.data,
+                            action.traits,
+                            statisticsModifiers,
+                            damageDice,
+                            proficiencyRank,
+                            options,
+                            rollNotes,
+                            weaponPotency,
+                            synthetics.striking,
+                        );
+                        const outcome = method === 'damage' ? 'success' : 'criticalSuccess';
+                        if (args.getFormula) {
+                            return damage.formula[outcome].formula;
+                        } else {
+                            DamageRollPF2e.roll(
+                                damage,
+                                { type: 'damage-roll', outcome, options },
+                                args.event,
+                                args.callback,
+                            );
+                        }
+                    };
+                }
                 systemData.actions.push(action);
             });
 
