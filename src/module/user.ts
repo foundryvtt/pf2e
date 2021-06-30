@@ -6,9 +6,10 @@ import { LightLevels } from './scene';
 
 export class UserPF2e extends User<ActorPF2e> {
     /** Set this user's the perceived scene light levels */
-    setPerceivedLightLevel({ updateSource = false } = {}): void {
+    setPerceivedLightLevel({ defer = true, emitted = true } = {}): void {
         if (!(canvas.scene && canvas.sight.rulesBasedVision)) return;
 
+        if (emitted) this.setPerceivedEmittedLight();
         const tokens = canvas.tokens.controlled.filter(
             (token): token is TokenPF2e & { actor: CreaturePF2e } =>
                 token.hasSight && token.observer && token.actor instanceof CreaturePF2e,
@@ -22,16 +23,18 @@ export class UserPF2e extends User<ActorPF2e> {
                 [VisionLevels.DARKVISION]: 1,
             }[token.actor.visionLevel];
 
-            token.data.brightSight = perceivedBrightness > lightLevel ? perceivedBrightness * 500 : 0;
-            if (updateSource) token.updateSource();
+            token.data.brightSight =
+                perceivedBrightness > lightLevel ? perceivedBrightness * canvas.dimensions.maxR : 0;
+            token.updateSource({ defer });
         }
+
+        if (!defer) this.refreshSight();
     }
 
     /** Set this user's perceived light levels emitted by placed ambient lights and tokens */
-    setPerceivedLightEmissions({ ambient = true, defer = true } = {}): void {
-        if (!(canvas.scene && canvas.sight.rulesBasedVision)) return;
-
+    private setPerceivedEmittedLight({ ambient = true } = {}): void {
         if (ambient) canvas.lighting.initializeSources();
+
         const controlleds = canvas.tokens.controlled.filter((token) => token.hasSight);
         for (const token of canvas.tokens.placeables) {
             const perceivedBrightLight = (() => {
@@ -46,10 +49,7 @@ export class UserPF2e extends User<ActorPF2e> {
                     : token.data.brightLight;
             })();
             token.data.brightLight = Math.max(perceivedBrightLight, token.data.brightLight);
-            token.updateSource({ defer: true });
         }
-
-        if (!defer) this.refreshSight();
     }
 
     /** Instruct the perception manager to refresh the sight and lighting layers */
