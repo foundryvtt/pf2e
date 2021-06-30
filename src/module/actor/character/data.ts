@@ -203,7 +203,10 @@ interface CharacterAttributes extends BaseCreatureAttributes {
     flatbonussp: number;
     /** Used in variant stamina rules; how much bonus SP is gained per level. */
     levelbonussp?: number;
-
+    /** The amount of HP provided per level by the character's class. */
+    classhp: number;
+    /** The amount of HP provided at level 1 by the character's ancestry. */
+    ancestryhp: number;
     /** A bonus to the maximum amount of bulk that this character can carry. */
     bonusLimitBulk: number;
     /** A bonus to the maximum amount of bulk that this character can carry without being encumbered. */

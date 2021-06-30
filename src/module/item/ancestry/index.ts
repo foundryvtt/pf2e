@@ -3,7 +3,6 @@ import { CharacterPF2e } from '@actor';
 import { Size } from '@module/data';
 import { ABCItemPF2e } from '../abc';
 import { AncestryData } from './data';
-import { ModifierPF2e, MODIFIER_TYPE } from '@module/modifiers';
 
 export class AncestryPF2e extends ABCItemPF2e {
     static override get schema(): typeof AncestryData {
@@ -30,14 +29,10 @@ export class AncestryPF2e extends ABCItemPF2e {
         }
 
         const actorData = this.actor.data;
-        actorData.data.attributes.speed.value = String(this.speed);
-        actorData.data.traits.size.value = this.size;
-
-        const hitPoints: { modifiers: readonly ModifierPF2e[] } = actorData.data.attributes.hp;
-        hitPoints.modifiers = [
-            ...hitPoints.modifiers,
-            new ModifierPF2e('PF2E.AncestryHP', this.hitPoints, MODIFIER_TYPE.UNTYPED),
-        ];
+        const systemData = actorData.data;
+        systemData.attributes.speed.value = String(this.speed);
+        systemData.traits.size.value = this.size;
+        systemData.attributes.ancestryhp = this.hitPoints;
 
         // Add traits from ancestry and heritage
         const ancestryTraits: Set<string> = this?.traits ?? new Set();
