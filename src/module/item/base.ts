@@ -771,7 +771,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         if (this.actor) {
             // Rule Elements
             if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
-            const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
+            const rules = RuleElements.fromOwnedItem(this as Embedded<ItemPF2e>);
             const tokens = this.actor.getAllTokens();
             const actorUpdates = {};
             for (const rule of rules) {
@@ -806,7 +806,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 }
 
                 if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
-                const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
+                const rules = RuleElements.fromOwnedItem(this as Embedded<ItemPF2e>);
                 const tokens = this.actor.getAllTokens();
                 const actorUpdates = {};
                 for (const rule of rules) {
