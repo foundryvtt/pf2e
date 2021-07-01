@@ -6,7 +6,7 @@ import { RuleElementPF2e } from '../rule-element';
  */
 export class PF2RecoveryCheckDCRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(actorData: CharacterData | NPCData) {
-        const slug = this.ruleData.slug || this.item.data.slug;
+        const slug = this.data.slug || this.item.slug;
         if (slug) {
             let recoveryModifier = getProperty(actorData.data.attributes, 'dying.recoveryMod') || 0;
             const synergizers = (getProperty(actorData.data.attributes, 'dying.synergizers') || []) as string[];

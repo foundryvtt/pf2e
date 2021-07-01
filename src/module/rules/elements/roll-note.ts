@@ -1,25 +1,25 @@
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
+import { RuleElementData, RuleElementSyntheticsPF2e } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data';
 import { RollNotePF2e } from '@module/notes';
 import { ModifierPredicate } from '@module/modifiers';
-import { DegreeOfSuccessText } from '@system/check-degree-of-success';
+import { DegreeOfSuccessText, DegreeOfSuccessString } from '@system/check-degree-of-success';
 
 /**
  * @category RuleElement
  */
 export class PF2RollNoteRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(actorData: CharacterData | NPCData, { rollNotes }: RuleElementSyntheticsPF2e) {
-        const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
-        const text = super.resolveInjectedProperties(this.ruleData.text, this.ruleData, this.item, actorData);
+    override onBeforePrepareData(_actorData: CharacterData | NPCData, { rollNotes }: RuleElementSyntheticsPF2e) {
+        const selector = this.resolveInjectedProperties(this.data.selector);
+        const text = this.resolveInjectedProperties(this.data.text);
         if (selector && text) {
             const note = new RollNotePF2e(selector, text);
-            if (this.ruleData.predicate) {
-                note.predicate = new ModifierPredicate(this.ruleData.predicate);
+            if (this.data.predicate) {
+                note.predicate = new ModifierPredicate(this.data.predicate);
             }
-            if (Array.isArray(this.ruleData.outcome)) {
-                note.outcome = this.ruleData.outcome.filter((outcome: string) =>
-                    (DegreeOfSuccessText as unknown as string[]).includes(outcome),
+            if (Array.isArray(this.data.outcome)) {
+                note.outcome = this.data.outcome.filter((outcome: string): outcome is DegreeOfSuccessString =>
+                    DegreeOfSuccessText.some((degree) => degree === outcome),
                 );
             }
             rollNotes[selector] = (rollNotes[selector] || []).concat(note);
@@ -27,4 +27,11 @@ export class PF2RollNoteRuleElement extends RuleElementPF2e {
             console.warn('PF2E | Roll note requires at least a selector field and a non-empty text field');
         }
     }
+}
+
+export interface PF2RollNoteRuleElement {
+    data: RuleElementData & {
+        outcome?: string[];
+        text?: string;
+    };
 }
