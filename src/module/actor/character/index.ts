@@ -110,7 +110,7 @@ export class CharacterPF2e extends CreaturePF2e {
         super.prepareDerivedData();
 
         const rules = this.items
-            .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item.data)), [])
+            .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item)), [])
             .filter((rule) => !rule.ignored);
         const systemData = this.data.data;
 

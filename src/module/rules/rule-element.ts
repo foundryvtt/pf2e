@@ -1,7 +1,7 @@
 import type { ActorDataPF2e, CreatureData } from '@actor/data';
-import type { ItemDataPF2e } from '@item/data';
+import type { ItemDataPF2e, ItemType } from '@item/data';
 import { isPhysicalData } from '@item/data/helpers';
-import { RuleElementSyntheticsPF2e } from './rules-data-definitions';
+import { RuleElementData, RuleElementSyntheticsPF2e } from './rules-data-definitions';
 
 export interface Bracket {
     start?: number;
@@ -50,13 +50,22 @@ export abstract class RuleElementPF2e {
     ruleData: any;
     item: ItemDataPF2e;
 
+    /** The originating item of this rule element */
+    readonly origin: { uuid: string; type: ItemType } | null;
+
     /**
      * @param ruleData unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
-    constructor(ruleData: any, item: ItemDataPF2e) {
+    constructor(ruleData: RuleElementData, item: ItemDataPF2e, itemUUID?: string) {
         this.ruleData = ruleData;
         this.item = item;
+        this.origin = itemUUID
+            ? {
+                  uuid: itemUUID,
+                  type: item.type,
+              }
+            : null;
     }
 
     /**
