@@ -94,6 +94,19 @@ export interface BaseCreatureAttributes {
     hp: HitPointsData;
     ac: { value: number };
     perception: { value: number };
+
+    healing?: {
+        'fast-healing'?: {
+            value: number;
+            notes?: string;
+        };
+        regeneration?: {
+            value: number;
+            notes?: string;
+            suppressed?: boolean;
+            suppressedBy?: string[];
+        };
+    };
 }
 
 export type Alignment = 'LG' | 'NG' | 'CG' | 'LN' | 'N' | 'CN' | 'LE' | 'NE' | 'CE';
