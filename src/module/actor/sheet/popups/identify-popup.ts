@@ -41,13 +41,11 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
         });
         //add listener on Post skill checks to chat button that posts item unidentified img and name and skill checks
         $form.find<HTMLButtonElement>('button.post-skill-checks').on('click', () => {
-            const item = this.getData();
+            const item = this.item;
+            const itemImg = item.data.data.identification.unidentified.img;
+            const itemName = item.data.data.identification.unidentified.name;
             let content = '';
-            if (item.object) {
-                const itemImg = item.object.data.data.identification.unidentified.img;
-                const itemName = item.object.data.data.identification.unidentified.name;
-                content += `<div><h4><img src="${itemImg}" height="24" width="24"> ${itemName} </h4></div>`;
-            }
+            content += `<div><h4><img src="${itemImg}" height="24" width="24"> ${itemName} </h4></div>`;
             content += `<p>${game.i18n.localize('PF2E.identification.PostSkillsToChatText')}</p>`;
             $('tr').each(function () {
                 const description = $(this).find('th').text();
