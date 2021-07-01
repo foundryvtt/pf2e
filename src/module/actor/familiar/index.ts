@@ -50,7 +50,7 @@ export class FamiliarPF2e extends CreaturePF2e {
 
         const data = this.data.data;
         const rules = this.items
-            .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item.data)), [])
+            .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item)), [])
             .filter((rule) => !rule.ignored);
 
         // Ensure uniqueness of traits

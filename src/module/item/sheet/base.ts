@@ -4,7 +4,7 @@ import { ItemDataPF2e } from '@item/data';
 import { LocalizePF2e } from '@system/localize';
 import { AESheetData, ItemSheetDataPF2e, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e, LorePF2e } from '@item/index';
-import { PF2RuleElementData } from '@module/rules/rules-data-definitions';
+import { RuleElementData } from '@module/rules/rules-data-definitions';
 import Tagify from '@yaireo/tagify';
 import {
     BasicSelectorOptions,
@@ -155,8 +155,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 const scopes = new Set<string>();
 
                 data.item.data.rules
-                    .filter((rule: PF2RuleElementData) => rule.key === 'PF2E.RuleElement.EffectTarget')
-                    .forEach((rule: PF2RuleElementData) => {
+                    .filter((rule: RuleElementData) => rule.key === 'PF2E.RuleElement.EffectTarget')
+                    .forEach((rule: RuleElementData) => {
                         scopes.add(rule.scope as string);
                     });
                 if (scopes) {

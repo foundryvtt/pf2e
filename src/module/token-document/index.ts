@@ -35,7 +35,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         const actor = game.actors.get(data.actorId ?? '');
         if (actor) {
             actor.items.forEach((item) => {
-                const rules = RuleElements.fromRuleElementData(item.data.data.rules ?? [], item.data);
+                const rules = RuleElements.fromOwnedItem(item);
                 for (const rule of rules) {
                     if (rule.ignored) continue;
                     rule.onCreateToken(actor.data, item.data, data);
