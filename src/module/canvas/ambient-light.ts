@@ -1,5 +1,5 @@
 import { CreaturePF2e } from '@actor';
-import { LightLevels } from '@module/scene';
+import { LightLevels, ScenePF2e } from '@module/scene';
 import { LightingLayerPF2e } from './lighting-layer';
 
 export class AmbientLightPF2e extends AmbientLight {
@@ -20,4 +20,8 @@ export class AmbientLightPF2e extends AmbientLight {
 
 export interface AmbientLightPF2e {
     get layer(): LightingLayerPF2e;
+}
+
+export interface AmbientLightDocumentPF2e extends AmbientLightDocument {
+    parent: ScenePF2e | null;
 }
