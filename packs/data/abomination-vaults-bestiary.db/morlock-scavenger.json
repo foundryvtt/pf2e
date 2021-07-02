@@ -703,6 +703,120 @@
             "type": "action"
         },
         {
+            "_id": "Nwtd1G94Ikab4Ejf",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The morlock scavenger Strides twice, ignoring difficult terrain caused by natural cavern features like rubble or stalagmites. At any point during its movement, the morlock can make a melee Strike against an enemy in its reach.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Scuttling Attack",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "ardNq7ed9xXT0x3J",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A morlock's Strikes deal an extra [[/r 1d6 #precision]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
             "_id": "QlygOvoO8v1q3qZ1",
             "data": {
                 "actionCategory": {
@@ -765,179 +879,6 @@
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Swarming Stance",
             "sort": 800000,
-            "type": "action"
-        },
-        {
-            "_id": "ardNq7ed9xXT0x3J",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>A morlock can share the same space as another morlock, but no more than two morlocks can occupy the same space. When morlocks share the same space, they gain a +1 circumstance bonus to attack rolls.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "PF2E.RuleElement.ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.attack-roll.swarming-stance"
-                    },
-                    {
-                        "key": "PF2E.RuleElement.FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "swarming-stance"
-                            ]
-                        },
-                        "selector": "attack",
-                        "type": "circumstance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Swarming Stance",
-            "sort": 900000,
-            "type": "action"
-        },
-        {
-            "_id": "ardNq7ed9xXT0x3J",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>A morlock's Strikes deal an extra [[/r 1d6 #precision]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "PF2E.RuleElement.DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:flatFooted"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ]
-                        },
-                        "selector": "damage"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 1000000,
-            "type": "action"
-        },
-        {
-            "_id": "Nwtd1G94Ikab4Ejf",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>The morlock scavenger Strides twice, ignoring difficult terrain caused by natural cavern features like rubble or stalagmites. At any point during its movement, the morlock can make a melee Strike against an enemy in its reach.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Scuttling Attack",
-            "sort": 1100000,
             "type": "action"
         },
         {
