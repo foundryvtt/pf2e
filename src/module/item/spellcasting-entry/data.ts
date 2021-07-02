@@ -31,7 +31,7 @@ export interface SpellDifficultyClass {
 }
 
 interface SpellSlotData {
-    prepared: { id: string; expended?: boolean }[];
+    prepared: Record<number, { id: string | null; expended?: boolean }>;
     value: number;
     max: number;
 }
