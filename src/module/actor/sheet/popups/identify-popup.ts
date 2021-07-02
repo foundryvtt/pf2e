@@ -44,19 +44,26 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
             const item = this.item;
             const itemImg = item.data.data.identification.unidentified.img;
             const itemName = item.data.data.identification.unidentified.name;
-            let content = '';
-            content += `<div><h4><img src="${itemImg}" height="24" width="24"> ${itemName} </h4></div>`;
-            content += `<p>${game.i18n.localize('PF2E.identification.PostSkillsToChatText')}</p>`;
+            const skillArray: object[] = [];
             $('tr').each(function () {
                 const description = $(this).find('th').text();
-                const skill = description.toLowerCase();
-                const DC = $(this).find('td').text();
-                const skillHTML = `<p><span data-pf2-traits="concentrate,secret,skill" data-pf2-skill-check="${skill}" data-pf2-label="DC ${DC} ${description}" data-pf2-dc="${DC}" data-pf2-show-dc="gm">${description}</span></p>`;
-                content += skillHTML;
+                if (description) {
+                    skillArray.push({
+                        description: description,
+                        skill: description.toLowerCase(),
+                        DC: $(this).find('td').text(),
+                    });
+                }
             });
-            ChatMessage.create({
-                user: game.user.id,
-                content: content,
+            renderTemplate('systems/pf2e/templates/actors/identify-item-chat-skill-checks.html', {
+                itemImg,
+                itemName,
+                skillArray,
+            }).then((template) => {
+                ChatMessage.create({
+                    user: game.user.id,
+                    content: template,
+                });
             });
         });
     }
