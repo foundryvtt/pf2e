@@ -44,6 +44,7 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
             const item = this.item;
             const itemImg = item.data.data.identification.unidentified.img;
             const itemName = item.data.data.identification.unidentified.name;
+            const identifiedName = item.data.data.identification.identified.name;
             const skillArray: object[] = [];
             $('tr').each(function () {
                 const description = $(this).find('th').text();
@@ -58,6 +59,7 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
             renderTemplate('systems/pf2e/templates/actors/identify-item-chat-skill-checks.html', {
                 itemImg,
                 itemName,
+                identifiedName,
                 skillArray,
             }).then((template) => {
                 ChatMessage.create({
