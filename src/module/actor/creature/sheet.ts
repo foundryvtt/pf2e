@@ -223,14 +223,11 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
 
         // the click listener registered on all buttons breaks the event delegation here...
-        // html.find('.strikes-list [data-action-index]').on('click', '.damage-strike', (event) => {
         html.find('.strikes-list .damage-strike, [data-action="npcDamage"]').on('click', (event) => {
-            if (!['character', 'npc'].includes(this.actor.data.type))
-                throw Error('This sheet only works for characters and NPCs');
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-            const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
+            if (!['character', 'npc'].includes(this.actor.data.type)) {
+                throw ErrorPF2e('This sheet only works for characters and NPCs');
+            }
+            const actionIndex = $(event.currentTarget).closest('[data-action-index]').attr('data-action-index');
             this.actor.data.data.actions[Number(actionIndex)].damage({ event });
         });
 
