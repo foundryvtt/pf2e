@@ -92,7 +92,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure: The Slithering © 2020, Paizo Inc.; Author: Ron Lundeen.
     *  Pathfinder Adventure: Troubles in Otari © 2020, Paizo Inc.; Author: Jason Keeley, Liz Liddell, and Ron Lundeen.
     *  Pathfinder Adventure: Malevolence © 2021, Paizo Inc.; Author: James Jacobs.
-    *  Pathfinder Adventure: The Dead God's Hand © 2021, Paizo Inc.; Author: Erik Mona
+    *  Pathfinder Adventure: The Dead God's Hand © 2022, Paizo Inc.; Author: Erik Mona
     *  Age of Ashes Player's Guide © 2019, Paizo Inc.; Authors: James Jacobs, with Amanda Hamon.
     *  Pathfinder Adventure Path #145: Hellknight Hill © 2019, Paizo Inc.; Authors: Amanda Hamon, with Logan Bonner, James Jacobs, and Jason Tondro.
     *  Pathfinder Adventure Path #146: Cult of Cinders © 2019, Paizo Inc.; Authors: Eleanor Ferron, with Leo Glass, James Jacobs, Jason Keeley, and Owen KC Stephens.
@@ -149,11 +149,15 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	* Pathfinder Society Bounty #3: Shadow and Scarecrows © 2020, Paizo Inc.; Author: Jacob W. Michaels
     * Pathfinder Society Bounty #4: Cat's Cradle © 2020, Paizo Inc.; Author: Hilary Moon Murphy
     * Pathfinder Society Bounty #5: Witch's Winter Holiday © 2020, Paizo Inc.; Author: Patrick Hurley
-    * Pathfinder Society Bounty #6: The Road from Otari © 2020, Paizo Inc.; Author: Ron Lundeen
-    * Pathfinder Society Bounty #7: Cleanup Duty © 2020, Paizo Inc.; Author: Elizabeth V Nold
-    * Pathfinder Society Bounty #8: The Tireless Path © 2020, Paizo Inc.; Author: Ivis K. Flanagan
-    * Pathfinder Society Bounty #9: Fishing in Anthusis © 2020, Paizo Inc.; Author: Letterio Mammoliti
-    * Pathfinder Society Bounty #10: Hillcross Roundup © 2020, Paizo Inc.; Author: Nicole Heits
+    * Pathfinder Society Bounty #6: The Road from Otari © 2021, Paizo Inc.; Author: Ron Lundeen
+    * Pathfinder Society Bounty #7: Cleanup Duty © 2021, Paizo Inc.; Author: Elizabeth V Nold
+    * Pathfinder Society Bounty #8: The Tireless Path © 2021, Paizo Inc.; Author: Ivis K. Flanagan
+    * Pathfinder Society Bounty #9: Fishing in Anthusis © 2021, Paizo Inc.; Author: Letterio Mammoliti
+    * Pathfinder Society Bounty #10: Hillcross Roundup © 2021, Paizo Inc.; Author: Nicole Heits
+    * Pathfinder Society Bounty #11: Forged Facade © 2021, Paizo Inc.; Author: Randal Meyer
+    * Pathfinder Society Bounty #12: Somewhere Below © 2021, Paizo Inc.; Author: Kim Frandsen
+    * Pathfinder Society Bounty #13: The Blackwood Abundance © 2021, Paizo Inc.; Author: Alex Speidel
+    * Pathfinder Society Bounty #14: The Balckwood Truce © 2021, Paizo Inc.; Author: Caryn DiMarco
 
     * Pathfinder Society Scenario #1-00: Origin of the Open Road © 2019, Paizo Inc.; Author: Ron Lundeen.
     * Pathfinder Society Scenario #1-01: The Absalom Initiation © 2019, Paizo Inc.; Author: Lyz Liddell.
@@ -206,6 +210,11 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #2-20: Breaking the Storm: Bastion in Embers © 2021, Paizo Inc.; Authors: Christopher Wasko
     * Pathfinder Society Scenario #2-21: In Pursuit of Water © 2021, Paizo Inc.; Authors: Matt Duval
     * Pathfinder Society Scenario #2-22: Breaking the Storm: Excising Ruination © 2021, Paizo Inc.; Authors: Nicholas Wasko
+	* Pathfinder Society Scenario #2-23: An Agent's Obligation © 2021, Paizo Inc.; Authors: Joshua Hennington
+	* Pathfinder Society Scenario #2-24: Breaking the Storm: Parting Clouds © 2021, Paizo Inc.; Authors: Tineke Bolleman
+	* Pathfinder Society Intro: Year of Shattered Sanctuaries © 2021, Paizo Inc.; Authors: Mike Kimmel
+	* Pathfinder Society Scenario #3-02: The East Hill Haunting © 2021, Paizo Inc.; Authors: Nicole Heits
+	* Pathfinder Society Scenario #3-03: Echoes of Despiration © 2021, Paizo Inc.; Authors: Nate Wright
 
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
@@ -216,10 +225,13 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Lost Omens Legends (Second Edition) © 2020, Paizo Inc.; Authors: Amirali Attar Olyaee, Alexander Augunas, Kate Baker, Jason Bulmahn, Alexandria Bustion, Carlos Cabrera, Calder CaDavid, Jessica Catalan, Natalie Collazo, Ryan Costello, Jr, Greg Diaz, Fabby Garza Marroquín, Jaym Gates, Alice Grizzle, Steven Hammond, Nicolas Hornyak, James Jacobs, Michelle Jones, Kristina Sisto Kindel, Aaron Lascano, Ron Lundeen, Stephanie Lundeen, Sydney Meeker, Liane Merciel, Matt Morris, Patchen Mortimer, Hilary Moon Murphy, Dennis Muldoon, Andrew Mullen, Mikhail Rekun, Michael Sayre, Mark Seifter, Ashton Sperry, Owen K.C. Stephens, and Isabelle Thorne.
 	*  Pathfinder Lost Omens Ancestry Guide (Second Edition) © 2021, Paizo Inc.; Authors: Calder CaDavid, James Case, Jessica Catalan, Eleanor Ferron, Lyz Liddell, Luis Loza, Ron Lundeen, Patchen Mortimer, Andrew Mullen, Samantha Phelan, Jessica Redekop, Mikhail Rekun, David N. Ross, Mark Seifter, Owen K.C. Stephens, Isabelle Thorne, and Linda Zayas-Palmer.
     *  Pathfinder Lost Omens Azarketi Ancestry Web Supplement © 2021, Paizo Inc.; Author: Samantha Phelan.
+	*  Pathfinder Lost Omens The Mwangi Expanse © 2021, Paizo Inc.; Authors: Laura-Shay Adams, Mariam Ahmad, Jahmal Brown, Misha Bushyager, Alexandria Bustion, Duan Byrd, John Compton, Sarah Davis, Mara Lynn Butler, Kent Hamilton, Amanda Hamon, Sasha Laranoa Harving, Gabriel Hicks, TK Johnson, Michelle Jones, Jason Keeley, Joshua Kim, Travis Lionel, Ron Lundeen, Stephanie Lundeen, Hilary Moon Murphy, Lu Pellazar, Mikhail Rekun, Nate Wright, and Jabari Weathers
 
 *  One Shots
-    *  Pathfinder One-Shot: Sundered Waves Adventure © 2021, Paizo Inc.; Author: Jason Bulmahn
-    *  Pathfinder One-Shot: Sundered Waves Adventure Pregenerated Characters © 2021, Paizo Inc.; Author: Jason Bulmahn
+    *  Pathfinder One-Shot #1: Sundered Waves © 2021, Paizo Inc.; Author: Jason Bulmahn
+    *  Pathfinder One-Shot #1: Sundered Waves Pregenerated Characters © 2021, Paizo Inc.; Author: Jason Bulmahn
+	*  Pathfinder One-Shot #2: Dinner at Lionlodge © 2021, Paizo Inc.; Author: James Jacobs
+    *  Pathfinder One-Shot #2: Dinner at Lionlodge Pregenerated Characters © 2021, Paizo Inc.; Author: James Jacobs
 
 *  Decks
     *  Pathfinder Chase Cards Deck © 2020, Paizo Inc.; Author: Logan Bonner, Illustrator: Riccardo Rullo.
@@ -227,6 +239,10 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Critical Hit Deck © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland, Illustrator: Yanis Cardin.
 
 *  Paizo Blog
+	*  No-Prep Character: Duhgik © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Dominik Derow.
+	*  No-Prep Character: Wendlyn © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
+	*  No-Prep Character: Zhang Yong © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Gislaine Avila.
+	*  Pathfinder Bestiary 3 Bonus Monster © 2021, Paizo Inc.; Chris Sims; Illustrator: Leonardo Borazio.
 	*  Pathfinder Encounter: Phinelli’s Miracle Elixir © 2021, Paizo Inc.; Author Unknown; Illustrator: Alberto Dal Lago.
 	*  No-Prep Character: Lisavet © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
 	*  No-Prep Character: Urok © 2021, Paizo Inc.; Author: Luis Loza; Illustrator: Gin Skalauskas.
