@@ -1,36 +1,29 @@
 import { ItemDataPF2e } from '@item/data';
 import { CharacterData, FamiliarData, NPCData } from '@actor/data';
 import { RuleElementPF2e } from '../rule-element';
+import { RuleElementData } from '../rules-data-definitions';
 
 /**
  * @category RuleElement
  */
 export class PF2SetPropertyRuleElement extends RuleElementPF2e {
     override onCreate(actorData: CharacterData | NPCData | FamiliarData, _item: ItemDataPF2e, actorUpdates: any) {
-        if (
-            this.ruleData.property &&
-            typeof this.ruleData.on?.added !== 'undefined' &&
-            this.ruleData.on?.added !== null
-        ) {
-            actorUpdates[this.ruleData.property] = this.ruleData.on.added;
-            if (this.ruleData.retain) {
+        if (this.data.property && typeof this.data.on?.added !== 'undefined' && this.data.on?.added !== null) {
+            actorUpdates[this.data.property] = this.data.on.added;
+            if (this.data.retain) {
                 actorUpdates[`flags.${game.system.id}.set-property.${this.getSafePropertyName()}`] = getProperty(
                     actorData,
-                    this.ruleData.property,
+                    this.data.property,
                 );
             }
         }
     }
 
     override onDelete(actorData: CharacterData | NPCData | FamiliarData, _item: ItemDataPF2e, actorUpdates: any) {
-        if (
-            this.ruleData.property &&
-            typeof this.ruleData.on?.removed !== 'undefined' &&
-            this.ruleData.on?.removed !== null
-        ) {
-            actorUpdates[this.ruleData.property] = this.ruleData.on.removed;
-        } else if (this.ruleData.property && this.ruleData.retain) {
-            actorUpdates[this.ruleData.property] = getProperty(
+        if (this.data.property && typeof this.data.on?.removed !== 'undefined' && this.data.on?.removed !== null) {
+            actorUpdates[this.data.property] = this.data.on.removed;
+        } else if (this.data.property && this.data.retain) {
+            actorUpdates[this.data.property] = getProperty(
                 actorData,
                 `flags.${game.system.id}.set-property.${this.getSafePropertyName()}`,
             );
@@ -39,6 +32,17 @@ export class PF2SetPropertyRuleElement extends RuleElementPF2e {
     }
 
     private getSafePropertyName(): string {
-        return this.ruleData.property.replace(/\./g, '-').slugify();
+        return this.data.property?.replace(/\./g, '-').slugify() ?? '';
     }
+}
+
+export interface PF2SetPropertyRuleElement {
+    data: RuleElementData & {
+        property?: string;
+        on?: {
+            added?: string | null;
+            removed?: string | null;
+        };
+        retain?: boolean;
+    };
 }
