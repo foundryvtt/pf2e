@@ -1,5 +1,13 @@
 # Patch Notes:
 
+## Version 2.7.1
+### Bug Fixes
+* (stwlam) Add back Con-modifier to hit points
+
+### Content Changes
+* (stwlam & Tikael) Remove prices and descriptions from bandoliers, belt pouches, satchels, scroll cases, sheaths, and vials
+
+
 ## Version 2.7.0
 ### Bug Fixes
 * (stwlam) Always show marked signature spells at their base level despite lack of slots. Closes #1545
