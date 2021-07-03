@@ -23,6 +23,7 @@ export interface RollParameters {
     /** Callback called when the roll occurs. */
     callback?: (roll: Rolled<Roll>) => void;
     /** Other roll-specific options */
+    getFormula?: true;
     [keys: string]: any;
 }
 

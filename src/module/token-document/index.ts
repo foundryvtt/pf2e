@@ -16,7 +16,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         super.prepareBaseData();
 
         if (canvas.sight?.rulesBasedVision) {
-            this.data.update({ brightSight: 0, dimSight: 0 });
+            this.data.update({ brightSight: 0, dimSight: 0, lightAngle: 360, sightAngle: 360 });
         }
     }
 
@@ -35,7 +35,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         const actor = game.actors.get(data.actorId ?? '');
         if (actor) {
             actor.items.forEach((item) => {
-                const rules = RuleElements.fromRuleElementData(item.data.data.rules ?? [], item.data);
+                const rules = RuleElements.fromOwnedItem(item);
                 for (const rule of rules) {
                     if (rule.ignored) continue;
                     rule.onCreateToken(actor.data, item.data, data);
@@ -54,7 +54,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         if (this.actor instanceof LootPF2e) this.actor.toggleTokenHiding();
     }
 
-    /** Synchronous actor attitude with token disposition, refresh the EffectPanel */
+    /** Synchronize actor attitude with token disposition, refresh the EffectPanel, update perceived light */
     protected override _onUpdate(
         changed: DeepPartial<this['data']['_source']>,
         options: DocumentModificationContext,
@@ -66,11 +66,12 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
             this.actor.updateAttitudeFromDisposition(changed.disposition);
         }
 
-        game.pf2e.effectPanel.refresh();
+        // Refresh the effect panel if the update isn't a movement
+        if (!('x' in changed || 'y' in changed)) game.pf2e.effectPanel.refresh();
 
-        // Update perceived light emission from the perspective of other tokens
-        if ('dimLight' in changed || 'brightLight' in changed) {
-            game.user.setPerceivedLightEmissions({ ambient: false, defer: false });
+        // Refresh perceived light levels
+        if ('brightLight' in changed || 'dimLight' in changed) {
+            this.object?.applyOverrides();
         }
     }
 }

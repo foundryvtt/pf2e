@@ -728,6 +728,25 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);
         });
 
+        // Set damage-formula tooltips on damage buttons
+        const $strikes = html
+            .find('section.sheet-content .tab.actions .strikes-list')
+            .find<HTMLButtonElement>('button.damage-strike, button.critical-strike');
+        for (const strike of $strikes) {
+            const $strike = $(strike);
+            const method = $strike.hasClass('critical-strike') ? 'critical' : 'damage';
+            const actionIndex = $strike.closest('[data-action-index]').attr('data-action-index');
+            const formula = this.actor.data.data.actions[Number(actionIndex)][method]?.({ getFormula: true });
+            if (formula) {
+                $strike.attr({ title: formula });
+                $strike.tooltipster({
+                    animation: 'fade',
+                    theme: 'crb-hover',
+                    position: 'bottom',
+                });
+            }
+        }
+
         html.find('.add-modifier').on('click', '.fas.fa-plus-circle', (event) => this.onIncrementModifierValue(event));
         html.find('.add-modifier').on('click', '.fas.fa-minus-circle', (event) => this.onDecrementModifierValue(event));
         html.find('.add-modifier').on('click', '.add-modifier-submit', (event) => this.onAddCustomModifier(event));
