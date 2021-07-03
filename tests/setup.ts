@@ -103,6 +103,38 @@ function duplicate(original: unknown) {
     return JSON.parse(JSON.stringify(original));
 }
 
+/**
+ * Quickly clone a simple piece of data, returning a copy which can be mutated safely.
+ * This method DOES support recursive data structures containing inner objects or arrays.
+ * This method DOES NOT support advanced object types like Set, Map, or other specialized classes.
+ * @param original Some sort of data
+ * @return The clone of that data
+ */
+function deepClone<T>(original: T): T extends Set<any> | Map<any, any> | Collection<any> ? never : T {
+    // Simple types
+    if (typeof original !== 'object' || original === null)
+        return original as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+
+    // Arrays
+    if (original instanceof Array)
+        return original.map(deepClone) as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+
+    // Dates
+    if (original instanceof Date)
+        return new Date(original) as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+
+    // Unsupported advanced objects
+    if ((original as { constructor: unknown }).constructor !== Object)
+        return original as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+
+    // Other objects
+    const clone: Record<string, unknown> = {};
+    for (const k of Object.keys(original)) {
+        clone[k] = deepClone(original[k as keyof typeof original]);
+    }
+    return clone as unknown as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
+}
+
 function expandObject(obj: Record<string, any>, _d = 0) {
     const expanded = {};
     if (_d > 10) throw new Error('Maximum depth exceeded');
@@ -215,6 +247,7 @@ function mergeObject(
 
 globalThis.mergeObject = mergeObject;
 globalThis.duplicate = duplicate;
+globalThis.deepClone = deepClone;
 (global as any).Actor = FakeActor;
 (global as any).Item = FakeItem;
 (global as any).Token = FakeToken;
