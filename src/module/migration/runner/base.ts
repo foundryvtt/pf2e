@@ -11,11 +11,11 @@ interface ItemsDiff {
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.64;
+    static LATEST_SCHEMA_VERSION = 0.641;
 
     static MINIMUM_SAFE_VERSION = 0.6;
 
-    static RECOMMENDED_SAFE_VERSION = 0.61;
+    static RECOMMENDED_SAFE_VERSION = 0.615;
 
     constructor(migrations: MigrationBase[] = []) {
         this.migrations = migrations.sort((a, b) => a.version - b.version);
