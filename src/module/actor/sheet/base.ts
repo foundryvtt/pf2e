@@ -484,7 +484,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers
+    /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
     override activateListeners(html: JQuery): void {
@@ -623,7 +623,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find('.spell-browse').on('click', () => game.pf2e.compendiumBrowser.openTab('spell'));
 
         // Inventory Browser
-        html.find('.inventory-browse').on('click', () => game.pf2e.compendiumBrowser.openTab('equipment'));
+        html.find('.inventory-browse').on('click', (event) => this.onClickBrowseCompendia(event));
 
         // Spell Create
         html.find('.spell-create').on('click', (event) => this.onClickCreateItem(event));
@@ -945,6 +945,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         } else {
             throw ErrorPF2e('Item not found');
         }
+    }
+
+    private onClickBrowseCompendia(event: JQuery.ClickEvent<HTMLElement>) {
+        const filter = $(event.currentTarget).attr('data-filter') ?? null;
+        console.debug(`Filtering on: ${filter}`);
+        game.pf2e.compendiumBrowser.openTab('equipment', filter);
     }
 
     protected override _canDragStart(selector: string): boolean {

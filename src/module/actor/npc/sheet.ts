@@ -157,7 +157,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         if (this.isLootSheet) {
             return 'systems/pf2e/templates/actors/npc/loot-sheet.html';
         }
-        return 'systems/pf2e/templates/actors/npc/npc-sheet.html';
+        return 'systems/pf2e/templates/actors/npc/sheet.html';
     }
 
     /** Use the token name as the title if showing a lootable NPC sheet */
