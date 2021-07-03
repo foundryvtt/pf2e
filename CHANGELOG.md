@@ -1,5 +1,10 @@
 # Patch Notes:
 
+## Version 2.7.1
+### Bug Fixes
+* (stwlam) Add back Con-modifier to hit points
+
+
 ## Version 2.7.0
 ### Bug Fixes
 * (stwlam) Always show marked signature spells at their base level despite lack of slots. Closes #1545
