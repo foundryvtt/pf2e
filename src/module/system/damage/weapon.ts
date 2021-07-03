@@ -292,13 +292,19 @@ export class WeaponDamagePF2e {
         const selectors: string[] = WeaponDamagePF2e.getSelectors(weapon, ability, proficiencyRank);
 
         // two-hand trait
-        const twoHandTrait = traits.find((t) => t.name.toLowerCase().startsWith('two-hand-'));
+        const twoHandTrait = traits.find(
+            // utilizing the css class here is a dirty (and hopefully temporary!) hack
+            (t) => t.name.toLowerCase().startsWith('two-hand-') && t.cssClass === 'toggled-on',
+        );
         if (twoHandTrait && options.some((o) => o === twoHandTrait.rollOption)) {
             baseDamageDie = twoHandTrait.name.substring(twoHandTrait.name.lastIndexOf('-') + 1) as DamageDieSize;
         }
 
         // versatile trait
-        const versatileTrait = traits.find((t) => t.name.toLowerCase().startsWith('versatile-'));
+        const versatileTrait = traits.find(
+            // utilizing the css class here is a dirty (and hopefully temporary!) hack
+            (t) => t.name.toLowerCase().startsWith('versatile-') && t.cssClass === 'toggled-on',
+        );
         if (versatileTrait && options.some((o) => o === versatileTrait.rollOption)) {
             const dmg = {
                 b: 'bludgeoning',
