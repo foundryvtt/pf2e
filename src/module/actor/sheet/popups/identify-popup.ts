@@ -39,6 +39,35 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
             const $button = $(event.delegateTarget);
             this.submit({ updateData: { status: $button.val() } });
         });
+        //add listener on Post skill checks to chat button that posts item unidentified img and name and skill checks
+        $form.find<HTMLButtonElement>('button.post-skill-checks').on('click', () => {
+            const item = this.item;
+            const itemImg = item.data.data.identification.unidentified.img;
+            const itemName = item.data.data.identification.unidentified.name;
+            const identifiedName = item.data.data.identification.identified.name;
+            const skillArray: object[] = [];
+            $('tr').each(function () {
+                const description = $(this).find('th').text();
+                if (description) {
+                    skillArray.push({
+                        description: description,
+                        skill: description.toLowerCase(),
+                        DC: $(this).find('td').text(),
+                    });
+                }
+            });
+            renderTemplate('systems/pf2e/templates/actors/identify-item-chat-skill-checks.html', {
+                itemImg,
+                itemName,
+                identifiedName,
+                skillArray,
+            }).then((template) => {
+                ChatMessage.create({
+                    user: game.user.id,
+                    content: template,
+                });
+            });
+        });
     }
 
     protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
