@@ -1,0 +1,7 @@
+<div><h4><img src="{{itemImg}}" height="24" width="24"> {{itemName}} </h4></div>
+<div data-visibility="gm">{{identifiedName}}</div>
+<p>{{localize "PF2E.identification.PostSkillsToChatText"}}</p>
+{{#each skillArray as |skillArray|}}
+    <p><span data-pf2-traits="concentrate,secret,skill" data-pf2-skill-check="{{skillArray.skill}}" data-pf2-dc="{{skillArray.DC}}" data-pf2-show-dc="gm">{{skillArray.description}}</span></p>
+{{/each}}
+
