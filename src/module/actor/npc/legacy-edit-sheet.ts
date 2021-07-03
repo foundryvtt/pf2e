@@ -4,7 +4,7 @@ import { NPCPF2e } from '.';
 import { identifyCreature } from '@module/recall-knowledge';
 import { RecallKnowledgePopup } from '../sheet/popups/recall-knowledge-popup';
 import { SpellcastingEntryData, SpellData } from '@item/data';
-import { objectHasKey } from '@module/utils';
+import { getActionIcon, objectHasKey } from '@module/utils';
 import { ConsumablePF2e } from '@item';
 
 export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
@@ -204,13 +204,11 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.
         for (const i of tempSpellbook) {
-            const spellType = i.data.time.value;
-
             // format spell level for display
-            if (spellType === 'reaction') i.img = NPCPF2e.getActionGraphics('reaction').imageUrl;
-            else if (spellType === 'free') i.img = NPCPF2e.getActionGraphics('free').imageUrl;
-            else if (parseInt(spellType, 10))
-                i.img = NPCPF2e.getActionGraphics('action', parseInt(spellType, 10)).imageUrl;
+            const actionGraphics = getActionIcon(i.data.time.value);
+            if (actionGraphics) {
+                i.img = actionGraphics;
+            }
 
             // check if the spell has a valid spellcasting entry assigned to the location value.
             if (spellcastingEntriesList.includes(i.data.location.value)) {

@@ -48,6 +48,7 @@ import { Migration638SpellComponents } from './migrations/638-spell-components';
 import { Migration639NormalizeLevelAndPrice } from './migrations/639-normalize-level-and-price';
 import { Migration640CantripsAreNotZeroLevel } from './migrations/640-cantrips-are-not-zero-level';
 import { Migration641SovereignSteelValue } from './migrations/641-sovereign-steel-value';
+import { Migration642SpellCastingTime } from './migrations/642-spell-casting-time';
 
 export class Migrations {
     private static list = [
@@ -100,6 +101,7 @@ export class Migrations {
         Migration639NormalizeLevelAndPrice,
         Migration640CantripsAreNotZeroLevel,
         Migration641SovereignSteelValue,
+        Migration642SpellCastingTime,
     ];
 
     static get latestVersion(): number {

@@ -20,6 +20,7 @@ import { Migration638SpellComponents } from '@module/migration/migrations/638-sp
 import { Migration639NormalizeLevelAndPrice } from '@module/migration/migrations/639-normalize-level-and-price';
 import { Migration640CantripsAreNotZeroLevel } from '@module/migration/migrations/640-cantrips-are-not-zero-level';
 import { Migration641SovereignSteelValue } from '@module/migration/migrations/641-sovereign-steel-value';
+import { Migration642SpellCastingTime } from '@module/migration/migrations/642-spell-casting-time';
 
 import { MigrationBase } from '@module/migration/base';
 import * as fs from 'fs-extra';
@@ -46,6 +47,7 @@ const migrations: MigrationBase[] = [
     new Migration639NormalizeLevelAndPrice(),
     new Migration640CantripsAreNotZeroLevel(),
     new Migration641SovereignSteelValue(),
+    new Migration642SpellCastingTime(),
 ];
 
 global.deepClone = function (original: any): any {
