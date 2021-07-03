@@ -1,5 +1,41 @@
 # Patch Notes:
 
+## Version 2.7.0
+### Bug Fixes
+* (stwlam) Always show marked signature spells at their base level despite lack of slots. Closes #1545
+* (stwlam) Restore ancestryhp and classhp properties to character attributes
+* (Supe) Fix translation of currency label
+* (nikolaj-a) Fix weapon toggle traits for strikes
+
+### Content Changes
+* (Drental) Add inline saving throw links to some of the equipment, like alchemical items
+* (TMun) Add Mwangi Languages and updates OpenGameLicense.md
+* (TMun) Add traits and languages from Mwangi Expanse and Fists of the Ruby Phoenix
+* (TMun) Add cone size to cone of cold spell
+* (TMun) Add explicit variants for assurance for all non-lore skills
+* (TMun) Fix Android lore to use \n instead of /n for newline breaks
+* (Supe) Old NPC innate spells are now re-orderable, for newly imported actors
+* (rectulo) Correct description text for feeblemind spell
+* (rectulo) Fix a typo in the pied piping spell description
+* (rectulo) Remove extraneous newline in ancestral touch spell description
+* (rectulo) Remove second linking of hidden condition from dim the light spell description
+* (rectulo) Remove extraneous newlines in tempest touch spell description
+* (rectulo) Remove extraneous styling from charged javelin spell description
+* (SpartanCPA) Tweaks to morlocks
+
+### Core System Improvements
+* (stwlam) Fix token vision updates during movement
+* (stwlam) Add damage-roll option to combine roll terms, enable for spellcasting
+* (stwlam) Record the originating item uuid and item type on RuleElementPF2e instances
+* (stwlam) Add strike damage formula tooltips to damage buttons on character sheets
+* (stwlam) Removed unused browser-settings.html template file
+* (stwlam) Migrate embedded spells on scrolls and wands
+* (stwlam) Migrate precious material value of "sovereign steel"
+* (Friz) Added text to shift-click damage/heal dialog to make it more obvious what sign modifier to use
+* (Friz) Add button to misidentify/identify dialog that allows GM to send skill rolls to chat
+* (Supe) Show casting time action glyph in the spell sheet sidebar
+
+
 ## Version 2.6.0
 
 This release might break some of the action macros if you're using a language module due to a change in the structure of the translation data. The authors of all known language modules have been notified and should update the modules for the new structure very quickly.
