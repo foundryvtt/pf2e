@@ -132,7 +132,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     /** Refresh the vision of any controlled tokens linked to this creature */
     protected refreshVision() {
-        if (canvas.scene) game.user.refreshSight();
+        if (canvas.scene) game.user.setPerceivedLightLevel({ defer: false });
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */

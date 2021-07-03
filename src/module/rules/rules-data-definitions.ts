@@ -2,7 +2,7 @@ import { DamageDicePF2e, ModifierPF2e, ModifierPredicate } from '../modifiers';
 import { WeaponData } from '@item/data';
 import { RollNotePF2e } from '../notes';
 
-export interface PF2RuleElementData {
+export interface RuleElementData {
     key: string;
     data?: any;
     selector?: string;

@@ -909,6 +909,120 @@
             "type": "action"
         },
         {
+            "_id": "HSgw6P66g1tETSK5",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The morlock engineer quickly crafts an improvised projectile from objects it carries or that are readily accessible in adjacent squares. Where unusual materials are available, an improvised projectile might deal damage other than bludgeoning or piercing—for example, a morlock engineer by a campfire could build a projectile that deals fire damage.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Improvised Projectile",
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "jXeWNhgMpNa2pycv",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A morlock's Strikes deal an extra [[/r 1d6 #precision]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sneak Attack",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
             "_id": "fueyaPehWakc93nh",
             "data": {
                 "actionCategory": {
@@ -974,120 +1088,6 @@
             "type": "action"
         },
         {
-            "_id": "jXeWNhgMpNa2pycv",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>A morlock's Strikes deal an extra [[/r 1d6 #precision]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "PF2E.RuleElement.DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:flatFooted"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ]
-                        },
-                        "selector": "damage"
-                    }
-                ],
-                "slug": "sneak-attack",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Sneak Attack",
-            "sort": 1100000,
-            "type": "action"
-        },
-        {
-            "_id": "HSgw6P66g1tETSK5",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": "1"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>The morlock engineer quickly crafts an improvised projectile from objects it carries or that are readily accessible in adjacent squares. Where unusual materials are available, an improvised projectile might deal damage other than bludgeoning or piercing—for example, a morlock engineer by a campfire could build a projectile that deals fire damage.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Improvised Projectile",
-            "sort": 1200000,
-            "type": "action"
-        },
-        {
             "_id": "XzUUZ1FoJXIkVqZu",
             "data": {
                 "actionCategory": {
@@ -1102,7 +1102,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The morlock engineer tinkers with an adjacent construct or mechanical hazard. They attempt a Crafting check against the construct's or hazard's Fortitude DC. The morlock can't get an outcome better than failure if the target's level is more than double the morlock's. This ability reflects hasty battlefield repairs; once a construct or hazard regains Hit Points from this ability, it can't do so again until it's been Repaired.</p>\n<hr />\n<p><strong>Critical Success</strong> The target regains 8d6 Hit Points and a +1 circumstance bonus to attack rolls for 1 minute. Alternately, the morlock can deal [[/r 8d6 # damage]] damage (bludgeoning, piercing, or slashing, as chosen by the morlock engineer) to the construct or hazard.</p>\n<p><strong>Success</strong> As critical success, but the target regains 4d6 Hit Points or the morlock deals [[/r 4d6 # damage]] damage.</p>\n<p><strong>Critical Failure</strong> The morlock injures themself, taking [[/r 3d6 # damage]] damage (typically bludgeoning, piercing, or slashing, but potentially a different type at the GM's discretion).</p>"
+                    "value": "<p>The morlock engineer tinkers with an adjacent construct or mechanical hazard. They attempt a Crafting check against the construct's or hazard's Fortitude DC. The morlock can't get an outcome better than failure if the target's level is more than double the morlock's.</p>\n<p>This ability reflects hasty battlefield repairs; once a construct or hazard regains Hit Points from this ability, it can't do so again until it's been @Compendium[pf2e.actionspf2e.Repair]{Repaired}.</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Critical Success</strong> The target regains [[/r 8d6 #Hit Points]] Hit Points and a +1 circumstance bonus to attack rolls for 1 minute. Alternately, the morlock can deal [[/r 8d6 # damage]] damage (bludgeoning, piercing, or slashing, as chosen by the morlock engineer) to the construct or hazard.</p>\n<p><strong>Success</strong> As critical success, but the target regains [[/r 4d6 #Hit Points]] Hit Points or the morlock deals [[/r 4d6 # damage]] damage.</p>\n<p><strong>Critical Failure</strong> The morlock injures themself, taking [[/r 3d6 # damage]] damage (typically bludgeoning, piercing, or slashing, but potentially a different type at the GM's discretion).</p>\n</div>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Uncanny Tinker (Critical Success)]{Effect: Uncanny Tinker (Critical Success)}</p>"
                 },
                 "requirements": {
                     "value": ""

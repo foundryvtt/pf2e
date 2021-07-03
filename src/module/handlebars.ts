@@ -1,3 +1,5 @@
+import { getActionGlyph } from './utils';
+
 export function registerHandlebarsHelpers() {
     Handlebars.registerHelper('pad', (value, length, character) => {
         return `${value}`.padStart(length, character);
@@ -121,5 +123,16 @@ export function registerHandlebarsHelpers() {
 
     Handlebars.registerHelper('json', (html) => {
         return JSON.stringify(html);
+    });
+
+    Handlebars.registerHelper('actionGlyph', (value, options) => {
+        const glyph = getActionGlyph(value ?? '');
+        if (glyph) {
+            return `<span class="activity-icon">${glyph}</span>`;
+        } else if (options?.hash.fallback) {
+            return Handlebars.escapeExpression(value);
+        }
+
+        return null;
     });
 }

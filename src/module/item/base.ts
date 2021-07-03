@@ -631,13 +631,11 @@ export class ItemPF2e extends Item<ActorPF2e> {
         }
         rollData.item = itemData;
 
-        if (this.isOwned) {
-            const traits = this.actor.data.data.traits.traits.value;
-            if (traits.some((trait) => trait === 'elite')) {
-                parts.push(4);
-            } else if (traits.some((trait) => trait === 'weak')) {
-                parts.push(-4);
-            }
+        const traits = this.actor.data.data.traits.traits.value;
+        if (traits.some((trait) => trait === 'elite')) {
+            parts.push(4);
+        } else if (traits.some((trait) => trait === 'weak')) {
+            parts.push(-4);
         }
 
         // Call the roll helper utility
@@ -653,6 +651,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 top: event.clientY - 80,
                 left: window.innerWidth - 710,
             },
+            combineTerms: true,
         });
     }
 
@@ -772,7 +771,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         if (this.actor) {
             // Rule Elements
             if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
-            const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
+            const rules = RuleElements.fromOwnedItem(this as Embedded<ItemPF2e>);
             const tokens = this.actor.getAllTokens();
             const actorUpdates = {};
             for (const rule of rules) {
@@ -807,7 +806,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 }
 
                 if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
-                const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
+                const rules = RuleElements.fromOwnedItem(this as Embedded<ItemPF2e>);
                 const tokens = this.actor.getAllTokens();
                 const actorUpdates = {};
                 for (const rule of rules) {

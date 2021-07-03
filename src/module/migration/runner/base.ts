@@ -11,11 +11,11 @@ interface ItemsDiff {
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.64;
+    static LATEST_SCHEMA_VERSION = 0.641;
 
     static MINIMUM_SAFE_VERSION = 0.6;
 
-    static RECOMMENDED_SAFE_VERSION = 0.61;
+    static RECOMMENDED_SAFE_VERSION = 0.615;
 
     constructor(migrations: MigrationBase[] = []) {
         this.migrations = migrations.sort((a, b) => a.version - b.version);
@@ -60,11 +60,15 @@ export class MigrationRunnerBase {
     }
 
     async getUpdatedItem(item: ItemSourcePF2e, migrations: MigrationBase[]): Promise<ItemSourcePF2e> {
-        const current = duplicate(item);
+        const current = deepClone(item);
 
-        for (const migration of migrations) {
+        for await (const migration of migrations) {
             try {
                 await migration.updateItem(current);
+                // Handle embedded spells
+                if (current.type === 'consumable' && current.data.spell.data) {
+                    await migration.updateItem(current.data.spell.data);
+                }
             } catch (err) {
                 console.error(err);
             }
@@ -74,20 +78,24 @@ export class MigrationRunnerBase {
     }
 
     async getUpdatedActor(actor: ActorSourcePF2e, migrations: MigrationBase[]): Promise<ActorSourcePF2e> {
-        const current = duplicate(actor);
+        const currentActor = deepClone(actor);
 
-        for (const migration of migrations) {
+        for await (const migration of migrations) {
             try {
-                await migration.updateActor(current);
-                for (const item of current.items) {
-                    await migration.updateItem(item, current);
+                await migration.updateActor(currentActor);
+                for await (const currentItem of currentActor.items) {
+                    await migration.updateItem(currentItem, currentActor);
+                    // Handle embedded spells
+                    if (currentItem.type === 'consumable' && currentItem.data.spell.data) {
+                        await migration.updateItem(currentItem.data.spell.data, currentActor);
+                    }
                 }
             } catch (err) {
                 console.error(err);
             }
         }
 
-        return current;
+        return currentActor;
     }
 
     async getUpdatedMessage(
