@@ -166,6 +166,13 @@ export class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(new ModifierPF2e('PF2E.ClassHP', halfClassHp * this.level, MODIFIER_TYPE.UNTYPED));
             } else {
                 modifiers.push(new ModifierPF2e('PF2E.ClassHP', classHP * this.level, MODIFIER_TYPE.UNTYPED));
+                modifiers.push(
+                    new ModifierPF2e(
+                        'PF2E.AbilityCon',
+                        systemData.abilities.con.mod * this.level,
+                        MODIFIER_TYPE.ABILITY,
+                    ),
+                );
             }
 
             if (systemData.attributes.flatbonushp) {
