@@ -17,6 +17,14 @@ export class SpellPF2e extends ItemPF2e {
         return this.data.data.level.value;
     }
 
+    /**
+     * Heightened level of the spell if heightened, otherwise base.
+     * This applies for spontaneous or innate spells usually, but not prepared ones.
+     */
+    get heightenedLevel() {
+        return this.data.data.heightenedLevel?.value ?? this.level;
+    }
+
     private computeCastLevel(castLevel?: number) {
         const isAutoScaling = this.isCantrip || this.isFocusSpell;
         if (isAutoScaling && this.actor) {
@@ -170,9 +178,9 @@ export class SpellPF2e extends ItemPF2e {
             return null;
         })();
 
-        const baseLevel = systemData.level.value;
-        const level = this.computeCastLevel(toNumber(rollOptions?.spellLvl) ?? systemData.heightenedLevel?.value);
-        const heightened = (level ?? baseLevel) - baseLevel;
+        const baseLevel = this.level;
+        const level = this.computeCastLevel(toNumber(rollOptions?.spellLvl) ?? this.heightenedLevel);
+        const heightened = level - baseLevel;
         const levelLabel = (() => {
             const category = this.isCantrip
                 ? localize('PF2E.TraitCantrip')
