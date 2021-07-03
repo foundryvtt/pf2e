@@ -6,8 +6,8 @@ import { RuleElementPF2e } from '../rule-element';
  */
 export class PF2DexterityModifierCapRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(actorData: CharacterData | NPCData) {
-        const label = super.getDefaultLabel(this.ruleData, this.item);
-        const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
+        const label = this.getDefaultLabel();
+        const value = this.resolveValue(this.data.value);
         if (label && value !== undefined) {
             actorData.data.attributes.dexCap = (actorData.data.attributes.dexCap ?? []).concat({
                 value,

@@ -1,12 +1,12 @@
-import { SkillAbbreviation } from '@actor/creature/data';
-import type { CharacterData, NPCData } from '@actor/data';
-import { SKILL_EXPANDED } from '@actor/data/values';
-import { ModifierPF2e, MODIFIER_TYPE } from '@module/modifiers';
+import { AbilityString, CharacterData, NPCData } from '@actor/data';
+import { ABILITY_ABBREVIATIONS, SKILL_EXPANDED } from '@actor/data/values';
+import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from '@module/modifiers';
+import { objectHasKey, tupleHasValue } from '@module/utils';
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
+import { RuleElementData, RuleElementSyntheticsPF2e } from '../rules-data-definitions';
 
-const KNOWN_TARGETS = {
-    ac: { ability: 'dex', shortform: 'ac' },
+const KNOWN_TARGETS: Record<string, { ability: AbilityString; shortform: 'ac' }> = {
+    ac: { ability: 'dex' as const, shortform: 'ac' },
 };
 
 /**
@@ -17,23 +17,24 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
         actorData: CharacterData | NPCData,
         { statisticsModifiers }: RuleElementSyntheticsPF2e,
     ) {
-        const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
-        let value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
+        const selector = this.resolveInjectedProperties(this.data.selector);
+        let value = this.resolveValue(this.data.value);
         if (selector === 'ac') {
             // Special case for AC so the rule elements match what's written in the book
             value -= 10;
         }
 
-        const label = this.getDefaultLabel(this.ruleData, this.item);
-        const ability = this.ruleData.ability ?? KNOWN_TARGETS[selector]?.ability ?? SKILL_EXPANDED[selector]?.ability;
+        const label = this.getDefaultLabel();
+        const ability =
+            String(this.data.ability).trim() || (KNOWN_TARGETS[selector]?.ability ?? SKILL_EXPANDED[selector]?.ability);
 
-        if (!ability) {
+        if (!tupleHasValue(ABILITY_ABBREVIATIONS, ability)) {
             console.warn('PF2E | Fixed modifier requires an ability field, or a known selector.');
         } else if (!value) {
             console.warn('PF2E | Fixed modifier requires at least a non-zero value or formula field.');
         } else {
             const modifier = new ModifierPF2e(
-                this.ruleData.name ?? label,
+                this.data.name ?? label,
                 value - actorData.data.abilities[ability].mod,
                 MODIFIER_TYPE.PROFICIENCY,
             );
@@ -43,16 +44,18 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
     }
 
     override onAfterPrepareData(actorData: CharacterData | NPCData) {
-        const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
+        const selector = this.resolveInjectedProperties(this.data.selector);
         const { data } = actorData;
-        const skill: SkillAbbreviation | string = SKILL_EXPANDED[selector]?.shortform ?? selector;
-        const target = data.skills[skill] ?? data.attributes[skill];
-        const label = this.getDefaultLabel(this.ruleData, this.item);
-        const force = this.ruleData.force;
+        const skill: string = SKILL_EXPANDED[selector]?.shortform ?? selector;
+        const skills: Record<string, StatisticModifier> = data.skills;
+        const target = skills[skill] ?? (objectHasKey(data.attributes, skill) ? data.attributes[skill] : null);
+        const label = this.getDefaultLabel();
+        const force = this.data.force;
 
-        if (target) {
+        if (target instanceof StatisticModifier) {
             for (const modifier of target.modifiers) {
-                if ([MODIFIER_TYPE.ITEM, MODIFIER_TYPE.UNTYPED].includes(modifier.type) && modifier.modifier > 0) {
+                const itemOrUntyped: string[] = [MODIFIER_TYPE.ITEM, MODIFIER_TYPE.UNTYPED];
+                if (itemOrUntyped.includes(modifier.type) && modifier.modifier > 0) {
                     modifier.ignored = true;
                 }
                 if (force && modifier.type === MODIFIER_TYPE.PROFICIENCY && modifier.name !== label) {
@@ -63,4 +66,12 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
             target.value = target.totalModifier + (skill === 'ac' ? 10 : 0);
         }
     }
+}
+
+export interface PF2FixedProficiencyRuleElement {
+    data: RuleElementData & {
+        name?: string;
+        ability?: string;
+        force?: boolean;
+    };
 }

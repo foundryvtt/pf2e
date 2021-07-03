@@ -8,21 +8,16 @@ import { ModifierPredicate } from '@module/modifiers';
  */
 export class PF2MultipleAttackPenaltyRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(
-        actorData: CharacterData | NPCData,
+        _actorData: CharacterData | NPCData,
         { multipleAttackPenalties }: RuleElementSyntheticsPF2e,
     ) {
-        const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
-        const label = super.resolveInjectedProperties(
-            super.getDefaultLabel(this.ruleData, this.item),
-            this.ruleData,
-            this.item,
-            actorData,
-        );
-        const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
+        const selector = this.resolveInjectedProperties(this.data.selector);
+        const label = this.resolveInjectedProperties(this.getDefaultLabel());
+        const value = this.resolveValue(this.data.value);
         if (selector && label && value) {
             const map: MultipleAttackPenaltyPF2e = { label, penalty: value };
-            if (this.ruleData.predicate) {
-                map.predicate = new ModifierPredicate(this.ruleData.predicate);
+            if (this.data.predicate) {
+                map.predicate = new ModifierPredicate(this.data.predicate);
             }
             multipleAttackPenalties[selector] = (multipleAttackPenalties[selector] || []).concat(map);
         } else {
