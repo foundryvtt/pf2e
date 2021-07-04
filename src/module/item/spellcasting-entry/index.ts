@@ -105,7 +105,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
         return this.update({
             [key]: {
-                name: 'Empty Slot (drag spell here)',
+                name: game.i18n.localize('PF2E.SpellSlotEmpty'),
                 id: null,
                 prepared: false,
             },

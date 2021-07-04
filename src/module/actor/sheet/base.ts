@@ -497,6 +497,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const entry = this.actor.items.get(entryId);
             if (entry instanceof SpellcastingEntryPF2e) {
                 entry.unprepareSpell(spellLvl, slotId);
+            } else {
+                console.warn('PF2E System | Failed to load spellcasting entry');
             }
         });
 
@@ -512,6 +514,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const entry = this.actor.items.get(entryId);
             if (entry instanceof SpellcastingEntryPF2e) {
                 entry.setSlotExpendedState(spellLvl, slotId, expendedState);
+            } else {
+                console.warn('PF2E System | Failed to load spellcasting entry');
             }
         });
 
@@ -984,6 +988,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     if (entry instanceof SpellcastingEntryPF2e) {
                         const allocated = await entry.prepareSpell(item, spellLvl, dropId);
                         if (allocated) return [allocated];
+                    } else {
+                        console.warn('PF2E System | Failed to load spellcasting entry');
                     }
                 }
             } else if (dropContainerType === 'spellcastingEntry') {
