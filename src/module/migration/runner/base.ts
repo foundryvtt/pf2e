@@ -2,6 +2,7 @@ import { ActorSourcePF2e } from '@actor/data';
 import { ItemSourcePF2e } from '@item/data';
 import { DocumentSchemaRecord } from '@module/data';
 import { MigrationBase } from '@module/migration/base';
+import { TokenDocumentPF2e } from '@module/token-document';
 import { ErrorPF2e } from '@module/utils';
 import { DateTime } from 'luxon';
 
@@ -174,7 +175,7 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    async getUpdatedToken(token: TokenDocument, migrations: MigrationBase[]): Promise<foundry.data.TokenSource> {
+    async getUpdatedToken(token: TokenDocumentPF2e, migrations: MigrationBase[]): Promise<foundry.data.TokenSource> {
         const current = token.toObject();
         for (const migration of migrations) {
             try {

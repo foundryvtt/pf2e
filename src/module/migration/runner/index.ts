@@ -5,6 +5,7 @@ import type { MacroPF2e } from '@module/macro';
 import { MigrationRunnerBase } from '@module/migration/runner/base';
 import { MigrationBase } from '@module/migration/base';
 import type { UserPF2e } from '@module/user';
+import { TokenDocumentPF2e } from '@module/token-document';
 
 export class MigrationRunner extends MigrationRunnerBase {
     override needsMigration(): boolean {
@@ -111,7 +112,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateSceneToken(migrations: MigrationBase[], token: TokenDocument): Promise<void> {
+    private async migrateSceneToken(migrations: MigrationBase[], token: TokenDocumentPF2e): Promise<void> {
         try {
             const updatedToken = await this.getUpdatedToken(token, migrations);
             const changes = diffObject(token.toObject(), updatedToken);

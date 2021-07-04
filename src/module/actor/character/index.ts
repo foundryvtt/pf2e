@@ -1243,7 +1243,9 @@ export class CharacterPF2e extends CreaturePF2e {
             const featureIds = abcItems.flatMap((item) => item.getLinkedFeatures().map((feature) => feature.id));
             ids.push(...featureIds);
         }
-        return super.deleteEmbeddedDocuments(embeddedName, ids, context) as Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
+        return super.deleteEmbeddedDocuments(embeddedName, [...new Set(ids)], context) as Promise<
+            ActiveEffectPF2e[] | ItemPF2e[]
+        >;
     }
 
     /* -------------------------------------------- */
@@ -1266,4 +1268,20 @@ export class CharacterPF2e extends CreaturePF2e {
 
 export interface CharacterPF2e {
     readonly data: CharacterData;
+
+    deleteEmbeddedDocuments(
+        embeddedName: 'ActiveEffect',
+        dataId: string[],
+        context?: DocumentModificationContext,
+    ): Promise<ActiveEffectPF2e[]>;
+    deleteEmbeddedDocuments(
+        embeddedName: 'Item',
+        dataId: string[],
+        context?: DocumentModificationContext,
+    ): Promise<ItemPF2e[]>;
+    deleteEmbeddedDocuments(
+        embeddedName: 'ActiveEffect' | 'Item',
+        dataId: string[],
+        context?: DocumentModificationContext,
+    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 }
