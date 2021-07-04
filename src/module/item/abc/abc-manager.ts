@@ -6,7 +6,7 @@ import type { FeatSource } from '@item/feat/data';
 import { ErrorPF2e } from '@module/utils';
 
 export class AncestryBackgroundClassManager {
-    static async addABC(
+    static async addABCItem(
         source: AncestrySource | BackgroundSource | ClassSource,
         actor: CharacterPF2e,
     ): Promise<ItemPF2e[]> {
