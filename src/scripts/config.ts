@@ -565,6 +565,7 @@ const consumableTraits = {
     fire: 'PF2E.TraitFire',
     force: 'PF2E.TraitForce',
     fortune: 'PF2E.TraitFortune',
+    fulu: 'PF2E.TraitFulu',
     good: 'PF2E.TraitGood',
     healing: 'PF2E.TraitHealing',
     incapacitation: 'PF2E.TraitIncapacitation',
