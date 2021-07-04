@@ -1041,7 +1041,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 return items.flatMap((item) => item);
             }
         } else if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
-            return AncestryBackgroundClassManager.addABCFromDrop(itemData, actor);
+            return AncestryBackgroundClassManager.addABC(itemData, actor);
         }
 
         return super._onDropItem(event, data);
