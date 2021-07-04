@@ -387,93 +387,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
     }
 
-    /**
-     * Saves the prepared spell slot data to the actor
-     * @param spellLevel The level of the spell slot
-     * @param spellSlot The number of the spell slot
-     * @param spell The item details for the spell
-     * @param entryId The ID of the spellcastingEntry
-     */
-    private allocatePreparedSpellSlot(spellLevel: number, spellSlot: number, spell: SpellPF2e, entryId: string) {
-        if (spell.level > spellLevel && !(spellLevel === 0 && spell.isCantrip)) {
-            console.warn(`Attempted to add level ${spell.level} spell to level ${spellLevel} spell slot.`);
-            return;
-        }
-        if (CONFIG.debug.hooks)
-            console.debug(
-                `PF2e System | Updating location for spell ${spell.name} to match spellcasting entry ${entryId}`,
-            );
-        const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
-        const entry = this.actor.items.get(entryId);
-        if (entry) {
-            const updates: any = {
-                _id: entryId,
-                [key]: {
-                    id: spell.id,
-                },
-            };
-            const slot = getProperty(entry, `data.data.slots.slot${spellLevel}.prepared`);
-            if (slot[spellSlot] !== undefined) {
-                if (slot[spellSlot].prepared !== undefined) {
-                    updates[key]['-=prepared'] = null;
-                }
-                if (slot[spellSlot].name !== undefined) {
-                    updates[key]['-=name'] = null;
-                }
-                if (slot[spellSlot].expended !== undefined) {
-                    updates[key]['-=expended'] = null;
-                }
-            }
-            return this.actor.updateEmbeddedDocuments('Item', [updates]);
-        }
-        return;
-    }
-
-    /**
-     * Remove Spell Slot
-     * Removes the spell from the saved spell slot data for the actor
-     * @param spellLevel The level of the spell slot
-     * @param spellSlot The number of the spell slot
-     */
-    private async removePreparedSpellSlot(spellLevel: number, spellSlot: number, entryId: string): Promise<void> {
-        if (CONFIG.debug.hooks === true)
-            console.debug(
-                `PF2e System | Updating spellcasting entry ${entryId} to remove spellslot ${spellSlot} for spell level ${spellLevel}`,
-            );
-        const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
-        await this.actor.updateEmbeddedDocuments('Item', [
-            {
-                _id: entryId,
-                [key]: {
-                    name: 'Empty Slot (drag spell here)',
-                    id: null,
-                    prepared: false,
-                },
-            },
-        ]);
-    }
-
-    /**
-     * Sets the expended state of a  Spell Slot
-     * Marks the slot as expended which is reflected in the UI
-     * @param spellLevel The level of the spell slot
-     * @param spellSlot The number of the spell slot
-     */
-    private async setExpendedPreparedSpellSlot(
-        spellLevel: number,
-        spellSlot: number,
-        entryId: string,
-        isExpended: boolean,
-    ) {
-        const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}.expended`;
-        this.actor.updateEmbeddedDocuments('Item', [
-            {
-                _id: entryId,
-                [key]: isExpended,
-            },
-        ]);
-    }
-
     /** Save any open tinyMCE editor before closing */
     override async close(options: { force?: boolean } = {}): Promise<void> {
         const editors = Object.values(this.editors).filter((editor) => editor.active);
@@ -581,7 +494,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             const spellLvl = Number($(event.currentTarget).parents('.item').attr('data-spell-lvl') ?? 0);
             const slotId = Number($(event.currentTarget).parents('.item').attr('data-slot-id') ?? 0);
             const entryId = $(event.currentTarget).parents('.item').attr('data-entry-id') ?? '';
-            this.removePreparedSpellSlot(spellLvl, slotId, entryId);
+            const entry = this.actor.items.get(entryId);
+            if (entry instanceof SpellcastingEntryPF2e) {
+                entry.unprepareSpell(spellLvl, slotId);
+            } else {
+                console.warn('PF2E System | Failed to load spellcasting entry');
+            }
         });
 
         // Set Expended Status of Spell Slot
@@ -593,7 +511,12 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const expendedString = $(event.currentTarget).parents('.item').attr('data-expended-state') ?? '';
                 return expendedString !== 'true';
             })();
-            this.setExpendedPreparedSpellSlot(spellLvl, slotId, entryId, expendedState);
+            const entry = this.actor.items.get(entryId);
+            if (entry instanceof SpellcastingEntryPF2e) {
+                entry.setSlotExpendedState(spellLvl, slotId, expendedState);
+            } else {
+                console.warn('PF2E System | Failed to load spellcasting entry');
+            }
         });
 
         // Toggle equip
@@ -1061,8 +984,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 const entryId = $(event.target).parents('.item').attr('data-entry-id') ?? '';
 
                 if (Number.isInteger(dropId) && Number.isInteger(spellLvl) && entryId) {
-                    const allocated = this.allocatePreparedSpellSlot(spellLvl, dropId, item, entryId);
-                    if (allocated) return allocated;
+                    const entry = this.actor.items.get(entryId);
+                    if (entry instanceof SpellcastingEntryPF2e) {
+                        const allocated = await entry.prepareSpell(item, spellLvl, dropId);
+                        if (allocated) return [allocated];
+                    } else {
+                        console.warn('PF2E System | Failed to load spellcasting entry');
+                    }
                 }
             } else if (dropContainerType === 'spellcastingEntry') {
                 // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
