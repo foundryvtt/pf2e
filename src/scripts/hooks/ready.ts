@@ -25,7 +25,7 @@ export function listen(): void {
         // User#isGM is inclusive of both gamemasters and assistant gamemasters, so check for the specific role
         if (game.user.hasRole(CONST.USER_ROLES.GAMEMASTER)) {
             // Perform the migration
-            const migrationRunner = new MigrationRunner(Migrations.constructForWorld(currentVersion));
+            const migrationRunner = new MigrationRunner(Migrations.constructFromVersion(currentVersion));
             if (migrationRunner.needsMigration()) {
                 if (currentVersion && currentVersion < MigrationRunner.MINIMUM_SAFE_VERSION) {
                     ui.notifications.error(
