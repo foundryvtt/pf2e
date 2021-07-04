@@ -268,12 +268,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                         spellcastingEntry.data.displayLevels[spellLevel] !== undefined
                             ? spellcastingEntry.data.displayLevels[spellLevel]
                             : true,
-                    unpreparedSpellsLabel:
-                        spellcastingEntry &&
-                        spellcastingEntry.data.tradition.value === 'arcane' &&
-                        spellcastingEntry.data.prepared.value === 'prepared'
-                            ? game.i18n.localize('PF2E.UnpreparedSpellsLabelArcanePrepared')
-                            : game.i18n.localize('PF2E.UnpreparedSpellsLabel'),
+                    unpreparedSpellsLabel: game.i18n.localize('PF2E.UnpreparedSpellsLabel'),
                 };
             }
         }
