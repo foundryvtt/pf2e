@@ -34,3 +34,23 @@ export type OneToFour = Exclude<ZeroToFour, 0>;
 export type ZeroToTen = ZeroToFour | 5 | 6 | 7 | 8 | 9 | 10;
 export type OneToTen = Exclude<ZeroToTen, 0>;
 export type ZeroToEleven = ZeroToTen | 11;
+
+/** The tracked schema data of actors and items */
+interface NewDocumentSchemaRecord {
+    version: null;
+    lastMigration: null;
+}
+
+interface MigratedDocumentSchemaRecord {
+    version: number;
+    lastMigration: {
+        datetime: string;
+        version: {
+            schema: number | null;
+            system?: string;
+            foundry?: string;
+        };
+    };
+}
+
+export type DocumentSchemaRecord = NewDocumentSchemaRecord | MigratedDocumentSchemaRecord;
