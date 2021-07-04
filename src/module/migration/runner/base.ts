@@ -18,7 +18,7 @@ export class MigrationRunnerBase {
 
     static MINIMUM_SAFE_VERSION = 0.6;
 
-    static RECOMMENDED_SAFE_VERSION = 0.615;
+    static RECOMMENDED_SAFE_VERSION = 0.619;
 
     constructor(migrations: MigrationBase[] = []) {
         this.migrations = migrations.sort((a, b) => a.version - b.version);

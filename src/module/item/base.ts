@@ -21,6 +21,8 @@ import { NPCSystemData } from '@actor/npc/data';
 import { HazardSystemData } from '@actor/hazard/data';
 import { CheckPF2e } from '@system/rolls';
 import { ItemTrait } from './data/base';
+import { UserPF2e } from '@module/user';
+import { MigrationRunner, Migrations } from '@module/migration';
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -49,8 +51,13 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** The compendium source ID of the item **/
-    get sourceId() {
-        return this.getFlag('core', 'sourceId');
+    get sourceId(): string | null {
+        return this.getFlag('core', 'sourceId') ?? null;
+    }
+
+    /** The recorded schema version of this item, updated after each data migration */
+    get schemaVersion(): number | null {
+        return this.data.data.schema.version;
     }
 
     get traits(): Set<ItemTrait> {
@@ -767,6 +774,18 @@ export class ItemPF2e extends Item<ActorPF2e> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
+    /** Ensure imported items are current on their schema version */
+    protected override async _preCreate(
+        data: PreDocumentId<this['data']['_source']>,
+        options: DocumentModificationContext,
+        user: UserPF2e,
+    ): Promise<void> {
+        await super._preCreate(data, options, user);
+        if (user.id !== game.user.id || options.parent) return;
+        await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+    }
+
+    /** Call onDelete rule-element hooks, refresh effects panel */
     protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
         if (this.actor) {
             // Rule Elements
@@ -786,6 +805,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         super._onCreate(data, options, userId);
     }
 
+    /** Refresh the effect panel */
     protected override _onUpdate(
         changed: DeepPartial<this['data']['_source']>,
         options: DocumentModificationContext,
@@ -798,6 +818,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         super._onUpdate(changed, options, userId);
     }
 
+    /** Call onDelete rule-element hooks */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
         if (this.isOwned) {
             if (this.actor) {
