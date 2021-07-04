@@ -1,4 +1,5 @@
 import { MigrationBase } from './base';
+export { MigrationRunner } from './runner';
 import { Migration593AddAncestryItem } from './migrations/593-make-ancestry-item';
 import { Migration594AddBackgroundItem } from './migrations/594-make-background-item';
 import { Migration595AddItemSize } from './migrations/595-item-sizes';
@@ -49,6 +50,7 @@ import { Migration639NormalizeLevelAndPrice } from './migrations/639-normalize-l
 import { Migration640CantripsAreNotZeroLevel } from './migrations/640-cantrips-are-not-zero-level';
 import { Migration641SovereignSteelValue } from './migrations/641-sovereign-steel-value';
 import { Migration642TrackSchemaVersion } from './migrations/642-track-schema-version';
+import { MigrationRunner } from './runner';
 
 export class Migrations {
     private static list = [
@@ -112,7 +114,7 @@ export class Migrations {
         return this.list.map((Migration) => new Migration());
     }
 
-    static constructForWorld(version: number): MigrationBase[] {
+    static constructFromVersion(version: number = MigrationRunner.RECOMMENDED_SAFE_VERSION): MigrationBase[] {
         return this.list.filter((Migration) => Migration.version > version).map((Migration) => new Migration());
     }
 

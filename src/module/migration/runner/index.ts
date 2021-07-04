@@ -1,14 +1,34 @@
-import { ActorPF2e } from '@actor/base';
-import { ChatMessagePF2e } from '@module/chat-message';
-import { ItemPF2e } from '@item/base';
-import { MacroPF2e } from '@module/macro';
+import type { ActorPF2e } from '@actor/base';
+import type { ChatMessagePF2e } from '@module/chat-message';
+import type { ItemPF2e } from '@item/base';
+import type { MacroPF2e } from '@module/macro';
 import { MigrationRunnerBase } from '@module/migration/runner/base';
 import { MigrationBase } from '@module/migration/base';
-import { UserPF2e } from '@module/user';
+import type { UserPF2e } from '@module/user';
 
 export class MigrationRunner extends MigrationRunnerBase {
     override needsMigration(): boolean {
         return super.needsMigration(game.settings.get('pf2e', 'worldSchemaVersion'));
+    }
+
+    /** Ensure that an actor or item reflects the current data schema before it is created */
+    static async ensureSchemaVersion(document: ActorPF2e | ItemPF2e, migrations: MigrationBase[]): Promise<void> {
+        const currentVersion = this.LATEST_SCHEMA_VERSION;
+        if (!document.sourceId) {
+            document.data.update({ 'data.schema.version': currentVersion });
+            return;
+        }
+
+        if (!document.schemaVersion || (Number(document.schemaVersion) || 0) < currentVersion) {
+            const runner = new this(migrations);
+            const source = document.data._source;
+            const updated =
+                'items' in source
+                    ? await runner.getUpdatedActor(source, runner.migrations)
+                    : await runner.getUpdatedItem(source, runner.migrations);
+
+            document.data.update(updated);
+        }
     }
 
     private async migrateWorldItem(migrations: MigrationBase[], item: ItemPF2e): Promise<void> {
