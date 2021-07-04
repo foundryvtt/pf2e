@@ -1,6 +1,9 @@
 import { ActorSourcePF2e } from '@actor/data';
 import { ItemSourcePF2e } from '@item/data';
+import { DocumentSchemaRecord } from '@module/data';
 import { MigrationBase } from '@module/migration/base';
+import { ErrorPF2e } from '@module/utils';
+import { DateTime } from 'luxon';
 
 interface ItemsDiff {
     inserted: ItemSourcePF2e[];
@@ -11,7 +14,7 @@ interface ItemsDiff {
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.641;
+    static LATEST_SCHEMA_VERSION = 0.642;
 
     static MINIMUM_SAFE_VERSION = 0.6;
 
@@ -73,6 +76,7 @@ export class MigrationRunnerBase {
                 console.error(err);
             }
         }
+        this.updateSchemaRecord(current.data.schema, migrations.slice(-1)[0]);
 
         return current;
     }
@@ -95,7 +99,28 @@ export class MigrationRunnerBase {
             }
         }
 
+        const latestMigration = migrations.slice(-1)[0];
+        this.updateSchemaRecord(currentActor.data.schema, latestMigration);
+        for (const itemSource of currentActor.items) {
+            this.updateSchemaRecord(itemSource.data.schema, latestMigration);
+        }
+
         return currentActor;
+    }
+
+    private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase | undefined): void {
+        if (!latestMigration) throw ErrorPF2e('No migrations in this run!');
+
+        const fromVersion = typeof schema.version === 'number' ? schema.version : null;
+        schema.version = latestMigration.version;
+        schema.lastMigration = {
+            datetime: DateTime.now().toISO(),
+            version: {
+                schema: fromVersion,
+                foundry: 'game' in globalThis ? game.data.version : undefined,
+                system: 'game' in globalThis ? game.system.data.version : undefined,
+            },
+        };
     }
 
     async getUpdatedMessage(

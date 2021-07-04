@@ -1,5 +1,5 @@
 import { DamageType } from '@module/damage-calculation';
-import { LabeledNumber, LabeledValue, Rarity, Size, ValuesList } from '@module/data';
+import { DocumentSchemaRecord, LabeledNumber, LabeledValue, Rarity, Size, ValuesList } from '@module/data';
 import { ActorType } from '.';
 import type { ActorPF2e } from '@actor/base';
 import type { ActiveEffectPF2e } from '@module/active-effect';
@@ -58,6 +58,7 @@ export interface ActorSystemData {
     attributes: BaseActorAttributes;
     traits: BaseTraitsData;
     tokenEffects: TemporaryEffect[];
+    schema: DocumentSchemaRecord;
 }
 
 export interface BaseTraitsData {
