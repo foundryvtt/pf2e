@@ -830,7 +830,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 }
 
                 // Conditions and Custom modifiers to attack rolls
-                let weaponPotency: { label: string; bonus: number };
+                let weaponPotency: WeaponPotencyPF2e = { label: '', bonus: 0 };
                 const multipleAttackPenalty = ItemPF2e.calculateMap(item);
                 {
                     const potency: WeaponPotencyPF2e[] = [];
@@ -1060,6 +1060,27 @@ export class CharacterPF2e extends CreaturePF2e {
                         }
                     };
                 }
+
+                // Get (non-critical) damage of the strike to show as tags
+                const damageBreakdown = WeaponDamagePF2e.calculate(
+                    item,
+                    this.data,
+                    action.traits,
+                    statisticsModifiers,
+                    damageDice,
+                    proficiencyRank,
+                    this.getRollOptions(['damage-roll']).concat(action.options).concat(defaultOptions),
+                    rollNotes,
+                    weaponPotency,
+                    synthetics.striking,
+                );
+                action.damageBase =
+                    damageBreakdown.base.diceNumber +
+                    damageBreakdown.base.dieSize +
+                    ' ' +
+                    damageBreakdown.base.damageType;
+                action.damageModifiers = WeaponDamagePF2e.getDamageModifiers(damageBreakdown);
+
                 systemData.actions.push(action);
             });
 

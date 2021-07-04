@@ -71,6 +71,12 @@
                                     <span class="tag tag_secondary {{trait.cssClass}}" {{#if trait.description}}title="{{trait.description}}"{{/if}} {{#if trait.toggle}}data-roll-name="{{trait.rollName}}" data-roll-option="{{trait.rollOption}}"{{/if}}>{{trait.label}}</span>
                                     {{/each}}
                                 </div>
+                                <div class="item-properties damage">
+                                    <span class="damage-tag damage-tag-base blubber">{{localize 'Base'}} {{action.damageBase}}</span>
+                                    {{#each action.damageModifiers as |damageModifier|}}
+                                    <span class="damage-tag damage-tag-modifier">{{damageModifier}}</span>
+                                    {{/each}}
+                                </div>
                             </div>
                         </li>
                         {{/if}}
