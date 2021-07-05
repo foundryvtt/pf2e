@@ -143,8 +143,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             backpack: { label: game.i18n.localize('PF2E.InventoryBackpackHeader'), items: [] },
         };
 
-        let backgroundItemId = undefined;
-
         // Feats
         interface FeatSlot {
             label: string;
@@ -360,11 +358,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
             }
 
-            // background
-            else if (itemData.type === 'background') {
-                backgroundItemId = itemData._id;
-            }
-
             // class
             else if (itemData.type === 'class') {
                 const classItem = itemData as ClassData;
@@ -395,9 +388,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        if (backgroundItemId !== undefined) {
+        const background = this.actor.background;
+        if (background && Object.keys(background.data.data.items).length > 0) {
             featSlots.skill.feats.unshift({
-                id: backgroundItemId,
+                id: background.id,
                 level: game.i18n.localize('PF2E.FeatBackgroundShort'),
             });
         }
