@@ -14,13 +14,15 @@ header.char-header {
             border: none;
             margin-bottom: 4px;
             span.non-editable {
-                font: 400 11px system-ui;
                 letter-spacing: normal;
                 word-spacing: normal;
                 text-transform: none;
                 text-indent: 0;
                 text-shadow: none;
                 text-rendering: auto;
+                &.gender {
+                  font-size: 14px;
+                }
             }
             input[type='text'], span.non-editable {
                 font-family: $serif;
@@ -35,6 +37,13 @@ header.char-header {
                     border-bottom: 1px solid white;
                 }
             }
+        }
+
+        h2.non-editable.ancestry-class {
+            font-family: $serif;
+            border-bottom: none;
+            margin-bottom: 0;
+            font-weight: 400;
         }
 
         .dots {
