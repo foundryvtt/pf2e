@@ -182,6 +182,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                 });
             }
         } else {
+            const alwaysShow = !this.isRitual && !this.isFocusPool;
             const spellsByLevel = groupBy(this.spells.contents, (spell) =>
                 spell.isCantrip ? 0 : spell.heightenedLevel,
             );
@@ -189,14 +190,16 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                 const data = this.data.data.slots[`slot${level}` as SlotKey];
                 const spells = spellsByLevel.get(level) ?? [];
                 // todo: innate spells should be able to expend like prep spells do
-                results.push({
-                    label: level === 0 ? 'PF2E.TraitCantrip' : CONFIG.PF2E.spellLevels[level as OneToTen],
-                    level: level as ZeroToTen,
-                    uses: data.value,
-                    slots: data.max,
-                    isCantrip: level === 0,
-                    active: spells.map((spell) => ({ spell, chatData: spell.getChatData() })),
-                });
+                if (alwaysShow || spells.length) {
+                    results.push({
+                        label: level === 0 ? 'PF2E.TraitCantrip' : CONFIG.PF2E.spellLevels[level as OneToTen],
+                        level: level as ZeroToTen,
+                        uses: data.value,
+                        slots: data.max,
+                        isCantrip: level === 0,
+                        active: spells.map((spell) => ({ spell, chatData: spell.getChatData() })),
+                    });
+                }
             }
 
             // Handle spontaneous signature spells
