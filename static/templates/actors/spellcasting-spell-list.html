@@ -140,5 +140,18 @@
             {{/each}}
         {{/if}}
     {{/each}}
+    {{#unless entry.levels}}
+    {{#if @root.owner}}
+        <li class="inventory-header spellbook-header spellbook-empty">
+            <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>
+            <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell" data-location="{{entry._id}}">
+                <i class="fas fa-plus"></i>{{localize "PF2E.AddSpellTitle"}}
+            </a>
+            <a class="item-control spell-browse" title="{{localize "PF2E.OpenSpellBrowserTitle"}}" data-type="spell" data-location="{{entry._id}}">
+                <i class="fas fa-search"></i>{{localize "PF2E.OpenSpellBrowserTitle"}}
+            </a>
+        </li>
+    {{/if}}
+    {{/unless}}
 </ol>
 {{/with}}
