@@ -252,7 +252,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         // Disable (but don't save) manually-configured vision radii
         if (canvas.sight?.rulesBasedVision) {
-            this.data.token.update({ brightSight: 0, dimSight: 0, lightAngle: 360 });
+            mergeObject(this.data.token, { brightSight: 0, dimSight: 0, lightAngle: 360, sightAngle: 360 });
         }
     }
 
@@ -1236,9 +1236,11 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 }
 
-export interface ActorPF2e {
+export interface ActorPF2e extends Actor<TokenDocumentPF2e> {
     readonly data: ActorDataPF2e;
     _sheet: ActorSheetPF2e<ActorPF2e> | ActorSheet<ActorPF2e, ItemPF2e> | null;
+
+    get sheet(): ActorSheetPF2e<ActorPF2e> | ActorSheet<ActorPF2e, ItemPF2e>;
 
     get itemTypes(): {
         [K in ItemType]: Embedded<InstanceType<ConfigPF2e['PF2E']['Item']['documentClasses'][K]>>[];

@@ -47,8 +47,12 @@ declare global {
 
     interface Item<TParent extends Actor = Actor> {
         readonly data: foundry.data.ItemData<Item, ActiveEffect>;
+
         readonly parent: TParent | null;
-        _sheet: ItemSheet<Item>;
+
+        _sheet: ItemSheet<Item> | null;
+
+        get sheet(): ItemSheet<Item>;
 
         getFlag(scope: string, key: string): any;
         getFlag(scope: 'core', key: 'sourceId'): string | undefined;
