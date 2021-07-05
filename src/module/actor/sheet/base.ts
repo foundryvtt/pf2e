@@ -1386,7 +1386,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
             mergeObject(data, { 'data.weaponType.value': data.actionType });
         } else if (data.type === 'spell') {
-            data.level = Number(data.level);
+            data.level = Number(data.level ?? 1);
             // for prepared spellcasting entries, set showUnpreparedSpells to true to avoid the confusion of nothing appearing to happen.
             this.actor._setShowUnpreparedSpells(data.location, data.level);
 
