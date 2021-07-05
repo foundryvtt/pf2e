@@ -6,7 +6,7 @@ export function lie(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph,
-        'PF2E.Actions.Lie',
+        'PF2E.Actions.Lie.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:lie'],

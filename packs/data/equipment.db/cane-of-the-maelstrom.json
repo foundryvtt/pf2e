@@ -62,8 +62,8 @@
                         "value": ""
                     }
                 },
-                "img": "systems/pf2e/icons/unidentified_item_icons/weapon.webp",
-                "name": "Unusual Weapon"
+                "img": "",
+                "name": ""
             }
         },
         "invested": {
@@ -88,7 +88,7 @@
             "value": null
         },
         "price": {
-            "value": "0"
+            "value": "0 gp"
         },
         "property1": {
             "critDamage": "",
@@ -125,7 +125,25 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "Success"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'><strong>Warpwave</strong> A creature hit by the Cane of the Maelstrom is subjected to a @Compendium[pf2e.rollable-tables.Warpwaves]{Warpwave}.</p>"
+            }
+        ],
+        "schema": {
+            "lastMigration": {
+                "datetime": "2021-07-03T22:03:24.254-05:00",
+                "version": {
+                    "schema": null
+                }
+            },
+            "version": 0.642
+        },
         "size": {
             "value": "med"
         },
@@ -152,7 +170,7 @@
         "traits": {
             "custom": "",
             "rarity": {
-                "value": "common"
+                "value": "unique"
             },
             "value": [
                 "artifact",
@@ -173,11 +191,7 @@
     },
     "effects": [],
     "flags": {},
-    "folder": null,
     "img": "systems/pf2e/icons/equipment/staves/cane-of-the-maelstrom.webp",
     "name": "Cane of the Maelstrom",
-    "permission": {
-        "default": 0
-    },
     "type": "weapon"
 }

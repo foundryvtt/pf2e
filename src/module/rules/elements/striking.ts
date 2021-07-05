@@ -1,28 +1,28 @@
 import { RuleElementPF2e } from '../rule-element';
 import { RuleElementSyntheticsPF2e, StrikingPF2e } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data';
-import { ModifierPredicate } from '../../modifiers';
+import { ModifierPredicate } from '@module/modifiers';
 import { getStrikingDice } from '@item/runes';
-import { WeaponData } from '@item/weapon/data';
+import { WeaponPF2e } from '@item';
 
 /**
  * @category RuleElement
  */
 export class PF2StrikingRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(actorData: CharacterData | NPCData, { striking }: RuleElementSyntheticsPF2e) {
-        const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
-        const label = super.getDefaultLabel(this.ruleData, this.item);
+    override onBeforePrepareData(_actorData: CharacterData | NPCData, { striking }: RuleElementSyntheticsPF2e) {
+        const selector = this.resolveInjectedProperties(this.data.selector);
+        const label = this.getDefaultLabel();
         const strikingValue =
-            'value' in this.ruleData
-                ? this.ruleData.value
-                : this.item instanceof WeaponData
-                ? getStrikingDice(this.item.data)
+            'value' in this.data
+                ? this.data.value
+                : this.item instanceof WeaponPF2e
+                ? getStrikingDice(this.item.data.data)
                 : 0;
-        const value = super.resolveValue(strikingValue, this.ruleData, this.item, actorData);
+        const value = this.resolveValue(strikingValue);
         if (selector && label && typeof value === 'number') {
             const s: StrikingPF2e = { label, bonus: value };
-            if (this.ruleData.predicate) {
-                s.predicate = new ModifierPredicate(this.ruleData.predicate);
+            if (this.data.predicate) {
+                s.predicate = new ModifierPredicate(this.data.predicate);
             }
             striking[selector] = (striking[selector] || []).concat(s);
         } else {

@@ -1,5 +1,9 @@
+import * as fs from 'fs-extra';
+import * as path from 'path';
+import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
 import { ActorSourcePF2e } from '@actor/data';
 import { ItemSourcePF2e } from '@item/data';
+import { MigrationBase } from '@module/migration/base';
 import { MigrationRunnerBase } from '@module/migration/runner/base';
 import { Migration621RemoveConfigSpellSchools } from '@module/migration/migrations/621-remove-config-spellSchools';
 import { Migration623NumifyPotencyRunes } from '@module/migration/migrations/623-numify-potency-runes';
@@ -19,11 +23,8 @@ import { Migration637CleanMeleeItems } from '@module/migration/migrations/637-cl
 import { Migration638SpellComponents } from '@module/migration/migrations/638-spell-components';
 import { Migration639NormalizeLevelAndPrice } from '@module/migration/migrations/639-normalize-level-and-price';
 import { Migration640CantripsAreNotZeroLevel } from '@module/migration/migrations/640-cantrips-are-not-zero-level';
-
-import { MigrationBase } from '@module/migration/base';
-import * as fs from 'fs-extra';
-import * as path from 'path';
-import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
+import { Migration641SovereignSteelValue } from '@module/migration/migrations/641-sovereign-steel-value';
+import { Migration642TrackSchemaVersion } from '@module/migration/migrations/642-track-schema-version';
 
 const migrations: MigrationBase[] = [
     new Migration621RemoveConfigSpellSchools(),
@@ -44,6 +45,8 @@ const migrations: MigrationBase[] = [
     new Migration638SpellComponents(),
     new Migration639NormalizeLevelAndPrice(),
     new Migration640CantripsAreNotZeroLevel(),
+    new Migration641SovereignSteelValue(),
+    new Migration642TrackSchemaVersion(),
 ];
 
 global.deepClone = function (original: any): any {
@@ -166,11 +169,7 @@ async function migrate() {
         }
 
         // skip journal entries, rollable tables, and macros
-        let updatedEntity:
-            | foundry.data.ActorSource
-            | ItemSourcePF2e
-            | foundry.data.MacroSource
-            | foundry.data.RollTableSource;
+        let updatedEntity: ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource;
         if (isActorData(source)) {
             updatedEntity = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
         } else if (isItemData(source)) {

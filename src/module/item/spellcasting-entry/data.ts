@@ -5,6 +5,9 @@ import { OneToTen, ZeroToEleven } from '@module/data';
 import { RollNotePF2e } from '@module/notes';
 import { SpellcastingEntryPF2e } from '.';
 
+// temporary type until the spellcasting entry is migrated to no longer use slotX keys
+export type SlotKey = `slot${ZeroToEleven}`;
+
 export type SpellcastingEntrySource = BaseNonPhysicalItemSource<'spellcastingEntry', SpellcastingEntrySystemData>;
 
 export class SpellcastingEntryData extends BaseNonPhysicalItemData<SpellcastingEntryPF2e> {
@@ -30,8 +33,15 @@ export interface SpellDifficultyClass {
     value: number;
 }
 
+interface SpellPrepData {
+    id: string | null;
+    expended?: boolean;
+    name?: string;
+    prepared?: boolean;
+}
+
 interface SpellSlotData {
-    prepared: { id: string; expended?: boolean }[];
+    prepared: Record<number, SpellPrepData>;
     value: number;
     max: number;
 }
@@ -67,7 +77,7 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
         value: number;
     };
     displayLevels: Record<number, boolean>;
-    slots: Record<`slot${ZeroToEleven}`, SpellSlotData>;
+    slots: Record<SlotKey, SpellSlotData>;
     signatureSpells: {
         value: string[];
     };

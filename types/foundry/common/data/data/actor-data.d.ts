@@ -32,7 +32,12 @@ declare module foundry {
             folder: string | null;
             sort: number;
             permission: Record<string, PermissionLevel>;
-            flags: Record<string, any>;
+            flags: {
+                core?: {
+                    sourceId: string;
+                };
+                [key: string]: any;
+            };
         }
 
         class ActorData<

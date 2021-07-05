@@ -162,8 +162,26 @@ declare global {
 
     interface Actor<TParent extends TokenDocument = TokenDocument> {
         readonly data: foundry.data.ActorData<Actor, ActiveEffect, Item>;
+
         readonly parent: TParent | null;
+
         _sheet: ActorSheet<Actor, Item> | null;
+
+        deleteEmbeddedDocuments(
+            embeddedName: 'ActiveEffect',
+            dataId: string[],
+            context?: DocumentModificationContext,
+        ): Promise<ActiveEffect[]>;
+        deleteEmbeddedDocuments(
+            embeddedName: 'Item',
+            dataId: string[],
+            context?: DocumentModificationContext,
+        ): Promise<Item[]>;
+        deleteEmbeddedDocuments(
+            embeddedName: 'ActiveEffect' | 'Item',
+            dataId: string[],
+            context?: DocumentModificationContext,
+        ): Promise<ActiveEffect[] | Item[]>;
     }
 
     namespace Actor {

@@ -38,16 +38,16 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/crb-style/character-abilities.html',
 
         // NPC partials
-        'systems/pf2e/templates/actors/npc/partials/npc-header.html',
-        'systems/pf2e/templates/actors/npc/partials/npc-side-bar.html',
-        'systems/pf2e/templates/actors/npc/partials/npc-main-tab.html',
-        'systems/pf2e/templates/actors/npc/partials/npc-inventory-tab.html',
-        'systems/pf2e/templates/actors/npc/partials/npc-spells-tab.html',
-        'systems/pf2e/templates/actors/npc/partials/npc-notes-tab.html',
-        'systems/pf2e/templates/actors/npc/partials/npc-action.html',
-        'systems/pf2e/templates/actors/npc/partials/npc-attack.html',
-        'systems/pf2e/templates/actors/npc/partials/npc-item.html',
-        'systems/pf2e/templates/actors/npc/partials/npc-spell-body.html',
+        'systems/pf2e/templates/actors/npc/tabs/main.html',
+        'systems/pf2e/templates/actors/npc/tabs/inventory.html',
+        'systems/pf2e/templates/actors/npc/tabs/spells.html',
+        'systems/pf2e/templates/actors/npc/tabs/notes.html',
+        'systems/pf2e/templates/actors/npc/partials/header.html',
+        'systems/pf2e/templates/actors/npc/partials/sidebar.html',
+        'systems/pf2e/templates/actors/npc/partials/action.html',
+        'systems/pf2e/templates/actors/npc/partials/attack.html',
+        'systems/pf2e/templates/actors/npc/partials/item.html',
+        'systems/pf2e/templates/actors/npc/partials/spell-body.html',
 
         // Item Sheet Partials
         'systems/pf2e/templates/items/ae-tab.html',

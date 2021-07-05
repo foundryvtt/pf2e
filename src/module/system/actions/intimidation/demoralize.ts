@@ -6,7 +6,7 @@ export function demoralize(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.Demoralize',
+        'PF2E.Actions.Demoralize.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:demoralize'],

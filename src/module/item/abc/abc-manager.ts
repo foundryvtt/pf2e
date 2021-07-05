@@ -26,9 +26,19 @@ export class AncestryBackgroundClassManager {
                 source.flags.pf2e ??= {};
                 source.flags.pf2e.insertedClassFeaturesLevel = actor.level;
 
-                const itemsToCreate: ItemSourcePF2e[] = await this.getClassFeaturesForLevel(source, 0, actor.level);
-                itemsToCreate.push(source);
-                return actor.createEmbeddedDocuments('Item', itemsToCreate, { keepId: true });
+                const itemsToCreate = await this.getClassFeaturesForLevel(source, 0, actor.level);
+                itemsToCreate.sort((featureA, featureB) => {
+                    const levelA = featureA.data.level.value;
+                    const levelB = featureB.data.level.value;
+                    if (levelA > levelB) {
+                        return 1;
+                    } else if (levelA === levelB) {
+                        return featureA.name > featureB.name ? 1 : -1;
+                    } else {
+                        return -1;
+                    }
+                });
+                return actor.createEmbeddedDocuments('Item', [...itemsToCreate, source], { keepId: true });
             }
             default:
                 throw ErrorPF2e('Invalid item type for ABC creation!');

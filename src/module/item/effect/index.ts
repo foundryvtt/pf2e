@@ -14,11 +14,8 @@ export class EffectPF2e extends ItemPF2e {
         days: 86400,
     });
 
-    override prepareData() {
-        super.prepareData();
-        if (this.actor) {
-            game.pf2e.effectTracker.register(this as Embedded<this>);
-        }
+    get isExpired(): boolean {
+        return this.data.data.expired;
     }
 
     get totalDuration(): number {
@@ -58,6 +55,15 @@ export class EffectPF2e extends ItemPF2e {
         }
         return result;
     }
+
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+        if (this.actor) game.pf2e.effectTracker.register(this as Embedded<this>);
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
 
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(

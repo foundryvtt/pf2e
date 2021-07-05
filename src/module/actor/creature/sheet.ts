@@ -8,6 +8,7 @@ import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { BaseWeaponType, WeaponGroup } from '@item/weapon/data';
 import { ZeroToFour } from '@module/data';
 import { SkillData } from './data';
+import { CharacterPF2e } from '@actor/character';
 
 /**
  * Base class for NPC and character sheets
@@ -41,22 +42,29 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 }
                 break;
             case 'spell':
-                if (chatData.isSave)
+                if (chatData.isSave) {
                     buttons.append(
                         `<span class="tag">${game.i18n.localize('PF2E.SaveDCLabel')} ${chatData.save.dc} ${
                             chatData.save.basic
                         } ${chatData.save.str}</span>`,
                     );
-                if (chatData.isAttack)
-                    buttons.append(
-                        `<span class="tag"><button class="spell_attack" data-action="spellAttack">${game.i18n.localize(
-                            'PF2E.AttackLabel',
-                        )}</button></span>`,
-                    );
-                if (item.data.data.damage.value)
-                    buttons.append(
-                        `<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`,
-                    );
+                }
+
+                if (this.actor instanceof CharacterPF2e) {
+                    if (chatData.isAttack) {
+                        buttons.append(
+                            `<span class="tag"><button class="spell_attack" data-action="spellAttack">${game.i18n.localize(
+                                'PF2E.AttackLabel',
+                            )}</button></span>`,
+                        );
+                    }
+                    if (item.data.data.damage.value) {
+                        buttons.append(
+                            `<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`,
+                        );
+                    }
+                }
+
                 break;
             case 'consumable':
                 if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified)
@@ -223,14 +231,11 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
 
         // the click listener registered on all buttons breaks the event delegation here...
-        // html.find('.strikes-list [data-action-index]').on('click', '.damage-strike', (event) => {
         html.find('.strikes-list .damage-strike, [data-action="npcDamage"]').on('click', (event) => {
-            if (!['character', 'npc'].includes(this.actor.data.type))
-                throw Error('This sheet only works for characters and NPCs');
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-            const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
+            if (!['character', 'npc'].includes(this.actor.data.type)) {
+                throw ErrorPF2e('This sheet only works for characters and NPCs');
+            }
+            const actionIndex = $(event.currentTarget).closest('[data-action-index]').attr('data-action-index');
             this.actor.data.data.actions[Number(actionIndex)].damage({ event });
         });
 

@@ -1,5 +1,87 @@
 # Patch Notes:
 
+## Version 2.7.1
+### Bug Fixes
+* (stwlam) Add back Con-modifier to hit points
+
+### Content Changes
+* (stwlam & Tikael) Remove prices and descriptions from bandoliers, belt pouches, satchels, scroll cases, sheaths, and vials
+
+
+## Version 2.7.0
+### Bug Fixes
+* (stwlam) Always show marked signature spells at their base level despite lack of slots. Closes #1545
+* (stwlam) Restore ancestryhp and classhp properties to character attributes
+* (Supe) Fix translation of currency label
+* (nikolaj-a) Fix weapon toggle traits for strikes
+
+### Content Changes
+* (Drental) Add inline saving throw links to some of the equipment, like alchemical items
+* (TMun) Add Mwangi Languages and updates OpenGameLicense.md
+* (TMun) Add traits and languages from Mwangi Expanse and Fists of the Ruby Phoenix
+* (TMun) Add cone size to cone of cold spell
+* (TMun) Add explicit variants for assurance for all non-lore skills
+* (TMun) Fix Android lore to use \n instead of /n for newline breaks
+* (Supe) Old NPC innate spells are now re-orderable, for newly imported actors
+* (rectulo) Correct description text for feeblemind spell
+* (rectulo) Fix a typo in the pied piping spell description
+* (rectulo) Remove extraneous newline in ancestral touch spell description
+* (rectulo) Remove second linking of hidden condition from dim the light spell description
+* (rectulo) Remove extraneous newlines in tempest touch spell description
+* (rectulo) Remove extraneous styling from charged javelin spell description
+* (SpartanCPA) Tweaks to morlocks
+
+### Core System Improvements
+* (stwlam) Fix token vision updates during movement
+* (stwlam) Add damage-roll option to combine roll terms, enable for spellcasting
+* (stwlam) Record the originating item uuid and item type on RuleElementPF2e instances
+* (stwlam) Add strike damage formula tooltips to damage buttons on character sheets
+* (stwlam) Removed unused browser-settings.html template file
+* (stwlam) Migrate embedded spells on scrolls and wands
+* (stwlam) Migrate precious material value of "sovereign steel"
+* (Friz) Added text to shift-click damage/heal dialog to make it more obvious what sign modifier to use
+* (Friz) Add button to misidentify/identify dialog that allows GM to send skill rolls to chat
+* (Supe) Show casting time action glyph in the spell sheet sidebar
+
+
+## Version 2.6.0
+
+This release might break some of the action macros if you're using a language module due to a change in the structure of the translation data. The authors of all known language modules have been notified and should update the modules for the new structure very quickly.
+
+### Bug Fixes
+* (stwlam) Fix issue with the compendium browser where Bestiaries wouldn't properly load if Hazards had been opened first
+
+### Content Changes
+* (SpartanCPA) Tweak Ki Strike duration and token icon
+* (Tikael) Add automation to Grievous Blow feat
+* (Tikael) Add a default sneak attack rule element to the bestiary feature
+* (Tikael) Correct size of Xotani
+* (Bolt) Brush up morlocks
+* (rectulo & Njini) Add heightening effect description to synesthesia
+* (stwlam) Prune unused data from old NPC compendium entries
+
+### Core System Improvements
+* (stwlam) Adjust light emitted by other tokens according to rules-based vision. Closes #1547
+* (stwlam) Move perceived-light management from tokens to the user
+* (In3luki) Ensure all required fields are present when processing a compendium index
+* (In3luki) Add null check to feat prerequisite preparation in the compendium browser
+* (nikolaj-a) Add pick a lock action macro
+* (nikolaj-a) Add outcome notes to create a distraction, seek and sense motive action macros
+
+
+## Version 2.5.3
+### Content Changes
+* (SpartanCPA) Agents of Edgewatch Book 6 (Final)
+* (SpartanCPA) Add Auditory as an attack trait
+* (SLATE) Fix name and rule elements for Eye of the Night dhampir ancestry feat
+
+### Core System Improvements
+* (In3luki) Greatly improves the loading times of the compendium browser. Closes #1546
+* (stwlam) Ensure each compendium browser tab can only load packs with the correct type of items or actors
+* (stwlam) Sort packs in settings menu of compendium browser
+* (stwlam) Refresh lights when a character's senses are updated
+
+
 ## Version 2.5.2
 ### Bug Fixes
 * (stwlam) Remove risk of stack overflow during lighting refresh

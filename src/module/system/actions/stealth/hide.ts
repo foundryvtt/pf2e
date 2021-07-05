@@ -6,7 +6,7 @@ export function hide(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.Hide',
+        'PF2E.Actions.Hide.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:hide'],

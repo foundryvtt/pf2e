@@ -61,7 +61,7 @@ declare global {
         override delete(id: string): boolean;
 
         /** Load the Compendium index and cache it as the keys and values of the Collection. */
-        getIndex(): Promise<CompendiumIndex>;
+        getIndex(options?: { fields: string[] }): Promise<CompendiumIndex>;
 
         /**
          * Get a single Document from this Compendium by ID.
@@ -163,7 +163,6 @@ declare global {
     function fromUuid(uuid: CompendiumUUID): Promise<CompendiumDocument | null>;
 
     interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {
-        absPath: string;
         readonly entity: T extends Actor
             ? 'Actor'
             : T extends Item
@@ -179,21 +178,23 @@ declare global {
             : T extends Scene
             ? 'Scene'
             : CompendiumDocumentType;
-        label: string;
-        module: string;
         name: string;
-        package: string;
+        label: string;
         path: string;
+        private?: string;
+        module?: string;
+        package?: string;
         system: string;
-        private: string;
     }
 
-    type CompendiumIndex = Collection<{
+    interface CompendiumIndexData {
         _id: string;
         type: string;
         name: string;
-        img: string;
-    }>;
+        [key: string]: any;
+    }
+
+    type CompendiumIndex = Collection<CompendiumIndexData>;
 
     type CompendiumDocument = Actor | Item | JournalEntry | Macro | Playlist | RollTable | Scene;
 }

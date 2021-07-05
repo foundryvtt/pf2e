@@ -14,12 +14,13 @@
                     <h4>{{category.label}}</h4>
                     <div class="category-controls controls">
                         {{#if @root.owner}}
-                            <a class="item-create" data-type="{{category.type}}"><i class="fas fa-plus"></i></a>
+                            <a class="item-control item-create" data-type="{{category.type}}"><i class="fas fa-plus"></i></a>
+                            <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-filter="itemtypes-{{category.type}}"><i class="fas fa-search"></i></a>
                         {{/if}}
                     </div>
                 </div>
                     {{#each category.items as |item itemId|}}
-                        {{> "systems/pf2e/templates/actors/npc/partials/npc-item.html" item=item user=@root.user owner=@root.owner editable=@root.editable}}
+                        {{> "systems/pf2e/templates/actors/npc/partials/item.html" item=item user=@root.user owner=@root.owner editable=@root.editable}}
                     {{/each}}
                 {{/each}}
             </ul>

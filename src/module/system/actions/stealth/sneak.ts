@@ -6,7 +6,7 @@ export function sneak(options: SkillActionOptions) {
         options.actors,
         property,
         options.glyph ?? 'A',
-        'PF2E.Actions.Sneak',
+        'PF2E.Actions.Sneak.Title',
         subtitle,
         options.modifiers,
         ['all', checkType, stat, 'action:sneak'],

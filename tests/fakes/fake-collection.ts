@@ -38,13 +38,13 @@ export class FakeCollection<V> {
     }
 }
 
-export class FakeEntityCollection<V extends { data: object }> extends FakeCollection<V> {
+export class FakeWorldCollection<V extends { data: object }> extends FakeCollection<V> {
     get contents(): V[] {
         return this.entries;
     }
 }
 
-export class FakeActors extends FakeEntityCollection<ActorPF2e> {
+export class FakeActors extends FakeWorldCollection<ActorPF2e> {
     tokens: Record<string, Token> = {};
 
     constructor(entries: [string, ActorPF2e][] = []) {

@@ -132,11 +132,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     /** Refresh the vision of any controlled tokens linked to this creature */
     protected refreshVision() {
-        if (canvas.scene) {
-            for (const token of this.getActiveTokens().filter((token) => token.isControlled)) {
-                token.setPerceivedLightLevel({ updateSource: true });
-            }
-        }
+        if (canvas.scene) game.user.setPerceivedLightLevel({ defer: false });
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
@@ -145,19 +141,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const attributes = this.data.data.attributes;
         const hitPoints: { modifiers: Readonly<ModifierPF2e[]> } = attributes.hp;
         hitPoints.modifiers = [];
-    }
-
-    protected override _onUpdate(
-        changed: DeepPartial<this['data']['_source']>,
-        options: DocumentModificationContext,
-        userId: string,
-    ): void {
-        if (userId === game.userId) {
-            // ensure minion-type actors with are prepared with their master-derived data
-            prepareMinions(this);
-        }
-
-        super._onUpdate(changed, options, userId);
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
@@ -391,6 +374,20 @@ export abstract class CreaturePF2e extends ActorPF2e {
             targets: new Set(targets),
             target,
         };
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    /** Re-prepare familiars when their masters are updated */
+    protected override _onUpdate(
+        changed: DeepPartial<this['data']['_source']>,
+        options: DocumentModificationContext,
+        userId: string,
+    ): void {
+        prepareMinions(this);
+        super._onUpdate(changed, options, userId);
     }
 }
 

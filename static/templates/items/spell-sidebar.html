@@ -3,7 +3,7 @@
 <span class="item-summary">{{levelLabel}}</span>
 <span class="item-summary">{{localize (lookup magicSchools data.school.value)}}</span>
 <span class="item-summary">{{localize (lookup spellTypes data.spellType.value)}}</span>
-<span class="item-summary">{{data.time.value}}</span>
+<span class="item-summary">{{{actionGlyph data.time.value fallback=true}}}</span>
 
 <ol class="item-tags">
     <li class="tag">{{#with (lookup rarities data.traits.rarity.value)}}{{localize this.label}}{{/with}}</li>

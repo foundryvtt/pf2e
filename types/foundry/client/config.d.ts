@@ -8,14 +8,15 @@ declare global {
         TActor extends Actor = Actor,
         TChatMessage extends ChatMessage<TActor> = ChatMessage<TActor>,
         TCombatant extends Combatant = Combatant,
-        TCombat extends Combat = Combat,
+        TCombat extends Combat<TCombatant> = Combat<TCombatant>,
         TFogExploration extends FogExploration = FogExploration,
         TFolder extends Folder = Folder,
-        TItem extends Item = Item,
-        TLightingLayer extends LightingLayer = LightingLayer,
+        TItem extends Item<TActor> = Item<TActor>,
+        TLightingLayer extends LightingLayer<TAmbientLight> = LightingLayer<TAmbientLight>,
         TMacro extends Macro = Macro,
-        TScene extends Scene = Scene,
-        TTokenDocument extends TokenDocument = TokenDocument,
+        TScene extends Scene<TokenDocument<TActor>> = Scene<TokenDocument<TActor>>,
+        TTokenDocument extends TokenDocument<TActor> = TokenDocument<TActor>,
+        TUser extends User<TActor> = User<TActor>,
     > {
         /** Configure debugging flags to display additional information */
         debug: {
@@ -158,7 +159,9 @@ declare global {
 
         /** Configuration for the User document */
         User: {
-            documentClass: typeof User;
+            documentClass: {
+                new (data: PreCreate<TUser['data']['_source']>, context?: DocumentConstructionContext<TUser>): TUser;
+            };
             collection: typeof Users;
             // sheetClass: typeof UserConfig;
             permissions: undefined;

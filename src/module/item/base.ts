@@ -21,6 +21,8 @@ import { NPCSystemData } from '@actor/npc/data';
 import { HazardSystemData } from '@actor/hazard/data';
 import { CheckPF2e } from '@system/rolls';
 import { ItemTrait } from './data/base';
+import { UserPF2e } from '@module/user';
+import { MigrationRunner, Migrations } from '@module/migration';
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -49,8 +51,13 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** The compendium source ID of the item **/
-    get sourceId() {
-        return this.getFlag('core', 'sourceId');
+    get sourceId(): string | null {
+        return this.getFlag('core', 'sourceId') ?? null;
+    }
+
+    /** The recorded schema version of this item, updated after each data migration */
+    get schemaVersion(): number | null {
+        return this.data.data.schema.version;
     }
 
     get traits(): Set<ItemTrait> {
@@ -68,60 +75,6 @@ export class ItemPF2e extends Item<ActorPF2e> {
             return this;
         }
         return super.delete(context);
-    }
-
-    protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
-        if (this.actor) {
-            // Rule Elements
-            if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
-            const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
-            const tokens = this.actor.getAllTokens();
-            const actorUpdates = {};
-            for (const rule of rules) {
-                rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
-            }
-            this.actor.update(actorUpdates);
-
-            // Effect Panel
-            game.pf2e.effectPanel.refresh();
-        }
-
-        super._onCreate(data, options, userId);
-    }
-
-    protected override _onUpdate(
-        changed: DeepPartial<this['data']['_source']>,
-        options: DocumentModificationContext,
-        userId: string,
-    ): void {
-        if (this.isOwned && this.actor) {
-            game.pf2e.effectPanel.refresh();
-        }
-
-        super._onUpdate(changed, options, userId);
-    }
-
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
-        if (this.isOwned) {
-            if (this.actor) {
-                if (this.data.type === 'effect') {
-                    game.pf2e.effectTracker.unregister(this.data);
-                }
-
-                if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
-                const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
-                const tokens = this.actor.getAllTokens();
-                const actorUpdates = {};
-                for (const rule of rules) {
-                    rule.onDelete(this.actor.data, this.data, actorUpdates, tokens);
-                }
-                this.actor.update(actorUpdates);
-
-                game.pf2e.effectPanel.refresh();
-            }
-        }
-
-        super._onDelete(options, userId);
     }
 
     /**
@@ -685,13 +638,11 @@ export class ItemPF2e extends Item<ActorPF2e> {
         }
         rollData.item = itemData;
 
-        if (this.isOwned) {
-            const traits = this.actor.data.data.traits.traits.value;
-            if (traits.some((trait) => trait === 'elite')) {
-                parts.push(4);
-            } else if (traits.some((trait) => trait === 'weak')) {
-                parts.push(-4);
-            }
+        const traits = this.actor.data.data.traits.traits.value;
+        if (traits.some((trait) => trait === 'elite')) {
+            parts.push(4);
+        } else if (traits.some((trait) => trait === 'weak')) {
+            parts.push(-4);
         }
 
         // Call the roll helper utility
@@ -707,6 +658,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 top: event.clientY - 80,
                 left: window.innerWidth - 710,
             },
+            combineTerms: true,
         });
     }
 
@@ -816,6 +768,78 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const newItem = super.createDialog(data, options) as Promise<ItemPF2e | undefined>;
         game.system.entityTypes.Item = original;
         return newItem;
+    }
+
+    /* -------------------------------------------- */
+    /*  Event Listeners and Handlers                */
+    /* -------------------------------------------- */
+
+    /** Ensure imported items are current on their schema version */
+    protected override async _preCreate(
+        data: PreDocumentId<this['data']['_source']>,
+        options: DocumentModificationContext,
+        user: UserPF2e,
+    ): Promise<void> {
+        await super._preCreate(data, options, user);
+        if (user.id !== game.user.id || options.parent) return;
+        await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+    }
+
+    /** Call onDelete rule-element hooks, refresh effects panel */
+    protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
+        if (this.actor) {
+            // Rule Elements
+            if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
+            const rules = RuleElements.fromOwnedItem(this as Embedded<ItemPF2e>);
+            const tokens = this.actor.getAllTokens();
+            const actorUpdates = {};
+            for (const rule of rules) {
+                rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
+            }
+            this.actor.update(actorUpdates);
+
+            // Effect Panel
+            game.pf2e.effectPanel.refresh();
+        }
+
+        super._onCreate(data, options, userId);
+    }
+
+    /** Refresh the effect panel */
+    protected override _onUpdate(
+        changed: DeepPartial<this['data']['_source']>,
+        options: DocumentModificationContext,
+        userId: string,
+    ): void {
+        if (this.isOwned && this.actor) {
+            game.pf2e.effectPanel.refresh();
+        }
+
+        super._onUpdate(changed, options, userId);
+    }
+
+    /** Call onDelete rule-element hooks */
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+        if (this.isOwned) {
+            if (this.actor) {
+                if (this.data.type === 'effect') {
+                    game.pf2e.effectTracker.unregister(this.data);
+                }
+
+                if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
+                const rules = RuleElements.fromOwnedItem(this as Embedded<ItemPF2e>);
+                const tokens = this.actor.getAllTokens();
+                const actorUpdates = {};
+                for (const rule of rules) {
+                    rule.onDelete(this.actor.data, this.data, actorUpdates, tokens);
+                }
+                this.actor.update(actorUpdates);
+
+                game.pf2e.effectPanel.refresh();
+            }
+        }
+
+        super._onDelete(options, userId);
     }
 }
 

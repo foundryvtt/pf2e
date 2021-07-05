@@ -115,7 +115,7 @@ interface WeaponSystemData extends MagicItemSystemData {
     propertyRune3: WeaponPropertyRuneSlot;
     propertyRune4: WeaponPropertyRuneSlot;
     preciousMaterial: {
-        value: WeaponMaterialType;
+        value: WeaponMaterialType | null;
     };
 
     // Refers to custom damage, *not* property runes

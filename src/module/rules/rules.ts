@@ -1,5 +1,4 @@
-import { ItemDataPF2e } from '@item/data';
-import { PF2RuleElementData } from './rules-data-definitions';
+import { RuleElementData } from './rules-data-definitions';
 import { RuleElementPF2e } from './rule-element';
 import { PF2FlatModifierRuleElement } from './elements/flatmodifier';
 import { PF2MageArmorRuleElement } from './spells/mage-armor';
@@ -23,13 +22,14 @@ import { PF2EffectTargetRuleElement } from './elements/effect-target';
 import { PF2ActorTraits } from '@module/rules/elements/actor-traits';
 import { PF2RecoveryCheckDCRuleElement } from '@module/rules/feats/recovery-check-dc';
 import { PF2AdjustDegreeOfSuccessRuleElement } from './elements/adjust-degree-of-success';
+import type { ItemPF2e } from '@item';
 export { RuleElementPF2e };
 
 /**
  * @category RuleElement
  */
 export class RuleElements {
-    static readonly builtin: Record<string, (ruleData: PF2RuleElementData, item: ItemDataPF2e) => RuleElementPF2e> =
+    static readonly builtin: Record<string, (ruleData: RuleElementData, item: Embedded<ItemPF2e>) => RuleElementPF2e> =
         Object.freeze({
             'PF2E.RuleElement.FlatModifier': (ruleData, item) => new PF2FlatModifierRuleElement(ruleData, item),
             'PF2E.RuleElement.MageArmor': (ruleData, item) => new PF2MageArmorRuleElement(ruleData, item),
@@ -58,15 +58,11 @@ export class RuleElements {
                 new PF2AdjustDegreeOfSuccessRuleElement(ruleData, item),
         });
 
-    static custom: Record<string, (ruleData: PF2RuleElementData, item: ItemDataPF2e) => RuleElementPF2e> = {};
+    static custom: Record<string, (ruleData: RuleElementData, item: Embedded<ItemPF2e>) => RuleElementPF2e> = {};
 
-    static fromOwnedItem(item: ItemDataPF2e): RuleElementPF2e[] {
-        return this.fromRuleElementData(item.data?.rules ?? [], item);
-    }
-
-    static fromRuleElementData(ruleData: PF2RuleElementData[], item: ItemDataPF2e): RuleElementPF2e[] {
+    static fromOwnedItem(item: Embedded<ItemPF2e>): RuleElementPF2e[] {
         const rules: RuleElementPF2e[] = [];
-        for (const data of ruleData) {
+        for (const data of item.data.data.rules) {
             const rule = this.custom[data.key] ?? this.builtin[data.key];
             if (rule) {
                 rules.push(rule(data, item));

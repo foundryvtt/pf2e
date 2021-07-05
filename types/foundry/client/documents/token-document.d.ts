@@ -164,7 +164,7 @@ declare global {
     }
 
     interface TokenDocument {
-        readonly data: foundry.data.TokenData<this>;
+        readonly data: foundry.data.TokenData<TokenDocument>;
 
         readonly parent: Scene | null;
 
@@ -180,6 +180,11 @@ declare global {
 
     namespace TokenDocument {
         function _canUpdate(user: User, doc: TokenDocument, data: foundry.data.TokenData<TokenDocument>): boolean;
+
+        function updateDocuments(
+            updates?: DocumentUpdateData<TokenDocument>[],
+            context?: DocumentModificationContext,
+        ): Promise<TokenDocument[]>;
     }
 
     interface TokenAttributes {

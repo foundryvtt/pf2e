@@ -492,11 +492,13 @@ export class DiceModifierPF2e implements RawModifier {
     }
 }
 
+type DamageDiceParameters = Partial<DamageDicePF2e> & Pick<DamageDicePF2e, 'selector' | 'name'>;
+
 export class DamageDicePF2e extends DiceModifierPF2e {
     /** The selector used to determine when   */
     selector: string;
 
-    constructor(params: Partial<DamageDicePF2e> & Pick<DamageDicePF2e, 'selector' | 'name'>) {
+    constructor(params: DamageDiceParameters) {
         super(params);
         if (params.selector) {
             this.selector = params.selector;

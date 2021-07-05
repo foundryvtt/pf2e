@@ -2,12 +2,28 @@ import { DamageDicePF2e, ModifierPF2e, ModifierPredicate } from '../modifiers';
 import { WeaponData } from '@item/data';
 import { RollNotePF2e } from '../notes';
 
-export interface PF2RuleElementData {
+export interface RuleElementData {
     key: string;
     data?: any;
     selector?: string;
-    value?: unknown;
+    value?: RuleValue;
     scope?: string;
+    label?: string;
+    slug?: string;
+    predicate?: ModifierPredicate;
+}
+
+export type RuleValue = string | number | null | BracketedValue;
+
+export interface Bracket {
+    start?: number;
+    end?: number;
+    value: number;
+}
+
+export interface BracketedValue {
+    field?: string;
+    brackets: Bracket[];
 }
 
 export interface WeaponPotencyPF2e {

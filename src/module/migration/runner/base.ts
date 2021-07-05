@@ -1,6 +1,10 @@
 import { ActorSourcePF2e } from '@actor/data';
 import { ItemSourcePF2e } from '@item/data';
+import { DocumentSchemaRecord } from '@module/data';
 import { MigrationBase } from '@module/migration/base';
+import { TokenDocumentPF2e } from '@module/token-document';
+import { ErrorPF2e } from '@module/utils';
+import { DateTime } from 'luxon';
 
 interface ItemsDiff {
     inserted: ItemSourcePF2e[];
@@ -11,11 +15,11 @@ interface ItemsDiff {
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.64;
+    static LATEST_SCHEMA_VERSION = 0.642;
 
     static MINIMUM_SAFE_VERSION = 0.6;
 
-    static RECOMMENDED_SAFE_VERSION = 0.61;
+    static RECOMMENDED_SAFE_VERSION = 0.619;
 
     constructor(migrations: MigrationBase[] = []) {
         this.migrations = migrations.sort((a, b) => a.version - b.version);
@@ -60,34 +64,64 @@ export class MigrationRunnerBase {
     }
 
     async getUpdatedItem(item: ItemSourcePF2e, migrations: MigrationBase[]): Promise<ItemSourcePF2e> {
-        const current = duplicate(item);
+        const current = deepClone(item);
 
-        for (const migration of migrations) {
+        for await (const migration of migrations) {
             try {
                 await migration.updateItem(current);
+                // Handle embedded spells
+                if (current.type === 'consumable' && current.data.spell.data) {
+                    await migration.updateItem(current.data.spell.data);
+                }
             } catch (err) {
                 console.error(err);
             }
         }
+        this.updateSchemaRecord(current.data.schema, migrations.slice(-1)[0]);
 
         return current;
     }
 
     async getUpdatedActor(actor: ActorSourcePF2e, migrations: MigrationBase[]): Promise<ActorSourcePF2e> {
-        const current = duplicate(actor);
+        const currentActor = deepClone(actor);
 
-        for (const migration of migrations) {
+        for await (const migration of migrations) {
             try {
-                await migration.updateActor(current);
-                for (const item of current.items) {
-                    await migration.updateItem(item, current);
+                await migration.updateActor(currentActor);
+                for await (const currentItem of currentActor.items) {
+                    await migration.updateItem(currentItem, currentActor);
+                    // Handle embedded spells
+                    if (currentItem.type === 'consumable' && currentItem.data.spell.data) {
+                        await migration.updateItem(currentItem.data.spell.data, currentActor);
+                    }
                 }
             } catch (err) {
                 console.error(err);
             }
         }
 
-        return current;
+        const latestMigration = migrations.slice(-1)[0];
+        this.updateSchemaRecord(currentActor.data.schema, latestMigration);
+        for (const itemSource of currentActor.items) {
+            this.updateSchemaRecord(itemSource.data.schema, latestMigration);
+        }
+
+        return currentActor;
+    }
+
+    private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase | undefined): void {
+        if (!latestMigration) throw ErrorPF2e('No migrations in this run!');
+
+        const fromVersion = typeof schema.version === 'number' ? schema.version : null;
+        schema.version = latestMigration.version;
+        schema.lastMigration = {
+            datetime: DateTime.now().toISO(),
+            version: {
+                schema: fromVersion,
+                foundry: 'game' in globalThis ? game.data.version : undefined,
+                system: 'game' in globalThis ? game.system.data.version : undefined,
+            },
+        };
     }
 
     async getUpdatedMessage(
@@ -141,7 +175,7 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    async getUpdatedToken(token: TokenDocument, migrations: MigrationBase[]): Promise<foundry.data.TokenSource> {
+    async getUpdatedToken(token: TokenDocumentPF2e, migrations: MigrationBase[]): Promise<foundry.data.TokenSource> {
         const current = token.toObject();
         for (const migration of migrations) {
             try {
