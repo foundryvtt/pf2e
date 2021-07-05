@@ -14,7 +14,7 @@ declare global {
                 readonly pack: string | null;
 
                 /** The base data object for this Document which persists both the original source and any derived data. */
-                readonly data: DocumentData;
+                readonly data: DocumentData<Document>;
 
                 /**
                  * A collection of Application instances which should be re-rendered whenever this Document experiences an update to
