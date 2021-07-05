@@ -39,16 +39,16 @@
                     {{/if}}
                 </div>
                 <div class="body">
+                    {{#if entry.isFocusPool}}
                     <div class="sub-header">
                         <div class="focus-point-container">
-                            {{#if entry.isFocus}}
-                                <label class="focus-label">{{ localize 'PF2E.Focus.label' }}</label>
-                                <input type="number" class="focus-points" data-base-property="data.items.{{eid}}.data.focus.points" name="data.items.{{entry._id}}.data.focus.points" value="{{numberFormat entry.data.focus.points decimals=0}}" data-dtype="Number" placeholder="0"/>
+                            <label class="focus-label">{{ localize 'PF2E.Focus.label' }}</label>
+                            <input type="number" class="focus-points" data-base-property="data.items.{{eid}}.data.focus.points" name="data.items.{{entry._id}}.data.focus.points" value="{{numberFormat entry.data.focus.points decimals=0}}" data-dtype="Number" placeholder="0"/>
                             <span class="flex0">/</span>
                             <input type="number" class="focus-pool" data-base-property="data.items.{{eid}}.data.focus.pool" name="data.items.{{entry._id}}.data.focus.pool" value="{{numberFormat entry.data.focus.pool decimals=0}}" data-dtype="Number" placeholder="0"/>
-                            {{/if}}
                         </div>
                     </div>
+                    {{/if}}
 
                     {{> systems/pf2e/templates/actors/spellcasting-spell-list.html entry=entry}}
                 </div>
