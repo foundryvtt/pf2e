@@ -1248,6 +1248,7 @@ export const PF2ECONFIG = {
         ...magicSchools,
         ...spellTraditions,
         acid: 'PF2E.TraitAcid',
+        adjustment: 'PF2E.TraitAdjustment',
         air: 'PF2E.TraitAir',
         alchemical: 'PF2E.TraitAlchemical',
         apex: 'PF2E.TraitApex',
