@@ -37,6 +37,9 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/crb-style/character-background.html',
         'systems/pf2e/templates/actors/crb-style/character-abilities.html',
 
+        // Actor Sheet Partials (General)
+        'systems/pf2e/templates/actors/spellcasting-spell-list.html',
+
         // NPC partials
         'systems/pf2e/templates/actors/npc/tabs/main.html',
         'systems/pf2e/templates/actors/npc/tabs/inventory.html',
@@ -47,7 +50,6 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/npc/partials/action.html',
         'systems/pf2e/templates/actors/npc/partials/attack.html',
         'systems/pf2e/templates/actors/npc/partials/item.html',
-        'systems/pf2e/templates/actors/npc/partials/spell-body.html',
 
         // Item Sheet Partials
         'systems/pf2e/templates/items/ae-tab.html',
