@@ -74,7 +74,7 @@ declare global {
             }
 
             interface BaseScene {
-                readonly data: data.SceneData<BaseScene>;
+                readonly data: data.SceneData<this>;
 
                 readonly parent: null;
             }

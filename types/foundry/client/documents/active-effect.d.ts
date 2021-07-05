@@ -132,8 +132,7 @@ declare global {
     }
 
     interface ActiveEffect {
-        readonly data: foundry.data.ActiveEffectData<this>;
-        readonly parent: Actor | Item | null;
+        readonly parent: Actor | Item;
 
         getFlag(scope: 'core', key: 'overlay'): string | undefined;
         getFlag(scope: 'core', key: 'statusId'): string | undefined;
