@@ -27,8 +27,8 @@ declare module foundry {
             static override defineSchema(): abstract.DocumentSchema;
         }
 
-        interface ChatSpeakerData extends ChatMessageSource {
-            readonly _source: ChatMessageSource;
+        interface ChatSpeakerData extends ChatSpeakerSource {
+            readonly _source: ChatSpeakerSource;
         }
     }
 }

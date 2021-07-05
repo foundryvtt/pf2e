@@ -16,6 +16,12 @@ declare module foundry {
             protected static _canUserModify<T extends BaseFogExploration>(user: BaseUser, doc: T): boolean;
         }
 
+        interface BaseFogExploration {
+            readonly data: data.FogExplorationData<this>;
+
+            readonly parent: null;
+        }
+
         interface FogExplorationMetadata extends abstract.DocumentMetadata {
             name: 'DogExploration';
             collection: 'fog';
