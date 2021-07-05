@@ -1,4 +1,3 @@
-import { CreaturePF2e } from '@actor';
 import { LightLevels, ScenePF2e } from '@module/scene';
 import { LightingLayerPF2e } from './lighting-layer';
 
@@ -10,11 +9,9 @@ export class AmbientLightPF2e extends AmbientLight {
         const isDaylight = canvas.scene.getLightLevel() > LightLevels.DARKNESS;
         if (this.source.isDarkness || isDaylight) return super.brightRadius;
 
-        const lowLightActors = canvas.tokens.controlled.flatMap((token) => {
-            return token.actor instanceof CreaturePF2e && token.actor.hasLowLightVision ? token.actor : [];
-        });
+        const lowLightTokens = canvas.tokens.controlled.filter((token) => token.hasLowLightVision);
 
-        return lowLightActors.length > 0 ? Math.max(this.dimRadius, super.brightRadius) : super.brightRadius;
+        return lowLightTokens.length > 0 ? Math.max(this.dimRadius, super.brightRadius) : super.brightRadius;
     }
 }
 
