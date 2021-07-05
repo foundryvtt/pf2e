@@ -1216,7 +1216,6 @@ export const PF2ECONFIG = {
         'two-hand-d8': 'PF2E.TraitTwoHandD8',
         'two-hand-d10': 'PF2E.TraitTwoHandD10',
         'two-hand-d12': 'PF2E.TraitTwoHandD12',
-        'two-hand-3d8': 'PF2E.TraitTwoHand3D8',
         unarmed: 'PF2E.TraitUnarmed',
         'versatile-s': 'PF2E.TraitVersatileS',
         'versatile-p': 'PF2E.TraitVersatileP',
