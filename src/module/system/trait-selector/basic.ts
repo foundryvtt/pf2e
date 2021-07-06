@@ -3,10 +3,10 @@ import { ActorPF2e } from '@actor/index';
 import { ItemSourcePF2e } from '@item/data';
 import { ItemPF2e } from '@item/index';
 import { ValuesList } from '@module/data';
-import { TraitSelectorBase } from './base';
+import { TagSelectorBase } from './base';
 import { BasicSelectorOptions, SelectableTagField } from './index';
 
-export class TagSelectorBasic extends TraitSelectorBase {
+export class TagSelectorBasic extends TagSelectorBase {
     allowCustom: boolean;
     searchString = '';
     private filterTimeout: number | null = null;
