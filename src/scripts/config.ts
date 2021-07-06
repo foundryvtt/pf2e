@@ -1823,6 +1823,7 @@ export const PF2ECONFIG = {
         stupefied: 'PF2E.ConditionTypeStupefied',
         'swarm attacks': 'PF2E.DamageTypeSwarmAttacks',
         'swarm-mind': 'PF2E.ImmunityTypeSwarmMind',
+        trip: 'PF2E.TraitTrip',
         unconscious: 'PF2E.ConditionTypeUnconscious',
         undetected: 'PF2E.ConditionTypeUndetected',
         unfriendly: 'PF2E.ConditionTypeUnfriendly',
