@@ -164,8 +164,6 @@ declare global {
     }
 
     interface TokenDocument {
-        readonly data: foundry.data.TokenData<TokenDocument>;
-
         readonly parent: Scene | null;
 
         _sheet: TokenConfig<TokenDocument> | null;

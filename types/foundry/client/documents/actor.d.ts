@@ -167,6 +167,8 @@ declare global {
 
         _sheet: ActorSheet<Actor, Item> | null;
 
+        get sheet(): ActorSheet<Actor, Item>;
+
         deleteEmbeddedDocuments(
             embeddedName: 'ActiveEffect',
             dataId: string[],

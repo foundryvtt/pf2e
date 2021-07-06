@@ -183,7 +183,9 @@ declare global {
             WallDocument
         >;
 
-        _sheet: SceneConfig<Scene>;
+        _sheet: SceneConfig<Scene> | null;
+
+        get sheet(): SceneConfig<Scene>;
 
         getEmbeddedCollection(embeddedName: 'Token'): this['data']['tokens'];
 

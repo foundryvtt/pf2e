@@ -51,7 +51,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     override apps: Record<string, Application>;
 
     /** A cached reference to the FormApplication instance used to configure this Document. */
-    _sheet: FormApplication | null;
+    protected _sheet: FormApplication | null;
 
     protected override _initialize(): void;
 
@@ -103,7 +103,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     get permission(): PermissionLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): NonNullable<this['_sheet']>;
+    get sheet(): FormApplication;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): string;
@@ -119,7 +119,7 @@ declare class ClientDocument<TDocument extends foundry.abstract.Document = found
     /* -------------------------------------------- */
 
     /** Obtain the FormApplication class constructor which should be used to configure this Document. */
-    protected _getSheetClass(): ConstructorOf<NonNullable<this['_sheet']>>;
+    protected _getSheetClass(): ConstructorOf<FormApplication>;
 
     /**
      * Prepare data for the Document.

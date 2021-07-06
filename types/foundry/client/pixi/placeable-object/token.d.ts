@@ -5,7 +5,7 @@ declare class Token<TDocument extends TokenDocument = TokenDocument> extends Pla
     constructor(tokenData: foundry.data.TokenData, scene: Scene);
 
     /** A Ray which represents the Token's current movement path */
-    protected _movement: Ray;
+    protected _movement: Ray | null;
 
     /**
      * An Object which records the Token's prior velocity dx and dy
@@ -55,6 +55,14 @@ declare class Token<TDocument extends TokenDocument = TokenDocument> extends Pla
     /* -------------------------------------------- */
     /*  Rendering Attributes                        */
     /* -------------------------------------------- */
+
+    border: PIXI.Graphics;
+    icon: PIXI.Sprite | null;
+    bars: PIXI.Container & { bar1: PIXI.Graphics; bar2: PIXI.Graphics };
+    nameplate: PIXI.Text;
+    tooltip: PIXI.Container;
+    effects: PIXI.Container;
+    target: PIXI.Graphics;
 
     /**
      * Translate the token's grid width into a pixel width based on the canvas size

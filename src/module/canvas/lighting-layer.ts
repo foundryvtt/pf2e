@@ -1,24 +1,23 @@
 import { AmbientLightPF2e } from './ambient-light';
 
 export class LightingLayerPF2e extends LightingLayer<AmbientLightPF2e> {
-    /** Set Unrestricted Global Vision based on token vision */
-    override hasGlobalIllumination(): boolean {
-        const coreHasGlobalLight = super.hasGlobalIllumination();
-        if (!(canvas.scene && canvas.sight.rulesBasedVision)) return coreHasGlobalLight;
+    /** Set the perceived brightness of sourced lighting */
+    override refresh(darkness?: number | null): void {
+        if (canvas.sight.rulesBasedVision && canvas.tokens.controlled.some((token) => token.hasLowLightVision)) {
+            for (const source of this.sources) {
+                if (source.isDarkness || source.bright > source.dim) continue;
+                const original = { dim: source.dim, bright: source.bright };
+                source.dim = 0;
+                source.bright = Math.max(original.dim, original.bright);
+                source.ratio = 1;
+            }
+        }
 
-        const tokens = (() => {
-            const controlled = canvas.tokens.controlled.filter((token) => token.actor && token.observer);
-            return controlled.length > 0
-                ? controlled
-                : canvas.tokens.placeables.filter(
-                      (token) => token.actor && token.observer && token.actor === game.user.character,
-                  );
-        })();
-        if (tokens.length === 0 && game.user.isGM) return true;
+        super.refresh(darkness);
+    }
 
-        return tokens.some((token) => {
-            if (!(token.hasSight && token.actor)) return true;
-            return token.actor.canSee;
-        });
+    protected override _onDarknessChange(darkness: number, prior: number): void {
+        game.user.setPerceivedLightLevel({ defer: true });
+        super._onDarknessChange(darkness, prior);
     }
 }

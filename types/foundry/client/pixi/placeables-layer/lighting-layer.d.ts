@@ -8,6 +8,8 @@ declare interface LightChannels {
     dark: LightChannel;
     dim: LightChannel;
     bright: LightChannel;
+    canvas: LightChannel;
+    background: LightChannel;
 }
 
 /**
