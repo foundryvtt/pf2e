@@ -19,6 +19,9 @@ export function listen(): void {
         // Save the current world schema version if hasn't before.
         setWorldSchemaVersion();
 
+        // Start up the Compendium Browser
+        game.pf2e.compendiumBrowser = new CompendiumBrowser();
+
         // Determine whether a system migration is required and feasible
         const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
 
@@ -55,9 +58,6 @@ export function listen(): void {
 
         // Extend drag data for things such as condition value
         extendDragData();
-
-        // Start up the Compendium Browser
-        game.pf2e.compendiumBrowser = new CompendiumBrowser();
 
         // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
         HomebrewElements.refreshTags();
