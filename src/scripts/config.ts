@@ -473,7 +473,7 @@ const creatureTraits = {
     time: 'PF2E.TraitTime',
     titan: 'PF2E.TraitTitan',
     troll: 'PF2E.TraitTroll',
-    troop: 'PF2R.TraitTroop',
+    troop: 'PF2E.TraitTroop',
     undead: 'PF2E.TraitUndead',
     undine: 'PF2E.TraitUndine',
     urdefhan: 'PF2E.TraitUrdefhan',
