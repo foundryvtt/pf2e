@@ -1,10 +1,10 @@
 import { ActorPF2e } from '@actor/base';
 import { NPCPF2e } from '@actor/npc';
 import { LabeledValue } from '@module/data';
-import { TraitSelectorBase } from './base';
+import { TagSelectorBase } from './base';
 import { SelectableTagField } from './index';
 
-export class TraitSelectorSpeeds extends TraitSelectorBase<ActorPF2e> {
+export class TraitSelectorSpeeds extends TagSelectorBase<ActorPF2e> {
     override objectProperty = 'data.attributes.speed.otherSpeeds';
 
     static override get defaultOptions() {

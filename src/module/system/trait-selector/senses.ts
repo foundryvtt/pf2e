@@ -1,9 +1,9 @@
 import { SenseData } from '@actor/creature/data';
 import { ActorPF2e, NPCPF2e } from '@actor/index';
-import { TraitSelectorBase } from './base';
+import { TagSelectorBase } from './base';
 import { SelectableTagField } from './index';
 
-export class TraitSelectorSenses extends TraitSelectorBase<ActorPF2e> {
+export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
     override objectProperty = 'data.traits.senses';
 
     static override get defaultOptions() {
