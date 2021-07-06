@@ -1739,6 +1739,7 @@ export const PF2ECONFIG = {
 
     immunityTypes: {
         acid: 'PF2E.DamageTypeAcid',
+        air: 'PF2E.TraitAir',
         auditory: 'PF2E.ImmunityTypeAuditory',
         bleed: 'PF2E.DamageTypeBleed',
         blinded: 'PF2E.ConditionTypeBlinded',
