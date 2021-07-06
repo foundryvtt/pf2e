@@ -286,13 +286,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         html.find(rollables).on('click', (event) => this.onClickRollable(event));
         html.find('a.chat, .spell-icon.rollable').on('click', (event) => this.onClickToChat(event));
 
-        html.find('.attack')
-            .on('mouseenter', (event) => this.showControls(event))
-            .on('mouseleave', (event) => this.hideControls(event));
-        html.find('.action')
-            .on('mouseenter', (event) => this.showControls(event))
-            .on('mouseleave', (event) => this.hideControls(event));
-
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
 
@@ -733,18 +726,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         } else if (action || item || spell) {
             this.onClickExpandable(event);
         }
-    }
-
-    private hideControls(event: JQuery.MouseLeaveEvent) {
-        const controls = $(event.currentTarget).find('.controls');
-        if (controls === undefined) return;
-        controls.removeClass('expanded');
-    }
-
-    private showControls(event: JQuery.MouseEnterEvent) {
-        const controls = $(event.currentTarget).find('.controls');
-        if (controls === undefined) return;
-        controls.addClass('expanded');
     }
 
     private baseInputOnFocus(event: JQuery.FocusInEvent) {
