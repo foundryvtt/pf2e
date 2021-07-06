@@ -1878,6 +1878,7 @@ export const PF2ECONFIG = {
         iruxi: 'PF2E.LanguageIruxi',
         jistkan: 'PF2E.LanguageJistkan',
         jyoti: 'PF2E.LanguageJyoti',
+        kaava: 'PF2E.LanguageKaava',
         kibwani: 'PF2E.LanguageKibwani',
         kitsune: 'PF2E.LanguageKitsune',
         kelish: 'PF2E.LanguageKelish',
