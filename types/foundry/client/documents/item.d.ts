@@ -35,13 +35,13 @@ declare global {
         protected static override _onCreateDocuments<T extends Item>(
             this: ConstructorOf<T>,
             items: T[],
-            context: DocumentModificationContext,
+            context: ItemModificationContext,
         ): Promise<void>;
 
         protected static override _onDeleteDocuments<T extends Item>(
             this: ConstructorOf<T>,
             items: T[],
-            context: DocumentModificationContext,
+            context: ItemModificationContext,
         ): Promise<void>;
     }
 
@@ -56,5 +56,9 @@ declare global {
 
         getFlag(scope: string, key: string): any;
         getFlag(scope: 'core', key: 'sourceId'): string | undefined;
+    }
+
+    interface ItemModificationContext<T extends Actor = Actor> extends DocumentModificationContext {
+        parent?: T;
     }
 }

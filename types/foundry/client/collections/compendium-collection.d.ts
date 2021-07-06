@@ -160,7 +160,7 @@ declare global {
 
     type CompendiumDocumentType = typeof CONST.COMPENDIUM_ENTITY_TYPES[number];
     type CompendiumUUID = `${'Compendium' | CompendiumDocumentType}.${string}.${string}`;
-    function fromUuid(uuid: CompendiumUUID): Promise<CompendiumDocument | null>;
+    function fromUuid(uuid: string): Promise<CompendiumDocument | null>;
 
     interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {
         readonly entity: T extends Actor

@@ -10,7 +10,14 @@ import { ErrorPF2e } from '@module/utils';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../actor/base';
 import { RuleElements } from '../rules/rules';
-import { ItemDataPF2e, ItemSourcePF2e, TraitChatData } from './data';
+import {
+    ItemConstructionContextPF2e,
+    ItemDataPF2e,
+    ItemDeletionContextPF2e,
+    ItemModificationContextPF2e,
+    ItemSourcePF2e,
+    TraitChatData,
+} from './data';
 import { isItemSystemData } from './data/helpers';
 import { MeleeSystemData } from './melee/data';
 import { getAttackBonus, getStrikingDice } from './runes';
@@ -23,22 +30,24 @@ import { CheckPF2e } from '@system/rolls';
 import { ItemTrait } from './data/base';
 import { UserPF2e } from '@module/user';
 import { MigrationRunner, Migrations } from '@module/migration';
-
-interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
-    pf2e?: {
-        ready?: boolean;
-    };
-}
+import { GrantItemRuleElement } from '@module/rules/elements/grant-item';
 
 /** Override and extend the basic :class:`Item` implementation */
 export class ItemPF2e extends Item<ActorPF2e> {
     /** Has this item gone through at least one cycle of data preparation? */
     private initialized!: boolean;
 
+    /** The sibling item that granted this item, if any */
+    grantedBy!: { item: ItemPF2e; preDelete?: 'cascade' | 'block' | null } | null;
+
+    grantedItems!: { item: ItemPF2e; preDelete?: 'cascade' | 'block' | null }[];
+
     constructor(data: PreCreate<ItemSourcePF2e>, context: ItemConstructionContextPF2e = {}) {
         if (context.pf2e?.ready) {
             super(data, context);
             this.initialized = false;
+            this.grantedBy = null;
+            this.grantedItems = [];
         } else {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
@@ -69,7 +78,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
-    override async delete(context: DocumentModificationContext = {}) {
+    override async delete(context: ItemModificationContextPF2e = {}) {
         if (this.actor) {
             await this.actor.deleteEmbeddedDocuments('Item', [this.id], context);
             return this;
@@ -121,11 +130,37 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return ChatMessagePF2e.create(chatData, { renderSheet: false });
     }
 
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+        this.data.flags.pf2e ??= {};
+    }
+
     /** Refresh the Item Directory if this item isn't owned */
     override prepareDerivedData(): void {
         super.prepareDerivedData();
         if (!this.isOwned && ui.items && this.initialized) ui.items.render();
         this.initialized = true;
+    }
+
+    /** Prepare data that depends on prepared data of sibling items */
+    prepareSiblingData(): void {
+        if (!this.actor) return;
+
+        // Construct granted-item properties
+        const systemFlags = this.data.flags.pf2e;
+        const grantedByFlag = systemFlags.grantedBy;
+        const grantedBy = grantedByFlag ? this.actor.items.get(grantedByFlag.itemId) : null;
+        this.grantedBy = grantedBy
+            ? {
+                  item: grantedBy,
+                  preDelete: grantedByFlag?.preDelete ?? null,
+              }
+            : null;
+
+        this.grantedItems = (systemFlags.itemGrants ?? []).flatMap((grant) => {
+            const item = this.actor.items.get(grant.itemId);
+            return item ? { item, preDelete: grant.preDelete } : [];
+        });
     }
 
     /* -------------------------------------------- */
@@ -755,7 +790,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return { label: 'PF2E.MultipleAttackPenalty', map2: -5, map3: -10 };
     }
 
-    /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
+    /** Don't allow the user to create a condition, martial item, or spellcasting entry from the sidebar. */
     static override async createDialog(
         data: { folder?: string } = {},
         options: FormApplicationOptions = {},
@@ -771,13 +806,36 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /* -------------------------------------------- */
+    /*  Database Operations                         */
+    /* -------------------------------------------- */
+
+    static override async createDocuments(
+        data: PreCreate<ItemSourcePF2e>[] = [],
+        context: ItemModificationContextPF2e = {},
+    ): Promise<ItemPF2e[]> {
+        const granted = await GrantItemRuleElement.processGrants(data, context);
+        if (granted.length > 0) context.keepId = true;
+
+        return super.createDocuments([...data, ...granted], context) as Promise<ItemPF2e[]>;
+    }
+
+    static override async deleteDocuments(
+        ids: string[] = [],
+        context: ItemDeletionContextPF2e = {},
+    ): Promise<ItemPF2e[]> {
+        const revoked = GrantItemRuleElement.processRevokes(ids, context);
+        const modifiedIds = [...new Set(ids.concat(revoked.add).filter((id) => !revoked.remove.includes(id)))];
+        return super.deleteDocuments(modifiedIds, context) as Promise<ItemPF2e[]>;
+    }
+
+    /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
     /** Ensure imported items are current on their schema version */
     protected override async _preCreate(
         data: PreDocumentId<this['data']['_source']>,
-        options: DocumentModificationContext,
+        options: ItemModificationContextPF2e,
         user: UserPF2e,
     ): Promise<void> {
         await super._preCreate(data, options, user);
@@ -786,7 +844,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Call onDelete rule-element hooks, refresh effects panel */
-    protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
+    protected override _onCreate(data: ItemSourcePF2e, options: ItemModificationContextPF2e, userId: string): void {
         if (this.actor) {
             // Rule Elements
             if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
@@ -808,7 +866,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     /** Refresh the effect panel */
     protected override _onUpdate(
         changed: DeepPartial<this['data']['_source']>,
-        options: DocumentModificationContext,
+        options: ItemModificationContextPF2e,
         userId: string,
     ): void {
         if (this.isOwned && this.actor) {
@@ -819,7 +877,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Call onDelete rule-element hooks */
-    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+    protected override _onDelete(options: ItemModificationContextPF2e, userId: string): void {
         if (this.isOwned) {
             if (this.actor) {
                 if (this.data.type === 'effect') {
@@ -845,6 +903,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
 
 export interface ItemPF2e {
     readonly data: ItemDataPF2e;
+
     readonly parent: ActorPF2e | null;
 
     _sheet: ItemSheetPF2e<this> | null;

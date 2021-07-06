@@ -27,7 +27,7 @@ declare module foundry {
             folder?: string | null;
             sort: number;
             permission: Record<string, PermissionLevel>;
-            flags: Record<string, any>;
+            flags: Record<string, Record<string, any>>;
         }
 
         class ItemData<

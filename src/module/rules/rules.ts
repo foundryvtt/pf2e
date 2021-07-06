@@ -23,6 +23,7 @@ import { PF2ActorTraits } from '@module/rules/elements/actor-traits';
 import { PF2RecoveryCheckDCRuleElement } from '@module/rules/feats/recovery-check-dc';
 import { PF2AdjustDegreeOfSuccessRuleElement } from './elements/adjust-degree-of-success';
 import type { ItemPF2e } from '@item';
+import { GrantItemRuleElement } from './elements/grant-item';
 export { RuleElementPF2e };
 
 /**
@@ -56,6 +57,7 @@ export class RuleElements {
             'PF2E.RuleElement.RecoveryCheckDC': (ruleData, item) => new PF2RecoveryCheckDCRuleElement(ruleData, item),
             'PF2E.RuleElement.AdjustDegreeOfSuccess': (ruleData, item) =>
                 new PF2AdjustDegreeOfSuccessRuleElement(ruleData, item),
+            'PF2E.RuleElement.GrantItem': (ruleData, item) => new GrantItemRuleElement(ruleData, item),
         });
 
     static custom: Record<string, (ruleData: RuleElementData, item: Embedded<ItemPF2e>) => RuleElementPF2e> = {};

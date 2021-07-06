@@ -1,3 +1,4 @@
+import { ItemModificationContextPF2e } from '@item/data';
 import { UserPF2e } from '@module/user';
 import { ItemPF2e } from '../base';
 import { EffectData } from './data';
@@ -68,7 +69,7 @@ export class EffectPF2e extends ItemPF2e {
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
         data: PreDocumentId<this['data']['_source']>,
-        options: DocumentModificationContext,
+        options: ItemModificationContextPF2e,
         user: UserPF2e,
     ): Promise<void> {
         if (this.isOwned && user.id === game.userId) {
