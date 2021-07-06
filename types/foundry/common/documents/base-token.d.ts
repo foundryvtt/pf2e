@@ -18,7 +18,7 @@ declare module foundry {
         }
 
         interface BaseToken extends abstract.Document {
-            readonly data: data.TokenData<BaseToken>;
+            readonly data: data.TokenData<this>;
 
             readonly parent: BaseScene | null;
         }

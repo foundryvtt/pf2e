@@ -4,6 +4,14 @@ import { TokenDocumentPF2e } from '../token-document';
 import { SceneConfigPF2e } from './sheet';
 
 export class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e> {
+    override prepareBaseData() {
+        super.prepareBaseData();
+        if (canvas.sight?.rulesBasedVision) {
+            this.data.globalLightThreshold = 1 - LightLevels.DARKNESS;
+            this.data.globalLight = this.data.darkness < 1 - LightLevels.DARKNESS;
+        }
+    }
+
     getLightLevel(): number {
         const darkness = canvas.lighting?.darknessLevel ?? this.data.darkness;
         return 1 - darkness;
@@ -17,7 +25,9 @@ export class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e
 }
 
 export interface ScenePF2e {
-    _sheet: SceneConfigPF2e;
+    _sheet: SceneConfigPF2e | null;
+
+    get sheet(): SceneConfigPF2e;
 }
 
 export enum LightLevels {

@@ -89,9 +89,27 @@ declare class PointSource<TPlaceableObject extends PlaceableObject = PlaceableOb
         alpha?: number;
         darkness?: number;
         type?: PointSourceType;
-        animation?: Record<string, unknown>;
+        animation?: foundry.data.AnimationData;
         seed?: number;
     }): this;
+
+    // Identify changes and assign cleaned data
+    x: number;
+    y: number;
+    z: number;
+    dim: number;
+    bright: number;
+    angle: number;
+    rotation: number;
+    color: number;
+    alpha: number;
+    type: PointSourceType;
+    animation: foundry.data.AnimationSource | { type: null };
+
+    // Derived data attributes
+
+    colorRGB: [number, number, number];
+    ratio: number;
 
     /**
      * Initialize the shaders used for this animation.

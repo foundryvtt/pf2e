@@ -16,7 +16,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         super.prepareBaseData();
 
         if (canvas.sight?.rulesBasedVision) {
-            this.data.update({ brightSight: 0, dimSight: 0, lightAngle: 360, sightAngle: 360 });
+            mergeObject(this.data, { brightSight: 0, dimSight: 0, lightAngle: 360, sightAngle: 360 });
         }
     }
 
@@ -97,10 +97,12 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     }
 }
 
-export interface TokenDocumentPF2e {
+export interface TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     readonly _object: TokenPF2e | null;
 
     readonly parent: ScenePF2e | null;
 
     _sheet: TokenConfigPF2e | null;
+
+    get sheet(): TokenConfigPF2e;
 }

@@ -847,7 +847,9 @@ export interface ItemPF2e {
     readonly data: ItemDataPF2e;
     readonly parent: ActorPF2e | null;
 
-    _sheet: ItemSheetPF2e<this>;
+    _sheet: ItemSheetPF2e<this> | null;
+
+    get sheet(): ItemSheetPF2e<this>;
 
     getFlag(scope: 'core', key: 'sourceId'): string;
     getFlag(scope: 'pf2e', key: 'constructing'): true | undefined;
