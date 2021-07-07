@@ -1137,32 +1137,18 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                       (maybeLinked) =>
                           maybeLinked.fromSystem &&
                           maybeLinked.data.data.base === systemData.base &&
-                          maybeLinked.data.data.value.value === systemData.value.value,
+                          maybeLinked.value === condition.value,
                   ),
               )
             : [condition];
 
-        // Get the current canvas tokens, or create ephemeral one if none are present
-        const tokens = await (async () => {
-            const canvasTokens = this.getActiveTokens();
-            if (canvasTokens.length === 0) {
-                return [new TokenDocumentPF2e(await this.getTokenData(), { actor: this, parent: canvas.scene }).object];
-            }
-            return canvasTokens;
-        })();
-
         for await (const condition of conditionList) {
-            const data = condition.data.data;
-            const value =
-                typeof data.value.value === 'number' && data.value.isValued ? Math.max(data.value.value - 1, 0) : null;
+            const value = typeof condition.value === 'number' ? Math.max(condition.value - 1, 0) : null;
 
-            for await (const token of tokens) {
-                if (!token) continue;
-                if (value !== null && !forceRemove) {
-                    await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, value);
-                } else {
-                    await game.pf2e.ConditionManager.removeConditionFromToken(condition.id, token);
-                }
+            if (value !== null && !forceRemove) {
+                await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, value);
+            } else {
+                await game.pf2e.ConditionManager.removeConditionFromActor(condition.id, this);
             }
         }
     }
@@ -1182,15 +1168,16 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     ? Math.min(existing.value + 1, max)
                     : existing.value + 1;
             })();
-            await existing.update({ 'data.value.value': conditionValue });
+            if (conditionValue === null || conditionValue > (max ?? 0)) return;
+            await game.pf2e.ConditionManager.updateConditionValue(existing.id, this, conditionValue);
         } else if (typeof conditionSlug === 'string') {
             const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
             const conditionValue =
                 typeof conditionSource?.data.value.value === 'number' && min && max
                     ? Math.min(Math.max(min, conditionSource.data.value.value), max)
                     : null;
-            conditionSource.data.value.value &&= conditionValue;
-            await this.createEmbeddedDocuments('Item', [conditionSource]);
+            conditionSource.data.value.value = conditionValue;
+            await game.pf2e.ConditionManager.addConditionToActor(conditionSource, this);
         }
     }
 
