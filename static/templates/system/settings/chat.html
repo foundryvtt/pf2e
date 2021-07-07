@@ -1,0 +1,57 @@
+<form class="flexcol" autocomplete="off">
+  <div class="form-group">
+    <label>{{localize 'PF2E.SETTINGS.statusEffectShowCombatMessage.name'}}</label>
+    <div class="form-fields">
+        <input type="checkbox" {{checked statusEffectShowCombatMessage.value}} name="statusEffectShowCombatMessage">
+    </div>
+    <p class="notes">{{localize 'PF2E.SETTINGS.statusEffectShowCombatMessage.hint'}}</p>
+  </div>
+  <div class="form-group">
+    <label>{{localize 'PF2E.SETTINGS.Metagame.SecretDamage.Name'}}</label>
+    <div class="form-fields">
+        <input type="checkbox" {{checked secretDamageMetagame.value}} name="secretDamageMetagame">
+    </div>
+    <p class="notes">{{localize 'PF2E.SETTINGS.Metagame.SecretDamage.Hint'}}</p>
+  </div>
+  <div class="form-group">
+    <label>{{localize 'PF2E.SETTINGS.Metagame.SecretCondition.Name'}}</label>
+    <div class="form-fields">
+        <input type="checkbox" {{checked secretConditionMetagame.value}} name="secretConditionMetagame">
+    </div>
+    <p class="notes">{{localize 'PF2E.SETTINGS.Metagame.SecretCondition.Hint'}}</p>
+  </div>
+  <div class="form-group">
+    <label>{{localize 'PF2E.SETTINGS.Metagame.ShowDC.Name'}}</label>
+    <div class="form-fields">
+          <select name="showDCMetagame">
+          {{#select showDCMetagame.value}}
+          {{#each showDCMetagame.setting.choices as |label value|}}
+          <option value="{{value}}">{{localize label}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+    </div>
+    <p class="notes">{{localize 'PF2E.SETTINGS.Metagame.ShowDC.Hint'}}</p>
+  </div>
+  <div class="form-group">
+    <label>{{localize 'PF2E.SETTINGS.Metagame.ShowResults.Name'}}</label>
+    <div class="form-fields">
+          <select name="showResultsMetagame">
+          {{#select showResultsMetagame.value}}
+          {{#each showResultsMetagame.setting.choices as |label value|}}
+          <option value="{{value}}">{{localize label}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+    </div>
+    <p class="notes">{{localize 'PF2E.SETTINGS.Metagame.ShowResults.Hint'}}</p>
+  </div>
+  <footer class="sheet-footer flexrow">
+    <button type="submit" name="submit">
+        <i class="far fa-save"></i> {{localize "Save Changes"}}
+    </button>
+    <button type="button" name="reset">
+        <i class="fas fa-undo"></i> {{localize "Reset Defaults"}}
+    </button>
+  </footer>
+</form>

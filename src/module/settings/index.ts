@@ -6,6 +6,7 @@ import { objectHasKey } from "@module/utils";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
+import { ChatSettings } from "./chat";
 
 export function registerSettings() {
     if (BUILD_MODE === "development") {
@@ -213,6 +214,16 @@ export function registerSettings() {
     });
     AutomationSettings.registerSettings();
 
+    game.settings.registerMenu("pf2e", "chat", {
+        name: "PF2E.SETTINGS.Chat.Name",
+        label: "PF2E.SETTINGS.Chat.Label",
+        hint: "PF2E.SETTINGS.Chat.Hint",
+        icon: "fas fa-comment",
+        type: ChatSettings,
+        restricted: true,
+    });
+    ChatSettings.registerSettings();
+
     game.settings.registerMenu("pf2e", "variantRules", {
         name: "PF2E.SETTINGS.Variant.Name",
         label: "PF2E.SETTINGS.Variant.Label",
@@ -243,7 +254,7 @@ export function registerSettings() {
     });
     WorldClockSettings.registerSettings();
 
-    // this section starts questionable rule settings, all of them should have a 'RAI.' at the start of their name
+    // this section starts questionable rule settings, all of them should have a "RAI." at the start of their name
     game.settings.register("pf2e", "RAI.TreatWoundsAltSkills", {
         name: "PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Name",
         hint: "PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Hint",
@@ -260,59 +271,6 @@ export function registerSettings() {
         config: true,
         default: false,
         type: Boolean,
-    });
-
-    // this section starts Metaknowledge settings, all of them should have a 'metagame.' at the start of their name
-    game.settings.register("pf2e", "metagame.secretDamage", {
-        name: "PF2E.SETTINGS.Metagame.SecretDamage.Name",
-        hint: "PF2E.SETTINGS.Metagame.SecretDamage.Hint",
-        scope: "world",
-        config: true,
-        default: false,
-        type: Boolean,
-    });
-
-    game.settings.register("pf2e", "metagame.secretCondition", {
-        name: "PF2E.SETTINGS.Metagame.SecretCondition.Name",
-        hint: "PF2E.SETTINGS.Metagame.SecretCondition.Hint",
-        scope: "world",
-        config: true,
-        default: false,
-        type: Boolean,
-    });
-
-    const metagameDcChoices = {
-        none: "PF2E.SETTINGS.Metagame.ShowDC.None",
-        gm: "PF2E.SETTINGS.Metagame.ShowDC.Gm",
-        owner: "PF2E.SETTINGS.Metagame.ShowDC.Owner",
-        all: "PF2E.SETTINGS.Metagame.ShowDC.All",
-    };
-
-    const metagameResultsChoices = {
-        none: "PF2E.SETTINGS.Metagame.ShowResults.None",
-        gm: "PF2E.SETTINGS.Metagame.ShowResults.Gm",
-        owner: "PF2E.SETTINGS.Metagame.ShowResults.Owner",
-        all: "PF2E.SETTINGS.Metagame.ShowResults.All",
-    };
-
-    game.settings.register("pf2e", "metagame.showDC", {
-        name: "PF2E.SETTINGS.Metagame.ShowDC.Name",
-        hint: "PF2E.SETTINGS.Metagame.ShowDC.Hint",
-        scope: "world",
-        config: true,
-        default: "gm",
-        type: String,
-        choices: metagameDcChoices,
-    });
-
-    game.settings.register("pf2e", "metagame.showResults", {
-        name: "PF2E.SETTINGS.Metagame.ShowResults.Name",
-        hint: "PF2E.SETTINGS.Metagame.ShowResults.Hint",
-        scope: "world",
-        config: true,
-        default: "gm",
-        type: String,
-        choices: metagameResultsChoices,
     });
 
     if (BUILD_MODE === "production") {
