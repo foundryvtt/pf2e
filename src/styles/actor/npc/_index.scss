@@ -405,6 +405,9 @@ $negative-modifer: #cc3311;
         .chat {
             margin-right: 6px;
         }
+        > a.item-control {
+            padding-left: 4px;
+        }
     }
 
     .disabled {
@@ -712,8 +715,14 @@ $negative-modifer: #cc3311;
         display: none;
     }
 
-    .expanded {
-        display: block;
+    .attack, .action {
+        .controls {
+            display: none;
+        }
+
+        &:hover .controls {
+            display: inherit;
+        }
     }
 
     .labelled-field {

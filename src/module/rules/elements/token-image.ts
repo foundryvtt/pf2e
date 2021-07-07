@@ -7,7 +7,7 @@ import { RuleElementPF2e } from '../rule-element';
  */
 export class PF2TokenImageRuleElement extends RuleElementPF2e {
     override onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
-        const value = this.ruleData.value;
+        const value = this.data.value;
 
         if (!value) {
             console.warn('PF2E | Token Image requires a non-empty value field');

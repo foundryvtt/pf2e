@@ -20,6 +20,7 @@ import { TokenDocumentPF2e } from '@module/token-document';
 import { UserPF2e } from '@module/user';
 import { isCreatureData } from './data/helpers';
 import { ConditionType } from '@item/condition/data';
+import { MigrationRunner, Migrations } from '@module/migration';
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -42,6 +43,16 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Actor.documentClasses[data.type](data, { ...ready, ...context });
         }
+    }
+
+    /** The compendium source ID of the actor **/
+    get sourceId(): string | null {
+        return this.getFlag('core', 'sourceId') ?? null;
+    }
+
+    /** The recorded schema version of this actor, updated after each data migration */
+    get schemaVersion(): number | null {
+        return this.data.data.schema.version;
     }
 
     get traits(): Set<string> {
@@ -241,7 +252,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
         // Disable (but don't save) manually-configured vision radii
         if (canvas.sight?.rulesBasedVision) {
-            this.data.token.update({ brightSight: 0, dimSight: 0, lightAngle: 360 });
+            mergeObject(this.data.token, { brightSight: 0, dimSight: 0, lightAngle: 360, sightAngle: 360 });
         }
     }
 
@@ -1126,32 +1137,18 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                       (maybeLinked) =>
                           maybeLinked.fromSystem &&
                           maybeLinked.data.data.base === systemData.base &&
-                          maybeLinked.data.data.value.value === systemData.value.value,
+                          maybeLinked.value === condition.value,
                   ),
               )
             : [condition];
 
-        // Get the current canvas tokens, or create ephemeral one if none are present
-        const tokens = await (async () => {
-            const canvasTokens = this.getActiveTokens();
-            if (canvasTokens.length === 0) {
-                return [new TokenDocumentPF2e(await this.getTokenData(), { actor: this, parent: canvas.scene }).object];
-            }
-            return canvasTokens;
-        })();
-
         for await (const condition of conditionList) {
-            const data = condition.data.data;
-            const value =
-                typeof data.value.value === 'number' && data.value.isValued ? Math.max(data.value.value - 1, 0) : null;
+            const value = typeof condition.value === 'number' ? Math.max(condition.value - 1, 0) : null;
 
-            for await (const token of tokens) {
-                if (!token) continue;
-                if (value !== null && !forceRemove) {
-                    await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, value);
-                } else {
-                    await game.pf2e.ConditionManager.removeConditionFromToken(condition.id, token);
-                }
+            if (value !== null && !forceRemove) {
+                await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, value);
+            } else {
+                await game.pf2e.ConditionManager.removeConditionFromActor(condition.id, this);
             }
         }
     }
@@ -1171,21 +1168,33 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                     ? Math.min(existing.value + 1, max)
                     : existing.value + 1;
             })();
-            await existing.update({ 'data.value.value': conditionValue });
+            if (conditionValue === null || conditionValue > (max ?? 0)) return;
+            await game.pf2e.ConditionManager.updateConditionValue(existing.id, this, conditionValue);
         } else if (typeof conditionSlug === 'string') {
             const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
             const conditionValue =
                 typeof conditionSource?.data.value.value === 'number' && min && max
                     ? Math.min(Math.max(min, conditionSource.data.value.value), max)
                     : null;
-            conditionSource.data.value.value &&= conditionValue;
-            await this.createEmbeddedDocuments('Item', [conditionSource]);
+            conditionSource.data.value.value = conditionValue;
+            await game.pf2e.ConditionManager.addConditionToActor(conditionSource, this);
         }
     }
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
+
+    /** Ensure imported actors are current on their schema version */
+    protected override async _preCreate(
+        data: PreDocumentId<this['data']['_source']>,
+        options: DocumentModificationContext,
+        user: UserPF2e,
+    ): Promise<void> {
+        await super._preCreate(data, options, user);
+        if (user.id !== game.user.id || options.parent) return;
+        await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+    }
 
     /** Fix bug in Foundry 0.8.8 where 'render = false' is not working when creating embedded documents */
     protected override _onCreateEmbeddedDocuments(
@@ -1214,9 +1223,11 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 }
 
-export interface ActorPF2e {
+export interface ActorPF2e extends Actor<TokenDocumentPF2e> {
     readonly data: ActorDataPF2e;
     _sheet: ActorSheetPF2e<ActorPF2e> | ActorSheet<ActorPF2e, ItemPF2e> | null;
+
+    get sheet(): ActorSheetPF2e<ActorPF2e> | ActorSheet<ActorPF2e, ItemPF2e>;
 
     get itemTypes(): {
         [K in ItemType]: Embedded<InstanceType<ConfigPF2e['PF2E']['Item']['documentClasses'][K]>>[];
@@ -1265,5 +1276,6 @@ export interface ActorPF2e {
     ): Embedded<ConditionPF2e>[] | Embedded<ConditionPF2e> | null;
 
     getFlag(scope: string, key: string): any;
+    getFlag(scope: 'core', key: 'sourceId'): string | undefined;
     getFlag(scope: 'pf2e', key: 'rollOptions.all.target:flatFooted'): boolean;
 }

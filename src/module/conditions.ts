@@ -279,11 +279,14 @@ export class ConditionManager {
         }
     }
 
-    private static async processConditions(token: TokenPF2e): Promise<void> {
+    private static processConditions(actor: ActorPF2e): Promise<void>;
+    private static processConditions(token: TokenPF2e): Promise<void>;
+    private static processConditions(actorOrToken: ActorPF2e | TokenPF2e): Promise<void>;
+    private static async processConditions(actorOrToken: ActorPF2e | TokenPF2e): Promise<void> {
+        const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
         const conditions =
-            token.actor?.itemTypes.condition
-                .filter((condition) => condition.fromSystem)
-                .map((condition) => condition.data) ?? [];
+            actor?.itemTypes.condition.filter((condition) => condition.fromSystem).map((condition) => condition.data) ??
+            [];
 
         // Any updates to items go here.
         const updates = new Map<string, ConditionSource>();
@@ -353,14 +356,13 @@ export class ConditionManager {
 
         // Make sure to update any items that need updating.
         if (updates.size) {
-            await token.actor?.updateEmbeddedDocuments('Item', Array.from(updates.values()));
+            await actor?.updateEmbeddedDocuments('Item', Array.from(updates.values()));
         }
 
         // Update token effects from applied conditions.
         const hudElement = canvas.tokens.hud?.element;
-        if (token.hasActiveHUD && hudElement && token.actor) {
-            await StatusEffects.updateHUD(hudElement, token.actor);
-        }
+        const tokens = actor?.getActiveTokens().filter((token) => token.hasActiveHUD) ?? [];
+        if (actor && hudElement && tokens.length > 0) await StatusEffects.updateHUD(hudElement, actor);
     }
 
     /**
@@ -398,15 +400,34 @@ export class ConditionManager {
      * @param name  A collection of conditions to retrieve modifiers from.
      * @param token The token to add the condition to.
      */
-    static async addConditionToToken(name: string | ConditionSource, token: TokenPF2e): Promise<ConditionPF2e | null> {
+    static addConditionToToken(name: string | ConditionSource, token: TokenPF2e): Promise<ConditionPF2e | null>;
+    static addConditionToToken(name: string | ConditionSource, actor: ActorPF2e): Promise<ConditionPF2e | null>;
+    static addConditionToToken(
+        name: string | ConditionSource,
+        actorOrToken: ActorPF2e | TokenPF2e,
+    ): Promise<ConditionPF2e | null>;
+    static async addConditionToToken(
+        name: string | ConditionSource,
+        actorOrToken: ActorPF2e | TokenPF2e,
+    ): Promise<ConditionPF2e | null> {
+        const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
         const conditionSource = typeof name === 'string' ? this.getCondition(name).toObject() : name;
 
-        if (token.actor) {
-            const condition = await this.createConditions(conditionSource, token.actor);
-            if (condition) this.processConditions(token);
+        if (actor) {
+            const condition = await this.createConditions(conditionSource, actor);
+            if (condition) this.processConditions(actor);
             return condition;
         }
         return null;
+    }
+
+    /**
+     * A convience alias for adding a condition to an actor
+     * @param name  A collection of conditions to retrieve modifiers from.
+     * @param actor The actor to add the condition to.
+     */
+    static async addConditionToActor(name: string | ConditionSource, actor: ActorPF2e): Promise<ConditionPF2e | null> {
+        return this.addConditionToToken(name, actor);
     }
 
     private static async createConditions(condition: ConditionSource, actor: ActorPF2e): Promise<ConditionPF2e | null> {
@@ -468,17 +489,29 @@ export class ConditionManager {
      * @param name  A collection of conditions to retrieve modifiers from.
      * @param token The token to add the condition to.
      */
-    static async removeConditionFromToken(id: string | string[], token: TokenPF2e): Promise<void> {
-        id = id instanceof Array ? id : [id];
-        if (token.actor) {
-            const deleted = await this.deleteConditions(id, token.actor);
-            if (deleted.length > 0) this.processConditions(token);
+    static removeConditionFromToken(itemId: string | string[], token: TokenPF2e): Promise<void>;
+    static removeConditionFromToken(itemId: string | string[], actor: ActorPF2e): Promise<void>;
+    static removeConditionFromToken(itemId: string | string[], actorOrToken: ActorPF2e | TokenPF2e): Promise<void>;
+    static async removeConditionFromToken(
+        itemId: string | string[],
+        actorOrToken: ActorPF2e | TokenPF2e,
+    ): Promise<void> {
+        itemId = itemId instanceof Array ? itemId : [itemId];
+        const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
+        if (actor) {
+            const deleted = await this.deleteConditions(itemId, actor);
+            if (deleted.length > 0) this.processConditions(actor);
         }
     }
 
-    private static async deleteConditions(ids: string[], actor: ActorPF2e): Promise<ConditionPF2e[]> {
+    /** A convenience alias for removing a condition from an actor */
+    static async removeConditionFromActor(itemId: string | string[], actor: ActorPF2e): Promise<void> {
+        return this.removeConditionFromToken(itemId, actor);
+    }
+
+    private static async deleteConditions(itemIds: string[], actor: ActorPF2e): Promise<ConditionPF2e[]> {
         const list: string[] = [];
-        const stack = [...ids];
+        const stack = [...itemIds];
         while (stack.length) {
             const id = stack.pop() ?? '';
             const condition = actor.itemTypes.condition.find((condition) => condition.id === id);
@@ -493,21 +526,25 @@ export class ConditionManager {
         return ConditionPF2e.deleteDocuments(list, { parent: actor });
     }
 
-    static async updateConditionValue(id: string, token: TokenPF2e, value: number) {
-        const condition = token.actor?.items.get(id);
+    static updateConditionValue(itemId: string, actor: ActorPF2e, value: number): Promise<void>;
+    static updateConditionValue(itemId: string, token: TokenPF2e, value: number): Promise<void>;
+    static updateConditionValue(itemId: string, actorOrToken: ActorPF2e | TokenPF2e, value: number): Promise<void>;
+    static async updateConditionValue(itemId: string, actorOrToken: ActorPF2e | TokenPF2e, value: number) {
+        const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
+        const condition = actor?.items.get(itemId);
 
-        if (condition instanceof ConditionPF2e && token.actor) {
+        if (condition instanceof ConditionPF2e && actor) {
             if (value === 0) {
                 // Value is zero, remove the status.
-                await this.deleteConditions([id], token.actor);
+                await this.deleteConditions([itemId], actor);
             } else {
                 // Apply new value.
                 await condition.update({ 'data.value.value': value });
                 console.debug(`PF2e System | Setting condition '${condition.name}' to ${value}.`);
             }
-        }
 
-        this.processConditions(token);
+            await this.processConditions(actor);
+        }
     }
 
     static getFlattenedConditions(items: ConditionData[]): any[] {

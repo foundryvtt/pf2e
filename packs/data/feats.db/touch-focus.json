@@ -1,0 +1,72 @@
+{
+    "_id": "w1GFspPIQ9f5MbFL",
+    "data": {
+        "actionCategory": {
+            "value": "offensive"
+        },
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": "1"
+        },
+        "description": {
+            "value": "<p>You can redirect a spell's power through you to deliver it within striking distance. If your next action is to Cast a Spell with 1 or more targets and a range farther than touch, you can change the range to touch. If the altered spell requires a spell attack roll, you gain a +2 circumstance bonus to the attack. This only allows you to touch a single target with the spell, even if the spell originally affected more than 1 target. After you Cast the Spell, you can Disarm, Shove, Trip, or Strike the target with an unarmed attack.</p>"
+        },
+        "featType": {
+            "value": "archetype"
+        },
+        "level": {
+            "value": 14
+        },
+        "location": "",
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Sixth Pillar Dedication"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "touch-focus"
+                    ]
+                },
+                "selector": "spell-attack",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Use Touch Focus",
+                "property": "flags.pf2e.rollOptions.attack-roll.touch-focus"
+            }
+        ],
+        "schema": {
+            "lastMigration": null,
+            "version": 0.642
+        },
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "archetype",
+                "manipulate",
+                "metamagic"
+            ]
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Touch Focus",
+    "type": "feat"
+}

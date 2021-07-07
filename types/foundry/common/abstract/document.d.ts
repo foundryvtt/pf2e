@@ -14,7 +14,7 @@ declare global {
                 readonly pack: string | null;
 
                 /** The base data object for this Document which persists both the original source and any derived data. */
-                readonly data: DocumentData;
+                readonly data: DocumentData<Document>;
 
                 /**
                  * A collection of Application instances which should be re-rendered whenever this Document experiences an update to
@@ -193,11 +193,10 @@ declare global {
                  * const actor = await pack.getDocument(documentId);
                  * const updated = await Actor.updateDocuments([{_id: actor.id, name: "New Name"}], {pack: "mymodule.mypack"});
                  */
-                static updateDocuments<T extends Document>(
-                    this: ConstructorOf<T>,
-                    updates?: DocumentUpdateData<T>[],
+                static updateDocuments(
+                    updates?: DocumentUpdateData<Document>[],
                     context?: DocumentModificationContext,
-                ): Promise<T[]>;
+                ): Promise<Document[]>;
 
                 /**
                  * Delete one or multiple existing Documents using an array of provided ids.

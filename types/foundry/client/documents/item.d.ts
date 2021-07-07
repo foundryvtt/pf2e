@@ -22,7 +22,7 @@ declare global {
          * Return an array of the Active Effect instances which originated from this Item.
          * The returned instances are the ActiveEffect instances which exist on the Item itself.
          */
-        get transferredEffects(): CollectionValue<this['effects']>[];
+        get transferredEffects(): CollectionValue<this['data']['effects']>[];
 
         /** A convenience reference to the item type (data.type) of this Item */
         get type(): string;
@@ -47,8 +47,12 @@ declare global {
 
     interface Item<TParent extends Actor = Actor> {
         readonly data: foundry.data.ItemData<Item, ActiveEffect>;
+
         readonly parent: TParent | null;
-        _sheet: ItemSheet<Item>;
+
+        _sheet: ItemSheet<Item> | null;
+
+        get sheet(): ItemSheet<Item>;
 
         getFlag(scope: string, key: string): any;
         getFlag(scope: 'core', key: 'sourceId'): string | undefined;

@@ -1,0 +1,91 @@
+{
+    "_id": "P80mwvCAEncR2snK",
+    "data": {
+        "description": {
+            "value": "<p>@Compendium[pf2e.feats-srd.Six Pillars Stance]{Six Pillars Stance}</p>\n<p><strong>Requirements</strong> You are unarmored.</p>\n<p>You stand firm, steeling your mind and body, allowing you to use your magic unperturbed. While in this stance, you gain a +4 circumstance bonus to AC against reactions triggered by using actions with the concentrate or manipulate traits. In addition, when you cast a spell that requires one or more actions while in this stance, your unarmed Strikes gain a +1 circumstance bonus to damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Guarding against reactions",
+                "property": "flags.pf2e.rollOptions.all.vs-reaction"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Six Pillars vs. reactions",
+                "predicate": {
+                    "all": [
+                        "vs-reaction"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "name": "six-pillars-damage",
+                "predicate": {
+                    "all": [
+                        "unarmed",
+                        "sp-cast-spell"
+                    ]
+                },
+                "selector": "damage",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Casting a 1+ action spell",
+                "property": "flags.pf2e.rollOptions.damage-roll.sp-cast-spell"
+            }
+        ],
+        "schema": {
+            "lastMigration": {
+                "datetime": "2021-07-06T17:33:13.415-06:00",
+                "version": {
+                    "foundry": "0.8.8",
+                    "schema": null,
+                    "system": "2.7.1"
+                }
+            },
+            "version": 0.642
+        },
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Stance: Six Pillars Stance",
+    "type": "effect"
+}

@@ -16,7 +16,7 @@ import characterJSON from '../../packs/data/iconics.db/amiri-level-1.json';
 import armorJSON from '../../packs/data/equipment.db/scale-mail.json';
 import { ArmorData } from '@item/data';
 import { FoundryUtils } from 'tests/utils';
-import { FakeActors, FakeCollection, FakeEntityCollection } from 'tests/fakes/fake-collection';
+import { FakeActors, FakeCollection, FakeWorldCollection } from 'tests/fakes/fake-collection';
 import { LocalizePF2e } from '@module/system/localize';
 
 const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterData;
@@ -33,6 +33,9 @@ describe('test migration runner', () => {
     };
 
     game = {
+        data: {
+            version: '3.2.1',
+        },
         settings: {
             get<K extends keyof typeof settings>(_context: string, key: K): typeof settings[K] {
                 return settings[key];
@@ -49,13 +52,13 @@ describe('test migration runner', () => {
         },
         actors: new FakeActors(),
         i18n: { format: (stringId: string, data: object): string => {} },
-        items: new FakeEntityCollection<FakeItem>(),
-        macros: new FakeEntityCollection<FakeMacro>(),
-        messages: new FakeEntityCollection<FakeChatMessage>(),
-        tables: new FakeEntityCollection<FakeRollTable>(),
-        users: new FakeEntityCollection<FakeUser>(),
+        items: new FakeWorldCollection<FakeItem>(),
+        macros: new FakeWorldCollection<FakeMacro>(),
+        messages: new FakeWorldCollection<FakeChatMessage>(),
+        tables: new FakeWorldCollection<FakeRollTable>(),
+        users: new FakeWorldCollection<FakeUser>(),
         packs: new FakeCollection(),
-        scenes: new FakeEntityCollection<FakeScene>(),
+        scenes: new FakeWorldCollection<FakeScene>(),
     };
 
     (global as any).ui = {
@@ -166,7 +169,7 @@ describe('test migration runner', () => {
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
         await migrationRunner.runMigration();
-        expect(game.scenes.entities[0].data.tokens[0].actorData.name).toEqual('updated');
+        expect(game.scenes.contents[0].data.tokens[0].actorData.name).toEqual('updated');
     });
 
     test('update world actor item', async () => {
@@ -240,7 +243,12 @@ describe('test migration runner', () => {
             actor.items.push({
                 name: 'sample item',
                 type: 'melee',
-                data: {},
+                data: {
+                    schema: {
+                        version: null,
+                        lastMigration: null,
+                    },
+                },
             });
         }
     }
@@ -274,7 +282,7 @@ describe('test migration runner', () => {
         characterData._id = 'actor1';
         game.actors.clear();
         game.actors.set(characterData._id, new FakeActor(characterData));
-        game.actors.entities[0]._data.items = [];
+        game.actors.contents[0]._data.items = [];
 
         const scene = new FakeScene({});
         scene.addToken({
@@ -283,11 +291,11 @@ describe('test migration runner', () => {
             actorData: { name: 'original' },
             actorLink: false,
         });
-        game.scenes.entities.push(scene);
+        game.scenes.contents.push(scene);
 
         const migrationRunner = new MigrationRunner([new AddItemToActor(), new SetActorPropertyToAddedItem()]);
         await migrationRunner.runMigration();
-        expect(game.actors.entities[0]._data.data.sampleItemId).toEqual('item2');
+        expect(game.actors.contents[0]._data.data.sampleItemId).toEqual('item2');
     });
 
     test('expect free migration function gets called', async () => {

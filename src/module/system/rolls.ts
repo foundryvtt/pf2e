@@ -15,7 +15,7 @@ export interface RollDataPF2e extends RollData {
 /** Possible parameters of a RollFunction */
 export interface RollParameters {
     /** The triggering event */
-    event?: JQuery.Event;
+    event?: JQuery.TriggeredEvent;
     /** Any options which should be used in the roll. */
     options?: string[];
     /** Optional DC data for the roll */
@@ -244,7 +244,7 @@ export class DamageRollPF2e {
      * @param callback
      */
     static roll(damage: DamageTemplate, context: any = {}, _event: JQuery.Event | undefined, callback?: Function) {
-        if (context?.options?.length > 0) {
+        if (context.options?.length > 0) {
             // change default roll mode to blind GM roll if the 'secret' option is specified
             if (context.options.map((o: string) => o.toLowerCase()).includes('secret')) {
                 context.secret = true;

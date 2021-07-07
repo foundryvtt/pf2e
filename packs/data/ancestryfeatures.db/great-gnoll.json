@@ -1,0 +1,92 @@
+{
+    "_id": "SqEcb1c3yeoJMxm0",
+    "data": {
+        "actionCategory": {
+            "value": "interaction"
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "value": "<p>You’re a large, powerful gnoll, with tawny fur and brown spots on your hide. You gain 10 Hit Points from your ancestry instead of 8 and gain a +1 circumstance bonus to Athletics checks to Shove or Trip foes.</p>"
+        },
+        "featType": {
+            "value": "ancestry"
+        },
+        "level": {
+            "value": 1
+        },
+        "location": "",
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Great Gnoll",
+                "predicate": {
+                    "any": [
+                        "action:shove",
+                        "action:trip"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "schema": {
+            "lastMigration": {
+                "datetime": "2021-07-07T05:29:24.456-06:00",
+                "version": {
+                    "foundry": "0.8.8",
+                    "schema": null,
+                    "system": "2.7.1"
+                }
+            },
+            "version": 0.642
+        },
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "gnoll",
+                "heritage"
+            ]
+        }
+    },
+    "effects": [
+        {
+            "_id": "Wmxx7XqhRpzkCIVk",
+            "changes": [
+                {
+                    "key": "data.attributes.ancestryhp",
+                    "mode": 5,
+                    "value": "10"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/default-icons/feat.svg",
+            "label": "Great Gnoll",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "name": "Great Gnoll",
+    "type": "feat"
+}

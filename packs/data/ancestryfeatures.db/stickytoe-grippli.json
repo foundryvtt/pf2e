@@ -1,0 +1,97 @@
+{
+    "_id": "rFdVYKtHsZzRCsSd",
+    "data": {
+        "actionCategory": {
+            "value": "interaction"
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "value": "<p>Your hands and feet exude a film that helps them adhere to surfaces. You gain a +2 circumstance bonus to your Fortitude and Reflex DC against attempts to Disarm, Shove, or Trip you. When ascending trees, vines, and other foliage, if you roll a success on the Athletics check to Climb, you get a critical success instead.</p>"
+        },
+        "featType": {
+            "value": "heritage"
+        },
+        "level": {
+            "value": 1
+        },
+        "location": "",
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "any": [
+                        "action:disarm",
+                        "action:shove",
+                        "action:trip"
+                    ]
+                },
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "any": [
+                        "action:disarm",
+                        "action:shove",
+                        "action:trip"
+                    ]
+                },
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "action:climb"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "skill"
+            }
+        ],
+        "schema": {
+            "lastMigration": {
+                "datetime": "2021-07-07T05:30:00.282-06:00",
+                "version": {
+                    "foundry": "0.8.8",
+                    "schema": null,
+                    "system": "2.7.1"
+                }
+            },
+            "version": 0.642
+        },
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "grippli",
+                "heritage"
+            ]
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "name": "Stickytoe Grippli",
+    "type": "feat"
+}

@@ -21,6 +21,8 @@ import { NPCSystemData } from '@actor/npc/data';
 import { HazardSystemData } from '@actor/hazard/data';
 import { CheckPF2e } from '@system/rolls';
 import { ItemTrait } from './data/base';
+import { UserPF2e } from '@module/user';
+import { MigrationRunner, Migrations } from '@module/migration';
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -49,8 +51,13 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** The compendium source ID of the item **/
-    get sourceId() {
-        return this.getFlag('core', 'sourceId');
+    get sourceId(): string | null {
+        return this.getFlag('core', 'sourceId') ?? null;
+    }
+
+    /** The recorded schema version of this item, updated after each data migration */
+    get schemaVersion(): number | null {
+        return this.data.data.schema.version;
     }
 
     get traits(): Set<ItemTrait> {
@@ -518,13 +525,13 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollSpellAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
-        const itemData = deepClone(this.data);
-        if (itemData.type !== 'spell') throw new Error('Wrong item type!');
+        if (this.data.type !== 'spell') throw new Error('Wrong item type!');
+        const itemData = this.data.toObject(false);
 
         // Prepare roll data
         const trickMagicItemData = itemData.data.trickMagicItemData;
         const systemData = itemData.data;
-        const rollData = duplicate(this.actor.data.data);
+        const rollData = deepClone(this.actor.data.data);
         const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
             (entry) => entry.id === systemData.location.value,
         )?.data;
@@ -544,7 +551,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
             if (multiAttackPenalty > 1) {
                 modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
             }
-            spellcastingEntry.data.attack.roll({ event, options, modifiers });
+            spellcastingEntry.data.attack.roll({ event, item: this, options, modifiers });
         } else {
             const spellAttack = useTrickData
                 ? trickMagicItemData?.data.spelldc.value
@@ -566,6 +573,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
             // Call the roll helper utility
             DicePF2e.d20Roll({
                 event,
+                item: this,
                 parts,
                 data: rollData,
                 rollType: 'attack-roll',
@@ -641,6 +649,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         // Call the roll helper utility
         DicePF2e.damageRoll({
             event,
+            item: this,
             parts,
             data: rollData,
             actor: this.actor,
@@ -767,6 +776,18 @@ export class ItemPF2e extends Item<ActorPF2e> {
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
+    /** Ensure imported items are current on their schema version */
+    protected override async _preCreate(
+        data: PreDocumentId<this['data']['_source']>,
+        options: DocumentModificationContext,
+        user: UserPF2e,
+    ): Promise<void> {
+        await super._preCreate(data, options, user);
+        if (user.id !== game.user.id || options.parent) return;
+        await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+    }
+
+    /** Call onDelete rule-element hooks, refresh effects panel */
     protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
         if (this.actor) {
             // Rule Elements
@@ -786,6 +807,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         super._onCreate(data, options, userId);
     }
 
+    /** Refresh the effect panel */
     protected override _onUpdate(
         changed: DeepPartial<this['data']['_source']>,
         options: DocumentModificationContext,
@@ -798,6 +820,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         super._onUpdate(changed, options, userId);
     }
 
+    /** Call onDelete rule-element hooks */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
         if (this.isOwned) {
             if (this.actor) {
@@ -826,7 +849,9 @@ export interface ItemPF2e {
     readonly data: ItemDataPF2e;
     readonly parent: ActorPF2e | null;
 
-    _sheet: ItemSheetPF2e<this>;
+    _sheet: ItemSheetPF2e<this> | null;
+
+    get sheet(): ItemSheetPF2e<this>;
 
     getFlag(scope: 'core', key: 'sourceId'): string;
     getFlag(scope: 'pf2e', key: 'constructing'): true | undefined;

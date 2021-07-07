@@ -4,7 +4,7 @@ import { FeatTrait } from '@item/feat/data';
 import { SpellTrait } from '@item/spell/data';
 import type { ActiveEffectPF2e } from '@module/active-effect';
 import { RuleElementData } from '@module/rules/rules-data-definitions';
-import { Rarity, ValuesList } from '@module/data';
+import { DocumentSchemaRecord, Rarity, ValuesList } from '@module/data';
 import { ItemType } from '.';
 import { PhysicalItemTrait } from '../physical/data';
 
@@ -61,4 +61,5 @@ export interface ItemSystemData {
     };
     rules: RuleElementData[];
     slug: string | null;
+    schema: DocumentSchemaRecord;
 }

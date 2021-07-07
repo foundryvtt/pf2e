@@ -96,11 +96,6 @@
                         "value": 1
                     }
                 },
-                "schema": {
-                    "version": {
-                        "value": ""
-                    }
-                },
                 "traits": {
                     "size": {
                         "value": "med"
@@ -122,6 +117,10 @@
                     "dr": [],
                     "dv": [],
                     "ci": []
+                },
+                "schema": {
+                    "version": null,
+                    "lastMigration": null
                 }
             }
         },
@@ -438,11 +437,6 @@
                 "routine": ""
             },
             "statusEffects": [],
-            "schema": {
-                "version": {
-                    "value": ""
-                }
-            },
             "traits": {
                 "rarity": {
                     "value": "common"
@@ -543,6 +537,10 @@
                     "value": [],
                     "custom": ""
                 }
+            },
+            "schema": {
+                "version": null,
+                "lastMigration": null
             }
         },
         "vehicle": {
@@ -605,6 +603,10 @@
                 "dr": [],
                 "dv": [],
                 "ci": []
+            },
+            "schema": {
+                "version": null,
+                "lastMigration": null
             }
         }
     },
@@ -631,7 +633,7 @@
             "effect"
         ],
         "templates": {
-            "itemDescription": {
+            "common": {
                 "description": {
                     "value": ""
                 },
@@ -646,7 +648,11 @@
                     "custom": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "schema": {
+                    "version": null,
+                    "lastMigration": null
+                }
             },
             "physicalItem": {
                 "quantity": {
@@ -782,7 +788,7 @@
         },
         "backpack": {
             "templates": [
-                "itemDescription",
+                "common",
                 "physicalItem",
                 "itemLevel"
             ],
@@ -803,7 +809,7 @@
         },
         "treasure": {
             "templates": [
-                "itemDescription",
+                "common",
                 "physicalItem",
                 "itemLevel"
             ],
@@ -816,7 +822,7 @@
         },
         "weapon": {
             "templates": [
-                "itemDescription",
+                "common",
                 "physicalItem",
                 "itemLevel",
                 "magicItem"
@@ -894,7 +900,7 @@
         },
         "armor": {
             "templates": [
-                "itemDescription",
+                "common",
                 "physicalItem",
                 "itemLevel",
                 "magicItem"
@@ -944,7 +950,7 @@
         },
         "melee": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "weaponType": {
                 "value": "melee"
@@ -962,7 +968,7 @@
         },
         "consumable": {
             "templates": [
-                "itemDescription",
+                "common",
                 "physicalItem",
                 "activatedEffect",
                 "itemLevel"
@@ -1004,7 +1010,7 @@
         },
         "equipment": {
             "templates": [
-                "itemDescription",
+                "common",
                 "physicalItem",
                 "magicItem",
                 "itemLevel"
@@ -1015,7 +1021,7 @@
         },
         "ancestry": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "hp": 6,
             "size": "med",
@@ -1043,7 +1049,7 @@
         },
         "background": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "boosts": {
                 "0": { "value": [] },
@@ -1057,7 +1063,7 @@
         },
         "class": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "keyAbility": { "value": [] },
             "items": {},
@@ -1095,7 +1101,7 @@
         },
         "feat": {
             "templates": [
-                "itemDescription",
+                "common",
                 "itemLevel"
             ],
             "featType": {
@@ -1117,7 +1123,7 @@
         },
         "lore": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "mod": {
                 "value": 0
@@ -1129,7 +1135,7 @@
         "martial": {},
         "action": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "actionType": {
                 "value": ""
@@ -1152,7 +1158,7 @@
         },
         "spell": {
             "templates": [
-                "itemDescription",
+                "common",
                 "itemLevel"
             ],
             "spellType": {
@@ -1229,7 +1235,7 @@
         },
         "spellcastingEntry": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "ability": {
                 "value": ""
@@ -1327,13 +1333,13 @@
         },
         "kit": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "items": {}
         },
         "condition": {
             "templates": [
-                "itemDescription",
+                "common",
                 "status"
             ],
             "base": "",
@@ -1356,7 +1362,7 @@
         },
         "effect": {
             "templates": [
-                "itemDescription"
+                "common"
             ],
             "level": {
                 "value": 1

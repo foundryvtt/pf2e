@@ -8,10 +8,9 @@
                     <div class="bar" style="width: {{percentage data.attributes.hp.value data.attributes.hp.max}}%;"></div>
                 </div>
             </div>
-            <h4 class="plaque">{{localize 'PF2E.SidebarAppearanceLabel'}}</h4>
+            <h4 class="plaque">{{localize "PF2E.SidebarAppearanceLabel"}}</h4>
             <ul class="stats">
-                {{#if data.details.ancestry.value}}<li>{{data.details.ancestry.value}}</li>{{/if}}
-                {{#if data.details.gender.value}}<li>{{data.details.gender.value}}</li>{{/if}}
+                {{#if data.details.ethnicity.value}}<li>{{data.details.ethnicity.value}}</li>{{/if}}
                 {{#if data.details.height.value}}<li>{{data.details.height.value}}</li>{{/if}}
                 {{#if data.details.weight.value}}<li>{{data.details.weight.value}}</li>{{/if}}
             </ul>
@@ -20,7 +19,11 @@
 
     <header class="char-header">
         <div class="char-details">
-            <h1 class="char-name"><span class="non-editable">{{actor.name}}</span></h1>
+            <h1 class="char-name">
+                <span class="non-editable name">{{actor.name}}</span>
+                <span class="non-editable gender">({{#if data.details.gender.value}}{{data.details.gender.value}}){{/if}}
+            </h1>
+            {{#if (and ancestry class)}}<h2 class="non-editable ancestry-class">{{localize "PF2E.Actor.Character.AncestryClass" ancestry=ancestry.name class=class.name}}</h2>{{/if}}
         </div>
     </header>
 

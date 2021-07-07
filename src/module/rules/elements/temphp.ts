@@ -8,7 +8,7 @@ import { RuleElementPF2e } from '../rule-element';
 export class PF2TempHPRuleElement extends RuleElementPF2e {
     override onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any) {
         const updatedActorData = mergeObject(actorData, actorUpdates, { inplace: false });
-        const value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, updatedActorData);
+        const value = this.resolveValue(this.data.value);
 
         if (!value) {
             console.warn('PF2E | Temporary HP requires a non-zero value field or a formula field');

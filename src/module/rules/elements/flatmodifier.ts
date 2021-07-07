@@ -12,32 +12,24 @@ export class PF2FlatModifierRuleElement extends RuleElementPF2e {
         actorData: CharacterData | NPCData,
         { statisticsModifiers }: RuleElementSyntheticsPF2e,
     ) {
-        const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
-        const label = super.getDefaultLabel(this.ruleData, this.item);
-        const resolvedValue = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
-        const value = Math.clamped(
-            resolvedValue,
-            this.ruleData.min ?? resolvedValue,
-            this.ruleData.max ?? resolvedValue,
-        );
+        const selector = this.resolveInjectedProperties(this.data.selector);
+        const label = this.getDefaultLabel();
+        const resolvedValue = this.resolveValue(this.data.value);
+        const value = Math.clamped(resolvedValue, this.data.min ?? resolvedValue, this.data.max ?? resolvedValue);
         if (selector && label && value) {
-            const modifier = new ModifierPF2e(
-                this.ruleData.name ?? label,
-                value,
-                this.ruleData.type ?? MODIFIER_TYPE.UNTYPED,
-            );
+            const modifier = new ModifierPF2e(this.data.name ?? label, value, this.data.type ?? MODIFIER_TYPE.UNTYPED);
             modifier.label = label;
-            if (this.ruleData.damageType) {
-                modifier.damageType = this.ruleData.damageType;
+            if (this.data.damageType) {
+                modifier.damageType = this.data.damageType;
             }
-            if (this.ruleData.damageCategory) {
-                modifier.damageCategory = this.ruleData.damageCategory;
+            if (this.data.damageCategory) {
+                modifier.damageCategory = this.data.damageCategory;
             }
-            if (this.ruleData.predicate) {
-                modifier.predicate = new ModifierPredicate(this.ruleData.predicate);
+            if (this.data.predicate) {
+                modifier.predicate = new ModifierPredicate(this.data.predicate);
                 modifier.ignored = !ModifierPredicate.test(
                     modifier.predicate,
-                    ActorPF2e.getRollOptions(actorData.flags, this.ruleData['roll-options'] ?? []),
+                    ActorPF2e.getRollOptions(actorData.flags, this.data['roll-options'] ?? []),
                 );
             }
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
@@ -46,10 +38,22 @@ export class PF2FlatModifierRuleElement extends RuleElementPF2e {
         } else if (CONFIG.debug.ruleElement) {
             console.warn(
                 'PF2E | Flat modifier requires at least a selector field, a label field or item name, and a value field',
-                this.ruleData,
+                this.data,
                 this.item,
                 actorData,
             );
         }
     }
+}
+
+export interface PF2FlatModifierRuleElement {
+    data: RuleElementPF2e['data'] & {
+        name?: string;
+        min?: number;
+        max?: number;
+        type?: string;
+        damageType?: string;
+        damageCategory?: string;
+        'roll-options'?: string[];
+    };
 }

@@ -1,7 +1,7 @@
 import { ItemPF2e } from '@item/base';
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/physical/bulk';
 import { getContainerMap } from '@item/container/helpers';
-import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, SpellData, WeaponData } from '@item/data';
+import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, WeaponData } from '@item/data';
 import { calculateEncumbrance } from '@item/physical/encumbrance';
 import { FeatSource } from '@item/feat/data';
 import { SpellPF2e } from '@item/spell';
@@ -122,6 +122,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get('pf2e', 'staminaVariant') > 0;
 
+        this.prepareSpellcasting(sheetData);
+
         // Return data for rendering
         return sheetData;
     }
@@ -140,18 +142,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             treasure: { label: game.i18n.localize('PF2E.InventoryTreasureHeader'), items: [] },
             backpack: { label: game.i18n.localize('PF2E.InventoryBackpackHeader'), items: [] },
         };
-
-        // Spellbook
-        // const spellbook = {};
-        const tempSpellbook: SpellData[] = [];
-        const spellcastingEntriesList: string[] = [];
-        const spellbooks: any = [];
-        spellbooks.unassigned = {};
-
-        // Spellcasting Entries
-        const spellcastingEntries: any[] = [];
-
-        let backgroundItemId = undefined;
 
         // Feats
         interface FeatSlot {
@@ -272,64 +262,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     }
                     inventory[itemData.type].items.push(itemData);
                 }
-            } else if (itemData.type === 'spell') {
-                // Spells
-                const item = this.actor.items.get(itemData._id);
-                itemData.spellInfo = item?.getChatData() ?? {};
-                tempSpellbook.push(itemData);
-            } else if (itemData.type === 'spellcastingEntry') {
-                // Spellcasting Entries
-                // collect list of entries to use later to match spells against.
-                spellcastingEntriesList.push(itemData._id);
-
-                // TODO: remove below when trick magic item has been converted to use the custom modifiers version
-                const spellRank = itemData.data.proficiency?.value || 0;
-                const spellProficiency = ProficiencyModifier.fromLevelAndRank(
-                    actorData.data.details.level.value,
-                    spellRank,
-                ).modifier;
-                const spellAbl = itemData.data.ability.value || 'int';
-                const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency;
-                if (itemData.data.spelldc.value !== spellAttack) {
-                    const updatedItem = {
-                        _id: itemData._id,
-                        data: {
-                            spelldc: {
-                                value: spellAttack,
-                                dc: spellAttack + 10,
-                                mod: actorData.data.abilities[spellAbl].mod,
-                            },
-                        },
-                    };
-                    this.actor.updateEmbeddedDocuments('Item', [updatedItem]);
-                }
-                itemData.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
-                itemData.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency})`;
-                // TODO: remove above when trick magic item has been converted to use the custom modifiers version
-
-                itemData.data.spelldc.icon = this.getProficiencyIcon(itemData.data.proficiency.value);
-                itemData.data.spelldc.hover = game.i18n.localize(
-                    CONFIG.PF2E.proficiencyLevels[itemData.data.proficiency.value],
-                );
-                itemData.data.tradition.title = game.i18n.localize(
-                    CONFIG.PF2E.magicTraditions[itemData.data.tradition.value as MagicTradition],
-                );
-                itemData.data.prepared.title = game.i18n.localize(
-                    CONFIG.PF2E.preparationType[itemData.data.prepared.value as PreparationType],
-                );
-                // Check if prepared spellcasting type and set Boolean
-                if ((itemData.data.prepared || {}).value === 'prepared') itemData.data.prepared.preparedSpells = true;
-                else itemData.data.prepared.preparedSpells = false;
-                // Check if Ritual spellcasting tradition and set Boolean
-                if ((itemData.data.tradition || {}).value === 'ritual') itemData.data.tradition.ritual = true;
-                else itemData.data.tradition.ritual = false;
-                if ((itemData.data.tradition || {}).value === 'focus') {
-                    itemData.data.tradition.focus = true;
-                    if (itemData.data.focus === undefined) itemData.data.focus = { points: 1, pool: 1 };
-                    itemData.data.focus.icon = this.getFocusIcon(itemData.data.focus);
-                } else itemData.data.tradition.focus = false;
-
-                spellcastingEntries.push(itemData);
             }
 
             // Feats
@@ -426,11 +358,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
             }
 
-            // background
-            else if (itemData.type === 'background') {
-                backgroundItemId = itemData._id;
-            }
-
             // class
             else if (itemData.type === 'class') {
                 const classItem = itemData as ClassData;
@@ -461,46 +388,15 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        if (backgroundItemId !== undefined) {
+        const background = this.actor.background;
+        if (background && Object.keys(background.data.data.items).length > 0) {
             featSlots.skill.feats.unshift({
-                id: backgroundItemId,
+                id: background.id,
                 level: game.i18n.localize('PF2E.FeatBackgroundShort'),
             });
         }
 
         inventory.equipment.investedItemCount = investedCount; // Tracking invested items
-
-        const updateData: EmbeddedDocumentUpdateData<ItemPF2e>[] = [];
-        // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.
-        for (const spellData of tempSpellbook) {
-            // check if the spell has a valid spellcasting entry assigned to the location value.
-            if (spellcastingEntriesList.includes(spellData.data.location.value)) {
-                const location = spellData.data.location.value;
-                spellbooks[location] = spellbooks[location] || {};
-                this.prepareSpell(actorData, spellbooks[location], spellData);
-            } else if (spellcastingEntriesList.length === 1) {
-                // if not BUT their is only one spellcasting entry then assign the spell to this entry.
-                const location = spellcastingEntriesList[0];
-                spellbooks[location] = spellbooks[location] || {};
-
-                // Update spell to perminantly have the correct ID now
-                updateData.push({ _id: spellData._id, 'data.location.value': spellcastingEntriesList[0] });
-
-                this.prepareSpell(actorData, spellbooks[location], spellData);
-            } else {
-                // else throw it in the orphaned list.
-                this.prepareSpell(actorData, spellbooks.unassigned, spellData);
-            }
-        }
-
-        // Update all embedded entities that have an incorrect location.
-        if (updateData.length > 0) {
-            console.log(
-                'PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ',
-                updateData,
-            );
-            this.actor.updateEmbeddedDocuments('Item', updateData);
-        }
 
         // put the feats in their feat slots
         const allFeatSlots = Object.values(featSlots).flatMap((slot) => slot.feats);
@@ -548,11 +444,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Assign and return
         actorData.inventory = inventory;
-        // Any spells found that don't belong to a spellcasting entry are added to a "orphaned spells" spell book (allowing the player to fix where they should go)
-        if (Object.keys(spellbooks.unassigned).length) {
-            actorData.orphanedSpells = true;
-            actorData.orphanedSpellbook = spellbooks.unassigned;
-        }
 
         actorData.featSlots = featSlots;
         actorData.pfsBoons = pfsBoons;
@@ -562,16 +453,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.readonlyActions = readonlyActions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
-
-        for (const entry of spellcastingEntries) {
-            // TODO: this if statement's codepath does not appear to ever be used. Consider removing after verifying more thoroughly
-            if (entry.data.prepared.preparedSpells && spellbooks[entry._id]) {
-                this.preparedSpellSlots(entry, spellbooks[entry._id]);
-            }
-            entry.spellbook = spellbooks[entry._id];
-        }
-
-        actorData.spellcastingEntries = spellcastingEntries;
 
         // shield
         const equippedShield = this.actor.heldShield?.data;
@@ -637,6 +518,64 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             bulk,
             actorData.data?.traits?.size?.value ?? 'med',
         );
+    }
+
+    protected prepareSpellcasting(sheetData: any) {
+        sheetData.spellcastingEntries = [];
+
+        for (const itemData of sheetData.items) {
+            if (itemData.type === 'spellcastingEntry') {
+                const entry = this.actor.items.get(itemData._id);
+                if (!(entry instanceof SpellcastingEntryPF2e)) {
+                    continue;
+                }
+
+                // TODO: remove below when trick magic item has been converted to use the custom modifiers version
+                const spellRank = itemData.data.proficiency?.value || 0;
+                const spellProficiency = ProficiencyModifier.fromLevelAndRank(this.actor.level, spellRank).modifier;
+                const abilityMod = this.actor.getAbilityMod(entry.ability);
+                const spellAttack = abilityMod + spellProficiency;
+                if (itemData.data.spelldc.value !== spellAttack) {
+                    const updatedItem = {
+                        _id: itemData._id,
+                        data: {
+                            spelldc: {
+                                value: spellAttack,
+                                dc: spellAttack + 10,
+                                mod: abilityMod,
+                            },
+                        },
+                    };
+                    this.actor.updateEmbeddedDocuments('Item', [updatedItem]);
+                }
+                itemData.data.spelldc.mod = abilityMod;
+                itemData.data.spelldc.breakdown = `10 + ${entry.ability} modifier(${abilityMod}) + proficiency(${spellProficiency})`;
+                // TODO: remove above when trick magic item has been converted to use the custom modifiers version
+
+                itemData.data.spelldc.icon = this.getProficiencyIcon(itemData.data.proficiency.value);
+                itemData.data.spelldc.hover = game.i18n.localize(
+                    CONFIG.PF2E.proficiencyLevels[itemData.data.proficiency.value],
+                );
+                itemData.data.tradition.title = game.i18n.localize(
+                    CONFIG.PF2E.magicTraditions[itemData.data.tradition.value as MagicTradition],
+                );
+                itemData.data.prepared.title = game.i18n.localize(
+                    CONFIG.PF2E.preparationType[itemData.data.prepared.value as PreparationType],
+                );
+
+                if ((itemData.data.tradition || {}).value === 'focus') {
+                    itemData.data.tradition.focus = true;
+                    if (itemData.data.focus === undefined) itemData.data.focus = { points: 1, pool: 1 };
+                    itemData.data.focus.icon = this.getFocusIcon(itemData.data.focus);
+                } else itemData.data.tradition.focus = false;
+
+                sheetData.spellcastingEntries.push({
+                    eid: sheetData.spellcastingEntries.length,
+                    ...itemData,
+                    ...entry.getSpellData(),
+                });
+            }
+        }
     }
 
     /* -------------------------------------------- */

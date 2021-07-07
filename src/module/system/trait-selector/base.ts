@@ -2,7 +2,7 @@ import { ActorPF2e } from '@actor/index';
 import { ItemPF2e } from '@item/index';
 import { SelectableTagField, TagSelectorOptions } from './index';
 
-export abstract class TraitSelectorBase<
+export abstract class TagSelectorBase<
     EntityType extends ActorPF2e | ItemPF2e = ActorPF2e | ItemPF2e,
 > extends FormApplication<EntityType> {
     choices: Record<string, string>;
@@ -38,21 +38,18 @@ export abstract class TraitSelectorBase<
         return this.sortChoices(choices);
     }
 
-    /** Sort and localize choices */
+    /** Localize and sort choices */
     protected sortChoices(choices: Record<string, string>): Record<string, string> {
-        const sorted: Record<string, string> = {};
-        Object.keys(choices)
-            .sort((a, b) => {
-                return choices[a].localeCompare(choices[b]);
-            })
-            .forEach((key) => {
-                sorted[key] = game.i18n.localize(choices[key]);
-            });
-
-        return sorted;
+        return Object.entries(choices)
+            .map(([key, value]) => [key, game.i18n.localize(value)])
+            .sort(([_keyA, valueA], [_keyB, valueB]) => valueA.localeCompare(valueB))
+            .reduce(
+                (accumulated: Record<string, string>, [key, value]) => mergeObject(accumulated, { [key]: value }),
+                {},
+            );
     }
 }
 
-export interface TraitSelectorBase {
+export interface TagSelectorBase {
     options: TagSelectorOptions;
 }

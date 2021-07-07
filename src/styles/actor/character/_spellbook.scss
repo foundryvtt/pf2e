@@ -1,545 +1,241 @@
 .spellbook {
-    .directory-list {
-        .directory-list {
-            .item-name {
-                h3 {
-                    color: var(--sub);
-                    border: var(--sub);
-                    padding: 4px 0;
+    .spellcasting-entry {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        background: none;
+        border: none;
+
+        &.item-container {
+            margin-bottom: 0.5em;
+        }
+
+        &:first-child {
+            .action-header {
+                margin-top: 0;
+            }
+        }
+
+        .action-header {
+            background: var(--primary);
+            width: 100%;
+            flex-basis: 100%;
+            position: relative;
+            z-index: 2;
+            padding: 0 1em;
+            border-radius: 0.25em;
+            box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%), inset 0 0 0 2px rgb(255 255 255 / 20%);
+            cursor: pointer;
+
+            .prepared-toggle {
+                flex-basis: 0;
+                color: white;
+                margin-right: 0.25em;
+                padding-top: 0.25em;
+            }
+
+            .item-controls {
+                color: white;
+                text-transform: uppercase;
+                font-size: 0.7em;
+                letter-spacing: 0.05em;
+                font-family: $sans-serif;
+
+                .spellcasting-remove {
+                    white-space: nowrap;
                 }
             }
-            .item {
-                justify-content: center;
-                background: rgba(black, 0.1);
-                border: 1px solid var(--sub);
-                margin: 4px;
-                cursor: pointer;
-                &:first-child {
-                    background: none;
-                    margin-top: 8px;
-                    border: none;
-                    cursor: default;
-                }
 
-                h5 {
-                    @include p-reset;
-                    padding: 8px;
+            h3 {
+                justify-self: flex-start;
+
+                input.item-name-input {
+                    color: white;
+                    max-width: 80%;
+                    font-weight: 500;
                 }
             }
         }
-        .item {
+
+        .skills-list {
+            @include p-reset;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-evenly;
             align-items: center;
-            background: none;
-            border: none;
+            flex: 1;
+            justify-content: space-between;
+            margin: 0.5em 0;
 
-            &.item-container {
-                margin-bottom: 0.5em;
-            }
+            .skill-grid {
+                @include flex-center;
+                gap: 1em;
+                padding-top: 2px;
 
-            &:first-child {
-                .action-header {
-                    margin-top: 0;
-                }
-            }
-
-            .action-header {
-                background: var(--primary);
-                width: 100%;
-                flex-basis: 100%;
-                position: relative;
-                z-index: 2;
-                padding: 0 1em;
-                border-radius: 0.25em;
-                box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%), inset 0 0 0 2px rgb(255 255 255 / 20%);
-                cursor: pointer;
-
-                .prepared-toggle {
-                    flex-basis: 0;
-                    color: white;
-                    margin-right: 0.25em;
-                    padding-top: 0.25em;
-                }
-
-                .item-controls {
-                    color: white;
-                    text-transform: uppercase;
-                    font-size: 0.7em;
-                    letter-spacing: 0.05em;
-                    font-family: $sans-serif;
-
-                    .spellcasting-remove {
-                        white-space: nowrap;
-                    }
-                }
-
-                h3 {
-                    justify-self: flex-start;
-
-                    input.item-name-input {
-                        color: white;
-                        max-width: 80%;
-                        font-weight: 500;
-                    }
-                }
-            }
-
-            .skills-list {
-                display: flex;
-                align-items: center;
-                flex: 1;
-                justify-content: space-between;
-                @include p-reset;
-                margin: 0.5em 0;
-
-                .skill-grid {
+                .skill-data {
                     @include flex-center;
-                    gap: 1em;
-                    padding-top: 2px;
-
-                    .skill-data {
-                        @include flex-center;
-                    }
-
-                    .rollable {
-                        cursor: pointer;
-                    }
-
-                    h4.rollable {
-                        margin-right: 1em;
-                    }
-
-                    .skill-score {
-                        font-family: $serif;
-                        font-weight: bold;
-                        font-size: 1rem;
-                        letter-spacing: -1px;
-                        line-height: 1;
-                        color: var(--secondary);
-                    }
-
-                    .skill-name {
-                        margin: 0 4px;
-                        white-space: nowrap;
-                    }
-
-                    .skill-container {
-                        display: flex;
-                        flex-direction: column;
-
-                        h4 {
-                            @include micro;
-                            color: var(--secondary);
-                            font-weight: 800;
-                        }
-                        .focus-pool-input,
-                        .item-value-input {
-                            input {
-                                width: 20px;
-                                text-align: center;
-                                font-family: $serif;
-                                font-weight: 500;
-                                font-size: 18px;
-                            }
-                        }
-
-                        &.skill-proficiency,
-                        &.item-modifier {
-                            margin: 0 4px;
-                            margin-bottom: 3px;
-                        }
-
-                        &.item-modifier {
-                            h4 {
-                                margin-bottom: 1px;
-                            }
-                            input {
-                                font-size: 12px;
-                                height: 18px;
-                                border: 1px solid var(--alt);
-                            }
-                        }
-                    }
                 }
 
-                &.focus {
-                    .skill-grid {
-                        .skill-container {
-                            &.focus-points {
-                                h4 {
-                                    @include p-reset;
-                                    margin-right: 8px;
-                                    margin-bottom: 2px;
-                                }
-                            }
-                            &.focus-pool {
-                                position: relative;
-                                img.pool-size {
-                                    border: none;
-                                }
-
-                                .focus-pool-input {
-                                    position: absolute;
-                                    @include flex-center;
-                                    flex-direction: column;
-                                    left: 7px;
-                                    top: 5px;
-                                    h4,
-                                    input {
-                                        color: white;
-                                    }
-                                    h4 {
-                                        margin-bottom: 2px;
-                                    }
-                                    input {
-                                        background: none;
-                                        height: 14px;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                .rollable {
+                    cursor: pointer;
                 }
 
-                .spell-ability {
+                h4.rollable {
+                    margin-right: 1em;
+                }
+
+                .skill-score {
+                    font-family: $serif;
+                    font-weight: bold;
+                    font-size: 1rem;
+                    letter-spacing: -1px;
+                    line-height: 1;
+                    color: var(--secondary);
+                }
+
+                .skill-name {
+                    margin: 0 4px;
+                    white-space: nowrap;
+                }
+
+                .skill-container {
                     display: flex;
-                    align-items: center;
-                    gap: 0.5em;
+                    flex-direction: column;
 
                     h4 {
-                      margin-bottom: 2px;
+                        @include micro;
+                        color: var(--secondary);
+                        font-weight: 800;
                     }
-                    .pf-rank {
-                      @include micro;
-                      @include flex-center;
-                      font-weight: normal;
-                      background: #{$rank-untrained};
-                      height: 18px;
-                      border-radius: 2px;
-                      border: 1px solid rgba(black, 0.5);
-                      padding: 4px;
-                      color: white;
-                      box-shadow: inset 0 0 0 1px rgba(white, 0.1);
-                      cursor: pointer;
+                    .focus-pool-input,
+                    .item-value-input {
+                        input {
+                            width: 20px;
+                            text-align: center;
+                            font-family: $serif;
+                            font-weight: 500;
+                            font-size: 18px;
+                        }
+                    }
 
-                      &[value="1"] { background: #{$rank-trained}; }
-                      &[value="2"] { background: #{$rank-expert}; }
-                      &[value="3"] { background: #{$rank-master}; }
-                      &[value="4"] { background: #{$rank-legendary}; }
+                    &.skill-proficiency,
+                    &.item-modifier {
+                        margin: 0 4px;
+                        margin-bottom: 3px;
+                    }
 
-                      .fas {
-                        display: none;
-                      }
+                    &.item-modifier {
+                        h4 {
+                            margin-bottom: 1px;
+                        }
+                        input {
+                            font-size: 12px;
+                            height: 18px;
+                            border: 1px solid var(--alt);
+                        }
                     }
                 }
             }
 
-            .inventory-list {
-                width: 100%;
-                flex-basis: 100%;
-                position: relative;
-                z-index: 1;
-
-                .item {
-                    @include p-reset;
-                    background: none;
-                    border: none;
-                    border-left: 1px solid var(--sub);
-                    border-right: 1px solid var(--sub);
-                    cursor: default;
-
-                    &[data-expended-state='true'] {
-                        h4 {
-                            color: rgba($body-color, 0.5);
-                            text-decoration: line-through;
-                        }
-
-                        .item-toggle-prepare {
-                            color: var(--primary);
-                        }
-                    }
-
-                    &:nth-child(odd) {
-                        background-color: rgba($alt-color, 0.1);
-                    }
-
-                    &:last-child {
-                        border-bottom: 1px solid var(--sub);
-                        .item-image {
-                            margin-bottom: 0;
-                            margin-top: 2px;
-                        }
-                    }
-
-                    &,
-                    &.inventory-header {
-                        display: grid;
-                        grid:
-                            'name school action cast control' auto
-                            'content content content content content' auto
-                            / 6fr 3fr 2fr 1fr 48px;
-                        align-items: center;
-                        justify-items: center;
-                    }
-
-                    &.inventory-header {
-                        background: rgba($sub-color, 0.25);
-                        border: 1px solid var(--sub);
-                        @include p-reset;
-                        padding: 4px;
-                        color: var(--body);
-                        font-family: $sans-serif;
-                        font-size: 8px;
-                        font-weight: 700;
-                        line-height: 1;
-                        text-transform: uppercase;
-                        letter-spacing: 0.25px;
-
-                        h3 {
-                            text-transform: capitalize;
-                            font-size: 12px;
-                            margin-left: 0;
-                            color: var(--body);
-                            &:hover {
-                                color: var(--secondary);
-                            }
-                        }
-
-                        &.spellbook-empty {
-                            margin: 8px 0;
-                            background: none;
-                            border: none;
-                            .pf-add-item-row {
-                                grid-column: span 4;
-                                text-align: center;
-                                width: 100%;
-                                display: flex;
-                                justify-content: space-evenly;
-
-                                a {
-                                    background: var(--secondary);
-                                    border-radius: 2px;
-                                    padding: 4px 8px;
-                                    color: white;
-                                    font-family: $serif;
-                                    font-weight: 500;
-                                    &:hover {
-                                        text-shadow: 0 0 4px white;
-                                    }
-                                    .fas {
-                                        margin-right: 4px;
-                                    }
-                                }
-                            }
-                        }
-
-                        .item-name {
-                            line-height: 1;
-                            gap: 0.5em;
-                            h3 {
+            &.focus {
+                .skill-grid {
+                    .skill-container {
+                        &.focus-points {
+                            h4 {
                                 @include p-reset;
+                                margin-right: 8px;
+                                margin-bottom: 2px;
                             }
                         }
-                    }
-
-                    .item-name {
-                        grid-area: name;
-                        justify-self: start;
-                        display: flex;
-                        align-items: center;
-                        justify-content: flex-start;
-                        flex-wrap: nowrap;
-                        line-height: 1.5;
-
-                        .level-prepared-toggle-div {
-                            flex: 0;
-                            font-size: 12px;
-                            color: var(--secondary);
-
-                            &:empty {
-                                display: none;
-                            }
-                        }
-
-                        h3 {
-                            white-space: nowrap;
-                        }
-                        + span:not(.flex0) {
-                            font-size: 12px;
-                        }
-
-                        .spell-slots,
-                        .spell-max {
-                            padding-top: 3px;
-                            font-size: 12px;
-                        }
-
-                        .spell-max-input,
-                        .spell-slots-input {
-                            input {
-                                height: 14px;
-                                background: var(--alt);
-                                color: white;
-                                text-align: center;
-                                border-radius: 2px;
-                                border: 1px solid var(--sub);
-                                font-size: 11px;
-                                width: 22px;
-                                padding-top: 2px;
-                            }
-                        }
-
-                        h4,
-                        img {
-                            cursor: pointer;
-                        }
-
-                        h4 {
-                            margin-left: 8px;
-                            line-height: 1;
-                            letter-spacing: -0.075em;
-                            padding: 0.5em 0;
-                            &:hover {
-                                color: var(--secondary);
-                            }
-                        }
-
-                        .item-image {
-                            @include frame-icon;
-                            height: 24px;
-                            width: 24px;
-                            margin: 2px 0;
-                            border-radius: 0;
-                            margin-left: 4px;
-                            cursor: pointer;
-                            .item-icon {
-                                max-width: 23px;
-                            }
-
-                            &:hover {
-                                background: url('/icons/svg/d20-black.svg') no-repeat center, #f1eee9;
-                                background-size: contain;
-                                padding: 11px;
-                                img {
-                                    display: none;
-                                }
-                            }
-                        }
-
-                        &.empty {
-                            grid-column: 1 / span 4;
-                        }
-                    }
-
-                    .spell-school,
-                    .spell-school-header {
-                        grid-area: school;
-                    }
-                    .spell-action,
-                    .spell-action-header {
-                        grid-area: action;
-                    }
-                    .item-controls {
-                        grid-area: control;
-                        justify-self: end;
-                        font-size: 10px;
-                        margin-right: 4px;
-                    }
-                    .spell-cast {
-                        grid-area: cast;
-                        height: 18px;
-                    }
-                    .spell-cast button {
-                        grid-area: cast;
-                        height: 18px;
-                        padding: 8px;
-                        background: var(--secondary);
-                        border-radius: 2px;
-                        border: black;
-                        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
-                        font-family: 'Roboto', system, -apple-system, sans-serif;
-                        font-size: 8px;
-                        font-weight: 700;
-                        line-height: 1;
-                        text-transform: uppercase;
-                        letter-spacing: 0.25px;
-                        color: white;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        cursor: pointer;
-                        width: 32px;
-                    }
-                    .item-summary {
-                        grid-area: content;
-                        padding: 8px;
-                        border-bottom: 1px solid var(--sub);
-                        border-top: 1px solid lighten($sub-color, 30);
-                        background-color: var(--bg);
-
-                        p {
-                            margin-top: 0;
-                        }
-                        .item-buttons {
-                            button {
-                                @include p-reset;
-                                font-family: $serif;
-                                font-weight: 500;
-                                margin-top: 8px;
-                                background-color: var(--primary);
-                                color: white;
+                        &.focus-pool {
+                            position: relative;
+                            img.pool-size {
                                 border: none;
-                                box-shadow: inset 0 0 0 1px rgba(black, 0.5);
-                                border-top: 1px solid lighten($primary-color, 50);
-                                border-bottom: 1px solid darken($primary-color, 40);
-                                cursor: pointer;
-                                &:hover {
-                                    text-shadow: 0 0 2px white;
+                            }
+
+                            .focus-pool-input {
+                                position: absolute;
+                                @include flex-center;
+                                flex-direction: column;
+                                left: 7px;
+                                top: 5px;
+                                h4,
+                                input {
+                                    color: white;
+                                }
+                                h4 {
+                                    margin-bottom: 2px;
+                                }
+                                input {
+                                    background: none;
+                                    height: 14px;
                                 }
                             }
                         }
                     }
                 }
+            }
 
-                .level-prepared-header {
-                    font-size: 12px;
-                    color: white;
-                    margin: 0;
+            .spell-ability {
+                display: flex;
+                align-items: center;
+                gap: 0.5em;
+
+                h4 {
+                    margin-bottom: 2px;
+                }
+                .pf-rank {
+                    @include micro;
+                    @include flex-center;
+                    font-weight: normal;
+                    background: #{$rank-untrained};
+                    height: 18px;
+                    border-radius: 2px;
+                    border: 1px solid rgba(black, 0.5);
                     padding: 4px;
-                    text-align: center;
-                    background: var(--secondary);
+                    color: white;
+                    box-shadow: inset 0 0 0 1px rgba(white, 0.1);
+                    cursor: pointer;
+
+                    &[value="1"] { background: #{$rank-trained}; }
+                    &[value="2"] { background: #{$rank-expert}; }
+                    &[value="3"] { background: #{$rank-master}; }
+                    &[value="4"] { background: #{$rank-legendary}; }
+
+                    .fas {
+                    display: none;
+                    }
                 }
             }
         }
+    }
 
-        .singleColumn-list {
-            @include p-reset;
+    .spellbook-empty {
+        margin: 8px 0;
+        background: none;
+        border: none;
+    }
 
-            .pf-add-item-row {
-                grid-column: span 4;
-                text-align: center;
-                width: 100%;
-                display: flex;
-                justify-content: space-evenly;
+    .pf-add-item-row {
+        grid-column: span 4;
+        text-align: center;
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
 
-                a {
-                    background: var(--secondary);
-                    border-radius: 2px;
-                    padding: 4px 8px;
-                    color: white;
-                    font-family: $serif;
-                    font-weight: 500;
-                    width: 100%;
-                    margin-bottom: 12px;
-                    &:hover {
-                        text-shadow: 0 0 4px white;
-                    }
-                    .fas {
-                        margin-right: 4px;
-                    }
-                }
+        a {
+            background: var(--secondary);
+            border-radius: 2px;
+            padding: 4px 8px;
+            color: white;
+            font-family: $serif;
+            font-weight: 500;
+            width: 100%;
+            margin-bottom: 12px;
+            &:hover {
+                text-shadow: 0 0 4px white;
+            }
+            .fas {
+                margin-right: 4px;
             }
         }
     }

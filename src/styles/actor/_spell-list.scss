@@ -1,0 +1,280 @@
+.spell-list {
+    @include p-reset;
+    width: 100%;
+    flex-basis: 100%;
+    position: relative;
+    z-index: 1;
+
+    button:not(.item-summary button), .spellbook-empty .item-control {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 8px;
+        background: var(--secondary);
+        border-radius: 2px;
+        border: black;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+        color: white;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 0.25px;
+        height: 18px;
+
+        font-family: 'Roboto', system, -apple-system, sans-serif;
+        font-size: 8px;
+        font-weight: 700;
+        line-height: 1;
+
+        i {
+            margin-right: 4px;
+        }
+    }
+
+    .item {
+        display: grid;
+        grid:
+            'name range components cast control' auto
+            'content content content content content' auto
+            / 6fr 3fr 2fr 1fr 48px;
+        align-items: center;
+        justify-items: center;
+        justify-content: center;
+
+        @include p-reset;
+        background: none;
+        border: none;
+        border-left: 1px solid var(--sub);
+        border-right: 1px solid var(--sub);
+        cursor: default;
+
+        &[data-expended-state='true'] {
+            h4 {
+                color: rgba($body-color, 0.5);
+                text-decoration: line-through;
+            }
+
+            .item-toggle-prepare {
+                color: var(--primary);
+            }
+        }
+
+        &:nth-child(odd) {
+            background-color: rgba($alt-color, 0.1);
+        }
+
+        &:last-child {
+            border-bottom: 1px solid var(--sub);
+            .item-image {
+                margin-bottom: 0;
+                margin-top: 2px;
+            }
+        }
+
+        &.spell-level-header {
+            background: rgba($sub-color, 0.25);
+            border: 1px solid var(--sub);
+            @include p-reset;
+            padding: 4px;
+            color: var(--body);
+            font-family: $sans-serif;
+            font-size: 8px;
+            font-weight: 700;
+            line-height: 1;
+            text-transform: uppercase;
+            letter-spacing: 0.25px;
+
+            h3 {
+                text-transform: capitalize;
+                font-size: 12px;
+                margin-left: 0;
+                padding: 4px 0;
+            }
+
+            .item-name {
+                line-height: 1;
+                gap: 0.5em;
+                h3 {
+                    @include p-reset;
+                }
+            }
+
+            input {
+                height: 14px;
+                background: var(--alt);
+                color: white;
+                text-align: center;
+                border-radius: 3px;
+                border: 1px solid var(--sub);
+                font-size: 11px;
+                width: 22px;
+                padding-top: 2px;
+            }
+
+            .spell-slots-increment-reset {
+                padding: 5px;
+            }
+        }
+
+        .level-prepared-toggle {
+            flex: 0;
+            font-size: 12px;
+            color: var(--secondary);
+        }
+
+        .item-name {
+            grid-area: name;
+            justify-self: start;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: nowrap;
+            line-height: 1.5;
+            cursor: pointer;
+            min-height: 28px;
+
+            h3 {
+                white-space: nowrap;
+            }
+            + span:not(.flex0) {
+                font-size: 12px;
+            }
+
+            .spell-slots,
+            .spell-max {
+                padding-top: 3px;
+                font-size: 12px;
+            }
+
+            .item-image {
+                @include frame-icon;
+                height: 24px;
+                width: 24px;
+                margin: 2px 0;
+                border-radius: 0;
+                margin-left: 4px;
+                cursor: pointer;
+                .item-icon {
+                    max-width: 23px;
+                }
+
+                &:hover {
+                    background: url('/icons/svg/d20-black.svg') no-repeat center, #f1eee9;
+                    background-size: contain;
+                    padding: 11px;
+                    img {
+                        display: none;
+                    }
+                }
+            }
+
+            h4 {
+                @include p-reset;
+                margin-left: 8px;
+                line-height: 1;
+                letter-spacing: -0.075em;
+                &:hover {
+                    color: var(--secondary);
+                }
+            }
+
+            .activity-icon {
+                margin-left: 4px;
+            }
+
+            &.empty {
+                grid-column: 1 / span 4;
+            }
+        }
+
+        .spell-range {
+            grid-area: range;
+        }
+
+        .spell-components {
+            grid-area: components;
+            .tag {
+                float: left;
+                margin: 0 2px 2px 0;
+                padding: 0 3px;
+                font-size: 10px;
+                line-height: 16px;
+                border: 1px solid #999;
+                border-radius: 3px;
+                white-space: nowrap;
+                font-weight: 700;
+            }
+        }
+
+        .spell-cast {
+            grid-area: cast;
+        }
+
+        .item-controls {
+            grid-area: control;
+            justify-self: end;
+            font-size: 10px;
+            margin-right: 4px;
+        }
+
+        .spell-cast button {
+            grid-area: cast;
+            width: 32px;
+        }
+        .item-summary {
+            grid-area: content;
+            width: 100%;
+            padding: 8px;
+            border-bottom: 1px solid var(--sub);
+            border-top: 1px solid lighten($sub-color, 30);
+            background-color: var(--bg);
+
+            p {
+                margin-top: 0;
+            }
+            .item-buttons {
+                button {
+                    @include p-reset;
+                    font-family: $serif;
+                    font-weight: 500;
+                    margin-top: 8px;
+                    background-color: var(--primary);
+                    color: white;
+                    border: none;
+                    box-shadow: inset 0 0 0 1px rgba(black, 0.5);
+                    border-top: 1px solid lighten($primary-color, 50);
+                    border-bottom: 1px solid darken($primary-color, 40);
+                    cursor: pointer;
+                    &:hover {
+                        text-shadow: 0 0 2px white;
+                    }
+                }
+            }
+        }
+    }
+
+    .level-prepared-header {
+        font-size: 12px;
+        color: white;
+        margin: 0;
+        padding: 4px;
+        text-align: center;
+        background: var(--secondary);
+    }
+
+    .spellbook-empty {
+        display: flex;
+        align-items: center;
+        min-height: 28px;
+        justify-content: flex-end;
+        h4 {
+            margin: 0;
+            white-space: nowrap;
+            margin-right: auto;
+        }
+        a {
+            flex: 0 1 0;
+            white-space: nowrap;
+            margin-left: 8px;
+        }
+    }
+}

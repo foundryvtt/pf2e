@@ -16,8 +16,29 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         super.prepareBaseData();
 
         if (canvas.sight?.rulesBasedVision) {
-            this.data.update({ brightSight: 0, dimSight: 0, lightAngle: 360, sightAngle: 360 });
+            mergeObject(this.data, { brightSight: 0, dimSight: 0, lightAngle: 360, sightAngle: 360 });
         }
+    }
+
+    /**
+     * Foundry (at least as of 0.8.8) has a security exploit allowing any user, regardless of permissions, to update
+     * scene embedded documents. This is a client-side check providing some minimal protection against unauthorized
+     * `TokenDocument` updates.
+     */
+    static override async updateDocuments(
+        updates: DocumentUpdateData<TokenDocumentPF2e>[] = [],
+        context: DocumentModificationContext = {},
+    ): Promise<TokenDocumentPF2e[]> {
+        const scene = context.parent;
+        if (scene instanceof ScenePF2e) {
+            updates = updates.filter((data) => {
+                if (game.user.isGM || typeof data['_id'] !== 'string') return true;
+                const tokenDoc = scene.tokens.get(data['_id']);
+                return !!tokenDoc?.actor?.isOwner;
+            });
+        }
+
+        return super.updateDocuments(updates, context) as Promise<TokenDocumentPF2e[]>;
     }
 
     /* -------------------------------------------- */
@@ -76,10 +97,12 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     }
 }
 
-export interface TokenDocumentPF2e {
+export interface TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     readonly _object: TokenPF2e | null;
 
     readonly parent: ScenePF2e | null;
 
     _sheet: TokenConfigPF2e | null;
+
+    get sheet(): TokenConfigPF2e;
 }

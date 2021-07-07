@@ -8,6 +8,7 @@ import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { BaseWeaponType, WeaponGroup } from '@item/weapon/data';
 import { ZeroToFour } from '@module/data';
 import { SkillData } from './data';
+import { CharacterPF2e } from '@actor/character';
 
 /**
  * Base class for NPC and character sheets
@@ -41,22 +42,29 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 }
                 break;
             case 'spell':
-                if (chatData.isSave)
+                if (chatData.isSave) {
                     buttons.append(
                         `<span class="tag">${game.i18n.localize('PF2E.SaveDCLabel')} ${chatData.save.dc} ${
                             chatData.save.basic
                         } ${chatData.save.str}</span>`,
                     );
-                if (chatData.isAttack)
-                    buttons.append(
-                        `<span class="tag"><button class="spell_attack" data-action="spellAttack">${game.i18n.localize(
-                            'PF2E.AttackLabel',
-                        )}</button></span>`,
-                    );
-                if (item.data.data.damage.value)
-                    buttons.append(
-                        `<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`,
-                    );
+                }
+
+                if (this.actor instanceof CharacterPF2e) {
+                    if (chatData.isAttack) {
+                        buttons.append(
+                            `<span class="tag"><button class="spell_attack" data-action="spellAttack">${game.i18n.localize(
+                                'PF2E.AttackLabel',
+                            )}</button></span>`,
+                        );
+                    }
+                    if (item.data.data.damage.value) {
+                        buttons.append(
+                            `<span class="tag"><button class="spell_damage" data-action="spellDamage">${chatData.damageLabel}: ${item.data.data.damage.value}</button></span>`,
+                        );
+                    }
+                }
+
                 break;
             case 'consumable':
                 if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified)
