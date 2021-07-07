@@ -1,16 +1,11 @@
-/**
- * Dialog for excluding certain modifiers before rolling for damage.
- */
-
 import { DegreeOfSuccessString } from '@system/check-degree-of-success';
 import { RollNotePF2e } from '@module/notes';
 import { DiceModifierPF2e, ModifierPF2e, RawModifier } from '@module/modifiers';
 import { DamageTemplate } from '@system/damage/weapon';
 import { ChatMessagePF2e } from '@module/chat-message';
+import type { ItemPF2e } from '@item';
 
-/**
- * @category Other
- */
+/** Dialog for excluding certain modifiers before rolling for damage. */
 export class DamageRollModifiersDialog extends Application {
     private static DAMAGE_TYPE_ICONS = Object.freeze({
         acid: 'vial',
@@ -165,6 +160,8 @@ export class DamageRollModifiersDialog extends Application {
             return roll;
         })();
 
+        const item: ItemPF2e | null = context.item ?? null;
+        const origin = item ? { uuid: item.uuid, type: item.type } : null;
         ChatMessagePF2e.create(
             {
                 type: CONST.CHAT_MESSAGE_TYPES.ROLL,
@@ -179,6 +176,7 @@ export class DamageRollModifiersDialog extends Application {
                     },
                     pf2e: {
                         damageRoll: rollData,
+                        origin,
                     },
                 },
             },

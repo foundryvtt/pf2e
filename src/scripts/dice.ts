@@ -1,3 +1,4 @@
+import { ItemPF2e } from '@item';
 import { ActorPF2e } from '../module/actor/base';
 
 /**
@@ -29,6 +30,7 @@ export class DicePF2e {
      */
     static async d20Roll({
         event,
+        item = null,
         parts,
         data,
         template,
@@ -41,6 +43,7 @@ export class DicePF2e {
         rollType = '',
     }: {
         event: JQuery.Event;
+        item?: Embedded<ItemPF2e> | null;
         parts: any[];
         actor?: ActorPF2e;
         data: any;
@@ -81,6 +84,7 @@ export class DicePF2e {
                 rollParts.splice(rollParts.indexOf('@circumstanceBonus'), 1);
             // Execute the roll and send it to chat
             const roll = new Roll(rollParts.join('+'), data).roll();
+            const origin = item ? { uuid: item.uuid, type: item.type } : null;
             roll.toMessage(
                 {
                     speaker,
@@ -90,6 +94,7 @@ export class DicePF2e {
                             context: {
                                 type: rollType,
                             },
+                            origin,
                         },
                     },
                 },
@@ -187,6 +192,7 @@ export class DicePF2e {
      */
     static damageRoll({
         event,
+        item = null,
         partsCritOnly = [],
         parts,
         data,
@@ -200,6 +206,7 @@ export class DicePF2e {
         combineTerms = false,
     }: {
         event: JQuery.Event;
+        item?: Embedded<ItemPF2e> | null;
         partsCritOnly?: any[];
         parts: (string | number)[];
         actor?: ActorPF2e;
@@ -253,10 +260,12 @@ export class DicePF2e {
 
             const roll = new Roll(rollParts.join('+'), data);
             const flav = flavor instanceof Function ? flavor(rollParts, data) : title;
+            const origin = item ? { uuid: item.uuid, type: item.type } : null;
             roll.toMessage(
                 {
                     speaker,
                     flavor: flav,
+                    flags: { pf2e: { origin } },
                 },
                 {
                     rollMode: form ? (form.find<HTMLInputElement>('[name="rollMode"]').val() as RollMode) : rollMode,

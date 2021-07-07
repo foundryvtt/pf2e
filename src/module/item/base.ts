@@ -525,13 +525,13 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollSpellAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
-        const itemData = deepClone(this.data);
-        if (itemData.type !== 'spell') throw new Error('Wrong item type!');
+        if (this.data.type !== 'spell') throw new Error('Wrong item type!');
+        const itemData = this.data.toObject(false);
 
         // Prepare roll data
         const trickMagicItemData = itemData.data.trickMagicItemData;
         const systemData = itemData.data;
-        const rollData = duplicate(this.actor.data.data);
+        const rollData = deepClone(this.actor.data.data);
         const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
             (entry) => entry.id === systemData.location.value,
         )?.data;
@@ -551,7 +551,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
             if (multiAttackPenalty > 1) {
                 modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
             }
-            spellcastingEntry.data.attack.roll({ event, options, modifiers });
+            spellcastingEntry.data.attack.roll({ event, item: this, options, modifiers });
         } else {
             const spellAttack = useTrickData
                 ? trickMagicItemData?.data.spelldc.value
@@ -573,6 +573,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
             // Call the roll helper utility
             DicePF2e.d20Roll({
                 event,
+                item: this,
                 parts,
                 data: rollData,
                 rollType: 'attack-roll',
@@ -648,6 +649,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         // Call the roll helper utility
         DicePF2e.damageRoll({
             event,
+            item: this,
             parts,
             data: rollData,
             actor: this.actor,
