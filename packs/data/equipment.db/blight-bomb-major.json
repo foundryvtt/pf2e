@@ -130,8 +130,15 @@
         "rules": [
             {
                 "key": "PF2E.RuleElement.Note",
+                "outcome": "success",
                 "selector": "{item|_id}-damage",
-                "text": "<p class='compact-text'><strong>Effect:</strong> The bomb also deals [[/r 4d4 #persistent poison]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}</p>"
+                "text": "<p class='compact-text'><strong>Effect:</strong> The bomb also deals [[/r 4d4 #persistent poison]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": "criticalSuccess",
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'><strong>Effect:</strong> The bomb also deals [[/r 2*(4d4) #persistent poison]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}.</p>"
             }
         ],
         "schema": {
