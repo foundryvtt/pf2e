@@ -1,0 +1,107 @@
+{
+    "_id": "udMXXjFirjARYr4p",
+    "data": {
+        "actionCategory": {
+            "value": "interaction"
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "value": "<p>You're a sharp-featured, big-eared gnoll about three feet tall. Many are skeptical that you are in fact a gnoll. Your size is Small instead of Medium. You are trained in Deception (or another skill if you were already trained in Deception). You gain a +1 circumstance bonus to Deception checks to Lie when specifically claiming innocence, to Deception DCs against Sense Motive checks to uncover such lies, and to initiative checks when you roll Deception for initiative.</p>\n<hr />\n<p><em>Note: If you are already trained in the skill provided by this feat, you need to manually select an alternative skill.</em></p>"
+        },
+        "featType": {
+            "value": "heritage"
+        },
+        "level": {
+            "value": 1
+        },
+        "location": "",
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "deception"
+                    ]
+                },
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Lying to Claim Innocence",
+                "predicate": {
+                    "all": [
+                        "action:lie"
+                    ]
+                },
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "schema": {
+            "lastMigration": {
+                "datetime": "2021-07-07T05:29:06.840-06:00",
+                "version": {
+                    "foundry": "0.8.8",
+                    "schema": null,
+                    "system": "2.7.1"
+                }
+            },
+            "version": 0.642
+        },
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "gnoll",
+                "heritage"
+            ]
+        }
+    },
+    "effects": [
+        {
+            "_id": "qdhfdbcsa27Gr9SI",
+            "changes": [
+                {
+                    "key": "data.traits.size.value",
+                    "mode": 5,
+                    "value": "sm"
+                },
+                {
+                    "key": "data.skills.dec.rank",
+                    "mode": 4,
+                    "value": "1"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "startTime": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/default-icons/feat.svg",
+            "label": "Ant Gnoll",
+            "origin": "",
+            "tint": null,
+            "transfer": true
+        }
+    ],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "name": "Ant Gnoll",
+    "type": "feat"
+}
