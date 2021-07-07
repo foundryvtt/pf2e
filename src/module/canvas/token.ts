@@ -1,3 +1,4 @@
+import { CreaturePF2e } from '@actor';
 import { TokenDocumentPF2e } from '@module/token-document';
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
@@ -17,6 +18,15 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return this.data.hidden;
     }
 
+    /** Is this token currently moving? */
+    get isMoving(): boolean {
+        return !!this._movement;
+    }
+
+    get hasLowLightVision(): boolean {
+        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
+    }
+
     /**
      * Apply a set of changes from the actor
      * @param overrides The property overrides to be applied
@@ -24,14 +34,14 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
      */
     applyOverrides(
         overrides: DeepPartial<foundry.data.TokenSource> = this.overrides,
-        { moving = false, setPerceived = true } = {},
+        { setPerceived = true } = {},
     ): void {
         // Propagate any new or removed overrides to the token
         this.overrides = overrides;
-        this.data.reset();
+        this.document.prepareData();
         mergeObject(this.data, overrides, { insertKeys: false });
-        if (!moving) this.updateSource();
-        if (setPerceived) game.user.setPerceivedLightLevel({ defer: moving, emitted: !moving });
+        if (!this.isMoving) this.updateSource();
+        if (setPerceived) game.user.setPerceivedLightLevel({ defer: this.isMoving });
     }
 
     /* -------------------------------------------- */
@@ -58,7 +68,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         anim: TokenAnimationAttribute<this>[],
         config: TokenAnimationConfig,
     ): void {
-        this.applyOverrides(undefined, { moving: true });
+        this.applyOverrides(undefined);
         super._onMovementFrame(dt, anim, config);
     }
 }

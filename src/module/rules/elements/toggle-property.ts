@@ -1,17 +1,18 @@
 import { CharacterData, NPCData } from '@actor/data';
 import { RuleElementPF2e } from '../rule-element';
+import { RuleElementData } from '../rules-data-definitions';
 
 /**
  * @category RuleElement
  */
 export class PF2TogglePropertyRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(actorData: CharacterData | NPCData) {
-        const label = super.getDefaultLabel(this.ruleData, this.item);
-        if (label && this.ruleData.property) {
+        const label = this.getDefaultLabel();
+        if (label && this.data.property) {
             (actorData.data as any).toggles.actions.push({
                 label,
-                inputName: this.ruleData.property,
-                checked: getProperty(actorData, this.ruleData.property),
+                inputName: this.data.property,
+                checked: getProperty(actorData, this.data.property),
             });
         } else {
             console.warn(
@@ -19,4 +20,10 @@ export class PF2TogglePropertyRuleElement extends RuleElementPF2e {
             );
         }
     }
+}
+
+export interface PF2TogglePropertyRuleElement {
+    data: RuleElementData & {
+        property: string;
+    };
 }

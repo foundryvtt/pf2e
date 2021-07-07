@@ -1,9 +1,9 @@
 import { ActorPF2e, NPCPF2e, HazardPF2e } from '@actor/index';
 import { LabeledValue } from '@module/data';
-import { TraitSelectorBase } from './base';
+import { TagSelectorBase } from './base';
 import { SelectableTagField } from './index';
 
-export class TraitSelectorResistances extends TraitSelectorBase<ActorPF2e> {
+export class TraitSelectorResistances extends TagSelectorBase<ActorPF2e> {
     override objectProperty = 'data.traits.dr';
 
     static override get defaultOptions() {

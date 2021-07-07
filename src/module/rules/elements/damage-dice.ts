@@ -1,5 +1,5 @@
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
+import { RuleElementData, RuleElementSyntheticsPF2e } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data';
 import { DamageDicePF2e } from '@module/modifiers';
 
@@ -7,23 +7,31 @@ import { DamageDicePF2e } from '@module/modifiers';
  * @category RuleElement
  */
 export class PF2DamageDiceRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(actorData: CharacterData | NPCData, { damageDice }: RuleElementSyntheticsPF2e) {
-        const value = duplicate(this.ruleData);
+    override onBeforePrepareData(_actorData: CharacterData | NPCData, { damageDice }: RuleElementSyntheticsPF2e) {
+        const value: Omit<DamageDiceRuleElementData, 'key'> & { key?: string } = deepClone(this.data);
         delete value.key;
-        if (this.ruleData.value) {
-            const bracketed = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData, {});
+        if (this.data.value) {
+            const bracketed = this.resolveValue(this.data.value);
             mergeObject(value, bracketed, { inplace: true, overwrite: true });
             delete value.value;
         }
-        const selector = super.resolveInjectedProperties(value.selector, this.ruleData, this.item, actorData);
-        const label = super.getDefaultLabel(value, this.item);
-        value.name = this.ruleData.name ?? label;
+        const selector = this.resolveInjectedProperties(value.selector);
+        const label = this.getDefaultLabel();
+        value.name = this.data.name ?? label;
         value.label = label;
         if (selector && value.name && value) {
-            const dice = new DamageDicePF2e(value);
+            const dice = new DamageDicePF2e(value as Required<DamageDiceRuleElementData>);
             damageDice[selector] = (damageDice[selector] || []).concat(dice);
         } else {
             console.warn('PF2E | Damage dice requires at least a selector field, and a label field or item name');
         }
     }
+}
+
+interface DamageDiceRuleElementData extends RuleElementData {
+    name?: string;
+}
+
+export interface PF2DamageDiceRuleElement {
+    data: DamageDiceRuleElementData;
 }

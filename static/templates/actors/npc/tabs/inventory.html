@@ -1,0 +1,31 @@
+<div class="tab inventory item-container" data-container-type="actorInventory" data-group="primary" data-tab="inventory">
+    <div id="items" class="inventory-section">
+        <div class="header">
+            <div></div>
+            <div class="item-name">{{localize "PF2E.NPC.Inventory.Header.NameLabel"}}</div>
+            <div class="item-quantity">{{localize "PF2E.NPC.Inventory.Header.QuantityLabel"}}</div>
+            <div>
+            </div>
+        </div>
+        <div class="body">
+            <ul class="item-list">
+                {{#each inventory as |category categoryId|}}
+                <div class="category-header">
+                    <h4>{{category.label}}</h4>
+                    <div class="category-controls controls">
+                        {{#if @root.owner}}
+                            <a class="item-control item-create" data-type="{{category.type}}"><i class="fas fa-plus"></i></a>
+                            <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-filter="itemtypes-{{category.type}}"><i class="fas fa-search"></i></a>
+                        {{/if}}
+                    </div>
+                </div>
+                    {{#each category.items as |item itemId|}}
+                        {{> "systems/pf2e/templates/actors/npc/partials/item.html" item=item user=@root.user owner=@root.owner editable=@root.editable}}
+                    {{/each}}
+                {{/each}}
+            </ul>
+        </div>
+        <div class="footer">
+        </div>
+    </div>
+</div>

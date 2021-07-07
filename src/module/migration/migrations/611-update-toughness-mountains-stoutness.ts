@@ -1,6 +1,6 @@
 import { MigrationBase } from '../base';
 import { ActorSourcePF2e } from '@actor/data';
-import { FeatPF2e } from '@item/feat';
+import { FeatPF2e } from '@item';
 import { FeatSource } from '@item/data';
 
 export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase {

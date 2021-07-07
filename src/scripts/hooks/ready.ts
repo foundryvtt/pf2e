@@ -19,13 +19,16 @@ export function listen(): void {
         // Save the current world schema version if hasn't before.
         setWorldSchemaVersion();
 
+        // Start up the Compendium Browser
+        game.pf2e.compendiumBrowser = new CompendiumBrowser();
+
         // Determine whether a system migration is required and feasible
         const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
 
         // User#isGM is inclusive of both gamemasters and assistant gamemasters, so check for the specific role
         if (game.user.hasRole(CONST.USER_ROLES.GAMEMASTER)) {
             // Perform the migration
-            const migrationRunner = new MigrationRunner(Migrations.constructForWorld(currentVersion));
+            const migrationRunner = new MigrationRunner(Migrations.constructFromVersion(currentVersion));
             if (migrationRunner.needsMigration()) {
                 if (currentVersion && currentVersion < MigrationRunner.MINIMUM_SAFE_VERSION) {
                     ui.notifications.error(
@@ -55,9 +58,6 @@ export function listen(): void {
 
         // Extend drag data for things such as condition value
         extendDragData();
-
-        // Start up the Compendium Browser
-        game.pf2e.compendiumBrowser = new CompendiumBrowser();
 
         // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
         HomebrewElements.refreshTags();

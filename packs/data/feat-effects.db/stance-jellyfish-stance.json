@@ -1,0 +1,129 @@
+{
+    "_id": "pkcr9w5x6bKzl3om",
+    "data": {
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are unarmored.</p>\n<p>You relax your posture and loosen your joints, allowing yourself to move with incredible fluidity. You can make stinging lash attacks that deal 1d8 slashing damage. These attacks are in the brawling group, and have the finesse, nonlethal, reach, and unarmed traits.</p>\n<p>While in Jellyfish Stance, you gain a +2 circumstance bonus to Reflex saves and on checks to @Compendium[pf2e.actionspf2e.Escape]{Escape} and @Compendium[pf2e.actionspf2e.Squeeze]{Squeeze}.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Stinging Lash",
+                "range": "melee",
+                "traits": [
+                    "unarmed",
+                    "reach",
+                    "finesse",
+                    "nonlethal"
+                ]
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Jellyfish Stance",
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Escape",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Escape",
+                "predicate": {
+                    "any": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Escape",
+                "predicate": {
+                    "all": [
+                        "action:escape",
+                        "unarmed"
+                    ]
+                },
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Squeeze",
+                "predicate": {
+                    "any": [
+                        "action:squeeze"
+                    ]
+                },
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "schema": {
+            "lastMigration": {
+                "datetime": "2021-07-06T17:33:07.751-06:00",
+                "version": {
+                    "foundry": "0.8.8",
+                    "schema": null,
+                    "system": "2.7.1"
+                }
+            },
+            "version": 0.642
+        },
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Stance: Jellyfish Stance",
+    "type": "effect"
+}

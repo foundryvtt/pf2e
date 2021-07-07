@@ -60,16 +60,6 @@
                         margin-right: 8px;
                         width: 32px;
                     }
-
-                    .dc-input {
-                        flex: 1 0 32px;
-                        text-align: center;
-                        background-color: $light-text;
-                        font-weight: bold;
-                        margin-left: 4px;
-                        margin-right: 8px;
-                        width: 32px;
-                    }
                 }
 
                 .ability-score {
@@ -80,6 +70,20 @@
                     }
                 }
             }
+        }
+
+        .dc-input, .spell-level-header input {
+            flex: 1 0 32px;
+            text-align: center;
+            background-color: $light-text;
+            font-weight: 700;
+            margin-left: 4px;
+            margin-right: 8px;
+            width: 32px;
+            height: 18px;
+            background: #f5efe0;
+            color: #333;
+            border: 1px solid transparent;
         }
 
         .body {
@@ -101,11 +105,6 @@
                     flex-direction: row;
                     align-items: baseline;
                     grid-column: 1/span 2;
-
-                    .focus-label {
-                        align-self: flex-start;
-                        text-align: center;
-                    }
 
                     .focus-points {
                         text-align: center;
@@ -134,7 +133,6 @@
             }
 
             .section {
-
                 .section-header {
                     display: flex;
                     flex: 1 0 auto;
@@ -154,128 +152,29 @@
                         padding-left: 10px;
                         margin: 0px;
                     }
-
-                    .spell-slots-input {
-                        text-align: center;
-                        background-color: #f5efe0;
-                        font-weight: bold;
-                        margin-left: 4px;
-                        margin-right: 8px;
-                        width: 25px;
-                    }
-
-                    .spell-max-input {
-                        text-align: center;
-                        background-color: #f5efe0;
-                        font-weight: bold;
-                        margin-left: 4px;
-                        margin-right: 8px;
-                        width: 25px;
-                    }
-                }
-
-                .spells-list {
-                    list-style: none;
-                    margin: 0px;
-                    padding: 0px;
-                    display: grid;
-
-                    .spell {
-                        padding: 2px 6px;
-
-                        &:not(:last-child) {
-                            border-bottom: 1px solid $faded-color;
-                        }
-
-                        .spell-header {
-                            display: grid;
-                            grid-template-columns: 26px auto 64px 80px 70px;
-                            column-gap: 6px;
-
-                            > * {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                            }
-
-                            .spell-icon {
-                                border: 2px solid $faded-color;
-                                border-radius: 3px;
-                                width: 26px;
-                                height: 26px;
-                                &:hover {
-                                    cursor: pointer;
-                                    max-height: 26px;
-                                    background: url("/icons/svg/d20-black.svg") no-repeat center;
-                                    background-size: contain;
-                                    img {
-                                        visibility: hidden;
-                                    }
-                                }
-                            }
-
-                            .spell-name {
-                                align-items: baseline;
-                                justify-content: initial;
-                                margin-left: 8px;
-                                a {
-                                    font-weight: 600;
-                                    position: relative;
-                                    top: -1px;
-                                    &.expended {
-                                        color: rgba($body-color, 0.5);
-                                        text-decoration: line-through;
-                                    }
-                                }
-                                .activity-icon {
-                                    font-size: 1.4rem;
-                                }
-
-                                &.empty {
-                                    height: 26px;
-                                    padding-top: 5px;
-                                    grid-column: 1/span 4;
-                                }
-                            }
-
-                            .controls {
-                                justify-content: flex-end;
-                                > a {
-                                    margin-left: 2px;
-                                    height: 18px;
-                                }
-                                .item-chat {
-                                    position: relative;
-                                    top: 1px;
-                                }
-                                visibility: hidden;
-                            }
-                        }
-
-                        &.unprepared {
-                            .spell-header {
-                                grid-template-columns: auto 64px 80px 70px;
-                                .spell-icon {
-                                    visibility: hidden;
-                                }
-                            }
-                        }
-
-                        &:hover .spell-header .controls {
-                            visibility: visible;
-                        }
-                    }
-
-                    .spell-body .spell-detail {
-                        padding-top: 8px;
-
-                        .tag {
-                            font-size: 8px;
-                        }
-                    }
                 }
             }
         }
+    }
+}
+
+.spell-list {
+    .spell-level-header {
+        background-color: $secondary-accent;
+        border-color: $secondary-accent;
+        color: white;
+    }
+
+    .level-prepared-toggle {
+        color: inherit;
+    }
+
+    .item {
+        border: none;
+    }
+
+    .spellbook-empty {
+        padding: 0 12px;
     }
 }
 

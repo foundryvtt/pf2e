@@ -1,7 +1,7 @@
 import { CharacterData, NPCData } from '@actor/data';
 import { ModifierPF2e, MODIFIER_TYPE } from '@module/modifiers';
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
+import { RuleElementData, RuleElementSyntheticsPF2e } from '../rules-data-definitions';
 
 /**
  * @category RuleElement
@@ -11,8 +11,8 @@ export class PF2MageArmorRuleElement extends RuleElementPF2e {
         actorData: CharacterData | NPCData,
         { statisticsModifiers }: RuleElementSyntheticsPF2e,
     ) {
-        const label = this.ruleData.label ?? this.item.name;
-        const level = (this.item.data as any)?.level?.value ?? this.ruleData.level ?? 1;
+        const label = this.data.label ?? this.item.name;
+        const level = (this.item.data as any)?.level?.value ?? this.data.level ?? 1;
         if (label) {
             let ac: number;
             let save = 0;
@@ -53,4 +53,10 @@ export class PF2MageArmorRuleElement extends RuleElementPF2e {
             console.warn('PF2E | Mage armor requires at least a label field or item name');
         }
     }
+}
+
+export interface PF2MageArmorRuleElement {
+    data: RuleElementData & {
+        level?: number;
+    };
 }

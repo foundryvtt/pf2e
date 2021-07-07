@@ -2,7 +2,7 @@ import { ItemDataPF2e } from '@item/data';
 import { CharacterData, NPCData } from '@actor/data';
 import { RuleElementPF2e } from '../rule-element';
 
-const SIZES = {
+const SIZES: Record<string, number> = {
     tiny: 0.6,
     small: 0.8,
     medium: 1,
@@ -16,8 +16,8 @@ const SIZES = {
  */
 export class PF2TokenSizeRuleElement extends RuleElementPF2e {
     override onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
-        const value =
-            SIZES[this.ruleData.value] ?? this.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
+        const size = typeof this.data.value === 'string' ? this.data.value : '';
+        const value = SIZES[size] ?? this.resolveValue(this.data.value);
 
         if (!value) {
             console.warn('PF2E | Token Image requires a non-empty value field');

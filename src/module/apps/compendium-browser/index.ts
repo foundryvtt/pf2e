@@ -116,7 +116,10 @@ export class CompendiumBrowser extends Application {
     data!: TabData<object>;
 
     /** Is the user currently dragging a document from the browser? */
-    userIsDragging = false;
+    private userIsDragging = false;
+
+    /** An initial filter to be applied upon loading a tab */
+    private initialFilter: string | null = null;
 
     npcIndex = [
         'img',
@@ -170,7 +173,13 @@ export class CompendiumBrowser extends Application {
         this.activateResultListeners();
     }
 
-    initCompendiumList() {
+    /** Reset initial filtering */
+    override async close(options?: { force?: boolean }): Promise<void> {
+        this.initialFilter = null;
+        await super.close(options);
+    }
+
+    private initCompendiumList() {
         const settings: TabData<Record<string, PackInfo>> = {
             action: {},
             bestiary: {},
@@ -265,16 +274,17 @@ export class CompendiumBrowser extends Application {
 
     hookTab() {
         this.navigationTab = this._tabs[0];
-        const _tabCallback = this.navigationTab.callback;
-        this.navigationTab.callback = async (event: any, tabs: Tabs, active: string, ...args: any[]) => {
-            _tabCallback?.(event, tabs, active, ...args);
+        const tabCallback = this.navigationTab.callback;
+        this.navigationTab.callback = async (event: JQuery.TriggeredEvent | null, tabs: Tabs, active: string) => {
+            tabCallback?.(event, tabs, active);
             await this.loadTab(active);
-            this.activateResultListeners();
         };
     }
 
-    async openTab(tab: string) {
+    async openTab(tab: string, filter: string | null = null) {
+        this.initialFilter = filter;
         await this._render(true);
+        this.initialFilter = filter; // Reapply in case of a double-render (need to track those down)
         this.navigationTab.activate(tab, { triggerCallback: true });
     }
 
@@ -841,12 +851,12 @@ export class CompendiumBrowser extends Application {
 
     override activateListeners($html: JQuery) {
         super.activateListeners($html);
-        this.resetFilters($html);
+        this.resetFilters();
 
         const $controlArea = $html.find('.control-area');
 
         $controlArea.find('button.clear-filters').on('click', () => {
-            this.resetFilters($html);
+            this.resetFilters();
             this.filterItems($html.find('.tab.active li'));
         });
 
@@ -931,6 +941,13 @@ export class CompendiumBrowser extends Application {
             }
             game.settings.set('pf2e', 'compendiumBrowserPacks', JSON.stringify(this.settings));
         });
+
+        // Pre-filter list if requested
+        if (this.initialFilter) {
+            const $activeControlArea = $html.find('.tab.active .control-area');
+            const $filter = $activeControlArea.find(`input[type="checkbox"][name=${this.initialFilter}]`);
+            $filter.trigger('click');
+        }
     }
 
     /** Activate click listeners on loaded actors and items */
@@ -1201,7 +1218,7 @@ export class CompendiumBrowser extends Application {
         return true;
     }
 
-    resetFilters(html: JQuery) {
+    private resetFilters() {
         this.sorters = {
             text: '',
             castingtime: '',
@@ -1233,9 +1250,10 @@ export class CompendiumBrowser extends Application {
             level: { lowerBound: -1, upperBound: 30 },
         };
 
-        html.find('.tab.browser input[name=textFilter]').val('');
-        html.find('.tab.browser input[name=timefilter]').val('');
-        html.find('.tab.browser input[type=checkbox]').prop('checked', false);
+        const $controlAreas = this.element.find('.tab .control-area');
+        $controlAreas.find('input[name=textFilter]').val('');
+        $controlAreas.find('input[name=timefilter]').val('');
+        $controlAreas.find('input[type=checkbox]:checked').prop('checked', false);
     }
 
     sortResults(

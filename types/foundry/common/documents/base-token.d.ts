@@ -18,7 +18,7 @@ declare module foundry {
         }
 
         interface BaseToken extends abstract.Document {
-            readonly data: data.TokenData<BaseToken>;
+            readonly data: data.TokenData<this>;
 
             readonly parent: BaseScene | null;
         }
@@ -28,9 +28,8 @@ declare module foundry {
             collection: 'tokens';
             label: 'DOCUMENT.Token';
             isEmbedded: true;
-            permissions: Omit<abstract.DocumentMetadata['permissions'], 'create' | 'update'> & {
+            permissions: Omit<abstract.DocumentMetadata['permissions'], 'create'> & {
                 create: 'TOKEN_CREATE';
-                update: typeof BaseToken['_canUpdate'];
             };
         }
     }

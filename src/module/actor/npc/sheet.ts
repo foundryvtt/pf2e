@@ -15,16 +15,16 @@ import {
     ItemDataPF2e,
     MeleeData,
     SpellcastingEntryData,
-    SpellData,
     TreasureData,
     WeaponData,
 } from '@item/data';
-import { ErrorPF2e, getActionGlyph, objectHasKey } from '@module/utils';
+import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ActorSheetDataPF2e, InventoryItem, SheetInventory } from '../sheet/data-types';
 import { LabeledString, ValuesList, ZeroToEleven } from '@module/data';
 import { NPCAttributes, NPCSkillData, NPCStrike, NPCSystemData } from './data';
 import { Abilities, AbilityData, CreatureTraitsData, SaveString, SkillAbbreviation } from '@actor/creature/data';
 import { AbilityString } from '@actor/data/base';
+import { SpellcastingEntryPF2e } from '@item';
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
@@ -132,8 +132,10 @@ type SheetItemData<T extends ItemDataPF2e = ItemDataPF2e> = T & {
     };
 };
 
-interface SpellcastingSheetData extends SheetItemData<SpellcastingEntryData> {
-    spellbook?: any;
+interface SpellcastingSheetData
+    extends SpellcastingEntryData,
+        ReturnType<Embedded<SpellcastingEntryPF2e>['getSpellData']> {
+    eid: number;
 }
 
 export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
@@ -157,7 +159,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         if (this.isLootSheet) {
             return 'systems/pf2e/templates/actors/npc/loot-sheet.html';
         }
-        return 'systems/pf2e/templates/actors/npc/npc-sheet.html';
+        return 'systems/pf2e/templates/actors/npc/sheet.html';
     }
 
     /** Use the token name as the title if showing a lootable NPC sheet */
@@ -195,7 +197,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.effectItems = sheetData.items.filter(
             (data): data is SheetItemData<EffectData> => data.type === 'effect',
         );
-        sheetData.spellcastingEntries = this.prepareSpellcasting(sheetData);
+        this.prepareSpellcasting(sheetData);
     }
 
     override getData(): NPCSheetData {
@@ -283,13 +285,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const rollables = ['a.rollable', '.rollable a', '.item-icon.rollable'].join(', ');
         html.find(rollables).on('click', (event) => this.onClickRollable(event));
         html.find('a.chat, .spell-icon.rollable').on('click', (event) => this.onClickToChat(event));
-
-        html.find('.attack')
-            .on('mouseenter', (event) => this.showControls(event))
-            .on('mouseleave', (event) => this.hideControls(event));
-        html.find('.action')
-            .on('mouseenter', (event) => this.showControls(event))
-            .on('mouseleave', (event) => this.hideControls(event));
 
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
@@ -549,22 +544,15 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      * Prepare spells and spell entries
      * @param sheetData Data of the actor to show in the sheet.
      */
-    private prepareSpellcasting(sheetData: NPCSheetData): SpellcastingSheetData[] {
-        const spellsList: SpellData[] & SheetItemData[] = [];
-        const spellEntriesList: string[] = [];
-        const spellbooks: any = [];
-
-        spellbooks.unassigned = {};
+    private prepareSpellcasting(sheetData: NPCSheetData) {
+        sheetData.spellcastingEntries = [];
 
         for (const item of sheetData.items) {
-            if (item.type === 'spell') {
-                spellsList.push(item);
-            } else if (item.type === 'spellcastingEntry') {
-                spellEntriesList.push(item._id);
-
-                const isPrepared = (item.data.prepared || {}).value === 'prepared';
-                const isRitual = (item.data.tradition || {}).value === 'ritual';
-                const isFocus = (item.data.tradition || {}).value === 'focus';
+            if (item.type === 'spellcastingEntry') {
+                const entry = this.actor.items.get(item._id);
+                if (!(entry instanceof SpellcastingEntryPF2e)) {
+                    continue;
+                }
 
                 // There are still some bestiary entries where these values are strings.
                 item.data.spelldc.dc = Number(item.data.spelldc.dc);
@@ -578,100 +566,14 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                     item.data.spelldc.value -= 2;
                 }
 
-                (item.data.prepared as boolean) = isPrepared;
-                item.data.tradition.ritual = isRitual;
-                item.data.tradition.focus = isFocus;
+                sheetData.spellcastingEntries.push(
+                    mergeObject(item, {
+                        eid: sheetData.spellcastingEntries.length,
+                        ...entry.getSpellData(),
+                    }),
+                );
             }
         }
-
-        // Contains all updates to perform over items after processing
-        const updateData: EmbeddedDocumentUpdateData<NPCPF2e>[] = [];
-
-        // Assign spells to spell entries
-        for (const spell of spellsList) {
-            // Merge in spell chat data
-            spell.chatData = this.actor.items.get(spell._id)?.getChatData();
-
-            // Assign icon based on cast time
-            spell.glyph = getActionGlyph(spell.data.time.value);
-
-            let location = spell.data.location.value;
-            let spellbook: any;
-            const hasVaidSpellcastingEntry = spellEntriesList.includes(location);
-
-            if (hasVaidSpellcastingEntry) {
-                spellbooks[location] = spellbooks[location] || {};
-                spellbook = spellbooks[location];
-            } else if (spellEntriesList.length === 1) {
-                location = spellEntriesList[0];
-                spellbooks[location] = spellbooks[location] || {};
-                spellbook = spellbooks[location];
-
-                // Assign the correct spellbook to the original item
-                updateData.push({ _id: spell._id, 'data.location.value': location });
-            } else {
-                location = 'unassigned';
-                spellbook = spellbooks.unassigned;
-            }
-
-            this.prepareSpell(sheetData.actor, spellbook, spell);
-        }
-
-        // Update all embedded entities that have an incorrect location.
-        if (updateData.length) {
-            console.log(
-                'PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ',
-                updateData,
-            );
-            this.actor.updateEmbeddedDocuments('Item', updateData);
-            ui.notifications.info(
-                'PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.',
-            );
-        }
-
-        const hasOrphanedSpells = Object.keys(spellbooks.unassigned).length > 0;
-
-        if (hasOrphanedSpells) {
-            sheetData.orphanedSpells = true;
-            sheetData.orphanedSpellbook = spellbooks.unassigned;
-        } else {
-            sheetData.orphanedSpells = false;
-        }
-
-        const spellcastingEntries: SpellcastingSheetData[] = [];
-
-        for (const entryId of spellEntriesList) {
-            const entry = sheetData.items.find((data): data is SpellcastingSheetData => data._id === entryId);
-
-            if (entry === null || entry === undefined) {
-                console.error(`Failed to find spell casting entry with ID ${entryId}`);
-                continue;
-            }
-
-            // Add prepared spells to spellcastingEntry
-            if (entry.data.prepared && spellbooks[entry._id]) {
-                type SpellbookSection = { prepared: Array<SheetItemData<SpellData> | { _id?: unknown }> };
-
-                const preparedSpellBook: Record<string, SpellbookSection> = spellbooks[entry._id];
-                this.preparedSpellSlots(entry, preparedSpellBook);
-                // Enrich prepared spells
-                for (const section of Object.values(preparedSpellBook)) {
-                    const preparedSpells = section.prepared.filter(
-                        (spellData): spellData is SheetItemData<SpellData> => !!spellData._id,
-                    );
-                    for (const spell of preparedSpells) {
-                        // Merge in spell chat data
-                        spell.chatData = this.actor.items.get(spell._id)?.getChatData();
-
-                        // Assign icon based on cast time
-                        spell.glyph = getActionGlyph(spell.data.time.value);
-                    }
-                }
-            }
-            entry.spellbook = spellbooks[entry._id];
-            spellcastingEntries.push(entry);
-        }
-        return spellcastingEntries;
     }
 
     /**
@@ -824,18 +726,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         } else if (action || item || spell) {
             this.onClickExpandable(event);
         }
-    }
-
-    private hideControls(event: JQuery.MouseLeaveEvent) {
-        const controls = $(event.currentTarget).find('.controls');
-        if (controls === undefined) return;
-        controls.removeClass('expanded');
-    }
-
-    private showControls(event: JQuery.MouseEnterEvent) {
-        const controls = $(event.currentTarget).find('.controls');
-        if (controls === undefined) return;
-        controls.addClass('expanded');
     }
 
     private baseInputOnFocus(event: JQuery.FocusInEvent) {

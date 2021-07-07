@@ -1,0 +1,85 @@
+{
+    "_id": "Hey5rucsel7apOOi",
+    "data": {
+        "actionCategory": {
+            "value": "defensive"
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "value": "<p>The most important thing you’ve learned living with fear is how to overcome it. When you roll a success on a saving throw against a fear effect, you get a critical success instead. In addition, you gain a +1 circumstance bonus to Will saves against fear effects and a +2 circumstance bonus to your Will DC against attempts to Demoralize you.</p>"
+        },
+        "featType": {
+            "value": "ancestry"
+        },
+        "level": {
+            "value": 1
+        },
+        "location": "",
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Goloma Courage",
+                "predicate": {
+                    "all": [
+                        "fear"
+                    ]
+                },
+                "selector": "will",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "fear"
+                    ]
+                },
+                "selector": "will",
+                "type": "save"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a saving throw against a fear effect, you get a critical success instead.</p>"
+            }
+        ],
+        "schema": {
+            "lastMigration": null,
+            "version": 0.642
+        },
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "goloma"
+            ]
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
+    "name": "Goloma Courage",
+    "type": "feat"
+}

@@ -1,20 +1,8 @@
+import { ActorPF2e } from '@actor';
 import type { ActorDataPF2e, CreatureData } from '@actor/data';
-import type { ItemDataPF2e, ItemType } from '@item/data';
-import { isPhysicalData } from '@item/data/helpers';
-import { RuleElementData, RuleElementSyntheticsPF2e } from './rules-data-definitions';
-
-export interface Bracket {
-    start?: number;
-    end?: number;
-    value: number;
-}
-
-export interface BracketedValue {
-    field?: string;
-    brackets: Bracket[];
-}
-
-export type RuleValue = string | number | BracketedValue;
+import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from '@item';
+import type { ItemDataPF2e } from '@item/data';
+import { BracketedValue, RuleElementData, RuleElementSyntheticsPF2e, RuleValue } from './rules-data-definitions';
 
 export class TokenEffect implements TemporaryEffect {
     public data: { disabled: boolean; icon: string; tint: string } = {
@@ -47,36 +35,23 @@ export class TokenEffect implements TemporaryEffect {
  * @category RuleElement
  */
 export abstract class RuleElementPF2e {
-    ruleData: any;
-    item: ItemDataPF2e;
-
-    /** The originating item of this rule element */
-    readonly origin: { uuid: string; type: ItemType } | null;
-
     /**
-     * @param ruleData unserialized JSON data from the actual rule input
+     * @param data unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
-    constructor(ruleData: RuleElementData, item: ItemDataPF2e, itemUUID?: string) {
-        this.ruleData = ruleData;
-        this.item = item;
-        this.origin = itemUUID
-            ? {
-                  uuid: itemUUID,
-                  type: item.type,
-              }
-            : null;
+    constructor(public data: RuleElementData, public item: Embedded<ItemPF2e>) {}
+
+    get actor(): ActorPF2e {
+        return this.item.actor;
     }
 
-    /**
-     * Globally ignore this rule element.
-     */
+    /** Globally ignore this rule element. */
     get ignored(): boolean {
         const { item } = this;
-        if (game.settings.get('pf2e', 'automation.effectExpiration') && item.type === 'effect' && item.data.expired) {
+        if (game.settings.get('pf2e', 'automation.effectExpiration') && item instanceof EffectPF2e && item.isExpired) {
             return true;
         }
-        if (!isPhysicalData(item)) return false;
+        if (!(item instanceof PhysicalItemPF2e)) return false;
         return !item.isEquipped || item.isInvested === false;
     }
 
@@ -146,8 +121,8 @@ export abstract class RuleElementPF2e {
      * @param item
      * @return human readable label of the rule
      */
-    getDefaultLabel(ruleData: any, item: ItemDataPF2e): string {
-        return game.i18n.localize(ruleData.label ?? item?.name);
+    getDefaultLabel(value = this.data.label): string {
+        return game.i18n.localize(value ?? this.item.name);
     }
 
     /**
@@ -172,14 +147,14 @@ export abstract class RuleElementPF2e {
      * @param actorData current actor data
      * @return the looked up value on the specific object
      */
-    resolveInjectedProperties(source: string, ruleData: any, itemData: any, actorData: any): string {
-        const objects = {
-            actor: actorData,
-            item: itemData,
-            rule: ruleData,
+    resolveInjectedProperties(source: string | undefined): string {
+        const objects: Record<string, ActorPF2e | ItemPF2e | RuleElementPF2e> = {
+            actor: this.actor,
+            item: this.item,
+            rule: this,
         };
-        return (source ?? '').replace(/{(actor|item|rule)\|(.*?)}/g, (_match, obj, prop) => {
-            return getProperty(objects[obj] ?? itemData, prop);
+        return (source ?? '').replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
+            return getProperty(objects[key]?.data ?? this.item.data, prop);
         });
     }
 
@@ -201,38 +176,40 @@ export abstract class RuleElementPF2e {
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
-    resolveValue(valueData: RuleValue, ruleData: any, item: any, actorData: any, defaultValue: any = 0): any {
+    resolveValue(valueData: RuleValue = 0, defaultValue: Exclude<RuleValue, BracketedValue> = 0): any {
         let value = valueData;
+        const actor = this.item.actor;
         if (typeof valueData === 'object') {
-            let bracket = getProperty(actorData, 'data.details.level.value');
-            if (valueData.field) {
+            let bracket = getProperty(actor.data, 'data.details.level.value');
+            if (valueData?.field) {
                 const field = String(valueData.field);
                 const separator = field.indexOf('|');
                 const source = field.substring(0, separator);
                 switch (source) {
                     case 'actor': {
-                        bracket = getProperty(actorData, field.substring(separator + 1));
+                        bracket = getProperty(actor.data, field.substring(separator + 1));
                         break;
                     }
                     case 'item': {
-                        bracket = getProperty(item, field.substring(separator + 1));
+                        bracket = getProperty(this.item.data, field.substring(separator + 1));
                         break;
                     }
                     case 'rule': {
-                        bracket = getProperty(ruleData, field.substring(separator + 1));
+                        bracket = getProperty(this.data, field.substring(separator + 1));
                         break;
                     }
                     default:
-                        bracket = getProperty(actorData, field.substring(0));
+                        bracket = getProperty(actor.data, field.substring(0));
                 }
             }
             value =
-                (valueData.brackets ?? []).find((b) => (b.start ?? 0) <= bracket && (b.end ? b.end >= bracket : true))
-                    ?.value ?? defaultValue;
+                (valueData?.brackets ?? []).find((b) => (b.start ?? 0) <= bracket && (b.end ? b.end >= bracket : true))
+                    ?.value ??
+                (Number(defaultValue) || 0);
         }
 
         if (typeof value === 'string') {
-            value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actorData.data, item: item.data }));
+            value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actor.data.data, item: this.item.data }));
         }
 
         if (Number.isInteger(Number(value))) {
