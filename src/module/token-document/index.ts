@@ -100,6 +100,8 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
 export interface TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     readonly _object: TokenPF2e | null;
 
+    get object(): TokenPF2e;
+
     readonly parent: ScenePF2e | null;
 
     _sheet: TokenConfigPF2e | null;

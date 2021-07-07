@@ -1,6 +1,12 @@
-export const AmbientLightDocumentConstructor: CanvasDocumentMixin<typeof foundry.documents.BaseAmbientLight, null>;
+export const AmbientLightDocumentConstructor: CanvasDocumentMixin<
+    typeof foundry.documents.BaseAmbientLight,
+    LightingLayer<AmbientLight>
+>;
 
-export const AmbientSoundDocumentConstructor: CanvasDocumentMixin<typeof foundry.documents.BaseAmbientSound, null>;
+export const AmbientSoundDocumentConstructor: CanvasDocumentMixin<
+    typeof foundry.documents.BaseAmbientSound,
+    SoundsLayer
+>;
 
 export const ActiveEffectConstructor: ClientDocumentMixin<typeof foundry.documents.BaseActiveEffect>;
 

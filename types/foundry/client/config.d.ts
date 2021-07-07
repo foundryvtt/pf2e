@@ -3,7 +3,7 @@ import * as PIXI from 'pixi.js';
 
 declare global {
     interface Config<
-        TAmbientLight extends AmbientLight = AmbientLight,
+        TAmbientLight extends AmbientLightDocument = AmbientLightDocument,
         TActiveEffect extends ActiveEffect = ActiveEffect,
         TActor extends Actor = Actor,
         TChatMessage extends ChatMessage<TActor> = ChatMessage<TActor>,
@@ -12,10 +12,10 @@ declare global {
         TFogExploration extends FogExploration = FogExploration,
         TFolder extends Folder = Folder,
         TItem extends Item<TActor> = Item<TActor>,
-        TLightingLayer extends LightingLayer<TAmbientLight> = LightingLayer<TAmbientLight>,
+        TLightingLayer extends LightingLayer<TAmbientLight['object']> = LightingLayer<TAmbientLight['object']>,
         TMacro extends Macro = Macro,
-        TScene extends Scene<TokenDocument<TActor>> = Scene<TokenDocument<TActor>>,
-        TTokenDocument extends TokenDocument<TActor> = TokenDocument<TActor>,
+        TToken extends TokenDocument<TActor> = TokenDocument<TActor>,
+        TScene extends Scene<TToken, TAmbientLight> = Scene<TToken, TAmbientLight>,
         TUser extends User<TActor> = User<TActor>,
     > {
         /** Configure debugging flags to display additional information */
@@ -173,8 +173,8 @@ declare global {
 
         /** Configuration for the AmbientLight embedded document type and its representation on the game Canvas */
         AmbientLight: {
-            documentClass: typeof AmbientLightDocument;
-            objectClass: ConstructorOf<TAmbientLight>;
+            documentClass: ConstructorOf<TAmbientLight>;
+            objectClass: new (...args: any[]) => TAmbientLight['object'];
             layerClass: ConstructorOf<TLightingLayer>;
             sheetClass: typeof LightConfig;
         };
@@ -201,13 +201,10 @@ declare global {
 
         /** Configuration for the Token embedded document type and its representation on the game Canvas */
         Token: {
-            documentClass: new (
-                data: PreCreate<TTokenDocument['data']['_source']>,
-                context: DocumentConstructionContext<TTokenDocument>,
-            ) => TTokenDocument;
-            objectClass: new (...args: any[]) => TTokenDocument['object'];
-            layerClass: typeof TokenLayer;
-            sheetClass: ConstructorOf<TTokenDocument['sheet']>;
+            documentClass: ConstructorOf<TToken>;
+            objectClass: new (...args: any[]) => TToken['object'];
+            layerClass: ConstructorOf<TokenLayer<TToken['object']>>;
+            sheetClass: ConstructorOf<TToken['sheet']>;
         };
 
         /* -------------------------------------------- */

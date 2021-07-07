@@ -5,7 +5,7 @@ export class LightingLayerPF2e extends LightingLayer<AmbientLightPF2e> {
     override refresh(darkness?: number | null): void {
         if (canvas.sight.rulesBasedVision && canvas.tokens.controlled.some((token) => token.hasLowLightVision)) {
             for (const source of this.sources) {
-                if (source.isDarkness || source.bright > source.dim) continue;
+                if (source.isDarkness) continue;
                 const original = { dim: source.dim, bright: source.bright };
                 source.dim = 0;
                 source.bright = Math.max(original.dim, original.bright);
