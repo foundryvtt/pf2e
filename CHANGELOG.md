@@ -35,6 +35,7 @@ This release features most of the new content from Lost Omens: Mwangi Expanse, M
 * (rectulo) Add proper styling to the heightened heading for heal animal druid focus spell description
 * (rectulo) Fix wording for dazzled duration in splash of art cleric focus spell description
 * (Friz) Brush up rule elements for tanglefoot bombs
+* (Friz) Update bombs with persistent damage to add notes with critical effects. Also include persistent damage note for fire poi
 
 ### Core System Improvements
 * (stwlam) Add a client-side permission check for updating tokens
