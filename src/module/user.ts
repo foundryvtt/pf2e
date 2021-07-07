@@ -22,8 +22,7 @@ export class UserPF2e extends User<ActorPF2e> {
                 [VisionLevels.DARKVISION]: 1,
             }[token.actor.visionLevel];
 
-            token.data.brightSight =
-                perceivedBrightness > lightLevel ? perceivedBrightness * canvas.dimensions.maxR : 0;
+            token.data.brightSight = perceivedBrightness > lightLevel ? 1000 : 0;
             token.updateSource({ defer });
         }
 
