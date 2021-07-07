@@ -23,7 +23,61 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Web Walker (vs. webs)",
+                "predicate": {
+                    "all": [
+                        "webbing"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Web Walker (vs. webs)",
+                "predicate": {
+                    "all": [
+                        "webbing"
+                    ]
+                },
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Web Walker (vs. snares and entanglement)",
+                "predicate": {
+                    "all": [
+                        "entanglement"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "web"
+                    ]
+                },
+                "selector": "saving-throw"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Whenever you roll a success on a saving throw against an effect involving a web, you get a critical success instead.</p>"
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.642
@@ -43,7 +97,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "systems/pf2e/icons/default-icons/feats.webp",
     "name": "Web Walker",
     "type": "feat"
 }
