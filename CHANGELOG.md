@@ -1,5 +1,55 @@
 # Patch Notes:
 
+## Version 2.8.0
+
+This release features most of the new content from Lost Omens: Mwangi Expanse, Malevolence, and all three books of Fists of the Ruby Phoenix.
+
+### Bug Fixes
+* (Chup) Fix trait descriptions in player character strikes. Closes #1553
+* (stwlam) Bring limited PC sheet up to date with passed sheet data
+* (stwlam) Fix adjustment of perceived brightness from sourced lighting. Closes #1559
+* (stwlam) Fix management of conditions from character sheet
+* (Supe) Fix spell item summary width when there is no description
+
+### Content Changes
+* (SpartanCPA) Correct Kyra (Beginner Box) spellcasting stat from Cha to Wis. Closes #1555
+* (SpartanCPA) Rename creatures from Age of Ashes that are re-printed in Mwangi Expanse
+* (TMun) Add fulu as a consumable trait (Fists of the Ruby Phoenix book 2)
+* (TMun) Add adjustment trait to equipment list for Mwangi expanse
+* (TMun) Add reach-50 and versatile positive traits. Add virulent to feat traits. Add troop to actor traits
+* (TMun) Add Fists of the Ruby Phoenix book 3 missing traits (Kaiju, Primal for Hazard, concentrate)
+* (TMun) Add air as an immunity for Fists of the Ruby Phoenix book 3
+* (TMun) Add area data to cataclysm. Closes #1563
+* (TMun) Add splendid skull mask item. Link skull creeper feat to mask item. Closes #1564
+* (TMun & SpartanCPA & Tikael) Content from Lost Omens: Mwangi Expanse, Malevolence, and all three books of Fists of the Ruby Phoenix, including traits, actions, deities, bestiary effects, equipment effects, feat effects, spell effects, spells, equipment, ancestry features, ancestries, sorcerer bloodlines, archetypes, and bestiary entries
+  Completes build of LO:ME, FotRP 1-3 and Malevolence
+* (rectulo) Remove extraneous styling from invoke the crimson oath focus spell description
+* (rectulo) Remove extraneous styling from consecrate ritual description
+* (rectulo) Remove extraneous styling from pillar of water spell description
+* (rectulo) Remove extraneous styling from resurrect ritual description
+* (rectulo) Remove extraneous styling from curse of death witch focus spell description
+* (rectulo) Remove extraneous styling from stasis cleric focus spell description
+* (rectulo) Remove extraneous line breaks from soul siphon oracle focus description
+* (rectulo) Remove extraneous line breaks from life link oracle focus spell description
+* (rectulo) Fix typo in abyssal wrath sorcerer focus spell description
+* (rectulo) Add proper styling to the heightened heading for heal animal druid focus spell description
+* (rectulo) Fix wording for dazzled duration in splash of art cleric focus spell description
+* (Friz) Brush up rule elements for tanglefoot bombs
+
+### Core System Improvements
+* (stwlam) Add a client-side permission check for updating tokens
+* (stwlam) Add compendium browser lookup. Closes #1550
+* (stwlam) Track schema version of actors and items
+* (stwlam) When necessary, migrate actors and items as they're created
+* (stwlam) Do not show a skill feat slot if no such options are configured for the selected background
+* (stwlam) Sort tag-selector options according to localized labels
+* (stwlam) Load the Compendium Browser earlier in the ready hook
+* (stwlam) Include item uuid and type in attack and damage roll messages. Closes #1283
+* (Supe) Add getters to SpellcastingEntry/Spell. SpellcastingEntry now has a spells collection
+* (Supe) Update Player and NPC Sheet spell list
+* (In3luki) Sort class features created by the ABCManager by level and name
+
+
 ## Version 2.7.1
 ### Bug Fixes
 * (stwlam) Add back Con-modifier to hit points
