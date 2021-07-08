@@ -77,6 +77,12 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return super.delete(context);
     }
 
+    override getRollData() {
+        if (!this.actor) return { item: this.data.data };
+        const actorRollData = this.actor.getRollData();
+        return { ...actorRollData, actor: actorRollData, item: this.data.data };
+    }
+
     /**
      * Create a chat card for this item and send it to the chat log. Many cards contain follow-up options for attack
      * rolls, effect application, etc.
@@ -139,7 +145,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
     protected processChatData<T>(htmlOptions: EnrichHTMLOptions = {}, data: T): T {
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
-            chatData.description.value = TextEditor.enrichHTML(chatData.description.value, htmlOptions);
+            chatData.description.value = TextEditor.enrichHTML(chatData.description.value, {
+                ...htmlOptions,
+                rollData: htmlOptions.rollData ?? this.getRollData(),
+            });
             return chatData;
         }
 

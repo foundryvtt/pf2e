@@ -3,7 +3,7 @@ declare interface EnrichHTMLOptions {
     entities?: boolean;
     links?: boolean;
     rolls?: boolean;
-    rollData?: boolean;
+    rollData?: object;
 }
 
 /**
