@@ -68,7 +68,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         anim: TokenAnimationAttribute<this>[],
         config: TokenAnimationConfig,
     ): void {
-        this.applyOverrides(undefined);
+        this.applyOverrides();
         super._onMovementFrame(dt, anim, config);
     }
 }

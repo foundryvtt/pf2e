@@ -1,5 +1,7 @@
-declare class AmbientLight extends PlaceableObject<AmbientLightDocument> {
-    constructor(document: AmbientLightDocument);
+declare class AmbientLight<
+    TDocument extends AmbientLightDocument = AmbientLightDocument,
+> extends PlaceableObject<TDocument> {
+    constructor(document: TDocument);
 
     /** A reference to the PointSource object which defines this light source area of effect */
     source: PointSource;
