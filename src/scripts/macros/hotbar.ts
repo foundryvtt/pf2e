@@ -166,17 +166,19 @@ if (a) {
 export async function createToggleEffectMacro(pack: string, effect: EffectPF2e, slot: number) {
     const prefix = pack ? `Compendium.${pack}` : 'Item';
     const command = `
+let actors = [game.user.character]
+if (canvas.tokens.controlled.length > 0) actors = canvas.tokens.controlled.map(token => token.actor)
 const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
 (async () => {
   const effect = duplicate(await fromUuid(ITEM_UUID));
   effect.flags.core = effect.flags.core ?? {};
   effect.flags.core.sourceId = ITEM_UUID;
-  for await (const token of canvas.tokens.controlled) {
-    const existing = token.actor.items.find(i => i.type === 'effect' && i.data.flags.core?.sourceId === ITEM_UUID);
+  for await (actor of actors) {
+    const existing = actor.items.find(i => i.type === 'effect' && i.data.flags.core?.sourceId === ITEM_UUID);
     if (existing) {
       existing.delete();
     } else {
-      Item.create(effect, { parent: token.actor });
+      Item.create(effect, { parent: actor });
     }
   }
 })();
