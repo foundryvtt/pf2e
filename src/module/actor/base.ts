@@ -1192,7 +1192,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         user: UserPF2e,
     ): Promise<void> {
         await super._preCreate(data, options, user);
-        if (user.id !== game.user.id || options.parent) return;
+        if (options.parent) return;
         await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
     }
 
