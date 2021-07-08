@@ -7,14 +7,14 @@ import { LightLevels } from './scene';
 export class UserPF2e extends User<ActorPF2e> {
     /** Set this user's the perceived scene light levels */
     setPerceivedLightLevel({ defer = true } = {}): void {
-        if (!(canvas.scene && canvas.sight.rulesBasedVision)) return;
+        if (!(canvas.ready && canvas.scene && canvas.sight.rulesBasedVision)) return;
 
-        const tokens = canvas.tokens.controlled.filter(
+        const controlleds = canvas.tokens.controlled.filter(
             (token): token is TokenPF2e & { actor: CreaturePF2e } =>
                 token.hasSight && token.observer && token.actor instanceof CreaturePF2e,
         );
         const lightLevel = canvas.scene.getLightLevel();
-        for (const token of tokens) {
+        for (const token of controlleds) {
             const perceivedBrightness = {
                 [VisionLevels.BLINDED]: 0,
                 [VisionLevels.NORMAL]: lightLevel,
@@ -23,18 +23,24 @@ export class UserPF2e extends User<ActorPF2e> {
             }[token.actor.visionLevel];
 
             token.data.brightSight = perceivedBrightness > lightLevel ? 1000 : 0;
-            token.updateSource({ defer });
         }
 
-        if (!defer) this.refreshSight();
+        const lightEmitters = [
+            ...canvas.tokens.placeables.filter((token) => token.visible && token.emitsLight),
+            ...canvas.lighting.placeables.filter((light) => light.visible && !light.isDarkness),
+        ];
+
+        if (!defer) {
+            for (const emitter of lightEmitters) emitter.updateSource({ defer: true });
+            this.refreshSight(true);
+        }
     }
 
     /** Instruct the perception manager to refresh the sight and lighting layers */
-    refreshSight(): void {
-        canvas.perception.schedule({
-            lighting: { refresh: true },
-            sight: { refresh: true },
-        });
+    refreshSight(immediate = false): void {
+        if (!(canvas.ready && canvas.sight.rulesBasedVision)) return;
+        const options = { lighting: { refresh: true }, sight: { refresh: true } };
+        immediate ? canvas.perception.update(options) : canvas.perception.schedule(options);
     }
 }
 

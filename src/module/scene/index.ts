@@ -1,9 +1,9 @@
-import { AmbientLightDocumentPF2e } from '@module/canvas/ambient-light';
 import { ZeroToTwo } from '../data';
 import { TokenDocumentPF2e } from '../token-document';
+import { AmbientLightDocumentPF2e } from './ambient-light-document';
 import { SceneConfigPF2e } from './sheet';
 
-export class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e> {
+class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e> {
     override prepareBaseData() {
         super.prepareBaseData();
         if (canvas.sight?.rulesBasedVision) {
@@ -24,16 +24,18 @@ export class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e
     }
 }
 
-export interface ScenePF2e {
+interface ScenePF2e {
     _sheet: SceneConfigPF2e | null;
 
     get sheet(): SceneConfigPF2e;
 }
 
-export enum LightLevels {
+enum LightLevels {
     DARKNESS = 1 / 4,
     DIM_LIGHT = 3 / 4,
     BRIGHT_LIGHT = 1,
 }
 
-export type LightLevel = ZeroToTwo;
+type LightLevel = ZeroToTwo;
+
+export { AmbientLightDocumentPF2e, LightLevel, LightLevels, ScenePF2e, TokenDocumentPF2e };
