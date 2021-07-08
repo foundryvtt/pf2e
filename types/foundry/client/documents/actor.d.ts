@@ -47,7 +47,7 @@ declare global {
         get temporaryEffects(): TemporaryEffect[];
 
         /** Return a reference to the TokenDocument which owns this Actor as a synthetic override */
-        get token(): this['parent'];
+        get token(): TParent | null;
 
         /** A convenience reference to the item type (data.type) of this Actor */
         get type(): string;

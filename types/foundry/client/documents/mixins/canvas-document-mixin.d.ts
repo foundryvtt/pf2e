@@ -1,39 +1,33 @@
 export {};
 
-type _CanvasDocument = CanvasDocument<foundry.abstract.Document, PlaceablesLayer<PlaceableObject<_CanvasDocument>>>;
-
 declare global {
     /**
      * A specialized sub-class of the ClientDocumentMixin which is used for document types that are intended to be
      * represented upon the game Canvas.
      * @mixin
      */
-    function CanvasDocumentMixin<
-        TDocument extends typeof foundry.abstract.Document,
-        TLayer extends PlaceablesLayer | null,
-    >(Base: TDocument): CanvasDocumentMixin<TDocument, TLayer>;
+    function CanvasDocumentMixin<TDocument extends typeof foundry.abstract.Document, TLayer extends PlaceablesLayer>(
+        Base: TDocument,
+    ): CanvasDocumentMixin<TDocument, TLayer>;
 
     type CanvasDocumentMixin<
         TDocument extends typeof foundry.abstract.Document,
-        TLayer extends PlaceablesLayer | null,
+        TLayer extends PlaceablesLayer,
     > = TDocument & {
         new (...args: any[]): CanvasDocument<InstanceType<TDocument>, TLayer> & InstanceType<TDocument>;
     };
 
     class CanvasDocument<
         TDocument extends foundry.abstract.Document = foundry.abstract.Document,
-        TLayer extends PlaceablesLayer<PlaceableObject<CanvasDocument>> | null = PlaceablesLayer<
-            PlaceableObject<_CanvasDocument>
-        > | null,
+        TLayer extends PlaceablesLayer = PlaceablesLayer<any>,
     > extends ClientDocument<TDocument> {
-        /** @override */
         constructor(data: PreCreate<TDocument['data']['_source']>, context?: DocumentModificationContext);
 
         /** A reference to the PlaceableObject instance which represents this Embedded Document. */
-        _object: TLayer extends PlaceablesLayer ? TLayer['placeables'][number] | null : null;
+        protected _object: TLayer['placeables'][number] | null;
 
         /** A lazily constructed PlaceableObject instance which can represent this Document on the game canvas. */
-        get object(): this['_object'];
+        get object(): TLayer['placeables'][number];
 
         /** A reference to the CanvasLayer which contains Document objects of this type. */
         get layer(): TLayer;

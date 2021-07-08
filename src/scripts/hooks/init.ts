@@ -13,17 +13,16 @@ import { CombatantPF2e } from '@module/combatant';
 import { FolderPF2e } from '@module/folder';
 import { registerHandlebarsHelpers } from '@module/handlebars';
 import { MacroPF2e } from '@module/macro';
-import { ScenePF2e } from '@module/scene';
+import { AmbientLightDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from '@module/scene';
 import { SceneConfigPF2e } from '@module/scene/sheet';
 import { registerSettings } from '@module/settings';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { loadPF2ETemplates } from '@module/templates';
-import { TokenDocumentPF2e } from '@module/token-document';
 import { TokenConfigPF2e } from '@module/token-document/sheet';
 import { PlayerConfigPF2e } from '@module/user/player-config';
 import { PF2ECONFIG } from '../config';
-import { AmbientLightPF2e } from '@module/canvas';
 import { UserPF2e } from '@module/user';
+import { AmbientLightPF2e } from '@module/canvas';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -48,7 +47,10 @@ export function listen(): void {
 
         CONFIG.User.documentClass = UserPF2e;
 
+        CONFIG.AmbientLight.documentClass = AmbientLightDocumentPF2e;
+        CONFIG.AmbientLight.layerClass = LightingLayerPF2e;
         CONFIG.AmbientLight.objectClass = AmbientLightPF2e;
+
         CONFIG.Token.documentClass = TokenDocumentPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
         CONFIG.Token.sheetClass = TokenConfigPF2e;
