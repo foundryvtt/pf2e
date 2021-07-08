@@ -1,4 +1,4 @@
-import { FeatPF2e, ClassPF2e, ItemPF2e } from '@item/index';
+import { FeatPF2e, ClassPF2e, ItemPF2e, ABCItemPF2e } from '@item/index';
 import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e } from '@item/data';
 import { ABCFeatureEntryData } from '@item/abc/data';
 import { CharacterPF2e } from '@actor/index';
@@ -61,6 +61,24 @@ export class AncestryBackgroundClassManager {
         if (classFeaturesToCreate.length > 0) {
             await actor.createEmbeddedDocuments('Item', classFeaturesToCreate, { keepId: true, render: false });
             classItem.setFlag(game.system.id, 'insertedClassFeaturesLevel', actor.level);
+        }
+    }
+
+    static async getItemSource(packName: 'pf2e.ancestries', name: string): Promise<AncestrySource>;
+    static async getItemSource(packName: 'pf2e.backgrounds', name: string): Promise<BackgroundSource>;
+    static async getItemSource(packName: 'pf2e.classes', name: string): Promise<ClassSource>;
+    static async getItemSource(packName: 'pf2e.feats-srd', name: string): Promise<FeatSource>;
+    static async getItemSource(
+        packName: 'pf2e.ancestries' | 'pf2e.backgrounds' | 'pf2e.classes' | 'pf2e.feats-srd',
+        name: string,
+    ): Promise<AncestrySource | BackgroundSource | ClassSource | FeatSource> {
+        const slug = sluggify(name);
+        const pack = game.packs.get<CompendiumCollection<ABCItemPF2e>>(packName, { strict: true });
+        const docs = await pack.getDocuments({ 'data.slug': { $in: [slug] } });
+        if (docs.length === 1) {
+            return docs[0].toObject();
+        } else {
+            throw ErrorPF2e(`Cannot find '${name}' in pack '${packName}'`);
         }
     }
 
@@ -161,12 +179,13 @@ export class AncestryBackgroundClassManager {
             for (const skill of options.assurance) {
                 const index = itemsToCreate.findIndex((item) => item.data.slug === 'assurance');
                 if (index > -1) {
-                    itemsToCreate[index].name += ` (${skill})`;
-                    itemsToCreate[index].data.slug = sluggify(itemsToCreate[index].name);
+                    const location = (itemsToCreate[index] as FeatSource).data.location;
+                    itemsToCreate[index] = await this.getItemSource('pf2e.feats-srd', `Assurance (${skill})`);
+                    itemsToCreate[index]._id = randomID(16);
+                    (itemsToCreate[index] as FeatSource).data.location = location;
                 }
             }
         }
-
         return actor.createEmbeddedDocuments('Item', itemsToCreate, { keepId: true });
     }
 }

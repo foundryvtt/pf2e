@@ -1,8 +1,8 @@
 import { CharacterPF2e } from '@actor';
-import { ABCItemPF2e, ItemPF2e } from '@item';
+import { ItemPF2e } from '@item';
 import { AncestrySource, BackgroundSource, ClassSource } from '@item/data';
 import { ABCManagerOptions, AncestryBackgroundClassManager } from '@item/abc/abc-manager';
-import { ErrorPF2e, sluggify } from '@module/utils';
+import { ErrorPF2e } from '@module/utils';
 
 export class ActorImporter {
     /**
@@ -21,7 +21,7 @@ export class ActorImporter {
             throw ErrorPF2e(`Invalid Actor type. Ancestry items can only be added to characters.`);
         }
         if (typeof ancestry === 'string') {
-            ancestry = await this.getItemSource('pf2e.ancestries', ancestry);
+            ancestry = await AncestryBackgroundClassManager.getItemSource('pf2e.ancestries', ancestry);
         }
         return AncestryBackgroundClassManager.addABCItem(ancestry, character, options);
     }
@@ -42,7 +42,7 @@ export class ActorImporter {
             throw ErrorPF2e(`Invalid Actor type. Background items can only be added to characters.`);
         }
         if (typeof background === 'string') {
-            background = await this.getItemSource('pf2e.backgrounds', background);
+            background = await AncestryBackgroundClassManager.getItemSource('pf2e.backgrounds', background);
         }
         return AncestryBackgroundClassManager.addABCItem(background, character, options);
     }
@@ -63,32 +63,8 @@ export class ActorImporter {
             throw ErrorPF2e(`Invalid Actor type. Class items can only be added to characters.`);
         }
         if (typeof cls === 'string') {
-            cls = await this.getItemSource('pf2e.classes', cls);
+            cls = await AncestryBackgroundClassManager.getItemSource('pf2e.classes', cls);
         }
         return AncestryBackgroundClassManager.addABCItem(cls, character, options);
-    }
-
-    /**
-     * Get the item source of a given ancestry, background or class from the appropriate compendium pack
-     * @param {string} packName 'pf2e.ancestries' or 'pf2e.backgrounds' or 'pf2e.classes'
-     * @param {string} name The supplied english ancestry, background or class name
-     * @returns {Promise<AncestrySource | BackgroundSource | ClassSource>} A Promise which resolves to the item source of the item found
-     *  in the compendium pack
-     */
-    protected static async getItemSource(packName: 'pf2e.ancestries', name: string): Promise<AncestrySource>;
-    protected static async getItemSource(packName: 'pf2e.backgrounds', name: string): Promise<BackgroundSource>;
-    protected static async getItemSource(packName: 'pf2e.classes', name: string): Promise<ClassSource>;
-    protected static async getItemSource(
-        packName: 'pf2e.ancestries' | 'pf2e.backgrounds' | 'pf2e.classes',
-        name: string,
-    ): Promise<AncestrySource | BackgroundSource | ClassSource> {
-        const slug = sluggify(name);
-        const pack = game.packs.get<CompendiumCollection<ABCItemPF2e>>(packName, { strict: true });
-        const docs = await pack.getDocuments({ 'data.slug': { $in: [slug] } });
-        if (docs.length === 1) {
-            return docs[0].toObject();
-        } else {
-            throw ErrorPF2e(`Cannot find '${name}' in pack '${packName}'`);
-        }
     }
 }
