@@ -209,7 +209,7 @@ export abstract class RuleElementPF2e {
         }
 
         if (typeof value === 'string') {
-            value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actor.data.data, item: this.item.data }));
+            value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actor.data.data, item: this.item.data.data }));
         }
 
         if (Number.isInteger(Number(value))) {
