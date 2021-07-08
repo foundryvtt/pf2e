@@ -17,6 +17,12 @@ export class MigrationRunner extends MigrationRunnerBase {
         const currentVersion = this.LATEST_SCHEMA_VERSION;
         if (!document.sourceId) {
             document.data.update({ 'data.schema.version': currentVersion });
+            if (!('items' in document)) return;
+            for (const item of document.items) {
+                if (item.schemaVersion === null) {
+                    item.data.update({ 'data.schema.version': currentVersion });
+                }
+            }
             return;
         }
 
