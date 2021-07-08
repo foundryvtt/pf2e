@@ -21,36 +21,36 @@ const SETTINGS = {
         default: true,
         type: Boolean,
     },
-    secretDamageMetagame: {
+    'metagame.secretDamage': {
         name: 'PF2E.SETTINGS.Metagame.SecretDamage.Name',
         hint: 'PF2E.SETTINGS.Metagame.SecretDamage.Hint',
         scope: 'world',
-        config: false,
+        config: true, //temp set to true until I can figure out what is causing initial value not to populate correctly
         default: false,
         type: Boolean,
     },
-    secretConditionMetagame: {
+    'metagame.secretCondition': {
         name: 'PF2E.SETTINGS.Metagame.SecretCondition.Name',
         hint: 'PF2E.SETTINGS.Metagame.SecretCondition.Hint',
         scope: 'world',
-        config: false,
+        config: true, //temp set to true until I can figure out what is causing initial value not to populate correctly
         default: false,
         type: Boolean,
     },
-    showDCMetagame: {
+    'metagame.showDC': {
         name: 'PF2E.SETTINGS.Metagame.ShowDC.Name',
         hint: 'PF2E.SETTINGS.Metagame.ShowDC.Hint',
         scope: 'world',
-        config: false,
+        config: true, //temp set to true until I can figure out what is causing initial value not to populate correctly
         default: 'gm',
         type: String,
         choices: metagameDcChoices,
     },
-    showResultsMetagame: {
+    'metagame.showResults': {
         name: 'PF2E.SETTINGS.Metagame.ShowResults.Name',
         hint: 'PF2E.SETTINGS.Metagame.ShowResults.Hint',
         scope: 'world',
-        config: false,
+        config: true, //temp set to true until I can figure out what is causing initial value not to populate correctly
         default: 'gm',
         type: String,
         choices: metagameResultsChoices,
@@ -116,6 +116,7 @@ export class ChatSettings extends FormApplication {
     }
 
     protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
+        console.log(data);
         for await (const key of Object.keys(SETTINGS)) {
             game.settings.set('pf2e', key, data[key]);
         }

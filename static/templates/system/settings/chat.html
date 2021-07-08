@@ -9,23 +9,23 @@
   <div class="form-group">
     <label>{{localize 'PF2E.SETTINGS.Metagame.SecretDamage.Name'}}</label>
     <div class="form-fields">
-        <input type="checkbox" {{checked secretDamageMetagame.value}} name="secretDamageMetagame">
+        <input type="checkbox" {{checked metadata.secretDamage.value}} name="pf2e.metadata.secretDamage">
     </div>
     <p class="notes">{{localize 'PF2E.SETTINGS.Metagame.SecretDamage.Hint'}}</p>
   </div>
   <div class="form-group">
     <label>{{localize 'PF2E.SETTINGS.Metagame.SecretCondition.Name'}}</label>
     <div class="form-fields">
-        <input type="checkbox" {{checked secretConditionMetagame.value}} name="secretConditionMetagame">
+        <input type="checkbox" {{checked metadata.secretCondition.value}} name="pf2e.metadata.secretCondition">
     </div>
     <p class="notes">{{localize 'PF2E.SETTINGS.Metagame.SecretCondition.Hint'}}</p>
   </div>
   <div class="form-group">
     <label>{{localize 'PF2E.SETTINGS.Metagame.ShowDC.Name'}}</label>
     <div class="form-fields">
-          <select name="showDCMetagame">
-          {{#select showDCMetagame.value}}
-          {{#each showDCMetagame.setting.choices as |label value|}}
+          <select name="pf2e.metadata.showDC">
+          {{#select metadata.showDC.value}}
+          {{#each metadata.showDC.setting.choices as |label value|}}
           <option value="{{value}}">{{localize label}}</option>
           {{/each}}
           {{/select}}
@@ -36,9 +36,9 @@
   <div class="form-group">
     <label>{{localize 'PF2E.SETTINGS.Metagame.ShowResults.Name'}}</label>
     <div class="form-fields">
-          <select name="showResultsMetagame">
-          {{#select showResultsMetagame.value}}
-          {{#each showResultsMetagame.setting.choices as |label value|}}
+          <select name="pf2e.metadata.showResults">
+          {{#select metadata.showResults.value}}
+          {{#each metadata.showResults.setting.choices as |label value|}}
           <option value="{{value}}">{{localize label}}</option>
           {{/each}}
           {{/select}}
