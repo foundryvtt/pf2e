@@ -9,12 +9,12 @@ export class UserPF2e extends User<ActorPF2e> {
     setPerceivedLightLevel({ defer = true } = {}): void {
         if (!(canvas.ready && canvas.scene && canvas.sight.rulesBasedVision)) return;
 
-        const controlleds = canvas.tokens.controlled.filter(
+        const controlled = canvas.tokens.controlled.filter(
             (token): token is TokenPF2e & { actor: CreaturePF2e } =>
                 token.hasSight && token.observer && token.actor instanceof CreaturePF2e,
         );
         const lightLevel = canvas.scene.getLightLevel();
-        for (const token of controlleds) {
+        for (const token of controlled) {
             const perceivedBrightness = {
                 [VisionLevels.BLINDED]: 0,
                 [VisionLevels.NORMAL]: lightLevel,
