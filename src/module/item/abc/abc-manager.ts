@@ -3,21 +3,26 @@ import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e } from '@
 import { ABCFeatureEntryData } from '@item/abc/data';
 import { CharacterPF2e } from '@actor/index';
 import type { FeatSource } from '@item/feat/data';
-import { ErrorPF2e } from '@module/utils';
+import { ErrorPF2e, sluggify } from '@module/utils';
+
+export interface ABCManagerOptions {
+    assurance?: string[];
+}
 
 export class AncestryBackgroundClassManager {
     static async addABCItem(
         source: AncestrySource | BackgroundSource | ClassSource,
         actor: CharacterPF2e,
+        options?: ABCManagerOptions,
     ): Promise<ItemPF2e[]> {
         switch (source.type) {
             case 'ancestry': {
                 await actor.ancestry?.delete();
-                return this.addFeatures(source, actor, true);
+                return this.addFeatures(source, actor, true, options);
             }
             case 'background': {
                 await actor.background?.delete();
-                return this.addFeatures(source, actor, true);
+                return this.addFeatures(source, actor, true, options);
             }
             case 'class': {
                 await actor.class?.delete();
@@ -142,6 +147,7 @@ export class AncestryBackgroundClassManager {
         itemSource: AncestrySource | BackgroundSource,
         actor: CharacterPF2e,
         createSource = false,
+        options?: ABCManagerOptions,
     ): Promise<ItemPF2e[]> {
         const itemsToCreate: ItemSourcePF2e[] = [];
         if (createSource) {
@@ -150,6 +156,17 @@ export class AncestryBackgroundClassManager {
         }
         const entriesData = Object.values(itemSource.data.items);
         itemsToCreate.push(...(await this.getFeatures(entriesData, itemSource._id)));
+
+        if (options?.assurance) {
+            for (const skill of options.assurance) {
+                const index = itemsToCreate.findIndex((item) => item.data.slug === 'assurance');
+                if (index > -1) {
+                    itemsToCreate[index].name += ` (${skill})`;
+                    itemsToCreate[index].data.slug = sluggify(itemsToCreate[index].name);
+                }
+            }
+        }
+
         return actor.createEmbeddedDocuments('Item', itemsToCreate, { keepId: true });
     }
 }
