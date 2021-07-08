@@ -1,5 +1,21 @@
 # Patch Notes:
 
+## Version 2.8.1
+### Bug Fixes
+* (stwlam) Fix setting token brightSight to a radius larger than Foundry will allow
+* (stwlam) Restore perceived brightness of sourced lights
+* (stwlam) Set initial schema version on newly-created owned items
+* (Supe) Fix regression with roll syntax values rule element referencing item data
+
+### Content Changes
+* (TMun) Update conrasu so they aren't immortal. Closes #1571
+* (rectulo) Remove extraneous styling from stormtossed tengu heritage description
+* (rectulo) Remove extraneous styling from mountainkeeper tengu heritage description
+
+### Core System Improvements
+* (Tikael) Add collision fields to vehicle data and vehicle sheet
+
+
 ## Version 2.8.0
 
 This release features most of the new content from Lost Omens: Mwangi Expanse, Malevolence, and all three books of Fists of the Ruby Phoenix.
