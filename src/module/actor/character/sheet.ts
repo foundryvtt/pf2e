@@ -8,7 +8,7 @@ import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { MagicTradition, PreparationType } from '@item/spellcasting-entry/data';
 import { ProficiencyModifier } from '@module/modifiers';
-import { ZeroToThree } from '@module/data';
+import { goesToEleven, ZeroToThree } from '@module/data';
 import { CharacterPF2e } from '.';
 import { CreatureSheetPF2e } from '../creature/sheet';
 import { ManageCombatProficiencies } from '../sheet/popups/manage-combat-proficiencies';
@@ -66,7 +66,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Update hero points label
         sheetData.data.attributes.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
         sheetData.data.attributes.heroPoints.hover =
-            CONFIG.PF2E.heroPointLevels[sheetData.data.attributes.heroPoints.rank];
+            CONFIG.PF2E.heroPointLevels[sheetData.data.attributes.heroPoints.rank as ZeroToThree];
 
         // Update class dc label
         sheetData.data.attributes.classDC.icon = this.getProficiencyIcon(sheetData.data.attributes.classDC.rank);
@@ -764,9 +764,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     return;
                 }
 
-                data.data.slots['slot' + itemLevel].value -= 1;
-                if (data.data.slots['slot' + itemLevel].value < 0) {
-                    data.data.slots['slot' + itemLevel].value = 0;
+                const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : 'slot0';
+
+                data.data.slots[slotLevel].value -= 1;
+                if (data.data.slots[slotLevel].value < 0) {
+                    data.data.slots[slotLevel].value = 0;
                 }
             }
 
@@ -793,7 +795,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (data.data.slots == null) {
                 return;
             }
-            data.data.slots['slot' + itemLevel].value = data.data.slots['slot' + itemLevel].max;
+            const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : 'slot0';
+            data.data.slots[slotLevel].value = data.data.slots[slotLevel].max;
 
             item.update(data);
         });
@@ -858,7 +861,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
      * expection focus = { points: 1, pool: 1}
      */
     private getFocusIcon(focus: { points: number; pool: number }) {
-        const icons = {};
+        const icons: Record<number, string> = {};
         const usedPoint = '<i class="fas fa-dot-circle"></i>';
         const unUsedPoint = '<i class="far fa-circle"></i>';
 

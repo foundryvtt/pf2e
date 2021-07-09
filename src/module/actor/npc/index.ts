@@ -19,7 +19,7 @@ import { sluggify } from '@module/utils';
 import { SpellAttackRollModifier, SpellDifficultyClass } from '@item/spellcasting-entry/data';
 import { Rarity } from '@module/data';
 import { NPCData, NPCStrike } from './data';
-import { StrikeTrait } from '@actor/data/base';
+import { AbilityString, StrikeTrait } from '@actor/data/base';
 import { Attitude, VisionLevel, VisionLevels } from '@actor/creature/data';
 import { NPCSheetPF2e } from './sheet';
 import { NPCLegacySheetPF2e } from './legacy-sheet';
@@ -492,7 +492,7 @@ export class NPCPF2e extends CreaturePF2e {
                 const traits = itemData.data.traits.value;
 
                 // Determine the base ability score for this attack.
-                let ability: string;
+                let ability: AbilityString;
                 {
                     ability = itemData.data.weaponType?.value === 'ranged' ? 'dex' : 'str';
                     const bonus = Number(itemData.data?.bonus?.value ?? 0);
