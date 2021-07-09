@@ -8,7 +8,7 @@ import { ErrorPF2e, objectHasKey } from '@module/utils';
 import type { ActiveEffectPF2e } from '@module/active-effect';
 import { LocalizePF2e } from '@module/system/localize';
 import { ItemTransfer } from './item-transfer';
-import { TokenEffect } from '@module/rules/rule-element';
+import { RuleElementPF2e, TokenEffect } from '@module/rules/rule-element';
 import { ActorSheetPF2e } from './sheet/base';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { hasInvestedProperty } from '@item/data/helpers';
@@ -33,12 +33,17 @@ interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorP
  * @category Actor
  */
 export class ActorPF2e extends Actor<TokenDocumentPF2e> {
+    /** A separate collection of owned physical items for convenient access */
     physicalItems!: Collection<Embedded<PhysicalItemPF2e>>;
+
+    /** Rule elements drawn from owned items */
+    rules!: RuleElementPF2e[];
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
             super(data, context);
             this.physicalItems ??= new Collection();
+            this.rules ??= [];
         } else {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Actor.documentClasses[data.type](data, { ...ready, ...context });
@@ -179,7 +184,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.preparePrototypeToken();
     }
 
-    /** Prepare physical item getters on this actor and containers */
+    /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
     override prepareEmbeddedEntities(): void {
         super.prepareEmbeddedEntities();
         const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
@@ -194,6 +199,9 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         for (const container of containers) {
             container.prepareContents();
         }
+
+        // Rule elements
+        this.rules = this.items.contents.flatMap((item) => item.prepareRuleElements());
     }
 
     /** Disable active effects from a physical item if it isn't equipped and (if applicable) invested */

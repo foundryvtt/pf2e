@@ -9,7 +9,6 @@ import {
 } from '@module/modifiers';
 import { WeaponDamagePF2e } from '@module/system/damage/weapon';
 import { CheckPF2e, DamageRollPF2e } from '@module/system/rolls';
-import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
 import { RollNotePF2e } from '@module/notes';
 import { RollParameters } from '@system/rolls';
 import { CreaturePF2e, ActorPF2e } from '@actor/index';
@@ -99,9 +98,7 @@ export class NPCPF2e extends CreaturePF2e {
         const traitSet = new Set(traits.traits.value.concat(rarity).concat(customTraits));
         traits.traits.value = Array.from(traitSet).sort();
 
-        const rules = this.items
-            .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item)), [])
-            .filter((rule) => !rule.ignored);
+        const rules = this.rules.filter((rule) => !rule.ignored);
 
         // Toggles
         (data as any).toggles = {

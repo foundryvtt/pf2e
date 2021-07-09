@@ -1,6 +1,5 @@
 import { ActorPF2e, LootPF2e, NPCPF2e } from '@actor/index';
 import { TokenPF2e } from '../canvas/token';
-import { RuleElements } from '../rules/rules';
 import { ScenePF2e } from '../scene';
 import { UserPF2e } from '../user';
 import { TokenConfigPF2e } from './sheet';
@@ -54,14 +53,9 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         super._preCreate(data, options, user);
 
         const actor = game.actors.get(data.actorId ?? '');
-        if (actor) {
-            actor.items.forEach((item) => {
-                const rules = RuleElements.fromOwnedItem(item);
-                for (const rule of rules) {
-                    if (rule.ignored) continue;
-                    rule.onCreateToken(actor.data, item.data, data);
-                }
-            });
+        if (!actor) return;
+        for (const rule of actor.rules.filter((rule) => !rule.ignored)) {
+            rule.onCreateToken(actor.data, rule.item.data, data);
         }
     }
 
