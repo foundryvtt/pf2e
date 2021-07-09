@@ -166,7 +166,6 @@ if (a) {
 export async function createToggleEffectMacro(pack: string, effect: EffectPF2e, slot: number) {
     const prefix = pack ? `Compendium.${pack}` : 'Item';
     const command = `
-let actors = [game.user.character]
 const actors = canvas.tokens.controlled.map(token => token.actor);
 if (game.user.character) {
   actors.push(game.user.character);
