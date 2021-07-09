@@ -5,6 +5,7 @@ import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-deg
 import { LocalizePF2e } from './localize';
 import { RollDataPF2e } from './rolls';
 import { DegreeAdjustment } from '@module/degree-of-success';
+import { ItemPF2e } from '@item';
 
 export interface CheckModifiersContext {
     /** Any options which should be used in the roll. */
@@ -19,6 +20,8 @@ export interface CheckModifiersContext {
     fate?: string;
     /** The actor which initiated this roll. */
     actor?: ActorPF2e;
+    /** The originating item of this attack, if any */
+    item?: Embedded<ItemPF2e> | null;
     /** Optional title of the roll options dialog; defaults to the check name */
     title?: string;
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
@@ -63,11 +66,11 @@ export class CheckModifiersDialog extends Application {
     /** Roll the given check, rendering the roll to the chat menu. */
     static async roll(
         check: StatisticModifier,
-        context?: CheckModifiersContext,
+        context: CheckModifiersContext = {},
         callback?: (roll: Rolled<Roll>) => void,
     ) {
         const options: string[] = [];
-        const ctx = (context as any) ?? {};
+        const ctx = context as any;
         let dice = '1d20';
         if (ctx.fate === 'misfortune') {
             dice = '2d20kl';
@@ -88,9 +91,8 @@ export class CheckModifiersDialog extends Application {
         if (ctx.user) {
             ctx.user = ctx.user.id;
         }
-        if (ctx.item) {
-            ctx.item = ctx.item.id;
-        }
+        const item = context.item;
+        delete context.item;
 
         ctx.rollMode =
             ctx.rollMode ?? (ctx.secret ? 'blindroll' : undefined) ?? game.settings.get('core', 'rollMode') ?? 'roll';
@@ -129,8 +131,6 @@ export class CheckModifiersDialog extends Application {
             roll.data.degreeOfSuccess = degreeOfSuccess.value;
 
             const dcLabel = game.i18n.format(ctx.dc.label ?? 'PF2E.DCLabel', { dc: ctx.dc.value });
-            const showDC = game.settings.get('pf2e', 'metagame.showDC').toString();
-            flavor += `<div data-visibility="${ctx.dc.visibility ?? showDC}"><b>${dcLabel}</b></div>`;
 
             let adjustmentLabel = '';
             if (degreeOfSuccess.degreeAdjustment !== undefined) {
@@ -154,7 +154,16 @@ export class CheckModifiersDialog extends Application {
 
             const resultLabel = game.i18n.localize('PF2E.ResultLabel');
             const degreeLabel = game.i18n.localize(`PF2E.${ctx.dc.scope ?? 'CheckOutcome'}.${degreeOfSuccessText}`);
+            const showDC = game.settings.get('pf2e', 'metagame.showDC').toString();
             const showResults = game.settings.get('pf2e', 'metagame.showResults').toString();
+            flavor += `<div data-visibility="${ctx.dc.visibility ?? showDC}"><b>${dcLabel}</b> `;
+            //add (succeed by x) message to DC/AC line
+            const hitMiss = game.i18n.localize(
+                `PF2E.${ctx.dc.scope ?? 'CheckOutcome'}.${degreeOfSuccessText.replace('critical', '').toLowerCase()}`,
+            );
+            const succeedBy = roll.total - ctx.dc.value;
+            flavor += `<i>(${hitMiss} by ${succeedBy})</i>`;
+            flavor += `</div>`;
             flavor += `<div data-visibility="${
                 ctx.dc.visibility ?? showResults
             }" class="degree-of-success"><b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel}</span></b>${adjustmentLabel}`;
@@ -177,7 +186,7 @@ export class CheckModifiersDialog extends Application {
             flavor += `<div class="tags">${traits}</div><hr>`;
         }
         flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;
-
+        const origin = item ? { uuid: item.uuid, type: item.type } : null;
         await roll.toMessage(
             {
                 speaker: ChatMessage.getSpeaker(speaker),
@@ -188,9 +197,10 @@ export class CheckModifiersDialog extends Application {
                     },
                     pf2e: {
                         canReroll: !['fortune', 'misfortune'].includes(ctx.fate),
-                        context: ctx,
+                        context,
                         unsafe: flavor,
                         totalModifier: check.totalModifier,
+                        origin,
                     },
                 },
             },
