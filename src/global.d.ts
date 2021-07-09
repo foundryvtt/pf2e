@@ -122,24 +122,33 @@ declare global {
     }
 
     interface ClientSettings {
-        get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
         get(module: 'pf2e', setting: 'automation.rulesBasedVision'): boolean;
         get(module: 'pf2e', setting: 'automation.effectExpiration'): boolean;
         get(module: 'pf2e', setting: 'automation.lootableNPCs'): boolean;
+
+        get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
+        get(module: 'pf2e', setting: 'freeArchetypeVariant'): boolean;
+        get(module: 'pf2e', setting: 'staminaVariant'): 0 | 1;
+
+        get(module: 'pf2e', setting: 'worldClock.dateTheme'): 'AR' | 'IC' | 'AD' | 'CE';
+        get(module: 'pf2e', setting: 'worldClock.syncDarkness'): boolean;
+        get(module: 'pf2e', setting: 'worldClock.timeConvention'): 24 | 12;
+        get(module: 'pf2e', setting: 'worldClock.worldCreatedOn'): string;
+
+        get(module: 'pf2e', setting: 'homebrew.weaponCategories'): HomebrewTag<'weaponCategories'>[];
+        get(module: 'pf2e', setting: HomebrewSettingsKey): HomebrewTag[];
+
         get(module: 'pf2e', setting: 'defaultTokenSettings'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;
         get(module: 'pf2e', setting: 'defaultTokenSettingsName'): string;
         get(module: 'pf2e', setting: 'enabledRulesUI'): boolean;
-        get(module: 'pf2e', setting: 'freeArchetypeVariant'): boolean;
         get(module: 'pf2e', setting: 'ignoreCoinBulk'): boolean;
         get(module: 'pf2e', setting: 'pfsSheetTab'): boolean;
-        get(module: 'pf2e', setting: 'staminaVariant'): 0 | 1;
         get(module: 'pf2e', setting: 'statusEffectType'): StatusEffectIconType;
         get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
         get(module: 'pf2e', setting: 'drawCritFumble'): boolean;
         get(module: 'pf2e', setting: 'critFumbleButtons'): boolean;
-        get(module: 'pf2e', setting: 'homebrew.weaponCategories'): HomebrewTag<'weaponCategories'>[];
-        get(module: 'pf2e', setting: HomebrewSettingsKey): HomebrewTag[];
+
         get(module: 'pf2e', setting: 'identifyMagicNotMatchingTraditionModifier'): 0 | 2 | 5 | 10;
     }
 
