@@ -3,13 +3,15 @@ import { LocalizePF2e } from '../system/localize';
 
 type SettingsKey = 'dateTheme' | 'timeConvention' | 'playersCanView' | 'syncDarkness' | 'worldCreatedOn';
 
-interface FormInputData extends ClientSettingsData {
+interface FormInputData extends Omit<ClientSettingsData, 'scope'> {
     key: string;
     value: unknown;
     isSelect: boolean;
     isCheckbox: boolean;
     isDateTime: boolean;
+    scope?: 'world' | 'client';
 }
+
 interface TemplateData extends FormApplicationData {
     settings: FormInputData[];
 }
@@ -19,6 +21,7 @@ interface UpdateData {
     timeConvention: boolean;
     playersCanView: boolean;
     syncDarkness: boolean;
+    syncDarknessScene: boolean;
     worldCreatedOn: string;
 }
 
@@ -35,10 +38,34 @@ export class WorldClockSettings extends FormApplication {
     }
 
     override getData(): TemplateData {
-        const visibleSettings = Object.entries(WorldClockSettings.settings).filter(([key]) => key !== 'worldCreatedOn');
+        const worldDefault = game.settings.get('pf2e', 'worldClock.syncDarkness')
+            ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.enabled)
+            : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.disabled);
+        const sceneSetting: [string, Omit<ClientSettingsData, 'scope'>] = [
+            'syncDarknessScene',
+            {
+                name: CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.name,
+                hint: CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.hint,
+                default: 'default',
+                type: String,
+                choices: {
+                    enabled: CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.enabled,
+                    disabled: CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.disabled,
+                    default: game.i18n.format(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.default, {
+                        worldDefault,
+                    }),
+                },
+            },
+        ];
+
+        const visibleSettings = [
+            ...Object.entries(WorldClockSettings.settings).filter(([key]) => key !== 'worldCreatedOn'),
+            sceneSetting,
+        ];
 
         const settings: FormInputData[] = visibleSettings.map(([key, setting]) => {
             const value = ((): unknown => {
+                if (key === 'syncDarknessScene') return canvas.scene?.data.flags.pf2e.syncDarkness;
                 const rawValue = game.settings.get('pf2e', `worldClock.${key}`);
 
                 // Present the world-creation timestamp as an HTML datetime-locale input
@@ -74,18 +101,27 @@ export class WorldClockSettings extends FormApplication {
 
         const translations = LocalizePF2e.translations.PF2E.SETTINGS.WorldClock;
         const title = translations.ResetWorldTime.Name;
-        renderTemplate('systems/pf2e/templates/system/settings/world-clock/confirm-reset.html').then((template) => {
-            $html.find('button.reset-world-time').on('click', () => {
-                Dialog.confirm({
-                    title: title,
-                    content: template,
-                    yes: () => {
-                        game.time.advance(-1 * game.time.worldTime);
-                        this.close();
-                    },
-                    defaultYes: false,
-                });
+        $html.find('button.reset-world-time').on('click', async () => {
+            const template = await renderTemplate(
+                'systems/pf2e/templates/system/settings/world-clock/confirm-reset.html',
+            );
+            Dialog.confirm({
+                title: title,
+                content: template,
+                yes: () => {
+                    game.time.advance(-1 * game.time.worldTime);
+                    this.close();
+                },
+                defaultYes: false,
             });
+        });
+
+        $html.find<HTMLInputElement>('input[name="syncDarkness"]').on('change', (event) => {
+            const worldDefault = $(event.currentTarget)[0].checked
+                ? translations.SyncDarknessScene.Enabled
+                : translations.SyncDarknessScene.Disabled;
+            const optionSelector = 'select[name="syncDarknessScene"] > option[value="default"]';
+            $html.find(optionSelector).text(game.i18n.format(translations.SyncDarknessScene.Default, { worldDefault }));
         });
     }
 
@@ -97,23 +133,14 @@ export class WorldClockSettings extends FormApplication {
             await game.settings.set('pf2e', settingKey, newValue);
         }
 
-        game.pf2e.worldClock!.render(false);
+        await canvas.scene?.setFlag('pf2e', 'syncDarkness', data.syncDarknessScene ?? 'default');
+        delete (data as { syncDarknessScene?: unknown }).syncDarknessScene;
+
+        game.pf2e.worldClock.render(false);
     }
 
     /** Settings to be registered and also later referenced during user updates */
     private static get settings(): Record<SettingsKey, ClientSettingsData> {
-        // Advise the GM whether Global Illumination is enabled on the current scene.
-        const syncDarknessFormatting: { readonly globalLight: string } = Object.defineProperty(
-            { globalLight: '' },
-            'globalLight',
-            {
-                get: () =>
-                    canvas.lighting?.globalLight
-                        ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOn)
-                        : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOff),
-            },
-        );
-
         return {
             // Date theme, currently one of Golarion (Absalom Reckoning), Earth (Material Plane, 95 years ago), or
             // Earth (real world)
@@ -154,7 +181,7 @@ export class WorldClockSettings extends FormApplication {
             // Synchronize a scene's Darkness Level with the time of day, given Global Illumination is turned on
             syncDarkness: {
                 name: CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.name,
-                hint: game.i18n.format(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.hint, syncDarknessFormatting),
+                hint: CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.hint,
                 scope: 'world',
                 config: false,
                 default: false,
