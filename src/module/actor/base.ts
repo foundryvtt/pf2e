@@ -143,7 +143,6 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                         bar1: { attribute: 'attributes.hp' }, // Default Bar 1 to Wounds
                         displayName: nameMode, // Default display name to be on owner hover
                         displayBars: barMode, // Default display bars to be on owner hover
-                        name: datum.name, // Set token name to actor name
                     },
                 });
 
