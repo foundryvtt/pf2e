@@ -222,7 +222,7 @@ export function registerSettings() {
         type: ChatSettings,
         restricted: true,
     });
-    ChatSettings.registerSettings();
+    MetagameSettings.registerSettings();
 
     game.settings.registerMenu("pf2e", "variantRules", {
         name: "PF2E.SETTINGS.Variant.Name",
