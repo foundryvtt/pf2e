@@ -9,7 +9,7 @@ import {
 import { ErrorPF2e } from '@module/utils';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../actor/base';
-import { RuleElements } from '../rules/rules';
+import { RuleElementPF2e, RuleElements } from '../rules/rules';
 import { ItemDataPF2e, ItemSourcePF2e, TraitChatData } from './data';
 import { isItemSystemData } from './data/helpers';
 import { MeleeSystemData } from './melee/data';
@@ -35,10 +35,14 @@ export class ItemPF2e extends Item<ActorPF2e> {
     /** Has this item gone through at least one cycle of data preparation? */
     private initialized!: boolean;
 
+    /** Prepared rule elements from this item */
+    rules!: RuleElementPF2e[];
+
     constructor(data: PreCreate<ItemSourcePF2e>, context: ItemConstructionContextPF2e = {}) {
         if (context.pf2e?.ready) {
             super(data, context);
             this.initialized = false;
+            this.rules = [];
         } else {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
@@ -132,6 +136,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
         super.prepareDerivedData();
         if (!this.isOwned && ui.items && this.initialized) ui.items.render();
         this.initialized = true;
+    }
+
+    prepareRuleElements(this: Embedded<this>): RuleElementPF2e[] {
+        return (this.rules = RuleElements.fromOwnedItem(this));
     }
 
     /* -------------------------------------------- */
