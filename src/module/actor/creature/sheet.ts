@@ -302,4 +302,12 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             action.variants[Number(variantIndex)]?.roll({ event });
         });
     }
+
+    // Ensure a minimum of zero hitpoints
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        if ('data.attributes.hp.value' in formData) {
+            formData['data.attributes.hp.value'] = Math.max(0, Number(formData['data.attributes.hp.value']) || 0);
+        }
+        await super._updateObject(event, formData);
+    }
 }
