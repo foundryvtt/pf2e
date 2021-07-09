@@ -176,7 +176,7 @@ const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
   const effect = duplicate(await fromUuid(ITEM_UUID));
   effect.flags.core = effect.flags.core ?? {};
   effect.flags.core.sourceId = ITEM_UUID;
-  for await (actor of actors) {
+  for await (const actor of actors) {
     const existing = actor.items.find(i => i.type === 'effect' && i.data.flags.core?.sourceId === ITEM_UUID);
     if (existing) {
       existing.delete();
