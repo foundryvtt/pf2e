@@ -129,12 +129,12 @@ export function registerSettings() {
         hint: 'PF2E.SETTINGS.JournalEntryTheme.Hint',
         scope: 'world',
         config: true,
-        default: 'pf2e',
+        default: 'pf2eTheme',
+        type: String,
         choices: {
-            pf2e: 'PF2E.SETTINGS.JournalEntryTheme.PF2E',
+            pf2eTheme: 'PF2E.SETTINGS.JournalEntryTheme.PF2E',
             foundry: 'PF2E.SETTINGS.JournalEntryTheme.Foundry',
         },
-        type: String,
         onChange: () => {
             const sheets = Object.values(ui.windows).filter(
                 (app): app is JournalSheetPF2e => app instanceof JournalSheetPF2e,
