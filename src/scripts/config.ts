@@ -82,6 +82,7 @@ const ancestryItemTraits = {
     ...ancestryTraits,
     amphibious: 'PF2E.TraitAmphibious',
     fey: 'PF2E.TraitFey',
+    fungus: 'PF2E.TraitFungus',
     humanoid: 'PF2E.TraitHumanoid',
     plant: 'PF2E.TraitPlant',
 };
