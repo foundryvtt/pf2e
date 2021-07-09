@@ -179,20 +179,18 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.preparePrototypeToken();
     }
 
-    /** Prepare physical item getters on this actor and containers */
+    /** Prepare physical item getters on this actor as well as sibling data */
     override prepareEmbeddedEntities(): void {
         super.prepareEmbeddedEntities();
+
         const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
             (item) => item instanceof PhysicalItemPF2e,
         );
         this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
 
-        // Prepare container contents now that this actor's embedded documents are ready
-        const containers = physicalItems.filter(
-            (item): item is Embedded<ContainerPF2e> => item instanceof ContainerPF2e,
-        );
-        for (const container of containers) {
-            container.prepareContents();
+        // After all embedded items are prepared, prepare data between items
+        for (const item of this.items) {
+            item.prepareSiblingData();
         }
     }
 

@@ -1,4 +1,6 @@
+import type { ActorPF2e } from '@actor';
 import { AbilityString } from '@actor/data/base';
+import type { ItemPF2e } from '@item';
 import type { ActionData, ActionSource } from '@item/action/data';
 import type { AncestryData, AncestrySource } from '@item/ancestry/data';
 import type { ArmorData, ArmorSource } from '@item/armor/data';
@@ -103,4 +105,16 @@ export {
     MeleeSource,
     SpellcastingEntrySource,
     SpellSource,
+};
+
+export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
+    pf2e?: {
+        ready?: boolean;
+    };
+}
+
+export type ItemModificationContextPF2e = ItemModificationContext<ActorPF2e>;
+
+export type ItemDeletionContextPF2e = ItemModificationContextPF2e & {
+    force?: boolean;
 };

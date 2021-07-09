@@ -162,11 +162,10 @@ declare global {
                  * const data = [{name: "Compendium Actor", type: "character", img: "path/to/profile.jpg"}];
                  * const created = await Actor.createDocuments(data, {pack: "mymodule.mypack"});
                  */
-                static createDocuments<T extends Document>(
-                    this: ConstructorOf<T>,
-                    data?: PreCreate<T['data']['_source']>[],
+                static createDocuments(
+                    data?: PreCreate<object>[],
                     context?: DocumentModificationContext,
-                ): Promise<T[]>;
+                ): Promise<Document[]>;
 
                 /**
                  * Update multiple Document instances using provided differential data.
@@ -225,11 +224,7 @@ declare global {
                  * const actor = await pack.getDocument(documentId);
                  * const deleted = await Actor.deleteDocuments([actor.id], {pack: "mymodule.mypack"});
                  */
-                static deleteDocuments<T extends Document>(
-                    this: ConstructorOf<T>,
-                    ids?: string[],
-                    context?: DocumentModificationContext,
-                ): Promise<T[]>;
+                static deleteDocuments(ids?: string[], context?: DocumentModificationContext): Promise<Document[]>;
 
                 /**
                  * Create a new Document using provided input data, saving it to the database.

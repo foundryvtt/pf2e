@@ -27,7 +27,8 @@ export class BasePhysicalItemData<
 }
 
 export interface BasePhysicalItemData<TItem extends PhysicalItemPF2e = PhysicalItemPF2e>
-    extends Omit<BasePhysicalItemSource, 'effects'> {
+    extends BaseItemDataPF2e<TItem>,
+        Omit<BasePhysicalItemSource, 'effects' | 'flags'> {
     type: PhysicalItemType;
     data: BasePhysicalItemSource['data'];
 

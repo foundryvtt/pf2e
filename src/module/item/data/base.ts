@@ -24,9 +24,17 @@ export abstract class BaseItemDataPF2e<TItem extends ItemPF2e = ItemPF2e> extend
     abstract isPhysical: boolean;
 }
 
-export interface BaseItemDataPF2e extends Omit<BaseItemSourcePF2e, 'effects'> {
+export interface BaseItemDataPF2e<TItem extends ItemPF2e = ItemPF2e> extends Omit<BaseItemSourcePF2e, 'effects'> {
     type: BaseItemSourcePF2e['type'];
     data: BaseItemSourcePF2e['data'];
+
+    flags: {
+        pf2e: {
+            grantedBy?: { itemId: string; preDelete: 'block' | 'cascade' | null };
+            itemGrants?: { itemId: string; preDelete: 'block' | 'cascade' | null }[];
+        } & Record<string, any>;
+        [key: string]: Record<string, any>;
+    };
 
     readonly _source: BaseItemSourcePF2e;
 }

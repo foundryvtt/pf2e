@@ -1,3 +1,4 @@
+import { ItemDeletionContextPF2e } from '@item/data';
 import { ItemPF2e } from '../base';
 import { ConditionData } from './data';
 
@@ -44,4 +45,8 @@ export interface ConditionPF2e {
     getFlag(scope: 'pf2e', key: 'constructing'): true | undefined;
     getFlag(scope: 'pf2e', key: 'condition'): true | undefined;
     getFlag(scope: string, key: string): any;
+}
+
+export declare namespace ConditionPF2e {
+    function deleteDocuments(ids?: string[], context?: ItemDeletionContextPF2e): Promise<ConditionPF2e[]>;
 }
