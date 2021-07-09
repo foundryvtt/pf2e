@@ -1968,7 +1968,21 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "action:coerce",
+                                "action:demoralize",
+                                "action:make-an-impression",
+                                "action:request"
+                            ]
+                        },
+                        "selector": "will",
+                        "value": -4
+                    }
+                ],
                 "schema": {
                     "lastMigration": {
                         "datetime": "2021-07-03T22:03:14.815-05:00",
