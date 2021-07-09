@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+1",
+                "mod": 1,
                 "value": 12
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 16,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -131,7 +132,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "The smallest of giant solifugids are still large enough to harry desert traders and their mounts.<br /><br />",
+            "flavorText": "<p>The smallest of giant solifugids are still large enough to harry desert traders and their mounts.</p>\n<hr />\n<p>These monstrous vermin have six legs and two large feeding appendages easily mistaken for an additional pair of legs. They are often called camel spiders, sun spiders, or wind scorpions, despite the fact that they are neither spiders nor scorpions.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -465,7 +466,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Claw</p>\n<p><strong>Requirements</strong> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round.</p>\n<p><strong>Effect</strong> The monster automatically deals that Strike's damage again to the enemy.</p>"
+                    "value": "<p>Claw</p>\n<hr />\n<p><strong>Requirements</strong> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round.</p>\n<p><strong>Effect</strong> The monster automatically deals that Strike's damage again to the enemy.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -627,6 +628,7 @@
                 "rules": [
                     {
                         "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Deserts",
                         "predicate": {
                             "all": [
                                 "terrain:desert"
@@ -680,7 +682,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

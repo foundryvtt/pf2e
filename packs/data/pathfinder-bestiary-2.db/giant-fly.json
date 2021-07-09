@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+3",
+                "mod": 3,
                 "value": 16
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 17,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -103,13 +104,11 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "exceptions": "",
                         "label": "Climb",
                         "type": "climb",
                         "value": "20"
                     },
                     {
-                        "exceptions": "",
                         "label": "Fly",
                         "type": "fly",
                         "value": "40"
@@ -137,7 +136,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "This pony-sized fly's twitching limbs seem to never stop moving as it constantly cleans itself and scoops anything edible into its mouthparts. While primarily carrion eaters, giant flies sometimes prey on livestock or other animals too slow to get away.<br /><br />",
+            "flavorText": "<p>This pony-sized fly's twitching limbs seem to never stop moving as it constantly cleans itself and scoops anything edible into its mouthparts. While primarily carrion eaters, giant flies sometimes prey on livestock or other animals too slow to get away.</p>\n<hr />\n<p>Giant flies are pony-sized insects that have massive compound eyes and bodies bristling with short, stiff hairs. Their lairs are notorious for the rotting meat they stockpile to lay their eggs into. Their maggot-dens are also prime breeding grounds for virulent diseases.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -235,7 +234,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Fly Pox"
+                        "fly-pox"
                     ]
                 },
                 "bonus": {
@@ -279,7 +278,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Mandibles",
             "sort": 100000,
             "type": "melee"
@@ -307,7 +306,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": {
-                        "datetime": "2021-07-03T22:03:40.713-05:00",
+                        "datetime": "2021-07-03T22:03:23.132-05:00",
                         "version": {
                             "schema": null
                         }
@@ -366,7 +365,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": {
-                        "datetime": "2021-07-03T22:03:40.713-05:00",
+                        "datetime": "2021-07-03T22:03:23.149-05:00",
                         "version": {
                             "schema": null
                         }
@@ -397,8 +396,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Tremorsense",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
             "sort": 300000,
             "type": "action"
         },
@@ -475,7 +474,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A giant fly could carry any disease, but most transmit a virulent but not fatal infection called Fly Pox with their bite;</p>\n<p><strong>Saving Throw</strong> DC 16 Fortitude;</p>\n<p><strong>Onset</strong> 1 day;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day);</p>\n<p><strong>Stage 2</strong> as stage 1 (1 day);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day);</p>\n<p><strong>Stage 4</strong> as stage 3 (1 day);</p>\n<p><strong>Stage 5</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} (1 day)</p>"
+                    "value": "<div data-visibility=\"gm\">\n<p>A giant fly could carry any disease, but most transmit a virulent but not fatal infection called Fly Pox with their bite;</p>\n</div>\n<p><strong>Saving Throw</strong> <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"disease,virulent\" data-pf2-label=\"Fly Pox DC\" data-pf2-dc=\"16\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Onset</strong> 1 day;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day);</p>\n<p><strong>Stage 2</strong> as stage 1 (1 day);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day);</p>\n<p><strong>Stage 4</strong> as stage 3 (1 day);</p>\n<p><strong>Stage 5</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} (1 day)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -516,7 +515,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fly Pox",
             "sort": 500000,
             "type": "action"
@@ -626,7 +625,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
