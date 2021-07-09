@@ -65,7 +65,7 @@ export class NPCPF2e extends CreaturePF2e {
     /** Grant all users at least limited permission on dead NPCs */
     override get permission(): PermissionLevel {
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
-        if (game.user.isGM || this.hitPoints.current > 0 || !npcsAreLootable) {
+        if (game.user.isGM || this.hitPoints.current !== 0 || !npcsAreLootable) {
             return super.permission;
         }
         return Math.max(super.permission, 1) as PermissionLevel;
@@ -79,7 +79,7 @@ export class NPCPF2e extends CreaturePF2e {
     ) {
         // Temporary measure until a lootable view of the legacy sheet is ready
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
-        if (game.user.isGM || this.hitPoints.current > 0 || !npcsAreLootable) {
+        if (game.user.isGM || this.hitPoints.current !== 0 || !npcsAreLootable) {
             return super.testUserPermission(user, permission, options);
         }
         if ([1, 'LIMITED'].includes(permission) && !options) {
