@@ -20,6 +20,7 @@ import {
     ProficiencyModifier,
     StatisticModifier,
 } from '@module/modifiers';
+import { StatisticBuilder } from '@module/system/statistic';
 import { CheckPF2e } from '@system/rolls';
 import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
 import { ConditionManager } from '@module/conditions';
@@ -165,6 +166,37 @@ function registerPF2ActionClickListener() {
                             perceptionCheck.roll({ event, options, dc });
                         } else {
                             console.warn(`PF2e System | Skip rolling perception for '${actor}'`);
+                        }
+                    }
+                });
+            }
+        } else if (target?.matches('[data-pf2-flat-check], [data-pf2-flat-check] *')) {
+            target = target.closest('[data-pf2-flat-check]')!;
+            const actors = resolveActors();
+            if (actors.length) {
+                const { pf2Dc, pf2Traits, pf2Label } = target.dataset ?? {};
+                actors.forEach((actor) => {
+                    if (actor instanceof CreaturePF2e) {
+                        const flatCheck = StatisticBuilder.from(actor, {
+                            name: 'Flat Check',
+                            modifiers: [],
+                            check: { type: 'flat-check' },
+                        });
+                        if (flatCheck) {
+                            const dc = Number.isInteger(Number(pf2Dc))
+                                ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                : undefined;
+                            const options = actor.getRollOptions(['all', 'flat-check']);
+                            if (pf2Traits) {
+                                const traits = pf2Traits
+                                    .split(',')
+                                    .map((trait) => trait.trim())
+                                    .filter((trait) => !!trait);
+                                options.push(...traits);
+                            }
+                            flatCheck.check.roll({ event, dc, modifiers: [] });
+                        } else {
+                            console.warn(`PF2e System | Skip rolling flat check for '${actor}'`);
                         }
                     }
                 });
