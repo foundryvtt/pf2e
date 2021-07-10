@@ -72,7 +72,7 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
         applyMod: false;
     };
     damageType: {
-        value: string;
+        value: keyof ConfigPF2e['PF2E']['damageTypes'];
     };
     scaling: {
         mode: string;

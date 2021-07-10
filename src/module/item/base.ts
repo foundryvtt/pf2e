@@ -15,12 +15,12 @@ import { isItemSystemData } from './data/helpers';
 import { MeleeSystemData } from './melee/data';
 import { getAttackBonus, getStrikingDice } from './runes';
 import { ItemSheetPF2e } from './sheet/base';
-import { AbilityString } from '@actor/data/base';
+import { AbilityString, ActorSystemData } from '@actor/data/base';
 import { isCreatureData } from '@actor/data/helpers';
 import { NPCSystemData } from '@actor/npc/data';
 import { HazardSystemData } from '@actor/hazard/data';
 import { CheckPF2e } from '@system/rolls';
-import { ItemTrait } from './data/base';
+import { ItemSystemData, ItemTrait } from './data/base';
 import { UserPF2e } from '@module/user';
 import { MigrationRunner, Migrations } from '@module/migration';
 
@@ -29,6 +29,19 @@ interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF
         ready?: boolean;
     };
 }
+
+interface ItemRollDataActorless {
+    actor: undefined;
+    item: ItemSystemData;
+}
+
+interface ItemRollDataOwned {
+    actor: ActorSystemData;
+    item: ItemSystemData;
+    mod?: number;
+}
+
+type ItemRollData = ItemRollDataActorless | ItemRollDataOwned;
 
 /** Override and extend the basic :class:`Item` implementation */
 export class ItemPF2e extends Item<ActorPF2e> {
@@ -81,10 +94,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return super.delete(context);
     }
 
-    override getRollData() {
-        if (!this.actor) return { item: this.data.data };
-        const actorRollData = this.actor.getRollData();
-        return { ...actorRollData, actor: actorRollData, item: this.data.data };
+    override getRollData(): ItemRollData {
+        if (!this.actor) return { actor: undefined, item: this.toObject().data };
+        const actorRollData = this.actor.toObject().data;
+        return { ...actorRollData, actor: actorRollData, item: this.toObject().data };
     }
 
     /**
@@ -643,14 +656,8 @@ export class ItemPF2e extends Item<ActorPF2e> {
             throw new Error('Wrong item type!');
         }
 
-        const item = this.toObject();
-
-        // Get data
-        const itemData = item.data;
-        const rollData = duplicate(this.actor.data.data) as any;
-        const isHeal = itemData.spellType.value === 'heal';
-        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[itemData.damageType.value]);
-
+        const isHeal = this.data.data.spellType.value === 'heal';
+        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[this.data.data.damageType.value]);
         const castLevel = ItemPF2e.findSpellLevel(event);
         const parts = this.computeDamageParts(castLevel);
 
@@ -658,14 +665,6 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const damageLabel = game.i18n.localize(isHeal ? 'PF2E.SpellTypeHeal' : 'PF2E.DamageLabel');
         let title = `${this.name} - ${damageLabel}`;
         if (damageType && !isHeal) title += ` (${damageType})`;
-
-        // Add item to roll data
-        if (!this.spellcasting?.data && this.data.data.trickMagicItemData) {
-            rollData.mod = rollData.abilities[this.data.data.trickMagicItemData.ability].mod;
-        } else {
-            rollData.mod = rollData.abilities[this.spellcasting?.ability ?? 'int'].mod;
-        }
-        rollData.item = itemData;
 
         const traits = this.actor.data.data.traits.traits.value;
         if (traits.some((trait) => trait === 'elite')) {
@@ -679,7 +678,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
             event,
             item: this,
             parts,
-            data: rollData,
+            data: this.getRollData(),
             actor: this.actor,
             title,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
