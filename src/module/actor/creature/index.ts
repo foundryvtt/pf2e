@@ -310,7 +310,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             dc = {
                 label: game.i18n.format('PF2E.CreatureStatisticDC.ac', {
                     creature: ctx.target.name,
-                    dc: ctx.target.actor.data.data.attributes.ac.value,
+                    dc: '{dc}',
                 }),
                 scope: 'AttackOutcome',
                 value: ctx.target.actor.data.data.attributes.ac.value,
