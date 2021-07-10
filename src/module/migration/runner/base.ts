@@ -2,7 +2,7 @@ import { ActorSourcePF2e } from '@actor/data';
 import { ItemSourcePF2e } from '@item/data';
 import { DocumentSchemaRecord } from '@module/data';
 import { MigrationBase } from '@module/migration/base';
-import { TokenDocumentPF2e } from '@module/token-document';
+import { TokenDocumentPF2e } from '@module/scene/token-document';
 import { ErrorPF2e } from '@module/utils';
 import { DateTime } from 'luxon';
 

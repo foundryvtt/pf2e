@@ -1,10 +1,7 @@
 import { CreaturePF2e } from '@actor';
-import { TokenDocumentPF2e } from '@module/token-document';
+import { TokenDocumentPF2e } from '@module/scene/token-document';
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
-    /** Token overrides from the actor */
-    overrides: DeepPartial<foundry.data.TokenSource> = {};
-
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
     statusEffectChanged = false;
 
@@ -23,25 +20,12 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return !!this._movement;
     }
 
-    get hasLowLightVision(): boolean {
-        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
+    get emitsDarkness(): boolean {
+        return this.data.brightLight < 0;
     }
 
-    /**
-     * Apply a set of changes from the actor
-     * @param overrides The property overrides to be applied
-     * @param moving    Whether this token is moving: setting as true indicates the client will make the Canvas updates.
-     */
-    applyOverrides(
-        overrides: DeepPartial<foundry.data.TokenSource> = this.overrides,
-        { setPerceived = true } = {},
-    ): void {
-        // Propagate any new or removed overrides to the token
-        this.overrides = overrides;
-        this.document.prepareData();
-        mergeObject(this.data, overrides, { insertKeys: false });
-        if (!this.isMoving) this.updateSource();
-        if (setPerceived) game.user.setPerceivedLightLevel({ defer: this.isMoving });
+    get hasLowLightVision(): boolean {
+        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
     }
 
     /* -------------------------------------------- */
@@ -51,24 +35,17 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Refresh vision and the `EffectPanel` upon selecting a token */
     protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
-        this.applyOverrides();
+        game.user.setPerceivedLightLevel({ defer: true });
         super._onControl(options);
     }
 
     /** Refresh vision and the `EffectPanel` upon releasing control of a token */
     protected override _onRelease(options?: Record<string, unknown>) {
         game.pf2e.effectPanel.refresh();
-        this.applyOverrides();
+        if (canvas.scene && canvas.sight.rulesBasedVision) {
+            if (this.hasLowLightVision) this.updateSource({ defer: true });
+            game.user.setPerceivedLightLevel({ defer: true });
+        }
         super._onRelease(options);
-    }
-
-    /** Persist token overrides during movement */
-    protected override _onMovementFrame(
-        dt: number,
-        anim: TokenAnimationAttribute<this>[],
-        config: TokenAnimationConfig,
-    ): void {
-        this.applyOverrides();
-        super._onMovementFrame(dt, anim, config);
     }
 }
