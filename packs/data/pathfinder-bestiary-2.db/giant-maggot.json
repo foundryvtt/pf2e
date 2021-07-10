@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+2",
+                "mod": 2,
                 "value": 14
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 13,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -124,7 +125,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Giant flies lay their eggs on the bodies of larger monsters or livestock. When they hatch, these eggs release squirming maggots the size of human children, ravenous young who voraciously consume any flesh in the immediate vicinity-typically starting with the body upon which they were born.<br /><br />",
+            "flavorText": "<p>Giant flies lay their eggs on the bodies of larger monsters or livestock. When they hatch, these eggs release squirming maggots the size of human children, ravenous young who voraciously consume any flesh in the immediate vicinity-typically starting with the body upon which they were born.</p>\n<hr />\n<p>Giant flies are pony-sized insects that have massive compound eyes and bodies bristling with short, stiff hairs. Their lairs are notorious for the rotting meat they stockpile to lay their eggs into. Their maggot-dens are also prime breeding grounds for virulent diseases.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -222,8 +223,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Grab"
+                        "grab"
                     ]
                 },
                 "bonus": {
@@ -267,7 +269,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Mandibles",
             "sort": 100000,
             "type": "melee"
@@ -295,7 +297,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": {
-                        "datetime": "2021-07-03T22:03:40.737-05:00",
+                        "datetime": "2021-07-03T22:03:23.149-05:00",
                         "version": {
                             "schema": null
                         }
@@ -326,8 +328,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Tremorsense",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense 30 feet",
             "sort": 200000,
             "type": "action"
         },
@@ -346,7 +348,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The giant maggot takes damage;</p>\n<p><strong>Effect</strong> The giant maggot regurgitates its rancid, foul meal. All creatures in a 5-foot emanation must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"16\" data-pf2-label=\"Regurgitation DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (or @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>\n<p>The giant maggot can't use Regurgitation again until it spends at least an hour feeding on a corpse.</p>"
+                    "value": "<p><strong>Trigger</strong> The giant maggot takes damage;</p>\n<p><strong>Effect</strong> The giant maggot regurgitates its rancid, foul meal. All creatures in a 5-foot emanation must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"16\" data-pf2-label=\"Regurgitation DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (or @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure)</span>.</p>\n<div data-visibility=\"gm\">\n<p>The giant maggot can't use Regurgitation again until it spends at least an hour feeding on a corpse.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -404,7 +406,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirement</strong> The giant maggot has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} a creature;</p>\n<p><strong>Effect</strong> The giant maggot deals [[/r 1d8+2 # slashing damage]] slashing damage to the grabbed creature as it chews the creature's flesh (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"19\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Gnaw Flesh DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p><strong>Requirement</strong> The giant maggot has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} a creature;</p>\n<p><strong>Effect</strong> The giant maggot deals [[/r 1d8+2 #slashing]] slashing damage to the grabbed creature as it chews the creature's flesh (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"19\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Gnaw Flesh DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -462,7 +464,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -470,7 +472,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": {
-                        "datetime": "2021-07-03T22:03:40.737-05:00",
+                        "datetime": "2021-07-03T22:03:23.138-05:00",
                         "version": {
                             "schema": null
                         }
@@ -562,7 +564,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
