@@ -1663,29 +1663,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         return submitData;
     }
 
-    protected override async _onSubmit(
-        event: Event,
-        options: OnSubmitFormOptions = {},
-    ): Promise<Record<string, unknown>> {
-        // Limit HP value to data.attributes.hp.max value
-        if (!(event.currentTarget instanceof HTMLInputElement)) {
-            return super._onSubmit(event, options);
-        }
-
-        const $target = $(event.currentTarget ?? {});
-        if ($target.attr('name') === 'data.attributes.hp.value') {
-            $target.attr({
-                value: Math.clamped(
-                    parseInt($target.attr('value') ?? '0', 10),
-                    0,
-                    this.actor.data.data.attributes.hp?.max ?? 0,
-                ),
-            });
-        }
-
-        return super._onSubmit(event, options);
-    }
-
     /**
      * A user edits numeric values on actor sheets that are frequently modified by data preparation: we should be able
      * to infer the intended change by adding the difference between their update and the prepared value to the
