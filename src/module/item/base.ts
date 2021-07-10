@@ -35,7 +35,7 @@ interface ItemRollDataActorless {
     item: ItemSystemData;
 }
 
-interface ItemRollDataOwned {
+interface ItemRollDataOwned extends ActorSystemData {
     actor: ActorSystemData;
     item: ItemSystemData;
     mod?: number;
