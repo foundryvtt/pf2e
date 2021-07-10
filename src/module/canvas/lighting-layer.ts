@@ -7,7 +7,7 @@ export class LightingLayerPF2e extends LightingLayer<AmbientLightPF2e> {
 
         if (canvas.tokens.controlled.some((token) => token.hasLowLightVision)) {
             for (const source of this.sources) {
-                if (source.isDarkness || source.dim === 0) continue;
+                if (source.isDarkness || !source.active) continue;
                 const original = { dim: source.dim, bright: source.bright };
                 source.dim = 0;
                 source.bright = Math.max(original.dim, original.bright);

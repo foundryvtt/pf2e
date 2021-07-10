@@ -302,9 +302,6 @@ export class FamiliarPF2e extends CreaturePF2e {
                 data.skills[shortForm] = stat;
             }
         }
-
-        // Refresh vision of controlled tokens linked to this actor in case any of the above changed its senses
-        this.refreshVision();
     }
 
     override async createEmbeddedDocuments(

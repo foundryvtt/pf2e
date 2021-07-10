@@ -49,13 +49,6 @@ export function listen(): void {
         prepareMinions();
         activateSocketListener();
 
-        // Apply ActiveEffects modifying the actor's token(s)
-        for (const actor of game.actors) {
-            for (const token of actor.getActiveTokens()) {
-                token.applyOverrides(actor.overrides.token);
-            }
-        }
-
         // Extend drag data for things such as condition value
         extendDragData();
 
