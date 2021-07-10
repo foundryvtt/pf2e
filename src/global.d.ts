@@ -148,7 +148,7 @@ declare global {
         get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
         get(module: 'pf2e', setting: 'drawCritFumble'): boolean;
         get(module: 'pf2e', setting: 'critFumbleButtons'): boolean;
-
+        get(module: 'pf2e', setting: 'journalEntryTheme'): 'pf2eTheme' | 'foundry';
         get(module: 'pf2e', setting: 'identifyMagicNotMatchingTraditionModifier'): 0 | 2 | 5 | 10;
     }
 
