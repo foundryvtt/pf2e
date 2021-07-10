@@ -31,7 +31,6 @@ import { Rollable } from '@actor/data/base';
 import { remigrate } from '@scripts/system/remigrate';
 import { SKILL_EXPANDED } from '@actor/data/values';
 
-
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
     if (canvas.tokens.controlled.length) {
