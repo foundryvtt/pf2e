@@ -20,14 +20,17 @@
  * @example <caption>The sightRefresh hook</caption>
  * Hooks.on("sightRefresh", layer => {});
  */
-declare class SightLayer<TFogExploration extends FogExploration = FogExploration> extends CanvasLayer {
+declare class SightLayer<
+    TToken extends Token = Token,
+    TFogExploration extends FogExploration<TToken> = FogExploration<TToken>,
+> extends CanvasLayer {
     constructor();
 
     /** The FogExploration document which applies to this canvas view */
     exploration: TFogExploration;
 
     /** A Collection of vision sources which are currently active within the rendered Scene. */
-    sources: Collection<PointSource>;
+    sources: Collection<PointSource<TToken>>;
 
     /** The canonical line-of-sight polygon which defines current Token visibility. */
     los: PIXI.Graphics;
