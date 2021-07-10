@@ -33,7 +33,7 @@ interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF
 /** Override and extend the basic :class:`Item` implementation */
 export class ItemPF2e extends Item<ActorPF2e> {
     /** Has this item gone through at least one cycle of data preparation? */
-    private initialized!: boolean;
+    private initialized: boolean | undefined;
 
     /** Prepared rule elements from this item */
     rules!: RuleElementPF2e[];
@@ -41,8 +41,8 @@ export class ItemPF2e extends Item<ActorPF2e> {
     constructor(data: PreCreate<ItemSourcePF2e>, context: ItemConstructionContextPF2e = {}) {
         if (context.pf2e?.ready) {
             super(data, context);
-            this.initialized = false;
             this.rules = [];
+            this.initialized = true;
         } else {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
@@ -132,10 +132,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Refresh the Item Directory if this item isn't owned */
-    override prepareDerivedData(): void {
-        super.prepareDerivedData();
+    override prepareData(): void {
+        super.prepareData();
         if (!this.isOwned && ui.items && this.initialized) ui.items.render();
-        this.initialized = true;
     }
 
     prepareRuleElements(this: Embedded<this>): RuleElementPF2e[] {
