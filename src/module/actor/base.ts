@@ -33,6 +33,9 @@ interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorP
  * @category Actor
  */
 export class ActorPF2e extends Actor<TokenDocumentPF2e> {
+    /** Has this item gone through at least one cycle of data preparation? */
+    private initialized!: boolean;
+
     /** A separate collection of owned physical items for convenient access */
     physicalItems!: Collection<Embedded<PhysicalItemPF2e>>;
 
@@ -44,6 +47,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             super(data, context);
             this.physicalItems ??= new Collection();
             this.rules ??= [];
+            this.initialized = false;
         } else {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Actor.documentClasses[data.type](data, { ...ready, ...context });
@@ -180,9 +184,12 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Prepare token data derived from this actor */
     override prepareData(): void {
         super.prepareData();
-        for (const token of this.getActiveTokens()) {
-            token.document.prepareData({ fromActor: true });
+        if (this.initialized) {
+            for (const token of this.getActiveTokens()) {
+                token.document.prepareData({ fromActor: true });
+            }
         }
+        this.initialized = true;
     }
 
     override prepareBaseData(): void {
