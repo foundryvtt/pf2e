@@ -303,11 +303,22 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         });
     }
 
-    // Ensure a minimum of zero hitpoints
-    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        if ('data.attributes.hp.value' in formData) {
-            formData['data.attributes.hp.value'] = Math.max(0, Number(formData['data.attributes.hp.value']) || 0);
+    // Ensure a minimum of zero hit points and a maximum of the current max
+    protected override async _onSubmit(
+        event: Event,
+        options: OnSubmitFormOptions = {},
+    ): Promise<Record<string, unknown>> {
+        // Limit HP value to data.attributes.hp.max value
+        if (!(event.currentTarget instanceof HTMLInputElement)) {
+            return super._onSubmit(event, options);
         }
-        await super._updateObject(event, formData);
+
+        const target = event.currentTarget;
+        if (target.name === 'data.attributes.hp.value') {
+            const inputted = Number(target.value) || 0;
+            target.value = Math.floor(Math.clamped(inputted, 0, this.actor.hitPoints.max)).toString();
+        }
+
+        return super._onSubmit(event, options);
     }
 }
