@@ -12,10 +12,9 @@ import {
     ProficiencyModifier,
     WISDOM,
 } from '@module/modifiers';
-import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
 import { ensureWeaponCategory, ensureWeaponSize, WeaponDamagePF2e } from '@system/damage/weapon';
 import { CheckPF2e, DamageRollPF2e, RollParameters } from '@system/rolls';
-import { SKILL_DICTIONARY } from '../data/values';
+import { SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from '../data/values';
 import {
     BaseWeaponProficiencyKey,
     CharacterData,
@@ -109,9 +108,7 @@ export class CharacterPF2e extends CreaturePF2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const rules = this.items
-            .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item)), [])
-            .filter((rule) => !rule.ignored);
+        const rules = this.rules.filter((rule) => !rule.ignored);
         const systemData = this.data.data;
 
         // Compute ability modifiers from raw ability scores.
@@ -446,9 +443,8 @@ export class CharacterPF2e extends CreaturePF2e {
 
         const skills: Partial<CharacterSystemData['skills']> = {}; // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
 
-        for (const [skillName, skill] of Object.entries(systemData.skills).filter(([shortform, _]) =>
-            Object.keys(SKILL_DICTIONARY).includes(shortform),
-        )) {
+        for (const shortForm of SKILL_ABBREVIATIONS) {
+            const skill = systemData.skills[shortForm];
             const modifiers = [
                 AbilityModifier.fromAbilityScore(
                     skill.ability,
@@ -460,7 +456,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const ignoreArmorCheckPenalty = !(
                 worn &&
                 worn.data.traits.value.includes('flexible') &&
-                ['acr', 'ath'].includes(skillName)
+                ['acr', 'ath'].includes(shortForm)
             );
             if (
                 skill.armor &&
@@ -474,16 +470,14 @@ export class CharacterPF2e extends CreaturePF2e {
             }
 
             // workaround for the shortform skill names
-            const expandedName = SKILL_DICTIONARY[skillName as SkillAbbreviation];
+            const longForm = SKILL_DICTIONARY[shortForm];
 
-            [expandedName, `${skill.ability}-based`, 'skill-check', 'all'].forEach((key) => {
+            [longForm, `${skill.ability}-based`, 'skill-check', 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
-            const skillRank = skill.rank;
 
-            // preserve backwards-compatibility
-            const stat: StatisticModifier = mergeObject(new StatisticModifier(expandedName, modifiers), skill, {
+            const stat = mergeObject(new StatisticModifier(longForm, modifiers), skill, {
                 overwrite: false,
             });
             stat.breakdown = stat.modifiers
@@ -495,10 +489,10 @@ export class CharacterPF2e extends CreaturePF2e {
                 .join(', ');
             stat.value = stat.totalModifier;
             stat.notes = notes;
-            stat.rank = skillRank;
+            stat.rank = skill.rank;
             stat.roll = (args: RollParameters) => {
                 const label = game.i18n.format('PF2E.SkillCheckWithName', {
-                    skillName: game.i18n.localize(CONFIG.PF2E.skills[skillName]),
+                    skillName: game.i18n.localize(CONFIG.PF2E.skills[shortForm]),
                 });
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, skill.rank);
@@ -513,7 +507,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 );
             };
 
-            skills[skillName] = stat;
+            skills[shortForm] = stat;
         }
 
         // Lore skills
@@ -1138,9 +1132,6 @@ export class CharacterPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         });
-
-        // Refresh vision of controlled tokens linked to this actor in case any of the above changed its senses
-        this.refreshVision();
     }
 
     private prepareInitiative(

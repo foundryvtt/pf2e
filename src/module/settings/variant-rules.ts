@@ -92,7 +92,7 @@ const SETTINGS = {
         default: 8,
         type: Number,
     },
-};
+} as const;
 
 export class VariantRulesSettings extends FormApplication {
     static override get defaultOptions() {

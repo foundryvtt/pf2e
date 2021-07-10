@@ -265,12 +265,11 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "dragonstorm strike"
-                    ]
+                    "custom": "",
+                    "value": []
                 },
                 "bonus": {
-                    "value": 23
+                    "value": 35
                 },
                 "damageRolls": {
                     "lxz4p0dynceszehhsgs4": {
@@ -303,7 +302,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "deadly 3d12",
+                        "deadly-3d12",
                         "magical",
                         "reach-15"
                     ]
@@ -387,12 +386,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The animated dragonstorm directs a 30-foot cone of dragonstorm energy. This deals 3d8 acid, 3d8 cold, 3d8 electricity, 3d8 fire, and [[/r 3d8 # poison damage]] poison damage to creatures in the cone (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"40\" data-pf2-traits=\"divine,damaging-effect\" data-pf2-label=\"Channel Dragonstorm DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The animated dragonstorm can't use Channel Dragonstorm again for 1d4 rounds.</p>"
+                    "value": "<p>The animated dragonstorm directs a 30-foot cone of dragonstorm energy. This deals [[/r {3d8}[acid] + {3d8}[cold] +{3d8}[electricity] +{3d8}[fire] +{3d8}[poison]]]{3d8 acid, 3d8 cold, 3d8 electricity, 3d8 fire, and 3d8 poison damage} to creatures in the cone (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"40\" data-pf2-traits=\"divine,damaging-effect\" data-pf2-label=\"Channel Dragonstorm DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The animated dragonstorm can't use Channel Dragonstorm again for [[/r 1d4]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -432,7 +431,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Channel Dragonstorm",
             "sort": 300000,
             "type": "action"
@@ -502,20 +501,29 @@
                     "value": "offensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 2
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>On a critical hit, the animated dragonstorm's fist bursts with dragonstorm energy. The target takes 1d6 acid, 1d6 cold, 1d6 electricity, 1d6 fire, and [[/r 1d6 # poison damage]] poison damage.</p>"
+                    "value": "<p>On a critical hit, the animated dragonstorm's fist bursts with dragonstorm energy. The target takes [[/r {1d6}[acid] + {1d6}[cold] +{1d6}[electricity] +{1d6}[fire] +{1d6}[poison]]]{1d6 acid, 1d6 cold, 1d6 electricity, 1d6 fire, and 1d6 poison damage}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "fist-damage",
+                        "text": "<p>On a critical hit, the animated dragonstorm's fist bursts with dragonstorm energy. The target takes [[/r {1d6}[acid] + {1d6}[cold] +{1d6}[electricity] +{1d6}[fire] +{1d6}[poison]]]{5d6 damage}.</p>"
+                    }
+                ],
                 "schema": {
                     "lastMigration": {
                         "datetime": "2021-07-03T22:03:16.846-05:00",
@@ -548,7 +556,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Dragonstorm Strike",
             "sort": 500000,
             "type": "action"

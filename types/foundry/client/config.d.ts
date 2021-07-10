@@ -238,7 +238,7 @@ declare global {
                 foreground: typeof PlaceablesLayer;
                 sounds: typeof PlaceablesLayer;
                 lighting: ConstructorOf<TLightingLayer>;
-                sight: ConstructorOf<SightLayer<TFogExploration>>;
+                sight: ConstructorOf<SightLayer<TToken['object'], TFogExploration>>;
                 effects: typeof PlaceablesLayer;
                 controls: typeof PlaceablesLayer;
             };

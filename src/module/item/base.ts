@@ -9,7 +9,7 @@ import {
 import { ErrorPF2e } from '@module/utils';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../actor/base';
-import { RuleElements } from '../rules/rules';
+import { RuleElementPF2e, RuleElements } from '../rules/rules';
 import { ItemDataPF2e, ItemSourcePF2e, TraitChatData } from './data';
 import { isItemSystemData } from './data/helpers';
 import { MeleeSystemData } from './melee/data';
@@ -33,12 +33,16 @@ interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF
 /** Override and extend the basic :class:`Item` implementation */
 export class ItemPF2e extends Item<ActorPF2e> {
     /** Has this item gone through at least one cycle of data preparation? */
-    private initialized!: boolean;
+    private initialized: boolean | undefined;
+
+    /** Prepared rule elements from this item */
+    rules!: RuleElementPF2e[];
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: ItemConstructionContextPF2e = {}) {
         if (context.pf2e?.ready) {
             super(data, context);
-            this.initialized = false;
+            this.rules = [];
+            this.initialized = true;
         } else {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
@@ -75,6 +79,12 @@ export class ItemPF2e extends Item<ActorPF2e> {
             return this;
         }
         return super.delete(context);
+    }
+
+    override getRollData() {
+        if (!this.actor) return { item: this.data.data };
+        const actorRollData = this.actor.getRollData();
+        return { ...actorRollData, actor: actorRollData, item: this.data.data };
     }
 
     /**
@@ -122,10 +132,13 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /** Refresh the Item Directory if this item isn't owned */
-    override prepareDerivedData(): void {
-        super.prepareDerivedData();
+    override prepareData(): void {
+        super.prepareData();
         if (!this.isOwned && ui.items && this.initialized) ui.items.render();
-        this.initialized = true;
+    }
+
+    prepareRuleElements(this: Embedded<this>): RuleElementPF2e[] {
+        return (this.rules = RuleElements.fromOwnedItem(this));
     }
 
     /* -------------------------------------------- */
@@ -139,7 +152,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
     protected processChatData<T>(htmlOptions: EnrichHTMLOptions = {}, data: T): T {
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
-            chatData.description.value = TextEditor.enrichHTML(chatData.description.value, htmlOptions);
+            chatData.description.value = TextEditor.enrichHTML(chatData.description.value, {
+                ...htmlOptions,
+                rollData: htmlOptions.rollData ?? this.getRollData(),
+            });
             return chatData;
         }
 

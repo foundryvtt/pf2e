@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "-5",
+                "mod": -5,
                 "value": 0
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 18,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -131,7 +132,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Though they're often mistaken for vampires in gaseous form or an unusual type of air elemental, vampiric mists are in fact strange aberrant life-forms. With an amorphous body that consists as much of fluid as it does of air, these creatures dwell in swamps or moist underground regions where their vulnerability to heat isn't as much of a concern. Still, they prefer to lair near the fringes of such areas, as a vampiric mist needs a constant supply of fresh blood for sustenance. While blood drawn from animals is just as nutritious as blood from anything else, these sadistic monsters vastly prefer the flavor of blood drawn from thinking creatures. Like will-o'-wisps, vampiric mists find that fear flavors the blood, though they gain no particular advantage by feeding on the frightened.<br /><br /> Although somewhat intelligent, vampiric mists do not form societies. They sometimes group into small gangs, but even then they show little interest in working together. Vampiric mists spend most of their time seeking prey-a pursuit they approach with great creativity. The mists' propensity for taking on vague, skeletal forms of the creatures whose blood they drink further adds to their mystique and fuels rumors that they have connections to the undead. Indeed, many vampiric mists enjoy using this common misconception to their advantage, leading foes to apply foolish tactics-such as tricking spellcasters into attempting to use positive energy against them as if they were undead monsters.<br /><br />",
+            "flavorText": "<p>Though they're often mistaken for vampires in gaseous form or an unusual type of air elemental, vampiric mists are in fact strange aberrant life-forms. With an amorphous body that consists as much of fluid as it does of air, these creatures dwell in swamps or moist underground regions where their vulnerability to heat isn't as much of a concern. Still, they prefer to lair near the fringes of such areas, as a vampiric mist needs a constant supply of fresh blood for sustenance. While blood drawn from animals is just as nutritious as blood from anything else, these sadistic monsters vastly prefer the flavor of blood drawn from thinking creatures. Like will-o'-wisps, vampiric mists find that fear flavors the blood, though they gain no particular advantage by feeding on the frightened.</p>\n<p>Although somewhat intelligent, vampiric mists do not form societies. They sometimes group into small gangs, but even then they show little interest in working together. Vampiric mists spend most of their time seeking prey-a pursuit they approach with great creativity. The mists' propensity for taking on vague, skeletal forms of the creatures whose blood they drink further adds to their mystique and fuels rumors that they have connections to the undead. Indeed, many vampiric mists enjoy using this common misconception to their advantage, leading foes to apply foolish tactics-such as tricking spellcasters into attempting to use positive energy against them as if they were undead monsters.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -245,7 +246,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Blood Siphon"
+                        "blood-siphon"
                     ]
                 },
                 "bonus": {
@@ -292,7 +293,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Misty Tendril",
             "sort": 100000,
             "type": "melee"
@@ -351,7 +352,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 200000,
             "type": "action"
@@ -467,8 +468,8 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Sense Blood",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sense Blood (Imprecise) 60 feet",
             "sort": 400000,
             "type": "action"
         },
@@ -487,12 +488,32 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When a vampiric mist damages a creature with a misty tendril Strike, the creature must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"20\" data-pf2-label=\"Blood Siphon DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. If the Strike was a critical hit, the outcome of the creature's save is one degree worse than the result of the saving throw. Any temporary Hit Points the vampiric mist gains from Blood Siphon fade after 1 hour. <br /><strong>Success</strong> The creature is unaffected. <br /><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained} 1, and the vampiric mist gains 5 temporary Hit Points. <br /><strong>Critical Failure</strong> The creature is drained 2. The vampiric mist gains 10 temporary Hit Points and takes on an intense red until the end of its next turn. During this time, it gains a +2 status bonus to AC and saves and is @Compendium[pf2e.conditionitems.Quickened]{Quickened}. It can use its extra action only to Strike.</p>"
+                    "value": "<p>When a vampiric mist damages a creature with a misty tendril Strike, the creature must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"20\" data-pf2-label=\"Blood Siphon DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. If the Strike was a critical hit, the outcome of the creature's save is one degree worse than the result of the saving throw.</p>\n<div data-visibility=\"gm\">\n<p>Any temporary Hit Points the vampiric mist gains from Blood Siphon fade after 1 hour.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained 1}, and the vampiric mist gains 5 temporary Hit Points.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained 2}. The vampiric mist gains 10 temporary Hit Points and takes on an intense red until the end of its next turn. During this time, it gains a +2 status bonus to AC and saves and is @Compendium[pf2e.conditionitems.Quickened]{Quickened}. It can use its extra action only to Strike.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.critical-blood-siphon"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "critical-blood-siphon"
+                            ]
+                        },
+                        "roll-options": [
+                            "all",
+                            "ac"
+                        ],
+                        "selector": "ac",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
                 "schema": {
                     "lastMigration": {
                         "datetime": "2021-07-03T22:03:43.691-05:00",
@@ -525,7 +546,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Blood Siphon",
             "sort": 500000,
             "type": "action"
@@ -635,7 +656,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

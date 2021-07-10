@@ -30,7 +30,7 @@ declare class LightingLayer<TAmbientLight extends AmbientLight = AmbientLight> e
     constructor();
 
     /** A mapping of light sources which are active within the rendered Scene */
-    sources: foundry.utils.Collection<PointSource>;
+    sources: foundry.utils.Collection<PointSource<TAmbientLight>>;
 
     /**
      * Increment this whenever lighting channels are re-configured.
