@@ -1,6 +1,7 @@
 import { ZeroToTwo } from '../data';
 import { TokenDocumentPF2e } from '../token-document';
 import { AmbientLightDocumentPF2e } from './ambient-light-document';
+import { SceneDataPF2e } from './data';
 import { SceneConfigPF2e } from './sheet';
 
 class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e> {
@@ -10,6 +11,9 @@ class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e> {
             this.data.globalLightThreshold = 1 - LightLevels.DARKNESS;
             this.data.globalLight = this.data.darkness < 1 - LightLevels.DARKNESS;
         }
+
+        this.data.flags.pf2e ??= { syncDarkness: 'default' };
+        this.data.flags.pf2e.syncDarkness ??= 'default';
     }
 
     getLightLevel(): number {
@@ -27,7 +31,12 @@ class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e> {
 interface ScenePF2e {
     _sheet: SceneConfigPF2e | null;
 
+    readonly data: SceneDataPF2e<this>;
+
     get sheet(): SceneConfigPF2e;
+
+    getFlag(scope: 'pf2e', key: 'syncDarkness'): 'enabled' | 'disabled' | 'default';
+    getFlag(scope: string, key: string): unknown;
 }
 
 enum LightLevels {
