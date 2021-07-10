@@ -1,10 +1,16 @@
 import { CreaturePF2e } from '@actor';
 import { ActorPF2e } from '@actor/base';
-import { VisionLevels } from '@actor/creature/data';
 import { TokenPF2e } from './canvas';
-import { LightLevels } from './scene';
 
 export class UserPF2e extends User<ActorPF2e> {
+    getPerceivedLightLevel(): number {
+        if (!(canvas.ready && canvas.scene && canvas.sight.rulesBasedVision)) {
+            return canvas.scene?.data.darkness ?? 0;
+        }
+
+        return Math.max(...canvas.tokens.controlled.map((token) => token.actor?.visionLevel ?? 0));
+    }
+
     /** Set this user's the perceived scene light levels */
     setPerceivedLightLevel({ defer = true } = {}): void {
         if (!(canvas.ready && canvas.scene && canvas.sight.rulesBasedVision)) return;
@@ -13,34 +19,25 @@ export class UserPF2e extends User<ActorPF2e> {
             (token): token is TokenPF2e & { actor: CreaturePF2e } =>
                 token.hasSight && token.observer && token.actor instanceof CreaturePF2e,
         );
-        const lightLevel = canvas.scene.getLightLevel();
         for (const token of controlled) {
-            const perceivedBrightness = {
-                [VisionLevels.BLINDED]: 0,
-                [VisionLevels.NORMAL]: lightLevel,
-                [VisionLevels.LOWLIGHT]: lightLevel > LightLevels.DARKNESS ? 1 : lightLevel,
-                [VisionLevels.DARKVISION]: 1,
-            }[token.actor.visionLevel];
-
-            token.data.brightSight = perceivedBrightness > lightLevel ? 1000 : 0;
+            if (!token.isMoving) token.updateSource();
         }
 
-        const lightEmitters = [
-            ...canvas.tokens.placeables.filter((token) => token.visible && token.emitsLight),
-            ...canvas.lighting.placeables.filter((light) => light.visible && !light.isDarkness),
-        ];
-
         if (!defer) {
+            const lightEmitters = [
+                ...canvas.tokens.placeables.filter((token) => token.visible && token.emitsLight),
+                ...canvas.lighting.placeables.filter((light) => light.visible && !light.isDarkness),
+            ];
             for (const emitter of lightEmitters) emitter.updateSource({ defer: true });
-            this.refreshSight(true);
+            this.refreshSight();
         }
     }
 
     /** Instruct the perception manager to refresh the sight and lighting layers */
-    refreshSight(immediate = false): void {
+    refreshSight({ initialize = false } = {}): void {
         if (!(canvas.ready && canvas.sight.rulesBasedVision)) return;
-        const options = { lighting: { refresh: true }, sight: { refresh: true } };
-        immediate ? canvas.perception.update(options) : canvas.perception.schedule(options);
+        const options = { lighting: { initialize, refresh: true }, sight: { initialize, refresh: true } };
+        canvas.perception.update(options);
     }
 }
 

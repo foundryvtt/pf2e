@@ -103,7 +103,7 @@ declare class SightLayer<TFogExploration extends FogExploration = FogExploration
     initializeFog(): Promise<void>;
 
     /** Initialize all Token sight sources which are present on this layer */
-    initializeSources(): Promise<void>;
+    initializeSources(): void;
 
     /* -------------------------------------------- */
     /*  Layer Rendering                             */

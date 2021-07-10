@@ -16,7 +16,7 @@ import { SUPPORTED_ROLL_OPTIONS } from './data/values';
 import { SaveData, SaveString, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from './creature/data';
 import { AbilityString, BaseActorDataPF2e } from './data/base';
 import { ActorDataPF2e, ActorSourcePF2e } from './data';
-import { TokenDocumentPF2e } from '@module/token-document';
+import { TokenDocumentPF2e } from '@module/scene/token-document';
 import { UserPF2e } from '@module/user';
 import { isCreatureData } from './data/helpers';
 import { ConditionType } from '@item/condition/data';
@@ -177,6 +177,14 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.create(data, context) as Promise<A[] | A | undefined>;
     }
 
+    /** Prepare token data derived from this actor */
+    override prepareData(): void {
+        super.prepareData();
+        for (const token of this.getActiveTokens()) {
+            token.document.prepareData({ fromActor: true });
+        }
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.tokenEffects = [];
@@ -217,16 +225,6 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         super.applyActiveEffects();
-
-        // Refresh token effects if any token-modifying ActiveEffects are present
-        const hasTokenAE = this.effects.some((effect) =>
-            effect.data.changes.some((change) => change.key.trim().startsWith('token.')),
-        );
-        if (hasTokenAE) {
-            for (const token of this.getActiveTokens()) {
-                token.applyOverrides(this.overrides.token);
-            }
-        }
     }
 
     /** Prevent character importers from creating martial items */
