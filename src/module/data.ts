@@ -35,6 +35,10 @@ export type ZeroToTen = ZeroToFour | 5 | 6 | 7 | 8 | 9 | 10;
 export type OneToTen = Exclude<ZeroToTen, 0>;
 export type ZeroToEleven = ZeroToTen | 11;
 
+export function goesToEleven(value: number): value is ZeroToEleven {
+    return value >= 0 && value <= 11;
+}
+
 /** The tracked schema data of actors and items */
 interface NewDocumentSchemaRecord {
     version: null;

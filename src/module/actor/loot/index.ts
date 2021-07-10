@@ -7,7 +7,7 @@ import { UserPF2e } from '@module/user';
 import { LootData, LootSource } from './data';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ItemSourcePF2e } from '@item/data';
-import { TokenDocumentPF2e } from '@module/token-document';
+import { TokenDocumentPF2e } from '@module/scene/token-document';
 import { ScenePF2e } from '@module/scene';
 
 export class LootPF2e extends ActorPF2e {

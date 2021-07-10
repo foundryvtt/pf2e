@@ -25,8 +25,8 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const sheetData: any = super.getData();
 
         // Update save labels
-        for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
-            save.label = CONFIG.PF2E.saves[s];
+        for (const key of ['fortitude', 'reflex', 'will'] as const) {
+            sheetData.data.saves[key].label = CONFIG.PF2E.saves[key];
         }
 
         sheetData.flags = sheetData.actor.flags;

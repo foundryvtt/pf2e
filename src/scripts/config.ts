@@ -82,6 +82,7 @@ const ancestryItemTraits = {
     ...ancestryTraits,
     amphibious: 'PF2E.TraitAmphibious',
     fey: 'PF2E.TraitFey',
+    fungus: 'PF2E.TraitFungus',
     humanoid: 'PF2E.TraitHumanoid',
     plant: 'PF2E.TraitPlant',
 };
@@ -2289,8 +2290,13 @@ export const PF2ECONFIG = {
             syncDarkness: {
                 name: 'PF2E.SETTINGS.WorldClock.SyncDarkness.Name',
                 hint: 'PF2E.SETTINGS.WorldClock.SyncDarkness.Hint',
-                globalLightOn: 'PF2E.SETTINGS.WorldClock.SyncDarkness.GlobalLightOn',
-                globalLightOff: 'PF2E.SETTINGS.WorldClock.SyncDarkness.GlobalLightOff',
+            },
+            syncDarknessScene: {
+                name: 'PF2E.SETTINGS.WorldClock.SyncDarknessScene.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.SyncDarknessScene.Hint',
+                enabled: 'PF2E.SETTINGS.WorldClock.SyncDarknessScene.Enabled',
+                disabled: 'PF2E.SETTINGS.WorldClock.SyncDarknessScene.Disabled',
+                default: 'PF2E.SETTINGS.WorldClock.SyncDarknessScene.Default',
             },
             worldCreatedOn: {
                 name: 'PF2E.SETTINGS.WorldClock.WorldCreatedOn.Name',

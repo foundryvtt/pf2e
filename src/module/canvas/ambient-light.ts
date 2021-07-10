@@ -6,7 +6,7 @@ export class AmbientLightPF2e extends AmbientLight<AmbientLightDocumentPF2e> {
     override get brightRadius(): number {
         if (!(canvas.scene && canvas.sight.rulesBasedVision)) return super.brightRadius;
 
-        const isDaylight = canvas.scene.getLightLevel() > LightLevels.DARKNESS;
+        const isDaylight = game.user.getPerceivedLightLevel() > LightLevels.DARKNESS;
         if (this.source.isDarkness || isDaylight) return super.brightRadius;
 
         const lowLightTokens = canvas.tokens.controlled.filter((token) => token.hasLowLightVision);

@@ -1,4 +1,4 @@
-import { TokenDocumentPF2e } from '.';
+import { TokenDocumentPF2e } from './token-document';
 
 export class TokenConfigPF2e extends TokenConfig<TokenDocumentPF2e> {
     /** Hide token-sight settings when rules-based vision is enabled */

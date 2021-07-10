@@ -61,9 +61,7 @@ async function runAnimation(transition: DarknessTransition) {
 
 /** Animate the increase or decrease of the scene darkness level in the syncDarkness setting is enabled */
 export async function animateDarkness(this: WorldClock, timeDiff: number): Promise<void> {
-    if (!this.syncDarkness || !canvas.lighting?.globalLight) {
-        return;
-    }
+    if (!this.syncDarkness) return;
 
     const newTime = this.worldTime;
     const oldTime = newTime.minus({ seconds: timeDiff });

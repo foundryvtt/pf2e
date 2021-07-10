@@ -5,7 +5,7 @@ import type { MacroPF2e } from '@module/macro';
 import { MigrationRunnerBase } from '@module/migration/runner/base';
 import { MigrationBase } from '@module/migration/base';
 import type { UserPF2e } from '@module/user';
-import { TokenDocumentPF2e } from '@module/token-document';
+import { TokenDocumentPF2e } from '@module/scene/token-document';
 
 export class MigrationRunner extends MigrationRunnerBase {
     override needsMigration(): boolean {

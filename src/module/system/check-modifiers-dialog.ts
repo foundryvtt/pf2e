@@ -121,7 +121,7 @@ export class CheckModifiersDialog extends Application {
         }
 
         // Add the degree of success if a DC was supplied
-        if (ctx.dc !== undefined) {
+        if (ctx.dc) {
             const degreeOfSuccess = getDegreeOfSuccess(roll, ctx.dc);
             const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
             ctx.outcome = degreeOfSuccessText;
@@ -129,6 +129,10 @@ export class CheckModifiersDialog extends Application {
 
             // Add degree of success to roll for the callback function
             roll.data.degreeOfSuccess = degreeOfSuccess.value;
+
+            const needsDCParam =
+                typeof ctx.dc.label === 'string' && Number.isInteger(ctx.dc.value) && !ctx.dc.label.includes('{dc}');
+            if (needsDCParam) ctx.dc.label = `${ctx.dc.label.trim()}: {dc}`;
 
             const dcLabel = game.i18n.format(ctx.dc.label ?? 'PF2E.DCLabel', { dc: ctx.dc.value });
             const showDC = game.settings.get('pf2e', 'metagame.showDC').toString();

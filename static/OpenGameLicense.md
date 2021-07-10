@@ -239,6 +239,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Critical Hit Deck © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland, Illustrator: Yanis Cardin.
 
 *  Paizo Blog
+    *  No-Prep Character: Gristleburst © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
 	*  No-Prep Character: Duhgik © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Dominik Derow.
 	*  No-Prep Character: Wendlyn © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
 	*  No-Prep Character: Zhang Yong © 2021, Paizo Inc.; Author: Vanessa Hoskins; Illustrator: Gislaine Avila.

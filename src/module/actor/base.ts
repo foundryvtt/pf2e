@@ -8,7 +8,7 @@ import { ErrorPF2e, objectHasKey } from '@module/utils';
 import type { ActiveEffectPF2e } from '@module/active-effect';
 import { LocalizePF2e } from '@module/system/localize';
 import { ItemTransfer } from './item-transfer';
-import { TokenEffect } from '@module/rules/rule-element';
+import { RuleElementPF2e, TokenEffect } from '@module/rules/rule-element';
 import { ActorSheetPF2e } from './sheet/base';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { hasInvestedProperty } from '@item/data/helpers';
@@ -16,7 +16,7 @@ import { SUPPORTED_ROLL_OPTIONS } from './data/values';
 import { SaveData, SaveString, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from './creature/data';
 import { AbilityString, BaseActorDataPF2e } from './data/base';
 import { ActorDataPF2e, ActorSourcePF2e } from './data';
-import { TokenDocumentPF2e } from '@module/token-document';
+import { TokenDocumentPF2e } from '@module/scene/token-document';
 import { UserPF2e } from '@module/user';
 import { isCreatureData } from './data/helpers';
 import { ConditionType } from '@item/condition/data';
@@ -33,12 +33,21 @@ interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorP
  * @category Actor
  */
 export class ActorPF2e extends Actor<TokenDocumentPF2e> {
+    /** Has this actor gone through at least one cycle of data preparation? */
+    private initialized: true | undefined;
+
+    /** A separate collection of owned physical items for convenient access */
     physicalItems!: Collection<Embedded<PhysicalItemPF2e>>;
+
+    /** Rule elements drawn from owned items */
+    rules!: RuleElementPF2e[];
 
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
             super(data, context);
             this.physicalItems ??= new Collection();
+            this.rules ??= [];
+            this.initialized = true;
         } else {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Actor.documentClasses[data.type](data, { ...ready, ...context });
@@ -138,7 +147,6 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                         bar1: { attribute: 'attributes.hp' }, // Default Bar 1 to Wounds
                         displayName: nameMode, // Default display name to be on owner hover
                         displayBars: barMode, // Default display bars to be on owner hover
-                        name: datum.name, // Set token name to actor name
                     },
                 });
 
@@ -173,13 +181,23 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.create(data, context) as Promise<A[] | A | undefined>;
     }
 
+    /** Prepare token data derived from this actor */
+    override prepareData(): void {
+        super.prepareData();
+        if (this.initialized) {
+            for (const token of this.getActiveTokens()) {
+                token.document.prepareData({ fromActor: true });
+            }
+        }
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.tokenEffects = [];
         this.preparePrototypeToken();
     }
 
-    /** Prepare physical item getters on this actor and containers */
+    /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
     override prepareEmbeddedEntities(): void {
         super.prepareEmbeddedEntities();
         const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
@@ -194,6 +212,9 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         for (const container of containers) {
             container.prepareContents();
         }
+
+        // Rule elements
+        this.rules = this.items.contents.flatMap((item) => item.prepareRuleElements());
     }
 
     /** Disable active effects from a physical item if it isn't equipped and (if applicable) invested */
@@ -210,16 +231,6 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         super.applyActiveEffects();
-
-        // Refresh token effects if any token-modifying ActiveEffects are present
-        const hasTokenAE = this.effects.some((effect) =>
-            effect.data.changes.some((change) => change.key.trim().startsWith('token.')),
-        );
-        if (hasTokenAE) {
-            for (const token of this.getActiveTokens()) {
-                token.applyOverrides(this.overrides.token);
-            }
-        }
     }
 
     /** Prevent character importers from creating martial items */
