@@ -48,7 +48,11 @@ export abstract class RuleElementPF2e {
      * @param item where the rule is persisted on
      */
     constructor(data: RuleElementConstructionData, public item: Embedded<ItemPF2e>) {
-        this.data = { ...data, label: game.i18n.localize(data.label ?? item.name) };
+        this.data = {
+            ...data,
+            label: game.i18n.localize(data.label ?? item.name),
+            ignored: false,
+        };
     }
 
     get actor(): ActorPF2e {
@@ -61,12 +65,18 @@ export abstract class RuleElementPF2e {
 
     /** Globally ignore this rule element. */
     get ignored(): boolean {
+        if (this.data.ignored) return true;
+
         const { item } = this;
         if (game.settings.get('pf2e', 'automation.effectExpiration') && item instanceof EffectPF2e && item.isExpired) {
-            return true;
+            return (this.data.ignored = true);
         }
-        if (!(item instanceof PhysicalItemPF2e)) return false;
-        return !item.isEquipped || item.isInvested === false;
+        if (!(item instanceof PhysicalItemPF2e)) return (this.data.ignored = false);
+        return (this.data.ignored = !item.isEquipped || item.isInvested === false);
+    }
+
+    set ignored(value: boolean) {
+        this.data.ignored = value;
     }
 
     /**
@@ -108,7 +118,9 @@ export abstract class RuleElementPF2e {
      * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
      * damage modifiers or bonuses
      */
-    onBeforePrepareData(_actorData: CreatureData, _synthetics: RuleElementSyntheticsPF2e) {}
+    onBeforePrepareData(_actorData: CreatureData, _synthetics: RuleElementSyntheticsPF2e): boolean | void {
+        return !this.ignored;
+    }
 
     /**
      * Run after all actor preparation callbacks have been run so you should see all final values here.

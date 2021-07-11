@@ -11,9 +11,10 @@ export interface RuleElementData {
     label: string;
     slug?: string;
     predicate?: ModifierPredicate;
+    ignored: boolean;
 }
 
-export type RuleElementConstructionData = Omit<RuleElementData, 'label'> & {
+export type RuleElementConstructionData = Omit<RuleElementData, 'label' | 'ignored'> & {
     label?: string;
 };
 
