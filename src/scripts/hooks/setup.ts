@@ -225,7 +225,7 @@ function registerPF2ActionClickListener() {
                     'data-pf2-show-dc',
                     target.attributes.getNamedItem('data-pf2-repost-show-dc')?.value ?? 'gm',
                 );
-                ChatMessage.create({ content: flavor + target.outerHTML.replace(/>DC \d+ /gi, '>') });
+                ChatMessage.create({ content: flavor + ' ' + target.outerHTML.replace(/>DC \d+ /gi, '>') });
             }
         } else if (target?.matches('[data-pf2-flat-check], [data-pf2-flat-check] *')) {
             target = target.closest('[data-pf2-flat-check]')!;
