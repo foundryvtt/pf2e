@@ -194,7 +194,7 @@ function registerPF2ActionClickListener() {
                                     .filter((trait) => !!trait);
                                 options.push(...traits);
                             }
-                            flatCheck.check.roll({ event, dc, modifiers: [] });
+                            flatCheck.check.roll({ event, options, dc, modifiers: [] });
                         } else {
                             console.warn(`PF2e System | Skip rolling flat check for '${actor}'`);
                         }
