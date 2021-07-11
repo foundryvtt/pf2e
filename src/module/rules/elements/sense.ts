@@ -20,9 +20,8 @@ export class PF2SenseRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(actorData: CreatureData): void {
         if (!(this.actor instanceof CharacterPF2e || this.actor instanceof FamiliarPF2e)) return;
 
-        const label = this.getDefaultLabel();
         const range = this.resolveValue(this.data.range);
-        if (this.data.selector && label) {
+        if (this.data.selector) {
             const existing = actorData.data.traits.senses.find((s) => s.type === this.data.selector);
             const source = `${this.item.id}-${this.item.name}-${this.data.key}`;
             if (existing) {
@@ -37,7 +36,7 @@ export class PF2SenseRuleElement extends RuleElementPF2e {
                 }
             } else {
                 const sense: SenseData & { source: string } = {
-                    label,
+                    label: this.label,
                     source: source,
                     type: this.data.selector,
                     value: '',

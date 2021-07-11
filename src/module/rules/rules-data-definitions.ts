@@ -8,10 +8,14 @@ export interface RuleElementData {
     selector?: string;
     value?: RuleValue;
     scope?: string;
-    label?: string;
+    label: string;
     slug?: string;
     predicate?: ModifierPredicate;
 }
+
+export type RuleElementConstructionData = Omit<RuleElementData, 'label'> & {
+    label?: string;
+};
 
 export type RuleValue = string | number | null | BracketedValue;
 

@@ -9,10 +9,9 @@ import { RuleElementData, RuleElementSyntheticsPF2e } from '../rules-data-defini
  */
 export class PF2StrikeRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(actorData: CharacterData | NPCData, { strikes }: RuleElementSyntheticsPF2e) {
-        const label = this.getDefaultLabel();
         strikes.push({
             _id: this.item.id,
-            name: label || this.item.name,
+            name: this.label || this.item.name,
             type: actorData.type === 'npc' ? 'melee' : 'weapon',
             img: this.data.img ?? this.item.img,
             data: {

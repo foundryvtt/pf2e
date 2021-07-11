@@ -24,7 +24,6 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
             value -= 10;
         }
 
-        const label = this.getDefaultLabel();
         const ability =
             String(this.data.ability).trim() || (KNOWN_TARGETS[selector]?.ability ?? SKILL_EXPANDED[selector]?.ability);
 
@@ -34,11 +33,11 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
             console.warn('PF2E | Fixed modifier requires at least a non-zero value or formula field.');
         } else {
             const modifier = new ModifierPF2e(
-                this.data.name ?? label,
+                this.data.name ?? this.label,
                 value - actorData.data.abilities[ability].mod,
                 MODIFIER_TYPE.PROFICIENCY,
             );
-            modifier.label = label;
+            modifier.label = this.label;
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
         }
     }
@@ -49,7 +48,6 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
         const skill: string = SKILL_EXPANDED[selector]?.shortform ?? selector;
         const skills: Record<string, StatisticModifier> = data.skills;
         const target = skills[skill] ?? (objectHasKey(data.attributes, skill) ? data.attributes[skill] : null);
-        const label = this.getDefaultLabel();
         const force = this.data.force;
 
         if (target instanceof StatisticModifier) {
@@ -58,7 +56,7 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
                 if (itemOrUntyped.includes(modifier.type) && modifier.modifier > 0) {
                     modifier.ignored = true;
                 }
-                if (force && modifier.type === MODIFIER_TYPE.PROFICIENCY && modifier.name !== label) {
+                if (force && modifier.type === MODIFIER_TYPE.PROFICIENCY && modifier.name !== this.label) {
                     modifier.ignored = true;
                 }
             }

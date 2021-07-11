@@ -12,7 +12,7 @@ export class PF2MultipleAttackPenaltyRuleElement extends RuleElementPF2e {
         { multipleAttackPenalties }: RuleElementSyntheticsPF2e,
     ) {
         const selector = this.resolveInjectedProperties(this.data.selector);
-        const label = this.resolveInjectedProperties(this.getDefaultLabel());
+        const label = this.resolveInjectedProperties(this.label);
         const value = this.resolveValue(this.data.value);
         if (selector && label && value) {
             const map: MultipleAttackPenaltyPF2e = { label, penalty: value };
