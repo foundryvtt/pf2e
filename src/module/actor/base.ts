@@ -21,6 +21,7 @@ import { UserPF2e } from '@module/user';
 import { isCreatureData } from './data/helpers';
 import { ConditionType } from '@item/condition/data';
 import { MigrationRunner, Migrations } from '@module/migration';
+import { Size } from '@module/data';
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -70,6 +71,10 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     get level(): number {
         return this.data.data.details.level.value;
+    }
+
+    get size(): Size {
+        return this.data.data.traits.size.value;
     }
 
     /**
