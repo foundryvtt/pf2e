@@ -1,5 +1,5 @@
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
+import { RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data';
 import { ModifierPF2e, ModifierPredicate, MODIFIER_TYPE } from '@module/modifiers';
 import { ActorPF2e } from '@actor';
@@ -8,10 +8,7 @@ import { ActorPF2e } from '@actor';
  * @category RuleElement
  */
 export class PF2FlatModifierRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(
-        actorData: CharacterData | NPCData,
-        { statisticsModifiers }: RuleElementSyntheticsPF2e,
-    ) {
+    override onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: RuleElementSynthetics) {
         const selector = this.resolveInjectedProperties(this.data.selector);
         const resolvedValue = this.resolveValue(this.data.value);
         const value = Math.clamped(resolvedValue, this.data.min ?? resolvedValue, this.data.max ?? resolvedValue);

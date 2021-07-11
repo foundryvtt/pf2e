@@ -3,7 +3,7 @@ import { ABILITY_ABBREVIATIONS, SKILL_EXPANDED } from '@actor/data/values';
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from '@module/modifiers';
 import { objectHasKey, tupleHasValue } from '@module/utils';
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementData, RuleElementSyntheticsPF2e } from '../rules-data-definitions';
+import { RuleElementData, RuleElementSynthetics } from '../rules-data-definitions';
 
 const KNOWN_TARGETS: Record<string, { ability: AbilityString; shortform: 'ac' }> = {
     ac: { ability: 'dex' as const, shortform: 'ac' },
@@ -13,10 +13,7 @@ const KNOWN_TARGETS: Record<string, { ability: AbilityString; shortform: 'ac' }>
  * @category RuleElement
  */
 export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(
-        actorData: CharacterData | NPCData,
-        { statisticsModifiers }: RuleElementSyntheticsPF2e,
-    ) {
+    override onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: RuleElementSynthetics) {
         const selector = this.resolveInjectedProperties(this.data.selector);
         let value = this.resolveValue(this.data.value);
         if (selector === 'ac') {

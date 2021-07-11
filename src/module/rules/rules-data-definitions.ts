@@ -49,7 +49,7 @@ export interface MultipleAttackPenaltyPF2e {
     predicate?: ModifierPredicate;
 }
 
-export interface RuleElementSyntheticsPF2e {
+export interface RuleElementSynthetics {
     damageDice: Record<string, DamageDicePF2e[]>;
     statisticsModifiers: Record<string, ModifierPF2e[]>;
     strikes: WeaponData[];

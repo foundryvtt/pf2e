@@ -1,5 +1,5 @@
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementSyntheticsPF2e, StrikingPF2e } from '../rules-data-definitions';
+import { RuleElementSynthetics, StrikingPF2e } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data';
 import { ModifierPredicate } from '@module/modifiers';
 import { getStrikingDice } from '@item/runes';
@@ -9,7 +9,7 @@ import { WeaponPF2e } from '@item';
  * @category RuleElement
  */
 export class PF2StrikingRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(_actorData: CharacterData | NPCData, { striking }: RuleElementSyntheticsPF2e) {
+    override onBeforePrepareData(_actorData: CharacterData | NPCData, { striking }: RuleElementSynthetics) {
         const selector = this.resolveInjectedProperties(this.data.selector);
         const strikingValue =
             'value' in this.data

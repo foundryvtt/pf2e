@@ -6,7 +6,7 @@ import {
     BracketedValue,
     RuleElementConstructionData,
     RuleElementData,
-    RuleElementSyntheticsPF2e,
+    RuleElementSynthetics,
     RuleValue,
 } from './rules-data-definitions';
 
@@ -118,7 +118,7 @@ export abstract class RuleElementPF2e {
      * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
      * damage modifiers or bonuses
      */
-    onBeforePrepareData(_actorData: CreatureData, _synthetics: RuleElementSyntheticsPF2e): boolean | void {
+    onBeforePrepareData(_actorData: CreatureData, _synthetics: RuleElementSynthetics): boolean | void {
         return !this.ignored;
     }
 
@@ -128,7 +128,7 @@ export abstract class RuleElementPF2e {
      * @param actorData see onBeforePrepareData
      * @param synthetics see onBeforePrepareData
      */
-    onAfterPrepareData(_actorData: CreatureData, _synthetics: RuleElementSyntheticsPF2e) {}
+    onAfterPrepareData(_actorData: CreatureData, _synthetics: RuleElementSynthetics) {}
 
     /**
      * Run before a new token is created of the actor that holds the item.

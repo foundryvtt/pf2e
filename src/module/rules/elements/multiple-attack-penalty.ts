@@ -1,5 +1,5 @@
 import { RuleElementPF2e } from '../rule-element';
-import { MultipleAttackPenaltyPF2e, RuleElementSyntheticsPF2e } from '../rules-data-definitions';
+import { MultipleAttackPenaltyPF2e, RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data';
 import { ModifierPredicate } from '@module/modifiers';
 
@@ -9,7 +9,7 @@ import { ModifierPredicate } from '@module/modifiers';
 export class PF2MultipleAttackPenaltyRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(
         _actorData: CharacterData | NPCData,
-        { multipleAttackPenalties }: RuleElementSyntheticsPF2e,
+        { multipleAttackPenalties }: RuleElementSynthetics,
     ) {
         const selector = this.resolveInjectedProperties(this.data.selector);
         const label = this.resolveInjectedProperties(this.label);
