@@ -1,5 +1,17 @@
 # Patch Notes:
 
+## Version 2.9.1
+### Bug Fixes
+* (stwlam) Fix toggling core "death" token overlay
+
+### Content Changes
+* (nikolaj-a) Fix demonblood frenzy prerequisites format
+* (Drental) Fix token sizes for some Fists of the Ruby Phoenix monsters
+
+### Core System Improvements
+* (stwlam) Allow NPC-looting if its token is marked as defeated
+
+
 ## Version 2.9.0
 ### Bug Fixes
 * (stwlam) Decouple the World Clock's synchronize-darkness feature from Unrestricted Global Vision. Closes #1098
