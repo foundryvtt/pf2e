@@ -3,6 +3,7 @@ import { SceneConfigPF2e } from './sheet';
 import { AmbientLightDocumentPF2e, LightLevels, TokenDocumentPF2e } from '.';
 
 export class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e> {
+    /** Toggle Unrestricted Global Vision according to scene darkness level */
     override prepareBaseData() {
         super.prepareBaseData();
         if (canvas.sight?.rulesBasedVision) {
@@ -20,7 +21,7 @@ export class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e
 
     override async update(data: DocumentUpdateData<this>, options?: DocumentModificationContext): Promise<this> {
         super.update(data, options);
-        if (canvas.scene === this) game.user.setPerceivedLightLevel();
+        if (canvas.scene === this) canvas.lighting.setPerceivedLightLevel();
         return this;
     }
 }

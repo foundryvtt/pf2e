@@ -14,12 +14,12 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     /** Refresh this token's properties if it's controlled and the request came from its actor */
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
-        if (fromActor && canvas.tokens.controlled.includes(this.object)) {
-            game.user.setPerceivedLightLevel({ defer: false });
+        if (fromActor && this.object.isControlled) {
+            canvas.lighting.setPerceivedLightLevel({ defer: false });
         }
     }
 
-    /** If rules-based vision is enabled, disable (but don't save) manually configured vision radii */
+    /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         super.prepareBaseData();
         if (!canvas.sight?.rulesBasedVision) return;
