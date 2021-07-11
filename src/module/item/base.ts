@@ -88,10 +88,14 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /**
-     * Create a chat card for this item and send it to the chat log. Many cards contain follow-up options for attack
-     * rolls, effect application, etc.
+     * Create a chat card for this item and either return the message or send it to the chat log. Many cards contain
+     * follow-up options for attack rolls, effect application, etc.
      */
-    async toChat(this: Embedded<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
+    async toMessage(
+        this: Embedded<ItemPF2e>,
+        event?: JQuery.TriggeredEvent,
+        { create = true } = {},
+    ): Promise<ChatMessagePF2e | undefined> {
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
         const { token } = this.actor;
@@ -114,6 +118,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 core: {
                     canPopout: true,
                 },
+                pf2e: {
+                    origin: { uuid: this.uuid, type: this.type },
+                },
             },
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
@@ -128,7 +135,12 @@ export class ItemPF2e extends Item<ActorPF2e> {
         chatData.content = await renderTemplate(template, templateData);
 
         // Create the chat message
-        return ChatMessagePF2e.create(chatData, { renderSheet: false });
+        return create ? ChatMessagePF2e.create(chatData, { renderSheet: false }) : new ChatMessagePF2e(chatData);
+    }
+
+    /** A shortcut to `item.toMessage(..., { create: true })`, kept for backward compatibility */
+    async toChat(this: Embedded<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
+        return this.toMessage(event, { create: true });
     }
 
     /** Refresh the Item Directory if this item isn't owned */
