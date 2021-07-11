@@ -118,9 +118,7 @@ export abstract class RuleElementPF2e {
      * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
      * damage modifiers or bonuses
      */
-    onBeforePrepareData(_actorData: CreatureData, _synthetics: RuleElementSynthetics): boolean | void {
-        return !this.ignored;
-    }
+    onBeforePrepareData(_actorData?: CreatureData, _synthetics?: RuleElementSynthetics): void {}
 
     /**
      * Run after all actor preparation callbacks have been run so you should see all final values here.
