@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { sluggify } from '@module/utils';
+import { ActorSourcePF2e } from '@actor/data';
 import { ItemSourcePF2e } from '@item/data';
 import { isPhysicalData } from '@item/data/helpers';
 
@@ -16,8 +17,11 @@ export const PackError = (message: string) => {
     process.exit(1);
 };
 
-type CompendiumSource = CompendiumDocument['data']['_source'];
-const isActorSource = (docSource: CompendiumSource): docSource is foundry.data.ActorSource => {
+type CompendiumSource =
+    | ActorSourcePF2e
+    | ItemSourcePF2e
+    | Exclude<CompendiumDocument['data']['_source'], foundry.data.ActorSource | foundry.data.ItemSource>;
+const isActorSource = (docSource: CompendiumSource): docSource is ActorSourcePF2e => {
     return (
         'effects' in docSource &&
         Array.isArray(docSource.effects) &&
@@ -79,6 +83,11 @@ export class CompendiumPack {
         for (const docSource of this.data) {
             // Populate CompendiumPack.namesToIds for later conversion of compendium links
             packMap.set(docSource.name, docSource._id);
+            if ('type' in docSource && docSource.type === 'feat') {
+                if (!Array.isArray(docSource.data.prerequisites.value)) {
+                    throw PackError(`Feat ${docSource._id} (${this.name}) has a non-array prerequisites value`);
+                }
+            }
 
             // Check img paths
             if ('img' in docSource && typeof docSource.img === 'string') {
