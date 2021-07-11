@@ -57,6 +57,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return lightLevel > LightLevels.DARKNESS || this.hasDarkvision;
     }
 
+    get isDead(): boolean {
+        const hasDeathOverlay = !this.getActiveTokens().some(
+            (token) => token.data.overlayEffect !== 'icons/svg/skull.svg',
+        );
+        return (this.hitPoints.current === 0 || hasDeathOverlay) && !this.hasCondition('dying');
+    }
+
     get hitPoints() {
         return {
             current: this.data.data.attributes.hp.value,
