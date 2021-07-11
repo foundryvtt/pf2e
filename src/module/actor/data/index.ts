@@ -13,4 +13,6 @@ export type ActorType = CreatureType | 'hazard' | 'loot' | 'vehicle';
 export type ActorDataPF2e = CreatureData | HazardData | LootData | VehicleData;
 export type ActorSourcePF2e = ActorDataPF2e['_source'];
 
+export type ModeOfBeing = 'living' | 'undead' | 'construct';
+
 export { AbilityString, CharacterData, NPCData, FamiliarData, HazardData, LootData, VehicleData };

@@ -15,7 +15,7 @@ import { hasInvestedProperty } from '@item/data/helpers';
 import { SUPPORTED_ROLL_OPTIONS } from './data/values';
 import { SaveData, SaveString, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from './creature/data';
 import { AbilityString, BaseActorDataPF2e } from './data/base';
-import { ActorDataPF2e, ActorSourcePF2e } from './data';
+import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing } from './data';
 import { TokenDocumentPF2e } from '@module/scene/token-document';
 import { UserPF2e } from '@module/user';
 import { isCreatureData } from './data/helpers';
@@ -78,6 +78,11 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      */
     get canSee(): boolean {
         return true;
+    }
+
+    get modeOfBeing(): ModeOfBeing {
+        const traits = this.traits;
+        return traits.has('undead') ? 'undead' : traits.has('construct') ? 'construct' : 'living';
     }
 
     get visionLevel(): VisionLevel {
