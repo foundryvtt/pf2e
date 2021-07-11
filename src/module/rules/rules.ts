@@ -1,6 +1,6 @@
 import { RuleElementConstructionData, RuleElementData } from './rules-data-definitions';
 import { RuleElementPF2e } from './rule-element';
-import { PF2FlatModifierRuleElement } from './elements/flatmodifier';
+import { PF2FlatModifierRuleElement } from './elements/flat-modifier';
 import { PF2MageArmorRuleElement } from './spells/mage-armor';
 import { PF2FixedProficiencyRuleElement } from './elements/fixed-proficiency';
 import { PF2TempHPRuleElement } from './elements/temphp';
