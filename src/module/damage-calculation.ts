@@ -1,6 +1,6 @@
 import { Alignment } from '@actor/creature/data';
+import { ModeOfBeing } from '@actor/data';
 import { isChaotic, isEvil, isGood, isLawful } from './alignment';
-import { Living } from './living';
 import { groupBy, sum } from './utils';
 
 const physicalDamageTypes = ['bludgeoning', 'piercing', 'slashing', 'bleed'] as const;
@@ -391,10 +391,10 @@ export function removeAlignmentDamage(damage: Damage, alignment: Alignment) {
     }
 }
 
-export function removePositiveOrNegativeDamage(damage: Damage, living: Living) {
-    if (living === 'living') {
+export function removePositiveOrNegativeDamage(damage: Damage, modeOfBeing: ModeOfBeing) {
+    if (modeOfBeing === 'living') {
         damage.delete('positive');
-    } else if (living === 'undead') {
+    } else if (modeOfBeing === 'undead') {
         damage.delete('negative');
         // Another special type of physical damage is bleed damage.
         // This is persistent damage that represents loss of blood. As such, it has
@@ -497,7 +497,7 @@ export function calculateDamage({
     immunities = [],
     resistances = [],
     weaknesses = [],
-    living = 'living',
+    modeOfBeing = 'living',
     alignment = 'N',
     damageOptions = {
         disregardTargetAlignment: false,
@@ -507,7 +507,7 @@ export function calculateDamage({
     immunities?: Immunity[];
     resistances?: Resistance[];
     weaknesses?: Weakness[];
-    living?: Living;
+    modeOfBeing?: ModeOfBeing;
     alignment?: Alignment;
     damageOptions?: DamageOptions;
 }): number {
@@ -516,7 +516,7 @@ export function calculateDamage({
     Array.from(damage.entries()).forEach(([type, value]) => {
         copiedDamage.set(type, value);
     });
-    removePositiveOrNegativeDamage(copiedDamage, living);
+    removePositiveOrNegativeDamage(copiedDamage, modeOfBeing);
     if (!damageOptions.disregardTargetAlignment) {
         removeAlignmentDamage(copiedDamage, alignment);
     }
