@@ -96,6 +96,9 @@ export class CharacterPF2e extends CreaturePF2e {
         // Hit points from Ancestry and Class
         systemData.attributes.ancestryhp = 0;
         systemData.attributes.classhp = 0;
+
+        // Keep in place until sense data is migrated
+        systemData.traits.senses = systemData.traits.senses.filter((sense) => !!sense);
     }
 
     /** Adjustments from ABC items are made after all items are prepared but before active effects are applied. */
