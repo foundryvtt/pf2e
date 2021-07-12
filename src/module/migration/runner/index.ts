@@ -26,7 +26,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             return;
         }
 
-        if (!document.schemaVersion || (Number(document.schemaVersion) || 0) < currentVersion) {
+        if ((Number(document.schemaVersion) || 0) < currentVersion) {
             const runner = new this(migrations);
             const source = document.data._source;
             const updated =

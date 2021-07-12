@@ -11,9 +11,9 @@ describe('should calculate xp', () => {
             4,
             [2, 2, 2],
             [
-                { level: 2, isComplex: true },
+                { level: { value: 2 }, isComplex: true },
                 {
-                    level: 4,
+                    level: { value: 4 },
                     isComplex: false,
                 },
             ],
@@ -42,9 +42,9 @@ describe('should calculate xp', () => {
             5,
             [2, 2, 2],
             [
-                { level: 2, isComplex: true },
+                { level: { value: 2 }, isComplex: true },
                 {
-                    level: 4,
+                    level: { value: 4 },
                     isComplex: false,
                 },
             ],
