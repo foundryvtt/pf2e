@@ -4,39 +4,40 @@
     </div>
     <ul class="modifier-list">
         {{#each _modifiers as |modifier|}}
-        <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
-            <span class="tag">
-                {{localize (add 'PF2E.ModifierType.' modifier.type)}}
-            </span>
-            <span class="label">{{localize modifier.name}}</span>
-            <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
-            {{#if modifier.automation.key}}
-            <i class="fas fa-robot {{#unless modifier.automation.enabled}}disabled{{/unless}} toggle-automation"
-              data-automation-key="{{modifier.automation.key}}" data-name="{{modifier.name}}" title="{{#if modifier.automation.enabled}}{{localize 'PF2E.ActiveEffects.DisableAutomation'}}{{else}}{{localize 'PF2E.ActiveEffects.EnableAutomation'}}{{/if}}"></i>
-            {{/if}}
-            {{#if modifier.custom}}<i class="far fa-times-circle remove-modifier" data-stat="{{../name}}" data-name="{{modifier.name}}" title="{{localize 'PF2E.RemoveModifierTitle'}}"></i>{{/if}}
-        </li>
+            <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
+                <span class="tag">
+                    {{localize (add 'PF2E.ModifierType.' modifier.type)}}
+                </span>
+                <span class="label">{{localize modifier.name}}</span>
+                <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
+                {{#if modifier.automation.key}}
+                    <i class="fas fa-robot {{#unless modifier.automation.enabled}}disabled{{/unless}} toggle-automation"
+                        data-automation-key="{{modifier.automation.key}}" data-name="{{modifier.name}}" title="{{#if modifier.automation.enabled}}{{localize 'PF2E.ActiveEffects.DisableAutomation'}}{{else}}{{localize 'PF2E.ActiveEffects.EnableAutomation'}}{{/if}}"></i>
+                {{/if}}
+                {{#if modifier.custom}}<i class="far fa-times-circle remove-modifier" data-stat="{{../name}}" data-name="{{modifier.name}}" title="{{localize 'PF2E.RemoveModifierTitle'}}"></i>{{/if}}
+            </li>
         {{/each}}
         <li class="item add-modifier">
-          <div class="add-modifier-value">
-            <input type="number" placeholder="+1">
-            <i class="fas fa-plus-circle"></i>
-            <i class="fas fa-minus-circle"></i>
-          </div>
+            <div class="add-modifier-value">
+                <input type="number" placeholder="+1">
+                <i class="fas fa-plus-circle"></i>
+                <i class="fas fa-minus-circle"></i>
+            </div>
 
-          <input type="text" class="add-modifier-name" placeholder={{localize 'PF2E.ModifierTitle'}}>
+            <input type="text" class="add-modifier-name" placeholder={{localize "PF2E.ModifierNamePlaceholder"}}>
 
-          <select class="tag add-modifier-type">
-              <option value="">{{localize 'PF2E.PickAType'}}</option>
-              <option value="ability">{{localize 'PF2E.ModifierType.ability'}}</option>
-              <option value="proficiency">{{localize 'PF2E.ModifierType.proficiency'}}</option>
-              <option value="item">{{localize 'PF2E.ModifierType.item'}}</option>
-              <option value="status">{{localize 'PF2E.ModifierType.status'}}</option>
-              <option value="circumstance">{{localize 'PF2E.ModifierType.circumstance'}}</option>
-              <option value="untyped">{{localize 'PF2E.ModifierType.untyped'}}</option>
-          </select>
+            <select class="tag add-modifier-type">
+                <option value="">{{localize "PF2E.ModifierTypeTitle"}}</option>
+                <option value="ability">{{localize "PF2E.ModifierType.ability"}}</option>
+                <option value="proficiency">{{localize "PF2E.ModifierType.proficiency"}}</option>
+                <option value="item">{{localize "PF2E.ModifierType.item"}}</option>
+                <option value="status">{{localize "PF2E.ModifierType.status"}}</option>
+                <option value="circumstance">{{localize "PF2E.ModifierType.circumstance"}}</option>
+                {{#if abpEnabled}}<option value="potency">{{localize "PF2E.ModifierType.potency"}}</option>{{/if}}
+                <option value="untyped">{{localize "PF2E.ModifierType.untyped"}}</option>
+            </select>
 
-          <a class="add-modifier-submit" data-stat="{{name}}">+ {{localize 'PF2E.AddModifierTitle'}}</a>
+            <button type="button" class="add-modifier-submit" data-stat="{{name}}">{{localize "PF2E.AddModifierTitle"}}</button>
         </li>
     </ul>
 </div>

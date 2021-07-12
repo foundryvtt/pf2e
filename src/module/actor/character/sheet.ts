@@ -7,7 +7,7 @@ import { FeatSource } from '@item/feat/data';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { MagicTradition, PreparationType } from '@item/spellcasting-entry/data';
-import { ProficiencyModifier } from '@module/modifiers';
+import { MODIFIER_TYPE, ProficiencyModifier } from '@module/modifiers';
 import { goesToEleven, ZeroToThree } from '@module/data';
 import { CharacterPF2e } from '.';
 import { CreatureSheetPF2e } from '../creature/sheet';
@@ -123,6 +123,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.hasStamina = game.settings.get('pf2e', 'staminaVariant') > 0;
 
         this.prepareSpellcasting(sheetData);
+
+        sheetData.abpEnabled = game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP';
 
         // Return data for rendering
         return sheetData;
@@ -686,10 +688,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
-        html.find('.add-modifier').on('click', '.fas.fa-plus-circle', (event) => this.onIncrementModifierValue(event));
-        html.find('.add-modifier').on('click', '.fas.fa-minus-circle', (event) => this.onDecrementModifierValue(event));
-        html.find('.add-modifier').on('click', '.add-modifier-submit', (event) => this.onAddCustomModifier(event));
-        html.find('.modifier-list').on('click', '.remove-modifier', (event) => this.onRemoveCustomModifier(event));
+        html.find('.add-modifier .fas.fa-plus-circle').on('click', (event) => this.onIncrementModifierValue(event));
+        html.find('.add-modifier .fas.fa-minus-circle').on('click', (event) => this.onDecrementModifierValue(event));
+        html.find('.add-modifier .add-modifier-submit').on('click', (event) => this.onAddCustomModifier(event));
+        html.find('.modifier-list .remove-modifier').on('click', (event) => this.onRemoveCustomModifier(event));
         html.find('.modifier-list').on('click', '.toggle-automation', (event) => this.onToggleAutomation(event));
 
         // Toggle invested state
@@ -888,20 +890,21 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         (parent.find('.add-modifier-value input[type=number]')[0] as HTMLInputElement).stepDown();
     }
 
-    private onAddCustomModifier(event: JQuery.ClickEvent) {
+    private onAddCustomModifier(event: JQuery.ClickEvent<HTMLElement, undefined, HTMLElement>) {
         const parent = $(event.currentTarget).parents('.add-modifier');
         const stat = $(event.currentTarget).attr('data-stat') ?? '';
         const modifier = Number(parent.find('.add-modifier-value input[type=number]').val()) || 1;
-        const name = `${parent.find('.add-modifier-name').val()}`;
-        const type = `${parent.find('.add-modifier-type').val()}`;
+        const type = parent.find<HTMLSelectElement>('.add-modifier-type')[0]?.value ?? '';
+        const name =
+            (parent.find<HTMLInputElement>('.add-modifier-name')[0]?.value ?? '').trim() ||
+            game.i18n.localize(`PF2E.ModifierType.${type}`);
         const errors: string[] = [];
-        if (!stat || !stat.trim()) {
-            errors.push('Statistic is required.');
+        if (!stat.trim()) {
+            // This is a UI error rather than a user error
+            throw ErrorPF2e('No character attribute found');
         }
-        if (!name || !name.trim()) {
-            errors.push('Name is required.');
-        }
-        if (!type || !type.trim().length) {
+        const modifierTypes: string[] = Object.values(MODIFIER_TYPE);
+        if (!modifierTypes.includes(type)) {
             errors.push('Type is required.');
         }
         if (errors.length > 0) {
@@ -915,10 +918,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const stat = $(event.currentTarget).attr('data-stat') ?? '';
         const name = $(event.currentTarget).attr('data-name') ?? '';
         const errors: string[] = [];
-        if (!stat || !stat.trim()) {
+        if (!stat.trim()) {
             errors.push('Statistic is required.');
         }
-        if (!name || !name.trim()) {
+        if (!name.trim()) {
             errors.push('Name is required.');
         }
         if (errors.length > 0) {
