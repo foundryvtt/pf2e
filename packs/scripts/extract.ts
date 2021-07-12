@@ -137,6 +137,12 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
                         }
                     }
                 }
+                if (entityData.type === 'npc' || entityData.type === 'character' || entityData.type === 'hazard') {
+                    const name = entityData.name;
+                    if (entityData.token.name.match(entityData.name)) {
+                        entityData.token.name = name.replace(/\s*\(\d+-\d+\)/g, '');
+                    }
+                }
             }
         } else if (['_modifiers', '_sheetTab'].includes(key)) {
             delete entityData[key as DocumentKey];
