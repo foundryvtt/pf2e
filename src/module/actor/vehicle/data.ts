@@ -38,6 +38,23 @@ interface VehicleAttributes extends BaseActorAttributes {
 /** The system-level data of vehicle actors. */
 interface VehicleSystemData extends ActorSystemData {
     attributes: VehicleAttributes;
+    details: {
+        description: string;
+        level: {
+            value: number;
+        };
+        price: number;
+        space: {
+            long: number;
+            wide: number;
+            high: number;
+        };
+        crew: string;
+        passengers: string;
+        pilotingCheck: string;
+        AC: number;
+        speed: number;
+    };
     saves: {
         fortitude: {
             rank: number;

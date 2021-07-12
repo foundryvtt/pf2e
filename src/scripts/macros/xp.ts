@@ -63,15 +63,15 @@ function calculateCreatureXP(partyLevel: number, npcLevel: number, dcOptions: DC
 }
 
 interface HazardLevel {
-    level: number;
+    level: { value: number };
     isComplex: boolean;
 }
 
 function getHazardXp(partyLevel: number, hazard: HazardLevel, dcOptions: DCOptions): number {
     if (hazard.isComplex) {
-        return calculateCreatureXP(partyLevel, hazard.level, dcOptions);
+        return calculateCreatureXP(partyLevel, hazard.level.value, dcOptions);
     } else {
-        return getXPFromMap(partyLevel, hazard.level, xpSimpleHazardDifferences);
+        return getXPFromMap(partyLevel, hazard.level.value, xpSimpleHazardDifferences);
     }
 }
 
