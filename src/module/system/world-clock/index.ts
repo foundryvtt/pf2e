@@ -45,13 +45,18 @@ export class WorldClock extends Application {
 
     /** Setting: whether to keep the scene's darkness level synchronized with the world time */
     get syncDarkness(): boolean {
-        return game.settings.get('pf2e', 'worldClock.syncDarkness');
+        const sceneSetting = canvas.scene?.getFlag('pf2e', 'syncDarkness') ?? 'default';
+        return {
+            enabled: true,
+            disabled: false,
+            default: game.settings.get('pf2e', 'worldClock.syncDarkness'),
+        }[sceneSetting];
     }
 
     /** Setting: Date and time of the Foundry world's creation date */
     get worldCreatedOn(): DateTime {
         const value = game.settings.get('pf2e', 'worldClock.worldCreatedOn');
-        return typeof value === 'string' ? DateTime.fromISO(value).toUTC() : DateTime.utc();
+        return DateTime.fromISO(value).toUTC();
     }
 
     /** The current date and time of the game world */
@@ -100,8 +105,9 @@ export class WorldClock extends Application {
     private get month(): string {
         switch (this.dateTheme) {
             case 'AR': {
-                const month = this.worldTime.setLocale('en-US').monthLong;
-                return this.translations.AR.Months[month];
+                const months = this.translations.AR.Months;
+                const month = this.worldTime.setLocale('en-US').monthLong as keyof typeof months;
+                return months[month];
             }
             default:
                 return this.worldTime.monthLong;
@@ -112,8 +118,9 @@ export class WorldClock extends Application {
     private get weekday(): string {
         switch (this.dateTheme) {
             case 'AR': {
-                const weekday = this.worldTime.setLocale('en-US').weekdayLong;
-                return this.translations.AR.Weekdays[weekday];
+                const weekdays = this.translations.AR.Weekdays;
+                const weekday = this.worldTime.setLocale('en-US').weekdayLong as keyof typeof weekdays;
+                return weekdays[weekday];
             }
             default:
                 return this.worldTime.weekdayLong;

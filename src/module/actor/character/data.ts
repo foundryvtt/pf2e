@@ -95,8 +95,6 @@ export interface CharacterSystemData extends CreatureSystemData {
         level: {
             /** The current level of this character. */
             value: number;
-            /** The minimum level (almost always '1'). */
-            min: number;
         };
     };
 

@@ -337,17 +337,17 @@ export class StatusEffects {
         }
     }
 
-    private static async toggleStatus(this: TokenPF2e, event: JQuery.ClickEvent | JQuery.ContextMenuEvent) {
+    private static async toggleStatus(this: TokenPF2e, event: JQuery.TriggeredEvent): Promise<void> {
         event.preventDefault();
         event.stopImmediatePropagation();
-        if (event.shiftKey) {
-            StatusEffects._onToggleOverlay(event, this);
-            return;
-        }
 
-        const f = $(event.currentTarget);
-        const status = f.attr('data-condition') ?? '';
-        const src = (f.attr('src') ?? '') as ImagePath;
+        const $target = $(event.currentTarget);
+        const status = $target.attr('data-condition') ?? '';
+        const src = ($target.attr('src') ?? '') as ImagePath;
+
+        if (event.shiftKey || src === 'icons/svg/skull.svg') {
+            return StatusEffects._onToggleOverlay(event, this);
+        }
 
         const condition = this.actor?.itemTypes.condition.find(
             (condition) =>

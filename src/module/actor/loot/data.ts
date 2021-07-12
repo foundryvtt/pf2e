@@ -17,6 +17,14 @@ export interface LootData extends Omit<LootSource, 'effects' | 'items' | 'token'
 
 /** The system-level data of loot actors. */
 export interface LootSystemData extends ActorSystemData {
+    details: {
+        description: {
+            value: string;
+        };
+        level: {
+            value: number;
+        };
+    };
     lootSheetType: 'Merchant' | 'Loot';
     hiddenWhenEmpty: boolean;
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.

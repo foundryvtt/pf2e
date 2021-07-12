@@ -25,6 +25,7 @@ import { Migration639NormalizeLevelAndPrice } from '@module/migration/migrations
 import { Migration640CantripsAreNotZeroLevel } from '@module/migration/migrations/640-cantrips-are-not-zero-level';
 import { Migration641SovereignSteelValue } from '@module/migration/migrations/641-sovereign-steel-value';
 import { Migration642TrackSchemaVersion } from '@module/migration/migrations/642-track-schema-version';
+import { Migration643HazardLevel } from '@module/migration/migrations/643-hazard-level';
 
 const migrations: MigrationBase[] = [
     new Migration621RemoveConfigSpellSchools(),
@@ -47,6 +48,7 @@ const migrations: MigrationBase[] = [
     new Migration640CantripsAreNotZeroLevel(),
     new Migration641SovereignSteelValue(),
     new Migration642TrackSchemaVersion(),
+    new Migration643HazardLevel(),
 ];
 
 global.deepClone = function (original: any): any {
@@ -171,9 +173,15 @@ async function migrate() {
         // skip journal entries, rollable tables, and macros
         let updatedEntity: ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource;
         if (isActorData(source)) {
+            source.data.schema.lastMigration = null;
             updatedEntity = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
+            updatedEntity.data.schema.lastMigration = null;
+            for (const itemSource of updatedEntity.items) {
+                itemSource.data.schema.lastMigration = null;
+            }
         } else if (isItemData(source)) {
             updatedEntity = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
+            updatedEntity.data.schema.lastMigration = null;
         } else if (isMacroData(source)) {
             updatedEntity = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
         } else if (isTableData(source)) {

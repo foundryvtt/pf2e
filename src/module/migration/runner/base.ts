@@ -2,7 +2,7 @@ import { ActorSourcePF2e } from '@actor/data';
 import { ItemSourcePF2e } from '@item/data';
 import { DocumentSchemaRecord } from '@module/data';
 import { MigrationBase } from '@module/migration/base';
-import { TokenDocumentPF2e } from '@module/token-document';
+import { TokenDocumentPF2e } from '@module/scene/token-document';
 import { ErrorPF2e } from '@module/utils';
 import { DateTime } from 'luxon';
 
@@ -15,7 +15,7 @@ interface ItemsDiff {
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.642;
+    static LATEST_SCHEMA_VERSION = 0.643;
 
     static MINIMUM_SAFE_VERSION = 0.6;
 

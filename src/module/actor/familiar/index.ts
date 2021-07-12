@@ -2,7 +2,6 @@ import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } fro
 import { CharacterPF2e, NPCPF2e } from '@actor/index';
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from '@module/modifiers';
 import { CheckPF2e, RollParameters } from '@system/rolls';
-import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
 import { CreaturePF2e } from '../creature';
 import { ItemSourcePF2e } from '@item/data';
 import { ActiveEffectPF2e } from '@module/active-effect';
@@ -49,9 +48,7 @@ export class FamiliarPF2e extends CreaturePF2e {
         super.applyActiveEffects();
 
         const data = this.data.data;
-        const rules = this.items
-            .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item)), [])
-            .filter((rule) => !rule.ignored);
+        const rules = this.rules.filter((rule) => !rule.ignored);
 
         // Ensure uniqueness of traits
         data.traits.traits.value = [...this.traits].sort();
@@ -305,9 +302,6 @@ export class FamiliarPF2e extends CreaturePF2e {
                 data.skills[shortForm] = stat;
             }
         }
-
-        // Refresh vision of controlled tokens linked to this actor in case any of the above changed its senses
-        this.refreshVision();
     }
 
     override async createEmbeddedDocuments(

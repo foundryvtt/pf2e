@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+3",
+                "mod": 3,
                 "value": 10
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 17,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -103,8 +104,9 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "25 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "25"
                     }
                 ],
                 "value": "25"
@@ -129,6 +131,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
+            "flavorText": "<p>A will-o'-wisp that starves to death might rise as a cold, blue, glowing sphere of spongy wetness-a corpselight. A corpselight instinctively seeks out a host corpse to dwell within, as its physical form quickly deteriorates if not hidden within a dead creature.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -172,13 +175,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:14.986-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.643
         },
         "traits": {
             "ci": [],
@@ -187,15 +185,24 @@
                 "value": [
                     "death effects",
                     "disease",
-                    "fear",
-                    "paralyzed,"
+                    "fear effects",
+                    "paralyzed",
+                    "poison",
+                    "precision",
+                    "unconscious"
                 ]
             },
             "dr": [],
             "dv": [
                 {
-                    "label": "Bludgeoning 5 (in Skeletal Corpses) Or Slashing 5 (in Fleshy Corpses)",
-                    "type": "bludgeoning 5 (in skeletal corpses) or slashing 5 (in fleshy corpses)"
+                    "label": "Bludgeoning (in Skeletal Corpses)",
+                    "type": "bludgeoning",
+                    "value": "bludgeoning"
+                },
+                {
+                    "label": "Slashing (in Fleshy Corpses)",
+                    "type": "slashing",
+                    "value": "slashing"
                 }
             ],
             "languages": {
@@ -252,13 +259,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.986-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -277,7 +279,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 100000,
             "type": "melee"
@@ -303,17 +305,12 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(agile)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.986-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -334,7 +331,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 200000,
             "type": "melee"
@@ -343,7 +340,7 @@
             "_id": "uItSOCTzoCrocBon",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -361,13 +358,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.986-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -389,16 +381,124 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
-            "name": "Corpse Sense",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Corpse Sense (Precise) 30 feet",
             "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "f2TrT4l8m1DRgTZ4",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "3RI2spwyiEWuXdgF",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Negative Healing",
+            "sort": 500000,
             "type": "action"
         },
         {
             "_id": "khhjOlnkRw4wzweC",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -409,20 +509,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A corpselight exposed to sunlight is stunned 2 and clumsy 2, and cannot Claim a Corpse.</p>"
+                    "value": "<p>A corpselight exposed to sunlight is @Compendium[pf2e.conditionitems.Stunned]{Stunned 2} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and cannot Claim a Corpse.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.986-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -444,16 +539,16 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sunlight Powerlessness",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
             "_id": "NBuJOqDORlJbI3m9",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -464,20 +559,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When a corpselight is reduced to 0 Hit Points while merged with a corpse, it is instead reduced to 1 Hit Point as the corpse collapses to the ground and the corpselight emerges in its wisp form. While in wisp form, a corpselight is Tiny and can take no actions other than Claim Corpse or Fly. A corpselight that starts its turn in wisp form must attempt a DC 16 flat check at the end of its turn; if it fails, it loses 1 Hit Point. A corpselight reduced to 0 Hit Points while in wisp form is destroyed.</p>"
+                    "value": "<p>When a corpselight is reduced to 0 Hit Points while merged with a corpse, it is instead reduced to 1 Hit Point as the corpse collapses to the ground and the corpselight emerges in its wisp form.</p>\n<p>While in wisp form, a corpselight is Tiny and can take no actions other than Claim Corpse or Fly.</p>\n<p>A corpselight that starts its turn in wisp form must attempt a DC 16 flat check at the end of its turn; if it fails, it loses 1 Hit Point. A corpselight reduced to 0 Hit Points while in wisp form is destroyed.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.986-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -499,16 +589,16 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Wisp Form",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
             "_id": "Y0gOm1Uz3dMu6Q4W",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -519,20 +609,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Prerequisites</strong> The corpselight is in wisp form and is adjacent to a Medium or Small corpse that hasn't been claimed by a corpselight in the past 24 hours;</p>\n<p><strong>Effect</strong> The corpselight merges with the corpse, causes the corpse to Stand, and regains 3d6 Hit Points.</p>"
+                    "value": "<p><strong>Prerequisites</strong> The corpselight is in wisp form and is adjacent to a Medium or Small corpse that hasn't been claimed by a corpselight in the past 24 hours;</p>\n<p><strong>Effect</strong> The corpselight merges with the corpse, causes the corpse to Stand, and regains [[/r 3d6 #Hit Points]] Hit Points.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.986-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -558,14 +643,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Claim Corpse",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
             "_id": "mA7HIkvCJVI5uu1m",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -576,20 +661,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Prerequisites</strong> The corpselight is in a corpse;</p>\n<p><strong>Effect</strong> The corpselight emits a sickly blue beam of light from its mouth and eyes in a 20-foot cone. All living creatures in this area must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"18\" data-pf2-traits=\"emotion,fear,mental,necromancy,occult,damaging-effect\" data-pf2-label=\"Death Light DC\" data-pf2-show-dc=\"gm\">Fortitude</span> saving throw. If at least 1 creature fails its save, the corpselight regains 2d6 Hit Points, gaining any that exceed its maximum as temporary Hit Points that last for 1 minute. The corpselight can't use again for 1d4 rounds.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d6 # negative damage]] negative damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 2d6 # negative damage]] negative damage and is frightened 1.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 4d6 # negative damage]] negative damage and is frightened 3.</p>"
+                    "value": "<p><strong>Prerequisites</strong> The corpselight is in a corpse;</p>\n<p><strong>Effect</strong> The corpselight emits a sickly blue beam of light from its mouth and eyes in a 20-foot cone. All living creatures in this area must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"18\" data-pf2-traits=\"emotion,fear,mental,necromancy,occult,damaging-effect\" data-pf2-label=\"Death Light DC\" data-pf2-show-dc=\"gm\">Fortitude</span> saving throw.</p>\n<div data-visibility=\"gm\">\n<p>If at least 1 creature fails its save, the corpselight regains [[/r 2d6 #Hit Points]] Hit Points, gaining any that exceed its maximum as temporary Hit Points that last for 1 minute.</p>\n<p>The corpselight can't use again for [[/br 1d4 #rounds]] rounds.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d6 # negative damage]] negative damage.</p>\n<p><strong>Failure</strong> The creature takes [[/r 2d6 # negative damage]] negative damage and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 4d6 # negative damage]] negative damage and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3}.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.986-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -619,7 +699,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Death Light",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -641,13 +721,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.986-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -665,7 +740,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -687,13 +762,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.986-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -711,7 +781,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -733,13 +803,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.986-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -757,7 +822,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],
@@ -767,7 +832,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

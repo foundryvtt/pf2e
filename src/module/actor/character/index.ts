@@ -12,7 +12,6 @@ import {
     ProficiencyModifier,
     WISDOM,
 } from '@module/modifiers';
-import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
 import { ensureWeaponCategory, ensureWeaponSize, WeaponDamagePF2e } from '@system/damage/weapon';
 import { CheckPF2e, DamageRollPF2e, RollParameters } from '@system/rolls';
 import { SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from '../data/values';
@@ -109,9 +108,7 @@ export class CharacterPF2e extends CreaturePF2e {
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const rules = this.items
-            .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item)), [])
-            .filter((rule) => !rule.ignored);
+        const rules = this.rules.filter((rule) => !rule.ignored);
         const systemData = this.data.data;
 
         // Compute ability modifiers from raw ability scores.
@@ -1135,9 +1132,6 @@ export class CharacterPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         });
-
-        // Refresh vision of controlled tokens linked to this actor in case any of the above changed its senses
-        this.refreshVision();
     }
 
     private prepareInitiative(
@@ -1233,23 +1227,6 @@ export class CharacterPF2e extends CreaturePF2e {
         return super.deleteEmbeddedDocuments(embeddedName, [...new Set(ids)], context) as Promise<
             ActiveEffectPF2e[] | ItemPF2e[]
         >;
-    }
-
-    /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
-    /* -------------------------------------------- */
-
-    /** Refresh placed lights if this character's senses changed */
-    protected override _onUpdate(
-        changed: DeepPartial<this['data']['_source']>,
-        options: DocumentModificationContext = {},
-        userId: string,
-    ): void {
-        if (changed.data?.traits?.senses) {
-            canvas.lighting.initializeSources();
-            canvas.perception.schedule({ lighting: { refresh: true }, sight: { refresh: true } });
-        }
-        super._onUpdate(changed, options, userId);
     }
 }
 

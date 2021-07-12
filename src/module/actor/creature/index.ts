@@ -53,8 +53,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
         if (!canvas.scene) return true;
         if (this.visionLevel === VisionLevels.BLINDED) return false;
 
-        const lightLevel = canvas.scene.getLightLevel();
+        const lightLevel = canvas.scene.lightLevel;
         return lightLevel > LightLevels.DARKNESS || this.hasDarkvision;
+    }
+
+    get isDead(): boolean {
+        const hasDeathOverlay = !this.getActiveTokens().some(
+            (token) => token.data.overlayEffect !== 'icons/svg/skull.svg',
+        );
+        return (this.hitPoints.current === 0 || hasDeathOverlay) && !this.hasCondition('dying');
     }
 
     get hitPoints() {
@@ -128,11 +135,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
                   return withBetterAC ?? withMoreHP ?? withBetterHardness ?? bestShield;
               }, heldShields.slice(-1)[0]);
-    }
-
-    /** Refresh the vision of any controlled tokens linked to this creature */
-    protected refreshVision() {
-        if (canvas.scene) game.user.setPerceivedLightLevel({ defer: false });
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
@@ -315,7 +317,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             dc = {
                 label: game.i18n.format('PF2E.CreatureStatisticDC.ac', {
                     creature: ctx.target.name,
-                    dc: ctx.target.actor.data.data.attributes.ac.value,
+                    dc: '{dc}',
                 }),
                 scope: 'AttackOutcome',
                 value: ctx.target.actor.data.data.attributes.ac.value,

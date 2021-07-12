@@ -118,12 +118,6 @@ export class ActiveEffectPF2e extends ActiveEffect {
         if (transferredEffect) {
             this.data.disabled = true;
             transferredEffect.data.disabled = true;
-            // Refresh token data if any disabled effects include token
-            if (transferredEffect.data.changes.some((change) => change.key.trim().startsWith('token.'))) {
-                for (const token of actor.getActiveTokens()) {
-                    token.applyOverrides(actor.overrides.token);
-                }
-            }
         }
     }
 
@@ -151,19 +145,6 @@ export class ActiveEffectPF2e extends ActiveEffect {
             (item) => !!(item.getFlag('pf2e', 'grantedBy') === this.id && item.sourceId?.endsWith(lookupData.id)),
         );
         await toRevoke?.delete();
-    }
-
-    /** Propagate deletion of prototype token overrides to any placed tokens */
-    protected override _onDelete(options: DocumentModificationContext, userId: string) {
-        super._onDelete(options, userId);
-        const parent = this.parent;
-        if (parent instanceof ActorPF2e) {
-            for (const token of parent.getActiveTokens()) {
-                if (Object.keys(token.overrides).length > 0) {
-                    token.applyOverrides(parent.overrides.token);
-                }
-            }
-        }
     }
 }
 

@@ -1,9 +1,9 @@
+import { VisionLevels } from '@actor/creature/data';
 import { ActorPF2e, LootPF2e, NPCPF2e } from '@actor/index';
 import { TokenPF2e } from '../canvas/token';
-import { RuleElements } from '../rules/rules';
-import { ScenePF2e } from '../scene';
+import { LightLevels, ScenePF2e } from '.';
 import { UserPF2e } from '../user';
-import { TokenConfigPF2e } from './sheet';
+import { TokenConfigPF2e } from './token-config';
 
 export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     /** This should be in Foundry core, but ... */
@@ -11,13 +11,40 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         return this.parent;
     }
 
-    /** If rules-based vision is enabled, disable (but don't save) manually configured vision radii */
+    /** Refresh this token's properties if it's controlled and the request came from its actor */
+    override prepareData({ fromActor = false } = {}): void {
+        super.prepareData();
+        if (fromActor && this.object.isControlled) {
+            canvas.lighting.setPerceivedLightLevel({ defer: false });
+        }
+    }
+
+    /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         super.prepareBaseData();
+        if (!canvas.sight?.rulesBasedVision) return;
 
-        if (canvas.sight?.rulesBasedVision) {
-            mergeObject(this.data, { brightSight: 0, dimSight: 0, lightAngle: 360, sightAngle: 360 });
-        }
+        this.data.brightSight = 0;
+        this.data.dimSight = 0;
+        this.data.lightAngle = 360;
+        this.data.sightAngle = 360;
+    }
+
+    override prepareDerivedData(): void {
+        super.prepareDerivedData();
+        if (!(this.actor && canvas.scene && canvas.sight.rulesBasedVision)) return;
+
+        const lightLevel = canvas.scene.lightLevel;
+        const perceivedBrightness = {
+            [VisionLevels.BLINDED]: 0,
+            [VisionLevels.NORMAL]: lightLevel,
+            [VisionLevels.LOWLIGHT]: lightLevel > LightLevels.DARKNESS ? 1 : lightLevel,
+            [VisionLevels.DARKVISION]: 1,
+        }[this.actor.visionLevel];
+        this.data.brightSight = perceivedBrightness > lightLevel ? 1000 : 0;
+
+        // Apply overrides from rule elements and active effects
+        mergeObject(this.data, this.actor?.overrides.token ?? {}, { insertKeys: false });
     }
 
     /**
@@ -54,14 +81,9 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         super._preCreate(data, options, user);
 
         const actor = game.actors.get(data.actorId ?? '');
-        if (actor) {
-            actor.items.forEach((item) => {
-                const rules = RuleElements.fromOwnedItem(item);
-                for (const rule of rules) {
-                    if (rule.ignored) continue;
-                    rule.onCreateToken(actor.data, item.data, data);
-                }
-            });
+        if (!actor) return;
+        for (const rule of actor.rules.filter((rule) => !rule.ignored)) {
+            rule.onCreateToken(actor.data, rule.item.data, data);
         }
     }
 
@@ -89,11 +111,6 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
 
         // Refresh the effect panel if the update isn't a movement
         if (!('x' in changed || 'y' in changed)) game.pf2e.effectPanel.refresh();
-
-        // Refresh perceived light levels
-        if ('brightLight' in changed || 'dimLight' in changed) {
-            this.object?.applyOverrides();
-        }
     }
 }
 

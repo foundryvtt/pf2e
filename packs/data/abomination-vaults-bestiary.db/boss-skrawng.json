@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+1",
+                "mod": 1,
                 "value": 10
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 16,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -103,8 +104,9 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "20 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
                     }
                 ],
                 "value": "20"
@@ -172,13 +174,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:14.814-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.643
         },
         "traits": {
             "ci": [],
@@ -235,7 +232,10 @@
             "_id": "PkDvZBCHiGCocxUn",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "chat": "",
@@ -258,13 +258,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.814-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -342,7 +337,7 @@
                     "dc": 17,
                     "item": 0,
                     "mod": 0,
-                    "value": 7
+                    "value": 9
                 },
                 "tradition": {
                     "value": "primal"
@@ -357,23 +352,26 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Primal Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "5qSScxyKxdipH6Oi",
+            "_id": "ja1vr0cUJvPastvq",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -432,13 +430,8 @@
                     "mode": "none"
                 },
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.814-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "school": {
                     "value": "divination"
@@ -451,7 +444,7 @@
                 },
                 "slug": "speak-with-animals",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=293"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -487,12 +480,12 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/speak-with-animals.webp",
-            "name": "Speak with Animals (at will; arthropods only)",
+            "name": "Speak with Animals (At Will) (Arthopods Only)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "WupsLnWHvAikxXYB",
+            "_id": "BlzND9qdcFmBLMju",
             "data": {
                 "ability": {
                     "value": ""
@@ -503,6 +496,9 @@
                 },
                 "areasize": {
                     "value": "5-foot emanation"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -525,13 +521,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You fill the minds of your enemies with doubt. Targets that fail their Will saves take a -1 status penalty to attack rolls as long as they are in the area. Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw. Bane can counteract bless.</p>"
+                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract bless.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Bane]{Spell Effect: Bane}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "value": 1
@@ -561,13 +557,8 @@
                     "mode": "none"
                 },
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.814-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "school": {
                     "value": "enchantment"
@@ -580,7 +571,7 @@
                 },
                 "slug": "bane",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=18"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -623,7 +614,7 @@
             "type": "spell"
         },
         {
-            "_id": "M1DnkcCxfx042UNW",
+            "_id": "OruLgD3A9uhy8lKO",
             "data": {
                 "ability": {
                     "value": ""
@@ -634,6 +625,9 @@
                 },
                 "areasize": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -692,13 +686,8 @@
                     "mode": "none"
                 },
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.814-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "school": {
                     "value": "evocation"
@@ -752,12 +741,12 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/prestidigitation.webp",
-            "name": "Prestidigitation - Cantrips (1st)",
+            "name": "Prestidigitation",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "a1RVFhWypMs2T12V",
+            "_id": "yvfM1kn4FFqlk0mv",
             "data": {
                 "MAP": {
                     "value": ""
@@ -796,7 +785,7 @@
                     "value": "<p>This long, narrow tube is used for shooting blowgun darts, using only the power of a forcefully exhaled breath.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -887,13 +876,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.814-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "size": {
                     "value": "med"
@@ -901,6 +885,9 @@
                 "slug": "blowgun",
                 "source": {
                     "value": ""
+                },
+                "specific": {
+                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -943,7 +930,7 @@
             "type": "weapon"
         },
         {
-            "_id": "LCd47e8Gq6Tvirc8",
+            "_id": "AQCwo0GzZoepFv6J",
             "data": {
                 "MAP": {
                     "value": ""
@@ -982,7 +969,7 @@
                     "value": "<p>This three‑pronged, spear‑like weapon typically has a 4‑foot shaft. Like a spear, it can be wielded with one hand or thrown.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -1073,13 +1060,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.814-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "size": {
                     "value": "med"
@@ -1087,6 +1069,9 @@
                 "slug": "trident",
                 "source": {
                     "value": ""
+                },
+                "specific": {
+                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -1199,13 +1184,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.814-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "size": {
                     "value": "med"
@@ -1242,7 +1222,7 @@
             "type": "equipment"
         },
         {
-            "_id": "xWmAdJ5OOgA0CVk4",
+            "_id": "fWzz8EqFrgdHHEAA",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1347,13 +1327,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.814-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "size": {
                     "value": "med"
@@ -1410,7 +1385,7 @@
             "type": "consumable"
         },
         {
-            "_id": "cQMd1NeHf6WOPicB",
+            "_id": "YfnA27LEjbg8h3rR",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1515,13 +1490,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.814-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "size": {
                     "value": "med"
@@ -1573,7 +1543,7 @@
                 }
             },
             "img": "systems/pf2e/icons/equipment/weapons/blowgun-dart.webp",
-            "name": "Poisoned Blowgun Darts",
+            "name": "Blowgun Darts (Poisoned)",
             "sort": 900000,
             "type": "consumable"
         },
@@ -1602,13 +1572,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.815-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1627,7 +1592,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Trident",
             "sort": 1000000,
             "type": "melee"
@@ -1639,8 +1604,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "spear frog poison"
+                        "spear-frog-poison"
                     ]
                 },
                 "bonus": {
@@ -1655,17 +1621,12 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(agile, nonlethal, range increment 20 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.815-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1679,7 +1640,7 @@
                     "value": [
                         "agile",
                         "nonlethal",
-                        "range increment 20 feet"
+                        "range-increment-20"
                     ]
                 },
                 "weaponType": {
@@ -1688,7 +1649,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Blowgun",
             "sort": 1100000,
             "type": "melee"
@@ -1714,17 +1675,12 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(thrown 20 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.815-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1736,7 +1692,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "thrown 20 feet"
+                        "thrown-20"
                     ]
                 },
                 "weaponType": {
@@ -1745,16 +1701,178 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Trident",
             "sort": 1200000,
             "type": "melee"
         },
         {
+            "_id": "ZkF8meq1sB3uUIcI",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "lGZkyb82Eeg7M96l",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "5YNto5CTjVF4xtDp",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 1500000,
+            "type": "action"
+        },
+        {
             "_id": "37DJ9kew2cByiJDV",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1770,15 +1888,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "action:coerce",
+                                "action:demoralize",
+                                "action:make-an-impression",
+                                "action:request"
+                            ]
+                        },
+                        "selector": "will",
+                        "value": -4
+                    }
+                ],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.815-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1803,16 +1930,16 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Self-Loathing",
-            "sort": 1300000,
+            "sort": 1600000,
             "type": "action"
         },
         {
             "_id": "VkXxpkRx6E7dyCI4",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1823,20 +1950,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Mitflits can use Diplomacy to Make an Impression on and Request things of arthropods (insects, spiders, scorpions, crabs, and similar invertebrate animals). Most arthropods have a starting attitude of indifferent to mitflits.</p>"
+                    "value": "<p>Mitflits can use Diplomacy to @Compendium[pf2e.actionspf2e.Make an Impression]{Make an Impression} on and @Compendium[pf2e.actionspf2e.Request]{Request} things of arthropods (insects, spiders, scorpions, crabs, and similar invertebrate animals). Most arthropods have a starting attitude of indifferent to mitflits.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.815-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1858,16 +1980,16 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vermin Empathy",
-            "sort": 1400000,
+            "sort": 1700000,
             "type": "action"
         },
         {
             "_id": "PCXa7Z3d10U79Quj",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1883,15 +2005,26 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.815-05:00",
-                        "version": {
-                            "schema": null
-                        }
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.vengeful-anger"
                     },
-                    "version": 0.642
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "vengeful-anger"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1916,19 +2049,19 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vengeful Anger",
-            "sort": 1500000,
+            "sort": 1800000,
             "type": "action"
         },
         {
             "_id": "7Scw9mC9n5d0Jon5",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": ""
@@ -1936,20 +2069,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\">A single spear frog yields enough toxin to Craft 1 dose of spear frog poison.</p>\n<hr />\n<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Saving Throw</strong> DC 15 Fortitude</p>\n<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Maximum Duration</strong> 6 rounds</p>\n<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Stage 1</strong> [[/r 1d4 #poison]] poison damage (1 round)</p>\n<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Stage 2</strong>[[/r 1d4 #poison]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"Spear Frog Poison DC\" data-pf2-dc=\"15\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d4 #poison]] poison damage (1 round)</p>\n<p><strong>Stage 2</strong>[[/r 1d4 #poison]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.815-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1960,7 +2088,9 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "poison"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -1971,9 +2101,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spear Frog Poison",
-            "sort": 1600000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -1995,13 +2125,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.815-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -2019,19 +2144,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1700000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
-            "_id": "Yzd6rUnauOH3z1lg",
+            "_id": "MOqlNipA5276gM0r",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 4
@@ -2039,15 +2159,22 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "vs. Arthropods",
+                        "predicate": {
+                            "all": [
+                                "target:arthropod"
+                            ]
+                        },
+                        "selector": "diplomacy",
+                        "value": 6
+                    }
+                ],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.815-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -2059,13 +2186,19 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+10 vs. arthropods",
+                        "options": "target:arthropod"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy (+10 vs. arthropods)",
-            "sort": 1800000,
+            "name": "Diplomacy",
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -2087,13 +2220,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.815-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -2111,7 +2239,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1900000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -2133,13 +2261,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.815-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -2157,7 +2280,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2000000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -2179,13 +2302,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:14.815-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -2203,7 +2321,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 2100000,
+            "sort": 2400000,
             "type": "lore"
         }
     ],
@@ -2213,7 +2331,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

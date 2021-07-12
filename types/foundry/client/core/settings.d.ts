@@ -1,7 +1,7 @@
 declare interface ClientSettingsData {
     default: unknown;
     name: string;
-    scope: string;
+    scope: 'world' | 'client';
     hint?: string;
     config?: boolean;
     type?: NumberConstructor | StringConstructor | BooleanConstructor | ObjectConstructor | FunctionConstructor;

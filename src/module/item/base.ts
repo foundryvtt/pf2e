@@ -9,7 +9,7 @@ import {
 import { ErrorPF2e } from '@module/utils';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../actor/base';
-import { RuleElements } from '../rules/rules';
+import { RuleElementPF2e, RuleElements } from '../rules/rules';
 import { ItemDataPF2e, ItemSourcePF2e, TraitChatData } from './data';
 import { isItemSystemData } from './data/helpers';
 import { MeleeSystemData } from './melee/data';
@@ -33,12 +33,16 @@ interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF
 /** Override and extend the basic :class:`Item` implementation */
 export class ItemPF2e extends Item<ActorPF2e> {
     /** Has this item gone through at least one cycle of data preparation? */
-    private initialized!: boolean;
+    private initialized: boolean | undefined;
+
+    /** Prepared rule elements from this item */
+    rules!: RuleElementPF2e[];
 
     constructor(data: PreCreate<ItemSourcePF2e>, context: ItemConstructionContextPF2e = {}) {
         if (context.pf2e?.ready) {
             super(data, context);
-            this.initialized = false;
+            this.rules = [];
+            this.initialized = true;
         } else {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
@@ -84,10 +88,14 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /**
-     * Create a chat card for this item and send it to the chat log. Many cards contain follow-up options for attack
-     * rolls, effect application, etc.
+     * Create a chat card for this item and either return the message or send it to the chat log. Many cards contain
+     * follow-up options for attack rolls, effect application, etc.
      */
-    async toChat(this: Embedded<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
+    async toMessage(
+        this: Embedded<ItemPF2e>,
+        event?: JQuery.TriggeredEvent,
+        { create = true } = {},
+    ): Promise<ChatMessagePF2e | undefined> {
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
         const { token } = this.actor;
@@ -110,6 +118,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 core: {
                     canPopout: true,
                 },
+                pf2e: {
+                    origin: { uuid: this.uuid, type: this.type },
+                },
             },
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
@@ -124,14 +135,22 @@ export class ItemPF2e extends Item<ActorPF2e> {
         chatData.content = await renderTemplate(template, templateData);
 
         // Create the chat message
-        return ChatMessagePF2e.create(chatData, { renderSheet: false });
+        return create ? ChatMessagePF2e.create(chatData, { renderSheet: false }) : new ChatMessagePF2e(chatData);
+    }
+
+    /** A shortcut to `item.toMessage(..., { create: true })`, kept for backward compatibility */
+    async toChat(this: Embedded<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
+        return this.toMessage(event, { create: true });
     }
 
     /** Refresh the Item Directory if this item isn't owned */
-    override prepareDerivedData(): void {
-        super.prepareDerivedData();
+    override prepareData(): void {
+        super.prepareData();
         if (!this.isOwned && ui.items && this.initialized) ui.items.render();
-        this.initialized = true;
+    }
+
+    prepareRuleElements(this: Embedded<this>): RuleElementPF2e[] {
+        return (this.rules = RuleElements.fromOwnedItem(this));
     }
 
     /* -------------------------------------------- */

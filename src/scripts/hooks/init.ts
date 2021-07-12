@@ -18,7 +18,7 @@ import { SceneConfigPF2e } from '@module/scene/sheet';
 import { registerSettings } from '@module/settings';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { loadPF2ETemplates } from '@module/templates';
-import { TokenConfigPF2e } from '@module/token-document/sheet';
+import { TokenConfigPF2e } from '@module/scene/token-config';
 import { PlayerConfigPF2e } from '@module/user/player-config';
 import { PF2ECONFIG } from '../config';
 import { UserPF2e } from '@module/user';

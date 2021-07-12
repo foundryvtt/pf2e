@@ -1,5 +1,52 @@
 # Patch Notes:
 
+## Version 2.9.1
+### Bug Fixes
+* (stwlam) Fix toggling core "death" token overlay
+
+### Content Changes
+* (nikolaj-a) Fix demonblood frenzy prerequisites format
+* (Drental) Fix token sizes for some Fists of the Ruby Phoenix monsters
+
+### Core System Improvements
+* (stwlam) Allow NPC-looting if its token is marked as defeated
+
+
+## Version 2.9.0
+### Bug Fixes
+* (stwlam) Decouple the World Clock's synchronize-darkness feature from Unrestricted Global Vision. Closes #1098
+* (stwlam) Fix template-partial reference on NPC sheet, ensure hit points never fall below zero. Closes #1577
+* (stwlam) Fix clamping current hit points from NPC and character sheets
+* (stwlam) Ensure presence of value in a Check DC label when a value is included
+* (Tikael) Add clear filter button to feat tab in compendium browser. Closes #1575
+
+### Content Changes
+* (rectulo) Remove extraneous styling from taloned tengu ancestry feature description
+* (rectulo) Remove extraneous styling from wyrmblessed bloodline sorcerer class feature description
+* (rectulo) Fix damage die for toxic skin grippli reaction description
+* (rectulo) Adjust frightful goloma heritage description
+* (rectulo) Add missing work in bristle feat effect description
+* (rectulo) Moved prerequisites for demonblood frenzy orc ancestry feat to the item sheet sidebar
+* (Tikael) Fix number of abilities granted by Enhanced Familiar
+* (Tikael) Automate Martial Artist dedication. Closes #1459
+* (Tikael) Add new bloodlines to the Bloodline class feature description. Closes #1578
+* (Tikael) Add Vehicle subsystem actions
+* (Tikael) Add no-prep character Gristleburst
+* (Tikael) Add missing conrasu heritage and its call to axis action
+* (Tikael) Set correct type for some mislabeled heritages
+* (Tikael) Fix up animated dragonstorm. Closes #1574
+* (SpartanCPA) Abomination Vaults - Floor 1 Monster Audit
+* (TMun) Incorporate Lost Omens errata changes
+
+### Core System Improvements
+* (stwlam) Add setting to opt out of the system's JournalEntry theme
+* (stwlam) Set a maximum perceived darkness level of 0.925 for basic usability
+* (stwlam) Remove automatic setting of prototype token name to actor name
+* (Supe) Pass roll data to item chat descriptions
+* (Drental) Use assigned character as effect macro fallback when no tokens are selected
+* (Tikael) Add flat check inline buttons
+
+
 ## Version 2.8.1
 ### Bug Fixes
 * (stwlam) Fix setting token brightSight to a radius larger than Foundry will allow

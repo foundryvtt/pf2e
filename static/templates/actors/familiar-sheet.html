@@ -1,5 +1,4 @@
 <form class="{{cssClass}}" autocomplete="off">
-
   <!-- HEADER -->
   <header class="sheet-header">
     <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
@@ -7,7 +6,6 @@
       <h1 class="charname">
         <input name="name" type="text" value="{{actor.name}}"/>
       </h1>
-
       <div class="traits">
         {{#each traits as |trait|}}
             <span data-trait="{{trait.value}}" title="{{trait.description}}">{{localize trait.label}}</span>
@@ -15,14 +13,13 @@
       </div>
     </section>
   </header>
-
   <!-- BODY -->
   <section class="sheet-content">
     <div class="container">
       <div class="master">
           <h2>Master</h2>
-          <label for="{{data._id}}-master"><b>Master Actor</b></label>
-          <select id="{{data._id}}-master" name="data.master.id">
+          <label for="{{actor._id}}-master"><b>Master Actor</b></label>
+          <select id="{{actor._id}}-master" name="data.master.id">
               {{#select master.id}}
                   <option value="">Select a master...</option>
                   {{#each masters as |eligible idx|}}
@@ -34,8 +31,8 @@
               <div><b>Master Level</b> {{data.details.level.value}}</div>
 
               <div>
-                  <label for="{{data._id}}-spellcasting-ability"><b>Master Spellcasting Ability</b></label>
-                  <select id="{{data._id}}-spellcasting-ability" name="data.master.ability">
+                  <label for="{{actor._id}}-spellcasting-ability"><b>Master Spellcasting Ability</b></label>
+                  <select id="{{actor._id}}-spellcasting-ability" name="data.master.ability">
                       {{#select data.master.ability}}
                           {{#each abilities as |ability abbr|}}
                               <option value="{{abbr}}">{{localize ability}}</option>
@@ -52,8 +49,8 @@
 
       <div class="basic-stats">
         <h2>Familiar</h2>
-        <label for="{{data._id}}-species"><b>Creature</b></label>
-        <input id="{{data._id}}-species" name="data.details.creature.value" value="{{data.details.creature.value}}" placeholder="Rat, imp, leshy, etc."/>
+        <label for="{{actor._id}}-species"><b>Creature</b></label>
+        <input id="{{actor._id}}-species" name="data.details.creature.value" value="{{data.details.creature.value}}" placeholder="Rat, imp, leshy, etc."/>
         {{#if data.master.id}}
           <div>
             <b>Size</b>
@@ -85,8 +82,8 @@
       {{#if data.master.id}}
       <div class="defense">
         <h2>Defenses</h2>
-        <label for="{{data._id}}-hit-points"><b>Hit Points</b></label>
-        <input id="{{data._id}}-hit-points" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}"/>
+        <label for="{{actor._id}}-hit-points"><b>Hit Points</b></label>
+        <input id="{{actor._id}}-hit-points" type="number" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" class="hitPoints" data-dtype="Number" />
         <span>/</span>
         <span title="{{data.attributes.hp.breakdown}}">{{data.attributes.hp.max}}</span>
         <div title="{{data.attributes.ac.breakdown}}">

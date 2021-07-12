@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "-1",
+                "mod": -1,
                 "value": 8
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 15,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -101,8 +102,14 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "20 feet"
+                "otherSpeeds": [
+                    {
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
+                    }
+                ],
+                "value": "20"
             }
         },
         "details": {
@@ -124,7 +131,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Mitflits, also known as mites, are self-loathing and pitiful cowards, easily bullied into servitude by other creatures or even slightly more powerful mitflit leaders. They tame insects, spiders, and other such creatures to serve as faithful allies. Mitflits have lost most of their ancestral gremlin magic, leaving these incomplete beings full of doubt and insecurity. Mitflits find companionship in the other base creatures of the world, and forge bonds of friendship with vermin, the only other beings that seem willing to accept them. A social structure, even one in which they are bullied, partially fills the hole within mitflits' personalities, and they rarely rebel or rail out unless their rage hits a breaking point.<br /><br />",
+            "flavorText": "<p>Mitflits, also known as mites, are self-loathing and pitiful cowards, easily bullied into servitude by other creatures or even slightly more powerful mitflit leaders. They tame insects, spiders, and other such creatures to serve as faithful allies. Mitflits have lost most of their ancestral gremlin magic, leaving these incomplete beings full of doubt and insecurity. Mitflits find companionship in the other base creatures of the world, and forge bonds of friendship with vermin, the only other beings that seem willing to accept them. A social structure, even one in which they are bullied, partially fills the hole within mitflits' personalities, and they rarely rebel or rail out unless their rage hits a breaking point.</p>\n<hr />\n<p>Gremlins are cruel fey tricksters and saboteurs who have fully acclimated to life on the Material Plane, finding distinct niches for their inventive destructiveness. All gremlins delight in ruining or breaking things, whether it's something physical like a device or vehicle or something intangible such as an alliance or relationship. A gremlin's greatest joy is watching the collapse of complex creations, preferably after the lightest and slightest, carefully targeted push from the gremlin. Gremlins tend to denigrate, bully, or even slaughter their lesser kin, particularly mitflits, whom gremlins (and many others) derisively call \"mites.\"</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -168,13 +175,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:53.937-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.643
         },
         "traits": {
             "ci": [],
@@ -223,7 +225,10 @@
             "_id": "AnkQayWAlEoNwxwP",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
+                },
+                "autoHeightenLevel": {
+                    "value": 1
                 },
                 "description": {
                     "chat": "",
@@ -247,13 +252,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -331,7 +331,7 @@
                     "dc": "16",
                     "item": 0,
                     "mod": 0,
-                    "value": 6
+                    "value": 8
                 },
                 "tradition": {
                     "value": "primal"
@@ -349,19 +349,25 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Primal Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "4LvIzfGrfaubAYsd",
+            "_id": "V9zQ896AB9LHvLBr",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -405,6 +411,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": ""
                 },
@@ -418,20 +427,21 @@
                     "mode": "none"
                 },
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "speak-with-animals",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=293"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -458,27 +468,34 @@
                     "value": [
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.BBvV7qoXGdw09q1C"
+                }
+            },
             "img": "systems/pf2e/icons/spells/speak-with-animals.webp",
-            "name": "Speak with Animals",
+            "name": "Speak with Animals (At Will) (Arthropods Only)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "BMOQL8EcaNluawyn",
+            "_id": "RHuSWoPEPAg2z9DE",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 5
+                    "value": "5"
+                },
+                "areasize": {
+                    "value": "5-foot emanation"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -496,18 +513,18 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You fill the minds of your enemies with doubt. Targets that fail their Will saves take a -1 status penalty to attack rolls as long as they are in the area. Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw. Bane can counteract bless.</p>"
+                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract bless.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Bane]{Spell Effect: Bane}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "value": 1
@@ -519,6 +536,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -534,20 +554,21 @@
                     "mode": "none"
                 },
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "bane",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=18"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -576,26 +597,33 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.7ZinJNzxq0XF0oMx"
+                }
+            },
             "img": "systems/pf2e/icons/spells/bane.webp",
             "name": "Bane",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "s1Qtk9YR2518O9Aj",
+            "_id": "lsX60J8cOJyXHiMp",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -639,6 +667,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "10 feet"
                 },
@@ -652,18 +683,19 @@
                     "mode": "none"
                 },
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "prestidigitation",
                 "source": {
                     "value": ""
                 },
@@ -674,10 +706,10 @@
                     "value": true
                 },
                 "target": {
-                    "value": "1 object "
+                    "value": "1 object (cook, lift, or tidy only)"
                 },
                 "time": {
-                    "value": "2 Actions"
+                    "value": "2"
                 },
                 "traditions": {
                     "custom": "",
@@ -697,22 +729,35 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Qw3fnUlaUbnn7ipC"
+                }
+            },
             "img": "systems/pf2e/icons/spells/prestidigitation.webp",
-            "name": "Prestidigitation - Cantrips",
+            "name": "Prestidigitation",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "JCHqMLTmKG4BmebB",
+            "_id": "IlCfhwPCOxMwR8Lv",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "dex"
+                },
+                "baseItem": "dart",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -725,15 +770,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This thrown weapon is larger than an arrow but shorter than a javelin. It typically has a short shaft of wood ending in a metal tip and is sometimes stabilized by feathers or fur.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "dart"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -767,36 +824,75 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": null
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1 cp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 10
+                },
+                "range": {
+                    "value": "20"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "dart",
                 "source": {
                     "value": ""
                 },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -804,26 +900,48 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "agile",
+                        "thrown-20"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "simple"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "dart",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Tt4Qw64fwrxhr5gT"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/dart.webp",
+            "name": "Dart",
             "sort": 500000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "7lFxYaAk7t8cz2cL",
+            "_id": "4psmrDyrdW1sVM4e",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "shortsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -836,15 +954,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>These blades come in a variety of shapes and styles, but they are typically 2 feet long.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "sword"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -878,6 +1008,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": null
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -885,29 +1018,65 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "9 sp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
                 },
+                "range": {
+                    "value": "melee"
+                },
+                "reload": {
+                    "value": ""
+                },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "shortsword",
                 "source": {
                     "value": ""
                 },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -915,21 +1084,32 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "versatile-s"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "shortsword",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.7tKkkF8eZ4iCLJtp"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/shortsword.webp",
+            "name": "Shortsword",
             "sort": 600000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
             "_id": "LRT2YJWR1S18u4vp",
@@ -956,13 +1136,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -976,7 +1151,7 @@
                     "value": [
                         "agile",
                         "finesse",
-                        "versatile S"
+                        "versatile-s"
                     ]
                 },
                 "weaponType": {
@@ -985,7 +1160,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortsword",
             "sort": 700000,
             "type": "melee"
@@ -1015,13 +1190,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1034,8 +1204,7 @@
                     },
                     "value": [
                         "agile",
-                        "range increment 20 feet",
-                        "thrown"
+                        "thrown-20"
                     ]
                 },
                 "weaponType": {
@@ -1044,10 +1213,172 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Dart",
             "sort": 800000,
             "type": "melee"
+        },
+        {
+            "_id": "qYGiCS8g7D4xKYes",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "IaHzwOsSmNd9b0Ee",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "6xjM9pHMTCjBDCTG",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 1100000,
+            "type": "action"
         },
         {
             "_id": "3TfIMe12rJpDf9LZ",
@@ -1069,15 +1400,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "action:coerce",
+                                "action:demoralize",
+                                "action:make-an-impression",
+                                "action:request"
+                            ]
+                        },
+                        "selector": "will",
+                        "value": -4
+                    }
+                ],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1105,9 +1445,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Self-Loathing",
-            "sort": 900000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1125,20 +1465,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Mitflits can use Diplomacy to Make an Impression on and Request things of arthropods (insects, spiders, scorpions, crabs, and similar invertebrate animals). Most arthropods have a starting attitude of indifferent to mitflits.</p>"
+                    "value": "<p>Mitflits can use Diplomacy to @Compendium[pf2e.actionspf2e.Make an Impression]{Make an Impression} on and @Compendium[pf2e.actionspf2e.Request]{Request} things of arthropods (insects, spiders, scorpions, crabs, and similar invertebrate animals). Most arthropods have a starting attitude of indifferent to mitflits.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1163,9 +1498,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vermin Empathy",
-            "sort": 1000000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1183,20 +1518,31 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>As long as it isn't @Compendium[pf2e.conditionitems.Frightened]{Frightened}, a mitflit gains a [[/r +2 # status bonus to damage rolls against a creature that has previously damage]] status bonus to damage rolls against a creature that has previously damaged or tormented it.</p>"
+                    "value": "<p>As long as it isn't @Compendium[pf2e.conditionitems.Frightened]{Frightened}, a mitflit gains a +2 status bonus to damage rolls against a creature that has previously damaged or tormented it.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.vengeful-anger"
                     },
-                    "version": 0.642
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "vengeful-anger"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1224,9 +1570,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vengeful Anger",
-            "sort": 1100000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1248,13 +1594,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1275,7 +1616,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1200000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1298,7 +1639,7 @@
                 "rules": [
                     {
                         "key": "PF2E.RuleElement.FlatModifier",
-                        "label": "Vs Arthropods",
+                        "label": "vs. Arthropods",
                         "predicate": {
                             "all": [
                                 "target:arthropod"
@@ -1309,13 +1650,8 @@
                     }
                 ],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1342,7 +1678,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1300000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1364,13 +1700,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1391,7 +1722,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1400000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1413,13 +1744,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1440,7 +1766,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1500000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1462,13 +1788,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:53.937-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.643
                 },
                 "slug": null,
                 "source": {
@@ -1489,7 +1810,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1600000,
+            "sort": 1900000,
             "type": "lore"
         }
     ],
@@ -1499,7 +1820,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

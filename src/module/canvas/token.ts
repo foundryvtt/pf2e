@@ -1,10 +1,7 @@
 import { CreaturePF2e } from '@actor';
-import { TokenDocumentPF2e } from '@module/token-document';
+import { TokenDocumentPF2e } from '@module/scene/token-document';
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
-    /** Token overrides from the actor */
-    overrides: DeepPartial<foundry.data.TokenSource> = {};
-
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
     statusEffectChanged = false;
 
@@ -23,52 +20,45 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return !!this._movement;
     }
 
+    get emitsDarkness(): boolean {
+        return this.data.brightLight < 0;
+    }
+
     get hasLowLightVision(): boolean {
         return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
     }
 
-    /**
-     * Apply a set of changes from the actor
-     * @param overrides The property overrides to be applied
-     * @param moving    Whether this token is moving: setting as true indicates the client will make the Canvas updates.
-     */
-    applyOverrides(
-        overrides: DeepPartial<foundry.data.TokenSource> = this.overrides,
-        { setPerceived = true } = {},
-    ): void {
-        // Propagate any new or removed overrides to the token
-        this.overrides = overrides;
-        this.document.prepareData();
-        mergeObject(this.data, overrides, { insertKeys: false });
-        if (!this.isMoving) this.updateSource();
-        if (setPerceived) game.user.setPerceivedLightLevel({ defer: this.isMoving });
+    /** Max the brightness emitted by this token's `PointSource` if any controlled token has low-light vision */
+    override updateSource({ defer = false, deleted = false, noUpdateFog = false } = {}): void {
+        if (!canvas.tokens.controlled.some((token) => token.hasLowLightVision)) {
+            return super.updateSource({ defer, deleted, noUpdateFog });
+        }
+
+        const original = { dim: this.data.dimLight, bright: this.data.brightLight };
+        this.data.brightLight = Math.max(this.data.dimLight, this.data.brightLight);
+        this.data.dimLight = 0;
+
+        super.updateSource({ defer, deleted, noUpdateFog });
+
+        this.data.dimLight = original.dim;
+        this.data.brightLight = original.bright;
     }
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    /** Refresh vision and the `EffectPanel` upon selecting a token */
+    /** Refresh vision and the `EffectPanel` */
     protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
-        this.applyOverrides();
+        if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
         super._onControl(options);
     }
 
-    /** Refresh vision and the `EffectPanel` upon releasing control of a token */
+    /** Refresh vision and the `EffectPanel` */
     protected override _onRelease(options?: Record<string, unknown>) {
         game.pf2e.effectPanel.refresh();
-        this.applyOverrides();
+        if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
         super._onRelease(options);
-    }
-
-    /** Persist token overrides during movement */
-    protected override _onMovementFrame(
-        dt: number,
-        anim: TokenAnimationAttribute<this>[],
-        config: TokenAnimationConfig,
-    ): void {
-        this.applyOverrides();
-        super._onMovementFrame(dt, anim, config);
     }
 }

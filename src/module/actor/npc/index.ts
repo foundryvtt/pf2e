@@ -9,7 +9,6 @@ import {
 } from '@module/modifiers';
 import { WeaponDamagePF2e } from '@module/system/damage/weapon';
 import { CheckPF2e, DamageRollPF2e } from '@module/system/rolls';
-import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
 import { RollNotePF2e } from '@module/notes';
 import { RollParameters } from '@system/rolls';
 import { CreaturePF2e, ActorPF2e } from '@actor/index';
@@ -51,7 +50,7 @@ export class NPCPF2e extends CreaturePF2e {
     /** Users with limited permission can loot a dead NPC */
     override canUserModify(user: User, action: UserAction): boolean {
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
-        if (action === 'update' && this.hitPoints.current === 0 && npcsAreLootable) {
+        if (action === 'update' && this.isDead && npcsAreLootable) {
             return this.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
         }
         return super.canUserModify(user, action);
@@ -65,7 +64,7 @@ export class NPCPF2e extends CreaturePF2e {
     /** Grant all users at least limited permission on dead NPCs */
     override get permission(): PermissionLevel {
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
-        if (game.user.isGM || this.hitPoints.current > 0 || !npcsAreLootable) {
+        if (game.user.isGM || !this.isDead || !npcsAreLootable) {
             return super.permission;
         }
         return Math.max(super.permission, 1) as PermissionLevel;
@@ -79,7 +78,7 @@ export class NPCPF2e extends CreaturePF2e {
     ) {
         // Temporary measure until a lootable view of the legacy sheet is ready
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
-        if (game.user.isGM || this.hitPoints.current > 0 || !npcsAreLootable) {
+        if (game.user.isGM || !this.isDead || !npcsAreLootable) {
             return super.testUserPermission(user, permission, options);
         }
         if ([1, 'LIMITED'].includes(permission) && !options) {
@@ -99,9 +98,7 @@ export class NPCPF2e extends CreaturePF2e {
         const traitSet = new Set(traits.traits.value.concat(rarity).concat(customTraits));
         traits.traits.value = Array.from(traitSet).sort();
 
-        const rules = this.items
-            .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item)), [])
-            .filter((rule) => !rule.ignored);
+        const rules = this.rules.filter((rule) => !rule.ignored);
 
         // Toggles
         (data as any).toggles = {
@@ -850,9 +847,6 @@ export class NPCPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         });
-
-        // Refresh vision of controlled tokens linked to this actor in case any of the above changed its senses
-        this.refreshVision();
     }
 
     private async updateTokenAttitude(attitude: string): Promise<void> {

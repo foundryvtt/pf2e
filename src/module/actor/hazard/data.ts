@@ -35,6 +35,16 @@ interface HazardAttributes {
 
 /** The raw information contained within the actor data object for hazards. */
 export interface HazardSystemData extends ActorSystemData {
+    details: {
+        isComplex: boolean;
+        level: {
+            value: number;
+        };
+        disable: string;
+        description: string;
+        reset: string;
+        routine: string;
+    };
     attributes: HazardAttributes;
     /** Traits, languages, and other information. */
     traits: BaseTraitsData;

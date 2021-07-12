@@ -245,7 +245,8 @@ export class DicePF2e {
             }
 
             const rule = game.settings.get('pf2e', 'critRule');
-            const baseRoll = combineTerms ? this.combineTerms(rollParts.join('+')) : new Roll(rollParts.join('+'));
+            const formula = Roll.replaceFormulaData(rollParts.join('+'), data);
+            const baseRoll = combineTerms ? this.combineTerms(formula) : new Roll(formula);
             if (crit) {
                 if (rule === 'doubledamage') {
                     rollParts = [`(${baseRoll.formula}) * 2`];
