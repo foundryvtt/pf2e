@@ -15,12 +15,12 @@ import { isItemSystemData } from './data/helpers';
 import { MeleeSystemData } from './melee/data';
 import { getAttackBonus, getStrikingDice } from './runes';
 import { ItemSheetPF2e } from './sheet/base';
-import { AbilityString, ActorSystemData } from '@actor/data/base';
+import { AbilityString } from '@actor/data/base';
 import { isCreatureData } from '@actor/data/helpers';
 import { NPCSystemData } from '@actor/npc/data';
 import { HazardSystemData } from '@actor/hazard/data';
 import { CheckPF2e } from '@system/rolls';
-import { ItemSystemData, ItemTrait } from './data/base';
+import { ItemTrait } from './data/base';
 import { UserPF2e } from '@module/user';
 import { MigrationRunner, Migrations } from '@module/migration';
 
@@ -29,19 +29,6 @@ interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF
         ready?: boolean;
     };
 }
-
-interface ItemRollDataActorless {
-    actor: undefined;
-    item: ItemSystemData;
-}
-
-interface ItemRollDataOwned extends ActorSystemData {
-    actor: ActorSystemData;
-    item: ItemSystemData;
-    mod?: number;
-}
-
-type ItemRollData = ItemRollDataActorless | ItemRollDataOwned;
 
 /** Override and extend the basic :class:`Item` implementation */
 export class ItemPF2e extends Item<ActorPF2e> {
@@ -94,10 +81,11 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return super.delete(context);
     }
 
-    override getRollData(): ItemRollData {
-        if (!this.actor) return { actor: undefined, item: this.toObject().data };
-        const actorRollData = this.actor.toObject().data;
-        return { ...actorRollData, actor: actorRollData, item: this.toObject().data };
+    override getRollData(): Record<string, unknown> {
+        const item = this.toObject(false).data;
+        if (!this.actor) return { item };
+        const actor = this.actor.toObject(false).data;
+        return { ...actor, actor, item };
     }
 
     /**
@@ -174,7 +162,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using TextEditor.enrichHTML()
      */
-    protected processChatData<T>(htmlOptions: EnrichHTMLOptions = {}, data: T): T {
+    protected processChatData<T>(this: Embedded<ItemPF2e>, htmlOptions: EnrichHTMLOptions = {}, data: T): T {
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
             chatData.description.value = TextEditor.enrichHTML(chatData.description.value, {
