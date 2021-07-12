@@ -11,6 +11,7 @@ import * as UpdateWorldTime from './update-world-time';
 import * as RenderActorDirectory from './render-actor-directory';
 import * as RenderChatMessage from './render-chat-message';
 import * as DropCanvasData from './drop-canvas-data';
+import * as RenderSidebarTab from './render-sidebar-tab';
 
 export const HooksPF2e = {
     listen(): void {
@@ -27,5 +28,6 @@ export const HooksPF2e = {
         TurnChanges.listen();
         UpdateScene.listen();
         UpdateWorldTime.listen();
+        RenderSidebarTab.listen();
     },
 };
