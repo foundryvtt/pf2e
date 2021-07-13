@@ -201,6 +201,43 @@ function registerPF2ActionClickListener() {
                     }
                 });
             }
+        } else if (target?.matches('[data-pf2-inline-template], [data-pf2-inline-template] *')) {
+            target = target.closest('[data-pf2-inline-template]')!;
+            const { pf2TemplateData } = target.dataset ?? {};
+            if (pf2TemplateData) {
+                const templateData = JSON.parse(pf2TemplateData);
+                canvas.app.stage.removeListener('pointerdown');
+                canvas.app.stage.addListener('pointerdown', (event) => {
+                    if (!canvas.scene) {
+                        canvas.app.stage.removeListener('pointerdown');
+                        return;
+                    }
+
+                    if (event.data.button !== 0) {
+                        return;
+                    }
+                    const mouse = canvas.app.renderer.plugins.interaction.mouse;
+                    const xy = canvas.grid.getSnappedPosition(
+                        mouse.getLocalPosition(canvas.app.stage)['x'],
+                        mouse.getLocalPosition(canvas.app.stage)['y'],
+                        2,
+                    );
+
+                    templateData.x = xy['x'];
+                    templateData.y = xy['y'];
+                    templateData.user = game.user.id;
+
+                    const measuredTemplate = new MeasuredTemplate(
+                        new MeasuredTemplateDocument(templateData, { parent: canvas.scene }),
+                    );
+
+                    canvas.scene.createEmbeddedDocuments('MeasuredTemplate', [measuredTemplate.data]);
+
+                    canvas.app.stage.removeListener('pointerdown');
+                });
+            } else {
+                console.warn(`PF2e System | Could not create template'`);
+            }
         }
     });
 }
