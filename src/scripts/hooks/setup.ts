@@ -207,16 +207,7 @@ function registerPF2ActionClickListener() {
             const { pf2TemplateData } = target.dataset ?? {};
             if (pf2TemplateData) {
                 const templateData = JSON.parse(pf2TemplateData);
-                // canvas.app.stage.removeListener('pointerdown');
-                // canvas.app.stage.addListener('pointerdown', (event) => {
-                    // if (!canvas.scene) {
-                    //     canvas.app.stage.removeListener('pointerdown');
-                    //     return;
-                    // }
 
-                    // if (event.data.button !== 0) {
-                    //     return;
-                    // }
                     const mouse = canvas.app.renderer.plugins.interaction.mouse;
                     const xy = canvas.grid.getSnappedPosition(
                         mouse.getLocalPosition(canvas.app.stage)['x'],
@@ -233,10 +224,7 @@ function registerPF2ActionClickListener() {
                     let ghostTemplate = new GhostTemplate(measuredTemplateDoc);
 
                     ghostTemplate.drawPreview();
-                    // canvas.scene.createEmbeddedDocuments('MeasuredTemplate', [measuredTemplate.data]);
 
-                    // canvas.app.stage.removeListener('pointerdown');
-                // });
             } else {
                 console.warn(`PF2e System | Could not create template'`);
             }

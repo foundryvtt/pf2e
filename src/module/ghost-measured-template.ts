@@ -1,5 +1,5 @@
 export class GhostTemplate extends MeasuredTemplate {
-    handlers = {};
+    handlers: any = {};
     moveTime = 0;
    // active = true;
 
@@ -18,8 +18,6 @@ export class GhostTemplate extends MeasuredTemplate {
 
     activatePreviewListeners(initialLayer) {
 
-        if (!canvas.scene) { return }   
-
         this.handlers.MouseMove = event => {
             event.stopPropagation();
             let now = Date.now();
@@ -32,18 +30,16 @@ export class GhostTemplate extends MeasuredTemplate {
             this.moveTime = now;
         }
 
-        this.handlers.RightClick = event => {
+        this.handlers.RightClick = (_event) => {
             this.layer.preview.removeChildren();
             canvas.stage.off("mousemove", this.handlers.MouseMove);
             canvas.stage.off("mousedown", this.handlers.LeftClick);
             canvas.app.view.oncontextmenu = null;
             canvas.app.view.onwheel = null;
             initialLayer.activate();
-           // this.active = false;
         }
 
         this.handlers.LeftClick = event => {
-            //if(!this.active) return;
             this.handlers.RightClick(event);
             
             const destination = canvas.grid.getSnappedPosition(this.x,this.y,2);
@@ -51,6 +47,7 @@ export class GhostTemplate extends MeasuredTemplate {
             this.data._source.y=destination.y;
 
             canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [this.data]);
+
         }
 
         this.handlers.MouseWheel = event => {
