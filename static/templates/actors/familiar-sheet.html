@@ -17,21 +17,21 @@
   <section class="sheet-content">
     <div class="container">
       <div class="master">
-          <h2>Master</h2>
-          <label for="{{actor._id}}-master"><b>Master Actor</b></label>
+          <h2>{{localize 'PF2E.Familiar.Master'}}</h2>
+          <label for="{{actor._id}}-master"><b>{{localize 'PF2E.Familiar.MasterActor'}}</b></label>
           <select id="{{actor._id}}-master" name="data.master.id">
               {{#select master.id}}
-                  <option value="">Select a master...</option>
+                  <option value="">{{localize 'PF2E.Familiar.SelectMaster'}}</option>
                   {{#each masters as |eligible idx|}}
                       <option value="{{eligible.id}}">{{eligible.name}}</option>
                   {{/each}}
               {{/select}}
           </select>
           {{#if data.master.id}}
-              <div><b>Master Level</b> {{data.details.level.value}}</div>
+              <div><b>{{localize 'PF2E.Familiar.MasterLevel'}}</b> {{data.details.level.value}}</div>
 
               <div>
-                  <label for="{{actor._id}}-spellcasting-ability"><b>Master Spellcasting Ability</b></label>
+                  <label for="{{actor._id}}-spellcasting-ability"><b>{{localize 'PF2E.Familiar.MasterSpellcastingAbility'}}</b></label>
                   <select id="{{actor._id}}-spellcasting-ability" name="data.master.ability">
                       {{#select data.master.ability}}
                           {{#each abilities as |ability abbr|}}
@@ -42,26 +42,26 @@
               </div>
 
               <div title="{{familiarAbilities.breakdown}}">
-                  <strong>Total # of Familiar Abilities</strong> {{numberFormat familiarAbilities.value decimals=0}}
+                  <strong>{{localize 'PF2E.Familiar.TotalNumberFamiliarAbilities'}}</strong> {{numberFormat familiarAbilities.value decimals=0}}
               </div>
           {{/if}}
       </div>
 
       <div class="basic-stats">
-        <h2>Familiar</h2>
-        <label for="{{actor._id}}-species"><b>Creature</b></label>
+        <h2>{{localize 'PF2E.Familiar.Familiar'}}</h2>
+        <label for="{{actor._id}}-species"><b>{{localize 'PF2E.Familiar.Creature'}}</b></label>
         <input id="{{actor._id}}-species" name="data.details.creature.value" value="{{data.details.creature.value}}" placeholder="Rat, imp, leshy, etc."/>
         {{#if data.master.id}}
           <div>
-            <b>Size</b>
+            <b>{{localize 'PF2E.Size'}}</b>
             <span>{{localize size}}</span>
           </div>
           <div title="{{data.attributes.perception.breakdown}}" data-perception-check>
-            <b>Perception</b>
+            <b>{{localize 'PF2E.Familiar.Perception'}}</b>
             <span>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</span>
           </div>
           <div>
-            <b>Senses</b>
+            <b>{{localize 'PF2E.Senses'}}</b>
             <span class="tags">
               {{#each data.traits.senses as |sense idx|}}
                 <span class="tag">{{localize sense.label}}{{#if sense.acuity}} ({{sense.acuity}}){{/if}}{{#if sense.value}} {{sense.value}}{{/if}}</span>
@@ -69,7 +69,7 @@
             </span>
           </div>
           <div>
-            <b>Speed</b>
+            <b>{{localize 'PF2E.Speed'}}</b>
             <span class="tags">
               {{#each data.attributes.speed.otherSpeeds}}
                 <span class="tag" title="{{this.breakdown}}">{{localize this.label}} {{this.total}}</span>
@@ -81,13 +81,13 @@
 
       {{#if data.master.id}}
       <div class="defense">
-        <h2>Defenses</h2>
-        <label for="{{actor._id}}-hit-points"><b>Hit Points</b></label>
+        <h2>{{localize 'PF2E.Familiar.Defenses'}}</h2>
+        <label for="{{actor._id}}-hit-points"><b>{{localize 'PF2E.HitPointsHeader'}}</b></label>
         <input id="{{actor._id}}-hit-points" type="number" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" class="hitPoints" data-dtype="Number" />
         <span>/</span>
         <span title="{{data.attributes.hp.breakdown}}">{{data.attributes.hp.max}}</span>
         <div title="{{data.attributes.ac.breakdown}}">
-          <b>Armor Class</b>
+          <b>{{localize 'PF2E.Familiar.ArmorClass'}}</b>
           <span>{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</span>
         </div>
         {{#each data.saves}}
@@ -99,13 +99,13 @@
       </div>
 
       <div class="offense" title="{{data.attack.breakdown}}" data-attack-roll>
-        <h2>Offenses</h2>
-        <b>Attack Roll</b>
+        <h2>{{localize 'PF2E.Familiar.Offenses'}}</h2>
+        <b>{{localize 'PF2E.Familiar.AttackRoll'}}</b>
         <span>{{numberFormat data.attack.value decimals=0 sign=true}}</span>
       </div>
 
       <div class="skills">
-          <h2>Skills</h2>
+          <h2>{{localize 'PF2E.Familiar.Skills'}}</h2>
           <div class="skill-list">
               {{#each data.skills}}
                   <div class="skill-item" title="{{this.breakdown}}" data-skill-check="{{@key}}">
