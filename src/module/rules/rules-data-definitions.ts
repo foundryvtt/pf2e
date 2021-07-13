@@ -8,10 +8,15 @@ export interface RuleElementData {
     selector?: string;
     value?: RuleValue;
     scope?: string;
-    label?: string;
+    label: string;
     slug?: string;
     predicate?: ModifierPredicate;
+    ignored: boolean;
 }
+
+export type RuleElementConstructionData = Omit<RuleElementData, 'label' | 'ignored'> & {
+    label?: string;
+};
 
 export type RuleValue = string | number | null | BracketedValue;
 
@@ -44,7 +49,7 @@ export interface MultipleAttackPenaltyPF2e {
     predicate?: ModifierPredicate;
 }
 
-export interface RuleElementSyntheticsPF2e {
+export interface RuleElementSynthetics {
     damageDice: Record<string, DamageDicePF2e[]>;
     statisticsModifiers: Record<string, ModifierPF2e[]>;
     strikes: WeaponData[];

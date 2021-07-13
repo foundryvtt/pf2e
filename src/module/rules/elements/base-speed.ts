@@ -7,8 +7,7 @@ import { CharacterData, FamiliarData, NPCData } from '@actor/data';
 export class PF2BaseSpeedRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(actorData: CharacterData | NPCData | FamiliarData) {
         const value = this.resolveValue(this.data.value);
-        const label = this.getDefaultLabel();
-        if (this.data.selector && label && value) {
+        if (this.data.selector && value) {
             const selector: string = this.data.selector.endsWith('-speed')
                 ? this.data.selector.substring(-6)
                 : this.data.selector;
