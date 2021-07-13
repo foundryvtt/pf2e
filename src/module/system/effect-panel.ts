@@ -1,6 +1,7 @@
 import { ActorPF2e } from '@actor/base';
 import { ConditionData, EffectData } from '@item/data';
 import { ConditionPF2e, EffectPF2e } from '@item/index';
+import { ConditionManager } from '@module/conditions';
 
 interface EffectPanelData {
     conditions?: ConditionData[];
@@ -96,7 +97,13 @@ export class EffectPanel extends Application {
     private static getParentConditionsBreakdown(conditions: ConditionData[]): string {
         let breakdown = '';
         if ((conditions ?? []).length > 0) {
-            const list = Array.from(new Set(conditions.map((p) => p.name)))
+            const list = Array.from(
+                new Set(
+                    conditions.map((c: any) => {
+                        return ConditionManager.getLocalizedConditionName(c['base']);
+                    }),
+                ),
+            )
                 .sort()
                 .join(', ');
             breakdown = `${game.i18n.format('PF2E.EffectPanel.AppliedBy', { 'condition-list': list })}`;
