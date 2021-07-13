@@ -30,6 +30,7 @@ import { EffectTracker } from '@module/system/effect-tracker';
 import { Rollable } from '@actor/data/base';
 import { remigrate } from '@scripts/system/remigrate';
 import { SKILL_EXPANDED } from '@actor/data/values';
+import { GhostTemplate } from '@module/ghost-measured-template';
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -206,16 +207,16 @@ function registerPF2ActionClickListener() {
             const { pf2TemplateData } = target.dataset ?? {};
             if (pf2TemplateData) {
                 const templateData = JSON.parse(pf2TemplateData);
-                canvas.app.stage.removeListener('pointerdown');
-                canvas.app.stage.addListener('pointerdown', (event) => {
-                    if (!canvas.scene) {
-                        canvas.app.stage.removeListener('pointerdown');
-                        return;
-                    }
+                // canvas.app.stage.removeListener('pointerdown');
+                // canvas.app.stage.addListener('pointerdown', (event) => {
+                    // if (!canvas.scene) {
+                    //     canvas.app.stage.removeListener('pointerdown');
+                    //     return;
+                    // }
 
-                    if (event.data.button !== 0) {
-                        return;
-                    }
+                    // if (event.data.button !== 0) {
+                    //     return;
+                    // }
                     const mouse = canvas.app.renderer.plugins.interaction.mouse;
                     const xy = canvas.grid.getSnappedPosition(
                         mouse.getLocalPosition(canvas.app.stage)['x'],
@@ -227,14 +228,15 @@ function registerPF2ActionClickListener() {
                     templateData.y = xy['y'];
                     templateData.user = game.user.id;
 
-                    const measuredTemplate = new MeasuredTemplate(
-                        new MeasuredTemplateDocument(templateData, { parent: canvas.scene }),
-                    );
+                    const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
 
-                    canvas.scene.createEmbeddedDocuments('MeasuredTemplate', [measuredTemplate.data]);
+                    let ghostTemplate = new GhostTemplate(measuredTemplateDoc);
 
-                    canvas.app.stage.removeListener('pointerdown');
-                });
+                    ghostTemplate.drawPreview();
+                    // canvas.scene.createEmbeddedDocuments('MeasuredTemplate', [measuredTemplate.data]);
+
+                    // canvas.app.stage.removeListener('pointerdown');
+                // });
             } else {
                 console.warn(`PF2e System | Could not create template'`);
             }
