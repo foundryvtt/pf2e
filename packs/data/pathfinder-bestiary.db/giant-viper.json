@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+3",
+                "mod": 3,
                 "value": 16
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 19,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -135,7 +136,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "The giant viper's fangs are a frightening sight, with injection tubes as long as daggers. The sheer amount of venom injected by a giant viper can cause severe blood clotting and leave a victim utterly drained of vitality.<br /><br />",
+            "flavorText": "<p>The giant viper's fangs are a frightening sight, with injection tubes as long as daggers. The sheer amount of venom injected by a giant viper can cause severe blood clotting and leave a victim utterly drained of vitality.</p>\n<hr />\n<p>Snakes come in an array of forms, from jungle-dwelling constrictors that wrap around their prey to venomous vipers with deadly bites. Regardless, all snakes consume their prey whole by unhinging their jaws and using powerful muscles to move the food down their throats and into their stomachs.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -149,7 +150,7 @@
             },
             "recallKnowledgeText": "Recall Knowledge : DC 16",
             "source": {
-                "value": ""
+                "value": "Bestiary"
             }
         },
         "saves": {
@@ -226,8 +227,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Giant Viper Venom"
+                        "giant-viper-venom"
                     ]
                 },
                 "bonus": {
@@ -268,7 +270,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fangs",
             "sort": 100000,
             "type": "melee"
@@ -322,7 +324,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Low-Light Vision",
             "sort": 200000,
             "type": "action"
@@ -444,7 +446,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
@@ -482,7 +484,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Coil",
             "sort": 500000,
             "type": "action"
@@ -502,7 +504,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"Giant Viper Venom DC\" data-pf2-dc=\"17\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<p><em data-visibility=\"gm\"><strong>Maximum Duration</strong> 6 rounds;</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 1</strong> [[/r 1d6 #poison]] poison (1 round);</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 2</strong> [[/r 1d6 #poison]] poison and @Compendium[pf2e.conditionitems.Drained]{Drained 1}</em></p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"Giant Viper Venom DC\" data-pf2-dc=\"17\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d6 #poison]] poison (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d6 #poison]] poison and @Compendium[pf2e.conditionitems.Drained]{Drained 1}</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -725,7 +727,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
