@@ -140,6 +140,9 @@ export class WeaponDamagePF2e {
             ? weapon.data.damageRolls
             : Object.values(weapon.data.damageRolls);
         let parsedBaseDamage = false;
+        if (damageRolls.length === 0) {
+            damageRolls.push({ damage: '0', damageType: '' });
+        }
         for (const dmg of damageRolls) {
             let dice: number | null = null;
             let die: string | null = null;
