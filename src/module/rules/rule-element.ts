@@ -50,6 +50,7 @@ export abstract class RuleElementPF2e {
     constructor(data: RuleElementConstructionData, public item: Embedded<ItemPF2e>) {
         this.data = {
             ...data,
+            priority: data.priority ?? 100,
             label: game.i18n.localize(data.label ?? item.name),
             ignored: false,
         };
@@ -61,6 +62,11 @@ export abstract class RuleElementPF2e {
 
     get label(): string {
         return this.data.label;
+    }
+
+    /** The place in order of application (ascending), among an actor's list of rule elements */
+    get priority(): number {
+        return this.data.priority;
     }
 
     /** Globally ignore this rule element. */
