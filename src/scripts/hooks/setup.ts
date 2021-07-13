@@ -30,6 +30,7 @@ import { EffectTracker } from '@module/system/effect-tracker';
 import { Rollable } from '@actor/data/base';
 import { remigrate } from '@scripts/system/remigrate';
 import { SKILL_EXPANDED } from '@actor/data/values';
+import { GhostTemplate } from '@module/ghost-measured-template';
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -200,6 +201,32 @@ function registerPF2ActionClickListener() {
                         }
                     }
                 });
+            }
+        } else if (target?.matches('[data-pf2-inline-template], [data-pf2-inline-template] *')) {
+            target = target.closest('[data-pf2-inline-template]')!;
+            const { pf2TemplateData } = target.dataset ?? {};
+            if (pf2TemplateData) {
+                const templateData = JSON.parse(pf2TemplateData);
+
+                    const mouse = canvas.app.renderer.plugins.interaction.mouse;
+                    const xy = canvas.grid.getSnappedPosition(
+                        mouse.getLocalPosition(canvas.app.stage)['x'],
+                        mouse.getLocalPosition(canvas.app.stage)['y'],
+                        2,
+                    );
+
+                    templateData.x = xy['x'];
+                    templateData.y = xy['y'];
+                    templateData.user = game.user.id;
+
+                    const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
+
+                    let ghostTemplate = new GhostTemplate(measuredTemplateDoc);
+
+                    ghostTemplate.drawPreview();
+
+            } else {
+                console.warn(`PF2e System | Could not create template'`);
             }
         }
     });
