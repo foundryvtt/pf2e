@@ -1,7 +1,6 @@
 export class GhostTemplate extends MeasuredTemplate {
     handlers: any = {};
     moveTime = 0;
-   // active = true;
 
     drawPreview() {
         this.layer.activate();

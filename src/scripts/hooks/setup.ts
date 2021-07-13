@@ -207,24 +207,10 @@ function registerPF2ActionClickListener() {
             const { pf2TemplateData } = target.dataset ?? {};
             if (pf2TemplateData) {
                 const templateData = JSON.parse(pf2TemplateData);
-
-                    const mouse = canvas.app.renderer.plugins.interaction.mouse;
-                    const xy = canvas.grid.getSnappedPosition(
-                        mouse.getLocalPosition(canvas.app.stage)['x'],
-                        mouse.getLocalPosition(canvas.app.stage)['y'],
-                        2,
-                    );
-
-                    templateData.x = xy['x'];
-                    templateData.y = xy['y'];
-                    templateData.user = game.user.id;
-
-                    const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
-
-                    let ghostTemplate = new GhostTemplate(measuredTemplateDoc);
-
-                    ghostTemplate.drawPreview();
-
+                templateData.user = game.user.id;
+                const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
+                let ghostTemplate = new GhostTemplate(measuredTemplateDoc);
+                ghostTemplate.drawPreview();
             } else {
                 console.warn(`PF2e System | Could not create template'`);
             }
