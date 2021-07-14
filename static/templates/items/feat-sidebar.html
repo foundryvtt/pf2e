@@ -5,7 +5,7 @@
 
 <ol class="item-tags">
   {{#if data.level.value}}
-      <li class="tag">{{localize data.level.label}}</li>
+      <li class="tag">{{localize "PF2E.FeatLevelLabel"}} {{data.level.value}}</li>
   {{/if}}
   <li class="tag">{{#with (lookup rarities data.traits.rarity.value) as |rarity|}}{{localize rarity.label}}{{/with}}</li>
   {{#each traits as |trait|}}
