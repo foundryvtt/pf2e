@@ -9,12 +9,17 @@ export async function listen(message: ChatMessage<ActorPF2e>, html: JQuery): Pro
     const isD20 = (isRoll && message.roll && message.roll.dice[0]?.faces === 20) || false;
     if (!isRoll || isD20 || fromRollTable) return;
 
-    const $buttons = $(await renderTemplate('systems/pf2e/templates/chat/damage/buttons.html'));
+    const $buttons = $(
+        await renderTemplate('systems/pf2e/templates/chat/damage/buttons.html', {
+            showTripleDamage: game.settings.get('pf2e', 'critFumbleButtons'),
+        }),
+    );
     html.append($buttons);
 
     const full = html.find('button.full-damage');
     const half = html.find('button.half-damage');
     const double = html.find('button.double-damage');
+    const triple = html.find('button.triple-damage');
     const heal = html.find('button.heal-damage');
     const contentSelector = `li.chat-message[data-message-id="${message.id}"] div.hover-content`;
     const $shield = html
@@ -43,6 +48,10 @@ export async function listen(message: ChatMessage<ActorPF2e>, html: JQuery): Pro
 
     double.on('click', (event) => {
         applyDamage(html, 2, event.shiftKey);
+    });
+
+    triple?.on('click', (event) => {
+        applyDamage(html, 3, event.shiftKey);
     });
 
     $shield.on('click', async (event) => {
