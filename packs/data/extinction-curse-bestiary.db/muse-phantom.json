@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "-5",
+                "mod": -5,
                 "value": 0
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 21,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -59,7 +60,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "",
+                "details": "negative healing",
                 "max": 50,
                 "min": 0,
                 "temp": 0,
@@ -101,8 +102,14 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "fly 25 feet"
+                "otherSpeeds": [
+                    {
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "25"
+                    }
+                ],
+                "value": ""
             }
         },
         "details": {
@@ -185,7 +192,7 @@
             },
             "dr": [
                 {
-                    "exceptions": "force, ghost touch, or positive; double resistance vs. non-magical",
+                    "exceptions": "except force, ghost touch, or positive; double resistance vs. non-magical",
                     "label": "All",
                     "type": "all",
                     "value": "5"
@@ -227,7 +234,10 @@
             "_id": "BPZQ1dC6ouU0B3Ud",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "chat": "",
@@ -282,9 +292,9 @@
                         "value": 0
                     },
                     "slot2": {
-                        "max": 2,
+                        "max": 1,
                         "prepared": [],
-                        "value": 2
+                        "value": 1
                     },
                     "slot3": {
                         "max": 0,
@@ -358,6 +368,9 @@
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -469,6 +482,9 @@
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -542,7 +558,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature"
+                    "value": "self"
                 },
                 "time": {
                     "value": "2"
@@ -566,7 +582,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/invisibility.webp",
-            "name": "Invisibility",
+            "name": "Invisibility (At Will) (Self Only)",
             "sort": 300000,
             "type": "spell"
         },
@@ -578,6 +594,9 @@
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -693,6 +712,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
@@ -805,6 +827,9 @@
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -904,7 +929,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/ghost-sound.webp",
-            "name": "Ghost Sound - Cantrips",
+            "name": "Ghost Sound",
             "sort": 600000,
             "type": "spell"
         },
@@ -916,6 +941,9 @@
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -1025,6 +1053,9 @@
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -1124,7 +1155,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/telekinetic-projectile.webp",
-            "name": "Telekinetic Projectile - Cantrips",
+            "name": "Telekinetic Projectile",
             "sort": 800000,
             "type": "spell"
         },
@@ -1165,7 +1196,11 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -1215,7 +1250,11 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "magical",
+                        "range-increment-60",
+                        "sonic"
+                    ]
                 },
                 "weaponType": {
                     "value": "melee"
@@ -1243,7 +1282,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>30 feet. The muse phantom inspires a supernatural emotional response-either comedy or drama. Each creature that begins its turn in the aura must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"20\" data-pf2-traits=\"aura,emotion,mental,occult\" data-pf2-label=\"Thespian Aura DC\" data-pf2-show-dc=\"gm\">Will</span> save; on a failure, the creature is affected as long as it remains within the aura. If the muse phantom is emitting a comedic aura, affected creatures become clumsy 1; if it is emitting a dramatic aura, affected creatures instead become stupefied 1.<br />The muse phantom can change its aura from comedic to dramatic or vice-versa, or cease or activate this aura, by spending a single action, which has the concentrate trait. A creature possessed by a muse phantom is immune to this aura.</p>"
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 30 feet.</p>\n<p>The muse phantom inspires a supernatural emotional response-either comedy or drama. Each creature that begins its turn in the aura must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"20\" data-pf2-traits=\"aura,emotion,mental,occult\" data-pf2-label=\"Thespian Aura DC\" data-pf2-show-dc=\"gm\">Will</span> save; on a failure, the creature is affected as long as it remains within the aura. If the muse phantom is emitting a comedic aura, affected creatures become @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}; if it is emitting a dramatic aura, affected creatures instead become @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1}.<br />The muse phantom can change its aura from comedic to dramatic or vice-versa, or cease or activate this aura, by spending a single action, which has the concentrate trait. A creature possessed by a muse phantom is immune to this aura.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1278,9 +1317,171 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Thespian Aura",
             "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "Cd5sgNKdMFlHFLWu",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "kcez2AY3YnOZzJfk",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "bd7MBIyJeaqQej38",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Negative Healing",
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1293,12 +1494,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The muse phantom's thespian aura is active; <br />\n<strong>Effect</strong> The muse ceases its thespian aura and deals [[/r 4d8 # mental damage]] mental damage to creatures in a 30-foot burst, including the creature it is possessing, if any (<span data-pf2-saving-throw=\"will\" data-pf2-dc=\"22\" data-pf2-traits=\"mental,occult,damaging-effect\" data-pf2-label=\"Grand Finale DC\" data-pf2-show-dc=\"gm\">basic Will</span> save). Creatures that fail their Will saves are fascinated by the muse phantom for 1 minute. The muse phantom can't use Grand Finale again for 1d4 rounds.</p>"
+                    "value": "<p><strong>Requirements</strong> The muse phantom's thespian aura is active;</p>\n<p><strong>Effect</strong> The muse ceases its thespian aura and deals [[/r 4d8 # mental]] mental damage to creatures in a 30-foot burst, including the creature it is possessing, if any (<span data-pf2-saving-throw=\"will\" data-pf2-dc=\"22\" data-pf2-traits=\"mental,occult,damaging-effect\" data-pf2-label=\"Grand Finale DC\" data-pf2-show-dc=\"gm\">basic Will</span> save). Creatures that fail their Will saves are fascinated by the muse phantom for 1 minute. The muse phantom can't use Grand Finale again for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1331,9 +1532,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Grand Finale",
-            "sort": 1200000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1346,12 +1547,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The phantom muse attempts to possess an adjacent corporeal creature. This has the same effect as the possession spell (DC 20), except the duration is 1d4 hours, and since the phantom muse doesn't have a physical body, it is unaffected by that restriction of the spell. If the target is at least trained in Performance, the DC of this ability is 24.</p>"
+                    "value": "<p>The phantom muse attempts to possess an adjacent corporeal creature. This has the same effect as the @Compendium[pf2e.spells-srd.Possession]{Possession} spell (DC 20), except the duration is [[/r 1d4 #hours]] hours, and since the phantom muse doesn't have a physical body, it is unaffected by that restriction of the spell. If the target is at least trained in Performance, the DC of this ability is 24.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1381,9 +1582,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Muse Possession",
-            "sort": 1300000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1424,7 +1625,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1400000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1465,48 +1666,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 1500000,
-            "type": "lore"
-        },
-        {
-            "_id": "WWVER4ZYSmZhye2k",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.643
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore",
-            "sort": 1600000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1547,7 +1707,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1700000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1588,7 +1748,84 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 1800000,
+            "sort": 2000000,
+            "type": "lore"
+        },
+        {
+            "_id": "WWVER4ZYSmZhye2k",
+            "data": {
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Theatre Lore",
+            "sort": 2100000,
+            "type": "lore"
+        },
+        {
+            "_id": "yAdSAllzICvAf8Ch",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Theatre Lore",
+            "sort": 2200000,
             "type": "lore"
         }
     ],
