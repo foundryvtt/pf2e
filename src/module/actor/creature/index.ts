@@ -8,7 +8,7 @@ import { RuleElementPF2e } from '@module/rules/rule-element';
 import { RollNotePF2e } from '@module/notes';
 import {
     MultipleAttackPenaltyPF2e,
-    RuleElementSyntheticsPF2e,
+    RuleElementSynthetics,
     StrikingPF2e,
     WeaponPotencyPF2e,
 } from '@module/rules/rules-data-definitions';
@@ -146,7 +146,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
-    protected prepareCustomModifiers(rules: RuleElementPF2e[]): RuleElementSyntheticsPF2e {
+    protected prepareCustomModifiers(rules: RuleElementPF2e[]): RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
         const actorData = this.data;
         const statisticsModifiers: Record<string, ModifierPF2e[]> = {};
@@ -156,7 +156,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const weaponPotency: Record<string, WeaponPotencyPF2e[]> = {};
         const striking: Record<string, StrikingPF2e[]> = {};
         const multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]> = {};
-        const synthetics: RuleElementSyntheticsPF2e = {
+        const synthetics: RuleElementSynthetics = {
             damageDice,
             statisticsModifiers,
             strikes,

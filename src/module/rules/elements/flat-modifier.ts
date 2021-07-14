@@ -1,24 +1,24 @@
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
+import { RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data';
 import { ModifierPF2e, ModifierPredicate, MODIFIER_TYPE } from '@module/modifiers';
-import { ActorPF2e } from '@actor/index';
+import { ActorPF2e } from '@actor';
 
 /**
  * @category RuleElement
  */
 export class PF2FlatModifierRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(
-        actorData: CharacterData | NPCData,
-        { statisticsModifiers }: RuleElementSyntheticsPF2e,
-    ) {
+    override onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: RuleElementSynthetics) {
         const selector = this.resolveInjectedProperties(this.data.selector);
-        const label = this.getDefaultLabel();
         const resolvedValue = this.resolveValue(this.data.value);
         const value = Math.clamped(resolvedValue, this.data.min ?? resolvedValue, this.data.max ?? resolvedValue);
-        if (selector && label && value) {
-            const modifier = new ModifierPF2e(this.data.name ?? label, value, this.data.type ?? MODIFIER_TYPE.UNTYPED);
-            modifier.label = label;
+        if (selector && value) {
+            const modifier = new ModifierPF2e(
+                this.data.name ?? this.label,
+                value,
+                this.data.type ?? MODIFIER_TYPE.UNTYPED,
+            );
+            modifier.label = this.label;
             if (this.data.damageType) {
                 modifier.damageType = this.data.damageType;
             }

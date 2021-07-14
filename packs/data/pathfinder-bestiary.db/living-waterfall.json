@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+4",
+                "mod": 4,
                 "value": 18
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 20,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -103,11 +104,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "60 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "60"
                     }
                 ],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "details": {
@@ -129,7 +131,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Living waterfalls are humanoid-shaped columns of churning water.<br /><br />",
+            "flavorText": "<p>Living waterfalls are humanoid-shaped columns of churning water.</p>\n<hr />\n<p>Water elementals can be very destructive, but often not intentionally so; just as water can bring life to those in need on the Material Plane, its waves can pound shores and rains can flood cities. Water elementals are similarly difficult to predict.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -232,8 +234,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Push or Pull 5 feet"
+                        "push"
                     ]
                 },
                 "bonus": {
@@ -274,7 +277,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Wave",
             "sort": 100000,
             "type": "melee"
@@ -294,7 +297,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When not touching water, the living waterfall is slowed 1 and can't use reactions.</p>"
+                    "value": "<p>When not touching water, the living waterfall is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -318,18 +321,69 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Water-Bound",
             "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "6HYP2meWyAXuDtrA",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -347,7 +401,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>30 feet. Water in the area that is in the same body of water as the living waterfall is difficult terrain for Swimming creatures that don't have the water trait.</p>"
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 30 feet.</p>\n<p>Water in the area that is in the same body of water as the living waterfall is difficult terrain for Swimming creatures that don't have the water trait.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -374,18 +428,15 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vortex",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -398,12 +449,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The elemental puts out all fires in a 5-foot emanation. It extinguishes all non-magical fires automatically and attempts to counteract magical fires (+14 counteract modifier).</p>"
+                    "value": "<p>The elemental puts out all fires in a 5-foot emanation. It extinguishes all non-magical fires automatically and attempts to counteract magical fires ([[/r 1d20+14]]{+14} counteract modifier).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -431,22 +482,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Drench",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "ugzsMN2ZhpilstCB",
+            "_id": "lR1BvOISLx5qtPco",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -455,12 +503,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Push or Pull in its damage entry. <strong>Effect</strong> The monster automatically knocks the target away from the monster, or pulls it towards the monster. Unless otherwise noted in the ability description, the creature is pushed or pulled 5 feet. If the attack was a critical hit, this distance is doubled.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Push or Pull in its damage entry.</p>\n<p><strong>Effect</strong> The monster automatically knocks the target away from the monster, or towards the creature. Unless otherwise noted in the ability description, the creature is pushed 5 feet. If the attack was a critical hit, this distance is doubled.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -470,7 +518,7 @@
                     "lastMigration": null,
                     "version": 0.643
                 },
-                "slug": null,
+                "slug": "push",
                 "source": {
                     "value": ""
                 },
@@ -484,18 +532,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Push or Pull",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -530,16 +579,13 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -574,16 +620,13 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         }
     ],
@@ -593,7 +636,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+4",
+                "mod": 4,
                 "value": 18
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 18,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -131,7 +132,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Giant ants are much like their smaller kin in their industrious habits, though growing to the size of ponies makes them much deadlier.<br /><br />",
+            "flavorText": "<p>Giant ants are much like their smaller kin in their industrious habits, though growing to the size of ponies makes them much deadlier.</p>\n<hr />\n<p>Ants are industrious insects that aid the natural processes of decay and renewal.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -262,7 +263,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Mandibles",
             "sort": 100000,
             "type": "melee"
@@ -317,7 +318,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Stinger",
             "sort": 200000,
             "type": "melee"
@@ -425,8 +426,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Scent",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
             "sort": 400000,
             "type": "action"
         },
@@ -445,7 +446,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 18 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 4 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d8]] poison and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d10]] poison and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 1d12]] poison and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"Giant Ant Venom DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 4 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d8]] poison and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d10]] poison and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 1d12]] poison and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3} (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -471,16 +472,13 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Giant Ant Venom",
             "sort": 500000,
             "type": "action"
@@ -523,9 +521,6 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""
@@ -624,9 +619,6 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
@@ -668,9 +660,6 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
@@ -687,7 +676,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
