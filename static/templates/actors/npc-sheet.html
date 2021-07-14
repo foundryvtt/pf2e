@@ -345,7 +345,8 @@
                 {{/each}}
 
                 {{#each spellcastingEntries as |entry eid|}}
-                    <li class="list-row item action-header item-container" data-container-type="spellcastingEntry" data-item-id="{{entry.id}}" data-container-id="{{entry.id}}">
+                <li class="item-container" data-container-type="spellcastingEntry" data-item-id="{{entry.id}}" data-container-id="{{entry.id}}">
+                    <div class="list-row item action-header">
                         {{#if entry.isPrepared}}
                             <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityLevelTitle"}}"  style="line-height: 24px; background: var(--primary-background); color: white;">
                                 <i class="fas {{#if entry.data.showUnpreparedSpells.value}}fa-book-open{{else}}fa-book{{/if}}"></i>
@@ -357,12 +358,11 @@
                                 <a class="item-control spellcasting-remove" title="{{localize "PF2E.RemoveSpellcastingEntryTitle"}}" data-type="{{eid}}" style="align-self: center; flex: 1;  color: white;"><i class="fas fa-minus"></i>{{localize "PF2E.DeleteShortLabel"}}</a>
                             </div>
                         {{/if}}
-                    </li>
-                    <li class="list-row item action-header item-container" data-container-type="spellcastingEntry" data-item-id="{{entry.id}}" data-container-id="{{entry.id}}">
-                        <!-- </div> -->
+                    </div>
+
+                    <div class="list-row item action-header">
                         <ol class="npc-defense-list" style="display: flex; margin: 4px 0 5px 4px;">
                             <li class="npc-defense spellcasting-attribute" data-spelldc-attribute="dc" style="flex: 1;">
-
                                 <span class="defense-score spelldc-input">
                                     <input name="data.items.{{eid}}.data.spelldc.dc" type="number" value="{{entry.data.spelldc.dc}}"
                                             data-dtype="Number" placeholder="0"/>
@@ -396,13 +396,12 @@
                                 <h4 class="spelldc-name">{{localize 'PF2E.SpellAbilityLabel'}}</h4>
                             </li>
                         </ol>
-                    </li>
-                    <li class="list-row item action-header item-container" data-container-type="spellcastingEntry" data-item-id="{{entry.id}}" data-container-id="{{entry.id}}">
+                    </div>
 
+                    <ol class="singleColumn-list">
                         <!-- Add section for each spell level -->
                         {{#each entry.levels as |section lvl|}}
-                            <li class="list-row item inventory-header spellbook-header item-container" style="background: var(--secondary-background);" data-item-id="{{entry.id}}" data-level="{{lvl}}"
-                                data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
+                            <li class="list-row item inventory-header spellbook-header" style="background: var(--secondary-background);" data-item-id="{{entry.id}}" data-level="{{section.level}}">
                                 <div class="item-name flexrow">
                                     <h3>{{localize section.label}}</h3>
 
@@ -442,7 +441,7 @@
                             <!-- Add spell items for each spell level -->
                             {{#each section.active as |item i|}}
                                 {{#with item}}
-                                    <li class="list-row item item-container" data-item-id="{{spell.id}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry.id}}" data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
+                                <li class="list-row item" data-item-id="{{spell.id}}" data-slot-id="{{i}}" data-spell-lvl="{{section.level}}" data-entry-id="{{entry.id}}">
                                     <div class="item-name rollable">
                                         <div class="item-image" style="background-image: url({{chatData.img}})"></div>
                                         {{#if expended}}
@@ -466,7 +465,7 @@
                                     {{/if}}
                                 </li>
                                 {{else}}
-                                    <li class="list-row item item-container" data-item-id="{{i}}" data-spell-lvl="{{lvl}}" data-item-type="spellSlot" data-entry-id="{{entry.id}}" data-container-type="spellcastingEntry" data-container-id="{{entry.id}}">
+                                    <li class="list-row item" data-item-id="{{i}}" data-spell-lvl="{{section.level}}" data-item-type="spellSlot" data-entry-id="{{entry.id}}" draggable="true">
                                         <div class="item-name" style="padding-left:30px;">
                                             <h4>{{localize "PF2E.SpellSlotEmpty"}}</h4>
                                         </div>
@@ -495,9 +494,10 @@
                                 {{/each}}
                             {{/if}}
                         {{/each}}
+
                         {{#unless entry.levels}}
                             <!-- Add Spells Row -->
-                            <li class="list-row item inventory-header spellbook-header spellbook-empty item-container" data-container-type="spellcastingEntry" data-item-id="{{entry.id}}" data-container-id="{{entry.id}}">
+                            <li class="list-row item inventory-header spellbook-header spellbook-empty">
                                 {{#if ../owner}}
                                 <div class="item-controls pf-bluelist pf-add-item-row" style="display: flex; flex: 1; background: var(--secondary-background);">
                                     <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell"
@@ -508,7 +508,7 @@
                                 {{/if}}
                             </li>
                         {{/unless}}
-                    </li>
+                    </ol>
                 {{/each}}
 
                 <li class="list-row action-header" style="display: flex;">
