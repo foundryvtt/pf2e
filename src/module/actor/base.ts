@@ -499,26 +499,52 @@ class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         // Send chat message
+        const hasOwnership = this.hasPlayerOwner || game.user.isGM;
+        const secretDamageNumbers = game.settings.get("pf2e", "metagame.secretDamageNumbers");
+        let hideDamageNumbers = false;
+        if (
+            (secretDamageNumbers === "owner" && !hasOwnership) ||
+            (secretDamageNumbers === "gm" && !game.user.isGM) ||
+            secretDamageNumbers === "none"
+        ) {
+            hideDamageNumbers = true;
+        }
         const hpStatement = ((): string => {
             // This would be a nested ternary, except prettier thoroughly mangles it
             if (damage === 0) return translations.TakesNoDamage;
+            if (damage > 0 && hideDamageNumbers) {
+                return damage > hpDamage && shieldDamage > 0
+                    ? translations.DamagedShield
+                    : translations.Damaged;
+            }
             if (damage > 0) {
                 return damage > hpDamage && shieldDamage > 0
                     ? translations.DamagedForNShield
                     : translations.DamagedForN;
             }
-            return translations.HealedForN;
+            return hideDamageNumbers
+                ? translations.Healed
+                : translations.HealedForN;
         })();
 
         const updatedShield = this.attributes.shield;
-        const shieldStatement =
-            shieldDamage > 0
-                ? updatedShield.broken
+        const shieldStatement = (() => {
+            if (shieldDamage > 0) {
+                if (hideDamageNumbers) {
+                    return updatedShield.broken
+                        ? translations.ShieldDamagedBroken
+                        : updatedShield.destroyed
+                        ? translations.ShieldDamagedDestroyed
+                        : translations.ShieldDamaged;
+                }
+                return updatedShield.broken
                     ? translations.ShieldDamagedForNBroken
                     : updatedShield.destroyed
                     ? translations.ShieldDamagedForNDestroyed
-                    : translations.ShieldDamagedForN
-                : null;
+                    : translations.ShieldDamagedForN;
+            }
+            return null;
+        })();
         const statements = [hpStatement, shieldStatement]
             .filter((s): s is string => !!s)
             .map((s) => game.i18n.format(s, { actor: token.name, hpDamage, absorbedDamage, shieldDamage }))
