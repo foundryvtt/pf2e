@@ -610,6 +610,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             if (!combatant.actor?.hasPlayerOwner) {
                 value += 0.5;
             }
+            const iniativeIsNow = game.i18n.format('PF2E.InitativeIsNow', { name: combatant.name, value: value });
             const message = `
       <div class="dice-roll">
       <div class="dice-result">
@@ -619,7 +620,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             </div>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${combatant.name}'s Initiative is now ${value}!</span>
+          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${iniativeIsNow}</span>
         </div>
       </div>
       </div>
