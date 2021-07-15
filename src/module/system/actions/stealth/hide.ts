@@ -15,5 +15,6 @@ export function hide(options: SkillActionOptions) {
         checkType,
         options.event,
         (target) => target.perception,
+        (selector: string) => [ActionsPF2e.note(selector, 'PF2E.Actions.Hide', 'success')],
     );
 }
