@@ -15,5 +15,10 @@ export function sneak(options: SkillActionOptions) {
         checkType,
         options.event,
         (target) => target.perception,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.Sneak', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Sneak', 'failure'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Sneak', 'criticalFailure'),
+        ],
     );
 }

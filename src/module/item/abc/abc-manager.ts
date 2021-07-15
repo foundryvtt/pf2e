@@ -1,23 +1,28 @@
-import { FeatPF2e, ClassPF2e, ItemPF2e } from '@item/index';
+import { FeatPF2e, ClassPF2e, ItemPF2e, ABCItemPF2e } from '@item/index';
 import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e } from '@item/data';
 import { ABCFeatureEntryData } from '@item/abc/data';
 import { CharacterPF2e } from '@actor/index';
 import type { FeatSource } from '@item/feat/data';
-import { ErrorPF2e } from '@module/utils';
+import { ErrorPF2e, sluggify } from '@module/utils';
+
+export interface ABCManagerOptions {
+    assurance?: string[];
+}
 
 export class AncestryBackgroundClassManager {
-    static async addABCFromDrop(
+    static async addABCItem(
         source: AncestrySource | BackgroundSource | ClassSource,
         actor: CharacterPF2e,
+        options?: ABCManagerOptions,
     ): Promise<ItemPF2e[]> {
         switch (source.type) {
             case 'ancestry': {
                 await actor.ancestry?.delete();
-                return this.addFeatures(source, actor, true);
+                return this.addFeatures(source, actor, true, options);
             }
             case 'background': {
                 await actor.background?.delete();
-                return this.addFeatures(source, actor, true);
+                return this.addFeatures(source, actor, true, options);
             }
             case 'class': {
                 await actor.class?.delete();
@@ -56,6 +61,24 @@ export class AncestryBackgroundClassManager {
         if (classFeaturesToCreate.length > 0) {
             await actor.createEmbeddedDocuments('Item', classFeaturesToCreate, { keepId: true, render: false });
             classItem.setFlag(game.system.id, 'insertedClassFeaturesLevel', actor.level);
+        }
+    }
+
+    static async getItemSource(packName: 'pf2e.ancestries', name: string): Promise<AncestrySource>;
+    static async getItemSource(packName: 'pf2e.backgrounds', name: string): Promise<BackgroundSource>;
+    static async getItemSource(packName: 'pf2e.classes', name: string): Promise<ClassSource>;
+    static async getItemSource(packName: 'pf2e.feats-srd', name: string): Promise<FeatSource>;
+    static async getItemSource(
+        packName: 'pf2e.ancestries' | 'pf2e.backgrounds' | 'pf2e.classes' | 'pf2e.feats-srd',
+        name: string,
+    ): Promise<AncestrySource | BackgroundSource | ClassSource | FeatSource> {
+        const slug = sluggify(name);
+        const pack = game.packs.get<CompendiumCollection<ABCItemPF2e>>(packName, { strict: true });
+        const docs = await pack.getDocuments({ 'data.slug': { $in: [slug] } });
+        if (docs.length === 1) {
+            return docs[0].toObject();
+        } else {
+            throw ErrorPF2e(`Cannot find '${name}' in pack '${packName}'`);
         }
     }
 
@@ -142,6 +165,7 @@ export class AncestryBackgroundClassManager {
         itemSource: AncestrySource | BackgroundSource,
         actor: CharacterPF2e,
         createSource = false,
+        options?: ABCManagerOptions,
     ): Promise<ItemPF2e[]> {
         const itemsToCreate: ItemSourcePF2e[] = [];
         if (createSource) {
@@ -150,6 +174,18 @@ export class AncestryBackgroundClassManager {
         }
         const entriesData = Object.values(itemSource.data.items);
         itemsToCreate.push(...(await this.getFeatures(entriesData, itemSource._id)));
+
+        if (options?.assurance) {
+            for (const skill of options.assurance) {
+                const index = itemsToCreate.findIndex((item) => item.data.slug === 'assurance');
+                if (index > -1) {
+                    const location = (itemsToCreate[index] as FeatSource).data.location;
+                    itemsToCreate[index] = await this.getItemSource('pf2e.feats-srd', `Assurance (${skill})`);
+                    itemsToCreate[index]._id = randomID(16);
+                    (itemsToCreate[index] as FeatSource).data.location = location;
+                }
+            }
+        }
         return actor.createEmbeddedDocuments('Item', itemsToCreate, { keepId: true });
     }
 }
