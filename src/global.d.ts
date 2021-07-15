@@ -35,6 +35,7 @@ import { remigrate } from '@scripts/system/remigrate';
 import { FolderPF2e } from '@module/folder';
 import { CanvasPF2e, LightingLayerPF2e } from '@module/canvas';
 import { FogExplorationPF2e } from '@module/fog-exploration';
+import { ActorImporter } from '@system/importer/actor-importer';
 
 declare global {
     interface Game {
@@ -52,6 +53,9 @@ declare global {
             };
             system: {
                 remigrate: typeof remigrate;
+            };
+            importer: {
+                actor: typeof ActorImporter;
             };
             Dice: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
