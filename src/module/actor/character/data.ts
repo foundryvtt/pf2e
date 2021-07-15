@@ -5,7 +5,7 @@ import {
     BaseCreatureData,
     BaseCreatureSource,
     CreatureSystemData,
-    Saves,
+    SaveData,
     SkillAbbreviation,
     SkillData,
 } from '@actor/creature/data';
@@ -25,6 +25,7 @@ import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from '@item/
 import { CheckModifier, StatisticModifier } from '@module/modifiers';
 import { LabeledValue, ZeroToFour, ZeroToThree } from '@module/data';
 import type { CharacterPF2e } from '.';
+import { SaveType } from '@actor/data';
 
 export type CharacterSource = BaseCreatureSource<'character', CharacterSystemData>;
 
@@ -48,7 +49,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     abilities: Abilities;
 
     /** The three save types. */
-    saves: Saves;
+    saves: Record<SaveType, SaveData>;
 
     /** Tracks proficiencies for martial skills. */
     martial: CombatProficiencies;

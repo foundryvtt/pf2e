@@ -8,10 +8,11 @@ import {
     RawSkillData,
     Rollable,
 } from '@actor/data/base';
-import type { CREATURE_ACTOR_TYPES, SAVE_TYPES, SKILL_ABBREVIATIONS } from '@actor/data/values';
+import type { CREATURE_ACTOR_TYPES, SKILL_ABBREVIATIONS } from '@actor/data/values';
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from '@module/modifiers';
 import { LabeledString, ValuesList, ZeroToThree } from '@module/data';
 import type { CreaturePF2e } from '.';
+import { SaveType } from '@actor/data';
 
 export type BaseCreatureSource<
     TCreatureType extends CreatureType = CreatureType,
@@ -45,6 +46,9 @@ export interface CreatureSystemData extends ActorSystemData {
     customModifiers: Record<string, ModifierPF2e[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, DamageDicePF2e[]>;
+
+    /** Saving throw data */
+    saves: Record<SaveType, StatisticModifier>;
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
@@ -86,8 +90,6 @@ export type SkillData = StatisticModifier & RawSkillData & Rollable;
 
 /** The full save data for a character; includes statistic modifier and an extra `saveDetail` field for user-provided details. */
 export type SaveData = SkillData & { saveDetail?: string };
-export type Saves = Record<SaveString, SaveData>;
-export type SaveString = typeof SAVE_TYPES[number];
 
 /** Miscallenous but mechanically relevant creature attributes.  */
 export interface BaseCreatureAttributes {
