@@ -2283,6 +2283,10 @@ export const PF2ECONFIG = {
                 twentyFour: 'PF2E.SETTINGS.WorldClock.TimeConvention.TwentyFour',
                 twelve: 'PF2E.SETTINGS.WorldClock.TimeConvention.Twelve',
             },
+            showClockButton: {
+                name: 'PF2E.SETTINGS.WorldClock.ShowClockButton.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.ShowClockButton.Hint',
+            },
             playersCanView: {
                 name: 'PF2E.SETTINGS.WorldClock.PlayersCanView.Name',
                 hint: 'PF2E.SETTINGS.WorldClock.PlayersCanView.Hint',
