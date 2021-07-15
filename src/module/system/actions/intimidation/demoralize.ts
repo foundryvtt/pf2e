@@ -15,5 +15,9 @@ export function demoralize(options: SkillActionOptions) {
         checkType,
         options.event,
         (target) => target.will,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.Demoralize', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Demoralize', 'success'),
+        ],
     );
 }

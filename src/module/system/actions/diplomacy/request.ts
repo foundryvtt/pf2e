@@ -14,5 +14,12 @@ export function request(options: SkillActionOptions) {
         ['auditory', 'concentrate', 'linguistic', 'mental'],
         checkType,
         options.event,
+        undefined,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.Request', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Request', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Request', 'failure'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Request', 'criticalFailure'),
+        ],
     );
 }
