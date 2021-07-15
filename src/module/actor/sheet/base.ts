@@ -48,6 +48,7 @@ import { SkillAbbreviation } from '@actor/creature/data';
 import { AbilityString } from '@actor/data/base';
 import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
 import { FolderPF2e } from '@module/folder';
+import { MagicTradition } from '@item/spellcasting-entry/data';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1263,24 +1264,28 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 {
                     title,
                     content: dlg,
+                    render: (html) => {
+                        // Set visibility of elements based on current values
+                        // Using visibility over display prevents stretching of dialog elements
+                        const typeField = $(html).find('[name="spellcastingType"]');
+                        typeField.on('change', () => {
+                            const traditionGroup = $(html).find('.tradition-group');
+                            const isRitual = typeField.val() === 'ritual';
+                            traditionGroup.css('visibility', isRitual ? 'hidden' : 'visible');
+                        });
+                    },
                     buttons: {
                         create: {
                             label: game.i18n.localize('PF2E.CreateLabelUniversal'),
                             callback: (html: JQuery) => {
                                 // if ( onClose ) onClose(html, parts, data);
                                 let name = '';
-                                magicTradition = `${html.find('[name="magicTradition"]').val()}`;
-                                if (magicTradition === 'ritual') {
-                                    spellcastingType = '';
-                                    name = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
-                                } else if (magicTradition === 'focus') {
-                                    spellcastingType = '';
-                                    name = [
-                                        game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]),
-                                        game.i18n.localize('PF2E.SpellLabelPlural'),
-                                    ].join(' ');
+                                spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
+                                if (spellcastingType === 'ritual') {
+                                    magicTradition = '';
+                                    name = game.i18n.localize(CONFIG.PF2E.preparationType['ritual']);
                                 } else {
-                                    spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
+                                    magicTradition = `${html.find('[name="magicTradition"]').val()}` as MagicTradition;
                                     const preparationType = game.i18n.localize(
                                         CONFIG.PF2E.preparationType[spellcastingType],
                                     );
