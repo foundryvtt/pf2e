@@ -92,8 +92,6 @@ export type AbilityString = typeof ABILITY_ABBREVIATIONS[number];
 export interface RawSkillData extends ProficiencyData {
     /** The ability which this save scales off of. */
     ability: AbilityString;
-    /** The raw modifier for this save (after applying all modifiers). */
-    item: number;
     /** A breakdown of how the save value is determined. */
     armor?: number;
 }
@@ -123,7 +121,11 @@ export interface DexterityModifierCapData {
     source: string;
 }
 
-export interface ArmorClassData extends RawSkillData, StatisticModifier {
+export interface ArmorClassData extends StatisticModifier {
+    /** The actual AC value */
+    value: number;
+    /** A textual breakdown of the modifiers that compose the value */
+    breakdown: string;
     /** The armor check penalty imposed by the worn armor. */
     check?: number;
     /** The cap for the bonus that dexterity can give to AC, if any. If null, there is no cap. */

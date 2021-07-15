@@ -180,13 +180,15 @@ interface PathfinderSocietyData {
     reputation: PathfinderSocietyReputation;
 }
 
+export type CharacterArmorClass = Required<ArmorClassData>;
+
 interface CharacterAttributes extends BaseCreatureAttributes {
     /** The perception skill. */
     perception: PerceptionData;
     /** The class DC, used for saves related to class abilities. */
     classDC: ClassDCData;
     /** Creature armor class, used to defend against attacks. */
-    ac: ArmorClassData;
+    ac: CharacterArmorClass;
     /** Initiative, used to determine turn order in combat. */
     initiative: CheckModifier;
 
