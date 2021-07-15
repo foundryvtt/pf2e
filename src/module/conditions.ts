@@ -555,7 +555,7 @@ export class ConditionManager {
             .forEach((c: ConditionData) => {
                 // Sorted list of conditions.
                 // First by active, then by base (lexicographically), then by value (descending).
-                let name = ConditionManager.getLocalizedConditionName(c.data?.base);
+                let name = ConditionManager.getLocalizedConditionName(c.name);
                 let condition: any;
 
                 if (c.data.value.isValued) {

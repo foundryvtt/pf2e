@@ -100,7 +100,7 @@ export class EffectPanel extends Application {
             const list = Array.from(
                 new Set(
                     conditions.map((c: any) => {
-                        return ConditionManager.getLocalizedConditionName(c['base']);
+                        return ConditionManager.getLocalizedConditionName(c.name);
                     }),
                 ),
             )
