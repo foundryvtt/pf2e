@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+8",
+                "mod": 8,
                 "value": 26
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 40,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -59,7 +60,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 30 ",
+                "details": "regeneration 30",
                 "max": 315,
                 "min": 0,
                 "temp": 0,
@@ -102,7 +103,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "fly 100 feet"
+                "value": "fly 100"
             }
         },
         "details": {
@@ -231,6 +232,9 @@
                 "ability": {
                     "value": ""
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -332,7 +336,7 @@
                     "dc": "38",
                     "item": 0,
                     "mod": 0,
-                    "value": 28
+                    "value": 30
                 },
                 "tradition": {
                     "value": "primal"
@@ -357,6 +361,9 @@
             "data": {
                 "ability": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "chat": "",
@@ -492,6 +499,9 @@
                 "areasize": {
                     "value": "2-mile-radius circle centered on you"
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "ritual"
                 },
@@ -609,6 +619,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
@@ -709,13 +722,19 @@
             "type": "spell"
         },
         {
-            "_id": "bFcugYMg1rE4WIX0",
+            "_id": "oFYorsQoOe6nSPAq",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -734,12 +753,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You send disturbing nightmares to your target. The next time the target falls asleep, it must attempt a Will save. If you know the target only by name and have never met them, the target gets a +4 circumstance bonus to the Will save.</p>\n<hr /><strong>Critical Success</strong> The target suffers no adverse effects and is temporarily immune for 1 week.\n<p><strong>Success</strong> The target experiences the nightmares but suffers no adverse effects other than unpleasant memories.</p>\n<p><strong>Failure</strong> The target experiences the nightmares and awakens @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<p><strong>Critical Failure</strong> The target experiences the nightmares, awakens @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}, and is @Compendium[pf2e.conditionitems.Drained]{Drained} 2 until it is no longer @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>"
+                    "value": "<p>You send disturbing nightmares to your target. The next time the target falls asleep, it must attempt a Will save. If you know the target only by name and have never met them, the target gets a +4 circumstance bonus to the Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target suffers no adverse effects and is temporarily immune for 1 week.</p>\n<p><strong>Success</strong> The target experiences the nightmares but suffers no adverse effects other than unpleasant memories.</p>\n<p><strong>Failure</strong> The target experiences the nightmares and awakens @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<p><strong>Critical Failure</strong> The target experiences the nightmares, awakens Fatigued, and is @Compendium[pf2e.conditionitems.Drained]{Drained 2} until it is no longer Fatigued.</p>"
                 },
                 "duration": {
                     "value": "1 day"
@@ -759,13 +778,16 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "planetary"
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -778,9 +800,15 @@
                 "school": {
                     "value": "illusion"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "nightmare",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=208"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -812,9 +840,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Nightmare"
+                }
+            },
             "img": "systems/pf2e/icons/spells/nightmare.webp",
-            "name": "Nightmare",
+            "name": "Nightmare (see Dream Haunting)",
             "sort": 500000,
             "type": "spell"
         },
@@ -991,6 +1023,125 @@
             "type": "action"
         },
         {
+            "_id": "VLiv4qZGZQQwseOU",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Regeneration 30, deactivated by Cold Iron</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "selected": {},
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.I0rXImZkJuGqmHnr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "NeICTOs6Sc1GRQcU",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "magic"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.yyARzCq3i2SQxTFI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 status to all saves vs. magic",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
             "_id": "xMc6TnmwsR72HZR7",
             "data": {
                 "actionCategory": {
@@ -1005,7 +1156,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A target that fails its save against the wendigo's <spells%208%%><i>nightmare</i> is exposed to wendigo torment.</spells%208%%></p>"
+                    "value": "<p>A target that fails its save against the wendigo's @Compendium[pf2e.spells-srd.Nightmare]{Nightmare} is exposed to wendigo torment.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1035,59 +1186,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Dream Haunting",
-            "sort": 900000,
-            "type": "action"
-        },
-        {
-            "_id": "MGsxRD5LMtjJqcz1",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.643
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Grab",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1100,12 +1201,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Frequency</strong> Three times per day; <strong>Effect</strong> The wendigo unleashes a forlorn howl that can be heard up to 1 mile away. Any creature that hears the howl must succeed at a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"38\" data-pf2-traits=\"auditory,concentrate,enchantment,fear,incapacitation,mental,primal\" data-pf2-label=\"Howl DC\" data-pf2-show-dc=\"gm\">Will</span> save or be frightened 1. Any creature that critically fails and is within 120 feet of the wendigo is instead frightened 3, and is also fleeing for 1d4 rounds (or until it's no longer frightened, whichever comes first). A creature frightened by a wendigo's howl still naturally recovers from its fright but can't reduce it below frightened 1 in this way until 1 hour has passed or magic is used. Whether it succeeds or fails its save, a creature is then temporarily immune to that wendigo's Howl for 24 hours.</p>"
+                    "value": "<p><strong>Frequency</strong> Three times per day;</p>\n<p><strong>Effect</strong> The wendigo unleashes a forlorn howl that can be heard up to 1 mile away. Any creature that hears the howl must succeed at a <span data-pf2-saving-throw=\"will\" data-pf2-traits=\"auditory, concentrate, enchantment, fear, incapacitation, mental, primal\" data-pf2-label=\"Howl DC\" data-pf2-dc=\"38\" data-pf2-show-dc=\"gm\">Will</span> save or be @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}. Any creature that critically fails and is within 120 feet of the wendigo is instead @Compendium[pf2e.conditionitems.Frightened]{Frightened 3}, and is also fleeing for [[/r 1d4]]{1d4 rounds} (or until it's no longer frightened, whichever comes first). A creature frightened by a wendigo's howl still naturally recovers from its fright but can't reduce it below frightened 1 in this way until 1 hour has passed or magic is used. Whether it succeeds or fails its save, a creature is then temporarily immune to that wendigo's Howl for 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1143,9 +1244,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Howl",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1163,7 +1264,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The wendigo casts <spells%376%%><i>wind walk</i> while it has Grabbed a foe. <strong>Effect</strong> The wendigo attempts to turn the grabbed creature into wind and carry it along as part of the action. If the target succeeds at a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"38\" data-pf2-traits=\"air,concentrate,primal,transmutation\" data-pf2-label=\"Ride the Wind DC\" data-pf2-show-dc=\"gm\">Will</span> save, it prevents itself from being transformed; in this case, the wendigo still transforms, automatically releasing the victim. A creature forced to Ride the Wind along with the wendigo is exposed to wendigo torment. The target can attempt a new Will save each round to return to normal, though it immediately becomes corporeal and begins falling if it succeeds.</spells%376%%></p>"
+                    "value": "<p><strong>Trigger</strong> The wendigo casts @Compendium[pf2e.spells-srd.Wind Walk]{Wind Walk} while it has Grabbed a foe.</p>\n<p><strong>Effect</strong> The wendigo attempts to turn the grabbed creature into wind and carry it along as part of the action. If the target succeeds at a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"38\" data-pf2-traits=\"air,concentrate,primal,transmutation\" data-pf2-label=\"Ride the Wind DC\" data-pf2-show-dc=\"gm\">Will</span> save, it prevents itself from being transformed; in this case, the wendigo still transforms, automatically releasing the victim. A creature forced to Ride the Wind along with the wendigo is exposed to wendigo torment. The target can attempt a new Will save each round to return to normal, though it immediately becomes corporeal and begins falling if it succeeds.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1198,13 +1299,67 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Ride the Wind",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "action"
         },
         {
-            "_id": "hVAcTBzqhXEsus66",
+            "_id": "lenb7f8O728YEnIr",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "qWBeJdRzUrGmE3Di",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1218,7 +1373,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A creature affected by wendigo torment can't recover beyond stage 1 until it has been restored to full HP. <strong>Saving Throw</strong> <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"38\" data-pf2-traits=\"curse,enchantment,mental,primal\" data-pf2-label=\"Wendigo Torment DC\" data-pf2-show-dc=\"gm\">Will</span>; <strong>Stage 1</strong> Stupefied 4 (1 day); <strong>Stage 2</strong> As stage 1 (1 day); <strong>Stage 3</strong> The creature searches for an individual of its own ancestry to kill and devour. It then becomes affected by <spells%376%%><i>wind walk</i> and sprints into the sky so fast that its feet burn away into jagged stumps. As the creature wind walks into the sky, it is replaced by a new wendigo over 2d6 minutes. Wish, similar magic, or a 9th-level resurrect ritual can return the victim to life. The new wendigo remains even if the victim is resurrected.</spells%376%%></p>"
+                    "value": "<p>A creature affected by wendigo torment can't recover beyond stage 1 until it has been restored to full HP.</p>\n<p><strong>Saving Throw</strong> <span data-pf2-saving-throw=\"will\" data-pf2-traits=\"curse, enchantment, mental, primal\" data-pf2-label=\"Wendigo Torment DC\" data-pf2-dc=\"38\" data-pf2-show-dc=\"gm\">Will</span>;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 4} (1 day);</p>\n<p><strong>Stage 2</strong> As stage 1 (1 day);</p>\n<p><strong>Stage 3</strong> The creature searches for an individual of its own ancestry to kill and devour. It then becomes affected by wind walk and sprints into the sky so fast that its feet burn away into jagged stumps. As the creature wind walks into the sky, it is replaced by a new wendigo over [[/r 2d6]]{2d6 minutes}. Wish, similar magic, or a 9th-level resurrect ritual can return the victim to life. The new wendigo remains even if the victim is resurrected.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1252,10 +1407,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.hVAcTBzqhXEsus66"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Wendigo Torment",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1296,7 +1455,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1337,7 +1496,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1500000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1378,7 +1537,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1600000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1419,7 +1578,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1700000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1460,7 +1619,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1800000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1501,7 +1660,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1900000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1542,7 +1701,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2000000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1583,7 +1742,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2100000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -1624,7 +1783,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2200000,
+            "sort": 2400000,
             "type": "lore"
         }
     ],
@@ -1634,7 +1793,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

@@ -332,10 +332,10 @@
             "type": "action"
         },
         {
-            "_id": "gcDRSgqZnRXQzfKJ",
+            "_id": "YW4QH2QsfjdJXFo8",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -346,7 +346,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Aluum enforcers are immune to spells and magical abilities, with two exceptions. A negative spell or magical ability grants an aluum enforcer the quickened condition until the end of its next turn instead of its normal effects. A positive spell or ability makes an aluum enforcer slowed 1 until the end of its next turn instead of its normal effects.</p>"
+                    "value": "<p>Aluum enforcers are immune to spells and magical abilities, with two exceptions. A negative spell or magical ability grants an aluum enforcer the @Compendium[pf2e.conditionitems.Quickened]{Quickened} condition until the end of its next turn instead of its normal effects. A positive spell or ability makes an a<span style=\"color: var(--body); font-size: 1em;\">luum enforcer </span><span style=\"color: var(--body); font-size: 1em;\">@Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of its next turn instead of its normal effects.</span></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -365,6 +365,7 @@
                     "rarity": {
                         "value": "common"
                     },
+                    "selected": {},
                     "value": []
                 },
                 "trigger": {
@@ -375,8 +376,12 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.r0yOc789JUXP2zpN"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Aluum Antimagic",
             "sort": 300000,
             "type": "action"
@@ -396,7 +401,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A creature damaged by the aluum enforcer's fist Strike must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"27\" data-pf2-traits=\"arcane,incapacitation,necromancy\" data-pf2-label=\"Paralyzing Force DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become paralyzed for 1 round. On a critical failure, the creature is paralyzed for 1d4 minutes and falls prone.</p>"
+                    "value": "<p>A creature damaged by the aluum enforcer's fist Strike must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"arcane, incapacitation, necromancy\" data-pf2-label=\"Paralyzing Force DC\" data-pf2-dc=\"27\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round. On a critical failure, the creature is paralyzed for [[/r 1d4]]{1d4 minutes} and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -430,7 +435,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Paralyzing Force",
             "sort": 400000,
             "type": "action"
@@ -445,12 +450,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The aluum enforcer emits a keening wail in a 15-foot cone that deals [[/r 9d6 # sonic damage]] sonic damage (<span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"27\" data-pf2-traits=\"arcane,auditory,evocation,mental,sonic,damaging-effect\" data-pf2-label=\"Soul Shriek DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save). A creature that fails its save is stunned 1, or stunned 3 on a critical failure. The aluum can't use Soul Shriek again for 1d4 rounds.</p>"
+                    "value": "<p>The aluum enforcer emits a keening wail in a 15-foot cone that deals [[/r 9d6 # sonic damage]]{9d6 sonic damage} (<span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"damaging-effect,arcane, auditory, evocation, mental, sonic\" data-pf2-label=\"Soul Shriek DC\" data-pf2-dc=\"27\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save). A creature that fails its save is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}, or @Compendium[pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure. The aluum can't use Soul Shriek again for [[/r 1d4]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -486,7 +491,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Soul Shriek",
             "sort": 500000,
             "type": "action"
@@ -539,7 +544,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

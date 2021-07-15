@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "-3",
+                "mod": -3,
                 "value": 4
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 38,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -102,7 +103,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "fly 30 feet"
+                "value": "fly 30"
             }
         },
         "details": {
@@ -243,24 +244,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "hyuFIZ7vGwnUVCpy",
+            "_id": "v7guzrbe63Vafy6V",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
                 "focus": {
                     "points": 1,
                     "pool": 1
-                },
-                "item": {
-                    "value": 0
                 },
                 "prepared": {
                     "value": "innate"
@@ -274,7 +272,7 @@
                     "version": 0.643
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -346,8 +344,7 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "40",
-                    "item": 0,
+                    "dc": 40,
                     "mod": 0,
                     "value": 30
                 },
@@ -364,19 +361,25 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Arcane Innate Spells",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Innate Arcane Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "5qU6pQcYQpv54Jwa",
+            "_id": "c9MqfKiwQSmueVyh",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": "40-foot emanation"
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -400,7 +403,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Your scream chills the souls of enemies that hear it. Each living enemy in the area takes 8d10 negative damage and must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target takes full damage.</p>\n<p><strong>Failure</strong> The target takes full damage and is @Compendium[pf2e.conditionitems.Drained]{Drained} 1d4.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is @Compendium[pf2e.conditionitems.Drained]{Drained} 4.</p>"
+                    "value": "<p>Your scream chills the souls of enemies that hear it. Each living enemy in the area takes 8d10 negative damage and must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes full damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Drained]{Drained} [[/r 1d4]].</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is @Compendium[pf2e.conditionitems.Drained]{Drained 4}.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -412,12 +415,15 @@
                     "value": 9
                 },
                 "location": {
-                    "value": "hyuFIZ7vGwnUVCpy"
+                    "value": "v7guzrbe63Vafy6V"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -426,7 +432,7 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "fortitude"
                 },
                 "scaling": {
                     "formula": "",
@@ -439,9 +445,15 @@
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "wail-of-the-banshee",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=361"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -450,7 +462,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "any number of creatures"
+                    "value": ""
                 },
                 "time": {
                     "value": "2"
@@ -475,20 +487,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.FEsuyf203wTNE2et"
+                }
+            },
             "img": "systems/pf2e/icons/spells/wail-of-the-banshee.webp",
             "name": "Wail of the Banshee",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "H8Xklbztew45Yb37",
+            "_id": "RYoLtsgze1fAwWNi",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -518,18 +540,21 @@
                     "value": "1 hour"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "value": 7
                 },
                 "location": {
-                    "value": "hyuFIZ7vGwnUVCpy"
+                    "value": "v7guzrbe63Vafy6V"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -551,9 +576,15 @@
                 "school": {
                     "value": "abjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "spell-turning",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=297"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -575,7 +606,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "abjuration"
@@ -584,24 +615,29 @@
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Spell Turning"
                 }
             },
             "img": "systems/pf2e/icons/spells/spell-turning.webp",
-            "name": "Spell Turning",
+            "name": "Spell Turning (at will)",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "LKTFBMGmzH0xa8D2",
+            "_id": "nfiNV1U3nPgjzaF0",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -631,18 +667,21 @@
                     "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "value": 6
                 },
                 "location": {
-                    "value": "hyuFIZ7vGwnUVCpy"
+                    "value": "v7guzrbe63Vafy6V"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -664,9 +703,15 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-seeing",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=344"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -700,20 +745,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.True Seeing"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
-            "name": "True Seeing",
+            "name": "True Seeing (constant)",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "kSzrqOYbsSQzPd2U",
+            "_id": "YXBEVLKcNnOrlfpi",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -737,7 +792,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You blink quickly between the Material Plane and the Ethereal Plane. You gain resistance 5 to all damage (except force). You can Sustain the Spell to vanish and reappear 10 feet away in a random direction determined by the GM; the movement doesn't trigger reactions. At the end of your turn, you vanish and reappear as above.</p>\n<hr />\n<p><strong>Heightened</strong> The resistance increases by 3.</p>"
+                    "value": "<p>You blink quickly between the Material Plane and the Ethereal Plane. You gain resistance 5 to all damage (except force). You can Sustain the Spell to vanish and reappear 10 feet away in a random direction determined by the GM; the movement doesn't trigger reactions. At the end of your turn, you vanish and reappear as above.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The resistance increases by 3.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -749,12 +804,15 @@
                     "value": 4
                 },
                 "location": {
-                    "value": "hyuFIZ7vGwnUVCpy"
+                    "value": "v7guzrbe63Vafy6V"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -776,9 +834,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "blink",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=27"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -810,20 +874,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Blink"
+                }
+            },
             "img": "systems/pf2e/icons/spells/blink.webp",
-            "name": "Blink",
+            "name": "Blink (at will)",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "86vlfqmUiKsEaNTa",
+            "_id": "7b01NTGXWZaGyMxu",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -847,7 +921,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -859,12 +933,15 @@
                     "value": 4
                 },
                 "location": {
-                    "value": "hyuFIZ7vGwnUVCpy"
+                    "value": "v7guzrbe63Vafy6V"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -886,9 +963,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimension-door",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -920,20 +1003,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Dimension Door"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
-            "name": "Dimension Door",
+            "name": "Dimension Door (at will)",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "31WXpDIk590sggU9",
+            "_id": "1w97sRp2qL8O9QAG",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -952,7 +1045,7 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "force"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
@@ -969,12 +1062,15 @@
                     "value": 4
                 },
                 "location": {
-                    "value": "hyuFIZ7vGwnUVCpy"
+                    "value": "v7guzrbe63Vafy6V"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -996,9 +1092,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "telekinetic-maneuver",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=333"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "attack"
@@ -1031,20 +1133,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.mrDi3v933gsmnw25"
+                }
+            },
             "img": "systems/pf2e/icons/spells/telekinetic-maneuver.webp",
-            "name": "Telekinetic Maneuver",
+            "name": "Telekinetic Maneuver (at will)",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "rd20bZgtk7QP3iZJ",
+            "_id": "eWB2xUwpCmIFlL7W",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -1068,7 +1180,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
+                    "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
                 },
                 "duration": {
                     "value": "sustained"
@@ -1080,12 +1192,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "hyuFIZ7vGwnUVCpy"
+                    "value": "v7guzrbe63Vafy6V"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1107,9 +1222,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "mage-hand",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=177"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1141,20 +1262,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.pwzdSlJgYqN7bs2w"
+                }
+            },
             "img": "systems/pf2e/icons/spells/mage-hand.webp",
-            "name": "Mage Hand - Cantrips",
+            "name": "Mage Hand",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "Yj87FJRWNVn3vLor",
+            "_id": "IUt0Zf2MRWGlsNYn",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -1178,7 +1309,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack attack against the target. If you hit, you deal bludgeoning, piercing, or slashing damage-as appropriate for the object you hurled-equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr /><strong>Critical Success</strong> You deal double damage.\n<p><strong>Success</strong> You deal full damage.</p>\n<hr /><strong>Heightened</strong> The damage increases by 1d6."
+                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack roll against the target. If you hit, you deal bludgeoning, piercing, or slashing damage-as appropriate for the object you hurled-equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr />\n<p><strong>Critical Success</strong> You deal double damage.</p>\n<p><strong>Success</strong> You deal full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1190,12 +1321,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "hyuFIZ7vGwnUVCpy"
+                    "value": "v7guzrbe63Vafy6V"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1217,9 +1351,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "telekinetic-projectile",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=334"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "attack"
@@ -1252,14 +1392,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.60sgbuMWN0268dB7"
+                }
+            },
             "img": "systems/pf2e/icons/spells/telekinetic-projectile.webp",
-            "name": "Telekinetic Projectile - Cantrips",
+            "name": "Telekinetic Projectile",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "Y6DM4uEhMnWefIhr",
+            "_id": "onMcLaRraEpqqiXX",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -1277,7 +1421,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(2)</p>"
+                    "value": "<p><span>This glowing gem is harvested from a demilich and has an 8th-level spell magically bonded to it. This item has the traits of the spell it contains.<br /></span></p>\n<p><strong>Activate</strong> command, Interact; <strong>Frequency</strong> once per day; <strong>Effect</strong> The gem casts the 8th-level spell it contains. This activation uses the same number of actions as Casting the Spell. Once the spell is cast, the gem's glow fades, but returns 24 hours later, when the spell can be used once again.</p>\n<hr />\n<p><span><strong>Craft Requirements</strong> <em>Demilich eye gems</em> can't be crafted.</span></p>"
                 },
                 "equipped": {
                     "value": false
@@ -1300,21 +1444,21 @@
                                 "value": ""
                             }
                         },
-                        "img": "",
-                        "name": ""
+                        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+                        "name": "Unusual Object"
                     }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 15
                 },
                 "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
-                    "value": "0"
+                    "value": ""
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -1323,10 +1467,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "3000 gp"
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 2
                 },
                 "rules": [],
                 "schema": {
@@ -1336,7 +1480,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "demilich-eye-gem",
                 "source": {
                     "value": ""
                 },
@@ -1346,21 +1490,30 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "rare"
                     },
-                    "value": []
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
+                    "value": [
+                        "arcane"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "demilich eye gem (2)",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Q4o8pEdxSY0bnJQZ"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/held-items/demilich-eye-gem.webp",
+            "name": "Demilich Eye Gem",
             "sort": 1000000,
             "type": "equipment"
         },
@@ -1467,9 +1620,117 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Torpor",
             "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "PyV76Bd9ij8asav5",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "RBeSeiEMj2n4frBr",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Constant Spells",
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1487,7 +1748,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>20 feet. Telekinetic whirlwind activates when the demilich ends torpor. Loose debris in the area whip up into a whirling storm. This obscures vision, making any creature in the area concealed, and causes creatures in its area (except the demilich) to treat all creatures as concealed. Any creature other than the demilich that enters or begins its turn in the aura takes [[/r 2d12 # bludgeoning damage]] bludgeoning damage.</p>"
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 20 feet.</p>\n<p>Telekinetic whirlwind activates when the demilich ends torpor. Loose debris in the area whip up into a whirling storm. This obscures vision, making any creature in the area concealed, and causes creatures in its area (except the demilich) to treat all creatures as concealed. Any creature other than the demilich that enters or begins its turn in the aura takes [[/r 2d12 # bludgeoning damage]] bludgeoning damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1521,9 +1782,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telekinetic Whirlwind",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1541,7 +1802,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A demilich has one permanent 8th-level @Compendium[pf2e.spells-srd.Contingency]{Contingency} spell in effect with one of its arcane innate spells of 5th level or lower as the companion spell- typically @Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door}. <strong>Trigger</strong> While the lich is in torpor, a creature disturbs the demilich's remains, touches its treasure, or casts a spell that would affect the demilich. <strong>Effect</strong> The demilich ends torpor, rolls initiative, and gains the effect of its @Compendium[pf2e.spells-srd.Contingency]{Contingency's} companion spell. The @Compendium[pf2e.spells-srd.Contingency]{Contingency} resets after 24 hours.</p>"
+                    "value": "<p>A demilich has one permanent 8th-level @Compendium[pf2e.spells-srd.Contingency]{Contingency} spell in effect with one of its arcane innate spells of 5th level or lower as the companion spell- typically @Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door}.</p>\n<p><strong>Trigger</strong> While the lich is in torpor, a creature disturbs the demilich's remains, touches its treasure, or casts a spell that would affect the demilich.</p>\n<p><strong>Effect</strong> The demilich ends torpor, rolls initiative, and gains the effect of its contingency's companion spell. The contingency resets after 24 hours.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1571,9 +1832,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Contingency",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1621,9 +1882,73 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Countermeasures",
-            "sort": 1500000,
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "eMmLTdJ0GIK8jCNn",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "positive"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.yyARzCq3i2SQxTFI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 status to all saves vs. positive",
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1675,7 +2000,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Demilich Eye Gems",
-            "sort": 1600000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -1688,12 +2013,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> A soul has been trapped in one of the demilich's blight quartz gems (see Trap Soul) for 24 hours. <strong>Effect</strong> The demilich consumes the soul. The soul is utterly destroyed, and the demilich regains HP equal to double the creature's level.</p>"
+                    "value": "<p><strong>Requirements</strong> A soul has been trapped in one of the demilich's blight quartz gems (see Trap Soul) for 24 hours.</p>\n<p><strong>Effect</strong> The demilich consumes the soul. The soul is utterly destroyed, and the demilich regains HP equal to double the creature's level.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1727,9 +2052,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Devour Soul",
-            "sort": 1700000,
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -1779,7 +2104,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Mental Magic",
-            "sort": 1800000,
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -1829,7 +2154,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Staff Gems",
-            "sort": 1900000,
+            "sort": 2200000,
             "type": "action"
         },
         {
@@ -1842,12 +2167,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>command <strong>Frequency</strong> once per day per gem; <strong>Effect</strong> Ten blight quartz gemstones on the demilich's skull can trap the souls of the living. The Activated gem casts @Compendium[pf2e.spells-srd.Bind Soul]{Bind Soul}. This bind soul can target and affect a dying creature instead of a corpse. The dying creature can attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"38\" data-pf2-label=\"Trap Soul DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save; if it succeeds, it doesn't die and its soul is not trapped but it's enervated 2 (or is unaffected entirely on a critical success). When the soul of a creature gets trapped, the creature's body swiftly turns to dust.<br /> The gemstones work like the black sapphires used in bind soul, except that they can hold creatures of up to 17th level and have a value of 200 gp apiece. The demilich can Devour a Soul it has trapped.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day per gem;</p>\n<p><strong>Effect</strong> Ten blight quartz gemstones on the demilich's skull can trap the souls of the living. The Activated gem casts @Compendium[pf2e.spells-srd.Bind Soul]{Bind Soul}. This bind soul can target and affect a dying creature instead of a corpse. The dying creature can attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"38\" data-pf2-label=\"Trap Soul DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save; if it succeeds, it doesn't die and its soul is not trapped but it's @Compendium[pf2e.conditionitems.Drained]{Drained 2} (or is unaffected entirely on a critical success). When the soul of a creature gets trapped, the creature's body swiftly turns to dust.</p>\n<p>The gemstones work like the black sapphires used in bind soul, except that they can hold creatures of up to 17th level and have a value of 200 gp apiece. The demilich can Devour a Soul it has trapped.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1877,9 +2202,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Trap Soul",
-            "sort": 2000000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -1920,7 +2245,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2100000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -1961,7 +2286,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2200000,
+            "sort": 2500000,
             "type": "lore"
         },
         {
@@ -2002,7 +2327,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2300000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -2043,7 +2368,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 2400000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -2084,7 +2409,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2500000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -2125,7 +2450,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2600000,
+            "sort": 2900000,
             "type": "lore"
         }
     ],
@@ -2135,7 +2460,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

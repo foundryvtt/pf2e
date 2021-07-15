@@ -101,12 +101,7 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [
-                    {
-                        "type": "Fly",
-                        "value": "air walk"
-                    }
-                ],
+                "otherSpeeds": [],
                 "value": "50 feet"
             }
         },
@@ -236,6 +231,9 @@
             "data": {
                 "ability": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "chat": "",
@@ -368,6 +366,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
@@ -477,6 +478,9 @@
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -590,6 +594,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
@@ -692,13 +699,19 @@
             "type": "spell"
         },
         {
-            "_id": "GlJdFav8TszPKUz3",
+            "_id": "iQ1i6n4rnI24CydX",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -717,12 +730,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You block the target's motor impulses before they can leave its mind, threatening to freeze the target in place. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 4 rounds. At the end of each of its turns, it can attempt a new Will save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>\n<hr />\n<p><strong>Heightened</strong> You can target up to 10 creatures.</p>"
+                    "value": "<p>You block the target's motor impulses before they can leave its mind, threatening to freeze the target in place. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target is Paralyzed for 4 rounds. At the end of each of its turns, it can attempt a new Will save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -740,6 +753,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -761,9 +777,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "paralyze",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=213"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -778,9 +800,10 @@
                     "value": "2"
                 },
                 "traditions": {
+                    "custom": "",
                     "value": [
                         "arcane",
-                        "primal"
+                        "occult"
                     ]
                 },
                 "traits": {
@@ -796,10 +819,143 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.DCQHaLrYXMI37dvW"
+                }
+            },
             "img": "systems/pf2e/icons/spells/paralyze.webp",
             "name": "Paralyze",
             "sort": 500000,
+            "type": "spell"
+        },
+        {
+            "_id": "saWudGVJpcxDLdAi",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The target can walk on air as if it were solid ground. It can ascend and descend in this way at a maximum of a 45-degree angle.</p>"
+                },
+                "duration": {
+                    "value": "5 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "Fj81D52uCvQB3Zp7"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "touch"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "school": {
+                    "value": "transmutation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "air-walk",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "air",
+                        "transmutation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.b5sGjGlBf58f8jn0"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/air-walk.webp",
+            "name": "Air Walk (constant)",
+            "sort": 600000,
             "type": "spell"
         },
         {
@@ -810,6 +966,9 @@
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -909,17 +1068,23 @@
             "flags": {},
             "img": "systems/pf2e/icons/spells/death-knell.webp",
             "name": "Death Knell",
-            "sort": 600000,
+            "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "iSiU3YWY5NH3YrYk",
+            "_id": "lh56yMH1hMP7dAdb",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -938,12 +1103,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 3 and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr /><strong>Heightened</strong> You can target up to five creatures."
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -961,6 +1126,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -982,9 +1150,15 @@
                 "school": {
                     "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fear",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=110"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -1020,10 +1194,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
+                }
+            },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
-            "sort": 700000,
+            "sort": 800000,
             "type": "spell"
         },
         {
@@ -1034,6 +1212,9 @@
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -1131,18 +1312,24 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/invisibility.webp",
-            "name": "Invisibility",
-            "sort": 800000,
+            "name": "Invisibility (at will)",
+            "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "uC9j2U0L2y5hw4C3",
+            "_id": "DTvVrf7bRdJTcmDh",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -1158,7 +1345,7 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "2d4"
+                    "value": "8d4"
                 },
                 "damageType": {
                     "value": "mental"
@@ -1166,7 +1353,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and 1d4 persistent mental damage. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target takes full initial damage but no @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1. If the target recovers from being @Compendium[pf2e.conditionitems.Sickened]{Sickened}, the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened} 2.</p>\n<hr /><strong>Heightened</strong> The damage increases by 2d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} by 1d4."
+                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and 1d4 persistent mental damage. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes full initial damage but no @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and Persistent Damage, and the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. If the target recovers from being Sickened, the Persistent Damage ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d4 and the Persistent Damage by 1d4.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1186,17 +1373,20 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "2d4",
+                    "mode": "level1"
                 },
                 "schema": {
                     "lastMigration": null,
@@ -1205,9 +1395,15 @@
                 "school": {
                     "value": "illusion"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "phantom-pain",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=220"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -1239,20 +1435,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.R8bqnYiThB6MYTxD"
+                }
+            },
             "img": "systems/pf2e/icons/spells/phantom-pain.webp",
-            "name": "Phantom Pain",
-            "sort": 900000,
+            "name": "Phantom Pain (at will)",
+            "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "Z7WnaBjPvPFzZhYC",
+            "_id": "V4Ouzuug2Us0Ngl3",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
+                    "areaType": "emanation",
+                    "value": "30"
+                },
+                "areasize": {
+                    "value": "30-foot emanation"
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -1271,21 +1477,21 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the fleeing condition), release what it's holding, drop @Compendium[pf2e.conditionitems.Prone]{Prone}, or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><strong>Heightened</strong> You can target up to 10 creatures."
+                    "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You learn each aura's location and strength.</p>"
                 },
                 "duration": {
-                    "value": "until the end of the target's next turn"
+                    "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
                 "level": {
-                    "value": 2
+                    "value": 1
                 },
                 "location": {
                     "value": "Fj81D52uCvQB3Zp7"
@@ -1296,8 +1502,11 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "30 feet"
+                    "value": ""
                 },
                 "rules": [],
                 "save": {
@@ -1313,27 +1522,32 @@
                     "version": 0.643
                 },
                 "school": {
-                    "value": "enchantment"
+                    "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "detect-alignment",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=45"
+                    "value": ""
                 },
                 "spellType": {
-                    "value": "save"
+                    "value": "utility"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature"
+                    "value": ""
                 },
                 "time": {
                     "value": "2"
                 },
                 "traditions": {
                     "value": [
-                        "arcane",
                         "divine",
                         "occult"
                     ]
@@ -1341,21 +1555,23 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
-                        "auditory",
-                        "enchantment",
-                        "linguistic",
-                        "mental"
+                        "detection",
+                        "divination"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/command.webp",
-            "name": "Command",
-            "sort": 1000000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.QnTtGCAvdWRU4spv"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/detect-alignment.webp",
+            "name": "Detect Alignment (constant, good only)",
+            "sort": 1100000,
             "type": "spell"
         },
         {
@@ -1411,8 +1627,170 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Chained Dagger",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "melee"
+        },
+        {
+            "_id": "j7hDiUXLpry6mkqN",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "vevNfOyFN6QRJtR2",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "U6Wwg69lSYJAW46L",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Constant Spells",
+            "sort": 1500000,
+            "type": "action"
         },
         {
             "_id": "DDzd3ocX0kkjYD9e",
@@ -1434,7 +1812,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "adjustment": {
+                            "criticalFailure": "one-degree-better",
+                            "criticalSuccess": "one-degree-better",
+                            "failure": "one-degree-better",
+                            "success": "one-degree-better"
+                        },
+                        "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                        "predicate": {
+                            "all": [
+                                "trap"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "skill"
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.643
@@ -1459,9 +1854,73 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Trap Dodger",
-            "sort": 1200000,
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "9APnpN5PuTxG8v98",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "magic"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.yyARzCq3i2SQxTFI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 status to all saves vs. magic",
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -1513,7 +1972,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Daemonic Trap Making",
-            "sort": 1300000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -1563,7 +2022,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Flurry of Daggers",
-            "sort": 1400000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -1613,7 +2072,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Manifest Dagger",
-            "sort": 1500000,
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -1654,7 +2113,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1600000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1695,7 +2154,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 1700000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -1736,7 +2195,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1800000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -1777,7 +2236,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1900000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -1818,7 +2277,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2000000,
+            "sort": 2500000,
             "type": "lore"
         },
         {
@@ -1859,7 +2318,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2100000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -1900,7 +2359,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 2200000,
+            "sort": 2700000,
             "type": "lore"
         }
     ],
@@ -1910,7 +2369,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
