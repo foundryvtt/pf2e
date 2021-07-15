@@ -1,14 +1,15 @@
 <div class="check-modifiers-content">
   <div class="dialog-row header">
-    <span class="type">Type</span>
-    <span class="mod">Modifier</span>
+    <span class="type">{{localize 'PF2E.Roll.Type'}}</span>
+    <span class="mod">{{localize 'PF2E.Roll.Modifier'}}</span>
     <span class="exclude"></span>
   </div>
   <hr/>
   <div class="modifier-container">
     {{#each check.modifiers as |modifier idx|}}
     <div class="dialog-row {{#unless modifier.enabled}}modifier-enabled{{/unless}}">
-      <span class="type tag">{{modifier.type}}</span>
+        {{log modifier}}
+      <span class="type tag">{{localize (concat 'PF2E.ModifierType.'  modifier.type)}}</span>
       {{#if modifier.label}}
       <span class="mod">{{localize modifier.label}}</span>
       {{else}}
@@ -30,27 +31,27 @@
         <option value="circumstance" selected>{{localize 'PF2E.ModifierType.circumstance'}}</option>
         <option value="item">{{localize 'PF2E.ModifierType.item'}}</option>
         <option value="status">{{localize 'PF2E.ModifierType.status'}}</option>
-        <option value="untyped">Untyped (Penalty)</option>
+        <option value="untyped">{{localize 'PF2E.Roll.UntypedPenalty)'}}</option>
         <option value="ability">{{localize 'PF2E.ModifierType.ability'}}</option>
         <option value="proficiency">{{localize 'PF2E.ModifierType.proficiency'}}</option>
       </select>
       <input type="text" class="add-modifier-value" placeholder="+1">
-      <button class="add-modifier">+Add</button>
+      <button class="add-modifier">+{{localize 'PF2E.Roll.Add'}}</button>
   </div>
   <hr/>
 
   <div class="fate">
       <label>
           <input type="radio" name="fate" value="fortune" {{checked fortune}} />
-          Fortune
+          {{localize 'PF2E.Roll.Fortune'}}
     </label>
     <label>
       <input type="radio" name="fate" value="none" {{checked none}} />
-      None
+        {{localize 'PF2E.Roll.None'}}
     </label>
     <label>
       <input type="radio" name="fate" value="misfortune" {{checked misfortune}} />
-      Misfortune
+        {{localize 'PF2E.Roll.Misfortune'}}
     </label>
   </div>
   <hr/>
@@ -67,7 +68,7 @@
   </div>
   <hr/>
 
-  <button type="button" class="roll">Roll ({{numberFormat check.totalModifier decimals=0 sign=true}})</button>
+  <button type="button" class="roll">{{localize 'PF2E.Roll.Roll'}} ({{numberFormat check.totalModifier decimals=0 sign=true}})</button>
 
   <!-- Settings Menu -->
   <div class="hover-content" id="{{appId}}-settings">

@@ -63,10 +63,10 @@ export class DicePF2e {
             let flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             if (adv === 1) {
                 rollParts[0] = ['2d20kh'];
-                flav = `${title} (Fortune)`;
+                flav = `${title} (${game.i18n.format('PF2E.Roll.Fortune')})`;
             } else if (adv === -1) {
                 rollParts[0] = ['2d20kl'];
-                flav = `${title} (Misfortune)`;
+                flav = `${title} (${game.i18n.format('PF2E.Roll.Misfortune')})`;
             }
 
             // Don't include situational bonuses unless they are defined
@@ -137,25 +137,25 @@ export class DicePF2e {
                         content,
                         buttons: {
                             advantage: {
-                                label: 'Fortune',
+                                label: game.i18n.format('PF2E.Roll.Fortune'),
                                 callback: (html) => {
                                     roll = _roll(parts, 1, html);
                                 },
                             },
                             normal: {
-                                label: 'Normal',
+                                label: game.i18n.format('PF2E.Roll.Normal'),
                                 callback: (html) => {
                                     roll = _roll(parts, 0, html);
                                 },
                             },
                             disadvantage: {
-                                label: 'Misfortune',
+                                label: game.i18n.format('PF2E.Roll.Misfortune'),
                                 callback: (html) => {
                                     roll = _roll(parts, -1, html);
                                 },
                             },
                         },
-                        default: 'normal',
+                        default: game.i18n.format('PF2E.Roll.Normal'),
                         close: (html) => {
                             if (onClose) onClose(html, parts, data);
                             resolve(roll);
@@ -308,19 +308,21 @@ export class DicePF2e {
                         buttons: {
                             critical: {
                                 condition: critical,
-                                label: 'Critical Hit',
+                                label: game.i18n.format('PF2E.Roll.CriticalHit'),
                                 callback: (html) => {
                                     roll = _roll(parts, true, html);
                                 },
                             },
                             normal: {
-                                label: critical ? 'Normal' : 'Roll',
+                                label: critical
+                                    ? game.i18n.format('PF2E.Roll.Normal')
+                                    : game.i18n.format('PF2E.Roll.Roll'),
                                 callback: (html) => {
                                     roll = _roll(parts, false, html);
                                 },
                             },
                         },
-                        default: 'normal',
+                        default: game.i18n.format('PF2E.Roll.Normal'),
                         close: (html) => {
                             if (onClose) onClose(html, parts, data);
                             resolve(rolled ? roll : false);

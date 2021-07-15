@@ -135,4 +135,8 @@ export function registerHandlebarsHelpers() {
 
         return null;
     });
+
+    Handlebars.registerHelper('concat', function (arg1: string, arg2: string) {
+        return arg1 + arg2;
+    });
 }
