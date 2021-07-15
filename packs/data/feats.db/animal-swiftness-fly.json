@@ -1,5 +1,5 @@
 {
-    "_id": "CnKc1kBejFV5gWtN",
+    "_id": "LIEbgqgSXkGIli8u",
     "data": {
         "actionCategory": {
             "value": ""
@@ -13,13 +13,13 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your animalistic connections help you resist natural afflictions. You gain a +2 circumstance bonus to saves to resist diseases and poisons.</p>"
+            "value": "<p>You move like an animal. Your Speed increases by 5 feet.</p>\n<p>In addition, you gain one of the following Speeds available to your inherent animal: climb, fly, or swim. You gain this Speed only while in your hybrid shape. The new movement is as fast as your standard Speed; for example, if you have a 30-foot Speed, you can gain a 30-foot climb Speed.</p>\n<p>If your inherent animal doesn’t typically have a specific type of Speed, you can’t gain it with this feat. If your inherent animal doesn’t typically have a climb, fly, or swim Speed, your Speed increases by 10 feet instead.</p>"
         },
         "featType": {
             "value": "ancestry"
         },
         "level": {
-            "value": 5
+            "value": 17
         },
         "location": "",
         "prerequisites": {
@@ -28,16 +28,13 @@
         "rules": [
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Animalistic Resistance (vs. disease and poison)",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "poison"
-                    ]
-                },
-                "selector": "saving-throw",
-                "type": "circumstance",
-                "value": 2
+                "selector": "speed",
+                "value": 5
+            },
+            {
+                "key": "PF2E.RuleElement.BaseSpeed",
+                "selector": "fly",
+                "value": "@attributes.speed.value"
             }
         ],
         "schema": {
@@ -60,6 +57,6 @@
     "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Animalistic Resistance",
+    "name": "Animal Swiftness (Fly)",
     "type": "feat"
 }
