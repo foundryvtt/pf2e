@@ -8,10 +8,10 @@ import { ItemPF2e } from '@item';
  * @category RuleElement
  */
 export class PF2SetPropertyRuleElement extends RuleElementPF2e {
-    /** Apply this rule element before all others given default priorities */
+    /** Apply this rule element before all others */
     constructor(data: RuleElementConstructionData, item: Embedded<ItemPF2e>) {
-        data.priority ??= 9;
         super(data, item);
+        this.data.priority = 9;
     }
 
     override onCreate(actorData: CharacterData | NPCData | FamiliarData, _item: ItemDataPF2e, actorUpdates: any) {

@@ -50,7 +50,7 @@ export abstract class RuleElementPF2e {
     constructor(data: RuleElementConstructionData, public item: Embedded<ItemPF2e>) {
         this.data = {
             ...data,
-            priority: data.priority ?? 100,
+            priority: 100,
             label: game.i18n.localize(data.label ?? item.name),
             ignored: false,
         };
