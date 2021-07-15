@@ -158,13 +158,14 @@ export class CheckModifiersDialog extends Application {
             const showResults = game.settings.get('pf2e', 'metagame.showResults').toString();
             flavor += `<div data-visibility="${ctx.dc.visibility ?? showDC}"><b>${dcLabel}</b></div>`;
             //add (hit/miss by x) message
+            const byText = game.i18n.localize('PF2E.ByText');
             const succeedBy = roll.total - ctx.dc.value;
             flavor += `<div data-visibility="${
                 ctx.dc.visibility ?? showResults
             }" class="degree-of-success"><b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel} `;
             flavor += `<span data-visibility="${
                 ctx.dc.visibility ?? showDC
-            }">by ${succeedBy}</span></span></b>${adjustmentLabel}`;
+            }">${byText} ${succeedBy}</span></span></b>${adjustmentLabel}`;
             flavor += '</div>';
         }
 
