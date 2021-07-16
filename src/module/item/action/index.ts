@@ -17,7 +17,7 @@ export class ActionPF2e extends ItemPF2e {
         return data;
     }
 
-    override getChatData(this: Embedded<ActionPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+    override getChatData(this: Embedded<ActionPF2e>, htmlOptions: EnrichHTMLOptions = {}): Record<string, unknown> {
         const data = this.data.data;
         const associatedWeapon = this.actor?.items.get(data.weapon.value) ?? null;
 
