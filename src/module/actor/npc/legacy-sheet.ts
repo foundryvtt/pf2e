@@ -398,7 +398,6 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
             }
 
             const attackEffect = item.data.data.attackEffects.value[aId];
-            console.log('PF2e System | clicked an attackEffect:', attackEffect, event);
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (event.target.dataset.action) {

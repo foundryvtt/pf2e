@@ -290,41 +290,13 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (ev.target.dataset.action) {
-                case 'weaponAttack':
-                    item.rollWeaponAttack(ev);
-                    break;
-                case 'weaponAttack2':
-                    item.rollWeaponAttack(ev, 2);
-                    break;
-                case 'weaponAttack3':
-                    item.rollWeaponAttack(ev, 3);
-                    break;
-                case 'weaponDamage':
-                    item.rollWeaponDamage(ev);
-                    break;
-                case 'weaponDamageCritical':
-                    item.rollWeaponDamage(ev, true);
-                    break;
-                case 'npcAttack':
-                    item.rollNPCAttack(ev);
-                    break;
-                case 'npcAttack2':
-                    item.rollNPCAttack(ev, 2);
-                    break;
-                case 'npcAttack3':
-                    item.rollNPCAttack(ev, 3);
-                    break;
-                case 'npcDamage':
-                    item.rollNPCDamage(ev);
-                    break;
-                case 'npcDamageCritical':
-                    item.rollNPCDamage(ev, true);
-                    break;
                 case 'spellAttack':
                     item.rollSpellAttack(ev);
                     break;
                 case 'spellDamage':
                     item.rollSpellDamage(ev);
+                    break;
+                case 'npcAttackEffect':
                     break;
                 case 'consume':
                     if (item instanceof ConsumablePF2e) item.consume();

@@ -294,71 +294,60 @@
       </span>
     </div>
 
-    <ol class="actions-list inventory-list directory-list item-list">
-      {{#each actor.attacks as |section sid|}}
-        <li class="list-row inventory-header sub-category spellbook-header attack-header">
-            <h3 class="item-name pf-sub-category pf-actions">{{section.label}}</h3>
-            {{#if ../owner}}
-            <div class="item-controls">
-                <a class="item-control item-create" title="{{localize "PF2E.CreateAttackTitle"}}" data-type="{{section.type}}" data-action-type="{{sid}}"><i class="fas fa-plus"></i>{{localize "PF2E.AddShortLabel"}}</a>
-            </div>
-            {{/if}}
+    <ol class="inventory-list toggles-list item-list">
+        <li class="action-header">
+          <h3 class="pf-heading pf-actions">Toggles</h3>
         </li>
-        {{#each section.items as |item iid|}}
-        <li class="list-row item" data-item-id="{{item._id}}">
-            <div class="melee-name rollable">
-                <div class="item-image" style="background-image: url({{item.img}})"></div>
-                <h4>
-                  {{localize section.prefix}}
-                  <span class="strike">{{item.name}}</span>
-                </h4>
-                <div class="melee-buttons">
-                  {{#if item.traits}}
-                    {{#each item.traits as |trait tid|}}
-                      {{#if trait.description}}
-                        <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
-                      {{else}}
-                        <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
-                      {{/if}}
-                    {{/each}}
-                  {{/if}}
-                  <span class="tag"><button data-action="npcAttack" >{{localize "PF2E.WeaponStrikeLabel"}} (+
-                        {{#if @root.notAdjusted}}
-                                {{item.data.bonus.total}}
-                        {{else}}
-                            {{#if @root.npcEliteActive}}{{add item.data.bonus.total 2}}{{/if}}
-                            {{#if @root.npcWeakActive}}{{add item.data.bonus.total -2}}{{/if}}
-                        {{/if}}
-                    )
-                    </button></span>
-                    <span class="tag"><button data-action="npcAttack2" >{{#unless item.data.isAgile}}-5{{else}}-4{{/unless}}</button></span>
-                    <span class="tag"><button data-action="npcAttack3" >{{#unless item.data.isAgile}}-10{{else}}-8{{/unless}}</button></span>
-                        <span class="tag">
-                          <button data-action="npcDamage">
-                            {{localize "PF2E.DamageLabel"}} (
-                            {{#if item.data.damageRolls}}
-                              {{#each item.data.damageRolls as |dmg index|}}
-                                {{dmg.damage}}{{#if @first}}{{#if @root.npcEliteActive}}+2{{/if}}{{#if @root.npcWeakActive}}-2{{/if}}{{/if}} {{dmg.damageType}}
-                              {{/each}}
-                            {{/if}}
-                            )
-                          </button>
-                        </span>
-                        <span class="tag"><button data-action="npcDamageCritical">{{localize "PF2E.CriticalDamageLabel"}}</button></span>
-                    {{#if_all item.data item.data.attackEffects item.data.attackEffects.value}}
+        <li class="actions-options item-list">
+          {{#each data.toggles.actions as |toggle idx|}}
+          <div class="actions-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+            <label>
+              <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}}>
+              <span>{{localize toggle.label}}</span>
+            </label>
+          </div>
+          {{/each}}
+        </li>
+      </ol>
+
+      <ol class="actions-list inventory-list directory-list strikes-list item-list">
+        <li class="list-row action-header">
+          <h3 class="pf-heading pf-actions">{{localize 'PF2E.StrikesLabel'}}</h3>
+        </li>
+        {{#each actor.data.actions as |action ai|}}
+        <li class="list-row item expandable" data-action-index="{{ai}}" data-item-id="{{action.sourceId}}">
+          <div class="melee-name rollable">
+            <div class="item-image" style="background-image: url({{action.imageUrl}})"></div>
+            <h4>
+              {{localize action.attackRollType}}
+              <span class="strike">{{action.name}} <span class="activity-icon">{{action.glyph}}</span></span>
+            </h4>
+            <div class="melee-buttons">
+              {{#each action.traits as |trait ti|}}
+              <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
+              {{/each}}
+              {{#each action.variants as |variant vi|}}
+              <span class="tag"><button type="button" class="tag variant-strike" {{#if (eq vi 0) }}title="{{action.breakdown}}"{{/if}} data-variant-index="{{vi}}">{{variant.label}}</button></span>
+              {{/each}}
+              <span class="tag"><button type="button" class="tag damage-strike">{{action.damageBreakdown}}</button></span>
+              <span class="tag"><button type="button" class="tag critical-strike">{{localize 'Critical'}}</button></span>
+              {{#each @root.actor.attacks as |attackType aid|}}
+                {{#each attackType.items as |item iid|}}
+                    {{#if (eq item._id action.sourceId)}}
                         {{#each item.data.attackEffects.value as |attackEffect aID|}}
                             <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{attackEffect}}</button></span>
                         {{/each}}
-                    {{/if_all}}
-                    {{#if_all item.data item.data.attackEffects item.data.attackEffects.custom}}
-                      <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{item.data.attackEffects.custom}}</button></span>
-                    {{/if_all}}
-                </div>
+                        {{#if item.data.attackEffects.custom}}
+                            <span class="tag"><button class="npc-attackEffect" data-attackEffect="{{aID}}" data-action="npcAttackEffect">Plus {{item.data.attackEffects.custom}}</button></span>
+                        {{/if}}
+                    {{/if}}
+                {{/each}}
+            {{/each}}
             </div>
+          </div>
         </li>
         {{/each}}
-      {{/each}}
-    </ol>
+      </ol>
 
     <ol class="actions-list inventory-list directory-list item-list">
       {{#each actor.reorgActions.offensive.actions as |section sid|}}
@@ -386,56 +375,13 @@
      {{/each}}
     </ol>
 
-    <ol class="inventory-list toggles-list item-list">
-      <li class="action-header">
-        <h3 class="pf-heading pf-actions">Toggles (Experimental)</h3>
-      </li>
-      <li class="actions-options item-list">
-        {{#each data.toggles.actions as |toggle idx|}}
-        <div class="actions-option item" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
-          <label>
-            <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}}>
-            <span>{{localize toggle.label}}</span>
-          </label>
-        </div>
-        {{/each}}
-      </li>
-    </ol>
-
-    <ol class="actions-list inventory-list directory-list strikes-list item-list">
-      <li class="list-row action-header">
-        <h3 class="pf-heading pf-actions">{{localize 'PF2E.StrikesLabel'}} (Experimental)</h3>
-      </li>
-      {{#each actor.data.actions as |action ai|}}
-      <li class="list-row item expandable" data-action-index="{{ai}}">
-        <div class="melee-name rollable">
-          <div class="item-image" style="background-image: url({{action.imageUrl}})"></div>
-          <h4>
-            {{localize action.attackRollType}}
-            <span class="strike">{{action.name}} <span class="activity-icon">{{action.glyph}}</span></span>
-          </h4>
-          <div class="melee-buttons">
-            {{#each action.traits as |trait ti|}}
-            <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
-            {{/each}}
-            {{#each action.variants as |variant vi|}}
-            <span class="tag"><button type="button" class="tag variant-strike" {{#if (eq vi 0) }}title="{{action.breakdown}}"{{/if}} data-variant-index="{{vi}}">{{variant.label}}</button></span>
-            {{/each}}
-            <span class="tag"><button type="button" class="tag damage-strike">{{localize 'Damage'}}</button></span>
-            <span class="tag"><button type="button" class="tag critical-strike">{{localize 'Critical'}}</button></span>
-          </div>
-        </div>
-      </li>
-      {{/each}}
-    </ol>
-
     {{#if hasSpells}}
     {{#each actor.spellcastingEntries as |entry eid|}}
     <hr>
     <div class="stats-line">
       <span class="inline-stats">
           <label class="stat-title">{{{entry.name}}}</label>
-          <span class="stat-value" title="{{entry.data.dc.breakdown}}">{{localize "PF2E.DCLabel"}} {{entry.data.dc.value}}</span>
+          <span class="stat-value" title="{{entry.data.dc.breakdown}}">{{localize "PF2E.DCLabel" dc=entry.data.dc.value}}</span>
           <span class="stat-detail speed" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.AttackLabel"}} {{numberFormat entry.data.attack.value decimals=0 sign=true}}</span>
       </span>
     </div>
