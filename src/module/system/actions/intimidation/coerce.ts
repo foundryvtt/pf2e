@@ -15,5 +15,11 @@ export function coerce(options: SkillActionOptions) {
         checkType,
         options.event,
         (target) => target.will,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.Coerce', 'criticalSuccess'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Coerce', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Coerce', 'failure'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Coerce', 'criticalFailure'),
+        ],
     );
 }

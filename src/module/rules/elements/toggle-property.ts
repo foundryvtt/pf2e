@@ -7,10 +7,9 @@ import { RuleElementData } from '../rules-data-definitions';
  */
 export class PF2TogglePropertyRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(actorData: CharacterData | NPCData) {
-        const label = this.getDefaultLabel();
-        if (label && this.data.property) {
+        if (this.data.property) {
             (actorData.data as any).toggles.actions.push({
-                label,
+                label: this.label,
                 inputName: this.data.property,
                 checked: getProperty(actorData, this.data.property),
             });

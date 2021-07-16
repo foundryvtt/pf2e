@@ -31,6 +31,7 @@ import { Rollable } from '@actor/data/base';
 import { remigrate } from '@scripts/system/remigrate';
 import { SKILL_EXPANDED } from '@actor/data/values';
 import { GhostTemplate } from '@module/ghost-measured-template';
+import { ActorImporter } from '@system/importer/actor-importer';
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -242,6 +243,9 @@ export function listen() {
             restForTheNight,
             steelYourResolve,
             encouragingWords,
+        };
+        game.pf2e.importer = {
+            actor: ActorImporter,
         };
         game.pf2e.rollItemMacro = rollItemMacro;
         game.pf2e.rollActionMacro = rollActionMacro;

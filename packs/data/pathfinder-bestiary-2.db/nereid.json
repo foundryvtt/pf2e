@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+0",
+                "mod": 0,
                 "value": 10
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 30,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -131,6 +132,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
+            "flavorText": "<p>Nereids are aquatic fey with deep ties to water. They share some similarities with naiads, but they are not guardians and do not bind themselves to a specific body of water. Although they are primarily aquatic creatures, their unique ability to imbue their vitality into a supernatural shawl allows them to travel on land as well. A nereid must be careful when manifesting a shawl, however, as their life essence is bound to it, so it can be stolen or destroyed to threaten the nereid.</p>\n<p>Nereids prefer to exist in isolation. Left to their own devices, they avoid combat, but when forced to fight, their ability to transform the natural waters in their flesh into poison serves them as well as any weapon.</p>\n<p>Often, ignorant sailors lump all water-dwelling fey into a single category of \"aquatic tempters\", regardless of the fey's type or gender, using these creatures' names interchangeably to represent the concept of a beautiful figure who exists to lure mortals to a drowning death. Whereas naiads have more patience and often seek to educate the ignorant regarding the harm that stereotypes can cause, nereids and rusalkas have little patience for such methods. Rusalkas are the primary source for the legends of fey preying upon sailors, and nereids loathe them for that, as they prefer to live apart from humanity and enjoy the beauty of the natural world in peace.</p>\n<p>When a nereid learns of a rusalka's increased activity, it often seeks out the rusalka to route them-not so much out of an urge to protect humanoids (in whom nereids traditionally have little interest), but to prevent the rusalka from inadvertently riling up violent responses from humanoids who can't be bothered to note the difference between a murderous fey and one who just wants to be left alone.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -234,6 +236,9 @@
                 "ability": {
                     "value": ""
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -301,9 +306,9 @@
                         "value": 1
                     },
                     "slot5": {
-                        "max": 2,
+                        "max": 4,
                         "prepared": [],
-                        "value": 2
+                        "value": 4
                     },
                     "slot6": {
                         "max": 1,
@@ -345,9 +350,6 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
@@ -369,6 +371,9 @@
                 },
                 "areasize": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -494,6 +499,9 @@
                 },
                 "areasize": {
                     "value": "50 feet long by 50 feet wide"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -621,6 +629,9 @@
                 "areasize": {
                     "value": ""
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
@@ -746,6 +757,9 @@
                 },
                 "areasize": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -873,6 +887,9 @@
                 "areasize": {
                     "value": ""
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
@@ -998,6 +1015,9 @@
                 },
                 "areasize": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1163,7 +1183,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Poisonous Touch",
             "sort": 800000,
             "type": "melee"
@@ -1265,9 +1285,6 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
@@ -1294,7 +1311,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The nereid touches a creature and causes water from its own body to flow into the creature's lungs. If the creature cannot breathe water, it must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"29\" data-pf2-traits=\"conjuration,incapacitation,primal,water\" data-pf2-label=\"Drowning Touch DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune to for 24 hours.</p>\n<p><strong>Failure</strong> The creature becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 3} as it chokes on the water.</p>\n<p><strong>Critical Failure</strong> The creature chokes on the water and runs out of air. It falls unconscious and starts drowning. If the creature is above water, it recovers from drowning as soon as it succeeds at a saving throw against suffocation.</p>"
+                    "value": "<p>The nereid touches a creature and causes water from its own body to flow into the creature's lungs. If the creature cannot breathe water, it must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"29\" data-pf2-traits=\"conjuration,incapacitation,primal,water\" data-pf2-label=\"Drowning Touch DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p><div data-visibility=\"gm\"><p><strong>Success</strong> The creature is unaffected and is temporarily immune to for 24 hours.</p><p><strong>Failure</strong> The creature becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 3} as it chokes on the water.</p><p><strong>Critical Failure</strong> The creature chokes on the water and runs out of air. It falls unconscious and starts drowning. If the creature is above water, it recovers from drowning as soon as it succeeds at a saving throw against suffocation.</p></div>"
                 },
                 "requirements": {
                     "value": ""
@@ -1322,9 +1339,6 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""
@@ -1378,9 +1392,6 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""
@@ -1438,9 +1449,6 @@
                     },
                     "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "variants": {
                     "0": {
                         "label": "+18 to Swim",
@@ -1487,9 +1495,6 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
@@ -1531,9 +1536,6 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
@@ -1575,9 +1577,6 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],

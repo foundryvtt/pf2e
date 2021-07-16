@@ -2,17 +2,16 @@ import { CharacterData, NPCData } from '@actor/data';
 import { WeaponData } from '@item/data';
 import { WeaponDamage } from '@item/weapon/data';
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementData, RuleElementSyntheticsPF2e } from '../rules-data-definitions';
+import { RuleElementData, RuleElementSynthetics } from '../rules-data-definitions';
 
 /**
  * @category RuleElement
  */
 export class PF2StrikeRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(actorData: CharacterData | NPCData, { strikes }: RuleElementSyntheticsPF2e) {
-        const label = this.getDefaultLabel();
+    override onBeforePrepareData(actorData: CharacterData | NPCData, { strikes }: RuleElementSynthetics) {
         strikes.push({
             _id: this.item.id,
-            name: label || this.item.name,
+            name: this.label || this.item.name,
             type: actorData.type === 'npc' ? 'melee' : 'weapon',
             img: this.data.img ?? this.item.img,
             data: {
