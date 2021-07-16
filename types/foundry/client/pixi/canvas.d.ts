@@ -78,7 +78,6 @@ declare class Canvas<
     templates: TemplateLayer;
     tokens: TokenLayer<TToken>;
     walls: WallsLayer;
-    activeLayer: ActiveLayer;
 
     _initiative(): void;
 
