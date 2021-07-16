@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+6",
+                "mod": 6,
                 "value": 22
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 45,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -103,16 +104,17 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "30 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "30"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
             "alignment": {
-                "value": "N"
+                "value": "NE"
             },
             "ancestry": {
                 "value": "Astral"
@@ -188,12 +190,13 @@
             },
             "dr": [
                 {
+                    "exceptions": "",
                     "label": "Cold",
                     "type": "cold",
                     "value": "15"
                 },
                 {
-                    "exceptions": "cold iron",
+                    "exceptions": "except cold iron",
                     "label": "Physical",
                     "type": "physical",
                     "value": "10"
@@ -237,24 +240,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "BqFfQVjsQ8KivMgM",
+            "_id": "rqq8NjCeDPoInPTq",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
                 "focus": {
                     "points": 1,
                     "pool": 1
-                },
-                "item": {
-                    "value": 0
                 },
                 "prepared": {
                     "value": "innate"
@@ -268,7 +268,7 @@
                     "version": 0.643
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -340,10 +340,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "33",
-                    "item": 0,
+                    "dc": 35,
                     "mod": 0,
-                    "value": 23
+                    "value": 27
                 },
                 "tradition": {
                     "value": "arcane"
@@ -359,18 +358,24 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
+            "name": "Innate Arcane Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "rcaOAeO1LOkh0ZEs",
+            "_id": "j9OR4GAOwpFolkP9",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -386,7 +391,7 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "1d20"
+                    "value": ""
                 },
                 "damageType": {
                     "value": ""
@@ -394,7 +399,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Shadow Plane, or the Abyss. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20×25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
+                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Shadow Plane, or the Abyss. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20x25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -406,12 +411,15 @@
                     "value": 7
                 },
                 "location": {
-                    "value": "BqFfQVjsQ8KivMgM"
+                    "value": "rqq8NjCeDPoInPTq"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -433,9 +441,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "plane-shift",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=222"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -447,7 +461,7 @@
                     "value": "1 willing creature, or up to 8 willing creatures joining hands"
                 },
                 "time": {
-                    "value": " 10 minutes"
+                    "value": "10 minutes"
                 },
                 "traditions": {
                     "value": [
@@ -460,7 +474,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "conjuration",
@@ -469,20 +483,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.5bTt2CvYHPvaR7QQ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/plane-shift.webp",
             "name": "Plane Shift",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "Eqoz6uMDGk4Nka4C",
+            "_id": "Tx7ziW7v0FU1vsah",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -506,7 +530,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You and the targets are instantly transported to any location within range, as long as you can identify the location precisely both by its position relative to your starting position and by its appearance (or other identifying features). Incorrect knowledge of the location's appearance usually causes the spell to fail, but it could instead lead to teleporting to an unwanted location or some other unusual mishap determined by the GM. Teleport is not precise over great distances. The targets appear at a distance from the intended destination equal to roughly 1 percent of the total distance traveled, in a direction determined by the GM. For short journeys, this lack of precision is irrelevant, but for long distances this could be up to 1 mile.</p>\n<hr />\n<p><strong>Heightened</strong> You and the other targets can travel to any location within 1,000 miles.</p>\n<p><strong>Heightened</strong> You and the other targets can travel to any location on the same planet. If you travel more than 1,000 miles, you arrive only 10 miles off target.</p>\n<p><strong>Heightened</strong> You and the other targets can travel to any location on another planet within the same solar system. Assuming you have accurate knowledge of the location's position and appearance, you arrive on the new planet 100 miles off target.</p>\n<p><strong>Heightened</strong> As the 9th-level version, but you and the other targets can travel to any planet within the same galaxy.</p>"
+                    "value": "<p>You and the targets are instantly transported to any location within range, as long as you can identify the location precisely both by its position relative to your starting position and by its appearance (or other identifying features). Incorrect knowledge of the location's appearance usually causes the spell to fail, but it could instead lead to teleporting to an unwanted location or some other unusual mishap determined by the GM. Teleport is not precise over great distances. The targets appear at a distance from the intended destination equal to roughly 1 percent of the total distance traveled, in a direction determined by the GM. For short journeys, this lack of precision is irrelevant, but for long distances this could be up to 1 mile.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You and the other targets can travel to any location within 1,000 miles.</p>\n<p><strong>Heightened (8th)</strong> You and the other targets can travel to any location on the same planet. If you travel more than 1,000 miles, you arrive only 10 miles off target.</p>\n<p><strong>Heightened (9th)</strong> You and the other targets can travel to any location on another planet within the same solar system. Assuming you have accurate knowledge of the location's position and appearance, you arrive on the new planet 100 miles off target.</p>\n<p><strong>Heightened (10th)</strong> As the 9th-level version, but you and the other targets can travel to any planet within the same galaxy.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -514,16 +538,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "level": {
+                "heightenedLevel": {
                     "value": 7
                 },
+                "level": {
+                    "value": 6
+                },
                 "location": {
-                    "value": "BqFfQVjsQ8KivMgM"
+                    "value": "rqq8NjCeDPoInPTq"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -545,9 +575,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "teleport",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=338"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -570,7 +606,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "conjuration",
@@ -579,20 +615,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.69L70wKfGDY66Mk9"
+                }
+            },
             "img": "systems/pf2e/icons/spells/teleport.webp",
             "name": "Teleport",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "vMEAmWev6qaJo7M0",
+            "_id": "6nqr3cMPOsL8rjj6",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -616,7 +662,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You and the targets are instantly transported to any location within range, as long as you can identify the location precisely both by its position relative to your starting position and by its appearance (or other identifying features). Incorrect knowledge of the location's appearance usually causes the spell to fail, but it could instead lead to teleporting to an unwanted location or some other unusual mishap determined by the GM. Teleport is not precise over great distances. The targets appear at a distance from the intended destination equal to roughly 1 percent of the total distance traveled, in a direction determined by the GM. For short journeys, this lack of precision is irrelevant, but for long distances this could be up to 1 mile.</p>\n<hr />\n<p><strong>Heightened</strong> You and the other targets can travel to any location within 1,000 miles.</p>\n<p><strong>Heightened</strong> You and the other targets can travel to any location on the same planet. If you travel more than 1,000 miles, you arrive only 10 miles off target.</p>\n<p><strong>Heightened</strong> You and the other targets can travel to any location on another planet within the same solar system. Assuming you have accurate knowledge of the location's position and appearance, you arrive on the new planet 100 miles off target.</p>\n<p><strong>Heightened</strong> As the 9th-level version, but you and the other targets can travel to any planet within the same galaxy.</p>"
+                    "value": "<p>You and the targets are instantly transported to any location within range, as long as you can identify the location precisely both by its position relative to your starting position and by its appearance (or other identifying features). Incorrect knowledge of the location's appearance usually causes the spell to fail, but it could instead lead to teleporting to an unwanted location or some other unusual mishap determined by the GM. Teleport is not precise over great distances. The targets appear at a distance from the intended destination equal to roughly 1 percent of the total distance traveled, in a direction determined by the GM. For short journeys, this lack of precision is irrelevant, but for long distances this could be up to 1 mile.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You and the other targets can travel to any location within 1,000 miles.</p>\n<p><strong>Heightened (8th)</strong> You and the other targets can travel to any location on the same planet. If you travel more than 1,000 miles, you arrive only 10 miles off target.</p>\n<p><strong>Heightened (9th)</strong> You and the other targets can travel to any location on another planet within the same solar system. Assuming you have accurate knowledge of the location's position and appearance, you arrive on the new planet 100 miles off target.</p>\n<p><strong>Heightened (10th)</strong> As the 9th-level version, but you and the other targets can travel to any planet within the same galaxy.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -624,16 +670,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "level": {
+                "heightenedLevel": {
                     "value": 7
                 },
+                "level": {
+                    "value": 6
+                },
                 "location": {
-                    "value": "BqFfQVjsQ8KivMgM"
+                    "value": "rqq8NjCeDPoInPTq"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -655,9 +707,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "teleport",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=338"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -680,7 +738,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "conjuration",
@@ -689,20 +747,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.69L70wKfGDY66Mk9"
+                }
+            },
             "img": "systems/pf2e/icons/spells/teleport.webp",
             "name": "Teleport",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "3nQsZHGja9nOWZtD",
+            "_id": "pAL6Af64f1e8Atmu",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -726,7 +794,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You and the targets are instantly transported to any location within range, as long as you can identify the location precisely both by its position relative to your starting position and by its appearance (or other identifying features). Incorrect knowledge of the location's appearance usually causes the spell to fail, but it could instead lead to teleporting to an unwanted location or some other unusual mishap determined by the GM. Teleport is not precise over great distances. The targets appear at a distance from the intended destination equal to roughly 1 percent of the total distance traveled, in a direction determined by the GM. For short journeys, this lack of precision is irrelevant, but for long distances this could be up to 1 mile.</p>\n<hr />\n<p><strong>Heightened</strong> You and the other targets can travel to any location within 1,000 miles.</p>\n<p><strong>Heightened</strong> You and the other targets can travel to any location on the same planet. If you travel more than 1,000 miles, you arrive only 10 miles off target.</p>\n<p><strong>Heightened</strong> You and the other targets can travel to any location on another planet within the same solar system. Assuming you have accurate knowledge of the location's position and appearance, you arrive on the new planet 100 miles off target.</p>\n<p><strong>Heightened</strong> As the 9th-level version, but you and the other targets can travel to any planet within the same galaxy.</p>"
+                    "value": "<p>You and the targets are instantly transported to any location within range, as long as you can identify the location precisely both by its position relative to your starting position and by its appearance (or other identifying features). Incorrect knowledge of the location's appearance usually causes the spell to fail, but it could instead lead to teleporting to an unwanted location or some other unusual mishap determined by the GM. Teleport is not precise over great distances. The targets appear at a distance from the intended destination equal to roughly 1 percent of the total distance traveled, in a direction determined by the GM. For short journeys, this lack of precision is irrelevant, but for long distances this could be up to 1 mile.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> You and the other targets can travel to any location within 1,000 miles.</p>\n<p><strong>Heightened (8th)</strong> You and the other targets can travel to any location on the same planet. If you travel more than 1,000 miles, you arrive only 10 miles off target.</p>\n<p><strong>Heightened (9th)</strong> You and the other targets can travel to any location on another planet within the same solar system. Assuming you have accurate knowledge of the location's position and appearance, you arrive on the new planet 100 miles off target.</p>\n<p><strong>Heightened (10th)</strong> As the 9th-level version, but you and the other targets can travel to any planet within the same galaxy.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -734,16 +802,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "level": {
+                "heightenedLevel": {
                     "value": 7
                 },
+                "level": {
+                    "value": 6
+                },
                 "location": {
-                    "value": "BqFfQVjsQ8KivMgM"
+                    "value": "rqq8NjCeDPoInPTq"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -765,9 +839,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "teleport",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=338"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -790,7 +870,7 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "conjuration",
@@ -799,20 +879,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.69L70wKfGDY66Mk9"
+                }
+            },
             "img": "systems/pf2e/icons/spells/teleport.webp",
             "name": "Teleport",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "wATn2dshSqPm2esV",
+            "_id": "CNMsxGsJc8C2klMn",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -848,12 +938,15 @@
                     "value": 4
                 },
                 "location": {
-                    "value": "BqFfQVjsQ8KivMgM"
+                    "value": "rqq8NjCeDPoInPTq"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -875,9 +968,15 @@
                 "school": {
                     "value": "transmutation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "air-walk",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=6"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -909,20 +1008,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.b5sGjGlBf58f8jn0"
+                }
+            },
             "img": "systems/pf2e/icons/spells/air-walk.webp",
-            "name": "Air Walk",
+            "name": "Air Walk (constant)",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "fBvOGYZ3Vvu9Uiu9",
+            "_id": "OMliTjyRbQBsIAzC",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -946,7 +1055,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -958,12 +1067,15 @@
                     "value": 4
                 },
                 "location": {
-                    "value": "BqFfQVjsQ8KivMgM"
+                    "value": "rqq8NjCeDPoInPTq"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -985,9 +1097,15 @@
                 "school": {
                     "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimension-door",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -1019,9 +1137,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Dimension Door"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
-            "name": "Dimension Door",
+            "name": "Dimension Door (at will)",
             "sort": 700000,
             "type": "spell"
         },
@@ -1136,6 +1258,114 @@
             "type": "melee"
         },
         {
+            "_id": "H2zLCRS1UX8XpweP",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "yfiUAGMbYu5GpkVc",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Constant Spells",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
             "_id": "MNIeEFHVbRZ8b5Ln",
             "data": {
                 "actionCategory": {
@@ -1150,7 +1380,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature targets the vazgorlu with a Strike; <strong>Effect</strong> The vazgorlu chooses a different creature within 60 feet and attempts to swap places with that creature using dimension door in the instant before the Strike. The target must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"39\" data-pf2-traits=\"acid,arcane,teleportation\" data-pf2-label=\"Hostile Juxtaposition DC\" data-pf2-show-dc=\"gm\">Will</span> save.<br /><strong>Critical Success</strong> The target resists the teleportation, and the vazgorlu can't use Hostile Juxtaposition for 1d4 rounds.<br /><strong>Success</strong> The target resists the teleportation.<br /><strong>Failure</strong> The target and the vazgorlu instantly swap places, and the triggering Strike is resolved against the target instead.<br /><strong>Critical Failure</strong> As failure, but the target is transported to the vazgorlu's demiplane after resolving the triggering Strike against it.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature targets the vazgorlu with a Strike;</p>\n<p><strong>Effect</strong> The vazgorlu chooses a different creature within 60 feet and attempts to swap places with that creature using @Compendium[pf2e.spells-srd.Dimension Door]{Dimension Door} in the instant before the Strike. The target must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-traits=\"arcana, teleportation\" data-pf2-label=\"Hostile Juxtaposition DC\" data-pf2-dc=\"39\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target resists the teleportation, and the vazgorlu can't use Hostile Juxtaposition for [[/r 1d4 # rounds]]{1d4 rounds}.</p>\n<p><strong>Success</strong> The target resists the teleportation.</p>\n<p><strong>Failure</strong> The target and the vazgorlu instantly swap places, and the triggering Strike is resolved against the target instead.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is transported to the vazgorlu's demiplane after resolving the triggering Strike against it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1170,7 +1400,6 @@
                         "value": "common"
                     },
                     "value": [
-                        "acid",
                         "arcane",
                         "teleportation"
                     ]
@@ -1184,9 +1413,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Hostile Juxtaposition",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1204,7 +1433,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A creature hit by a vazgorlu's web Strike is immobilized and stuck to the nearest surface until it Escapes (DC 42). As long as it remains immobilized by the web, the web attempts to counteract any effect that would move the webbed creature to another plane, with a counteract level of 10 and using the vazgorlu's Arcana skill to attempt the counteract check.</p>"
+                    "value": "<p>A creature hit by a vazgorlu's web Strike is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} and stuck to the nearest surface until it Escapes (DC 42). As long as it remains immobilized by the web, the web attempts to counteract any effect that would move the webbed creature to another plane, with a counteract level of 10 and using the vazgorlu's Arcana skill to attempt the counteract check.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1234,9 +1463,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Dimensional Tether",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1284,9 +1513,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Demiplane Lair",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1336,7 +1565,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Redirect Portal",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1377,7 +1606,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1418,7 +1647,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1500000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1459,7 +1688,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Portal Lore",
-            "sort": 1600000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1500,7 +1729,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1700000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1541,7 +1770,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1800000,
+            "sort": 2000000,
             "type": "lore"
         }
     ],
@@ -1551,7 +1780,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

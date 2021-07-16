@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+9",
+                "mod": 9,
                 "value": 28
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 42,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -102,7 +103,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "35 feet"
+                "value": "35"
             }
         },
         "details": {
@@ -143,6 +144,7 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
+                "base": 33,
                 "breakdown": "",
                 "item": 0,
                 "rank": 0,
@@ -240,24 +242,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Ucnsh4XNgMjvAM8v",
+            "_id": "ulyeBuv2PkM39FKm",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
                 "focus": {
                     "points": 1,
                     "pool": 1
-                },
-                "item": {
-                    "value": 0
                 },
                 "prepared": {
                     "value": "innate"
@@ -271,7 +270,7 @@
                     "version": 0.643
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -343,10 +342,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "40",
-                    "item": 0,
+                    "dc": 40,
                     "mod": 0,
-                    "value": 30
+                    "value": 32
                 },
                 "tradition": {
                     "value": "arcane"
@@ -362,18 +360,24 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Arcane Innate Spells",
+            "name": "Innate Arcane Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "BffoHAQ4fZnc9QiA",
+            "_id": "rHJhscZyJ7wDsGiW",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -397,7 +401,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to Escape an effect that has them @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
+                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @Compendium[pf2e.actionspf2e.Escape]{Escape} an effect that has them @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -409,12 +413,15 @@
                     "value": 4
                 },
                 "location": {
-                    "value": "Ucnsh4XNgMjvAM8v"
+                    "value": "ulyeBuv2PkM39FKm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -436,9 +443,15 @@
                 "school": {
                     "value": "abjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "freedom-of-movement",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=128"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -470,20 +483,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.aqRYNoSvxsVfqglH"
+                }
+            },
             "img": "systems/pf2e/icons/spells/freedom-of-movement.webp",
-            "name": "Freedom of Movement",
+            "name": "Freedom of Movement (constant)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "KdpaTpCCLT0mmljY",
+            "_id": "JD2ON040dRP85QHM",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -519,12 +542,15 @@
                     "value": 3
                 },
                 "location": {
-                    "value": "Ucnsh4XNgMjvAM8v"
+                    "value": "ulyeBuv2PkM39FKm"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -546,9 +572,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "levitate",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=170"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -579,16 +611,32 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.fI20AVwOzJMHXRdo"
+                }
+            },
             "img": "systems/pf2e/icons/spells/levitate.webp",
-            "name": "Levitate",
+            "name": "Levitate (at will)",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "JsN1mMGQcjhksxAz",
+            "_id": "pcMdAOs6T1huhf1k",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "greatsword",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -601,15 +649,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d12",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This immense two‑handed sword is nearly as tall as its wielder. Its lower blade is often somewhat dulled to allow it to be gripped for extra leverage in close‑quarter fights.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "sword"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -627,8 +687,8 @@
                                 "value": ""
                             }
                         },
-                        "img": "",
-                        "name": ""
+                        "img": "systems/pf2e/icons/unidentified_item_icons/weapon.webp",
+                        "name": "Unusual Greatsword"
                     }
                 },
                 "invested": {
@@ -643,17 +703,52 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 2
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "2 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": {
+                    "value": "melee"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
@@ -661,45 +756,72 @@
                     "version": 0.643
                 },
                 "size": {
-                    "value": "med"
+                    "value": "huge"
                 },
-                "slug": null,
+                "slug": "greatsword",
                 "source": {
                     "value": ""
                 },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
                     "value": ""
+                },
+                "strikingRune": {
+                    "value": "greaterStriking"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "versatile-p"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "+2 greater striking greatsword",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.UX71GkWBL9g41VwM"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/greatsword.webp",
+            "name": "Greatsword",
             "sort": 400000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "AzU9nGwTFYnEhNW2",
+            "_id": "x41htpR9Ou0sBLB3",
             "data": {
-                "baseItem": null,
+                "armor": {
+                    "value": 3
+                },
+                "armorType": {
+                    "value": "medium"
+                },
+                "baseItem": "hide-armor",
                 "brokenThreshold": {
-                    "value": 0
+                    "value": null
                 },
                 "bulkCapacity": {
                     "value": ""
+                },
+                "check": {
+                    "value": -2
                 },
                 "collapsed": {
                     "value": false
@@ -710,19 +832,25 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.</p>"
+                },
+                "dex": {
+                    "value": 2
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
-                    "value": ""
+                    "value": "2"
+                },
+                "group": {
+                    "value": "leather"
                 },
                 "hardness": {
-                    "value": 0
+                    "value": null
                 },
                 "hp": {
-                    "value": 0
+                    "value": null
                 },
                 "identification": {
                     "misidentified": {},
@@ -733,48 +861,97 @@
                                 "value": ""
                             }
                         },
-                        "img": "",
-                        "name": ""
+                        "img": "systems/pf2e/icons/unidentified_item_icons/armor.webp",
+                        "name": "Unusual Hide Armor"
                     }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 11
                 },
                 "maxHp": {
-                    "value": 0
+                    "value": null
                 },
                 "negateBulk": {
                     "value": "0"
                 },
+                "potency": {},
+                "potencyRune": {
+                    "value": 2
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1400 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
                 },
-                "rules": [],
+                "resiliencyRune": {
+                    "value": "resilient"
+                },
+                "resilient": {},
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "not": [
+                                "unburdened-iron"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "speed",
+                        "type": "untyped",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 13,
+                                    "value": -5
+                                }
+                            ],
+                            "field": "actor|data.abilities.str.value"
+                        }
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.643
                 },
                 "size": {
-                    "value": "med"
+                    "value": "huge"
                 },
-                "slug": null,
+                "slug": "hide-armor",
                 "source": {
                     "value": ""
                 },
+                "speed": {
+                    "value": -5
+                },
                 "stackGroup": {
                     "value": ""
+                },
+                "strength": {
+                    "value": 14
                 },
                 "traits": {
                     "custom": "",
@@ -784,22 +961,39 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "3"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "+2 greater resilient hide armor",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.AnwzlOs0njF9Jqnr"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/hide.webp",
+            "name": "Hide Armor",
             "sort": 500000,
-            "type": "equipment"
+            "type": "armor"
         },
         {
-            "_id": "wuYGs2lXrODvBC1m",
+            "_id": "3NMUDjuSV3mI03a1",
             "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
                 "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
@@ -807,16 +1001,30 @@
                 "bulkCapacity": {
                     "value": ""
                 },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 0,
+                    "value": 0
+                },
                 "collapsed": {
                     "value": false
                 },
-                "containerId": {
+                "consumableType": {
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
                     "value": ""
                 },
+                "containerId": {
+                    "value": null
+                },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
                 },
                 "equipped": {
                     "value": false
@@ -839,12 +1047,9 @@
                                 "value": ""
                             }
                         },
-                        "img": "",
-                        "name": ""
+                        "img": "systems/pf2e/icons/unidentified_item_icons/potions.webp",
+                        "name": "Unusual Liquid"
                     }
-                },
-                "invested": {
-                    "value": false
                 },
                 "level": {
                     "value": 0
@@ -856,16 +1061,21 @@
                     "value": "0"
                 },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
                     "value": "0 gp"
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
                 },
                 "rules": [],
                 "schema": {
@@ -879,29 +1089,48 @@
                 "source": {
                     "value": ""
                 },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
                 "stackGroup": {
                     "value": ""
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
                     "value": 0
+                },
+                "weight": {
+                    "value": "-"
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "sack with 5 rocks",
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/sack.webp",
+            "name": "Sack With 5 Rocks",
             "sort": 600000,
-            "type": "equipment"
+            "type": "consumable"
         },
         {
             "_id": "UQnCKGq6QIQn8xKq",
@@ -1018,13 +1247,13 @@
             "type": "melee"
         },
         {
-            "_id": "Wu36ubkm7m9DzuqR",
+            "_id": "NttUPgbz0pGvaOnd",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": ""
@@ -1032,7 +1261,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster must have a free hand but can Release anything it's holding as part of this reaction. <strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster. <strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock.</p>"
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1042,7 +1271,7 @@
                     "lastMigration": null,
                     "version": 0.643
                 },
-                "slug": null,
+                "slug": "low-light-vision",
                 "source": {
                     "value": ""
                 },
@@ -1061,10 +1290,195 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Catch Rock",
+            "name": "Low-Light Vision",
             "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "yCOLPsjbm44QUBqX",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "GAMbl4nEeYZTf7VD",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Constant Spells",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "rZ3NKdEarhgXFXmc",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster must have a free hand but can @Compendium[pf2e.actionspf2e.Release]{Release} anything it's holding as part of this reaction.</p>\n<p><strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster.</p>\n<p><strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "catch-rock"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 4
+                    },
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.catch-rock"
+                    }
+                ],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "catch-rock",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uG0Z8PsyZtsYuvGR"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Catch Rock",
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1077,17 +1491,98 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The dragonstorm fire giant raises one hand to the sky, channeling dragonstorm energy into the blade held in the other. The giant makes a greatsword Strike with a -2 circumstance penalty against each creature within its reach. It makes only one attack roll and compares the result against each creature's AC. This Strike deals an additional 1d8 acid, 1d8 cold, 1d8 electricity, 1d8 fire, and [[/r 1d8 # poison damage]] poison damage and counts as two attacks for the giant's multiple attack penalty.</p>"
+                    "value": "<p>The dragonstorm fire giant raises one hand to the sky, channeling dragonstorm energy into the blade held in the other. The giant makes a greatsword Strike with a -2 circumstance penalty against each creature within its reach. It makes only one attack roll and compares the result against each creature's AC. This Strike deals an additional [[/r 1d8 # acid]]{1d8 acid}, [[/r 1d8 # cold]]{1d8 cold}, [[/r 1d8 # electricity]]{1d8 electricity}, [[/r 1d8 # fire]]{1d8 fire}, and [[/r 1d8 # poison damage]]{1d8 poison damage} and counts as two attacks for the giant's multiple attack penalty.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.dragonstorm-blade"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "dragonstorm-blade"
+                            ]
+                        },
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": -2
+                    },
+                    {
+                        "damageType": "acid",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "label": "Dragonstorm Blade Acid",
+                        "predicate": {
+                            "all": [
+                                "dragonstorm-blade"
+                            ]
+                        },
+                        "selector": "damage"
+                    },
+                    {
+                        "damageType": "cold",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "label": "Dragonstorm Blade Cold",
+                        "predicate": {
+                            "all": [
+                                "dragonstorm-blade"
+                            ]
+                        },
+                        "selector": "damage"
+                    },
+                    {
+                        "damageType": "electricity",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "label": "Dragonstorm Blade Electricity",
+                        "predicate": {
+                            "all": [
+                                "dragonstorm-blade"
+                            ]
+                        },
+                        "selector": "damage"
+                    },
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "label": "Dragonstorm Blade Fire",
+                        "predicate": {
+                            "all": [
+                                "dragonstorm-blade"
+                            ]
+                        },
+                        "selector": "damage"
+                    },
+                    {
+                        "damageType": "poison",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "label": "Dragonstorm Blade Poison",
+                        "predicate": {
+                            "all": [
+                                "dragonstorm-blade"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.643
@@ -1115,13 +1610,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Dragonstorm Blade",
-            "sort": 1000000,
+            "sort": 1300000,
             "type": "action"
         },
         {
-            "_id": "Hj0uDTVdTB8SoyqR",
+            "_id": "7OH0rFP8UnDTxfdD",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1130,7 +1625,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
@@ -1145,7 +1640,7 @@
                     "lastMigration": null,
                     "version": 0.643
                 },
-                "slug": null,
+                "slug": "throw-rock",
                 "source": {
                     "value": ""
                 },
@@ -1164,10 +1659,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.a0tx6exmB9v9CUsj"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Throw Rock",
-            "sort": 1100000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1208,7 +1707,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1200000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1249,7 +1748,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1300000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1290,8 +1789,130 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1400000,
+            "sort": 1700000,
             "type": "lore"
+        },
+        {
+            "_id": "BRhNt6nCfuQnXltH",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": "8"
+                },
+                "capacity": {
+                    "type": "weight",
+                    "value": 0,
+                    "weightless": false
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "currency": {
+                    "cp": 0,
+                    "ep": 0,
+                    "gp": 0,
+                    "pp": 0,
+                    "sp": 0
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A sack can hold up to 8 Bulk worth of items. A sack containing 2 Bulk or less can be worn on the body, usually tucked into a belt. You can carry a sack with one hand, but must use two hands to transfer items in and out.</p>"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "1 cp"
+                },
+                "quantity": {
+                    "value": 5
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "size": {
+                    "value": "med"
+                },
+                "slug": "sack",
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": "sacks"
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.DujblC14ytJEZMaz"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/sack.webp",
+            "name": "Sack",
+            "sort": 1800000,
+            "type": "backpack"
         }
     ],
     "name": "Dragonstorm Fire Giant",
@@ -1300,7 +1921,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
