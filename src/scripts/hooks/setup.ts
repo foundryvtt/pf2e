@@ -210,7 +210,7 @@ function registerPF2ActionClickListener() {
                 const templateData = JSON.parse(pf2TemplateData);
                 templateData.user = game.user.id;
                 const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
-                let ghostTemplate = new GhostTemplate(measuredTemplateDoc);
+                const ghostTemplate = new GhostTemplate(measuredTemplateDoc);
                 ghostTemplate.drawPreview();
             } else {
                 console.warn(`PF2e System | Could not create template'`);
