@@ -25,7 +25,7 @@ import {
     TraitSelectorSpeeds,
     TraitSelectorWeaknesses,
 } from '@module/system/trait-selector';
-import { ErrorPF2e, objectHasKey, tupleHasValue } from '@module/utils';
+import { ErrorPF2e, objectHasKey, toNumber, tupleHasValue } from '@module/utils';
 import { LocalizePF2e } from '@system/localize';
 import {
     BasicSelectorOptions,
@@ -886,32 +886,33 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
 
         // get the item type of the drop target
-        const dropSlotType = $(event.target).closest('.item').attr('data-item-type');
-        const containerAttribute = $(event.target).parents('.item-container').attr('data-container-type');
+        const $itemEl = $(event.target).closest('.item');
+        const $containerEl = $(event.target).closest('.item-container');
+        const dropSlotType = $itemEl.attr('data-item-type');
+        const containerAttribute = $containerEl.attr('data-container-type');
         const unspecificInventory = this._tabs[0]?.active === 'inventory' && !containerAttribute;
         const dropContainerType = unspecificInventory ? 'actorInventory' : containerAttribute;
 
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
-        if (itemData.type === 'spell') {
+        if (item instanceof SpellPF2e && itemData.type === 'spell') {
             if (dropSlotType === 'spellSlot' || dropContainerType === 'spellcastingEntry') {
-                const dropId = $(event.target).parents('.item-container').attr('data-item-id');
-                if (typeof dropId !== 'string') {
-                    throw ErrorPF2e('Unexpected error while adding spell to spellcastingEntry');
+                const dropId = $containerEl.attr('data-item-id') ?? '';
+                const level = toNumber($itemEl.attr('data-level')) ?? item.level;
+                if (this.moveSpell(itemData, dropId, level)) {
+                    this.actor._setShowUnpreparedSpells(dropId, itemData.data.level?.value);
+                    return this.actor.createEmbeddedDocuments('Item', [itemData]);
                 }
-                itemData.data.location.value = dropId;
-                this.actor._setShowUnpreparedSpells(dropId, itemData.data.level?.value);
-                return this.actor.createEmbeddedDocuments('Item', [itemData]);
             } else if (dropSlotType === 'spellLevel') {
-                const { itemId, level } = $(event.target).closest('.item').data();
+                const { itemId, level } = $itemEl.data();
 
                 if (typeof itemId === 'string' && typeof level === 'number') {
                     this.moveSpell(itemData, itemId, level);
                     return this.actor.createEmbeddedDocuments('Item', [itemData]);
                 }
             } else if (dropSlotType === 'spell') {
-                const { containerId } = $(event.target).closest('.item-container').data();
-                const { spellLvl } = $(event.target).closest('.item').data();
+                const { containerId } = $containerEl.data();
+                const { spellLvl } = $itemEl.data();
 
                 if (typeof containerId === 'string' && typeof spellLvl === 'number') {
                     this.moveSpell(itemData, containerId, spellLvl);
