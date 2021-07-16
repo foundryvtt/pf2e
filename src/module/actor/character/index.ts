@@ -17,6 +17,7 @@ import { CheckPF2e, DamageRollPF2e, RollParameters } from '@system/rolls';
 import { SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from '../data/values';
 import {
     BaseWeaponProficiencyKey,
+    CharacterArmorClass,
     CharacterData,
     CharacterProficiencyData,
     CharacterStrike,
@@ -38,7 +39,7 @@ import { AutomaticBonusProgression } from '@module/rules/automatic-bonus';
 import { SpellAttackRollModifier, SpellDifficultyClass } from '@item/spellcasting-entry/data';
 import { WeaponCategory, WeaponDamage, WeaponData } from '@item/weapon/data';
 import { ZeroToFour } from '@module/data';
-import { AbilityString, DexterityModifierCapData, PerceptionData, StrikeTrait } from '@actor/data/base';
+import { AbilityString, PerceptionData, StrikeTrait } from '@actor/data/base';
 import { SkillAbbreviation, SkillData } from '@actor/creature/data';
 import { ArmorCategory } from '@item/armor/data';
 import { ActiveEffectPF2e } from '@module/active-effect';
@@ -71,6 +72,10 @@ export class CharacterPF2e extends CreaturePF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        // Set base structure of armor data
+        const armorAttribute: { ac?: Partial<CharacterArmorClass> } = this.data.data.attributes;
+        armorAttribute.ac = { modifiers: [] };
+
         // Add any homebrew categories
         const systemData = this.data.data;
         const homebrewCategories = game.settings.get('pf2e', 'homebrew.weaponCategories').map((tag) => tag.id);
@@ -96,6 +101,9 @@ export class CharacterPF2e extends CreaturePF2e {
         // Hit points from Ancestry and Class
         systemData.attributes.ancestryhp = 0;
         systemData.attributes.classhp = 0;
+
+        // Keep in place until sense data is migrated
+        systemData.traits.senses = systemData.traits.senses.filter((sense) => !!sense);
     }
 
     /** Adjustments from ABC items are made after all items are prepared but before active effects are applied. */
@@ -379,13 +387,13 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Armor Class
         {
-            const modifiers: ModifierPF2e[] = [];
-            const dexCap = duplicate(systemData.attributes.dexCap ?? []);
+            const modifiers = [...systemData.attributes.ac.modifiers];
+            const dexCapSources = [{ value: 0, source: '' }];
             let armorCheckPenalty = 0;
             let proficiency: ArmorCategory = 'unarmored';
 
             if (worn) {
-                dexCap.push({ value: Number(worn.data.dex.value ?? 0), source: worn.name });
+                dexCapSources.push({ value: Number(worn.data.dex.value ?? 0), source: worn.name });
                 proficiency = worn.data.armorType.value;
                 // armor check penalty
                 if (systemData.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
@@ -402,7 +410,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
             // Dex modifier limited by the lowest dex cap, for example from armor
             const dexterity = DEXTERITY.withScore(systemData.abilities.dex.value);
-            dexterity.modifier = Math.min(dexterity.modifier, ...dexCap.map((cap) => cap.value));
+            dexterity.modifier = Math.min(dexterity.modifier, ...dexCapSources.map((cap) => cap.value));
             modifiers.unshift(dexterity);
 
             // condition and custom modifiers
@@ -410,17 +418,15 @@ export class CharacterPF2e extends CreaturePF2e {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
 
-            const stat = mergeObject(new StatisticModifier('ac', modifiers), systemData.attributes.ac, {
-                overwrite: false,
+            const dexCap = dexCapSources.reduce((result, current) => (result.value > current.value ? current : result));
+
+            const stat: CharacterArmorClass = mergeObject(new StatisticModifier('ac', modifiers), {
+                value: 10,
+                breakdown: '',
+                check: armorCheckPenalty,
+                dexCap,
             });
-            stat.value = 10 + stat.totalModifier;
-            stat.check = armorCheckPenalty;
-            stat.dexCap = dexCap.reduce((result: DexterityModifierCapData | undefined, current) => {
-                if (result) {
-                    return result.value > current.value ? current : result;
-                }
-                return current;
-            }, undefined);
+            stat.value += stat.totalModifier;
             stat.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')]
                 .concat(
                     stat.modifiers

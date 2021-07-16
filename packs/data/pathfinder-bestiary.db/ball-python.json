@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+3",
+                "mod": 3,
                 "value": 16
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 16,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -103,15 +104,17 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "20 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
                     },
                     {
-                        "type": "Swim",
-                        "value": "20 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "20"
                     }
                 ],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "details": {
@@ -133,7 +136,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "This nonvenomous snake's name comes from its tendency to curl into a ball when frightened, though most people know it for its hunting tactic of coiling around prey and crushing victims with its powerful muscles. Nonetheless, brave herpetologists sometimes keep ball pythons as pets.<br /><br />",
+            "flavorText": "<p>This nonvenomous snake's name comes from its tendency to curl into a ball when frightened, though most people know it for its hunting tactic of coiling around prey and crushing victims with its powerful muscles. Nonetheless, brave herpetologists sometimes keep ball pythons as pets.</p>\n<hr />\n<p>Snakes come in an array of forms, from jungle-dwelling constrictors that wrap around their prey to venomous vipers with deadly bites. Regardless, all snakes consume their prey whole by unhinging their jaws and using powerful muscles to move the food down their throats and into their stomachs.<br /><br /></p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -222,7 +225,7 @@
                 },
                 "attackEffects": {
                     "value": [
-                        "Grab"
+                        "grab"
                     ]
                 },
                 "bonus": {
@@ -261,10 +264,118 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 100000,
             "type": "melee"
+        },
+        {
+            "_id": "4vrCCq5VVcSm3rwb",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Low-Light Vision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "YBLnDuhexFtEMrfc",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (imprecise) 30 feet",
+            "sort": 300000,
+            "type": "action"
         },
         {
             "_id": "NeJvQpMPGMIfzdCG",
@@ -281,7 +392,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature grabbed or restrained by the ball python attempts to Escape. <strong>Effect</strong> The DC of the Escape check is increased by 2.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by the ball python attempts to @Compendium[pf2e.actionspf2e.Escape]{Escape}.</p>\n<p><strong>Effect</strong> The DC of the Escape check is increased by 2.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -305,71 +416,15 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Tighten Coils",
-            "sort": 200000,
-            "type": "action"
-        },
-        {
-            "_id": "Z0fjPovLvrjQnsLJ",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>1d8 bludgeoning, DC 17<br />The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.643
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Constrict",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -382,12 +437,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirement</strong> A Medium or smaller creature is grabbed or restrained in the ball python's jaws. <strong>Effect</strong> The ball python moves the creature into its coils, freeing its jaws to make attacks, then uses Constrict against the creature. The ball python's coils can hold one creature.</p>"
+                    "value": "<p><strong>Requirement</strong> A Medium or smaller creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} in the ball python's jaws.</p>\n<p><strong>Effect</strong> The ball python moves the creature into its coils, freeing its jaws to make attacks, then uses Constrict against the creature. The ball python's coils can hold one creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -411,22 +466,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Wrap in Coils",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "SjTaEdhJ064rDnUQ",
+            "_id": "CMFwSAQpmkkqeHxH",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -435,12 +487,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -450,7 +502,7 @@
                     "lastMigration": null,
                     "version": 0.643
                 },
-                "slug": null,
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -464,18 +516,73 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "aZ0lzdc6SrYbvfX6",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>[[/r 1d8 #bludgeoning]], <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"17\" data-pf2-show-dc=\"all\">basic Fortitude</span> save</p>\n<hr />\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "constrict",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
                 },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Grab",
-            "sort": 500000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -510,16 +617,13 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -554,16 +658,13 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -598,16 +699,13 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -642,16 +740,13 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],

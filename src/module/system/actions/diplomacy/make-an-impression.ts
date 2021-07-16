@@ -15,5 +15,10 @@ export function makeAnImpression(options: SkillActionOptions) {
         checkType,
         options.event,
         (target) => target.will,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.MakeAnImpression', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.MakeAnImpression', 'failure'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.MakeAnImpression', 'criticalFailure'),
+        ],
     );
 }

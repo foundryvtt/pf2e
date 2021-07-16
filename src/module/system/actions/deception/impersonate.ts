@@ -15,5 +15,10 @@ export function impersonate(options: SkillActionOptions) {
         checkType,
         options.event,
         (target) => target.perception,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.Impersonate', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Impersonate', 'failure'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.Impersonate', 'criticalFailure'),
+        ],
     );
 }

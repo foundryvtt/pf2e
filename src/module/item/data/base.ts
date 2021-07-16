@@ -56,9 +56,6 @@ export interface ItemSystemData {
     options?: {
         value: string[];
     };
-    usage: {
-        value: string;
-    };
     rules: RuleElementData[];
     slug: string | null;
     schema: DocumentSchemaRecord;

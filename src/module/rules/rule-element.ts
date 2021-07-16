@@ -2,7 +2,13 @@ import { ActorPF2e } from '@actor';
 import type { ActorDataPF2e, CreatureData } from '@actor/data';
 import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from '@item';
 import type { ItemDataPF2e } from '@item/data';
-import { BracketedValue, RuleElementData, RuleElementSyntheticsPF2e, RuleValue } from './rules-data-definitions';
+import {
+    BracketedValue,
+    RuleElementConstructionData,
+    RuleElementData,
+    RuleElementSynthetics,
+    RuleValue,
+} from './rules-data-definitions';
 
 export class TokenEffect implements TemporaryEffect {
     public data: { disabled: boolean; icon: string; tint: string } = {
@@ -35,24 +41,42 @@ export class TokenEffect implements TemporaryEffect {
  * @category RuleElement
  */
 export abstract class RuleElementPF2e {
+    data: RuleElementData;
+
     /**
      * @param data unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
-    constructor(public data: RuleElementData, public item: Embedded<ItemPF2e>) {}
+    constructor(data: RuleElementConstructionData, public item: Embedded<ItemPF2e>) {
+        this.data = {
+            ...data,
+            label: game.i18n.localize(data.label ?? item.name),
+            ignored: false,
+        };
+    }
 
     get actor(): ActorPF2e {
         return this.item.actor;
     }
 
+    get label(): string {
+        return this.data.label;
+    }
+
     /** Globally ignore this rule element. */
     get ignored(): boolean {
+        if (this.data.ignored) return true;
+
         const { item } = this;
         if (game.settings.get('pf2e', 'automation.effectExpiration') && item instanceof EffectPF2e && item.isExpired) {
-            return true;
+            return (this.data.ignored = true);
         }
-        if (!(item instanceof PhysicalItemPF2e)) return false;
-        return !item.isEquipped || item.isInvested === false;
+        if (!(item instanceof PhysicalItemPF2e)) return (this.data.ignored = false);
+        return (this.data.ignored = !item.isEquipped || item.isInvested === false);
+    }
+
+    set ignored(value: boolean) {
+        this.data.ignored = value;
     }
 
     /**
@@ -94,7 +118,7 @@ export abstract class RuleElementPF2e {
      * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
      * damage modifiers or bonuses
      */
-    onBeforePrepareData(_actorData: CreatureData, _synthetics: RuleElementSyntheticsPF2e) {}
+    onBeforePrepareData(_actorData?: CreatureData, _synthetics?: RuleElementSynthetics): void {}
 
     /**
      * Run after all actor preparation callbacks have been run so you should see all final values here.
@@ -102,7 +126,7 @@ export abstract class RuleElementPF2e {
      * @param actorData see onBeforePrepareData
      * @param synthetics see onBeforePrepareData
      */
-    onAfterPrepareData(_actorData: CreatureData, _synthetics: RuleElementSyntheticsPF2e) {}
+    onAfterPrepareData(_actorData: CreatureData, _synthetics: RuleElementSynthetics) {}
 
     /**
      * Run before a new token is created of the actor that holds the item.
@@ -112,18 +136,6 @@ export abstract class RuleElementPF2e {
      * @param token the token data of the token to be created
      */
     onCreateToken(_actorData: ActorDataPF2e, _item: ItemDataPF2e, _token: PreDocumentId<foundry.data.TokenSource>) {}
-
-    /**
-     * Used to look up the label when displaying a rule effect. By default uses the label field on a rule and if absent
-     * falls back to the item name that holds the rule
-     *
-     * @param ruleData
-     * @param item
-     * @return human readable label of the rule
-     */
-    getDefaultLabel(value = this.data.label): string {
-        return game.i18n.localize(value ?? this.item.name);
-    }
 
     /**
      * Callback used to parse and look up values when calculating rules. Parses strings that look like
