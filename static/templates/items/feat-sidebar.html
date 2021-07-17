@@ -4,9 +4,10 @@
 {{# if data.requirements.value }}<span class="item-summary">{{data.requirements.value}}</span>{{/if}}
 
 <ol class="item-tags">
-  {{#if data.level.value}}
-      <li class="tag">{{localize data.level.label}}</li>
-  {{/if}}
+    <div class="form-group">
+        <label>{{localize "PF2E.FeatLevelLabel"}}</label>
+        <input type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="Number"/>
+    </div>
   <li class="tag">{{#with (lookup rarities data.traits.rarity.value) as |rarity|}}{{localize rarity.label}}{{/with}}</li>
   {{#each traits as |trait|}}
       {{#if trait.selected}}
