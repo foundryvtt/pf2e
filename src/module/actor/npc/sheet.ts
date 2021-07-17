@@ -132,7 +132,7 @@ type SheetItemData<T extends ItemDataPF2e = ItemDataPF2e> = T & {
     };
 };
 
-interface SpellcastingSheetData
+export interface SpellcastingSheetData
     extends SpellcastingEntryData,
         ReturnType<Embedded<SpellcastingEntryPF2e>['getSpellData']> {
     eid: number;

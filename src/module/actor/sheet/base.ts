@@ -8,7 +8,7 @@ import { KitPF2e } from '@item/kit';
 import { PhysicalItemPF2e } from '@item/physical';
 import { SpellPF2e } from '@item/spell';
 import { createConsumableFromSpell, SpellConsumableTypes } from '@item/consumable/spell-consumables';
-import { MagicSchool, SpellData, SpellSource, SpellSystemData } from '@item/spell/data';
+import { SpellSource } from '@item/spell/data';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import {
     calculateTotalWealth,
@@ -48,17 +48,6 @@ import { SaveString, SkillAbbreviation } from '@actor/creature/data';
 import { AbilityString } from '@actor/data/base';
 import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
 import { FolderPF2e } from '@module/folder';
-import { OneToTen } from '@module/data';
-
-interface SpellSheetData extends SpellData {
-    spellInfo?: unknown;
-    data: SpellSystemData & {
-        school: {
-            value: MagicSchool;
-            str?: string;
-        };
-    };
-}
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -207,178 +196,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
             // Add custom entry
             if (trait.custom) trait.selected.custom = trait.custom;
-        }
-    }
-
-    /**
-     * Insert a spell into the spellbook object when rendering the character sheet
-     * @param actorData    The Actor data being prepared
-     * @param spellbook    The spellbook data being prepared
-     * @param spellData        The spell data being prepared
-     */
-    protected prepareSpell(actorData: ActorDataPF2e, spellbook: any, spellData: SpellSheetData) {
-        const item = this.actor.items.get(spellData._id);
-        if (!(item instanceof SpellPF2e)) {
-            return;
-        }
-
-        const { isCantrip, isFocusSpell, isRitual } = item;
-        const heightenedLevel = spellData.data.heightenedLevel?.value;
-        const castingLevel = isCantrip ? 0 : heightenedLevel ?? Math.min(10, Number(spellData.data.level.value));
-        const spellcastingEntry = item.spellcasting?.data;
-
-        // if the spellcaster entry cannot be found (maybe it was deleted?)
-        if (!spellcastingEntry) {
-            console.error(`PF2e System | Spellcasting entry not found for spell ${spellData.name} (${spellData._id})`);
-            return;
-        }
-
-        // This is needed only if we want to prepare the data model only for the levels that a spell is already prepared in setup spellbook levels for all of those to catch case where sheet only has spells of lower level prepared in higher level slot
-        const tradition = spellcastingEntry.data.tradition.value;
-        const isNotLevelBasedSpellcasting = tradition === 'ritual' || tradition === 'focus';
-
-        const slots = spellcastingEntry.data.slots;
-        const spellsSlotsWhereThisIsPrepared = Object.entries((slots ?? {}) as Record<any, any>)?.filter(
-            (slotArr) =>
-                !!Object.values(slotArr[1].prepared as any[]).find((slotSpell) => slotSpell?.id === spellData._id),
-        );
-        const highestSlotPrepared =
-            spellsSlotsWhereThisIsPrepared
-                ?.map((slot) => Number(slot[0].match(/slot(\d+)/)?.[1]))
-                .reduce((acc, cur) => (cur > acc ? cur : acc), 0) ?? castingLevel;
-        const normalHighestSpellLevel = Math.ceil(actorData.data.details.level.value / 2);
-        const maxSpellLevelToShow = Math.min(10, Math.max(castingLevel, highestSlotPrepared, normalHighestSpellLevel));
-        // Extend the Spellbook level
-        for (let spellLevel = maxSpellLevelToShow; spellLevel >= 0; spellLevel--) {
-            if (!isNotLevelBasedSpellcasting || spellLevel === castingLevel) {
-                const slotKey = `slot${spellLevel}` as keyof typeof slots;
-                const isCantrip = spellLevel === 0;
-                const label = isCantrip ? 'PF2E.TraitCantrip' : CONFIG.PF2E.spellLevels[spellLevel as OneToTen];
-                spellbook[spellLevel] ??= {
-                    isCantrip,
-                    isFocus: spellLevel === 11,
-                    label,
-                    spells: [],
-                    prepared: [],
-                    uses: spellcastingEntry ? Number(slots[slotKey].value) || 0 : 0,
-                    slots: spellcastingEntry ? Number(slots[slotKey].max) || 0 : 0,
-                    displayPrepared:
-                        spellcastingEntry &&
-                        spellcastingEntry.data.displayLevels &&
-                        spellcastingEntry.data.displayLevels[spellLevel] !== undefined
-                            ? spellcastingEntry.data.displayLevels[spellLevel]
-                            : true,
-                    unpreparedSpellsLabel: game.i18n.localize('PF2E.UnpreparedSpellsLabel'),
-                };
-            }
-        }
-
-        // Add the spell to the spellbook at the appropriate level
-        spellData.data.school.str = CONFIG.PF2E.magicSchools[spellData.data.school.value];
-
-        // Add chat data
-        try {
-            spellData.spellInfo = item.getChatData();
-        } catch (err) {
-            console.debug(
-                `PF2e System | Character Sheet | Could not load chat data for spell ${spellData._id}`,
-                spellData,
-            );
-        }
-
-        const isSpontaneous =
-            spellcastingEntry.data.prepared.value === 'spontaneous' &&
-            spellcastingEntry.data.tradition.value !== 'focus';
-        const signatureSpells = spellcastingEntry.data.signatureSpells?.value ?? [];
-
-        if (isSpontaneous && signatureSpells.includes(spellData._id) && !isCantrip && !isFocusSpell && !isRitual) {
-            // Signature Spell (add to every level)
-            spellData.data.isSignatureSpell = true;
-
-            const baseLevel = spellData.data.level.value;
-            for (let spellLevel = baseLevel; spellLevel <= maxSpellLevelToShow; spellLevel++) {
-                if (spellbook[spellLevel].slots || spellLevel === baseLevel) {
-                    spellbook[spellLevel].spells.push(spellData);
-                }
-            }
-        } else {
-            // Regular Spell
-            spellbook[castingLevel].spells.push(spellData);
-        }
-    }
-
-    /**
-     * Insert prepared spells into the spellbook object when rendering the character sheet
-     * @param spellcastingEntry    The spellcasting entry data being prepared
-     * @param spellbook            The spellbook data being prepared
-     */
-    protected preparedSpellSlots(spellcastingEntry: any, spellbook: any) {
-        for (const [key, spl] of Object.entries(spellbook as Record<any, any>)) {
-            if (spl.slots > 0) {
-                for (let i = 0; i < spl.slots; i++) {
-                    const entrySlot = ((spellcastingEntry.data.slots[`slot${key}`] || {}).prepared || {})[i] || null;
-
-                    if (entrySlot && entrySlot.id) {
-                        const item: any = this.actor.items.get(entrySlot.id);
-                        if (item) {
-                            const itemCopy: any = duplicate(item);
-                            if (entrySlot.expended) {
-                                itemCopy.expended = true;
-                            } else {
-                                itemCopy.expended = false;
-                            }
-
-                            spl.prepared[i] = itemCopy;
-                            if (spl.prepared[i]) {
-                                const school = spl.prepared[i].data.school.value;
-                                // enrich data with spell school formatted string
-                                if (
-                                    spl.prepared[i].data &&
-                                    spl.prepared[i].data.school &&
-                                    spl.prepared[i].data.school.str &&
-                                    objectHasKey(CONFIG.PF2E.magicSchools, school)
-                                ) {
-                                    spl.prepared[i].data.school.str = CONFIG.PF2E.magicSchools[school];
-                                }
-
-                                // Add chat data
-                                try {
-                                    spl.prepared[i].spellInfo = item.getChatData();
-                                } catch (err) {
-                                    console.debug(
-                                        `PF2e System | Character Sheet | Could not load prepared spell ${entrySlot.id}`,
-                                        item,
-                                    );
-                                }
-
-                                spl.prepared[i].prepared = true;
-                            }
-                            // prepared spell not found
-                            else {
-                                spl.prepared[i] = {
-                                    name: LocalizePF2e.translations.PF2E.SpellSlotEmpty,
-                                    id: null,
-                                    prepared: false,
-                                };
-                            }
-                        } else {
-                            // Could not find an item for ID: ${entrySlot.id}. Marking the slot as empty so it can be overwritten.
-                            spl.prepared[i] = {
-                                name: LocalizePF2e.translations.PF2E.SpellSlotEmpty,
-                                id: null,
-                                prepared: false,
-                            };
-                        }
-                    } else {
-                        // if there is no prepared spell for this slot then make it empty.
-                        spl.prepared[i] = {
-                            name: LocalizePF2e.translations.PF2E.SpellSlotEmpty,
-                            id: null,
-                            prepared: false,
-                        };
-                    }
-                }
-            }
         }
     }
 

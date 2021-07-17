@@ -210,7 +210,7 @@ export function sluggify(entityName: string) {
         .replace(/[-\s]+/g, '-');
 }
 
-const actionImgMap: Record<string, string> = {
+const actionImgMap: Record<string, ImagePath> = {
     1: 'systems/pf2e/icons/actions/OneAction.webp',
     2: 'systems/pf2e/icons/actions/TwoActions.webp',
     3: 'systems/pf2e/icons/actions/ThreeActions.webp',
@@ -222,13 +222,13 @@ const actionImgMap: Record<string, string> = {
     passive: 'systems/pf2e/icons/actions/Passive.webp',
 };
 
-export function getActionIcon(actionType: string, fallback: string): string;
-export function getActionIcon(actionType: string, fallback: string | null): string | null;
-export function getActionIcon(actionType: string): string;
+export function getActionIcon(actionType: string, fallback: ImagePath): ImagePath;
+export function getActionIcon(actionType: string, fallback: ImagePath | null): ImagePath | null;
+export function getActionIcon(actionType: string): ImagePath;
 export function getActionIcon(
     actionType: string,
-    fallback: string | null = 'systems/pf2e/icons/default-icons/mystery-man.svg',
-): string | null {
+    fallback: ImagePath | null = 'systems/pf2e/icons/default-icons/mystery-man.svg',
+): ImagePath | null {
     const sanitized = actionType.toLowerCase().trim();
     return actionImgMap[sanitized] ?? fallback;
 }
