@@ -63,10 +63,16 @@ export class DicePF2e {
             let flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             if (adv === 1) {
                 rollParts[0] = ['2d20kh'];
-                flav = `${title} (${game.i18n.localize('PF2E.Roll.Fortune')})`;
+                flav = game.i18n.format('PF2E.Roll.TitleFortune', {
+                    title: title,
+                    fortune: game.i18n.localize('PF2E.TraitFortune'),
+                });
             } else if (adv === -1) {
                 rollParts[0] = ['2d20kl'];
-                flav = `${title} (${game.i18n.localize('PF2E.Roll.Misfortune')})`;
+                flav = game.i18n.format('PF2E.Roll.TitleMisfortune', {
+                    title: title,
+                    fortune: game.i18n.localize('PF2E.TraitMisfortune'),
+                });
             }
 
             // Don't include situational bonuses unless they are defined
@@ -137,7 +143,7 @@ export class DicePF2e {
                         content,
                         buttons: {
                             advantage: {
-                                label: game.i18n.localize('PF2E.Roll.Fortune'),
+                                label: game.i18n.localize('PF2E.TraitFortune'),
                                 callback: (html) => {
                                     roll = _roll(parts, 1, html);
                                 },
@@ -149,7 +155,7 @@ export class DicePF2e {
                                 },
                             },
                             disadvantage: {
-                                label: game.i18n.localize('PF2E.Roll.Misfortune'),
+                                label: game.i18n.localize('PF2E.TraitMisfortune'),
                                 callback: (html) => {
                                     roll = _roll(parts, -1, html);
                                 },
