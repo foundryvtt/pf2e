@@ -1,50 +1,50 @@
 {
-    "_id": "vV6a488IlsKsHpL8",
+    "_id": "7VCfX1QpRb2T7324",
     "data": {
         "abilities": {
             "cha": {
                 "min": 3,
-                "mod": -1,
-                "value": 8
+                "mod": 0,
+                "value": 10
             },
             "con": {
                 "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 2,
+                "value": 12
             },
             "dex": {
                 "min": 3,
-                "mod": 3,
+                "mod": 4,
                 "value": 16
             },
             "int": {
                 "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": -2,
+                "value": 6
             },
             "str": {
                 "min": 3,
-                "mod": "+4",
-                "value": 18
+                "mod": 2,
+                "value": 12
             },
             "wis": {
                 "min": 3,
-                "mod": 3,
-                "value": 16
+                "mod": 0,
+                "value": 10
             }
         },
         "attributes": {
             "ac": {
-                "base": 21,
-                "breakdown": "Base Armor Class 10, Base Modifier +8, Dexterity +3",
+                "base": 19,
+                "breakdown": "Base Armor Class 10, Base Modifier +3, Dexterity +3",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
                 "name": "ac",
-                "totalModifier": 11,
-                "value": 21
+                "totalModifier": 6,
+                "value": 16
             },
             "allSaves": {
                 "value": ""
@@ -63,11 +63,11 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "",
-                "max": 70,
+                "details": "fast healing 2 (while underwater)",
+                "max": 43,
                 "min": 0,
                 "temp": 0,
-                "value": 70
+                "value": 43
             },
             "init": {
                 "bonus": 0,
@@ -82,13 +82,13 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "base": 11,
-                "breakdown": "Base Modifier +8, Wisdom +3",
+                "base": 5,
+                "breakdown": "Base Modifier +3, Wisdom +0",
                 "item": 0,
                 "name": "perception",
                 "rank": 0,
-                "totalModifier": 11,
-                "value": 11
+                "totalModifier": 3,
+                "value": 3
             },
             "resolve": {
                 "value": 0
@@ -112,12 +112,12 @@
                     {
                         "label": "Fly",
                         "type": "fly",
-                        "value": "40"
+                        "value": "25"
                     },
                     {
                         "label": "Swim",
                         "type": "swim",
-                        "value": "30"
+                        "value": "25"
                     }
                 ],
                 "value": "20"
@@ -151,7 +151,7 @@
             },
             "level": {
                 "min": 1,
-                "value": 4
+                "value": 3
             },
             "recallKnowledgeText": "",
             "source": {
@@ -161,18 +161,18 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "base": 13,
-                "breakdown": "Base Modifier +9, Constitution +4",
+                "base": 9,
+                "breakdown": "Base Modifier +6, Constitution +1",
                 "item": 0,
                 "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
-                "totalModifier": 13,
-                "value": 13
+                "totalModifier": 7,
+                "value": 7
             },
             "reflex": {
                 "ability": "dex",
-                "base": 11,
+                "base": 13,
                 "breakdown": "Base Modifier +8, Dexterity +3",
                 "item": 0,
                 "name": "reflex",
@@ -183,14 +183,14 @@
             },
             "will": {
                 "ability": "wis",
-                "base": 8,
-                "breakdown": "Base Modifier +5, Wisdom +3",
+                "base": 6,
+                "breakdown": "Base Modifier +4, Wisdom +0",
                 "item": 0,
                 "name": "will",
                 "rank": 0,
                 "saveDetail": "",
-                "totalModifier": 8,
-                "value": 8
+                "totalModifier": 4,
+                "value": 4
             }
         },
         "schema": {
@@ -202,16 +202,22 @@
             "di": {
                 "custom": "",
                 "value": [
+                    "bleed",
                     "paralyzed",
-                    "unconscious"
+                    "poison",
+                    "sleep"
                 ]
             },
             "dr": [
                 {
-                    "exceptions": "",
                     "label": "Acid",
                     "type": "acid",
-                    "value": "10"
+                    "value": "3"
+                },
+                {
+                    "label": "Fire",
+                    "type": "fire",
+                    "value": "3"
                 }
             ],
             "dv": [],
@@ -219,25 +225,23 @@
                 "custom": "",
                 "selected": [],
                 "value": [
-                    "common",
-                    "draconic",
-                    "osiriani"
+                    "aquan"
                 ]
             },
             "rarity": {
                 "value": "unique"
             },
             "senses": {
-                "value": "darkvision, scent (imprecise) 30 feet"
+                "value": "darkvision"
             },
             "size": {
-                "value": "med"
+                "value": "sm"
             },
             "traits": {
                 "custom": "",
                 "value": [
-                    "amphibious",
-                    "dragon",
+                    "aquatic",
+                    "elemental",
                     "water"
                 ]
             }
@@ -248,36 +252,118 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "TdHlFtTQuD61q4lr",
+            "_id": "2q6cmXIbOA3bq2Kr",
             "data": {
-                "attack": {
-                    "value": ""
+                "ability": {
+                    "value": "cha"
                 },
-                "attackEffects": {
-                    "value": []
-                },
-                "bonus": {
-                    "value": 13
-                },
-                "damageRolls": {
-                    "znxd9kq0b5kzi2v0vl2t": {
-                        "damage": "2d8+6",
-                        "damageType": "piercing"
-                    }
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
                     "value": ""
                 },
+                "displayLevels": {},
+                "focus": {
+                    "points": 1,
+                    "pool": 1
+                },
+                "item": {
+                    "value": 0
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 0
+                },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.643
                 },
+                "showUnpreparedSpells": {
+                    "value": false
+                },
+                "signatureSpells": {
+                    "value": []
+                },
+                "slots": {
+                    "slot0": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot1": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot10": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot11": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot2": {
+                        "max": 1,
+                        "prepared": [],
+                        "value": 1
+                    },
+                    "slot3": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot4": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot5": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot6": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot7": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot8": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    },
+                    "slot9": {
+                        "max": 0,
+                        "prepared": [],
+                        "value": 0
+                    }
+                },
                 "slug": null,
                 "source": {
                     "value": ""
+                },
+                "spelldc": {
+                    "dc": 20,
+                    "item": 0,
+                    "mod": 0,
+                    "value": 12
+                },
+                "tradition": {
+                    "value": "arcane"
                 },
                 "traits": {
                     "custom": "",
@@ -285,20 +371,147 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fangs",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
-            "type": "melee"
+            "type": "spellcastingEntry"
         },
         {
-            "_id": "QnIXtSesOBpcCjGk",
+            "_id": "ggOj21YPKHvqzcNU",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": "3d8"
+                },
+                "damageType": {
+                    "value": "acid"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus 1d6 persistent acid damage. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "value": "2q6cmXIbOA3bq2Kr"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "2d8",
+                    "mode": "level2"
+                },
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "school": {
+                    "value": "evocation"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "acid-arrow",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "attack"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "acid",
+                        "attack",
+                        "evocation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.f8hRqLJaxBVhF1u0"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
+            "name": "Acid Arrow",
+            "sort": 200000,
+            "type": "spell"
+        },
+        {
+            "_id": "WKMHC2JZ7iYhGlK7",
             "data": {
                 "attack": {
                     "value": ""
@@ -307,12 +520,12 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 13
+                    "value": 11
                 },
                 "damageRolls": {
-                    "vfvdfjmcau9mk9mhx2ra": {
-                        "damage": "2d6+6",
-                        "damageType": "bludgeoning"
+                    "rbr9ohvrj88djmv6x0n6": {
+                        "damage": "2d6+4",
+                        "damageType": "slashing"
                     }
                 },
                 "description": {
@@ -335,7 +548,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "reach-10"
+                        "finesse"
                     ]
                 },
                 "weaponType": {
@@ -345,12 +558,12 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Tail",
-            "sort": 200000,
+            "name": "Claw",
+            "sort": 300000,
             "type": "melee"
         },
         {
-            "_id": "VUO9DIa7wXEhftKW",
+            "_id": "CFM8gva89rUTyI8p",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -400,14 +613,14 @@
             },
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Darkvision",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "phXZMKJSsH046Blz",
+            "_id": "pSTZKgq43aeeyo8Z",
             "data": {
                 "actionCategory": {
-                    "value": "interaction"
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -418,7 +631,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                    "value": "<p>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -428,7 +641,7 @@
                     "lastMigration": null,
                     "version": 0.643
                 },
-                "slug": "scent",
+                "slug": "fast-healing",
                 "source": {
                     "value": ""
                 },
@@ -449,66 +662,16 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fJSNOw4zHGbIm4bZ"
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Scent (Imprecise) 30 feet",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "S7zsUkdZKXOhb4jT",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within reach of Ahrkinos's tail uses an action to Strike or attempt a skill check.</p>\n<p><strong>Effect</strong> Ahrkinos attempts to Strike the triggering creature with his tail. If he hits, the creature takes a -2 circumstance penalty to the triggering roll.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.643
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Tail Lash",
+            "name": "Fast Healing 2 (while underwater)",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "OsTExLtsjB0OOmeN",
+            "_id": "H3YW50LUUhIJNYOq",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -522,7 +685,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Ahrkinos spits a ball of caustic mucus up to a range of 50 feet that explodes in a 10-foot burst. Creatures within the burst take [[/r 5d6 #acid]] acid damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"20\" data-pf2-traits=\"acid,arcane,evocation,damaging-effect\" data-pf2-label=\"Caustic Mucus DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). Those that fail this save also take [[/r 1d6 #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage} and take a -5-foot status penalty to their Speed. This Speed reduction ends with the persistent acid damage.</p>\n<p data-visibility=\"gm\">Ahrkinos can't use again for [[/br 1d6 #rounds]] rounds.</p>"
+                    "value": "<p>Muraxi breathes acid in a 15-foot cone that deals [[/r 2d6 #acid]] acid damage to each creature within the area (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"20\" data-pf2-traits=\"acid,arcane,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">Muraxi can't use again for [[/br 1d4 #rounds]] rounds.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -543,8 +706,7 @@
                     },
                     "value": [
                         "acid",
-                        "arcane",
-                        "evocation"
+                        "arcane"
                     ]
                 },
                 "trigger": {
@@ -557,112 +719,12 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Caustic Mucus",
+            "name": "Breath Weapon",
             "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "FyIAK0FbxvvCk4pq",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>Ahrkinos makes one fangs Strike and two tail Strikes in any order.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.643
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Draconic Frenzy",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "ju0usdUL59TxG4xz",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>Ahrkinos's age has left him infirm and makes it difficult for him to fly. Ahrkinos becomes @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} if he uses more than one Fly action to fly in a single round. His Speed Surge is considered one Fly action for this purpose. In addition, he immediately begins to fall at the end of his turn if he is flying, but treats the fall as 40 feet shorter.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.643
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Old Bones",
-            "sort": 800000,
-            "type": "action"
-        },
-        {
-            "_id": "pW0ymC5menGBt1Te",
+            "_id": "G8Pe3BQ8zF1TT1AU",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -676,7 +738,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Ahrkinos moves up to twice his Speed. He can do this three times per day.</p>"
+                    "value": "<p>Muraxi puts out all fires in a 5-foot emanation. She extinguishes all non-magical fires automatically and attempts to counteract magical fires ([[/r 1d20+10 #Counteract]]{+10 counteract modifier}).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -696,7 +758,9 @@
                         "value": "common"
                     },
                     "value": [
-                        "move"
+                        "abjuration",
+                        "arcane",
+                        "water"
                     ]
                 },
                 "trigger": {
@@ -709,12 +773,12 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Speed Surge",
-            "sort": 900000,
+            "name": "Drench",
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "o96LxwT1qqNPL1JD",
+            "_id": "IxSpF6sAntDa0u3N",
             "data": {
                 "description": {
                     "chat": "",
@@ -725,48 +789,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.643
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1000000,
-            "type": "lore"
-        },
-        {
-            "_id": "acx3xbBq85wGDcA7",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 12
+                    "value": 9
                 },
                 "proficient": {
                     "value": 0
@@ -792,11 +815,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 800000,
             "type": "lore"
         },
         {
-            "_id": "iuQayPPYaFRaMTXz",
+            "_id": "Y6OFll9MgXv1MKGt",
             "data": {
                 "description": {
                     "chat": "",
@@ -807,89 +830,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.643
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1200000,
-            "type": "lore"
-        },
-        {
-            "_id": "EorNuECJLp0oWQKy",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.643
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Society",
-            "sort": 1300000,
-            "type": "lore"
-        },
-        {
-            "_id": "EvDHazx3iFrWvtZZ",
-            "data": {
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 10
+                    "value": 9
                 },
                 "proficient": {
                     "value": 0
@@ -915,17 +856,17 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1400000,
+            "sort": 900000,
             "type": "lore"
         }
     ],
-    "name": "Ahrkinos (3-4)",
+    "name": "Muraxi (5-6)",
     "token": {
-        "actorId": "vV6a488IlsKsHpL8",
+        "actorId": "vgn39Yta3lgeRP1s",
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
@@ -949,7 +890,7 @@
         "lockRotation": false,
         "mirrorX": false,
         "mirrorY": false,
-        "name": "Ahrkinos",
+        "name": "Muraxi",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
