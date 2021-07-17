@@ -1,7 +1,7 @@
 export class GhostTemplate extends MeasuredTemplate {
     moveTime = 0;
 
-    private onMouseMove = (event: PIXI.InteractionEvent) => {
+    private _onMouseMove = (event: PIXI.InteractionEvent) => {
         event.stopPropagation();
         const now = Date.now();
         if (now - this.moveTime <= 20) return;
@@ -13,18 +13,17 @@ export class GhostTemplate extends MeasuredTemplate {
         this.moveTime = now;
     };
 
-    private onRightClick = (_event: any) => {
+    override _onClickRight = (_event: PIXI.InteractionEvent) => {
         //event: PIXI.InteractionEvent
         this.layer.preview.removeChildren();
-        canvas.stage.off('mousemove', this.onMouseMove);
-        canvas.stage.off('mousedown', this.onLeftClick);
+        canvas.stage.off('mousemove', this._onMouseMove);
+        canvas.stage.off('mousedown', this._onLeftClick);
         canvas.app.view.oncontextmenu = null;
         canvas.app.view.onwheel = null;
     };
 
-    private onLeftClick = (event: PIXI.InteractionEvent) => {
-        this.onRightClick(event);
-
+    private _onLeftClick = (event: PIXI.InteractionEvent) => {
+        this._onClickRight(event);
         const destination = canvas.grid.getSnappedPosition(this.x, this.y, 2);
         this.data._source.x = destination.x;
         this.data._source.y = destination.y;
@@ -34,7 +33,7 @@ export class GhostTemplate extends MeasuredTemplate {
         }
     };
 
-    private onMouseWheel = (event: any) => {
+    override _onMouseWheel = (event: WheelEvent) => {
         //event: PIXI.InteractionEvent & WheelEvent
         if (event.ctrlKey) {
             event.preventDefault();
@@ -62,9 +61,9 @@ export class GhostTemplate extends MeasuredTemplate {
     }
 
     activatePreviewListeners() {
-        canvas.stage.on('mousemove', this.onMouseMove);
-        canvas.stage.on('mousedown', this.onLeftClick);
-        canvas.app.view.oncontextmenu = this.onRightClick;
-        canvas.app.view.onwheel = this.onMouseWheel;
+        canvas.stage.on('mousemove', this._onMouseMove);
+        canvas.stage.on('mousedown', this._onLeftClick);
+        canvas.stage.on('rightdown', this._onClickRight);
+        canvas.app.view.onwheel = this._onMouseWheel;
     }
 }
