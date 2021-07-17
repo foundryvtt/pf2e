@@ -1,5 +1,5 @@
 {
-    "_id": "CnKc1kBejFV5gWtN",
+    "_id": "Jn5ReQuY1FDbWiZx",
     "data": {
         "actionCategory": {
             "value": ""
@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your animalistic connections help you resist natural afflictions. You gain a +2 circumstance bonus to saves to resist diseases and poisons.</p>"
+            "value": "<p>Your senses advance to match those of your animal aspect. You gain one of the following senses available to your inherent animal: echolocation (imprecise) 30 feet or tremorsense (imprecise) 30 feet.</p>\n<p>If your inherent animal doesn’t typically have a specific type of sense, you can’t gain the sense with this feat.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times, either choosing a different sense or improving an imprecise sense granted by this feat to a precise sense.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -27,17 +27,11 @@
         },
         "rules": [
             {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Animalistic Resistance (vs. disease and poison)",
-                "predicate": {
-                    "any": [
-                        "disease",
-                        "poison"
-                    ]
-                },
-                "selector": "saving-throw",
-                "type": "circumstance",
-                "value": 2
+                "acuity": "precise",
+                "key": "PF2E.RuleElement.Sense",
+                "label": "PF2E.SensesEcholocation",
+                "range": 30,
+                "selector": "echolocation"
             }
         ],
         "schema": {
@@ -60,6 +54,6 @@
     "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Animalistic Resistance",
+    "name": "Greater Animal Senses (Precise Echolocation)",
     "type": "feat"
 }
