@@ -175,7 +175,7 @@ export class WorldClock extends Application {
 
         $html.on('click', 'button[data-advance-time]', (event) => {
             const $button = $(event.currentTarget);
-            const increment = Number($button.data('advanceTime') ?? 0);
+            const increment = Number($button.data('advanceTime') ?? 0) * (event.ctrlKey ? -1 : 1);
             if (increment !== 0) {
                 game.time.advance(increment);
             }
