@@ -1808,6 +1808,7 @@ export const PF2ECONFIG = {
         petrified: 'PF2E.ConditionTypePetrified',
         piercing: 'PF2E.DamageTypePiercing',
         poison: 'PF2E.DamageTypePoison',
+        polymorph: 'PF2E.ImmunityTypePolymorph',
         positive: 'PF2E.DamageTypePositive',
         possession: 'PF2E.DamageTypePosession',
         precision: 'PF2E.DamageTypePrecision',
