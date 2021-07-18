@@ -1,3 +1,4 @@
+import { SaveType } from '@actor/data';
 import { AbilityString } from '@actor/data/base';
 import { TrickMagicItemCastData } from '@item/data';
 import { ItemLevelData, ItemSystemData, ItemTraits } from '@item/data/base';
@@ -24,7 +25,6 @@ export interface SpellData extends Omit<SpellSource, '_id' | 'effects'> {
 }
 
 export type MagicSchool = keyof ConfigPF2e['PF2E']['magicSchools'];
-export type SaveType = keyof ConfigPF2e['PF2E']['saves'];
 
 export type SpellTrait = keyof ConfigPF2e['PF2E']['spellTraits'];
 export type SpellTraits = ItemTraits<SpellTrait>;

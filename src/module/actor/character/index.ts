@@ -14,7 +14,7 @@ import {
 } from '@module/modifiers';
 import { ensureWeaponCategory, ensureWeaponSize, WeaponDamagePF2e } from '@system/damage/weapon';
 import { CheckPF2e, DamageRollPF2e, RollParameters } from '@system/rolls';
-import { SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from '../data/values';
+import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from '../data/values';
 import {
     BaseWeaponProficiencyKey,
     CharacterArmorClass,
@@ -69,15 +69,27 @@ export class CharacterPF2e extends CreaturePF2e {
         return this.data.data.details.keyability.value || 'str';
     }
 
+    /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
+        const systemData = this.data.data;
 
-        // Set base structure of armor data
-        const armorAttribute: { ac?: Partial<CharacterArmorClass> } = this.data.data.attributes;
+        // Armor
+        const armorAttribute: { ac?: Partial<CharacterArmorClass> } = systemData.attributes;
         armorAttribute.ac = { modifiers: [] };
 
+        // Saves, skills, and perception
+        for (const key of SAVE_TYPES) {
+            systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
+        }
+        for (const key of SKILL_ABBREVIATIONS) {
+            const skill = systemData.skills[key];
+            skill.ability = SKILL_EXPANDED[SKILL_DICTIONARY[key]].ability;
+            skill.armor = ['dex', 'str'].includes(skill.ability);
+        }
+        systemData.attributes.perception.ability = 'wis';
+
         // Add any homebrew categories
-        const systemData = this.data.data;
         const homebrewCategories = game.settings.get('pf2e', 'homebrew.weaponCategories').map((tag) => tag.id);
         for (const category of homebrewCategories) {
             systemData.martial[category] ??= {
@@ -230,7 +242,7 @@ export class CharacterPF2e extends CreaturePF2e {
         for (const saveName of ['fortitude', 'reflex', 'will'] as const) {
             const save = systemData.saves[saveName];
             // Base modifiers from ability scores & level/proficiency rank.
-            const ability = save.ability ?? CONFIG.PF2E.savingThrowDefaultAbilities[saveName];
+            const ability = save.ability;
             const modifiers = [
                 AbilityModifier.fromAbilityScore(ability, systemData.abilities[ability].value),
                 ProficiencyModifier.fromLevelAndRank(this.level, save.rank),
@@ -452,10 +464,7 @@ export class CharacterPF2e extends CreaturePF2e {
         for (const shortForm of SKILL_ABBREVIATIONS) {
             const skill = systemData.skills[shortForm];
             const modifiers = [
-                AbilityModifier.fromAbilityScore(
-                    skill.ability,
-                    systemData.abilities[skill.ability as AbilityString].value,
-                ),
+                AbilityModifier.fromAbilityScore(skill.ability, systemData.abilities[skill.ability].value),
                 ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),
             ];
             const notes: RollNotePF2e[] = [];

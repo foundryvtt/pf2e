@@ -6,7 +6,7 @@ import { CreaturePF2e } from '../creature';
 import { ItemSourcePF2e } from '@item/data';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ItemPF2e } from '@item/base';
-import { FamiliarData } from './data';
+import { FamiliarData, FamiliarSystemData } from './data';
 
 export class FamiliarPF2e extends CreaturePF2e {
     static override get schema(): typeof FamiliarData {
@@ -26,11 +26,31 @@ export class FamiliarPF2e extends CreaturePF2e {
     override prepareBaseData() {
         super.prepareBaseData();
 
-        const systemData = this.data.data;
+        const systemData: DeepPartial<FamiliarSystemData> & { attributes: {}; details: {} } = this.data.data;
         systemData.details.level = { value: 0 };
-        systemData.traits.size.value = 'tiny';
-        systemData.traits.traits = { value: ['minion'], custom: '' };
-        systemData.traits.senses = [{ type: 'lowLightVision', label: 'PF2E.SensesLowLightVision', value: '' }];
+        systemData.traits = {
+            senses: [{ type: 'lowLightVision', label: 'PF2E.SensesLowLightVision', value: '' }],
+            size: { value: 'tiny' },
+            traits: { value: ['minion'], custom: '' },
+        };
+
+        systemData.attributes.perception = {};
+        systemData.attributes.speed = {
+            otherSpeeds: [
+                {
+                    label: 'Land',
+                    type: 'land',
+                    value: 25,
+                },
+            ],
+        };
+        systemData.skills = {};
+
+        systemData.saves = {
+            fortitude: {},
+            reflex: {},
+            will: {},
+        };
     }
 
     /** Active effects on a familiar require a master, so wait until embedded documents are prepared */
@@ -61,13 +81,6 @@ export class FamiliarPF2e extends CreaturePF2e {
             const modifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
             const filterModifier = (modifier: ModifierPF2e) => !modifierTypes.includes(modifier.type);
 
-            if (Object.keys(data.attributes.speed.otherSpeeds).length === 0) {
-                data.attributes.speed.otherSpeeds.push({
-                    label: 'Land',
-                    type: 'land',
-                    value: 25,
-                });
-            }
             for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
                 const speed = data.attributes.speed.otherSpeeds[idx];
                 const base = Number(speed.value ?? 0);
@@ -167,7 +180,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                         MODIFIER_TYPE.UNTYPED,
                     ),
                 ];
-                const ability = save.ability ?? CONFIG.PF2E.savingThrowDefaultAbilities[saveName];
+                const ability = save.ability;
                 [save.name, `${ability}-based`, 'saving-throw', 'all'].forEach((key) =>
                     (statisticsModifiers[key] || [])
                         .filter(filterModifier)
