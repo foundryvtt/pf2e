@@ -1064,8 +1064,6 @@ export const PF2ECONFIG = {
         divine: 'PF2E.TraitDivine',
         occult: 'PF2E.TraitOccult',
         primal: 'PF2E.TraitPrimal',
-        focus: 'PF2E.TraitFocus',
-        ritual: 'PF2E.TraitRitual',
         halcyon: 'PF2E.TraitHalcyon',
     },
 
@@ -1478,6 +1476,8 @@ export const PF2ECONFIG = {
         prepared: 'PF2E.PreparationTypePrepared',
         spontaneous: 'PF2E.PreparationTypeSpontaneous',
         innate: 'PF2E.PreparationTypeInnate',
+        focus: 'PF2E.SpellCategoryFocus',
+        ritual: 'PF2E.SpellCategoryRitual',
     },
 
     areaTypes: {
