@@ -63,10 +63,10 @@ export class DicePF2e {
             let flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             if (adv === 1) {
                 rollParts[0] = ['2d20kh'];
-                flav = game.i18n.format('PF2E.Roll.TitleFortune', { title: title });
+                flav = game.i18n.format('PF2E.Roll.MisfortuneTitle', { title: title });
             } else if (adv === -1) {
                 rollParts[0] = ['2d20kl'];
-                flav = game.i18n.format('PF2E.Roll.TitleMisfortune', { title: title });
+                flav = game.i18n.format('PF2E.Roll.MisfortuneTitle', { title: title });
             }
 
             // Don't include situational bonuses unless they are defined
