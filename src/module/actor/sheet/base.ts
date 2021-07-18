@@ -25,7 +25,7 @@ import {
     TraitSelectorSpeeds,
     TraitSelectorWeaknesses,
 } from '@module/system/trait-selector';
-import { ErrorPF2e, objectHasKey, toNumber, tupleHasValue } from '@module/utils';
+import { ErrorPF2e, objectHasKey, tupleHasValue } from '@module/utils';
 import { LocalizePF2e } from '@system/localize';
 import {
     BasicSelectorOptions,
@@ -898,7 +898,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (item instanceof SpellPF2e && itemData.type === 'spell') {
             if (dropSlotType === 'spellSlot' || dropContainerType === 'spellcastingEntry') {
                 const dropId = $containerEl.attr('data-item-id') ?? '';
-                const level = toNumber($itemEl.attr('data-level')) ?? item.level;
+                const level = Math.max(Number($itemEl.attr('data-level')) || 0, item.level);
                 if (this.moveSpell(itemData, dropId, level)) {
                     this.actor._setShowUnpreparedSpells(dropId, itemData.data.level?.value);
                     return this.actor.createEmbeddedDocuments('Item', [itemData]);
@@ -1036,8 +1036,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // todo: this function should receive the spell, not the data
         const spell = new SpellPF2e(spellData, { parent: this.actor });
         const spellcastingEntryId = spellData.data.location.value;
-        const heightenedLevel = spellData.data.heightenedLevel?.value ?? spell.level;
-        if (spellcastingEntryId === targetLocation && heightenedLevel === targetLevel) {
+        if (spellcastingEntryId === targetLocation && spell.heightenedLevel === targetLevel) {
             return false;
         }
 
