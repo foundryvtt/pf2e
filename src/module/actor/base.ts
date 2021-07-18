@@ -180,7 +180,9 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                         merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
                         break;
                     case 'npc':
-                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
+                        if (!merged.flags?.core?.sourceId) {
+                            merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
+                        }
                         break;
                     default:
                         merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
