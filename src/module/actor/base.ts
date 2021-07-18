@@ -13,9 +13,9 @@ import { ActorSheetPF2e } from './sheet/base';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { hasInvestedProperty } from '@item/data/helpers';
 import { SUPPORTED_ROLL_OPTIONS } from './data/values';
-import { SaveData, SaveString, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from './creature/data';
+import { SaveData, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from './creature/data';
 import { AbilityString, BaseActorDataPF2e } from './data/base';
-import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing } from './data';
+import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from './data';
 import { TokenDocumentPF2e } from '@module/scene/token-document';
 import { UserPF2e } from '@module/user';
 import { isCreatureData } from './data/helpers';
@@ -411,7 +411,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * Roll a Save Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      */
-    rollSave(event: JQuery.Event, saveName: SaveString) {
+    rollSave(event: JQuery.Event, saveName: SaveType) {
         const save: SaveData = this.data.data.saves[saveName];
         const parts = ['@mod', '@itemBonus'];
         const flavor = `${game.i18n.localize(CONFIG.PF2E.saves[saveName])} Save Check`;
@@ -559,7 +559,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      */
     static async rollSave(ev: JQuery.ClickEvent, item: Embedded<ItemPF2e>): Promise<void> {
         if (canvas.tokens.controlled.length > 0) {
-            const save = $(ev.currentTarget).attr('data-save') as SaveString;
+            const save = $(ev.currentTarget).attr('data-save') as SaveType;
             const dc = Number($(ev.currentTarget).attr('data-dc'));
             const itemTraits = item.data.data.traits.value;
             for (const t of canvas.tokens.controlled) {

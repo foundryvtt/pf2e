@@ -1,3 +1,5 @@
+import { SaveData } from '@actor/creature/data';
+import { SaveType } from '@actor/data';
 import { ActorSystemData, BaseActorDataPF2e, BaseActorSourcePF2e, BaseTraitsData } from '@actor/data/base';
 import { HazardPF2e } from '.';
 
@@ -46,6 +48,7 @@ export interface HazardSystemData extends ActorSystemData {
         routine: string;
     };
     attributes: HazardAttributes;
+    saves: Record<SaveType, SaveData>;
     /** Traits, languages, and other information. */
     traits: BaseTraitsData;
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.

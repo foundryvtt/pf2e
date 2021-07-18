@@ -43,8 +43,8 @@ import { IdentifyItemPopup } from './popups/identify-popup';
 import { RemoveCoinsPopup } from './popups/remove-coins-popup';
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { ContainerPF2e } from '@item/container';
-import { ActorDataPF2e } from '@actor/data';
-import { SaveString, SkillAbbreviation } from '@actor/creature/data';
+import { ActorDataPF2e, SaveType } from '@actor/data';
+import { SkillAbbreviation } from '@actor/creature/data';
 import { AbilityString } from '@actor/data/base';
 import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
 import { FolderPF2e } from '@module/folder';
@@ -237,7 +237,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Roll Save Checks
         html.find('.save-name').on('click', (event) => {
             event.preventDefault();
-            const save = $(event.currentTarget).parents('[data-save]')[0].getAttribute('data-save') as SaveString;
+            const save = $(event.currentTarget).parents('[data-save]')[0].getAttribute('data-save') as SaveType;
             if (this.actor.data.data.saves[save]?.roll) {
                 const options = this.actor.getRollOptions(['all', 'saving-throw', save]);
                 this.actor.data.data.saves[save].roll({ event, options });
