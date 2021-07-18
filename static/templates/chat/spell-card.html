@@ -24,8 +24,8 @@
         {{#if data.isAttack}}
             <div class="spell-attack-buttons">
                 <button type="button" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>
-                <button type="button" data-action="spellAttack2">{{localize "PF2E.MAPAbbreviationLabel"}} -5</button>
-                <button type="button" data-action="spellAttack3">{{localize "PF2E.MAPAbbreviationLabel"}} -10</button>
+                <button type="button" data-action="spellAttack2">{{localize "PF2E.MAPAbbreviationLabel" penalty=-5}}</button>
+                <button type="button" data-action="spellAttack3">{{localize "PF2E.MAPAbbreviationLabel" penalty=-10}}</button>
             </div>
         {{/if}}
         {{#if data.damage.value}}<button type="button" data-action="spellDamage">{{data.damageLabel}}</button>{{/if}}
