@@ -965,8 +965,8 @@ export class CharacterPF2e extends CreaturePF2e {
                     `${game.i18n.localize('PF2E.RuleElement.Strike')} ${action.totalModifier < 0 ? '' : '+'}${
                         action.totalModifier
                     }`,
-                    "${game.i18n.format('PF2E.MAPAbbreviationLabel', { penalty: multipleAttackPenalty.map2 })}",
-                    "${game.i18n.format('PF2E.MAPAbbreviationLabel', { penalty: multipleAttackPenalty.map3 })}",
+                    game.i18n.format('PF2E.MAPAbbreviationLabel', { penalty: multipleAttackPenalty.map2 }),
+                    game.i18n.format('PF2E.MAPAbbreviationLabel', { penalty: multipleAttackPenalty.map3 }),
                 ];
                 const checkModifiers: [CheckModifier, CheckModifier, CheckModifier] = [
                     new CheckModifier(`${strikeLabel}: ${action.name}`, action),
