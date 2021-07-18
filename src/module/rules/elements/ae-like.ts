@@ -31,7 +31,7 @@ export class AELikeRuleElement extends RuleElementPF2e {
             );
         if (!pathIsValid) this.warn('path');
 
-        const valueIsValid = typeof this.value === 'number' || typeof this.value === 'string';
+        const valueIsValid = ['number', 'string', 'object'].includes(typeof this.value);
         if (!valueIsValid) this.warn('value');
 
         if (!(pathIsValid && valueIsValid)) this.ignored = true;
