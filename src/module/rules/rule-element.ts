@@ -194,7 +194,7 @@ export abstract class RuleElementPF2e {
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
-    resolveValue(valueData: RuleValue = 0, defaultValue: Exclude<RuleValue, BracketedValue> = 0): any {
+    resolveValue(valueData: RuleValue | undefined, defaultValue: Exclude<RuleValue, BracketedValue> = 0): any {
         let value = valueData;
         const actor = this.item.actor;
         if (typeof valueData === 'object') {
