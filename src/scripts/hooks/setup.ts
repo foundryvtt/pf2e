@@ -203,11 +203,19 @@ function registerPF2ActionClickListener() {
                     }
                 });
             }
-        } else if (target?.matches('[data-pf2-inline-template], [data-pf2-inline-template] *')) {
-            target = target.closest('[data-pf2-inline-template]')!;
-            const { pf2TemplateData } = target.dataset ?? {};
-            if (pf2TemplateData) {
+        } else if (target?.matches('[data-pf2-effect-area], [data-pf2-effect-area] *')) {
+            target = target.closest('[data-pf2-effect-area]')!;
+            const { pf2EffectArea, pf2TemplateData } = target.dataset ?? {};
+            const templateConversion: Record<string, string> = {
+                burst: 'circle',
+                emanation: 'circle',
+                line: 'ray',
+                cone: 'cone',
+                rect: 'rect',
+            };
+            if (pf2TemplateData && typeof pf2EffectArea === 'string') {
                 const templateData = JSON.parse(pf2TemplateData);
+                templateData.t = templateConversion[pf2EffectArea];
                 templateData.user = game.user.id;
                 const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
                 const ghostTemplate = new GhostTemplate(measuredTemplateDoc);
