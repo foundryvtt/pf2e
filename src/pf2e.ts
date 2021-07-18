@@ -148,7 +148,9 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
             name: 'worldclock',
             title: 'CONTROLS.WorldClock',
             icon: 'fas fa-clock',
-            visible: game.user.isGM || game.settings.get('pf2e', 'worldClock.playersCanView'),
+            visible:
+                game.settings.get('pf2e', 'worldClock.showClockButton') &&
+                (game.user.isGM || game.settings.get('pf2e', 'worldClock.playersCanView')),
             onClick: () => game.pf2e.worldClock!.render(true),
             button: true,
         });

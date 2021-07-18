@@ -1,7 +1,13 @@
 import { DateTime } from 'luxon';
 import { LocalizePF2e } from '../system/localize';
 
-type SettingsKey = 'dateTheme' | 'timeConvention' | 'playersCanView' | 'syncDarkness' | 'worldCreatedOn';
+type SettingsKey =
+    | 'dateTheme'
+    | 'timeConvention'
+    | 'playersCanView'
+    | 'syncDarkness'
+    | 'worldCreatedOn'
+    | 'showClockButton';
 
 interface FormInputData extends Omit<ClientSettingsData, 'scope'> {
     key: string;
@@ -23,6 +29,7 @@ interface UpdateData {
     syncDarkness: boolean;
     syncDarknessScene: boolean;
     worldCreatedOn: string;
+    showClockButton: boolean;
 }
 
 export class WorldClockSettings extends FormApplication {
@@ -94,6 +101,7 @@ export class WorldClockSettings extends FormApplication {
         game.settings.register('pf2e', 'worldClock.playersCanView', this.settings.playersCanView);
         game.settings.register('pf2e', 'worldClock.syncDarkness', this.settings.syncDarkness);
         game.settings.register('pf2e', 'worldClock.worldCreatedOn', this.settings.worldCreatedOn);
+        game.settings.register('pf2e', 'worldClock.showClockButton', this.settings.showClockButton);
     }
 
     override activateListeners($html: JQuery): void {
@@ -126,7 +134,13 @@ export class WorldClockSettings extends FormApplication {
     }
 
     protected override async _updateObject(_event: Event, data: UpdateData): Promise<void> {
-        const keys: (keyof UpdateData)[] = ['dateTheme', 'timeConvention', 'playersCanView', 'syncDarkness'];
+        const keys: (keyof UpdateData)[] = [
+            'dateTheme',
+            'timeConvention',
+            'playersCanView',
+            'syncDarkness',
+            'showClockButton',
+        ];
         for await (const key of keys) {
             const settingKey = `worldClock.${key}`;
             const newValue = key === 'worldCreatedOn' ? DateTime.fromISO(data[key]).toUTC() : data[key];
@@ -167,6 +181,22 @@ export class WorldClockSettings extends FormApplication {
                 choices: {
                     24: CONFIG.PF2E.SETTINGS.worldClock.timeConvention.twentyFour,
                     12: CONFIG.PF2E.SETTINGS.worldClock.timeConvention.twelve,
+                },
+            },
+            // Show the World Clock
+            showClockButton: {
+                name: CONFIG.PF2E.SETTINGS.worldClock.showClockButton.name,
+                hint: CONFIG.PF2E.SETTINGS.worldClock.showClockButton.hint,
+                scope: 'world',
+                config: false,
+                default: true,
+                type: Boolean,
+                onChange: () => {
+                    game.settings.set(
+                        'pf2e',
+                        'worldClock.playersCanView',
+                        game.settings.get('pf2e', 'worldClock.showClockButton'),
+                    );
                 },
             },
             // Players can view the World Clock
