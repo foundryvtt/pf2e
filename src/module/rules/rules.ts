@@ -1,5 +1,7 @@
-import { RuleElementConstructionData, RuleElementData } from './rules-data-definitions';
+import type { ItemPF2e } from '@item';
 import { RuleElementPF2e } from './rule-element';
+export { RuleElementPF2e };
+import { RuleElementConstructionData, RuleElementData } from './rules-data-definitions';
 import { PF2FlatModifierRuleElement } from './elements/flat-modifier';
 import { PF2MageArmorRuleElement } from './spells/mage-armor';
 import { PF2FixedProficiencyRuleElement } from './elements/fixed-proficiency';
@@ -22,8 +24,7 @@ import { PF2EffectTargetRuleElement } from './elements/effect-target';
 import { PF2ActorTraits } from '@module/rules/elements/actor-traits';
 import { PF2RecoveryCheckDCRuleElement } from '@module/rules/feats/recovery-check-dc';
 import { PF2AdjustDegreeOfSuccessRuleElement } from './elements/adjust-degree-of-success';
-import type { ItemPF2e } from '@item';
-export { RuleElementPF2e };
+import { AELikeRuleElement } from './elements/ae-like';
 
 /**
  * @category RuleElement
@@ -58,6 +59,7 @@ export class RuleElements {
         'PF2E.RuleElement.RecoveryCheckDC': (ruleData, item) => new PF2RecoveryCheckDCRuleElement(ruleData, item),
         'PF2E.RuleElement.AdjustDegreeOfSuccess': (ruleData, item) =>
             new PF2AdjustDegreeOfSuccessRuleElement(ruleData, item),
+        'PF2E.RuleElement.ActiveEffectLike': (ruleData, item) => new AELikeRuleElement(ruleData, item),
     });
 
     static custom: Record<string, (ruleData: RuleElementData, item: Embedded<ItemPF2e>) => RuleElementPF2e> = {};
