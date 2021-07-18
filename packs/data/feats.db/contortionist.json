@@ -21,6 +21,7 @@
         "level": {
             "value": 4
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -28,7 +29,18 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:escape"
+                    ]
+                },
+                "selector": "acrobatics",
+                "text": "<p class='compact-text'><strong>Success</strong> Whenever you successfully @Compendium[pf2e.actionspf2e.Escape]{Escape} using Acrobatics, the creature you Escaped from is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the next attack you make against it before the end of your next turn.</p>"
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.643
