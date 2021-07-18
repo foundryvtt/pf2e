@@ -182,4 +182,21 @@ Hooks.on('renderChatMessage', (message, html) => {
             elem.removeAttribute('data-pf2-show-dc'); // short-circuit the global DC interpolation
         }
     });
+    if (game.user.isGM) {
+        html.find('[data-pf2-action]:not([data-pf2-action=""])').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + '<span data-pf2e-repost> (repost)</span>';
+        });
+        html.find('[data-pf2-saving-throw]:not([data-pf2-saving-throw=""])').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + '<span data-pf2e-repost> (repost)</span>';
+        });
+        html.find('[data-pf2-skill-check]:not([data-pf2-skill-check=""])').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + '<span data-pf2e-repost> (repost)</span>';
+        });
+        html.find('[data-pf2-perception-check]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + '<span data-pf2e-repost> (repost)</span>';
+        });
+        html.find('[data-pf2-flat-check]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + '<span data-pf2e-repost> (repost)</span>';
+        });
+    }
 });
