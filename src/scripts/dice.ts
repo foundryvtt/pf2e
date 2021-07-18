@@ -66,10 +66,7 @@ export class DicePF2e {
                 flav = game.i18n.format('PF2E.Roll.TitleFortune', { title: title });
             } else if (adv === -1) {
                 rollParts[0] = ['2d20kl'];
-                flav = game.i18n.format('PF2E.Roll.TitleMisfortune', {
-                    title: title,
-                    fortune: game.i18n.localize('PF2E.Roll.Misfortune'),
-                });
+                flav = game.i18n.format('PF2E.Roll.TitleMisfortune', { title: title });
             }
 
             // Don't include situational bonuses unless they are defined
