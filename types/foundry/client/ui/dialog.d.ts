@@ -4,6 +4,7 @@ interface DialogData {
     close?: (html: HTMLElement | JQuery) => void;
     buttons?: Record<string, DialogButton>;
     default?: string;
+    render?: (html: HTMLElement | JQuery) => void;
 }
 
 interface DialogButton {

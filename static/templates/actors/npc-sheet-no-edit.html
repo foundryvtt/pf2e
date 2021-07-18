@@ -430,7 +430,7 @@
     </ol>
 
     {{#if hasSpells}}
-    {{#each actor.spellcastingEntries as |entry eid|}}
+    {{#each spellcastingEntries as |entry eid|}}
     <hr>
     <div class="stats-line">
       <span class="inline-stats">
@@ -441,109 +441,64 @@
     </div>
 
     <ol class="actions-list inventory-list directory-list item-list">
-                  <!-- List Spells -->
-            {{#unless entry.data.prepared.preparedSpells}}
-                {{#each entry.spellbook as |section lvl|}}
-                  {{#if section.spells.length}}
-                    <li class="list-row inventory-header sub-category spellbook-header">
-                        <div class="item-name flexrow">
-                            <h3 style="background-color: var(--alternate-background);">{{localize section.label}}</h3>
-                        </div>
-                    </li>
+        <!-- List Spells -->
+        {{#each entry.levels as |section lvl|}}
+            {{#if section.active.length}}
+                <li class="list-row inventory-header sub-category spellbook-header">
+                    <div class="item-name flexrow">
+                        <h3 style="background-color: var(--alternate-background);">{{localize section.label}}</h3>
+                    </div>
+                </li>
 
-                    {{#each section.spells as |item i|}}
-                    <li class="list-row item" data-item-id="{{item._id}}">
+                {{#each section.active as |item i|}}
+                    {{#with item}}
+                    <li class="list-row item" data-item-id="{{spell.id}}" data-entry-id="{{entry.id}}" data-spell-lvl="{{section.level}}" data-slot-id="{{i}}" data-expended-state="{{item.expended}}">
                         <div class="item-name rollable">
-                            <div class="item-image" style="background-image: url({{item.img}})"></div>
-                            <h4>{{item.name}}</h4>
+                            <div class="item-image" style="background-image: url({{chatData.img}})"></div>
+                            {{#if expended}}
+                                <h4 style="text-decoration: line-through">{{spell.name}}</h4>
+                            {{else}}
+                                <h4>{{spell.name}}</h4>
+                            {{/if}}
                         </div>
 
                         <div class="melee-buttons spell-buttons">
-                          {{#if item.spellInfo.traits}}
-                            {{#each item.spellInfo.traits as |trait tid|}}
-                              {{#if trait.description}}
+                            {{#each chatData.traits as |trait tid|}}
+                                {{#if trait.description}}
                                 <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
-                              {{else}}
+                                {{else}}
                                 <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
-                              {{/if}}
+                                {{/if}}
                             {{/each}}
-                          {{/if}}
 
-                          {{#if item.spellInfo.isSave}}
-                            <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.spellInfo.save.dc}} {{item.spellInfo.save.basic}} {{localize item.spellInfo.save.str}}</span>
-                          {{/if}}
-                          {{#if item.spellInfo.isAttack}}
+                            {{#if chatData.isSave}}
+                            <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{chatData.save.dc}} {{chatData.save.basic}} {{localize chatData.save.str}}</span>
+                            {{/if}}
+                            {{#if chatData.isAttack}}
                             <span class="tag"><button data-action="spellAttack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.AttackLabel"}} {{numberFormat entry.data.attack.value decimals=0 sign=true}}</button></span>
-                          {{/if}}
-                          {{#if item.data.damage.value}}
-                            <span class="tag"><button data-action="spellDamage">{{item.spellInfo.damageLabel}}: {{item.data.damage.value}}</button></span>
-                          {{/if}}
+                            {{/if}}
+                            {{#if spell.data.data.damage.value}}
+                            <span class="tag"><button data-action="spellDamage">{{chatData.damageLabel}}: {{chatData.damage.value}}</button></span>
+                            {{/if}}
                         </div>
 
                         {{#if ../../../owner}}
                         <div class="item-controls">
                             <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
-                            <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                            {{#if entry.isPrepared}}
+                                {{#unless section.isCantrip}}
+                                    <a class="item-control item-unprepare" title="{{localize "PF2E.UnprepareItemTitle"}}"><i class="fas fa-minus-square"></i></a>
+                                {{/unless}}
+                            {{else}}
+                                <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
+                            {{/if}}
                         </div>
                         {{/if}}
                     </li>
-                    {{/each}}
-                  {{/if}}
+                    {{/with}}
                 {{/each}}
-            {{else}}
-                {{#each entry.spellbook as |section lvl|}}
-                    {{#if section.prepared.length}}
-                        <li class="list-row inventory-header sub-category spellbook-header">
-                            <div class="item-name flexrow">
-                                <h3 style="background-color: var(--alternate-background);">{{localize section.label}}</h3>
-                            </div>
-                        </li>
-
-                        {{#each section.prepared as |item i|}}
-                        <li class="list-row item" data-item-id="{{item._id}}" data-expended-state="{{item.expended}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry._id}}">
-                            <div class="item-name rollable">
-                                <div class="item-image" style="background-image: url({{item.img}})"></div>
-                                {{#if item.expended}}
-                                  <h4 style="text-decoration: line-through">{{item.name}}</h4>
-                                {{else}}
-                                  <h4>{{item.name}}</h4>
-                                {{/if}}
-                            </div>
-
-                            <div class="melee-buttons spell-buttons">
-                              {{#if item.spellInfo.traits}}
-                                {{#each item.spellInfo.traits as |trait tid|}}
-                                  {{#if trait.description}}
-                                    <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
-                                  {{else}}
-                                    <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
-                                  {{/if}}
-                                {{/each}}
-                              {{/if}}
-
-                              {{#if item.spellInfo.isSave}}
-                                <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.spellInfo.save.dc}} {{item.spellInfo.save.basic}} {{localize item.spellInfo.save.str}}</span>
-                              {{/if}}
-                              {{#if item.spellInfo.isAttack}}
-                                <span class="tag"><button data-action="spellAttack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.AttackLabel"}} {{numberFormat entry.data.attack.value decimals=0 sign=true}}</button></span>
-                              {{/if}}
-                              {{#if item.data.damage.value}}
-                                <span class="tag"><button data-action="spellDamage">{{item.spellInfo.damageLabel}}: {{item.data.damage.value}}</button></span>
-                              {{/if}}
-                            </div>
-
-                            {{#if ../../../owner}}
-                            <div class="item-controls">
-                                <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
-                                <a class="item-control item-toggle-prepare" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-minus-square"></i></a>
-                            </div>
-                            {{/if}}
-                        </li>
-                        {{/each}}
-                    {{/if}}
-                {{/each}}
-            {{/unless}}
-
+            {{/if}}
+        {{/each}}
     </ol>
     <hr>
     {{/each}}

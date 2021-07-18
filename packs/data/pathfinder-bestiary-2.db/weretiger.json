@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+4",
+                "mod": 4,
                 "value": 18
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 21,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -124,7 +125,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "These ferocious werecreatures stalk prey with the cunning and skill of a true apex predator. Weretigers typically view all life as a potential meal. Powerful nocturnal hunters with excellent senses that help them ambush prey, weretigers are adaptable to an extreme range of environments. However, weretigers living in densely populated cities  often struggle to suppress their killer instincts, becoming overwhelmed by the urge to hunt. They prefer to wear loose-fitting clothing and rely on their claws and jaws in a fight.<br /><br />",
+            "flavorText": "<p>These ferocious werecreatures stalk prey with the cunning and skill of a true apex predator. Weretigers typically view all life as a potential meal. Powerful nocturnal hunters with excellent senses that help them ambush prey, weretigers are adaptable to an extreme range of environments. However, weretigers living in densely populated cities (potentially as courtesans, assassins, or guild leaders) often struggle to suppress their killer instincts, becoming overwhelmed by the urge to hunt. They prefer to wear loose-fitting clothing and rely on their claws and jaws in a fight.</p>\n<hr />\n<p>Werecreatures transform into animals and animal-humanoid hybrids under the light of the full moon. The doomed fate of these shapechanging creatures derives from an ancient primal curse that they can, in turn, transmit through their own bites. The stat blocks in this section reflect werecreatures in their hybrid forms.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -136,9 +137,9 @@
                 "min": 1,
                 "value": 4
             },
-            "recallKnowledgeText": "Recall Knowledge - Beast : DC 19<br />Recall Knowledge - Humanoid : DC 19",
+            "recallKnowledgeText": "",
             "source": {
-                "value": "Bestiary 2"
+                "value": "Pathfinder Bestiary 2"
             }
         },
         "saves": {
@@ -203,7 +204,7 @@
                 "value": "low-light vision, scent (imprecise) 30 feet"
             },
             "size": {
-                "value": "med"
+                "value": "lg"
             },
             "traits": {
                 "custom": "",
@@ -229,8 +230,8 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Curse of the Weretiger",
-                        "Grab"
+                        "curse-of-the-weretiger",
+                        "grab"
                     ]
                 },
                 "bonus": {
@@ -269,7 +270,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 100000,
             "type": "melee"
@@ -321,7 +322,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 200000,
             "type": "melee"
@@ -430,7 +431,7 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Scent",
+            "name": "Scent (Imprecise) 30 feet",
             "sort": 400000,
             "type": "action"
         },
@@ -482,7 +483,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Tiger Empathy",
             "sort": 500000,
             "type": "action"
@@ -615,7 +616,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This curse affects only humanoids</p>\n<p><strong>Saving Throw</strong> DC 18 Fortitude.</p>\n<p>On each full moon, the cursed creature must succeed at another Fortitude save or turn into the same kind of werecreature until dawn. The creature is under the GM's control and goes on a rampage for half the night before falling unconscious until dawn.</p>"
+                    "value": "<p>This curse affects only humanoids</p>\n<p><strong>Saving Throw</strong> <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"curse,necromancy,primal\" data-pf2-label=\"Curse of the Weretiger DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Fortitude</span>.</p>\n<p>On each full moon, the cursed creature must succeed at another Fortitude save or turn into the same kind of werecreature until dawn. The creature is under the GM's control and goes on a rampage for half the night before falling unconscious until dawn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -637,8 +638,7 @@
                     "value": [
                         "curse",
                         "necromancy",
-                        "primal",
-                        "humanoids"
+                        "primal"
                     ]
                 },
                 "trigger": {
@@ -650,7 +650,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Curse of the Weretiger",
             "sort": 800000,
             "type": "action"
@@ -670,12 +670,29 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When a full moon appears in the night sky, the werecreature must enter hybrid form, can't Change Shape thereafter, becomes one size larger, increases their reach by 5 feet, and increases the damage of their jaws Strike (or a similar Strike) by 2. When the moon sets or the sun rises, the werecreature returns to humanoid form and is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} for 2d4 hours.</p>"
+                    "value": "<p>When a full moon appears in the night sky, the werecreature must enter hybrid form, can't Change Shape thereafter, becomes one size larger, increases their reach by 5 feet, and increases the damage of their jaws Strike (or a similar Strike) by 2. When the moon sets or the sun rises, the werecreature returns to humanoid form and is @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} for [[/br 2d4 #hours]] hours.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Moon Frenzy",
+                        "predicate": {
+                            "all": [
+                                "full-moon"
+                            ]
+                        },
+                        "selector": "jaws-damage",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Full moon",
+                        "property": "flags.pf2e.rollOptions.damage-roll.full-moon"
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.643
@@ -704,7 +721,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Moon Frenzy",
             "sort": 900000,
             "type": "action"
@@ -1079,7 +1096,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
@@ -1092,7 +1109,7 @@
         "displayName": 20,
         "disposition": -1,
         "flags": {},
-        "height": 1,
+        "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 0,
@@ -1110,7 +1127,7 @@
         "sightAngle": 0,
         "tint": null,
         "vision": false,
-        "width": 1
+        "width": 2
     },
     "type": "npc"
 }

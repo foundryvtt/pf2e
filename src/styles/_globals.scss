@@ -32,11 +32,6 @@ $header-color: #fff; /* Font Color */
 $header-bg: $secondary-color;
 $box-bg: lighten($header-bg, 75);
 
-/* Font Families */
-$sans-serif: 'Roboto', system, -apple-system, sans-serif !default;
-$serif: 'Eczar', Georgia, serif !default;
-$body-serif: 'Gelasio', Georgia, serif !default;
-
 /* Buttons */
 $btn-text: $tertiary-color !default;
 $btn-color: $primary-color !default;
@@ -77,6 +72,12 @@ $rank-legendary: $primary-color;
 /* ----------------------------------------- */
 
 :root {
+    --body-serif: Gelasio, Georgia, serif;
+    --sans-serif: Roboto, sans-serif;
+    --sans-serif-condensed: "Roboto Condensed", var(--sans-serif);
+    --serif: Eczar, Georgia, serif;
+    --small-caps: Nodesto, Signika, "Palatino Linotype", serif;
+
     --primary: #{$primary-color};
     --secondary: #{$secondary-color};
     --tertiary: #{$tertiary-color};
@@ -105,12 +106,8 @@ $rank-legendary: $primary-color;
     --animate-repeat: 1;
 }
 
-body {
-    font-family: $sans-serif;
-}
-
 /* ----------------------------------------- */
-/* Layout
+/* Layout                                    */
 /* ----------------------------------------- */
 
 $padding: 0.5em;
@@ -130,10 +127,8 @@ $margin: 0.5em;
 /* ----------------------------------------- */
 
 .pf2e, .app.sheet.actor {
-    h1,
-    h2,
-    h3,
-    h4 {
+  font-family: var(--sans-serif);
+    h1, h2, h3, h4 {
         font-weight: 600;
     }
     p {
@@ -142,7 +137,7 @@ $margin: 0.5em;
 }
 
 @mixin micro {
-    font-family: $sans-serif;
+    font-family: var(--sans-serif);
     font-size: 8px;
     font-weight: 700;
     line-height: 1;
@@ -384,6 +379,65 @@ table.pf2-table {
     margin-right: 5px;
     color: #7a7971;
     content: '\f6cf';
+}
+
+/* ----------------------------------------- */
+/* PF2E Inline Template Custom Element
+/* ----------------------------------------- */
+[data-pf2-effect-area] {
+    background: #ddd;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+[data-pf2-effect-area]:not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
+[data-pf2-effect-area="cone"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f104';
+}
+
+[data-pf2-effect-area="line"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f7a5';
+}
+
+[data-pf2-effect-area="burst"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f111';
+}
+
+[data-pf2-effect-area="emanation"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f111';
+}
+
+[data-pf2-effect-area="rect"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f0c8';
 }
 
 /* ----------------------------------------- */

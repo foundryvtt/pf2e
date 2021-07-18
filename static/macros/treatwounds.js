@@ -4,44 +4,7 @@ function CheckFeat(slug) {
     }
     return false;
 }
-
-const rollHealing = ({degreeOfSuccess, bonus, riskysurgery}) => {
-    let healFormula, successLabel;
-    const magicHands = CheckFeat('magic-hands');
-
-    const bonusString = bonus > 0 ? `+ ${bonus}` : '';
-    if (degreeOfSuccess === 3) {
-        healFormula = magicHands ? `32${bonusString}` : `4d8${bonusString}`;
-        successLabel = 'Critical Success';
-    } else if (degreeOfSuccess === 2) {
-        healFormula = magicHands ? `16${bonusString}` : `2d8${bonusString}`;
-        successLabel = 'Success';
-    } else if (degreeOfSuccess === 1) {
-        successLabel = 'Failure';
-    } else if (degreeOfSuccess === 0) {
-        healFormula = '1d8';
-        successLabel = 'Critical Failure';
-    }
-    if (riskysurgery) {
-        healFormula = degreeOfSuccess > 1 ? `${healFormula}-1d8` : healFormula ? `2d8` : `1d8`;
-    }
-    if (healFormula !== undefined) {
-        const healRoll = new Roll(healFormula).evaluate();
-        const rollType = degreeOfSuccess > 1 ? 'Healing' : 'Damage';
-        ChatMessage.create(
-            {
-                user: game.user.id,
-                type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                flavor: `<strong>${rollType} Roll: Treat Wounds</strong> (${successLabel})`,
-                roll: healRoll,
-                speaker: ChatMessage.getSpeaker(),
-            },
-            {},
-        );
-    }
-}
-
-const rollTreatWounds = ({ DC, bonus, med, riskysurgery, mortalhealing, assurance }) => {
+const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing, assurance }) => {
     const options = actor.getRollOptions(['all', 'skill-check', 'medicine']);
 
     options.push('treat wounds');
@@ -64,12 +27,42 @@ const rollTreatWounds = ({ DC, bonus, med, riskysurgery, mortalhealing, assuranc
         event: event,
         options: options,
         fate: assurance ? 'assurance' : undefined,
-        callback: roll => rollHealing({
-            degreeOfSuccess: roll.data.degreeOfSuccess,
-            bonus: bonus,
-            riskysurgery: riskysurgery
-        })
-    })
+        callback: (roll) => {
+            let healFormula, successLabel;
+            const magicHands = CheckFeat('magic-hands');
+        
+            const bonusString = bonus > 0 ? `+ ${bonus}` : '';
+            if (roll.data.degreeOfSuccess === 3) {
+                healFormula = magicHands ? `32${bonusString}` : `4d8${bonusString}`;
+                successLabel = 'Critical Success';
+            } else if (roll.data.degreeOfSuccess === 2) {
+                healFormula = magicHands ? `16${bonusString}` : `2d8${bonusString}`;
+                successLabel = 'Success';
+            } else if (roll.data.degreeOfSuccess === 1) {
+                successLabel = 'Failure';
+            } else if (roll.data.degreeOfSuccess === 0) {
+                healFormula = '1d8';
+                successLabel = 'Critical Failure';
+            }
+            if (riskysurgery) {
+                healFormula = roll.data.degreeOfSuccess > 1 ? `${healFormula}-1d8` : healFormula ? `2d8` : `1d8`;
+            }
+            if (healFormula !== undefined) {
+                const healRoll = new Roll(healFormula).roll({async: false});
+                const rollType = roll.data.degreeOfSuccess > 1 ? 'Healing' : 'Damage';
+                ChatMessage.create(
+                    {
+                        user: game.user.id,
+                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                        flavor: `<strong>${rollType} Roll: Treat Wounds</strong> (${successLabel})`,
+                        roll: healRoll,
+                        speaker: ChatMessage.getSpeaker(),
+                    },
+                    {},
+                );
+            }
+        },
+    });
 };
 
 async function applyChanges($html) {

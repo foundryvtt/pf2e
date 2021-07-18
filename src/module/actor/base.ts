@@ -13,9 +13,9 @@ import { ActorSheetPF2e } from './sheet/base';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { hasInvestedProperty } from '@item/data/helpers';
 import { SUPPORTED_ROLL_OPTIONS } from './data/values';
-import { SaveData, SaveString, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from './creature/data';
+import { SaveData, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from './creature/data';
 import { AbilityString, BaseActorDataPF2e } from './data/base';
-import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing } from './data';
+import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from './data';
 import { TokenDocumentPF2e } from '@module/scene/token-document';
 import { UserPF2e } from '@module/user';
 import { isCreatureData } from './data/helpers';
@@ -180,7 +180,9 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                         merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
                         break;
                     case 'npc':
-                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
+                        if (!merged.flags?.core?.sourceId) {
+                            merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
+                        }
                         break;
                     default:
                         merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
@@ -224,7 +226,11 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         // Rule elements
-        this.rules = this.items.contents.flatMap((item) => item.prepareRuleElements());
+        this.rules = this.items.contents
+            .flatMap((item) => item.prepareRuleElements())
+            .sort((elementA, elementB) => {
+                return elementA.priority > elementB.priority ? 1 : -1;
+            });
     }
 
     /** Disable active effects from a physical item if it isn't equipped and (if applicable) invested */
@@ -405,7 +411,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * Roll a Save Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      */
-    rollSave(event: JQuery.Event, saveName: SaveString) {
+    rollSave(event: JQuery.Event, saveName: SaveType) {
         const save: SaveData = this.data.data.saves[saveName];
         const parts = ['@mod', '@itemBonus'];
         const flavor = `${game.i18n.localize(CONFIG.PF2E.saves[saveName])} Save Check`;
@@ -553,7 +559,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      */
     static async rollSave(ev: JQuery.ClickEvent, item: Embedded<ItemPF2e>): Promise<void> {
         if (canvas.tokens.controlled.length > 0) {
-            const save = $(ev.currentTarget).attr('data-save') as SaveString;
+            const save = $(ev.currentTarget).attr('data-save') as SaveType;
             const dc = Number($(ev.currentTarget).attr('data-dc'));
             const itemTraits = item.data.data.traits.value;
             for (const t of canvas.tokens.controlled) {
@@ -604,6 +610,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             if (!combatant.actor?.hasPlayerOwner) {
                 value += 0.5;
             }
+            const iniativeIsNow = game.i18n.format('PF2E.InitativeIsNow', { name: combatant.name, value: value });
             const message = `
       <div class="dice-roll">
       <div class="dice-result">
@@ -613,7 +620,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             </div>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${combatant.name}'s Initiative is now ${value}!</span>
+          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${iniativeIsNow}</span>
         </div>
       </div>
       </div>

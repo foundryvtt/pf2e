@@ -1064,8 +1064,6 @@ export const PF2ECONFIG = {
         divine: 'PF2E.TraitDivine',
         occult: 'PF2E.TraitOccult',
         primal: 'PF2E.TraitPrimal',
-        focus: 'PF2E.TraitFocus',
-        ritual: 'PF2E.TraitRitual',
         halcyon: 'PF2E.TraitHalcyon',
     },
 
@@ -1478,6 +1476,8 @@ export const PF2ECONFIG = {
         prepared: 'PF2E.PreparationTypePrepared',
         spontaneous: 'PF2E.PreparationTypeSpontaneous',
         innate: 'PF2E.PreparationTypeInnate',
+        focus: 'PF2E.SpellCategoryFocus',
+        ritual: 'PF2E.SpellCategoryRitual',
     },
 
     areaTypes: {
@@ -1665,6 +1665,7 @@ export const PF2ECONFIG = {
         motionsense: 'PF2E.SensesMotionsense',
         scent: 'PF2E.SensesScent',
         Tremorsense: 'PF2E.SensesTremorsense',
+        echolocation: 'PF2E.SensesEcholocation',
         tremorsense: 'PF2E.SensesTremorsense',
         lifesense: 'PF2E.SensesLifesense',
         wavesense: 'PF2E.SensesWavesense',
@@ -1807,6 +1808,7 @@ export const PF2ECONFIG = {
         petrified: 'PF2E.ConditionTypePetrified',
         piercing: 'PF2E.DamageTypePiercing',
         poison: 'PF2E.DamageTypePoison',
+        polymorph: 'PF2E.ImmunityTypePolymorph',
         positive: 'PF2E.DamageTypePositive',
         possession: 'PF2E.DamageTypePosession',
         precision: 'PF2E.DamageTypePrecision',
@@ -2282,6 +2284,10 @@ export const PF2ECONFIG = {
                 hint: 'PF2E.SETTINGS.WorldClock.TimeConvention.Hint',
                 twentyFour: 'PF2E.SETTINGS.WorldClock.TimeConvention.TwentyFour',
                 twelve: 'PF2E.SETTINGS.WorldClock.TimeConvention.Twelve',
+            },
+            showClockButton: {
+                name: 'PF2E.SETTINGS.WorldClock.ShowClockButton.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.ShowClockButton.Hint',
             },
             playersCanView: {
                 name: 'PF2E.SETTINGS.WorldClock.PlayersCanView.Name',
