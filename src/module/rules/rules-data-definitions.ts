@@ -16,7 +16,7 @@ export interface RuleElementData {
     ignored: boolean;
 }
 
-export type RuleElementConstructionData = Omit<RuleElementData, 'label' | 'priority' | 'ignored'> & {
+export type RuleElementSource = Omit<RuleElementData, 'label' | 'priority' | 'ignored'> & {
     label?: string;
     priority?: number;
 };

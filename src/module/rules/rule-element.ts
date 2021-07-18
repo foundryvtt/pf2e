@@ -4,7 +4,7 @@ import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from '@item';
 import type { ItemDataPF2e } from '@item/data';
 import {
     BracketedValue,
-    RuleElementConstructionData,
+    RuleElementSource,
     RuleElementData,
     RuleElementSynthetics,
     RuleValue,
@@ -47,7 +47,7 @@ export abstract class RuleElementPF2e {
      * @param data unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
-    constructor(data: RuleElementConstructionData, public item: Embedded<ItemPF2e>) {
+    constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>) {
         this.data = {
             ...data,
             priority: 100,
