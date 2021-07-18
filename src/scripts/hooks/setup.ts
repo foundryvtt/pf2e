@@ -203,7 +203,11 @@ function registerPF2ActionClickListener() {
                     }
                 });
             }
-        } else if (target?.matches('[data-pf2-effect-area], [data-pf2-effect-area] *')) {
+        } else if (
+            target?.matches(
+                '[data-pf2-effect-area]:not([data-pf2-effect-area=""]), [data-pf2-effect-area]:not([data-pf2-effect-area=""]) *',
+            )
+        ) {
             target = target.closest('[data-pf2-effect-area]')!;
             const { pf2EffectArea, pf2TemplateData } = target.dataset ?? {};
             const templateConversion: Record<string, string> = {
