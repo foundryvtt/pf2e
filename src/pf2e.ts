@@ -30,7 +30,7 @@ Hooks.on('getChatLogEntryContext', (_html, options) => {
         const messageId = $li.attr('data-message-id') ?? '';
         const message = game.messages.get(messageId, { strict: true });
 
-        // Rolling PC iniative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
+        // Rolling PC initiative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
         // Avoid potential confusion and misunderstanding by just allowing NPCs to roll
         const validActor = canvas.tokens.controlled[0]?.actor?.data.type === 'npc';
         const validRollType = $li.find('.dice-total-setInitiative-btn').length > 0;
