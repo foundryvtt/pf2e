@@ -135,4 +135,14 @@ export function registerHandlebarsHelpers() {
 
         return null;
     });
+
+    // From https://github.com/leapfrogtechnology/just-handlebars-helpers/
+    Handlebars.registerHelper('concat', function (...params) {
+        // Ignore the object appended by handlebars.
+        if (typeof params[params.length - 1] === 'object') {
+            params.pop();
+        }
+
+        return params.join('');
+    });
 }
