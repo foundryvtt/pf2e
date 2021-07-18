@@ -301,9 +301,9 @@ table.pf2-table {
 }
 
 /* ----------------------------------------- */
-/* PF2E Skill Check Custom Element
+/* PF2E Check Custom Element
 /* ----------------------------------------- */
-[data-pf2-skill-check]:not([data-pf2-skill-check=""]) {
+[data-pf2-check]:not([data-pf2-check=""]) {
     background: #ddd;
     padding: 1px 4px;
     border: 1px solid #4b4a44;
@@ -315,11 +315,11 @@ table.pf2-table {
     font-weight: 500;
 }
 
-[data-pf2-skill-check]:not([data-pf2-skill-check=""]):not([data-pf2-show-dc="gm"]) {
+[data-pf2-check]:not([data-pf2-check=""]):not([data-pf2-show-dc="gm"]) {
     background: #e8e8ef;
 }
 
-[data-pf2-skill-check]::before {
+[data-pf2-check]::before {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     margin-right: 5px;
@@ -327,58 +327,28 @@ table.pf2-table {
     content: '\f6cf';
 }
 
-/* ----------------------------------------- */
-/* PF2E Perception Check Custom Element
-/* ----------------------------------------- */
-[data-pf2-perception-check] {
-    background: #ddd;
-    padding: 1px 4px;
-    border: 1px solid #4b4a44;
-    border-radius: 2px;
-    white-space: nowrap;
-    word-break: break-all;
-    cursor: pointer;
-    box-sizing: border-box;
-    font-weight: 500;
-}
-
-[data-pf2-perception-check]:not([data-pf2-show-dc="gm"]) {
-    background: #e8e8ef;
-}
-
-[data-pf2-perception-check]::before {
+[data-pf2-check="reflex"]::before {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     margin-right: 5px;
     color: #7a7971;
-    content: '\f6cf';
+    content: '\f70c';
 }
 
-/* ----------------------------------------- */
-/* PF2E flat Check Custom Element
-/* ----------------------------------------- */
-[data-pf2-flat-check] {
-    background: #ddd;
-    padding: 1px 4px;
-    border: 1px solid #4b4a44;
-    border-radius: 2px;
-    white-space: nowrap;
-    word-break: break-all;
-    cursor: pointer;
-    box-sizing: border-box;
-    font-weight: 500;
-}
-
-[data-pf2-flat-check]:not([data-pf2-show-dc="gm"]) {
-    background: #e8e8ef;
-}
-
-[data-pf2-flat-check]::before {
+[data-pf2-check="will"]::before {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     margin-right: 5px;
     color: #7a7971;
-    content: '\f6cf';
+    content: '\f5dc';
+}
+
+[data-pf2-check="fortitude"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f21e';
 }
 
 /* ----------------------------------------- */
