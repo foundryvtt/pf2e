@@ -4,11 +4,15 @@ import { SpellcastingEntrySource } from '@item/spellcasting-entry/data';
 import { tupleHasValue } from '@module/utils';
 import { MigrationBase } from '../base';
 
-const LEGIT_TRADITIONS = ['arcane', 'divine', 'occult', 'primal', 'focus', 'ritual', 'halcyon'] as const;
+const LEGIT_TRADITIONS = ['arcane', 'divine', 'occult', 'primal', 'focus', 'ritual', 'halcyon', ''] as const;
 
 interface HighestTradition {
     name: typeof LEGIT_TRADITIONS[number];
     value: number;
+}
+
+interface Tradition {
+    value: typeof LEGIT_TRADITIONS[number];
 }
 
 /**
@@ -33,7 +37,8 @@ export class Migration619TraditionLowercaseAndRemoveWandScroll extends Migration
         }
 
         // Convert to lowercase
-        item.data.tradition.value = makeLowercase(item.data.tradition.value);
+        const tradition: Tradition = item.data.tradition;
+        tradition.value = makeLowercase(tradition.value);
 
         // Do not change regular spellcasting entries any further
         if (tupleHasValue(LEGIT_TRADITIONS, item.data.tradition.value)) {
@@ -59,6 +64,6 @@ export class Migration619TraditionLowercaseAndRemoveWandScroll extends Migration
             { name: 'arcane', value: 0 },
         );
 
-        item.data.tradition.value = highestTradition.name;
+        tradition.value = highestTradition.name;
     }
 }
