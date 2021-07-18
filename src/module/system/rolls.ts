@@ -20,6 +20,8 @@ export interface RollParameters {
     options?: string[];
     /** Optional DC data for the roll */
     dc?: PF2CheckDC;
+    /** Optional fate data for the roll */
+    fate?: string;
     /** Callback called when the roll occurs. */
     callback?: (roll: Rolled<Roll>) => void;
     /** Other roll-specific options */

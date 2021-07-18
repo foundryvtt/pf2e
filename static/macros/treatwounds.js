@@ -4,7 +4,44 @@ function CheckFeat(slug) {
     }
     return false;
 }
-const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing }) => {
+
+const rollHealing = ({degreeOfSuccess, bonus, riskysurgery}) => {
+    let healFormula, successLabel;
+    const magicHands = CheckFeat('magic-hands');
+
+    const bonusString = bonus > 0 ? `+ ${bonus}` : '';
+    if (degreeOfSuccess === 3) {
+        healFormula = magicHands ? `32${bonusString}` : `4d8${bonusString}`;
+        successLabel = 'Critical Success';
+    } else if (degreeOfSuccess === 2) {
+        healFormula = magicHands ? `16${bonusString}` : `2d8${bonusString}`;
+        successLabel = 'Success';
+    } else if (degreeOfSuccess === 1) {
+        successLabel = 'Failure';
+    } else if (degreeOfSuccess === 0) {
+        healFormula = '1d8';
+        successLabel = 'Critical Failure';
+    }
+    if (riskysurgery) {
+        healFormula = degreeOfSuccess > 1 ? `${healFormula}-1d8` : healFormula ? `2d8` : `1d8`;
+    }
+    if (healFormula !== undefined) {
+        const healRoll = new Roll(healFormula).evaluate();
+        const rollType = degreeOfSuccess > 1 ? 'Healing' : 'Damage';
+        ChatMessage.create(
+            {
+                user: game.user.id,
+                type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                flavor: `<strong>${rollType} Roll: Treat Wounds</strong> (${successLabel})`,
+                roll: healRoll,
+                speaker: ChatMessage.getSpeaker(),
+            },
+            {},
+        );
+    }
+}
+
+const rollTreatWounds = ({ DC, bonus, med, riskysurgery, mortalhealing, assurance }) => {
     const options = actor.getRollOptions(['all', 'skill-check', 'medicine']);
 
     options.push('treat wounds');
@@ -26,42 +63,13 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing }) 
         dc: dc,
         event: event,
         options: options,
-        callback: (roll) => {
-            let healFormula, successLabel;
-            const magicHands = CheckFeat('magic-hands');
-
-            const bonusString = bonus > 0 ? `+ ${bonus}` : '';
-            if (roll.data.degreeOfSuccess === 3) {
-                healFormula = magicHands ? `32${bonusString}` : `4d8${bonusString}`;
-                successLabel = 'Critical Success';
-            } else if (roll.data.degreeOfSuccess === 2) {
-                healFormula = magicHands ? `16${bonusString}` : `2d8${bonusString}`;
-                successLabel = 'Success';
-            } else if (roll.data.degreeOfSuccess === 1) {
-                successLabel = 'Failure';
-            } else if (roll.data.degreeOfSuccess === 0) {
-                healFormula = '1d8';
-                successLabel = 'Critical Failure';
-            }
-            if (riskysurgery) {
-                healFormula = roll.data.degreeOfSuccess > 1 ? `${healFormula}-1d8` : healFormula ? `2d8` : `1d8`;
-            }
-            if (healFormula !== undefined) {
-                const healRoll = new Roll(healFormula).roll();
-                const rollType = roll.data.degreeOfSuccess > 1 ? 'Healing' : 'Damage';
-                ChatMessage.create(
-                    {
-                        user: game.user.id,
-                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                        flavor: `<strong>${rollType} Roll: Treat Wounds</strong> (${successLabel})`,
-                        roll: healRoll,
-                        speaker: ChatMessage.getSpeaker(),
-                    },
-                    {},
-                );
-            }
-        },
-    });
+        fate: assurance ? 'assurance' : undefined,
+        callback: roll => rollHealing({
+            degreeOfSuccess: roll.data.degreeOfSuccess,
+            bonus: bonus,
+            riskysurgery: riskysurgery
+        })
+    })
 };
 
 async function applyChanges($html) {
@@ -76,6 +84,7 @@ async function applyChanges($html) {
         const requestedProf = parseInt($html.find('[name="dc-type"]')[0].value) || 1;
         const riskysurgery = $html.find('[name="risky_surgery_bool"]')[0]?.checked;
         const mortalhealing = $html.find('[name="mortal_healing_bool"]')[0]?.checked;
+        const assurance = $html.find('[name="assurance_bool"]')[0]?.checked;
         const skill = $html.find('[name="skill"]')[0]?.value;
 
         // Handle Rule Interpretation
@@ -112,10 +121,10 @@ async function applyChanges($html) {
         const medicBonus = CheckFeat('medic-dedication') ? (usedProf - 1) * 5 : 0;
         const roll = [
             () => ui.notifications.warn(`${name} is not trained in Medicine and doesn't know how to treat wounds.`),
-            () => rollTreatWounds({ DC: 15 + mod, bonus: 0 + medicBonus, med, riskysurgery, mortalhealing }),
-            () => rollTreatWounds({ DC: 20 + mod, bonus: 10 + medicBonus, med, riskysurgery, mortalhealing }),
-            () => rollTreatWounds({ DC: 30 + mod, bonus: 30 + medicBonus, med, riskysurgery, mortalhealing }),
-            () => rollTreatWounds({ DC: 40 + mod, bonus: 50 + medicBonus, med, riskysurgery, mortalhealing }),
+            () => rollTreatWounds({ DC: 15 + mod, bonus: 0 + medicBonus, med, riskysurgery, mortalhealing, assurance }),
+            () => rollTreatWounds({ DC: 20 + mod, bonus: 10 + medicBonus, med, riskysurgery, mortalhealing, assurance }),
+            () => rollTreatWounds({ DC: 30 + mod, bonus: 30 + medicBonus, med, riskysurgery, mortalhealing, assurance }),
+            () => rollTreatWounds({ DC: 40 + mod, bonus: 50 + medicBonus, med, riskysurgery, mortalhealing, assurance }),
         ][usedProf];
 
         roll();
@@ -180,6 +189,14 @@ ${
         ? `<form><div class="form-group">
 <label>Mortal Healing</label>
 <input type="checkbox" id="mortal_healing_bool" name="mortal_healing_bool" checked></input>
+</div></form>`
+        : ``
+}
+${
+    CheckFeat('assurance-medicine') || CheckFeat('assurance-crafting') || CheckFeat('assurance-nature')
+        ? `<form><div class="form-group">
+<label>Assurance</label>
+<input type="checkbox" id="assurance_bool" name="assurance_bool"></input>
 </div></form>`
         : ``
 }

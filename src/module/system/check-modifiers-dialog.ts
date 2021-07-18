@@ -1,4 +1,4 @@
-import { ModifierPF2e, StatisticModifier } from '../modifiers';
+import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from '../modifiers';
 import { ActorPF2e } from '@actor/base';
 import { RollNotePF2e } from '../notes';
 import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
@@ -71,12 +71,18 @@ export class CheckModifiersDialog extends Application {
     ) {
         const options: string[] = [];
         const ctx = context as any;
+
+        const isAssurance = ctx.fate === 'assurance';
+
         let dice = '1d20';
         if (ctx.fate === 'misfortune') {
             dice = '2d20kl';
             options.push('PF2E.TraitMisfortune');
         } else if (ctx.fate === 'fortune') {
             dice = '2d20kh';
+            options.push('PF2E.TraitFortune');
+        } else if (isAssurance) {
+            dice = '10';
             options.push('PF2E.TraitFortune');
         }
 
@@ -99,6 +105,7 @@ export class CheckModifiersDialog extends Application {
 
         const modifierBreakdown = check.modifiers
             .filter((m) => m.enabled)
+            .filter((m) => !isAssurance || m.type === MODIFIER_TYPE.PROFICIENCY)
             .map((m) => {
                 const label = game.i18n.localize(m.label ?? m.name);
                 return `<span class="tag tag_alt">${label} ${m.modifier < 0 ? '' : '+'}${m.modifier}</span>`;
@@ -111,7 +118,9 @@ export class CheckModifiersDialog extends Application {
             .map((o) => `<span style="${optionStyle}">${game.i18n.localize(o)}</span>`)
             .join('');
 
-        const totalModifierPart = check.totalModifier === 0 ? '' : `+${check.totalModifier}`;
+        var totalModifier = isAssurance ? this.getAssuranceModifier(check) : check.totalModifier;
+
+        const totalModifierPart = totalModifier === 0 ? '' : `+${totalModifier}`;
         const roll = new Roll(`${dice}${totalModifierPart}`, check as RollDataPF2e).evaluate({ async: false });
 
         let flavor = `<strong>${check.name}</strong>`;
@@ -193,10 +202,10 @@ export class CheckModifiersDialog extends Application {
                         canPopout: true,
                     },
                     pf2e: {
-                        canReroll: !['fortune', 'misfortune'].includes(ctx.fate),
+                        canReroll: !['fortune', 'misfortune', 'assurance'].includes(ctx.fate),
                         context,
                         unsafe: flavor,
-                        totalModifier: check.totalModifier,
+                        totalModifier,
                         origin,
                     },
                 },
@@ -211,25 +220,35 @@ export class CheckModifiersDialog extends Application {
         }
     }
 
+    static getAssuranceModifier(
+        check: StatisticModifier
+    ): number {
+        return check.modifiers.find((m) => m.enabled && m.type === MODIFIER_TYPE.PROFICIENCY)?.modifier || 0;
+    }
+
     override getData() {
         const fortune = this?.context?.fate === 'fortune';
         const misfortune = this?.context?.fate === 'misfortune';
-        const none = fortune === misfortune;
+        const assurance = this?.context?.fate === 'assurance';
+        const none = !fortune && !misfortune && !assurance;
         return {
             appId: this.id,
             check: this.check,
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context.rollMode,
+            rollNumber: !assurance ? this.check.totalModifier : 10 + CheckModifiersDialog.getAssuranceModifier(this.check),
+            rollSign: !assurance,
             showRollDialogs: game.user.getFlag('pf2e', 'settings.showRollDialogs'),
             fortune,
             none,
             misfortune,
+            assurance,
+            assuranceAllowed: this?.context?.type === 'skill-check',
         };
     }
 
     override activateListeners(html: JQuery) {
         html.find('.roll').on('click', (_event) => {
-            this.context.fate = html.find('input[type=radio][name=fate]:checked').val() as string;
             CheckModifiersDialog.roll(this.check, this.context, this.callback);
             this.close();
         });
@@ -243,6 +262,11 @@ export class CheckModifiersDialog extends Application {
 
         html.find('.add-modifier-panel').on('click', '.add-modifier', (event) => this.onAddModifier(event));
         html.find('[name=rollmode]').on('change', (event) => this.onChangeRollMode(event));
+
+        html.find('.fate').on('click', 'input[type=radio]', (event) => {
+            this.context.fate = event.currentTarget.getAttribute('value');
+            this.render();
+        });
 
         // Dialog settings menu
         const $settings = html.closest(`#${this.id}`).find('a.header-button.settings');
@@ -305,3 +329,4 @@ export class CheckModifiersDialog extends Application {
         return [settingsButton, ...buttons];
     }
 }
+

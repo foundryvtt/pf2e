@@ -40,9 +40,15 @@
   <hr/>
 
   <div class="fate">
-      <label>
-          <input type="radio" name="fate" value="fortune" {{checked fortune}} />
-          Fortune
+    {{#if assuranceAllowed}}
+    <label>
+      <input type="radio" name="fate" value="assurance" {{checked assurance}} />
+      Assurance
+    </label>
+    {{/if}}
+    <label>
+      <input type="radio" name="fate" value="fortune" {{checked fortune}} />
+      Fortune
     </label>
     <label>
       <input type="radio" name="fate" value="none" {{checked none}} />
@@ -67,7 +73,7 @@
   </div>
   <hr/>
 
-  <button type="button" class="roll">Roll ({{numberFormat check.totalModifier decimals=0 sign=true}})</button>
+  <button type="button" class="roll">Roll ({{numberFormat rollNumber decimals=0 sign=rollSign}})</button>
 
   <!-- Settings Menu -->
   <div class="hover-content" id="{{appId}}-settings">
