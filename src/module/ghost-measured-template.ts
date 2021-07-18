@@ -14,7 +14,6 @@ export class GhostTemplate extends MeasuredTemplate {
     };
 
     override _onClickRight = (_event: PIXI.InteractionEvent) => {
-        //event: PIXI.InteractionEvent
         this.layer.preview.removeChildren();
         canvas.stage.off('mousemove', this._onMouseMove);
         canvas.stage.off('mousedown', this._onLeftClick);
@@ -34,7 +33,6 @@ export class GhostTemplate extends MeasuredTemplate {
     };
 
     override _onMouseWheel = (event: WheelEvent) => {
-        //event: PIXI.InteractionEvent & WheelEvent
         if (event.ctrlKey) {
             event.preventDefault();
             event.stopPropagation();
