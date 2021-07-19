@@ -8,7 +8,6 @@ declare global {
      * @see {@link documents.Messages} The world-level collection of ChatMessage documents
      */
     class ChatMessage<TActor extends Actor = Actor> extends ChatMessageConstructor {
-        /** @override */
         constructor(
             data: PreCreate<foundry.data.ChatMessageSource>,
             context?: DocumentConstructionContext<ChatMessage>,
@@ -37,7 +36,7 @@ declare global {
         get isRoll(): boolean;
 
         /** Return the Roll instance contained in this chat message, if one is present */
-        readonly roll: Rolled<Roll> | null;
+        get roll(): Rolled<Roll> | null;
 
         /**
          * Return whether the ChatMessage is visible to the current User.
