@@ -4,7 +4,7 @@
         "abilities": {
             "cha": {
                 "min": 3,
-                "mod": 0,
+                "mod": -5,
                 "value": 10
             },
             "con": {
@@ -19,12 +19,12 @@
             },
             "int": {
                 "min": 3,
-                "mod": 0,
+                "mod": -5,
                 "value": 10
             },
             "str": {
                 "min": 3,
-                "mod": "+6",
+                "mod": 6,
                 "value": 22
             },
             "wis": {
@@ -109,7 +109,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -144,7 +144,7 @@
             },
             "recallKnowledgeText": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Quest 1: The Sandstone Secret"
             }
         },
         "saves": {
@@ -260,7 +260,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(magical)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
@@ -316,7 +316,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(fire, magical, range increment 80 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
@@ -335,7 +335,7 @@
                     "value": [
                         "fire",
                         "magical",
-                        "range increment 80 feet"
+                        "range-increment-80"
                     ]
                 },
                 "weaponType": {
@@ -348,6 +348,111 @@
             "name": "Flaming Coal",
             "sort": 200000,
             "type": "melee"
+        },
+        {
+            "_id": "Y5o3gFf5JPkOt7XK",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "ic8i09fev9fnyjwi3zg2": {
+                        "damage": "2d6+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "magical",
+                        "range-increment-80"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Flaming Coal (Brazier Extinguished)",
+            "sort": 300000,
+            "type": "melee"
+        },
+        {
+            "_id": "Qm1AK3IRo7ARRrDs",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 400000,
+            "type": "action"
         },
         {
             "_id": "7Rg3TQGFjt5uWzLw",
@@ -369,7 +474,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Broken",
+                        "property": "flags.pf2e.rollOptions.all.construct-armor"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "construct-armor"
+                            ]
+                        },
+                        "roll-options": [
+                            "all",
+                            "ac"
+                        ],
+                        "selector": "ac",
+                        "value": -4
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.643
@@ -394,9 +519,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Construct Armor",
-            "sort": 300000,
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Construct Armor (Hardness 10)",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -414,7 +539,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The statue carries a wide brazier full of hot coals. To make flaming coal Strikes or use Burn Alive, the statue must have the brazier held in one hand or otherwise have it within reach. Instead of targeting the statue with an attack, a creature can target the brazier directly. The brazier has the same AC and saves as the statue. Dealing [[/r 15 # cold damage]] cold damage to the brazier or dousing it with at least 2 gallons of water extinguishes the coals. This prevents the statue from using Burn Alive and causes its ranged attacks to no longer deal [[/r 2d8 # fire damage]] fire damage.</p>"
+                    "value": "<p>The statue carries a wide brazier full of hot coals. To make flaming coal Strikes or use Burn Alive, the statue must have the brazier held in one hand or otherwise have it within reach.</p>\n<p>Instead of targeting the statue with an attack, a creature can target the brazier directly. The brazier has the same AC and saves as the statue.</p>\n<p>Dealing 15 cold damage to the brazier or dousing it with at least 2 gallons of water extinguishes the coals. This prevents the statue from using Burn Alive and causes its ranged attacks to no longer deal 2d8 fire damage.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -444,9 +569,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Brazier",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -459,12 +584,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The statue grinds a creature it has grabbed into the red-hot coals of its brazier. The target takes [[/r 3d6 # fire damage]] fire damage and [[/r 1d8 # persistent fire damage]] persistent fire damage</p>"
+                    "value": "<p>The statue grinds a creature it has grabbed into the red-hot coals of its brazier. The target takes [[/r 3d6 #fire]]{3d6 fire damage} and [[/r 1d8 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -496,9 +621,63 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Burn Alive",
-            "sort": 500000,
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "8OWV0T2BEwM3VtOu",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -539,7 +718,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 900000,
             "type": "lore"
         }
     ],
