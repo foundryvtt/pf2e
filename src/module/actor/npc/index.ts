@@ -1,4 +1,4 @@
-import { SKILL_DICTIONARY, SKILL_EXPANDED } from '@actor/data/values';
+import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from '@actor/data/values';
 import { ItemPF2e } from '@item/index';
 import {
     CheckModifier,
@@ -85,6 +85,16 @@ export class NPCPF2e extends CreaturePF2e {
             return this.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
         }
         return super.testUserPermission(user, permission, options);
+    }
+
+    /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        for (const key of SAVE_TYPES) {
+            this.data.data.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
+        }
+        this.data.data.attributes.perception.ability = 'wis';
     }
 
     override prepareDerivedData(): void {
@@ -302,10 +312,10 @@ export class NPCPF2e extends CreaturePF2e {
         }
 
         // Saving Throws
-        for (const saveName of ['fortitude', 'reflex', 'will'] as const) {
+        for (const saveName of SAVE_TYPES) {
             const save = data.saves[saveName];
             const base: number = save.base ?? Number(save.value);
-            const ability = save.ability ?? CONFIG.PF2E.savingThrowDefaultAbilities[saveName];
+            const ability = save.ability;
             const modifiers = [
                 new ModifierPF2e('PF2E.BaseModifier', base - data.abilities[ability].mod, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),

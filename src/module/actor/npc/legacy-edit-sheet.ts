@@ -3,9 +3,9 @@ import { SKILL_DICTIONARY } from '@actor/data/values';
 import { NPCPF2e } from '.';
 import { identifyCreature } from '@module/recall-knowledge';
 import { RecallKnowledgePopup } from '../sheet/popups/recall-knowledge-popup';
-import { SpellcastingEntryData, SpellData } from '@item/data';
-import { objectHasKey } from '@module/utils';
-import { ConsumablePF2e } from '@item';
+import { getActionIcon, objectHasKey } from '@module/utils';
+import { ConsumablePF2e, SpellcastingEntryPF2e } from '@item';
+import { SpellcastingSheetData } from './sheet';
 
 export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     static override get defaultOptions() {
@@ -51,6 +51,8 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.unspecificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.unspecificLoreDC.start];
         sheetData.unspecificLoreProgression = identifyCreatureData.unspecificLoreDC.progression.join('/');
 
+        this.prepareSpellcasting(sheetData);
+
         // Return data for rendering
         return sheetData;
     }
@@ -72,16 +74,6 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             passive: { label: 'Passive Actions', actions: [] },
         };
 
-        // Spellbook
-        // const spellbook = {};
-        const tempSpellbook: SpellData[] = [];
-        const spellcastingEntriesList: string[] = [];
-        const spellbooks: any = [];
-        spellbooks.unassigned = {};
-
-        // Spellcasting Entries
-        const spellcastingEntries: SpellcastingEntryData[] = [];
-
         // Skills
         const lores: { label: string; description: string }[] = [];
 
@@ -89,38 +81,8 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         for (const i of actorData.items) {
             i.img = i.img || CONST.DEFAULT_TOKEN;
 
-            // Spells
-            if (i.type === 'spell') {
-                tempSpellbook.push(i);
-            }
-
-            // Spellcasting Entries
-            else if (i.type === 'spellcastingEntry') {
-                // collect list of entries to use later to match spells against.
-                spellcastingEntriesList.push(i._id);
-
-                if ((i.data.prepared || {}).value === 'prepared') i.data.prepared.preparedSpells = true;
-                else i.data.prepared.preparedSpells = false;
-                // Check if Ritual spellcasting tradtion and set Boolean
-                if ((i.data.tradition || {}).value === 'ritual') i.data.tradition.ritual = true;
-                else i.data.tradition.ritual = false;
-
-                // There are still some bestiary entries where these values are strings.
-                i.data.spelldc.dc = Number(i.data.spelldc.dc);
-                i.data.spelldc.value = Number(i.data.spelldc.value);
-
-                if (this.actor.data.data.traits.traits.value.some((trait) => trait === 'elite')) {
-                    i.data.spelldc.dc += 2;
-                    i.data.spelldc.value += 2;
-                } else if (this.actor.data.data.traits.traits.value.some((trait) => trait === 'weak')) {
-                    i.data.spelldc.dc -= 2;
-                    i.data.spelldc.value -= 2;
-                }
-                spellcastingEntries.push(i);
-            }
-
             // Weapons
-            else if (i.type === 'weapon') {
+            if (i.type === 'weapon') {
                 // we don't want to do anything if they're a weapon. They should be using the melee attacks
             }
 
@@ -202,36 +164,6 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         const embeddedEntityUpdate: EmbeddedDocumentUpdateData<NPCPF2e>[] = [];
 
-        // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.
-        for (const i of tempSpellbook) {
-            const spellType = i.data.time.value;
-
-            // format spell level for display
-            if (spellType === 'reaction') i.img = NPCPF2e.getActionGraphics('reaction').imageUrl;
-            else if (spellType === 'free') i.img = NPCPF2e.getActionGraphics('free').imageUrl;
-            else if (parseInt(spellType, 10))
-                i.img = NPCPF2e.getActionGraphics('action', parseInt(spellType, 10)).imageUrl;
-
-            // check if the spell has a valid spellcasting entry assigned to the location value.
-            if (spellcastingEntriesList.includes(i.data.location.value)) {
-                const location = i.data.location.value;
-                spellbooks[location] = spellbooks[location] || {};
-                this.prepareSpell(actorData, spellbooks[location], i);
-            } else if (spellcastingEntriesList.length === 1) {
-                // if not BUT their is only one spellcasting entry then assign the spell to this entry.
-                const location = spellcastingEntriesList[0];
-                spellbooks[location] = spellbooks[location] || {};
-
-                // Update spell to perminantly have the correct ID now
-                embeddedEntityUpdate.push({ _id: i._id, 'data.location.value': spellcastingEntriesList[0] });
-
-                this.prepareSpell(actorData, spellbooks[location], i);
-            } else {
-                // else throw it in the orphaned list.
-                this.prepareSpell(actorData, spellbooks.unassigned, i);
-            }
-        }
-
         // Update all embedded entities that have an incorrect location.
         if (embeddedEntityUpdate.length) {
             console.log(
@@ -248,20 +180,55 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         actorData.actions = actions;
         actorData.attacks = attacks;
         actorData.lores = lores;
+    }
 
-        if (Object.keys(spellbooks.unassigned).length) {
-            actorData.orphanedSpells = true;
-            actorData.orphanedSpellbook = spellbooks.unassigned;
-        }
+    protected prepareSpellcasting(sheetData: any) {
+        // Spellcasting Entries
+        const spellcastingEntries: SpellcastingSheetData[] = [];
 
-        for (const entry of spellcastingEntries) {
-            if ((entry.data.prepared as any).preparedSpells && spellbooks[entry._id]) {
-                this.preparedSpellSlots(entry, spellbooks[entry._id]);
+        for (const i of sheetData.items) {
+            // Spellcasting Entries
+            if (i.type === 'spellcastingEntry') {
+                const entry = this.actor.items.get(i._id);
+                if (!(entry instanceof SpellcastingEntryPF2e)) {
+                    continue;
+                }
+
+                if ((i.data.prepared || {}).value === 'prepared') i.data.prepared.preparedSpells = true;
+                else i.data.prepared.preparedSpells = false;
+                // Check if Ritual spellcasting tradtion and set Boolean
+                if ((i.data.tradition || {}).value === 'ritual') i.data.tradition.ritual = true;
+                else i.data.tradition.ritual = false;
+
+                // There are still some bestiary entries where these values are strings.
+                i.data.spelldc.dc = Number(i.data.spelldc.dc);
+                i.data.spelldc.value = Number(i.data.spelldc.value);
+
+                if (this.actor.data.data.traits.traits.value.some((trait) => trait === 'elite')) {
+                    i.data.spelldc.dc += 2;
+                    i.data.spelldc.value += 2;
+                } else if (this.actor.data.data.traits.traits.value.some((trait) => trait === 'weak')) {
+                    i.data.spelldc.dc -= 2;
+                    i.data.spelldc.value -= 2;
+                }
+
+                // Update all spells to have the action icon
+                const data = entry.getSpellData();
+                for (const level of data.levels) {
+                    for (const active of level.active) {
+                        if (!active) continue;
+                        const spellType = active.spell.data.data.time.value;
+                        active.chatData.img = getActionIcon(spellType, active.spell.img);
+                    }
+                }
+
+                const eid = spellcastingEntries.length;
+                spellcastingEntries.push(mergeObject(i, { eid, ...data }));
             }
-            (entry as any).spellbook = spellbooks[entry._id];
         }
 
-        actorData.spellcastingEntries = spellcastingEntries;
+        sheetData.spellcastingEntries = spellcastingEntries;
+        sheetData.actor.spellcastingEntries = spellcastingEntries;
     }
 
     /* -------------------------------------------- */

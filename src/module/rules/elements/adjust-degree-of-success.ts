@@ -1,10 +1,11 @@
 import { RuleElementPF2e } from '../rule-element';
 import { CharacterData, NPCData } from '@actor/data';
-import { SAVE_TYPES, SKILL_DICTIONARY } from '@actor/data/values';
-import { Saves, SkillAbbreviation } from '@actor/creature/data';
+import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from '@actor/data/values';
+import { SkillAbbreviation } from '@actor/creature/data';
 import { DegreeOfSuccessAdjustment, PF2CheckDCModifiers } from '@system/check-degree-of-success';
 import { ModifierPredicate } from '@module/modifiers';
 import { RuleElementData } from '../rules-data-definitions';
+import { tupleHasValue } from '@module/utils';
 
 /**
  * @category RuleElement
@@ -26,16 +27,16 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
             }
 
             const skill = this.skillAbbreviationFromString(selector);
-            const save = SAVE_TYPES.includes(selector as keyof Saves) ? (selector as keyof Saves) : undefined;
-            if (selector === 'saving-throw' || save !== undefined) {
+            const save = tupleHasValue(SAVE_TYPES, selector) ? selector : undefined;
+            if (selector === 'saving-throw' || save) {
                 if (selector === 'saving-throw') {
                     SAVE_TYPES.forEach((save) => {
                         actorData.data.saves[save].adjustments ??= [];
                         actorData.data.saves[save].adjustments.push(completeAdjustment);
                     });
-                } else {
-                    actorData.data.saves[save!].adjustments ??= [];
-                    actorData.data.saves[save!].adjustments.push(completeAdjustment);
+                } else if (save) {
+                    actorData.data.saves[save].adjustments ??= [];
+                    actorData.data.saves[save].adjustments.push(completeAdjustment);
                 }
             } else if (selector === 'skill-check' || skill !== undefined) {
                 if (selector === 'skill-check') {
@@ -44,9 +45,9 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
                         actorData.data.skills[skill].adjustments ??= [];
                         actorData.data.skills[skill].adjustments.push(completeAdjustment);
                     });
-                } else {
-                    actorData.data.skills[skill!].adjustments ??= [];
-                    actorData.data.skills[skill!].adjustments.push(completeAdjustment);
+                } else if (skill) {
+                    actorData.data.skills[skill].adjustments ??= [];
+                    actorData.data.skills[skill].adjustments.push(completeAdjustment);
                 }
             } else if (selector === 'perception-check') {
                 actorData.data.attributes.perception.adjustments ??= [];
@@ -67,9 +68,9 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
     }
 
     skillAbbreviationFromString(skill: string): SkillAbbreviation | undefined {
-        for (const [key, value] of Object.entries(SKILL_DICTIONARY)) {
-            if (value === skill) {
-                return key as SkillAbbreviation;
+        for (const key of SKILL_ABBREVIATIONS) {
+            if (SKILL_DICTIONARY[key] === skill) {
+                return key;
             }
         }
         return;

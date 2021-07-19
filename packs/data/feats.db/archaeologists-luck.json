@@ -21,6 +21,7 @@
         "level": {
             "value": 8
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -28,10 +29,24 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": {
+                    "all": [
+                        "trap"
+                    ]
+                },
+                "selector": "all",
+                "text": "<p class='compact-text'><strong>Failure</strong> <em>Once per hour</em>: Reroll the failed check and use the new result.</p>"
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.643
+            "version": 0.644
         },
         "source": {
             "value": ""

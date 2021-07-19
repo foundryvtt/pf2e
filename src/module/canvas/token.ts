@@ -44,6 +44,29 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         this.data.brightLight = original.bright;
     }
 
+    /** Refresh the token image (usually after an actor update) */
+    async refreshIcon(): Promise<void> {
+        if (this.icon) this.removeChild(this.icon);
+        this.texture = await loadTexture(this.data.img, { fallback: CONST.DEFAULT_TOKEN });
+        this.icon = this.addChild(await this._drawIcon());
+        this.refresh();
+    }
+
+    /** Prevent Foundry from prematurely redrawing a token resource bar */
+    protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
+        if (bar.geometry) super._drawBar(number, bar, data);
+    }
+
+    /** Prevent Foundry from prematurely redrawing this token's border */
+    protected override _refreshBorder(): void {
+        if (this.border.geometry) super._refreshBorder();
+    }
+
+    /** Prevent Foundry from prematurely redrawing the targeting reticle */
+    protected override _refreshTarget(): void {
+        if (this.target.geometry) super._refreshTarget();
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */

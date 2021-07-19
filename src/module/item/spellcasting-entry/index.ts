@@ -56,11 +56,11 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     }
 
     get isPrepared(): boolean {
-        return this.data.data.prepared.value === 'prepared' && this.tradition !== 'focus';
+        return this.data.data.prepared.value === 'prepared';
     }
 
     get isSpontaneous(): boolean {
-        return this.data.data.prepared.value === 'spontaneous' && this.tradition !== 'focus';
+        return this.data.data.prepared.value === 'spontaneous';
     }
 
     get isInnate(): boolean {
@@ -68,11 +68,11 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     }
 
     get isFocusPool(): boolean {
-        return this.tradition === 'focus';
+        return this.data.data.prepared.value === 'focus';
     }
 
     get isRitual(): boolean {
-        return this.tradition === 'ritual';
+        return this.data.data.prepared.value === 'ritual';
     }
 
     get highestLevel(): number {

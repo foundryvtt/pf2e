@@ -30,6 +30,7 @@
         "TypeWeapon": "Weapon"
     },
     "COMPENDIUM": {
+        "ImportAllHint": "All of the content from this Compendium pack will be imported into your World to a Folder, which you may name. <p class=\"notes\"><strong>WARNING</strong>: It is strongly recommended that this <span style=\"text-decoration: underline\">not</span> be done with larger compendia. Doing so has no benefit and will adversely impact loading this world for both yourself and your players.</p>",
         "Search": "Search Compendia"
     },
     "CONTROLS": {
@@ -630,6 +631,7 @@
         "ClassHP": "Class HP",
         "ClassTitle": "Your character's class",
         "ClickToSetInitiative": "Click to set initiative to selected token(s).",
+        "ClickToSetInitiativeContext": "Set as Initiative",
         "CompendiumDirectory": {
             "Folders": {
                 "bestiaries": "Bestiaries",
@@ -789,6 +791,7 @@
         "DamageDieD6": "d6",
         "DamageDieD8": "d8",
         "DamageLabel": "Damage",
+        "DamageRoll": "Damage Roll",
         "DamageTypeAcid": "Acid",
         "DamageTypeBleed": "Bleed",
         "DamageTypeBludgeoning": "Bludgeoning",
@@ -974,12 +977,14 @@
         "ImmunityTypeNecromancy": "Necromancy",
         "ImmunityTypeNonlethalAttacks": "Nonlethal Attacks",
         "ImmunityTypeObjectImmunities": "Object Immunities",
+        "ImmunityTypePolymorph": "Polymorph",
         "ImmunityTypePrecisionDamage": "Precision Damage",
         "ImmunityTypeSleep": "Sleep",
         "ImmunityTypeSpellDeflection": "Spell Deflection",
         "ImmunityTypeSwarmMind": "Swarm Mind",
         "ImmunityTypeVisual": "Visual",
         "InitiativeHeader": "Initiative bonus",
+        "InitativeIsNow": "{name}'s Initiative is now {value}!",
         "InitiativeLabel": "Initiative",
         "InitiativeWithSkill": "Initiative: {skillName}",
         "InventoryArmorHeader": "Armor",
@@ -1214,7 +1219,7 @@
         "MacroActionNoActorError": "This actor no longer exists!",
         "MacroActionNoActionError": "This action no longer exists!",
         "MagicTraditionLabel": "Magic Tradition",
-        "MAPAbbreviationLabel": "MAP",
+        "MAPAbbreviationLabel": "MAP {penalty}",
         "MartialAdvanced": "Advanced Weapons",
         "MartialHeavy": "Heavy Armor",
         "MartialLight": "Light Armor",
@@ -1323,6 +1328,7 @@
             "many": "th"
         },
         "OrphanedSpellsHeader": "Orphaned Spells (move to spellcasting entry above)",
+        "OverridesTitle": "Overrides",
         "PenaltyLabel": {
             "ability": "Ability Penalty",
             "proficiency": "Proficiency Penalty",
@@ -1454,12 +1460,27 @@
         "ResolvePointsShortLabel": "Resolve",
         "ResolveTitle": "The amount of resolve points you have",
         "ResultLabel": "Result",
+        "Roll": {
+            "Modifier": "Modifier",
+            "Type": "Type",
+            "Fortune": "Fortune",
+            "FortuneTitle": "{title} Fortune",
+            "Misfortune": "Misfortune",
+            "MisfortuneTitle": "{title} Misfortune",
+            "None": "None",
+            "Roll": "Roll",
+            "Normal": "Normal",
+            "CriticalHit": "Critical Hit",
+            "Add": "Add",
+            "UntypedPenalty": "Untyped (penalty)"
+        },
         "RollTable": {
             "Plural": "Rollable Tables"
         },
         "RollBonusPlaceholder": "e.g. +3 or +1d4",
         "RollModeLabel": "Roll Mode",
         "RuleElement": {
+            "ActiveEffectLike": "ActiveEffect-Like",
             "ActorTraits": "Actor Traits",
             "BaseSpeed": "Base Speed",
             "DamageDice": "Damage Dice",
@@ -1480,8 +1501,9 @@
             "TokenImage": "Token Image",
             "TokenSize": "Token Size",
             "RecoveryCheckDC": "Recovery Check DC",
-            "Unrecognized": "Unrecognized Rule Element",
-            "WeaponPotency": "Weapon Potency"
+            "WeaponPotency": "Weapon Potency",
+            "NewRuleElement": "New Rule Element",
+            "Unrecognized": "Unrecognized Rule Element"
         },
         "Scene": {
             "Plural": "Scenes"
@@ -1683,6 +1705,10 @@
                     "TwentyFour": "24-Hour",
                     "Twelve": "12-Hour"
                 },
+                "ShowClockButton": {
+                    "Name": "Show clock button",
+                    "Hint": "Set whether to show the clock button at all (requires refresh)."
+                },
                 "PlayersCanView": {
                     "Name": "Player Access",
                     "Hint": "Set whether players can view the World Clock."
@@ -1808,6 +1834,7 @@
         "SensesDarkvision": "Darkvision",
         "SensesGreaterDarkvision": "Greater Darkvision",
         "SensesLowLightVision": "Low-Light Vision",
+        "SensesEcholocation": "Echolocation",
         "SensesLifesense": "Lifesense",
         "SensesMotionsense": "Motionsense",
         "SensesScent": "Scent",
@@ -2419,7 +2446,6 @@
         "TraitFleshwarp": "Fleshwarp",
         "TraitFlexible": "Flexible",
         "TraitFlourish": "Flourish",
-        "TraitFocus": "Focus",
         "TraitFocused": "Focused",
         "TraitForce": "Force",
         "TraitForceful": "Forceful",
@@ -2599,7 +2625,6 @@
         "TraitRepeating": "Repeating",
         "TraitResonant": "Resonant",
         "TraitRevelation": "Revelation",
-        "TraitRitual": "Ritual",
         "TraitRogue": "Rogue",
         "TraitSaggorak": "Saggorak",
         "TraitSahkil": "Sahkil",
@@ -3566,10 +3591,23 @@
         },
         "DamageButton": {
             "Full": "Apply full damage to selected tokens.",
-            "Double": "Apply double damage to selected tokens.",
+            "FullContext": "Apply Damage",
+            "FullShort": "Full",
             "Half": "Apply half damage to selected tokens.",
+            "HalfContext": "Half Damage",
+            "HalfShort": "Half",
+            "Double": "Apply double damage to selected tokens.",
+            "DoubleContext": "Double Damage",
+            "DoubleShort": "Double",
+            "Triple": "Apply triple damage to selected tokens.",
+            "TripleContext": "Apply Triple Damage",
+            "TripleShort": "Triple",
             "ShieldBlock": "Toggle the shield block status of the selected tokens.",
-            "Healing": "Apply full healing to selected tokens."
+            "ShieldBlockContext": "Shield Block",
+            "ShieldBlockShort": "Block",
+            "Healing": "Apply full healing to selected tokens.",
+            "HealingContext": "Apply Healing",
+            "HealingShort": "Heal"
         }
     },
     "PF2e": {

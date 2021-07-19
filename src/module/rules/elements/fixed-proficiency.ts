@@ -22,7 +22,8 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
         }
 
         const ability =
-            String(this.data.ability).trim() || (KNOWN_TARGETS[selector]?.ability ?? SKILL_EXPANDED[selector]?.ability);
+            (this.data.ability && String(this.data.ability).trim()) ||
+            (KNOWN_TARGETS[selector]?.ability ?? SKILL_EXPANDED[selector]?.ability);
 
         if (!tupleHasValue(ABILITY_ABBREVIATIONS, ability)) {
             console.warn('PF2E | Fixed modifier requires an ability field, or a known selector.');
