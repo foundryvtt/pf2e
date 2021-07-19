@@ -372,7 +372,8 @@ function repostPF2Action(target: HTMLElement) {
             '[data-pf2-skill-check]:not([data-pf2-skill-check=""]), [data-pf2-skill-check]:not([data-pf2-skill-check=""]) *',
         ) ||
         target?.matches('[data-pf2-perception-check], [data-pf2-perception-check] *') ||
-        target?.matches('[data-pf2-flat-check], [data-pf2-flat-check] *')
+        target?.matches('[data-pf2-flat-check], [data-pf2-flat-check] *') ||
+        target?.matches('[data-pf2-check], [data-pf2-check] *')
     ) {
         const flavor = target.attributes.getNamedItem('data-pf2-repost-flavor')?.value ?? '';
         target.setAttributeNS(
