@@ -400,7 +400,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Armor Class
         {
             const modifiers = [...systemData.attributes.ac.modifiers];
-            const dexCapSources = [{ value: 0, source: '' }];
+            const dexCapSources = [{ value: Infinity, source: '' }];
             let armorCheckPenalty = 0;
             let proficiency: ArmorCategory = 'unarmored';
 
