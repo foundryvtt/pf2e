@@ -210,7 +210,7 @@ function registerPF2ActionClickListener() {
                 '[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]), [data-pf2-saving-throw]:not([data-pf2-saving-throw=""]) *',
             )
         ) {
-            console.warn(`Deprecation warning | data-pf2-saving-throw is deprecated, use data-pf2-check instead.`);
+            console.warn(`Deprecation warning | data-pf2-saving-throw is deprecated, use data-pf2-check="savename" instead.`);
             target = target.closest('[data-pf2-saving-throw]:not([data-pf2-saving-throw=""])')!;
             const actors = resolveActors();
             if (actors.length) {
@@ -232,6 +232,97 @@ function registerPF2ActionClickListener() {
                         savingThrow.roll({ event, options, dc });
                     } else {
                         console.warn(`PF2e System | Skip rolling unknown saving throw '${pf2SavingThrow}'`);
+                    }
+                });
+            }
+        } else if (
+            target?.matches(
+                '[data-pf2-skill-check]:not([data-pf2-skill-check=""]), [data-pf2-skill-check]:not([data-pf2-skill-check=""]) *',
+            )
+        ) {
+            console.warn(`Deprecation warning | data-pf2-skill-check is deprecated, use data-pf2-check="skillname" instead.`);
+            target = target.closest('[data-pf2-skill-check]:not([data-pf2-skill-check=""])')!;
+            const actors = resolveActors();
+            if (actors.length) {
+                const { pf2SkillCheck, pf2Dc, pf2Traits, pf2Label } = target.dataset ?? {};
+                const skill = SKILL_EXPANDED[pf2SkillCheck!]?.shortform ?? pf2SkillCheck!;
+                actors.forEach((actor) => {
+                    const skillCheck = actor.data.data.skills[skill ?? ''] as Rollable | undefined;
+                    if (skill && skillCheck) {
+                        const dc = Number.isInteger(Number(pf2Dc))
+                            ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                            : undefined;
+                        const options = actor.getRollOptions(['all', 'skill-check', skill]);
+                        if (pf2Traits) {
+                            const traits = pf2Traits
+                                .split(',')
+                                .map((trait) => trait.trim())
+                                .filter((trait) => !!trait);
+                            options.push(...traits);
+                        }
+                        skillCheck.roll({ event, options, dc });
+                    } else {
+                        console.warn(`PF2e System | Skip rolling unknown skill check or untrained lore '${skill}'`);
+                    }
+                });
+            }
+        } else if (target?.matches('[data-pf2-perception-check], [data-pf2-perception-check] *')) {
+            console.warn(`Deprecation warning | data-pf2-perception is deprecated, use data-pf2-check="perception" instead.`);
+            target = target.closest('[data-pf2-perception-check]')!;
+            const actors = resolveActors();
+            if (actors.length) {
+                const { pf2Dc, pf2Traits, pf2Label } = target.dataset ?? {};
+                actors.forEach((actor) => {
+                    if (actor instanceof CreaturePF2e) {
+                        const perceptionCheck = actor.data.data.attributes.perception as Rollable | undefined;
+                        if (perceptionCheck) {
+                            const dc = Number.isInteger(Number(pf2Dc))
+                                ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                : undefined;
+                            const options = actor.getRollOptions(['all', 'perception']);
+                            if (pf2Traits) {
+                                const traits = pf2Traits
+                                    .split(',')
+                                    .map((trait) => trait.trim())
+                                    .filter((trait) => !!trait);
+                                options.push(...traits);
+                            }
+                            perceptionCheck.roll({ event, options, dc });
+                        } else {
+                            console.warn(`PF2e System | Skip rolling perception for '${actor}'`);
+                        }
+                    }
+                });
+            }
+        } else if (target?.matches('[data-pf2-flat-check], [data-pf2-flat-check] *')) {
+            console.warn(`Deprecation warning | data-pf2-flat-check is deprecated, use data-pf2-check="flat" instead.`);
+            target = target.closest('[data-pf2-flat-check]')!;
+            const actors = resolveActors();
+            if (actors.length) {
+                const { pf2Dc, pf2Traits, pf2Label } = target.dataset ?? {};
+                actors.forEach((actor) => {
+                    if (actor instanceof CreaturePF2e) {
+                        const flatCheck = StatisticBuilder.from(actor, {
+                            name: '',
+                            modifiers: [],
+                            check: { type: 'flat-check' },
+                        });
+                        if (flatCheck) {
+                            const dc = Number.isInteger(Number(pf2Dc))
+                                ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                : undefined;
+                            const options = actor.getRollOptions(['all', 'flat-check']);
+                            if (pf2Traits) {
+                                const traits = pf2Traits
+                                    .split(',')
+                                    .map((trait) => trait.trim())
+                                    .filter((trait) => !!trait);
+                                options.push(...traits);
+                            }
+                            flatCheck.check.roll({ event, options, dc, modifiers: [] });
+                        } else {
+                            console.warn(`PF2e System | Skip rolling flat check for '${actor}'`);
+                        }
                     }
                 });
             }
