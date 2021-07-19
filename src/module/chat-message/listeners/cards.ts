@@ -4,6 +4,34 @@ import { ActorPF2e } from '@actor/index';
 import { StatisticModifier } from '@module/modifiers';
 
 export const ChatCards = {
+    /** Retrieves the actor and item of a chat card. */
+    fetchActorAndItem: (card: JQuery) => {
+        // Get the synthetic Actor from a Token
+        const actor = ((): ActorPF2e | null => {
+            const tokenKey = card.attr('data-token-id');
+            if (tokenKey) {
+                const [sceneId, tokenId] = tokenKey.split('.');
+                const scene = game.scenes.get(sceneId);
+                const token = scene?.tokens.get(tokenId);
+                return token?.actor ?? null;
+            } else {
+                return game.actors.get(card.attr('data-actor-id') ?? '') ?? null;
+            }
+        })();
+
+        if (!actor) return {};
+
+        // Get the Item
+        const itemId = card.attr('data-item-id') ?? '';
+        const embeddedItemData = card.attr('data-embedded-item') || 'null';
+        const itemData: ItemSourcePF2e | null = JSON.parse(embeddedItemData);
+        const item = itemData
+            ? (new ItemPF2e(itemData, { parent: actor }) as Embedded<ItemPF2e> | undefined)
+            : actor.items.get(itemId);
+
+        return { actor, item };
+    },
+
     listen: ($html: JQuery) => {
         $html.on('click', '.card-buttons button', async (event) => {
             event.preventDefault();
@@ -18,32 +46,12 @@ export const ChatCards = {
             // Confirm roll permission
             if (!game.user.isGM && game.user.id !== senderId && action !== 'save') return;
 
-            // Get the synthetic Actor from a Token
-            const actor = ((): ActorPF2e | null => {
-                const tokenKey = card.attr('data-token-id');
-                if (tokenKey) {
-                    const [sceneId, tokenId] = tokenKey.split('.');
-                    const scene = game.scenes.get(sceneId);
-                    const token = scene?.tokens.get(tokenId);
-                    return token?.actor ?? null;
-                } else {
-                    return game.actors.get(card.attr('data-actor-id') ?? '') ?? null;
-                }
-            })();
-
+            const { actor, item } = ChatCards.fetchActorAndItem(card);
             if (!actor) return;
-
-            // Get the Item
-            const itemId = card.attr('data-item-id') ?? '';
-            const embeddedItemData = $(event.target).parents('.item-card').attr('data-embedded-item') || 'null';
-            const itemData: ItemSourcePF2e | null = JSON.parse(embeddedItemData);
-            const item = itemData
-                ? (new ItemPF2e(itemData, { parent: actor }) as Embedded<ItemPF2e> | undefined)
-                : actor.items.get(itemId);
 
             if (item) {
                 const strike: StatisticModifier = actor.data.data.actions?.find(
-                    (a: StatisticModifier) => a.item === itemId,
+                    (a: StatisticModifier) => a.item === item.id,
                 );
                 const rollOptions = actor.getRollOptions(['all', 'attack-roll']);
 
