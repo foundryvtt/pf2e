@@ -36,15 +36,15 @@
         "attributes": {
             "ac": {
                 "base": 18,
-                "breakdown": "Base Armor Class 10, Base Modifier +2, Dexterity +3",
+                "breakdown": "Base Armor Class 10, Base Modifier +5, Dexterity +3",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
                 "name": "ac",
-                "totalModifier": 5,
-                "value": 15
+                "totalModifier": 8,
+                "value": 18
             },
             "allSaves": {
                 "value": ""
@@ -83,12 +83,12 @@
             "perception": {
                 "ability": "wis",
                 "base": 5,
-                "breakdown": "Base Modifier +3, Wisdom -1",
+                "breakdown": "Base Modifier +6, Wisdom -1",
                 "item": 0,
                 "name": "perception",
                 "rank": 0,
-                "totalModifier": 2,
-                "value": 2
+                "totalModifier": 5,
+                "value": 5
             },
             "resolve": {
                 "value": 0
@@ -151,35 +151,35 @@
             "fortitude": {
                 "ability": "con",
                 "base": 8,
-                "breakdown": "Base Modifier +4, Constitution +1",
+                "breakdown": "Base Modifier +7, Constitution +1",
                 "item": 0,
                 "name": "fortitude",
-                "rank": 0,
-                "saveDetail": "",
-                "totalModifier": 5,
-                "value": 5
-            },
-            "reflex": {
-                "ability": "dex",
-                "base": 11,
-                "breakdown": "Base Modifier +5, Dexterity +3",
-                "item": 0,
-                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
                 "totalModifier": 8,
                 "value": 8
             },
+            "reflex": {
+                "ability": "dex",
+                "base": 11,
+                "breakdown": "Base Modifier +8, Dexterity +3",
+                "item": 0,
+                "name": "reflex",
+                "rank": 0,
+                "saveDetail": "",
+                "totalModifier": 11,
+                "value": 11
+            },
             "will": {
                 "ability": "wis",
                 "base": 5,
-                "breakdown": "Base Modifier +3, Wisdom -1",
+                "breakdown": "Base Modifier +6, Wisdom -1",
                 "item": 0,
                 "name": "will",
                 "rank": 0,
                 "saveDetail": "",
-                "totalModifier": 2,
-                "value": 2
+                "totalModifier": 5,
+                "value": 5
             }
         },
         "schema": {
@@ -880,17 +880,17 @@
                 "rules": [
                     {
                         "key": "PF2E.RuleElement.ToggleProperty",
-                        "label": "The enemy is blinded",
-                        "property": "flags.pf2e.rollOptions.damage-roll.enemy-is-blinded"
+                        "label": "The enemy is Blinded",
+                        "property": "flags.pf2e.rollOptions.damage-roll.target:blinded"
                     },
                     {
                         "diceNumber": 1,
                         "dieSize": "d4",
                         "key": "PF2E.RuleElement.DamageDice",
-                        "label": "Blinded Precision Damage",
+                        "label": "Cheap Shot",
                         "predicate": {
                             "all": [
-                                "enemy-is-blinded"
+                                "target:blinded"
                             ]
                         },
                         "selector": "damage",
@@ -941,7 +941,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> A bandit disciple is holding a pouch of fine sand.</p>\n<p><strong>Effect</strong> The disciple Strides. If they end their movement adjacent to an enemy, they can make a <span data-pf2-skill-check=\"deception\" data-pf2-label=\"Deception Check vs Target Perception DC\" data-pf2-show-dc=\"gm\">Deception</span> check against that enemy's Perception DC.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> As success, and the enemy also takes [[/r 2 #precision]] {2 extra precision damage}.</p>\n<p><strong>Success</strong> The enemy takes [[/r 1d4 #piercing]]{1d4 piercing damage} and is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Failure</strong> No effect.</p>\n<p><strong>Critical Failure</strong> The bandit disciple drops their pouch of fine sand, spilling and rendering it useless.</p>\n</div>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> A bandit disciple is holding a pouch of fine sand.</p>\n<p><strong>Effect</strong> The disciple Strides. If they end their movement adjacent to an enemy, they can make a <span data-pf2-skill-check=\"deception\" data-pf2-label=\"Deception Check vs Target Perception DC\" data-pf2-show-dc=\"gm\">Deception</span> check against that enemy's Perception DC.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> As success, and the enemy also takes [[/r 2 #precision]]{2 extra precision damage}.</p>\n<p><strong>Success</strong> The enemy takes [[/r 1d4 #piercing]]{1d4 piercing damage} and is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Failure</strong> No effect.</p>\n<p><strong>Critical Failure</strong> The bandit disciple drops their pouch of fine sand, spilling and rendering it useless.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
