@@ -59,8 +59,7 @@ export class EffectTracker {
     }
 
     unregister(toRemove: Embedded<EffectPF2e>): void {
-        const index = this.trackedEffects.findIndex((effect) => effect.id === toRemove.id);
-        if (index !== -1) this.trackedEffects.splice(index, 1);
+        this.trackedEffects = this.trackedEffects.filter((effect) => effect !== toRemove);
     }
 
     async refresh(): Promise<void> {
