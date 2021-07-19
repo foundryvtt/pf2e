@@ -1,6 +1,6 @@
 import { ItemPF2e } from '@item';
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementConstructionData, RuleElementData } from '../rules-data-definitions';
+import { RuleElementSource, RuleElementData } from '../rules-data-definitions';
 
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
@@ -114,7 +114,7 @@ interface AELikeRuleElementData extends RuleElementData {
     priority: number;
 }
 
-interface AELikeConstructionData extends RuleElementConstructionData {
+interface AELikeConstructionData extends RuleElementSource {
     mode?: unknown;
     path?: unknown;
 }
