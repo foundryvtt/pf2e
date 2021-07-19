@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+0",
+                "mod": 0,
                 "value": 10
             },
             "wis": {
@@ -36,15 +36,15 @@
         "attributes": {
             "ac": {
                 "base": 18,
-                "breakdown": "Base Armor Class 10, Base Modifier +5, Dexterity +3",
+                "breakdown": "Base Armor Class 10, Base Modifier +2, Dexterity +3",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
                 "name": "ac",
-                "totalModifier": 8,
-                "value": 18
+                "totalModifier": 5,
+                "value": 15
             },
             "allSaves": {
                 "value": ""
@@ -83,21 +83,21 @@
             "perception": {
                 "ability": "wis",
                 "base": 5,
-                "breakdown": "Base Modifier +6, Wisdom -1",
+                "breakdown": "Base Modifier +3, Wisdom -1",
                 "item": 0,
                 "name": "perception",
                 "rank": 0,
-                "totalModifier": 5,
-                "value": 5
+                "totalModifier": 2,
+                "value": 2
             },
             "resolve": {
                 "value": 0
             },
             "shield": {
                 "ac": 0,
-                "brokenThreshold": 0,
+                "brokenThreshold": "0",
                 "hardness": 0,
-                "max": 0,
+                "max": "0",
                 "min": 0,
                 "value": 0
             },
@@ -109,7 +109,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -151,35 +151,35 @@
             "fortitude": {
                 "ability": "con",
                 "base": 8,
-                "breakdown": "Base Modifier +7, Constitution +1",
+                "breakdown": "Base Modifier +4, Constitution +1",
                 "item": 0,
                 "name": "fortitude",
+                "rank": 0,
+                "saveDetail": "",
+                "totalModifier": 5,
+                "value": 5
+            },
+            "reflex": {
+                "ability": "dex",
+                "base": 11,
+                "breakdown": "Base Modifier +5, Dexterity +3",
+                "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
                 "totalModifier": 8,
                 "value": 8
             },
-            "reflex": {
-                "ability": "dex",
-                "base": 11,
-                "breakdown": "Base Modifier +8, Dexterity +3",
-                "item": 0,
-                "name": "reflex",
-                "rank": 0,
-                "saveDetail": "",
-                "totalModifier": 11,
-                "value": 11
-            },
             "will": {
                 "ability": "wis",
                 "base": 5,
-                "breakdown": "Base Modifier +6, Wisdom -1",
+                "breakdown": "Base Modifier +3, Wisdom -1",
                 "item": 0,
                 "name": "will",
                 "rank": 0,
                 "saveDetail": "",
-                "totalModifier": 5,
-                "value": 5
+                "totalModifier": 2,
+                "value": 2
             }
         },
         "schema": {
@@ -204,7 +204,9 @@
             "rarity": {
                 "value": "common"
             },
-            "senses": [],
+            "senses": {
+                "value": ""
+            },
             "size": {
                 "value": "med"
             },
@@ -222,9 +224,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "21T0y0Zr2IFVEqXI",
+            "_id": "EPtHY5FLKGV3QXNR",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "dex"
+                },
+                "baseItem": "hand-crossbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -237,15 +251,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>Sometimes referred to as an alley bow by rogues or ruffians, this small crossbow fires small bolts that are sometimes used to deliver poison to the target. It's small enough to be shot one-handed, but it still requires two hands to load.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "bow"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -279,6 +305,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": null
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -286,10 +315,42 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "3 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": {
+                    "value": "60"
+                },
+                "reload": {
+                    "value": "1"
                 },
                 "rules": [],
                 "schema": {
@@ -299,11 +360,20 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "hand-crossbow",
                 "source": {
                     "value": ""
                 },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -316,21 +386,40 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "simple"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "hand crossbow (10 bolts)",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.XyA6PKV46aNlLXOd"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/hand-crossbow.webp",
+            "name": "Hand Crossbow",
             "sort": 100000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "yiBpT9BBZVWOVgq4",
+            "_id": "CukBoOvcdrDkny4o",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "scimitar",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -343,15 +432,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This one-handed curved blade is sharp on one side.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "sword"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -385,6 +486,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": null
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -392,10 +496,42 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": {
+                    "value": "melee"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
@@ -405,11 +541,20 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "scimitar",
                 "source": {
                     "value": ""
                 },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -417,25 +562,48 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "forceful",
+                        "sweep"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "scimitar",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.grmaV4GdoGD7sKbn"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/scimitar.webp",
+            "name": "Scimitar",
             "sort": 200000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "nvQDpULHxK51cCru",
+            "_id": "Zc02VORUx6jYEo42",
             "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
                 "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
@@ -443,8 +611,20 @@
                 "bulkCapacity": {
                     "value": ""
                 },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 0,
+                    "value": 0
+                },
                 "collapsed": {
                     "value": false
+                },
+                "consumableType": {
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
                 },
                 "containerId": {
                     "value": ""
@@ -452,10 +632,14 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -498,10 +682,15 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1 sp"
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 10
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
                 },
                 "rules": [],
                 "schema": {
@@ -511,36 +700,59 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "bolts",
                 "source": {
                     "value": ""
                 },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
                 "stackGroup": {
-                    "value": ""
+                    "value": "bolts"
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
                     "value": 0
+                },
+                "weight": {
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "small pouch of sand",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.AITVZmakiu3RgfKo"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
+            "name": "Bolts",
             "sort": 300000,
-            "type": "equipment"
+            "type": "consumable"
         },
         {
-            "_id": "x6XyXhqCWCw7sJY2",
+            "_id": "GriafAPbkDbUJDwk",
             "data": {
                 "attack": {
                     "value": ""
@@ -552,7 +764,7 @@
                     "value": 9
                 },
                 "damageRolls": {
-                    "qsza1ucrttf9s2oz1s5s": {
+                    "f0vrfs9lzvhwukg6yjx7": {
                         "damage": "1d6",
                         "damageType": "slashing"
                     }
@@ -560,7 +772,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(forceful, sweep)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
@@ -593,7 +805,7 @@
             "type": "melee"
         },
         {
-            "_id": "M6FPU74bd6rTmHJb",
+            "_id": "jdxu2wvDRYmr5FHt",
             "data": {
                 "attack": {
                     "value": ""
@@ -605,7 +817,7 @@
                     "value": 9
                 },
                 "damageRolls": {
-                    "6pxyuquzskoxoprgtmtl": {
+                    "oohwdk0oi9li58pm8u53": {
                         "damage": "1d6",
                         "damageType": "piercing"
                     }
@@ -613,7 +825,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(range increment 60 feet, reload 1)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
@@ -630,8 +842,8 @@
                         "value": "common"
                     },
                     "value": [
-                        "range increment 60 feet",
-                        "reload 1"
+                        "range-increment-60",
+                        "reload-1"
                     ]
                 },
                 "weaponType": {
@@ -646,7 +858,7 @@
             "type": "melee"
         },
         {
-            "_id": "cNtTcLhU4RpC3hX0",
+            "_id": "BBPEHOEYoQMJzXNe",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -660,12 +872,31 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The bandit disciple deals an extra [[/r 1d4 # precision damage]] precision damage to blinded creatures.</p>"
+                    "value": "<p>The bandit disciple deals an extra [[/r 1 #precision]]{1d4 precision damage} to @Compendium[pf2e.conditionitems.Blinded]{Blinded} creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "The enemy is blinded",
+                        "property": "flags.pf2e.rollOptions.damage-roll.enemy-is-blinded"
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "label": "Blinded Precision Damage",
+                        "predicate": {
+                            "all": [
+                                "enemy-is-blinded"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "precision"
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.644
@@ -690,13 +921,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Cheap Shot",
             "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "RkYoBmFdmuut5kyN",
+            "_id": "ziSoWu9CFACoFzPp",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -705,12 +936,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> A bandit disciple is holding a pouch of fine sand. <br />\n<strong>Effect</strong> The bandit disciple Strides. If they end their movement adjacent to an enemy, they can make a Deception check against that enemy's Perception DC.<br />\n<strong>Critical Success</strong> As success, but the enemy also takes [[/r 2 # extra precision damage]] extra precision damage.<br />\n<strong>Success</strong> The enemy takes [[/r 1d4 # piercing damage]] piercing damage and is blinded for 1 round.<br />\n<strong>Failure</strong> No effect.<br />\n<strong>Critical Failure</strong> The bandit disciple drops their pouch of fine sand, spilling and rendering it useless.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> A bandit disciple is holding a pouch of fine sand.</p>\n<p><strong>Effect</strong> The disciple Strides. If they end their movement adjacent to an enemy, they can make a <span data-pf2-skill-check=\"deception\" data-pf2-label=\"Deception Check vs Target Perception DC\" data-pf2-show-dc=\"gm\">Deception</span> check against that enemy's Perception DC.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> As success, and the enemy also takes [[/r 2 #precision]] {2 extra precision damage}.</p>\n<p><strong>Success</strong> The enemy takes [[/r 1d4 #piercing]]{1d4 piercing damage} and is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>\n<p><strong>Failure</strong> No effect.</p>\n<p><strong>Critical Failure</strong> The bandit disciple drops their pouch of fine sand, spilling and rendering it useless.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -742,13 +973,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Dirty Trick",
             "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "Thh1CVVUTNhSnj4h",
+            "_id": "6Aaf5liHdCEWrhyW",
             "data": {
                 "description": {
                     "chat": "",
@@ -789,7 +1020,7 @@
             "type": "lore"
         },
         {
-            "_id": "l9it2JNLuONP8OjC",
+            "_id": "ge4BZOMWSv0vsIga",
             "data": {
                 "description": {
                     "chat": "",
@@ -830,7 +1061,7 @@
             "type": "lore"
         },
         {
-            "_id": "PxIorGbjH9eURMVZ",
+            "_id": "bI15htMgCU1CpWcW",
             "data": {
                 "description": {
                     "chat": "",
@@ -871,7 +1102,7 @@
             "type": "lore"
         },
         {
-            "_id": "3qMbAKFkXYdpaLIQ",
+            "_id": "r4kilg7l7CMBdzXU",
             "data": {
                 "description": {
                     "chat": "",
@@ -912,7 +1143,7 @@
             "type": "lore"
         },
         {
-            "_id": "AI1MzbfQyi87YH6b",
+            "_id": "15FJKdrOFaferJ4n",
             "data": {
                 "description": {
                     "chat": "",
@@ -955,11 +1186,11 @@
     ],
     "name": "Bandit Disciple (3-4)",
     "token": {
-        "actorId": "jJd7Sa8DB7uBOn93",
+        "actorId": "S50loNsuTigldGll",
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
