@@ -69,7 +69,9 @@ function registerGlobalDCInjection() {
 function registerPF2ActionClickListener() {
     $<HTMLBodyElement>('body').on('click', (event) => {
         let target = event.target;
-        if (
+        if (target?.matches('[data-pf2e-repost], [data-pf2e-repost] *')) {
+            repostPF2Action(event.target.parentElement!);
+        } else if (
             target?.matches(
                 '[data-pf2-action]:not([data-pf2-action=""]), [data-pf2-action]:not([data-pf2-action=""]) *',
             )
@@ -231,6 +233,41 @@ function registerPF2ActionClickListener() {
     });
 }
 
+function repostPF2Action(target: HTMLElement) {
+    if (
+        target?.matches('[data-pf2-action]:not([data-pf2-action=""]), [data-pf2-action]:not([data-pf2-action=""]) *') ||
+        target?.matches(
+            '[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]), [data-pf2-saving-throw]:not([data-pf2-saving-throw=""]) *',
+        ) ||
+        target?.matches(
+            '[data-pf2-skill-check]:not([data-pf2-skill-check=""]), [data-pf2-skill-check]:not([data-pf2-skill-check=""]) *',
+        ) ||
+        target?.matches('[data-pf2-perception-check], [data-pf2-perception-check] *') ||
+        target?.matches('[data-pf2-flat-check], [data-pf2-flat-check] *')
+    ) {
+        const flavor = target.attributes.getNamedItem('data-pf2-repost-flavor')?.value ?? '';
+        target.setAttributeNS(
+            null,
+            'data-pf2-show-dc',
+            target.attributes.getNamedItem('data-pf2-repost-show-dc')?.value ?? 'gm',
+        );
+        ChatMessage.create({
+            content:
+                flavor +
+                ' ' +
+                target.outerHTML
+                    .replace(/>DC \d+ /gi, '>')
+                    .replace(/<[^>]+data-pf2e-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, ''),
+        });
+    }
+}
+
+function registerPF2ActionRightClickListener() {
+    $<HTMLBodyElement>('body').on('contextmenu', (event) => {
+        repostPF2Action(event.target);
+    });
+}
+
 /**
  * This runs after game data has been requested and loaded from the servers, so entities exist
  */
@@ -246,6 +283,7 @@ export function listen() {
 
         // register click listener for elements with a data-pf2-action attribute
         registerPF2ActionClickListener();
+        registerPF2ActionRightClickListener();
 
         // Exposed objects for macros and modules
         Object.defineProperty(globalThis.game, 'pf2e', { value: {} });
