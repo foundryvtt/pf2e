@@ -1249,6 +1249,14 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             super._onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId);
         }
     }
+
+    /** Make additional updates to the display of this actor's tokens */
+    protected override _refreshTokens(): void {
+        super._refreshTokens();
+        for (const token of this.getActiveTokens()) {
+            token.refreshIcon();
+        }
+    }
 }
 
 export interface ActorPF2e extends Actor<TokenDocumentPF2e> {
