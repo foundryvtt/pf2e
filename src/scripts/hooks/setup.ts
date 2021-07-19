@@ -196,37 +196,6 @@ function registerPF2ActionClickListener() {
                                     .filter((trait) => !!trait);
                                 options.push(...traits);
                             }
-                            flatCheck.check.roll({ event, dc, modifiers: [] });
-                        } else {
-                            console.warn(`PF2e System | Skip rolling flat check for '${actor}'`);
-                        }
-                    }
-                });
-            }
-        } else if (target?.matches('[data-pf2-flat-check], [data-pf2-flat-check] *')) {
-            target = target.closest('[data-pf2-flat-check]')!;
-            const actors = resolveActors();
-            if (actors.length) {
-                const { pf2Dc, pf2Traits, pf2Label } = target.dataset ?? {};
-                actors.forEach((actor) => {
-                    if (actor instanceof CreaturePF2e) {
-                        const flatCheck = StatisticBuilder.from(actor, {
-                            name: '',
-                            modifiers: [],
-                            check: { type: 'flat-check' },
-                        });
-                        if (flatCheck) {
-                            const dc = Number.isInteger(Number(pf2Dc))
-                                ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
-                                : undefined;
-                            const options = actor.getRollOptions(['all', 'flat-check']);
-                            if (pf2Traits) {
-                                const traits = pf2Traits
-                                    .split(',')
-                                    .map((trait) => trait.trim())
-                                    .filter((trait) => !!trait);
-                                options.push(...traits);
-                            }
                             flatCheck.check.roll({ event, options, dc, modifiers: [] });
                         } else {
                             console.warn(`PF2e System | Skip rolling flat check for '${actor}'`);
