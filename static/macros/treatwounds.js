@@ -186,7 +186,7 @@ ${
         : ``
 }
 ${
-    CheckFeat('assurance-medicine') || CheckFeat('assurance-crafting') || CheckFeat('assurance-nature')
+    CheckFeat('assurance-medicine') || (CheckFeat('assurance-crafting') && chirurgeon) || (CheckFeat('assurance-nature') && naturalMedicine)
         ? `<form><div class="form-group">
 <label>Assurance</label>
 <input type="checkbox" id="assurance_bool" name="assurance_bool"></input>
