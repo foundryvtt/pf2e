@@ -10,6 +10,8 @@ export interface BasicSelectorOptions extends FormApplicationOptions {
     objectProperty: string;
     /* An array of keys from CONFIG.PF2E */
     configTypes: SelectableTagField[];
+    /* A custom window title. Defaults to 'PF2E.TraitsLabel'. */
+    title?: string;
     /* Show the custom input field (defaults to true) */
     allowCustom?: boolean;
     /* Custom choices to add to the list of choices */
