@@ -503,7 +503,7 @@ export class WeaponDamagePF2e {
         }
 
         const damage: any = {
-            name: `Damage Roll: ${weapon.name}`,
+            name: `${game.i18n.localize('PF2E.DamageRoll')}: ${weapon.name}`,
             base: {
                 diceNumber: weapon.data.damage.dice,
                 dieSize: baseDamageDie,

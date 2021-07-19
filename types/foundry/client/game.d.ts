@@ -5,6 +5,7 @@ declare global {
     const keyboard: KeyboardManager;
     const ui: {
         actors: ActorDirectory;
+        chat: ChatLog;
         combat: CombatTracker;
         compendium: CompendiumDirectory;
         controls: SceneControls;

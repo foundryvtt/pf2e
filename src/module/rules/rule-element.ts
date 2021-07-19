@@ -4,7 +4,7 @@ import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from '@item';
 import type { ItemDataPF2e } from '@item/data';
 import {
     BracketedValue,
-    RuleElementConstructionData,
+    RuleElementSource,
     RuleElementData,
     RuleElementSynthetics,
     RuleValue,
@@ -47,9 +47,10 @@ export abstract class RuleElementPF2e {
      * @param data unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
-    constructor(data: RuleElementConstructionData, public item: Embedded<ItemPF2e>) {
+    constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>) {
         this.data = {
             ...data,
+            priority: 100,
             label: game.i18n.localize(data.label ?? item.name),
             ignored: false,
         };
@@ -61,6 +62,11 @@ export abstract class RuleElementPF2e {
 
     get label(): string {
         return this.data.label;
+    }
+
+    /** The place in order of application (ascending), among an actor's list of rule elements */
+    get priority(): number {
+        return this.data.priority;
     }
 
     /** Globally ignore this rule element. */
@@ -188,7 +194,7 @@ export abstract class RuleElementPF2e {
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
-    resolveValue(valueData: RuleValue = 0, defaultValue: Exclude<RuleValue, BracketedValue> = 0): any {
+    resolveValue(valueData: RuleValue | undefined, defaultValue: Exclude<RuleValue, BracketedValue> = 0): any {
         let value = valueData;
         const actor = this.item.actor;
         if (typeof valueData === 'object') {

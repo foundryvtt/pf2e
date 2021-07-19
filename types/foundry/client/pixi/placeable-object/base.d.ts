@@ -237,6 +237,13 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
     /** Callback actions which occur on a single right-click event to configure properties of the object */
     protected _onClickRight(event: PIXI.InteractionEvent): void;
 
+    /**
+     * Handle mouse-wheel events at the PlaceableObjects layer level to rotate multiple objects at once.
+     * This handler will rotate all controlled objects by some incremental angle.
+     * @param event The mousewheel event which originated the request
+     */
+    protected _onMouseWheel(event: WheelEvent): void;
+
     /** Callback actions which occur on a double right-click event to configure properties of the object */
     protected _onClickRight2(event: PIXI.InteractionEvent): void;
 

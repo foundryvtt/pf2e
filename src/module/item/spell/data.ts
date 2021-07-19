@@ -1,7 +1,9 @@
+import { SaveType } from '@actor/data';
 import { AbilityString } from '@actor/data/base';
 import { TrickMagicItemCastData } from '@item/data';
 import { ItemLevelData, ItemSystemData, ItemTraits } from '@item/data/base';
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from '@item/data/non-physical';
+import { DamageType } from '@module/damage-calculation';
 import { ValuesList, OneToTen } from '@module/data';
 import type { SpellPF2e } from '.';
 
@@ -23,7 +25,6 @@ export interface SpellData extends Omit<SpellSource, '_id' | 'effects'> {
 }
 
 export type MagicSchool = keyof ConfigPF2e['PF2E']['magicSchools'];
-export type SaveType = keyof ConfigPF2e['PF2E']['saves'];
 
 export type SpellTrait = keyof ConfigPF2e['PF2E']['spellTraits'];
 export type SpellTraits = ItemTraits<SpellTrait>;
@@ -72,7 +73,7 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
         applyMod: false;
     };
     damageType: {
-        value: string;
+        value: DamageType;
     };
     scaling: {
         mode: string;

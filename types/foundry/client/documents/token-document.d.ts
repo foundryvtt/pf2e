@@ -64,7 +64,7 @@ declare global {
          * @param alternative An alternative attribute path to get instead of the default one
          * @return The attribute displayed on the Token bar, if any
          */
-        getBarAttribute(barName: string, { alternative }?: { alternative?: string }): { value: number } | null;
+        getBarAttribute(barName: string, { alternative }?: { alternative?: string }): TokenResourceData | null;
 
         /* -------------------------------------------- */
         /*  Actor Data Operations                       */
