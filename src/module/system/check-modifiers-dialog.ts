@@ -104,9 +104,7 @@ export class CheckModifiersDialog extends Application {
             ctx.rollMode ?? (ctx.secret ? 'blindroll' : undefined) ?? game.settings.get('core', 'rollMode') ?? 'roll';
 
         if (isAssurance) {
-            check.modifiers
-                .filter(m => m.type !== MODIFIER_TYPE.PROFICIENCY)
-                .forEach(m => m.ignored = true);
+            check.modifiers.filter((m) => m.type !== MODIFIER_TYPE.PROFICIENCY).forEach((m) => (m.ignored = true));
             check.applyStackingRules();
         }
 
@@ -245,13 +243,11 @@ export class CheckModifiersDialog extends Application {
         };
     }
 
-    getAssuranceModifier(
-        check: StatisticModifier
-    ): number {
+    getAssuranceModifier(check: StatisticModifier): number {
         return check.modifiers
-            .filter(m => m.enabled && m.type === MODIFIER_TYPE.PROFICIENCY)
-            .map(m => m.modifier)
-            .reduce((prev: number, current: number) => (current > prev) ? current : prev, 0);
+            .filter((m) => m.enabled && m.type === MODIFIER_TYPE.PROFICIENCY)
+            .map((m) => m.modifier)
+            .reduce((prev: number, current: number) => Math.max(current, prev), 0);
     }
 
     override activateListeners(html: JQuery) {
@@ -336,4 +332,3 @@ export class CheckModifiersDialog extends Application {
         return [settingsButton, ...buttons];
     }
 }
-
