@@ -72,7 +72,9 @@ function registerPF2ActionClickListener() {
         if (target?.matches('[data-pf2e-repost], [data-pf2e-repost] *')) {
             repostPF2Action(event.target.parentElement!);
         } else if (
-            target.matches('[data-pf2-action]:not([data-pf2-action=""]), [data-pf2-action]:not([data-pf2-action=""]) *')
+            target?.matches(
+                '[data-pf2-action]:not([data-pf2-action=""]), [data-pf2-action]:not([data-pf2-action=""]) *',
+            )
         ) {
             target = target.closest('[data-pf2-action]:not([data-pf2-action=""])')!;
             const { pf2Action, pf2Glyph, pf2Variant } = target.dataset ?? {};
