@@ -1,6 +1,6 @@
 import { ItemPF2e } from '@item';
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementSource, RuleElementData } from '../rules-data-definitions';
+import { RuleElementSource, RuleElementData, RuleValue } from '../rules-data-definitions';
 
 /**
  * Make a numeric modification to an arbitrary property in a similar way as `ActiveEffect`s
@@ -26,12 +26,12 @@ export class AELikeRuleElement extends RuleElementPF2e {
         const actor = item.actor;
         const pathIsValid =
             typeof this.path === 'string' &&
-            [this.path, this.path.replace(/(?<=\.)\w+$/, ''), this.path.replace(/(?<=\.\w\.)\w+$/, '')].some(
+            [this.path, this.path.replace(/\.\w+$/, ''), this.path.replace(/\.?\w+\.\w+$/, '')].some(
                 (path) => typeof getProperty(actor.data, path) !== undefined,
             );
         if (!pathIsValid) this.warn('path');
 
-        const valueIsValid = ['number', 'string', 'object'].includes(typeof this.value);
+        const valueIsValid = ['number', 'string', 'boolean', 'object'].includes(typeof this.value);
         if (!valueIsValid) this.warn('value');
 
         if (!(pathIsValid && valueIsValid)) this.ignored = true;
@@ -45,7 +45,7 @@ export class AELikeRuleElement extends RuleElementPF2e {
         return this.data.mode;
     }
 
-    get value(): number | string {
+    get value(): RuleValue {
         return this.data.value;
     }
 
@@ -109,7 +109,7 @@ type AELikeChangeMode = 'add' | 'multiply' | 'upgrade' | 'downgrade' | 'override
 
 interface AELikeRuleElementData extends RuleElementData {
     path: string;
-    value: string | number;
+    value: RuleValue;
     mode: AELikeChangeMode;
     priority: number;
 }
