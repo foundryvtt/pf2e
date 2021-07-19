@@ -19,7 +19,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
                 canvas.lighting.setPerceivedLightLevel({ defer: false });
             }
 
-            this.object.refreshIcon();
+            this.object.redraw();
         }
     }
 
