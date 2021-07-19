@@ -286,7 +286,7 @@ function repostPF2Action(target: HTMLElement) {
                 ' ' +
                 target.outerHTML
                     .replace(/>DC \d+ /gi, '>')
-                    .replace(/<span[^>]*data-pf2e-repost=""[^>]*>[^<]*<\/span>/gi, ''),
+                    .replace(/<[^>]+data-pf2e-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, ''),
         });
     }
 }
