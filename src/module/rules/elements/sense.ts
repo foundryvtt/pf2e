@@ -1,6 +1,6 @@
 import { RuleElementPF2e } from '../rule-element';
 import { SenseAcuity, SenseData } from '@actor/creature/data';
-import { RuleElementConstructionData, RuleElementData } from '../rules-data-definitions';
+import { RuleElementSource, RuleElementData } from '../rules-data-definitions';
 import { CharacterPF2e, FamiliarPF2e } from '@actor';
 import { ItemPF2e } from '@item';
 
@@ -8,7 +8,7 @@ import { ItemPF2e } from '@item';
  * @category RuleElement
  */
 export class PF2SenseRuleElement extends RuleElementPF2e {
-    constructor(data: RuleElementConstructionData, item: Embedded<ItemPF2e>) {
+    constructor(data: RuleElementSource, item: Embedded<ItemPF2e>) {
         super(data, item);
         if (!(item.actor instanceof CharacterPF2e || item.actor instanceof FamiliarPF2e)) {
             this.ignored = true;
