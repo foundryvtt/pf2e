@@ -21,7 +21,7 @@ export type RuleElementSource = Omit<RuleElementData, 'label' | 'priority' | 'ig
     priority?: number;
 };
 
-export type RuleValue = string | number | null | BracketedValue;
+export type RuleValue = string | number | boolean | null | BracketedValue;
 
 export interface Bracket {
     start?: number;
