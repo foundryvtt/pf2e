@@ -1,7 +1,7 @@
 import { ItemDataPF2e } from '@item/data';
 import { CharacterData, FamiliarData, NPCData } from '@actor/data';
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementConstructionData, RuleElementData } from '../rules-data-definitions';
+import { RuleElementSource, RuleElementData } from '../rules-data-definitions';
 import { ItemPF2e } from '@item';
 
 /**
@@ -9,7 +9,7 @@ import { ItemPF2e } from '@item';
  */
 export class PF2SetPropertyRuleElement extends RuleElementPF2e {
     /** Apply this rule element before all others */
-    constructor(data: RuleElementConstructionData, item: Embedded<ItemPF2e>) {
+    constructor(data: RuleElementSource, item: Embedded<ItemPF2e>) {
         super(data, item);
         this.data.priority = 9;
     }

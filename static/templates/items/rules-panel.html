@@ -1,11 +1,11 @@
 <div class="rules">
-  {{#each data.rules as |rule idx|}}
-  <div class="rule-element-header">
-    <h3>{{#if rule.key}}{{localize rule.key}}{{else}}{{localize 'PF2E.RuleElement.Unrecognized'}}{{/if}}</h3>
-    <a class="remove-rule-element" data-rule-index="{{idx}}" title="{{localize 'PF2E.ItemRemoveRuleElement'}}"><i class="fas fa-trash"></i></a>
-  </div>
-  <textarea name="data.rules.{{idx}}">{{json rule}}</textarea>
-  <hr/>
-  {{/each}}
-  <a class="add-rule-element"><i class="fas fa-plus"></i> {{localize 'PF2E.ItemNewRuleElement'}}</a>
+    {{#each data.rules as |rule|}}
+        <div class="rule-element-header">
+            {{#with (lookup @root.ruleLabels @index)}}<h3{{#if (not recognized)}} class="unrecognized"{{/if}}>{{label}}</h3>{{/with}}
+            <a class="remove-rule-element" data-rule-index="{{@index}}" title="{{localize "PF2E.ItemRemoveRuleElement"}}"><i class="fas fa-trash"></i></a>
+        </div>
+        <textarea name="data.rules.{{@index}}">{{json rule}}</textarea>
+        <hr/>
+    {{/each}}
+    <a class="add-rule-element"><i class="fas fa-plus"></i> {{localize "PF2E.ItemNewRuleElement"}}</a>
 </div>
