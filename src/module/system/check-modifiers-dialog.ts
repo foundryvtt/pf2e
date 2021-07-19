@@ -103,9 +103,15 @@ export class CheckModifiersDialog extends Application {
         ctx.rollMode =
             ctx.rollMode ?? (ctx.secret ? 'blindroll' : undefined) ?? game.settings.get('core', 'rollMode') ?? 'roll';
 
+        if (isAssurance) {
+            check.modifiers
+                .filter(m => m.type !== MODIFIER_TYPE.PROFICIENCY)
+                .forEach(m => m.ignored = true);
+            check.applyStackingRules();
+        }
+
         const modifierBreakdown = check.modifiers
             .filter((m) => m.enabled)
-            .filter((m) => !isAssurance || m.type === MODIFIER_TYPE.PROFICIENCY)
             .map((m) => {
                 const label = game.i18n.localize(m.label ?? m.name);
                 return `<span class="tag tag_alt">${label} ${m.modifier < 0 ? '' : '+'}${m.modifier}</span>`;
@@ -118,9 +124,7 @@ export class CheckModifiersDialog extends Application {
             .map((o) => `<span style="${optionStyle}">${game.i18n.localize(o)}</span>`)
             .join('');
 
-        var totalModifier = isAssurance ? this.getAssuranceModifier(check) : check.totalModifier;
-
-        const totalModifierPart = totalModifier === 0 ? '' : `+${totalModifier}`;
+        const totalModifierPart = check.totalModifier === 0 ? '' : `+${check.totalModifier}`;
         const roll = new Roll(`${dice}${totalModifierPart}`, check as RollDataPF2e).evaluate({ async: false });
 
         let flavor = `<strong>${check.name}</strong>`;
@@ -205,7 +209,7 @@ export class CheckModifiersDialog extends Application {
                         canReroll: !['fortune', 'misfortune', 'assurance'].includes(ctx.fate),
                         context,
                         unsafe: flavor,
-                        totalModifier,
+                        totalModifier: check.totalModifier,
                         origin,
                     },
                 },
@@ -220,12 +224,6 @@ export class CheckModifiersDialog extends Application {
         }
     }
 
-    static getAssuranceModifier(
-        check: StatisticModifier
-    ): number {
-        return check.modifiers.find((m) => m.enabled && m.type === MODIFIER_TYPE.PROFICIENCY)?.modifier || 0;
-    }
-
     override getData() {
         const fortune = this?.context?.fate === 'fortune';
         const misfortune = this?.context?.fate === 'misfortune';
@@ -236,7 +234,7 @@ export class CheckModifiersDialog extends Application {
             check: this.check,
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context.rollMode,
-            rollNumber: !assurance ? this.check.totalModifier : 10 + CheckModifiersDialog.getAssuranceModifier(this.check),
+            rollNumber: !assurance ? this.check.totalModifier : 10 + this.getAssuranceModifier(this.check),
             rollSign: !assurance,
             showRollDialogs: game.user.getFlag('pf2e', 'settings.showRollDialogs'),
             fortune,
@@ -245,6 +243,15 @@ export class CheckModifiersDialog extends Application {
             assurance,
             assuranceAllowed: this?.context?.type === 'skill-check',
         };
+    }
+
+    getAssuranceModifier(
+        check: StatisticModifier
+    ): number {
+        return check.modifiers
+            .filter(m => m.enabled && m.type === MODIFIER_TYPE.PROFICIENCY)
+            .map(m => m.modifier)
+            .reduce((prev: number, current: number) => (current > prev) ? current : prev, 0);
     }
 
     override activateListeners(html: JQuery) {
