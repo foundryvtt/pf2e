@@ -210,7 +210,9 @@ function registerPF2ActionClickListener() {
                 '[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]), [data-pf2-saving-throw]:not([data-pf2-saving-throw=""]) *',
             )
         ) {
-            console.warn(`Deprecation warning | data-pf2-saving-throw is deprecated, use data-pf2-check="savename" instead.`);
+            console.warn(
+                `Deprecation warning | data-pf2-saving-throw is deprecated, use data-pf2-check="savename" instead.`,
+            );
             target = target.closest('[data-pf2-saving-throw]:not([data-pf2-saving-throw=""])')!;
             const actors = resolveActors();
             if (actors.length) {
@@ -240,7 +242,9 @@ function registerPF2ActionClickListener() {
                 '[data-pf2-skill-check]:not([data-pf2-skill-check=""]), [data-pf2-skill-check]:not([data-pf2-skill-check=""]) *',
             )
         ) {
-            console.warn(`Deprecation warning | data-pf2-skill-check is deprecated, use data-pf2-check="skillname" instead.`);
+            console.warn(
+                `Deprecation warning | data-pf2-skill-check is deprecated, use data-pf2-check="skillname" instead.`,
+            );
             target = target.closest('[data-pf2-skill-check]:not([data-pf2-skill-check=""])')!;
             const actors = resolveActors();
             if (actors.length) {
@@ -267,7 +271,9 @@ function registerPF2ActionClickListener() {
                 });
             }
         } else if (target?.matches('[data-pf2-perception-check], [data-pf2-perception-check] *')) {
-            console.warn(`Deprecation warning | data-pf2-perception is deprecated, use data-pf2-check="perception" instead.`);
+            console.warn(
+                `Deprecation warning | data-pf2-perception is deprecated, use data-pf2-check="perception" instead.`,
+            );
             target = target.closest('[data-pf2-perception-check]')!;
             const actors = resolveActors();
             if (actors.length) {
