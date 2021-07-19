@@ -12,5 +12,12 @@ export function listen() {
         if (game.user.getFlag('pf2e', 'settings.showEffectPanel') ?? true) {
             game.pf2e.effectPanel.render(true);
         }
+
+        // Apply token documents' derived data to their placeable token objects
+        if (canvas.scene) {
+            for (const tokenDoc of canvas.scene.tokens) {
+                tokenDoc.prepareData({ fromActor: true });
+            }
+        }
     });
 }
