@@ -82,6 +82,14 @@ export class EffectPF2e extends ItemPF2e {
         }
         await super._preCreate(data, options, user);
     }
+
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+        if (this.actor) {
+            game.pf2e.effectTracker.unregister(this as Embedded<EffectPF2e>);
+            game.pf2e.effectPanel.refresh();
+        }
+        super._onDelete(options, userId);
+    }
 }
 
 export interface EffectPF2e {
