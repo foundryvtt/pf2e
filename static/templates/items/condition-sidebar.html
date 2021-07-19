@@ -4,14 +4,14 @@
 
 {{#unless data.duration.perpetual}}
 {{#if data.duration.value}}
-<span class="item-summary">Duration {{data.duration.value}} rounds</span>
+<span class="item-summary">{{localize 'PF2E.DurationTextLabel'}} {{data.duration.value}} {{localize 'PF2E.DurationNumberLabel'}}</span>
 {{else}}
-<span class="item-summary">Duration {{data.duration.text}}</span>
+<span class="item-summary">{{localize 'PF2E.DurationTextLabel'}} {{data.duration.text}}</span>
 {{/if}}
 {{/unless}}
 
 {{#if data.modifiers.length}}
-<span class="item-summary">Modifiers</span>
+<span class="item-summary">{{localize 'PF2E.ModifiersTitle'}}</span>
 <ol class="item-tags">
     {{#each data.modifiers}}
     <li class="tag">{{this.group}} {{this.type}} {{#if data.value.isValued}}{{data.value.value}}{{else}}{{this.value}}{{/if}}</li>
@@ -20,7 +20,7 @@
 {{/if}}
 
 {{#if data.overrides.length}}
-<span class="item-summary">Overrides</span>
+<span class="item-summary">{{localize 'PF2E.OverridesTitle'}}</span>
 <ol class="item-tags">
     {{#each data.overrides}}
     <li class="tag">{{this}}</li>

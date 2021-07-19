@@ -51,6 +51,7 @@ import { Migration640CantripsAreNotZeroLevel } from './migrations/640-cantrips-a
 import { Migration641SovereignSteelValue } from './migrations/641-sovereign-steel-value';
 import { Migration642TrackSchemaVersion } from './migrations/642-track-schema-version';
 import { Migration643HazardLevel } from './migrations/643-hazard-level';
+import { Migration644SpellcastingCategory } from './migrations/644-spellcasting-category';
 export { MigrationRunner } from './runner';
 
 export class Migrations {
@@ -106,6 +107,7 @@ export class Migrations {
         Migration641SovereignSteelValue,
         Migration642TrackSchemaVersion,
         Migration643HazardLevel,
+        Migration644SpellcastingCategory,
     ];
 
     static get latestVersion(): number {

@@ -26,6 +26,7 @@ import { Migration640CantripsAreNotZeroLevel } from '@module/migration/migration
 import { Migration641SovereignSteelValue } from '@module/migration/migrations/641-sovereign-steel-value';
 import { Migration642TrackSchemaVersion } from '@module/migration/migrations/642-track-schema-version';
 import { Migration643HazardLevel } from '@module/migration/migrations/643-hazard-level';
+import { Migration644SpellcastingCategory } from '@module/migration/migrations/644-spellcasting-category';
 
 const migrations: MigrationBase[] = [
     new Migration621RemoveConfigSpellSchools(),
@@ -49,6 +50,7 @@ const migrations: MigrationBase[] = [
     new Migration641SovereignSteelValue(),
     new Migration642TrackSchemaVersion(),
     new Migration643HazardLevel(),
+    new Migration644SpellcastingCategory(),
 ];
 
 global.deepClone = function (original: any): any {

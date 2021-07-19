@@ -47,7 +47,7 @@ interface SpellSlotData {
 }
 
 export type MagicTradition = keyof ConfigPF2e['PF2E']['magicTraditions'];
-export type PreparationType = 'prepared' | 'spontaneous' | 'innate';
+export type PreparationType = keyof ConfigPF2e['PF2E']['preparationType'];
 
 export interface SpellcastingEntrySystemData extends ItemSystemData {
     ability: {
@@ -61,7 +61,7 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
     attack?: SpellAttackRollModifier;
     dc?: SpellDifficultyClass;
     tradition: {
-        value: MagicTradition;
+        value: MagicTradition | '';
     };
     focus: {
         points: number;

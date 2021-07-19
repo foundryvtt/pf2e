@@ -14,8 +14,12 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     /** Refresh this token's properties if it's controlled and the request came from its actor */
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
-        if (fromActor && this.object.isControlled) {
-            canvas.lighting.setPerceivedLightLevel({ defer: false });
+        if (fromActor && this.rendered) {
+            if (this.object.isControlled) {
+                canvas.lighting.setPerceivedLightLevel({ defer: false });
+            }
+
+            this.object.refreshIcon();
         }
     }
 
@@ -43,7 +47,6 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         }[this.actor.visionLevel];
         this.data.brightSight = perceivedBrightness > lightLevel ? 1000 : 0;
 
-        // Apply overrides from rule elements and active effects
         mergeObject(this.data, this.actor?.overrides.token ?? {}, { insertKeys: false });
     }
 

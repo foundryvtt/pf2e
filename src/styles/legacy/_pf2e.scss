@@ -1,9 +1,4 @@
 @font-face {
-    font-family: "Nodesto";
-    src: url('../fonts/NodestoCapsCondensed.otf');
-}
-
-@font-face {
     font-family: "Pathfinder2eActions";
     src: url('../fonts/Pathfinder2eActions.ttf');
 }
@@ -15,16 +10,7 @@
     --alternate-background:darkgray;
 }
 
-/* Nodesto Font */
-
-.nodesto {
-    font-family: "Nodesto", "Palatino Linotype", serif;
-    font-size: 18px;
-    color: #444;
-}
-
 /* Flexbox */
-
 .flexrow {
     display: flex;
     flex-direction: row;
@@ -85,11 +71,10 @@
                 border: none;
 
                 > input {
+                    @include serif-condensed;
                     height: 44px;
                     width: 100%;
                     margin: 2px;
-                    font-family: "Nodesto", "Palatino Linotype", serif;
-                    font-size: 18px;
                     color: #444;
                     font-size: 36px;
                     border: none;
@@ -370,11 +355,10 @@
             }
 
             h1 > input {
+                @include serif-condensed;
                 height: 40px;
                 width: 100%;
                 margin: 2px;
-                font-family: "Nodesto", "Palatino Linotype", serif;
-                font-size: 18px;
                 color: #444;
                 font-size: 36px;
             }
@@ -393,14 +377,13 @@
                 }
 
                 .level {
+                    @include serif-condensed;
                     flex: 0 0 20px;
                     width: 100%;
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
                     justify-content: flex-start;
-                    font-family: "Nodesto", "Palatino Linotype", serif;
-                    font-size: 18px;
                     color: #444;
                     font-size: 20px;
                     line-height: 20px;
@@ -481,8 +464,7 @@
                 }
 
                 > input {
-                    font-family: "Nodesto", "Palatino Linotype", serif;
-                    font-size: 18px;
+                    @include serif-condensed;
                     color: #444;
                     font-size: 20px;
                 }
@@ -514,11 +496,11 @@
                 }
 
                 .attribute-name {
+                    @include serif-condensed;
                     position: relative;
                     height: 22px;
                     margin: 0 0 2px;
                     line-height: 22px;
-                    font-family: "Nodesto", "Palatino Linotype", serif;
                     font-size: 18px;
                     color: #444;
                     text-align: center;
@@ -531,13 +513,12 @@
                 }
 
                 .attribute-value {
+                    @include serif-condensed;
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
                     justify-content: flex-start;
                     height: 32px;
-                    font-family: "Nodesto", "Palatino Linotype", serif;
-                    font-size: 18px;
                     color: #444;
                     font-size: 20px;
                     line-height: 32px;
@@ -629,10 +610,9 @@
                 }
 
                 h4 {
+                    @include serif-condensed;
                     flex: 1;
                     margin: 0;
-                    font-size: 12px;
-                    font-family: "Nodesto", "Palatino Linotype", serif;
                     font-size: 18px;
                     color: #444;
                 }
@@ -700,9 +680,7 @@
         }
 
         .pf-heading {
-            /* flex: 0 0 24px;
-             */
-            font-family: "Nodesto", "Palatino Linotype", serif;
+            @include serif-condensed;
             font-size: 24px;
             line-height: 24px;
             color: #fff;
@@ -1074,8 +1052,8 @@
             }
 
             .defense-score {
+                @include serif-condensed;
                 grid-area: auto;
-                font-family: "Nodesto", "Palatino Linotype", serif;
                 font-size: 28px;
                 text-align: center;
                 background: var(--secondary-background);
@@ -1084,8 +1062,8 @@
         }
 
         .npc-defense .defense-score {
+            @include serif-condensed;
             grid-area: auto;
-            font-family: "Nodesto", "Palatino Linotype", serif;
             font-size: 28px;
             text-align: center;
             background: var(--secondary-background);
@@ -1093,10 +1071,10 @@
         }
 
         .abilities .npc-defense .defense-score > input, .npc-defense .defense-score > input {
+            @include serif-condensed;
             width: 30px;
             height: 30px;
             margin: 3px;
-            font-family: "Nodesto", "Palatino Linotype", serif;
             font-size: 28px;
             text-align: center;
             background: #fff;
@@ -1104,10 +1082,10 @@
         }
 
         .list-row .skill-input > input {
+            @include serif-condensed;
             width: 22px;
             height: 22px;
             margin: 1px;
-            font-family: "Nodesto", "Palatino Linotype", serif;
             font-size: 20px;
             text-align: center;
             background: #fff;
@@ -1141,18 +1119,18 @@
 
             .defense {
                 .defense-score {
+                    @include serif-condensed;
                     grid-area: auto;
-                    font-family: "Nodesto", "Palatino Linotype", serif;
                     font-size: 28px;
                     text-align: center;
                     background: var(--secondary-background);
                     color: white;
 
                     > input {
+                        @include serif-condensed;
                         width: 30px;
                         height: 30px;
                         margin: 3px;
-                        font-family: "Nodesto", "Palatino Linotype", serif;
                         font-size: 28px;
                         text-align: center;
                         background: #fff;
@@ -1194,8 +1172,8 @@
         }
 
         .npc-abilities .ability-title, .abilities .ability-title {
+            @include serif-condensed;
             flex: 0 0 24px;
-            font-family: "Nodesto", "Palatino Linotype", serif;
             font-size: 24px;
             line-height: 24px;
             color: #fff;
@@ -1231,18 +1209,18 @@
                 }
 
                 .ability-mod {
+                    @include serif-condensed;
                     flex: 0 0 24px;
-                    font-family: "Nodesto", "Palatino Linotype", serif;
                     font-size: 24px;
                     line-height: 26px;
                     color: #666;
                     text-align: center;
 
                     .ability-input {
+                        @include serif-condensed;
                         width: 30px;
                         height: 30px;
                         margin: 3px;
-                        font-family: "Nodesto", "Palatino Linotype", serif;
                         font-size: 28px;
                         text-align: center;
                         background: #fff;
@@ -1341,8 +1319,8 @@
             }
 
             .ability-mod {
+                @include serif-condensed;
                 flex: 0 0 24px;
-                font-family: "Nodesto", "Palatino Linotype", serif;
                 font-size: 24px;
                 line-height: 36px;
                 color: #666;
@@ -1351,8 +1329,8 @@
         }
 
         .npc-abilities .npc-defense .ability-name, .abilities .ability .ability-id {
+            @include serif-condensed;
             flex: 0 0 24px;
-            font-family: "Nodesto", "Palatino Linotype", serif;
             font-size: 32px;
             background: var(--secondary-background);
             border-radius: 8px;
@@ -1382,8 +1360,8 @@
                 margin: 3px 0 1px;
 
                 h3 {
+                    @include serif-condensed;
                     text-align: center;
-                    font-family: "Nodesto", "Palatino Linotype", serif;
                     color: #444;
                     font-size: 18px;
                     color: #222;
@@ -1423,15 +1401,14 @@
                         height: 20px;
 
                         .class-levels {
+                            @include serif-condensed;
                             width: 44px;
                             height: 100%;
                             float: right;
                             margin: 0;
                             font-size: 10px;
                             text-align: right;
-                            font-family: "Nodesto", "Palatino Linotype", serif;
                             font-size: 18px;
-                            color: #444;
                             color: #222;
                         }
                     }
@@ -1612,7 +1589,7 @@
             }
 
             .skill-score {
-                font-family: "Nodesto", "Palatino Linotype", serif;
+                @include serif-condensed;
                 font-size: 28px;
                 text-align: center;
                 align-self: center;
@@ -1622,7 +1599,7 @@
         }
 
         .spellbook .skill-score {
-            font-family: "Nodesto", "Palatino Linotype", serif;
+            @include serif-condensed;
             font-size: 28px;
             text-align: center;
             align-self: center;
@@ -2215,7 +2192,7 @@
         }
 
         .level-prepared-header {
-            font-family: "Nodesto", "Palatino Linotype", serif;
+            @include serif-condensed;
             letter-spacing: 2px;
             font-weight: 400;
             font-size: 20px;
@@ -3272,6 +3249,63 @@ button {
 
     button {
         flex: 1 1 0;
+        height: 32px;
+        width: 52px;
+        font-size: 18px;
+        position: relative;
+
+        > i.fas {
+            vertical-align: top;
+            position: relative;
+            top: 1px;
+            left: 1px;
+        }
+
+        > .transparent-half {
+            opacity: 0.6;
+            display: block;
+            position: absolute;
+            top: 0px;
+            left: 48%;
+            width: 16px;
+            height: 24px;
+            background: rgb(238, 238, 238);
+        }
+
+        .plus {
+            position: absolute;
+            left: 41%;
+            top: -4px;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        > img {
+            border: none;
+            height: 20px;
+            position: relative;
+            top: -2px;
+            vertical-align: text-top;
+        }
+
+        .label {
+            position: relative;
+            top: -22px;
+            font-size: 0.4em;
+            text-transform: uppercase;
+        }
+    }
+
+    // Slightly reposition elements if the triple-damage button is in
+    &.includes-fumble {
+        > button.triple-damage > img {
+            left: -1px;
+            top: -3px;
+        }
+        span.plus {
+            left: 16px;
+        }
     }
 }
 

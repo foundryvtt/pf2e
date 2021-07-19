@@ -74,6 +74,20 @@ export class SpellPF2e extends ItemPF2e {
         return null;
     }
 
+    override getRollData(): Record<string, unknown> {
+        const rollData = super.getRollData();
+        if (this.parent) {
+            const spellcasting = this.spellcasting;
+            if (!spellcasting?.data && this.data.data.trickMagicItemData) {
+                rollData['mod'] = this.actor.getAbilityMod(this.data.data.trickMagicItemData.ability);
+            } else {
+                rollData['mod'] = this.actor.getAbilityMod(spellcasting?.ability ?? 'int');
+            }
+        }
+
+        return rollData;
+    }
+
     computeDamageParts(castLevel?: number) {
         castLevel = this.computeCastLevel(castLevel);
         const parts: (string | number)[] = [];

@@ -1,12 +1,19 @@
 import { ItemDataPF2e } from '@item/data';
 import { CharacterData, FamiliarData, NPCData } from '@actor/data';
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementData } from '../rules-data-definitions';
+import { RuleElementSource, RuleElementData } from '../rules-data-definitions';
+import { ItemPF2e } from '@item';
 
 /**
  * @category RuleElement
  */
 export class PF2SetPropertyRuleElement extends RuleElementPF2e {
+    /** Apply this rule element before all others */
+    constructor(data: RuleElementSource, item: Embedded<ItemPF2e>) {
+        super(data, item);
+        this.data.priority = 9;
+    }
+
     override onCreate(actorData: CharacterData | NPCData | FamiliarData, _item: ItemDataPF2e, actorUpdates: any) {
         if (this.data.property && typeof this.data.on?.added !== 'undefined' && this.data.on?.added !== null) {
             actorUpdates[this.data.property] = this.data.on.added;

@@ -30,6 +30,7 @@ import { EffectTracker } from '@module/system/effect-tracker';
 import { Rollable } from '@actor/data/base';
 import { remigrate } from '@scripts/system/remigrate';
 import { SKILL_EXPANDED } from '@actor/data/values';
+import { GhostTemplate } from '@module/ghost-measured-template';
 import { ActorImporter } from '@system/importer/actor-importer';
 
 function resolveActors(): ActorPF2e[] {
@@ -201,6 +202,30 @@ function registerPF2ActionClickListener() {
                         }
                     }
                 });
+            }
+        } else if (
+            target?.matches(
+                '[data-pf2-effect-area]:not([data-pf2-effect-area=""]), [data-pf2-effect-area]:not([data-pf2-effect-area=""]) *',
+            )
+        ) {
+            target = target.closest('[data-pf2-effect-area]')!;
+            const { pf2EffectArea, pf2TemplateData } = target.dataset ?? {};
+            const templateConversion: Record<string, string> = {
+                burst: 'circle',
+                emanation: 'circle',
+                line: 'ray',
+                cone: 'cone',
+                rect: 'rect',
+            };
+            if (pf2TemplateData && typeof pf2EffectArea === 'string') {
+                const templateData = JSON.parse(pf2TemplateData);
+                templateData.t = templateConversion[pf2EffectArea];
+                templateData.user = game.user.id;
+                const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
+                const ghostTemplate = new GhostTemplate(measuredTemplateDoc);
+                ghostTemplate.drawPreview();
+            } else {
+                console.warn(`PF2e System | Could not create template'`);
             }
         }
     });

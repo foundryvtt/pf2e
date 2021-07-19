@@ -81,10 +81,11 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return super.delete(context);
     }
 
-    override getRollData() {
-        if (!this.actor) return { item: this.data.data };
-        const actorRollData = this.actor.getRollData();
-        return { ...actorRollData, actor: actorRollData, item: this.data.data };
+    override getRollData(): Record<string, unknown> {
+        const item = this.toObject(false).data;
+        if (!this.actor) return { item };
+        const actor = this.actor.toObject(false).data;
+        return { ...actor, actor, item };
     }
 
     /**
@@ -161,7 +162,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using TextEditor.enrichHTML()
      */
-    protected processChatData<T>(htmlOptions: EnrichHTMLOptions = {}, data: T): T {
+    protected processChatData<T>(this: Embedded<ItemPF2e>, htmlOptions: EnrichHTMLOptions = {}, data: T): T {
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
             chatData.description.value = TextEditor.enrichHTML(chatData.description.value, {
@@ -643,14 +644,8 @@ export class ItemPF2e extends Item<ActorPF2e> {
             throw new Error('Wrong item type!');
         }
 
-        const item = this.toObject();
-
-        // Get data
-        const itemData = item.data;
-        const rollData = duplicate(this.actor.data.data) as any;
-        const isHeal = itemData.spellType.value === 'heal';
-        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[itemData.damageType.value]);
-
+        const isHeal = this.data.data.spellType.value === 'heal';
+        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[this.data.data.damageType.value]);
         const castLevel = ItemPF2e.findSpellLevel(event);
         const parts = this.computeDamageParts(castLevel);
 
@@ -658,14 +653,6 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const damageLabel = game.i18n.localize(isHeal ? 'PF2E.SpellTypeHeal' : 'PF2E.DamageLabel');
         let title = `${this.name} - ${damageLabel}`;
         if (damageType && !isHeal) title += ` (${damageType})`;
-
-        // Add item to roll data
-        if (!this.spellcasting?.data && this.data.data.trickMagicItemData) {
-            rollData.mod = rollData.abilities[this.data.data.trickMagicItemData.ability].mod;
-        } else {
-            rollData.mod = rollData.abilities[this.spellcasting?.ability ?? 'int'].mod;
-        }
-        rollData.item = itemData;
 
         const traits = this.actor.data.data.traits.traits.value;
         if (traits.some((trait) => trait === 'elite')) {
@@ -679,7 +666,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
             event,
             item: this,
             parts,
-            data: rollData,
+            data: this.getRollData(),
             actor: this.actor,
             title,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -820,10 +807,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
         if (this.actor) {
             // Rule Elements
             if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
-            const rules = RuleElements.fromOwnedItem(this as Embedded<ItemPF2e>);
             const tokens = this.actor.getAllTokens();
             const actorUpdates = {};
-            for (const rule of rules) {
+            for (const rule of this.rules) {
                 rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
             }
             this.actor.update(actorUpdates);
@@ -857,10 +843,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 }
 
                 if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
-                const rules = RuleElements.fromOwnedItem(this as Embedded<ItemPF2e>);
                 const tokens = this.actor.getAllTokens();
                 const actorUpdates = {};
-                for (const rule of rules) {
+                for (const rule of this.rules) {
                     rule.onDelete(this.actor.data, this.data, actorUpdates, tokens);
                 }
                 this.actor.update(actorUpdates);

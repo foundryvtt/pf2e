@@ -565,7 +565,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     CONFIG.PF2E.preparationType[itemData.data.prepared.value as PreparationType],
                 );
 
-                if ((itemData.data.tradition || {}).value === 'focus') {
+                if (entry.isFocusPool) {
                     itemData.data.tradition.focus = true;
                     if (itemData.data.focus === undefined) itemData.data.focus = { points: 1, pool: 1 };
                     itemData.data.focus.icon = this.getFocusIcon(itemData.data.focus);
@@ -748,12 +748,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const actor = this.actor;
             const item = actor.items.get(itemId);
 
-            if (item == null || item.data.type !== 'spellcastingEntry') {
+            if (!(item instanceof SpellcastingEntryPF2e)) {
                 return;
             }
-            const data = duplicate(item.data);
 
-            const shouldSpendFocusPoint = data.data.tradition.value === 'focus' && itemLevel > 0;
+            const data = duplicate(item.data);
+            const shouldSpendFocusPoint = item.isFocusPool && itemLevel > 0;
 
             if (shouldSpendFocusPoint) {
                 if (data.data.focus.points > 0) {
