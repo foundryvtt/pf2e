@@ -61,6 +61,8 @@ export class CheckModifiersDialog extends Application {
         } else {
             this.context.rollMode = game.settings.get('core', 'rollMode') ?? 'roll';
         }
+
+        CheckModifiersDialog.checkAssurance(check, this.context);
     }
 
     /** Roll the given check, rendering the roll to the chat menu. */
@@ -72,8 +74,6 @@ export class CheckModifiersDialog extends Application {
         const options: string[] = [];
         const ctx = context as any;
 
-        const isAssurance = ctx.fate === 'assurance';
-
         let dice = '1d20';
         if (ctx.fate === 'misfortune') {
             dice = '2d20kl';
@@ -81,7 +81,7 @@ export class CheckModifiersDialog extends Application {
         } else if (ctx.fate === 'fortune') {
             dice = '2d20kh';
             options.push('PF2E.TraitFortune');
-        } else if (isAssurance) {
+        } else if (ctx.fate === 'assurance') {
             dice = '10';
             options.push('PF2E.TraitFortune');
         }
@@ -103,10 +103,7 @@ export class CheckModifiersDialog extends Application {
         ctx.rollMode =
             ctx.rollMode ?? (ctx.secret ? 'blindroll' : undefined) ?? game.settings.get('core', 'rollMode') ?? 'roll';
 
-        if (isAssurance) {
-            check.modifiers.filter((m) => m.type !== MODIFIER_TYPE.PROFICIENCY).forEach((m) => (m.ignored = true));
-            check.applyStackingRules();
-        }
+        this.checkAssurance(check, context);
 
         const modifierBreakdown = check.modifiers
             .filter((m) => m.enabled)
@@ -232,7 +229,7 @@ export class CheckModifiersDialog extends Application {
             check: this.check,
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context.rollMode,
-            rollNumber: !assurance ? this.check.totalModifier : 10 + this.getAssuranceModifier(this.check),
+            rollNumber: (assurance ? 10 : 0) + this.check.totalModifier,
             rollSign: !assurance,
             showRollDialogs: game.user.getFlag('pf2e', 'settings.showRollDialogs'),
             fortune,
@@ -243,11 +240,17 @@ export class CheckModifiersDialog extends Application {
         };
     }
 
-    getAssuranceModifier(check: StatisticModifier): number {
-        return check.modifiers
-            .filter((m) => m.enabled && m.type === MODIFIER_TYPE.PROFICIENCY)
-            .map((m) => m.modifier)
-            .reduce((prev: number, current: number) => Math.max(current, prev), 0);
+    /**
+     * If the fate condition is "assurance" then auto-disable all non-proficiency bonuses. Using the "autoIgnored"
+     * rather "ignored" means that, if the fate is changed from "assurance", the previously-enabled modifiers will
+     * be automatically re-enabled.
+     */
+    static checkAssurance(check: StatisticModifier, context: CheckModifiersContext) {
+        const isAssurance = context.fate === 'assurance';
+        check.modifiers
+            .filter((m) => m.type !== MODIFIER_TYPE.PROFICIENCY)
+            .forEach((m) => (m.autoIgnored = isAssurance));
+        check.applyStackingRules();
     }
 
     override activateListeners(html: JQuery) {
@@ -268,6 +271,7 @@ export class CheckModifiersDialog extends Application {
 
         html.find('.fate').on('click', 'input[type=radio]', (event) => {
             this.context.fate = event.currentTarget.getAttribute('value');
+            CheckModifiersDialog.checkAssurance(this.check, this.context);
             this.render();
         });
 

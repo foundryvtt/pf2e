@@ -69,6 +69,8 @@ export class ModifierPF2e implements RawModifier {
     /** Any notes about this modifier. */
     notes?: string;
     ignored: boolean;
+    /** Whether the modifier has been ignored due to something automatic, rather than by the user */
+    autoIgnored: boolean;
     custom: boolean;
     damageType?: string;
     /** The damage category */
@@ -99,6 +101,7 @@ export class ModifierPF2e implements RawModifier {
         this.modifier = modifier;
         this.type = isValidModifierType(type) ? type : 'untyped';
         this.enabled = enabled;
+        this.autoIgnored = false;
         this.ignored = false;
         this.custom = false;
         this.source = source;
@@ -286,7 +289,7 @@ function applyStackingRules(modifiers: ModifierPF2e[]): number {
 
     for (const modifier of modifiers) {
         // Always disable ignored modifiers and don't do anything further with them.
-        if (modifier.ignored) {
+        if (modifier.ignored || modifier.autoIgnored) {
             modifier.enabled = false;
             continue;
         }
