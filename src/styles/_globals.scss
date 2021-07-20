@@ -382,6 +382,57 @@ table.pf2-table {
 }
 
 /* ----------------------------------------- */
+/* PF2E Check Custom Element
+/* ----------------------------------------- */
+[data-pf2-check]:not([data-pf2-check=""]) {
+    background: #ddd;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+[data-pf2-check]:not([data-pf2-check=""]):not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
+[data-pf2-check]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f6cf';
+}
+
+[data-pf2-check="reflex"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f70c';
+}
+
+[data-pf2-check="will"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f5dc';
+}
+
+[data-pf2-check="fortitude"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f21e';
+}
+
+/* ----------------------------------------- */
 /* PF2E Inline Template Custom Element
 /* ----------------------------------------- */
 [data-pf2-effect-area] {
@@ -438,6 +489,14 @@ table.pf2-table {
     margin-right: 5px;
     color: #7a7971;
     content: '\f0c8';
+}
+
+/* ----------------------------------------- */
+/* PF2E Inline Repost Element
+/* ----------------------------------------- */
+
+[data-pf2e-repost] {
+    color: #7a7971;
 }
 
 /* ----------------------------------------- */

@@ -1429,6 +1429,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
         if (selectorType === 'basic') {
             const objectProperty = $anchor.attr('data-property') ?? '';
+            const title = $anchor.attr('data-title');
             const configTypes = ($anchor.attr('data-config-types') ?? '')
                 .split(',')
                 .map((type) => type.trim())
@@ -1436,6 +1437,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             this.tagSelector('basic', {
                 objectProperty,
                 configTypes,
+                title,
             });
         } else {
             this.tagSelector(selectorType);

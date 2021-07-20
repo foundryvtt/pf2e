@@ -63,7 +63,7 @@ declare global {
         /* -------------------------------------------- */
 
         border: PIXI.Graphics;
-        icon: PIXI.Sprite | null;
+        icon: PIXI.Sprite;
         bars: PIXI.Container & { bar1: PIXI.Graphics; bar2: PIXI.Graphics };
         nameplate: PIXI.Text;
         tooltip: PIXI.Container;
@@ -412,10 +412,7 @@ declare global {
     }
 
     interface Token {
-        hitArea: PIXI.IHitArea & {
-            right: number;
-            bottom: number;
-        };
+        hitArea: PIXI.Rectangle;
     }
 
     interface TokenVelocity {

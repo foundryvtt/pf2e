@@ -230,7 +230,7 @@ export abstract class RuleElementPF2e {
             value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actor.data.data, item: this.item.data.data }));
         }
 
-        if (Number.isInteger(Number(value))) {
+        if (typeof value !== 'boolean' && Number.isInteger(Number(value))) {
             value = Number(value);
         }
 

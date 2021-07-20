@@ -5,7 +5,6 @@ import * as Init from './init';
 import * as HotbarDrop from './hotbar-drop';
 import * as Ready from './ready';
 import * as Setup from './setup';
-import * as TurnChanges from './turn-changes';
 import * as UpdateScene from './update-scene';
 import * as UpdateWorldTime from './update-world-time';
 import * as RenderActorDirectory from './render-actor-directory';
@@ -25,7 +24,6 @@ export const HooksPF2e = {
         RenderActorDirectory.listen();
         RenderChatMessage.listen();
         Setup.listen();
-        TurnChanges.listen();
         UpdateScene.listen();
         UpdateWorldTime.listen();
         RenderSidebarTab.listen();
