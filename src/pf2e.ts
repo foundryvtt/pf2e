@@ -198,5 +198,8 @@ Hooks.on('renderChatMessage', (message, html) => {
         html.find('[data-pf2-flat-check]').each((_idx, elem) => {
             elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2e-repost></i>';
         });
+        html.find('[data-pf2-check]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2e-repost></i>';
+        });
     }
 });
