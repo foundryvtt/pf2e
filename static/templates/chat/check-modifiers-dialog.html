@@ -4,11 +4,11 @@
     <span class="mod">{{localize 'PF2E.Roll.Modifier'}}</span>
     <span class="exclude"></span>
   </div>
-  <hr/>
+  <hr />
   <div class="modifier-container">
     {{#each check.modifiers as |modifier idx|}}
     <div class="dialog-row {{#unless modifier.enabled}}modifier-enabled{{/unless}}">
-      <span class="type tag">{{localize (concat 'PF2E.ModifierType.'  modifier.type)}}</span>
+      <span class="type tag">{{localize (concat 'PF2E.ModifierType.' modifier.type)}}</span>
       {{#if modifier.label}}
       <span class="mod">{{localize modifier.label}}</span>
       {{else}}
@@ -22,44 +22,53 @@
     </div>
     {{/each}}
   </div>
-  <hr/>
+  <hr />
 
   <div class="add-modifier-panel">
-      <input type="text" class="add-modifier-name" placeholder={{localize 'PF2E.ModifierTitle'}}>
-      <select class="add-modifier-type">
-        <option value="circumstance" selected>{{localize 'PF2E.ModifierType.circumstance'}}</option>
-        <option value="item">{{localize 'PF2E.ModifierType.item'}}</option>
-        <option value="status">{{localize 'PF2E.ModifierType.status'}}</option>
-        <option value="untyped">{{localize 'PF2E.ModifierType.untypedPenalty'}}</option>
-        <option value="ability">{{localize 'PF2E.ModifierType.ability'}}</option>
-        <option value="proficiency">{{localize 'PF2E.ModifierType.proficiency'}}</option>
-      </select>
-      <input type="text" class="add-modifier-value" placeholder="+1">
-      <button class="add-modifier">+{{localize 'PF2E.Roll.Add'}}</button>
+    <input type="text" class="add-modifier-name" placeholder={{localize 'PF2E.ModifierTitle' }}>
+    <select class="add-modifier-type">
+      <option value="circumstance" selected>{{localize 'PF2E.ModifierType.circumstance'}}</option>
+      <option value="item">{{localize 'PF2E.ModifierType.item'}}</option>
+      <option value="status">{{localize 'PF2E.ModifierType.status'}}</option>
+      <option value="untyped">{{localize 'PF2E.ModifierType.untypedPenalty'}}</option>
+      <option value="ability">{{localize 'PF2E.ModifierType.ability'}}</option>
+      <option value="proficiency">{{localize 'PF2E.ModifierType.proficiency'}}</option>
+    </select>
+    <input type="text" class="add-modifier-value" placeholder="+1">
+    <button class="add-modifier">+{{localize 'PF2E.Roll.Add'}}</button>
   </div>
-  <hr/>
+  <hr />
 
   <div class="fate">
     {{#if assuranceAllowed}}
     <label>
-      <input type="radio" name="fate" value="assurance" {{checked assurance}} />
+      <input type="radio" name="fate" value="assurance" {{checked fate.assurance}} />
       {{localize 'PF2E.Roll.Assurance'}}
     </label>
     {{/if}}
     <label>
-      <input type="radio" name="fate" value="fortune" {{checked fortune}} />
+      <input type="radio" name="fate" value="fortune" {{checked fate.fortune}} />
       {{localize 'PF2E.Roll.Fortune'}}
     </label>
     <label>
-      <input type="radio" name="fate" value="none" {{checked none}} />
-        {{localize 'PF2E.Roll.None'}}
+      <input type="radio" name="fate" value="none" {{checked fate.none}} />
+      {{localize 'PF2E.Roll.None'}}
     </label>
     <label>
-      <input type="radio" name="fate" value="misfortune" {{checked misfortune}} />
-        {{localize 'PF2E.Roll.Misfortune'}}
+      <input type="radio" name="fate" value="misfortune" {{checked fate.misfortune}} />
+      {{localize 'PF2E.Roll.Misfortune'}}
     </label>
   </div>
-  <hr/>
+  <div class="fate">
+    <label>
+      <input type="radio" name="fate" value="override" {{checked fate.override}} />
+      {{localize 'PF2E.Roll.Override'}}
+    </label>
+    <input type="number" name="fate" value={{fate.overrideValue}} min="1" max="20" step="1" style="width:50px; text-align: right;"
+      {{#unless fate.override}}disabled=true{{/unless}} />
+  </div>
+
+  <hr />
 
   <div class="roll-mode-panel">
     <span class="label">{{localize "PF2E.RollModeLabel"}}</span>
@@ -71,17 +80,18 @@
       {{/select}}
     </select>
   </div>
-  <hr/>
+  <hr />
 
-  <button type="button" class="roll">{{localize 'PF2E.Roll.Roll'}} ({{numberFormat rollNumber decimals=0 sign=rollSign}})</button>
+  <button type="button" class="roll">{{localize 'PF2E.Roll.Roll'}} ({{numberFormat rollNumber decimals=0
+    sign=rollSign}})</button>
 
   <!-- Settings Menu -->
   <div class="hover-content" id="{{appId}}-settings">
-      <ul class="modifier-list settings-list">
-          <li class="item">
-              <span class="label">{{localize "PF2E.SETTINGS.Player.QuickRolls.DialogHint"}}</span>
-              <input class="quick-rolls-submit" type="checkbox" {{checked showRollDialogs}} />
-          </li>
-      </ul>
+    <ul class="modifier-list settings-list">
+      <li class="item">
+        <span class="label">{{localize "PF2E.SETTINGS.Player.QuickRolls.DialogHint"}}</span>
+        <input class="quick-rolls-submit" type="checkbox" {{checked showRollDialogs}} />
+      </li>
+    </ul>
   </div>
 </div>

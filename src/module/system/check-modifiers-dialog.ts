@@ -16,8 +16,15 @@ export interface CheckModifiersContext {
     secret?: boolean;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: string;
-    /** Should this roll be rolled with 'fortune' (2 dice, keep higher) or 'misfortune' (2 dice, keep lower)? */
+    /** Fortune effect which applies to the roll:
+     * 'fortune' (2 dice, keep higher)
+     * 'misfortune' (2 dice, keep lower)
+     * 'assurance' (10 + proficiency)
+     * 'override' (Replace dice roll with value specified in fateValue)
+     */
     fate?: string;
+    /** The value to use instead of a dice roll for fate 'override'*/
+    fateOverride?: number;
     /** The actor which initiated this roll. */
     actor?: ActorPF2e;
     /** The originating item of this attack, if any */
@@ -84,6 +91,9 @@ export class CheckModifiersDialog extends Application {
         } else if (ctx.fate === 'assurance') {
             dice = '10';
             options.push('PF2E.TraitFortune');
+        } else if (ctx.fate === 'override') {
+            dice = ctx.fateOverride ?? 10;
+            options.push('PF2E.TraitFortune');
         }
 
         const speaker: { actor?: ActorPF2e } = {};
@@ -105,7 +115,14 @@ export class CheckModifiersDialog extends Application {
 
         this.checkAssurance(check, context);
 
-        const modifierBreakdown = check.modifiers
+        let modifierBreakdown = '';
+        if (ctx.fate === 'assurance') {
+            modifierBreakdown += `<span class="tag tag_alt">Assurance 10</span>`;
+        } else if (ctx.fate === 'override') {
+            modifierBreakdown += `<span class="tag tag_alt">Override ${dice}</span>`;
+        }
+
+        modifierBreakdown += check.modifiers
             .filter((m) => m.enabled)
             .map((m) => {
                 const label = game.i18n.localize(m.label ?? m.name);
@@ -201,7 +218,7 @@ export class CheckModifiersDialog extends Application {
                         canPopout: true,
                     },
                     pf2e: {
-                        canReroll: !['fortune', 'misfortune', 'assurance'].includes(ctx.fate),
+                        canReroll: !['fortune', 'misfortune', 'assurance', 'override'].includes(ctx.fate),
                         context,
                         unsafe: flavor,
                         totalModifier: check.totalModifier,
@@ -223,7 +240,11 @@ export class CheckModifiersDialog extends Application {
         const fortune = this?.context?.fate === 'fortune';
         const misfortune = this?.context?.fate === 'misfortune';
         const assurance = this?.context?.fate === 'assurance';
+        const override = this?.context?.fate === 'override';
         const none = !fortune && !misfortune && !assurance;
+
+        const fateOverride: number = +(this?.context?.fateOverride ?? 10);
+
         return {
             appId: this.id,
             check: this.check,
@@ -232,10 +253,14 @@ export class CheckModifiersDialog extends Application {
             rollNumber: (assurance ? 10 : 0) + this.check.totalModifier,
             rollSign: !assurance,
             showRollDialogs: game.user.getFlag('pf2e', 'settings.showRollDialogs'),
-            fortune,
-            none,
-            misfortune,
-            assurance,
+            fate: {
+                fortune: fortune,
+                misfortune: misfortune,
+                assurance: assurance,
+                override: override,
+                overrideValue: fateOverride,
+                none: none,
+            },
             assuranceAllowed: this?.context?.type === 'skill-check',
         };
     }
@@ -269,11 +294,15 @@ export class CheckModifiersDialog extends Application {
         html.find('.add-modifier-panel').on('click', '.add-modifier', (event) => this.onAddModifier(event));
         html.find('[name=rollmode]').on('change', (event) => this.onChangeRollMode(event));
 
-        html.find('.fate').on('click', 'input[type=radio]', (event) => {
-            this.context.fate = event.currentTarget.getAttribute('value');
-            CheckModifiersDialog.checkAssurance(this.check, this.context);
-            this.render();
-        });
+        html.find('.fate')
+            .on('click', 'input[type=radio]', (event) => {
+                this.context.fate = event.currentTarget.getAttribute('value');
+                CheckModifiersDialog.checkAssurance(this.check, this.context);
+                this.render();
+            })
+            .on('input', 'input[type=number]', (event) => {
+                this.context.fateOverride = event.currentTarget.value;
+            });
 
         // Dialog settings menu
         const $settings = html.closest(`#${this.id}`).find('a.header-button.settings');
