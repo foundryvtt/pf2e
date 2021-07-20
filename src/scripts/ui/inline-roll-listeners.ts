@@ -30,7 +30,7 @@ const inlineSelector = [
 
 export const InlineRollListeners = {
     activate: ($html: JQuery): void => {
-        const $links = $html.find(inlineSelector);
+        const $links = $html.find('span').find(inlineSelector);
 
         // Conditionally show DCs in the text
         $links.each((_idx, link) => {
@@ -150,31 +150,27 @@ export const InlineRollListeners = {
                     break;
                 }
                 default: {
-                    if (actors.length) {
-                        const skill = SKILL_EXPANDED[pf2Check!]?.shortform ?? pf2Check!;
-                        actors.forEach((actor) => {
-                            const skillCheck = actor.data.data.skills[skill ?? ''] as Rollable | undefined;
-                            if (skill && skillCheck) {
-                                const dc = Number.isInteger(Number(pf2Dc))
-                                    ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
-                                    : undefined;
-                                const options = actor.getRollOptions(['all', 'skill-check', skill]);
-                                if (pf2Traits) {
-                                    const traits = pf2Traits
-                                        .split(',')
-                                        .map((trait) => trait.trim())
-                                        .filter((trait) => !!trait);
-                                    options.push(...traits);
-                                }
-                                skillCheck.roll({ event, options, dc });
-                            } else {
-                                console.warn(
-                                    `PF2e System | Skip rolling unknown skill check or untrained lore '${skill}'`,
-                                );
+                    const skillActors = actors.filter((actor) => 'skills' in actor.data.data);
+                    const skill = SKILL_EXPANDED[pf2Check!]?.shortform ?? pf2Check!;
+                    for (const actor of skillActors) {
+                        const skillCheck = actor.data.data.skills[skill ?? ''] as Rollable | undefined;
+                        if (skill && skillCheck) {
+                            const dc = Number.isInteger(Number(pf2Dc))
+                                ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                : undefined;
+                            const options = actor.getRollOptions(['all', 'skill-check', skill]);
+                            if (pf2Traits) {
+                                const traits = pf2Traits
+                                    .split(',')
+                                    .map((trait) => trait.trim())
+                                    .filter((trait) => !!trait);
+                                options.push(...traits);
                             }
-                        });
+                            skillCheck.roll({ event, options, dc });
+                        } else {
+                            console.warn(`PF2e System | Skip rolling unknown skill check or untrained lore '${skill}'`);
+                        }
                     }
-                    break;
                 }
             }
         });
@@ -216,7 +212,8 @@ export const InlineRollListeners = {
             if (actors.length) {
                 const { pf2SkillCheck, pf2Dc, pf2Traits, pf2Label } = event.currentTarget.dataset;
                 const skill = SKILL_EXPANDED[pf2SkillCheck!]?.shortform ?? pf2SkillCheck!;
-                actors.forEach((actor) => {
+                const skillActors = actors.filter((actor) => 'skills' in actor.data.data);
+                for (const actor of skillActors) {
                     const skillCheck = actor.data.data.skills[skill ?? ''] as Rollable | undefined;
                     if (skill && skillCheck) {
                         const dc = Number.isInteger(Number(pf2Dc))
@@ -234,7 +231,7 @@ export const InlineRollListeners = {
                     } else {
                         console.warn(`PF2e System | Skip rolling unknown skill check or untrained lore '${skill}'`);
                     }
-                });
+                }
             }
         });
 
