@@ -1,6 +1,5 @@
 import type { ActorPF2e } from '@actor/base';
 import { CreaturePF2e } from '@actor/creature';
-import type { EffectData } from '@item/data';
 import type { EffectPF2e } from '@item/index';
 
 export class EffectTracker {
@@ -36,7 +35,7 @@ export class EffectTracker {
         }
     }
 
-    register(effect: Embedded<EffectPF2e>) {
+    register(effect: Embedded<EffectPF2e>): void {
         const index = this.trackedEffects.findIndex((e) => e.id === effect.id);
         if (effect.data.data.duration.unit === 'unlimited') {
             effect.data.data.expired = false;
@@ -59,14 +58,11 @@ export class EffectTracker {
         }
     }
 
-    unregister(effect: EffectData) {
-        const index = this.trackedEffects.findIndex((e) => e.id === effect._id);
-        if (index >= 0 && index < this.trackedEffects.length) {
-            this.trackedEffects.splice(index, 1);
-        }
+    unregister(toRemove: Embedded<EffectPF2e>): void {
+        this.trackedEffects = this.trackedEffects.filter((effect) => effect !== toRemove);
     }
 
-    async refresh() {
+    async refresh(): Promise<void> {
         const expired: Embedded<EffectPF2e>[] = [];
         for (const effect of this.trackedEffects) {
             const duration = effect.remainingDuration;
@@ -95,7 +91,7 @@ export class EffectTracker {
         }
     }
 
-    async removeExpired(actor?: ActorPF2e) {
+    async removeExpired(actor?: ActorPF2e): Promise<void> {
         const expired: Embedded<EffectPF2e>[] = [];
         for (let index = 0; index < this.trackedEffects.length; index++) {
             const effect = this.trackedEffects[index];

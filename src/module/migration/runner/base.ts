@@ -15,7 +15,7 @@ interface ItemsDiff {
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.644;
+    static LATEST_SCHEMA_VERSION = 0.645;
 
     static MINIMUM_SAFE_VERSION = 0.6;
 
@@ -179,7 +179,7 @@ export class MigrationRunnerBase {
         const current = token.toObject();
         for (const migration of migrations) {
             try {
-                await migration.updateToken(current);
+                await migration.updateToken(current, token.actor, token.scene);
             } catch (err) {
                 console.error(err);
             }

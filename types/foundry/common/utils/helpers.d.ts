@@ -251,13 +251,6 @@ declare global {
              * @return          Return a string containing random letters and numbers
              */
             function randomID(length?: number): string;
-
-            /**
-             * Load a single texture and return a Promise which resolves once the texture is ready to use
-             * @param src       The requested texture source
-             * @param fallback  A fallback texture to use if the requested source is unavailable or invalid
-             */
-            function loadTexture(src: string, fallback?: string): Promise<PIXI.Texture>;
         }
     }
 
@@ -282,6 +275,14 @@ declare global {
         var mergeObject: typeof foundry.utils.mergeObject;
         var setProperty: typeof foundry.utils.setProperty;
         var randomID: typeof foundry.utils.randomID;
+
+        /**
+         * Load a single texture and return a Promise which resolves once the texture is ready to use
+         * @param src       The requested texture source
+         * @param fallback  A fallback texture to use if the requested source is unavailable or invalid
+         */
+        function loadTexture(src: string, { fallback }?: { fallback?: ImagePath }): Promise<PIXI.Texture>;
+
         /* eslint-enable no-var */
     }
 }

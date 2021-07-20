@@ -15,7 +15,7 @@ declare module foundry {
             roll: object;
             sound: AudioPath;
             emote?: boolean;
-            flags: Record<string, unknown>;
+            flags: Record<string, Record<string, unknown>>;
         }
 
         class ChatMessageData<

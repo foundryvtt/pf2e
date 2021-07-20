@@ -4,7 +4,7 @@ import { ItemDataPF2e } from '@item/data';
 import { LocalizePF2e } from '@system/localize';
 import { AESheetData, ItemSheetDataPF2e, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e, LorePF2e } from '@item/index';
-import { RuleElementData } from '@module/rules/rules-data-definitions';
+import { RuleElementSource, RuleElementData } from '@module/rules/rules-data-definitions';
 import Tagify from '@yaireo/tagify';
 import {
     BasicSelectorOptions,
@@ -155,19 +155,29 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 const scopes = new Set<string>();
 
                 data.item.data.rules
-                    .filter((rule: RuleElementData) => rule.key === 'PF2E.RuleElement.EffectTarget')
+                    .filter((rule: RuleElementData) => rule.key.replace(/^PF2E\.RuleElement\./, '') === 'EffectTarget')
                     .forEach((rule: RuleElementData) => {
                         scopes.add(rule.scope as string);
                     });
                 if (scopes) {
                     data.targets = this.actor.items
                         .filter((item) => scopes.has(item.type))
-                        .map((item) => {
-                            return { id: item.id, name: item.name };
-                        });
+                        .map((item) => ({ id: item.id, name: item.name }));
                 }
             }
         }
+
+        const translations: Record<string, string> = LocalizePF2e.translations.PF2E.RuleElement;
+        data.ruleLabels = itemData.data.rules.map((ruleData: RuleElementSource) => {
+            const key = ruleData.key.replace(/^PF2E\.RuleElement\./, '');
+            const label = translations[key] ?? translations.Unrecognized;
+            const recognized = label !== translations.Unrecognized;
+            return {
+                label: recognized ? label : game.i18n.localize('PF2E.RuleElement.Unrecognized'),
+                recognized,
+            };
+        });
+
         return data;
     }
 
@@ -302,6 +312,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             throw ErrorPF2e('Item sheets can only use the basic tag selector');
         }
         const objectProperty = $anchor.attr('data-property') ?? '';
+        const title = $anchor.attr('data-title');
         const configTypes = ($anchor.attr('data-config-types') ?? '')
             .split(',')
             .map((type) => type.trim())
@@ -309,6 +320,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         const selectorOptions: BasicSelectorOptions = {
             objectProperty,
             configTypes,
+            title,
         };
 
         const noCustom = $anchor.attr('data-no-custom') === 'true';
@@ -398,9 +410,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             if (event.originalEvent instanceof MouseEvent) {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
             }
-            const rules = (this.item.data.data as any).rules ?? [];
+            const rulesData: Partial<RuleElementData>[] = this.item.data.data.rules;
             this.item.update({
-                'data.rules': rules.concat([{ key: 'PF2E.RuleElement.Unrecognized' }]),
+                'data.rules': rulesData.concat([{ key: 'NewRuleElement' }]),
             });
         });
         html.find('.rules').on('click', '.remove-rule-element', async (event) => {
@@ -547,7 +559,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     try {
                         rules.push(JSON.parse(value as string));
                     } catch (error) {
-                        ui.notifications.warn(`Syntax error in rule element definition: ${error.message}`);
+                        ui.notifications.error(`Syntax error in rule element definition: ${error.message}`);
                         console.warn('Syntax error in rule element definition.', error.message, value);
                         throw error;
                     }

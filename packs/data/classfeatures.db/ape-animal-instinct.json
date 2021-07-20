@@ -37,7 +37,7 @@
                         "rage"
                     ],
                     "not": [
-                        "animal-skin"
+                        "barbarian-dedication"
                     ]
                 },
                 "roll-options": [
@@ -50,15 +50,16 @@
             {
                 "key": "PF2E.RuleElement.FlatModifier",
                 "label": "Rage",
-                "name": "animal-instinct-rage",
+                "name": "rage",
                 "predicate": {
                     "all": [
-                        "animal-instinct",
-                        "rage"
+                        "rage",
+                        "animal-instinct"
                     ],
                     "not": [
                         "agile",
-                        "ranged"
+                        "ranged",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -83,7 +84,7 @@
             {
                 "key": "PF2E.RuleElement.FlatModifier",
                 "label": "Rage",
-                "name": "animal-instinct-rage-agile",
+                "name": "rage-agile",
                 "predicate": {
                     "all": [
                         "rage",
@@ -91,73 +92,8 @@
                         "animal-instinct"
                     ],
                     "not": [
-                        "ranged"
-                    ]
-                },
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 1
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 2
-                        },
-                        {
-                            "start": 15,
-                            "value": 6
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Rage",
-                "name": "rage",
-                "predicate": {
-                    "all": [
-                        "rage"
-                    ],
-                    "not": [
-                        "animal-instinct",
-                        "agile",
-                        "ranged"
-                    ]
-                },
-                "selector": "damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "value": 2
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 6
-                        },
-                        {
-                            "start": 15,
-                            "value": 12
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Rage",
-                "name": "rage-agile",
-                "predicate": {
-                    "all": [
-                        "rage",
-                        "agile"
-                    ],
-                    "not": [
-                        "animal-instinct",
-                        "ranged"
+                        "ranged",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -202,6 +138,9 @@
             },
             {
                 "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "not": "barbarian-dedication"
+                },
                 "selector": "ape-fist-damage",
                 "value": {
                     "brackets": [
@@ -215,11 +154,90 @@
                         }
                     ]
                 }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "dedication-instinct-rage",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "barbarian-dedication",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "agile",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "dedication-instinct-rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "barbarian-dedication",
+                        "instinct-ability",
+                        "agile"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "non-animal-rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ],
+                    "not": [
+                        "agile",
+                        "ranged",
+                        "animal-instinct",
+                        "barbarian-dedication"
+                    ]
+                },
+                "selector": "damage",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "non-animal-rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile"
+                    ],
+                    "not": [
+                        "ranged",
+                        "animal-instinct",
+                        "barbarian-dedication"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
             }
         ],
         "schema": {
-            "lastMigration": null,
-            "version": 0.643
+            "lastMigration": {
+                "datetime": "2021-07-19T21:11:25.529-04:00",
+                "version": {
+                    "foundry": "0.8.8",
+                    "schema": 0.644,
+                    "system": "2.9.1"
+                }
+            },
+            "version": 0.645
         },
         "source": {
             "value": ""

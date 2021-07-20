@@ -1,10 +1,8 @@
-import { ItemDataPF2e } from '@item/data';
-import { CharacterData, NPCData } from '@actor/data';
 import { RuleElementPF2e } from '../rule-element';
 
-const SIZES: Record<string, number> = {
-    tiny: 0.6,
-    small: 0.8,
+const SIZE_TO_TOKEN_SIZE: Record<string, number> = {
+    tiny: 0.5,
+    small: 1,
     medium: 1,
     large: 2,
     huge: 3,
@@ -15,54 +13,16 @@ const SIZES: Record<string, number> = {
  * @category RuleElement
  */
 export class PF2TokenSizeRuleElement extends RuleElementPF2e {
-    override onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
-        const size = typeof this.data.value === 'string' ? this.data.value : '';
-        const value = SIZES[size] ?? this.resolveValue(this.data.value);
-
-        if (!value) {
-            console.warn('PF2E | Token Image requires a non-empty value field');
+    override onAfterPrepareData() {
+        const value = this.data.value;
+        const size = typeof value === 'string' ? SIZE_TO_TOKEN_SIZE[value] : this.resolveValue(this.data.value);
+        if (!Object.values(SIZE_TO_TOKEN_SIZE).includes(size)) {
+            const sizes = Object.keys(SIZE_TO_TOKEN_SIZE).join(', ');
+            console.warn(`PF2E System | Token Size requires one of ${sizes}`);
+            this.ignored = true;
+            return;
         }
 
-        const tokenUpdates: Promise<any>[] = [];
-        tokens.forEach((token) => {
-            tokenUpdates.push(token.update({ height: value, width: value }));
-        });
-        Promise.allSettled(tokenUpdates);
-
-        mergeObject(actorUpdates, {
-            'token.height': value,
-            'token.width': value,
-            'flags.pf2e.token.sizesource': item._id,
-        });
-        if (!getProperty(actorData, 'flags.pf2e.token.size')) {
-            mergeObject(actorUpdates, {
-                'flags.pf2e.token.size': {
-                    height: getProperty(actorData, 'token.height'),
-                    width: getProperty(actorData, 'token.width'),
-                },
-            });
-        }
-    }
-
-    override onDelete(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
-        if (getProperty(actorData, 'flags.pf2e.token.sizesource') === item._id) {
-            const width = getProperty(actorData, 'flags.pf2e.token.size.height');
-            const height = getProperty(actorData, 'flags.pf2e.token.size.width');
-
-            const tokenUpdates: Promise<any>[] = [];
-            tokens.forEach((token) => {
-                tokenUpdates.push(token.update({ height, width }));
-            });
-            Promise.allSettled(tokenUpdates);
-
-            mergeObject(actorUpdates, {
-                'token.height': getProperty(actorData, 'flags.pf2e.token.size.height'),
-                'token.width': getProperty(actorData, 'flags.pf2e.token.size.width'),
-                'flags.pf2e.token': {},
-            });
-            const token = getProperty(actorUpdates, 'flags.pf2e.token');
-            token['-=size'] = null;
-            token['-=sizesource'] = null;
-        }
+        mergeObject(this.actor.overrides, { token: { height: size, width: size } });
     }
 }

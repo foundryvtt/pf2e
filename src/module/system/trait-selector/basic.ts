@@ -19,6 +19,7 @@ export class TagSelectorBasic extends TagSelectorBase {
             mergeObject(this.choices, options.customChoices);
             this.choices = this.sortChoices(this.choices);
         }
+        this.options.title = options.title ?? 'PF2E.TraitsLabel';
     }
 
     protected get configTypes(): readonly SelectableTagField[] {
@@ -28,7 +29,6 @@ export class TagSelectorBasic extends TagSelectorBase {
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             template: 'systems/pf2e/templates/system/trait-selector/basic.html',
-            title: 'PF2E.BrowserFilterTraits',
             height: 710,
         });
     }

@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+5",
+                "mod": 5,
                 "value": 20
             },
             "wis": {
@@ -110,11 +110,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "40 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "40"
                     }
                 ],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "details": {
@@ -149,7 +150,7 @@
             },
             "recallKnowledgeText": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Quest #3: Grehunde's Gorget"
             }
         },
         "saves": {
@@ -189,7 +190,7 @@
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.643
+            "version": 0.644
         },
         "traits": {
             "ci": [],
@@ -232,6 +233,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "bonus": {
@@ -246,12 +248,12 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(reach 10 feet)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.643
+                    "version": 0.644
                 },
                 "slug": null,
                 "source": {
@@ -284,8 +286,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "young sea serpent algae"
+                        "adolescent-sea-serpent-algae"
                     ]
                 },
                 "bonus": {
@@ -295,12 +298,12 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(brutal, range increment 30 feet, water)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.643
+                    "version": 0.644
                 },
                 "slug": null,
                 "source": {
@@ -313,7 +316,7 @@
                     },
                     "value": [
                         "brutal",
-                        "range increment 30 feet",
+                        "range-increment-30",
                         "water"
                     ]
                 },
@@ -329,21 +332,21 @@
             "type": "melee"
         },
         {
-            "_id": "DKp24AqOuiDaFyfi",
+            "_id": "mQF8NTfbtpD7IEkb",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>1d4+6 bludgeoning</p>"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -351,9 +354,9 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.643
+                    "version": 0.644
                 },
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -372,9 +375,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Constrict",
+            "name": "Darkvision",
             "sort": 300000,
             "type": "action"
         },
@@ -388,12 +395,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The young sea serpent extends the spines along its back and Swims or Strides. Each creature the serpent is adjacent to at any point during its movement takes [[/r 1d8+4 # slashing damage]] slashing damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"attack,move,damaging-effect\" data-pf2-label=\"Spine rake DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p>The young sea serpent extends the spines along its back and Swims or Strides. Each creature the serpent is adjacent to at any point during its movement takes [[/r 1d8+4 #slashing]]{1d8+4 slashing damage} (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"attack,move,damaging-effect\" data-pf2-label=\"Spine Rake DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -401,7 +408,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.643
+                    "version": 0.644
                 },
                 "slug": null,
                 "source": {
@@ -426,8 +433,8 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Spine rake",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Spine Rake",
             "sort": 400000,
             "type": "action"
         },
@@ -446,7 +453,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The water in the ballast organs around the sea serpent's neck is full of psychotropic algae. Saving throw <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"20\" data-pf2-traits=\"incapacitation,poison\" data-pf2-label=\"Adolescent sea serpent algae DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; Maximum duration 3 rounds; <br />\n<strong>Stage 1</strong> confused and, if flying, spends its first action each turn to descend 20 feet (1 round)</p>"
+                    "value": "<p>The water in the ballast organs around the sea serpent's neck is full of psychotropic algae.</p>\n<p><strong>Saving throw</strong> <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"poison,incapacitation\" data-pf2-label=\"Adolescent Sea Serpent Algae Poison DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum duration</strong> 3 rounds;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Confused]{Confused} and, if flying, spends its first action each turn to descend 20 feet (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -454,7 +461,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.643
+                    "version": 0.644
                 },
                 "slug": null,
                 "source": {
@@ -479,9 +486,63 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Adolescent sea serpent algae",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Adolescent Sea Serpent Algae",
             "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "Qo9jbEnyLvuOf4Ki",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>[[/r 1d4+6 #bludgeoning]]{1d4+6 bludgeoning damage}, no listed Fortitude save</span></p>\n<hr />\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.644
+                },
+                "slug": "constrict",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -504,7 +565,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.643
+                    "version": 0.644
                 },
                 "slug": null,
                 "source": {
@@ -522,19 +583,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         },
         {
-            "_id": "MwfVelg11cvtuOj3",
+            "_id": "nXOjGLb1oJ4TPzlg",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 8
@@ -542,10 +598,23 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Swim",
+                        "predicate": {
+                            "all": [
+                                "action:swim"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "type": "untyped",
+                        "value": 2
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.643
+                    "version": 0.644
                 },
                 "slug": null,
                 "source": {
@@ -557,13 +626,19 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+10 to swim",
+                        "options": "action:swim"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics (+10 to Swim)",
-            "sort": 700000,
+            "name": "Athletics",
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -586,7 +661,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.643
+                    "version": 0.644
                 },
                 "slug": null,
                 "source": {
@@ -604,7 +679,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         }
     ],

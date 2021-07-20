@@ -16,12 +16,12 @@ export interface RuleElementData {
     ignored: boolean;
 }
 
-export type RuleElementConstructionData = Omit<RuleElementData, 'label' | 'priority' | 'ignored'> & {
+export type RuleElementSource = Omit<RuleElementData, 'label' | 'priority' | 'ignored'> & {
     label?: string;
     priority?: number;
 };
 
-export type RuleValue = string | number | null | BracketedValue;
+export type RuleValue = string | number | boolean | null | BracketedValue;
 
 export interface Bracket {
     start?: number;

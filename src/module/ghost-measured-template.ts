@@ -17,7 +17,7 @@ export class GhostTemplate extends MeasuredTemplate {
         this.layer.preview.removeChildren();
         canvas.stage.off('mousemove', this._onMouseMove);
         canvas.stage.off('mousedown', this._onLeftClick);
-        canvas.app.view.oncontextmenu = null;
+        canvas.stage.off('rightdown', this._onClickRight);
         canvas.app.view.onwheel = null;
     };
 

@@ -32,6 +32,9 @@
                 "predicate": {
                     "all": [
                         "rage"
+                    ],
+                    "not": [
+                        "barbarian-dedication"
                     ]
                 },
                 "roll-options": [
@@ -44,10 +47,14 @@
             {
                 "key": "PF2E.RuleElement.FlatModifier",
                 "label": "Superstition Instinct (vs. magic)",
+                "name": "superstition-saves",
                 "predicate": {
                     "all": [
                         "magic",
                         "rage"
+                    ],
+                    "not": [
+                        "barbarian-dedication"
                     ]
                 },
                 "roll-options": [
@@ -74,7 +81,8 @@
                     ],
                     "not": [
                         "agile",
-                        "ranged"
+                        "ranged",
+                        "barbarian-dedication"
                     ]
                 },
                 "roll-options": [
@@ -110,7 +118,8 @@
                         "agile"
                     ],
                     "not": [
-                        "ranged"
+                        "ranged",
+                        "barbarian-dedication"
                     ]
                 },
                 "roll-options": [
@@ -146,7 +155,8 @@
                     "not": [
                         "agile",
                         "target:caster",
-                        "ranged"
+                        "ranged",
+                        "barbarian-dedication"
                     ]
                 },
                 "roll-options": [
@@ -177,7 +187,8 @@
                     ],
                     "not": [
                         "target:caster",
-                        "ranged"
+                        "ranged",
+                        "barbarian-dedication"
                     ]
                 },
                 "roll-options": [
@@ -196,11 +207,121 @@
                         }
                     ]
                 }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Superstition Instinct (vs. magic)",
+                "name": "superstition-saves-dedication",
+                "predicate": {
+                    "all": [
+                        "magic",
+                        "rage",
+                        "instinct-ability"
+                    ]
+                },
+                "roll-options": [
+                    "saving-throw",
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "caster-rage-dedication",
+                "predicate": {
+                    "all": [
+                        "target:caster",
+                        "rage",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "agile",
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": 4
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "caster-rage-dedication-agile",
+                "predicate": {
+                    "all": [
+                        "target:caster",
+                        "rage",
+                        "agile",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "normal-rage-dedication",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "agile",
+                        "target:caster",
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "normal-rage-dedication-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "target:caster",
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": 1
             }
         ],
         "schema": {
-            "lastMigration": null,
-            "version": 0.643
+            "lastMigration": {
+                "datetime": "2021-07-19T21:21:09.532-04:00",
+                "version": {
+                    "foundry": "0.8.8",
+                    "schema": 0.644,
+                    "system": "2.9.1"
+                }
+            },
+            "version": 0.645
         },
         "source": {
             "value": ""

@@ -32,6 +32,9 @@
                 "predicate": {
                     "all": [
                         "rage"
+                    ],
+                    "not": [
+                        "barbarian-dedication"
                     ]
                 },
                 "roll-options": [
@@ -52,7 +55,8 @@
                     ],
                     "not": [
                         "ranged",
-                        "agile"
+                        "agile",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -85,7 +89,8 @@
                         "agile"
                     ],
                     "not": [
-                        "ranged"
+                        "ranged",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -118,7 +123,8 @@
                     "not": [
                         "agile",
                         "weapon:oversized",
-                        "ranged"
+                        "ranged",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -135,6 +141,79 @@
                     ],
                     "not": [
                         "weapon:oversized",
+                        "ranged",
+                        "barbarian-dedication"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "oversized-rage-dedication",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "weapon:oversized",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "ranged",
+                        "agile"
+                    ]
+                },
+                "selector": "damage",
+                "value": 6
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "oversized-rage-dedication-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "weapon:oversized",
+                        "agile",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": 3
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "normal-rage-dedication",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "agile",
+                        "weapon:oversized",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "normal-rage-dedication-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "weapon:oversized",
                         "ranged"
                     ]
                 },
@@ -143,8 +222,15 @@
             }
         ],
         "schema": {
-            "lastMigration": null,
-            "version": 0.643
+            "lastMigration": {
+                "datetime": "2021-07-19T21:20:57.635-04:00",
+                "version": {
+                    "foundry": "0.8.8",
+                    "schema": 0.644,
+                    "system": "2.9.1"
+                }
+            },
+            "version": 0.645
         },
         "source": {
             "value": ""

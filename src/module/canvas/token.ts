@@ -44,6 +44,34 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         this.data.brightLight = original.bright;
     }
 
+    /** Refresh this token's image and size (usually after an actor update or override) */
+    async redraw(): Promise<void> {
+        const sizeChanged = this.w !== this.hitArea.width;
+        const imageChanged = this.icon?.src !== this.data.img;
+
+        if (sizeChanged || imageChanged) {
+            const visible = this.visible;
+            await this.draw();
+            this.visible = visible;
+            this.icon.src = this.data.img;
+        }
+    }
+
+    /** Prevent Foundry from prematurely redrawing a token resource bar */
+    protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
+        if (bar.geometry) super._drawBar(number, bar, data);
+    }
+
+    /** Prevent Foundry from prematurely redrawing this token's border */
+    protected override _refreshBorder(): void {
+        if (this.border.geometry) super._refreshBorder();
+    }
+
+    /** Prevent Foundry from prematurely redrawing the targeting reticle */
+    protected override _refreshTarget(): void {
+        if (this.target.geometry) super._refreshTarget();
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -61,4 +89,8 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
         super._onRelease(options);
     }
+}
+
+export interface TokenPF2e extends Token<TokenDocumentPF2e> {
+    icon: PIXI.Sprite & { src?: string };
 }

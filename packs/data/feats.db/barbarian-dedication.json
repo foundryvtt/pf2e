@@ -21,6 +21,7 @@
         "level": {
             "value": 2
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,10 +32,72 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "add",
+                "path": "data.data.custom.modifiers.barbarian-dedication-count",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "dedication-rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ],
+                    "not": [
+                        "agile",
+                        "ranged",
+                        "instinct-ability"
+                    ]
+                },
+                "selector": "damage",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "dedication-rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile"
+                    ],
+                    "not": [
+                        "ranged",
+                        "instinct-ability"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.rollOptions.all.barbarian-dedication",
+                "value": 1
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.643
+            "version": 0.644
         },
         "source": {
             "value": ""

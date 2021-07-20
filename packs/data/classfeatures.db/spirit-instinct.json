@@ -32,6 +32,9 @@
                 "predicate": {
                     "all": [
                         "rage"
+                    ],
+                    "not": [
+                        "barbarian-dedication"
                     ]
                 },
                 "roll-options": [
@@ -53,7 +56,8 @@
                         "ranged",
                         "agile",
                         "negative-spirit",
-                        "positive-spirit"
+                        "positive-spirit",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -71,7 +75,8 @@
                     "not": [
                         "ranged",
                         "negative-spirit",
-                        "positive-spirit"
+                        "positive-spirit",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -95,7 +100,8 @@
                     "not": [
                         "ranged",
                         "agile",
-                        "negative-spirit"
+                        "negative-spirit",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -121,7 +127,7 @@
                 "damageType": "positive",
                 "key": "PF2E.RuleElement.FlatModifier",
                 "label": "Rage",
-                "name": "rage-spitit-agile",
+                "name": "rage-spirit-agile",
                 "predicate": {
                     "all": [
                         "agile",
@@ -130,7 +136,8 @@
                     ],
                     "not": [
                         "ranged",
-                        "negative-spirit"
+                        "negative-spirit",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -170,7 +177,8 @@
                     "not": [
                         "ranged",
                         "agile",
-                        "positive-spirit"
+                        "positive-spirit",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -205,7 +213,8 @@
                     ],
                     "not": [
                         "ranged",
-                        "positive-spirit"
+                        "positive-spirit",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -226,11 +235,136 @@
                         }
                     ]
                 }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-spirit-dedication",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "ranged",
+                        "agile",
+                        "negative-spirit",
+                        "positive-spirit"
+                    ]
+                },
+                "selector": "damage",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-spirit-agile-dedication",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "ranged",
+                        "negative-spirit",
+                        "positive-spirit"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
+            },
+            {
+                "damageType": "positive",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-spirit-positive-dedication",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "positive-spirit",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "ranged",
+                        "agile",
+                        "negative-spirit"
+                    ]
+                },
+                "selector": "damage",
+                "value": 3
+            },
+            {
+                "damageType": "positive",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-spirit-agile-dedication",
+                "predicate": {
+                    "all": [
+                        "agile",
+                        "rage",
+                        "positive-spirit",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "ranged",
+                        "negative-spirit"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
+            },
+            {
+                "damageType": "negative",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-spirit-negative-dedication",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "negative-spirit",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "ranged",
+                        "agile",
+                        "positive-spirit"
+                    ]
+                },
+                "selector": "damage",
+                "value": 3
+            },
+            {
+                "damageType": "negative",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "rage-spirit-negative-agile-dedication",
+                "predicate": {
+                    "all": [
+                        "agile",
+                        "rage",
+                        "negative-spirit",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "ranged",
+                        "positive-spirit"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
             }
         ],
         "schema": {
-            "lastMigration": null,
-            "version": 0.643
+            "lastMigration": {
+                "datetime": "2021-07-19T21:21:08.116-04:00",
+                "version": {
+                    "foundry": "0.8.8",
+                    "schema": 0.644,
+                    "system": "2.9.1"
+                }
+            },
+            "version": 0.645
         },
         "source": {
             "value": ""
