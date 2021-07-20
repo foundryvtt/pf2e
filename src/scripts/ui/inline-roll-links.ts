@@ -28,11 +28,9 @@ const inlineSelector = [
     .map((keyword) => `[data-pf2-${keyword}]`)
     .join(',');
 
-export const InlineRollListeners = {
-    activate: ($html: JQuery): void => {
-        const $links = $html.find('span').find(inlineSelector);
-
-        // Conditionally show DCs in the text
+export const InlineRollsLinks = {
+    // Conditionally show DCs in the text
+    injectDCText: ($links: JQuery) => {
         $links.each((_idx, link) => {
             const dc = Number(link.dataset.pf2Dc?.trim() ?? '');
             const role = link.dataset.pf2ShowDc?.trim() ?? '';
@@ -42,9 +40,14 @@ export const InlineRollListeners = {
                 link.innerHTML = game.i18n.format('PF2E.DCWithValue', { dc, text });
             }
         });
+    },
+
+    listen: ($html: JQuery): void => {
+        const $links = $html.find('span').filter(inlineSelector);
+        InlineRollsLinks.injectDCText($links);
 
         $links.filter('[data-pf2-repost]').on('click', (event) => {
-            InlineRollListeners.repostAction(event.target.parentElement!);
+            InlineRollsLinks.repostAction(event.target.parentElement!);
         });
 
         $links.filter('[data-pf2-action]').on('click', (event) => {
@@ -322,9 +325,11 @@ export const InlineRollListeners = {
             }
         });
 
-        $links.on('contextmenu', (event) => {
-            InlineRollListeners.repostAction(event.currentTarget);
-        });
+        if (BUILD_MODE === 'development') {
+            $links.on('contextmenu', (event) => {
+                InlineRollsLinks.repostAction(event.currentTarget);
+            });
+        }
     },
 
     repostAction: (target: HTMLElement): void => {

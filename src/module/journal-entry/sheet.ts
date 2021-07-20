@@ -1,4 +1,4 @@
-import { InlineRollListeners } from '@scripts/ui/inline-roll-listeners';
+import { InlineRollsLinks } from '@scripts/ui/inline-roll-links';
 
 export class JournalSheetPF2e extends JournalSheet {
     /** Use the system-themed styling only if the setting is enabled (on by default) */
@@ -12,6 +12,6 @@ export class JournalSheetPF2e extends JournalSheet {
 
     override activateListeners($html: JQuery) {
         super.activateListeners($html);
-        InlineRollListeners.activate($html);
+        InlineRollsLinks.listen($html);
     }
 }
