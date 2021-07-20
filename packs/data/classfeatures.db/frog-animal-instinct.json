@@ -53,7 +53,8 @@
                 "name": "rage",
                 "predicate": {
                     "all": [
-                        "rage"
+                        "rage",
+                        "animal-instinct"
                     ],
                     "not": [
                         "agile",
@@ -87,7 +88,8 @@
                 "predicate": {
                     "all": [
                         "rage",
-                        "agile"
+                        "agile",
+                        "animal-instinct"
                     ],
                     "not": [
                         "ranged",
@@ -223,6 +225,42 @@
                     ],
                     "not": [
                         "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "non-animal-rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ],
+                    "not": [
+                        "agile",
+                        "ranged",
+                        "animal-instinct",
+                        "barbarian-dedication"
+                    ]
+                },
+                "selector": "damage",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "non-animal-rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile"
+                    ],
+                    "not": [
+                        "ranged",
+                        "animal-instinct",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
