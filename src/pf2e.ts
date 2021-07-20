@@ -182,4 +182,24 @@ Hooks.on('renderChatMessage', (message, html) => {
             elem.removeAttribute('data-pf2-show-dc'); // short-circuit the global DC interpolation
         }
     });
+    if ((actor && actor.isOwner) || game.user.isGM || message.isAuthor) {
+        html.find('[data-pf2-action]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2e-repost></i>';
+        });
+        html.find('[data-pf2-saving-throw]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2e-repost></i>';
+        });
+        html.find('[data-pf2-skill-check]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2e-repost></i>';
+        });
+        html.find('[data-pf2-perception-check]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2e-repost></i>';
+        });
+        html.find('[data-pf2-flat-check]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2e-repost></i>';
+        });
+        html.find('[data-pf2-check]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2e-repost></i>';
+        });
+    }
 });

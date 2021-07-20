@@ -13,10 +13,11 @@ export function listen() {
             game.pf2e.effectPanel.render(true);
         }
 
-        // Apply token documents' derived data to their placeable token objects
+        // Redraw tokens
         if (canvas.scene) {
-            for (const tokenDoc of canvas.scene.tokens) {
-                tokenDoc.prepareData({ fromActor: true });
+            const tokens = canvas.scene.tokens.map((tokenDoc) => tokenDoc.object);
+            for (const token of tokens) {
+                token.redraw();
             }
         }
     });
