@@ -49,6 +49,7 @@ import { AbilityString } from '@actor/data/base';
 import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
 import { FolderPF2e } from '@module/folder';
 import { MagicTradition } from '@item/spellcasting-entry/data';
+import { InlineRollListeners } from '@scripts/ui/inline-roll-listeners';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -232,8 +233,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (!this.options.editable) return;
 
         /* -------------------------------------------- */
-        /*  Attributes, Skills, Saves and Traits
+        /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
+
+        InlineRollListeners.activate(html);
 
         // Roll Save Checks
         html.find('.save-name').on('click', (event) => {
