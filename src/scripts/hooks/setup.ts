@@ -69,7 +69,7 @@ function registerGlobalDCInjection() {
 function registerPF2ActionClickListener() {
     $<HTMLBodyElement>('body').on('click', (event) => {
         let target = event.target;
-        if (target?.matches('[data-pf2e-repost], [data-pf2e-repost] *')) {
+        if (target?.matches('[data-pf2-repost], [data-pf2-repost] *')) {
             repostPF2Action(event.target.parentElement!);
         } else if (
             target?.matches(
@@ -387,7 +387,7 @@ function repostPF2Action(target: HTMLElement) {
                 ' ' +
                 target.outerHTML
                     .replace(/>DC \d+ /gi, '>')
-                    .replace(/<[^>]+data-pf2e-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, ''),
+                    .replace(/<[^>]+data-pf2-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, ''),
         });
     }
 }
