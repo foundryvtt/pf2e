@@ -57,6 +57,14 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         }
     }
 
+    onHoverIn(event: PIXI.InteractionEvent | JQuery.MouseEnterEvent) {
+        super._onHoverIn(event as PIXI.InteractionEvent);
+    }
+
+    onHoverOut(event: PIXI.InteractionEvent | JQuery.MouseLeaveEvent) {
+        super._onHoverOut(event as PIXI.InteractionEvent);
+    }
+
     /** Prevent Foundry from prematurely redrawing a token resource bar */
     protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
         if (bar.geometry) super._drawBar(number, bar, data);
