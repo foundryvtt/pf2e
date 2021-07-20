@@ -70,7 +70,7 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     };
     damage: {
         value: string;
-        applyMod: false;
+        applyMod: boolean;
     };
     damageType: {
         value: DamageType;
