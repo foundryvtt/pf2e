@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You become trained in unarmed attacks and gain the powerful fist class feature. You become trained in your choice of Acrobatics or Athletics; if you are already trained in both of these skills, you become trained in a skill of your choice. You become trained in monk class DC.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the monk archetype.</p>"
+            "value": "<p>You become trained in unarmed attacks and gain the @Compendium[pf2e.classfeatures.Powerful Fist]{Powerful Fist} class feature. You become trained in your choice of Acrobatics or Athletics; if you are already trained in both of these skills, you become trained in a skill of your choice. You become trained in monk class DC.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the monk archetype.</p>"
         },
         "featType": {
             "value": "archetype"
@@ -21,6 +21,7 @@
         "level": {
             "value": 2
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,7 +32,20 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "add",
+                "path": "data.data.custom.modifiers.monk-dedication-count",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.martial.unarmed.rank",
+                "value": 1
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.644
