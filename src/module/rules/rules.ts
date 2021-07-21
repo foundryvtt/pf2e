@@ -25,6 +25,7 @@ import { PF2ActorTraits } from '@module/rules/elements/actor-traits';
 import { PF2RecoveryCheckDCRuleElement } from '@module/rules/feats/recovery-check-dc';
 import { PF2AdjustDegreeOfSuccessRuleElement } from './elements/adjust-degree-of-success';
 import { AELikeRuleElement } from './elements/ae-like';
+import { LoseHitPointsRuleElement } from './elements/lose-hit-points';
 
 /**
  * @category RuleElement
@@ -54,6 +55,7 @@ export class RuleElements {
         RecoveryCheckDC: PF2RecoveryCheckDCRuleElement,
         AdjustDegreeOfSuccess: PF2AdjustDegreeOfSuccessRuleElement,
         ActiveEffectLike: AELikeRuleElement,
+        LoseHitPoints: LoseHitPointsRuleElement,
     });
 
     static custom: Record<string, RuleElementConstructor> = {};

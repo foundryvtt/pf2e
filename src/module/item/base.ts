@@ -807,10 +807,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
         if (this.actor) {
             // Rule Elements
             if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
-            const tokens = this.actor.getAllTokens();
-            const actorUpdates = {};
+            const actorUpdates: Record<string, unknown> = {};
             for (const rule of this.rules) {
-                rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
+                rule.onCreate(actorUpdates);
             }
             this.actor.update(actorUpdates);
         }
