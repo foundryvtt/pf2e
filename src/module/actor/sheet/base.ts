@@ -765,25 +765,23 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     }
                 }
             } else if (dropSlotType === 'spell') {
-                const sourceId = itemData._id;
                 const dropId = $(event.target).parents('.item').attr('data-item-id') ?? '';
                 const target = this.actor.items.get(dropId);
-                if (target instanceof SpellPF2e && sourceId !== dropId) {
-                    const source: any = this.actor.items.get(sourceId);
-                    const sourceLevel = source.data.data.heightenedLevel?.value ?? source.data.data.level.value;
-                    const sourceLocation = source.data.data.location.value;
-                    const targetLevel = target.data.data.heightenedLevel?.value ?? target.data.data.level.value;
+                if (target instanceof SpellPF2e && item.id !== dropId) {
+                    const sourceLevel = item.heightenedLevel;
+                    const sourceLocation = item.data.data.location.value;
+                    const targetLevel = target.heightenedLevel;
                     const targetLocation = target.data.data.location.value;
-
                     if (sourceLevel === targetLevel && sourceLocation === targetLocation) {
-                        const siblings: any[] = this.actor.items.filter(
-                            (i: ItemPF2e) =>
-                                i.data.type === 'spell' &&
-                                i.data.data.level.value === sourceLevel &&
-                                i.data.data.location.value === sourceLocation,
-                        );
-                        const sortBefore = source.data.sort >= target.data.sort;
-                        source.sortRelative({ target, siblings, sortBefore });
+                        const entry = this.actor.items.get(sourceLocation);
+                        if (entry instanceof SpellcastingEntryPF2e) {
+                            const siblings = entry.spells.filter((i) => i.heightenedLevel === sourceLevel);
+                            const sortBefore = item.data.sort >= target.data.sort;
+                            await item.sortRelative({ target, siblings, sortBefore });
+                            return [target];
+                        } else {
+                            console.warn('PF2E System | Failed to load spellcasting entry');
+                        }
                     } else {
                         if (this.moveSpell(itemData, targetLocation, targetLevel)) {
                             return this.actor.updateEmbeddedDocuments('Item', [itemData]);
