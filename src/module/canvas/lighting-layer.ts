@@ -20,7 +20,7 @@ export class LightingLayerPF2e extends LightingLayer<AmbientLightPF2e> {
 
     /** Set the perceived brightness of sourced lighting */
     override refresh(darkness?: number | null): void {
-        if (canvas.tokens.controlled.some((token) => token.hasLowLightVision)) {
+        if (canvas.tokens.haveLowLightVision) {
             for (const source of this.sources) {
                 if (source.isDarkness || !source.active) continue;
                 source.bright = Math.max(source.dim, source.bright);
