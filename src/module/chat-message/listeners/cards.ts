@@ -1,5 +1,4 @@
-import { ItemSourcePF2e } from '@item/data';
-import { ConsumablePF2e, ItemPF2e, MeleePF2e } from '@item/index';
+import { ConsumablePF2e, MeleePF2e } from '@item/index';
 import { ActorPF2e } from '@actor/index';
 import { StatisticModifier } from '@module/modifiers';
 
@@ -11,39 +10,23 @@ export const ChatCards = {
             // Extract card data
             const button = $(event.currentTarget);
             const messageId = button.parents('.message').attr('data-message-id') ?? '';
-            const senderId = game.messages.get(messageId)?.user?.id ?? '';
+            const message = game.messages.get(messageId);
+            const senderId = message?.user?.id ?? '';
             const card = button.parents('.chat-card');
             const action = button.attr('data-action');
 
             // Confirm roll permission
             if (!game.user.isGM && game.user.id !== senderId && action !== 'save') return;
 
-            // Get the synthetic Actor from a Token
-            const actor = ((): ActorPF2e | null => {
-                const tokenKey = card.attr('data-token-id');
-                if (tokenKey) {
-                    const [sceneId, tokenId] = tokenKey.split('.');
-                    const scene = game.scenes.get(sceneId);
-                    const token = scene?.tokens.get(tokenId);
-                    return token?.actor ?? null;
-                } else {
-                    return game.actors.get(card.attr('data-actor-id') ?? '') ?? null;
-                }
-            })();
+            // Get the actor and item from the chat message
+            const item = message?.item;
+            const actor = item?.actor ?? message?.actor;
 
             if (!actor) return;
 
-            // Get the Item
-            const itemId = card.attr('data-item-id') ?? '';
-            const embeddedItemData = $(event.target).parents('.item-card').attr('data-embedded-item') || 'null';
-            const itemData: ItemSourcePF2e | null = JSON.parse(embeddedItemData);
-            const item = itemData
-                ? (new ItemPF2e(itemData, { parent: actor }) as Embedded<ItemPF2e> | undefined)
-                : actor.items.get(itemId);
-
             if (item) {
                 const strike: StatisticModifier = actor.data.data.actions?.find(
-                    (a: StatisticModifier) => a.item === itemId,
+                    (a: StatisticModifier) => a.item === item.id,
                 );
                 const rollOptions = actor.getRollOptions(['all', 'attack-roll']);
 
