@@ -104,8 +104,9 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "240 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "240"
                     }
                 ],
                 "value": "60"
@@ -254,7 +255,7 @@
                     "value": "cha"
                 },
                 "autoHeightenLevel": {
-                    "value": null
+                    "value": 9
                 },
                 "description": {
                     "value": ""
@@ -366,7 +367,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Arcane Spells",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -1876,7 +1877,7 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Scent",
+            "name": "Scent (Imprecise) 60 Feet",
             "sort": 1600000,
             "type": "action"
         },
@@ -1895,7 +1896,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 10 feet, [[/r 6d6 # fire damage]]{6d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,aura, divine evocation, fire\" data-pf2-label=\"Draconic Heat DC\" data-pf2-dc=\"42\" data-pf2-show-dc=\"gm\">basic Reflex</span> save)</p>"
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 10 feet, [[/r 6d6 #fire]]{6d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,aura,divine,evocation,fire\" data-pf2-label=\"Draconic Heat DC\" data-pf2-dc=\"42\" data-pf2-show-dc=\"gm\">basic Reflex</span> save)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1950,7 +1951,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p>Jaws only</p>\n<hr />\n<strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2036,11 +2037,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Item.rGBruApiTZDc1HuB"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Redirect Energy",
             "sort": 1900000,
@@ -2127,8 +2124,12 @@
                     {
                         "key": "PF2E.RuleElement.FlatModifier",
                         "predicate": {
-                            "all": [
-                                "magic"
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
                             ]
                         },
                         "selector": "saving-throw",
@@ -2159,11 +2160,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Item.XsSwjx894G8tLV3p"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 status to all saves vs. magic",
             "sort": 2100000,
@@ -2284,7 +2281,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The manifestation attempts to take control of a magical acid, cold, electricity, fire, or poison spell within 100 feet. If it succeeds at a counteract check (counteract level 10, counteract modifier +36), the original caster loses control of the spell, control is transferred to the manifestation, and the manifestation counts as having Sustained the Spell with this action (if applicable). The manifestation can end the spell instead of taking control, if it chooses.</p>"
+                    "value": "<p>The manifestation attempts to take control of a magical acid, cold, electricity, fire, or poison spell within 100 feet. If it succeeds at a counteract check (counteract level 10, counteract modifier [[/r 1d20+36 #Manipulate Energy]]{+36}), the original caster loses control of the spell, control is transferred to the manifestation, and the manifestation counts as having Sustained the Spell with this action (if applicable). The manifestation can end the spell instead of taking control, if it chooses.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2338,7 +2335,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The manifestation of Dahak breathes a blast of dragonstorm energy that deals [[/r {5d6}[acid] + {5d6}[cold] +{5d6}[electricity] +{5d6}[fire] +{5d6}[poison]]]{5d6 acid, 5d6 cold, 5d6 electricity, 5d6 fire, and 5d6 poison damage} in a 60-foot cone (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,fire,acid,cold,electricity,poison,divine,evocation\" data-pf2-label=\"Dragonstorm Breath DC\" data-pf2-dc=\"46\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). It can't use Dragonstorm Breath again for [[/br 1d4 # rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The manifestation of Dahak breathes a blast of dragonstorm energy that deals [[/r {5d6}[acid] + {5d6}[cold] +{5d6}[electricity] +{5d6}[fire] +{5d6}[poison]]]{5d6 acid, 5d6 cold, 5d6 electricity, 5d6 fire, and 5d6 poison damage} in a 60-foot cone (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,fire,acid,cold,electricity,poison,divine,evocation\" data-pf2-label=\"Dragonstorm Breath DC\" data-pf2-dc=\"46\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">It can't use Dragonstorm Breath again for [[/br 1d4 # rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""

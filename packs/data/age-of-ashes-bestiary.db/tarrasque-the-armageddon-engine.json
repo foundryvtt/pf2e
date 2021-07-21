@@ -131,7 +131,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "The most powerful spawn is Tarrasque, whose legend spread across countless worlds beyond Golarion. Its destruction of the nation of Ninshabur and its march across Avistan in -632 AR culminated in the destruction of the flying Shory city of Kho before this spawn was sealed away in a remote cavern.",
+            "flavorText": "<p>The most powerful spawn is Tarrasque, whose legend spread across countless worlds beyond Golarion. Its destruction of the nation of Ninshabur and its march across Avistan in -632 AR culminated in the destruction of the flying Shory city of Kho before this spawn was sealed away in a remote cavern.</p>\n<hr />\n<p>The spawn are titanic terrors of immense size and strength that live only to destroy. Tarrasque and Xotani are but two of Rovagug’s spawn. Others, including Chemnosit (the Monarch Worm), Kothogaz (the Dance of \Disharmony), and Volnagur (the End-Singer) hold places of horror in the history of various regions, but the most famed is Ulunat (the Unholy First), whose beetle-like carcass remains sprawled in Sothis, the capital of Osirion.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -181,7 +181,7 @@
         "traits": {
             "ci": [],
             "di": {
-                "custom": "persistent damage, polymorph",
+                "custom": "",
                 "value": [
                     "acid",
                     "clumsy",
@@ -190,7 +190,9 @@
                     "enfeebled",
                     "mental",
                     "paralyzed",
+                    "persistent",
                     "petrified",
+                    "polymorph",
                     "poison",
                     "stupefied"
                 ]
@@ -245,7 +247,7 @@
                 },
                 "attackEffects": {
                     "value": [
-                        "Improved Grab"
+                        "improved-grab"
                     ]
                 },
                 "bonus": {
@@ -391,7 +393,7 @@
                         "chaotic",
                         "evil",
                         "magical",
-                        "reach-35"
+                        "reach-30"
                     ]
                 },
                 "weaponType": {
@@ -502,7 +504,7 @@
                         "chaotic",
                         "evil",
                         "magical",
-                        "range increment 120 feet"
+                        "range-increment-120"
                     ]
                 },
                 "weaponType": {
@@ -620,7 +622,7 @@
                 }
             },
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Scent",
+            "name": "Scent (Imprecise) 120 Feet",
             "sort": 700000,
             "type": "action"
         },
@@ -1013,8 +1015,12 @@
                     {
                         "key": "PF2E.RuleElement.FlatModifier",
                         "predicate": {
-                            "all": [
-                                "magic"
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
                             ]
                         },
                         "selector": "saving-throw",
@@ -1045,13 +1051,9 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Item.XsSwjx894G8tLV3p"
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "+2 status to all saves vs. magic",
+            "name": "+2 Status to All Saves vs. Magic",
             "sort": 1500000,
             "type": "action"
         },
@@ -1170,7 +1172,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Tarrasque flings spines in a 120-foot cone, dealing [[/r 3d10+20 # piercing damage]]{3d10 + 20 piercing damage} to each creature in the area (<span data-pf2-check=\"reflex\" data-pf2-dc=\"53\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Spine Volley DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). Tarrasque can't use Spine Volley again for [[/br 1d4 # rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>Tarrasque flings spines in a 120-foot cone, dealing [[/r 3d10+20 #piercing]]{3d10+20 piercing damage} to each creature in the area (<span data-pf2-check=\"reflex\" data-pf2-dc=\"53\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Spine Volley DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">Tarrasque can't use Spine Volley again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1220,7 +1222,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Huge or smaller, claw, <span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Trample DC\" data-pf2-dc=\"49\" data-pf2-show-dc=\"gm\">basic reflex</span> save. When Tarrasque Tramples, it can Stride up to triple its Speed.</p>\n<p>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure).</p>"
+                    "value": "<p>Huge or smaller, claw, <span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Trample DC\" data-pf2-dc=\"49\" data-pf2-show-dc=\"gm\">basic reflex</span> save. When Tarrasque Tramples, it can Stride up to triple its Speed.</p>\n<hr />\np>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1274,7 +1276,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Huge, [[/r 10d6+12 # bludgeoning]]{10d6+12 bludgeoning} plus [[/r 10d6 # acid]]{10d6 acid}, Rupture 50</p>\n<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim @Compendium[pf2e.actionspf2e.Escape]{Escapes} this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The swallowing creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the swallowed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
+                    "value": "<p>Huge, [[/r 10d6+12 #bludgeoning]]{10d6+12 bludgeoning} plus [[/r 10d6 #acid]]{10d6 acid}, Rupture 50</p>\n<hr />\n<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim @Compendium[pf2e.actionspf2e.Escape]{Escapes} this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The swallowing creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the swallowed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
                 },
                 "requirements": {
                     "value": ""
