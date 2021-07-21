@@ -394,9 +394,11 @@ function repostPF2Action(target: HTMLElement) {
 }
 
 function registerPF2ActionRightClickListener() {
-    $<HTMLBodyElement>('body').on('contextmenu', (event) => {
-        repostPF2Action(event.target);
-    });
+    if (BUILD_MODE === 'development') {
+        $<HTMLBodyElement>('body').on('contextmenu', (event) => {
+            repostPF2Action(event.target);
+        });
+    }
 }
 
 /**
