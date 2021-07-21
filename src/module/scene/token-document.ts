@@ -1,10 +1,9 @@
 import { VisionLevels } from '@actor/creature/data';
 import { ActorPF2e, LootPF2e, NPCPF2e } from '@actor/index';
 import { TokenPF2e } from '../canvas/token';
-import { ScenePF2e } from '.';
+import { LightLevels, ScenePF2e } from '.';
 import { UserPF2e } from '../user';
 import { TokenConfigPF2e } from './token-config';
-import { LightLevels } from './data';
 
 export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     /** This should be in Foundry core, but ... */
@@ -31,6 +30,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
 
         this.data.brightSight = 0;
         this.data.dimSight = 0;
+        this.data.lightAngle = 360;
         this.data.sightAngle = 360;
     }
 

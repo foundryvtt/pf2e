@@ -17,7 +17,7 @@ import { hasInvestedProperty } from '@item/data/helpers';
 import { DegreeOfSuccessAdjustment, PF2CheckDC } from '@system/check-degree-of-success';
 import { CheckPF2e } from '@system/rolls';
 import { VisionLevel, VisionLevels } from './data';
-import { LightLevels } from '@module/scene/data';
+import { LightLevels } from '@module/scene';
 import { Statistic, StatisticBuilder } from '@system/statistic';
 import { TokenPF2e } from '@module/canvas';
 import { measureDistance } from '@system/measure';

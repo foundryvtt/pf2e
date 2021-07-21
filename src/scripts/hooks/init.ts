@@ -16,7 +16,7 @@ import { MacroPF2e } from '@module/macro';
 import { AmbientLightDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from '@module/scene';
 import { SceneConfigPF2e } from '@module/scene/sheet';
 import { registerSettings } from '@module/settings';
-import { EncounterTrackerPF2e } from '@module/apps/ui/encounter-tracker';
+import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { loadPF2ETemplates } from '@module/templates';
 import { TokenConfigPF2e } from '@module/scene/token-config';
 import { PlayerConfigPF2e } from '@module/user/player-config';
@@ -24,7 +24,6 @@ import { PF2ECONFIG } from '../config';
 import { UserPF2e } from '@module/user';
 import { AmbientLightPF2e } from '@module/canvas';
 import { JournalSheetPF2e } from '@module/journal-entry/sheet';
-import { TokenLayerPF2e } from '@module/canvas/token-layer';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -60,7 +59,6 @@ export function listen(): void {
 
         CONFIG.Canvas.layers.lighting = LightingLayerPF2e;
         CONFIG.Canvas.layers.sight = SightLayerPF2e;
-        CONFIG.Canvas.layers.tokens = TokenLayerPF2e;
 
         // Automatically advance world time by 6 seconds each round
         CONFIG.time.roundTime = 6;
@@ -68,7 +66,7 @@ export function listen(): void {
         CONFIG.Combat.initiative.decimals = 1;
 
         // Assign the PF2e Sidebar subclasses
-        CONFIG.ui.combat = EncounterTrackerPF2e;
+        CONFIG.ui.combat = CombatTrackerPF2e;
         CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
         // configure the bundled TinyMCE editor with PF2-specific options
