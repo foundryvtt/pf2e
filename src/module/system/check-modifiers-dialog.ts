@@ -88,10 +88,7 @@ export class CheckModifiersDialog extends Application {
         } else if (ctx.fate === 'fortune') {
             dice = '2d20kh';
             options.push('PF2E.TraitFortune');
-        } else if (ctx.fate === 'assurance') {
-            dice = '10';
-            options.push('PF2E.TraitFortune');
-        } else if (ctx.fate === 'override') {
+        } else if (ctx.fate === 'assurance' || ctx.fate === 'override') {
             dice = ctx.fateOverride ?? 10;
             options.push('PF2E.TraitFortune');
         }
@@ -116,17 +113,19 @@ export class CheckModifiersDialog extends Application {
         this.checkAssurance(check, context);
 
         let modifierBreakdown = '';
+        const optionTemplate = (input: string) => `<span class="tag tag_alt">${input}</span>`;
+
         if (ctx.fate === 'assurance') {
-            modifierBreakdown += `<span class="tag tag_alt">Assurance 10</span>`;
+            modifierBreakdown += optionTemplate(`${game.i18n.localize('PF2E.Roll.Assurance')} ${dice}`);
         } else if (ctx.fate === 'override') {
-            modifierBreakdown += `<span class="tag tag_alt">Override ${dice}</span>`;
+            modifierBreakdown += optionTemplate(`${game.i18n.localize('PF2E.Roll.Override')} ${dice}`);
         }
 
         modifierBreakdown += check.modifiers
             .filter((m) => m.enabled)
             .map((m) => {
                 const label = game.i18n.localize(m.label ?? m.name);
-                return `<span class="tag tag_alt">${label} ${m.modifier < 0 ? '' : '+'}${m.modifier}</span>`;
+                return optionTemplate(`${label} ${m.modifier < 0 ? '' : '+'}${m.modifier}`);
             })
             .join('');
 
@@ -241,7 +240,7 @@ export class CheckModifiersDialog extends Application {
         const misfortune = this?.context?.fate === 'misfortune';
         const assurance = this?.context?.fate === 'assurance';
         const override = this?.context?.fate === 'override';
-        const none = !fortune && !misfortune && !assurance;
+        const none = !fortune && !misfortune && !assurance && !override;
 
         const fateOverride: number = +(this?.context?.fateOverride ?? 10);
 
@@ -295,14 +294,8 @@ export class CheckModifiersDialog extends Application {
         html.find('[name=rollmode]').on('change', (event) => this.onChangeRollMode(event));
 
         html.find('.fate')
-            .on('click', 'input[type=radio]', (event) => {
-                this.context.fate = event.currentTarget.getAttribute('value');
-                CheckModifiersDialog.checkAssurance(this.check, this.context);
-                this.render();
-            })
-            .on('input', 'input[type=number]', (event) => {
-                this.context.fateOverride = event.currentTarget.value;
-            });
+            .on('click', 'input[type=radio]', (event) => this.onChangeFate(event))
+            .on('input', 'input[type=number]', (event) => this.onChangeFateOverride(event));
 
         // Dialog settings menu
         const $settings = html.closest(`#${this.id}`).find('a.header-button.settings');
@@ -351,6 +344,39 @@ export class CheckModifiersDialog extends Application {
 
     onChangeRollMode(event: JQuery.ChangeEvent) {
         this.context.rollMode = ($(event.currentTarget).val() ?? 'roll') as string;
+    }
+
+    onChangeFate(event: JQuery.ClickEvent) {
+        this.context.fate = event.currentTarget.getAttribute('value');
+        if (
+            this.context.fate === 'assurance' ||
+            (this.context.fate === 'override' && this.context.fateOverride === undefined)
+        ) {
+            this.context.fateOverride = 10;
+        }
+
+        CheckModifiersDialog.checkAssurance(this.check, this.context);
+        this.render();
+    }
+
+    onChangeFateOverride(event: JQuery.TriggeredEvent) {
+        let fateOverride = event.currentTarget.value;
+        let refresh = false;
+
+        if (fateOverride % 1 !== 0) {
+            fateOverride = Math.floor(fateOverride);
+            refresh = true;
+        }
+
+        if (fateOverride < 1 || fateOverride > 20) {
+            fateOverride = Math.clamped(fateOverride, 1, 20);
+            refresh = true;
+        }
+
+        this.context.fateOverride = fateOverride;
+        if (refresh) {
+            this.render();
+        }
     }
 
     protected override _getHeaderButtons(): ApplicationHeaderButton[] {
