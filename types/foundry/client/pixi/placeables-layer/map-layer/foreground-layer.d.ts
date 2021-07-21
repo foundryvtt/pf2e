@@ -1,7 +1,5 @@
 /** An extension of the MapLayer that displays overhead in the foreground of the Scene. */
 declare class ForegroundLayer extends MapLayer {
-    occlusionMask: PIXI.Container;
-
     static get layerOptions(): MapLayerOptions & {
         name: 'foreground';
     };

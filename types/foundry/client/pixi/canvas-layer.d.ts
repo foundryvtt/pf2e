@@ -1,3 +1,8 @@
+declare interface CanvasLayerOptions {
+    zIndex: number;
+    sortActiveTop: boolean;
+}
+
 /**
  * An abstract pattern for primary layers of the game canvas to implement
  */
@@ -50,10 +55,4 @@ declare abstract class CanvasLayer extends PIXI.Container {
 
     /** Get the zIndex that should be used for ordering this layer vertically relative to others in the same Container. */
     getZIndex(): number;
-}
-
-declare interface CanvasLayerOptions {
-    name: string;
-    zIndex: number;
-    sortActiveTop: boolean;
 }

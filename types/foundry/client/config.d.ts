@@ -7,12 +7,12 @@ declare global {
         TActiveEffect extends ActiveEffect = ActiveEffect,
         TActor extends Actor = Actor,
         TChatMessage extends ChatMessage<TActor> = ChatMessage<TActor>,
-        TCombat extends Combat = Combat,
-        TCombatTracker extends CombatTracker<TCombat> = CombatTracker<TCombat>,
-        TCompendiumDirectory extends CompendiumDirectory = CompendiumDirectory,
+        TCombatant extends Combatant = Combatant,
+        TCombat extends Combat<TCombatant> = Combat<TCombatant>,
         TFogExploration extends FogExploration = FogExploration,
         TFolder extends Folder = Folder,
         TItem extends Item<TActor> = Item<TActor>,
+        TLightingLayer extends LightingLayer<TAmbientLight['object']> = LightingLayer<TAmbientLight['object']>,
         TMacro extends Macro = Macro,
         TToken extends TokenDocument<TActor> = TokenDocument<TActor>,
         TScene extends Scene<TToken, TAmbientLight> = Scene<TToken, TAmbientLight>,
@@ -104,7 +104,7 @@ declare global {
             defeatedStatusId: string;
             sidebarIcon: string;
             initiative: {
-                formula: ((combatant: TCombat['turns'][number]) => string) | null;
+                formula: ((combatant: TCombatant) => string) | null;
                 decimals: number;
             };
         };
@@ -175,7 +175,7 @@ declare global {
         AmbientLight: {
             documentClass: ConstructorOf<TAmbientLight>;
             objectClass: new (...args: any[]) => TAmbientLight['object'];
-            layerClass: ConstructorOf<TAmbientLight['object']['layer']>;
+            layerClass: ConstructorOf<TLightingLayer>;
             sheetClass: typeof LightConfig;
         };
 
@@ -193,9 +193,9 @@ declare global {
         /** Configuration for the Combatant document */
         Combatant: {
             documentClass: new (
-                data: PreCreate<TCombat['turns'][number]['data']['_source']>,
-                context?: DocumentConstructionContext<TCombat['turns'][number]>,
-            ) => TCombat['turns'][number];
+                data: PreCreate<TCombatant['data']['_source']>,
+                context?: DocumentConstructionContext<TCombatant>,
+            ) => TCombatant;
             sheetClass: typeof CombatantConfig;
         };
 
@@ -203,7 +203,7 @@ declare global {
         Token: {
             documentClass: ConstructorOf<TToken>;
             objectClass: new (...args: any[]) => TToken['object'];
-            layerClass: ConstructorOf<TToken['object']['layer']>;
+            layerClass: ConstructorOf<TokenLayer<TToken['object']>>;
             sheetClass: ConstructorOf<TToken['sheet']>;
         };
 
@@ -228,19 +228,19 @@ declare global {
             exploredColor: number;
             unexploredColor: number;
             layers: {
-                background: typeof BackgroundLayer;
-                drawings: typeof DrawingsLayer;
+                background: typeof PlaceablesLayer;
+                drawings: typeof PlaceablesLayer;
                 grid: typeof GridLayer;
                 walls: typeof WallsLayer;
                 templates: typeof TemplateLayer;
                 notes: typeof NotesLayer;
-                tokens: ConstructorOf<TToken['object']['layer']>;
-                foreground: typeof ForegroundLayer;
-                sounds: typeof SoundsLayer;
-                lighting: ConstructorOf<TAmbientLight['object']['layer']>;
+                tokens: typeof TokenLayer;
+                foreground: typeof PlaceablesLayer;
+                sounds: typeof PlaceablesLayer;
+                lighting: ConstructorOf<TLightingLayer>;
                 sight: ConstructorOf<SightLayer<TToken['object'], TFogExploration>>;
-                effects: typeof EffectsLayer;
-                controls: typeof ControlsLayer;
+                effects: typeof PlaceablesLayer;
+                controls: typeof PlaceablesLayer;
             };
             lightLevels: {
                 dark: number;
@@ -253,72 +253,72 @@ declare global {
             lightAnimations: {
                 torch: {
                     label: 'LIGHT.AnimationTorch';
-                    animation: PointSource<TAmbientLight['object'] | TToken['object']>['animateTorch'];
+                    animation: PointSource['animateTorch'];
                     illuminationShader: typeof TorchIlluminationShader;
                     colorationShader: typeof TorchColorationShader;
                 };
                 pulse: {
                     label: 'LIGHT.AnimationPulse';
-                    animation: PointSource<TAmbientLight['object'] | TToken['object']>['animatePulse'];
+                    animation: PointSource['animatePulse'];
                     illuminationShader: typeof PulseIlluminationShader;
                     colorationShader: typeof PulseColorationShader;
                 };
                 chroma: {
                     label: 'LIGHT.AnimationChroma';
-                    animation: PointSource<TAmbientLight['object'] | TToken['object']>['animateTime'];
+                    animation: PointSource['animateTime'];
                     colorationShader: typeof PIXI.Shader;
                 };
                 wave: {
                     label: 'LIGHT.AnimationWave';
-                    animation: PointSource<TAmbientLight['object'] | TToken['object']>['animateTime'];
+                    animation: PointSource['animateTime'];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 fog: {
                     label: 'LIGHT.AnimationFog';
-                    animation: PointSource<TAmbientLight['object'] | TToken['object']>['animateTime'];
+                    animation: PointSource['animateTime'];
                     colorationShader: typeof PIXI.Shader;
                 };
                 sunburst: {
                     label: 'LIGHT.AnimationSunburst';
-                    animation: PointSource<TAmbientLight['object'] | TToken['object']>['animateTime'];
+                    animation: PointSource['animateTime'];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 dome: {
                     label: 'LIGHT.AnimationLightDome';
-                    animation: PointSource<TAmbientLight['object'] | TToken['object']>['animateTime'];
+                    animation: PointSource['animateTime'];
                     colorationShader: typeof PIXI.Shader;
                 };
                 emanation: {
                     label: 'LIGHT.AnimationEmanation';
-                    animation: PointSource<TAmbientLight['object'] | TToken['object']>['animateTime'];
+                    animation: PointSource['animateTime'];
                     colorationShader: typeof PIXI.Shader;
                 };
                 hexa: {
                     label: 'LIGHT.AnimationHexaDome';
-                    animation: PointSource<TAmbientLight['object'] | TToken['object']>['animateTime'];
+                    animation: PointSource['animateTime'];
                     colorationShader: typeof PIXI.Shader;
                 };
                 ghost: {
                     label: 'LIGHT.AnimationGhostLight';
-                    animation: PointSource<TAmbientLight['object'] | TToken['object']>['animateTime'];
+                    animation: PointSource['animateTime'];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 energy: {
                     label: 'LIGHT.AnimationEnergyField';
-                    animation: PointSource<TAmbientLight['object'] | TToken['object']>['animateTime'];
+                    animation: PointSource['animateTime'];
                     colorationShader: typeof PIXI.Shader;
                 };
                 roiling: {
                     label: 'LIGHT.AnimationRoilingMass';
-                    animation: PointSource<TAmbientLight['object'] | TToken['object']>['animateTime'];
+                    animation: PointSource['animateTime'];
                     illuminationShader: typeof PIXI.Shader;
                 };
                 hole: {
                     label: 'LIGHT.AnimationBlackHole';
-                    animation: PointSource<TAmbientLight['object'] | TToken['object']>['animateTime'];
+                    animation: PointSource['animateTime'];
                     illuminationShader: typeof PIXI.Shader;
                 };
             };
@@ -409,8 +409,8 @@ declare global {
         ui: {
             actors: typeof ActorDirectory;
             chat: typeof ChatLog;
-            combat: ConstructorOf<TCombatTracker>;
-            compendium: ConstructorOf<TCompendiumDirectory>;
+            combat: typeof CombatTracker;
+            compendium: typeof CompendiumDirectory;
             controls: typeof SceneControls;
             hotbar: typeof Hotbar;
             items: typeof ItemDirectory;

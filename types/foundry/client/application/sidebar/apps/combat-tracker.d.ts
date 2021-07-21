@@ -35,7 +35,7 @@ declare interface CombatTrackerData {
 }
 
 /** The combat and turn order tracker tab */
-declare class CombatTracker<TCombat extends Combat> extends SidebarTab {
+declare class CombatTracker extends SidebarTab {
     constructor(options?: ApplicationOptions);
 
     /**
@@ -45,7 +45,7 @@ declare class CombatTracker<TCombat extends Combat> extends SidebarTab {
     static get defaultOptions(): CombatTrackerDefaultOptions;
 
     /** Return an array of Combat encounters which occur within the current Scene. */
-    get combats(): TCombat[];
+    get combats(): Combat[];
 
     /* -------------------------------------------- */
     /*  Methods

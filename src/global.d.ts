@@ -6,7 +6,7 @@ import { ChatMessagePF2e } from '@module/chat-message';
 import { MacroPF2e } from '@module/macro';
 import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
 import type { HomebrewSettingsKey, HomebrewTag } from '@module/settings/homebrew';
-import { EncounterTrackerPF2e } from '@module/apps/ui/encounter-tracker';
+import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { PF2ECONFIG, StatusEffectIconType } from '@scripts/config';
 import { DicePF2e } from '@scripts/dice';
@@ -17,6 +17,7 @@ import { EffectPanel } from '@system/effect-panel';
 import { EffectTracker } from '@system/effect-tracker';
 import { CheckPF2e } from '@system/rolls';
 import { WorldClock } from '@system/world-clock';
+import { CombatantPF2e } from '@module/combatant';
 import { CombatPF2e } from './module/combat';
 import { ConditionManager } from './module/conditions';
 import {
@@ -32,7 +33,7 @@ import { AmbientLightDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from '@module/
 import { CompendiumBrowser } from '@module/apps/compendium-browser';
 import { remigrate } from '@scripts/system/remigrate';
 import { FolderPF2e } from '@module/folder';
-import { CanvasPF2e } from '@module/canvas';
+import { CanvasPF2e, LightingLayerPF2e } from '@module/canvas';
 import { FogExplorationPF2e } from '@module/fog-exploration';
 import { ActorImporter } from '@system/importer/actor-importer';
 
@@ -71,15 +72,50 @@ declare global {
         };
     }
 
-    interface ConfigPF2e extends ParameterizedConfig {
+    interface ConfigPF2e
+        extends Config<
+            AmbientLightDocumentPF2e,
+            ActiveEffectPF2e,
+            ActorPF2e,
+            ChatMessagePF2e,
+            CombatantPF2e,
+            CombatPF2e,
+            FogExplorationPF2e,
+            FolderPF2e,
+            ItemPF2e,
+            LightingLayerPF2e,
+            MacroPF2e,
+            TokenDocumentPF2e,
+            ScenePF2e,
+            UserPF2e
+        > {
         debug: Config['debug'] & {
             ruleElement: boolean;
         };
+
         PF2E: typeof PF2ECONFIG;
         time: {
             roundTime: number;
         };
-        Canvas: ParameterizedConfig['Canvas'];
+        ui: Config<
+            AmbientLightDocumentPF2e,
+            ActiveEffectPF2e,
+            ActorPF2e,
+            ChatMessagePF2e,
+            CombatantPF2e,
+            CombatPF2e,
+            FogExplorationPF2e,
+            FolderPF2e,
+            ItemPF2e,
+            LightingLayerPF2e,
+            MacroPF2e,
+            TokenDocumentPF2e,
+            ScenePF2e,
+            UserPF2e
+        >['ui'] & {
+            combat: typeof CombatTrackerPF2e;
+            compendium: typeof CompendiumDirectoryPF2e;
+        };
     }
 
     const CONFIG: ConfigPF2e;
@@ -127,20 +163,3 @@ declare global {
 
     const BUILD_MODE: 'development' | 'production';
 }
-
-type ParameterizedConfig = Config<
-    AmbientLightDocumentPF2e,
-    ActiveEffectPF2e,
-    ActorPF2e,
-    ChatMessagePF2e,
-    CombatPF2e,
-    EncounterTrackerPF2e,
-    CompendiumDirectoryPF2e,
-    FogExplorationPF2e,
-    FolderPF2e,
-    ItemPF2e,
-    MacroPF2e,
-    TokenDocumentPF2e,
-    ScenePF2e,
-    UserPF2e
->;
