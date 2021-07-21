@@ -62,9 +62,6 @@ declare class SightLayer<
     /** Past exploration updates */
     revealed?: PIXI.Container;
 
-    /** The current vision container */
-    current: PIXI.Container;
-
     /**
      * Define the threshold value for the number of distinct Wall endpoints.
      * Below this threshold, exact vision computation is used by casting a Ray at every endpoint.

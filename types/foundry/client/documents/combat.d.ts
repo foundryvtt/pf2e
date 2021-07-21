@@ -2,6 +2,7 @@ import { CombatConstructor } from './constructors';
 
 declare global {
     class Combat<TCombatant extends Combatant = Combatant> extends CombatConstructor {
+        /** @override */
         constructor(data: PreCreate<foundry.data.CombatSource>, context?: DocumentConstructionContext<Combat>);
 
         /** Track the sorted turn order of this combat encounter */

@@ -1,6 +1,5 @@
 import { CreaturePF2e } from '@actor';
 import { TokenDocumentPF2e } from '@module/scene/token-document';
-import { TokenLayerPF2e } from './token-layer';
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
@@ -21,24 +20,17 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return !!this._movement;
     }
 
-    /** Is this token emitting light with a negative value */
     get emitsDarkness(): boolean {
         return this.data.brightLight < 0;
     }
 
-    /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
     get hasLowLightVision(): boolean {
         return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
     }
 
-    /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
-    get hasDarkvision(): boolean {
-        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasDarkvision;
-    }
-
     /** Max the brightness emitted by this token's `PointSource` if any controlled token has low-light vision */
     override updateSource({ defer = false, deleted = false, noUpdateFog = false } = {}): void {
-        if (!canvas.tokens.haveLowLightVision) {
+        if (!canvas.tokens.controlled.some((token) => token.hasLowLightVision)) {
             return super.updateSource({ defer, deleted, noUpdateFog });
         }
 
@@ -87,33 +79,18 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Refresh vision and the `EffectPanel` */
     protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
-
-        if (this.hasLowLightVision) {
-            canvas.tokens.haveLowLightVision = true;
-            canvas.lighting.setPerceivedLightLevel();
-        }
-        if (this.hasDarkvision) canvas.tokens.haveDarkvision = true;
+        if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
         super._onControl(options);
     }
 
     /** Refresh vision and the `EffectPanel` */
     protected override _onRelease(options?: Record<string, unknown>) {
         game.pf2e.effectPanel.refresh();
-        if (this.hasDarkvision) {
-            canvas.tokens.haveDarkvision = canvas.tokens.controlled.some((token) => token.hasDarkvision);
-        }
-
-        if (this.hasLowLightVision) {
-            canvas.lighting.setPerceivedLightLevel();
-        } else {
-            canvas.tokens.haveLowLightVision = canvas.tokens.controlled.some((token) => token.hasLowLightVision);
-        }
+        if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
         super._onRelease(options);
     }
 }
 
 export interface TokenPF2e extends Token<TokenDocumentPF2e> {
     icon: PIXI.Sprite & { src?: string };
-
-    get layer(): TokenLayerPF2e;
 }

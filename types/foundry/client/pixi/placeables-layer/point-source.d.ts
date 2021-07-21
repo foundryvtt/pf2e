@@ -1,8 +1,8 @@
-declare class PointSource<TObject extends PlaceableObject> {
-    constructor(object: TObject, sourceType: PointSourceType);
+declare class PointSource<TPlaceableObject extends PlaceableObject = PlaceableObject> {
+    constructor(object: TPlaceableObject, sourceType: PointSourceType);
 
     /** The object responsible for the PointSource */
-    object: TObject;
+    object: TPlaceableObject;
 
     /** The type of source */
     sourceType: PointSourceType;
@@ -28,7 +28,7 @@ declare class PointSource<TObject extends PlaceableObject> {
     limited: boolean;
 
     /** The maximum radius of emission for this source */
-    radius: number;
+    radius: boolean;
 
     /** Internal flag for animation throttling time */
     protected _animateTime: number;
@@ -47,10 +47,6 @@ declare class PointSource<TObject extends PlaceableObject> {
 
     /** An internal flag for whether to render coloration for this source */
     protected _hasColor: boolean;
-
-    // Always update polygons for the source as the environment may have changed
-    fov: PIXI.Polygon;
-    los: PIXI.Polygon;
 
     /** The default Geometry stored in the GPU for all Point Source meshes. */
     static GEOMETRY: PIXI.Geometry;
@@ -201,4 +197,4 @@ declare class PointSource<TObject extends PlaceableObject> {
     ): number;
 }
 
-declare type PointSourceType = 'light' | 'sight';
+declare type PointSourceType = typeof CONST.SOURCE_TYPES[keyof typeof CONST.SOURCE_TYPES];
