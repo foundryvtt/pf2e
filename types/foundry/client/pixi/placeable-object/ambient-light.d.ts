@@ -4,7 +4,7 @@ declare class AmbientLight<
     constructor(document: TDocument);
 
     /** A reference to the PointSource object which defines this light source area of effect */
-    source: PointSource;
+    source: PointSource<this>;
 
     /** A reference to the ControlIcon used to configure this light */
     controlIcon: ControlIcon;
