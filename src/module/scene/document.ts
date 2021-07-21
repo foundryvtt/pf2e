@@ -8,7 +8,7 @@ export class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e
         super.prepareBaseData();
         if (canvas.sight?.rulesBasedVision) {
             this.data.globalLightThreshold = 1 - LightLevels.DARKNESS;
-            this.data.globalLight = this.data.darkness < 1 - LightLevels.DARKNESS;
+            this.data.globalLight = true;
         }
 
         this.data.flags.pf2e ??= { syncDarkness: 'default' };
@@ -17,12 +17,6 @@ export class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e
 
     get lightLevel(): number {
         return 1 - this.data.darkness;
-    }
-
-    override async update(data: DocumentUpdateData<this>, options?: DocumentModificationContext): Promise<this> {
-        super.update(data, options);
-        if (canvas.scene === this) canvas.lighting.setPerceivedLightLevel();
-        return this;
     }
 }
 
