@@ -217,6 +217,7 @@ export class CheckModifiersDialog extends Application {
                         canPopout: true,
                     },
                     pf2e: {
+                        isCheck: true,
                         canReroll: !['fortune', 'misfortune', 'assurance', 'override'].includes(ctx.fate),
                         context,
                         unsafe: flavor,
