@@ -129,6 +129,10 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
             if ('type' in entityData) {
                 if (entityData.type !== 'script') {
                     delete (entityData as Partial<PackEntry>).permission;
+                    if ('effects' in entityData) {
+                        // null out lastMigration to reduce commit spam
+                        entityData.data.schema.lastMigration = null;
+                    }
                 }
                 if (entityData.type === 'npc') {
                     for (const key of Object.keys(entityData.data)) {
