@@ -111,9 +111,6 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         if (this.actor instanceof NPCPF2e && typeof changed.disposition === 'number' && game.userId === userId) {
             this.actor.updateAttitudeFromDisposition(changed.disposition);
         }
-
-        // Refresh the effect panel if the update isn't a movement
-        if (!('x' in changed || 'y' in changed)) game.pf2e.effectPanel.refresh();
     }
 }
 

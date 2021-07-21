@@ -132,11 +132,6 @@ Hooks.on('getChatLogEntryContext', (_html, options) => {
     );
 });
 
-// effect panel
-Hooks.on('updateUser', () => {
-    game.pf2e.effectPanel.refresh();
-});
-
 // world clock application
 Hooks.on('getSceneControlButtons', (controls: any[]) => {
     controls
