@@ -813,25 +813,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
             }
             this.actor.update(actorUpdates);
-
-            // Effect Panel
-            game.pf2e.effectPanel.refresh();
         }
 
         super._onCreate(data, options, userId);
-    }
-
-    /** Refresh the effect panel */
-    protected override _onUpdate(
-        changed: DeepPartial<this['data']['_source']>,
-        options: DocumentModificationContext,
-        userId: string,
-    ): void {
-        if (this.isOwned && this.actor) {
-            game.pf2e.effectPanel.refresh();
-        }
-
-        super._onUpdate(changed, options, userId);
     }
 
     /** Call onDelete rule-element hooks */

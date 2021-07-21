@@ -193,13 +193,17 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.create(data, context) as Promise<A[] | A | undefined>;
     }
 
-    /** Prepare token data derived from this actor */
+    /** Prepare token data derived from this actor, refresh Effects Panel */
     override prepareData(): void {
         super.prepareData();
+        const tokens = canvas.ready ? this.getActiveTokens() : [];
         if (this.initialized) {
             for (const token of this.getActiveTokens()) {
                 token.document.prepareData({ fromActor: true });
             }
+        }
+        if (tokens.some((token) => token.isControlled)) {
+            game.pf2e.effectPanel.refresh();
         }
     }
 
@@ -1157,27 +1161,11 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const condition = typeof conditionSlug === 'string' ? this.getCondition(conditionSlug) : conditionSlug;
         if (!condition) return;
 
-        const systemData = condition.data.data;
-        // Get all linked conditions if force-removing
-        const conditionList = forceRemove
-            ? [condition].concat(
-                  this.itemTypes.condition.filter(
-                      (maybeLinked) =>
-                          maybeLinked.fromSystem &&
-                          maybeLinked.data.data.base === systemData.base &&
-                          maybeLinked.value === condition.value,
-                  ),
-              )
-            : [condition];
-
-        for await (const condition of conditionList) {
-            const value = typeof condition.value === 'number' ? Math.max(condition.value - 1, 0) : null;
-
-            if (value !== null && !forceRemove) {
-                await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, value);
-            } else {
-                await game.pf2e.ConditionManager.removeConditionFromActor(condition.id, this);
-            }
+        const value = typeof condition.value === 'number' ? Math.max(condition.value - 1, 0) : null;
+        if (value !== null && !forceRemove) {
+            await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, value);
+        } else {
+            await game.pf2e.ConditionManager.removeConditionFromActor(condition.id, this);
         }
     }
 
