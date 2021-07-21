@@ -53,6 +53,7 @@ import { Migration642TrackSchemaVersion } from './migrations/642-track-schema-ve
 import { Migration643HazardLevel } from './migrations/643-hazard-level';
 import { Migration644SpellcastingCategory } from './migrations/644-spellcasting-category';
 import { Migration645TokenImageSize } from './migrations/645-token-image-size';
+import { Migration646UpdateInlineLinks } from './migrations/646-update-inline-links';
 export { MigrationRunner } from './runner';
 
 export class Migrations {
@@ -110,6 +111,7 @@ export class Migrations {
         Migration643HazardLevel,
         Migration644SpellcastingCategory,
         Migration645TokenImageSize,
+        Migration646UpdateInlineLinks,
     ];
 
     static get latestVersion(): number {
