@@ -40,12 +40,6 @@
   <hr />
 
   <div class="fate">
-    {{#if assuranceAllowed}}
-    <label>
-      <input type="radio" name="fate" value="assurance" {{checked fate.assurance}} />
-      {{localize 'PF2E.Roll.Assurance'}}
-    </label>
-    {{/if}}
     <label>
       <input type="radio" name="fate" value="fortune" {{checked fate.fortune}} />
       {{localize 'PF2E.Roll.Fortune'}}
@@ -58,13 +52,19 @@
       <input type="radio" name="fate" value="misfortune" {{checked fate.misfortune}} />
       {{localize 'PF2E.Roll.Misfortune'}}
     </label>
-  </div>
-  <div class="fate">
+    {{#if assuranceAllowed}}
+    <label>
+      <input type="radio" name="fate" value="assurance" {{checked fate.assurance}} />
+      {{localize 'PF2E.Roll.Assurance'}}
+    </label>
+    {{else}}
+    <label></label>
+    {{/if}}
     <label>
       <input type="radio" name="fate" value="override" {{checked fate.override}} />
       {{localize 'PF2E.Roll.Override'}}
     </label>
-    <input type="number" name="fate" value={{fate.overrideValue}} min="1" max="20" step="1" style="width:50px; text-align: right;"
+    <input type="number" name="fate" value={{fate.overrideValue}} min="1" max="20" step="1" style="text-align: right;"
       {{#unless fate.override}}disabled=true{{/unless}} />
   </div>
 
