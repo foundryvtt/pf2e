@@ -32,6 +32,7 @@ import { remigrate } from '@scripts/system/remigrate';
 import { SKILL_EXPANDED } from '@actor/data/values';
 import { GhostTemplate } from '@module/ghost-measured-template';
 import { ActorImporter } from '@system/importer/actor-importer';
+import { HomebrewElements } from '@module/settings/homebrew';
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -452,5 +453,8 @@ export function listen() {
         // Start system sub-applications
         game.pf2e.effectPanel = new EffectPanel();
         game.pf2e.effectTracker = new EffectTracker();
+
+        // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
+        HomebrewElements.refreshTags();
     });
 }
