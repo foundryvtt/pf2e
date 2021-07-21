@@ -147,8 +147,9 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
 
     getSpellData(this: Embedded<SpellcastingEntryPF2e>) {
         const results: SpellcastingSlotLevel[] = [];
+        const spells = this.spells.contents.sort((s1, s2) => (s1.data.sort || 0) - (s2.data.sort || 0));
         if (this.isPrepared) {
-            const spellsByLevel = groupBy(this.spells.contents, (spell) => (spell.isCantrip ? 0 : spell.level));
+            const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.level));
             for (let level = 0; level <= this.highestLevel; level++) {
                 const data = this.data.data.slots[`slot${level}` as SlotKey];
 
@@ -183,9 +184,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
             }
         } else {
             const alwaysShow = !this.isRitual && !this.isFocusPool;
-            const spellsByLevel = groupBy(this.spells.contents, (spell) =>
-                spell.isCantrip ? 0 : spell.heightenedLevel,
-            );
+            const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.heightenedLevel));
             for (let level = 0; level <= this.highestLevel; level++) {
                 const data = this.data.data.slots[`slot${level}` as SlotKey];
                 const spells = spellsByLevel.get(level) ?? [];
