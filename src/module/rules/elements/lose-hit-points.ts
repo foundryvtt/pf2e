@@ -16,7 +16,8 @@ export class LoseHitPointsRuleElement extends RuleElementPF2e {
         if (this.ignored) return;
         const value = Math.abs(this.resolveValue());
         if (typeof value === 'number') {
-            actorUpdates['data.attributes.hp.value'] = Math.max(this.actor.hitPoints.current - value, 0);
+            const currentHP = this.actor.data._source.data.attributes.hp.value;
+            actorUpdates['data.attributes.hp.value'] = Math.max(currentHP - value, 0);
         }
     }
 }
