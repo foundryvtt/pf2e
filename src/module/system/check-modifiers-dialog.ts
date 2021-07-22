@@ -135,8 +135,6 @@ export class CheckModifiersDialog extends Application {
             if (needsDCParam) ctx.dc.label = `${ctx.dc.label.trim()}: {dc}`;
 
             const dcLabel = game.i18n.format(ctx.dc.label ?? 'PF2E.DCLabel', { dc: ctx.dc.value });
-            const showDC = game.settings.get('pf2e', 'metagame.showDC').toString();
-            flavor += `<div data-visibility="${ctx.dc.visibility ?? showDC}"><b>${dcLabel}</b></div>`;
 
             let adjustmentLabel = '';
             if (degreeOfSuccess.degreeAdjustment !== undefined) {
@@ -160,10 +158,18 @@ export class CheckModifiersDialog extends Application {
 
             const resultLabel = game.i18n.localize('PF2E.ResultLabel');
             const degreeLabel = game.i18n.localize(`PF2E.${ctx.dc.scope ?? 'CheckOutcome'}.${degreeOfSuccessText}`);
+            const showDC = game.settings.get('pf2e', 'metagame.showDC').toString();
             const showResults = game.settings.get('pf2e', 'metagame.showResults').toString();
+            flavor += `<div data-visibility="${ctx.dc.visibility ?? showDC}"><b>${dcLabel}</b></div>`;
+            //add (hit/miss by x) message
+            const byText = game.i18n.localize('PF2E.ByText');
+            const succeedBy = roll.total - ctx.dc.value;
             flavor += `<div data-visibility="${
                 ctx.dc.visibility ?? showResults
-            }" class="degree-of-success"><b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel}</span></b>${adjustmentLabel}`;
+            }" class="degree-of-success"><b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel} `;
+            flavor += `<span data-visibility="${
+                ctx.dc.visibility ?? showDC
+            }">${byText} ${succeedBy}</span></span></b>${adjustmentLabel}`;
             flavor += '</div>';
         }
 
