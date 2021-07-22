@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>When you came of age, your fingernails grew long and sharp. You gain a claw unarmed attack that deals <a class=\"inline-roll roll\" data-mode=\"roll\" data-flavor=\"slashing\" data-formula=\"1d4\" title=\"slashing\"><i class=\"fas fa-dice-d20\"></i> 1d4</a> slashing damage. Your claws are in the brawling group and have the agile, finesse, and unarmed traits.</p>\n<p><strong>Special</strong> Hag claws can develop at any point in a changeling's life, allowing you to select this feat anytime you would gain an ancestry feat, but once you've selected it, you can't retrain out of it.</p>"
+            "value": "<p>When you came of age, your fingernails grew long and sharp. You gain a claw unarmed attack that deals [[/r 1d4 #slashing]]{1d4 slashing damage}. Your claws are in the brawling group and have the agile, finesse, and unarmed traits.</p>\n<p><strong>Special</strong> Hag claws can develop at any point in a changeling's life, allowing you to select this feat anytime you would gain an ancestry feat, but once you've selected it, you can't retrain out of it.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -21,16 +21,37 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Claws",
+                "range": "melee",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.644
         },
         "source": {
-            "value": ""
+            "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
             "custom": "",
