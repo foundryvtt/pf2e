@@ -32,6 +32,7 @@ import { remigrate } from '@scripts/system/remigrate';
 import { SKILL_EXPANDED } from '@actor/data/values';
 import { GhostTemplate } from '@module/ghost-measured-template';
 import { ActorImporter } from '@system/importer/actor-importer';
+import { HomebrewElements } from '@module/settings/homebrew';
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -69,7 +70,7 @@ function registerGlobalDCInjection() {
 function registerPF2ActionClickListener() {
     $<HTMLBodyElement>('body').on('click', (event) => {
         let target = event.target;
-        if (target?.matches('[data-pf2e-repost], [data-pf2e-repost] *')) {
+        if (target?.matches('[data-pf2-repost], [data-pf2-repost] *')) {
             repostPF2Action(event.target.parentElement!);
         } else if (
             target?.matches(
@@ -387,15 +388,17 @@ function repostPF2Action(target: HTMLElement) {
                 ' ' +
                 target.outerHTML
                     .replace(/>DC \d+ /gi, '>')
-                    .replace(/<[^>]+data-pf2e-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, ''),
+                    .replace(/<[^>]+data-pf2-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, ''),
         });
     }
 }
 
 function registerPF2ActionRightClickListener() {
-    $<HTMLBodyElement>('body').on('contextmenu', (event) => {
-        repostPF2Action(event.target);
-    });
+    if (BUILD_MODE === 'development') {
+        $<HTMLBodyElement>('body').on('contextmenu', (event) => {
+            repostPF2Action(event.target);
+        });
+    }
 }
 
 /**
@@ -452,5 +455,8 @@ export function listen() {
         // Start system sub-applications
         game.pf2e.effectPanel = new EffectPanel();
         game.pf2e.effectTracker = new EffectTracker();
+
+        // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
+        HomebrewElements.refreshTags();
     });
 }

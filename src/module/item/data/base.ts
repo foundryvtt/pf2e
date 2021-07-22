@@ -46,8 +46,6 @@ export interface ItemLevelData {
 export interface ItemSystemData {
     description: {
         value: string;
-        chat: string;
-        unidentified: string;
     };
     source: {
         value: string;

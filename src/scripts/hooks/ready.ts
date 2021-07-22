@@ -4,7 +4,6 @@ import { prepareMinions } from '@scripts/actor/prepare-minions';
 import { MigrationRunner } from '@module/migration/runner';
 import { Migrations } from '@module/migration';
 import { ActionsPF2e } from '@system/actions/actions';
-import { HomebrewElements } from '@module/settings/homebrew';
 import { setWorldSchemaVersion } from '@module/migration/set-world-schema-version';
 import { WorldClock } from '@module/system/world-clock';
 import { CompendiumBrowser } from '@module/apps/compendium-browser';
@@ -51,9 +50,6 @@ export function listen(): void {
 
         // Extend drag data for things such as condition value
         extendDragData();
-
-        // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
-        HomebrewElements.refreshTags();
 
         // Final pass to ensure effects on actors properly consider the initiative of any active combat
         game.pf2e.effectTracker.refresh();

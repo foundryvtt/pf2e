@@ -26,16 +26,7 @@
             "selectable": true,
             "statusName": "drained"
         },
-        "modifiers": [
-            {
-                "group": "con-based",
-                "type": "status"
-            },
-            {
-                "group": "hp-per-level",
-                "type": "status"
-            }
-        ],
+        "modifiers": [],
         "overrides": [],
         "references": {
             "children": [],
@@ -44,16 +35,34 @@
             "overrides": []
         },
         "removable": true,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "con-based",
+                "type": "status",
+                "value": "-1 * @item.value.value"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "hp",
+                "type": "status",
+                "value": "-1 * @details.level.value * @item.value.value"
+            },
+            {
+                "key": "LoseHitPoints",
+                "value": "@details.level.value * @item.value.value"
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.644
+            "version": 0.645
         },
         "source": {
             "value": ""
         },
         "sources": {
-            "hud": true
+            "hud": true,
+            "values": []
         },
         "traits": {
             "custom": "",

@@ -153,9 +153,9 @@ export class CheckPF2e {
             }
             const resultLabel = game.i18n.localize('PF2E.ResultLabel');
             const degreeLabel = game.i18n.localize(`PF2E.${context.dc.scope ?? 'CheckOutcome'}.${outcome}`);
-            const newString = `<div class="degree-of-success"><b>${resultLabel}:<span class="${outcome}"> ${degreeLabel}</span></b>${adjustmentLabel}</div>`;
-            const regex = new RegExp('<div class="degree-of-success">.+?</div>', 'g');
-            message.data.flavor = message.data.flavor!.replace(regex, newString);
+            const newString = `<b>${resultLabel}:<span class="${outcome}"> ${degreeLabel}</span></b>${adjustmentLabel}</div>`;
+            const regex = new RegExp('(<div.+?class="degree-of-success"(.+?|)>).+?</div>', 'g');
+            message.data.flavor = message.data.flavor!.replace(regex, `$1${newString}`);
 
             if (context.notes !== undefined) {
                 const notes = context.notes

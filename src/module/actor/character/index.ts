@@ -479,9 +479,13 @@ export class CharacterPF2e extends CreaturePF2e {
                 systemData.attributes.ac.check < 0 &&
                 ignoreArmorCheckPenalty
             ) {
-                modifiers.push(
-                    new ModifierPF2e('PF2E.ArmorCheckPenalty', systemData.attributes.ac.check, MODIFIER_TYPE.UNTYPED),
+                const armorCheckPenalty = new ModifierPF2e(
+                    'PF2E.ArmorCheckPenalty',
+                    systemData.attributes.ac.check,
+                    MODIFIER_TYPE.UNTYPED,
                 );
+                armorCheckPenalty.predicate.not = ['attack'];
+                modifiers.push(armorCheckPenalty);
             }
 
             // workaround for the shortform skill names

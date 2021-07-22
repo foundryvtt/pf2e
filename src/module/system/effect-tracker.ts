@@ -95,6 +95,8 @@ export class EffectTracker {
         const expired: Embedded<EffectPF2e>[] = [];
         for (let index = 0; index < this.trackedEffects.length; index++) {
             const effect = this.trackedEffects[index];
+            if (actor && effect.actor !== actor) continue;
+
             const duration = effect.remainingDuration;
             if (duration.expired) {
                 expired.push(effect);
@@ -102,10 +104,15 @@ export class EffectTracker {
                 break;
             }
         }
-        for await (const effect of expired) {
-            if (!effect.actor || !actor || effect.actor.id === actor.id) {
-                await effect.delete();
-            }
+
+        const owners = actor
+            ? [actor]
+            : [...new Set(expired.map((effect) => effect.actor))].filter((owner) => game.actors.has(owner.id));
+        for await (const owner of owners) {
+            await owner.deleteEmbeddedDocuments(
+                'Item',
+                expired.flatMap((effect) => (owner.items.has(effect.id) ? effect.id : [])),
+            );
         }
     }
 }
