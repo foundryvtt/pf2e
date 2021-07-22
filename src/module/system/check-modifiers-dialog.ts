@@ -112,27 +112,9 @@ export class CheckModifiersDialog extends Application {
 
         this.checkAssurance(check, context);
 
-        let modifierBreakdown = '';
-        const optionTemplate = (input: string) => `<span class="tag tag_alt">${input}</span>`;
-
-        if (ctx.fate === 'assurance') {
-            modifierBreakdown += optionTemplate(`${game.i18n.localize('PF2E.Roll.Assurance')} ${dice}`);
-        } else if (ctx.fate === 'override') {
-            modifierBreakdown += optionTemplate(`${game.i18n.localize('PF2E.Roll.Override')} ${dice}`);
-        }
-
-        modifierBreakdown += check.modifiers
-            .filter((m) => m.enabled)
-            .map((m) => {
-                const label = game.i18n.localize(m.label ?? m.name);
-                return optionTemplate(`${label} ${m.modifier < 0 ? '' : '+'}${m.modifier}`);
-            })
-            .join('');
-
-        const optionStyle =
-            'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #000000; border-radius: 3px; color: white; background: var(--secondary);';
+        const modifierBreakdown = this.buildModifiers(ctx, dice, check);
         const optionBreakdown = options
-            .map((o) => `<span style="${optionStyle}">${game.i18n.localize(o)}</span>`)
+            .map((o) => `<span class="tag tag_secondary">${game.i18n.localize(o)}</span>`)
             .join('');
 
         const totalModifierPart = check.totalModifier === 0 ? '' : `+${check.totalModifier}`;
@@ -234,6 +216,32 @@ export class CheckModifiersDialog extends Application {
         if (callback) {
             callback(roll);
         }
+    }
+
+    private static buildModifiers(ctx: any, dice: string, check: StatisticModifier) {
+        let modifierBreakdown = '';
+
+        const optionTemplate = (content: string, style = '') => {
+            return `<span class="tag tag_alt" style="${style}">${content}</span>`;
+        };
+        const fortuneTemplate = (fortune: string) =>
+            optionTemplate(`${game.i18n.localize(`PF2E.Roll.${fortune}`)} ${dice}`, 'background: var(--primary);');
+
+        if (ctx.fate === 'assurance') {
+            modifierBreakdown += fortuneTemplate('Assurance');
+        } else if (ctx.fate === 'override') {
+            modifierBreakdown += fortuneTemplate('Override');
+        }
+
+        modifierBreakdown += check.modifiers
+            .filter((m) => m.enabled)
+            .map((m) => {
+                const label = game.i18n.localize(m.label ?? m.name);
+                return optionTemplate(`${label} ${m.modifier < 0 ? '' : '+'}${m.modifier}`);
+            })
+            .join('');
+
+        return modifierBreakdown;
     }
 
     override getData() {
