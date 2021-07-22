@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 40,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -101,8 +102,19 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "40; burrow 40 feet; climb 40 feet"
+                "otherSpeeds": [
+                    {
+                        "label": "Burrow",
+                        "type": "burrow",
+                        "value": "40"
+                    },
+                    {
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "40"
+                    }
+                ],
+                "value": "40"
             }
         },
         "details": {
@@ -124,7 +136,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavourText": "",
+            "flavourText": "<p>Xotanispawn are monstrous versions of scavenging beetle larvae that have been corrupted and mutated by feeding on the remains of Xotani the Firebleeder, a slain Spawn of Rovagug buried beneath Pale Mountain in Katapesh. These creatures look vaguely like the minute insects they once were, with a sclerotized head and chitinous body plates, six legs, and numerous dorsal spines lining the joints and edges of each segment. However, by feeding on the unholy remains of Xotani, the spawn have manifested many of the traits of the infamous Firebleeder, most notably a blisteringly hot internal temperature and powerful fire attacks—to say nothing of their monstrous size.</p>\n<p>Internal heat radiates from every surface of a Xotanispawn, even from its mouth. Any contact with a Xotanispawn results in burns and the risk of catching on fire. Thankfully, Xotanispawn have also inherited Xotani's weaknesses to cold and sunlight. They are rarely encountered on the surface during the day, opting to emerge from their subterranean lairs only at night.</p>",
             "heritage": {
                 "value": ""
             },
@@ -225,18 +237,14 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Grab"
+                        "grab"
                     ]
                 },
                 "bonus": {
                     "value": 30
                 },
                 "damageRolls": {
-                    "cb4bgmdqtba6x7vo0aky7e": {
-                        "damage": "2d8 persistent",
-                        "damageType": "fire"
-                    },
-                    "eia537tzu1cinyrhxzi11d": {
+                    "zjxdzlvw7gm6g9s66oej": {
                         "damage": "4d8+9",
                         "damageType": "piercing"
                     }
@@ -244,7 +252,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 2d8 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                 },
                 "rules": [],
                 "schema": {
@@ -294,16 +302,12 @@
                     "9h9jgscx6y91ew938o9f3z": {
                         "damage": "4d6+9",
                         "damageType": "slashing"
-                    },
-                    "vodwnzoukij707519psk": {
-                        "damage": "2d8 persistent",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 2d8 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                 },
                 "rules": [],
                 "schema": {
@@ -340,10 +344,10 @@
             "type": "melee"
         },
         {
-            "_id": "Ca5WVMuyOoRLkjUI",
+            "_id": "bFgmfCe3rBGAWZK1",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -354,7 +358,61 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A creature that first enters the area must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"36\" data-pf2-traits=\"aura,emotion,fear,mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-show-dc=\"gm\">Will</span> save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong>: The creature is unaffected by the presence.</p>\n<p><strong>Success</strong>: The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened}1.</p>\n<p><strong>Failure</strong>: The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong>: The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4.</p>"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "jVPlrYrdfUoKsCFZ",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -364,7 +422,7 @@
                     "lastMigration": null,
                     "version": 0.644
                 },
-                "slug": null,
+                "slug": "tremorsense",
                 "source": {
                     "value": ""
                 },
@@ -373,11 +431,120 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "selected": {
-                        "aura": "Aura",
-                        "emotion": "Emotion",
-                        "fear": "Fear",
-                        "mental": "Mental"
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tremorsense",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "pYNPdghXNuSzUUUS",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>When first exposed to bright light, the monster is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn. After this exposure, light doesn't blind the monster again until after it spends 1 hour in darkness. However, as long as the monster is in an area of bright light, it's @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": {
+                        "datetime": "2021-07-21T22:55:16.954-04:00",
+                        "version": {
+                            "foundry": "0.8.8",
+                            "schema": 0.644,
+                            "system": "2.9.1"
+                        }
+                    },
+                    "version": 0.645
+                },
+                "slug": "light-blindness",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Light Blindness",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "XqfuKJG5gZuzeCDr",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 60 feet, <span data-pf2-check=\"will\" data-pf2-traits=\"aura, emotion, fear, mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-dc=\"36\" data-pf2-show-dc=\"gm\">Will</span> save</p>\n<p>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "frightful-presence",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
                     },
                     "value": [
                         "aura",
@@ -394,17 +561,21 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.etMnv73EIdEZrYYu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Frightful Presence",
-            "sort": 300000,
+            "sort": 600000,
             "type": "action"
         },
         {
             "_id": "qi5FtOzBWTiiCStB",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -415,7 +586,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When a Xotanispawn dies, it explodes, dealing [[/r 15d8 #fire]] fire damage to creatures in a 30-foot emanation (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"39\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Explosion DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p>When a Xotanispawn dies, it explodes, dealing [[/r 15d8 #fire]]{15d8 fire damage} to creatures in a 30-foot emanation (<span data-pf2-check=\"reflex\" data-pf2-dc=\"39\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Explosion DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -452,65 +623,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Explosion",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "Pue6FgzZw3JZB23U",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>When first exposed to bright light, the monster is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn. After this exposure, light doesn't blind the monster again until after it spends 1 hour in darkness. However, as long as the monster is in an area of bright light, it's @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.644
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Light Blindness",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
             "_id": "nf1iMpVleTsR2jEV",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -521,7 +641,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong>: A creature adjacent to the Xotanispawn touches it or hits it with a physical attack;</p>\n<p><strong>Effect</strong>: The triggering creature takes [[/r 5d8 #persistent fire]] persistent fire damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"37\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Internal Furnace DC\" data-pf2-show-dc=\"gm\">Reflex</span> save to negate).</p>"
+                    "value": "<p><strong>Trigger</strong>: A creature adjacent to the Xotanispawn touches it or hits it with a physical attack;</p>\n<p><strong>Effect</strong>: The triggering creature takes [[/r 5d8 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"37\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Internal Furnace DC\" data-pf2-show-dc=\"gm\">Reflex</span> save to negate).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -558,14 +678,68 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Internal Furnace",
-            "sort": 600000,
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "2mthLx7yReK93i3n",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 900000,
             "type": "action"
         },
         {
             "_id": "D1apG8hCM6fFYauw",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -576,7 +750,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The Xotanispawn sprays a 60-foot cone of magma that deals [[/r 10d10 #fire]] fire damage and [[/r 2d6 #persistent fire]] persistent fire damage to all creatures in the area (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"39\" data-pf2-traits=\"arcane,evocation,fire,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The Xotanispawn can't use its Breath Weapon again for [[/r 1d4]] rounds.</p>"
+                    "value": "<p>The Xotanispawn sprays a 60-foot cone of magma that deals [[/r 10d10 #fire]]{10d10 fire damage} and [[/r 2d6 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent fire Damage} to all creatures in the area (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,arcane,evocation,fire\" data-pf2-label=\"Breath Weapon DC\" data-pf2-dc=\"39\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">The Xotanispawn can't use its Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -617,14 +791,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 700000,
+            "sort": 1000000,
             "type": "action"
         },
         {
             "_id": "5MhFpMwgTDRkEcvj",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -635,7 +809,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When the Xotanispawn critically hits, its body surges with heat, increasing the damage of its Internal Furnace to [[/r 10d8]] until the start of its next turn.</p>"
+                    "value": "<p>When the Xotanispawn critically hits, its body surges with heat, increasing the damage of its Internal Furnace to [[/r 10d8 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} until the start of its next turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -668,7 +842,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Heat Surge",
-            "sort": 800000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -709,7 +883,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -750,7 +924,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -791,7 +965,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1100000,
+            "sort": 1400000,
             "type": "lore"
         }
     ],
@@ -801,7 +975,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

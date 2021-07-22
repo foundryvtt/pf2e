@@ -8,21 +8,21 @@
             "hardness": 15,
             "hasHealth": true,
             "hp": {
-                "details": "",
+                "details": "per square (6 squares must be destroyed to disable the haunt)",
                 "max": 30,
                 "temp": 0,
                 "tempmax": 0,
                 "value": 30
             },
             "stealth": {
-                "details": "(Master)",
+                "details": "<p>(master)</p>",
                 "value": 33
             }
         },
         "creatureType": "",
         "details": {
             "description": "A haunted mural fascinates characters and swiftly drains their vitality.",
-            "disable": "Occultism DC 38 (master) or Religion DC 38 (master) to calm the restless energies and suppress the haunt for 1 hour; a critical success deactivates the haunt permanently.",
+            "disable": "<p><span data-pf2-check=\"occultism\" data-pf2-traits=\"haunt,magical\" data-pf2-label=\"Calm the Restless Energies DC\" data-pf2-dc=\"38\" data-pf2-show-dc=\"gm\">Occultism</span> (master) or <span data-pf2-check=\"religion\" data-pf2-traits=\"haunt,magical\" data-pf2-label=\"Calm the Restless Energies DC\" data-pf2-dc=\"38\" data-pf2-show-dc=\"gm\">Religion</span> (master) to calm the restless energies and suppress the haunt for 1 hour; a critical success deactivates the haunt permanently.</p>",
             "isComplex": true,
             "level": {
                 "value": 17
@@ -89,61 +89,10 @@
     "img": "systems/pf2e/icons/default-icons/hazard.svg",
     "items": [
         {
-            "_id": "mpY2GaSzimTVNvF7",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.644
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "HP is 30 per square (6 must be destroyed)",
-            "sort": 100000,
-            "type": "action"
-        },
-        {
             "_id": "fyWgrVIE0U0GZARU",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -200,7 +149,7 @@
             "_id": "QsuzBxkK6bf7oS8S",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -211,7 +160,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The faintly moving images compel one creature within 30 feet of the room to move into the room. The creature attempts a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"38\" data-pf2-traits=\"enchantment,incapacitation,mental,occult,custom\" data-pf2-label=\"Captivate DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<hr />\n<p><strong>Success</strong>: The target is unaffected.</p>\n<p><strong>Failure</strong>: The target must spend all its actions on its next turn moving into the room, and is then @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong>: As failure, and the target is also @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 2 for 1 minute.</p>"
+                    "value": "<p>The faintly moving images compel one creature within 30 feet of the room to move into the room. The creature attempts a <span data-pf2-check=\"will\" data-pf2-dc=\"38\" data-pf2-traits=\"enchantment,incapacitation,mental,occult,charm\" data-pf2-label=\"Captivate DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<div data-visibility=\"gm\">\n<hr />\n<p><strong>Success</strong>: The target is unaffected.</p>\n<p><strong>Failure</strong>: The target must spend all its actions on its next turn moving into the room, and is then @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong>: As failure, and the target is also @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} for 1 minute.</p></div>"
                 },
                 "requirements": {
                     "value": ""
@@ -263,7 +212,7 @@
             "_id": "bvXcRvh1dBNmRcSg",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -274,7 +223,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The haunt causes a living creature in the room to experience a full elven life, weathering every wound, misfortune, loss, and consequence of aging centuries in a matter of seconds. The target must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"38\" data-pf2-traits=\"mental,occult\" data-pf2-label=\"Live a Thousand Lives DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong>: The target is unaffected.</p>\n<p><strong>Success</strong>: The target becomes @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<p><strong>Failure</strong>: The target becomes @Compendium[pf2e.conditionitems.Drained]{Drained} 1 (or its drained value increases by 1, to a maximum of drained 3), and it is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong>: As failure, but the target also becomes @Compendium[pf2e.conditionitems.Doomed]{Doomed} 1 (or its doomed value increases by 1).</p>"
+                    "value": "<p>The haunt causes a living creature in the room to experience a full elven life, weathering every wound, misfortune, loss, and consequence of aging centuries in a matter of seconds. The target must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"38\" data-pf2-traits=\"mental,occult\" data-pf2-label=\"Live a Thousand Lives DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<div data-visibility=\"gm\">\n<hr />\n<p><strong>Critical Success</strong>: The target is unaffected.</p>\n<p><strong>Success</strong>: The target becomes @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<p><strong>Failure</strong>: The target becomes @Compendium[pf2e.conditionitems.Drained]{Drained 1} (or its drained value increases by 1, to a maximum of drained 3), and it is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} until the end of its next turn.</p>\n<p><strong>Critical Failure</strong>: As failure, but the target also becomes @Compendium[pf2e.conditionitems.Doomed]{Doomed 1} (or its doomed value increases by 1).</p></div>"
                 },
                 "requirements": {
                     "value": ""

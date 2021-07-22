@@ -90,17 +90,12 @@ export abstract class RuleElementPF2e {
      * is already present on the actor, nothing will happen. Rules that add toggles won't work here since
      * this method is only called on item add.
      *
-     * @param actorData data of the actor that holds the item
-     * @param item the added item data
      * @param actorUpdates The first time a rule is run it receives an empty object. After all rules set various values
      * on the object, this object is then passed to actor.update(). This is useful if you want to set specific values on
      * the actor when an item is added. Keep in mind that the object for actor.update() is flattened, e.g.
      * {'data.attributes.hp.value': 5}.
-     * @param tokens a list of token data objects for a specific actor. An actor can have multiple tokens when dragged
-     * multiple times onto a canvas. Works similar to actorUpdates and used if you want to change values on the token
-     * object
      */
-    onCreate(_actorData: CreatureData, _item: ItemDataPF2e, _actorUpdates: any, _tokens: any[]) {}
+    onCreate(_actorUpdates: Record<string, unknown>): void {}
 
     /**
      * Run after an item holding this rule is removed from an actor. This method is used for cleaning up any values
@@ -194,7 +189,7 @@ export abstract class RuleElementPF2e {
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
-    resolveValue(valueData: RuleValue | undefined, defaultValue: Exclude<RuleValue, BracketedValue> = 0): any {
+    resolveValue(valueData = this.data.value, defaultValue: Exclude<RuleValue, BracketedValue> = 0): any {
         let value = valueData;
         const actor = this.item.actor;
         if (typeof valueData === 'object') {

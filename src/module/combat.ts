@@ -26,6 +26,21 @@ export class CombatPF2e extends Combat<CombatantPF2e> {
         });
         return super.createEmbeddedDocuments(embeddedName, createData, context);
     }
+
+    override async nextTurn(): Promise<this> {
+        Hooks.call('pf2e.endTurn', this.combatant ?? null, this, game.user.id);
+        await super.nextTurn();
+        Hooks.call('pf2e.startTurn', this.combatant ?? null, this, game.user.id);
+        return this;
+    }
+
+    override _onDelete(options: DocumentModificationContext, userId: string): void {
+        if (this.started) {
+            Hooks.call('pf2e.endTurn', this.combatant ?? null, this, userId);
+        }
+
+        super._onDelete(options, userId);
+    }
 }
 
 export interface CombatPF2e {
