@@ -8,12 +8,20 @@ export interface RuleElementData {
     selector?: string;
     value?: RuleValue;
     scope?: string;
-    label?: string;
+    label: string;
     slug?: string;
     predicate?: ModifierPredicate;
+    /** The place in order of application (ascending), among an actor's list of rule elements */
+    priority: number;
+    ignored: boolean;
 }
 
-export type RuleValue = string | number | null | BracketedValue;
+export type RuleElementSource = Omit<RuleElementData, 'label' | 'priority' | 'ignored'> & {
+    label?: string;
+    priority?: number;
+};
+
+export type RuleValue = string | number | boolean | null | BracketedValue;
 
 export interface Bracket {
     start?: number;
@@ -44,7 +52,7 @@ export interface MultipleAttackPenaltyPF2e {
     predicate?: ModifierPredicate;
 }
 
-export interface RuleElementSyntheticsPF2e {
+export interface RuleElementSynthetics {
     damageDice: Record<string, DamageDicePF2e[]>;
     statisticsModifiers: Record<string, ModifierPF2e[]>;
     strikes: WeaponData[];

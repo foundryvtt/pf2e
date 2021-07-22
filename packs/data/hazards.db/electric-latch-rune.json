@@ -22,9 +22,11 @@
         "creatureType": "",
         "details": {
             "description": "An invisible rune imprinted on a door latch releases a powerful electric discharge.",
-            "disable": "Thievery DC 20 (expert) to scratch out the rune without allowing electricity to flow, or <i>dispel magic</i> (2nd level; counteract DC 18) to counteract the rune",
+            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-label=\"Scratch Out the Rune DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">Thievery</span> (expert) to scratch out the rune without allowing electricity to flow, or <em>dispel magic</em> (2nd level; counteract DC 18) to counteract the rune</p>",
             "isComplex": false,
-            "level": 3,
+            "level": {
+                "value": 3
+            },
             "reset": "",
             "routine": ""
         },
@@ -47,16 +49,11 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:29.701-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "statusEffects": [],
         "traits": {
@@ -79,7 +76,8 @@
                 "value": [
                     "electricity",
                     "evocation",
-                    "magical"
+                    "magical",
+                    "trap"
                 ]
             }
         }
@@ -103,20 +101,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature grasps the door latch directly or with a tool. <br /><strong>Effect</strong> The trap deals [[/r 3d12 #electricity]] electricity damage to the triggering creature (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"22\" data-pf2-traits=\"arcane,electricity,evocation,damaging-effect\" data-pf2-label=\"Electrocution DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature grasps the door latch directly or with a tool.</p>\n<p><strong>Effect</strong> The trap deals [[/r 3d12 #electricity]]{3d12 electricity damage} to the triggering creature (<span data-pf2-check=\"reflex\" data-pf2-dc=\"22\" data-pf2-traits=\"arcane,electricity,evocation,damaging-effect\" data-pf2-label=\"Electrocution DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:29.701-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -135,9 +128,6 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""

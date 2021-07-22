@@ -54,7 +54,7 @@ interface MigratedDocumentSchemaRecord {
             system?: string;
             foundry?: string;
         };
-    };
+    } | null;
 }
 
 export type DocumentSchemaRecord = NewDocumentSchemaRecord | MigratedDocumentSchemaRecord;

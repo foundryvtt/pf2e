@@ -25,6 +25,9 @@ import { Migration639NormalizeLevelAndPrice } from '@module/migration/migrations
 import { Migration640CantripsAreNotZeroLevel } from '@module/migration/migrations/640-cantrips-are-not-zero-level';
 import { Migration641SovereignSteelValue } from '@module/migration/migrations/641-sovereign-steel-value';
 import { Migration642TrackSchemaVersion } from '@module/migration/migrations/642-track-schema-version';
+import { Migration643HazardLevel } from '@module/migration/migrations/643-hazard-level';
+import { Migration644SpellcastingCategory } from '@module/migration/migrations/644-spellcasting-category';
+import { Migration646UpdateInlineLinks } from '@module/migration/migrations/646-update-inline-links';
 
 const migrations: MigrationBase[] = [
     new Migration621RemoveConfigSpellSchools(),
@@ -47,6 +50,9 @@ const migrations: MigrationBase[] = [
     new Migration640CantripsAreNotZeroLevel(),
     new Migration641SovereignSteelValue(),
     new Migration642TrackSchemaVersion(),
+    new Migration643HazardLevel(),
+    new Migration644SpellcastingCategory(),
+    new Migration646UpdateInlineLinks(),
 ];
 
 global.deepClone = function (original: any): any {
@@ -160,7 +166,7 @@ async function migrate() {
     for (const filePath of allEntries) {
         const content = await fs.readFile(filePath, { encoding: 'utf-8' });
 
-        let source: CompendiumSource;
+        let source: ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource;
         try {
             // Parse file content
             source = JSON.parse(content);
@@ -170,16 +176,26 @@ async function migrate() {
 
         // skip journal entries, rollable tables, and macros
         let updatedEntity: ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource;
-        if (isActorData(source)) {
-            updatedEntity = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
-        } else if (isItemData(source)) {
-            updatedEntity = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
-        } else if (isMacroData(source)) {
-            updatedEntity = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
-        } else if (isTableData(source)) {
-            updatedEntity = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
-        } else {
-            continue;
+        try {
+            if (isActorData(source)) {
+                source.data.schema.lastMigration = null;
+                updatedEntity = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
+                updatedEntity.data.schema.lastMigration = null;
+                for (const itemSource of updatedEntity.items) {
+                    itemSource.data.schema.lastMigration = null;
+                }
+            } else if (isItemData(source)) {
+                updatedEntity = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
+                updatedEntity.data.schema.lastMigration = null;
+            } else if (isMacroData(source)) {
+                updatedEntity = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
+            } else if (isTableData(source)) {
+                updatedEntity = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
+            } else {
+                updatedEntity = source;
+            }
+        } catch (error) {
+            throw Error(`Error while trying to edit ${filePath}: ${error.message}`);
         }
 
         const origData = JSONstringifyOrder(source);

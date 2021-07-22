@@ -32,6 +32,9 @@
                 "predicate": {
                     "all": [
                         "rage"
+                    ],
+                    "not": [
+                        "barbarian-dedication"
                     ]
                 },
                 "roll-options": [
@@ -50,7 +53,8 @@
                     ],
                     "not": [
                         "agile",
-                        "ranged"
+                        "ranged",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -82,7 +86,8 @@
                         "agile"
                     ],
                     "not": [
-                        "ranged"
+                        "ranged",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -103,16 +108,45 @@
                         }
                     ]
                 }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "dedication-instinct-rage",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "agile",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "dedication-instinct-rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
             }
         ],
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:23.729-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
             "value": ""

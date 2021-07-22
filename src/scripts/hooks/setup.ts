@@ -30,6 +30,9 @@ import { EffectTracker } from '@module/system/effect-tracker';
 import { Rollable } from '@actor/data/base';
 import { remigrate } from '@scripts/system/remigrate';
 import { SKILL_EXPANDED } from '@actor/data/values';
+import { GhostTemplate } from '@module/ghost-measured-template';
+import { ActorImporter } from '@system/importer/actor-importer';
+import { HomebrewElements } from '@module/settings/homebrew';
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -67,7 +70,9 @@ function registerGlobalDCInjection() {
 function registerPF2ActionClickListener() {
     $<HTMLBodyElement>('body').on('click', (event) => {
         let target = event.target;
-        if (
+        if (target?.matches('[data-pf2-repost], [data-pf2-repost] *')) {
+            repostPF2Action(event.target.parentElement!);
+        } else if (
             target?.matches(
                 '[data-pf2-action]:not([data-pf2-action=""]), [data-pf2-action]:not([data-pf2-action=""]) *',
             )
@@ -85,10 +90,132 @@ function registerPF2ActionClickListener() {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
             }
         } else if (
+            target?.matches('[data-pf2-check]:not([data-pf2-check=""]), [data-pf2-check]:not([data-pf2-check=""]) *')
+        ) {
+            target = target.closest('[data-pf2-check]:not([data-pf2-check=""])')!;
+
+            const { pf2Check, pf2Dc, pf2Traits, pf2Label } = target.dataset ?? {};
+            const actors = resolveActors();
+
+            switch (pf2Check) {
+                case 'perception': {
+                    if (actors.length) {
+                        actors.forEach((actor) => {
+                            if (actor instanceof CreaturePF2e) {
+                                const perceptionCheck = actor.data.data.attributes.perception as Rollable | undefined;
+                                if (perceptionCheck) {
+                                    const dc = Number.isInteger(Number(pf2Dc))
+                                        ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                        : undefined;
+                                    const options = actor.getRollOptions(['all', 'perception']);
+                                    if (pf2Traits) {
+                                        const traits = pf2Traits
+                                            .split(',')
+                                            .map((trait) => trait.trim())
+                                            .filter((trait) => !!trait);
+                                        options.push(...traits);
+                                    }
+                                    perceptionCheck.roll({ event, options, dc });
+                                } else {
+                                    console.warn(`PF2e System | Skip rolling perception for '${actor}'`);
+                                }
+                            }
+                        });
+                    }
+                    break;
+                }
+                case 'flat': {
+                    if (actors.length) {
+                        actors.forEach((actor) => {
+                            if (actor instanceof CreaturePF2e) {
+                                const flatCheck = StatisticBuilder.from(actor, {
+                                    name: '',
+                                    modifiers: [],
+                                    check: { type: 'flat-check' },
+                                });
+                                if (flatCheck) {
+                                    const dc = Number.isInteger(Number(pf2Dc))
+                                        ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                        : undefined;
+                                    const options = actor.getRollOptions(['all', 'flat-check']);
+                                    if (pf2Traits) {
+                                        const traits = pf2Traits
+                                            .split(',')
+                                            .map((trait) => trait.trim())
+                                            .filter((trait) => !!trait);
+                                        options.push(...traits);
+                                    }
+                                    flatCheck.check.roll({ event, options, dc, modifiers: [] });
+                                } else {
+                                    console.warn(`PF2e System | Skip rolling flat check for '${actor}'`);
+                                }
+                            }
+                        });
+                    }
+                    break;
+                }
+                case 'will':
+                case 'fortitude':
+                case 'reflex': {
+                    if (actors.length) {
+                        actors.forEach((actor) => {
+                            const savingThrow = actor.data.data.saves[pf2Check ?? ''] as Rollable | undefined;
+                            if (pf2Check && savingThrow) {
+                                const dc = Number.isInteger(Number(pf2Dc))
+                                    ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                    : undefined;
+                                const options = actor.getRollOptions(['all', 'saving-throw', pf2Check]);
+                                if (pf2Traits) {
+                                    const traits = pf2Traits
+                                        .split(',')
+                                        .map((trait) => trait.trim())
+                                        .filter((trait) => !!trait);
+                                    options.push(...traits);
+                                }
+                                savingThrow.roll({ event, options, dc });
+                            } else {
+                                console.warn(`PF2e System | Skip rolling unknown saving throw '${pf2Check}'`);
+                            }
+                        });
+                    }
+                    break;
+                }
+                default: {
+                    if (actors.length) {
+                        const skill = SKILL_EXPANDED[pf2Check!]?.shortform ?? pf2Check!;
+                        actors.forEach((actor) => {
+                            const skillCheck = actor.data.data.skills[skill ?? ''] as Rollable | undefined;
+                            if (skill && skillCheck) {
+                                const dc = Number.isInteger(Number(pf2Dc))
+                                    ? ({ label: pf2Label, value: Number(pf2Dc) } as PF2CheckDC)
+                                    : undefined;
+                                const options = actor.getRollOptions(['all', 'skill-check', skill]);
+                                if (pf2Traits) {
+                                    const traits = pf2Traits
+                                        .split(',')
+                                        .map((trait) => trait.trim())
+                                        .filter((trait) => !!trait);
+                                    options.push(...traits);
+                                }
+                                skillCheck.roll({ event, options, dc });
+                            } else {
+                                console.warn(
+                                    `PF2e System | Skip rolling unknown skill check or untrained lore '${skill}'`,
+                                );
+                            }
+                        });
+                    }
+                    break;
+                }
+            }
+        } else if (
             target?.matches(
                 '[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]), [data-pf2-saving-throw]:not([data-pf2-saving-throw=""]) *',
             )
         ) {
+            console.warn(
+                `Deprecation warning | data-pf2-saving-throw is deprecated, use data-pf2-check="savename" instead.`,
+            );
             target = target.closest('[data-pf2-saving-throw]:not([data-pf2-saving-throw=""])')!;
             const actors = resolveActors();
             if (actors.length) {
@@ -118,6 +245,9 @@ function registerPF2ActionClickListener() {
                 '[data-pf2-skill-check]:not([data-pf2-skill-check=""]), [data-pf2-skill-check]:not([data-pf2-skill-check=""]) *',
             )
         ) {
+            console.warn(
+                `Deprecation warning | data-pf2-skill-check is deprecated, use data-pf2-check="skillname" instead.`,
+            );
             target = target.closest('[data-pf2-skill-check]:not([data-pf2-skill-check=""])')!;
             const actors = resolveActors();
             if (actors.length) {
@@ -144,6 +274,9 @@ function registerPF2ActionClickListener() {
                 });
             }
         } else if (target?.matches('[data-pf2-perception-check], [data-pf2-perception-check] *')) {
+            console.warn(
+                `Deprecation warning | data-pf2-perception is deprecated, use data-pf2-check="perception" instead.`,
+            );
             target = target.closest('[data-pf2-perception-check]')!;
             const actors = resolveActors();
             if (actors.length) {
@@ -171,6 +304,7 @@ function registerPF2ActionClickListener() {
                 });
             }
         } else if (target?.matches('[data-pf2-flat-check], [data-pf2-flat-check] *')) {
+            console.warn(`Deprecation warning | data-pf2-flat-check is deprecated, use data-pf2-check="flat" instead.`);
             target = target.closest('[data-pf2-flat-check]')!;
             const actors = resolveActors();
             if (actors.length) {
@@ -194,15 +328,77 @@ function registerPF2ActionClickListener() {
                                     .filter((trait) => !!trait);
                                 options.push(...traits);
                             }
-                            flatCheck.check.roll({ event, dc, modifiers: [] });
+                            flatCheck.check.roll({ event, options, dc, modifiers: [] });
                         } else {
                             console.warn(`PF2e System | Skip rolling flat check for '${actor}'`);
                         }
                     }
                 });
             }
+        } else if (
+            target?.matches(
+                '[data-pf2-effect-area]:not([data-pf2-effect-area=""]), [data-pf2-effect-area]:not([data-pf2-effect-area=""]) *',
+            )
+        ) {
+            target = target.closest('[data-pf2-effect-area]')!;
+            const { pf2EffectArea, pf2TemplateData } = target.dataset ?? {};
+            const templateConversion: Record<string, string> = {
+                burst: 'circle',
+                emanation: 'circle',
+                line: 'ray',
+                cone: 'cone',
+                rect: 'rect',
+            };
+            if (pf2TemplateData && typeof pf2EffectArea === 'string') {
+                const templateData = JSON.parse(pf2TemplateData);
+                templateData.t = templateConversion[pf2EffectArea];
+                templateData.user = game.user.id;
+                const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
+                const ghostTemplate = new GhostTemplate(measuredTemplateDoc);
+                ghostTemplate.drawPreview();
+            } else {
+                console.warn(`PF2e System | Could not create template'`);
+            }
         }
     });
+}
+
+function repostPF2Action(target: HTMLElement) {
+    if (
+        target?.matches('[data-pf2-action]:not([data-pf2-action=""]), [data-pf2-action]:not([data-pf2-action=""]) *') ||
+        target?.matches(
+            '[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]), [data-pf2-saving-throw]:not([data-pf2-saving-throw=""]) *',
+        ) ||
+        target?.matches(
+            '[data-pf2-skill-check]:not([data-pf2-skill-check=""]), [data-pf2-skill-check]:not([data-pf2-skill-check=""]) *',
+        ) ||
+        target?.matches('[data-pf2-perception-check], [data-pf2-perception-check] *') ||
+        target?.matches('[data-pf2-flat-check], [data-pf2-flat-check] *') ||
+        target?.matches('[data-pf2-check], [data-pf2-check] *')
+    ) {
+        const flavor = target.attributes.getNamedItem('data-pf2-repost-flavor')?.value ?? '';
+        target.setAttributeNS(
+            null,
+            'data-pf2-show-dc',
+            target.attributes.getNamedItem('data-pf2-repost-show-dc')?.value ?? 'gm',
+        );
+        ChatMessage.create({
+            content:
+                flavor +
+                ' ' +
+                target.outerHTML
+                    .replace(/>DC \d+ /gi, '>')
+                    .replace(/<[^>]+data-pf2-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, ''),
+        });
+    }
+}
+
+function registerPF2ActionRightClickListener() {
+    if (BUILD_MODE === 'development') {
+        $<HTMLBodyElement>('body').on('contextmenu', (event) => {
+            repostPF2Action(event.target);
+        });
+    }
 }
 
 /**
@@ -220,6 +416,7 @@ export function listen() {
 
         // register click listener for elements with a data-pf2-action attribute
         registerPF2ActionClickListener();
+        registerPF2ActionRightClickListener();
 
         // Exposed objects for macros and modules
         Object.defineProperty(globalThis.game, 'pf2e', { value: {} });
@@ -229,6 +426,9 @@ export function listen() {
             restForTheNight,
             steelYourResolve,
             encouragingWords,
+        };
+        game.pf2e.importer = {
+            actor: ActorImporter,
         };
         game.pf2e.rollItemMacro = rollItemMacro;
         game.pf2e.rollActionMacro = rollActionMacro;
@@ -255,5 +455,8 @@ export function listen() {
         // Start system sub-applications
         game.pf2e.effectPanel = new EffectPanel();
         game.pf2e.effectTracker = new EffectTracker();
+
+        // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
+        HomebrewElements.refreshTags();
     });
 }

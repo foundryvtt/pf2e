@@ -1,16 +1,13 @@
 import { CharacterData, NPCData } from '@actor/data';
 import { ModifierPF2e, MODIFIER_TYPE } from '@module/modifiers';
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementData, RuleElementSyntheticsPF2e } from '../rules-data-definitions';
+import { RuleElementData, RuleElementSynthetics } from '../rules-data-definitions';
 
 /**
  * @category RuleElement
  */
 export class PF2MageArmorRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(
-        actorData: CharacterData | NPCData,
-        { statisticsModifiers }: RuleElementSyntheticsPF2e,
-    ) {
+    override onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: RuleElementSynthetics) {
         const label = this.data.label ?? this.item.name;
         const level = (this.item.data as any)?.level?.value ?? this.data.level ?? 1;
         if (label) {

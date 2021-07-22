@@ -136,9 +136,9 @@
                 "min": 1,
                 "value": 4
             },
-            "recallKnowledgeText": "Recall Knowledge : DC 19",
+            "recallKnowledgeText": "",
             "source": {
-                "value": "Bestiary"
+                "value": "Pathfinder Bestiary"
             }
         },
         "saves": {
@@ -168,13 +168,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:54.794-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "traits": {
             "ci": [],
@@ -242,6 +237,60 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "7mP67cYuJ4mY54RH",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 100000,
+            "type": "action"
+        },
+        {
             "_id": "APm9xzjMvRMHIYon",
             "data": {
                 "actionCategory": {
@@ -256,20 +305,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 18 Fortitude; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> [[/r 1d6 # poison damage]] poison damage (1 round); <strong>Stage 2</strong> [[/r 1d6 # poison damage]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"18\" data-pf2-traits=\"poison\" data-pf2-label=\"Scorpion Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d6 #poison]]{1d6 poison damage} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d6 #poison]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:54.794-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -287,18 +331,15 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Scorpion Venom",
-            "sort": 100000,
+            "sort": 200000,
             "type": "action"
         },
         {
@@ -311,25 +352,20 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Each enemy in the swarm's space takes [[/r 2d8 # piercing damage]] piercing damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"21\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Stings DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save) and is exposed to scorpion venom.</p>"
+                    "value": "<p>Each enemy in the swarm's space takes [[/r 2d8 #piercing]]{2d8 piercing damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"21\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Stings DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save)<span data-visibility=\"gm\"> and is exposed to scorpion venom</span>.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:54.794-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -345,18 +381,15 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swarming Stings",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -378,13 +411,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:54.794-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -396,16 +424,13 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 300000,
+            "sort": 400000,
             "type": "lore"
         },
         {
@@ -427,13 +452,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:54.794-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -445,16 +465,13 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -476,13 +493,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:54.794-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -494,16 +506,13 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         }
     ],

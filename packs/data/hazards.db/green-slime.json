@@ -24,7 +24,9 @@
             "description": "A caustic green film clings to the ceiling above, watching for prey to pass beneath it.",
             "disable": "DC 33 Survival (expert) to carefully peel the slime off the ceiling without touching it",
             "isComplex": false,
-            "level": 9,
+            "level": {
+                "value": 9
+            },
             "reset": "1 hour, as the slime feasts and then slowly creeps back up to the ceiling",
             "routine": ""
         },
@@ -47,13 +49,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:29.711-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
             "value": ""
@@ -118,20 +115,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature walks beneath the slime. <br /><strong>Effect</strong> The green slime drops on top of the creature, attempting to dissolve it into a nutritious slurry. The target must attempt a <span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"28\" data-pf2-label=\"Dissolving Ambush DC\" data-pf2-show-dc=\"gm\">Reflex</span> save.<br /><br /><strong>Critical Success</strong> The target leaps out of the way, and it is unaffected.<br /><strong>Success</strong> A small amount of the slime splashes onto the target. The target is drained 1.<br /><strong>Failure</strong> The slime lands on its target. The target is drained 1, and this condition value increases by 1 at the end of its turn each round until the slime is removed. If the target reaches drained 4, the next time its drained value would increase, it dies and collapses into a slurry of nutrients. A slime covering a target can no longer be removed through Survival checks, and damage dealt to the slime is also dealt to the target (applying the target's immunities, weaknesses, and resistances rather than those of the green slime).<br /><strong>Critical Failure</strong> The slime completely coats its target. This has the same effect as a failure, except the target is immediately drained 2, becomes drained 4 after 1 round, and dies after 2 rounds.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature walks beneath the slime. <br /><strong>Effect</strong> The green slime drops on top of the creature, attempting to dissolve it into a nutritious slurry. The target must attempt a <span data-pf2-check=\"reflex\" data-pf2-dc=\"28\" data-pf2-label=\"Dissolving Ambush DC\" data-pf2-show-dc=\"gm\">Reflex</span> save.<br /><br /><strong>Critical Success</strong> The target leaps out of the way, and it is unaffected.<br /><strong>Success</strong> A small amount of the slime splashes onto the target. The target is drained 1.<br /><strong>Failure</strong> The slime lands on its target. The target is drained 1, and this condition value increases by 1 at the end of its turn each round until the slime is removed. If the target reaches drained 4, the next time its drained value would increase, it dies and collapses into a slurry of nutrients. A slime covering a target can no longer be removed through Survival checks, and damage dealt to the slime is also dealt to the target (applying the target's immunities, weaknesses, and resistances rather than those of the green slime).<br /><strong>Critical Failure</strong> The slime completely coats its target. This has the same effect as a failure, except the target is immediately drained 2, becomes drained 4 after 1 round, and dies after 2 rounds.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:29.711-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -146,9 +138,6 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""

@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 17,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -59,7 +60,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": ")",
+                "details": "fast healing 2 (while touching fire)",
                 "max": 16,
                 "min": 0,
                 "temp": 0,
@@ -103,11 +104,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "25 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "25"
                     }
                 ],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "details": {
@@ -129,7 +131,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "",
+            "flavorText": "<p>Fire mephits are conniving and quick to anger. They aren't evil, but they delight in inflicting pain, and their love of burning things pushes them the closest to this alignment of all mephits. They have bright-orange skin, and wisps of flame flicker along their wings as they flap through the air. The rivalry between fire and water mephits is notorious, and these creatures loathe working together for any amount of time.</p>\n<hr />\n<p>Mephits-sometimes known as elemental scamps-are little bipedal critters with bat-like wings who serve stronger elementals on the Elemental Planes or neophyte spellcasters who summon them to the Material Plane. All mephits have an inkling of magical power as well as a breath weapon.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -143,7 +145,7 @@
             },
             "recallKnowledgeText": "Recall Knowledge : DC 15",
             "source": {
-                "value": "Bestiary"
+                "value": "Pathfinder Bestiary"
             }
         },
         "saves": {
@@ -173,13 +175,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:52.263-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "traits": {
             "ci": [],
@@ -189,13 +186,13 @@
                     "bleed",
                     "fire",
                     "paralyzed",
-                    "poison"
+                    "poison",
+                    "sleep"
                 ]
             },
             "dr": [],
             "dv": [
                 {
-                    "exceptions": "",
                     "label": "Cold",
                     "type": "cold",
                     "value": "3"
@@ -234,7 +231,10 @@
             "_id": "qDaJGHCHMMhvrtuv",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "chat": "",
@@ -258,13 +258,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:52.263-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -353,20 +348,17 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Arcane Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "BTeDCBj2Upmh6LnY",
+            "_id": "NkYyJ6eRMPes7chz",
             "data": {
                 "ability": {
                     "value": ""
@@ -377,6 +369,9 @@
                 },
                 "areasize": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -399,7 +394,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -435,13 +430,8 @@
                     "mode": "level2"
                 },
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:52.263-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "school": {
                     "value": "enchantment"
@@ -452,9 +442,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "daze",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=61"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -486,30 +476,34 @@
                         "mental",
                         "nonlethal"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4gBIw4IDrSfFHik4"
+                }
+            },
             "img": "systems/pf2e/icons/spells/daze.webp",
             "name": "Daze",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "EdB3fKLT0px54sOu",
+            "_id": "IqxXRn6bNbPeb9Cd",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -532,7 +526,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet) (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "value": "until the next time you make your daily preparations"
@@ -568,13 +562,8 @@
                     "mode": "none"
                 },
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:52.263-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "school": {
                     "value": "evocation"
@@ -585,7 +574,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "light",
                 "source": {
                     "value": ""
                 },
@@ -620,13 +609,14 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.WBmvzNDfpwka3qT4"
+                }
+            },
             "img": "systems/pf2e/icons/spells/light.webp",
             "name": "Light",
             "sort": 300000,
@@ -661,13 +651,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:52.263-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -691,7 +676,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 400000,
             "type": "melee"
@@ -718,13 +703,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:52.263-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -741,22 +721,73 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Smoke Vision",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "hKSxsCrjz9kzn82t",
+            "_id": "EhZr8qLYudW24Syo",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "44mTKtGhXhfJhnBh",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -770,22 +801,17 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:52.263-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
-                "slug": null,
+                "slug": "fast-healing",
                 "source": {
                     "value": ""
                 },
@@ -794,24 +820,24 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "selected": {},
                     "value": []
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fJSNOw4zHGbIm4bZ"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fast Healing 2 (while touching fire)",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -829,20 +855,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The fire mephit breathes flames in a 15-foot cone that deals [[/r 2d4 # fire]] fire damage and [[/r 1d4 #persistent fire]] persistent fire damage to each creature within the area (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"arcane,fire,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The fire mephit can't use Breath Weapon again for [[/r 1d4]] rounds.</p>"
+                    "value": "<p>The fire mephit breathes flames in a 15-foot cone that deals [[/r 2d4 # fire]] fire damage and [[/r 1d4 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage} to each creature within the area (<span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"arcane,fire,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">The fire mephit can't use Breath Weapon again for [[/br 1d4]] rounds.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:52.263-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -865,9 +886,6 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
@@ -876,7 +894,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -898,13 +916,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:52.263-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -916,16 +929,13 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -947,13 +957,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:52.263-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -965,16 +970,13 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],

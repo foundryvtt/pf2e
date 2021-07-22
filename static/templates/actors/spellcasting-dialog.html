@@ -1,20 +1,19 @@
 <form>
     <div class="form-group">
-        <label>{{localize "PF2E.MagicTraditionLabel"}}</label>
-        <select name="magicTradition">
-        {{#select magicTradition}}
-        {{#each magicTraditions as |label mode|}}
+        <label>{{localize "PF2E.SpellcastingTypeLabel"}}</label>
+        <select name="spellcastingType">
+        {{#select spellcastingType}}
+        {{#each spellcastingTypes as |label mode|}}
             <option value="{{mode}}">{{localize label}}</option>
         {{/each}}
         {{/select}}
         </select>
     </div>
-    <div class="form-group">
-        <label>{{localize "PF2E.SpellcastingTypeLabel"}}</label>
-        <select name="spellcastingType">
-        {{#select spellcastingType}}
-        <option value="">{{localize "PF2E.NoneOption"}}</option>
-        {{#each spellcastingTypes as |label mode|}}
+    <div class="form-group tradition-group">
+        <label>{{localize "PF2E.MagicTraditionLabel"}}</label>
+        <select name="magicTradition">
+        {{#select magicTradition}}
+        {{#each magicTraditions as |label mode|}}
             <option value="{{mode}}">{{localize label}}</option>
         {{/each}}
         {{/select}}

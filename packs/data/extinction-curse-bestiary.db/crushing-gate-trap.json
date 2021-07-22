@@ -24,7 +24,9 @@
             "description": "<p>A hidden stone rod causes two immense stone doors to fall forward from their gate, crushing anything beneath them. The doors also fall forward if touched.</p>",
             "disable": "<p>Thievery DC 42 (expert) to secure the doors in place without triggering the trap</p>",
             "isComplex": false,
-            "level": 16,
+            "level": {
+                "value": 16
+            },
             "reset": "",
             "routine": ""
         },
@@ -47,13 +49,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:26.156-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
             "value": ""
@@ -101,20 +98,15 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The stone rod is moved or either door is touched;</p>\n<p><strong>Effect</strong> The two falling doors deal [[/r 6d12+35 #bludgeoning]] bludgeoning damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"37\" data-pf2-traits=\"attack,damaging-effect\" data-pf2-label=\"Gate Collapse DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save) to all creatures within 15 feet of the gate. On a failure, a creature is also pinned beneath the door and immobilized until the door is moved (DC 34 Athletics) or destroyed; each door has the same AC, Fortitude save, Hardness, and Hit Points as the trap itself. On a critical failure, the creature is trapped in such a way that it can’t attempt to free itself. Moving or destroying one door doesn’t help free anyone trapped by the other door.</p>"
+                    "value": "<p><strong>Trigger</strong> The stone rod is moved or either door is touched;</p>\n<p><strong>Effect</strong> The two falling doors deal [[/r 6d12+35 #bludgeoning]] bludgeoning damage (<span data-pf2-check=\"reflex\" data-pf2-dc=\"37\" data-pf2-traits=\"attack,damaging-effect\" data-pf2-label=\"Gate Collapse DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save) to all creatures within 15 feet of the gate. On a failure, a creature is also pinned beneath the door and immobilized until the door is moved (<span data-pf2-action=\"forceOpen\" data-pf2-dc=\"34\" data-pf2-glyph=\"A\" data-pf2-show-dc=\"gm\">Athletics</span>) or destroyed; each door has the same AC, Fortitude save, Hardness, and Hit Points as the trap itself. On a critical failure, the creature is trapped in such a way that it can’t attempt to free itself. Moving or destroying one door doesn’t help free anyone trapped by the other door.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:26.156-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {

@@ -21,18 +21,50 @@
         "level": {
             "value": 9
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:29.636-05:00",
-                "version": {
-                    "schema": null
-                }
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "vs. disease (Well-Groomed)",
+                "predicate": {
+                    "all": [
+                        "disease"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
             },
-            "version": 0.642
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "disease"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "disease"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a saving throw against an disease, you get a critical success instead.</p>"
+            }
+        ],
+        "schema": {
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
             "value": ""

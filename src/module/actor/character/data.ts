@@ -5,7 +5,7 @@ import {
     BaseCreatureData,
     BaseCreatureSource,
     CreatureSystemData,
-    Saves,
+    SaveData,
     SkillAbbreviation,
     SkillData,
 } from '@actor/creature/data';
@@ -25,6 +25,7 @@ import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from '@item/
 import { CheckModifier, StatisticModifier } from '@module/modifiers';
 import { LabeledValue, ZeroToFour, ZeroToThree } from '@module/data';
 import type { CharacterPF2e } from '.';
+import { SaveType } from '@actor/data';
 
 export type CharacterSource = BaseCreatureSource<'character', CharacterSystemData>;
 
@@ -48,7 +49,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     abilities: Abilities;
 
     /** The three save types. */
-    saves: Saves;
+    saves: Record<SaveType, SaveData>;
 
     /** Tracks proficiencies for martial skills. */
     martial: CombatProficiencies;
@@ -95,8 +96,6 @@ export interface CharacterSystemData extends CreatureSystemData {
         level: {
             /** The current level of this character. */
             value: number;
-            /** The minimum level (almost always '1'). */
-            min: number;
         };
     };
 
@@ -182,13 +181,15 @@ interface PathfinderSocietyData {
     reputation: PathfinderSocietyReputation;
 }
 
+export type CharacterArmorClass = Required<ArmorClassData>;
+
 interface CharacterAttributes extends BaseCreatureAttributes {
     /** The perception skill. */
     perception: PerceptionData;
     /** The class DC, used for saves related to class abilities. */
     classDC: ClassDCData;
     /** Creature armor class, used to defend against attacks. */
-    ac: ArmorClassData;
+    ac: CharacterArmorClass;
     /** Initiative, used to determine turn order in combat. */
     initiative: CheckModifier;
 

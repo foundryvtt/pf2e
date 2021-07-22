@@ -24,7 +24,9 @@
             "description": "An invisible rune on the door begins emitting a very loud buzzing sound, potentially paralyzing an intruder.",
             "disable": "DC 34 Thievery (master) to disrupt the rune without triggering it or dispel magic (6th level; counteract DC 31) to magically counteract the rune",
             "isComplex": false,
-            "level": 13,
+            "level": {
+                "value": 13
+            },
             "reset": "The trap resets after 1 hour.",
             "routine": ""
         },
@@ -47,13 +49,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:26.046-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
             "value": ""
@@ -107,20 +104,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature attempts to open the door without using the key;</p>\n<p><strong>Effect</strong> The trap makes a loud buzz and deals [[/r 5d10 #electricity]] electricity damage and [[5d10 #sonic]] sonic damage to the triggering creature (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"electricity,evocation,primal,sonic,damaging-effect\" data-pf2-label=\"Jolting Buzz DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save; this save applies to both the electricity damage and the sonic damage). Further, the creature must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"32\" data-pf2-traits=\"electricity,evocation,primal,sonic\" data-pf2-label=\"Jolting Buzz DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round.</p>\n<p><strong>Failure</strong> The target is paralyzed for [[/br 1d4 #rounds]] rounds. At the end of each of its turns, it can attempt a new <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"32\" data-pf2-traits=\"electricity,evocation,primal,sonic\" data-pf2-label=\"Jolting Buzz DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>\n<p><strong>Critical Failure</strong> The target is paralyzed for 1 minute. At the end of each of its turns, it can attempt a new Fortitude save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature attempts to open the door without using the key;</p>\n<p><strong>Effect</strong> The trap makes a loud buzz and deals [[/r 5d10 #electricity]] electricity damage and [[5d10 #sonic]] sonic damage to the triggering creature (<span data-pf2-check=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"electricity,evocation,primal,sonic,damaging-effect\" data-pf2-label=\"Jolting Buzz DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save; this save applies to both the electricity damage and the sonic damage). Further, the creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"32\" data-pf2-traits=\"electricity,evocation,primal,sonic\" data-pf2-label=\"Jolting Buzz DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round.</p>\n<p><strong>Failure</strong> The target is paralyzed for [[/br 1d4 #rounds]] rounds. At the end of each of its turns, it can attempt a new <span data-pf2-check=\"fortitude\" data-pf2-dc=\"32\" data-pf2-traits=\"electricity,evocation,primal,sonic\" data-pf2-label=\"Jolting Buzz DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>\n<p><strong>Critical Failure</strong> The target is paralyzed for 1 minute. At the end of each of its turns, it can attempt a new Fortitude save to reduce the remaining duration by 1 round, or end it entirely on a critical success.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:26.046-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -140,9 +132,6 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""

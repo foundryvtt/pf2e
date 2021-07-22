@@ -15,16 +15,18 @@
                 "value": 10
             },
             "stealth": {
-                "details": "(Master)",
-                "value": 43
+                "details": "<p>(master)</p>",
+                "value": 33
             }
         },
         "creatureType": "",
         "details": {
             "description": "Lines of searing lava lance through the area, causing targets to shake as if caught in an earthquake and potentially become petrified.",
-            "disable": "Thievery DC 43 (master) to disable the wards or dispel magic (9th level; counteract DC 38) to counteract the ward.",
+            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-traits=\"magical,trap\" data-pf2-label=\"Disable the Wards DC\" data-pf2-dc=\"43\" data-pf2-show-dc=\"gm\">Thievery</span> (master) to disable the wards or <em>@Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic}</em> (9th level; counteract DC 38) to counteract the ward.</p>",
             "isComplex": false,
-            "level": 19,
+            "level": {
+                "value": 19
+            },
             "reset": "The trap resets after 1 minute.",
             "routine": ""
         },
@@ -47,13 +49,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:18.914-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
             "value": "Pathfinder #149: Against the Scarlet Triad"
@@ -90,7 +87,7 @@
             "_id": "o0njxNAMbjPeC9AS",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -101,20 +98,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong>: A creature enters the marked area;</p>\n<p><strong>Effect</strong>: Fiery spears make one @Compendium[pf2e.actionspf2e.Strike]{Strike} against each living creature within 5 feet of the marked area.</p>"
+                    "value": "<p><strong>Trigger</strong>: A creature enters the marked area;</p>\n<p><strong>Effect</strong>: Fiery spears make one Strike against each living creature within 5 feet of the marked area.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.914-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -139,9 +131,6 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
@@ -157,7 +146,7 @@
             "_id": "kZ6DWvbDyy1GyJ6D",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -168,20 +157,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A creature struck by a seismic spear is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 3 for 1 round as their body shakes uncontrollably. On a critical hit, a target must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"39\" data-pf2-label=\"Personal Quake DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Petrified]{Petrified} for 1 minute, or permanently on a critical failure.</p>"
+                    "value": "<p>A creature struck by a seismic spear is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 3} for 1 round as their body shakes uncontrollably. On a critical hit, a target must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"39\" data-pf2-label=\"Personal Quake DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Petrified]{Petrified} for 1 minute, or permanently on a critical failure.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.914-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -198,16 +182,13 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Personal Quake",
             "sort": 200000,
             "type": "action"
@@ -221,8 +202,8 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "MAP does not apply",
-                        "Personal Quake"
+                        "map-does-not-apply",
+                        "personal-quake"
                     ]
                 },
                 "bonus": {
@@ -245,13 +226,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.914-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -275,65 +251,6 @@
             "name": "Seismic Spear",
             "sort": 300000,
             "type": "melee"
-        },
-        {
-            "_id": "UUhUrUj0JciYhi0b",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.914-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "MAP does not apply",
-            "sort": 400000,
-            "type": "action"
         }
     ],
     "name": "Seismic Spears Trap",
@@ -342,7 +259,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

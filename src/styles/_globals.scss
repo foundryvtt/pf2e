@@ -32,11 +32,6 @@ $header-color: #fff; /* Font Color */
 $header-bg: $secondary-color;
 $box-bg: lighten($header-bg, 75);
 
-/* Font Families */
-$sans-serif: 'Roboto', system, -apple-system, sans-serif !default;
-$serif: 'Eczar', 'Signika', Georgia, serif !default;
-$body-serif: 'Gelasio', 'Signika', Georgia, serif !default;
-
 /* Buttons */
 $btn-text: $tertiary-color !default;
 $btn-color: $primary-color !default;
@@ -73,10 +68,16 @@ $rank-legendary: $primary-color;
 }
 
 /* ----------------------------------------- */
-/* Global Settings
+/* Global Settings                           */
 /* ----------------------------------------- */
 
 :root {
+    --body-serif: Gelasio, Georgia, serif;
+    --sans-serif: Roboto, sans-serif;
+    --sans-serif-condensed: "Roboto Condensed", var(--sans-serif);
+    --serif: Eczar, Georgia, serif;
+    --serif-condensed: "Modesto Condensed", serif;
+
     --primary: #{$primary-color};
     --secondary: #{$secondary-color};
     --tertiary: #{$tertiary-color};
@@ -105,13 +106,8 @@ $rank-legendary: $primary-color;
     --animate-repeat: 1;
 }
 
-body {
-    font-family: $sans-serif;
-    color: var(--body);
-}
-
 /* ----------------------------------------- */
-/* Layout
+/* Layout                                    */
 /* ----------------------------------------- */
 
 $padding: 0.5em;
@@ -127,21 +123,21 @@ $margin: 0.5em;
 }
 
 /* ----------------------------------------- */
-/* Typography
+/* Typography                                */
 /* ----------------------------------------- */
 
-h1,
-h2,
-h3,
-h4 {
-    font-weight: 600;
-}
-p {
-    font-weight: 500;
+.pf2e, .app.sheet.actor {
+  font-family: var(--sans-serif);
+    h1, h2, h3, h4 {
+        font-weight: 600;
+    }
+    p {
+        font-weight: 500;
+    }
 }
 
 @mixin micro {
-    font-family: $sans-serif;
+    font-family: var(--sans-serif);
     font-size: 8px;
     font-weight: 700;
     line-height: 1;
@@ -386,21 +382,139 @@ table.pf2-table {
 }
 
 /* ----------------------------------------- */
+/* PF2E Check Custom Element
+/* ----------------------------------------- */
+[data-pf2-check]:not([data-pf2-check=""]) {
+    background: #ddd;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+[data-pf2-check]:not([data-pf2-check=""]):not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
+[data-pf2-check]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f6cf';
+}
+
+[data-pf2-check="reflex"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f70c';
+}
+
+[data-pf2-check="will"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f5dc';
+}
+
+[data-pf2-check="fortitude"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f21e';
+}
+
+/* ----------------------------------------- */
+/* PF2E Inline Template Custom Element
+/* ----------------------------------------- */
+[data-pf2-effect-area] {
+    background: #ddd;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: 500;
+}
+
+[data-pf2-effect-area]:not([data-pf2-show-dc="gm"]) {
+    background: #e8e8ef;
+}
+
+[data-pf2-effect-area="cone"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f104';
+}
+
+[data-pf2-effect-area="line"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f7a5';
+}
+
+[data-pf2-effect-area="burst"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f111';
+}
+
+[data-pf2-effect-area="emanation"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f111';
+}
+
+[data-pf2-effect-area="rect"]::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    margin-right: 5px;
+    color: #7a7971;
+    content: '\f0c8';
+}
+
+/* ----------------------------------------- */
+/* PF2E Inline Repost Element
+/* ----------------------------------------- */
+
+[data-pf2e-repost] {
+    color: #7a7971;
+}
+
+/* ----------------------------------------- */
 /* PF2E GM Visibility Elements
 /* ----------------------------------------- */
-[data-visibility="gm"]:is(div, em, p, span) {
-        box-sizing: border-box;
-        border: 1px dotted;
-        background: #e8e8ef;
-        padding: 2px;
-        margin-bottom: 2px;
+[data-visibility="gm"]:is(div, em, p, span, strong) {
+    box-sizing: border-box;
+    border: 1px dotted;
+    background: #e8e8ef;
+    padding: 3px;
+    margin-bottom: 4px;
 
-        em[data-visibility="gm"] {
-            border: none;
-            padding: 0;
-            margin-bottom: 0;
-        }
+    em[data-visibility="gm"] {
+        border: none;
+        padding: 0;
+        margin-bottom: 0;
     }
+}
 
 em[data-visibility="gm"] {
     display: inline-block;

@@ -1,6 +1,13 @@
-import { BaseCreatureAttributes, BaseCreatureData, BaseCreatureSource, CreatureSystemData } from '@actor/creature/data';
+import {
+    BaseCreatureAttributes,
+    BaseCreatureData,
+    BaseCreatureSource,
+    CreatureSystemData,
+    SkillAbbreviation,
+} from '@actor/creature/data';
 import { AbilityString, RawSkillData, Rollable } from '@actor/data/base';
 import { LabeledValue } from '@module/data';
+import { StatisticModifier } from '@module/modifiers';
 import type { FamiliarPF2e } from '.';
 
 export type FamiliarSource = BaseCreatureSource<'familiar', FamiliarSystemData>;
@@ -28,7 +35,7 @@ interface FamiliarAttributes extends BaseCreatureAttributes {
 }
 
 /** The raw information contained within the actor data object for familiar actors. */
-interface FamiliarSystemData extends CreatureSystemData {
+export interface FamiliarSystemData extends CreatureSystemData {
     details: {
         level: {
             value: number;
@@ -38,6 +45,7 @@ interface FamiliarSystemData extends CreatureSystemData {
         };
     };
     attributes: FamiliarAttributes;
+    skills: Record<SkillAbbreviation, StatisticModifier>;
     master: {
         id: string | null;
         ability: AbilityString | null;

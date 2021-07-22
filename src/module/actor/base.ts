@@ -13,14 +13,15 @@ import { ActorSheetPF2e } from './sheet/base';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { hasInvestedProperty } from '@item/data/helpers';
 import { SUPPORTED_ROLL_OPTIONS } from './data/values';
-import { SaveData, SaveString, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from './creature/data';
+import { SaveData, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from './creature/data';
 import { AbilityString, BaseActorDataPF2e } from './data/base';
-import { ActorDataPF2e, ActorSourcePF2e } from './data';
+import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from './data';
 import { TokenDocumentPF2e } from '@module/scene/token-document';
 import { UserPF2e } from '@module/user';
 import { isCreatureData } from './data/helpers';
 import { ConditionType } from '@item/condition/data';
 import { MigrationRunner, Migrations } from '@module/migration';
+import { Size } from '@module/data';
 
 interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorPF2e> {
     pf2e?: {
@@ -72,12 +73,21 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return this.data.data.details.level.value;
     }
 
+    get size(): Size {
+        return this.data.data.traits.size.value;
+    }
+
     /**
      * Whether the actor can see, given its token placement in the current scene.
      * A meaningful implementation is found in `CreaturePF2e`.
      */
     get canSee(): boolean {
         return true;
+    }
+
+    get modeOfBeing(): ModeOfBeing {
+        const traits = this.traits;
+        return traits.has('undead') ? 'undead' : traits.has('construct') ? 'construct' : 'living';
     }
 
     get visionLevel(): VisionLevel {
@@ -170,7 +180,9 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                         merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
                         break;
                     case 'npc':
-                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
+                        if (!merged.flags?.core?.sourceId) {
+                            merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
+                        }
                         break;
                     default:
                         merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
@@ -181,13 +193,17 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.create(data, context) as Promise<A[] | A | undefined>;
     }
 
-    /** Prepare token data derived from this actor */
+    /** Prepare token data derived from this actor, refresh Effects Panel */
     override prepareData(): void {
         super.prepareData();
+        const tokens = canvas.ready ? this.getActiveTokens() : [];
         if (this.initialized) {
             for (const token of this.getActiveTokens()) {
                 token.document.prepareData({ fromActor: true });
             }
+        }
+        if (tokens.some((token) => token.isControlled)) {
+            game.pf2e.effectPanel.refresh();
         }
     }
 
@@ -214,7 +230,11 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         }
 
         // Rule elements
-        this.rules = this.items.contents.flatMap((item) => item.prepareRuleElements());
+        this.rules = this.items.contents
+            .flatMap((item) => item.prepareRuleElements())
+            .sort((elementA, elementB) => {
+                return elementA.priority > elementB.priority ? 1 : -1;
+            });
     }
 
     /** Disable active effects from a physical item if it isn't equipped and (if applicable) invested */
@@ -395,7 +415,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * Roll a Save Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      */
-    rollSave(event: JQuery.Event, saveName: SaveString) {
+    rollSave(event: JQuery.Event, saveName: SaveType) {
         const save: SaveData = this.data.data.saves[saveName];
         const parts = ['@mod', '@itemBonus'];
         const flavor = `${game.i18n.localize(CONFIG.PF2E.saves[saveName])} Save Check`;
@@ -543,7 +563,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      */
     static async rollSave(ev: JQuery.ClickEvent, item: Embedded<ItemPF2e>): Promise<void> {
         if (canvas.tokens.controlled.length > 0) {
-            const save = $(ev.currentTarget).attr('data-save') as SaveString;
+            const save = $(ev.currentTarget).attr('data-save') as SaveType;
             const dc = Number($(ev.currentTarget).attr('data-dc'));
             const itemTraits = item.data.data.traits.value;
             for (const t of canvas.tokens.controlled) {
@@ -594,6 +614,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             if (!combatant.actor?.hasPlayerOwner) {
                 value += 0.5;
             }
+            const iniativeIsNow = game.i18n.format('PF2E.InitativeIsNow', { name: combatant.name, value: value });
             const message = `
       <div class="dice-roll">
       <div class="dice-result">
@@ -603,7 +624,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             </div>
         </div>
         <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${combatant.name}'s Initiative is now ${value}!</span>
+          <span style="font-size: 12px; font-style:oblique; font-weight: 400;">${iniativeIsNow}</span>
         </div>
       </div>
       </div>
@@ -1140,27 +1161,11 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const condition = typeof conditionSlug === 'string' ? this.getCondition(conditionSlug) : conditionSlug;
         if (!condition) return;
 
-        const systemData = condition.data.data;
-        // Get all linked conditions if force-removing
-        const conditionList = forceRemove
-            ? [condition].concat(
-                  this.itemTypes.condition.filter(
-                      (maybeLinked) =>
-                          maybeLinked.fromSystem &&
-                          maybeLinked.data.data.base === systemData.base &&
-                          maybeLinked.value === condition.value,
-                  ),
-              )
-            : [condition];
-
-        for await (const condition of conditionList) {
-            const value = typeof condition.value === 'number' ? Math.max(condition.value - 1, 0) : null;
-
-            if (value !== null && !forceRemove) {
-                await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, value);
-            } else {
-                await game.pf2e.ConditionManager.removeConditionFromActor(condition.id, this);
-            }
+        const value = typeof condition.value === 'number' ? Math.max(condition.value - 1, 0) : null;
+        if (value !== null && !forceRemove) {
+            await game.pf2e.ConditionManager.updateConditionValue(condition.id, this, value);
+        } else {
+            await game.pf2e.ConditionManager.removeConditionFromActor(condition.id, this);
         }
     }
 
@@ -1205,6 +1210,14 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         await super._preCreate(data, options, user);
         if (options.parent) return;
         await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
+    }
+
+    /** Unregister all effects possessed by this actor */
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+        for (const effect of this.itemTypes.effect) {
+            game.pf2e.effectTracker.unregister(effect);
+        }
+        super._onDelete(options, userId);
     }
 
     /** Fix bug in Foundry 0.8.8 where 'render = false' is not working when creating embedded documents */

@@ -1,5 +1,5 @@
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementData, RuleElementSyntheticsPF2e } from '../rules-data-definitions';
+import { RuleElementData, RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data';
 import { RollNotePF2e } from '@module/notes';
 import { ModifierPredicate } from '@module/modifiers';
@@ -9,7 +9,7 @@ import { DegreeOfSuccessText, DegreeOfSuccessString } from '@system/check-degree
  * @category RuleElement
  */
 export class PF2RollNoteRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(_actorData: CharacterData | NPCData, { rollNotes }: RuleElementSyntheticsPF2e) {
+    override onBeforePrepareData(_actorData: CharacterData | NPCData, { rollNotes }: RuleElementSynthetics) {
         const selector = this.resolveInjectedProperties(this.data.selector);
         const text = this.resolveInjectedProperties(this.data.text);
         if (selector && text) {

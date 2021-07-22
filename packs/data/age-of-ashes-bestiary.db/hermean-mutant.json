@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+10",
+                "mod": 10,
                 "value": 30
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 43,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -102,7 +103,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "40 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -167,13 +168,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:17.618-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "traits": {
             "ci": [],
@@ -192,7 +188,7 @@
                 "value": "rare"
             },
             "senses": {
-                "value": "Darkvision"
+                "value": "darkvision"
             },
             "size": {
                 "value": "med"
@@ -218,7 +214,7 @@
                 },
                 "attackEffects": {
                     "value": [
-                        "Grab"
+                        "grab"
                     ]
                 },
                 "bonus": {
@@ -237,13 +233,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:17.618-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -271,36 +262,31 @@
             "type": "melee"
         },
         {
-            "_id": "wXsHDt4AWOb1gTpZ",
+            "_id": "Qqwiu5T6ag0OjmLs",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>4d8+10 bludgeoning, DC 41.<br /> The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:17.619-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -314,17 +300,18 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Constrict",
+            "name": "Darkvision",
             "sort": 200000,
             "type": "action"
         },
@@ -338,25 +325,20 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The mutant's various hands stretch and reach out in an attempt to grab nearby creatures. The mutant attempts an Athletics check to Grapple all creatures within 10 feet. The mutant's multiple attack penalty doesn't increase until it has made all the Athletics checks that are part of its Grasping Hands. Creatures that are grabbed are pulled to a space adjacent to the mutant. This is forced movement.</p>"
+                    "value": "<p>The mutant's various hands stretch and reach out in an attempt to grab nearby creatures. The mutant attempts an Athletics check to <span data-pf2-action=\"grapple\" data-pf2-glyph=\"A\">Grapple</span> all creatures within 10 feet. The mutant's multiple attack penalty doesn't increase until it has made all the Athletics checks that are part of its Grasping Hands. Creatures that are grabbed are pulled to a space adjacent to the mutant. This is forced movement.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:17.619-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -372,22 +354,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Grasping Hands",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "x4qCh2DbD1ULyExR",
+            "_id": "ZXC6yvdBWQpHBJIb",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -396,27 +375,22 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br />Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p>[[/r 4d8 + 10 # bludgeoning damage]]{4d8 + 10 bludgeoning damage}, <span data-pf2-check=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"41\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save</p>\n<hr />\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:17.619-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
-                "slug": null,
+                "slug": "constrict",
                 "source": {
                     "value": ""
                 },
@@ -430,18 +404,73 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "qLKyo9iiDXWWqXvs",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
+                },
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
                 },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -463,13 +492,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:17.619-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -481,16 +505,13 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         }
     ],
@@ -500,7 +521,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

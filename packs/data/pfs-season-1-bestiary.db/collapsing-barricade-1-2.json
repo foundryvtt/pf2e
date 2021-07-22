@@ -23,7 +23,9 @@
             "description": "<p>A tunnel through this steep barricade is rigged to collapse. If a kobold spends one action to throw a lever, the tunnel collapses on the next creature to pass through.</p>",
             "disable": "<p>Thievery DC 18 (trained) to carefully trigger the collapse without entering the tunnel or DC 22 (trained) to brace the tunnel so it is safe to pass through.</p>",
             "isComplex": false,
-            "level": 3,
+            "level": {
+                "value": 3
+            },
             "reset": "",
             "routine": ""
         },
@@ -46,13 +48,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:56.424-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
             "value": ""
@@ -103,20 +100,15 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature crawls into the tunnel in the collapsing barricade after the trap is activated with the lever;</p>\n<p><strong>Effect</strong> The barricade collapses on the creature, who must attempt a <span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"22\" data-pf2-traits=\"damaging-effect\"><strong data-visibility=\"gm\">DC 22</strong> Reflex save.</span>.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage and escapes the barricade, emerging into a safe space on either side of it.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d6+2 #bludgeoning]] bludgeoning damage from collapsing debris and [[/r 1d6+2 #slashing]] slashing damage from broken glass before emerging on the opposite side of the barricade from the one they entered.</p>\n<p><strong>Failure</strong> The creature takes [[/r 2d6+4 #bludgeoning]] bludgeoning damage from collapsing debris and [[/r 2d6+4 #slashing]] slashing damage from broken glass before emerging on the opposite side of the barricade from the one they entered.</p>\n<p><strong>Critical Failure</strong> As a failure, and the creature is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} beneath the barricade until they or another creature succeed at a DC 22 Athletics check to pull them free. They can still be targeted, touched, and otherwise interacted with by creatures on either side of the barrier.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature crawls into the tunnel in the collapsing barricade after the trap is activated with the lever;</p>\n<p><strong>Effect</strong> The barricade collapses on the creature, who must attempt a <span data-pf2-check=\"reflex\" data-pf2-dc=\"22\" data-pf2-traits=\"damaging-effect\"><strong data-visibility=\"gm\">DC 22</strong> Reflex save.</span>.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage and escapes the barricade, emerging into a safe space on either side of it.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d6+2 #bludgeoning]] bludgeoning damage from collapsing debris and [[/r 1d6+2 #slashing]] slashing damage from broken glass before emerging on the opposite side of the barricade from the one they entered.</p>\n<p><strong>Failure</strong> The creature takes [[/r 2d6+4 #bludgeoning]] bludgeoning damage from collapsing debris and [[/r 2d6+4 #slashing]] slashing damage from broken glass before emerging on the opposite side of the barricade from the one they entered.</p>\n<p><strong>Critical Failure</strong> As a failure, and the creature is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} beneath the barricade until they or another creature succeed at a <span data-pf2-check=\"athletics\" data-pf2-dc=\"22\" data-pf2-label=\"Escape Barricade DC\" data-pf2-show-dc=\"gm\">Athletics</span> check to pull them free. They can still be targeted, touched, and otherwise interacted with by creatures on either side of the barrier.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:56.424-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -174,7 +166,7 @@
         "lockRotation": false,
         "mirrorX": false,
         "mirrorY": false,
-        "name": "Collapsing Barricade (1-2)",
+        "name": "Collapsing Barricade",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,

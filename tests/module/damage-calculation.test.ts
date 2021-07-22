@@ -9,7 +9,7 @@ import {
     reduceResistances,
     Resistance,
     Weakness,
-} from '../../src/module/damage-calculation';
+} from '@module/damage-calculation';
 
 describe('test damage calculation', () => {
     test('simple damage', () => {
@@ -213,7 +213,7 @@ describe('test damage calculation', () => {
         expect(
             calculateDamage({
                 damage,
-                living: 'living',
+                modeOfBeing: 'living',
             }),
         ).toBe(2);
     });
@@ -225,7 +225,7 @@ describe('test damage calculation', () => {
         expect(
             calculateDamage({
                 damage,
-                living: 'undead',
+                modeOfBeing: 'undead',
             }),
         ).toBe(1);
     });
@@ -237,7 +237,7 @@ describe('test damage calculation', () => {
         expect(
             calculateDamage({
                 damage,
-                living: 'neither',
+                modeOfBeing: 'construct',
             }),
         ).toBe(0);
     });

@@ -74,18 +74,25 @@ export class SpellPF2e extends ItemPF2e {
         return null;
     }
 
+    override getRollData(): Record<string, unknown> {
+        const rollData = super.getRollData();
+        if (this.parent) {
+            const spellcasting = this.spellcasting;
+            if (!spellcasting?.data && this.data.data.trickMagicItemData) {
+                rollData['mod'] = this.actor.getAbilityMod(this.data.data.trickMagicItemData.ability);
+            } else {
+                rollData['mod'] = this.actor.getAbilityMod(spellcasting?.ability ?? 'int');
+            }
+        }
+
+        return rollData;
+    }
+
     computeDamageParts(castLevel?: number) {
         castLevel = this.computeCastLevel(castLevel);
         const parts: (string | number)[] = [];
         if (this.damageValue) parts.push(this.damage.value);
-        if (this.damage.applyMod && this.actor) {
-            const entry = this.spellcasting;
-            if (!entry && this.data.data.trickMagicItemData) {
-                parts.push(this.actor.getAbilityMod(this.data.data.trickMagicItemData.ability));
-            } else if (entry) {
-                parts.push(this.actor.getAbilityMod(entry.ability));
-            }
-        }
+        if (this.damage.applyMod && this.actor) parts.push('@mod');
         if (this.data.data.duration.value === '' && this.actor) {
             const hasDangerousSorcery = this.actor.itemTypes.feat.some((feat) => feat.slug === 'dangerous-sorcery');
             if (hasDangerousSorcery && !this.isFocusSpell && !this.isCantrip) {
