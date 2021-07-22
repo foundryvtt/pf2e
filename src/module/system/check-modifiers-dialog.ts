@@ -157,17 +157,20 @@ export class CheckModifiersDialog extends Application {
 
             const resultLabel = game.i18n.localize('PF2E.ResultLabel');
             const degreeLabel = game.i18n.localize(`PF2E.${ctx.dc.scope ?? 'CheckOutcome'}.${degreeOfSuccessText}`);
-            const offsetLabel = (() => {
-                const acOrDC = ['attack-roll', 'spell-attack-roll'].includes(ctx.type) ? 'Armor' : 'Difficulty';
-                const localized = game.i18n.localize(`PF2E.${acOrDC}ClassShortLabel`);
-                const difference = roll.total - (ctx.dc.value ?? 0);
-                const operator = difference >= 0 ? '+' : '-';
-                return `${localized} ${operator} ${Math.abs(difference)}`;
-            })();
             const showResult = ctx.dc.visibility ?? game.settings.get('pf2e', 'metagame.showResults');
+            const offsetLabel = (() => {
+                return game.i18n.format('PF2E.ResultOffset', {
+                    offset: new Intl.NumberFormat(game.i18n.lang, {
+                        maximumFractionDigits: 0,
+                        signDisplay: 'always',
+                        useGrouping: false,
+                    }).format(roll.total - (ctx.dc.value ?? 0)),
+                });
+            })();
             flavor += `<div data-visibility="${showResult}" class="degree-of-success">`;
-            flavor += `<b>${resultLabel}: <span class="${degreeOfSuccessText}">${degreeLabel}</span></b>`;
-            flavor += `${adjustmentLabel} <strong data-visibility=${showDC}>(${offsetLabel})</strong>`;
+            flavor += `<b>${resultLabel}: <span class="${degreeOfSuccessText}">${degreeLabel} `;
+            flavor += showResult === showDC ? offsetLabel : `<span data-visibility=${showDC}>${offsetLabel}</span>`;
+            flavor += `</span></b> ${adjustmentLabel}`;
             flavor += '</div>';
         }
 
