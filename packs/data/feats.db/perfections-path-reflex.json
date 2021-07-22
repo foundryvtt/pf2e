@@ -1,5 +1,5 @@
 {
-    "_id": "pu1U9ZWVVG1Lc94t",
+    "_id": "wkJ6EjtXUztOqTwH",
     "data": {
         "actionCategory": {
             "value": ""
@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your proficiency ranks for simple weapons and martial weapons increase to expert, and your proficiency rank for advanced weapons increases to trained.</p>"
+            "value": "<p>Choose one saving throw (Fortitude, Reflex, or Will) in which you are an expert. Your proficiency rank in the chosen saving throw increases to master.</p>"
         },
         "featType": {
             "value": "archetype"
@@ -25,10 +25,10 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "Fighter Dedication"
+                    "value": "Monk Dedication"
                 },
                 {
-                    "value": "expert in any kind of weapon or unarmed attacks"
+                    "value": "expert in at least one saving throw"
                 }
             ]
         },
@@ -36,25 +36,26 @@
             {
                 "key": "PF2E.RuleElement.ActiveEffectLike",
                 "mode": "add",
-                "path": "data.data.custom.modifiers.fighter-dedication-count",
+                "path": "data.data.custom.modifiers.monk-dedication-count",
                 "value": 1
             },
             {
                 "key": "PF2E.RuleElement.ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "data.martial.simple.rank",
-                "value": 2
-            },
-            {
-                "key": "PF2E.RuleElement.ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "data.martial.martial.rank",
-                "value": 2
+                "path": "data.saves.reflex.rank",
+                "value": 3
             }
         ],
         "schema": {
-            "lastMigration": null,
-            "version": 0.644
+            "lastMigration": {
+                "datetime": "2021-07-20T17:59:29.611-04:00",
+                "version": {
+                    "foundry": "0.8.8",
+                    "schema": 0.644,
+                    "system": "2.9.1"
+                }
+            },
+            "version": 0.645
         },
         "source": {
             "value": ""
@@ -72,6 +73,6 @@
     "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Diverse Weapon Expert",
+    "name": "Perfection's Path (Reflex)",
     "type": "feat"
 }
