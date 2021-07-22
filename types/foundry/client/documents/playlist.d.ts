@@ -94,7 +94,7 @@ declare global {
         protected _sortSounds(a: PlaylistSound, b: PlaylistSound): number;
 
         protected override _preUpdate(
-            data: DocumentUpdateData<this>,
+            data: DeepPartial<this['data']['_source']>,
             options: DocumentModificationContext,
             user: User,
         ): Promise<void>;

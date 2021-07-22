@@ -7,7 +7,7 @@ declare module foundry {
             static override get metadata(): FogExplorationMetadata;
 
             protected override _preUpdate(
-                changed: DocumentUpdateData<this>,
+                data: DeepPartial<this['data']['_source']>,
                 options: DocumentModificationContext,
                 user: BaseUser,
             ): Promise<void>;

@@ -44,7 +44,7 @@ declare module foundry {
             ): Promise<void>;
 
             protected override _preUpdate(
-                changed: DocumentUpdateData<BaseActor>,
+                data: DeepPartial<this['data']['_source']>,
                 options: DocumentModificationContext,
                 user: BaseUser,
             ): Promise<void>;
