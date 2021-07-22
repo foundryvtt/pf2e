@@ -5,6 +5,7 @@ import { ChatCards } from './listeners/cards';
 import { CriticalHitAndFumbleCards } from './crit-fumble-cards';
 import { ItemType } from '@item/data';
 import { ItemPF2e } from '@item';
+import { TokenPF2e } from '@module/canvas';
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** Get the actor associated with this chat message */
@@ -63,6 +64,12 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         return speaker.alias ?? game.actors.get(speaker.actor ?? '')?.name ?? this.user?.name ?? '';
     }
 
+    /** Get the token of the speaker if possible */
+    get token(): TokenPF2e | undefined {
+        const speaker = this.data.speaker;
+        return game.scenes.current?.tokens?.get(speaker?.token ?? '')?.object;
+    }
+
     override async getHTML(): Promise<JQuery> {
         const $html = await super.getHTML();
         ChatCards.listen($html);
@@ -72,7 +79,32 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             CriticalHitAndFumbleCards.appendButtons(this, $html);
         }
 
+        $html.on('mouseenter', this.onHoverIn.bind(this));
+        $html.on('mouseleave', this.onHoverOut.bind(this));
+        $html.find('.message-sender').on('click', this.onClick.bind(this));
+
         return $html;
+    }
+
+    protected onHoverIn(event: JQuery.MouseEnterEvent): void {
+        event.preventDefault();
+        const token = this.token;
+        if (token && token.visible && !token.isControlled) {
+            token.onHoverIn(event);
+        }
+    }
+
+    protected onHoverOut(event: JQuery.MouseLeaveEvent): void {
+        event.preventDefault();
+        this.token?.onHoverOut(event);
+    }
+
+    protected onClick(event: JQuery.ClickEvent): void {
+        event.preventDefault();
+        const token = this.token;
+        if (token && token.visible) {
+            token.isControlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
+        }
     }
 
     protected override _onCreate(
