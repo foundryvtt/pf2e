@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+3",
+                "mod": 3,
                 "value": 16
             },
             "wis": {
@@ -63,7 +63,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "(negative healing)",
+                "details": "negative healing",
                 "max": 45,
                 "min": 0,
                 "temp": 0,
@@ -144,7 +144,7 @@
             },
             "recallKnowledgeText": "",
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario 2-03: Catastrophe's Spark"
             }
         },
         "saves": {
@@ -205,10 +205,11 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "can't speak any language",
                 "selected": [],
                 "value": [
-                    "common (can't speak any language)"
+                    "common",
+                    "custom"
                 ]
             },
             "rarity": {
@@ -240,7 +241,7 @@
                 },
                 "attackEffects": {
                     "value": [
-                        "Grab"
+                        "grab"
                     ]
                 },
                 "bonus": {
@@ -333,8 +334,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Tremorsense",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
             "sort": 200000,
             "type": "action"
         },
@@ -387,8 +388,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.sebk9XseMCRkDqRg"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Lifesense",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense (30 feet)",
             "sort": 300000,
             "type": "action"
         },
@@ -407,7 +408,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The giant crawling hand takes piercing or slashing damage; <br /><strong>Effect</strong> A random creature adjacent to the giant crawling hand is sprayed with vile pus that deals [[/r 2d6 #negative]] negative damage. The affected creature must attempt a <span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"19\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Pus Burst DC\" data-pf2-show-dc=\"gm\">Reflex</span> save.<br /><strong>Critical Success</strong> The creature takes no damage.<br /><strong>Success</strong> The creature takes half damage and becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.<br /><strong>Failure</strong> The creature takes full damage and becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.<br /><strong>Critical Failure</strong> The creature takes double damage and becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 3}.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The giant crawling hand takes piercing or slashing damage;</p>\n<p><strong>Effect</strong> A random creature adjacent to the giant crawling hand is sprayed with vile pus that deals [[/r 2d6 #negative]]{2d6 negative damage}. The affected creature must attempt a <span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"19\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Pus Burst DC\" data-pf2-show-dc=\"gm\">Reflex</span> save.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage and becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 3}.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -511,12 +512,56 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A crawling hand can be assigned a quarry by anointing the hand with a drop of the intended quarry's blood. If the hand ever has no quarry, it automatically gains the next creature it damages as its quarry. The hand gains a +1 circumstance bonus to Perception checks when it Seeks its quarry, to Survival checks when it Tracks its quarry, and damage rolls when it Strikes its quarry.</p>"
+                    "value": "<p>A crawling hand can be assigned a quarry by anointing the hand with a drop of the intended quarry's blood. If the hand ever has no quarry, it automatically gains the next creature it damages as its quarry. The hand gains a +1 circumstance bonus to Perception checks when it @Compendium[pf2e.actionspf2e.Seek]{Seeks} its quarry, to Survival checks when it @Compendium[pf2e.actionspf2e.Track]{Tracks} its quarry, and damage rolls when it Strikes its quarry.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Target is Marked Quarry",
+                        "property": "flags.pf2e.rollOptions.all.mark-quarry"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Marked Quarry",
+                        "predicate": {
+                            "all": [
+                                "mark-quarry",
+                                "action:seek"
+                            ]
+                        },
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Marked Quarry",
+                        "predicate": {
+                            "all": [
+                                "mark-quarry",
+                                "action:track"
+                            ]
+                        },
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Marked Quarry",
+                        "predicate": {
+                            "all": [
+                                "mark-quarry"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.644
@@ -541,9 +586,70 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mark Quarry",
             "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "YSXnTHGyjdZzL6uZ",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": {
+                        "datetime": "2021-07-19T17:10:58.486-06:00",
+                        "version": {
+                            "foundry": "0.8.8",
+                            "schema": 0.644,
+                            "system": "2.9.1"
+                        }
+                    },
+                    "version": 0.645
+                },
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -584,7 +690,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -625,7 +731,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -666,7 +772,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],
