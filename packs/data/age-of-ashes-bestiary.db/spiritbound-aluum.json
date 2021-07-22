@@ -104,7 +104,8 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
+                        "label": "Fly",
+                        "type": "fly",
                         "value": "25"
                     }
                 ],
@@ -130,7 +131,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "<p>Whereas most aluums are animated by the souls of volunteers loyal to Katapesh, the Pactmasters created a handful of more capable (and deadly) aluums powered by the souls of a dozen or more dangerous criminals. These spiritbound aluums are rarely used as peacekeepers, instead serving as assassins, elite bodyguards, or riot control during times of martial law.</p>\n<p>A spiritbound aluum has a dull blue crystalline focus that stores constituent souls, surrounded by a host of smaller gems used for trapping souls the Pactmasters wish to deny from entering the Great Beyond. Spiritbound aluums rarely use this soul-binding ability except when instructed by their masters. However, the murderous or embittered souls within the aluum sometimes exert control and willfully consume a departing soul either out of malice or to incorporate it into the construct's core. If not relieved of its trapped souls in a timely manner, a spiritbound aluum can develop enough will to overcome its masters' orders and even awaken to full sentience. These rogue aluums typically lose the mindless trait, are evil, have an Intelligence modifier of &ndash;2 or higher, and gain several skills with bonuses ranging from +25 to +32.</p>",
+            "flavorText": "<p>Whereas most aluums are animated by the souls of volunteers loyal to Katapesh, the Pactmasters created a handful of more capable (and deadly) aluums powered by the souls of a dozen or more dangerous criminals. These spiritbound aluums are rarely used as peacekeepers, instead serving as assassins, elite bodyguards, or riot control during times of martial law.</p>\n<p>A spiritbound aluum has a dull blue crystalline focus that stores constituent souls, surrounded by a host of smaller gems used for trapping souls the Pactmasters wish to deny from entering the Great Beyond. Spiritbound aluums rarely use this soul-binding ability except when instructed by their masters. However, the murderous or embittered souls within the aluum sometimes exert control and willfully consume a departing soul either out of malice or to incorporate it into the construct's core. If not relieved of its trapped souls in a timely manner, a spiritbound aluum can develop enough will to overcome its masters' orders and even awaken to full sentience. These rogue aluums typically lose the mindless trait, are evil, have an Intelligence modifier of -2 or higher, and gain several skills with bonuses ranging from +25 to +32.</p>\n<hr />\n<p>Aluums are powerful metal and stone constructs originally created by the Pactmasters to maintain order in Katapesh. The construction of each aluum includes the creation of an <em>@Compendium[pf2e.equipment-srd.Aluum Charm]{Aluum Charm}</em>, a brass pendant set with a blue crystal designed to control that particular construct. The charm constructed at the same time as an aluum is called its linked charm.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -359,7 +360,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Arcane Spells",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
@@ -889,7 +890,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Paralyzing Force"
+                        "paralyzing-force"
                     ]
                 },
                 "bonus": {
@@ -942,7 +943,7 @@
             "_id": "r0yOc789JUXP2zpN",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1058,7 +1059,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A creature damaged by the Spirtibound Aluum's fist @Compendium[pf2e.actionspf2e.Strike]{Strike} must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"35\" data-pf2-traits=\"arcane,incapacitation,necromancy\" data-pf2-label=\"Paralyzing Force DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round. On a critical failure, the creature is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for [[/r 1d4]] minutes and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+                    "value": "<p>A creature damaged by the Spirtibound Aluum's fist Strike must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"35\" data-pf2-traits=\"arcane,incapacitation,necromancy\" data-pf2-label=\"Paralyzing Force DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round. On a critical failure, the creature is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for [[/r 1d4 #minutes]]{1d4 minutes} and falls @Compendium[pf2e.conditionitems.Prone]{Prone}</span>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1117,7 +1118,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong>: The spiritbound aluum has bound a soul using its @Compendium[pf2e.spells-srd.Bind Soul]{Bind Soul} innate spell;</p>\n<p><strong>Effect</strong>: The spiritbound aluum transforms the captured soul's essence into raw magical energy, channeling the spirit into a beam that deals [[/r 20d6 #force]] force damage in a 30-foot line (<span data-pf2-check=\"reflex\" data-pf2-dc=\"38\" data-pf2-traits=\"arcane,evocation,force,damaging-effect\" data-pf2-label=\"Obliteration Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The remaining fragments of the captured soul are released to the Great Beyond. The spiritbound aluum can't use Obliteration Beam again for [[/r 1d4]] rounds.</p>"
+                    "value": "<p><strong>Requirements</strong>: The spiritbound aluum has bound a soul using its @Compendium[pf2e.spells-srd.Bind Soul]{Bind Soul} innate spell;</p>\n<p><strong>Effect</strong>: The spiritbound aluum transforms the captured soul's essence into raw magical energy, channeling the spirit into a beam that deals [[/r 20d6 #force]]{20d6 force damage} in a 30-foot line (<span data-pf2-check=\"reflex\" data-pf2-dc=\"38\" data-pf2-traits=\"arcane,evocation,force,damaging-effect\" data-pf2-label=\"Obliteration Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The remaining fragments of the captured soul are released to the Great Beyond.</p>\n<p data-visibility=\"gm\">The spiritbound aluum can't use Obliteration Beam again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1165,7 +1166,7 @@
             "_id": "tBIBeHhWxRinsTO5",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1176,7 +1177,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When a spiritbound aluum uses its @Compendium[pf2e.spells-srd.Bind Soul]{Bind Soul} innate spell, it binds the soul into its central crystal instead of the normal material component. The crystal can hold up to 60 souls. When encountered, a spiritbound aluum's crystal typically contains [[/r 1d6]] souls.</p>"
+                    "value": "<p>When a spiritbound aluum uses its @Compendium[pf2e.spells-srd.Bind Soul]{Bind Soul} innate spell, it binds the soul into its central crystal instead of the normal material component. The crystal can hold up to 60 souls.</p>\n<p>When encountered, a spiritbound aluum's crystal typically contains [[/br 1d6 #souls]]{1d6 souls}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1216,7 +1217,7 @@
             "_id": "gw4Ka0K9vOSo5rbh",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -1227,7 +1228,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The aluum enforcer emits a keening wail in a 15-foot cone that deals [[/r 16d6 # sonic]] sonic damage (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"27\" data-pf2-traits=\"arcane,auditory,evocation,mental,sonic,damaging-effect\" data-pf2-label=\"Soul Shriek DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save). A creature that fails its save is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}, or @Compendium[pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure. The aluum can't use Soul Shriek again for [[/r 1d4]] rounds.</p>"
+                    "value": "<p>The aluum enforcer emits a keening wail in a 15-foot cone that deals [[/r 16d6 #sonic]]{16d6 sonic damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"27\" data-pf2-traits=\"arcane,auditory,evocation,mental,sonic,damaging-effect\" data-pf2-label=\"Soul Shriek DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save). A creature that fails its save is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}, or @Compendium[pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure.</p>\n<p data-visibility=\"gm\">The aluum can't use Soul Shriek again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
