@@ -1212,6 +1212,14 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         await MigrationRunner.ensureSchemaVersion(this, Migrations.constructFromVersion());
     }
 
+    /** Unregister all effects possessed by this actor */
+    protected override _onDelete(options: DocumentModificationContext, userId: string): void {
+        for (const effect of this.itemTypes.effect) {
+            game.pf2e.effectTracker.unregister(effect);
+        }
+        super._onDelete(options, userId);
+    }
+
     /** Fix bug in Foundry 0.8.8 where 'render = false' is not working when creating embedded documents */
     protected override _onCreateEmbeddedDocuments(
         embeddedName: 'Item' | 'ActiveEffect',
