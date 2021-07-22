@@ -9,28 +9,19 @@ interface EffectPanelData {
 }
 
 export class EffectPanel extends Application {
-    actor?: any;
+    actor?: ActorPF2e;
 
-    private timeout: number | undefined = undefined;
+    /**
+     * Debounce and slightly delayed request to re-render this panel. Necessary for situations where it is not possible
+     * to properly wait for promises to resolve before refreshing the UI.
+     */
+    refresh = foundry.utils.debounce(this.render, 100);
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             popOut: false,
             template: 'systems/pf2e/templates/system/effect-panel.html',
         });
-    }
-
-    /**
-     * Debounced and slightly delayed request to re-render this panel. Necessary for situations where it is not possible
-     * to properly wait for promises to resolve before refreshing the UI.
-     */
-    refresh() {
-        if (this.timeout) {
-            window.clearTimeout(this.timeout);
-        }
-        this.timeout = window.setTimeout(() => {
-            this.render(false);
-        }, 100);
     }
 
     override getData(options?: ApplicationOptions): EffectPanelData {
@@ -85,6 +76,9 @@ export class EffectPanel extends Application {
                 await actor.decreaseCondition(effect);
             } else if (effect instanceof EffectPF2e) {
                 await effect.delete();
+            } else {
+                // Failover in case of a stale effect
+                this.refresh();
             }
         });
     }

@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+10",
+                "mod": 10,
                 "value": 30
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 50,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -103,11 +104,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "240 feet"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "240"
                     }
                 ],
-                "value": "60 feet"
+                "value": "60"
             }
         },
         "details": {
@@ -228,7 +230,7 @@
                 "value": "unique"
             },
             "senses": {
-                "value": "Darkvision, scent (imprecise) 60 feet, smoke vision"
+                "value": "darkvision, scent (imprecise) 60 feet, smoke vision"
             },
             "size": {
                 "value": "grg"
@@ -247,24 +249,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "HVyEKjKNyv573os6",
+            "_id": "n2I1TMJLTQ65exGf",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "cha"
+                },
+                "autoHeightenLevel": {
+                    "value": 9
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
-                "displayLevel": {},
                 "displayLevels": {},
                 "focus": {
                     "points": 1,
                     "pool": 1
-                },
-                "item": {
-                    "value": 0
                 },
                 "prepared": {
                     "value": "innate"
@@ -278,7 +277,7 @@
                     "version": 0.644
                 },
                 "showUnpreparedSpells": {
-                    "value": false
+                    "value": true
                 },
                 "signatureSpells": {
                     "value": []
@@ -350,10 +349,9 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "35",
-                    "item": 0,
+                    "dc": 46,
                     "mod": 0,
-                    "value": 25
+                    "value": 38
                 },
                 "tradition": {
                     "value": "arcane"
@@ -374,7 +372,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "rKvQIO8zgXDZN3ED",
+            "_id": "Lxy72d7EHquxHGp8",
             "data": {
                 "ability": {
                     "value": ""
@@ -383,11 +381,17 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
-                    "material": true,
+                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -396,27 +400,27 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "4d6"
+                    "value": ""
                 },
                 "damageType": {
-                    "value": "fire"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You raise a blazing wall that burns creatures passing through it. You create either a 5-foot-thick wall of flame in a straight line up to 60 feet long and 10 feet high, or a 5-foot-thick, 10-foot-radius ring of flame with the same height. The wall stands vertically in either form; if you wish, the wall can be of a shorter length or height. Everything on each side of the wall is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from creatures on the opposite side. Any creature that crosses the wall or is occupying the wall's area at the start of its turn takes 4d6 fire damage.</p>\n<hr />\n<p><strong>Heightened</strong> The fire damage increases by 1d6.</p>"
+                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened (8th)</strong> You can target up to 10 creatures."
                 },
                 "duration": {
-                    "value": "1 minute"
+                    "value": "varies"
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
                 "level": {
-                    "value": 8
+                    "value": 4
                 },
                 "location": {
-                    "value": "HVyEKjKNyv573os6"
+                    "value": "n2I1TMJLTQ65exGf"
                 },
                 "materials": {
                     "value": ""
@@ -424,13 +428,16 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "120 feet"
+                    "value": "30 feet"
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -441,28 +448,34 @@
                     "version": 0.644
                 },
                 "school": {
-                    "value": "evocation"
+                    "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "suggestion",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=362"
+                    "value": ""
                 },
                 "spellType": {
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": ""
+                    "value": "1 creature"
                 },
                 "time": {
-                    "value": "3"
+                    "value": "2"
                 },
                 "traditions": {
                     "value": [
                         "arcane",
-                        "primal"
+                        "occult"
                     ]
                 },
                 "traits": {
@@ -471,20 +484,26 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
-                        "fire"
+                        "enchantment",
+                        "incapacitation",
+                        "linguistic",
+                        "mental"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/wall-of-fire.webp",
-            "name": "Wall of Fire",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.qwlh6aDgi86U3Q7H"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/suggestion.webp",
+            "name": "Suggestion",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "vpq9aPto3AZLiwjr",
+            "_id": "qQUmGlbZGXB2t4CE",
             "data": {
                 "ability": {
                     "value": ""
@@ -493,11 +512,17 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
-                    "material": true,
+                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -506,27 +531,27 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "4d6"
+                    "value": ""
                 },
                 "damageType": {
-                    "value": "fire"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You raise a blazing wall that burns creatures passing through it. You create either a 5-foot-thick wall of flame in a straight line up to 60 feet long and 10 feet high, or a 5-foot-thick, 10-foot-radius ring of flame with the same height. The wall stands vertically in either form; if you wish, the wall can be of a shorter length or height. Everything on each side of the wall is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from creatures on the opposite side. Any creature that crosses the wall or is occupying the wall's area at the start of its turn takes 4d6 fire damage.</p>\n<hr />\n<p><strong>Heightened</strong> The fire damage increases by 1d6.</p>"
+                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened (8th)</strong> You can target up to 10 creatures."
                 },
                 "duration": {
-                    "value": "1 minute"
+                    "value": "varies"
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
                 "level": {
-                    "value": 8
+                    "value": 4
                 },
                 "location": {
-                    "value": "HVyEKjKNyv573os6"
+                    "value": "n2I1TMJLTQ65exGf"
                 },
                 "materials": {
                     "value": ""
@@ -534,13 +559,16 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "120 feet"
+                    "value": "30 feet"
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -551,28 +579,34 @@
                     "version": 0.644
                 },
                 "school": {
-                    "value": "evocation"
+                    "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "suggestion",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=362"
+                    "value": ""
                 },
                 "spellType": {
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": ""
+                    "value": "1 creature"
                 },
                 "time": {
-                    "value": "3"
+                    "value": "2"
                 },
                 "traditions": {
                     "value": [
                         "arcane",
-                        "primal"
+                        "occult"
                     ]
                 },
                 "traits": {
@@ -581,20 +615,26 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
-                        "fire"
+                        "enchantment",
+                        "incapacitation",
+                        "linguistic",
+                        "mental"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/wall-of-fire.webp",
-            "name": "Wall of Fire",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.qwlh6aDgi86U3Q7H"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/suggestion.webp",
+            "name": "Suggestion",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "OlV1kzCIGxR5y0J5",
+            "_id": "JfcG88yfx7hdzxEe",
             "data": {
                 "ability": {
                     "value": ""
@@ -603,11 +643,17 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
-                    "material": true,
+                    "material": false,
                     "somatic": true,
                     "verbal": true
                 },
@@ -616,27 +662,27 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "4d6"
+                    "value": ""
                 },
                 "damageType": {
-                    "value": "fire"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You raise a blazing wall that burns creatures passing through it. You create either a 5-foot-thick wall of flame in a straight line up to 60 feet long and 10 feet high, or a 5-foot-thick, 10-foot-radius ring of flame with the same height. The wall stands vertically in either form; if you wish, the wall can be of a shorter length or height. Everything on each side of the wall is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from creatures on the opposite side. Any creature that crosses the wall or is occupying the wall's area at the start of its turn takes 4d6 fire damage.</p>\n<hr />\n<p><strong>Heightened</strong> The fire damage increases by 1d6.</p>"
+                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened (8th)</strong> You can target up to 10 creatures."
                 },
                 "duration": {
-                    "value": "1 minute"
+                    "value": "varies"
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
                 "level": {
-                    "value": 8
+                    "value": 4
                 },
                 "location": {
-                    "value": "HVyEKjKNyv573os6"
+                    "value": "n2I1TMJLTQ65exGf"
                 },
                 "materials": {
                     "value": ""
@@ -644,13 +690,16 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "120 feet"
+                    "value": "30 feet"
                 },
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -661,28 +710,34 @@
                     "version": 0.644
                 },
                 "school": {
-                    "value": "evocation"
+                    "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "suggestion",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=362"
+                    "value": ""
                 },
                 "spellType": {
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": ""
+                    "value": "1 creature"
                 },
                 "time": {
-                    "value": "3"
+                    "value": "2"
                 },
                 "traditions": {
                     "value": [
                         "arcane",
-                        "primal"
+                        "occult"
                     ]
                 },
                 "traits": {
@@ -691,26 +746,38 @@
                         "value": "common"
                     },
                     "value": [
-                        "evocation",
-                        "fire"
+                        "enchantment",
+                        "incapacitation",
+                        "linguistic",
+                        "mental"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/wall-of-fire.webp",
-            "name": "Wall of Fire",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.qwlh6aDgi86U3Q7H"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/suggestion.webp",
+            "name": "Suggestion",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "328PyTRLMaGpMmuC",
+            "_id": "5MlwAUm4fBndqKQZ",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -734,7 +801,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You raise a blazing wall that burns creatures passing through it. You create either a 5-foot-thick wall of flame in a straight line up to 60 feet long and 10 feet high, or a 5-foot-thick, 10-foot-radius ring of flame with the same height. The wall stands vertically in either form; if you wish, the wall can be of a shorter length or height. Everything on each side of the wall is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from creatures on the opposite side. Any creature that crosses the wall or is occupying the wall's area at the start of its turn takes 4d6 fire damage.</p>\n<hr />\n<p><strong>Heightened</strong> The fire damage increases by 1d6.</p>"
+                    "value": "<p>You raise a blazing wall that burns creatures passing through it. You create either a 5-foot-thick wall of flame in a straight line up to 60 feet long and 10 feet high, or a 5-foot-thick, 10-foot-radius ring of flame with the same height. The wall stands vertically in either form; if you wish, the wall can be of a shorter length or height. Everything on each side of the wall is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from creatures on the opposite side. Any creature that crosses the wall or is occupying the wall's area at the start of its turn takes 4d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -742,16 +809,22 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "level": {
+                "heightenedLevel": {
                     "value": 8
                 },
+                "level": {
+                    "value": 4
+                },
                 "location": {
-                    "value": "HVyEKjKNyv573os6"
+                    "value": "n2I1TMJLTQ65exGf"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -763,8 +836,8 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d6",
+                    "mode": "level1"
                 },
                 "schema": {
                     "lastMigration": null,
@@ -773,9 +846,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "wall-of-fire",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=362"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -807,14 +886,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.IarZrgCeaiUqOuRu"
+                }
+            },
             "img": "systems/pf2e/icons/spells/wall-of-fire.webp",
             "name": "Wall of Fire",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "RTpLKAtgK1jes9Ms",
+            "_id": "dMt0OzfqYo5OMumL",
             "data": {
                 "ability": {
                     "value": ""
@@ -823,11 +906,17 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
-                    "material": false,
+                    "material": true,
                     "somatic": true,
                     "verbal": true
                 },
@@ -836,27 +925,30 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": ""
+                    "value": "4d6"
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": "fire"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened</strong> You can target up to 10 creatures."
+                    "value": "<p>You raise a blazing wall that burns creatures passing through it. You create either a 5-foot-thick wall of flame in a straight line up to 60 feet long and 10 feet high, or a 5-foot-thick, 10-foot-radius ring of flame with the same height. The wall stands vertically in either form; if you wish, the wall can be of a shorter length or height. Everything on each side of the wall is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from creatures on the opposite side. Any creature that crosses the wall or is occupying the wall's area at the start of its turn takes 4d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 1d6.</p>"
                 },
                 "duration": {
-                    "value": "varies"
+                    "value": "1 minute"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 8
                 },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "HVyEKjKNyv573os6"
+                    "value": "n2I1TMJLTQ65exGf"
                 },
                 "materials": {
                     "value": ""
@@ -864,8 +956,11 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "30 feet"
+                    "value": "120 feet"
                 },
                 "rules": [],
                 "save": {
@@ -873,36 +968,42 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d6",
+                    "mode": "level1"
                 },
                 "schema": {
                     "lastMigration": null,
                     "version": 0.644
                 },
                 "school": {
-                    "value": "enchantment"
+                    "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "wall-of-fire",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=315"
+                    "value": ""
                 },
                 "spellType": {
-                    "value": "save"
+                    "value": "utility"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature"
+                    "value": ""
                 },
                 "time": {
-                    "value": "2"
+                    "value": "3"
                 },
                 "traditions": {
                     "value": [
                         "arcane",
-                        "occult"
+                        "primal"
                     ]
                 },
                 "traits": {
@@ -911,22 +1012,24 @@
                         "value": "common"
                     },
                     "value": [
-                        "enchantment",
-                        "incapacitation",
-                        "linguistic",
-                        "mental"
+                        "evocation",
+                        "fire"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/suggestion.webp",
-            "name": "Suggestion",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.IarZrgCeaiUqOuRu"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/wall-of-fire.webp",
+            "name": "Wall of Fire",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "YBMyETA5Vxwc6VAu",
+            "_id": "7JNvkCnbKHFPfFlx",
             "data": {
                 "ability": {
                     "value": ""
@@ -935,11 +1038,17 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
-                    "material": false,
+                    "material": true,
                     "somatic": true,
                     "verbal": true
                 },
@@ -948,27 +1057,30 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": ""
+                    "value": "4d6"
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": "fire"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened</strong> You can target up to 10 creatures."
+                    "value": "<p>You raise a blazing wall that burns creatures passing through it. You create either a 5-foot-thick wall of flame in a straight line up to 60 feet long and 10 feet high, or a 5-foot-thick, 10-foot-radius ring of flame with the same height. The wall stands vertically in either form; if you wish, the wall can be of a shorter length or height. Everything on each side of the wall is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from creatures on the opposite side. Any creature that crosses the wall or is occupying the wall's area at the start of its turn takes 4d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 1d6.</p>"
                 },
                 "duration": {
-                    "value": "varies"
+                    "value": "1 minute"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 8
                 },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "HVyEKjKNyv573os6"
+                    "value": "n2I1TMJLTQ65exGf"
                 },
                 "materials": {
                     "value": ""
@@ -976,8 +1088,11 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "30 feet"
+                    "value": "120 feet"
                 },
                 "rules": [],
                 "save": {
@@ -985,36 +1100,42 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d6",
+                    "mode": "level1"
                 },
                 "schema": {
                     "lastMigration": null,
                     "version": 0.644
                 },
                 "school": {
-                    "value": "enchantment"
+                    "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "wall-of-fire",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=315"
+                    "value": ""
                 },
                 "spellType": {
-                    "value": "save"
+                    "value": "utility"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature"
+                    "value": ""
                 },
                 "time": {
-                    "value": "2"
+                    "value": "3"
                 },
                 "traditions": {
                     "value": [
                         "arcane",
-                        "occult"
+                        "primal"
                     ]
                 },
                 "traits": {
@@ -1023,22 +1144,24 @@
                         "value": "common"
                     },
                     "value": [
-                        "enchantment",
-                        "incapacitation",
-                        "linguistic",
-                        "mental"
+                        "evocation",
+                        "fire"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/suggestion.webp",
-            "name": "Suggestion",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.IarZrgCeaiUqOuRu"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/wall-of-fire.webp",
+            "name": "Wall of Fire",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "7JS62nsrKzjvebpM",
+            "_id": "oYJpHUJLOXyibSu0",
             "data": {
                 "ability": {
                     "value": ""
@@ -1047,11 +1170,17 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
                 "components": {
-                    "material": false,
+                    "material": true,
                     "somatic": true,
                     "verbal": true
                 },
@@ -1060,27 +1189,30 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": ""
+                    "value": "4d6"
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": "fire"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened</strong> You can target up to 10 creatures."
+                    "value": "<p>You raise a blazing wall that burns creatures passing through it. You create either a 5-foot-thick wall of flame in a straight line up to 60 feet long and 10 feet high, or a 5-foot-thick, 10-foot-radius ring of flame with the same height. The wall stands vertically in either form; if you wish, the wall can be of a shorter length or height. Everything on each side of the wall is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from creatures on the opposite side. Any creature that crosses the wall or is occupying the wall's area at the start of its turn takes 4d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 1d6.</p>"
                 },
                 "duration": {
-                    "value": "varies"
+                    "value": "1 minute"
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 8
                 },
                 "level": {
                     "value": 4
                 },
                 "location": {
-                    "value": "HVyEKjKNyv573os6"
+                    "value": "n2I1TMJLTQ65exGf"
                 },
                 "materials": {
                     "value": ""
@@ -1088,8 +1220,11 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "30 feet"
+                    "value": "120 feet"
                 },
                 "rules": [],
                 "save": {
@@ -1097,36 +1232,42 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d6",
+                    "mode": "level1"
                 },
                 "schema": {
                     "lastMigration": null,
                     "version": 0.644
                 },
                 "school": {
-                    "value": "enchantment"
+                    "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "wall-of-fire",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=315"
+                    "value": ""
                 },
                 "spellType": {
-                    "value": "save"
+                    "value": "utility"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature"
+                    "value": ""
                 },
                 "time": {
-                    "value": "2"
+                    "value": "3"
                 },
                 "traditions": {
                     "value": [
                         "arcane",
-                        "occult"
+                        "primal"
                     ]
                 },
                 "traits": {
@@ -1135,29 +1276,37 @@
                         "value": "common"
                     },
                     "value": [
-                        "enchantment",
-                        "incapacitation",
-                        "linguistic",
-                        "mental"
+                        "evocation",
+                        "fire"
                     ]
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/suggestion.webp",
-            "name": "Suggestion",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.IarZrgCeaiUqOuRu"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/wall-of-fire.webp",
+            "name": "Wall of Fire",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "v5jqlIW069LJpamn",
+            "_id": "PqGCHcHsWVUwGzsf",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "emanation",
-                    "value": 30
+                    "value": "30"
+                },
+                "areasize": {
+                    "value": "30-foot emanation"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -1180,7 +1329,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.<br style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\"><strong>Heightened</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1192,12 +1341,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "HVyEKjKNyv573os6"
+                    "value": "n2I1TMJLTQ65exGf"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1219,7 +1371,13 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "detect-magic",
                 "source": {
                     "value": ""
                 },
@@ -1230,7 +1388,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "30-foot emination"
+                    "value": ""
                 },
                 "time": {
                     "value": "2"
@@ -1257,20 +1415,30 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
+                }
+            },
             "img": "systems/pf2e/icons/spells/detect-magic.webp",
-            "name": "Detect Magic - Cantrips",
+            "name": "Detect Magic",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "bUqrcgn0SH4WSyk3",
+            "_id": "rVSz9CHl20Une7pD",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
                     "value": null
                 },
                 "category": {
@@ -1294,7 +1462,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened</strong> You can target up to 10 objects.<br /><strong>Heightened</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1306,12 +1474,15 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "HVyEKjKNyv573os6"
+                    "value": "n2I1TMJLTQ65exGf"
                 },
                 "materials": {
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1333,7 +1504,13 @@
                 "school": {
                     "value": "divination"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "read-aura",
                 "source": {
                     "value": ""
                 },
@@ -1371,9 +1548,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.OhD2Z6rIGGD5ocZA"
+                }
+            },
             "img": "systems/pf2e/icons/spells/read-aura.webp",
-            "name": "Read Aura - Cantrips",
+            "name": "Read Aura",
             "sort": 1000000,
             "type": "spell"
         },
@@ -1647,6 +1828,60 @@
             "type": "action"
         },
         {
+            "_id": "nycjIkuU99HnHnf9",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.644
+                },
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scent (Imprecise) 60 Feet",
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
             "_id": "3Tll1xyzUd3udZZZ",
             "data": {
                 "actionCategory": {
@@ -1661,7 +1896,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>; 10 feet, [[/r 6d6 # fire damage]] fire damage</p>"
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 10 feet, [[/r 6d6 #fire]]{6d6 fire damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,aura,divine,evocation,fire\" data-pf2-label=\"Draconic Heat DC\" data-pf2-dc=\"42\" data-pf2-show-dc=\"gm\">basic Reflex</span> save)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1696,68 +1931,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Dragon Heat",
-            "sort": 1600000,
-            "type": "action"
-        },
-        {
-            "_id": "ACt1l4wV3SHnnFXj",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>90 feet, DC 42<br /> A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /> <strong>Critical Success</strong> The creature is unaffected by the presence.<br /> <strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.<br /> <strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.644
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "aura",
-                        "emotion",
-                        "fear",
-                        "mental"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Frightful Presence",
             "sort": 1700000,
             "type": "action"
         },
         {
-            "_id": "g8finxQVOhlcDOwR",
+            "_id": "7WLDlQXPSYjiBkjA",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1771,7 +1951,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Jaws only.<br /><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p>Jaws only</p>\n<hr />\n<strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1800,14 +1980,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Attack of Opportunity",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.avC2VQHX2XsNPvGe"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity (Jaws only)",
             "sort": 1800000,
             "type": "action"
         },
         {
-            "_id": "G4UfnSz0dQK1Vlh7",
+            "_id": "6m1q9eJjaPr21j44",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1821,7 +2005,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within 100 feet casts an acid, cold, fire, electricity, or poison spell, or such a spell otherwise comes into effect from a source within 100 feet; <strong>Effect</strong> The manifestation makes all the choices to determine the targets, destination, or other effects of the spell, as though it were the caster.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 100 feet casts an acid, cold, fire, electricity, or poison spell, or such a spell otherwise comes into effect from a source within 100 feet;</p>\n<p><strong>Effect</strong> The manifestation of Dahak makes all the choices to determine the targets, destination, or other effects of the spell, as though it were the caster.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1854,27 +2038,27 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Redirect Energy",
             "sort": 1900000,
             "type": "action"
         },
         {
-            "_id": "OUDkohEflAg4eXrJ",
+            "_id": "KrTgWTUW9uB20sKT",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "defensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 2
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Dahak's manifestation breathes a blast of dragonstorm energy that deals [[/r 5d6 # acid damage]] acid, [[/r 5d6 # cold damage]] cold, [[/r 5d6 # electricity damage]] electricity, [[/r 5d6 # fire damage]] fire, and [[/r 5d6 # poison damage]] poison damage in a 60-foot cone (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"48\" data-pf2-traits=\"divine,evocation,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). It can't use Breath Weapon again for 1d4 rounds.</p>"
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 90 feet, <span data-pf2-check=\"will\" data-pf2-traits=\"aura, emotion, fear, mental\" data-pf2-label=\"Frightful Presence DC\" data-pf2-dc=\"42\" data-pf2-show-dc=\"gm\">Will</span> save</p>\n<p>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1884,7 +2068,7 @@
                     "lastMigration": null,
                     "version": 0.644
                 },
-                "slug": null,
+                "slug": "frightful-presence",
                 "source": {
                     "value": ""
                 },
@@ -1894,8 +2078,10 @@
                         "value": "common"
                     },
                     "value": [
-                        "divine",
-                        "evocation"
+                        "aura",
+                        "emotion",
+                        "fear",
+                        "mental"
                     ]
                 },
                 "trigger": {
@@ -1906,10 +2092,78 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Breath Weapon",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.etMnv73EIdEZrYYu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Frightful Presence",
             "sort": 2000000,
+            "type": "action"
+        },
+        {
+            "_id": "y3VpAyn8PUvvvCRc",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "divine",
+                                "primal",
+                                "occult"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 status to all saves vs. magic",
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -1959,7 +2213,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Draconic Frenzy",
-            "sort": 2100000,
+            "sort": 2200000,
             "type": "action"
         },
         {
@@ -2009,7 +2263,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Draconic Momentum",
-            "sort": 2200000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -2027,7 +2281,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The manifestation attempts to take control of a magical acid, cold, electricity, fire, or poison spell within 100 feet. If it succeeds at a counteract check (counteract level 10, counteract modifier +36), the original caster loses control of the spell, control is transferred to the manifestation, and the manifestation counts as having Sustained the Spell with this action (if applicable). The manifestation can end the spell instead of taking control, if it chooses.</p>"
+                    "value": "<p>The manifestation attempts to take control of a magical acid, cold, electricity, fire, or poison spell within 100 feet. If it succeeds at a counteract check (counteract level 10, counteract modifier [[/r 1d20+36 #Manipulate Energy]]{+36}), the original caster loses control of the spell, control is transferred to the manifestation, and the manifestation counts as having Sustained the Spell with this action (if applicable). The manifestation can end the spell instead of taking control, if it chooses.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2063,7 +2317,64 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Manipulate Energy",
-            "sort": 2300000,
+            "sort": 2400000,
+            "type": "action"
+        },
+        {
+            "_id": "kyJU0dp0AuLccYHV",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "2"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The manifestation of Dahak breathes a blast of dragonstorm energy that deals [[/r {5d6}[acid] + {5d6}[cold] +{5d6}[electricity] +{5d6}[fire] +{5d6}[poison]]]{5d6 acid, 5d6 cold, 5d6 electricity, 5d6 fire, and 5d6 poison damage} in a 60-foot cone (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect,fire,acid,cold,electricity,poison,divine,evocation\" data-pf2-label=\"Dragonstorm Breath DC\" data-pf2-dc=\"46\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">It can't use Dragonstorm Breath again for [[/br 1d4 # rounds]]{1d4 rounds}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.643
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "divine",
+                        "evocation"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Item.Xnas07kWC3ZCJmY4"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Breath Weapon",
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -2104,7 +2415,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2400000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -2145,7 +2456,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2500000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -2186,7 +2497,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2600000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -2227,7 +2538,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2700000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -2268,7 +2579,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2800000,
+            "sort": 3000000,
             "type": "lore"
         },
         {
@@ -2309,7 +2620,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2900000,
+            "sort": 3100000,
             "type": "lore"
         },
         {
@@ -2350,7 +2661,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 3000000,
+            "sort": 3200000,
             "type": "lore"
         }
     ],
@@ -2360,7 +2671,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

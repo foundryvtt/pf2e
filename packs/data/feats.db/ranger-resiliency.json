@@ -21,6 +21,7 @@
         "level": {
             "value": 4
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,7 +32,19 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "add",
+                "path": "data.data.custom.modifiers.ranger-dedication-count",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "hp",
+                "value": "3*@data.custom.modifiers.ranger-dedication-count"
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.644
