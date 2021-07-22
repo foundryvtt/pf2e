@@ -7,7 +7,7 @@ export class Migration646UpdateInlineLinks extends MigrationBase {
 
     private updateCheckAttributes(markup = ''): string {
         return markup
-            .replace(/\bdata-pf2-([a-z]+)-check=""/g, 'data-pf2-check="$1"')
+            .replace(/\bdata-pf2-([a-z]+)-check="\w*"/g, 'data-pf2-check="$1"')
             .replace(/\bdata-pf2-(?:saving-throw|skill-check)\b/g, 'data-pf2-check');
     }
 
