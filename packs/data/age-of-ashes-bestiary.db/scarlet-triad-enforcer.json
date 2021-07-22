@@ -1426,7 +1426,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.dual-abuse"
+                    },
+                    {
+                        "diceNumber": 3,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "dual-abuse"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.644

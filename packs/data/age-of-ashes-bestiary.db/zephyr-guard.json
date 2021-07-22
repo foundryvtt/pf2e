@@ -1203,6 +1203,67 @@
             "type": "melee"
         },
         {
+            "_id": "DF8C1D50NHzFNPco",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": {
+                        "datetime": "2021-07-21T22:55:56.833-04:00",
+                        "version": {
+                            "foundry": "0.8.8",
+                            "schema": 0.644,
+                            "system": "2.9.1"
+                        }
+                    },
+                    "version": 0.645
+                },
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
             "_id": "IrffLfsr4F6AQ70K",
             "data": {
                 "actionCategory": {
@@ -1267,57 +1328,6 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Subduing Strikes",
-            "sort": 800000,
-            "type": "action"
-        },
-        {
-            "_id": "HHmv52f5tAk6RIYK",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<section>\n<p><strong>Trigger</strong>: A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n</section>\n<section>\n<p>The monster attempts a melee @Compendium[pf2e.actionspf2e.Strike]{Strike} against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This @Compendium[pf2e.actionspf2e.Strike]{Strike} doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this @Compendium[pf2e.actionspf2e.Strike]{Strike}.</p>\n</section>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.644
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
             "sort": 900000,
             "type": "action"
         },
@@ -1341,7 +1351,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.adroit-disarm"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "adroit-disarm"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.644
@@ -1392,7 +1418,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "hampering-shot"
+                            ]
+                        },
+                        "selector": "damage"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.hampering-shot"
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.644
