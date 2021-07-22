@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your incisors have grown into true fangs: long, sharp, and well-suited to drawing blood.</p>\n<p>You gain a fangs unarmed attack that deals <a class=\"inline-roll roll\" data-mode=\"roll\" data-flavor=\"piercing\" data-formula=\"1d6\" title=\"piercing\"><i class=\"fas fa-dice-d20\"></i> 1d6</a> piercing damage. Your fangs are in the brawling group and have the grapple and unarmed traits.</p>"
+            "value": "<p>Your incisors have grown into true fangs: long, sharp, and well-suited to drawing blood.</p>\n<p>You gain a fangs unarmed attack that deals [[/r 1d6 #piercing]]{1d6 piercing damage}. Your fangs are in the brawling group and have the grapple and unarmed traits.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -21,16 +21,36 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Fangs",
+                "range": "melee",
+                "traits": [
+                    "grapple",
+                    "unarmed"
+                ]
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.644
         },
         "source": {
-            "value": ""
+            "value": "Pathfinder Advanced Player's Guide"
         },
         "traits": {
             "custom": "",
