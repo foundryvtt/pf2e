@@ -3,15 +3,16 @@ import { ChatMessagePF2e } from '@module/chat-message';
 
 /** Highlight critical success or failure on d20 rolls */
 export const DegreeOfSuccessHighlights = {
-    listen: (message: ChatMessagePF2e, html: JQuery): void => {
+    listen: (message: ChatMessagePF2e, $html: JQuery): void => {
+        if ($html.find('.pf2e-reroll-indicator').length > 0) return;
         if (!message.isRoll || message.getFlag('pf2e', 'damageRoll')) return;
         const roll = message.roll!;
         const dice = roll.dice[0] ?? {};
         if (dice.faces !== 20) return;
 
         if (roll.dice.length && (message as any).isContentVisible) {
-            if (dice.total === 20) html.find('.dice-total').addClass('success');
-            else if (dice.total === 1) html.find('.dice-total').addClass('failure');
+            if (dice.total === 20) $html.find('.dice-total').addClass('success');
+            else if (dice.total === 1) $html.find('.dice-total').addClass('failure');
 
             const context = message.getFlag('pf2e', 'context');
             if (
@@ -28,11 +29,11 @@ export const DegreeOfSuccessHighlights = {
                 );
                 btnContainer.append(setInitiativeButton);
 
-                html.find('.dice-total').append(btnContainer);
+                $html.find('.dice-total').append(btnContainer);
 
                 setInitiativeButton.on('click', (ev) => {
                     ev.stopPropagation();
-                    ActorPF2e.setCombatantInitiative(html);
+                    ActorPF2e.setCombatantInitiative($html);
                 });
             }
         }
