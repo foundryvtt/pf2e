@@ -155,6 +155,9 @@ export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
     size: {
         value: Size;
     };
+    usage: {
+        value: string;
+    };
     invested?: {
         value: boolean | null;
     };

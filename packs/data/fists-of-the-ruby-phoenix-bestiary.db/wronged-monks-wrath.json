@@ -21,9 +21,11 @@
         "creatureType": "",
         "details": {
             "description": "<p>A monk's tormented spirit attacks intruders.</p>",
-            "disable": "<p><span data-pf2-skill-check=\"irori\" data-pf2-traits=\"haunt\" data-pf2-label=\"\" data-pf2-dc=\"32\" data-pf2-show-dc=\"gm\">Irori Lore</span> (trained) to clean the room and return the prayer items to their proper arrangement, <span data-pf2-skill-check=\"religion\" data-pf2-traits=\"\" data-pf2-label=\"\" data-pf2-dc=\"37\" data-pf2-show-dc=\"gm\">Religion</span> (expert) to state an Iroran prayer of peace and put the haunt to rest, or<span data-pf2-skill-check=\"occultism\" data-pf2-traits=\"\" data-pf2-label=\"\" data-pf2-dc=\"40\" data-pf2-show-dc=\"gm\">Occultism</span> (master) to create a ward against future hauntings</p>",
+            "disable": "<p><span data-pf2-check=\"irori-lore\" data-pf2-traits=\"haunt\" data-pf2-label=\"Restore the Prayer Items DC\" data-pf2-dc=\"32\" data-pf2-show-dc=\"gm\">Irori Lore</span> (trained) to clean the room and return the prayer items to their proper arrangement, <span data-pf2-check=\"religion\" data-pf2-label=\"Iroran Prayer of Peace DC\" data-pf2-dc=\"37\" data-pf2-show-dc=\"gm\">Religion</span> (expert) to state an Iroran prayer of peace and put the haunt to rest, or <span data-pf2-check=\"occultism\" data-pf2-label=\"Create a Ward Against Future Hauntings DC\" data-pf2-dc=\"40\" data-pf2-show-dc=\"gm\">Occultism</span> (master) to create a ward against future hauntings</p>",
             "isComplex": false,
-            "level": 13,
+            "level": {
+                "value": 13
+            },
             "reset": "<p>The haunt re-forms after 1 hour. The haunt becomes disabled and doesn't re-form if a creature lights all of the candles in the room and offers a prayer to Irori.</p>",
             "routine": ""
         },
@@ -46,18 +48,11 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-07T07:41:26.383-06:00",
-                "version": {
-                    "foundry": "0.8.8",
-                    "schema": null,
-                    "system": "2.7.1"
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
-            "value": ""
+            "value": "Pathfinder #166: Despair on Danger Island"
         },
         "statusEffects": [],
         "traits": {
@@ -100,22 +95,15 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature enters the prayer room.</p>\n<p><strong>Effect</strong> The abbot's spirit appears and begins to channel powerful ki energy. One round later, the room fills with a powerful kinetic storm, dealing [[/r 3d10+15 # electricity damage]]{3d10+15 electricity damage} and [[/r 3d10+15 # force damage]]{3d10+15 force damage} to all creatures in the room. Creatures in the room must attempt a <span data-pf2-saving-throw=\"reflex\" data-pf2-traits=\"haunt\" data-pf2-label=\"\" data-pf2-dc=\"37\" data-pf2-show-dc=\"gm\">Reflex</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage, [[/r 2d8 # persistent electricity damage]]{2d8} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Electricity Damage}, and becomes deafened for 1 minute.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature enters the prayer room.</p>\n<p><strong>Effect</strong> The abbot's spirit appears and begins to channel powerful ki energy. One round later, the room fills with a powerful kinetic storm, dealing [[/r 3d10+15 # electricity damage]]{3d10+15 electricity damage} and [[/r 3d10+15 # force damage]]{3d10+15 force damage} to all creatures in the room. Creatures in the room must attempt a <span data-pf2-check=\"reflex\" data-pf2-traits=\"haunt\" data-pf2-label=\"\" data-pf2-dc=\"37\" data-pf2-show-dc=\"gm\">Reflex</span> save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage, [[/r 2d8 # persistent electricity damage]]{2d8} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Electricity Damage}, and becomes deafened for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-07T07:41:26.383-06:00",
-                        "version": {
-                            "foundry": "0.8.8",
-                            "schema": null,
-                            "system": "2.7.1"
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {

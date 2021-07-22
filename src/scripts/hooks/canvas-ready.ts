@@ -12,5 +12,13 @@ export function listen() {
         if (game.user.getFlag('pf2e', 'settings.showEffectPanel') ?? true) {
             game.pf2e.effectPanel.render(true);
         }
+
+        // Redraw tokens
+        if (canvas.scene) {
+            const tokens = canvas.scene.tokens.map((tokenDoc) => tokenDoc.object);
+            for (const token of tokens) {
+                token.redraw();
+            }
+        }
     });
 }

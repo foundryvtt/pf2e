@@ -3,7 +3,7 @@ import { ABILITY_ABBREVIATIONS, SKILL_EXPANDED } from '@actor/data/values';
 import { ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from '@module/modifiers';
 import { objectHasKey, tupleHasValue } from '@module/utils';
 import { RuleElementPF2e } from '../rule-element';
-import { RuleElementData, RuleElementSyntheticsPF2e } from '../rules-data-definitions';
+import { RuleElementData, RuleElementSynthetics } from '../rules-data-definitions';
 
 const KNOWN_TARGETS: Record<string, { ability: AbilityString; shortform: 'ac' }> = {
     ac: { ability: 'dex' as const, shortform: 'ac' },
@@ -13,10 +13,7 @@ const KNOWN_TARGETS: Record<string, { ability: AbilityString; shortform: 'ac' }>
  * @category RuleElement
  */
 export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(
-        actorData: CharacterData | NPCData,
-        { statisticsModifiers }: RuleElementSyntheticsPF2e,
-    ) {
+    override onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: RuleElementSynthetics) {
         const selector = this.resolveInjectedProperties(this.data.selector);
         let value = this.resolveValue(this.data.value);
         if (selector === 'ac') {
@@ -24,9 +21,9 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
             value -= 10;
         }
 
-        const label = this.getDefaultLabel();
         const ability =
-            String(this.data.ability).trim() || (KNOWN_TARGETS[selector]?.ability ?? SKILL_EXPANDED[selector]?.ability);
+            (this.data.ability && String(this.data.ability).trim()) ||
+            (KNOWN_TARGETS[selector]?.ability ?? SKILL_EXPANDED[selector]?.ability);
 
         if (!tupleHasValue(ABILITY_ABBREVIATIONS, ability)) {
             console.warn('PF2E | Fixed modifier requires an ability field, or a known selector.');
@@ -34,11 +31,11 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
             console.warn('PF2E | Fixed modifier requires at least a non-zero value or formula field.');
         } else {
             const modifier = new ModifierPF2e(
-                this.data.name ?? label,
+                this.data.name ?? this.label,
                 value - actorData.data.abilities[ability].mod,
                 MODIFIER_TYPE.PROFICIENCY,
             );
-            modifier.label = label;
+            modifier.label = this.label;
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
         }
     }
@@ -49,7 +46,6 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
         const skill: string = SKILL_EXPANDED[selector]?.shortform ?? selector;
         const skills: Record<string, StatisticModifier> = data.skills;
         const target = skills[skill] ?? (objectHasKey(data.attributes, skill) ? data.attributes[skill] : null);
-        const label = this.getDefaultLabel();
         const force = this.data.force;
 
         if (target instanceof StatisticModifier) {
@@ -58,7 +54,7 @@ export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
                 if (itemOrUntyped.includes(modifier.type) && modifier.modifier > 0) {
                     modifier.ignored = true;
                 }
-                if (force && modifier.type === MODIFIER_TYPE.PROFICIENCY && modifier.name !== label) {
+                if (force && modifier.type === MODIFIER_TYPE.PROFICIENCY && modifier.name !== this.label) {
                     modifier.ignored = true;
                 }
             }

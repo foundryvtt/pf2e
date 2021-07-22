@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 39,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -101,8 +102,14 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "25; fly 25"
+                "otherSpeeds": [
+                    {
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "25"
+                    }
+                ],
+                "value": "25"
             }
         },
         "details": {
@@ -124,6 +131,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
+            "flavorText": "<p>Whereas most aluums are animated by the souls of volunteers loyal to Katapesh, the Pactmasters created a handful of more capable (and deadly) aluums powered by the souls of a dozen or more dangerous criminals. These spiritbound aluums are rarely used as peacekeepers, instead serving as assassins, elite bodyguards, or riot control during times of martial law.</p>\n<p>A spiritbound aluum has a dull blue crystalline focus that stores constituent souls, surrounded by a host of smaller gems used for trapping souls the Pactmasters wish to deny from entering the Great Beyond. Spiritbound aluums rarely use this soul-binding ability except when instructed by their masters. However, the murderous or embittered souls within the aluum sometimes exert control and willfully consume a departing soul either out of malice or to incorporate it into the construct's core. If not relieved of its trapped souls in a timely manner, a spiritbound aluum can develop enough will to overcome its masters' orders and even awaken to full sentience. These rogue aluums typically lose the mindless trait, are evil, have an Intelligence modifier of -2 or higher, and gain several skills with bonuses ranging from +25 to +32.</p>\n<hr />\n<p>Aluums are powerful metal and stone constructs originally created by the Pactmasters to maintain order in Katapesh. The construction of each aluum includes the creation of an <em>@Compendium[pf2e.equipment-srd.Aluum Charm]{Aluum Charm}</em>, a brass pendant set with a blue crystal designed to control that particular construct. The charm constructed at the same time as an aluum is called its linked charm.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -167,13 +175,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:18.948-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "traits": {
             "ci": [],
@@ -238,6 +241,9 @@
                 "ability": {
                     "value": ""
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -259,13 +265,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.948-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "showUnpreparedSpells": {
                     "value": true
@@ -310,9 +311,9 @@
                         "value": 0
                     },
                     "slot5": {
-                        "max": 1,
+                        "max": 0,
                         "prepared": [],
-                        "value": 1
+                        "value": 0
                     },
                     "slot6": {
                         "max": 0,
@@ -330,9 +331,9 @@
                         "value": 0
                     },
                     "slot9": {
-                        "max": 3,
+                        "max": 0,
                         "prepared": [],
-                        "value": 3
+                        "value": 0
                     }
                 },
                 "slug": null,
@@ -354,20 +355,17 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
-            "name": "Innate Arcane Spells",
+            "name": "Arcane Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "AnoTvGKHJz9JzGvL",
+            "_id": "aHEndRI9e6s1b3U7",
             "data": {
                 "ability": {
                     "value": ""
@@ -378,6 +376,9 @@
                 },
                 "areasize": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -436,13 +437,8 @@
                     "mode": "none"
                 },
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.948-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "school": {
                     "value": "necromancy"
@@ -453,9 +449,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "bind-soul",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=21"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -484,20 +480,21 @@
                         "evil",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Bind Soul"
+                }
+            },
             "img": "systems/pf2e/icons/spells/bind-soul.webp",
             "name": "Bind Soul",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "DVK2BMOvnyqHEOtv",
+            "_id": "A2UMxPvJkK3HL1oO",
             "data": {
                 "ability": {
                     "value": ""
@@ -508,6 +505,267 @@
                 },
                 "areasize": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": "black sapphire with a gp value of at least the target's level × 100"
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You wrench the target's soul away before it can pass on to the afterlife and imprison it in a black sapphire. While the soul is in the gem, the target can't be returned to life through any means, even powerful magic such as wish. If the gem is destroyed or bind soul is counteracted on the gem, the soul is freed. The gem has AC 16 and Hardness 10. A gem can't hold more than one soul, and any attempt wastes the spell.</p>"
+                },
+                "duration": {
+                    "value": "unlimited"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 9
+                },
+                "location": {
+                    "value": "LePEQxJOrm3uEIPP"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "bind-soul",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature that died within the last minute"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "evil",
+                        "necromancy"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Bind Soul"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/bind-soul.webp",
+            "name": "Bind Soul",
+            "sort": 300000,
+            "type": "spell"
+        },
+        {
+            "_id": "KjycxVqnMnoyjMet",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "material": false,
+                    "somatic": true,
+                    "verbal": true
+                },
+                "cost": {
+                    "value": "black sapphire with a gp value of at least the target's level × 100"
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You wrench the target's soul away before it can pass on to the afterlife and imprison it in a black sapphire. While the soul is in the gem, the target can't be returned to life through any means, even powerful magic such as wish. If the gem is destroyed or bind soul is counteracted on the gem, the soul is freed. The gem has AC 16 and Hardness 10. A gem can't hold more than one soul, and any attempt wastes the spell.</p>"
+                },
+                "duration": {
+                    "value": "unlimited"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 9
+                },
+                "location": {
+                    "value": "LePEQxJOrm3uEIPP"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
+                },
+                "school": {
+                    "value": "necromancy"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "bind-soul",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature that died within the last minute"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "evil",
+                        "necromancy"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Bind Soul"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/bind-soul.webp",
+            "name": "Bind Soul",
+            "sort": 400000,
+            "type": "spell"
+        },
+        {
+            "_id": "zso7CjnZUXfpILVh",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -566,13 +824,8 @@
                     "mode": "none"
                 },
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.948-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "school": {
                     "value": "divination"
@@ -583,9 +836,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "locate",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=173"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -611,24 +864,21 @@
                     "rarity": {
                         "value": "uncommon"
                     },
-                    "selected": {
-                        "detection": "Detection",
-                        "divination": "Divination"
-                    },
                     "value": [
                         "detection",
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.LQzlKbYjZSMFQawP"
+                }
+            },
             "img": "systems/pf2e/icons/spells/locate.webp",
             "name": "Locate",
-            "sort": 300000,
+            "sort": 500000,
             "type": "spell"
         },
         {
@@ -640,7 +890,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Paralyzing Force"
+                        "paralyzing-force"
                     ]
                 },
                 "bonus": {
@@ -659,13 +909,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.948-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -691,14 +936,14 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fist",
-            "sort": 400000,
+            "sort": 600000,
             "type": "melee"
         },
         {
-            "_id": "jLEc1dxSTed1mKHM",
+            "_id": "oPh7RYiHA3OguL9Z",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -709,22 +954,17 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Trigger A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p>The monster attempts a melee @Compendium[pf2e.actionspf2e.Strike]{Strike} against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This @Compendium[pf2e.actionspf2e.Strike]{Strike} doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this @Compendium[pf2e.actionspf2e.Strike]{Strike}.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.948-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
-                "slug": null,
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -733,31 +973,31 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "selected": {},
                     "value": []
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
             "_id": "r0yOc789JUXP2zpN",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -768,20 +1008,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Spiritbound Aluums are immune to spells and magical abilities, with two exceptions. A negative spell or magical ability grants an aluum enforcer the @Compendium[pf2e.conditionitems.Quickened]{Quickened} condition until the end of its next turn instead of its normal effects. A positive spell or ability makes an Spiritbound Aluum @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 until the end of its next turn instead of its normal effects.</p>"
+                    "value": "<p>Spiritbound aluums are immune to spells and magical abilities, with two exceptions. A negative spell or magical ability grants a spiritbound aluum the @Compendium[pf2e.conditionitems.Quickened]{Quickened} condition until the end of its next turn instead of its normal effects. A positive spell or ability makes a spiritbound aluum @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of its next turn instead of its normal effects.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.948-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -798,151 +1033,14 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Aluum Antimagic",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "peAxpqZ3KlwaPcjL",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>A creature damaged by the Spirtibound Aluum's fist @Compendium[pf2e.actionspf2e.Strike]{Strike} must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"35\" data-pf2-traits=\"arcane,incapacitation,necromancy\" data-pf2-label=\"Paralyzing Force DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round. On a critical failure, the creature is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for [[/r 1d4]] minutes and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.948-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {
-                        "arcane": "Arcane",
-                        "incapacitation": "Incapacitation",
-                        "necromancy": "Necromancy"
-                    },
-                    "value": [
-                        "arcane",
-                        "incapacitation",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Paralyzing Force",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "ETzIyo5ZvX3NpC3J",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": "2"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Requirements</strong>: The spiritbound aluum has bound a soul using its @Compendium[pf2e.spells-srd.Bind Soul]{Bind Soul} innate spell;</p>\n<p><strong>Effect</strong>: The spiritbound aluum transforms the captured soul's essence into raw magical energy, channeling the spirit into a beam that deals [[/r 20d6 #force]] force damage in a 30-foot line (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"38\" data-pf2-traits=\"arcane,evocation,force,damaging-effect\" data-pf2-label=\"Obliteration Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The remaining fragments of the captured soul are released to the Great Beyond. The spiritbound aluum can't use Obliteration Beam again for [[/r 1d4]] rounds.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.948-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {
-                        "arcane": "Arcane",
-                        "evocation": "Evocation",
-                        "force": "Force"
-                    },
-                    "value": [
-                        "arcane",
-                        "evocation",
-                        "force"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
-            "name": "Obliteration Beam",
             "sort": 800000,
             "type": "action"
         },
@@ -950,7 +1048,7 @@
             "_id": "tBIBeHhWxRinsTO5",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -961,20 +1059,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When a spiritbound aluum uses its @Compendium[pf2e.spells-srd.Bind Soul]{Bind Soul} innate spell, it binds the soul into its central crystal instead of the normal material component. The crystal can hold up to 60 souls. When encountered, a spiritbound aluum's crystal typically contains [[/r 1d6]] souls.</p>"
+                    "value": "<p>When a spiritbound aluum uses its @Compendium[pf2e.spells-srd.Bind Soul]{Bind Soul} innate spell, it binds the soul into its central crystal instead of the normal material component. The crystal can hold up to 60 souls.</p>\n<p>When encountered, a spiritbound aluum's crystal typically contains [[/br 1d6 #souls]]{1d6 souls}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.948-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -990,9 +1083,6 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""
@@ -1009,7 +1099,7 @@
             "_id": "gw4Ka0K9vOSo5rbh",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -1020,20 +1110,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The aluum enforcer emits a keening wail in a 15-foot cone that deals [[/r 16d6 # sonic]] sonic damage (<span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"27\" data-pf2-traits=\"arcane,auditory,evocation,mental,sonic,damaging-effect\" data-pf2-label=\"Soul Shriek DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save). A creature that fails its save is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1, or @Compendium[pf2e.conditionitems.Stunned]{Stunned} 3 on a critical failure. The aluum can't use Soul Shriek again for [[/r 1d4]] rounds.</p>"
+                    "value": "<p>The aluum enforcer emits a keening wail in a 15-foot cone that deals [[/r 16d6 #sonic]]{16d6 sonic damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"27\" data-pf2-traits=\"arcane,auditory,evocation,mental,sonic,damaging-effect\" data-pf2-label=\"Soul Shriek DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save). A creature that fails its save is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}, or @Compendium[pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure.</p>\n<p data-visibility=\"gm\">The aluum can't use Soul Shriek again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:18.949-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -1062,9 +1147,6 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
@@ -1075,6 +1157,124 @@
             "name": "Soul Shriek",
             "sort": 1000000,
             "type": "action"
+        },
+        {
+            "_id": "peAxpqZ3KlwaPcjL",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A creature damaged by the Spirtibound Aluum's fist Strike must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"35\" data-pf2-traits=\"arcane,incapacitation,necromancy\" data-pf2-label=\"Paralyzing Force DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save<span data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round. On a critical failure, the creature is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for [[/r 1d4 #minutes]]{1d4 minutes} and falls @Compendium[pf2e.conditionitems.Prone]{Prone}</span>.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "selected": {
+                        "arcane": "Arcane",
+                        "incapacitation": "Incapacitation",
+                        "necromancy": "Necromancy"
+                    },
+                    "value": [
+                        "arcane",
+                        "incapacitation",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Paralyzing Force",
+            "sort": 1100000,
+            "type": "action"
+        },
+        {
+            "_id": "ETzIyo5ZvX3NpC3J",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "2"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong>: The spiritbound aluum has bound a soul using its @Compendium[pf2e.spells-srd.Bind Soul]{Bind Soul} innate spell;</p>\n<p><strong>Effect</strong>: The spiritbound aluum transforms the captured soul's essence into raw magical energy, channeling the spirit into a beam that deals [[/r 20d6 #force]]{20d6 force damage} in a 30-foot line (<span data-pf2-check=\"reflex\" data-pf2-dc=\"38\" data-pf2-traits=\"arcane,evocation,force,damaging-effect\" data-pf2-label=\"Obliteration Beam DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The remaining fragments of the captured soul are released to the Great Beyond.</p>\n<p data-visibility=\"gm\">The spiritbound aluum can't use Obliteration Beam again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "selected": {
+                        "arcane": "Arcane",
+                        "evocation": "Evocation",
+                        "force": "Force"
+                    },
+                    "value": [
+                        "arcane",
+                        "evocation",
+                        "force"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Obliteration Beam",
+            "sort": 1200000,
+            "type": "action"
         }
     ],
     "name": "Spiritbound Aluum",
@@ -1083,7 +1283,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

@@ -25,15 +25,24 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Animalistic Resistance (vs. disease and poison)",
+                "predicate": {
+                    "any": [
+                        "disease",
+                        "poison"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:28.544-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
             "value": ""
@@ -46,9 +55,6 @@
             "value": [
                 "beastkin"
             ]
-        },
-        "usage": {
-            "value": ""
         }
     },
     "effects": [],

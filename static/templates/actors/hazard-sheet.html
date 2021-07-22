@@ -16,7 +16,7 @@
     <h1 class="charlevel">
         <div class="level">
             <label>{{localize 'PF2E.LevelLabel'}}</label>
-            <input name="data.details.level" type="number" value="{{data.details.level}}" data-dtype="Number" placeholder="1" />
+            <input name="data.details.level.value" type="number" value="{{data.details.level.value}}" data-dtype="Number" placeholder="1" />
         </div>
     </h1>
 </header>
@@ -59,7 +59,7 @@
                     <div class="bio-item form-group-stacked pf-container">
                     <label class="pf-title">
                         {{localize "PF2E.ImmunitiesLabel"}}
-                        <a class="trait-selector" data-trait-selector="basic" data-config-types="immunityTypes" data-property="data.traits.di"><i class="fas fa-edit"></i></a>
+                        <a class="trait-selector" data-trait-selector="basic" data-title="PF2E.ImmunitiesLabel" data-config-types="immunityTypes" data-property="data.traits.di"><i class="fas fa-edit"></i></a>
                     </label>
                     <ul class="traits-list pf-value">
                     {{#each data.traits.di.selected as |v k|}}

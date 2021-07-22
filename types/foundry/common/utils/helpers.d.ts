@@ -4,6 +4,18 @@ declare global {
     module foundry {
         module utils {
             /**
+             * Wrap a callback in a debounced timeout.
+             * Delay execution of the callback function until the function has not been called for delay milliseconds
+             * @param callback A function to execute once the debounced threshold has been passed
+             * @param delay An amount of time in milliseconds to delay
+             * @return A wrapped function which can be called to debounce execution
+             */
+            function debounce<T extends (...args: any[]) => unknown>(
+                callback: T,
+                delay: number,
+            ): (...args: Parameters<T>) => void;
+
+            /**
              * Quickly clone a simple piece of data, returning a copy which can be mutated safely.
              * This method DOES support recursive data structures containing inner objects or arrays.
              * This method DOES NOT support advanced object types like Set, Map, or other specialized classes.
@@ -251,13 +263,6 @@ declare global {
              * @return          Return a string containing random letters and numbers
              */
             function randomID(length?: number): string;
-
-            /**
-             * Load a single texture and return a Promise which resolves once the texture is ready to use
-             * @param src       The requested texture source
-             * @param fallback  A fallback texture to use if the requested source is unavailable or invalid
-             */
-            function loadTexture(src: string, fallback?: string): Promise<PIXI.Texture>;
         }
     }
 
@@ -282,6 +287,14 @@ declare global {
         var mergeObject: typeof foundry.utils.mergeObject;
         var setProperty: typeof foundry.utils.setProperty;
         var randomID: typeof foundry.utils.randomID;
+
+        /**
+         * Load a single texture and return a Promise which resolves once the texture is ready to use
+         * @param src       The requested texture source
+         * @param fallback  A fallback texture to use if the requested source is unavailable or invalid
+         */
+        function loadTexture(src: string, { fallback }?: { fallback?: ImagePath }): Promise<PIXI.Texture>;
+
         /* eslint-enable no-var */
     }
 }

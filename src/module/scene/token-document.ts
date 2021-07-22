@@ -14,12 +14,16 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     /** Refresh this token's properties if it's controlled and the request came from its actor */
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
-        if (fromActor && canvas.tokens.controlled.includes(this.object)) {
-            game.user.setPerceivedLightLevel({ defer: false });
+        if (fromActor && this.rendered) {
+            if (this.object.isControlled) {
+                canvas.lighting.setPerceivedLightLevel({ defer: false });
+            }
+
+            this.object.redraw();
         }
     }
 
-    /** If rules-based vision is enabled, disable (but don't save) manually configured vision radii */
+    /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         super.prepareBaseData();
         if (!canvas.sight?.rulesBasedVision) return;
@@ -43,7 +47,6 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         }[this.actor.visionLevel];
         this.data.brightSight = perceivedBrightness > lightLevel ? 1000 : 0;
 
-        // Apply overrides from rule elements and active effects
         mergeObject(this.data, this.actor?.overrides.token ?? {}, { insertKeys: false });
     }
 
@@ -108,9 +111,6 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         if (this.actor instanceof NPCPF2e && typeof changed.disposition === 'number' && game.userId === userId) {
             this.actor.updateAttitudeFromDisposition(changed.disposition);
         }
-
-        // Refresh the effect panel if the update isn't a movement
-        if (!('x' in changed || 'y' in changed)) game.pf2e.effectPanel.refresh();
     }
 }
 

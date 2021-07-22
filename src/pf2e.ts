@@ -16,33 +16,24 @@ HooksPF2e.listen();
  * Hook into chat log context menu to add damage application options
  */
 Hooks.on('getChatLogEntryContext', (_html, options) => {
-    const canApplyDamage: ContextOptionCondition = (li) => {
-        const messageId = li.attr('data-message-id') ?? '';
+    const canApplyDamage: ContextOptionCondition = ($li) => {
+        const messageId = $li.attr('data-message-id') ?? '';
         const message = game.messages.get(messageId, { strict: true });
 
-        return !!(canvas.tokens.controlled.length && message.isRoll && message.data.flavor?.includes('Damage'));
+        return canvas.tokens.controlled.length > 0 && message.isRoll && $li.find('.chat-damage-buttons').length === 1;
     };
-    const canApplyHealing: ContextOptionCondition = (li) => {
-        const messageId = li.attr('data-message-id') ?? '';
+
+    const canApplyTripleDamage: ContextOptionCondition = ($li) =>
+        canApplyDamage($li) && $li.find('button.triple-damage').length === 1;
+
+    const canApplyInitiative: ContextOptionCondition = ($li) => {
+        const messageId = $li.attr('data-message-id') ?? '';
         const message = game.messages.get(messageId, { strict: true });
 
-        return !!(
-            canvas.tokens.controlled.length &&
-            message.isRoll &&
-            message.data &&
-            message.data.flavor &&
-            message.data.flavor.includes('Healing')
-        );
-    };
-    const canApplyInitiative: ContextOptionCondition = (li) => {
-        const messageId = li.attr('data-message-id') ?? '';
-        const message = game.messages.get(messageId, { strict: true });
-
-        // Rolling PC iniative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
+        // Rolling PC initiative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
         // Avoid potential confusion and misunderstanding by just allowing NPCs to roll
         const validActor = canvas.tokens.controlled[0]?.actor?.data.type === 'npc';
-        const validRollType =
-            message.data.flavor?.includes('Skill Check') || message.data.flavor?.includes('Perception Check') || false;
+        const validRollType = $li.find('.dice-total-setInitiative-btn').length > 0;
         return validActor && message.isRoll && validRollType;
     };
 
@@ -70,31 +61,37 @@ Hooks.on('getChatLogEntryContext', (_html, options) => {
 
     options.push(
         {
-            name: 'Apply Damage',
-            icon: '<i class="fas fa-user-minus"></i>',
+            name: 'PF2E.DamageButton.FullContext',
+            icon: '<i class="fas fa-heart-broken"></i>',
             condition: canApplyDamage,
             callback: (li: JQuery) => ActorPF2e.applyDamage(li, 1),
         },
         {
-            name: 'Apply Healing',
-            icon: '<i class="fas fa-user-plus"></i>',
-            condition: canApplyHealing,
-            callback: (li: JQuery) => ActorPF2e.applyDamage(li, -1),
-        },
-        {
-            name: 'Double Damage',
-            icon: '<i class="fas fa-user-injured"></i>',
-            condition: canApplyDamage,
-            callback: (li) => ActorPF2e.applyDamage(li, 2),
-        },
-        {
-            name: 'Half Damage',
-            icon: '<i class="fas fa-user-shield"></i>',
+            name: 'PF2E.DamageButton.HalfContext',
+            icon: '<i class="fas fa-heart-broken"></i>',
             condition: canApplyDamage,
             callback: (li) => ActorPF2e.applyDamage(li, 0.5),
         },
         {
-            name: 'Set as Initiative',
+            name: 'PF2E.DamageButton.DoubleContext',
+            icon: '<i class="fas fa-heart-broken"></i>',
+            condition: canApplyDamage,
+            callback: (li) => ActorPF2e.applyDamage(li, 2),
+        },
+        {
+            name: 'PF2E.DamageButton.TripleContext',
+            icon: '<i class="fas fa-heart-broken"></i>',
+            condition: canApplyTripleDamage,
+            callback: (li) => ActorPF2e.applyDamage(li, 2),
+        },
+        {
+            name: 'PF2E.DamageButton.HealingContext',
+            icon: '<i class="fas fa-heart"></i>',
+            condition: canApplyDamage,
+            callback: (li: JQuery) => ActorPF2e.applyDamage(li, -1),
+        },
+        {
+            name: 'PF2E.ClickToSetInitiativeContext',
             icon: '<i class="fas fa-fist-raised"></i>',
             condition: canApplyInitiative,
             callback: (li) => ActorPF2e.setCombatantInitiative(li),
@@ -135,11 +132,6 @@ Hooks.on('getChatLogEntryContext', (_html, options) => {
     );
 });
 
-// effect panel
-Hooks.on('updateUser', () => {
-    game.pf2e.effectPanel.refresh();
-});
-
 // world clock application
 Hooks.on('getSceneControlButtons', (controls: any[]) => {
     controls
@@ -148,7 +140,9 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
             name: 'worldclock',
             title: 'CONTROLS.WorldClock',
             icon: 'fas fa-clock',
-            visible: game.user.isGM || game.settings.get('pf2e', 'worldClock.playersCanView'),
+            visible:
+                game.settings.get('pf2e', 'worldClock.showClockButton') &&
+                (game.user.isGM || game.settings.get('pf2e', 'worldClock.playersCanView')),
             onClick: () => game.pf2e.worldClock!.render(true),
             button: true,
         });
@@ -183,4 +177,27 @@ Hooks.on('renderChatMessage', (message, html) => {
             elem.removeAttribute('data-pf2-show-dc'); // short-circuit the global DC interpolation
         }
     });
+    if ((actor && actor.isOwner) || game.user.isGM || message.isAuthor) {
+        html.find('[data-pf2-action]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2-repost></i>';
+        });
+        html.find('[data-pf2-saving-throw]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2-repost></i>';
+        });
+        html.find('[data-pf2-skill-check]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2-repost></i>';
+        });
+        html.find('[data-pf2-perception-check]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2-repost></i>';
+        });
+        html.find('[data-pf2-flat-check]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2-repost></i>';
+        });
+        html.find('[data-pf2-check]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2-repost></i>';
+        });
+        html.find('[data-pf2-check]').each((_idx, elem) => {
+            elem.innerHTML = elem.innerHTML + ' <i class="fas fa-comment-alt" data-pf2e-repost></i>';
+        });
+    }
 });

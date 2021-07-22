@@ -30,10 +30,10 @@ export function encouragingWords(options: ActionDefaultOptions): void {
 
                 const bonusString = bonus > 0 ? `+ ${bonus}` : '';
                 if (roll.data.degreeOfSuccess === 3) {
-                    healFormula = `4d8${bonusString}`;
+                    healFormula = `2d8${bonusString}`;
                     successLabel = translations.CritSuccess;
                 } else if (roll.data.degreeOfSuccess === 2) {
-                    healFormula = `2d8${bonusString}`;
+                    healFormula = `1d8${bonusString}`;
                     successLabel = translations.Success;
                 } else if (roll.data.degreeOfSuccess === 1) {
                     successLabel = translations.Failure;

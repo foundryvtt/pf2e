@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+2",
+                "mod": 2,
                 "value": 14
             },
             "wis": {
@@ -95,9 +95,9 @@
             },
             "shield": {
                 "ac": 0,
-                "brokenThreshold": 0,
+                "brokenThreshold": "0",
                 "hardness": 0,
-                "max": 0,
+                "max": "0",
                 "min": 0,
                 "value": 0
             },
@@ -109,7 +109,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -144,7 +144,7 @@
             },
             "recallKnowledgeText": "",
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Quest #2: Unforgiving Fire"
             }
         },
         "saves": {
@@ -183,13 +183,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:57.332-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "traits": {
             "ci": [],
@@ -207,9 +202,11 @@
                 ]
             },
             "rarity": {
-                "value": "common"
+                "value": "unique"
             },
-            "senses": [],
+            "senses": {
+                "value": ""
+            },
             "size": {
                 "value": "med"
             },
@@ -227,9 +224,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "0M6l6QkNfcrQOAGz",
+            "_id": "ojCAmmOnnV55aOkK",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
                 "baseItem": null,
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -242,15 +251,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d4",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>As you invest these embroidered strips of cloth, you must meditate and slowly wrap them around your hands. These handwraps have weapon runes etched into them to give your unarmed attacks the benefits of those runes, making your unarmed attacks work like magic weapons. For example, <em>+1 striking handwraps of mighty blows</em> would give you a +1 item bonus to attack rolls with your unarmed attacks and increase the damage of your unarmed attacks from one weapon die to two (normally 2d4 instead of 1d4, but if your fists have a different weapon damage die or you have other unarmed attacks, use two of that die size instead).</p>\n<p>You can upgrade, add, and transfer runes to and from the handwraps just as you would for a weapon, and you can attach talismans to the handwraps. Treat the handwraps as melee weapons of the brawling group with light Bulk for these purposes. Property runes apply only when they would be applicable to the unarmed attack you're using. For example, a property that must be applied to a slashing weapon wouldn't function when you attacked with a fist, but you would gain its benefits if you attacked with a claw or some other slashing unarmed attack.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "brawling"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -276,7 +297,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 2
                 },
                 "maxHp": {
                     "value": 0
@@ -284,63 +305,148 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 1
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "35 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
                     "value": 1
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:57.332-05:00",
-                        "version": {
-                            "schema": null
-                        }
+                "range": {
+                    "value": "melee"
+                },
+                "reload": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Striking",
+                        "predicate": {
+                            "all": [
+                                "unarmed"
+                            ]
+                        },
+                        "selector": "damage"
                     },
-                    "version": 0.642
+                    {
+                        "key": "PF2E.RuleElement.WeaponPotency",
+                        "predicate": {
+                            "all": [
+                                "unarmed"
+                            ]
+                        },
+                        "selector": "attack"
+                    }
+                ],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "handwraps-of-mighty-blows",
                 "source": {
                     "value": ""
                 },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": null
+                },
                 "stackGroup": {
                     "value": ""
+                },
+                "strikingRune": {
+                    "value": "striking"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "invested",
+                        "magical",
+                        "nonlethal",
+                        "transmutation",
+                        "unarmed"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "unarmed"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "+1 striking handwraps of mighty blows",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.FNDq4NFSN0g2HKWO"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/handwraps-of-nighty-blows.webp",
+            "name": "+1 Striking Handwraps of Mighty Blows",
             "sort": 100000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "m0Iyu3EKtmn6SWWx",
+            "_id": "tA8F0JFxUcLUfYNS",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "dex"
+                },
+                "baseItem": "shuriken",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -353,15 +459,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This \"throwing star\" is a small piece of flat metal with sharp edges, designed to be flung with a flick of the wrist.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "dart"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -395,61 +513,111 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": null
+                },
                 "preciousMaterial": {
-                    "value": ""
+                    "value": null
                 },
                 "preciousMaterialGrade": {
-                    "value": ""
+                    "value": null
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "1 cp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": null
+                },
+                "propertyRune2": {
+                    "value": null
+                },
+                "propertyRune3": {
+                    "value": null
+                },
+                "propertyRune4": {
+                    "value": null
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 12
+                },
+                "range": {
+                    "value": "20"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:57.332-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "shuriken",
                 "source": {
                     "value": ""
                 },
+                "specific": {
+                    "value": false
+                },
+                "splashDamage": {
+                    "value": null
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
-                    "value": []
+                    "value": [
+                        "agile",
+                        "monk",
+                        "thrown-20"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "shuriken (12)",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.fjkwYZ0hRmBztwBG"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/shuriken.webp",
+            "name": "Shuriken",
             "sort": 200000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "Zfc8M6q4rxBBGrkf",
+            "_id": "OewrUS45ZeMl38BQ",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -462,7 +630,7 @@
                     "value": false
                 },
                 "containerId": {
-                    "value": ""
+                    "value": null
                 },
                 "description": {
                     "chat": "",
@@ -470,7 +638,7 @@
                     "value": ""
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -495,7 +663,7 @@
                     }
                 },
                 "invested": {
-                    "value": false
+                    "value": null
                 },
                 "level": {
                     "value": 0
@@ -520,13 +688,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:57.332-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "size": {
                     "value": "med"
@@ -543,24 +706,27 @@
                     "rarity": {
                         "value": "common"
                     },
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "small pouch of fine sand",
+            "name": "Small Pouch of Fine Sand",
             "sort": 300000,
             "type": "equipment"
         },
         {
-            "_id": "753jxOjd2aTOvslM",
+            "_id": "gcMf2a7u5pXbLm1L",
             "data": {
                 "attack": {
                     "value": ""
@@ -572,7 +738,7 @@
                     "value": 14
                 },
                 "damageRolls": {
-                    "occfncohwdck3n6fj7bo": {
+                    "9xmfd59uz1biovgjxou9": {
                         "damage": "1d6+2",
                         "damageType": "bludgeoning"
                     }
@@ -580,17 +746,12 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(agile, finesse, nonlethal, unarmed)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:57.332-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -620,21 +781,22 @@
             "type": "melee"
         },
         {
-            "_id": "AImbc9elkvda2pZD",
+            "_id": "gBSzGScjKg7wbkze",
             "data": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Grab"
+                        "grab"
                     ]
                 },
                 "bonus": {
                     "value": 14
                 },
                 "damageRolls": {
-                    "my8lu5s3aytmisd4w3je": {
+                    "7pcf11s4vb9vaod8nw5x": {
                         "damage": "1d4+2",
                         "damageType": "fire"
                     }
@@ -642,17 +804,41 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(agile, finesse, fire)</p>"
+                    "value": ""
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:57.332-05:00",
-                        "version": {
-                            "schema": null
-                        }
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Meelika is using Blazing-Talon Surge",
+                        "property": "flags.pf2e.rollOptions.damage-roll.blazing-talon-surge"
                     },
-                    "version": 0.642
+                    {
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "label": "Blazing-Talon Surge",
+                        "predicate": {
+                            "all": [
+                                "blazing-talon-surge"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "predicate": {
+                            "all": [
+                                "blazing-talon-surge"
+                            ]
+                        },
+                        "selector": "{item|_id}-damage",
+                        "text": "<p class='compact-text'><strong>Blazing-Talon Surge Grab</strong> When Meleeka hits a target enemy, she can immediately Grab them as a free action.</p>"
+                    }
+                ],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -666,7 +852,9 @@
                     "value": [
                         "agile",
                         "finesse",
-                        "fire"
+                        "fire",
+                        "nonlethal",
+                        "unarmed"
                     ]
                 },
                 "weaponType": {
@@ -681,7 +869,7 @@
             "type": "melee"
         },
         {
-            "_id": "hftMwTkO8Ix7xSCO",
+            "_id": "rXbhpNMXD6Aj7C8I",
             "data": {
                 "attack": {
                     "value": ""
@@ -693,7 +881,7 @@
                     "value": 14
                 },
                 "damageRolls": {
-                    "k9t9d49slavbofok2inv": {
+                    "lpu9xf7poafij9nrk2vg": {
                         "damage": "1d4+8",
                         "damageType": "piercing"
                     }
@@ -701,17 +889,12 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(agile, range increment 20 feet, reload 0)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:57.332-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -724,8 +907,8 @@
                     },
                     "value": [
                         "agile",
-                        "range increment 20 feet",
-                        "reload 0"
+                        "range-increment-20",
+                        "reload-0"
                     ]
                 },
                 "weaponType": {
@@ -740,7 +923,7 @@
             "type": "melee"
         },
         {
-            "_id": "Ell2cr4dXQULtr95",
+            "_id": "O4MOcWFHgTSBKV3K",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -749,25 +932,20 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> Meleeka is in Mastered Rain of Embers stance; <br />\n<strong>Effect</strong> Meleeka Strides twice. If she ends her movement within melee reach of at least one enemy, she can make a fire talon Strike against that enemy that deals an additional [[/r 1d4 # fire damage]] fire damage. If she hits the target enemy, she can immediately Grab them as a free action.</p>"
+                    "value": "<p><strong>Requirements</strong> Meleeka is in Mastered Rain of Embers Stance;</p>\n<p><strong>Effect</strong> Meleeka Strides twice. If she ends her movement within melee reach of at least one enemy, she can make a fire talon Strike against that enemy that deals an additional [[/r 1d4 #fire]]{1d4 fire damage}. If she hits the target enemy, she can immediately @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} them as a free action.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:57.332-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -783,22 +961,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Blazing-Talon Surge",
             "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "HUrctQtqRNd0d2v0",
+            "_id": "ToZH63RSeG3Eb6AC",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -807,25 +982,20 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> Meleeka is in Mastered Rain of Embers stance and has a creature grabbed or restrained; <br />\n<strong>Effect</strong> Meleeka lifts the creature high into the air and then slams it downward, causing a fiery explosion on impact. Meleeka attempts an Athletics check against the creature's Fortitude DC. She takes a -2 circumstance penalty to her check if the target is one size larger than her and a -4 circumstance penalty if it's larger than that. She gains a +2 circumstance bonus to her check if the target is one size smaller than her and a +4 circumstance bonus if it's smaller than that.<br />\n<strong>Critical Success</strong> As success, but the creature also takes [[/r 2 # persistent fire damage]] persistent fire damage.<br />\n<strong>Success</strong> The creature takes [[/r 1d6 # bludgeoning damage]] bludgeoning damage and [[/r 1d6 # fire damage]] fire damage and lands and falls prone in an unoccupied square adjacent to her (Meleeka's choice).<br />\nUpon landing, the creature is no longer grabbed.<br />\n<strong>Failure</strong> The creature is no longer grabbed.<br />\n<strong>Critical Failure</strong> As failure, but Meleeka falls prone.</p>"
+                    "value": "<p><strong>Requirements</strong> Meleeka is in Mastered Rain of Embers Stance and has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained};</p>\n<p><strong>Effect</strong> Meleeka lifts the creature high into the air and then slams it downward, causing a fiery explosion on impact. Meleeka attempts an Athletics check against the creature's Fortitude DC. She takes a -2 circumstance penalty to her check if the target is one size larger than her and a -4 circumstance penalty if it's larger than that. She gains a +2 circumstance bonus to her check if the target is one size smaller than her and a +4 circumstance bonus if it's smaller than that.</p>\n<div data-visibility=\"gm\">\n<hr />\n<p><strong>Critical Success</strong> As success, but the creature also takes [[/r 2 # persistent fire]]{2 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}}.</p>\n<p><strong>Success</strong> The creature takes [[/r 1d6 #bludgeoning]]{1d6 bludgeoning damage} plus [[/r 1d6 #fire]]{1d6 fire damage} and falls and lands @Compendium[pf2e.conditionitems.Prone]{Prone} in an unoccupied square adjacent to her (Meleeka's choice).</p>\n<p>Upon landing, the creature is no longer grabbed.</p>\n<p><strong>Failure</strong> The creature is no longer grabbed.</p>\n<p><strong>Critical Failure</strong> As failure, but Meleeka falls prone.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:57.332-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -841,22 +1011,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Explosive Deathdrop",
             "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "Hmh3tg6MCPZgInbL",
+            "_id": "cZbYrQmVkr07EkHB",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -865,25 +1032,87 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> Meleeka is unarmored; <br />\n<strong>Effect</strong> Meleeka enters the stance of an enraged phoenix, channeling her pain into resolve and holding her fingers as rigid as deadly talons while moving with quick, flickering gestures that resemble dancing flames. Meleeka gains a +1 status bonus to AC and saving throws and fire resistance 4, though if her current Hit Points are not equal to her maximum number of Hit Points, this status bonus increases to +3 and the fire resistance to 8. The only Strikes Meleeka can make are fire talon Strikes.<br />\nThese deal 1d4 fire, are in the brawling group; and have the agile, finesse, nonlethal, and unarmed traits.</p>"
+                    "value": "<p><strong>Requirements</strong> Meleeka is unarmored;</p>\n<p><strong>Effect</strong> Meleeka enters the stance of an enraged phoenix, channeling her pain into resolve and holding her fingers as rigid as deadly talons while moving with quick, flickering gestures that resemble dancing flames. Meleeka gains a +1 status bonus to AC and saving throws and fire resistance 2, though if her current Hit Points are not equal to her maximum number of Hit Points, this status bonus increases to +3 and the fire resistance to 3. The only Strikes Meleeka can make are fire talon Strikes.</p>\n<p>These deal [[/r 1d4 #fire]]{1d4 fire damage}; are in the brawling group; and have the agile, finesse, nonlethal, and unarmed traits.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:57.332-05:00",
-                        "version": {
-                            "schema": null
-                        }
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Meleeka is in Mastered Rain of Embers Stance (Full HP)",
+                        "property": "flags.pf2e.rollOptions.all.rain-of-embers-max-hp"
                     },
-                    "version": 0.642
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Meleeka is in Mastered Rain of Embers Stance (Below Full HP)",
+                        "property": "flags.pf2e.rollOptions.all.rain-of-embers-not-max-hp"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Mastered Rain of Embers Stance (Full HP)",
+                        "predicate": {
+                            "all": [
+                                "rain-of-embers-max-hp"
+                            ]
+                        },
+                        "roll-options": [
+                            "all",
+                            "ac"
+                        ],
+                        "selector": "ac",
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Mastered Rain of Embers Stance (Below Full HP)",
+                        "predicate": {
+                            "all": [
+                                "rain-of-embers-not-max-hp"
+                            ]
+                        },
+                        "roll-options": [
+                            "all",
+                            "ac"
+                        ],
+                        "selector": "ac",
+                        "type": "status",
+                        "value": 3
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Mastered Rain of Embers Stance (Full HP)",
+                        "predicate": {
+                            "all": [
+                                "rain-of-embers-max-hp"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Mastered Rain of Embers Stance (Below Full HP)",
+                        "predicate": {
+                            "all": [
+                                "rain-of-embers-not-max-hp"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 3
+                    }
+                ],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -901,22 +1130,73 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Mastered Rain of Embers Stance",
             "sort": 900000,
             "type": "action"
         },
         {
-            "_id": "W0pYLVKikmfzg6eh",
+            "_id": "gVfeXilaiPfsPwL0",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
+                },
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Grab"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1000000,
+            "type": "action"
+        },
+        {
+            "_id": "o4JqbhQC3dzTXtdp",
             "data": {
                 "description": {
                     "chat": "",
@@ -934,13 +1214,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:57.332-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -952,20 +1227,17 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
-            "_id": "CUDqkIJbEDZEUMOg",
+            "_id": "wuGvTm3MuEMkPYt9",
             "data": {
                 "description": {
                     "chat": "",
@@ -983,13 +1255,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:57.332-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -1001,20 +1268,17 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
-            "_id": "gpgcxUzL3fyRScBN",
+            "_id": "1XWYxud4xFOzUptU",
             "data": {
                 "description": {
                     "chat": "",
@@ -1032,13 +1296,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:57.332-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -1050,20 +1309,17 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
-            "_id": "7rp1HLgwcRiOPZZn",
+            "_id": "8tue5F9OS2IaNLs1",
             "data": {
                 "description": {
                     "chat": "",
@@ -1081,13 +1337,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:57.332-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -1099,26 +1350,23 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "lore"
         }
     ],
     "name": "Meleeka Sanvara (3-4)",
     "token": {
-        "actorId": "4MXoQZUrmGeuySrp",
+        "actorId": "1MXO3xJS50lENkHL",
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
@@ -1142,7 +1390,7 @@
         "lockRotation": false,
         "mirrorX": false,
         "mirrorY": false,
-        "name": "Meleeka Sanvara (3-4)",
+        "name": "Meleeka Sanvara",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,

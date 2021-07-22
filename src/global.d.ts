@@ -35,6 +35,7 @@ import { remigrate } from '@scripts/system/remigrate';
 import { FolderPF2e } from '@module/folder';
 import { CanvasPF2e, LightingLayerPF2e } from '@module/canvas';
 import { FogExplorationPF2e } from '@module/fog-exploration';
+import { ActorImporter } from '@system/importer/actor-importer';
 
 declare global {
     interface Game {
@@ -52,6 +53,9 @@ declare global {
             };
             system: {
                 remigrate: typeof remigrate;
+            };
+            importer: {
+                actor: typeof ActorImporter;
             };
             Dice: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
@@ -129,6 +133,9 @@ declare global {
         get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
         get(module: 'pf2e', setting: 'freeArchetypeVariant'): boolean;
         get(module: 'pf2e', setting: 'staminaVariant'): 0 | 1;
+
+        get(module: 'pf2e', setting: 'metagame.showResults'): 'none' | 'gm ' | 'owner' | 'all';
+        get(module: 'pf2e', setting: 'metagame.showDC'): 'none' | 'gm ' | 'owner' | 'all';
 
         get(module: 'pf2e', setting: 'worldClock.dateTheme'): 'AR' | 'IC' | 'AD' | 'CE';
         get(module: 'pf2e', setting: 'worldClock.syncDarkness'): boolean;

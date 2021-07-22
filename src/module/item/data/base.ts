@@ -46,8 +46,6 @@ export interface ItemLevelData {
 export interface ItemSystemData {
     description: {
         value: string;
-        chat: string;
-        unidentified: string;
     };
     source: {
         value: string;
@@ -55,9 +53,6 @@ export interface ItemSystemData {
     traits: ItemTraits;
     options?: {
         value: string[];
-    };
-    usage: {
-        value: string;
     };
     rules: RuleElementData[];
     slug: string | null;

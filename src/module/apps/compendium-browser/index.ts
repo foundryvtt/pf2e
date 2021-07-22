@@ -129,7 +129,7 @@ export class CompendiumBrowser extends Application {
         'data.traits',
     ];
 
-    hazardIndex = ['img', 'data.details.level', 'data.details.isComplex', 'data.traits'];
+    hazardIndex = ['img', 'data.details.level.value', 'data.details.isComplex', 'data.traits'];
 
     /** The combined index for hazards and NPCs */
     hazardNPCIndex: string[];
@@ -459,7 +459,7 @@ export class CompendiumBrowser extends Application {
                     actorData.compendium = pack.collection;
                     actorData.filters = {};
 
-                    actorData.filters.level = actorData.data.details.level;
+                    actorData.filters.level = actorData.data.details.level.value;
                     actorData.filters.traits = actorData.data.traits.traits.value;
 
                     // get the source of the hazard entry ignoring page number and add it as an additional attribute on the hazard entry

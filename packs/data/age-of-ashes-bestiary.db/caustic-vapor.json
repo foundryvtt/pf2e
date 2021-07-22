@@ -15,16 +15,18 @@
                 "value": 10
             },
             "stealth": {
-                "details": "(Master)",
-                "value": 40
+                "details": "<p>(master)</p>",
+                "value": 30
             }
         },
         "creatureType": "",
         "details": {
             "description": "The door slams shut, and poison gas fills the room.",
-            "disable": "Occultism DC 36 (master) or Religion DC 36 (master) to exorcise the spirits.",
+            "disable": "<p><span data-pf2-check=\"occultism\" data-pf2-traits=\"mechanical,trap\" data-pf2-label=\"Exorcise the Spirits DC\" data-pf2-dc=\"36\" data-pf2-show-dc=\"gm\">Occultism</span> (master) or <span data-pf2-check=\"religion\" data-pf2-traits=\"mechanical,trap\" data-pf2-label=\"Exorcise the Spirits DC\" data-pf2-dc=\"36\" data-pf2-show-dc=\"gm\">Religion</span> (master) to exorcise the spirits</p>",
             "isComplex": false,
-            "level": 17,
+            "level": {
+                "value": 17
+            },
             "reset": "The trap resets after 1 day.",
             "routine": ""
         },
@@ -47,13 +49,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:17.121-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
             "value": "Pathfinder #149: Against the Scarlet Triad"
@@ -77,7 +74,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "mechanical"
+                    "mechanical",
+                    "trap"
                 ]
             }
         }
@@ -90,7 +88,7 @@
             "_id": "RjIX3v1EU84c920i",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -108,13 +106,8 @@
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:17.121-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -137,9 +130,6 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
@@ -155,7 +145,7 @@
             "_id": "lcdFqkdanjf6Jdom",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -166,20 +156,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Oozes are immune to this poison; Saving Throw DC 38 Fortitude;</p>\n<p><strong>Onset</strong>: 1 round;</p>\n<p><strong>Maximum Duration</strong>: 6 rounds;</p>\n<p><strong>Stage 1</strong>: [[/r 4d6 #acid]] acid damage and @Compendium[pf2e.conditionitems.Confused]{Confused} (1 round);</p>\n<p><strong>Stage 2</strong>: [[/r 6d6 #acid]] acid damage, confused, and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round);</p>\n<p><strong>Stage 3</strong>: [[/r 8d6 #acid]] acid damage, confused, flat-footed, and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 2 (1 round)</p>"
+                    "value": "<p>Oozes are immune to this poison;</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"acid,poison\" data-pf2-label=\"Caustic Nightmare Vapor DC\" data-pf2-dc=\"38\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Onset</strong> 1 round;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 4d6 #acid]]{4d6 acid damage} and @Compendium[pf2e.conditionitems.Confused]{Confused} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 6d6 #acid]]{6d6 acid damage}, confused, and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 8d6 #acid]]{8d6 acid damage}, confused, flat-footed, and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:17.122-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -202,16 +187,13 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Caustic Nightmare Vapor",
             "sort": 200000,
             "type": "action"
@@ -223,7 +205,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

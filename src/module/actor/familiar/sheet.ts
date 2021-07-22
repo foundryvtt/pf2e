@@ -1,4 +1,5 @@
-import { SaveString, SkillAbbreviation } from '@actor/creature/data';
+import { SkillAbbreviation } from '@actor/creature/data';
+import { SaveType } from '@actor/data';
 import { SKILL_DICTIONARY } from '@actor/data/values';
 import { FamiliarPF2e } from '@actor/familiar';
 import type { ItemPF2e } from '@item/base';
@@ -10,7 +11,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes?.concat('familiar'),
+            classes: [...options.classes, 'actor', 'familiar'],
             width: 650,
             height: 680,
             tabs: [{ navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'attributes' }],
@@ -77,7 +78,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e, ItemPF2e> {
 
         // rollable stats
         html.find('[data-saving-throw]:not([data-saving-throw=""])').on('click', '*', (event) => {
-            const save = $(event.currentTarget).closest('[data-saving-throw]').attr('data-saving-throw') as SaveString;
+            const save = $(event.currentTarget).closest('[data-saving-throw]').attr('data-saving-throw') as SaveType;
             const options = this.actor.getRollOptions(['all', 'saving-throw', save]);
             this.actor.data.data.saves[save].roll(event, options);
         });

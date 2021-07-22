@@ -14,5 +14,10 @@ export function gatherInformation(options: SkillActionOptions) {
         ['exploration', 'secret'],
         checkType,
         options.event,
+        undefined,
+        (selector: string) => [
+            ActionsPF2e.note(selector, 'PF2E.Actions.GatherInformation', 'success'),
+            ActionsPF2e.note(selector, 'PF2E.Actions.GatherInformation', 'criticalFailure'),
+        ],
     );
 }

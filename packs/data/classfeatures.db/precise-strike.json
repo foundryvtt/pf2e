@@ -29,6 +29,7 @@
             {
                 "damageCategory": "precision",
                 "key": "PF2E.RuleElement.FlatModifier",
+                "name": "precise-strike",
                 "predicate": {
                     "all": [
                         "panache",
@@ -39,7 +40,8 @@
                         "agile"
                     ],
                     "not": [
-                        "finisher"
+                        "finisher",
+                        "swashbuckler-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -84,6 +86,9 @@
                     "any": [
                         "finesse",
                         "agile"
+                    ],
+                    "not": [
+                        "swashbuckler-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -129,16 +134,51 @@
                 "key": "PF2E.RuleElement.ToggleProperty",
                 "label": "Finisher",
                 "property": "flags.pf2e.rollOptions.damage-roll.finisher"
+            },
+            {
+                "damageCategory": "precision",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "name": "dedication-precise-strike",
+                "predicate": {
+                    "all": [
+                        "panache",
+                        "melee",
+                        "swashbuckler-dedication"
+                    ],
+                    "any": [
+                        "finesse",
+                        "agile"
+                    ],
+                    "not": [
+                        "finisher"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
+            },
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "finisher",
+                        "panache",
+                        "melee",
+                        "swashbuckler-dedication"
+                    ],
+                    "any": [
+                        "finesse",
+                        "agile"
+                    ]
+                },
+                "selector": "damage"
             }
         ],
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:23.798-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
             "value": ""

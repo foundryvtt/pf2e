@@ -30,6 +30,7 @@
         "TypeWeapon": "Weapon"
     },
     "COMPENDIUM": {
+        "ImportAllHint": "All of the content from this Compendium pack will be imported into your World to a Folder, which you may name. <p class=\"notes\"><strong>WARNING</strong>: It is strongly recommended that this <span style=\"text-decoration: underline\">not</span> be done with larger compendia. Doing so has no benefit and will adversely impact loading this world for both yourself and your players.</p>",
         "Search": "Search Compendia"
     },
     "CONTROLS": {
@@ -102,6 +103,12 @@
                 "Title": "Climb"
             },
             "Coerce": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> The target gives you the information you seek or agrees to follow your directives so long as they aren't likely to harm the target in any way. The target continues to comply for an amount of time determined by the GM but not exceeding 1 day, at which point the target becomes unfriendly (if they weren't already unfriendly or hostile). However, the target is too scared of you to retaliate—at least in the short term.",
+                    "success": "<b>Success</b> As critical success, but once the target becomes unfriendly, they might decide to act against you—for example, by reporting you to the authorities or assisting your enemies.",
+                    "failure": "<b>Failure</b> The target doesn’t do what you say, and if they were not already unfriendly or hostile, they become unfriendly.",
+                    "criticalFailure": "<b>Critical Failure</b> The target refuses to comply, becomes hostile if they weren’t already, and can’t be Coerced by you for at least 1 week."
+                },
                 "Title": "Coerce"
             },
             "CreateADiversion": {
@@ -114,6 +121,10 @@
                 "Trick": "Create a Diversion - Trick"
             },
             "Demoralize": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> The target becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.",
+                    "success": "<b>Success</b> The target becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}."
+                },
                 "Title": "Demoralize"
             },
             "Disarm": {
@@ -145,6 +156,11 @@
                 "Cancel": "Cancel"
             },
             "Feint": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> You throw your enemy’s defenses against you entirely off. The target is @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} against melee attacks that you attempt against it until the end of your next turn.",
+                    "success": "<b>Success</b> Your foe is fooled, but only momentarily. The target is @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} against the next melee attack that you attempt against it before the end of your current turn.",
+                    "criticalFailure": "<b>Critical Failure</b> Your feint backfires. You are @Compendium[pf2e.conditionitems.AJh5ex99aV6VTggg]{Flat-Footed} against melee attacks the target attempts against you until the end of your next turn."
+                },
                 "Title": "Feint"
             },
             "ForceOpen": {
@@ -156,6 +172,10 @@
                 "Title": "Force Open"
             },
             "GatherInformation": {
+                "Notes": {
+                    "success": "<b>Success</b> You collect information about the individual or topic. The GM determines the specifics.",
+                    "criticalFailure": "<b>Critical Failure</b> You collect incorrect information about the individual or topic."
+                },
                 "Title": "Gather Information"
             },
             "Grapple": {
@@ -168,6 +188,9 @@
                 "Title": "Grapple"
             },
             "Hide": {
+                "Notes": {
+                    "success": "<b>Success</b> If the creature could see you, you’re now @Compendium[pf2e.conditionitems.iU0fEDdBp3rXpTMC]{Hidden} from it instead of observed. If you were @Compendium[pf2e.conditionitems.iU0fEDdBp3rXpTMC]{Hidden} from or @Compendium[pf2e.conditionitems.VRSef5y1LmL2Hkjf]{Undetected} by the creature, you retain that condition."
+                },
                 "Title": "Hide"
             },
             "HighJump": {
@@ -180,9 +203,18 @@
                 "Title": "High Jump"
             },
             "Impersonate": {
+                "Notes": {
+                    "success": "<b>Success</b> You trick the creature into thinking you’re the person you’re disguised as. You might have to attempt a new check if your behavior changes.",
+                    "failure": "<b>Failure</b> The creature can tell you’re not who you claim to be.",
+                    "criticalFailure": "<b>Critical Failure</b> The creature can tell you’re not who you claim to be, and it recognizes you if it would know you without a disguise."
+                },
                 "Title": "Impersonate"
             },
             "Lie": {
+                "Notes": {
+                    "success": "<b>Success</b> The target believes your lie.",
+                    "failure": "<b>Failure</b> The target doesn’t believe your lie and gains a +4 circumstance bonus against your attempts to Lie for the duration of your conversation. The target is also more likely to be suspicious of you in the future."
+                },
                 "Title": "Lie"
             },
             "LongJump": {
@@ -194,6 +226,11 @@
                 "Title": "Long Jump"
             },
             "MakeAnImpression": {
+                "Notes": {
+                    "success": "<b>Success</b> The target’s attitude toward you improves by two steps.",
+                    "failure": "<b>Failure</b> The target’s attitude toward you improves by one step.",
+                    "criticalFailure": "<b>Critical Failure</b> The target’s attitude toward you decreases by one step."
+                },
                 "Title": "Make an Impression"
             },
             "ManeuverInFlight": {
@@ -221,6 +258,12 @@
                 "ShieldIsBroken": "{actor}'s {shield} is broken."
             },
             "Request": {
+                "Notes": {
+                    "criticalSuccess": "<b>Critical Success</b> The target agrees to your request without qualifications.",
+                    "success": "<b>Success</b> The target agrees to your request, but they might demand added provisions or alterations to the request.",
+                    "failure": "<b>Failure</b> The target refuses the request, though they might propose an alternative that is less extreme.",
+                    "criticalFailure": "<b>Critical Failure</b> Not only does the target refuse the request, but their attitude toward you decreases by one step due to the temerity of the request."
+                },
                 "Title": "Request"
             },
             "Seek": {
@@ -251,6 +294,11 @@
                 "Title": "Shove"
             },
             "Sneak": {
+                "Notes": {
+                    "success": "<b>Success</b> You’re undetected by the creature during your movement and remain undetected by the creature at the end of it.",
+                    "failure": "<b>Failure</b> A telltale sound or other sign gives your position away, though you still remain unseen. You’re hidden from the creature throughout your movement and remain so",
+                    "criticalFailure": "<b>Critical Failure</b> You’re spotted! You’re observed by the creature throughout your movement and remain so. If you’re invisible and were hidden from the creature, instead of being observed you’re hidden throughout your movement and remain so."
+                },
                 "Title": "Sneak"
             },
             "Squeeze": {
@@ -344,6 +392,9 @@
         "Actor": {
             "Character": {
                 "AncestryClass": "{ancestry} {class}"
+            },
+            "Hazard": {
+                "Level": "Hazard {level}"
             },
             "Plural": "Actors"
         },
@@ -580,6 +631,7 @@
         "ClassHP": "Class HP",
         "ClassTitle": "Your character's class",
         "ClickToSetInitiative": "Click to set initiative to selected token(s).",
+        "ClickToSetInitiativeContext": "Set as Initiative",
         "CompendiumDirectory": {
             "Folders": {
                 "bestiaries": "Bestiaries",
@@ -739,6 +791,7 @@
         "DamageDieD6": "d6",
         "DamageDieD8": "d8",
         "DamageLabel": "Damage",
+        "DamageRoll": "Damage Roll",
         "DamageTypeAcid": "Acid",
         "DamageTypeBleed": "Bleed",
         "DamageTypeBludgeoning": "Bludgeoning",
@@ -924,12 +977,14 @@
         "ImmunityTypeNecromancy": "Necromancy",
         "ImmunityTypeNonlethalAttacks": "Nonlethal Attacks",
         "ImmunityTypeObjectImmunities": "Object Immunities",
+        "ImmunityTypePolymorph": "Polymorph",
         "ImmunityTypePrecisionDamage": "Precision Damage",
         "ImmunityTypeSleep": "Sleep",
         "ImmunityTypeSpellDeflection": "Spell Deflection",
         "ImmunityTypeSwarmMind": "Swarm Mind",
         "ImmunityTypeVisual": "Visual",
         "InitiativeHeader": "Initiative bonus",
+        "InitativeIsNow": "{name}'s Initiative is now {value}!",
         "InitiativeLabel": "Initiative",
         "InitiativeWithSkill": "Initiative: {skillName}",
         "InventoryArmorHeader": "Armor",
@@ -1164,7 +1219,7 @@
         "MacroActionNoActorError": "This actor no longer exists!",
         "MacroActionNoActionError": "This action no longer exists!",
         "MagicTraditionLabel": "Magic Tradition",
-        "MAPAbbreviationLabel": "MAP",
+        "MAPAbbreviationLabel": "MAP {penalty}",
         "MartialAdvanced": "Advanced Weapons",
         "MartialHeavy": "Heavy Armor",
         "MartialLight": "Light Armor",
@@ -1207,6 +1262,8 @@
         },
         "ModifierTitle": "Modifier",
         "ModifiersTitle": "Modifiers",
+        "ModifierNamePlaceholder": "Name",
+        "ModifierTypeTitle": "[Type]",
         "ModifierType": {
             "ability": "Ability",
             "proficiency": "Proficiency",
@@ -1271,6 +1328,7 @@
             "many": "th"
         },
         "OrphanedSpellsHeader": "Orphaned Spells (move to spellcasting entry above)",
+        "OverridesTitle": "Overrides",
         "PenaltyLabel": {
             "ability": "Ability Penalty",
             "proficiency": "Proficiency Penalty",
@@ -1304,7 +1362,6 @@
                 "Swords": "Swords"
             }
         },
-        "PickAType": "Pick a type",
         "Playlist": {
             "Plural": "Playlists"
         },
@@ -1403,13 +1460,30 @@
         "ResolvePointsShortLabel": "Resolve",
         "ResolveTitle": "The amount of resolve points you have",
         "ResultLabel": "Result",
+        "ResultOffset": "by {offset}",
+        "Roll": {
+            "Modifier": "Modifier",
+            "Type": "Type",
+            "Fortune": "Fortune",
+            "FortuneTitle": "{title} Fortune",
+            "Misfortune": "Misfortune",
+            "MisfortuneTitle": "{title} Misfortune",
+            "None": "None",
+            "Roll": "Roll",
+            "Normal": "Normal",
+            "CriticalHit": "Critical Hit",
+            "Add": "Add",
+            "UntypedPenalty": "Untyped (penalty)"
+        },
         "RollTable": {
             "Plural": "Rollable Tables"
         },
         "RollBonusPlaceholder": "e.g. +3 or +1d4",
         "RollModeLabel": "Roll Mode",
         "RuleElement": {
+            "ActiveEffectLike": "ActiveEffect-Like",
             "ActorTraits": "Actor Traits",
+            "AdjustDegreeOfSuccess": "Adjust Degree of Success",
             "BaseSpeed": "Base Speed",
             "DamageDice": "Damage Dice",
             "DexterityModifierCap": "Dexterity Modifier Cap",
@@ -1429,8 +1503,10 @@
             "TokenImage": "Token Image",
             "TokenSize": "Token Size",
             "RecoveryCheckDC": "Recovery Check DC",
-            "Unrecognized": "Unrecognized Rule Element",
-            "WeaponPotency": "Weapon Potency"
+            "LoseHitPoints": "Lose Hit Points",
+            "WeaponPotency": "Weapon Potency",
+            "NewRuleElement": "New Rule Element",
+            "Unrecognized": "Unrecognized Rule Element"
         },
         "Scene": {
             "Plural": "Scenes"
@@ -1632,6 +1708,10 @@
                     "TwentyFour": "24-Hour",
                     "Twelve": "12-Hour"
                 },
+                "ShowClockButton": {
+                    "Name": "Show clock button",
+                    "Hint": "Set whether to show the clock button at all (requires refresh)."
+                },
                 "PlayersCanView": {
                     "Name": "Player Access",
                     "Hint": "Set whether players can view the World Clock."
@@ -1757,6 +1837,7 @@
         "SensesDarkvision": "Darkvision",
         "SensesGreaterDarkvision": "Greater Darkvision",
         "SensesLowLightVision": "Low-Light Vision",
+        "SensesEcholocation": "Echolocation",
         "SensesLifesense": "Lifesense",
         "SensesMotionsense": "Motionsense",
         "SensesScent": "Scent",
@@ -2269,6 +2350,7 @@
         "TraitDescriptionRare": "This rarity indicates that a rules element is very difficult to find in the game world. A rare feat, spell, item or the like is available to players only if the GM decides to include it in the game, typically through discovery during play. Creatures with this trait are rare. They typically can't be summoned. The DC of Recall Knowledge checks related to these creatures is increased by 5.",
         "TraitDescriptionRatfolk": "A creature with this trait is a member of the ratfolk ancestry.",
         "TraitDescriptionReach": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures. Weapons with this trait are long and can be used to attack creatures up to 10 feet away instead of only adjacent creatures. For creatures that already have reach with the limb or limbs that wield the weapon, the weapon increases their reach by 5 feet.",
+        "TraitDescriptionReach0": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures.",
         "TraitDescriptionReach10": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures.",
         "TraitDescriptionReach15": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures.",
         "TraitDescriptionReach20": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures.",
@@ -2368,7 +2450,6 @@
         "TraitFleshwarp": "Fleshwarp",
         "TraitFlexible": "Flexible",
         "TraitFlourish": "Flourish",
-        "TraitFocus": "Focus",
         "TraitFocused": "Focused",
         "TraitForce": "Force",
         "TraitForceful": "Forceful",
@@ -2534,6 +2615,7 @@
         "TraitRare": "Rare",
         "TraitRatfolk": "Ratfolk",
         "TraitReach": "Reach",
+        "TraitReach0": "Reach 0 ft",
         "TraitReach10": "Reach 10 ft",
         "TraitReach15": "Reach 15 ft",
         "TraitReach20": "Reach 20 ft",
@@ -2548,7 +2630,6 @@
         "TraitRepeating": "Repeating",
         "TraitResonant": "Resonant",
         "TraitRevelation": "Revelation",
-        "TraitRitual": "Ritual",
         "TraitRogue": "Rogue",
         "TraitSaggorak": "Saggorak",
         "TraitSahkil": "Sahkil",
@@ -3317,6 +3398,9 @@
             "MisidentifiedItem": "Misidentified {item}",
             "Misidentify": "Misidentify Item",
             "Mystify": "Mystify Item",
+            "MystificationStatus": "Mystification status",
+            "Identified": "Identified",
+            "Unidentified": "Unidentified",
             "TraitGMNote": "Note: this trait is hidden from players.",
             "UnidentifiedDescription": "The nature of this {item} is unclear.",
             "UnidentifiedHint": "Change the basic display details of this item when unidentified.",
@@ -3420,6 +3504,22 @@
             "PropertyDescriptionCollisionDC": "The vehicles's DC for saving throws to mitigate damage.",
             "PropertyDescriptionCollisionDamage": "The vehicle's collision damage. Unless otherwise stated, collisions deal bludgeoning damage."
         },
+        "Familiar": {
+            "Master": "Master",
+            "MasterActor": "Master Actor",
+            "MasterLevel": "Master Level",
+            "SelectMaster": "Select a master...",
+            "MasterSpellcastingAbility": "Master Spellcasting Ability",
+            "TotalNumberFamiliarAbilities": "Total # of Familiar Abilities",
+            "Familiar": "Familiar",
+            "Creature": "Creature",
+            "Perception": "Perception",
+            "Defenses": "Defenses",
+            "ArmorClass": "Armor Class",
+            "Offenses": "Offenses",
+            "AttackRoll": "Attack Roll",
+            "Skills": "Skills"
+        },
         "NPC": {
             "Creature": "Creature",
             "Edit": "Edit",
@@ -3496,10 +3596,23 @@
         },
         "DamageButton": {
             "Full": "Apply full damage to selected tokens.",
-            "Double": "Apply double damage to selected tokens.",
+            "FullContext": "Apply Damage",
+            "FullShort": "Full",
             "Half": "Apply half damage to selected tokens.",
+            "HalfContext": "Half Damage",
+            "HalfShort": "Half",
+            "Double": "Apply double damage to selected tokens.",
+            "DoubleContext": "Double Damage",
+            "DoubleShort": "Double",
+            "Triple": "Apply triple damage to selected tokens.",
+            "TripleContext": "Apply Triple Damage",
+            "TripleShort": "Triple",
             "ShieldBlock": "Toggle the shield block status of the selected tokens.",
-            "Healing": "Apply full healing to selected tokens."
+            "ShieldBlockContext": "Shield Block",
+            "ShieldBlockShort": "Block",
+            "Healing": "Apply full healing to selected tokens.",
+            "HealingContext": "Apply Healing",
+            "HealingShort": "Heal"
         }
     },
     "PF2e": {

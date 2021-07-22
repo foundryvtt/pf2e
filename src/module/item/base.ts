@@ -81,17 +81,22 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return super.delete(context);
     }
 
-    override getRollData() {
-        if (!this.actor) return { item: this.data.data };
-        const actorRollData = this.actor.getRollData();
-        return { ...actorRollData, actor: actorRollData, item: this.data.data };
+    override getRollData(): Record<string, unknown> {
+        const item = this.toObject(false).data;
+        if (!this.actor) return { item };
+        const actor = this.actor.toObject(false).data;
+        return { ...actor, actor, item };
     }
 
     /**
-     * Create a chat card for this item and send it to the chat log. Many cards contain follow-up options for attack
-     * rolls, effect application, etc.
+     * Create a chat card for this item and either return the message or send it to the chat log. Many cards contain
+     * follow-up options for attack rolls, effect application, etc.
      */
-    async toChat(this: Embedded<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
+    async toMessage(
+        this: Embedded<ItemPF2e>,
+        event?: JQuery.TriggeredEvent,
+        { create = true } = {},
+    ): Promise<ChatMessagePF2e | undefined> {
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
         const { token } = this.actor;
@@ -114,6 +119,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 core: {
                     canPopout: true,
                 },
+                pf2e: {
+                    origin: { uuid: this.uuid, type: this.type },
+                },
             },
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
@@ -128,7 +136,12 @@ export class ItemPF2e extends Item<ActorPF2e> {
         chatData.content = await renderTemplate(template, templateData);
 
         // Create the chat message
-        return ChatMessagePF2e.create(chatData, { renderSheet: false });
+        return create ? ChatMessagePF2e.create(chatData, { renderSheet: false }) : new ChatMessagePF2e(chatData);
+    }
+
+    /** A shortcut to `item.toMessage(..., { create: true })`, kept for backward compatibility */
+    async toChat(this: Embedded<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
+        return this.toMessage(event, { create: true });
     }
 
     /** Refresh the Item Directory if this item isn't owned */
@@ -149,7 +162,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using TextEditor.enrichHTML()
      */
-    protected processChatData<T>(htmlOptions: EnrichHTMLOptions = {}, data: T): T {
+    protected processChatData<T>(this: Embedded<ItemPF2e>, htmlOptions: EnrichHTMLOptions = {}, data: T): T {
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
             chatData.description.value = TextEditor.enrichHTML(chatData.description.value, {
@@ -631,14 +644,8 @@ export class ItemPF2e extends Item<ActorPF2e> {
             throw new Error('Wrong item type!');
         }
 
-        const item = this.toObject();
-
-        // Get data
-        const itemData = item.data;
-        const rollData = duplicate(this.actor.data.data) as any;
-        const isHeal = itemData.spellType.value === 'heal';
-        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[itemData.damageType.value]);
-
+        const isHeal = this.data.data.spellType.value === 'heal';
+        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[this.data.data.damageType.value]);
         const castLevel = ItemPF2e.findSpellLevel(event);
         const parts = this.computeDamageParts(castLevel);
 
@@ -646,14 +653,6 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const damageLabel = game.i18n.localize(isHeal ? 'PF2E.SpellTypeHeal' : 'PF2E.DamageLabel');
         let title = `${this.name} - ${damageLabel}`;
         if (damageType && !isHeal) title += ` (${damageType})`;
-
-        // Add item to roll data
-        if (!this.spellcasting?.data && this.data.data.trickMagicItemData) {
-            rollData.mod = rollData.abilities[this.data.data.trickMagicItemData.ability].mod;
-        } else {
-            rollData.mod = rollData.abilities[this.spellcasting?.ability ?? 'int'].mod;
-        }
-        rollData.item = itemData;
 
         const traits = this.actor.data.data.traits.traits.value;
         if (traits.some((trait) => trait === 'elite')) {
@@ -667,7 +666,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
             event,
             item: this,
             parts,
-            data: rollData,
+            data: this.getRollData(),
             actor: this.actor,
             title,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -808,55 +807,27 @@ export class ItemPF2e extends Item<ActorPF2e> {
         if (this.actor) {
             // Rule Elements
             if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
-            const rules = RuleElements.fromOwnedItem(this as Embedded<ItemPF2e>);
-            const tokens = this.actor.getAllTokens();
-            const actorUpdates = {};
-            for (const rule of rules) {
-                rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
+            const actorUpdates: Record<string, unknown> = {};
+            for (const rule of this.rules) {
+                rule.onCreate(actorUpdates);
             }
             this.actor.update(actorUpdates);
-
-            // Effect Panel
-            game.pf2e.effectPanel.refresh();
         }
 
         super._onCreate(data, options, userId);
     }
 
-    /** Refresh the effect panel */
-    protected override _onUpdate(
-        changed: DeepPartial<this['data']['_source']>,
-        options: DocumentModificationContext,
-        userId: string,
-    ): void {
-        if (this.isOwned && this.actor) {
-            game.pf2e.effectPanel.refresh();
-        }
-
-        super._onUpdate(changed, options, userId);
-    }
-
     /** Call onDelete rule-element hooks */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
-        if (this.isOwned) {
-            if (this.actor) {
-                if (this.data.type === 'effect') {
-                    game.pf2e.effectTracker.unregister(this.data);
-                }
-
-                if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
-                const rules = RuleElements.fromOwnedItem(this as Embedded<ItemPF2e>);
-                const tokens = this.actor.getAllTokens();
-                const actorUpdates = {};
-                for (const rule of rules) {
-                    rule.onDelete(this.actor.data, this.data, actorUpdates, tokens);
-                }
-                this.actor.update(actorUpdates);
-
-                game.pf2e.effectPanel.refresh();
+        if (this.actor) {
+            if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
+            const tokens = this.actor.getAllTokens();
+            const actorUpdates: DocumentUpdateData<ActorPF2e> = {};
+            for (const rule of this.rules) {
+                rule.onDelete(this.actor.data, this.data, actorUpdates, tokens);
             }
+            this.actor.update(actorUpdates);
         }
-
         super._onDelete(options, userId);
     }
 }

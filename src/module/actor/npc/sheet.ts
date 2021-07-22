@@ -22,9 +22,10 @@ import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ActorSheetDataPF2e, InventoryItem, SheetInventory } from '../sheet/data-types';
 import { LabeledString, ValuesList, ZeroToEleven } from '@module/data';
 import { NPCAttributes, NPCSkillData, NPCStrike, NPCSystemData } from './data';
-import { Abilities, AbilityData, CreatureTraitsData, SaveString, SkillAbbreviation } from '@actor/creature/data';
+import { Abilities, AbilityData, CreatureTraitsData, SkillAbbreviation } from '@actor/creature/data';
 import { AbilityString } from '@actor/data/base';
 import { SpellcastingEntryPF2e } from '@item';
+import { SaveType } from '@actor/data';
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
@@ -132,7 +133,7 @@ type SheetItemData<T extends ItemDataPF2e = ItemDataPF2e> = T & {
     };
 };
 
-interface SpellcastingSheetData
+export interface SpellcastingSheetData
     extends SpellcastingEntryData,
         ReturnType<Embedded<SpellcastingEntryPF2e>['getSpellData']> {
     eid: number;
@@ -689,7 +690,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    rollSave(event: JQuery.ClickEvent, saveId: SaveString) {
+    rollSave(event: JQuery.ClickEvent, saveId: SaveType) {
         const save = this.actor.data.data.saves[saveId];
 
         if (save?.roll) {
@@ -706,7 +707,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         const ability = $label.parent().attr('data-attribute') as 'perception' | AbilityString;
         const skill = $label.parent().attr('data-skill') as SkillAbbreviation;
-        const save = $label.parent().attr('data-save') as SaveString;
+        const save = $label.parent().attr('data-save') as SaveType;
         const action = $label.parent().parent().attr('data-action');
         const item = $label.parent().parent().attr('data-item');
         const spell = $label.parent().parent().attr('data-spell');

@@ -21,10 +21,12 @@
         },
         "creatureType": "",
         "details": {
-            "description": "A wooden trapdoor covers a pit that's 10 feet square and 20 feet deep.",
-            "disable": "Thievery DC 12 to remove the trapdoor",
+            "description": "<p>A wooden trapdoor covers a pit that's 10 feet square and 20 feet deep.</p>",
+            "disable": "<span data-pf2-check=\"thievery\" data-pf2-label=\"Remove the Trapdoor DC\" data-pf2-dc=\"12\" data-pf2-show-dc=\"gm\">Thievery</span> to remove the trapdoor",
             "isComplex": false,
-            "level": 0,
+            "level": {
+                "value": 0
+            },
             "reset": "Creatures can still fall into the trap, but the trapdoor must be reset manually for the trap to become hidden again.",
             "routine": ""
         },
@@ -47,16 +49,11 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:29.718-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
-            "value": ""
+            "value": "Pathfinder Core Rulebook"
         },
         "statusEffects": [],
         "traits": {
@@ -81,7 +78,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "mechanical"
+                    "mechanical",
+                    "trap"
                 ]
             }
         }
@@ -105,20 +103,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature walks onto the trapdoor. <br /><strong>Effect</strong> The triggering creature falls in and takes falling damage (typically 10 bludgeoning damage). That creature can use the Grab an Edge reaction to avoid falling.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature walks onto the trapdoor.</p>\n<p><strong>Effect</strong> The triggering creature falls in and takes falling damage (typically [[/r 10 #bludgeoning]]{10 bludgeoning damage}). That creature can use the @Compendium[pf2e.actionspf2e.Grab an Edge]{Grab an Edge} reaction to avoid falling.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:29.718-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -133,9 +126,6 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""

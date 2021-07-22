@@ -14,9 +14,10 @@ import {
 } from '@module/modifiers';
 import { ensureWeaponCategory, ensureWeaponSize, WeaponDamagePF2e } from '@system/damage/weapon';
 import { CheckPF2e, DamageRollPF2e, RollParameters } from '@system/rolls';
-import { SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from '../data/values';
+import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from '../data/values';
 import {
     BaseWeaponProficiencyKey,
+    CharacterArmorClass,
     CharacterData,
     CharacterProficiencyData,
     CharacterStrike,
@@ -38,7 +39,7 @@ import { AutomaticBonusProgression } from '@module/rules/automatic-bonus';
 import { SpellAttackRollModifier, SpellDifficultyClass } from '@item/spellcasting-entry/data';
 import { WeaponCategory, WeaponDamage, WeaponData } from '@item/weapon/data';
 import { ZeroToFour } from '@module/data';
-import { AbilityString, DexterityModifierCapData, PerceptionData, StrikeTrait } from '@actor/data/base';
+import { AbilityString, PerceptionData, StrikeTrait } from '@actor/data/base';
 import { SkillAbbreviation, SkillData } from '@actor/creature/data';
 import { ArmorCategory } from '@item/armor/data';
 import { ActiveEffectPF2e } from '@module/active-effect';
@@ -68,11 +69,27 @@ export class CharacterPF2e extends CreaturePF2e {
         return this.data.data.details.keyability.value || 'str';
     }
 
+    /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
+        const systemData = this.data.data;
+
+        // Armor
+        const armorAttribute: { ac?: Partial<CharacterArmorClass> } = systemData.attributes;
+        armorAttribute.ac = { modifiers: [] };
+
+        // Saves, skills, and perception
+        for (const key of SAVE_TYPES) {
+            systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
+        }
+        for (const key of SKILL_ABBREVIATIONS) {
+            const skill = systemData.skills[key];
+            skill.ability = SKILL_EXPANDED[SKILL_DICTIONARY[key]].ability;
+            skill.armor = ['dex', 'str'].includes(skill.ability);
+        }
+        systemData.attributes.perception.ability = 'wis';
 
         // Add any homebrew categories
-        const systemData = this.data.data;
         const homebrewCategories = game.settings.get('pf2e', 'homebrew.weaponCategories').map((tag) => tag.id);
         for (const category of homebrewCategories) {
             systemData.martial[category] ??= {
@@ -96,6 +113,9 @@ export class CharacterPF2e extends CreaturePF2e {
         // Hit points from Ancestry and Class
         systemData.attributes.ancestryhp = 0;
         systemData.attributes.classhp = 0;
+
+        // Keep in place until sense data is migrated
+        systemData.traits.senses = systemData.traits.senses.filter((sense) => !!sense);
     }
 
     /** Adjustments from ABC items are made after all items are prepared but before active effects are applied. */
@@ -222,7 +242,7 @@ export class CharacterPF2e extends CreaturePF2e {
         for (const saveName of ['fortitude', 'reflex', 'will'] as const) {
             const save = systemData.saves[saveName];
             // Base modifiers from ability scores & level/proficiency rank.
-            const ability = save.ability ?? CONFIG.PF2E.savingThrowDefaultAbilities[saveName];
+            const ability = save.ability;
             const modifiers = [
                 AbilityModifier.fromAbilityScore(ability, systemData.abilities[ability].value),
                 ProficiencyModifier.fromLevelAndRank(this.level, save.rank),
@@ -379,13 +399,13 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Armor Class
         {
-            const modifiers: ModifierPF2e[] = [];
-            const dexCap = duplicate(systemData.attributes.dexCap ?? []);
+            const modifiers = [...systemData.attributes.ac.modifiers];
+            const dexCapSources = [{ value: Infinity, source: '' }];
             let armorCheckPenalty = 0;
             let proficiency: ArmorCategory = 'unarmored';
 
             if (worn) {
-                dexCap.push({ value: Number(worn.data.dex.value ?? 0), source: worn.name });
+                dexCapSources.push({ value: Number(worn.data.dex.value ?? 0), source: worn.name });
                 proficiency = worn.data.armorType.value;
                 // armor check penalty
                 if (systemData.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
@@ -402,7 +422,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
             // Dex modifier limited by the lowest dex cap, for example from armor
             const dexterity = DEXTERITY.withScore(systemData.abilities.dex.value);
-            dexterity.modifier = Math.min(dexterity.modifier, ...dexCap.map((cap) => cap.value));
+            dexterity.modifier = Math.min(dexterity.modifier, ...dexCapSources.map((cap) => cap.value));
             modifiers.unshift(dexterity);
 
             // condition and custom modifiers
@@ -410,17 +430,15 @@ export class CharacterPF2e extends CreaturePF2e {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
 
-            const stat = mergeObject(new StatisticModifier('ac', modifiers), systemData.attributes.ac, {
-                overwrite: false,
+            const dexCap = dexCapSources.reduce((result, current) => (result.value > current.value ? current : result));
+
+            const stat: CharacterArmorClass = mergeObject(new StatisticModifier('ac', modifiers), {
+                value: 10,
+                breakdown: '',
+                check: armorCheckPenalty,
+                dexCap,
             });
-            stat.value = 10 + stat.totalModifier;
-            stat.check = armorCheckPenalty;
-            stat.dexCap = dexCap.reduce((result: DexterityModifierCapData | undefined, current) => {
-                if (result) {
-                    return result.value > current.value ? current : result;
-                }
-                return current;
-            }, undefined);
+            stat.value += stat.totalModifier;
             stat.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')]
                 .concat(
                     stat.modifiers
@@ -446,10 +464,7 @@ export class CharacterPF2e extends CreaturePF2e {
         for (const shortForm of SKILL_ABBREVIATIONS) {
             const skill = systemData.skills[shortForm];
             const modifiers = [
-                AbilityModifier.fromAbilityScore(
-                    skill.ability,
-                    systemData.abilities[skill.ability as AbilityString].value,
-                ),
+                AbilityModifier.fromAbilityScore(skill.ability, systemData.abilities[skill.ability].value),
                 ProficiencyModifier.fromLevelAndRank(this.level, skill.rank),
             ];
             const notes: RollNotePF2e[] = [];
@@ -464,9 +479,13 @@ export class CharacterPF2e extends CreaturePF2e {
                 systemData.attributes.ac.check < 0 &&
                 ignoreArmorCheckPenalty
             ) {
-                modifiers.push(
-                    new ModifierPF2e('PF2E.ArmorCheckPenalty', systemData.attributes.ac.check, MODIFIER_TYPE.UNTYPED),
+                const armorCheckPenalty = new ModifierPF2e(
+                    'PF2E.ArmorCheckPenalty',
+                    systemData.attributes.ac.check,
+                    MODIFIER_TYPE.UNTYPED,
                 );
+                armorCheckPenalty.predicate.not = ['attack'];
+                modifiers.push(armorCheckPenalty);
             }
 
             // workaround for the shortform skill names
@@ -959,8 +978,8 @@ export class CharacterPF2e extends CreaturePF2e {
                     `${game.i18n.localize('PF2E.RuleElement.Strike')} ${action.totalModifier < 0 ? '' : '+'}${
                         action.totalModifier
                     }`,
-                    `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map2}`,
-                    `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map3}`,
+                    game.i18n.format('PF2E.MAPAbbreviationLabel', { penalty: multipleAttackPenalty.map2 }),
+                    game.i18n.format('PF2E.MAPAbbreviationLabel', { penalty: multipleAttackPenalty.map3 }),
                 ];
                 const checkModifiers: [CheckModifier, CheckModifier, CheckModifier] = [
                     new CheckModifier(`${strikeLabel}: ${action.name}`, action),
@@ -1227,23 +1246,6 @@ export class CharacterPF2e extends CreaturePF2e {
         return super.deleteEmbeddedDocuments(embeddedName, [...new Set(ids)], context) as Promise<
             ActiveEffectPF2e[] | ItemPF2e[]
         >;
-    }
-
-    /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
-    /* -------------------------------------------- */
-
-    /** Refresh placed lights if this character's senses changed */
-    protected override _onUpdate(
-        changed: DeepPartial<this['data']['_source']>,
-        options: DocumentModificationContext = {},
-        userId: string,
-    ): void {
-        if (changed.data?.traits?.senses) {
-            canvas.lighting.initializeSources();
-            canvas.perception.schedule({ lighting: { refresh: true }, sight: { refresh: true } });
-        }
-        super._onUpdate(changed, options, userId);
     }
 }
 

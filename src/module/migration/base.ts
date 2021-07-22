@@ -1,5 +1,7 @@
+import { ActorPF2e } from '@actor';
 import { ActorSourcePF2e } from '@actor/data';
 import { ItemSourcePF2e } from '@item/data';
+import { ScenePF2e } from '@module/scene';
 
 /**
  * This is the base class for a migration.
@@ -62,7 +64,11 @@ export abstract class MigrationBase {
      * Update the token to the latest schema version.
      * @param tokenData Token data to update. This should be a `TokenData` from the previous version.
      */
-    async updateToken(_tokenData: foundry.data.TokenSource): Promise<void> {}
+    async updateToken(
+        _tokenData: foundry.data.TokenSource,
+        _actor: Readonly<ActorPF2e | null>,
+        _scene: Readonly<ScenePF2e | null>,
+    ): Promise<void> {}
 
     /**
      * Update the user to the latest schema version.

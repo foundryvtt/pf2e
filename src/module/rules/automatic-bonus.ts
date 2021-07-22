@@ -1,12 +1,12 @@
 import { ModifierPF2e, MODIFIER_TYPE, DamageDicePF2e } from '@module/modifiers'; //, DiceModifierPF2e, DamageDicePF2e
-import { RuleElementSyntheticsPF2e, StrikingPF2e, WeaponPotencyPF2e } from './rules-data-definitions';
+import { RuleElementSynthetics, StrikingPF2e, WeaponPotencyPF2e } from './rules-data-definitions';
 
 export class AutomaticBonusProgression {
     /**
      * @param level The name of this collection of statistic modifiers.
      * @param synthetics All relevant modifiers for this statistic.
      */
-    static concatModifiers(level: number, synthetics: RuleElementSyntheticsPF2e) {
+    static concatModifiers(level: number, synthetics: RuleElementSynthetics) {
         if (game.settings.get('pf2e', 'automaticBonusVariant') === 'noABP') return;
 
         const values = this.abpValues(level);

@@ -24,7 +24,9 @@
             "description": "Three bulky kegs of black powder placed at key locations in the temple are triggered to explode in unison, causing the entire structure to collapse into rubble and slide partially down the cliff face.",
             "disable": "No special skills are required to disable this manually activated trap. As an Interact action, a PC can sweep aside some black powder to interrupt the fuse line, but this doesn't prevent Gerhard from activating a keg via blunderbuss. A keg that is removed from its position (either by being thrown over the cliff or merely carried away) retains its explosive potential, but as long as one of the three kegs are removed they no longer have the precise placement required to trigger a collapse-an explosion at this point merely inflicts fire damage in the appropriate areas but does not particularly damage the temple structure itself.\r\n A keg's contents can be dispersed by scattering the gunpowder to the wind (most efficiently by pouring it over the cliff side) as a 2-action activity, or rendered permanently inert by pouring a gallon of water into the powder, inhibiting its explosive qualities. The kegs themselves can be destroyed with damage (note that the AC listed below for each keg takes into account the fact that Gerhard has wedged the kegs into nooks in the temple's stone flooring and walls), but note that any fire damage (including incidental fire damage from area effects like a fireball or Gerhard's blunderbuss) causes them to explode. At your option, other actions may be similarly effective at disabling this hazard.",
             "isComplex": false,
-            "level": 6,
+            "level": {
+                "value": 6
+            },
             "reset": "",
             "routine": "If Gerhard lights the black powder fuse, it burns at a speed of 10 feet each round; when the fuse reaches a keg 6 rounds later, the black powder bomb explodes. The bomb explodes immediately if he shoots a barrel with his blunderbuss."
         },
@@ -47,13 +49,8 @@
             }
         },
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:17.001-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
             "value": ""
@@ -112,20 +109,15 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> One of the three kegs takes any fire damage, including damage caused by a line of black powder burning up to a keg. <br /><br /><strong>Effect</strong> The keg explodes, causing [[/r 5d6 #fire]] fire damage (DC 24 basic Reflex) in a 20-foot emanation; this can cause an instantaneous chain reaction if either of the other kegs are in this area (note that as positioned, all three kegs are in range to trigger a chain reaction). Fire damage in overlapping areas isn't cumulative, but if all three kegs are in their initial positions when the explosion occurs, the temple itself collapses, causing [[/r 8d6 #bludgeoning]] bludgeoning damage to all creatures in the temple (DC 24 basic Reflex).</p>"
+                    "value": "<p><strong>Trigger</strong> One of the three kegs takes any fire damage, including damage caused by a line of black powder burning up to a keg. <br /><br /><strong>Effect</strong> The keg explodes, causing [[/r 5d6 #fire]] fire damage (<span data-pf2-check=\"reflex\" data-pf2-dc=\"24\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Destructive Explosion DC\" data-pf2-show-dc=\"gm\">basic Reflex</span>) in a 20-foot emanation; this can cause an instantaneous chain reaction if either of the other kegs are in this area (note that as positioned, all three kegs are in range to trigger a chain reaction). Fire damage in overlapping areas isn't cumulative, but if all three kegs are in their initial positions when the explosion occurs, the temple itself collapses, causing [[/r 8d6 #bludgeoning]] bludgeoning damage to all creatures in the temple (<span data-pf2-check=\"reflex\" data-pf2-dc=\"24\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Temple Collapse DC\" data-pf2-show-dc=\"gm\">basic Reflex</span>).</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
-                    "lastMigration": {
-                        "datetime": "2021-07-03T22:03:17.001-05:00",
-                        "version": {
-                            "schema": null
-                        }
-                    },
-                    "version": 0.642
+                    "lastMigration": null,
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -145,9 +137,6 @@
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""

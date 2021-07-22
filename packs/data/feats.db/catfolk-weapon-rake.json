@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You know how to efficiently use weapons that rake across your enemies. Whenever you critically hit using a catfolk weapon or one of the weapons listed in Catfolk Weapon Familiarity, you apply the weapon's critical specialization effect.</p>"
+            "value": "<p>You know how to efficiently use weapons that rake across your enemies. Whenever you critically hit using a catfolk weapon or one of the weapons listed in @Compendium[pf2e.feats-srd.Catfolk Weapon Familiarity]{Catfolk Weapon Familiarity}, you apply the weapon's critical specialization effect.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -21,6 +21,7 @@
         "level": {
             "value": 5
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -28,15 +29,246 @@
                 }
             ]
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:28.658-05:00",
-                "version": {
-                    "schema": null
-                }
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "axe-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> Choose one creature adjacent to the initial target and within reach. If its AC is lower than your attack roll result for the critical hit, you deal damage to that creature equal to the result of the weapon damage die you rolled (including extra dice for its potency rune, if any). This amount isn't doubled, and no bonuses or other additional dice apply to this damage.</p>"
             },
-            "version": 0.642
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "bomb-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> Increase the radius of the bomb's splash damage (if any) to 10 feet.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "bow-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} and must spend an Interact action to attempt a DC 10 Athletics check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid (like a water elemental or some oozes), or could otherwise escape without effort.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "brawling-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until the end of your next turn.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "club-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> You knock the target away from you up to 10 feet (you choose the distance). This is forced movement.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "dart-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target takes [[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "flail-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "hammer-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "knife-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target takes [[/r 1d6 #persistent bleed]] persistent bleed damage. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "pick-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The weapon viciously pierces the target, who takes [[/r 2]] additional damage per weapon damage die.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "polearm-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target is moved 5 feet in a direction of your choice. This is forced movement.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "shield-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> You knock the target back from you 5 feet. This is forced movement.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "sling-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target must succeed at a Fortitude save against your class DC or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "spear-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The weapon pierces the target, weakening its attacks. The target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} until the start of your next turn.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "catfolk"
+                    ]
+                },
+                "selector": "sword-weapon-group-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target is made off-balance by your attack, becoming @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "hatchet-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> Choose one creature adjacent to the initial target and within reach. If its AC is lower than your attack roll result for the critical hit, you deal damage to that creature equal to the result of the weapon damage die you rolled (including extra dice for its potency rune, if any). This amount isn't doubled, and no bonuses or other additional dice apply to this damage.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "kama-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target takes [[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "kukri-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target takes [[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "scimitar-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target is made off-balance by your attack, becoming @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} until the start of your next turn.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "sickle-damage",
+                "text": "<p class='compact-text'><strong>Critical Specialization</strong> The target takes [[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. You gain an item bonus to this bleed damage equal to the weapon's item bonus to attack rolls.</p>"
+            }
+        ],
+        "schema": {
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
             "value": ""

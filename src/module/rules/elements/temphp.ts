@@ -1,13 +1,13 @@
 import { ItemDataPF2e } from '@item/data';
-import { CharacterData, NPCData } from '@actor/data';
 import { RuleElementPF2e } from '../rule-element';
+import { CharacterData, NPCData } from '@actor/data';
 
 /**
  * @category RuleElement
  */
 export class PF2TempHPRuleElement extends RuleElementPF2e {
-    override onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any) {
-        const updatedActorData = mergeObject(actorData, actorUpdates, { inplace: false });
+    override onCreate(actorUpdates: Record<string, unknown>) {
+        const updatedActorData = mergeObject(this.actor.data, actorUpdates, { inplace: false });
         const value = this.resolveValue(this.data.value);
 
         if (!value) {
@@ -17,7 +17,7 @@ export class PF2TempHPRuleElement extends RuleElementPF2e {
         if (getProperty(updatedActorData, 'data.attributes.hp.temp') < value) {
             mergeObject(actorUpdates, {
                 'data.attributes.hp.temp': value,
-                'data.attributes.hp.tempsource': item._id,
+                'data.attributes.hp.tempsource': this.item.id,
             });
         }
     }

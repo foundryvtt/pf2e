@@ -35,6 +35,9 @@
                 "predicate": {
                     "all": [
                         "rage"
+                    ],
+                    "not": [
+                        "barbarian-dedication"
                     ]
                 },
                 "roll-options": [
@@ -55,7 +58,8 @@
                     "not": [
                         "ranged",
                         "agile",
-                        "normal-rage"
+                        "normal-rage",
+                        "barbarian-dedication"
                     ]
                 },
                 "roll-options": [
@@ -93,7 +97,8 @@
                     ],
                     "not": [
                         "ranged",
-                        "normal-rage"
+                        "normal-rage",
+                        "barbarian-dedication"
                     ]
                 },
                 "roll-options": [
@@ -130,7 +135,8 @@
                     ],
                     "not": [
                         "agile",
-                        "ranged"
+                        "ranged",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -147,7 +153,8 @@
                         "normal-rage"
                     ],
                     "not": [
-                        "ranged"
+                        "ranged",
+                        "barbarian-dedication"
                     ]
                 },
                 "selector": "damage",
@@ -157,16 +164,89 @@
                 "key": "PF2E.RuleElement.ToggleProperty",
                 "label": "Deal normal rage damage",
                 "property": "flags.pf2e.rollOptions.damage-roll.normal-rage"
+            },
+            {
+                "damageType": "poison",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "dedication-instinct-rage",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "barbarian-dedication",
+                        "instinct-ability"
+                    ],
+                    "not": [
+                        "agile",
+                        "ranged",
+                        "normal-rage"
+                    ]
+                },
+                "selector": "damage",
+                "value": 4
+            },
+            {
+                "damageType": "poison",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "dedication-instinct-rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "barbarian-dedication",
+                        "instinct-ability",
+                        "agile"
+                    ],
+                    "not": [
+                        "ranged",
+                        "normal-rage"
+                    ]
+                },
+                "selector": "damage",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "dedication-instinct-rage-normal",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "barbarian-dedication",
+                        "instinct-ability",
+                        "normal-rage"
+                    ],
+                    "not": [
+                        "agile",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "dedication-instinct-rage-agile-normal",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "barbarian-dedication",
+                        "instinct-ability",
+                        "agile",
+                        "normal-rage"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
             }
         ],
         "schema": {
-            "lastMigration": {
-                "datetime": "2021-07-03T22:03:23.740-05:00",
-                "version": {
-                    "schema": null
-                }
-            },
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
             "value": ""

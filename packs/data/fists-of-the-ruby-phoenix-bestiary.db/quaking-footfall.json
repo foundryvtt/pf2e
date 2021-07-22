@@ -21,9 +21,11 @@
         "creatureType": "",
         "details": {
             "description": "<p>Mogaru's steady footsteps pick up speed, causing the earth around him to tremble as though from a powerful earthquake.</p>",
-            "disable": "<p>three <span data-pf2-skill-check=\"athletics\" data-pf2-traits=\"\" data-pf2-label=\"\" data-pf2-dc=\"39\" data-pf2-show-dc=\"gm\">Athletics</span> (trained), <span data-pf2-skill-check=\"crafting\" data-pf2-traits=\"\" data-pf2-label=\"\" data-pf2-dc=\"39\" data-pf2-show-dc=\"gm\">Crafting</span>(trained), or <span data-pf2-skill-check=\"engineering\" data-pf2-traits=\"\" data-pf2-label=\"\" data-pf2-dc=\"39\" data-pf2-show-dc=\"gm\">Engineering Lore</span> (trained) checks to brace a small structure or surface to cancel the effects of the quake in that area; <span data-pf2-skill-check=\"performance\" data-pf2-traits=\"\" data-pf2-label=\"\" data-pf2-dc=\"41\" data-pf2-show-dc=\"gm\">Performance</span> (legendary) to calm Mogaru momentarily</p>",
+            "disable": "<p>three <span data-pf2-check=\"athletics\" data-pf2-label=\"Brace a Small Structure or Surface DC\" data-pf2-dc=\"39\" data-pf2-show-dc=\"gm\">Athletics</span> (trained), <span data-pf2-check=\"crafting\" data-pf2-label=\"Brace a Small Structure or Surface DC\" data-pf2-dc=\"39\" data-pf2-show-dc=\"gm\">Crafting</span>(trained), or <span data-pf2-check=\"engineering\" data-pf2-label=\"Brace a Small Structure or Surface DC\" data-pf2-dc=\"39\" data-pf2-show-dc=\"gm\">Engineering Lore</span> (trained) checks to brace a small structure or surface to cancel the effects of the quake in that area; <span data-pf2-check=\"performance\" data-pf2-label=\"\" data-pf2-dc=\"41\" data-pf2-show-dc=\"gm\">Performance</span> (legendary) to calm Mogaru momentarily</p>",
             "isComplex": false,
-            "level": 14,
+            "level": {
+                "value": 14
+            },
             "reset": "<p>Mogaru doesn't rush this way again for [[/r 1d4]] rounds.</p>",
             "routine": ""
         },
@@ -46,10 +48,11 @@
             }
         },
         "schema": {
-            "version": 0.642
+            "lastMigration": null,
+            "version": 0.646
         },
         "source": {
-            "value": ""
+            "value": "Pathfinder #167: Ready? Fight!"
         },
         "statusEffects": [],
         "traits": {
@@ -92,7 +95,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Mogaru moves at least 60 feet;</p>\n<p><strong>Effect</strong> The ground shakes in a 120-foot emanation from Mogaru's space. This creates a variety of effects, depending on where the player characters are at the time of the quake.</p>\n<p>In most parts of the city, the ground becomes difficult terrain, and creatures on it are @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} for 1 round.</p>\n<p>In parts of the city with existing underground spaces (like sewers, sinkholes, or catacombs), fissures open up in the ground. Creatures in the area tumble into the resulting 40-foot-deep hole unless they succeed at a <span data-pf2-saving-throw=\"reflex\" data-pf2-traits=\"\" data-pf2-label=\"\" data-pf2-dc=\"40\" data-pf2-show-dc=\"gm\">Reflex</span> save.</p>\n<p>In bays, on beaches, and in other relatively substantial but shallow bodies of water, Mogaru's movement creates dangerous waves. Creatures in the water or within 60 feet of the waterline are struck by waves that deal [[/r 3d8 # bludgeoning damage]]{3d8 bludgeoning damage} (<span data-pf2-saving-throw=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"\" data-pf2-dc=\"35\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). On a critically failed save, a creature is instantly swept 60 feet out to sea and 60 feet under the water's surface.</p>"
+                    "value": "<p><strong>Trigger</strong> Mogaru moves at least 60 feet;</p>\n<p><strong>Effect</strong> The ground shakes in a 120-foot emanation from Mogaru's space. This creates a variety of effects, depending on where the player characters are at the time of the quake.</p>\n<p>In most parts of the city, the ground becomes difficult terrain, and creatures on it are @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} for 1 round.</p>\n<p>In parts of the city with existing underground spaces (like sewers, sinkholes, or catacombs), fissures open up in the ground. Creatures in the area tumble into the resulting 40-foot-deep hole unless they succeed at a <span data-pf2-check=\"reflex\" data-pf2-label=\"Quake DC\" data-pf2-dc=\"40\" data-pf2-show-dc=\"gm\">Reflex</span> save.</p>\n<p>In bays, on beaches, and in other relatively substantial but shallow bodies of water, Mogaru's movement creates dangerous waves. Creatures in the water or within 60 feet of the waterline are struck by waves that deal [[/r 3d8 # bludgeoning damage]]{3d8 bludgeoning damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Quake DC\" data-pf2-dc=\"35\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). On a critically failed save, a creature is instantly swept 60 feet out to sea and 60 feet under the water's surface.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -100,7 +103,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": null
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
