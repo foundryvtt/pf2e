@@ -2,12 +2,6 @@ import { ActorPF2e } from '@actor/base';
 import { ConditionData, EffectData } from '@item/data';
 import { ConditionPF2e, EffectPF2e } from '@item/index';
 
-interface EffectPanelData {
-    conditions?: ConditionData[];
-    effects?: EffectData[];
-    actor?: ActorPF2e;
-}
-
 export class EffectPanel extends Application {
     actor?: ActorPF2e;
 
@@ -27,38 +21,50 @@ export class EffectPanel extends Application {
     override getData(options?: ApplicationOptions): EffectPanelData {
         const data: EffectPanelData = super.getData(options);
 
-        data.conditions = [];
+        const actor = (data.actor = EffectPanel.actor);
+        if (!actor) return {};
+
         data.effects = [];
-        data.actor = EffectPanel.actor;
-        if (data.actor) {
-            for (const item of data.actor.items) {
-                if (item instanceof ConditionPF2e && item.fromSystem) {
-                    data.conditions.push(item.data);
-                } else if (item instanceof EffectPF2e) {
-                    const duration = item.totalDuration;
-                    const effect = item.clone({}, { keepId: true }).data;
-                    if (duration === Infinity) {
-                        effect.data.expired = false;
-                        effect.data.remaining = game.i18n.localize('PF2E.EffectPanel.UnlimitedDuration');
-                    } else {
-                        const duration = item.remainingDuration;
-                        effect.data.expired = duration.expired;
-                        effect.data.remaining = effect.data.expired
-                            ? game.i18n.localize('PF2E.EffectPanel.Expired')
-                            : EffectPanel.getRemainingDurationLabel(
-                                  duration.remaining,
-                                  effect.data.start.initiative ?? 0,
-                                  effect.data.duration.expiry,
-                              );
-                    }
-                    data.effects.push(effect);
-                }
+
+        for (const item of actor.items.filter((item): item is Embedded<EffectPF2e> => item instanceof EffectPF2e)) {
+            const duration = item.totalDuration;
+            const effect = item.clone({}, { keepId: true }).data;
+            if (duration === Infinity) {
+                effect.data.expired = false;
+                effect.data.remaining = game.i18n.localize('PF2E.EffectPanel.UnlimitedDuration');
+            } else {
+                const duration = item.remainingDuration;
+                effect.data.expired = duration.expired;
+                effect.data.remaining = effect.data.expired
+                    ? game.i18n.localize('PF2E.EffectPanel.Expired')
+                    : EffectPanel.getRemainingDurationLabel(
+                          duration.remaining,
+                          effect.data.start.initiative ?? 0,
+                          effect.data.duration.expiry,
+                      );
             }
+            data.effects.push(effect);
         }
-        data.conditions = game.pf2e.ConditionManager.getFlattenedConditions(data.conditions).map((c) => {
-            c.locked = c.parents.length > 0;
-            c.breakdown = EffectPanel.getParentConditionsBreakdown(c.parents);
-            return c;
+
+        const conditions: Collection<Embedded<ConditionPF2e>> = actor.conditions ?? new Collection();
+        const conditionsData = conditions.map((condition) => condition.data);
+        const flattenedConditions = game.pf2e.ConditionManager.getFlattenedConditions(conditionsData);
+
+        data.conditions = flattenedConditions.flatMap((flattened) => {
+            const condition = conditions.get(flattened.id)!;
+
+            return {
+                id: condition.id,
+                name: condition.name,
+                img: condition.img,
+                value: condition.value,
+                locked: condition.isLocked,
+                overridden: condition.isOverridden,
+                breakdown: {
+                    parents: EffectPanel.getParentBreakdown(flattened.parents),
+                    overriders: EffectPanel.getOverrideBreakdown(condition.overriders),
+                },
+            };
         });
 
         return data;
@@ -87,15 +93,22 @@ export class EffectPanel extends Application {
         return canvas.tokens.controlled[0]?.actor ?? game.user?.character;
     }
 
-    private static getParentConditionsBreakdown(conditions: ConditionData[]): string {
+    private static getParentBreakdown(conditions: ConditionData[]): string {
         let breakdown = '';
         if ((conditions ?? []).length > 0) {
-            const list = Array.from(new Set(conditions.map((p) => p.name)))
-                .sort()
+            const list = Array.from(new Set(conditions.map((condition) => condition.name)))
+                .sort((nameA, nameB) => nameA.localeCompare(nameB))
                 .join(', ');
-            breakdown = `${game.i18n.format('PF2E.EffectPanel.AppliedBy', { 'condition-list': list })}`;
+            breakdown = game.i18n.format('PF2E.EffectPanel.AppliedBy', { 'condition-list': list });
         }
         return breakdown;
+    }
+
+    private static getOverrideBreakdown(overriders: ConditionPF2e[]): string | null {
+        const list = [...new Set(overriders.map((condition) => condition.name))]
+            .sort((nameA, nameB) => nameA.localeCompare(nameB))
+            .join(', ');
+        return list.length > 0 ? game.i18n.format('PF2E.EffectPanel.OverriddenBy', { list }) : null;
     }
 
     private static getRemainingDurationLabel(
@@ -157,4 +170,23 @@ export class EffectPanel extends Application {
             return game.i18n.format(key, { initiative });
         }
     }
+}
+
+interface EffectPanelData {
+    conditions?: ConditionSummary[];
+    effects?: EffectData[];
+    actor?: ActorPF2e;
+}
+
+export interface ConditionSummary {
+    id: string;
+    name: string;
+    img: ImagePath;
+    value: number | null;
+    locked: boolean;
+    overridden: boolean;
+    breakdown: {
+        parents: string;
+        overriders: string | null;
+    };
 }

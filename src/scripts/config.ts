@@ -18,13 +18,14 @@ import {
     SpellcastingEntryPF2e,
     TreasurePF2e,
     WeaponPF2e,
-} from '@item/index';
-import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from '@actor/index';
+} from '@item';
+import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from '@actor';
 import { ConditionType } from '@item/condition/data';
 import { WeaponPropertyRuneType } from '@item/weapon/data';
 import { PreciousMaterialGrade, PreciousMaterialType } from '@item/physical/data';
 import { DamageType } from '@module/damage-calculation';
 import { ClassTrait } from '@item/class/data';
+import { ConditionsPF2e } from '@item/condition';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
@@ -2346,5 +2347,6 @@ export const PF2ECONFIG = {
             spellcastingEntry: SpellcastingEntryPF2e,
             condition: ConditionPF2e,
         },
+        conditionClasses: ConditionsPF2e,
     },
 };

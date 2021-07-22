@@ -24,24 +24,18 @@ export interface ConditionSystemData extends ItemSystemData {
             id: string;
             type: 'status' | 'condition' | 'feat' | 'weapon' | 'armor' | 'consumable' | 'equipment' | 'spell';
         };
-        children: [
-            {
-                id: string;
-                type: 'condition';
-            },
-        ];
-        overriddenBy: [
-            {
-                id: string;
-                type: 'condition';
-            },
-        ];
-        overrides: [
-            {
-                id: string;
-                type: 'condition';
-            },
-        ];
+        children: Array<{
+            id: string;
+            type: 'condition';
+        }>;
+        overriddenBy: Array<{
+            id: string;
+            type: 'condition';
+        }>;
+        overrides: Array<{
+            id: string;
+            type: 'condition';
+        }>;
         /**
          * This status is immune, and thereby inactive, from the following list.
          */

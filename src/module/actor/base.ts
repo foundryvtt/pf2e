@@ -1,8 +1,8 @@
 import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, RawPredicate } from '../modifiers';
 import { isCycle } from '@item/container/helpers';
 import { DicePF2e } from '@scripts/dice';
-import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e } from '@item';
-import type { ConditionPF2e, ArmorPF2e } from '@item/index';
+import { ItemPF2e, ConditionPF2e, ContainerPF2e, PhysicalItemPF2e, SpellcastingEntryPF2e } from '@item';
+import { ArmorPF2e } from '@item/index';
 import { ConditionData, WeaponData, ItemSourcePF2e, ItemType } from '@item/data';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import type { ActiveEffectPF2e } from '@module/active-effect';
@@ -37,8 +37,11 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Has this actor gone through at least one cycle of data preparation? */
     private initialized: true | undefined;
 
-    /** A separate collection of owned physical items for convenient access */
+    /** A separate collection of owned physical items */
     physicalItems!: Collection<Embedded<PhysicalItemPF2e>>;
+
+    /** A separate collection of imposed conditions */
+    conditions!: Collection<Embedded<ConditionPF2e>>;
 
     /** Rule elements drawn from owned items */
     rules!: RuleElementPF2e[];
@@ -46,9 +49,6 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     constructor(data: PreCreate<ActorSourcePF2e>, context: ActorConstructorContextPF2e = {}) {
         if (context.pf2e?.ready) {
             super(data, context);
-            this.physicalItems ??= new Collection();
-            this.rules ??= [];
-            this.initialized = true;
         } else {
             const ready = { pf2e: { ready: true } };
             return new CONFIG.PF2E.Actor.documentClasses[data.type](data, { ...ready, ...context });
@@ -96,7 +96,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
 
     /** Add effect icons from effect items and rule elements */
     override get temporaryEffects(): TemporaryEffect[] {
-        const tokenIcon = (data: ConditionData) => {
+        const tokenIcon = (data: ConditionData): ImagePath => {
             const folder = CONFIG.PF2E.statusEffects.effectsIconFolder;
             const statusName = data.data.hud.statusName;
             return `${folder}${statusName}.webp`;
@@ -113,7 +113,8 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.temporaryEffects
             .concat(this.data.data.tokenEffects)
             .concat(conditionTokenEffects)
-            .concat(effectTokenEffects);
+            .concat(effectTokenEffects)
+            .filter((effect) => !!effect);
     }
 
     /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */
@@ -193,9 +194,21 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         return super.create(data, context) as Promise<A[] | A | undefined>;
     }
 
+    /** Set secondary-collection and rules properties */
+    protected override _initialize(): void {
+        this.conditions ??= new Collection();
+        this.physicalItems ??= new Collection();
+        this.rules ??= [];
+        super._initialize();
+        this.initialized = true;
+    }
+
     /** Prepare token data derived from this actor, refresh Effects Panel */
     override prepareData(): void {
+        this.physicalItems.clear();
+        this.conditions.clear();
         super.prepareData();
+
         const tokens = canvas.ready ? this.getActiveTokens() : [];
         if (this.initialized) {
             for (const token of this.getActiveTokens()) {
@@ -213,24 +226,25 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         this.preparePrototypeToken();
     }
 
-    /** Prepare the physical-item collection on this actor, item-sibling data, and rule elements */
+    /** Prepare the secondary item collections on this actor, item-sibling data, and rule elements */
     override prepareEmbeddedEntities(): void {
         super.prepareEmbeddedEntities();
-        const physicalItems: Embedded<PhysicalItemPF2e>[] = this.items.filter(
-            (item) => item instanceof PhysicalItemPF2e,
-        );
-        this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
 
-        // Prepare container contents now that this actor's embedded documents are ready
-        const containers = physicalItems.filter(
-            (item): item is Embedded<ContainerPF2e> => item instanceof ContainerPF2e,
-        );
-        for (const container of containers) {
-            container.prepareContents();
+        const items = this.items.contents;
+
+        // (Re)populate secondary collections
+        for (const item of items) {
+            if (item instanceof PhysicalItemPF2e) this.physicalItems.set(item.id, item);
+            if (item instanceof ConditionPF2e) this.conditions.set(item.id, item);
+        }
+
+        // Prepare sibling data between items
+        for (const item of items) {
+            item.prepareSiblingData();
         }
 
         // Rule elements
-        this.rules = this.items.contents
+        this.rules = items
             .flatMap((item) => item.prepareRuleElements())
             .sort((elementA, elementB) => {
                 return elementA.priority > elementB.priority ? 1 : -1;
