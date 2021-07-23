@@ -56,6 +56,10 @@ export abstract class RuleElementPF2e {
         };
     }
 
+    get key(): string {
+        return this.data.key.replace(/^PF2E\.RuleElement\./, '');
+    }
+
     get actor(): ActorPF2e {
         return this.item.actor;
     }
@@ -107,6 +111,12 @@ export abstract class RuleElementPF2e {
      * @param tokens see onCreate
      */
     onDelete(_actorData: CreatureData, _item: ItemDataPF2e, _actorUpdates: any, _tokens: any[]) {}
+
+    /**
+     * Run between Actor#applyActiveEffects and Actor#prepareDerivedData. Generally limited to ActiveEffect-Like
+     * elements
+     */
+    onApplyActiveEffects(): void {}
 
     /**
      * Run in Actor#prepareDerivedData which is similar to an init method and is the very first thing that is run after
