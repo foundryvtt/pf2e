@@ -1,5 +1,17 @@
 # Patch Notes:
 
+## Version 2.10.1
+
+You will need to drag in new copies of any effect macros previously created by dragging an effect to the hotbar.
+
+### Bug Fixes
+* (stwlam) Add sanity check before calling Token#refresh
+* (stwlam) Apply token overrides before rules-based vision check
+* (stwlam) Allow rule elements to execute right after active effects are applied, which should fix the miscalculated ability modifiers
+* (stwlam) Update createToggleEffectMacro to meet Foundry 0.8 standards
+* (Tikael) Fix hazard DC display in the sheet
+
+
 ## Version 2.10.0
 ### Bug Fixes
 * (stwlam) Fix issue preventing sense updating on characters when no scene is active
