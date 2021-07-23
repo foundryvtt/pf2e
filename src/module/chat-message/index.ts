@@ -6,6 +6,7 @@ import { CriticalHitAndFumbleCards } from './crit-fumble-cards';
 import { ItemType } from '@item/data';
 import { ItemPF2e } from '@item';
 import { TokenPF2e } from '@module/canvas';
+import { ModifierPF2e } from '@module/modifiers';
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** Get the actor associated with this chat message */
@@ -129,7 +130,8 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     getFlag(scope: 'core', key: 'RollTable'): unknown;
     getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;
     getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
-    getFlag(scope: 'pf2e', key: 'totalModifier'): number | undefined;
+    getFlag(scope: 'pf2e', key: 'modifierName'): string | undefined;
+    getFlag(scope: 'pf2e', key: 'modifiers'): ModifierPF2e[] | undefined;
     getFlag(scope: 'pf2e', key: 'context'): (CheckModifiersContext & { rollMode: RollMode }) | undefined;
 }
 
@@ -140,7 +142,10 @@ declare namespace ChatMessagePF2e {
 interface ChatMessageDataPF2e<T extends ChatMessagePF2e> extends foundry.data.ChatMessageData<T> {
     flags: Record<string, Record<string, unknown>> & {
         pf2e?: {
+            context?: (CheckModifiersContext & { rollMode: RollMode }) | undefined;
             origin?: { type: ItemType; uuid: string } | null;
+            modifierName?: string;
+            modifiers?: ModifierPF2e[];
         } & Record<string, unknown>;
     };
 }
