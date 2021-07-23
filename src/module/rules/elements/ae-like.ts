@@ -49,7 +49,7 @@ export class AELikeRuleElement extends RuleElementPF2e {
         return this.data.value;
     }
 
-    override onBeforePrepareData(): void {
+    override onApplyActiveEffects(): void {
         if (this.ignored) return;
 
         const change: unknown = this.resolveValue(this.data.value);
