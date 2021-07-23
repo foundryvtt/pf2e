@@ -70,7 +70,7 @@ export interface BaseTraitsData {
     /** Condition immunities */
     ci: LabeledValue[];
     /** Damage immunities this actor has. */
-    di: ValuesList<DamageType>;
+    di: ValuesList<Exclude<DamageType, 'untyped'>>;
     /** Damage resistances that this actor has. */
     dr: LabeledNumber[];
     /** Damage vulnerabilities that this actor has. */
