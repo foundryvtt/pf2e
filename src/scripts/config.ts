@@ -118,6 +118,7 @@ const damageTypes = {
     precision: 'PF2E.DamageTypePrecision',
     slashing: 'PF2E.DamageTypeSlashing',
     sonic: 'PF2E.DamageTypeSonic',
+    untyped: 'PF2E.DamageTypeUntyped',
 };
 
 const spellTraditions = {
