@@ -30,6 +30,10 @@ export interface CheckModifiersContext {
     traits?: string[];
     /** Optional DC data for the check */
     dc?: PF2CheckDC;
+    /** Should the roll be immediately created as a chat message? */
+    createMessage?: boolean;
+    /** Skip the roll dialog regardless of user setting  */
+    skipDialog?: boolean;
 }
 
 /**
@@ -68,7 +72,7 @@ export class CheckModifiersDialog extends Application {
         check: StatisticModifier,
         context: CheckModifiersContext = {},
         callback?: (roll: Rolled<Roll>) => void,
-    ) {
+    ): Promise<ChatMessage | foundry.data.ChatMessageData<foundry.documents.BaseChatMessage>> {
         const options: string[] = [];
         const ctx = context as any;
         let dice = '1d20';
@@ -191,7 +195,7 @@ export class CheckModifiersDialog extends Application {
         }
         flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;
         const origin = item ? { uuid: item.uuid, type: item.type } : null;
-        await roll.toMessage(
+        const message = await roll.toMessage(
             {
                 speaker: ChatMessage.getSpeaker(speaker),
                 flavor,
@@ -203,19 +207,23 @@ export class CheckModifiersDialog extends Application {
                         canReroll: !['fortune', 'misfortune'].includes(ctx.fate),
                         context,
                         unsafe: flavor,
-                        totalModifier: check.totalModifier,
+                        modifierName: check.name,
+                        modifiers: check.modifiers,
                         origin,
                     },
                 },
             },
             {
                 rollMode: ctx.rollMode ?? 'roll',
+                create: ctx.createMessage === undefined ? true : (ctx.createMessage as boolean),
             },
         );
 
         if (callback) {
             callback(roll);
         }
+
+        return message;
     }
 
     override getData() {
