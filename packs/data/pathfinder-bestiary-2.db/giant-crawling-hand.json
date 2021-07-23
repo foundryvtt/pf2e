@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+4",
+                "mod": 4,
                 "value": 18
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 22,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -59,7 +60,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "(negative healing)",
+                "details": "negative healing",
                 "max": 75,
                 "min": 0,
                 "temp": 0,
@@ -169,7 +170,7 @@
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.644
+            "version": 0.646
         },
         "traits": {
             "attitude": {
@@ -246,7 +247,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.644
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -293,7 +294,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.644
+                    "version": 0.646
                 },
                 "slug": "lifesense",
                 "source": {
@@ -319,8 +320,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.sebk9XseMCRkDqRg"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Lifesense",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense (30 feet)",
             "sort": 200000,
             "type": "action"
         },
@@ -347,7 +348,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.644
+                    "version": 0.646
                 },
                 "slug": "tremorsense",
                 "source": {
@@ -373,8 +374,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Tremorsense",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
             "sort": 300000,
             "type": "action"
         },
@@ -401,7 +402,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.644
+                    "version": 0.646
                 },
                 "slug": "negative-healing",
                 "source": {
@@ -447,7 +448,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The giant crawling hand takes piercing or slashing damage;</p>\n<p><strong>Effect</strong> A random creature adjacent to the giant crawling hand is sprayed with vile pus that deals [[/r 4d6 #negative]] negative damage. The affected creature must attempt a <span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"21\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Pus Burst DC\" data-pf2-show-dc=\"gm\">Reflex</span> save.</p>\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage and becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 3}.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The giant crawling hand takes piercing or slashing damage;</p>\n<p><strong>Effect</strong> A random creature adjacent to the giant crawling hand is sprayed with vile pus that deals [[/r 4d6 #negative]]{4d6 negative damage}. The affected creature must attempt a <span data-pf2-check=\"reflex\" data-pf2-dc=\"21\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Pus Burst DC\" data-pf2-show-dc=\"gm\">Reflex</span> save.</p>\n<div data-visibility=\"gm\">\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage and becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature takes full damage and becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 3}.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -455,7 +456,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.644
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -497,15 +498,59 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A crawling hand can be assigned a quarry by anointing the hand with a drop of the intended quarry's blood. If the hand ever has no quarry, it automatically gains the next creature it damages as its quarry. The hand gains a +1 circumstance bonus to Perception checks when it @Compendium[pf2e.actionspf2e.Seek]{Seek} its quarry, to Survival checks when it @Compendium[pf2e.actionspf2e.Track]{Tracks} its quarry, and damage rolls when it Strikes its quarry.</p>"
+                    "value": "<p>A crawling hand can be assigned a quarry by anointing the hand with a drop of the intended quarry's blood. If the hand ever has no quarry, it automatically gains the next creature it damages as its quarry. The hand gains a +1 circumstance bonus to Perception checks when it @Compendium[pf2e.actionspf2e.Seek]{Seeks} its quarry, to Survival checks when it @Compendium[pf2e.actionspf2e.Track]{Tracks} its quarry, and damage rolls when it Strikes its quarry.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Target is Marked Quarry",
+                        "property": "flags.pf2e.rollOptions.all.mark-quarry"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Marked Quarry",
+                        "predicate": {
+                            "all": [
+                                "mark-quarry",
+                                "action:seek"
+                            ]
+                        },
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Marked Quarry",
+                        "predicate": {
+                            "all": [
+                                "mark-quarry",
+                                "action:track"
+                            ]
+                        },
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Marked Quarry",
+                        "predicate": {
+                            "all": [
+                                "mark-quarry"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.644
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -527,7 +572,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mark Quarry",
             "sort": 600000,
             "type": "action"
@@ -555,7 +600,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.644
+                    "version": 0.646
                 },
                 "slug": "grab",
                 "source": {
@@ -606,7 +651,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.644
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -647,7 +692,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.644
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {
@@ -688,7 +733,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.644
+                    "version": 0.646
                 },
                 "slug": null,
                 "source": {

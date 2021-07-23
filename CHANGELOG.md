@@ -1,5 +1,163 @@
 # Patch Notes:
 
+## Version 2.10.1
+
+You will need to drag in new copies of any effect macros previously created by dragging an effect to the hotbar.
+
+### Bug Fixes
+* (stwlam) Add sanity check before calling Token#refresh
+* (stwlam) Apply token overrides before rules-based vision check
+* (stwlam) Allow rule elements to execute right after active effects are applied, which should fix the miscalculated ability modifiers
+* (stwlam) Update createToggleEffectMacro to meet Foundry 0.8 standards
+* (Tikael) Fix hazard DC display in the sheet
+
+
+## Version 2.10.0
+### Bug Fixes
+* (stwlam) Fix issue preventing sense updating on characters when no scene is active
+* (stwlam) Fix display of hazard level on the non-edit sheet
+* (stwlam) Fix Fixed Proficiency rule element when used with skills
+* (stwlam) Fix Token Image and Token Size rule elements so they properly update when the containing effect is removed
+* (stwlam) Initialize homebrew elements in the game setup phase. Closes #1607
+* (stwlam) Add LoseHitPoints rule element, apply to Drained condition. Closes #1134
+* (stwlam) Fix bug in which tokens in darkness disappear too early during animated light changes
+* (stwlam) Prevent attempts to delete stale effects in EffectTracker#removeExpired. Closes #1573
+* (xdy) Show feat level in item sheet sidebar again. Closes #1415
+* (In3luki) Fix various language, trait, and immunity popup window titles. Closes #1605
+* (In3luki) Fix degree of success adjustment on reroll
+* (Supe) Fix sorting of spells
+* (nikolaj-a) Omit armor check penalty on skill checks with the attack trait
+
+### Content Changes
+* (SpartanCPA) Brush up of NPC Gallery (Mercenaries)
+* (SpartanCPA) Add source to Fists of the Ruby Phoenix and One-Shot compendium entries
+* (SpartanCPA) Correct source for NPC Gallery compendium entries
+* (SpartanCPA) Simulacra is plural of Simulacrum
+* (SpartanCPA) Brush up One-Shot monster entries
+* (SpartanCPA) Correct prerequisites for Beneath Notice. Closes #1597
+* (SpartanCPA) Correct Bone Skipper Swarm inline saving throws. Closes #1385
+* (SpartanCPA) Add Polymorph as an immunity type
+* (SpartanCPA) Brush up weak spider swarm from Pathfinder Society 1-08
+* (SpartanCPA) Add reach-0 trait
+* (vidspark) Update to correct spell details for Sudden Blight
+* (vidspark) Add spell effect for Fleet Step
+* (rectulo) Update damage formula for quill spray shisk ancestry feat
+* (rectulo) Remove extraneous styling from rampaging ferocity orc ancestry feat description
+* (rectulo) Remove extraneous styling from squirrel swarm description
+* (rectulo) Remove extraneous styling from squirming swill flavor text
+* (rectulo) Fix feat type for fountain of secrets shisk ancestry feat
+* (rectulo) Fix typo in cantrip expansion spontaneous class feat description
+* (rectulo) Add emphasis for heightened label in wronged monk's wrath monk focus spell description
+* (rectulo) Layout the electric counter monk class feat description
+* (rectulo) Layout the all the time in the world investigator class feat description
+* (rectulo) Layout the sever space fighter class feat description
+* (rectulo) Layout the ruby resurrection sorcerer class feat description
+* (rectulo) Layout the plum deluge alchemist class feat description
+* (rectulo) Layout the everdistant defense champion class feat description
+* (rectulo) Layout the vivacious afterimage swashbuckler class feat description
+* (rectulo) Layout the scapegoat parallel self oracle class feat description
+* (rectulo) Layout the dance of intercession cleric class feat description
+* (rectulo) Add missing sentence to impossible volley eldritch archer archetype feat description
+* (rectulo) Remove "see above" reference in splint mail item description that only makes sense in the book
+* (rectulo) Fix typos in simulacrum ritual primary and secondary checks
+* (rectulo) Fix typo in levitate spell target description
+* (rectulo) Remove redundant area and target information in fey glamour sorcerer focus spell description
+* (rectulo) Fix secondary check text for heartbond ritual
+* (rectulo) Properly set condition value in basilisk action description
+* (stwlam) Correct number of damage dice added to the level 5 ankylosaurus attacks
+* (Drental) Shorten PFS token names
+* (Drental) Add inline roll links to skill and flat checks on NPCs and hazards
+* (Drental) Convert affliction saving throws to inline roll syntax
+* (Tikael) Correct various mistakes in Fists of the Ruby Phoenix bestiary
+* (Tikael) Add missing PFS 2-01 hazard. Closes #1580
+* (Tikael) Dragon Disciple automation. Closes #1568
+* (Tikael) Add Gamemastery Guide and Fists of the Ruby Phoenix vehicles to the system
+* (Tikael) Bellflower Tiller automation
+* (Tikael) Add missing adjust degree of success rule elements to Bravery and Indomitable Will class features
+* (Tikael) Add Extradimensional Stash equipment. Closes #1592
+* (Tikael) Correct the size of the weretiger and automate Moon Frenzy ability / adds inline save. Closes #1596
+* (Tikael) Add automation to acrobat and archeologist archetype feats
+* (Tikael) Fix Wyrmblessed description and move bloodline effects
+* (Tikael) Swap unburdened iron to new ActiveEffect-like rule element
+* (Tikael) Correct gnome ancestry languages
+* (Tikael) Barbarian Dedication automation
+* (Tikael) Brush-up of Age of Ashes book 5 and 6
+* (Tikael) Remaining multiclass archetype automation (without the extra class DCs, since that's not supported by the system). Closes #1498
+* (Tikael) Add remaining ancestry and heritage strikes
+* (TMun) Correct gnoll lore feat level from 0 to 1 and type from bonus to ancestry. Closes #1585
+* (TMun) Rename Artus Redriven to Arts Rodriven in Fists of the Ruby Phoenix bestiary. Closes #1589
+* (TMun) Correct encouraging word macro damage. Closes #1588
+* (TMun) Correct Sabotage as class feat instead of bonus feat. Correct Dig Up secrets to be level 1, ancestry and tagged with Shisk. Correct spelling of halcyon spellcasting intiate feat. Closes #1587, #475, #1586, and #1583
+* (TMun) Brush up Steal the Sky spell. Remove extraneous text, add link to levitate, add air trait. Closes #1561
+* (TMun) Correct Mummy Shambler stats. Closes #1529
+* (TMun) Correct spelling of Mouth of Tchekuth
+* (TMun) Recreate sleeves of storage as containers. Closes #1389
+* (TMun) Update muse phantom data per bug report and EC2 book. Closes #1398
+* (TMun) Add missing descriptions and clean up data entry to new standards for ball python, choral, fire mephit and graveknight. Closes #1379
+* (TMun) Add Pathfinder Society 2-21 NPCs to Season 2 Bestiary
+* (TMun) Add nereid description and change level 5 spell slots to 4/4. Closes #1370
+* (TMun) Fix Ahrkinos and Muraxi at levels 3-4 for Pathfinder Society quest 5. Add trap at 3-4 and all entries at levels 5-6. Closes #1293
+* (TMun) Correct spelling mistake in diviners sight target
+* (TMun) Correct level of Anugobu Wondercrafter. Closes #1599
+* (TMun) Fix Animal Skin AC bonuses
+* (TMun) Set Korokai's HP to Max instead of 15 HP in compendium
+* (TMun) Fix for Bestiary 1 NPCs, Pathefinder Society season 1 bestiary NPCs and hazards from Quest 1
+* (TMun) Add missing hazards from Quest 2 and Quest 3 and updates NPCs from Quest 2 and Quest 3
+* (TMun) Add Quest 4 hazards and update Quest 4 NPCs. Addresses part of #1496
+* (TMun) Update Quest 6 and 7 NPCs
+* (TMun) Add unique hazards and update unique monsters from PFS S2-03, update automation for Bestiary 2 monsters in Pathfinder Society S2-03. Closes #1496
+* (TMun) Hook sword is now more advanced to use. Closes #1602
+* (TMun) Add flavour text for missing B2 monsters and hail of arrows snare. Closes #1310
+* (TMun) Fix diacritics and level on MoT in Malevolence
+* (TMun) Add followers of fate deity entry from Bestiary 2. Closes #1332
+* (TMun) Add Tengu Feather Fan, Pilgrim's Token and Spare Wax Cylinder items. Closes #1488
+* (TMun) Correct spelling of Rejuvenating Flames. Closes #1604
+* (TMun) Correct typo for effect area in sepulchral mask
+* (Shandyan) Azarketi automation part 2 (finishing up part 1 from 2.5.0)
+* (Shandyan) Anadi feats and features tidy up
+* (Shandyan) Beastkin feats, plus last azarketi linking
+* (Shandyan) Oracle Dedication feats and class features
+* (Shandyan) Catfolk feats and heritages automation
+* (Friz) Clean up a bunch of notation for persistent damage in feats to make them compatible with the persistent damage module
+
+### Core System Improvements
+* (Friz & stwlam) Add roll vs DC difference next to result on cards
+* (stwlam) Address subtle perceived-light edge cases and reduce flickering
+* (stwlam) Allow setting of light emission angle in rules-based vision
+* (stwlam) Add level data to all actor types, bring hazard level structure in line with the rest
+* (stwlam) Allow adding custom potency modifiers when ABP is enabled
+* (stwlam) Add origin flag to standard item card messages
+* (stwlam) Filter out invalid character sense data until the property can be migrated
+* (stwlam) Limit the scope of font emboldening to chat messages and system sheets
+* (stwlam) Remove Nodesto font from system
+* (stwlam) Add warning to confirmation dialog of compendium import-all feature
+* (stwlam) Skip setting NPC token disposition on creation if the create data is sourced
+* (stwlam) Add an ActiveEffect-like rule element
+* (stwlam) Use better icons and add labels to damage buttons. Closes #1460
+* (stwlam) Allow shorter key names for rule elements
+* (stwlam) Replace combat-turn hooks with method overrides
+* (Drental) Move links to wiki and changelog out of the PC sheet
+* (Drental) Add repost functionality for inline rolls in chat
+* (Tikael) Consolidate inline checks into `data-pf2-check`
+* (Tikael) Pass options to inline flat checks
+* (Tikael) Inline effect area templates
+* (xdy) Add localization for untranslatable mystification UI fields. Closes #1560
+* (xdy) Improve localization of the familiar sheet. Closes #1569
+* (xdy) Show a 'triple damage' button on damage chat cards if the critFumbleButtons setting is on. Closes #1552
+* (xdy) Add roll notes to all actions that didn't already have them. Closes #1530
+* (xdy) Add setting to hide the world clock button. Closes #1365
+* (xdy) Enable translation for creature initiative changed and damage roll flavor text in chat cards
+* (xdy) Better support for localization in the roll dialog
+* (In3luki) Add importer API for ancestry/background/class item creation at 'game.pf2e.importer.actor'
+* (In3luki) Add highlighting of the speaker's token when a chat message is hovered. Add the ability to left-click the sender's name select or release token
+* (Supe) Pull Item/Actor for chat buttons from flags instead
+* (Supe) Spellcasting ability modifier is now in roll data as `mod`
+* (Supe) Update legacy spellcasting to new structure and fix spell drag and drop
+* (Supe) Spells can now be dropped at any level without either polluting the actor data with orphaned spell, or end up in the wrong level
+* (Supe) Focus and ritual are now spellcasting types, not traditions
+* (Supe) Reuse spell mod roll data instead of recalculating it
+
+
 ## Version 2.9.1
 ### Bug Fixes
 * (stwlam) Fix toggling core "death" token overlay

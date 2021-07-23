@@ -134,6 +134,9 @@ declare global {
         get(module: 'pf2e', setting: 'freeArchetypeVariant'): boolean;
         get(module: 'pf2e', setting: 'staminaVariant'): 0 | 1;
 
+        get(module: 'pf2e', setting: 'metagame.showResults'): 'none' | 'gm ' | 'owner' | 'all';
+        get(module: 'pf2e', setting: 'metagame.showDC'): 'none' | 'gm ' | 'owner' | 'all';
+
         get(module: 'pf2e', setting: 'worldClock.dateTheme'): 'AR' | 'IC' | 'AD' | 'CE';
         get(module: 'pf2e', setting: 'worldClock.syncDarkness'): boolean;
         get(module: 'pf2e', setting: 'worldClock.timeConvention'): 24 | 12;
