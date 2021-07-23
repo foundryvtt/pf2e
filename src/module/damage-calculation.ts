@@ -13,6 +13,7 @@ const damageTypes = new Set([
     ...alignmentDamageTypes,
     'mental',
     'poison',
+    'untyped', // see https://2e.aonprd.com/Spells.aspx?ID=162
 ] as const);
 
 export type SetElement<SetType extends Set<unknown>> = SetType extends Set<infer ElementType> ? ElementType : never;
