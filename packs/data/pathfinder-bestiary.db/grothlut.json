@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 19,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -102,7 +103,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "details": {
@@ -124,7 +125,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Sluglike abominations, grothluts are fleshwarps that were once humans. While their head and torsos are vaguely human, their arms are rubbery and move awkwardly at their sides. Wretched creatures, they moan piteously when other creatures are near, perhaps as the last remnants of their shattered human consciousness pleads to be free from their horrid warped form.<br /><br /> Many fleshwarpers consider the grothlut to be a failure of a creation, as the transformation all but stamps out the human consciousness. Others disagree, arguing that warping the creature's mind makes it all the more useful, since its stupidity makes it pliable and easy to herd. Drow typically use grothluts as guardians that slowly patrol the edges of their enclaves. Once in position, grothluts can be used as crude shock troops, unleashed to soften enemy forces before more-valuable warriors wade in and cut down the enemies who have been nauseated by the grothluts' exploded organs and flesh.<br /><br />",
+            "flavorText": "<p>Sluglike abominations, grothluts are fleshwarps that were once humans. While their head and torsos are vaguely human, their arms are rubbery and move awkwardly at their sides. Wretched creatures, they moan piteously when other creatures are near, perhaps as the last remnants of their shattered human consciousness pleads to be free from their horrid warped form.</p>\n<p>Many fleshwarpers consider the grothlut to be a failure of a creation, as the transformation all but stamps out the human consciousness. Others disagree, arguing that warping the creature's mind makes it all the more useful, since its stupidity makes it pliable and easy to herd. Drow typically use grothluts as guardians that slowly patrol the edges of their enclaves. Once in position, grothluts can be used as crude shock troops, unleashed to soften enemy forces before more-valuable warriors wade in and cut down the enemies who have been nauseated by the grothluts' exploded organs and flesh.</p>\n<hr />\n<p>Some creatures, notably drow, are not happy with merely killing their enemies. They revel in the total degradation of their foes through the horrifying transformative technique known as fleshwarping. Though the fleshwarping process was not created by the drow, many believe they perfected it. The drow torture their enemies in vats of churning magical reagents, reshaping their flesh and psyche alike into horrid and monstrous things. The reconstitution of flesh results in countless variations of fleshwarps, and the following are just a couple of examples of these horrors.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -256,7 +257,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 100000,
             "type": "melee"
@@ -276,17 +277,13 @@
                 "damageRolls": {
                     "fenua2ukorlvilsfqmn4": {
                         "damage": "2d6",
-                        "damageType": "aciddamage"
-                    },
-                    "1kn4i1bhhuuj4zlpac2a": {
-                        "damage": "1d6",
-                        "damageType": "splashaciddamage"
+                        "damageType": "acid"
                     }
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 1d6 #acid splash]]{1d6 acid splash damage}</p>"
                 },
                 "rules": [],
                 "schema": {
@@ -304,7 +301,7 @@
                     },
                     "value": [
                         "acid",
-                        "range increment 15 feet",
+                        "range-increment-15",
                         "splash"
                     ]
                 },
@@ -314,10 +311,64 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Digestive Spew",
             "sort": 200000,
             "type": "melee"
+        },
+        {
+            "_id": "Bi3OX46eviQHVI51",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
         },
         {
             "_id": "NKOHZ7Ua7fqQNsAy",
@@ -334,7 +385,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When the grothlut is reduced to 0 Hit Points, its digestive organs rupture, unleashing alchemical acid and poison upon all creatures in a 30-foot emanation. Each creature in the area must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"acid,poison,damaging-effect\" data-pf2-label=\"Disgusting Demise DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or take [[/r 2d6 # acid damage]] acid damage and become sickened 1 (double damage and sickened 2 on a critical failure).</p>"
+                    "value": "<p>When the grothlut is reduced to 0 Hit Points, its digestive organs rupture, unleashing alchemical acid and poison upon all creatures in a 30-foot emanation.</p>\n<p>Each creature in the area must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"acid,poison,damaging-effect\" data-pf2-label=\"Disgusting Demise DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save<span data-visibility=\"gm\"> or take [[/r 2d6 #acid]]{2d6 acid damage} and become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} ([[/r 2d6*2 #acid]]{double damage} and @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure)</span>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -367,9 +418,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Disgusting Demise",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -387,7 +438,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>60 feet. Each non-grothlut creature that enters or starts its turn within the area must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"17\" data-pf2-traits=\"aura,auditory,emotion,mental,occult\" data-pf2-label=\"Piteous Moan DC\" data-pf2-show-dc=\"gm\">Will</span> saving throw or become sickened 1 (sickened 2 on a critical failure). The creature then becomes temporarily immune for 1 minute. The grothlut can activate or deactivate the aura by using a single free action that has the concentrate trait. A grothlut usually does not begin moaning until it senses the presence of a non-grothlut creature, and it usually stops once it doesn't sense any more such creatures.</p>"
+                    "value": "<p>@Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} 60 feet.</p>\n<p>Each non-grothlut creature that enters or starts its turn within the area must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"17\" data-pf2-traits=\"aura,auditory,emotion,mental,occult\" data-pf2-label=\"Piteous Moan DC\" data-pf2-show-dc=\"gm\">Will</span> saving throw or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure). The creature then becomes temporarily immune for 1 minute.</p>\n<p>The grothlut can activate or deactivate the aura by using a single free action that has the concentrate trait.</p>\n<p>A grothlut usually does not begin moaning until it senses the presence of a non-grothlut creature, and it usually stops once it doesn't sense any more such creatures.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -423,9 +474,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Piteous Moan",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -466,7 +517,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         }
     ],
@@ -476,7 +527,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
