@@ -42,17 +42,6 @@
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SpellTypeLabel"}}</label>
-        <select name="data.spellType.value" data-dtype="String">
-            {{#select data.spellType.value}}
-            {{#each spellTypes as |name type|}}
-            <option value="{{type}}">{{localize name}}</option>
-            {{/each}}
-            {{/select}}
-        </select>
-    </div>
-
-    <div class="form-group">
         <label>{{localize "PF2E.SpellSchoolLabel"}}</label>
         <select name="data.school.value" data-dtype="String">
             {{#select data.school.value}}
@@ -140,6 +129,11 @@
     <h3>{{localize "PF2E.Usage"}}</h3>
 
     <div class="form-group">
+        <label>{{localize "PF2E.SpellRangeLabel"}}</label>
+        <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="String"/>
+    </div>
+
+    <div class="form-group">
         <label>{{localize "PF2E.SpellTargetLabel"}}</label>
         <input type="text" name="data.target.value" value="{{data.target.value}}" data-dtype="String"/>
     </div>
@@ -167,13 +161,23 @@
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.SpellRangeLabel"}}</label>
-        <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="String"/>
-    </div>
-
-    <div class="form-group">
         <label>{{localize "PF2E.SpellDurationLabel"}}</label>
         <input type="text" name="data.duration.value" value="{{data.duration.value}}" data-dtype="String"/>
+    </div>
+</ol>
+
+<ol class="form-list">
+    <h3>{{localize "PF2E.DamageLabel"}}</h3>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellTypeLabel"}}</label>
+        <select name="data.spellType.value" data-dtype="String">
+            {{#select data.spellType.value}}
+            {{#each spellTypes as |name type|}}
+            <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
     </div>
 
     <div class="form-group">
@@ -195,10 +199,7 @@
         </select>
         </div>
     </div>
-</ol>
 
-<ol class="form-list">
-    <h3>{{localize "PF2E.DamageLabel"}}</h3>
     <div class="form-group">
         <label>{{localize "PF2E.SpellDamageLabel"}}</label>
         <div class="details-container-flex-row">
