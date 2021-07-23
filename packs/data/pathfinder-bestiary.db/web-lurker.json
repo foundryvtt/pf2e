@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+4",
+                "mod": 4,
                 "value": 18
             },
             "wis": {
@@ -103,8 +103,9 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "25 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "25"
                     }
                 ],
                 "value": "25 feet"
@@ -129,7 +130,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Web lurkers, known also as ettercaps, are ugly monsters that not only dwell within the lairs of spiders and swarms, but actively cultivate and shepherd such vermin.<br /><br />",
+            "flavorText": "<p>Web lurkers, known also as ettercaps, are ugly monsters that not only dwell within the lairs of spiders and swarms, but actively cultivate and shepherd such vermin.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -185,7 +186,7 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "spider speak",
+                "custom": "Spider Speak",
                 "selected": [],
                 "value": [
                     "aklo",
@@ -220,8 +221,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "web lurker venom"
+                        "web-lurker-venom"
                     ]
                 },
                 "bonus": {
@@ -262,7 +264,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fangs",
             "sort": 100000,
             "type": "melee"
@@ -314,7 +316,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 200000,
             "type": "melee"
@@ -326,8 +328,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "web trap"
+                        "web-trap"
                     ]
                 },
                 "bonus": {
@@ -361,7 +364,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Web",
             "sort": 300000,
             "type": "melee"
@@ -411,9 +414,117 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Spider Speak",
             "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "UIQULt86ANVMzHNV",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "B60yeuDRTfkGkdEI",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.646
+                },
+                "slug": "tremorsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet (Creatures Touching it's Web)",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -431,7 +542,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature touches the web lurker's web while the web lurker is on it. <strong>Requirement</strong> Initiative has not yet been rolled. <strong>Effect</strong> The web lurker automatically notices the creature and Strides or Climbs before rolling initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature touches the web lurker's web while the web lurker is on it.</p>\n<p><strong>Requirement</strong> Initiative has not yet been rolled.</p>\n<p><strong>Effect</strong> The web lurker automatically notices the creature and Strides or @Compendium[pf2e.actionspf2e.Climb]{Climbs} before rolling initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -461,9 +572,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Spring upon Prey",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -481,7 +592,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"poison\" data-pf2-label=\"Web Lurker Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; <strong>Maximum Duration</strong> 10 rounds; <strong>Stage 1</strong> 1d6 poison and flat-footed (1 round); <strong>Stage 2</strong> 1d6 poison, flat-footed, and slowed 1 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"poison\" data-pf2-label=\"Web Lurker Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 10 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d6 #poison]]{1d6 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d6 #poison]]{1d6 poison damage}, flat-footed, and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -513,9 +624,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Web Lurker Venom",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -563,9 +674,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Web Trap",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -606,7 +717,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -647,7 +758,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -669,12 +780,22 @@
                 },
                 "rules": [
                     {
-                        "key": "PF2E.RuleElement.FlatModifier",
-                        "label": "Crafting Traps or Snares",
+                        "key": "FlatModifier",
+                        "label": "Craft Traps",
                         "predicate": {
-                            "any": [
-                                "trap",
-                                "snare"
+                            "all": [
+                                "craft:trap"
+                            ]
+                        },
+                        "selector": "crafting",
+                        "value": 4
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "Craft Snares",
+                        "predicate": {
+                            "all": [
+                                "craft:snare"
                             ]
                         },
                         "selector": "crafting",
@@ -698,8 +819,12 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+12 to craft traps and snares",
-                        "options": "trap, snare"
+                        "label": "+12 to Craft Traps",
+                        "options": "craft:trap"
+                    },
+                    "1": {
+                        "label": "and Snares",
+                        "options": "craft:snare"
                     }
                 }
             },
@@ -707,7 +832,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -748,7 +873,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],
@@ -758,7 +883,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null

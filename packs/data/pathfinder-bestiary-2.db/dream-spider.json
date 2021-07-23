@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+0",
+                "mod": 0,
                 "value": 10
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 16,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -131,7 +132,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "A dream spider's webs have an iridescent hue and are infused with the same hallucinogenic compound as the creature's toxin. Originally denizens of tropical jungles, dream spiders have adapted well to temperate environments, particularly thriving among the rooftops of cities where shady alchemists use their venom to produce the drug known as shiver.<br /><br />",
+            "flavorText": "<p>A dream spider's webs have an iridescent hue and are infused with the same hallucinogenic compound as the creature's toxin. Originally denizens of tropical jungles, dream spiders have adapted well to temperate environments, particularly thriving among the rooftops of cities where shady alchemists use their venom to produce the drug known as shiver.</p>\n<hr />\n<p>Spiders range dramatically in size, yet all are to some extent venomous.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -224,7 +225,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Dream Spider Venom"
+                        "dream-spider-venom"
                     ]
                 },
                 "bonus": {
@@ -265,7 +266,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Fangs",
             "sort": 100000,
             "type": "melee"
@@ -279,8 +280,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Dream Spider Venom",
-                        "Web Trap"
+                        "dream-spider-venom"
                     ]
                 },
                 "bonus": {
@@ -316,7 +316,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Web",
             "sort": 200000,
             "type": "melee"
@@ -370,7 +370,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 300000,
             "type": "action"
@@ -420,7 +420,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Web Sense",
             "sort": 400000,
             "type": "action"
@@ -440,7 +440,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"poison\" data-pf2-label=\"Dream Spider Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<p><strong>Maximum Duration</strong> 4 rounds;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d6 # poison damage]] poison damage plus @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"poison\" data-pf2-label=\"Dream Spider Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 4 rounds;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d6 #poison]]{1d6 poison damage} plus stupefied 1 (1 round)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -472,7 +472,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Dream Spider Venom",
             "sort": 500000,
             "type": "action"
@@ -522,7 +522,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Web Trap",
             "sort": 600000,
             "type": "action"
@@ -657,7 +657,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
