@@ -36,6 +36,8 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
+        mergeObject(this.data, this.actor?.overrides.token ?? {}, { insertKeys: false });
+
         if (!(this.actor && canvas.scene && canvas.sight.rulesBasedVision)) return;
 
         const lightLevel = canvas.scene.lightLevel;
@@ -46,8 +48,6 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
             [VisionLevels.DARKVISION]: 1,
         }[this.actor.visionLevel];
         this.data.brightSight = perceivedBrightness > lightLevel ? 1000 : 0;
-
-        mergeObject(this.data, this.actor?.overrides.token ?? {}, { insertKeys: false });
     }
 
     /**
