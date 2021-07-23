@@ -166,24 +166,22 @@ if (a) {
 export async function createToggleEffectMacro(pack: string, effect: EffectPF2e, slot: number) {
     const prefix = pack ? `Compendium.${pack}` : 'Item';
     const command = `
-const actors = canvas.tokens.controlled.map(token => token.actor);
+const actors = canvas.tokens.controlled.flatMap((token) => token.actor ?? []);
 if (!actors.length && game.user.character) {
-  actors.push(game.user.character);
+    actors.push(game.user.character);
 }
 const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
-(async () => {
-  const effect = duplicate(await fromUuid(ITEM_UUID));
-  effect.flags.core = effect.flags.core ?? {};
-  effect.flags.core.sourceId = ITEM_UUID;
-  for await (const actor of actors) {
-    const existing = actor.items.find(i => i.type === 'effect' && i.data.flags.core?.sourceId === ITEM_UUID);
+const source = (await fromUuid(ITEM_UUID)).toObject();
+source.flags.core ??= {};
+source.flags.core.sourceId = ITEM_UUID;
+for await (const actor of actors) {
+    const existing = actor.itemTypes.effect.find((effect) => effect.getFlag('core', 'sourceId') === ITEM_UUID);
     if (existing) {
-      existing.delete();
+        await existing.delete();
     } else {
-      Item.create(effect, { parent: actor });
+        await actor.createEmbeddedDocuments('Item', [source]);
     }
-  }
-})();
+}
 `;
     const toggleMacro =
         game.macros.contents.find((macro) => macro.name === effect.data.name && macro.data.command === command) ??
