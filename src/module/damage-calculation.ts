@@ -13,6 +13,7 @@ const damageTypes = new Set([
     ...alignmentDamageTypes,
     'mental',
     'poison',
+    'untyped',
 ] as const);
 
 export type SetElement<SetType extends Set<unknown>> = SetType extends Set<infer ElementType> ? ElementType : never;
