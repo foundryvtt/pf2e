@@ -145,6 +145,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
         hitPoints.modifiers = [];
     }
 
+    /** Apply ActiveEffect-Like rule elements immediately after application of actual `ActiveEffect`s */
+    override prepareEmbeddedEntities(): void {
+        super.prepareEmbeddedEntities();
+
+        for (const rule of this.rules) {
+            rule.onApplyActiveEffects();
+        }
+    }
+
     /** Compute custom stat modifiers provided by users or given by conditions. */
     protected prepareCustomModifiers(rules: RuleElementPF2e[]): RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
@@ -165,14 +174,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
             striking,
             multipleAttackPenalties,
         };
-        rules.forEach((rule) => {
+
+        for (const rule of rules) {
             try {
                 rule.onBeforePrepareData(actorData, synthetics);
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
             }
-        });
+        }
 
         // Get all of the active conditions (from the item array), and add their modifiers.
         const conditions = this.itemTypes.condition
