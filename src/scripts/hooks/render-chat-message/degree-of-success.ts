@@ -3,6 +3,7 @@ import { ChatMessagePF2e } from '@module/chat-message';
 
 /** Highlight critical success or failure on d20 rolls */
 export function listen(message: ChatMessagePF2e, html: JQuery): void {
+    if (html.find('.pf2e-reroll-indicator').length > 0) return;
     if (!message.isRoll || message.getFlag('pf2e', 'damageRoll')) return;
     const roll = message.roll!;
     const dice = roll.dice[0] ?? {};
