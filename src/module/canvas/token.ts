@@ -65,17 +65,21 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         super._onHoverOut(event as PIXI.InteractionEvent);
     }
 
-    /** Prevent Foundry from prematurely redrawing a token resource bar */
+    override refresh(): this {
+        return this.icon ? super.refresh() : this;
+    }
+
+    /** Prevent premature redraw of resource bar */
     protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
         if (bar.geometry) super._drawBar(number, bar, data);
     }
 
-    /** Prevent Foundry from prematurely redrawing this token's border */
+    /** Prevent premature redraw of border */
     protected override _refreshBorder(): void {
         if (this.border.geometry) super._refreshBorder();
     }
 
-    /** Prevent Foundry from prematurely redrawing the targeting reticle */
+    /** Prevent premature redraw of targeting reticle */
     protected override _refreshTarget(): void {
         if (this.target.geometry) super._refreshTarget();
     }
