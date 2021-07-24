@@ -34,8 +34,10 @@ $negative-modifer: #cc3311;
         flex: 1 0 auto;
         flex-direction: column;
 
-        #name {
+        .name {
             justify-content: space-between;
+            width: 100%;
+            align-items: baseline;
 
             .name-value {
                 margin-left: 8px;
@@ -51,7 +53,7 @@ $negative-modifer: #cc3311;
                 display: flex;
                 flex: 0 0 auto;
                 flex-direction: row;
-                align-items: flex-end;
+                align-items: center;
 
                 .level-label {
                     flex: 1 0 auto;
@@ -187,7 +189,7 @@ $negative-modifer: #cc3311;
                 font-weight: bold;
                 color: $value-color;
 
-                #shield-current {
+                .shield-current {
                     flex: 0px;
                     font-weight: bold;
                     color: $value-color;
@@ -195,7 +197,7 @@ $negative-modifer: #cc3311;
                     width: 50px;
                 }
 
-                #shield-max {
+                .shield-max {
                     flex: 0px;
                     align-self: center;
                     font-weight: bold;
@@ -237,11 +239,11 @@ $negative-modifer: #cc3311;
                 .shield-value {
                     color: rgba(black, 0.4);
 
-                    #shield-current {
+                    .shield-current {
                         color: rgba(black, 0.4);
                     }
 
-                    #shield-max {
+                    .shield-max {
                         color: rgba(black, 0.4);
                     }
                 }
@@ -289,48 +291,51 @@ $negative-modifer: #cc3311;
             }
         }
 
-        #speed-section {
-            text-align: center;
+        .speed {
+            .section-content {
+                text-align: center;
 
-            #walk-speed {
-                font-size: 1.2rem;
-            }
+                .land-speed {
+                    font-size: 1em;
+                }
 
-            #other-speeds {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                flex-wrap: wrap;
+                .other-speeds {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    flex-wrap: wrap;
+                }
             }
         }
 
-        #saves {
+        .saves {
             margin-top: 12px;
             display: flex;
             flex-direction: row;
             width: 100%;
             flex: 1 0 auto;
             font-size: 1.1rem;
-        }
 
-        .save-container {
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-            label {
-                font-weight: 600;
-            }
-            input.modifier {
+            .container {
+                display: flex;
+                flex-direction: column;
                 text-align: center;
-            }
-            span.plus {
-                &::before {
-                    left: -15px;
-                    top: -24px;
+                label {
+                    font-weight: 600;
                 }
-                &.lt10::before {
-                    left: -10px;
+                input.modifier {
+                    text-align: center;
+                    z-index: 1;
+                }
+                span.plus {
+                    &::before {
+                        left: -15px;
+                        top: -24px;
+                    }
+                    &.lt10::before {
+                        left: -10px;
+                    }
                 }
             }
         }
@@ -370,7 +375,7 @@ $negative-modifer: #cc3311;
         }
     }
 
-    .section-body, .save-container {
+    .section-body, .saves > .container {
         input.modifier {
             display: inline;
             text-align: right;
@@ -743,27 +748,28 @@ $negative-modifer: #cc3311;
         }
     }
 
-    #top-sections {
+    .top-sections {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: flex-start;
 
-        #skills {
+        .skills {
             flex: 3;
             align-self: stretch;
         }
 
-        #senses {
+        .senses {
             flex: 2;
 
-            #perception {
+            .perception {
                 width: 100%;
                 label {
                     flex-basis: 5em;
                 }
                 input {
                     flex: 0 0 24px;
+                    z-index: 1;
                 }
                 span.plus::before {
                   left: -22px;
@@ -774,11 +780,11 @@ $negative-modifer: #cc3311;
             }
         }
 
-        #ability-scores {
+        .ability-scores {
             flex: 2;
             flex-direction: column;
 
-            .ability-scores-list {
+            .list {
                 display: grid;
                 grid-template-columns: repeat(3, minmax(0, 1fr));
                 label {
@@ -786,6 +792,7 @@ $negative-modifer: #cc3311;
                 }
                 input {
                     flex: 0 0 24px;
+                    z-index: 1;
                 }
                 span.plus::before {
                   left: -21px;
@@ -836,13 +843,16 @@ $negative-modifer: #cc3311;
             border: 1px solid $primary-accent;
             border-radius: 0px 0px 3px 3px;
         }
+
+        &.skills > .section-body {
+            .list {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+        }
     }
 
-    .skills-list {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
 
     select {
         flex: auto 0 0;
