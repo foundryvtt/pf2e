@@ -67,8 +67,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     /** Get the token of the speaker if possible */
     get token(): TokenPF2e | undefined {
+        if (!canvas.ready) return;
         const speaker = this.data.speaker;
-        return game.scenes.current?.tokens?.get(speaker?.token ?? '')?.object;
+        return canvas.tokens.placeables.find((token) => token.id === speaker.token);
     }
 
     override async getHTML(): Promise<JQuery> {
