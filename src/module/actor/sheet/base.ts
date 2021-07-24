@@ -8,7 +8,7 @@ import {
     SpellcastingEntryPF2e,
     SpellPF2e,
 } from "@item";
-import { ItemDataPF2e, ItemSourcePF2e, SpellSource } from "@item/data";
+import { ItemDataPF2e, ItemSourcePF2e, PhysicalItemSource, SpellSource } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import {
@@ -49,6 +49,10 @@ import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
 import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
 import { createSpellcastingDialog } from "./spellcasting-dialog";
+import { FormulaPF2e } from "@item/formula";
+import { adjustDCByRarity, calculateDC } from "@module/dc";
+import { ItemTrait } from "@item/data/base";
+import { CraftingType, FieldDiscoveryType, FormulaSource } from "@item/formula/data";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -71,6 +75,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 ".actions-pane",
                 ".spellbook-pane",
                 ".skillstab-pane",
+                ".crafting-pane",
                 ".pfs-pane",
                 ".tab.active",
             ],
@@ -381,6 +386,20 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 .toggle(100, () => {});
         });
 
+        // toggle visibility of formula filters
+        html.find(".toggle-formula-filters").on("click", () => {
+            this.actor.setFlag(
+                game.system.id,
+                "crafting.showFormulaFilters",
+                !this.actor.getFlag(game.system.id, "crafting.showFormulaFilters")
+            );
+        });
+
+        // reset formula filters
+        html.find(".clear-formula-filters").on("click", () =>
+            this.actor.unsetFlag(game.system.id, "crafting.formulaFilters")
+        );
+
         /* -------------------------------------------- */
         /*  Inventory                                   */
         /* -------------------------------------------- */
@@ -491,6 +510,39 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     "data.ability.value": event.target.value,
                 },
             ]);
+        });
+
+        // Crafting Filters
+        html.find<HTMLInputElement>(".filter-level-min").on("change", (event) => {
+            event.preventDefault();
+
+            this.actor.setFlag(game.system.id, "crafting.formulaFilters.level.min", event.target.value);
+        });
+
+        html.find<HTMLInputElement>(".filter-level-max").on("change", (event) => {
+            event.preventDefault();
+
+            this.actor.setFlag(game.system.id, "crafting.formulaFilters.level.max", event.target.value);
+        });
+
+        html.find<HTMLInputElement>(".filter-crafting-type").on("change", (event) => {
+            event.preventDefault();
+
+            this.actor.setFlag(
+                game.system.id,
+                `crafting.formulaFilters.craftingType.${event.target.name}`,
+                event.target.checked
+            );
+        });
+
+        html.find<HTMLInputElement>(".filter-field-discovery").on("change", (event) => {
+            event.preventDefault();
+
+            this.actor.setFlag(
+                game.system.id,
+                `crafting.formulaFilters.fieldDiscovery.${event.target.name}`,
+                event.target.checked
+            );
         });
 
         // Update max slots for Spell Items
@@ -843,6 +895,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const containerAttribute = $containerEl.attr("data-container-type");
         const unspecificInventory = this._tabs[0]?.active === "inventory" && !containerAttribute;
         const dropContainerType = unspecificInventory ? "actorInventory" : containerAttribute;
+        const craftingTab = this._tabs[0]?.active === "crafting";
 
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
@@ -916,6 +969,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             if (typeof level === "number" && level >= 0) {
                 itemData.data.level.value = level;
             }
+        } else if (isPhysicalData(itemData) && craftingTab) {
+            const formula = await this.createFormulaFromItem(itemData as PhysicalItemSource);
+            console.log(formula);
+            return this._onDropItemCreate(formula);
         }
 
         if (isPhysicalData(itemData)) {
@@ -1327,6 +1384,59 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 default: "Yes",
             }).render(true);
         });
+    }
+
+    private async createFormulaFromItem(itemData: PhysicalItemSource): Promise<FormulaSource> {
+        const formulaId = "9a60c9b416221956";
+        const formula = await game.packs.get("pf2e.formulas")?.getDocument(formulaId);
+
+        if (!(formula instanceof FormulaPF2e)) {
+            throw ErrorPF2e("Failed to retrieve formula item");
+        }
+
+        const formulaData = formula.toObject();
+
+        formulaData.name = itemData.name;
+        formulaData.img = itemData.img;
+
+        const craftDC: number = adjustDCByRarity(
+            calculateDC(itemData.data.level.value),
+            itemData.data.traits.rarity.value
+        );
+        formulaData.data.craftDC.value = craftDC;
+
+        formulaData.data.cost.value = itemData.data.price.value;
+
+        formulaData.data.craftedObjectUuid.value = itemData.flags.core?.sourceId;
+
+        if (formulaData.data.craftedObjectUuid.value === undefined) {
+            throw ErrorPF2e("Failed to retrieve sourceId from item");
+        }
+
+        formulaData.data.traits = itemData.data.traits;
+        formulaData.data.level = itemData.data.level;
+
+        for (const key in CONFIG.PF2E.craftingTypes) {
+            if (formulaData.data.traits.value.includes(key as ItemTrait)) {
+                formulaData.data.craftingType.value.push(key as CraftingType);
+            }
+        }
+
+        for (const key in CONFIG.PF2E.fieldDiscoveryTypes) {
+            if (formulaData.data.traits.value.includes(key as ItemTrait)) {
+                formulaData.data.fieldDiscoveryType.value.push(key as FieldDiscoveryType);
+            }
+        }
+
+        const uuid = formulaData.data.craftedObjectUuid.value;
+        const index = uuid.indexOf(".");
+        const itemLink = `@${uuid.substr(0, index)}[${uuid.substr(index + 1)}]`;
+
+        formulaData.data.description.value = `${itemLink}\n<hr/>${game.i18n.localize("PF2E.FormulaDescription")}`;
+
+        formulaData.data.rules = [];
+
+        return formulaData;
     }
 
     protected onTraitSelector(event: JQuery.ClickEvent) {

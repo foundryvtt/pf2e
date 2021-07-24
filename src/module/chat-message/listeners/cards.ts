@@ -1,6 +1,8 @@
-import { ConsumablePF2e, MeleePF2e, SpellPF2e } from "@item";
-import { ActorPF2e } from "@actor";
+import { ConsumablePF2e, FormulaPF2e, MeleePF2e, PhysicalItemPF2e, SpellPF2e } from "@item/index";
+import { ActorPF2e, CharacterPF2e } from "@actor/index";
 import { StatisticModifier } from "@module/modifiers";
+import { attemptToRemoveCoinsByValue, coinsToString } from "@item/treasure/helpers";
+import { CraftingResult, performRoll } from "@module/crafting";
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
@@ -21,7 +23,6 @@ export const ChatCards = {
             // Get the actor and item from the chat message
             const item = message?.item;
             const actor = item?.actor ?? message?.actor;
-
             if (!actor) return;
 
             if (item) {
@@ -67,6 +68,7 @@ export const ChatCards = {
                 // Consumable usage
                 else if (action === "consume" && item instanceof ConsumablePF2e) item.consume();
                 else if (action === "save") ActorPF2e.rollSave(event, item);
+                else if (action === "craft") actor.data.data.skills["cra"].roll({ event });
             } else {
                 const strikeIndex = card.attr("data-strike-index");
                 const strikeName = card.attr("data-strike-name");
@@ -80,6 +82,68 @@ export const ChatCards = {
                     else if (action === "strikeDamage") strikeAction.damage({ event: event, options });
                     else if (action === "strikeCritical") strikeAction.critical({ event: event, options });
                 }
+
+                const formulaId = card.attr("data-item-id");
+                const formula = actor.data.items.find((i) => i.id === formulaId) as FormulaPF2e;
+                if (formula === undefined) return;
+                const craftingResultString = card.attr("data-crafting-result");
+                if (craftingResultString === undefined) return;
+                const craftingResult = JSON.parse(craftingResultString) as CraftingResult;
+                if (craftingResult === undefined) return;
+
+                if (action === "finish-crafting") {
+                    const item = await fromUuid(formula.data.data.craftedObjectUuid.value);
+                    if (item === null || !(item instanceof PhysicalItemPF2e)) return;
+
+                    const itemObject = item.toObject();
+                    itemObject.data.quantity.value = craftingResult.form.quantity;
+
+                    const result = await actor.addItemToActor(itemObject, undefined);
+                    if (!result) {
+                        ui.notifications.warn("Could not add items");
+                        return;
+                    }
+
+                    ChatMessage.create({
+                        user: game.user.id,
+                        content: `${actor.name} receives ${craftingResult.form.quantity}x ${item.name}.`,
+                        speaker: { alias: actor.name },
+                    });
+                } else if (action == "pay-crafting-costs") {
+                    const coinsToRemove = button.hasClass("full")
+                        ? craftingResult.costs.itemPrice
+                        : craftingResult.costs.materials;
+                    if (
+                        !(await attemptToRemoveCoinsByValue({
+                            actor: actor,
+                            coinsToRemove: coinsToRemove,
+                        }))
+                    ) {
+                        ui.notifications.warn("Insufficient coins");
+                        return;
+                    }
+                    ChatMessage.create({
+                        user: game.user.id,
+                        content: `${actor.name} pays ${coinsToString(coinsToRemove)} crafting costs.`,
+                        speaker: { alias: actor.name },
+                    });
+                } else if (action === "lose-materials") {
+                    if (
+                        !(await attemptToRemoveCoinsByValue({
+                            actor: actor,
+                            coinsToRemove: craftingResult.costs.lostMaterials,
+                        }))
+                    ) {
+                        ui.notifications.warn("Insufficient coins");
+                    } else {
+                        ChatMessage.create({
+                            user: game.user.id,
+                            content: actor.name + " loses materials.",
+                            speaker: { alias: actor.name },
+                        });
+                    }
+                } else if (action === "retry-crafting")
+                    performRoll(actor as CharacterPF2e, formula.data, event, craftingResult.form);
             }
         });
     },

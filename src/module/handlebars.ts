@@ -153,4 +153,43 @@ export function registerHandlebarsHelpers() {
         }
         return results.join("");
     });
+
+    Handlebars.registerHelper("compare", function (lvalue, rvalue, options): boolean {
+        if (arguments.length < 3) throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+
+        type Operator = "==" | "===" | "!=" | "<" | ">" | "<=" | ">=";
+
+        const operator: Operator = options.hash.operator || "==";
+
+        const operators = {
+            "==": function (l: any, r: any) {
+                return l == r;
+            },
+            "===": function (l: any, r: any) {
+                return l === r;
+            },
+            "!=": function (l: any, r: any) {
+                return l != r;
+            },
+            "<": function (l: number, r: number) {
+                return l < r;
+            },
+            ">": function (l: number, r: number) {
+                return l > r;
+            },
+            "<=": function (l: number, r: number) {
+                return l <= r;
+            },
+            ">=": function (l: number, r: number) {
+                return l >= r;
+            },
+            typeof: function (l: any, r: any) {
+                return typeof l == r;
+            },
+        };
+
+        if (!operators[operator]) throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
+
+        return operators[operator](lvalue, rvalue);
+    });
 }

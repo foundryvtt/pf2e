@@ -41,6 +41,20 @@
                 },
                 "selector": "crafting",
                 "text": "<p class='compact-text'><strong>{item|name}</strong> Whenever you roll a success at a Crafting check to make an item of the type you chose with Specialty Crafting, you get a critical success instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "predicate": { 
+                    "all": [ 
+                        "action:craft",
+                        "specialty"
+                    ]
+                },
+                "selector":"crafting",
+                "type":"skill"
             }
         ],
         "source": {

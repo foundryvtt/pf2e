@@ -1,7 +1,7 @@
 import { ItemPF2e } from "@item/base";
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from "@item/physical/bulk";
 import { getContainerMap } from "@item/container/helpers";
-import { ClassData, FeatData, ItemDataPF2e, ItemSourcePF2e, LoreData, WeaponData } from "@item/data";
+import { ClassData, FeatData, FormulaData, ItemDataPF2e, ItemSourcePF2e, LoreData, WeaponData } from "@item/data";
 import { calculateEncumbrance } from "@item/physical/encumbrance";
 import { FeatSource } from "@item/feat/data";
 import { SpellPF2e } from "@item/spell";
@@ -15,6 +15,8 @@ import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-profici
 import { ErrorPF2e } from "@module/utils";
 import { LorePF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
+import { CraftingForm, performRoll } from "@module/crafting";
+import { CraftingType, FieldDiscoveryType } from "@item/formula/data";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -156,6 +158,25 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             backpack: { label: game.i18n.localize("PF2E.InventoryBackpackHeader"), items: [] },
         };
 
+        // Known Formulas
+        type FormulaLevelEntry = Array<FormulaData>;
+        const knownFormulas: FormulaLevelEntry[] = [];
+        const craftingTypes = CONFIG.PF2E.craftingTypes;
+        const fieldDiscoveryTypes = CONFIG.PF2E.fieldDiscoveryTypes;
+
+        // Crafting Filters
+        const formulaFilterFlags = this.actor.data.flags?.pf2e?.crafting?.formulaFilters;
+        const formulaLevelMin: number = formulaFilterFlags?.level?.min;
+        const formulaLevelMax: number = formulaFilterFlags?.level?.max;
+        const craftingTypeFlags: { [key in CraftingType]?: boolean } = formulaFilterFlags?.craftingType;
+        const craftingTypeFilters = craftingTypeFlags
+            ? Object.keys(craftingTypeFlags).filter((key) => craftingTypeFlags[key as CraftingType])
+            : [];
+        const fieldDiscoveryFlags: { [key in FieldDiscoveryType]?: boolean } = formulaFilterFlags?.fieldDiscovery;
+        const fieldDiscoveryFilters = fieldDiscoveryFlags
+            ? Object.keys(fieldDiscoveryFlags).filter((key) => fieldDiscoveryFlags[key as FieldDiscoveryType])
+            : [];
+
         // Feats
         interface FeatSlot {
             label: string;
@@ -275,6 +296,30 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                         attacks.weapon.items.push(itemData);
                     }
                     inventory[itemData.type].items.push(itemData);
+                }
+            }
+
+            // Formulas
+            else if (itemData.type === "formula") {
+                const formulaData: FormulaData = itemData;
+                const formulaLevel = formulaData.data.level.value;
+                const craftingType = formulaData.data.craftingType.value;
+                const fieldDiscoveryType = formulaData.data.fieldDiscoveryType.value;
+
+                // Filters
+                if (
+                    (formulaLevelMin ? formulaLevelMin : 0) <= formulaLevel &&
+                    (formulaLevelMax ? formulaLevelMax : 20) >= formulaLevel &&
+                    (!craftingTypeFilters.length ||
+                        craftingTypeFilters.some((v) => craftingType.includes(v as CraftingType)) ||
+                        (!craftingType.length && craftingTypeFilters.includes("mundane"))) &&
+                    (!fieldDiscoveryFilters.length ||
+                        fieldDiscoveryFilters.some((v) => fieldDiscoveryType.includes(v as FieldDiscoveryType)))
+                ) {
+                    if (knownFormulas[formulaLevel] === undefined) {
+                        knownFormulas[formulaLevel] = [];
+                    }
+                    knownFormulas[formulaLevel].push(formulaData);
                 }
             }
 
@@ -469,6 +514,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.readonlyActions = readonlyActions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
+
+        // Crafting
+        actorData.knownFormulas = knownFormulas;
+        actorData.craftingTypes = craftingTypes;
+        actorData.fieldDiscoveryTypes = fieldDiscoveryTypes;
 
         // shield
         const equippedShield = this.actor.heldShield?.data;
@@ -815,6 +865,64 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         html.find(".toggle-signature-spell").on("click", (event) => {
             this.onToggleSignatureSpell(event);
+        });
+
+        // Crafting handler
+        html.find(".craft-item").on("click", async (event) => {
+            const itemId = $(event.currentTarget).data().itemId;
+            const formula = this.actor.items.get(itemId);
+            const formulaData = formula?.data as FormulaData;
+
+            if (formula == null || formula.data.type !== "formula") {
+                console.log("Item is null or not a formula");
+                return;
+            }
+
+            const specialtyCrafting = CONFIG.PF2E.specialtyCrafting;
+            const defaultSpecialty = formulaData.data.craftingType.value.includes("alchemical") ? "alchemy" : "";
+            const actor = this.actor;
+
+            const batchCrafting = formulaData.data.traits.value.includes("consumable")
+                ? !formulaData.data.craftingType.value.includes("snare")
+                : false;
+
+            const content = await renderTemplate("systems/pf2e/templates/actors/crafting-form-dialog.html", {
+                formula: formulaData,
+                specialtyCrafting: specialtyCrafting,
+                batchCrafting: batchCrafting,
+                defaultSpecialty: defaultSpecialty,
+            });
+            new Dialog(
+                {
+                    title: "Craft Item",
+                    content,
+                    buttons: {
+                        cancel: {
+                            icon: '<i class="fas fa-times"></i>',
+                            label: "Cancel",
+                        },
+                        craft: {
+                            icon: '<i class="fa fa-hammer"></i>',
+                            label: "Craft",
+                            callback: (html: JQuery) => {
+                                const form: CraftingForm = {
+                                    dc: Number(html.find('[name="craftDC"]').val()),
+                                    cost: <string>html.find('[name="itemCost"]').val(),
+                                    quantity: Number(html.find('[name="quantity"]').val()),
+                                    specialtyCrafting: <string>html.find('[name="specialtyCrafting"]').val(),
+                                };
+                                performRoll(actor, formulaData, event, form);
+                            },
+                        },
+                    },
+                    default: "craft",
+                },
+                {
+                    width: 350,
+                    top: event.clientY - 80,
+                    left: window.innerWidth - 710,
+                }
+            ).render(true);
         });
     }
 

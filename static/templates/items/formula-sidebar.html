@@ -1,0 +1,46 @@
+<h4 class="sidebar-summary">{{localize "PF2E.Item.SidebarSummary" type=(localize "ITEM.TypeFormula")}}</h4>
+
+<div class="inventory-details">
+    <div class="form-group">
+        <label>{{localize "PF2E.LevelLabel"}}</label>
+        <input type="number" name="data.level.value" value="{{data.level.value}}" data-dtype="Number" min="0"/>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.CostLabel"}}</label>
+        <input type="text" name="data.cost.value" value="{{data.cost.value}}" data-dtype="String" />
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.CraftDCLabel"}}</label>
+        <input type="number" name="data.craftDC.value" value="{{data.craftDC.value}}" data-dtype="Number" min="0"/>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.CraftingTypeLabel"}}</label>
+        <select name="data.craftingType.value" data-dtype="String">
+            {{#select data.craftingType.value}}
+                {{#each craftingTypes as |name value|}}
+                    <option value="{{value}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.FieldDiscoveryLabel"}}</label>
+        <select name="data.fieldDiscoveryType.value" data-dtype="String">
+            {{#select data.fieldDiscoveryType.value}}
+                {{#each fieldDiscoveryTypes as |name value|}}
+                    <option value="{{value}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
+
+    <ol class="item-tags">
+        {{#each traits as |trait|}}
+            <li class="tag">{{localize trait.label}}</li>
+        {{/each}}
+    </ol>
+</div>
