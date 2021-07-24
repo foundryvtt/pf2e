@@ -4,9 +4,7 @@ import { MystifiedTraits } from '@item/data/values';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 import { FogExplorationPF2e } from '@module/fog-exploration';
-import { LightingLayerPF2e } from '@module/canvas/lighting-layer';
-import { SightLayerPF2e } from '@module/canvas/sight-layer';
-import { TokenPF2e } from '@module/canvas/token';
+import { AmbientLightPF2e, LightingLayerPF2e, SightLayerPF2e, TokenPF2e } from '@module/canvas';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { CombatPF2e } from '@module/combat';
 import { CombatantPF2e } from '@module/combatant';
@@ -16,13 +14,12 @@ import { MacroPF2e } from '@module/macro';
 import { AmbientLightDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from '@module/scene';
 import { SceneConfigPF2e } from '@module/scene/sheet';
 import { registerSettings } from '@module/settings';
-import { CombatTrackerPF2e } from '@module/system/combat-tracker';
+import { EncounterTrackerPF2e } from '@module/apps/ui/encounter-tracker';
 import { loadPF2ETemplates } from '@module/templates';
 import { TokenConfigPF2e } from '@module/scene/token-config';
 import { PlayerConfigPF2e } from '@module/user/player-config';
 import { PF2ECONFIG } from '../config';
 import { UserPF2e } from '@module/user';
-import { AmbientLightPF2e } from '@module/canvas';
 import { JournalSheetPF2e } from '@module/journal-entry/sheet';
 
 export function listen(): void {
@@ -66,7 +63,7 @@ export function listen(): void {
         CONFIG.Combat.initiative.decimals = 1;
 
         // Assign the PF2e Sidebar subclasses
-        CONFIG.ui.combat = CombatTrackerPF2e;
+        CONFIG.ui.combat = EncounterTrackerPF2e;
         CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
         // configure the bundled TinyMCE editor with PF2-specific options

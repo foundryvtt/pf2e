@@ -6,7 +6,7 @@ declare global {
     const ui: {
         actors: ActorDirectory;
         chat: ChatLog;
-        combat: CombatTracker;
+        combat: CombatTracker<Combat>;
         compendium: CompendiumDirectory;
         controls: SceneControls;
         items: ItemDirectory;

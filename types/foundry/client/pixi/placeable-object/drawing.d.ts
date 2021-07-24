@@ -4,5 +4,5 @@ declare class Drawing extends PlaceableObject<DrawingDocument> {
 }
 
 declare interface Drawing {
-    get layer(): DrawingsLayer;
+    get layer(): DrawingsLayer<this>;
 }
