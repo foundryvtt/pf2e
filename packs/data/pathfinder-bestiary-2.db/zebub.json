@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+1",
+                "mod": 1,
                 "value": 12
             },
             "wis": {
@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 20,
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -103,7 +104,6 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "exceptions": "",
                         "label": "Fly",
                         "type": "fly",
                         "value": "50"
@@ -131,7 +131,7 @@
                 "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
-            "flavorText": "Zebubs serve as Hell's messengers and spies. Their ability to share what they've seen with other creatures makes them especially useful-not only to other devils, but also to mortal conjurers. Some infernal lords unleash them in enormous, horrid swarms upon unsuspecting lands to debase flesh and land alike while collecting secrets the infernal host might later put to use. Zebubs use any opportunity to manipulate weak-willed or easily tempted mortals into serving the zebubs' whims. While arrogant and deceitful, zebubs lack the cunning and confidence of most devils, and thus their schemes often focus on satisfying self-serving or self-destructive ambitions. Zebubs form from the souls of childish and craven mortals, reshaped by the archdevil Baalzebul in the frozen, filthy wastes of Hell's seventh layer, Cocytus.<br /><br />",
+            "flavorText": "<p>Zebubs serve as Hell's messengers and spies. Their ability to share what they've seen with other creatures makes them especially useful-not only to other devils, but also to mortal conjurers. Some infernal lords unleash them in enormous, horrid swarms upon unsuspecting lands to debase flesh and land alike while collecting secrets the infernal host might later put to use. Zebubs use any opportunity to manipulate weak-willed or easily tempted mortals into serving the zebubs' whims. While arrogant and deceitful, zebubs lack the cunning and confidence of most devils, and thus their schemes often focus on satisfying self-serving or self-destructive ambitions. Zebubs form from the souls of childish and craven mortals, reshaped by the archdevil Baalzebul in the frozen, filthy wastes of Hell's seventh layer, Cocytus.</p>\n<hr />\n<p>Each type of devil plays a particular role in Hell&rsquo;s bureaucracies and hierarchies, though some have far more specialized functions than others.</p>",
             "flavourText": "",
             "heritage": {
                 "value": ""
@@ -143,7 +143,7 @@
                 "min": 1,
                 "value": 3
             },
-            "recallKnowledgeText": "Recall Knowledge - Fiend : DC 18",
+            "recallKnowledgeText": "",
             "source": {
                 "value": "Pathfinder Bestiary 2"
             }
@@ -191,7 +191,7 @@
             },
             "dr": [
                 {
-                    "exceptions": "silver",
+                    "exceptions": "except silver",
                     "label": "Physical",
                     "type": "physical",
                     "value": "5"
@@ -210,7 +210,7 @@
                 }
             ],
             "languages": {
-                "custom": "telepathy 100 feet",
+                "custom": "Telepathy 100 feet",
                 "selected": [],
                 "value": [
                     "celestial",
@@ -366,7 +366,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Divine Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
@@ -496,7 +496,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Rituals",
             "sort": 200000,
             "type": "spellcastingEntry"
@@ -638,7 +638,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -755,7 +755,7 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/dimension-door.webp",
-            "name": "Dimension Door (At will)",
+            "name": "Dimension Door (At Will)",
             "sort": 400000,
             "type": "spell"
         },
@@ -767,7 +767,7 @@
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -820,7 +820,7 @@
                     "value": ""
                 },
                 "range": {
-                    "value": "touch"
+                    "value": "self"
                 },
                 "rules": [],
                 "save": {
@@ -855,7 +855,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature"
+                    "value": "self"
                 },
                 "time": {
                     "value": "2"
@@ -883,7 +883,7 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/invisibility.webp",
-            "name": "Invisibility (At will) (Self only)",
+            "name": "Invisibility (At Will) (Self Only)",
             "sort": 500000,
             "type": "spell"
         },
@@ -1328,7 +1328,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Mandibles",
             "sort": 900000,
             "type": "melee"
@@ -1380,7 +1380,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Greater Darkvision",
             "sort": 1000000,
             "type": "action"
@@ -1438,8 +1438,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Telepathy",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Telepathy 100 feet",
             "sort": 1100000,
             "type": "action"
         },
@@ -1492,7 +1492,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
             "sort": 1200000,
             "type": "action"
@@ -1556,7 +1556,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status Bonus on Saves vs Magic",
             "sort": 1300000,
             "type": "action"
@@ -1576,7 +1576,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"18\" data-pf2-traits=\"disease,virulent\" data-pf2-label=\"Cocytan Filth DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<p><strong>Onset</strong> [[/r 1d4 #days]] days;</p>\n<p><strong>Stage 1</strong>@Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3} (1 day)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"18\" data-pf2-traits=\"disease,virulent\" data-pf2-label=\"Cocytan Filth DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Onset</strong> [[/r 1d4 #days]]{1d4 days};</p>\n<p><strong>Stage 1</strong>@Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3} (1 day)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -1609,7 +1609,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Cocytan Filth",
             "sort": 1400000,
             "type": "action"
@@ -1629,7 +1629,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The zebub records everything they see, and though they don't remember all observations, they can pass them along to another creature. The zebub replays 10 minutes of witnessed events to a touched willing creature, which receives the memories in a flash of information. By remaining in contact, the zebub can spend additional 3-action activities to replay more information. After relaying their visions to another, the zebub can't ever recall those events again.</p>"
+                    "value": "<p>The zebub records everything they see, and though they don't remember all observations, they can pass them along to another creature.</p>\n<p>The zebub replays 10 minutes of witnessed events to a touched willing creature, which receives the memories in a flash of information. By remaining in contact, the zebub can spend additional 3-action activities to replay more information.</p>\n<p>After relaying their visions to another, the zebub can't ever recall those events again.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1682,7 +1682,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The zebub's Strikes deal an additional [[/r 1d6 #precision]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>The zebub's Strikes deal an additional [[/r 1d6 #precision]]{1d6 precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1734,7 +1734,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 1600000,
             "type": "action"
@@ -1951,7 +1951,7 @@
         "actorLink": false,
         "alpha": 1,
         "bar1": {
-            "attribute": null
+            "attribute": "attributes.hp"
         },
         "bar2": {
             "attribute": null
