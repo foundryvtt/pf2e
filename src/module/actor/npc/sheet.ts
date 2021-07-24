@@ -318,7 +318,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         html.find('.recall-knowledge-breakdown').on('click', (event) => {
             event.preventDefault();
             const { identifyCreatureData } = this.getData();
-            new RecallKnowledgePopup({}, identifyCreatureData!).render(true);
+            new RecallKnowledgePopup({}, identifyCreatureData).render(true);
         });
     }
 
