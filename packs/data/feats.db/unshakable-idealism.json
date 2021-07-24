@@ -21,6 +21,7 @@
         "level": {
             "value": 8
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,7 +32,20 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "any": [
+                        "fear",
+                        "emotion-despair"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.646
