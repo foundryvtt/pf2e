@@ -4,6 +4,7 @@ import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from '@actor/data/values';
 import { NPCSkillsEditor } from '@system/npc-skills-editor';
 import { ActorPF2e, NPCPF2e } from '@actor/index';
 import { identifyCreature, IdentifyCreatureData } from '@module/recall-knowledge';
+import { RecallKnowledgePopup } from '../sheet/popups/recall-knowledge-popup';
 import { PhysicalItemPF2e } from '@item/physical';
 import {
     ActionData,
@@ -82,7 +83,7 @@ interface NPCSheetData extends ActorSheetDataPF2e<NPCPF2e> {
     spellcastingEntries: SpellcastingSheetData[];
     orphanedSpells: boolean;
     orphanedSpellbook: any;
-    identifyCreatureData?: IdentifyCreatureData;
+    identifyCreatureData: IdentifyCreatureData;
     identifySkillDC?: number;
     identifySkillAdjustment?: string;
     identifySkillProgression?: string;
@@ -313,6 +314,12 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             .on('focusout', (event) => this.baseInputOnFocusOut(event));
 
         html.find('.effects-list > .effect > .item-image').on('contextmenu', (event) => this.onClickDeleteItem(event));
+
+        html.find('.recall-knowledge-breakdown').on('click', (event) => {
+            event.preventDefault();
+            const { identifyCreatureData } = this.getData();
+            new RecallKnowledgePopup({}, identifyCreatureData!).render(true);
+        });
     }
 
     // TRAITS MANAGEMENT
