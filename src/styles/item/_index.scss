@@ -260,4 +260,50 @@
             font-weight: bold;
         }
     }
+
+    .toggle-button {
+        margin: 0 2px 2px 0;
+        padding: 3px 4px;
+        font-size: 10px;
+        line-height: 16px;
+        border: 1px solid #999;
+        border-radius: 3px;
+        white-space: nowrap;
+        cursor: pointer;
+
+        background: rgba(0, 0, 0, 0.03);
+        box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.08);
+
+        display: flex;
+        align-items: center;
+
+        input[type=checkbox] {
+            width: 12px;
+            height: 12px;
+            margin: 0 2px;
+        }
+
+        &:hover {
+            box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.16), 2px 2px 5px 0px rgba(0, 0, 0, 0.08);
+        }
+
+        &.toggled-on {
+            background: rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    .toggle-button-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        gap: 2px;
+        margin: 4px 0;
+
+        .toggle-button {
+            margin: 0;
+        }
+    }
+
+    .item-controls {
+        margin: 0 4px;
+    }
 }

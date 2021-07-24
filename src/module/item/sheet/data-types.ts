@@ -5,6 +5,7 @@ import { BackgroundPF2e } from "@item/background";
 import { ClassPF2e } from "@item/class";
 import { FeatPF2e } from "@item/feat";
 import { SpellPF2e } from "@item/spell";
+import { SpellSystemData, SpellVariantData } from "@item/spell/data";
 
 export interface SheetOption {
     value: string;
@@ -93,6 +94,15 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     traits: SheetOptions;
 }
 
+export interface SpellSheetVariantData extends SpellVariantData {
+    base: string;
+    overrideStates: {
+        key: keyof SpellSystemData;
+        label: string;
+        overriden: boolean;
+    }[];
+}
+
 export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     levelLabel: string;
     magicSchools: ConfigPF2e["PF2E"]["magicSchools"];
@@ -106,4 +116,5 @@ export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     areaSizes: ConfigPF2e["PF2E"]["areaSizes"];
     areaTypes: ConfigPF2e["PF2E"]["areaTypes"];
     spellScalingModes: ConfigPF2e["PF2E"]["spellScalingModes"];
+    variants: SpellSheetVariantData[];
 }

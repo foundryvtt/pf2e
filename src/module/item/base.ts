@@ -11,7 +11,7 @@ import { DicePF2e } from "@scripts/dice";
 import { ActorPF2e } from "../actor/base";
 import { RuleElementPF2e, RuleElements } from "../rules/rules";
 import { ItemDataPF2e, ItemSourcePF2e, TraitChatData } from "./data";
-import { isItemSystemData } from "./data/helpers";
+import { isEmbedded, isItemSystemData } from "./data/helpers";
 import { MeleeSystemData } from "./melee/data";
 import { getAttackBonus, getStrikingDice } from "./runes";
 import { ItemSheetPF2e } from "./sheet/base";
@@ -94,14 +94,13 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Create a chat card for this item and either return the message or send it to the chat log. Many cards contain
      * follow-up options for attack rolls, effect application, etc.
      */
-    async toMessage(
-        this: Embedded<ItemPF2e>,
-        event?: JQuery.TriggeredEvent,
-        { create = true } = {}
-    ): Promise<ChatMessagePF2e | undefined> {
+    async toMessage(event?: JQuery.TriggeredEvent, { create = true } = {}): Promise<ChatMessagePF2e | undefined> {
+        if (!isEmbedded(this)) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
+
         // Basic template rendering data
+        const actor = this.parent;
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
-        const { token } = this.actor;
+        const { token } = actor;
         const nearestItem = event ? event.currentTarget.closest(".item") : {};
         const contextualData = nearestItem.dataset || {};
         const templateData = {
@@ -114,8 +113,8 @@ export class ItemPF2e extends Item<ActorPF2e> {
         // Basic chat message data
         const chatData: PreCreate<foundry.data.ChatMessageSource> = {
             speaker: ChatMessagePF2e.getSpeaker({
-                actor: this.actor,
-                token: this.actor.getActiveTokens()[0],
+                actor,
+                token: actor.getActiveTokens()[0],
             }),
             flags: {
                 core: {

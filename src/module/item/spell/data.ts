@@ -15,6 +15,7 @@ export class SpellData extends BaseNonPhysicalItemData<SpellPF2e> {
     isCantrip!: boolean;
     isFocusSpell!: boolean;
     isRitual!: boolean;
+    variantId?: string;
 
     static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/spell.svg";
 }
@@ -29,6 +30,12 @@ export type MagicSchool = keyof ConfigPF2e["PF2E"]["magicSchools"];
 
 export type SpellTrait = keyof ConfigPF2e["PF2E"]["spellTraits"];
 export type SpellTraits = ItemTraits<SpellTrait>;
+
+export interface SpellVariantData {
+    id: string;
+    name: string;
+    data: DeepPartial<SpellSystemData>;
+}
 
 export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     traits: SpellTraits;
@@ -114,6 +121,10 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     isSignatureSpell?: boolean;
     autoHeightenLevel: {
         value: OneToTen | null;
+    };
+    variants?: {
+        enabled: boolean;
+        value: Record<string, SpellVariantData>;
     };
 }
 
