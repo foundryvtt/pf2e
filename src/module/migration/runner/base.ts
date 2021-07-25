@@ -124,23 +124,6 @@ export class MigrationRunnerBase {
         };
     }
 
-    async getUpdatedMessage(
-        messageData: foundry.data.ChatMessageSource,
-        migrations: MigrationBase[],
-    ): Promise<foundry.data.ChatMessageSource> {
-        const current = duplicate(messageData);
-
-        for (const migration of migrations) {
-            try {
-                await migration.updateMessage(current);
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        return current;
-    }
-
     async getUpdatedMacro(
         macroSource: foundry.data.MacroSource,
         migrations: MigrationBase[],
