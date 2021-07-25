@@ -47,8 +47,6 @@ export interface NPCSystemData extends CreatureSystemData {
         level: { value: number };
         /** Which sourcebook this creature comes from. */
         source: { value: string };
-        /** Information about what is needed to recall knowledge about this creature. */
-        recallKnowledgeText: string;
         /** The type of this creature (such as 'undead') */
         creatureType: string;
     };
