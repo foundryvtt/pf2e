@@ -8,6 +8,14 @@ export class SightLayerPF2e extends SightLayer<TokenPF2e, FogExplorationPF2e> {
         return canvas.ready && !!canvas.scene && this.tokenVision && settingEnabled;
     }
 
+    get hasLowLightVision(): boolean {
+        return this.sources.some((source) => source.object.hasLowLightVision);
+    }
+
+    get hasDarkvision(): boolean {
+        return this.sources.some((source) => source.object.hasDarkvision);
+    }
+
     /** Re-prepare scene data prior to this layer's initialization */
     override async initialize(): Promise<void> {
         canvas.scene?.prepareData();

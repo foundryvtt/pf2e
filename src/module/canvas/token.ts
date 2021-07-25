@@ -10,27 +10,29 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return this._controlled;
     }
 
-    /** Is this token hidden from the current user's view? */
-    get isHidden(): boolean {
-        return this.data.hidden;
-    }
-
     /** Is this token currently moving? */
     get isMoving(): boolean {
         return !!this._movement;
     }
 
+    /** Is this token emitting light with a negative value */
     get emitsDarkness(): boolean {
         return this.data.brightLight < 0;
     }
 
+    /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
     get hasLowLightVision(): boolean {
         return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
     }
 
+    /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
+    get hasDarkvision(): boolean {
+        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasDarkvision;
+    }
+
     /** Max the brightness emitted by this token's `PointSource` if any controlled token has low-light vision */
     override updateSource({ defer = false, deleted = false, noUpdateFog = false } = {}): void {
-        if (!canvas.tokens.controlled.some((token) => token.hasLowLightVision)) {
+        if (!canvas.sight.hasLowLightVision) {
             return super.updateSource({ defer, deleted, noUpdateFog });
         }
 
@@ -57,12 +59,12 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         }
     }
 
-    onHoverIn(event: PIXI.InteractionEvent | JQuery.MouseEnterEvent) {
-        super._onHoverIn(event as PIXI.InteractionEvent);
+    emitHoverIn() {
+        this.emit('mouseover', { data: { object: this } });
     }
 
-    onHoverOut(event: PIXI.InteractionEvent | JQuery.MouseLeaveEvent) {
-        super._onHoverOut(event as PIXI.InteractionEvent);
+    emitHoverOut() {
+        this.emit('mouseout', { data: { object: this } });
     }
 
     override refresh(): this {
@@ -92,6 +94,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
         if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
+
         super._onControl(options);
     }
 
@@ -99,6 +102,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onRelease(options?: Record<string, unknown>) {
         game.pf2e.effectPanel.refresh();
         if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
+
         super._onRelease(options);
     }
 }

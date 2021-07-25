@@ -413,6 +413,8 @@ declare global {
 
     interface Token {
         hitArea: PIXI.Rectangle;
+
+        get layer(): TokenLayer<this>;
     }
 
     interface TokenVelocity {
