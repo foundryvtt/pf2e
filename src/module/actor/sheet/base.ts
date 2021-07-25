@@ -1340,7 +1340,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     private removeSpellcastingEntry(event: JQuery.ClickEvent): void {
         event.preventDefault();
 
-        const li = $(event.currentTarget).parents('.item');
+        const li = $(event.currentTarget).parents('[data-container-id]');
         const itemId = li.attr('data-container-id') ?? '';
         const item = this.actor.items.get(itemId);
         if (!item) {
