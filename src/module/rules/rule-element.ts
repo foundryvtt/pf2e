@@ -2,6 +2,7 @@ import { ActorPF2e } from '@actor';
 import type { ActorDataPF2e, CreatureData } from '@actor/data';
 import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from '@item';
 import type { ItemDataPF2e } from '@item/data';
+import { getStrikingDice } from '@item/runes';
 import {
     BracketedValue,
     RuleElementSource,
@@ -232,6 +233,9 @@ export abstract class RuleElementPF2e {
         }
 
         if (typeof value === 'string') {
+            if (this.item.data.type === 'weapon') {
+                value = value.replace(/\bdamageDice\b/g, (getStrikingDice(this.item.data.data) + 1).toString());
+            }
             value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actor.data.data, item: this.item.data.data }));
         }
 
