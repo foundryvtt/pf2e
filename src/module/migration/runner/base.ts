@@ -15,7 +15,7 @@ interface ItemsDiff {
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.646;
+    static LATEST_SCHEMA_VERSION = 0.647;
 
     static MINIMUM_SAFE_VERSION = 0.6;
 
