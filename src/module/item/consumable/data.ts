@@ -2,8 +2,8 @@ import {
     ActivatedEffectData,
     BasePhysicalItemData,
     BasePhysicalItemSource,
-    MagicItemSystemData,
     PhysicalItemTraits,
+    PhysicalSystemData,
 } from '@item/physical/data';
 import { SpellSource } from '@item/spell/data';
 import type { ConsumablePF2e } from '.';
@@ -24,7 +24,7 @@ export type ConsumableType = keyof ConfigPF2e['PF2E']['consumableTypes'];
 export type ConsumableTrait = keyof ConfigPF2e['PF2E']['consumableTraits'];
 type ConsumableTraits = PhysicalItemTraits<ConsumableTrait>;
 
-interface ConsumableSystemData extends MagicItemSystemData, ActivatedEffectData {
+interface ConsumableSystemData extends PhysicalSystemData, ActivatedEffectData {
     traits: ConsumableTraits;
 
     consumableType: {

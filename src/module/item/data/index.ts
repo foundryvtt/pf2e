@@ -33,8 +33,8 @@ export type ItemType = NonPhysicalItemType | PhysicalItemType;
 
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
 export type PhysicalItemData = ArmorData | ConsumableData | ContainerData | EquipmentData | TreasureData | WeaponData;
-export type MagicItemData = Exclude<PhysicalItemData, TreasureData>;
-export type MagicItemSource = Exclude<PhysicalItemSource, TreasureSource>;
+export type MagicItemData = Exclude<PhysicalItemData, ConsumableData | TreasureData>;
+export type MagicItemSource = Exclude<PhysicalItemSource, ConsumableSource | TreasureSource>;
 
 export type ItemDataPF2e =
     | PhysicalItemData
