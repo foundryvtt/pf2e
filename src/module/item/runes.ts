@@ -61,7 +61,7 @@ export function getStrikingDice(itemData: WeaponData['data']): ZeroToThree {
     return strikingRuneValues.get(itemData.strikingRune.value) ?? 0;
 }
 
-const resilientRuneValues: Map<ResilientRuneType, ZeroToThree> = new Map([
+const resilientRuneValues: Map<ResilientRuneType | null, ZeroToThree | undefined> = new Map([
     ['resilient', 1],
     ['greaterResilient', 2],
     ['majorResilient', 3],
@@ -271,21 +271,21 @@ export interface ArmorRuneValuationData {
     traits: ArmorTrait[];
 }
 
-// https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
+// https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=24
 const ARMOR_POTENCY_RUNE_DATA: Record<OneToThree, ArmorRuneValuationData> = {
     1: { level: 5, price: 160, rarity: 'common', traits: ['abjuration'] },
     2: { level: 11, price: 1060, rarity: 'common', traits: ['abjuration'] },
     3: { level: 18, price: 20560, rarity: 'common', traits: ['abjuration'] },
 };
 
-// https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=25
+// https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=24
 const RESILIENT_RUNE_DATA: Record<ResilientRuneType, ArmorRuneValuationData> = {
     resilient: { level: 8, price: 340, rarity: 'common', traits: ['abjuration'] },
     greaterResilient: { level: 14, price: 3440, rarity: 'common', traits: ['abjuration'] },
     majorResilient: { level: 20, price: 49440, rarity: 'common', traits: ['abjuration'] },
 };
 
-// https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=27
+// https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=26
 export const ARMOR_PROPERTY_RUNE_TYPES = [
     'antimagic',
     'energyResistant',
@@ -312,12 +312,18 @@ export const ARMOR_PROPERTY_RUNE_TYPES = [
 ] as const;
 
 export const ARMOR_PROPERTY_RUNE_DATA: Record<ArmorPropertyRuneType, ArmorRuneValuationData> = {
+    acidResistant: { level: 8, price: 420, rarity: 'common', traits: ['abjuration', 'magical'] },
     antimagic: { level: 15, price: 6500, rarity: 'uncommon', traits: ['abjuration', 'magical'] },
-    energyResistant: { level: 8, price: 420, rarity: 'common', traits: ['abjuration', 'magical'] },
+    coldResistant: { level: 8, price: 420, rarity: 'common', traits: ['abjuration', 'magical'] },
+    electricityResistant: { level: 8, price: 420, rarity: 'common', traits: ['abjuration', 'magical'] },
     ethereal: { level: 17, price: 13500, rarity: 'uncommon', traits: ['conjuration', 'magical'] },
+    fireResistant: { level: 8, price: 420, rarity: 'common', traits: ['abjuration', 'magical'] },
     fortification: { level: 12, price: 2000, rarity: 'common', traits: ['abjuration', 'magical'] },
     glamered: { level: 5, price: 140, rarity: 'common', traits: ['illusion', 'magical'] },
-    greaterEnergyResistant: { level: 12, price: 1650, rarity: 'common', traits: ['abjuration', 'magical'] },
+    greaterAcidResistant: { level: 12, price: 1650, rarity: 'common', traits: ['abjuration', 'magical'] },
+    greaterColdResistant: { level: 12, price: 1650, rarity: 'common', traits: ['abjuration', 'magical'] },
+    greaterElectricityResistant: { level: 12, price: 1650, rarity: 'common', traits: ['abjuration', 'magical'] },
+    greaterFireResistant: { level: 12, price: 1650, rarity: 'common', traits: ['abjuration', 'magical'] },
     greaterFortification: { level: 18, price: 24000, rarity: 'common', traits: ['abjuration', 'magical'] },
     greaterInvisibility: { level: 100, price: 1000, rarity: 'common', traits: ['illusion', 'magical'] },
     greaterReady: { level: 11, price: 1200, rarity: 'common', traits: ['evocation', 'magical'] },
@@ -337,7 +343,7 @@ export const ARMOR_PROPERTY_RUNE_DATA: Record<ArmorPropertyRuneType, ArmorRuneVa
 };
 
 interface ArmorValuationData {
-    potency: { 0: null } & Record<OneToFour, ArmorRuneValuationData>;
+    potency: { 0: null } & Record<OneToThree, ArmorRuneValuationData>;
     resilient: { '': null } & Record<ResilientRuneType, ArmorRuneValuationData>;
     property: { '': null } & Record<ArmorPropertyRuneType, ArmorRuneValuationData>;
 }
