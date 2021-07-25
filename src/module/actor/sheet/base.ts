@@ -217,6 +217,33 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     override activateListeners(html: JQuery): void {
         super.activateListeners(html);
 
+        // General handler for embedded item updates
+        // If simultaneous updates become an issue, move this to form submission or buffer the updates
+        html.find('[data-update-property][data-item-id]').on('change', (event) => {
+            const { itemId, updateProperty, dtype } = event.target.dataset;
+            if (!itemId || !updateProperty) return;
+
+            const value = (() => {
+                const value = $(event.target).val();
+                if (typeof value === 'undefined' || value === null) {
+                    return value;
+                }
+
+                switch (dtype) {
+                    case 'Boolean':
+                        return typeof value === 'boolean' ? value : value === 'true';
+                    case 'Number':
+                        return Number(value);
+                    case 'String':
+                        return String(value);
+                    default:
+                        return value;
+                }
+            })();
+
+            this.actor.updateEmbeddedDocuments('Item', [{ _id: itemId, [updateProperty]: value }]);
+        });
+
         // Pad field width
         html.find('[data-wpad]').each((_i, e) => {
             const text = e.tagName === 'INPUT' ? (e as HTMLInputElement).value : e.innerText;
@@ -486,43 +513,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 {
                     _id: itemId ?? '',
                     'data.item.value': Number(event.target.value),
-                },
-            ]);
-        });
-
-        // Update Item Name
-        html.find<HTMLInputElement>('.item-name-input').on('change', async (event) => {
-            const itemId = event.target.attributes['data-item-id']?.value ?? '';
-            await this.actor.updateEmbeddedDocuments('Item', [{ _id: itemId, name: event.target.value }]);
-        });
-
-        // Update used slots for Spell Items
-        html.find<HTMLInputElement>('.spell-slots-input').on('change', async (event) => {
-            event.preventDefault();
-
-            const $input = $(event.target);
-            const itemId = $input.closest('.item, .section').attr('data-item-id') ?? '';
-            const spellcastingEntry = this.actor.items.get(itemId);
-            if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) throw ErrorPF2e('Spellcasting entry not found');
-
-            const slotLevel = Number($input.closest('.item, .section').attr('data-level') ?? 0);
-            const slots = spellcastingEntry.data.data.slots;
-            const slot = slots[`slot${slotLevel}` as keyof typeof slots];
-            const newValue = Math.clamped(Number($input.val()), 0, slot.max);
-
-            await spellcastingEntry.update({ [`data.slots.slot${slotLevel}.value`]: newValue });
-        });
-
-        // Update max slots for Spell Items
-        html.find<HTMLInputElement>('.spell-max-input').on('change', async (event) => {
-            event.preventDefault();
-
-            const itemId = $(event.currentTarget).parents('.item, .section').attr('data-item-id') ?? '';
-            const slotLvl = Number($(event.currentTarget).parents('.item, .section').attr('data-level')) || 0;
-            await this.actor.updateEmbeddedDocuments('Item', [
-                {
-                    _id: itemId,
-                    [`data.slots.slot${slotLvl}.max`]: Number(event.target.value),
                 },
             ]);
         });
