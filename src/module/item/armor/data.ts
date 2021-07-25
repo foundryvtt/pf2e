@@ -3,10 +3,13 @@ import {
     BasePhysicalItemSource,
     MagicItemSystemData,
     PhysicalItemTraits,
+    PreciousMaterialGrade,
+    PreciousMaterialType,
 } from '@item/physical/data';
 import { ZeroToFour } from '@module/data';
 import type { LocalizePF2e } from '@module/system/localize';
 import type { ArmorPF2e } from '.';
+import { ARMOR_PROPERTY_RUNE_TYPES } from '@item/runes';
 
 export type ArmorSource = BasePhysicalItemSource<'armor', ArmorSystemData>;
 
@@ -27,6 +30,25 @@ export type ArmorCategory = keyof ConfigPF2e['PF2E']['armorTypes'];
 export type ArmorGroup = keyof ConfigPF2e['PF2E']['armorGroups'];
 export type BaseArmorType = keyof typeof LocalizePF2e.translations.PF2E.Item.Armor.Base;
 export type ResilientRuneType = '' | 'resilient' | 'greaterResilient' | 'majorResilient';
+export type ArmorMaterialType = Exclude<PreciousMaterialType, 'warpglass'>;
+export type ArmorPropertyRuneType = typeof ARMOR_PROPERTY_RUNE_TYPES[number];
+export interface ArmorPropertyRuneSlot {
+    value: ArmorPropertyRuneType | null;
+}
+
+/** A weapon can either be unspecific or specific along with baseline material and runes */
+type SpecificArmorData =
+    | {
+          value: false;
+      }
+    | {
+          value: true;
+          material: {
+              type: ArmorMaterialType;
+              grade: PreciousMaterialGrade;
+          };
+          runes: Omit<ArmorRuneData, 'property'>;
+      };
 
 interface ArmorSystemData extends MagicItemSystemData {
     traits: ArmorTraits;
@@ -59,16 +81,13 @@ interface ArmorSystemData extends MagicItemSystemData {
     resiliencyRune: {
         value: ResilientRuneType | '';
     };
-    propertyRune1: {
-        value: string;
-    };
-    propertyRune2: {
-        value: string;
-    };
-    propertyRune3: {
-        value: string;
-    };
-    propertyRune4: {
-        value: string;
+    // Whether the weapon is a "specific magic weapon"
+    specific?: SpecificArmorData;
+    propertyRune1: ArmorPropertyRuneSlot;
+    propertyRune2: ArmorPropertyRuneSlot;
+    propertyRune3: ArmorPropertyRuneSlot;
+    propertyRune4: ArmorPropertyRuneSlot;
+    preciousMaterial: {
+        value: ArmorMaterialType | null;
     };
 }

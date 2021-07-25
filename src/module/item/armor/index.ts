@@ -23,6 +23,10 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         return !this.isShield;
     }
 
+    get isSpecific(): boolean {
+        return this.data.data.specific?.value ?? false;
+    }
+
     get baseType(): BaseArmorType | null {
         return this.data.data.baseItem ?? null;
     }

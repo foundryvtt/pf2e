@@ -1247,6 +1247,8 @@ export const PF2ECONFIG = {
         light: 'PF2E.TraitLight',
         magical: 'PF2E.TraitMagical',
         noisy: 'PF2E.TraitNoisy',
+        dwarf: 'PF2E.TraitDwarf',
+        saggorak: 'PF2E.TraitSaggorak',
     },
 
     equipmentTraits: {
