@@ -1,5 +1,4 @@
 import type { ActorPF2e } from '@actor/base';
-import type { ChatMessagePF2e } from '@module/chat-message';
 import type { ItemPF2e } from '@item/base';
 import type { MacroPF2e } from '@module/macro';
 import { MigrationRunnerBase } from '@module/migration/runner/base';
@@ -82,18 +81,6 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateChatMessage(migrations: MigrationBase[], message: ChatMessagePF2e): Promise<void> {
-        try {
-            const updatedMacro = await this.getUpdatedMessage(message.toObject(), migrations);
-            const changes = diffObject(message.toObject(), updatedMacro);
-            if (!isObjectEmpty(changes)) {
-                await message.update(changes);
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
     private async migrateWorldMacro(migrations: MigrationBase[], macro: MacroPF2e): Promise<void> {
         try {
             const updatedMacro = await this.getUpdatedMacro(macro.toObject(), migrations);
@@ -166,11 +153,6 @@ export class MigrationRunner extends MigrationRunnerBase {
         // Migrate World RollTables
         for (const table of game.tables) {
             promises.push(this.migrateWorldTable(migrations, table));
-        }
-
-        // Migrate Chat Messages
-        for (const message of game.messages) {
-            promises.push(this.migrateChatMessage(migrations, message));
         }
 
         // Run migrations of world compendia
