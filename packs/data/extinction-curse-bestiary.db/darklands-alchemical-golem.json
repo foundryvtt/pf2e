@@ -3,101 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": -5,
-                "value": 0
+                "mod": -5
             },
             "con": {
-                "min": 3,
-                "mod": 3,
-                "value": 16
+                "mod": 3
             },
             "dex": {
-                "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 4
             },
             "int": {
-                "min": 3,
-                "mod": -5,
-                "value": 0
+                "mod": -5
             },
             "str": {
-                "min": 3,
-                "mod": 6,
-                "value": 22
+                "mod": 6
             },
             "wis": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 27
             },
             "allSaves": {
                 "value": ""
             },
-            "ancestryhp": 0,
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "classDC": {
-                "ability": "str",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
-                "value": 0
-            },
-            "classhp": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 150,
-                "min": 0,
                 "temp": 0,
                 "value": 150
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "value": 15
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": "0",
                 "hardness": 0,
                 "max": "0",
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -109,60 +57,25 @@
             "alignment": {
                 "value": "N"
             },
-            "ancestry": {
-                "value": "Golem"
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "Construct",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
             "flavorText": "This golem is a walking alchemical nightmare capable of inflicting all manner of painful wounds. Its ability to follow orders is granted by the otherwise mindless humanoid brain that floats in its dome-like head. In exceptionally rare cases, the brain used in its creation might retain fragments of memories or even actual intellect, resulting in an alchemical golem with a personality and agenda of its own.<br /><br />",
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 9
             },
-            "recallKnowledgeText": "Recall Knowledge (Arcana, Crafting): DC 28",
             "source": {
                 "value": "Pathfinder #153: Life's Long Shadows"
             }
         },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 20
             },
             "reflex": {
-                "ability": "dex",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 19
             },
             "will": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 15
             }
@@ -253,8 +166,6 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "rules": [],
@@ -306,8 +217,6 @@
                 },
                 "damageRolls": {},
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "rules": [],
@@ -356,8 +265,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>An alchemical golem's body contains six alchemical chambers filled with different substances. When an alchemical golem ability calls upon a randomly determined alchemical effect, roll [[/r 1d6]] and consult the following (if you roll the result of a chamber that was shattered, there is no alchemical effect): <strong>1</strong> acid damage; <strong>2</strong> cold damage; <strong>3</strong> electricity damage; <strong>4</strong> fire damage; <strong>5</strong> poison damage; <strong>6</strong> sickness: <span data-pf2-check=\"fortitude\" data-pf2-dc=\"26\" data-pf2-label=\"Alchemical Chambers DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 (@Compendium[pf2e.conditionitems.Sickened]{Sickened} 2 on a critical failure)</p>"
                 },
                 "requirements": {
@@ -407,8 +314,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>When an alchemical golem takes physical damage from a critical hit or is affected by a shatter spell, one glass chamber within its body shatters, spewing alchemical liquid in a 5-foot emanation. Roll on the alchemical chambers list (see above) to determine which one shatters-on a roll of 1-5, creatures in the area take [[/r 10d6 # damage]] damage of the appropriate type (<span data-pf2-check=\"reflex\" data-pf2-dc=\"28\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Alchemical Rupture DC\" data-pf2-show-dc=\"gm\">basic Reflex</span>). On a roll of 6, creatures must instead save against the @Compendium[pf2e.conditionitems.Sickened]{Sickeness} effect.</p>"
                 },
                 "requirements": {
@@ -458,8 +363,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Harmed by sonic (5d8, [[/r 2d6 # from areas or persistent damage]] from areas or persistent damage); Healed by acid (area 2d4 HP); slowed by cold</p>\n<hr />\n<p>A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. These exceptions are listed in shortened form in the golem's stat block, with the full rules appearing here. If an entry lists multiple types (such as \"cold and water\"), either type of spell can affect the golem. <strong>Harmed By</strong> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical. <strong>Healed By</strong> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical. <strong>Slowed By</strong> Any magic of this type that targets the golem causes it to be slowed 1 for 2d6 rounds instead of the usual effect. If the golem starts its turn in an area of this type of magic, it's slowed 1 for that round. <strong>Vulnerable To</strong> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block.</p>"
                 },
                 "requirements": {
@@ -509,8 +412,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Casting a shatter spell on an alchemical golem affects the golem normally, but also causes an alchemical rupture (see above).</p>"
                 },
                 "requirements": {
@@ -559,8 +460,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Crafted in areas where glass is rare, the Darklands alchemical golem instead incorporates crystalline components. The golem's vulnerable to shatter ability functions only for @Compendium[pf2e.spells-srd.Shatter]{Shatter} spells of at least 4th level.</p>"
                 },
                 "requirements": {
@@ -610,8 +509,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>When an alchemical golem hits a creature with a syringe Strike, roll [[/r 1d6]] on the alchemical chambers list to determine the additional effect of the attack. The syringe deals an additional [[/r 2d6]] damage of the appropriate type (or exposes the target to the @Compendium[pf2e.conditionitems.Sickened]{Sickeness} effect, as appropriate).</p>"
                 },
                 "requirements": {
@@ -661,8 +558,6 @@
                     "value": "1"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The golem fills an empty vial from one of its alchemical chambers to create a bomb and then makes a bomb @Compendium[pf2e.actionspf2e.Strike]{Strike}. Determine the type of bomb created by rolling [[/r 1d6]] on the alchemical chambers list above. On a roll of 1-4, it creates the corresponding greater alchemical bomb: an @Compendium[pf2e.equipment-srd.Acid Flask (Greater)]{Acid Flask (Greater)} from chamber 1, a @Compendium[pf2e.equipment-srd.Frost Vial (Greater)]{Frost Vial (Greater)} from chamber 2, @Compendium[pf2e.equipment-srd.Bottled Lightning (Greater)]{Bottled Lightning (Greater)} from chamber 3, or @Compendium[pf2e.equipment-srd.Alchemist's Fire (Greater)]{Alchemist's Fire (Greater)} from chamber 4. On a roll of 5, it creates a poisonous bomb that deals [[/r 3d10 # poison]] poison damage and [[/r 3 # poison splash]] poison splash damage with no other effects. On a roll of 6, it creates a sickness bomb, which exposes the target and all creatures in the splash radius to the @Compendium[pf2e.conditionitems.Sickened]{Sickened} effect; creatures hit by only the splash receive a +2 circumstance bonus to their Fortitude saves.</p>"
                 },
                 "requirements": {
@@ -707,8 +602,6 @@
             "_id": "pR9E0zEtv0g9eZqm",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -747,41 +640,10 @@
     ],
     "name": "Darklands Alchemical Golem",
     "token": {
-        "actorId": "bJUlb2DxT1xyaYAp",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Darklands Alchemical Golem",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 2
     },
     "type": "npc"
