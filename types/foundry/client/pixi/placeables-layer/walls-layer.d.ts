@@ -1,5 +1,5 @@
 /** The Walls canvas layer which provides a container for Wall objects within the rendered Scen */
-declare class WallsLayer extends PlaceablesLayer<Wall> {
+declare class WallsLayer<TWall extends Wall = Wall> extends PlaceablesLayer<TWall> {
     constructor(document: WallDocument);
 
     /** A graphics layer used to display chained Wall selection */

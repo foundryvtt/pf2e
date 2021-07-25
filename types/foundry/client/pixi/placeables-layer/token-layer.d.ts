@@ -1,6 +1,5 @@
 /** The Tokens Container */
 declare class TokenLayer<TToken extends Token> extends PlaceablesLayer<TToken> {
-    /** @override */
     constructor();
 
     /** The current index position in the tab cycle */

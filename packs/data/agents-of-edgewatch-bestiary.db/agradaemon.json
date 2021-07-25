@@ -3,93 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 10,
-                "value": 10
+                "mod": 10
             },
             "con": {
-                "min": 3,
-                "mod": 5,
-                "value": 10
+                "mod": 5
             },
             "dex": {
-                "min": 3,
-                "mod": 10,
-                "value": 10
+                "mod": 10
             },
             "int": {
-                "min": 3,
-                "mod": 6,
-                "value": 10
+                "mod": 6
             },
             "str": {
-                "min": 3,
-                "mod": 6,
-                "value": 10
+                "mod": 6
             },
             "wis": {
-                "min": 3,
-                "mod": 5,
-                "value": 10
+                "mod": 5
             }
         },
         "attributes": {
             "ac": {
-                "base": 45,
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
-                "value": 0
+                "value": 45
             },
             "allSaves": {
                 "value": "+1 status to all saves vs. magic"
             },
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 400,
-                "min": 0,
                 "temp": 0,
                 "value": 400
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "base": 31,
-                "item": 0,
-                "rank": 0,
-                "value": 0
-            },
-            "resolve": {
-                "value": 0
+                "value": 31
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -108,61 +64,26 @@
             "alignment": {
                 "value": "NE"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 19
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": "Pathfinder #162: Ruins of the Radiant Siege"
             }
         },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "base": 31,
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
-                "value": 0
+                "value": 31
             },
             "reflex": {
-                "ability": "dex",
-                "base": 36,
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
-                "value": 0
+                "value": 36
             },
             "will": {
-                "ability": "wis",
-                "base": 31,
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
-                "value": 0
+                "value": 31
             }
         },
         "schema": {
@@ -391,8 +312,6 @@
                     "value": "negative"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You unleash a wave of necromantic energy to snuff out the life force of those in its path. Each living creature of 19th level or lower in the line must attempt a Fortitude save. If the damage from massacre reduces a creature to 0 Hit Points, that creature dies instantly. If massacre doesn't kill even a single creature, the negative energy violently explodes back toward you, dealing an additional 30 negative damage to every living creature in the line (even those above 19th level) and 30 negative damage to you.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes 10d6 negative damage.</p>\n<p><strong>Failure</strong> The creature takes 115 negative damage.</p>\n<p><strong>Critical Failure</strong> The creature dies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The spell can affect living creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure.</p>"
                 },
                 "duration": {
@@ -522,8 +441,6 @@
                     "value": "fire"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The ground opens up, spraying a column of lava high into the air in a vertical cylinder, dealing 16d6 fire damage to creatures in the area. The lava rapidly cools and encases creatures in the area. A creature encased in rock is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and takes a -10-foot status penalty to its Speeds. All normal terrain is difficult terrain to a flying creature, and such creatures immediately descend 20 feet the moment they're encased, but they don't take damage from this fall. A creature encased in rock can attempt to Escape against your spell DC to end the effect. Otherwise, the creature remains encased until it takes a total of 50 damage, freeing it from the rock. Additionally, creatures in the area and those within 5 feet of the lava column automatically take 4d6 fire damage from the intense heat, regardless of the results of their saving throws.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is encased.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is encased.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage in the area increases by 2d6, and the damage from the intense heat increases by 1d6.</p>"
                 },
                 "duration": {
@@ -650,8 +567,6 @@
                     "value": "fire"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The ground opens up, spraying a column of lava high into the air in a vertical cylinder, dealing 16d6 fire damage to creatures in the area. The lava rapidly cools and encases creatures in the area. A creature encased in rock is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and takes a -10-foot status penalty to its Speeds. All normal terrain is difficult terrain to a flying creature, and such creatures immediately descend 20 feet the moment they're encased, but they don't take damage from this fall. A creature encased in rock can attempt to Escape against your spell DC to end the effect. Otherwise, the creature remains encased until it takes a total of 50 damage, freeing it from the rock. Additionally, creatures in the area and those within 5 feet of the lava column automatically take 4d6 fire damage from the intense heat, regardless of the results of their saving throws.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is encased.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is encased.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage in the area increases by 2d6, and the damage from the intense heat increases by 1d6.</p>"
                 },
                 "duration": {
@@ -778,8 +693,6 @@
                     "value": "fire"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The ground opens up, spraying a column of lava high into the air in a vertical cylinder, dealing 16d6 fire damage to creatures in the area. The lava rapidly cools and encases creatures in the area. A creature encased in rock is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and takes a -10-foot status penalty to its Speeds. All normal terrain is difficult terrain to a flying creature, and such creatures immediately descend 20 feet the moment they're encased, but they don't take damage from this fall. A creature encased in rock can attempt to Escape against your spell DC to end the effect. Otherwise, the creature remains encased until it takes a total of 50 damage, freeing it from the rock. Additionally, creatures in the area and those within 5 feet of the lava column automatically take 4d6 fire damage from the intense heat, regardless of the results of their saving throws.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is encased.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is encased.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage in the area increases by 2d6, and the damage from the intense heat increases by 1d6.</p>"
                 },
                 "duration": {
@@ -906,8 +819,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
@@ -1035,8 +946,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
@@ -1164,8 +1073,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You learn each aura's location and strength.</p>"
                 },
                 "duration": {
@@ -1385,8 +1292,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
@@ -1487,8 +1392,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
                 },
                 "requirements": {
@@ -1761,8 +1664,6 @@
                     "value": "1"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Claw</p>\n<hr />\n<p><strong>Requirements</strong> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round.</p>\n<p><strong>Effect</strong> The monster automatically deals that Strike's damage again to the enemy.</p>"
                 },
                 "requirements": {
@@ -1961,57 +1862,10 @@
     ],
     "name": "Agradaemon",
     "token": {
-        "actorId": "qUhxXE2yT0qwSJQm",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": "attributes.hp"
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {
-            "token-auras": {
-                "aura1": {
-                    "colour": "#ffffff",
-                    "distance": null,
-                    "opacity": 0.5,
-                    "square": false
-                },
-                "aura2": {
-                    "colour": "#ffffff",
-                    "distance": null,
-                    "opacity": 0.5,
-                    "square": false
-                }
-            }
-        },
         "height": 4,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lightColor": null,
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Agradaemon",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 4
     },
     "type": "npc"

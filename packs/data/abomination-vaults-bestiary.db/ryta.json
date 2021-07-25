@@ -3,91 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 4,
-                "value": 10
+                "mod": 4
             },
             "con": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             },
             "dex": {
-                "min": 3,
-                "mod": 3,
-                "value": 10
+                "mod": 3
             },
             "int": {
-                "min": 3,
-                "mod": 1,
-                "value": 10
+                "mod": 1
             },
             "str": {
-                "min": 3,
-                "mod": "+1",
-                "value": 10
+                "mod": 1
             },
             "wis": {
-                "min": 3,
-                "mod": 2,
-                "value": 10
+                "mod": 2
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 21
             },
             "allSaves": {
                 "value": ""
             },
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 60,
-                "min": 0,
                 "temp": 0,
                 "value": 60
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "value": 10
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -99,56 +57,24 @@
             "alignment": {
                 "value": "LN"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 4
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": "Pathfinder #164: Hands of the Devil"
             }
         },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 8
             },
             "reflex": {
-                "ability": "dex",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 13
             },
             "will": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 10
             }
@@ -354,8 +280,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The target loses hearing; it must attempt a Fortitude save. The target is then temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round.</p>\n<p><strong>Failure</strong> The target is Deafened for 10 minutes.</p>\n<p><strong>Critical Failure</strong> The target is Deafened permanently.</p>"
                 },
                 "duration": {
@@ -481,8 +405,6 @@
                     "value": "sonic"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A high-frequency sonic attack shatters a nearby object. You deal 2d10 sonic damage to the object, ignoring the object's Hardness if it is 4 or lower.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10, and the Hardness the spell ignores increases by 2.</p>"
                 },
                 "duration": {
@@ -607,8 +529,6 @@
                     "value": "healing"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
                 },
                 "duration": {
@@ -734,8 +654,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
@@ -863,8 +781,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} condition), release what it's holding, drop @Compendium[pf2e.conditionitems.Prone]{Prone}, or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><strong>Heightened (5th)</strong> You can target up to 10 creatures."
                 },
                 "duration": {
@@ -992,8 +908,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You create up to four floating lights, no two of which are more than 10 feet apart. Each sheds light like a torch. When you Sustain the Spell, you can move any number of lights up to 60 feet. Each light must remain within 120 feet of you and within 10 feet of all others, or it winks out.</p>"
                 },
                 "duration": {
@@ -1121,8 +1035,6 @@
                     "value": "mental"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
@@ -1250,8 +1162,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 120 feet.</p>"
                 },
                 "duration": {
@@ -1377,8 +1287,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shield]{Spell Effect: Shield}</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
@@ -1505,8 +1413,6 @@
                     "value": "healing"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You grace the target's mind, boosting its mental defenses and healing its wounds. The target regains 1d10+4 Hit Points when you Cast the Spell and gains a +2 status bonus to saves against mental effects for the duration.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing increases by 1d10+4.</p>"
                 },
                 "duration": {
@@ -1632,8 +1538,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack attack against the target. If you hit, you deal bludgeoning, piercing, or slashing damage-as appropriate for the object you hurled-equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr /><strong>Critical Success</strong> You deal double damage.\n<p><strong>Success</strong> You deal full damage.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 1d6."
                 },
                 "duration": {
@@ -1759,8 +1663,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Whenever you speak or make any other sound vocally, you can make your vocalization seem to originate from somewhere else within 60 feet, and you can change that apparent location freely as you vocalize. Any creature that hears the sound can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The spell's duration increases to 1 hour, and you can also change the tone, quality, and other aspects of your voice. Before a creature can attempt to disbelieve your illusion, it must actively attempt a Perception check or otherwise use actions to interact with the sound.</p>"
                 },
                 "duration": {
@@ -1881,8 +1783,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
                 },
                 "dex": {
@@ -2486,41 +2386,10 @@
     ],
     "name": "Ryta",
     "token": {
-        "actorId": "WR07Z6MjvebSHzI7",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Ryta",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 1
     },
     "type": "npc"

@@ -15,7 +15,7 @@ interface ItemsDiff {
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.646;
+    static LATEST_SCHEMA_VERSION = 0.648;
 
     static MINIMUM_SAFE_VERSION = 0.6;
 
@@ -122,23 +122,6 @@ export class MigrationRunnerBase {
                 system: 'game' in globalThis ? game.system.data.version : undefined,
             },
         };
-    }
-
-    async getUpdatedMessage(
-        messageData: foundry.data.ChatMessageSource,
-        migrations: MigrationBase[],
-    ): Promise<foundry.data.ChatMessageSource> {
-        const current = duplicate(messageData);
-
-        for (const migration of migrations) {
-            try {
-                await migration.updateMessage(current);
-            } catch (err) {
-                console.error(err);
-            }
-        }
-
-        return current;
     }
 
     async getUpdatedMacro(

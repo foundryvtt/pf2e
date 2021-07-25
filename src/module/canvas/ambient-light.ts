@@ -20,5 +20,5 @@ export class AmbientLightPF2e extends AmbientLight<AmbientLightDocumentPF2e> {
 }
 
 export interface AmbientLightPF2e {
-    get layer(): LightingLayerPF2e;
+    get layer(): LightingLayerPF2e<this>;
 }

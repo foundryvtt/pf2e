@@ -748,7 +748,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
+        const dropSlotType = $(event.target).closest('.item').attr('data-item-type');
         const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
         const item = this.actor.items.get(itemData._id);
         if (!item) return [];
@@ -790,9 +790,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 }
             } else if (dropSlotType === 'spellSlot') {
                 if (CONFIG.debug.hooks) console.debug('PF2e System | ***** spell dropped on a spellSlot *****');
-                const dropId = Number($(event.target).parents('.item').attr('data-item-id'));
-                const spellLvl = Number($(event.target).parents('.item').attr('data-spell-lvl'));
-                const entryId = $(event.target).parents('.item').attr('data-entry-id') ?? '';
+                const dropId = Number($(event.target).closest('.item').attr('data-item-id'));
+                const spellLvl = Number($(event.target).closest('.item').attr('data-spell-lvl'));
+                const entryId = $(event.target).closest('.item').attr('data-entry-id') ?? '';
 
                 if (Number.isInteger(dropId) && Number.isInteger(spellLvl) && entryId) {
                     const entry = this.actor.items.get(entryId);
@@ -1340,7 +1340,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     private removeSpellcastingEntry(event: JQuery.ClickEvent): void {
         event.preventDefault();
 
-        const li = $(event.currentTarget).parents('.item');
+        const li = $(event.currentTarget).parents('[data-container-id]');
         const itemId = li.attr('data-container-id') ?? '';
         const item = this.actor.items.get(itemId);
         if (!item) {
