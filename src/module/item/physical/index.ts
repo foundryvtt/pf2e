@@ -145,6 +145,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         thisData.quantity.value = otherData.quantity.value;
         thisData.equipped.value = otherData.equipped.value;
         thisData.containerId.value = otherData.containerId.value;
+        thisData.schema = otherData.schema;
         thisData.identification = otherData.identification;
 
         return JSON.stringify(thisData) === JSON.stringify(otherData);
