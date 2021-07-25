@@ -141,3 +141,7 @@ declare class Wall extends PlaceableObject<WallDocument> {
 
     protected _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<this['document'][]>;
 }
+
+declare interface Wall extends PlaceableObject<WallDocument> {
+    get layer(): WallsLayer<this>;
+}

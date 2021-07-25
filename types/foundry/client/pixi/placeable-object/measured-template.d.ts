@@ -23,8 +23,6 @@ declare class MeasuredTemplate extends PlaceableObject<MeasuredTemplateDocument>
     /** A convenience accessor for the fill color as a numeric hex code */
     get fillColor(): number;
 
-    override get layer(): TemplateLayer;
-
     /* -------------------------------------------- */
     /*  Rendering                                   */
     /* -------------------------------------------- */
@@ -81,4 +79,8 @@ declare class MeasuredTemplate extends PlaceableObject<MeasuredTemplateDocument>
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext, userId: string): void;
+}
+
+declare interface MeasuredTemplate extends PlaceableObject<MeasuredTemplateDocument> {
+    get layer(): TemplateLayer<this>;
 }

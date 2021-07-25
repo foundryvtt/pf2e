@@ -1,6 +1,8 @@
 import { AmbientLightPF2e } from './ambient-light';
 
-export class LightingLayerPF2e extends LightingLayer<AmbientLightPF2e> {
+export class LightingLayerPF2e<
+    TAmbientLight extends AmbientLightPF2e = AmbientLightPF2e,
+> extends LightingLayer<TAmbientLight> {
     setPerceivedLightLevel({ defer = true } = {}): void {
         if (!canvas.sight.rulesBasedVision) return;
 
@@ -20,7 +22,7 @@ export class LightingLayerPF2e extends LightingLayer<AmbientLightPF2e> {
 
     /** Set the perceived brightness of sourced lighting */
     override refresh(darkness?: number | null): void {
-        if (canvas.tokens.controlled.some((token) => token.hasLowLightVision)) {
+        if (canvas.sight.hasLowLightVision) {
             for (const source of this.sources) {
                 if (source.isDarkness || !source.active) continue;
                 source.bright = Math.max(source.dim, source.bright);

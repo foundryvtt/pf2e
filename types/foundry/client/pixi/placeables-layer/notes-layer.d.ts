@@ -1,1 +1,1 @@
-declare class NotesLayer extends PlaceablesLayer<Note> {}
+declare class NotesLayer<TNote extends Note = Note> extends PlaceablesLayer<TNote> {}

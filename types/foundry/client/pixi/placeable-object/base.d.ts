@@ -55,7 +55,7 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
     get fov(): PIXI.Polygon;
 
     /** Provide a reference to the CanvasLayer which contains this PlaceableObject. */
-    get layer(): PIXI.Container;
+    get layer(): PlaceablesLayer<this>;
 
     /** The line-of-sight polygon for the object, if it has been computed */
     get los(): PIXI.Polygon | null;

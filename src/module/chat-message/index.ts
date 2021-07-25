@@ -66,10 +66,10 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     /** Get the token of the speaker if possible */
-    get token(): TokenPF2e | undefined {
-        if (!canvas.ready) return;
-        const speaker = this.data.speaker;
-        return canvas.tokens.placeables.find((token) => token.id === speaker.token);
+    get token(): TokenPF2e | null {
+        if (!canvas.ready) return null;
+        const tokenId = this.data.speaker.token;
+        return canvas.tokens.placeables.find((token) => token.id === tokenId) ?? null;
     }
 
     override async getHTML(): Promise<JQuery> {
@@ -81,30 +81,28 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             CriticalHitAndFumbleCards.appendButtons(this, $html);
         }
 
-        $html.on('mouseenter', this.onHoverIn.bind(this));
-        $html.on('mouseleave', this.onHoverOut.bind(this));
+        $html.on('mouseenter', () => this.onHoverIn());
+        $html.on('mouseleave', () => this.onHoverOut());
         $html.find('.message-sender').on('click', this.onClick.bind(this));
 
         return $html;
     }
 
-    protected onHoverIn(event: JQuery.MouseEnterEvent): void {
-        event.preventDefault();
+    private onHoverIn(): void {
         const token = this.token;
-        if (token && token.visible && !token.isControlled) {
-            token.onHoverIn(event);
+        if (token?.isVisible && !token.isControlled) {
+            token.emitHoverIn();
         }
     }
 
-    protected onHoverOut(event: JQuery.MouseLeaveEvent): void {
-        event.preventDefault();
-        this.token?.onHoverOut(event);
+    private onHoverOut(): void {
+        this.token?.emitHoverOut();
     }
 
-    protected onClick(event: JQuery.ClickEvent): void {
+    private onClick(event: JQuery.ClickEvent): void {
         event.preventDefault();
         const token = this.token;
-        if (token && token.visible) {
+        if (token?.isVisible) {
             token.isControlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
         }
     }
