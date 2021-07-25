@@ -7,6 +7,7 @@ import { coinValueInCopper, extractPriceFromItem } from '@item/treasure/helpers'
 import { OneToFour, OneToThree } from '@module/data';
 import { objectHasKey } from '@module/utils';
 import { ArmorPF2e } from '.';
+import { LocalizePF2e } from '@system/localize';
 import { ArmorPropertyRuneSlot } from './data';
 
 export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
@@ -87,12 +88,15 @@ export class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             traits: this.prepareOptions(CONFIG.PF2E.armorTraits, sheetData.item.data.traits, { selectedOnly: true }),
             baseTraits: this.prepareOptions(CONFIG.PF2E.armorTraits, baseData.data.traits, { selectedOnly: true }),
             hasModifiedPrice,
+            categories: CONFIG.PF2E.armorTypes,
             baseLevel: baseData.data.level.value,
+            baseTypes: LocalizePF2e.translations.PF2E.Item.Armor.Base,
             baseRarity: baseData.data.traits.rarity.value,
             basePrice: baseData.data.price.value,
             groups: CONFIG.PF2E.armorGroups,
             itemBonuses: CONFIG.PF2E.itemBonuses,
             bulkTypes: CONFIG.PF2E.bulkTypes,
+            preciousMaterialGrades: CONFIG.PF2E.preciousMaterialGrades,
             sizes: CONFIG.PF2E.actorSizes,
         };
     }

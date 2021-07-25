@@ -83,10 +83,10 @@ interface ArmorSystemData extends MagicItemSystemData {
         value: number;
     };
     potencyRune: {
-        value: ZeroToFour;
+        value: ZeroToFour | null;
     };
     resiliencyRune: {
-        value: ResilientRuneType | '';
+        value: ResilientRuneType | null;
     };
     // Whether the weapon is a "specific magic weapon"
     specific?: SpecificArmorData;

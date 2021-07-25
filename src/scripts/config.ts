@@ -22,6 +22,7 @@ import {
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from '@actor/index';
 import { ConditionType } from '@item/condition/data';
 import { WeaponPropertyRuneType } from '@item/weapon/data';
+import { ArmorPropertyRuneType } from '@item/armor/data';
 import { PreciousMaterialGrade, PreciousMaterialType } from '@item/physical/data';
 import { DamageType } from '@module/damage-calculation';
 import { ClassTrait } from '@item/class/data';
@@ -622,6 +623,38 @@ const preciousMaterials: Record<PreciousMaterialType, string> = {
     warpglass: 'PF2E.PreciousMaterialWarpglass',
 };
 
+const armorPropertyRunes: Record<ArmorPropertyRuneType, string> = {
+    ready: 'PF2E.ArmorPropertyRuneReady',
+    slick: 'PF2E.ArmorPropertyRuneSlick',
+    shadow: 'PF2E.ArmorPropertyRuneShadow',
+    glamered: 'PF2E.ArmorPropertyRuneGlamered',
+    acidResistant: 'PF2E.ArmorPropertyRuneAcidResistant',
+    coldResistant: 'PF2E.ArmorPropertyRuneColdResistant',
+    electricityResistant: 'PF2E.ArmorPropertyRuneElectricityResistant',
+    fireResistant: 'PF2E.ArmorPropertyRuneFireResistant',
+    greaterSlick: 'PF2E.ArmorPropertyRuneGreaterSlick',
+    invisibility: 'PF2E.ArmorPropertyRuneInvisibility',
+    sinisterKnight: 'PF2E.ArmorPropertyRuneSinisterKnight',
+    greaterReady: 'PF2E.ArmorPropertyRuneGreaterReady',
+    greaterShadow: 'PF2E.ArmorPropertyRuneGreaterShadow',
+    greaterInvisibility: 'PF2E.ArmorPropertyRuneGreaterInvisibility',
+    greaterAcidResistant: 'PF2E.ArmorPropertyRuneGreaterAcidResistant',
+    greaterColdResistant: 'PF2E.ArmorPropertyRuneGreaterColdResistant',
+    greaterElectricityResistant: 'PF2E.ArmorPropertyRuneGreaterElectricityResistant',
+    greaterFireResistant: 'PF2E.ArmorPropertyRuneGreaterFireResistant',
+    fortification: 'PF2E.ArmorPropertyRuneFortification',
+    winged: 'PF2E.ArmorPropertyRuneWinged',
+    rockBraced: 'PF2E.ArmorPropertyRuneRockBraced',
+    soaring: 'PF2E.ArmorPropertyRuneSoaring',
+    antimagic: 'PF2E.ArmorPropertyRuneAntimagic',
+    majorSlick: 'PF2E.ArmorPropertyRuneMajorSlick',
+    ethereal: 'PF2E.ArmorPropertyRuneEthereal',
+    majorShadow: 'PF2E.ArmorPropertyRuneMajorShadow',
+    greaterFortification: 'PF2E.ArmorPropertyRuneGreaterFortification',
+    greaterWinged: 'PF2E.ArmorPropertyRuneGreaterWinged',
+    },
+}
+
 const weaponPropertyRunes: Record<WeaponPropertyRuneType, string> = {
     kinWarding: 'PF2E.WeaponPropertyRuneKinWarding',
     returning: 'PF2E.WeaponPropertyRuneReturning',
@@ -819,6 +852,7 @@ export const PF2ECONFIG = {
     preciousMaterialGrades,
     preciousMaterials,
 
+    armorPropertyRunes,
     armorPotencyRunes: {
         '1': 'PF2E.ArmorPotencyRune1',
         '2': 'PF2E.ArmorPotencyRune2',
@@ -831,36 +865,7 @@ export const PF2ECONFIG = {
         greaterResilient: 'PF2E.ArmorGreaterResilientRune',
         majorResilient: 'PF2E.ArmorMajorResilientRune',
     },
-    armorPropertyRunes: {
-        ready: 'PF2E.ArmorPropertyRuneReady',
-        slick: 'PF2E.ArmorPropertyRuneSlick',
-        shadow: 'PF2E.ArmorPropertyRuneShadow',
-        glamered: 'PF2E.ArmorPropertyRuneGlamered',
-        acidResistant: 'PF2E.ArmorPropertyRuneAcidResistant',
-        coldResistant: 'PF2E.ArmorPropertyRuneColdResistant',
-        electricityResistant: 'PF2E.ArmorPropertyRuneElectricityResistant',
-        fireResistant: 'PF2E.ArmorPropertyRuneFireResistant',
-        greaterSlick: 'PF2E.ArmorPropertyRuneGreaterSlick',
-        invisibility: 'PF2E.ArmorPropertyRuneInvisibility',
-        sinisterKnight: 'PF2E.ArmorPropertyRuneSinisterKnight',
-        greaterReady: 'PF2E.ArmorPropertyRuneGreaterReady',
-        greaterShadow: 'PF2E.ArmorPropertyRuneGreaterShadow',
-        greaterInvisibility: 'PF2E.ArmorPropertyRuneGreaterInvisibility',
-        greaterAcidResistant: 'PF2E.ArmorPropertyRuneGreaterAcidResistant',
-        greaterColdResistant: 'PF2E.ArmorPropertyRuneGreaterColdResistant',
-        greaterElectricityResistant: 'PF2E.ArmorPropertyRuneGreaterElectricityResistant',
-        greaterFireResistant: 'PF2E.ArmorPropertyRuneGreaterFireResistant',
-        fortification: 'PF2E.ArmorPropertyRuneFortification',
-        winged: 'PF2E.ArmorPropertyRuneWinged',
-        rockBraced: 'PF2E.ArmorPropertyRuneRockBraced',
-        soaring: 'PF2E.ArmorPropertyRuneSoaring',
-        antimagic: 'PF2E.ArmorPropertyRuneAntimagic',
-        majorSlick: 'PF2E.ArmorPropertyRuneMajorSlick',
-        ethereal: 'PF2E.ArmorPropertyRuneEthereal',
-        majorShadow: 'PF2E.ArmorPropertyRuneMajorShadow',
-        greaterFortification: 'PF2E.ArmorPropertyRuneGreaterFortification',
-        greaterWinged: 'PF2E.ArmorPropertyRuneGreaterWinged',
-    },
+
     weaponPotencyRunes: {
         1: 'PF2E.WeaponPotencyRune1',
         2: 'PF2E.WeaponPotencyRune2',

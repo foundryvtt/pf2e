@@ -66,6 +66,7 @@ const resilientRuneValues: Map<ResilientRuneType | null, ZeroToThree | undefined
     ['greaterResilient', 2],
     ['majorResilient', 3],
 ]);
+
 export function getResiliencyBonus(itemData: ArmorData['data']): ZeroToThree {
     return resilientRuneValues.get(itemData?.resiliencyRune?.value) ?? 0;
 }
@@ -272,10 +273,11 @@ export interface ArmorRuneValuationData {
 }
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=24
-const ARMOR_POTENCY_RUNE_DATA: Record<OneToThree, ArmorRuneValuationData> = {
+const ARMOR_POTENCY_RUNE_DATA: Record<OneToFour, ArmorRuneValuationData> = {
     1: { level: 5, price: 160, rarity: 'common', traits: ['abjuration'] },
     2: { level: 11, price: 1060, rarity: 'common', traits: ['abjuration'] },
     3: { level: 18, price: 20560, rarity: 'common', traits: ['abjuration'] },
+    4: { level: 18, price: 20560, rarity: 'common', traits: ['evocation'] },
 };
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=24
@@ -287,12 +289,18 @@ const RESILIENT_RUNE_DATA: Record<ResilientRuneType, ArmorRuneValuationData> = {
 
 // https://2e.aonprd.com/Equipment.aspx?Category=23&Subcategory=26
 export const ARMOR_PROPERTY_RUNE_TYPES = [
+    'acidResistant',
     'antimagic',
-    'energyResistant',
+    'coldResistant',
+    'electricityResistant',
     'ethereal',
+    'fireResistant',
     'fortification',
     'glamered',
-    'greaterEnergyResistant',
+    'greaterAcidResistant',
+    'greaterColdResistant',
+    'greaterElectricityResistant',
+    'greaterFireResistant',
     'greaterFortification',
     'greaterInvisibility',
     'greaterReady',
