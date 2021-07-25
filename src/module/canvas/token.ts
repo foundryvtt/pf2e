@@ -55,7 +55,6 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             const visible = this.visible;
             await this.draw();
             this.visible = visible;
-            this.icon.src = this.data.img;
         }
     }
 
@@ -67,8 +66,25 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         this.emit('mouseout', { data: { object: this } });
     }
 
+    /** Set the icon src when drawing for later tracking */
+    protected override async _drawIcon(): Promise<TokenImage> {
+        const icon: TokenImage = await super._drawIcon();
+        icon.src = this.data.img;
+        return icon;
+    }
+
+    /** Prevent refresh before icon is set */
     override refresh(): this {
-        return this.icon ? super.refresh() : this;
+        if (!this.icon) {
+            this._drawIcon().then((icon) => {
+                // Ensure the missing icon is not due to a race condition upstream
+                if (!this.icon) this.icon = this.addChild(icon);
+                super.refresh();
+            });
+            return this;
+        } else {
+            return super.refresh();
+        }
     }
 
     /** Prevent premature redraw of resource bar */
@@ -107,6 +123,10 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 }
 
+interface TokenImage extends PIXI.Sprite {
+    src?: VideoPath;
+}
+
 export interface TokenPF2e extends Token<TokenDocumentPF2e> {
-    icon: PIXI.Sprite & { src?: string };
+    icon: TokenImage;
 }
