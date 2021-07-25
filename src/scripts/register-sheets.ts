@@ -18,6 +18,7 @@ import { ActorSheetPF2eDataEntryNPC } from '@actor/npc/data-entry-sheet';
 import { FeatSheetPF2e } from '@item/feat/sheet';
 import { PHYSICAL_ITEM_TYPES } from '@item/data/values';
 import { WeaponSheetPF2e } from '@item/weapon/sheet';
+import { ArmorSheetPF2e } from '@item/armor/sheet';
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -113,6 +114,12 @@ export function registerSheets() {
     Items.registerSheet('pf2e', WeaponSheetPF2e, {
         types: ['weapon'],
         label: game.i18n.format(sheetLabel, { type: localizeType('weapon') }),
+        makeDefault: true,
+    });
+
+    Items.registerSheet('pf2e', ArmorSheetPF2e, {
+        types: ['armor'],
+        label: game.i18n.format(sheetLabel, { type: localizeType('armor') }),
         makeDefault: true,
     });
 

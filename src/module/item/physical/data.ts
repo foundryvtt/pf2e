@@ -144,7 +144,7 @@ export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
         value: string | null;
     };
     preciousMaterial: {
-        value: Exclude<PreciousMaterialType, 'dragonhide'> | null;
+        value: PreciousMaterialType | null;
     };
     preciousMaterialGrade: {
         value: PreciousMaterialGrade | null;

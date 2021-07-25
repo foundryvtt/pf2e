@@ -23,6 +23,10 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         return !this.isShield;
     }
 
+    get isSpecific(): boolean {
+        return this.data.data.specific?.value ?? false;
+    }
+
     get baseType(): BaseArmorType | null {
         return this.data.data.baseItem ?? null;
     }
@@ -54,7 +58,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     get acBonus(): number {
         const potencyRune = this.data.data.potencyRune.value;
         const baseArmor = Number(this.data.data.armor.value) || 0;
-        return this.isShield && this.isBroken ? 0 : baseArmor + potencyRune;
+        return this.isShield && this.isBroken ? 0 : baseArmor + (potencyRune ?? 0);
     }
 
     get hitPoints(): { current: number; max: number } {
