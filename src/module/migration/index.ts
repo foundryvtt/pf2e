@@ -54,6 +54,7 @@ import { Migration643HazardLevel } from './migrations/643-hazard-level';
 import { Migration644SpellcastingCategory } from './migrations/644-spellcasting-category';
 import { Migration645TokenImageSize } from './migrations/645-token-image-size';
 import { Migration646UpdateInlineLinks } from './migrations/646-update-inline-links';
+import { Migration647FixPCSenses } from './migrations/647-fix-pc-senses';
 export { MigrationRunner } from './runner';
 
 export class Migrations {
@@ -112,6 +113,7 @@ export class Migrations {
         Migration644SpellcastingCategory,
         Migration645TokenImageSize,
         Migration646UpdateInlineLinks,
+        Migration647FixPCSenses,
     ];
 
     static get latestVersion(): number {
