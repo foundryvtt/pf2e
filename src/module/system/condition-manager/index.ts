@@ -1,79 +1,64 @@
-import { ModifierPF2e } from '@module/modifiers';
+import { ModifierPF2e } from '../../modifiers';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import type { ConditionData, ConditionSource } from '@item/condition/data';
-import { ConditionPF2e } from '@item';
-import { ActorPF2e } from '@actor';
-import { TokenPF2e } from '@module/canvas/token';
+import { ConditionPF2e } from '@item/condition';
+import { ActorPF2e } from '@actor/base';
+import { TokenPF2e } from '../../canvas/token';
+import { ConditionSources } from './sources';
+import { ErrorPF2e } from '@module/utils';
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
-    static _compediumConditions: Map<string, ConditionData> = new Map();
-    static _customConditions: Map<string, ConditionData> = new Map();
+    static conditionsByName: Map<string, ConditionSource> = new Map();
 
-    static _compendiumConditionStatusNames: Map<string, ConditionData> = new Map();
-    static _customStatusNames: Map<string, ConditionData> = new Map();
-
-    static __conditionsCache: Map<string, ConditionData> = new Map();
+    static condtionsByStatusName: Map<string, ConditionSource> = new Map();
 
     /**
      * Gets a collection of conditions.
      * @return A list of status names.
      */
-    public static get conditions(): Map<string, ConditionData> {
-        if (ConditionManager.__conditionsCache.size === 0) {
-            this.__conditionsCache = new Map<string, ConditionData>();
-
-            this._compediumConditions.forEach((condition, name) =>
-                this.__conditionsCache.set(name, deepClone(condition)),
-            );
-            this._customConditions.forEach((condition, name) => this.__conditionsCache.set(name, deepClone(condition)));
-
-            Object.freeze(this.__conditionsCache);
-        }
-
-        return this.__conditionsCache;
+    public static get conditions(): Map<string, ConditionSource> {
+        return this.conditionsByName;
     }
 
     /** Gets a list of condition names. */
-    public static get conditionsNames(): IterableIterator<string> {
-        return Array.from(this._compediumConditions.keys()).concat(Array.from(this._customConditions.keys())).values();
+    static get conditionsNames(): string[] {
+        return Array.from(this.conditionsByName.keys());
     }
 
     /** Gets a list of status names. */
-    public static get statusNames(): IterableIterator<string> {
-        return Array.from(this._compendiumConditionStatusNames.keys())
-            .concat(Array.from(this._customStatusNames.keys()))
-            .values();
+    static get statusNames(): string[] {
+        return Array.from(this.condtionsByStatusName.keys());
     }
 
-    static async init() {
-        const content =
-            (await game.packs.get<CompendiumCollection<ConditionPF2e>>('pf2e.conditionitems')?.getDocuments()) ?? [];
-
-        for (const condition of content) {
-            this._compediumConditions.set(condition.name.toLowerCase(), condition.data);
-            this._compendiumConditionStatusNames.set(condition.data.data.hud.statusName, condition.data);
+    static init(): typeof ConditionManager {
+        for (const source of ConditionSources.get()) {
+            this.conditionsByName.set(source.data.slug, source);
+            this.condtionsByStatusName.set(source.data.hud.statusName, source);
         }
+        Object.freeze(ConditionManager.conditionsByName);
+        Object.freeze(ConditionManager.condtionsByStatusName);
 
-        Object.freeze(ConditionManager._compediumConditions);
-        Object.freeze(ConditionManager._compendiumConditionStatusNames);
+        return this;
+    }
+
+    /** Localize the condition names as soon as en.json is available */
+    static localize(): void {
+        for (const source of this.conditions.values()) {
+            source.name = game.i18n.localize(CONFIG.PF2E.conditionTypes[source.data.slug]);
+        }
     }
 
     /**
      * Get a condition using the condition name.
      * @param conditionKey A list of conditions
      */
-    public static getCondition(conditionKey: string): ConditionData {
+    static getCondition(conditionKey: string): ConditionSource {
         conditionKey = conditionKey.toLocaleLowerCase();
+        const condition = deepClone(ConditionManager.conditionsByName.get(conditionKey));
+        if (!condition) throw ErrorPF2e('Unexpected failure looking up condition');
 
-        const condition =
-            deepClone(ConditionManager._customConditions.get(conditionKey)) ??
-            deepClone(ConditionManager._compediumConditions.get(conditionKey));
-
-        if (!condition) {
-            throw Error('PF2e System | Unexpected failure looking up condition');
-        }
-
+        condition.name = game.i18n.localize(CONFIG.PF2E.conditionTypes[condition.data.slug]);
         return condition;
     }
 
@@ -81,55 +66,11 @@ export class ConditionManager {
      * Get a condition using the status name.
      * @param statusName A list of conditions
      */
-    public static getConditionByStatusName(statusName: string): ConditionData | undefined {
-        if (ConditionManager._customStatusNames.has(statusName)) {
-            return deepClone(ConditionManager._customStatusNames.get(statusName));
-        } else {
-            const conditionData = this._compendiumConditionStatusNames.get(statusName);
-            return conditionData === undefined ? undefined : deepClone(conditionData);
-        }
-    }
+    static getConditionByStatusName(statusName: string): ConditionSource {
+        const condition = deepClone(this.condtionsByStatusName.get(statusName));
+        if (!condition) throw ErrorPF2e('Unexpected failure looking up condition');
 
-    /**
-     * Creates a new custom condition object.
-     * @param name The name of the condition.
-     * @param data The condition data to use.
-     * @return True if the object was created.
-     */
-    public static createCustomCondition(name: string, data: ConditionData): boolean {
-        name = name.toLocaleLowerCase();
-
-        if (ConditionManager._customConditions.has(name)) {
-            return false;
-        }
-
-        if (!data.flags.pf2e) {
-            // Only create it not there.
-            data.flags.pf2e = {};
-        }
-
-        data.flags.pf2e.condition = true;
-
-        this._customConditions.set(name, data);
-        this._customStatusNames.set(data.data.hud.statusName, data);
-
-        return true;
-    }
-
-    /**
-     * Deletes a custom condition object.
-     * @param name The name of the condition.
-     * @return True if the object was deleted.
-     */
-    public static deleteCustomCondition(name: string): boolean {
-        name = name.toLocaleLowerCase();
-
-        if (ConditionManager._customConditions.has(name)) {
-            this._customConditions.delete(name);
-            return true;
-        }
-
-        return false;
+        return condition;
     }
 
     /**
@@ -300,14 +241,14 @@ export class ConditionManager {
         // A list of overrides seen.
         const overriding: string[] = [];
 
-        conditions.forEach((condition) => {
+        for (const condition of conditions) {
             if (!baseList.has(condition.data.base)) {
                 // Have not seen this base condition before.
                 const base: string = condition.data.base;
                 baseList.add(base);
 
                 // List of conditions with the same base.
-                const list = conditions.filter((c) => c.data.base === base);
+                const list = conditions.filter((maybeSame) => maybeSame.data.base === base);
 
                 let appliedCondition: ConditionData;
 
@@ -325,10 +266,10 @@ export class ConditionManager {
                     overriding.push(base);
                 }
             }
-        });
+        }
 
         // Iterate the overriding bases.
-        overriding.forEach((base) => {
+        for (const base of overriding) {
             // Make sure to get the most recent version of a condition.
             const overrider =
                 updates.get(appliedConditions.get(base)?._id ?? '') ?? appliedConditions.get(base)?.toObject();
@@ -352,7 +293,7 @@ export class ConditionManager {
                         });
                 }
             });
-        });
+        }
 
         // Make sure to update any items that need updating.
         if (updates.size) {
@@ -371,7 +312,7 @@ export class ConditionManager {
      * @param conditions A collection of conditions to retrieve modifiers from.
      * @return A map of PF2Modifiers from the conditions collection.
      */
-    static getModifiersFromConditions(conditions: IterableIterator<ConditionData>): Map<string, Array<ModifierPF2e>> {
+    static getModifiersFromConditions(conditions: ConditionData[]): Map<string, ModifierPF2e[]> {
         const conditionModifiers = new Map<string, Array<ModifierPF2e>>();
 
         for (const condition of conditions) {
@@ -411,7 +352,7 @@ export class ConditionManager {
         actorOrToken: ActorPF2e | TokenPF2e,
     ): Promise<ConditionPF2e | null> {
         const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
-        const conditionSource = typeof name === 'string' ? this.getCondition(name).toObject() : name;
+        const conditionSource = typeof name === 'string' ? this.getCondition(name) : name;
 
         if (actor) {
             const condition = await this.createConditions(conditionSource, actor);
@@ -451,7 +392,7 @@ export class ConditionManager {
         const conditionsToCreate: ConditionSource[] = [];
 
         baseCondition.data.alsoApplies.linked.forEach((linkedCondition) => {
-            const conditionSource = this.getCondition(linkedCondition.condition).toObject();
+            const conditionSource = this.getCondition(linkedCondition.condition);
             if (linkedCondition.value) {
                 conditionSource.data.value.value = linkedCondition.value;
             }
@@ -467,7 +408,7 @@ export class ConditionManager {
         });
 
         baseCondition.data.alsoApplies.unlinked.forEach((unlinkedCondition) => {
-            const conditionSource = this.getCondition(unlinkedCondition.condition).toObject();
+            const conditionSource = this.getCondition(unlinkedCondition.condition);
             if (unlinkedCondition.value) {
                 conditionSource.name = `${conditionSource.name} ${conditionSource.data.value.value}`;
                 conditionSource.data.value.value = unlinkedCondition.value;
@@ -547,184 +488,180 @@ export class ConditionManager {
         }
     }
 
-    static getFlattenedConditions(items: ConditionData[]): any[] {
+    static getFlattenedConditions(items: ConditionPF2e[]): any[] {
         const conditions = new Map<string, any>();
 
-        items
-            .sort((a: ConditionData, b: ConditionData) => this.sortCondition(a, b))
-            .forEach((c: ConditionData) => {
-                // Sorted list of conditions.
-                // First by active, then by base (lexicographically), then by value (descending).
+        items.sort(this.sortCondition).forEach((condition) => {
+            // Sorted list of conditions.
+            // First by active, then by base (lexicographically), then by value (descending).
 
-                let name = `${c.data.base}`;
-                let condition: any;
+            const name = condition.value ? `${condition.name} ${condition.value}` : condition.name;
+            let flattened: any;
 
-                if (c.data.value.isValued) {
-                    name = `${name} ${c.data.value.value}`;
-                }
+            if (conditions.has(name)) {
+                // Have already seen condition
+                flattened = conditions.get(name);
+            } else {
+                // Have not seen condition
+                flattened = {
+                    id: condition.id,
+                    active: condition.isActive,
+                    name,
+                    value: condition.value,
+                    description: condition.description,
+                    img: condition.img,
+                    references: false,
+                    parents: [],
+                    children: [],
+                    overrides: [],
+                    overriddenBy: [],
+                    immunityFrom: [],
+                };
 
-                if (conditions.has(name)) {
-                    // Have already seen condition
-                    condition = conditions.get(name);
-                } else {
-                    // Have not seen condition
-                    condition = {
-                        id: c._id,
-                        active: c.data.active,
-                        name: name, // eslint-disable-line object-shorthand
-                        value: c.data.value.isValued ? c.data.value.value : undefined,
-                        description: c.data.description.value,
-                        img: c.img,
-                        references: false,
-                        parents: [],
-                        children: [],
-                        overrides: [],
-                        overriddenBy: [],
-                        immunityFrom: [],
+                conditions.set(name, flattened);
+            }
+
+            // Update any references
+            const conditionData = condition.data;
+            if (conditionData.data.references.parent) {
+                const refCondition = items.find((other) => other.id === conditionData.data.references.parent?.id);
+
+                if (refCondition) {
+                    const ref = {
+                        id: conditionData.data.references.parent,
+                        name: refCondition.name,
+                        base: refCondition.slug,
+                        text: '',
                     };
 
-                    conditions.set(name, condition);
+                    if (refCondition.value) {
+                        ref.name = `${ref.name} ${refCondition.value}`;
+                    }
+
+                    ref.text = `@Compendium[pf2e.conditionitems.${refCondition.name}]{${ref.name}}`;
+
+                    flattened.references = true;
+                    flattened.parents.push(ref);
                 }
+            }
 
-                // Update any references
-                if (c.data.references.parent) {
-                    const refCondition = items.find((i) => i._id === c.data.references.parent?.id);
+            conditionData.data.references.children.forEach((item) => {
+                const refCondition = items.find((other) => other.id === item.id);
 
-                    if (refCondition) {
-                        const ref = {
-                            id: c.data.references.parent,
-                            name: refCondition.name,
-                            base: refCondition.data.base,
-                            text: '',
-                        };
+                if (refCondition) {
+                    const ref = {
+                        id: conditionData.data.references.parent,
+                        name: refCondition.name,
+                        base: refCondition.slug,
+                        text: '',
+                    };
 
-                        if (refCondition.data.value.isValued) {
-                            ref.name = `${ref.name} ${refCondition.data.value.value}`;
-                        }
-
-                        ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                        condition.references = true;
-                        condition.parents.push(ref);
+                    if (refCondition.value) {
+                        ref.name = `${ref.name} ${refCondition.value}`;
                     }
+
+                    ref.text = `@Compendium[pf2e.conditionitems.${refCondition.name}]{${ref.name}}`;
+
+                    flattened.references = true;
+                    flattened.children.push(ref);
                 }
-
-                c.data.references.children.forEach((item) => {
-                    const refCondition = items.find((i) => i._id === item.id);
-
-                    if (refCondition) {
-                        const ref = {
-                            id: c.data.references.parent,
-                            name: refCondition.name,
-                            base: refCondition.data.base,
-                            text: '',
-                        };
-
-                        if (refCondition.data.value.isValued) {
-                            ref.name = `${ref.name} ${refCondition.data.value.value}`;
-                        }
-
-                        ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                        condition.references = true;
-                        condition.children.push(ref);
-                    }
-                });
-
-                c.data.references.overrides.forEach((item) => {
-                    const refCondition = items.find((i) => i._id === item.id);
-
-                    if (refCondition) {
-                        const ref = {
-                            id: c.data.references.parent,
-                            name: refCondition.name,
-                            base: refCondition.data.base,
-                            text: '',
-                        };
-
-                        if (refCondition.data.value.isValued) {
-                            ref.name = `${ref.name} ${refCondition.data.value.value}`;
-                        }
-
-                        ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                        condition.references = true;
-                        condition.overrides.push(ref);
-                    }
-                });
-
-                c.data.references.overriddenBy.forEach((item) => {
-                    const refCondition = items.find((i) => i._id === item.id);
-
-                    if (refCondition) {
-                        const ref = {
-                            id: c.data.references.parent,
-                            name: refCondition.name,
-                            base: refCondition.data.base,
-                            text: '',
-                        };
-
-                        if (refCondition.data.value.isValued) {
-                            ref.name = `${ref.name} ${refCondition.data.value.value}`;
-                        }
-
-                        ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                        condition.references = true;
-                        condition.overriddenBy.push(ref);
-                    }
-                });
-
-                c.data.references.immunityFrom.forEach((item) => {
-                    const refCondition = items.find((i) => i._id === item.id);
-
-                    if (refCondition) {
-                        const ref = {
-                            id: c.data.references.parent,
-                            name: refCondition.name,
-                            base: refCondition.data.base,
-                            text: '',
-                        };
-
-                        if (refCondition.data.value.isValued) {
-                            ref.name = `${ref.name} ${refCondition.data.value.value}`;
-                        }
-
-                        ref.text = `@Compendium[pf2e.conditionitems.${refCondition.data.base}]{${ref.name}}`;
-
-                        condition.references = true;
-                        condition.immunityFrom.push(ref);
-                    }
-                });
             });
+
+            conditionData.data.references.overrides.forEach((item) => {
+                const refCondition = items.find((other) => other.id === item.id);
+
+                if (refCondition) {
+                    const ref = {
+                        id: conditionData.data.references.parent,
+                        name: refCondition.name,
+                        base: refCondition.slug,
+                        text: '',
+                    };
+
+                    if (refCondition.value) {
+                        ref.name = `${ref.name} ${refCondition.value}`;
+                    }
+
+                    ref.text = `@Compendium[pf2e.conditionitems.${refCondition.name}]{${ref.name}}`;
+
+                    flattened.references = true;
+                    flattened.overrides.push(ref);
+                }
+            });
+
+            conditionData.data.references.overriddenBy.forEach((item) => {
+                const refCondition = items.find((other) => other.id === item.id);
+
+                if (refCondition) {
+                    const ref = {
+                        id: conditionData.data.references.parent,
+                        name: refCondition.name,
+                        base: refCondition.slug,
+                        text: '',
+                    };
+
+                    if (refCondition.value) {
+                        ref.name = `${ref.name} ${refCondition.value}`;
+                    }
+
+                    ref.text = `@Compendium[pf2e.conditionitems.${refCondition.name}]{${ref.name}}`;
+
+                    flattened.references = true;
+                    flattened.overriddenBy.push(ref);
+                }
+            });
+
+            conditionData.data.references.immunityFrom.forEach((item) => {
+                const refCondition = items.find((other) => other.id === item.id);
+
+                if (refCondition) {
+                    const ref = {
+                        id: conditionData.data.references.parent,
+                        name: refCondition.name,
+                        base: refCondition.slug,
+                        text: '',
+                    };
+
+                    if (refCondition.value) {
+                        ref.name = `${ref.name} ${refCondition.value}`;
+                    }
+
+                    const compendiumLink = refCondition.sourceId?.replace(/^Compendium\./, '');
+                    if (compendiumLink) ref.text = `@Compendium[${compendiumLink}]`;
+
+                    flattened.references = true;
+                    flattened.immunityFrom.push(ref);
+                }
+            });
+        });
 
         return Array.from(conditions.values());
     }
 
-    private static sortCondition(a: ConditionData, b: ConditionData): number {
-        if (a.data.active === b.data.active) {
+    private static sortCondition(conditionA: ConditionPF2e, conditionB: ConditionPF2e): number {
+        if (conditionA.slug === conditionB.slug) {
             // Both are active or both inactive.
 
-            if (a.data.base === b.data.base) {
+            if (conditionA.slug === conditionB.slug) {
                 // Both are same base
 
-                if (a.data.value.isValued && b.data.value.isValued) {
+                if (conditionA.value && conditionB.value) {
                     // Valued condition
                     // Sort values by descending order.
-                    return b.data.value.value - a.data.value.value;
+                    return conditionB.value - conditionA.value;
                 } else {
                     // Not valued condition
                     return 0;
                 }
             } else {
                 // Different bases
-                return a.data.base.localeCompare(b.data.base);
+                return conditionA.slug.localeCompare(conditionB.slug);
             }
-        } else if (a.data.active && !b.data.active) {
+        } else if (conditionA.isActive && !conditionB.isActive) {
             // A is active, B is not
             // A should be before B.
             return -1;
-        } else if (!a.data.active && b.data.active) {
+        } else if (!conditionA.isActive && conditionB.isActive) {
             // B is active, A is not
             // Be should be before A.
             return 1;

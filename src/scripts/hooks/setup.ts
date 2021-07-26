@@ -19,7 +19,6 @@ import {
 } from '@module/modifiers';
 import { CheckPF2e } from '@system/rolls';
 import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
-import { ConditionManager } from '@system/condition-manager';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { EffectPanel } from '@module/system/effect-panel';
 import { EffectTracker } from '@module/system/effect-tracker';
@@ -38,7 +37,6 @@ export function listen() {
         registerSheets();
 
         // Exposed objects for macros and modules
-        Object.defineProperty(globalThis.game, 'pf2e', { value: {} });
         game.pf2e.actions = {
             earnIncome,
             raiseAShield,
@@ -60,7 +58,6 @@ export function listen() {
         };
         game.pf2e.Dice = DicePF2e;
         game.pf2e.StatusEffects = StatusEffects;
-        game.pf2e.ConditionManager = ConditionManager;
         game.pf2e.ModifierType = MODIFIER_TYPE;
         game.pf2e.Modifier = ModifierPF2e;
         game.pf2e.AbilityModifier = AbilityModifier;

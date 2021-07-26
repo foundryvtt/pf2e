@@ -1189,7 +1189,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             if (conditionValue === null || conditionValue > (max ?? 0)) return;
             await game.pf2e.ConditionManager.updateConditionValue(existing.id, this, conditionValue);
         } else if (typeof conditionSlug === 'string') {
-            const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
+            const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug);
             const conditionValue =
                 typeof conditionSource?.data.value.value === 'number' && min && max
                     ? Math.min(Math.max(min, conditionSource.data.value.value), max)

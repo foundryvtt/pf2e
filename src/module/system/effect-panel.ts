@@ -3,7 +3,7 @@ import { ConditionData, EffectData } from '@item/data';
 import { ConditionPF2e, EffectPF2e } from '@item/index';
 
 interface EffectPanelData {
-    conditions?: ConditionData[];
+    conditions?: ConditionPF2e[];
     effects?: EffectData[];
     actor?: ActorPF2e;
 }
@@ -33,7 +33,7 @@ export class EffectPanel extends Application {
         if (data.actor) {
             for (const item of data.actor.items) {
                 if (item instanceof ConditionPF2e && item.fromSystem) {
-                    data.conditions.push(item.data);
+                    data.conditions.push(item);
                 } else if (item instanceof EffectPF2e) {
                     const duration = item.totalDuration;
                     const effect = item.clone({}, { keepId: true }).data;
@@ -55,10 +55,10 @@ export class EffectPanel extends Application {
                 }
             }
         }
-        data.conditions = game.pf2e.ConditionManager.getFlattenedConditions(data.conditions).map((c) => {
-            c.locked = c.parents.length > 0;
-            c.breakdown = EffectPanel.getParentConditionsBreakdown(c.parents);
-            return c;
+        data.conditions = game.pf2e.ConditionManager.getFlattenedConditions(data.conditions).map((condition) => {
+            condition.locked = condition.parents.length > 0;
+            condition.breakdown = EffectPanel.getParentConditionsBreakdown(condition.parents);
+            return condition;
         });
 
         return data;
