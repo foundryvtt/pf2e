@@ -127,6 +127,15 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
             topLevel = entityData;
             delete entityData.folder;
             if ('type' in entityData) {
+                if ('token' in entityData) {
+                    (entityData.token as Partial<foundry.data.PrototypeTokenSource>) = {
+                        disposition: entityData.token.disposition,
+                        height: entityData.token.height,
+                        img: entityData.token.img,
+                        name: entityData.token.name,
+                        width: entityData.token.width,
+                    };
+                }
                 if (entityData.type !== 'script') {
                     delete (entityData as Partial<PackEntry>).permission;
                     if ('effects' in entityData) {
