@@ -136,6 +136,9 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
                         width: entityData.token.width,
                     };
                 }
+                if ('data' in entityData && !('items' in entityData)) {
+                    entityData.data.description = { value: entityData.data.description.value };
+                }
                 if (entityData.type !== 'script') {
                     delete (entityData as Partial<PackEntry>).permission;
                     if ('effects' in entityData) {
@@ -148,12 +151,6 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
                         if (!npcSystemKeys.has(key)) {
                             delete (entityData.data as NPCSystemData & { extraneous?: unknown })[key as 'extraneous'];
                         }
-                    }
-                }
-                if (entityData.type === 'npc' || entityData.type === 'character' || entityData.type === 'hazard') {
-                    const name = entityData.name;
-                    if (entityData.token.name.match(entityData.name)) {
-                        entityData.token.name = name.replace(/\s*\(\d+-\d+\)/g, '');
                     }
                 }
             }
