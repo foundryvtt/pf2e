@@ -1,9 +1,9 @@
-import { ModifierPF2e } from './modifiers';
+import { ModifierPF2e } from '@module/modifiers';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import type { ConditionData, ConditionSource } from '@item/condition/data';
-import { ConditionPF2e } from '@item/condition';
-import { ActorPF2e } from '@actor/base';
-import { TokenPF2e } from './canvas/token';
+import { ConditionPF2e } from '@item';
+import { ActorPF2e } from '@actor';
+import { TokenPF2e } from '@module/canvas/token';
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
