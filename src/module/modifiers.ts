@@ -454,6 +454,7 @@ export class DiceModifierPF2e implements RawModifier {
     /** The size of the dice to add. */
     dieSize?: DamageDieSize;
     critical: boolean;
+    noCrit: boolean;
     /** The damage category of these dice. */
     category?: string;
     damageType?: string;
@@ -476,6 +477,7 @@ export class DiceModifierPF2e implements RawModifier {
         this.diceNumber = param.diceNumber ?? 0; // zero dice is allowed
         this.dieSize = param.dieSize;
         this.critical = param.critical ?? false;
+        this.noCrit = param.noCrit ?? false;
         this.damageType = param.damageType;
         this.category = param.category;
         this.traits = param.traits ?? [];

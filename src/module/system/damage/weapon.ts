@@ -592,6 +592,7 @@ export class WeaponDamagePF2e {
 
         const dicePool: DamagePool = {};
         const critPool: DamagePool = {};
+        const noCritPool: DamagePool = {};
         dicePool[base.damageType] = {
             base: true,
             categories: {
@@ -627,7 +628,7 @@ export class WeaponDamagePF2e {
                     // regular pool
                     if (dm.diceNumber) {
                         this.addDice(
-                            dicePool,
+                            dm.noCrit ? noCritPool : dicePool,
                             dm.damageType ?? base.damageType,
                             dm.category,
                             dm.dieSize ?? base.dieSize,
@@ -710,6 +711,10 @@ export class WeaponDamagePF2e {
             if (critFormula) {
                 formula += ` + ${critFormula}`;
             }
+        }
+        const noCritFormula = this.buildFormula(noCritPool, partials);
+        if (noCritFormula) {
+            formula += ` + ${noCritFormula}`;
         }
 
         return {
