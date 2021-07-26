@@ -21,10 +21,70 @@
         "level": {
             "value": 2
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "engulf"
+                    ]
+                },
+                "selector": "reflex",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.occ.rank",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "add",
+                "path": "data.data.custom.modifiers.oozemorph-dedication-count",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "any": [
+                        "target:animal",
+                        "target:humanoid"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 1,
+                            "start": 1,
+                            "value": -1
+                        },
+                        {
+                            "end": 2,
+                            "start": 2,
+                            "value": -2
+                        },
+                        {
+                            "end": 3,
+                            "start": 3,
+                            "value": -3
+                        },
+                        {
+                            "start": 4,
+                            "value": -4
+                        }
+                    ],
+                    "field": "actor|custom.modifiers.oozemorph-dedication-count"
+                }
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.646

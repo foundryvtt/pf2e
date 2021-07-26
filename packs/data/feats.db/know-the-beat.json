@@ -21,6 +21,7 @@
         "level": {
             "value": 3
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -28,7 +29,19 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "any": [
+                        "action:gather-information"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.646

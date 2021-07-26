@@ -1,5 +1,5 @@
 {
-    "_id": "2mww0DmokYJXUEoA",
+    "_id": "Zc0G5SreQNizRDlu",
     "data": {
         "actionCategory": {
             "value": ""
@@ -13,36 +13,38 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You can connect with oozes (and other amorphous aberrations, at the GM's discretion) on a rudimentary level. You can use Diplomacy to @Compendium[pf2e.actionspf2e.Make an Impression]{Make an Impression} on oozes and to make very simple @Compendium[pf2e.actionspf2e.Request]{Requests} of them. In most instances, oozes will give you time to make your case.</p>"
+            "value": "<p>Your runes provide a warding effect that protects you against a specific school of magic. Choose a school of magic other than divination. You gain a rune on your body corresponding to that school, and you gain a +2 circumstance bonus to all saving throws against effects of that school.</p>"
         },
         "featType": {
             "value": "archetype"
         },
         "level": {
-            "value": 8
+            "value": 6
         },
         "location": "",
         "prerequisites": {
             "value": [
                 {
-                    "value": "Oozemorph Dedication"
-                },
-                {
-                    "value": "at least two other class feats from the Oozemorph archetype"
+                    "value": "Runescarred Dedication"
                 }
             ]
         },
         "rules": [
             {
-                "key": "PF2E.RuleElement.ActiveEffectLike",
-                "mode": "add",
-                "path": "data.data.custom.modifiers.oozemorphDedicationCount",
-                "value": 1
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "transmutation"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
             }
         ],
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.648
         },
         "source": {
             "value": ""
@@ -52,9 +54,6 @@
             "rarity": {
                 "value": "common"
             },
-            "selected": {
-                "archetype": "Archetype"
-            },
             "value": [
                 "archetype"
             ]
@@ -63,6 +62,6 @@
     "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.webp",
-    "name": "Ooze Empathy",
+    "name": "Warding Rune (Transmutation)",
     "type": "feat"
 }
