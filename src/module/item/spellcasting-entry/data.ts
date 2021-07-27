@@ -80,10 +80,4 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
     autoHeightenLevel: {
         value: OneToTen | null;
     };
-
-    /** @deprecated */
-    focus?: {
-        points: number;
-        pool: number;
-    };
 }

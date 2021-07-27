@@ -25,9 +25,11 @@ export class Migration649FocusToActor extends MigrationBase {
         if (!isCreatureSource(actorData)) return;
         if (!actorData.data.resources) actorData.data.resources = {};
 
-        // focus points in descending order by max pool
+        // Focus points in descending order by max pool, and then "most recent".
+        // Javascript sort is stable, so we first sort by order, filter to focus, and then sort by max.
         const spellLists = actorData.items
             .filter((i): i is SpellcastingEntrySource => i.type === 'spellcastingEntry')
+            .sort((a, b) => (a.sort || 0) - (b.sort || 0))
             .map((i) => i.data as SpellcastingEntrySystemDataOld)
             .filter((i) => i.focus)
             .sort((a, b) => (b.focus?.pool || 0) - (a.focus?.pool || 0));
@@ -40,20 +42,12 @@ export class Migration649FocusToActor extends MigrationBase {
         };
     }
 
-    override async updateItem(itemData: ItemSourcePF2e, actorData: ActorSourcePF2e): Promise<void> {
+    override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         if (itemData.type !== 'spellcastingEntry') return;
-        if (!isCreatureSource(actorData)) return;
         const data: SpellcastingEntrySystemDataOld = itemData.data;
-
-        // Delete all spellcasting entry focus points that equal the actor's
-        // If its an NPC though, always remove
-        const { value, max } = actorData.data.resources.focus ?? {};
-        const focusMatches = data.focus?.points === value && data.focus?.pool === max;
-        if (actorData.type !== 'character' || focusMatches) {
-            delete data.focus;
-            if ('game' in globalThis) {
-                data['-=focus'] = null;
-            }
+        delete data.focus;
+        if ('game' in globalThis) {
+            data['-=focus'] = null;
         }
     }
 }

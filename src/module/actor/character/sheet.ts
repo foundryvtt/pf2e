@@ -802,18 +802,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         html.find('.toggle-signature-spell').on('click', (event) => {
             this.onToggleSignatureSpell(event);
         });
-
-        // Temporary handler to remove focus points reminders from the old system.
-        // This was added at July 27, 2021.
-        html.find('.focus-points-old').on('click', (evt) => {
-            const entryId = $(evt.target).closest('[data-container-id]').attr('data-container-id');
-            const spellcastingEntry = this.actor.items.get(entryId ?? '');
-            if (spellcastingEntry instanceof SpellcastingEntryPF2e) {
-                spellcastingEntry.update({ 'data.-=focus': null });
-            } else {
-                console.warn('PF2E System | Failed to load spellcasting entry');
-            }
-        });
     }
 
     /** Handle clicking of proficiency-rank adjustment buttons */
