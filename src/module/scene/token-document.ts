@@ -7,15 +7,23 @@ import { TokenConfigPF2e } from './token-config';
 import { LightLevels } from './data';
 
 export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
+    /** Has this token gone through at least one cycle of data preparation? */
+    private initialized: true | undefined;
+
     /** This should be in Foundry core, but ... */
     get scene(): ScenePF2e | null {
         return this.parent;
     }
 
+    override _initialize() {
+        super._initialize();
+        this.initialized = true;
+    }
+
     /** Refresh this token's properties if it's controlled and the request came from its actor */
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
-        if (fromActor && this.rendered) {
+        if (fromActor && this.initialized && this.rendered) {
             if (this.object.isControlled) {
                 canvas.lighting.setPerceivedLightLevel({ defer: false });
             }
@@ -27,7 +35,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        if (!canvas.sight?.rulesBasedVision) return;
+        if (!(this.initialized && canvas.sight?.rulesBasedVision)) return;
 
         this.data.brightSight = 0;
         this.data.dimSight = 0;
@@ -36,9 +44,10 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        mergeObject(this.data, this.actor?.overrides.token ?? {}, { insertKeys: false });
+        if (!(this.initialized && this.actor && canvas.scene)) return;
 
-        if (!(this.actor && canvas.scene && canvas.sight.rulesBasedVision)) return;
+        mergeObject(this.data, this.actor.overrides.token ?? {}, { insertKeys: false });
+        if (!canvas.sight.rulesBasedVision) return;
 
         const lightLevel = canvas.scene.lightLevel;
         const perceivedBrightness = {
@@ -81,7 +90,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         options: DocumentModificationContext,
         user: UserPF2e,
     ): Promise<void> {
-        super._preCreate(data, options, user);
+        await super._preCreate(data, options, user);
 
         const actor = game.actors.get(data.actorId ?? '');
         if (!actor) return;
