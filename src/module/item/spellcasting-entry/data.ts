@@ -63,10 +63,6 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
     tradition: {
         value: MagicTradition | '';
     };
-    focus: {
-        points: number;
-        pool: number;
-    };
     prepared: {
         value: PreparationType;
     };
@@ -83,5 +79,11 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
     };
     autoHeightenLevel: {
         value: OneToTen | null;
+    };
+
+    /** @deprecated */
+    focus?: {
+        points: number;
+        pool: number;
     };
 }
