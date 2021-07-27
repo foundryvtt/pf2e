@@ -555,8 +555,7 @@ export class ConditionManager {
             .forEach((c: ConditionData) => {
                 // Sorted list of conditions.
                 // First by active, then by base (lexicographically), then by value (descending).
-
-                let name = `${c.data.base}`;
+                let name = ConditionManager.getLocalizedConditionName(c.name);
                 let condition: any;
 
                 if (c.data.value.isValued) {
@@ -699,6 +698,16 @@ export class ConditionManager {
             });
 
         return Array.from(conditions.values());
+    }
+
+    public static getLocalizedConditionName(condition: string) {
+        //The split is to handle 'Persistent Damage', the second replace is for Flat-Footed'. Ugly.
+        return `${game.i18n.localize(
+            `PF2E.ConditionType${condition
+                .split(' ')[0]
+                .replace(/\w+/g, (word: string) => word[0].toLocaleUpperCase() + word.slice(1).toLocaleLowerCase())
+                .replace(/-./g, (word: string) => word.toLocaleUpperCase()[1])}`,
+        )}`;
     }
 
     private static sortCondition(a: ConditionData, b: ConditionData): number {
