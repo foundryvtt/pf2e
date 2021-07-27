@@ -21,6 +21,7 @@
         "level": {
             "value": 2
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,7 +32,37 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Spend a batch of herbs in wilderness",
+                "name": "fresh-herbs-wild",
+                "predicate": {
+                    "all": [
+                        "action:treat-wounds",
+                        "natural-medicine",
+                        "terrain:wilderness"
+                    ]
+                },
+                "selector": "nature",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Spend a batch of herbs",
+                "name": "fresh-herbs",
+                "predicate": {
+                    "all": [
+                        "action:treat-wounds",
+                        "natural-medicine"
+                    ]
+                },
+                "selector": "nature",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.646
