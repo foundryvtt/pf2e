@@ -21,10 +21,32 @@
         "level": {
             "value": 2
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label":"to notice theft (Zephyr Guard)",
+                "predicate": {
+                    "any": [
+                        "action:steal",
+                        "action:conceal-an-object",
+                        "action:palm-an-object"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.soc.rank",
+                "value": 1
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.646

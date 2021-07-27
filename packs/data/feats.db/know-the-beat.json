@@ -21,6 +21,7 @@
         "level": {
             "value": 3
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -28,7 +29,20 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label":"to Gather Information (Know the Beat)",
+                "predicate": {
+                    "any": [
+                        "action:gather-information"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.646

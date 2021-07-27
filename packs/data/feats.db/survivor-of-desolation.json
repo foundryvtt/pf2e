@@ -21,6 +21,7 @@
         "level": {
             "value": 8
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -28,7 +29,21 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label":"vs. unnatural weather or in blighted land (Survivor of Desolation)",
+                "predicate": {
+                    "any": [
+                        "unnatural-weather",
+                        "blighted-land"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.646
