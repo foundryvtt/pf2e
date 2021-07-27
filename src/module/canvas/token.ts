@@ -75,15 +75,15 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Prevent refresh before icon is set */
     override refresh(): this {
-        if (!this.icon) {
-            this._drawIcon().then((icon) => {
-                // Ensure the missing icon is not due to a race condition upstream
-                if (!this.icon) this.icon = this.addChild(icon);
+        if (this.icon?.transform) {
+            return super.refresh();
+        } else {
+            const visible = this.visible;
+            this.draw().then(() => {
+                this.visible = visible;
                 super.refresh();
             });
             return this;
-        } else {
-            return super.refresh();
         }
     }
 
@@ -94,12 +94,12 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Prevent premature redraw of border */
     protected override _refreshBorder(): void {
-        if (this.border.geometry) super._refreshBorder();
+        if (this.border?.geometry) super._refreshBorder();
     }
 
     /** Prevent premature redraw of targeting reticle */
     protected override _refreshTarget(): void {
-        if (this.target.geometry) super._refreshTarget();
+        if (this.target?.geometry) super._refreshTarget();
     }
 
     /* -------------------------------------------- */
