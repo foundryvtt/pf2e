@@ -50,6 +50,7 @@ import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
 import { FolderPF2e } from '@module/folder';
 import { MagicTradition } from '@item/spellcasting-entry/data';
 import { InlineRollsLinks } from '@scripts/ui/inline-roll-links';
+import { createSpellcastingDialog } from './spellcasting-dialog';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -367,10 +368,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         // Spell Create
         html.find('.spell-create').on('click', (event) => this.onClickCreateItem(event));
 
-        // Add Spellcasting Entry
+        // Adding/Editing/Removing Spellcasting entries
         html.find('.spellcasting-create').on('click', (event) => this.createSpellcastingEntry(event));
-
-        // Remove Spellcasting Entry
+        html.find('.spellcasting-edit').on('click', (event) => this.editSpellcastingEntry(event));
         html.find('.spellcasting-remove').on('click', (event) => this.removeSpellcastingEntry(event));
 
         // toggle visibility of filter containers
@@ -1227,98 +1227,72 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     /** Handle creating a new spellcasting entry for the actor */
     private createSpellcastingEntry(event: JQuery.ClickEvent) {
         event.preventDefault();
+        createSpellcastingDialog(event, {
+            callback: (html) => {
+                let name = '';
+                let magicTradition = 'arcane';
+                const spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
+                if (spellcastingType === 'ritual') {
+                    magicTradition = '';
+                    name = game.i18n.localize(CONFIG.PF2E.preparationType['ritual']);
+                } else {
+                    magicTradition = `${html.find('[name="magicTradition"]').val()}` as MagicTradition;
+                    const preparationType = game.i18n.localize(CONFIG.PF2E.preparationType[spellcastingType]);
+                    const tradition = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
+                    name = game.i18n.format('PF2E.SpellCastingFormat', {
+                        preparationType,
+                        tradition,
+                    });
+                }
 
-        let magicTradition = 'arcane';
-        let spellcastingType = 'innate';
+                // Define new spellcasting entry
+                const actor = this.actor;
+                if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) return;
+                const actorAbilities = actor.data.data.abilities;
 
-        // Render modal dialog
-        const template = 'systems/pf2e/templates/actors/spellcasting-dialog.html';
-        const title = game.i18n.localize('PF2E.SpellcastingTypeLabel');
-        const dialogOptions = {
-            width: 300,
-            top: event.clientY - 80,
-            left: window.innerWidth - 710,
-        };
-        const dialogData = {
-            magicTradition,
-            magicTraditions: CONFIG.PF2E.magicTraditions,
-            spellcastingType,
-            spellcastingTypes: CONFIG.PF2E.preparationType,
-        };
-        renderTemplate(template, dialogData).then((dlg) => {
-            new Dialog(
-                {
-                    title,
-                    content: dlg,
-                    render: (html) => {
-                        // Set visibility of elements based on current values
-                        // Using visibility over display prevents stretching of dialog elements
-                        const typeField = $(html).find('[name="spellcastingType"]');
-                        typeField.on('change', () => {
-                            const traditionGroup = $(html).find('.tradition-group');
-                            const isRitual = typeField.val() === 'ritual';
-                            traditionGroup.css('visibility', isRitual ? 'hidden' : 'visible');
-                        });
-                    },
-                    buttons: {
-                        create: {
-                            label: game.i18n.localize('PF2E.CreateLabelUniversal'),
-                            callback: (html: JQuery) => {
-                                // if ( onClose ) onClose(html, parts, data);
-                                let name = '';
-                                spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
-                                if (spellcastingType === 'ritual') {
-                                    magicTradition = '';
-                                    name = game.i18n.localize(CONFIG.PF2E.preparationType['ritual']);
-                                } else {
-                                    magicTradition = `${html.find('[name="magicTradition"]').val()}` as MagicTradition;
-                                    const preparationType = game.i18n.localize(
-                                        CONFIG.PF2E.preparationType[spellcastingType],
-                                    );
-                                    const tradition = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
-                                    name = game.i18n.format('PF2E.SpellCastingFormat', {
-                                        preparationType,
-                                        tradition,
-                                    });
-                                }
+                const candidateAbilities = ['int', 'wis', 'cha'] as const;
+                const bestAbility = (() => {
+                    if (spellcastingType === 'innate') return 'cha';
 
-                                // Define new spellcasting entry
-                                const actor = this.actor;
-                                if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) return;
-                                const actorAbilities = actor.data.data.abilities;
+                    return candidateAbilities.reduce((abilityA, abilityB) =>
+                        actorAbilities[abilityA].value > actorAbilities[abilityB].value ? abilityA : abilityB,
+                    );
+                })();
+                const spellcastingEntity = {
+                    ability: { value: bestAbility },
+                    spelldc: { value: 0, dc: 0, mod: 0 },
+                    tradition: { value: magicTradition },
+                    prepared: { value: spellcastingType },
+                    showUnpreparedSpells: { value: true },
+                };
 
-                                const candidateAbilities = ['int', 'wis', 'cha'] as const;
-                                const bestAbility = (() => {
-                                    if (spellcastingType === 'innate') return 'cha';
+                const data = {
+                    name,
+                    type: 'spellcastingEntry',
+                    data: spellcastingEntity,
+                };
 
-                                    return candidateAbilities.reduce((abilityA, abilityB) =>
-                                        actorAbilities[abilityA].value > actorAbilities[abilityB].value
-                                            ? abilityA
-                                            : abilityB,
-                                    );
-                                })();
-                                const spellcastingEntity = {
-                                    ability: { value: bestAbility },
-                                    spelldc: { value: 0, dc: 0, mod: 0 },
-                                    tradition: { value: magicTradition },
-                                    prepared: { value: spellcastingType },
-                                    showUnpreparedSpells: { value: true },
-                                };
+                this.actor.createEmbeddedDocuments('Item', [data] as unknown as ItemDataPF2e[]);
+            },
+        });
+    }
 
-                                const data = {
-                                    name,
-                                    type: 'spellcastingEntry',
-                                    data: spellcastingEntity,
-                                };
+    private editSpellcastingEntry(event: JQuery.ClickEvent): void {
+        const { containerId } = $(event.target).closest('[data-container-id]').data();
+        const entry = this.actor.items.get(containerId);
+        if (!(entry instanceof SpellcastingEntryPF2e)) {
+            console.warn('PF2E System | Failed to load spellcasting entry');
+            return;
+        }
 
-                                this.actor.createEmbeddedDocuments('Item', [data] as unknown as ItemDataPF2e[]);
-                            },
-                        },
-                    },
-                    default: 'create',
-                },
-                dialogOptions,
-            ).render(true);
+        createSpellcastingDialog(event, {
+            entry,
+            callback: ($html) => {
+                const tradition = $html.find('[name="magicTradition"]').val() as MagicTradition;
+                entry.update({
+                    'data.tradition.value': tradition,
+                });
+            },
         });
     }
 

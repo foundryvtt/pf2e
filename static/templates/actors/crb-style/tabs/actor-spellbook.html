@@ -12,7 +12,10 @@
                     </h3>
                     {{#if @root.owner}}
                         <div class="item-controls">
-                            <a class="item-control spellcasting-remove" title="{{localize "PF2E.RemoveSpellcastingEntryTitle"}}" data-type="{{eid}}">{{localize "PF2E.DeleteShortLabel"}} <i class="fas fa-trash"></i></a>
+                            {{#unless entry.isRitual}}
+                                <a class="item-control spellcasting-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                            {{/unless}}
+                            <a class="item-control spellcasting-remove" title="{{localize "PF2E.RemoveSpellcastingEntryTitle"}}"><i class="fas fa-trash"></i></a>
                         </div>
                     {{/if}}
                 </div>
