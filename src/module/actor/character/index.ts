@@ -938,7 +938,7 @@ export class CharacterPF2e extends CreaturePF2e {
                             option.rollOption = 'two-handed';
                         } else if (trait.startsWith('versatile-')) {
                             option.rollName = 'damage-roll';
-                            option.rollOption = trait;
+                            option.rollOption = trait + '-active';
                         }
 
                         // trait can be toggled on/off
