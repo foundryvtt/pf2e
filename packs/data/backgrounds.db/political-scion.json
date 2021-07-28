@@ -33,7 +33,50 @@
                 "pack": "pf2e.feats-srd"
             }
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.dip.rank",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Interacting with Absalom's political establishment (Political Scion)",
+                "predicate": {
+                    "any": [
+                        "target:absalom-politician"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Interacting with Absalom's political establishment (Political Scion)",
+                "predicate": {
+                    "any": [
+                        "target:absalom-politician"
+                    ]
+                },
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Interacting with Absalom's political establishment (Political Scion)",
+                "predicate": {
+                    "any": [
+                        "target:absalom-politician"
+                    ]
+                },
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.646
@@ -57,7 +100,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
     "name": "Political Scion",
     "type": "background"
 }
