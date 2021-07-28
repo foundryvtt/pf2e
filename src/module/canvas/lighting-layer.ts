@@ -29,9 +29,9 @@ export class LightingLayerPF2e<
                 source.dim = 0;
                 source.ratio = 1;
             }
+            this.darknessLevel = Math.min(this.darknessLevel, 0.925);
         }
 
-        this.darknessLevel = Math.min(this.darknessLevel, 0.925);
         super.refresh(darkness);
     }
 }

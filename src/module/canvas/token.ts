@@ -52,6 +52,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         const imageChanged = this.icon?.src !== this.data.img;
 
         if (sizeChanged || imageChanged) {
+            console.debug('PF2e System | Redrawing due to token size or image change');
             const visible = this.visible;
             await this.draw();
             this.visible = visible;
