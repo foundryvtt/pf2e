@@ -1,5 +1,5 @@
 {
-    "_id": "7PXPcv8x3Wnc730i",
+    "_id": "UyJUEp0asfGDBvYa",
     "data": {
         "abilities": {
             "cha": {
@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 21,
                 "details": "",
                 "value": 19
             },
@@ -31,14 +32,15 @@
             },
             "hp": {
                 "details": "",
-                "max": 50,
+                "max": 65,
                 "temp": 0,
-                "value": 50
+                "value": 65
             },
             "initiative": {
                 "ability": "perception"
             },
             "perception": {
+                "base": 10,
                 "value": 8
             },
             "shield": {
@@ -50,7 +52,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -58,36 +60,34 @@
                 "value": "N"
             },
             "creatureType": "",
+            "flavorText": "<p>This NPC is the same as @Compendium[pf2e.pfs-season-1-bestiary.Prefect (3-4)]{Prefect (3-4)} with the elite template EXCEPT that its damage is 1d10+6 instead of 1d8+8.</p>",
             "level": {
-                "value": 3
+                "value": 4
             },
             "source": {
                 "value": "Pathfinder Society: Season 1"
             }
         },
-        "resources": {
-            "focus": {
-                "max": 1,
-                "value": 1
-            }
-        },
         "saves": {
             "fortitude": {
+                "base": 10,
                 "saveDetail": "",
                 "value": 8
             },
             "reflex": {
+                "base": 13,
                 "saveDetail": "",
                 "value": 11
             },
             "will": {
+                "base": 8,
                 "saveDetail": "",
                 "value": 6
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.649
+            "version": 0.648
         },
         "traits": {
             "ci": [],
@@ -95,19 +95,26 @@
                 "custom": "",
                 "value": [
                     "bleed",
-                    "death effects,"
+                    "death effects",
+                    "disease",
+                    "doomed",
+                    "drained",
+                    "fatigued",
+                    "healing",
+                    "necromancy",
+                    "nonlethal attacks",
+                    "paralyzed",
+                    "poison",
+                    "sickened",
+                    "unconscious"
                 ]
             },
             "dr": [
                 {
-                    "label": "Cold 5; Immunities Bleed",
-                    "type": "cold 5; Immunities bleed",
-                    "value": 0
-                },
-                {
-                    "label": "Death Effects,",
-                    "type": "death effects,",
-                    "value": 0
+                    "exceptions": "",
+                    "label": "Cold",
+                    "type": "cold",
+                    "value": "5"
                 }
             ],
             "dv": [],
@@ -123,7 +130,7 @@
                 "value": "unique"
             },
             "senses": {
-                "value": ""
+                "value": "tongues (constant)"
             },
             "size": {
                 "value": "sm"
@@ -144,12 +151,19 @@
             "_id": "6kBdh2LM5ibYyZiE",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "int"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
                 },
                 "displayLevels": {},
+                "focus": {
+                    "points": 1,
+                    "pool": 1
+                },
                 "item": {
                     "value": 0
                 },
@@ -162,7 +176,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.649
+                    "version": 0.648
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -237,10 +251,10 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "20",
+                    "dc": 22,
                     "item": 0,
                     "mod": 0,
-                    "value": 12
+                    "value": 14
                 },
                 "tradition": {
                     "value": "arcane"
@@ -261,17 +275,20 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "HlmatpY4MLkxAwLW",
+            "_id": "qfuj6QlCMD2I0ySZ",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -299,6 +316,9 @@
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 5
                 },
                 "level": {
                     "value": 5
@@ -329,7 +349,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.649
+                    "version": 0.648
                 },
                 "school": {
                     "value": "divination"
@@ -340,9 +360,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "tongues",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=340"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -375,9 +395,8 @@
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SwUiVavHKMWG7t5K"
                 }
             },
             "img": "systems/pf2e/icons/spells/tongues.webp",
@@ -386,7 +405,7 @@
             "type": "spell"
         },
         {
-            "_id": "ENxfngkUiEyOa7JJ",
+            "_id": "izNGmL6FDpzmzWgI",
             "data": {
                 "ability": {
                     "value": ""
@@ -397,6 +416,9 @@
                 },
                 "areasize": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -425,8 +447,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "level": {
+                "heightenedLevel": {
                     "value": 2
+                },
+                "level": {
+                    "value": 1
                 },
                 "location": {
                     "value": "6kBdh2LM5ibYyZiE"
@@ -454,7 +479,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.649
+                    "version": 0.648
                 },
                 "school": {
                     "value": "evocation"
@@ -465,9 +490,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "burning-hands",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=30"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "save"
@@ -499,24 +524,31 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.y6rAdMK6EFlV6U0t"
+                }
+            },
             "img": "systems/pf2e/icons/spells/burning-hands.webp",
             "name": "Burning Hands",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "WMEhEbsYYYyOgtC4",
+            "_id": "CxDAQT249OsXWr1V",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -537,13 +569,16 @@
                     "value": "bludgeoning"
                 },
                 "description": {
-                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr /><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 2d6."
+                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.</p>\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
+                },
+                "heightenedLevel": {
+                    "value": 1
                 },
                 "level": {
                     "value": 1
@@ -574,7 +609,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.649
+                    "version": 0.648
                 },
                 "school": {
                     "value": "evocation"
@@ -585,9 +620,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "hydraulic-push",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=154"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "attack"
@@ -596,7 +631,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature or object"
+                    "value": "1 creature or unattended object"
                 },
                 "time": {
                     "value": "2"
@@ -620,14 +655,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.jfVCuOpzC6mUrf6f"
+                }
+            },
             "img": "systems/pf2e/icons/spells/hydraulic-push.webp",
-            "name": "Hydraulic Push (at will)",
+            "name": "Hydraulic Push (At Will)",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "IgmJgXZjldhUu1LE",
+            "_id": "kDy506k4w1X1qz9G",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -643,10 +682,10 @@
                     "value": ""
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p><strong>Activate</strong> Cast a Spell</p>\n<p>An <em>archaic wayfinder</em> functions as a compass and acts as a repository for one cantrip cast into it. To fill an <em>archaic wayfinder</em>, a spellcaster casts the chosen cantrip into the empty device, providing any necessary cost; the spell cannot be one that is normally cast as a free action or reaction.</p>\n<p>Activating an <em>archaic wayfinder</em> is the same as the casting for the relevant spell. Once it has been activated, it becomes empty again. An <em>archaic wayfinder</em> can hold an aeon stone and activate its resonant power. An archaic wayfinder counts against the limit of one wayfinder with a slotted resonant aeon stone.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -674,13 +713,13 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 2
                 },
                 "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
-                    "value": "0"
+                    "value": ""
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -689,7 +728,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "0 gp"
+                    "value": "30 gp"
                 },
                 "quantity": {
                     "value": 1
@@ -697,12 +736,12 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.649
+                    "version": 0.648
                 },
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "archaic-wayfinder",
                 "source": {
                     "value": ""
                 },
@@ -712,21 +751,32 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
-                    "value": []
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
+                    "value": [
+                        "evocation",
+                        "invested",
+                        "magical"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "-"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "archaic wayfinder (Pathfinder Lost Omens World Guide 17)",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.hyMbJb2MRF5beIaU"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/worn-items/other-worn-items/wayfinder.webp",
+            "name": "Archaic Wayfinder",
             "sort": 500000,
             "type": "equipment"
         },
@@ -740,21 +790,21 @@
                     "value": []
                 },
                 "bonus": {
-                    "value": 12
+                    "value": 14
                 },
                 "damageRolls": {
                     "o0b7lt7pyi5xh5lq4thl": {
-                        "damage": "1d8+6",
+                        "damage": "1d10+6",
                         "damageType": "bludgeoning"
                     }
                 },
                 "description": {
-                    "value": "<p>(magical)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.649
+                    "version": 0.648
                 },
                 "slug": null,
                 "source": {
@@ -781,6 +831,110 @@
             "type": "melee"
         },
         {
+            "_id": "VeRSDi3KEmQbqCP6",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.648
+                },
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "fq5DKOHVhSNChDzG",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.648
+                },
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Constant Spells",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
             "_id": "NW90d922iul2m7Xy",
             "data": {
                 "description": {
@@ -790,7 +944,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 10
+                    "value": 12
                 },
                 "proficient": {
                     "value": 0
@@ -798,7 +952,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.649
+                    "version": 0.648
                 },
                 "slug": null,
                 "source": {
@@ -816,7 +970,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -829,7 +983,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 9
+                    "value": 11
                 },
                 "proficient": {
                     "value": 0
@@ -837,7 +991,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.649
+                    "version": 0.648
                 },
                 "slug": null,
                 "source": {
@@ -855,7 +1009,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -868,7 +1022,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 8
+                    "value": 10
                 },
                 "proficient": {
                     "value": 0
@@ -876,7 +1030,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.649
+                    "version": 0.648
                 },
                 "slug": null,
                 "source": {
@@ -894,7 +1048,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -907,7 +1061,7 @@
                     "value": 0
                 },
                 "mod": {
-                    "value": 10
+                    "value": 12
                 },
                 "proficient": {
                     "value": 0
@@ -915,7 +1069,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.649
+                    "version": 0.648
                 },
                 "slug": null,
                 "source": {
@@ -933,16 +1087,16 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],
-    "name": "Prefect (3-4)",
+    "name": "Elite Prefect (Fist) (3-4)",
     "token": {
         "disposition": -1,
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "name": "Prefect",
+        "name": "Elite Prefect",
         "width": 1
     },
     "type": "npc"
