@@ -59,7 +59,7 @@ export class EffectTracker {
     }
 
     unregister(toRemove: Embedded<EffectPF2e>): void {
-        this.trackedEffects = this.trackedEffects.filter((effect) => effect !== toRemove);
+        this.trackedEffects = this.trackedEffects.filter((effect) => effect.id !== toRemove.id);
     }
 
     async refresh(): Promise<void> {

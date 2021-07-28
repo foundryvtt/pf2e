@@ -24,9 +24,9 @@ import { ItemTrait } from './data/base';
 import { UserPF2e } from '@module/user';
 import { MigrationRunner, Migrations } from '@module/migration';
 
-interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
+export interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
-        ready?: boolean;
+        ready?: true;
     };
 }
 
@@ -44,7 +44,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
             this.rules = [];
             this.initialized = true;
         } else {
-            const ready = { pf2e: { ready: true } };
+            const ready = { pf2e: { ready: true } } as const;
             return new CONFIG.PF2E.Item.documentClasses[data.type](data, { ...ready, ...context });
         }
     }
@@ -85,6 +85,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const item = this.toObject(false).data;
         if (!this.actor) return { item };
         const actor = this.actor.toObject(false).data;
+
         return { ...actor, actor, item };
     }
 
@@ -148,6 +149,11 @@ export class ItemPF2e extends Item<ActorPF2e> {
     override prepareData(): void {
         super.prepareData();
         if (!this.isOwned && ui.items && this.initialized) ui.items.render();
+    }
+
+    /** Prepare data that must follow data preparation of all items on the owning actor */
+    prepareSiblingData(): void {
+        if (!this.actor) throw ErrorPF2e('Only owned items can undergo sibling data preparation');
     }
 
     prepareRuleElements(this: Embedded<this>): RuleElementPF2e[] {

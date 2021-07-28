@@ -91,16 +91,16 @@ declare global {
                  * @returns The cloned Document instance
                  */
                 clone<T extends this>(
-                    data: DeepPartial<T['data']['_source']> | undefined,
-                    options: { save?: false | undefined; keepId?: boolean },
+                    data?: DeepPartial<T['data']['_source']> | undefined,
+                    options?: { save?: false; keepId?: boolean },
                 ): T;
                 clone<T extends this>(
                     data: DeepPartial<T['data']['_source']> | undefined,
                     options: { save: true; keepId?: boolean },
                 ): Promise<T>;
                 clone<T extends this>(
-                    data?: DeepPartial<T['data']['_source']>,
-                    options?: { save?: boolean; keepId?: boolean },
+                    data: DeepPartial<T['data']['_source']> | undefined,
+                    options: { save?: boolean; keepId?: boolean },
                 ): T | Promise<T>;
 
                 /**
@@ -440,8 +440,8 @@ declare global {
                  * @param options Additional options which modify the update request
                  * @param user    The User requesting the document update
                  */
-                protected _preUpdate<T extends Document>(
-                    data: DocumentUpdateData<T>,
+                protected _preUpdate(
+                    data: DeepPartial<this['data']['_source']>,
                     options: DocumentModificationContext,
                     user: documents.BaseUser,
                 ): Promise<void>;
