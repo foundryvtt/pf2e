@@ -16,6 +16,8 @@ declare global {
     interface MeasuredTemplateDocument {
         readonly parent: Scene | null;
 
-        _object: MeasuredTemplate;
+        _sheet: MeasuredTemplateConfig | null;
+
+        readonly _object: MeasuredTemplate<MeasuredTemplateDocument> | null;
     }
 }

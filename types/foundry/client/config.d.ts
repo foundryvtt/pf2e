@@ -14,6 +14,7 @@ declare global {
         TFolder extends Folder = Folder,
         TItem extends Item<TActor> = Item<TActor>,
         TMacro extends Macro = Macro,
+        TMeasuredTemplate extends MeasuredTemplateDocument = MeasuredTemplateDocument,
         TToken extends TokenDocument<TActor> = TokenDocument<TActor>,
         TScene extends Scene<TToken, TAmbientLight> = Scene<TToken, TAmbientLight>,
         TUser extends User<TActor> = User<TActor>,
@@ -70,6 +71,7 @@ declare global {
             sheetClass: typeof FolderConfig;
         };
 
+        /** Configuration for the ChatMessage document */
         ChatMessage: {
             batchSize: number;
             collection: typeof Messages;
@@ -174,7 +176,7 @@ declare global {
         /** Configuration for the AmbientLight embedded document type and its representation on the game Canvas */
         AmbientLight: {
             documentClass: ConstructorOf<TAmbientLight>;
-            objectClass: new (...args: any[]) => TAmbientLight['object'];
+            objectClass: ConstructorOf<TAmbientLight['object']>;
             layerClass: ConstructorOf<TAmbientLight['object']['layer']>;
             sheetClass: typeof LightConfig;
         };
@@ -197,6 +199,27 @@ declare global {
                 context?: DocumentConstructionContext<TCombat['turns'][number]>,
             ) => TCombat['turns'][number];
             sheetClass: typeof CombatantConfig;
+        };
+
+        /** Configuration for the MeasuredTemplate embedded document type and its representation on the game Canvas */
+        MeasuredTemplate: {
+            defaults: {
+                angle: number;
+                width: number;
+            };
+            types: {
+                circle: string;
+                cone: string;
+                rect: string;
+                ray: string;
+            };
+            documentClass: new (
+                data: PreCreate<foundry.data.MeasuredTemplateSource>,
+                context?: DocumentConstructionContext<TMeasuredTemplate>,
+            ) => TMeasuredTemplate;
+            objectClass: ConstructorOf<TMeasuredTemplate['object']>;
+            layerClass: ConstructorOf<TemplateLayer<TMeasuredTemplate['object']>>;
+            sheetClass: typeof MeasuredTemplateConfig;
         };
 
         /** Configuration for the Token embedded document type and its representation on the game Canvas */
