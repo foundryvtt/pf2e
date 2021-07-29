@@ -103,6 +103,18 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (this.target?.geometry) super._refreshTarget();
     }
 
+    /** Include actor overrides in the clone if it is a preview */
+    override clone(): this {
+        const clone = super.clone();
+        if (!clone.id) {
+            clone.data.height = this.data.height;
+            clone.data.width = this.data.width;
+            clone.data.img = this.data.img;
+        }
+
+        return clone;
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */

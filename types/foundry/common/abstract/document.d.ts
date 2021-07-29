@@ -92,12 +92,12 @@ declare global {
                  */
                 clone<T extends this>(
                     data: DeepPartial<T['data']['_source']> | undefined,
-                    options: { save?: false | undefined; keepId?: boolean },
-                ): T;
-                clone<T extends this>(
-                    data: DeepPartial<T['data']['_source']> | undefined,
                     options: { save: true; keepId?: boolean },
                 ): Promise<T>;
+                clone<T extends this>(
+                    data?: DeepPartial<T['data']['_source']> | undefined,
+                    options?: { save?: false | undefined; keepId?: boolean },
+                ): T;
                 clone<T extends this>(
                     data?: DeepPartial<T['data']['_source']>,
                     options?: { save?: boolean; keepId?: boolean },
