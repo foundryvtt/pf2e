@@ -56,6 +56,7 @@ import { Migration645TokenImageSize } from './migrations/645-token-image-size';
 import { Migration646UpdateInlineLinks } from './migrations/646-update-inline-links';
 import { Migration647FixPCSenses } from './migrations/647-fix-pc-senses';
 import { Migration648RemoveInvestedProperty } from './migrations/648-remove-invested-property';
+import { Migration649FocusToActor } from '@module/migration/migrations/649-focus-to-actor';
 export { MigrationRunner } from './runner';
 
 export class Migrations {
@@ -116,6 +117,7 @@ export class Migrations {
         Migration646UpdateInlineLinks,
         Migration647FixPCSenses,
         Migration648RemoveInvestedProperty,
+        Migration649FocusToActor,
     ];
 
     static get latestVersion(): number {

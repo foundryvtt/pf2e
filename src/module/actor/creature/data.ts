@@ -49,6 +49,13 @@ export interface CreatureSystemData extends ActorSystemData {
 
     /** Saving throw data */
     saves: Record<SaveType, StatisticModifier>;
+
+    resources: {
+        focus?: {
+            value: number;
+            max: number;
+        };
+    };
 }
 
 export type CreatureType = typeof CREATURE_ACTOR_TYPES[number];
