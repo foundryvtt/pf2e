@@ -401,6 +401,26 @@ export abstract class CreaturePF2e extends ActorPF2e {
         prepareMinions(this);
         super._onUpdate(changed, options, userId);
     }
+
+    protected override async _preUpdate(
+        data: DeepPartial<CreaturePF2e['data']['_source']>,
+        options: DocumentModificationContext,
+        user: foundry.documents.BaseUser,
+    ) {
+        // Clamp focus points when actor is updated
+        const focus = data.data?.resources?.focus;
+        if (focus) {
+            if (focus.max) {
+                focus.max = Math.clamped(Number(focus.max) || 0, 0, 3);
+            }
+
+            const currentPoints = focus.value ?? this.data.data.resources.focus?.value ?? 0;
+            const currentMax = focus.max ?? this.data.data.resources.focus?.max ?? 0;
+            focus.value = Math.clamped(currentPoints, 0, currentMax);
+        }
+
+        await super._preUpdate(data, options, user);
+    }
 }
 
 export interface CreaturePF2e {

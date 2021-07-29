@@ -23,6 +23,7 @@ import { Migration644SpellcastingCategory } from '@module/migration/migrations/6
 import { Migration646UpdateInlineLinks } from '@module/migration/migrations/646-update-inline-links';
 import { Migration647FixPCSenses } from '@module/migration/migrations/647-fix-pc-senses';
 import { Migration648RemoveInvestedProperty } from '@module/migration/migrations/648-remove-invested-property';
+import { Migration649FocusToActor } from '@module/migration/migrations/649-focus-to-actor';
 
 const migrations: MigrationBase[] = [
     new Migration630FixTalismanSpelling(),
@@ -43,6 +44,7 @@ const migrations: MigrationBase[] = [
     new Migration646UpdateInlineLinks(),
     new Migration647FixPCSenses(),
     new Migration648RemoveInvestedProperty(),
+    new Migration649FocusToActor(),
 ];
 
 global.deepClone = function (original: any): any {

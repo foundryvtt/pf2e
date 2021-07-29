@@ -63,10 +63,6 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
     tradition: {
         value: MagicTradition | '';
     };
-    focus: {
-        points: number;
-        pool: number;
-    };
     prepared: {
         value: PreparationType;
     };

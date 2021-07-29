@@ -474,21 +474,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         html.find('[data-item-id].item .item-image').on('click', (event) => this.onItemRoll(event));
 
         // Update Item Bonus on an actor.item input
-        html.find<HTMLInputElement>('.focus-pool-input').on('change', async (event) => {
-            event.preventDefault();
-            const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id') ?? '';
-            const focusPool = Math.clamped(Number(event.target.value), 0, 3);
-            const item = this.actor.items.get(itemId);
-            if (!item) return;
-            let focusPoints = getProperty(item?.data ?? {}, 'data.focus.points') || 0;
-            focusPoints = Math.clamped(focusPoints, 0, focusPool);
-            await item.update({
-                'data.focus.points': focusPoints,
-                'data.focus.pool': focusPool,
-            });
-        });
-
-        // Update Item Bonus on an actor.item input
         html.find<HTMLInputElement>('.item-value-input').on('change', async (event) => {
             event.preventDefault();
 
