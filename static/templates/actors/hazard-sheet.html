@@ -119,6 +119,7 @@
 
         <h3 class="defense-title pf-heading">{{localize 'PF2E.DetailsHeading'}}</h3>
         <div class="bio-item form-group-stacked pf-container">
+
             <label>
                 {{localize 'PF2E.TraitsLabel'}}
                 <a class="trait-selector" data-trait-selector="basic" data-config-types="hazardTraits" data-property="data.traits.traits"><i class="fas fa-edit"></i></a>
@@ -129,7 +130,15 @@
                 {{/each}}
             </ul>
         </div>
-
+        <div class="flexrow" style="flex: auto;">
+            <select class="rarity-select traits-list-item rarity {{#if data.traits.rarity.value }} {{data.traits.rarity.value }} {{else}} common {{/if}}" name="data.traits.rarity.value" data-dtype="String">
+                {{#select data.traits.rarity.value}}
+                {{#each rarity as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
         <div class="bio-item trait-size pf-container">
             <label class="pf-title">{{localize 'PF2E.ImageLabel'}}</label>
             <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="110" width="110" data-edit="img"/>
