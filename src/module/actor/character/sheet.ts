@@ -125,6 +125,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         this.prepareSpellcasting(sheetData);
 
         sheetData.abpEnabled = game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP';
+        sheetData.focusIcon = this.getFocusIcon(this.actor.data.data.resources?.focus);
 
         // Return data for rendering
         return sheetData;
@@ -565,12 +566,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     CONFIG.PF2E.preparationType[itemData.data.prepared.value as PreparationType],
                 );
 
-                if (entry.isFocusPool) {
-                    itemData.data.tradition.focus = true;
-                    if (itemData.data.focus === undefined) itemData.data.focus = { points: 1, pool: 1 };
-                    itemData.data.focus.icon = this.getFocusIcon(itemData.data.focus);
-                } else itemData.data.tradition.focus = false;
-
                 sheetData.spellcastingEntries.push({
                     eid: sheetData.spellcastingEntries.length,
                     ...itemData,
@@ -606,6 +601,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Left/right-click adjustments (increment or decrement) of actor and item stats
         html.find('.adjust-stat').on('click contextmenu', (event) => this.onClickAdjustStat(event));
         html.find('.adjust-item-stat').on('click contextmenu', (event) => this.onClickAdjustItemStat(event));
+        html.find('.focus-points .proficiency-rank').on('click contextmenu', (event) =>
+            this.onClickAdjustFocusPoints(event),
+        );
 
         {
             // ensure correct tab name is displayed after actor update
@@ -747,17 +745,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const itemLevel = target.data().level;
             const actor = this.actor;
             const item = actor.items.get(itemId);
-
             if (!(item instanceof SpellcastingEntryPF2e)) {
                 return;
             }
 
-            const data = duplicate(item.data);
-            const shouldSpendFocusPoint = item.isFocusPool && itemLevel > 0;
-
-            if (shouldSpendFocusPoint) {
-                if (data.data.focus.points > 0) {
-                    data.data.focus.points -= 1;
+            if (item.isFocusPool && itemLevel > 0) {
+                const currentPoints = actor.data.data.resources.focus?.value ?? 0;
+                if (currentPoints > 0) {
+                    actor.update({ 'data.resources.focus.value': currentPoints - 1 });
                 } else {
                     ui.notifications.warn(game.i18n.localize('PF2E.Focus.NotEnoughFocusPointsError'));
                 }
@@ -768,13 +763,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
                 const slotLevel = goesToEleven(itemLevel) ? (`slot${itemLevel}` as const) : 'slot0';
 
+                const data = duplicate(item.data);
                 data.data.slots[slotLevel].value -= 1;
                 if (data.data.slots[slotLevel].value < 0) {
                     data.data.slots[slotLevel].value = 0;
                 }
-            }
 
-            item.update(data);
+                item.update(data);
+            }
         });
 
         // Spontaneous Spell slot reset handler:
@@ -837,11 +833,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Retrieve and validate the updated value
         const newValue = ((): number | undefined => {
             if (item instanceof SpellcastingEntryPF2e) {
-                const focusPool = item.data.data.focus;
                 const proficiencyRank = item.data.data.proficiency.value;
                 const dispatch: Record<string, () => number> = {
-                    'data.focus.points': () => Math.clamped(focusPool.points + change, 0, focusPool.pool),
-                    'data.focus.pool': () => Math.clamped(focusPool.pool + change, 0, 3),
                     'data.proficiency.value': () => Math.clamped(proficiencyRank + change, 0, 4),
                 };
                 return dispatch[propertyKey]?.();
@@ -858,26 +851,35 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
+    /** Handle clicking/right clicking the focus points control */
+    private async onClickAdjustFocusPoints(event: JQuery.TriggeredEvent<HTMLElement>) {
+        const change = event.type === 'click' ? 1 : -1;
+        const focusPool = this.actor.data.data.resources.focus;
+        const points = Math.clamped((focusPool?.value ?? 0) + change, 0, focusPool?.max ?? 0);
+        await this.actor.update({ 'data.resources.focus.value': points });
+    }
+
     /**
      * Get the font-awesome icon used to display a certain level of focus points
      * expection focus = { points: 1, pool: 1}
      */
-    private getFocusIcon(focus: { points: number; pool: number }) {
+    private getFocusIcon(focus?: { value: number; max: number }) {
+        if (!focus) return '';
         const icons: Record<number, string> = {};
         const usedPoint = '<i class="fas fa-dot-circle"></i>';
         const unUsedPoint = '<i class="far fa-circle"></i>';
 
-        for (let i = 0; i <= focus.pool; i++) {
+        for (let i = 0; i <= focus.max; i++) {
             // creates focus.pool amount of icon options to be selected in the icons object
             let iconHtml = '';
-            for (let iconColumn = 1; iconColumn <= focus.pool; iconColumn++) {
+            for (let iconColumn = 1; iconColumn <= focus.max; iconColumn++) {
                 // creating focus.pool amount of icons
                 iconHtml += iconColumn <= i ? usedPoint : unUsedPoint;
             }
             icons[i] = iconHtml;
         }
 
-        return icons[focus.points];
+        return icons[focus.value];
     }
 
     private onIncrementModifierValue(event: JQuery.ClickEvent) {
