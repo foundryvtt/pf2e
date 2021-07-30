@@ -21,10 +21,48 @@
         "level": {
             "value": 5
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "vs. mental effects (Called)",
+                "predicate": {
+                    "all": [
+                        "mental"
+                    ]
+                },
+                "selector": "will",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "mental"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on an saving throw against a mental effect that would make you controlled, you get a critical success instead.</p>"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "PF2E.RuleElement.AdjustDegreeOfSuccess",
+                "predicate": {
+                    "all": [
+                        "mental",
+                        "target:controlled"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "save"
+            }
+        ],
         "schema": {
             "lastMigration": null,
             "version": 0.646

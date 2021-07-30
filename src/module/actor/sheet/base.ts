@@ -49,6 +49,7 @@ import { AbilityString } from '@actor/data/base';
 import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
 import { FolderPF2e } from '@module/folder';
 import { MagicTradition } from '@item/spellcasting-entry/data';
+import { InlineRollsLinks } from '@scripts/ui/inline-roll-links';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -232,8 +233,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (!this.options.editable) return;
 
         /* -------------------------------------------- */
-        /*  Attributes, Skills, Saves and Traits
+        /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
+
+        InlineRollsLinks.listen(html);
 
         // Roll Save Checks
         html.find('.save-name').on('click', (event) => {
@@ -469,21 +472,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Item Rolling
         html.find('[data-item-id].item .item-image').on('click', (event) => this.onItemRoll(event));
-
-        // Update Item Bonus on an actor.item input
-        html.find<HTMLInputElement>('.focus-pool-input').on('change', async (event) => {
-            event.preventDefault();
-            const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id') ?? '';
-            const focusPool = Math.clamped(Number(event.target.value), 0, 3);
-            const item = this.actor.items.get(itemId);
-            if (!item) return;
-            let focusPoints = getProperty(item?.data ?? {}, 'data.focus.points') || 0;
-            focusPoints = Math.clamped(focusPoints, 0, focusPool);
-            await item.update({
-                'data.focus.points': focusPoints,
-                'data.focus.pool': focusPool,
-            });
-        });
 
         // Update Item Bonus on an actor.item input
         html.find<HTMLInputElement>('.item-value-input').on('change', async (event) => {
@@ -748,7 +736,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
+        const dropSlotType = $(event.target).closest('.item').attr('data-item-type');
         const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
         const item = this.actor.items.get(itemData._id);
         if (!item) return [];
@@ -790,9 +778,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 }
             } else if (dropSlotType === 'spellSlot') {
                 if (CONFIG.debug.hooks) console.debug('PF2e System | ***** spell dropped on a spellSlot *****');
-                const dropId = Number($(event.target).parents('.item').attr('data-item-id'));
-                const spellLvl = Number($(event.target).parents('.item').attr('data-spell-lvl'));
-                const entryId = $(event.target).parents('.item').attr('data-entry-id') ?? '';
+                const dropId = Number($(event.target).closest('.item').attr('data-item-id'));
+                const spellLvl = Number($(event.target).closest('.item').attr('data-spell-lvl'));
+                const entryId = $(event.target).closest('.item').attr('data-entry-id') ?? '';
 
                 if (Number.isInteger(dropId) && Number.isInteger(spellLvl) && entryId) {
                     const entry = this.actor.items.get(entryId);
@@ -1340,7 +1328,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     private removeSpellcastingEntry(event: JQuery.ClickEvent): void {
         event.preventDefault();
 
-        const li = $(event.currentTarget).parents('.item');
+        const li = $(event.currentTarget).parents('[data-container-id]');
         const itemId = li.attr('data-container-id') ?? '';
         const item = this.actor.items.get(itemId);
         if (!item) {

@@ -5,13 +5,6 @@ import { ActorSourcePF2e } from '@actor/data';
 import { ItemSourcePF2e } from '@item/data';
 import { MigrationBase } from '@module/migration/base';
 import { MigrationRunnerBase } from '@module/migration/runner/base';
-import { Migration621RemoveConfigSpellSchools } from '@module/migration/migrations/621-remove-config-spellSchools';
-import { Migration623NumifyPotencyRunes } from '@module/migration/migrations/623-numify-potency-runes';
-import { Migration625EnsurePresenceOfSaves } from '@module/migration/migrations/625-ensure-presence-of-saves';
-import { Migration626UpdateSpellCategory } from '@module/migration/migrations/626-update-spell-category';
-import { Migration627LowerCaseSpellSaves } from '@module/migration/migrations/627-lowercase-spell-saves';
-import { Migration628UpdateIdentificationData } from '@module/migration/migrations/628-update-identification-data';
-import { Migration629SetBaseItems } from '@module/migration/migrations/629-set-base-items';
 import { Migration630FixTalismanSpelling } from '@module/migration/migrations/630-fix-talisman-spelling';
 import { Migration631FixSenseRuleElementSelector } from '@module/migration/migrations/631-fix-sense-rule-element-selector';
 import { Migration632DeleteOrphanedSpells } from '@module/migration/migrations/632-delete-orphaned-spells';
@@ -28,15 +21,11 @@ import { Migration642TrackSchemaVersion } from '@module/migration/migrations/642
 import { Migration643HazardLevel } from '@module/migration/migrations/643-hazard-level';
 import { Migration644SpellcastingCategory } from '@module/migration/migrations/644-spellcasting-category';
 import { Migration646UpdateInlineLinks } from '@module/migration/migrations/646-update-inline-links';
+import { Migration647FixPCSenses } from '@module/migration/migrations/647-fix-pc-senses';
+import { Migration648RemoveInvestedProperty } from '@module/migration/migrations/648-remove-invested-property';
+import { Migration649FocusToActor } from '@module/migration/migrations/649-focus-to-actor';
 
 const migrations: MigrationBase[] = [
-    new Migration621RemoveConfigSpellSchools(),
-    new Migration623NumifyPotencyRunes(),
-    new Migration625EnsurePresenceOfSaves(),
-    new Migration626UpdateSpellCategory(),
-    new Migration627LowerCaseSpellSaves(),
-    new Migration628UpdateIdentificationData(),
-    new Migration629SetBaseItems(),
     new Migration630FixTalismanSpelling(),
     new Migration631FixSenseRuleElementSelector(),
     new Migration632DeleteOrphanedSpells(),
@@ -53,6 +42,9 @@ const migrations: MigrationBase[] = [
     new Migration643HazardLevel(),
     new Migration644SpellcastingCategory(),
     new Migration646UpdateInlineLinks(),
+    new Migration647FixPCSenses(),
+    new Migration648RemoveInvestedProperty(),
+    new Migration649FocusToActor(),
 ];
 
 global.deepClone = function (original: any): any {

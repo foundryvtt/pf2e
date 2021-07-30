@@ -103,21 +103,13 @@
                     "rank": 0
                 }
             },
+            "resources": {},
             "attributes": {
                 "hp": {
                     "value": 0
                 },
                 "perception": {
                     "rank": 0
-                },
-                "dying": {
-                    "max": 4
-                },
-                "wounded": {
-                    "max": 3
-                },
-                "doomed": {
-                    "max": 3
                 },
                 "heroPoints": {
                     "rank": 0,
@@ -330,6 +322,7 @@
                     "saveDetail": ""
                 }
             },
+            "resources": {},
             "traits": {
                 "rarity": {
                     "value": "common"
@@ -339,7 +332,6 @@
                 "source": {
                     "value": ""
                 },
-                "recallKnowledgeText": "",
                 "creatureType": ""
             }
         },
@@ -348,7 +340,6 @@
             "source": {
                 "value": ""
             },
-            "recallKnowledgeText": "",
             "creatureType": "",
             "saves": {
                 "fortitude": {
@@ -472,6 +463,7 @@
                     "value": ""
                 }
             },
+            "resources": {},
             "schema": {
                 "version": null,
                 "lastMigration": null
@@ -597,7 +589,7 @@
                     "lastMigration": null
                 }
             },
-            "physicalItem": {
+            "physical": {
                 "quantity": {
                     "value": 1
                 },
@@ -700,7 +692,7 @@
                     "heightenedLevel":null
                 }
             },
-            "magicItem": {
+            "investable": {
                 "invested": {
                     "value": null
                 }
@@ -732,8 +724,9 @@
         "backpack": {
             "templates": [
                 "common",
-                "physicalItem",
-                "itemLevel"
+                "physical",
+                "itemLevel",
+                "investable"
             ],
             "capacity": {
                 "type": "weight",
@@ -753,7 +746,7 @@
         "treasure": {
             "templates": [
                 "common",
-                "physicalItem",
+                "physical",
                 "itemLevel"
             ],
             "denomination": {
@@ -766,9 +759,9 @@
         "weapon": {
             "templates": [
                 "common",
-                "physicalItem",
+                "physical",
                 "itemLevel",
-                "magicItem"
+                "investable"
             ],
             "weaponType": {
                 "value": "simple"
@@ -844,9 +837,9 @@
         "armor": {
             "templates": [
                 "common",
-                "physicalItem",
+                "physical",
                 "itemLevel",
-                "magicItem"
+                "investable"
             ],
             "armor": {
                 "value": 0
@@ -912,7 +905,7 @@
         "consumable": {
             "templates": [
                 "common",
-                "physicalItem",
+                "physical",
                 "activatedEffect",
                 "itemLevel"
             ],
@@ -954,9 +947,9 @@
         "equipment": {
             "templates": [
                 "common",
-                "physicalItem",
-                "magicItem",
-                "itemLevel"
+                "physical",
+                "itemLevel",
+                "investable"
             ],
             "usage": {
                 "value": ""
@@ -1190,10 +1183,6 @@
             },
             "tradition": {
                 "value": ""
-            },
-            "focus": {
-                "points": 1,
-                "pool": 1
             },
             "prepared": {
                 "value": ""

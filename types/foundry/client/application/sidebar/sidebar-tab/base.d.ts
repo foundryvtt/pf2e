@@ -14,7 +14,6 @@ declare interface EntryContextOption {
  * An abstract pattern followed by the different tabs of the sidebar
  */
 declare abstract class SidebarTab extends Application<SidebarTabOptions> {
-    /** @override */
     constructor(options?: SidebarTabOptions);
 
     /**

@@ -1,6 +1,6 @@
-import { SceneDataPF2e } from './data';
+import { LightLevels, SceneDataPF2e } from './data';
 import { SceneConfigPF2e } from './sheet';
-import { AmbientLightDocumentPF2e, LightLevels, TokenDocumentPF2e } from '.';
+import { AmbientLightDocumentPF2e, TokenDocumentPF2e } from '.';
 
 export class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e> {
     /** Toggle Unrestricted Global Vision according to scene darkness level */

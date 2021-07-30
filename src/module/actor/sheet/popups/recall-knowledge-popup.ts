@@ -12,8 +12,12 @@ export class RecallKnowledgePopup extends Application {
         return options;
     }
 
+    constructor(options: ApplicationOptions, private data: IdentifyCreatureData) {
+        super(options);
+    }
+
     override getData() {
-        const data = this.options as IdentifyCreatureData;
+        const data = this.data as IdentifyCreatureData;
         return {
             specificLoreAttempts: this.padAttempts(data.specificLoreDC.progression),
             unspecificLoreAttempts: this.padAttempts(data.unspecificLoreDC.progression),

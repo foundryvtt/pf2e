@@ -6,6 +6,10 @@ import { CriticalHitAndFumbleCards } from './crit-fumble-cards';
 import { ItemType } from '@item/data';
 import { ItemPF2e } from '@item';
 import { TokenPF2e } from '@module/canvas';
+import { ModifierPF2e } from '@module/modifiers';
+import { InlineRollsLinks } from '@scripts/ui/inline-roll-links';
+import { DamageButtons } from './listeners/damage-buttons';
+import { DegreeOfSuccessHighlights } from './listeners/degree-of-success';
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** Get the actor associated with this chat message */
@@ -65,44 +69,47 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     }
 
     /** Get the token of the speaker if possible */
-    get token(): TokenPF2e | undefined {
-        const speaker = this.data.speaker;
-        return game.scenes.current?.tokens?.get(speaker?.token ?? '')?.object;
+    get token(): TokenPF2e | null {
+        if (!canvas.ready) return null;
+        const tokenId = this.data.speaker.token;
+        return canvas.tokens.placeables.find((token) => token.id === tokenId) ?? null;
     }
 
     override async getHTML(): Promise<JQuery> {
         const $html = await super.getHTML();
+
         ChatCards.listen($html);
+        InlineRollsLinks.listen($html);
+        DamageButtons.listen(this, $html);
+        DegreeOfSuccessHighlights.listen(this, $html);
 
         // Append critical hit and fumble card buttons if the setting is enabled
         if (this.isRoll) {
             CriticalHitAndFumbleCards.appendButtons(this, $html);
         }
 
-        $html.on('mouseenter', this.onHoverIn.bind(this));
-        $html.on('mouseleave', this.onHoverOut.bind(this));
+        $html.on('mouseenter', () => this.onHoverIn());
+        $html.on('mouseleave', () => this.onHoverOut());
         $html.find('.message-sender').on('click', this.onClick.bind(this));
 
         return $html;
     }
 
-    protected onHoverIn(event: JQuery.MouseEnterEvent): void {
-        event.preventDefault();
+    private onHoverIn(): void {
         const token = this.token;
-        if (token && token.visible && !token.isControlled) {
-            token.onHoverIn(event);
+        if (token?.isVisible && !token.isControlled) {
+            token.emitHoverIn();
         }
     }
 
-    protected onHoverOut(event: JQuery.MouseLeaveEvent): void {
-        event.preventDefault();
-        this.token?.onHoverOut(event);
+    private onHoverOut(): void {
+        this.token?.emitHoverOut();
     }
 
-    protected onClick(event: JQuery.ClickEvent): void {
+    private onClick(event: JQuery.ClickEvent): void {
         event.preventDefault();
         const token = this.token;
-        if (token && token.visible) {
+        if (token?.isVisible) {
             token.isControlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
         }
     }
@@ -127,9 +134,11 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     get roll(): Rolled<Roll<RollDataPF2e>>;
 
     getFlag(scope: 'core', key: 'RollTable'): unknown;
+    getFlag(scope: 'pf2e', key: 'isCheck'): boolean | undefined;
     getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;
     getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
-    getFlag(scope: 'pf2e', key: 'totalModifier'): number | undefined;
+    getFlag(scope: 'pf2e', key: 'modifierName'): string | undefined;
+    getFlag(scope: 'pf2e', key: 'modifiers'): ModifierPF2e[] | undefined;
     getFlag(scope: 'pf2e', key: 'context'): (CheckModifiersContext & { rollMode: RollMode }) | undefined;
 }
 
@@ -140,7 +149,10 @@ declare namespace ChatMessagePF2e {
 interface ChatMessageDataPF2e<T extends ChatMessagePF2e> extends foundry.data.ChatMessageData<T> {
     flags: Record<string, Record<string, unknown>> & {
         pf2e?: {
+            context?: (CheckModifiersContext & { rollMode: RollMode }) | undefined;
             origin?: { type: ItemType; uuid: string } | null;
+            modifierName?: string;
+            modifiers?: ModifierPF2e[];
         } & Record<string, unknown>;
     };
 }

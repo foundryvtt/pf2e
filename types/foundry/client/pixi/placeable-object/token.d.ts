@@ -62,13 +62,13 @@ declare global {
         /*  Rendering Attributes                        */
         /* -------------------------------------------- */
 
-        border: PIXI.Graphics;
-        icon: PIXI.Sprite;
-        bars: PIXI.Container & { bar1: PIXI.Graphics; bar2: PIXI.Graphics };
-        nameplate: PIXI.Text;
-        tooltip: PIXI.Container;
-        effects: PIXI.Container;
-        target: PIXI.Graphics;
+        border?: PIXI.Graphics;
+        icon?: PIXI.Sprite;
+        bars?: PIXI.Container & { bar1: PIXI.Graphics; bar2: PIXI.Graphics };
+        nameplate?: PIXI.Text;
+        tooltip?: PIXI.Container;
+        effects?: PIXI.Container;
+        target?: PIXI.Graphics;
 
         /**
          * Translate the token's grid width into a pixel width based on the canvas size
@@ -413,6 +413,8 @@ declare global {
 
     interface Token {
         hitArea: PIXI.Rectangle;
+
+        get layer(): TokenLayer<this>;
     }
 
     interface TokenVelocity {

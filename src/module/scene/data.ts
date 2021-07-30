@@ -1,3 +1,4 @@
+import { ZeroToTwo } from '@module/data';
 import type { AmbientLightDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from '.';
 
 export interface SceneDataPF2e<T extends ScenePF2e>
@@ -20,3 +21,11 @@ export interface SceneDataPF2e<T extends ScenePF2e>
         [key: string]: Record<string, unknown>;
     };
 }
+
+export enum LightLevels {
+    DARKNESS = 1 / 4,
+    DIM_LIGHT = 3 / 4,
+    BRIGHT_LIGHT = 1,
+}
+
+export type LightLevel = ZeroToTwo;

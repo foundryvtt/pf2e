@@ -8,7 +8,9 @@ declare interface TemplateLayerOptions extends PlaceablesLayerOptions {
     zIndex: number;
 }
 
-declare class TemplateLayer extends PlaceablesLayer<MeasuredTemplate> {
+declare class TemplateLayer<
+    TMeasuredTemplate extends MeasuredTemplate = MeasuredTemplate,
+> extends PlaceablesLayer<TMeasuredTemplate> {
     static override get layerOptions(): TemplateLayerOptions;
 
     static documentName: 'MeasuredTemplate';

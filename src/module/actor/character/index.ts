@@ -89,6 +89,11 @@ export class CharacterPF2e extends CreaturePF2e {
         }
         systemData.attributes.perception.ability = 'wis';
 
+        // Conditions
+        systemData.attributes.doomed = { value: 0, max: 3 };
+        systemData.attributes.dying = { value: 0, max: 4 };
+        systemData.attributes.wounded = { value: 0, max: 3 };
+
         // Add any homebrew categories
         const homebrewCategories = game.settings.get('pf2e', 'homebrew.weaponCategories').map((tag) => tag.id);
         for (const category of homebrewCategories) {
