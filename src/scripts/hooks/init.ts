@@ -21,6 +21,8 @@ import { PlayerConfigPF2e } from '@module/user/player-config';
 import { PF2ECONFIG } from '../config';
 import { UserPF2e } from '@module/user';
 import { JournalSheetPF2e } from '@module/journal-entry/sheet';
+import { MeasuredTemplatePF2e } from '@module/canvas/measured-template';
+import { MeasuredTemplateDocumentPF2e } from '@module/scene/measured-template-document';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -49,6 +51,9 @@ export function listen(): void {
         CONFIG.AmbientLight.documentClass = AmbientLightDocumentPF2e;
         CONFIG.AmbientLight.layerClass = LightingLayerPF2e;
         CONFIG.AmbientLight.objectClass = AmbientLightPF2e;
+
+        CONFIG.MeasuredTemplate.documentClass = MeasuredTemplateDocumentPF2e;
+        CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
 
         CONFIG.Token.documentClass = TokenDocumentPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
