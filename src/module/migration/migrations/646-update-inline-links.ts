@@ -14,12 +14,12 @@ export class Migration646UpdateInlineLinks extends MigrationBase {
     override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         if (actorData.type === 'hazard') {
             const hazardDetails = actorData.data.details;
-            hazardDetails.disable = this.updateCheckAttributes(hazardDetails.disable);
+            hazardDetails.disable = this.updateCheckAttributes(hazardDetails.disable ?? '');
         }
     }
 
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         const description = itemData.data.description;
-        description.value = this.updateCheckAttributes(description.value);
+        description.value = this.updateCheckAttributes(description.value ?? '');
     }
 }
