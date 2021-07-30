@@ -132,8 +132,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Grab"
+                        "grab"
                     ]
                 },
                 "bonus": {
@@ -443,7 +444,20 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Leaping",
+                        "predicate": {
+                            "all": [
+                                "action:leap"
+                            ]
+                        },
+                        "selector": "acrobatics",
+                        "type": "untyped",
+                        "value": 2
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.649
@@ -458,6 +472,12 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+11 to Leap",
+                        "options": "action:leap"
+                    }
                 }
             },
             "effects": [],
@@ -485,6 +505,7 @@
                 "rules": [
                     {
                         "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In undergrowth or rocky terrain",
                         "predicate": {
                             "any": [
                                 "terrain:undergrowth",
