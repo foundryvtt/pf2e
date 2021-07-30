@@ -19,8 +19,7 @@ import { CheckPF2e } from '@system/rolls';
 import { VisionLevel, VisionLevels } from './data';
 import { LightLevels } from '@module/scene/data';
 import { Statistic, StatisticBuilder } from '@system/statistic';
-import { TokenPF2e } from '@module/canvas';
-import { measureDistance } from '@system/measure';
+import { MeasuredTemplatePF2e, TokenPF2e } from '@module/canvas';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -336,7 +335,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             // calculate distance
             const self = canvas.tokens.controlled.find((token) => token.actor?.id === this.id);
             if (self && canvas.grid?.grid instanceof SquareGrid) {
-                const groundDistance = measureDistance(self.position, ctx.target.position);
+                const groundDistance = MeasuredTemplatePF2e.measureDistance(self.position, ctx.target.position);
                 const elevationDiff = Math.abs(self.data.elevation - ctx.target.data.elevation);
                 distance = Math.floor(Math.sqrt(Math.pow(groundDistance, 2) + Math.pow(elevationDiff, 2)));
             }

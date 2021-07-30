@@ -4,6 +4,7 @@ declare global {
     class Canvas<
         TScene extends Scene = Scene,
         TAmbientLight extends AmbientLight = AmbientLight,
+        TMeasuredTemplate extends MeasuredTemplate = MeasuredTemplate,
         TToken extends Token = Token,
         TSightLayer extends SightLayer = SightLayer,
     > {
@@ -77,7 +78,7 @@ declare global {
         notes: NotesLayer;
         sight: TSightLayer;
         sounds: SoundsLayer;
-        templates: TemplateLayer;
+        templates: TMeasuredTemplate['layer'];
         tokens: TToken['layer'];
         walls: WallsLayer;
 
