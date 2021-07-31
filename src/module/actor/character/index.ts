@@ -256,9 +256,9 @@ export class CharacterPF2e extends CreaturePF2e {
 
             // Add resiliency bonuses for wearing armor with a resiliency rune.
             if (worn) {
-                const resiliencyBonus = getResiliencyBonus(worn.data);
-                if (resiliencyBonus > 0) {
-                    modifiers.push(new ModifierPF2e(worn.name, resiliencyBonus, MODIFIER_TYPE.ITEM));
+                const resilientBonus = getResiliencyBonus(worn.data);
+                if (resilientBonus > 0 && worn.isInvested) {
+                    modifiers.push(new ModifierPF2e(worn.name, resilientBonus, MODIFIER_TYPE.ITEM));
                 }
             }
 
