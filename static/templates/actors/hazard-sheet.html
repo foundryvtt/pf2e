@@ -129,7 +129,15 @@
                 {{/each}}
             </ul>
         </div>
-
+        <div class="flexrow" style="flex: auto;">
+            <select class="rarity-select traits-list-item rarity {{#if data.traits.rarity.value }} {{data.traits.rarity.value }} {{else}} common {{/if}}" name="data.traits.rarity.value" data-dtype="String">
+                {{#select data.traits.rarity.value}}
+                {{#each rarity as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
         <div class="bio-item trait-size pf-container">
             <label class="pf-title">{{localize 'PF2E.ImageLabel'}}</label>
             <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="110" width="110" data-edit="img"/>
