@@ -1,16 +1,9 @@
 import { ActorPF2e } from '@actor/base';
-import { ConditionData, EffectData } from '@item/data';
+import { EffectData } from '@item/data';
 import { ConditionPF2e, EffectPF2e } from '@item/index';
-
-interface EffectPanelData {
-    conditions?: ConditionPF2e[];
-    effects?: EffectData[];
-    actor?: ActorPF2e;
-}
+import { ConditionReference, FlattenedCondition } from './condition-manager/types';
 
 export class EffectPanel extends Application {
-    actor?: ActorPF2e;
-
     /**
      * Debounce and slightly delayed request to re-render this panel. Necessary for situations where it is not possible
      * to properly wait for promises to resolve before refreshing the UI.
@@ -24,38 +17,39 @@ export class EffectPanel extends Application {
         });
     }
 
-    override getData(options?: ApplicationOptions): EffectPanelData {
-        const data: EffectPanelData = super.getData(options);
+    private get actor(): ActorPF2e | null {
+        return canvas.tokens.controlled[0]?.actor ?? game.user?.character ?? null;
+    }
 
-        data.conditions = [];
-        data.effects = [];
-        data.actor = EffectPanel.actor;
-        if (data.actor) {
-            for (const item of data.actor.items) {
-                if (item instanceof ConditionPF2e && item.fromSystem) {
-                    data.conditions.push(item);
-                } else if (item instanceof EffectPF2e) {
-                    const duration = item.totalDuration;
-                    const effect = item.clone({}, { keepId: true }).data;
-                    if (duration === Infinity) {
-                        effect.data.expired = false;
-                        effect.data.remaining = game.i18n.localize('PF2E.EffectPanel.UnlimitedDuration');
-                    } else {
-                        const duration = item.remainingDuration;
-                        effect.data.expired = duration.expired;
-                        effect.data.remaining = effect.data.expired
-                            ? game.i18n.localize('PF2E.EffectPanel.Expired')
-                            : EffectPanel.getRemainingDurationLabel(
-                                  duration.remaining,
-                                  effect.data.start.initiative ?? 0,
-                                  effect.data.duration.expiry,
-                              );
-                    }
-                    data.effects.push(effect);
-                }
+    override getData(options?: ApplicationOptions): EffectPanelData {
+        const data: EffectPanelData = {
+            ...super.getData(options),
+            actor: this.actor,
+            effects: [],
+            conditions: [],
+        };
+
+        const { itemTypes } = data.actor ?? { itemTypes: { condition: [], effect: [] } };
+        for (const effect of itemTypes.effect) {
+            const duration = effect.totalDuration;
+            const clone = effect.clone({}, { keepId: true }).data;
+            if (duration === Infinity) {
+                clone.data.expired = false;
+                clone.data.remaining = game.i18n.localize('PF2E.EffectPanel.UnlimitedDuration');
+            } else {
+                const duration = effect.remainingDuration;
+                clone.data.expired = duration.expired;
+                clone.data.remaining = clone.data.expired
+                    ? game.i18n.localize('PF2E.EffectPanel.Expired')
+                    : EffectPanel.getRemainingDurationLabel(
+                          duration.remaining,
+                          clone.data.start.initiative ?? 0,
+                          clone.data.duration.expiry,
+                      );
             }
+            data.effects.push(clone);
         }
-        data.conditions = game.pf2e.ConditionManager.getFlattenedConditions(data.conditions).map((condition) => {
+        data.conditions = game.pf2e.ConditionManager.getFlattenedConditions(itemTypes.condition).map((condition) => {
             condition.locked = condition.parents.length > 0;
             condition.breakdown = EffectPanel.getParentConditionsBreakdown(condition.parents);
             return condition;
@@ -69,11 +63,10 @@ export class EffectPanel extends Application {
 
         // handle right-click on condition and effect icons
         $(html).on('contextmenu', '[data-item-id]:not([data-item-id=""])', async (event) => {
-            const actor = EffectPanel.actor;
-            if (!actor) return;
-            const effect = actor.items.get(event.currentTarget.dataset.itemId ?? '');
+            const actor = this.actor;
+            const effect = actor?.items.get(event.currentTarget.dataset.itemId ?? '');
             if (effect instanceof ConditionPF2e) {
-                await actor.decreaseCondition(effect);
+                await actor!.decreaseCondition(effect);
             } else if (effect instanceof EffectPF2e) {
                 await effect.delete();
             } else {
@@ -83,11 +76,7 @@ export class EffectPanel extends Application {
         });
     }
 
-    private static get actor(): ActorPF2e | undefined {
-        return canvas.tokens.controlled[0]?.actor ?? game.user?.character;
-    }
-
-    private static getParentConditionsBreakdown(conditions: ConditionData[]): string {
+    private static getParentConditionsBreakdown(conditions: ConditionReference[]): string {
         let breakdown = '';
         if ((conditions ?? []).length > 0) {
             const list = Array.from(new Set(conditions.map((p) => p.name)))
@@ -157,4 +146,10 @@ export class EffectPanel extends Application {
             return game.i18n.format(key, { initiative });
         }
     }
+}
+
+interface EffectPanelData {
+    conditions: FlattenedCondition[];
+    effects: EffectData[];
+    actor: ActorPF2e | null;
 }

@@ -6,6 +6,7 @@ import { ActorPF2e } from '@actor/base';
 import { TokenPF2e } from '../../canvas/token';
 import { ConditionSources } from './sources';
 import { ErrorPF2e } from '@module/utils';
+import { ConditionReference, FlattenedCondition } from './types';
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
@@ -488,38 +489,30 @@ export class ConditionManager {
         }
     }
 
-    static getFlattenedConditions(items: ConditionPF2e[]): any[] {
-        const conditions = new Map<string, any>();
+    static getFlattenedConditions(items: ConditionPF2e[]): FlattenedCondition[] {
+        const conditions: Map<string, FlattenedCondition> = new Map();
 
         items.sort(this.sortCondition).forEach((condition) => {
             // Sorted list of conditions.
             // First by active, then by base (lexicographically), then by value (descending).
 
             const name = condition.value ? `${condition.name} ${condition.value}` : condition.name;
-            let flattened: any;
-
-            if (conditions.has(name)) {
-                // Have already seen condition
-                flattened = conditions.get(name);
-            } else {
-                // Have not seen condition
-                flattened = {
-                    id: condition.id,
-                    active: condition.isActive,
-                    name,
-                    value: condition.value,
-                    description: condition.description,
-                    img: condition.img,
-                    references: false,
-                    parents: [],
-                    children: [],
-                    overrides: [],
-                    overriddenBy: [],
-                    immunityFrom: [],
-                };
-
-                conditions.set(name, flattened);
-            }
+            const flattened = conditions.get(name) ?? {
+                id: condition.id,
+                active: condition.isActive,
+                name,
+                value: condition.value,
+                description: condition.description,
+                img: condition.img,
+                references: false,
+                locked: false,
+                parents: [],
+                children: [],
+                overrides: [],
+                overriddenBy: [],
+                immunityFrom: [],
+            };
+            conditions.set(name, flattened);
 
             // Update any references
             const conditionData = condition.data;
@@ -527,7 +520,7 @@ export class ConditionManager {
                 const refCondition = items.find((other) => other.id === conditionData.data.references.parent?.id);
 
                 if (refCondition) {
-                    const ref = {
+                    const ref: ConditionReference = {
                         id: conditionData.data.references.parent,
                         name: refCondition.name,
                         base: refCondition.slug,
@@ -538,9 +531,11 @@ export class ConditionManager {
                         ref.name = `${ref.name} ${refCondition.value}`;
                     }
 
-                    ref.text = `@Compendium[pf2e.conditionitems.${refCondition.name}]{${ref.name}}`;
+                    const compendiumLink = refCondition.sourceId?.replace(/^Compendium\./, '');
+                    ref.text = compendiumLink ? `@Compendium[${compendiumLink}]` : '';
 
                     flattened.references = true;
+                    flattened.locked = true;
                     flattened.parents.push(ref);
                 }
             }
@@ -549,7 +544,7 @@ export class ConditionManager {
                 const refCondition = items.find((other) => other.id === item.id);
 
                 if (refCondition) {
-                    const ref = {
+                    const ref: ConditionReference = {
                         id: conditionData.data.references.parent,
                         name: refCondition.name,
                         base: refCondition.slug,
@@ -560,7 +555,8 @@ export class ConditionManager {
                         ref.name = `${ref.name} ${refCondition.value}`;
                     }
 
-                    ref.text = `@Compendium[pf2e.conditionitems.${refCondition.name}]{${ref.name}}`;
+                    const compendiumLink = refCondition.sourceId?.replace(/^Compendium\./, '');
+                    ref.text = compendiumLink ? `@Compendium[${compendiumLink}]` : '';
 
                     flattened.references = true;
                     flattened.children.push(ref);
@@ -582,7 +578,8 @@ export class ConditionManager {
                         ref.name = `${ref.name} ${refCondition.value}`;
                     }
 
-                    ref.text = `@Compendium[pf2e.conditionitems.${refCondition.name}]{${ref.name}}`;
+                    const compendiumLink = refCondition.sourceId?.replace(/^Compendium\./, '');
+                    ref.text = compendiumLink ? `@Compendium[${compendiumLink}]` : '';
 
                     flattened.references = true;
                     flattened.overrides.push(ref);
@@ -604,7 +601,8 @@ export class ConditionManager {
                         ref.name = `${ref.name} ${refCondition.value}`;
                     }
 
-                    ref.text = `@Compendium[pf2e.conditionitems.${refCondition.name}]{${ref.name}}`;
+                    const compendiumLink = refCondition.sourceId?.replace(/^Compendium\./, '');
+                    ref.text = compendiumLink ? `@Compendium[${compendiumLink}]` : '';
 
                     flattened.references = true;
                     flattened.overriddenBy.push(ref);
@@ -627,7 +625,7 @@ export class ConditionManager {
                     }
 
                     const compendiumLink = refCondition.sourceId?.replace(/^Compendium\./, '');
-                    if (compendiumLink) ref.text = `@Compendium[${compendiumLink}]`;
+                    ref.text = compendiumLink ? `@Compendium[${compendiumLink}]` : '';
 
                     flattened.references = true;
                     flattened.immunityFrom.push(ref);
