@@ -49,6 +49,7 @@ import { AbilityString } from '@actor/data/base';
 import { DropCanvasItemDataPF2e } from '@module/canvas/drop-canvas-data';
 import { FolderPF2e } from '@module/folder';
 import { MagicTradition } from '@item/spellcasting-entry/data';
+import { InlineRollsLinks } from '@scripts/ui/inline-roll-links';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -232,8 +233,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         if (!this.options.editable) return;
 
         /* -------------------------------------------- */
-        /*  Attributes, Skills, Saves and Traits
+        /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
+
+        InlineRollsLinks.listen(html);
 
         // Roll Save Checks
         html.find('.save-name').on('click', (event) => {
@@ -469,21 +472,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         // Item Rolling
         html.find('[data-item-id].item .item-image').on('click', (event) => this.onItemRoll(event));
-
-        // Update Item Bonus on an actor.item input
-        html.find<HTMLInputElement>('.focus-pool-input').on('change', async (event) => {
-            event.preventDefault();
-            const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id') ?? '';
-            const focusPool = Math.clamped(Number(event.target.value), 0, 3);
-            const item = this.actor.items.get(itemId);
-            if (!item) return;
-            let focusPoints = getProperty(item?.data ?? {}, 'data.focus.points') || 0;
-            focusPoints = Math.clamped(focusPoints, 0, focusPool);
-            await item.update({
-                'data.focus.points': focusPoints,
-                'data.focus.pool': focusPool,
-            });
-        });
 
         // Update Item Bonus on an actor.item input
         html.find<HTMLInputElement>('.item-value-input').on('change', async (event) => {

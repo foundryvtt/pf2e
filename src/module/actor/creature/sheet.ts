@@ -301,6 +301,15 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
             action.variants[Number(variantIndex)]?.roll({ event });
         });
+
+        // We can't use form submission for these updates since duplicates force array updates.
+        // We'll have to move focus points to the top of the sheet to remove this
+        html.find('.focus-points').on('change', (evt) =>
+            this.actor.update({ 'data.resources.focus.value': $(evt.target).val() }),
+        );
+        html.find('.focus-pool').on('change', (evt) =>
+            this.actor.update({ 'data.resources.focus.max': $(evt.target).val() }),
+        );
     }
 
     // Ensure a minimum of zero hit points and a maximum of the current max

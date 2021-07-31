@@ -90,6 +90,7 @@ import './client/pixi/grids/base-grid';
 import './client/pixi/grids/square-grid';
 import './client/pixi/helpers/control-icon';
 import './client/pixi/helpers/door-control';
+import './client/pixi/helpers/grid-highlight';
 import './client/pixi/helpers/ray';
 import './client/pixi/helpers/rectangle';
 import './client/pixi/helpers/ruler';

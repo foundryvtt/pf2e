@@ -4,7 +4,7 @@ import { StatisticModifier } from '@module/modifiers';
 
 export const ChatCards = {
     listen: ($html: JQuery) => {
-        $html.on('click', '.card-buttons button', async (event) => {
+        $html.find('.card-buttons button').on('click', async (event) => {
             event.preventDefault();
 
             // Extract card data

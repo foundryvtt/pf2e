@@ -15,19 +15,19 @@
                 "value": 100
             },
             "stealth": {
-                "details": "(expert)",
+                "details": "<p>(expert)</p>",
                 "value": 21
             }
         },
         "creatureType": "",
         "details": {
-            "description": "This dangerous sooty black mold readily releases its toxic spores when disturbed. The entire swath of fungus in area B2 is a single organism. There are nine 10-foot-square patches to remove, but the whole organism dies once it takes enough damage.",
-            "disable": "Survival DC 27 (expert) to remove a 10-foot-square patch of ash web without triggering the spores.",
+            "description": "<p>This dangerous sooty black mold readily releases its toxic spores when disturbed. The entire swath of fungus in area <strong>B2</strong> is a single organism. There are nine 10-foot-square patches to remove, but the whole organism dies once it takes enough damage.</p>",
+            "disable": "<p><span data-pf2-check=\"survival\" data-pf2-traits=\"environmental,fungus\" data-pf2-label=\"Remove Patch DC\" data-pf2-dc=\"27\" data-pf2-show-dc=\"gm\">Survival</span> (expert) to remove a 10-foot-square patch of ash web without triggering the spores</p>",
             "isComplex": false,
             "level": {
                 "value": 10
             },
-            "reset": "",
+            "reset": "<p>This large patch of ash web resets automatically at the start of the round.</p>",
             "routine": ""
         },
         "saves": {
@@ -46,7 +46,7 @@
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "source": {
             "value": ""
@@ -75,10 +75,10 @@
                 "value": "med"
             },
             "traits": {
-                "custom": "Fungus",
+                "custom": "",
                 "value": [
                     "environmental",
-                    "custom"
+                    "fungus"
                 ]
             }
         }
@@ -91,7 +91,7 @@
             "_id": "eV1zBAr9CgzQ2C5X",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -108,7 +108,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -140,7 +140,7 @@
             "_id": "0tHs3BRTN0UIM4j7",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -149,7 +149,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>The @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} condition from ash web remains even after the poison's duration ends. The condition's value reduces by 1 per hour. Gugs are immune to this poison; instead, they have vivid and strange dreams when they sleep after ingesting ash web.</p>\n<p>Saving Throw <span data-pf2-check=\"fortitude\" data-pf2-dc=\"29\" data-pf2-traits=\"poison,inhaled\" data-pf2-label=\"Ash Web Spores DC\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong>: 6 rounds;</p>\n<p><strong>Stage 1</strong>: [[/r 2d6 #poison]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round);</p>\n<p><strong>Stage 2</strong>: [[/r 4d6 #posion]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 2 (1 round);</p>\n<p><strong>Stage 3</strong>: [[/r 6d6 #posion]] poison and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 3 (1 round).</p>"
+                    "value": "<p data-visibility=\"gm\">The enfeebled condition from ash web remains even after the poison's duration ends. The condition's value reduces by 1 per hour. Gugs are immune to this poison; instead, they have vivid and strange dreams when they sleep after ingesting ash web.</p>\n<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"inhaled,poison\" data-pf2-label=\"Ash Web Spores DC\" data-pf2-dc=\"29\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<hr />\n<p><strong>Stage 1</strong> [[/r 2d6 #poison]]{2d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 4d6 #poison]]{4d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 6d6 #poison]]{6d6 poison damage} and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3} (1 round).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -157,7 +157,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -186,7 +186,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ash Web Spores",
             "sort": 200000,
             "type": "action"
@@ -194,10 +194,39 @@
     ],
     "name": "Ash Web",
     "token": {
+        "actorLink": false,
+        "alpha": 1,
+        "bar1": {
+            "attribute": null
+        },
+        "bar2": {
+            "attribute": null
+        },
+        "brightLight": 0,
+        "brightSight": 0,
+        "dimLight": 0,
+        "dimSight": 0,
+        "displayBars": 0,
+        "displayName": 0,
         "disposition": 0,
+        "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
+        "lightAlpha": 0.25,
+        "lightAngle": 0,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
+        "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Ash Web",
+        "randomImg": false,
+        "rotation": 0,
+        "scale": 1,
+        "sightAngle": 0,
+        "vision": false,
         "width": 1
     },
     "type": "hazard"

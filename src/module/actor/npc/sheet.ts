@@ -300,9 +300,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         // Handle spellcastingEntry attack and DC updates
         html.find('.spellcasting-entry')
-            .find<HTMLInputElement | HTMLSelectElement>(
-                '.attack-input, .dc-input, .focus-points, .focus-pool, .ability-score select',
-            )
+            .find<HTMLInputElement | HTMLSelectElement>('.attack-input, .dc-input, .ability-score select')
             .on('change', (event) => this.onChangeSpellcastingEntry(event));
 
         // Spontaneous Spell slot reset handler:
