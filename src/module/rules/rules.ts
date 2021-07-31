@@ -66,9 +66,17 @@ export class RuleElements {
             const key = data.key.replace(/^PF2E\.RuleElement\./, '');
             const REConstructor = this.custom[key] ?? this.custom[data.key] ?? this.builtin[key];
             if (REConstructor) {
-                rules.push(new REConstructor(data, item));
+                const rule = ((): RuleElementPF2e | null => {
+                    try {
+                        return new REConstructor(data, item);
+                    } catch {
+                        console.warn(`PF2e System | Failed to construct rule element ${data.key}`);
+                        return null;
+                    }
+                })();
+                if (rule) rules.push(rule);
             } else if (data.key !== 'NewRuleElement') {
-                console.warn(`PF2E | Unknown rule element ${data.key}`);
+                console.warn(`PF2e System | Unrecognized rule element ${data.key}`);
             }
         }
         return rules;
