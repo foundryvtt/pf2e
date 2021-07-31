@@ -5,17 +5,6 @@ import { ActorSourcePF2e } from '@actor/data';
 import { ItemSourcePF2e } from '@item/data';
 import { MigrationBase } from '@module/migration/base';
 import { MigrationRunnerBase } from '@module/migration/runner/base';
-import { Migration630FixTalismanSpelling } from '@module/migration/migrations/630-fix-talisman-spelling';
-import { Migration631FixSenseRuleElementSelector } from '@module/migration/migrations/631-fix-sense-rule-element-selector';
-import { Migration632DeleteOrphanedSpells } from '@module/migration/migrations/632-delete-orphaned-spells';
-import { Migration633DeleteUnidentifiedTraits } from '@module/migration/migrations/633-delete-unidentified-traits';
-import { Migration634PurgeMartialItems } from '@module/migration/migrations/634-purge-martial-items';
-import { Migration635NumifyACAndQuantity } from '@module/migration/migrations/635-numify-ac-and-quantity';
-import { Migration636NumifyArmorData } from '@module/migration/migrations/636-numify-armor-data';
-import { Migration637CleanMeleeItems } from '@module/migration/migrations/637-clean-melee-items';
-import { Migration638SpellComponents } from '@module/migration/migrations/638-spell-components';
-import { Migration639NormalizeLevelAndPrice } from '@module/migration/migrations/639-normalize-level-and-price';
-import { Migration640CantripsAreNotZeroLevel } from '@module/migration/migrations/640-cantrips-are-not-zero-level';
 import { Migration641SovereignSteelValue } from '@module/migration/migrations/641-sovereign-steel-value';
 import { Migration642TrackSchemaVersion } from '@module/migration/migrations/642-track-schema-version';
 import { Migration643HazardLevel } from '@module/migration/migrations/643-hazard-level';
@@ -26,17 +15,6 @@ import { Migration648RemoveInvestedProperty } from '@module/migration/migrations
 import { Migration649FocusToActor } from '@module/migration/migrations/649-focus-to-actor';
 
 const migrations: MigrationBase[] = [
-    new Migration630FixTalismanSpelling(),
-    new Migration631FixSenseRuleElementSelector(),
-    new Migration632DeleteOrphanedSpells(),
-    new Migration633DeleteUnidentifiedTraits(),
-    new Migration634PurgeMartialItems(),
-    new Migration635NumifyACAndQuantity(),
-    new Migration636NumifyArmorData(),
-    new Migration637CleanMeleeItems(),
-    new Migration638SpellComponents(),
-    new Migration639NormalizeLevelAndPrice(),
-    new Migration640CantripsAreNotZeroLevel(),
     new Migration641SovereignSteelValue(),
     new Migration642TrackSchemaVersion(),
     new Migration643HazardLevel(),
