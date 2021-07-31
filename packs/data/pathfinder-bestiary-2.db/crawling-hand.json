@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 12,
                 "details": "",
                 "value": 12
             },
@@ -30,7 +31,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "(negative healing)",
+                "details": "negative healing",
                 "max": 8,
                 "temp": 0,
                 "value": 8
@@ -227,8 +228,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.sebk9XseMCRkDqRg"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Lifesense",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense 30 feet",
             "sort": 200000,
             "type": "action"
         },
@@ -275,8 +276,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Tremorsense",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 30 feet",
             "sort": 300000,
             "type": "action"
         },
@@ -393,7 +394,7 @@
                 "rules": [
                     {
                         "key": "PF2E.RuleElement.ToggleProperty",
-                        "label": "Quarry",
+                        "label": "Target is Marked Quarry",
                         "property": "flags.pf2e.rollOptions.all.mark-quarry"
                     },
                     {
@@ -419,6 +420,18 @@
                         },
                         "selector": "survival",
                         "value": 1
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Marked Quarry",
+                        "predicate": {
+                            "all": [
+                                "mark-quarry"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "circumstance",
+                        "value": 1
                     }
                 ],
                 "slug": null,
@@ -441,7 +454,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mark Quarry",
             "sort": 600000,
             "type": "action"
