@@ -39,17 +39,17 @@ declare global {
         /* -------------------------------------------- */
 
         override clone(
-            data: PreCreate<foundry.data.TokenSource> | undefined,
-            options: { save?: false | undefined; keepId?: boolean },
-        ): this;
-        override clone(
-            data?: PreCreate<foundry.data.TokenSource>,
-            options?: { save: true; keepId?: boolean },
+            createData: DeepPartial<foundry.data.TokenSource> | undefined,
+            options: { save: true; keepId?: boolean },
         ): Promise<this>;
         override clone(
-            data?: PreCreate<foundry.data.TokenSource>,
-            options?: { save?: boolean; keepId?: boolean },
+            createData: DeepPartial<foundry.data.TokenSource> | undefined,
+            options?: { save?: false | undefined; keepId?: boolean },
         ): this;
+        override clone(
+            createData?: DeepPartial<foundry.data.TokenSource>,
+            options?: { save?: boolean; keepId?: boolean },
+        ): this | Promise<this>;
 
         /**
          * Create a synthetic Actor using a provided Token instance

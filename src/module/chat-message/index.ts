@@ -7,6 +7,9 @@ import { ItemType } from '@item/data';
 import { ItemPF2e } from '@item';
 import { TokenPF2e } from '@module/canvas';
 import { ModifierPF2e } from '@module/modifiers';
+import { InlineRollsLinks } from '@scripts/ui/inline-roll-links';
+import { DamageButtons } from './listeners/damage-buttons';
+import { DegreeOfSuccessHighlights } from './listeners/degree-of-success';
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** Get the actor associated with this chat message */
@@ -74,7 +77,11 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     override async getHTML(): Promise<JQuery> {
         const $html = await super.getHTML();
+
         ChatCards.listen($html);
+        InlineRollsLinks.listen($html);
+        DamageButtons.listen(this, $html);
+        DegreeOfSuccessHighlights.listen(this, $html);
 
         // Append critical hit and fumble card buttons if the setting is enabled
         if (this.isRoll) {

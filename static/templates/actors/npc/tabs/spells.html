@@ -43,9 +43,9 @@
                     <div class="sub-header">
                         <div class="focus-point-container">
                             <label class="focus-label">{{ localize 'PF2E.Focus.label' }}</label>
-                            <input type="number" class="focus-points" data-base-property="data.items.{{eid}}.data.focus.points" name="data.items.{{entry._id}}.data.focus.points" value="{{numberFormat entry.data.focus.points decimals=0}}" data-dtype="Number" placeholder="0"/>
+                            <input type="number" class="focus-points" value="{{@root.data.resources.focus.value}}" data-dtype="Number" placeholder="0"/>
                             <span class="flex0">/</span>
-                            <input type="number" class="focus-pool" data-base-property="data.items.{{eid}}.data.focus.pool" name="data.items.{{entry._id}}.data.focus.pool" value="{{numberFormat entry.data.focus.pool decimals=0}}" data-dtype="Number" placeholder="0"/>
+                            <input type="number" class="focus-pool" value="{{@root.data.resources.focus.max}}" data-dtype="Number" placeholder="0"/>
                         </div>
                     </div>
                     {{/if}}

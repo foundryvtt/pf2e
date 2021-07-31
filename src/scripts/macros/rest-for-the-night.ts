@@ -19,6 +19,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
     for (const actor of characters) {
         const abilities = actor.data.data.abilities;
         const attributes = actor.attributes;
+        const focus = actor.data.data.resources.focus;
 
         // Hit points
         const conModifier = abilities.con.mod;
@@ -63,22 +64,16 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
         }));
         const wandRecharged = updateData.length > 0;
 
+        // Restore focus points
+        const rechargeFocus = focus?.max && focus.value < focus.max;
+        if (focus && rechargeFocus) {
+            focus.value = focus.max;
+        }
+
         // Spellcasting entries
         const restoredList: string[] = [];
         const entries = items.spellcastingEntry;
         const entriesUpdateData = entries.flatMap((entry) => {
-            // Focus spells
-            if (entry.isFocusPool) {
-                const focusPool = duplicate(entry.data.data.focus);
-                if (focusPool.points < focusPool.pool) {
-                    focusPool.points = focusPool.pool;
-                    restoredList.push('Focus Pool');
-                    return { _id: entry.id, 'data.focus': focusPool };
-                }
-
-                return [];
-            }
-
             // Innate, Spontaneous, and Prepared spells
             const slots = entry.data.data.slots;
             let updated = false;
@@ -127,7 +122,7 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
 
         // Updated actor with the sweet fruits of rest
         if (hpRestored > 0 || restoredList.length > 0) {
-            actor.update({ 'data.attributes': attributes });
+            actor.update({ 'data.attributes': attributes, 'data.resources.focus': focus });
         }
         if (updateData.length > 0) {
             actor.updateEmbeddedDocuments('Item', updateData);
@@ -145,6 +140,10 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
         // Wand recharge
         if (wandRecharged) {
             messages.push('Wands recharged.');
+        }
+
+        if (rechargeFocus) {
+            messages.push('Focus points restored.');
         }
 
         // Attribute restoration

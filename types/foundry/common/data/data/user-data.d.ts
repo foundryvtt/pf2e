@@ -15,7 +15,7 @@ declare module foundry {
             avatar: ImagePath;
             img: ImagePath;
             character: string | null;
-            color: string;
+            color: HexColorString;
             hotbar: Record<number, string>;
             name: string;
             password: string;

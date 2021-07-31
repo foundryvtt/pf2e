@@ -148,7 +148,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
             if (!skillItem) return;
 
             const skillItemValue: number = skillItem.data.data.mod.value;
-            const hasToUpdateItem = skillItemValue !== value && value > 0;
+            const hasToUpdateItem = skillItemValue !== value;
             if (hasToUpdateItem) {
                 await skillItem.update({
                     [`data.mod.value`]: value,
