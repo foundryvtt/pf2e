@@ -39,7 +39,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
         sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
         sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity.value];
-        sheetData.isNotCommon = sheetData.data.traits.rarity.value !== 'common';
 
         sheetData.stealthDC = (sheetData.data.attributes.stealth?.value ?? 0) + 10;
         sheetData.hasStealthDescription = sheetData.data.attributes.stealth?.details || false;
