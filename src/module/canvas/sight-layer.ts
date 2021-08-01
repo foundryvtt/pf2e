@@ -13,7 +13,7 @@ export class SightLayerPF2e extends SightLayer<TokenPF2e, FogExplorationPF2e> {
     }
 
     get hasDarkvision(): boolean {
-        return this.sources.some((source) => source.object.hasDarkvision);
+        return canvas.tokens.controlled.some((token) => token.hasDarkvision);
     }
 
     /** Re-prepare scene data prior to this layer's initialization */

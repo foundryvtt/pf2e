@@ -19,6 +19,7 @@ export function listen() {
             for (const token of tokens) {
                 token.redraw();
             }
+            canvas.darkvision.draw();
         }
     });
 }

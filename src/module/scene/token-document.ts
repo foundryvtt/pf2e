@@ -2,7 +2,7 @@ import { VisionLevels } from '@actor/creature/data';
 import { ActorPF2e, LootPF2e, NPCPF2e } from '@actor/index';
 import { TokenPF2e } from '../canvas/token';
 import { ScenePF2e } from '.';
-import { UserPF2e } from '../user';
+import { UserPF2e } from '../user/document';
 import { TokenConfigPF2e } from './token-config';
 import { LightLevels } from './data';
 
