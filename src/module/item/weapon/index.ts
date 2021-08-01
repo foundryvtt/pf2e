@@ -28,8 +28,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return this.data.data.group.value || null;
     }
 
-    get category(): WeaponCategory | null {
-        return this.data.data.weaponType.value || null;
+    get category(): WeaponCategory {
+        return this.data.data.weaponType.value;
     }
 
     get isSpecific(): boolean {
@@ -38,6 +38,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
+        this.data.data.weaponType.value ||= 'simple';
         this.data.data.potencyRune.value ||= null;
         this.data.data.strikingRune.value ||= null;
         this.data.data.propertyRune1.value ||= null;
