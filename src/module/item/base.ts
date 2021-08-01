@@ -23,6 +23,7 @@ import { CheckPF2e } from '@system/rolls';
 import { ItemTrait } from './data/base';
 import { UserPF2e } from '@module/user';
 import { MigrationRunner, Migrations } from '@module/migration';
+import { GhostTemplate } from '@module/ghost-measured-template';
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -741,6 +742,41 @@ export class ItemPF2e extends Item<ActorPF2e> {
             },
             event,
         );
+    }
+
+    placeTemplate(this: Embedded<ItemPF2e>, _event: JQuery.ClickEvent) {
+        const itemData =
+            this.data.type === 'consumable' && this.data.data.spell?.data
+                ? duplicate(this.data.data.spell.data)
+                : this.toObject();
+        if (itemData.type !== 'spell') throw new Error('Wrong item type!');
+
+        const templateConversion: Record<string, string> = {
+            burst: 'circle',
+            emanation: 'circle',
+            line: 'ray',
+            cone: 'cone',
+            rect: 'rect',
+        };
+
+        const areaType = templateConversion[itemData.data.area.areaType];
+
+        const templateData: any = {
+            t: areaType,
+            distance: Number(itemData.data.area.value),
+        };
+
+        if (areaType === 'ray') {
+            templateData.width = 5;
+        } else if (areaType === 'cone') {
+            templateData.angle = 90;
+        }
+
+        templateData.user = game.user.id;
+        //templateData.color = game.user.color;
+        const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
+        const ghostTemplate = new GhostTemplate(measuredTemplateDoc);
+        ghostTemplate.drawPreview();
     }
 
     calculateMap(): { label: string; map2: number; map3: number } {

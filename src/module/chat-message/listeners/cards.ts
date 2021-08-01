@@ -71,6 +71,7 @@ export const ChatCards = {
                 else if (action === 'spellAttack3') item.rollSpellAttack(event, 3);
                 else if (action === 'spellDamage') item.rollSpellDamage(event);
                 else if (action === 'spellCounteract') item.rollCounteract(event);
+                else if (action === 'spellTemplate') item.placeTemplate(event);
                 // Consumable usage
                 else if (action === 'consume' && item instanceof ConsumablePF2e) item.consume();
                 else if (action === 'save') ActorPF2e.rollSave(event, item);
