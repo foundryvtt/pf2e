@@ -231,6 +231,28 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
             levels: results,
         };
     }
+
+    protected override async _preUpdate(
+        data: DeepPartial<this['data']['_source']>,
+        options: DocumentModificationContext,
+        user: foundry.documents.BaseUser,
+    ) {
+        // Clamp slot updates
+        if (data.data?.slots) {
+            for (const key of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const) {
+                const slotKey = `slot${key}` as const;
+                const slotData = data.data.slots[slotKey];
+                if (!slotData) continue;
+
+                if (slotData.value) {
+                    const max = Number(slotData?.max ?? this.data.data.slots[slotKey].max);
+                    slotData.value = Math.clamped(Number(slotData.value), 0, max);
+                }
+            }
+        }
+
+        await super._preUpdate(data, options, user);
+    }
 }
 
 export interface SpellcastingEntryPF2e {
