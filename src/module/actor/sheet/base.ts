@@ -490,43 +490,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             ]);
         });
 
-        // Update Item Name
-        html.find<HTMLInputElement>('.item-name-input').on('change', async (event) => {
-            const itemId = event.target.attributes['data-item-id']?.value ?? '';
-            await this.actor.updateEmbeddedDocuments('Item', [{ _id: itemId, name: event.target.value }]);
-        });
-
-        // Update used slots for Spell Items
-        html.find<HTMLInputElement>('.spell-slots-input').on('change', async (event) => {
-            event.preventDefault();
-
-            const $input = $(event.target);
-            const itemId = $input.closest('.item, .section').attr('data-item-id') ?? '';
-            const spellcastingEntry = this.actor.items.get(itemId);
-            if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) throw ErrorPF2e('Spellcasting entry not found');
-
-            const slotLevel = Number($input.closest('.item, .section').attr('data-level') ?? 0);
-            const slots = spellcastingEntry.data.data.slots;
-            const slot = slots[`slot${slotLevel}` as keyof typeof slots];
-            const newValue = Math.clamped(Number($input.val()), 0, slot.max);
-
-            await spellcastingEntry.update({ [`data.slots.slot${slotLevel}.value`]: newValue });
-        });
-
-        // Update max slots for Spell Items
-        html.find<HTMLInputElement>('.spell-max-input').on('change', async (event) => {
-            event.preventDefault();
-
-            const itemId = $(event.currentTarget).parents('.item, .section').attr('data-item-id') ?? '';
-            const slotLvl = Number($(event.currentTarget).parents('.item, .section').attr('data-level')) || 0;
-            await this.actor.updateEmbeddedDocuments('Item', [
-                {
-                    _id: itemId,
-                    [`data.slots.slot${slotLvl}.max`]: Number(event.target.value),
-                },
-            ]);
-        });
-
         // Modify select element
         html.find<HTMLSelectElement>('.ability-select').on('change', async (event) => {
             event.preventDefault();
