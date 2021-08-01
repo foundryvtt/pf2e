@@ -538,7 +538,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 const spellProficiency = ProficiencyModifier.fromLevelAndRank(this.actor.level, spellRank).modifier;
                 const abilityMod = this.actor.getAbilityMod(entry.ability);
                 const spellAttack = abilityMod + spellProficiency;
-                if (itemData.data.spelldc.value !== spellAttack) {
+                if (itemData.data.spelldc.value !== spellAttack && this.actor.isOwner) {
                     const updatedItem = {
                         _id: itemData._id,
                         data: {
