@@ -31,6 +31,7 @@ import { createADiversion } from './deception/create-a-diversion';
 import { feint } from './deception/feint';
 import { impersonate } from './deception/impersonate';
 import { lie } from './deception/lie';
+import { bonMot } from './diplomacy/bon-mot';
 import { gatherInformation } from './diplomacy/gather-information';
 import { makeAnImpression } from './diplomacy/make-an-impression';
 import { request } from './diplomacy/request';
@@ -85,6 +86,7 @@ export class ActionsPF2e {
         actions.lie = lie;
 
         // diplomacy
+        actions.bonMot = bonMot;
         actions.gatherInformation = gatherInformation;
         actions.makeAnImpression = makeAnImpression;
         actions.request = request;
