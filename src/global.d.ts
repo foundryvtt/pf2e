@@ -18,7 +18,7 @@ import { EffectTracker } from '@system/effect-tracker';
 import { CheckPF2e } from '@system/rolls';
 import { WorldClock } from '@system/world-clock';
 import { CombatPF2e } from './module/combat';
-import { ConditionManager } from './module/conditions';
+import { ConditionManager } from '@system/condition-manager';
 import {
     AbilityModifier,
     CheckModifier,

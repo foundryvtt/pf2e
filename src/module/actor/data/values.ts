@@ -36,7 +36,7 @@ export const CONDITION_TYPES = [
     'invisible',
     'observed',
     'paralyzed',
-    'persistent',
+    'persistent-damage',
     'petrified',
     'prone',
     'quickened',

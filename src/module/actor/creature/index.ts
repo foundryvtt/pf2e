@@ -184,11 +184,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         }
 
         // Get all of the active conditions (from the item array), and add their modifiers.
-        const conditions = this.itemTypes.condition
-            .filter((c) => c.data.flags.pf2e?.condition && c.data.data.active)
-            .map((c) => c.data);
+        const conditions = this.itemTypes.condition.flatMap((condition) => (condition.isActive ? condition.data : []));
 
-        for (const [key, value] of game.pf2e.ConditionManager.getModifiersFromConditions(conditions.values())) {
+        for (const [key, value] of game.pf2e.ConditionManager.getModifiersFromConditions(conditions)) {
             statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
         }
 
