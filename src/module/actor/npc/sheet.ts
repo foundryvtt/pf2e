@@ -840,31 +840,25 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     private async onSpellSlotIncrementReset(event: JQuery.ClickEvent) {
-        const target = $(event.currentTarget);
-        const itemId = target.data().itemId;
+        const $target = $(event.currentTarget);
+        const itemId = $target.attr('data-item-id');
         const itemLevel =
-            typeof target.attr('data-level') === 'string'
-                ? (Number(target.attr('data-level') || 0) as ZeroToEleven)
+            typeof $target.attr('data-level') === 'string'
+                ? (Number($target.attr('data-level') || 0) as ZeroToEleven)
                 : null;
         const actor = this.actor;
-        const item = actor.items.get(itemId);
+        const item = actor.items.get(itemId ?? '');
 
-        if (item == null || itemLevel === null) {
-            return;
-        }
-        if (item.data.type !== 'spellcastingEntry') {
+        if (itemLevel === null || item?.data.type !== 'spellcastingEntry') {
             return;
         }
 
-        const data = duplicate(item.data);
-
-        if (data.data.slots == null) {
-            return;
-        }
+        const systemData = item.data.toObject().data;
+        if (systemData.slots == null) return;
         const slot = `slot${itemLevel}` as const;
-        data.data.slots[slot].value = data.data.slots[slot].max;
+        systemData.slots[slot].value = systemData.slots[slot].max;
 
-        item.update(data);
+        await item.update({ 'data.slots': systemData.slots });
     }
 
     // Helper functions
