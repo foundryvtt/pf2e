@@ -220,6 +220,32 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
     override activateListeners(html: JQuery): void {
         super.activateListeners(html);
 
+        // General handler for embedded item updates
+        html.find('[data-property][data-item-id]').on('change', (event) => {
+            const { itemId, property, dtype } = event.target.dataset;
+            if (!itemId || !property) return;
+
+            const value = (() => {
+                const value = $(event.target).val();
+                if (typeof value === 'undefined' || value === null) {
+                    return value;
+                }
+
+                switch (dtype) {
+                    case 'Boolean':
+                        return typeof value === 'boolean' ? value : value === 'true';
+                    case 'Number':
+                        return Number(value);
+                    case 'String':
+                        return String(value);
+                    default:
+                        return value;
+                }
+            })();
+
+            this.actor.updateEmbeddedDocuments('Item', [{ _id: itemId, [property]: value }]);
+        });
+
         // Roll Recovery Flat Check when Dying
         html.find('.recoveryCheck.rollable').on('click', () => {
             this.actor.rollRecovery();
