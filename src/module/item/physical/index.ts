@@ -1,6 +1,6 @@
 import { PhysicalItemData, TraitChatData } from '@item/data';
 import { LocalizePF2e } from '@module/system/localize';
-import { Rarity } from '@module/data';
+import { Rarity, Size } from '@module/data';
 import { ItemPF2e } from '@item/index';
 import type { ContainerPF2e } from '@item/index';
 import { MystifiedTraits } from '@item/data/values';
@@ -22,6 +22,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     get quantity(): number {
         return this.data.data.quantity.value ?? 1;
+    }
+
+    get size(): Size {
+        return this.data.data.size.value;
     }
 
     get isEquipped(): boolean {
