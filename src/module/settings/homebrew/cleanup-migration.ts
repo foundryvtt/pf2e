@@ -93,7 +93,7 @@ export function prepareCleanup(listKey: ConfigPF2eHomebrewList, deletions: strin
                 case 'weaponCategories': {
                     if (itemData.type === 'weapon') {
                         const category = itemData.data.weaponType;
-                        category.value = deletions.includes(category.value ?? '') ? null : category.value;
+                        category.value = deletions.includes(category.value ?? '') ? 'simple' : category.value;
                     }
                     break;
                 }
