@@ -10,7 +10,7 @@ declare global {
      */
     class Item<TParent extends Actor = Actor> extends ItemConstructor {
         /** A convenience alias of Item#parent which is more semantically intuitive */
-        get actor(): TParent;
+        get actor(): this['parent'];
 
         /** A convenience reference to the image path (data.img) used to represent this Item */
         get img(): ImagePath;
