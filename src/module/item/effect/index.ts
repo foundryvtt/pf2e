@@ -41,6 +41,7 @@ export class EffectPF2e extends ItemPF2e {
             result.expired = result.remaining <= 0;
             if (
                 result.remaining === 0 &&
+                ui.combat !== undefined &&
                 game.combat?.active &&
                 game.combat.combatant &&
                 game.combat.turns.length > game.combat.turn
