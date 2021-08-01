@@ -364,21 +364,21 @@
                         <ol class="npc-defense-list" style="display: flex; margin: 4px 0 5px 4px;">
                             <li class="npc-defense spellcasting-attribute" data-spelldc-attribute="dc" style="flex: 1;">
                                 <span class="defense-score spelldc-input">
-                                    <input data-item-id="{{entry.id}}" data-update-property="data.spelldc.dc" type="number" value="{{entry.data.spelldc.dc}}"
+                                    <input data-item-id="{{entry.id}}" data-property="data.spelldc.dc" type="number" value="{{entry.data.spelldc.dc}}"
                                             data-dtype="Number" placeholder="0"/>
                                 </span>
                                 <h4 class="spelldc-name">{{localize "PF2E.SpellSaveLabel"}}</h4>
                             </li>
                             <li class="npc-defense spellcasting-attribute" data-spelldc-attribute="value" style="flex: 1;">
                                     <span class="defense-score spelldc-input">
-                                        <input data-item-id="{{entry.id}}" data-update-property="data.spelldc.value" type="number" value="{{entry.data.spelldc.value}}"
+                                        <input data-item-id="{{entry.id}}" data-property="data.spelldc.value" type="number" value="{{entry.data.spelldc.value}}"
                                                 data-dtype="Number" placeholder="0"/>
                                     </span>
                                     <h4 class="spelldc-name">{{localize "PF2E.SpellAttackLabel"}}</h4>
                             </li>
                             <li class="npc-defense spellcasting-attribute" data-spelldc-attribute="ability" style="flex: 1;">
                                 <span class="spelldc-input" style="margin-top: 3px;">
-                                    <select class="pf-value" data-item-id="{{entry.id}}" data-update-property="data.ability.value" data-dtype="String">
+                                    <select class="pf-value" data-item-id="{{entry.id}}" data-property="data.ability.value" data-dtype="String">
                                         {{#select entry.data.ability.value}}
                                         <option value="str">{{localize 'PF2E.AbilityId.str'}}</option>
                                         <option value="dex">{{localize 'PF2E.AbilityId.dex'}}</option>
@@ -407,7 +407,7 @@
 
                                     {{#if entry.isPrepared}}
                                         <span class="spell-max-input">
-                                            <input type="number" data-item-id="{{entry.id}}" data-update-property="data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number" />
+                                            <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number" />
                                         </span>
                                     {{else}}
                                         {{#unless (or entry.isRitual entry.isFocusPool)}}
@@ -417,11 +417,11 @@
                                                 <span class="spell-max">&infin;</span>
                                             {{else}}
                                                 <span class="spell-slots-input">
-                                                    <input type="number" data-item-id="{{entry.id}}" data-update-property="data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0" data-dtype="Number" />
+                                                    <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0" data-dtype="Number" />
                                                 </span>
                                                 <span class="flex0"> / </span>
                                                 <span class="spell-max-input">
-                                                    <input type="number" data-item-id="{{entry.id}}" data-update-property="data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number" />
+                                                    <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number" />
                                                 </span>
                                             {{/if}}
                                         {{/unless}}
@@ -546,7 +546,7 @@
                             </div>
 
                             <div class="item-name item-name-input">
-                                <input data-item-id="{{lore._id}}" data-update-property="name" type="text" data-dtype="String" value="{{lore.name}}" placeholder="{{localize "PF2E.NewSkillPlaceholder"}}"/>
+                                <input data-item-id="{{lore._id}}" data-property="name" type="text" data-dtype="String" value="{{lore.name}}" placeholder="{{localize "PF2E.NewSkillPlaceholder"}}"/>
                             </div>
                         </div>
                         {{#if ../owner}}

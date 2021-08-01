@@ -217,33 +217,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     override activateListeners(html: JQuery): void {
         super.activateListeners(html);
 
-        // General handler for embedded item updates
-        // If simultaneous updates become an issue, move this to form submission or buffer the updates
-        html.find('[data-update-property][data-item-id]').on('change', (event) => {
-            const { itemId, updateProperty, dtype } = event.target.dataset;
-            if (!itemId || !updateProperty) return;
-
-            const value = (() => {
-                const value = $(event.target).val();
-                if (typeof value === 'undefined' || value === null) {
-                    return value;
-                }
-
-                switch (dtype) {
-                    case 'Boolean':
-                        return typeof value === 'boolean' ? value : value === 'true';
-                    case 'Number':
-                        return Number(value);
-                    case 'String':
-                        return String(value);
-                    default:
-                        return value;
-                }
-            })();
-
-            this.actor.updateEmbeddedDocuments('Item', [{ _id: itemId, [updateProperty]: value }]);
-        });
-
         // Pad field width
         html.find('[data-wpad]').each((_i, e) => {
             const text = e.tagName === 'INPUT' ? (e as HTMLInputElement).value : e.innerText;
