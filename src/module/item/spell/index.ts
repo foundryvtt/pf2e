@@ -76,7 +76,7 @@ export class SpellPF2e extends ItemPF2e {
 
     override getRollData(): Record<string, unknown> {
         const rollData = super.getRollData();
-        if (this.parent) {
+        if (this.actor) {
             const spellcasting = this.spellcasting;
             if (!spellcasting?.data && this.data.data.trickMagicItemData) {
                 rollData['mod'] = this.actor.getAbilityMod(this.data.data.trickMagicItemData.ability);
