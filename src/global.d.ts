@@ -32,7 +32,7 @@ import { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, ScenePF2e, Toke
 import { CompendiumBrowser } from '@module/apps/compendium-browser';
 import { remigrate } from '@scripts/system/remigrate';
 import { FolderPF2e } from '@module/folder';
-import { CanvasPF2e } from '@module/canvas';
+import { CanvasPF2e, DarkvisionLayerPF2e } from '@module/canvas';
 import { FogExplorationPF2e } from '@module/fog-exploration';
 import { ActorImporter } from '@system/importer/actor-importer';
 
@@ -71,15 +71,19 @@ declare global {
         };
     }
 
-    interface ConfigPF2e extends ParameterizedConfig {
-        debug: Config['debug'] & {
+    interface ConfigPF2e extends ConfiguredConfig {
+        debug: ConfiguredConfig['debug'] & {
             ruleElement: boolean;
         };
         PF2E: typeof PF2ECONFIG;
         time: {
             roundTime: number;
         };
-        Canvas: ParameterizedConfig['Canvas'];
+        Canvas: ConfiguredConfig['Canvas'] & {
+            layers: ConfiguredConfig['Canvas']['layers'] & {
+                darkvision: typeof DarkvisionLayerPF2e;
+            };
+        };
     }
 
     const CONFIG: ConfigPF2e;
@@ -131,7 +135,7 @@ declare global {
     const BUILD_MODE: 'development' | 'production';
 }
 
-type ParameterizedConfig = Config<
+type ConfiguredConfig = Config<
     AmbientLightDocumentPF2e,
     ActiveEffectPF2e,
     ActorPF2e,

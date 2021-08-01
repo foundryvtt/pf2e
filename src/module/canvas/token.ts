@@ -123,16 +123,16 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
         if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
-
         super._onControl(options);
+        if (this.hasDarkvision) canvas.darkvision.refresh();
     }
 
     /** Refresh vision and the `EffectPanel` */
     protected override _onRelease(options?: Record<string, unknown>) {
         game.pf2e.effectPanel.refresh();
         if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
-
         super._onRelease(options);
+        if (this.hasDarkvision) canvas.darkvision.refresh();
     }
 }
 
