@@ -7,9 +7,10 @@ export const DamageButtons = {
     listen: async (message: ChatMessagePF2e, html: JQuery): Promise<void> => {
         const damageRoll = message.getFlag("pf2e", "damageRoll");
         const fromRollTable = message.getFlag("core", "RollTable") !== undefined;
+        const isCheck = message.getFlag("pf2e", "isCheck");
         const isRoll = damageRoll || message.isRoll;
         const isD20 = (isRoll && message.roll && message.roll.dice[0]?.faces === 20) || false;
-        if (!isRoll || isD20 || fromRollTable) return;
+        if (!isRoll || isD20 || fromRollTable || isCheck) return;
 
         const $buttons = $(
             await renderTemplate("systems/pf2e/templates/chat/damage/buttons.html", {

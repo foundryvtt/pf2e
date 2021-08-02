@@ -134,6 +134,7 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     get roll(): Rolled<Roll<RollDataPF2e>>;
 
     getFlag(scope: "core", key: "RollTable"): unknown;
+    getFlag(scope: "pf2e", key: "isCheck"): boolean | undefined;
     getFlag(scope: "pf2e", key: "canReroll"): boolean | undefined;
     getFlag(scope: "pf2e", key: "damageRoll"): object | undefined;
     getFlag(scope: "pf2e", key: "modifierName"): string | undefined;

@@ -525,7 +525,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 }
                 CheckPF2e.roll(
                     new CheckModifier(label, stat),
-                    { actor: this, type: "skill-check", options, dc: args.dc, notes },
+                    { actor: this, type: "skill-check", options, dc: args.dc, notes, fate: args.fate },
                     args.event,
                     args.callback
                 );
