@@ -5,7 +5,7 @@ export function bonMot(options: SkillActionOptions) {
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
         property,
-        options.glyph,
+        options.glyph ?? "A",
         "PF2E.Actions.BonMot.Title",
         subtitle,
         options.modifiers,
