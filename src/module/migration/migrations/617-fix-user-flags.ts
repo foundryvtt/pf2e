@@ -15,8 +15,8 @@ export class Migration617FixUserFlags extends MigrationBase {
                 showEffectPanel: flags.pf2e?.showEffectPanel ?? true,
                 showRollDialogs,
             };
-            delete userData.flags.PF2e;
-            userData.flags['-=PF2e'] = null;
+            delete flags.PF2e;
+            flags['-=PF2e'] = null;
         }
     }
 }
