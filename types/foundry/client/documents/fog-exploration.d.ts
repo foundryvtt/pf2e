@@ -1,5 +1,5 @@
-import { FogExplorationConstructor } from './constructors';
-import * as io from 'socket.io';
+import { FogExplorationConstructor } from "./constructors";
+import * as io from "socket.io";
 
 declare global {
     /**
@@ -9,7 +9,7 @@ declare global {
     class FogExploration<TToken extends Token = Token> extends FogExplorationConstructor {
         constructor(
             data?: PreCreate<foundry.data.FogExplorationSource>,
-            context?: DocumentConstructionContext<FogExploration>,
+            context?: DocumentConstructionContext<FogExploration>
         );
 
         /**
@@ -24,7 +24,7 @@ declare global {
         static get<T extends FogExploration>(
             this: ConstructorOf<T>,
             { scene, user }?: { scene?: Scene; user?: User },
-            options?: Record<string, unknown>,
+            options?: Record<string, unknown>
         ): Promise<T | null>;
 
         /** Transform the explored base64 data into a PIXI.Texture object */

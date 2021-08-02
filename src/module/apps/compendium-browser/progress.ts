@@ -13,7 +13,7 @@ export class Progress {
     constructor({ steps = 1 } = {}) {
         this.steps = steps;
         this.counter = -1;
-        this.label = '';
+        this.label = "";
     }
 
     advance(label: string) {
@@ -31,13 +31,13 @@ export class Progress {
     }
 
     private updateUI() {
-        const $loader = $('#loading');
+        const $loader = $("#loading");
         if ($loader.length === 0) return;
         const pct = Math.clamped((100 * this.counter) / this.steps, 0, 100);
-        $loader.find('#context').text(this.label);
-        $loader.find('#loading-bar').css({ width: `${pct}%`, whiteSpace: 'nowrap' });
-        $loader.find('#progress').text(`${this.counter} / ${this.steps}`);
-        $loader.css({ display: 'block' });
-        if (this.counter === this.steps && !$loader.is(':hidden')) $loader.fadeOut(2000);
+        $loader.find("#context").text(this.label);
+        $loader.find("#loading-bar").css({ width: `${pct}%`, whiteSpace: "nowrap" });
+        $loader.find("#progress").text(`${this.counter} / ${this.steps}`);
+        $loader.css({ display: "block" });
+        if (this.counter === this.steps && !$loader.is(":hidden")) $loader.fadeOut(2000);
     }
 }

@@ -1,3 +1,3 @@
-import './data';
-import './document';
-import './embedded-collection';
+import "./data";
+import "./document";
+import "./embedded-collection";

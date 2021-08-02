@@ -141,15 +141,15 @@ declare global {
                  * @param [source=true] Draw values from the underlying data source rather than transformed values
                  * @returns The extracted primitive object
                  */
-                toObject<D extends DocumentData, B extends true>(this: D, source?: B): D['_source'];
+                toObject<D extends DocumentData, B extends true>(this: D, source?: B): D["_source"];
                 toObject<D extends DocumentData, B extends false>(this: D, source: B): RawObject<D>;
-                toObject<D extends DocumentData, B extends boolean>(source?: B): D['_source'] | RawObject<D>;
+                toObject<D extends DocumentData, B extends boolean>(source?: B): D["_source"] | RawObject<D>;
 
                 /**
                  * Extract the source data for the DocumentData into a simple object format that can be serialized.
                  * @returns The document source data expressed as a plain object
                  */
-                toJSON(): this['_source'];
+                toJSON(): this["_source"];
 
                 /**
                  * Create a DocumentData instance using a provided serialized JSON string.
@@ -162,8 +162,8 @@ declare global {
     }
 
     type RawObject<T extends foundry.abstract.DocumentData> = {
-        [P in keyof T['_source']]: T[P] extends foundry.abstract.EmbeddedCollection<infer U>
-            ? RawObject<U['data']>[]
+        [P in keyof T["_source"]]: T[P] extends foundry.abstract.EmbeddedCollection<infer U>
+            ? RawObject<U["data"]>[]
             : T[P] extends foundry.abstract.DocumentData
             ? RawObject<T[P]>
             : T[P] extends foundry.abstract.DocumentData[]

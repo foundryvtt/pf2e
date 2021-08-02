@@ -1,5 +1,5 @@
-import { ItemPF2e } from '../base';
-import { ConditionData } from './data';
+import { ItemPF2e } from "../base";
+import { ConditionData } from "./data";
 
 export class ConditionPF2e extends ItemPF2e {
     static override get schema(): typeof ConditionData {
@@ -21,7 +21,7 @@ export class ConditionPF2e extends ItemPF2e {
 
     /** Is the condition from the pf2e system or a module? */
     get fromSystem(): boolean {
-        return !!this.getFlag('pf2e', 'condition');
+        return !!this.getFlag("pf2e", "condition");
     }
 
     /** Is the condition found in the token HUD menu? */
@@ -40,8 +40,8 @@ export class ConditionPF2e extends ItemPF2e {
 export interface ConditionPF2e {
     readonly data: ConditionData;
 
-    getFlag(scope: 'core', key: 'sourceId'): string | undefined;
-    getFlag(scope: 'pf2e', key: 'constructing'): true | undefined;
-    getFlag(scope: 'pf2e', key: 'condition'): true | undefined;
+    getFlag(scope: "core", key: "sourceId"): string | undefined;
+    getFlag(scope: "pf2e", key: "constructing"): true | undefined;
+    getFlag(scope: "pf2e", key: "condition"): true | undefined;
     getFlag(scope: string, key: string): any;
 }

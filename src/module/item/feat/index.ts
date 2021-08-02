@@ -1,5 +1,5 @@
-import { ItemPF2e } from '../index';
-import { FeatData, FeatType } from './data';
+import { ItemPF2e } from "../index";
+import { FeatData, FeatType } from "./data";
 
 export class FeatPF2e extends ItemPF2e {
     static override get schema(): typeof FeatData {

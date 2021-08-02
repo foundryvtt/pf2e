@@ -1,6 +1,6 @@
-import { KitPF2e } from '@item/kit';
-import { PhysicalItemPF2e } from '@item/physical';
-import { ItemSheetPF2e } from '../sheet/base';
+import { KitPF2e } from "@item/kit";
+import { PhysicalItemPF2e } from "@item/physical";
+import { ItemSheetPF2e } from "../sheet/base";
 
 /**
  * @category Other
@@ -9,18 +9,18 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     static override get defaultOptions() {
         return {
             ...super.defaultOptions,
-            scrollY: ['.item-details'],
-            dragDrop: [{ dropSelector: '.item-details' }],
+            scrollY: [".item-details"],
+            dragDrop: [{ dropSelector: ".item-details" }],
         };
     }
 
     override getData() {
         const data = mergeObject(super.getBaseData(), {
-            type: 'kit',
+            type: "kit",
             hasSidebar: true,
-            sidebarTemplate: () => 'systems/pf2e/templates/items/kit-sidebar.html',
+            sidebarTemplate: () => "systems/pf2e/templates/items/kit-sidebar.html",
             hasDetails: true,
-            detailsTemplate: () => 'systems/pf2e/templates/items/kit-details.html',
+            detailsTemplate: () => "systems/pf2e/templates/items/kit-details.html",
             rarity: CONFIG.PF2E.rarityTraits,
         });
 
@@ -32,12 +32,12 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     protected override async _onDrop(event: ElementDragEvent): Promise<void> {
         event.preventDefault();
         const dropTarget = $(event.target);
-        const dragData = event.dataTransfer?.getData('text/plain');
-        const dragItem = JSON.parse(dragData ?? '');
+        const dragData = event.dataTransfer?.getData("text/plain");
+        const dragItem = JSON.parse(dragData ?? "");
         const containerId =
-            dropTarget.data('containerId') ?? dropTarget.parents('[data-container-id]').data('containerId');
+            dropTarget.data("containerId") ?? dropTarget.parents("[data-container-id]").data("containerId");
 
-        if (dragItem.type !== 'Item') return;
+        if (dragItem.type !== "Item") return;
 
         const item = dragItem.pack
             ? await game.packs.get(dragItem.pack)?.getDocument(dragItem.id)
@@ -53,12 +53,12 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
             img: item.data.img,
             quantity: 1,
             name: item.name,
-            isContainer: item.data.type === 'backpack' && !containerId,
+            isContainer: item.data.type === "backpack" && !containerId,
             items: {},
         };
 
         let { items } = this.item.data.data;
-        let pathPrefix = 'data.items';
+        let pathPrefix = "data.items";
 
         if (containerId !== undefined) {
             pathPrefix = `${pathPrefix}.${containerId}.items`;
@@ -76,9 +76,9 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
 
     removeItem(event: JQuery.ClickEvent) {
         event.preventDefault();
-        const target = $(event.target).parents('li');
-        const containerId = target.parents('[data-container-id]').data('containerId');
-        let path = `-=${target.data('index')}`;
+        const target = $(event.target).parents("li");
+        const containerId = target.parents("[data-container-id]").data("containerId");
+        let path = `-=${target.data("index")}`;
         if (containerId) {
             path = `${containerId}.items.${path}`;
         }
@@ -90,6 +90,6 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
 
     override activateListeners(html: JQuery): void {
         super.activateListeners(html);
-        html.on('click', '[data-action=remove]', (event) => this.removeItem(event));
+        html.on("click", "[data-action=remove]", (event) => this.removeItem(event));
     }
 }

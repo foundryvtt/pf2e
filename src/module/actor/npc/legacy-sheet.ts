@@ -1,11 +1,11 @@
-import { NPCLegacyEditSheetPF2e } from './legacy-edit-sheet';
-import { DicePF2e } from '@scripts/dice';
-import { ActorPF2e } from '../base';
-import { NPCSheetPF2e } from './sheet';
-import { SheetInventory } from '../sheet/data-types';
-import { ActionSource, ItemDataPF2e } from '@item/data';
-import { ActionPF2e } from '@item/action';
-import { MeleePF2e } from '@item/melee';
+import { NPCLegacyEditSheetPF2e } from "./legacy-edit-sheet";
+import { DicePF2e } from "@scripts/dice";
+import { ActorPF2e } from "../base";
+import { NPCSheetPF2e } from "./sheet";
+import { SheetInventory } from "../sheet/data-types";
+import { ActionSource, ItemDataPF2e } from "@item/data";
+import { ActionPF2e } from "@item/action";
+import { MeleePF2e } from "@item/melee";
 
 interface LootSheetData {
     actor: { name: string; items: ItemDataPF2e[] };
@@ -16,18 +16,18 @@ interface LootSheetData {
 export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
     override get template() {
         if (this.isLootSheet) {
-            return 'systems/pf2e/templates/actors/npc/loot-sheet.html';
+            return "systems/pf2e/templates/actors/npc/loot-sheet.html";
         }
 
-        const path = 'systems/pf2e/templates/actors/';
-        if (this.actor.getFlag('pf2e', 'editNPC.value')) return `${path}npc-sheet.html`;
+        const path = "systems/pf2e/templates/actors/";
+        if (this.actor.getFlag("pf2e", "editNPC.value")) return `${path}npc-sheet.html`;
         return `${path}npc-sheet-no-edit.html`;
     }
 
     static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes.concat('updatedNPCSheet'),
+            classes: options.classes.concat("updatedNPCSheet"),
             width: 650,
             height: 680,
             showUnpreparedSpells: true,
@@ -38,7 +38,7 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
     override get title() {
         if (this.isLootSheet) {
             const actorName = this.token?.name ?? this.actor.name;
-            return `${actorName} [${game.i18n.localize('PF2E.NPC.Dead')}]`;
+            return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`;
         }
         return super.title;
     }
@@ -55,24 +55,24 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         if (sheetData.flags.pf2e_updatednpcsheet.editNPC === undefined)
             sheetData.flags.pf2e_updatednpcsheet.editNPC = { value: false };
         if (sheetData.flags.pf2e_updatednpcsheet.allSaveDetail === undefined)
-            sheetData.flags.pf2e_updatednpcsheet.allSaveDetail = { value: '' };
+            sheetData.flags.pf2e_updatednpcsheet.allSaveDetail = { value: "" };
 
         // Elite or Weak adjustment
-        sheetData.npcEliteActive = this.npcIsElite ? ' active' : '';
-        sheetData.npcWeakActive = this.npcIsWeak ? ' active' : '';
-        sheetData.npcEliteHidden = this.npcIsWeak ? ' hidden' : '';
-        sheetData.npcWeakHidden = this.npcIsElite ? ' hidden' : '';
+        sheetData.npcEliteActive = this.npcIsElite ? " active" : "";
+        sheetData.npcWeakActive = this.npcIsWeak ? " active" : "";
+        sheetData.npcEliteHidden = this.npcIsWeak ? " hidden" : "";
+        sheetData.npcWeakHidden = this.npcIsElite ? " hidden" : "";
 
         // rarity
         sheetData.actorRarities = CONFIG.PF2E.rarityTraits;
         sheetData.actorRarity = sheetData.actorRarities[sheetData.data.traits.rarity.value];
-        sheetData.isNotCommon = sheetData.data.traits.rarity.value !== 'common';
+        sheetData.isNotCommon = sheetData.data.traits.rarity.value !== "common";
         // size
         sheetData.actorSize = sheetData.actorSizes[sheetData.data.traits.size.value];
         sheetData.actorTraits = (sheetData.data.traits.traits || {}).value;
         sheetData.actorAlignment = sheetData.data.details.alignment.value;
         sheetData.actorAttitudes = CONFIG.PF2E.attitude;
-        sheetData.actorAttitude = sheetData.actorAttitudes[sheetData.data.traits.attitude?.value ?? 'indifferent'];
+        sheetData.actorAttitude = sheetData.actorAttitudes[sheetData.data.traits.attitude?.value ?? "indifferent"];
         // languages
         sheetData.hasLanguages = false;
         if (
@@ -87,22 +87,22 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         sheetData.hasSkills = sheetData.actor.lores.length > 0;
 
         // AC Details
-        sheetData.hasACDetails = sheetData.data.attributes.ac.details && sheetData.data.attributes.ac.details !== '';
+        sheetData.hasACDetails = sheetData.data.attributes.ac.details && sheetData.data.attributes.ac.details !== "";
         // HP Details
-        sheetData.hasHPDetails = sheetData.data.attributes.hp.details && sheetData.data.attributes.hp.details !== '';
+        sheetData.hasHPDetails = sheetData.data.attributes.hp.details && sheetData.data.attributes.hp.details !== "";
 
         // ********** This section needs work *************
         // Fort Details
         sheetData.hasFortDetails =
-            sheetData.data.saves.fortitude.saveDetail && sheetData.data.saves.fortitude.saveDetail !== '';
+            sheetData.data.saves.fortitude.saveDetail && sheetData.data.saves.fortitude.saveDetail !== "";
         // Reflex Details
         sheetData.hasRefDetails =
-            sheetData.data.saves.reflex.saveDetail && sheetData.data.saves.reflex.saveDetail !== '';
+            sheetData.data.saves.reflex.saveDetail && sheetData.data.saves.reflex.saveDetail !== "";
         // Will Details
-        sheetData.hasWillDetails = sheetData.data.saves.will.saveDetail && sheetData.data.saves.will.saveDetail !== '';
+        sheetData.hasWillDetails = sheetData.data.saves.will.saveDetail && sheetData.data.saves.will.saveDetail !== "";
         // All Save Details
         sheetData.hasAllSaveDetails =
-            (sheetData.data.attributes.allSaves || {}).value && (sheetData.data.attributes.allSaves || {}).value !== '';
+            (sheetData.data.attributes.allSaves || {}).value && (sheetData.data.attributes.allSaves || {}).value !== "";
 
         // Immunities check
         sheetData.hasImmunities = sheetData.data.traits.di.value.length ? sheetData.data.traits.di.value : false;
@@ -124,30 +124,30 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         const equipment: any[] = [];
         const reorgActions = {
             interaction: {
-                label: 'Interaction Actions',
+                label: "Interaction Actions",
                 actions: {
-                    action: { label: 'Actions', actions: [] },
-                    reaction: { label: 'Reactions', actions: [] },
-                    free: { label: 'Free Actions', actions: [] },
-                    passive: { label: 'Passive Actions', actions: [] },
+                    action: { label: "Actions", actions: [] },
+                    reaction: { label: "Reactions", actions: [] },
+                    free: { label: "Free Actions", actions: [] },
+                    passive: { label: "Passive Actions", actions: [] },
                 },
             },
             defensive: {
-                label: 'Defensive Actions',
+                label: "Defensive Actions",
                 actions: {
-                    action: { label: 'Actions', actions: [] },
-                    reaction: { label: 'Reactions', actions: [] },
-                    free: { label: 'Free Actions', actions: [] },
-                    passive: { label: 'Passive Actions', actions: [] },
+                    action: { label: "Actions", actions: [] },
+                    reaction: { label: "Reactions", actions: [] },
+                    free: { label: "Free Actions", actions: [] },
+                    passive: { label: "Passive Actions", actions: [] },
                 },
             },
             offensive: {
-                label: 'Offensive Actions',
+                label: "Offensive Actions",
                 actions: {
-                    action: { label: 'Actions', actions: [] },
-                    reaction: { label: 'Reactions', actions: [] },
-                    free: { label: 'Free Actions', actions: [] },
-                    passive: { label: 'Passive Actions', actions: [] },
+                    action: { label: "Actions", actions: [] },
+                    reaction: { label: "Reactions", actions: [] },
+                    free: { label: "Free Actions", actions: [] },
+                    passive: { label: "Passive Actions", actions: [] },
                 },
             },
         };
@@ -158,11 +158,11 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         for (const i of sheetData.actor.items) {
             // Equipment
             if (
-                i.type === 'weapon' ||
-                i.type === 'armor' ||
-                i.type === 'equipment' ||
-                i.type === 'consumable' ||
-                i.type === 'treasure'
+                i.type === "weapon" ||
+                i.type === "armor" ||
+                i.type === "equipment" ||
+                i.type === "consumable" ||
+                i.type === "treasure"
             ) {
                 // non-strict because `quantity.value` can be a string
                 // eslint-disable-next-line eqeqeq
@@ -174,15 +174,15 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
                 sheetData.hasEquipment = true;
             }
             // Actions
-            else if (i.type === 'action') {
-                const actionType = i.data.actionType.value || 'action';
-                const actionCategory = i.data.actionCategory?.value || 'offensive';
+            else if (i.type === "action") {
+                const actionType = i.data.actionType.value || "action";
+                const actionCategory = i.data.actionCategory?.value || "offensive";
                 switch (actionCategory) {
-                    case 'interaction':
+                    case "interaction":
                         reorgActions.interaction.actions[actionType].actions.push(i);
                         sheetData.hasInteractionActions = true;
                         break;
-                    case 'defensive':
+                    case "defensive":
                         reorgActions.defensive.actions[actionType].actions.push(i);
                         sheetData.hasDefensiveActions = true;
                         break;
@@ -193,8 +193,8 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
                 }
             }
             // Give Melee/Ranged an img
-            else if (i.type === 'melee' || i.type === 'ranged') {
-                i.img = ActorPF2e.getActionGraphics('action', 1).imageUrl;
+            else if (i.type === "melee" || i.type === "ranged") {
+                i.img = ActorPF2e.getActionGraphics("action", 1).imageUrl;
             }
         }
         sheetData.actor.reorgActions = reorgActions;
@@ -207,52 +207,52 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
     private getLootData(data: LootSheetData) {
         data.actor.name = this.token?.name ?? this.actor.name;
         data.options.classes = data.options.classes
-            .filter((cls) => !['npc-sheet', 'updatedNPCSheet'].includes(cls))
-            .concat('npc');
+            .filter((cls) => !["npc-sheet", "updatedNPCSheet"].includes(cls))
+            .concat("npc");
         data.inventory = NPCSheetPF2e.prototype.prepareInventory({ items: data.actor.items });
 
         return data;
     }
 
     override get isLootSheet(): boolean {
-        const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
+        const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
         return npcsAreLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
     /** Increases the NPC via the Elite/Weak adjustment rules */
     npcAdjustment(increase: boolean) {
         let traits = duplicate(this.actor.data.data.traits.traits.value) ?? [];
-        const isElite = traits.some((trait) => trait === 'elite');
-        const isWeak = traits.some((trait) => trait === 'weak');
+        const isElite = traits.some((trait) => trait === "elite");
+        const isWeak = traits.some((trait) => trait === "weak");
 
         if (increase) {
             if (isWeak) {
                 console.log(`PF2e System | Adjusting NPC to become less powerful`);
-                traits = traits.filter((trait) => trait !== 'weak');
+                traits = traits.filter((trait) => trait !== "weak");
             } else if (!isWeak && !isElite) {
                 console.log(`PF2e System | Adjusting NPC to become more powerful`);
-                traits.push('elite');
+                traits.push("elite");
             }
         } else {
             if (isElite) {
                 console.log(`PF2e System | Adjusting NPC to become less powerful`);
-                traits = traits.filter((trait) => trait !== 'elite');
+                traits = traits.filter((trait) => trait !== "elite");
             } else if (!isElite && !isWeak) {
                 console.log(`PF2e System | Adjusting NPC to become less powerful`);
-                traits.push('weak');
+                traits.push("weak");
             }
         }
-        this.actor.update({ ['data.traits.traits.value']: traits });
+        this.actor.update({ ["data.traits.traits.value"]: traits });
     }
 
     /** Check if Elite */
     get npcIsElite() {
-        return this.actor.data.data.traits.traits.value.some((trait) => trait === 'elite');
+        return this.actor.data.data.traits.traits.value.some((trait) => trait === "elite");
     }
 
     /** Check if Weak */
     get npcIsWeak() {
-        return this.actor.data.data.traits.traits.value.some((trait) => trait === 'weak');
+        return this.actor.data.data.traits.traits.value.some((trait) => trait === "weak");
     }
 
     /**
@@ -292,13 +292,13 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
 
     /** Toggle expansion of an attackEffect ability if it exists. */
     expandAttackEffect(attackEffectName: string, event: JQuery.TriggeredEvent) {
-        const actionList = $(event.currentTarget).parents('form').find('.item.action-item');
+        const actionList = $(event.currentTarget).parents("form").find(".item.action-item");
         let toggledAnything = false;
         const mAbilities = CONFIG.PF2E.monsterAbilities();
         actionList.each((_index, element) => {
             // 'this' = element found
-            if ($(element).attr('data-item-name')?.trim().toLowerCase() === attackEffectName.trim().toLowerCase()) {
-                $(element).find('h4').trigger('click');
+            if ($(element).attr("data-item-name")?.trim().toLowerCase() === attackEffectName.trim().toLowerCase()) {
+                $(element).find("h4").trigger("click");
                 toggledAnything = true;
             }
         });
@@ -307,11 +307,11 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
             if (newAbilityInfo) {
                 const newAction = {
                     name: attackEffectName,
-                    type: 'action',
+                    type: "action",
                     data: {
                         actionType: { value: newAbilityInfo.actionType },
-                        actionCategory: { value: 'offensive' },
-                        source: { value: '' },
+                        actionCategory: { value: "offensive" },
+                        source: { value: "" },
                         description: { value: newAbilityInfo.description },
                         traits: { value: [] },
                         actions: { value: newAbilityInfo.actionCost },
@@ -346,86 +346,86 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
 
         // Set the inventory tab as active on a loot-sheet rendering.
         if (this.isLootSheet) {
-            html.find('.tab.inventory').addClass('active');
+            html.find(".tab.inventory").addClass("active");
         }
 
         if (!this.options.editable) return;
 
-        html.find('.npc-detail-text textarea').on('focusout', async (event) => {
-            event.target.style.height = '5px';
+        html.find(".npc-detail-text textarea").on("focusout", async (event) => {
+            event.target.style.height = "5px";
             event.target.style.height = `${event.target.scrollHeight}px`;
         });
 
-        html.find('.npc-detail-text textarea').each((_index, element) => {
-            element.style.height = '5px';
+        html.find(".npc-detail-text textarea").each((_index, element) => {
+            element.style.height = "5px";
             element.style.height = `${element.scrollHeight}px`;
         });
 
-        html.find<HTMLInputElement>('.isNPCEditable').on('change', (event) => {
-            this.actor.setFlag('pf2e', 'editNPC', { value: event.target.checked });
+        html.find<HTMLInputElement>(".isNPCEditable").on("change", (event) => {
+            this.actor.setFlag("pf2e", "editNPC", { value: event.target.checked });
         });
 
         // NPC Weapon Rolling
 
-        html.find('button.npc-damageroll').on('click', (event) => {
+        html.find("button.npc-damageroll").on("click", (event) => {
             event.preventDefault();
             event.stopPropagation();
 
-            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
-            const drId = Number($(event.currentTarget).attr('data-dmgRoll'));
+            const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
+            const drId = Number($(event.currentTarget).attr("data-dmgRoll"));
             const item = this.actor.items.get(itemId, { strict: true });
             const damageRoll = item.data.flags.pf2e_updatednpcsheet.damageRolls[drId];
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (event.target.dataset.action) {
-                case 'npcDamageRoll':
+                case "npcDamageRoll":
                     this.rollNPCDamageRoll(event, damageRoll, item);
                     break;
                 default:
             }
         });
 
-        html.find('button.npc-attackEffect').on('click', (event) => {
+        html.find("button.npc-attackEffect").on("click", (event) => {
             event.preventDefault();
             event.stopPropagation();
 
-            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
-            const aId = Number($(event.currentTarget).attr('data-attackEffect'));
+            const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
+            const aId = Number($(event.currentTarget).attr("data-attackEffect"));
             const item = this.actor.items.get(itemId);
             if (!(item instanceof MeleePF2e)) {
-                console.log('PF2e System | clicked an attackEffect, but item was not a melee');
+                console.log("PF2e System | clicked an attackEffect, but item was not a melee");
                 return;
             }
 
             const attackEffect = item.data.data.attackEffects.value[aId];
-            console.log('PF2e System | clicked an attackEffect:', attackEffect, event);
+            console.log("PF2e System | clicked an attackEffect:", attackEffect, event);
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (event.target.dataset.action) {
-                case 'npcAttackEffect':
+                case "npcAttackEffect":
                     this.expandAttackEffect(attackEffect, event);
                     break;
                 default:
             }
         });
 
-        html.find('a.npc-elite-adjustment').on('click', (event) => {
+        html.find("a.npc-elite-adjustment").on("click", (event) => {
             event.preventDefault();
             console.log(`PF2e System | Adding Elite adjustment to NPC`);
             const eliteButton = $(event.currentTarget);
-            const weakButton = eliteButton.siblings('.npc-weak-adjustment');
-            eliteButton.toggleClass('active');
-            weakButton.toggleClass('hidden');
-            this.npcAdjustment(eliteButton.hasClass('active'));
+            const weakButton = eliteButton.siblings(".npc-weak-adjustment");
+            eliteButton.toggleClass("active");
+            weakButton.toggleClass("hidden");
+            this.npcAdjustment(eliteButton.hasClass("active"));
         });
-        html.find('a.npc-weak-adjustment').on('click', (event) => {
+        html.find("a.npc-weak-adjustment").on("click", (event) => {
             event.preventDefault();
             console.log(`PF2e System | Adding Weak adjustment to NPC`);
             const weakButton = $(event.currentTarget);
-            const eliteButton = weakButton.siblings('.npc-elite-adjustment');
-            weakButton.toggleClass('active');
-            eliteButton.toggleClass('hidden');
-            this.npcAdjustment(!weakButton.hasClass('active'));
+            const eliteButton = weakButton.siblings(".npc-elite-adjustment");
+            weakButton.toggleClass("active");
+            eliteButton.toggleClass("hidden");
+            this.npcAdjustment(!weakButton.hasClass("active"));
         });
     }
 }

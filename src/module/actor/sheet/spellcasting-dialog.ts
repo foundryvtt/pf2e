@@ -1,4 +1,4 @@
-import { SpellcastingEntryPF2e } from '@item';
+import { SpellcastingEntryPF2e } from "@item";
 
 interface SpellcastingRenderOptions {
     entry?: SpellcastingEntryPF2e;
@@ -7,8 +7,8 @@ interface SpellcastingRenderOptions {
 
 /** Creates a dialog to create or update spellcasting entries. */
 export async function createSpellcastingDialog(event: JQuery.ClickEvent, options: SpellcastingRenderOptions) {
-    const magicTradition = options.entry?.tradition || 'arcane';
-    const spellcastingType = options.entry?.data.data.prepared.value || 'innate';
+    const magicTradition = options.entry?.tradition || "arcane";
+    const spellcastingType = options.entry?.data.data.prepared.value || "innate";
 
     const dialogData = {
         magicTradition,
@@ -18,36 +18,36 @@ export async function createSpellcastingDialog(event: JQuery.ClickEvent, options
         entry: options.entry,
     };
 
-    const path = 'systems/pf2e/templates/actors/spellcasting-dialog.html';
+    const path = "systems/pf2e/templates/actors/spellcasting-dialog.html";
     const content = await renderTemplate(path, dialogData);
     return new Dialog(
         {
-            title: game.i18n.localize('PF2E.SpellcastingTypeLabel'),
+            title: game.i18n.localize("PF2E.SpellcastingTypeLabel"),
             content,
             render: (html) => {
                 // Set visibility of elements based on current values
                 // Using visibility over display prevents stretching of dialog elements
                 const typeField = $(html).find('[name="spellcastingType"]');
-                typeField.on('change', () => {
-                    const traditionGroup = $(html).find('.tradition-group');
-                    const isRitual = typeField.val() === 'ritual';
-                    traditionGroup.css('visibility', isRitual ? 'hidden' : 'visible');
+                typeField.on("change", () => {
+                    const traditionGroup = $(html).find(".tradition-group");
+                    const isRitual = typeField.val() === "ritual";
+                    traditionGroup.css("visibility", isRitual ? "hidden" : "visible");
                 });
             },
             buttons: {
                 finish: {
                     label: options.entry
-                        ? game.i18n.localize('PF2E.UpdateLabelUniversal')
-                        : game.i18n.localize('PF2E.CreateLabelUniversal'),
+                        ? game.i18n.localize("PF2E.UpdateLabelUniversal")
+                        : game.i18n.localize("PF2E.CreateLabelUniversal"),
                     callback: options.callback,
                 },
             },
-            default: 'finish',
+            default: "finish",
         },
         {
             width: 300,
             top: event.clientY - 80,
             left: window.innerWidth - 710,
-        },
+        }
     ).render(true);
 }

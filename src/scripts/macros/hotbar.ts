@@ -1,10 +1,10 @@
-import { ItemPF2e } from '@item/base';
-import { ItemDataPF2e } from '@item/data';
-import { EffectPF2e } from '@item/effect';
-import { MacroPF2e } from '@module/macro';
-import { ChatMessagePF2e } from '@module/chat-message';
-import { SKILL_DICTIONARY } from '@actor/data/values';
-import { SkillAbbreviation } from '@actor/creature/data';
+import { ItemPF2e } from "@item/base";
+import { ItemDataPF2e } from "@item/data";
+import { EffectPF2e } from "@item/effect";
+import { MacroPF2e } from "@module/macro";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { SKILL_DICTIONARY } from "@actor/data/values";
+import { SkillAbbreviation } from "@actor/creature/data";
 
 /**
  * Create a Macro from an Item drop.
@@ -20,11 +20,11 @@ export async function createItemMacro(item: ItemDataPF2e, slot: number): Promise
             {
                 command,
                 name: item.name,
-                type: 'script',
+                type: "script",
                 img: item.img,
-                flags: { 'pf2e.itemMacro': true },
+                flags: { "pf2e.itemMacro": true },
             },
-            { renderSheet: false },
+            { renderSheet: false }
         ));
     game.user.assignHotbarMacro(macro ?? null, slot);
 }
@@ -34,9 +34,9 @@ export async function createItemMacro(item: ItemDataPF2e, slot: number): Promise
  * Get an existing item macro if one exists, otherwise create a new one.
  * @param itemId
  */
-export function rollItemMacro(itemId: string): ReturnType<ItemPF2e['toChat']> | void {
+export function rollItemMacro(itemId: string): ReturnType<ItemPF2e["toChat"]> | void {
     const speaker = ChatMessage.getSpeaker();
-    const actor = canvas.tokens.get(speaker.token ?? '')?.actor ?? game.actors.get(speaker.actor ?? '');
+    const actor = canvas.tokens.get(speaker.token ?? "")?.actor ?? game.actors.get(speaker.actor ?? "");
     const item = actor?.items?.get(itemId);
     if (!item) return ui.notifications.warn(`Your controlled Actor does not have an item with ID ${itemId}`);
 
@@ -47,7 +47,7 @@ export function rollItemMacro(itemId: string): ReturnType<ItemPF2e['toChat']> | 
 export async function createActionMacro(actionIndex: string, actorId: string, slot: number): Promise<void> {
     const actor = game.actors.get(actorId);
     const action = (actor as any).data.data.actions[actionIndex];
-    const macroName = `${game.i18n.localize('PF2E.WeaponStrikeLabel')}: ${action.name}`;
+    const macroName = `${game.i18n.localize("PF2E.WeaponStrikeLabel")}: ${action.name}`;
     const actionName = JSON.stringify(action.name);
     const command = `game.pf2e.rollActionMacro('${actorId}', ${actionIndex}, ${actionName})`;
     const actionMacro =
@@ -56,11 +56,11 @@ export async function createActionMacro(actionIndex: string, actorId: string, sl
             {
                 command,
                 name: macroName,
-                type: 'script',
+                type: "script",
                 img: action.imageUrl,
-                flags: { 'pf2e.actionMacro': true },
+                flags: { "pf2e.actionMacro": true },
             },
-            { renderSheet: false },
+            { renderSheet: false }
         ));
     game.user.assignHotbarMacro(actionMacro ?? null, slot);
 }
@@ -70,7 +70,7 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
     if (actor) {
         const action = (actor as any).data.data.actions[actionIndex];
         if (action && action.name === actionName) {
-            if (action.type === 'strike') {
+            if (action.type === "strike") {
                 const templateData = {
                     actor,
                     strike: action,
@@ -79,8 +79,8 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
                 };
 
                 const messageContent = await renderTemplate(
-                    'systems/pf2e/templates/chat/strike-card.html',
-                    templateData,
+                    "systems/pf2e/templates/chat/strike-card.html",
+                    templateData
                 );
                 const chatData: Partial<foundry.data.ChatMessageSource> = {
                     user: game.user.id,
@@ -98,18 +98,18 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
                     },
                 };
 
-                const rollMode = game.settings.get('core', 'rollMode');
-                if (['gmroll', 'blindroll'].includes(rollMode))
-                    chatData.whisper = ChatMessage.getWhisperRecipients('GM').map((u) => u.id);
-                if (rollMode === 'blindroll') chatData.blind = true;
+                const rollMode = game.settings.get("core", "rollMode");
+                if (["gmroll", "blindroll"].includes(rollMode))
+                    chatData.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
+                if (rollMode === "blindroll") chatData.blind = true;
 
                 ChatMessagePF2e.create(chatData);
             }
         } else {
-            ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActionError'));
+            ui.notifications.error(game.i18n.localize("PF2E.MacroActionNoActionError"));
         }
     } else {
-        ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActorError'));
+        ui.notifications.error(game.i18n.localize("PF2E.MacroActionNoActorError"));
     }
 }
 
@@ -123,18 +123,18 @@ if (a) {
 } else {
     ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActorError'));
 }`;
-    const macroName = game.i18n.format('PF2E.SkillCheckWithName', { skillName });
+    const macroName = game.i18n.format("PF2E.SkillCheckWithName", { skillName });
     const skillMacro =
         game.macros.find((macro) => macro.name === macroName && macro.data.command === command) ??
         (await MacroPF2e.create(
             {
                 command,
                 name: macroName,
-                type: 'script',
-                img: 'icons/svg/d20-grey.svg',
-                flags: { 'pf2e.skillMacro': true },
+                type: "script",
+                img: "icons/svg/d20-grey.svg",
+                flags: { "pf2e.skillMacro": true },
             },
-            { renderSheet: false },
+            { renderSheet: false }
         ));
     game.user.assignHotbarMacro(skillMacro ?? null, slot);
 }
@@ -147,24 +147,24 @@ if (a) {
 } else {
     ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActorError'));
 }`;
-    const macroName = game.i18n.format('PF2E.ToggleWithName', { property: label });
+    const macroName = game.i18n.format("PF2E.ToggleWithName", { property: label });
     const toggleMacro =
         game.macros.find((macro) => macro.name === macroName && macro.data.command === command) ??
         (await MacroPF2e.create(
             {
                 command,
                 name: macroName,
-                type: 'script',
-                img: 'icons/svg/d20-grey.svg',
-                flags: { 'pf2e.skillMacro': true },
+                type: "script",
+                img: "icons/svg/d20-grey.svg",
+                flags: { "pf2e.skillMacro": true },
             },
-            { renderSheet: false },
+            { renderSheet: false }
         ));
     game.user.assignHotbarMacro(toggleMacro ?? null, slot);
 }
 
 export async function createToggleEffectMacro(pack: string, effect: EffectPF2e, slot: number) {
-    const prefix = pack ? `Compendium.${pack}` : 'Item';
+    const prefix = pack ? `Compendium.${pack}` : "Item";
     const command = `
 const actors = canvas.tokens.controlled.flatMap((token) => token.actor ?? []);
 if (!actors.length && game.user.character) {
@@ -189,10 +189,10 @@ for await (const actor of actors) {
             {
                 command,
                 name: effect.data.name,
-                type: 'script',
+                type: "script",
                 img: effect.data.img,
             },
-            { renderSheet: false },
+            { renderSheet: false }
         ));
     game.user.assignHotbarMacro(toggleMacro ?? null, slot);
 }

@@ -6,7 +6,7 @@ import {
     BaseCreatureSource,
     CreatureSystemData,
     SaveData,
-} from '@actor/creature/data';
+} from "@actor/creature/data";
 import {
     ArmorClassData,
     DexterityModifierCapData,
@@ -14,20 +14,20 @@ import {
     RawInitiativeData,
     Rollable,
     StrikeData,
-} from '@actor/data/base';
-import { StatisticModifier } from '@module/modifiers';
-import { LabeledValue } from '@module/data';
-import type { NPCPF2e } from '.';
+} from "@actor/data/base";
+import { StatisticModifier } from "@module/modifiers";
+import { LabeledValue } from "@module/data";
+import type { NPCPF2e } from ".";
 
-export type NPCSource = BaseCreatureSource<'npc', NPCSystemData>;
+export type NPCSource = BaseCreatureSource<"npc", NPCSystemData>;
 
 export class NPCData extends BaseCreatureData<NPCPF2e, NPCSystemData> {
-    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/npc.svg';
+    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/npc.svg";
 }
 
-export interface NPCData extends Omit<NPCSource, 'effects' | 'items' | 'token'> {
-    readonly type: NPCSource['type'];
-    data: NPCSource['data'];
+export interface NPCData extends Omit<NPCSource, "effects" | "items" | "token"> {
+    readonly type: NPCSource["type"];
+    data: NPCSource["data"];
     readonly _source: NPCSource;
 }
 

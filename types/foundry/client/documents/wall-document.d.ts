@@ -1,4 +1,4 @@
-import { WallDocumentConstructor } from './constructors';
+import { WallDocumentConstructor } from "./constructors";
 
 declare global {
     class WallDocument extends WallDocumentConstructor {}

@@ -1,11 +1,11 @@
-import { LocalizePF2e } from '@module/system/localize';
-import { ConsumableData, ConsumableType } from './data';
-import { PhysicalItemPF2e, SpellPF2e } from '@item';
-import { TrickMagicItemCastData } from '@item/data';
-import { ErrorPF2e, tupleHasValue } from '@module/utils';
-import { ChatMessagePF2e } from '@module/chat-message';
-import { canCastConsumable } from './spell-consumables';
-import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
+import { LocalizePF2e } from "@module/system/localize";
+import { ConsumableData, ConsumableType } from "./data";
+import { PhysicalItemPF2e, SpellPF2e } from "@item";
+import { TrickMagicItemCastData } from "@item/data";
+import { ErrorPF2e, tupleHasValue } from "@module/utils";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { canCastConsumable } from "./spell-consumables";
+import { TrickMagicItemPopup } from "@actor/sheet/trick-magic-item-popup";
 
 export class ConsumablePF2e extends PhysicalItemPF2e {
     static override get schema(): typeof ConsumableData {
@@ -35,7 +35,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
 
         const heightenedLevel = this.data.data.spell.heightenedLevel;
-        if (typeof heightenedLevel === 'number') {
+        if (typeof heightenedLevel === "number") {
             spellData.data.heightenedLevel = { value: heightenedLevel };
         }
 
@@ -50,7 +50,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             ? [game.i18n.localize(this.consumableType), true]
             : [
                   this.generateUnidentifiedName({ typeOnly: true }),
-                  !['other', 'scroll', 'talisman', 'tool', 'wand'].includes(this.consumableType),
+                  !["other", "scroll", "talisman", "tool", "wand"].includes(this.consumableType),
               ];
 
         return this.processChatData(htmlOptions, {
@@ -70,12 +70,12 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const translations = LocalizePF2e.translations.PF2E.identification;
         const liquidOrSubstance = () =>
-            this.traits.has('inhaled') || this.traits.has('contact')
+            this.traits.has("inhaled") || this.traits.has("contact")
                 ? translations.UnidentifiedType.Substance
                 : translations.UnidentifiedType.Liquid;
-        const itemType = ['drug', 'elixir', 'mutagen', 'oil', 'poison', 'potion'].includes(this.consumableType)
+        const itemType = ["drug", "elixir", "mutagen", "oil", "poison", "potion"].includes(this.consumableType)
             ? liquidOrSubstance()
-            : ['scroll', 'snare', 'ammo'].includes(this.consumableType)
+            : ["scroll", "snare", "ammo"].includes(this.consumableType)
             ? game.i18n.localize(CONFIG.PF2E.consumableTypes[this.consumableType])
             : translations.UnidentifiedType.Object;
 
@@ -87,13 +87,13 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
 
     /** Use a consumable item, sending the result to chat */
     async consume(this: Embedded<ConsumablePF2e>): Promise<void> {
-        if (['scroll', 'wand'].includes(this.data.data.consumableType.value) && this.data.data.spell.data) {
+        if (["scroll", "wand"].includes(this.data.data.consumableType.value) && this.data.data.spell.data) {
             if (canCastConsumable(this.actor, this.data)) {
                 this.castEmbeddedSpell();
-            } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === 'trick-magic-item')) {
+            } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === "trick-magic-item")) {
                 new TrickMagicItemPopup(this);
             } else {
-                const content = game.i18n.format('PF2E.LackCastConsumableCapability', { name: this.name });
+                const content = game.i18n.format("PF2E.LackCastConsumableCapability", { name: this.name });
                 await ChatMessagePF2e.create({
                     user: game.user.id,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -128,21 +128,21 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
                 await this.update({
-                    'data.quantity.value': Math.max(quantity - 1, 0),
-                    'data.charges.value': charges.max,
+                    "data.quantity.value": Math.max(quantity - 1, 0),
+                    "data.charges.value": charges.max,
                 });
             }
         } else {
             // Deduct one charge
             await this.update({
-                'data.charges.value': Math.max(charges.value - 1, 0),
+                "data.charges.value": Math.max(charges.value - 1, 0),
             });
         }
     }
 
     async castEmbeddedSpell(
         this: Embedded<ConsumablePF2e>,
-        trickMagicItemData?: TrickMagicItemCastData,
+        trickMagicItemData?: TrickMagicItemCastData
     ): Promise<void> {
         const spell = this.embeddedSpell;
         if (!spell) return;
@@ -150,7 +150,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         // Filter to only spellcasting entries that are eligible to cast this consumable
         const realEntries = actor.itemTypes.spellcastingEntry
             .map((entry) => entry.data)
-            .filter((i) => ['prepared', 'spontaneous'].includes(i.data.prepared.value))
+            .filter((i) => ["prepared", "spontaneous"].includes(i.data.prepared.value))
             .filter((i) => tupleHasValue(spell.data.data.traditions.value, i.data.tradition.value));
         const spellcastingEntries = trickMagicItemData ? [trickMagicItemData] : realEntries;
         if (spellcastingEntries.length > 0) {
@@ -166,7 +166,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             systemData.trickMagicItemData = trickMagicItemData;
             systemData.location.value = spellcastingEntries[bestEntry]._id;
 
-            const isSave = systemData.spellType.value === 'save' || systemData.save.value !== '';
+            const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
             systemData.save.dc = isSave
                 ? spellcastingEntries[bestEntry].data.spelldc.dc
                 : spellcastingEntries[bestEntry].data.spelldc.value;
@@ -196,10 +196,10 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             };
 
             // Toggle default roll mode
-            const rollMode = game.settings.get('core', 'rollMode');
-            if (['gmroll', 'blindroll'].includes(rollMode))
-                chatData.whisper = ChatMessage.getWhisperRecipients('GM').map((u) => u.id);
-            if (rollMode === 'blindroll') chatData.blind = true;
+            const rollMode = game.settings.get("core", "rollMode");
+            if (["gmroll", "blindroll"].includes(rollMode))
+                chatData.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
+            if (rollMode === "blindroll") chatData.blind = true;
 
             // Render the template
             chatData.content = await renderTemplate(template, templateData);

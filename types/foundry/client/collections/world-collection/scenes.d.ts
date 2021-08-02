@@ -1,4 +1,4 @@
-import * as io from 'socket.io';
+import * as io from "socket.io";
 
 declare global {
     /**
@@ -11,7 +11,7 @@ declare global {
         /* -------------------------------------------- */
 
         /** @override */
-        static documentName: 'Scene';
+        static documentName: "Scene";
 
         /** Return a reference to the Scene which is currently active */
         get active(): TScene;

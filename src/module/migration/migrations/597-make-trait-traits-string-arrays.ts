@@ -1,5 +1,5 @@
-import { MigrationBase } from '../base';
-import { ItemSourcePF2e } from '@item/data';
+import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data";
 
 /** Change `delimiter`-delimited string traits into arrays of strings */
 export class Migration597MakeTraitTraitsArrays extends MigrationBase {
@@ -13,10 +13,10 @@ export class Migration597MakeTraitTraitsArrays extends MigrationBase {
         traits.value = (() => {
             if (Array.isArray(traits.value)) {
                 return traits.value.flatMap((trait) =>
-                    typeof trait === 'string' && trait.trim().length > 0 ? dromedarify(trait.trim()) : [],
+                    typeof trait === "string" && trait.trim().length > 0 ? dromedarify(trait.trim()) : []
                 );
             }
-            if (typeof traits.value === 'string') {
+            if (typeof traits.value === "string") {
                 return traits.value.split(delimiter).flatMap((trait) => (trait.length > 0 ? dromedarify(trait) : []));
             }
             // What is this???

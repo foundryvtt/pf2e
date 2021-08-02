@@ -1,18 +1,18 @@
-import { DamageType } from '@module/damage-calculation';
-import { DocumentSchemaRecord, LabeledNumber, LabeledValue, Rarity, Size, ValuesList } from '@module/data';
-import { ActorType } from '.';
-import type { ActorPF2e } from '@actor/base';
-import type { ActiveEffectPF2e } from '@module/active-effect';
-import type { ItemPF2e } from '@item/base';
-import { CheckModifier, StatisticModifier } from '@module/modifiers';
-import { ABILITY_ABBREVIATIONS } from './values';
-import { RollParameters } from '@module/system/rolls';
-import { ConsumableData } from '@item/consumable/data';
-import { ItemSourcePF2e } from '@item/data';
+import { DamageType } from "@module/damage-calculation";
+import { DocumentSchemaRecord, LabeledNumber, LabeledValue, Rarity, Size, ValuesList } from "@module/data";
+import { ActorType } from ".";
+import type { ActorPF2e } from "@actor/base";
+import type { ActiveEffectPF2e } from "@module/active-effect";
+import type { ItemPF2e } from "@item/base";
+import { CheckModifier, StatisticModifier } from "@module/modifiers";
+import { ABILITY_ABBREVIATIONS } from "./values";
+import { RollParameters } from "@module/system/rolls";
+import { ConsumableData } from "@item/consumable/data";
+import { ItemSourcePF2e } from "@item/data";
 
 export interface BaseActorSourcePF2e<
     TActorType extends ActorType = ActorType,
-    TSystemData extends ActorSystemData = ActorSystemData,
+    TSystemData extends ActorSystemData = ActorSystemData
 > extends foundry.data.ActorSource {
     type: TActorType;
     data: TSystemData;
@@ -27,9 +27,9 @@ export abstract class BaseActorDataPF2e<TActor extends ActorPF2e = ActorPF2e> ex
 > {}
 
 export interface BaseActorDataPF2e
-    extends Omit<BaseActorSourcePF2e<ActorType, ActorSystemData>, 'effects' | 'items' | 'token'> {
-    type: BaseActorSourcePF2e['type'];
-    data: BaseActorSourcePF2e['data'];
+    extends Omit<BaseActorSourcePF2e<ActorType, ActorSystemData>, "effects" | "items" | "token"> {
+    type: BaseActorSourcePF2e["type"];
+    data: BaseActorSourcePF2e["data"];
 
     readonly _source: BaseActorSourcePF2e;
 }
@@ -71,7 +71,7 @@ export interface BaseTraitsData {
     /** Condition immunities */
     ci: LabeledValue[];
     /** Damage immunities this actor has. */
-    di: ValuesList<Exclude<DamageType, 'untyped'>>;
+    di: ValuesList<Exclude<DamageType, "untyped">>;
     /** Damage resistances that this actor has. */
     dr: LabeledNumber[];
     /** Damage vulnerabilities that this actor has. */
@@ -102,7 +102,7 @@ export type RollFunction = (parameters: RollParameters) => string | void | Promi
 /** Basic initiative-relevant data. */
 export interface RawInitiativeData {
     /** What skill or ability is currently being used to compute initiative. */
-    ability: AbilityString | 'perception';
+    ability: AbilityString | "perception";
     /** The textual name for what type of initiative is being rolled (usually includes the skill). */
     label: string;
 }
@@ -152,7 +152,7 @@ export interface StrikeTrait {
 /** An strike which a character can use. */
 export interface StrikeData {
     /** The type of action; currently just 'strike'. */
-    type: 'strike';
+    type: "strike";
     /** The image URL for this strike (shown on the UI). */
     imageUrl: string;
     /** The glyph for this strike (how many actions it takes, reaction, etc). */

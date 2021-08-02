@@ -1,5 +1,5 @@
-import { MeasuredTemplatePF2e } from '@module/canvas/measured-template';
-import { ScenePF2e } from './document';
+import { MeasuredTemplatePF2e } from "@module/canvas/measured-template";
+import { ScenePF2e } from "./document";
 
 export class MeasuredTemplateDocumentPF2e extends MeasuredTemplateDocument {}
 

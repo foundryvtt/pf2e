@@ -7,7 +7,7 @@ declare class Folders<TFolder extends Folder = Folder> extends WorldCollection<T
 
     protected _expanded: Record<string, boolean>;
 
-    static override documentName: 'Folder';
+    static override documentName: "Folder";
 
     override render(force: boolean, options?: RenderOptions): void;
 

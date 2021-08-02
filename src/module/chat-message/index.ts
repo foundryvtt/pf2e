@@ -1,29 +1,29 @@
-import type { ActorPF2e } from '@actor/index';
-import { CheckModifiersContext } from '@module/system/check-modifiers-dialog';
-import { RollDataPF2e } from '@system/rolls';
-import { ChatCards } from './listeners/cards';
-import { CriticalHitAndFumbleCards } from './crit-fumble-cards';
-import { ItemType } from '@item/data';
-import { ItemPF2e } from '@item';
-import { TokenPF2e } from '@module/canvas';
-import { ModifierPF2e } from '@module/modifiers';
-import { InlineRollsLinks } from '@scripts/ui/inline-roll-links';
-import { DamageButtons } from './listeners/damage-buttons';
-import { DegreeOfSuccessHighlights } from './listeners/degree-of-success';
+import type { ActorPF2e } from "@actor/index";
+import { CheckModifiersContext } from "@module/system/check-modifiers-dialog";
+import { RollDataPF2e } from "@system/rolls";
+import { ChatCards } from "./listeners/cards";
+import { CriticalHitAndFumbleCards } from "./crit-fumble-cards";
+import { ItemType } from "@item/data";
+import { ItemPF2e } from "@item";
+import { TokenPF2e } from "@module/canvas";
+import { ModifierPF2e } from "@module/modifiers";
+import { InlineRollsLinks } from "@scripts/ui/inline-roll-links";
+import { DamageButtons } from "./listeners/damage-buttons";
+import { DegreeOfSuccessHighlights } from "./listeners/degree-of-success";
 
 class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** Get the actor associated with this chat message */
     get actor(): ActorPF2e | null {
         const fromItem = ((): ActorPF2e | null => {
             const origin = this.data.flags.pf2e?.origin ?? null;
-            const match = /^(Actor|Scene)\.(\w+)/.exec(origin?.uuid ?? '') ?? [];
+            const match = /^(Actor|Scene)\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
             switch (match[1]) {
-                case 'Actor': {
+                case "Actor": {
                     return game.actors.get(match[2]) ?? null;
                 }
-                case 'Scene': {
+                case "Scene": {
                     const scene = game.scenes.get(match[2]);
-                    const tokenId = /(?<=Token\.)(\w+)/.exec(origin!.uuid)?.[1] ?? '';
+                    const tokenId = /(?<=Token\.)(\w+)/.exec(origin!.uuid)?.[1] ?? "";
                     const token = scene?.tokens.get(tokenId);
                     return token?.actor ?? null;
                 }
@@ -42,14 +42,14 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
         if (domItem) return domItem;
 
         const origin = this.data.flags.pf2e?.origin ?? null;
-        const match = /Item\.(\w+)/.exec(origin?.uuid ?? '') ?? [];
-        return this.actor?.items.get(match?.[1] ?? '') ?? null;
+        const match = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
+        return this.actor?.items.get(match?.[1] ?? "") ?? null;
     }
 
     /** Get stringified item source from the DOM-rendering of this chat message */
     getItemFromDOM(): Embedded<ItemPF2e> | null {
-        const $domMessage = $('ol#chat-log').children(`li[data-message-id="${this.id}"]`);
-        const sourceString = $domMessage.find('div.pf2e.item-card').attr('data-embedded-item') ?? 'null';
+        const $domMessage = $("ol#chat-log").children(`li[data-message-id="${this.id}"]`);
+        const sourceString = $domMessage.find("div.pf2e.item-card").attr("data-embedded-item") ?? "null";
         try {
             const itemSource = JSON.parse(sourceString);
             const item = itemSource ? new ItemPF2e(itemSource, { parent: this.actor }) : null;
@@ -65,7 +65,7 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
      */
     override get alias(): string {
         const speaker = this.data.speaker;
-        return speaker.alias ?? game.actors.get(speaker.actor ?? '')?.name ?? this.user?.name ?? '';
+        return speaker.alias ?? game.actors.get(speaker.actor ?? "")?.name ?? this.user?.name ?? "";
     }
 
     /** Get the token of the speaker if possible */
@@ -88,9 +88,9 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
             CriticalHitAndFumbleCards.appendButtons(this, $html);
         }
 
-        $html.on('mouseenter', () => this.onHoverIn());
-        $html.on('mouseleave', () => this.onHoverOut());
-        $html.find('.message-sender').on('click', this.onClick.bind(this));
+        $html.on("mouseenter", () => this.onHoverIn());
+        $html.on("mouseleave", () => this.onHoverOut());
+        $html.find(".message-sender").on("click", this.onClick.bind(this));
 
         return $html;
     }
@@ -117,12 +117,12 @@ class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     protected override _onCreate(
         data: foundry.data.ChatMessageSource,
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ) {
         super._onCreate(data, options, userId);
 
         // Handle critical hit and fumble card drawing
-        if (this.isRoll && game.settings.get('pf2e', 'drawCritFumble')) {
+        if (this.isRoll && game.settings.get("pf2e", "drawCritFumble")) {
             CriticalHitAndFumbleCards.handleDraw(this);
         }
     }
@@ -133,12 +133,12 @@ interface ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 
     get roll(): Rolled<Roll<RollDataPF2e>>;
 
-    getFlag(scope: 'core', key: 'RollTable'): unknown;
-    getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;
-    getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
-    getFlag(scope: 'pf2e', key: 'modifierName'): string | undefined;
-    getFlag(scope: 'pf2e', key: 'modifiers'): ModifierPF2e[] | undefined;
-    getFlag(scope: 'pf2e', key: 'context'): (CheckModifiersContext & { rollMode: RollMode }) | undefined;
+    getFlag(scope: "core", key: "RollTable"): unknown;
+    getFlag(scope: "pf2e", key: "canReroll"): boolean | undefined;
+    getFlag(scope: "pf2e", key: "damageRoll"): object | undefined;
+    getFlag(scope: "pf2e", key: "modifierName"): string | undefined;
+    getFlag(scope: "pf2e", key: "modifiers"): ModifierPF2e[] | undefined;
+    getFlag(scope: "pf2e", key: "context"): (CheckModifiersContext & { rollMode: RollMode }) | undefined;
 }
 
 declare namespace ChatMessagePF2e {

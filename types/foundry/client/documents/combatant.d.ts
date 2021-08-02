@@ -1,4 +1,4 @@
-import { CombatantConstructor } from './constructors';
+import { CombatantConstructor } from "./constructors";
 
 declare global {
     /**
@@ -14,7 +14,7 @@ declare global {
         constructor(data: PreCreate<foundry.data.CombatantSource>, context?: DocumentConstructionContext<Combatant>);
 
         /** A cached reference to the Token which this Combatant represents, if any */
-        _token: NonNullable<NonNullable<this['actor']>['parent']>['object'] | null;
+        _token: NonNullable<NonNullable<this["actor"]>["parent"]>["object"] | null;
 
         /** A cached reference to the Actor which this Combatant represents, if any */
         _actor: Actor | null;
@@ -59,10 +59,10 @@ declare global {
         get name(): string;
 
         /** A reference to the Actor document which this Combatant represents, if any */
-        get actor(): this['_actor'];
+        get actor(): this["_actor"];
 
         /** A reference to the Token document which this Combatant represents, if any */
-        get token(): this['_token'];
+        get token(): this["_token"];
 
         /** An array of User documents who have ownership of this Document */
         get players(): User[];
@@ -74,7 +74,7 @@ declare global {
         override testUserPermission(
             user: foundry.documents.BaseUser,
             permission: DocumentPermission | UserAction,
-            { exact }?: { exact?: boolean },
+            { exact }?: { exact?: boolean }
         ): boolean;
 
         /**

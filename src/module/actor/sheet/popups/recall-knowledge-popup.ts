@@ -1,13 +1,13 @@
-import { IdentifyCreatureData } from '../../../recall-knowledge';
-import { padArray } from '../../../utils';
+import { IdentifyCreatureData } from "../../../recall-knowledge";
+import { padArray } from "../../../utils";
 
 export class RecallKnowledgePopup extends Application {
     static override get defaultOptions() {
         const options = super.defaultOptions;
-        options.id = 'recall-knowledge-breakdown';
+        options.id = "recall-knowledge-breakdown";
         options.classes = [];
-        options.title = game.i18n.localize('PF2E.RecallKnowledge.BreakdownTitle');
-        options.template = 'systems/pf2e/templates/actors/recall-knowledge.html';
+        options.title = game.i18n.localize("PF2E.RecallKnowledge.BreakdownTitle");
+        options.template = "systems/pf2e/templates/actors/recall-knowledge.html";
         options.width = 630;
         return options;
     }
@@ -36,7 +36,7 @@ export class RecallKnowledgePopup extends Application {
         return padArray(
             attempts.map((attempt) => attempt.toString()),
             6,
-            '-',
+            "-"
         );
     }
 }

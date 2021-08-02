@@ -6,7 +6,7 @@
  */
 declare class RollTables extends WorldCollection<RollTable> {
     /** @override */
-    static documentName: 'RollTable';
+    static documentName: "RollTable";
 
     /** @override */
     get directory(): SidebarDirectory;

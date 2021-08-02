@@ -1,5 +1,5 @@
-import { MigrationBase } from '../base';
-import { ItemSourcePF2e } from '@item/data';
+import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data";
 
 /** Convert heritage "feats" be of type "heritage" */
 export class Migration610SetHeritageFeatType extends MigrationBase {
@@ -7,9 +7,9 @@ export class Migration610SetHeritageFeatType extends MigrationBase {
 
     override async updateItem(itemData: ItemSourcePF2e) {
         const itemTraits: string[] = itemData.data.traits.value;
-        if (itemData.type === 'feat' && itemTraits.includes('heritage')) {
-            itemData.data.featType.value = 'heritage';
-            const index = itemTraits.indexOf('heritage');
+        if (itemData.type === "feat" && itemTraits.includes("heritage")) {
+            itemData.data.featType.value = "heritage";
+            const index = itemTraits.indexOf("heritage");
             itemTraits.splice(index, 1);
         }
     }

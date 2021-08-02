@@ -1,7 +1,7 @@
-import { ActorDataPF2e } from '@actor/data';
-import { AbilityString, StrikeTrait } from '@actor/data/base';
-import { WeaponData } from '@item/data';
-import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
+import { ActorDataPF2e } from "@actor/data";
+import { AbilityString, StrikeTrait } from "@actor/data/base";
+import { WeaponData } from "@item/data";
+import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from "@item/runes";
 import {
     DamageDicePF2e,
     DiceModifierPF2e,
@@ -10,11 +10,11 @@ import {
     MODIFIER_TYPE,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
-} from '@module/modifiers';
-import { RollNotePF2e } from '@module/notes';
-import { StrikingPF2e, WeaponPotencyPF2e } from '@module/rules/rules-data-definitions';
-import { DamageCategory, DamageDieSize } from './damage';
-import { SIZES } from '@module/data';
+} from "@module/modifiers";
+import { RollNotePF2e } from "@module/notes";
+import { StrikingPF2e, WeaponPotencyPF2e } from "@module/rules/rules-data-definitions";
+import { DamageCategory, DamageDieSize } from "./damage";
+import { SIZES } from "@module/data";
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -70,41 +70,41 @@ export type DamagePool = Record<
 function isNonPhysicalDamage(damageType?: string): boolean {
     return (
         damageType !== undefined &&
-        damageType !== '' &&
+        damageType !== "" &&
         DamageCategory.fromDamageType(damageType) !== DamageCategory.PHYSICAL
     );
 }
 
-export function ensureWeaponCategory(options: string[], weaponCategory: 'simple' | 'martial' | 'advanced' | 'unarmed') {
-    if (weaponCategory && !options.some((option) => option.toLowerCase().startsWith('weapon:category:'))) {
+export function ensureWeaponCategory(options: string[], weaponCategory: "simple" | "martial" | "advanced" | "unarmed") {
+    if (weaponCategory && !options.some((option) => option.toLowerCase().startsWith("weapon:category:"))) {
         options.push(`weapon:category:${weaponCategory}`);
     }
 }
 
 const WEAPON_SIZE_EXPANDED = {
-    tiny: 'tiny',
-    sm: 'small',
-    med: 'medium',
-    lg: 'large',
-    huge: 'huge',
-    grg: 'gargantuan',
+    tiny: "tiny",
+    sm: "small",
+    med: "medium",
+    lg: "large",
+    huge: "huge",
+    grg: "gargantuan",
 } as const;
 export function ensureWeaponSize(
     options: string[],
     weaponSize: typeof SIZES[number] | null | undefined,
-    wielderSize: typeof SIZES[number] | null | undefined,
+    wielderSize: typeof SIZES[number] | null | undefined
 ) {
     if (weaponSize) {
-        if (!options.some((option) => option.toLowerCase().startsWith('weapon:size:'))) {
+        if (!options.some((option) => option.toLowerCase().startsWith("weapon:size:"))) {
             options.push(`weapon:size:${WEAPON_SIZE_EXPANDED[weaponSize] ?? weaponSize}`);
         }
-        wielderSize = wielderSize === 'sm' ? 'med' : wielderSize; // treat small creatures as medium
+        wielderSize = wielderSize === "sm" ? "med" : wielderSize; // treat small creatures as medium
         if (wielderSize && SIZES.indexOf(weaponSize) > SIZES.indexOf(wielderSize)) {
-            if (!options.some((option) => option.toLowerCase().startsWith('weapon:oversized'))) {
-                options.push('weapon:oversized');
+            if (!options.some((option) => option.toLowerCase().startsWith("weapon:oversized"))) {
+                options.push("weapon:oversized");
             }
-            if (!options.some((option) => option.toLowerCase().startsWith('oversized'))) {
-                options.push('oversized'); // transitional value until Giant Instinct has been adapted
+            if (!options.some((option) => option.toLowerCase().startsWith("oversized"))) {
+                options.push("oversized"); // transitional value until Giant Instinct has been adapted
             }
         }
     }
@@ -122,14 +122,14 @@ export class WeaponDamagePF2e {
         damageDice: any,
         proficiencyRank = 0,
         options: string[] = [],
-        rollNotes: Record<string, RollNotePF2e[]>,
+        rollNotes: Record<string, RollNotePF2e[]>
     ): DamageTemplate {
         damageDice = duplicate(damageDice);
 
         // adapt weapon type (melee, ranged, thrown)
         if (!weapon.data.range) {
             weapon.data.range = {
-                value: weapon.data?.weaponType?.value === 'ranged' ? 'ranged' : 'melee',
+                value: weapon.data?.weaponType?.value === "ranged" ? "ranged" : "melee",
             };
         }
 
@@ -144,25 +144,25 @@ export class WeaponDamagePF2e {
             let dice: number | null = null;
             let die: string | null = null;
             let modifier = 0;
-            const parts = dmg.damage.split('');
-            let digits = '';
+            const parts = dmg.damage.split("");
+            let digits = "";
             let operator = null;
             for (const part of parts) {
-                if (part === 'd') {
+                if (part === "d") {
                     dice = Number(digits);
-                    digits = '';
-                } else if ('+-'.includes(part)) {
+                    digits = "";
+                } else if ("+-".includes(part)) {
                     if (operator) {
                         // deal with the previous flat modifier part
-                        if (operator === '-') {
+                        if (operator === "-") {
                             modifier -= Number(digits);
-                        } else if (operator === '+') {
+                        } else if (operator === "+") {
                             modifier += Number(digits);
                         }
                     } else {
                         die = `d${digits}`;
                     }
-                    digits = '';
+                    digits = "";
                     operator = part;
                 } else if (!Number.isNaN(Number(part))) {
                     digits += part;
@@ -170,7 +170,7 @@ export class WeaponDamagePF2e {
             }
             if (dice && !die) {
                 die = `d${digits}`;
-            } else if (operator === '-') {
+            } else if (operator === "-") {
                 modifier -= Number(digits);
             } else {
                 modifier += Number(digits);
@@ -181,8 +181,8 @@ export class WeaponDamagePF2e {
                 if (dice && die) {
                     const dd = damageDice.damage ?? [];
                     dd.push({
-                        selector: 'damage',
-                        name: 'Base',
+                        selector: "damage",
+                        name: "Base",
                         diceNumber: dice,
                         dieSize: die,
                         damageType: dmg.damageType,
@@ -192,15 +192,15 @@ export class WeaponDamagePF2e {
                 // amend numeric modifiers with any flat modifier
                 if (modifier) {
                     const modifiers = statisticsModifiers.damage ?? [];
-                    const dm = new ModifierPF2e('Base', modifier, 'untyped');
+                    const dm = new ModifierPF2e("Base", modifier, "untyped");
                     dm.damageType = dmg.damageType;
                     modifiers.push(dm);
                     statisticsModifiers.damage = modifiers;
                 }
             } else {
                 weapon.data.damage.dice = dice || 0;
-                weapon.data.damage.die = die || '';
-                if (weapon.data.range.value !== 'ranged' || traits.some((trait) => trait.name.startsWith('thrown'))) {
+                weapon.data.damage.die = die || "";
+                if (weapon.data.range.value !== "ranged" || traits.some((trait) => trait.name.startsWith("thrown"))) {
                     modifier -= actor.data.abilities.str.mod;
                 }
                 weapon.data.damage.modifier = modifier;
@@ -219,7 +219,7 @@ export class WeaponDamagePF2e {
             options,
             rollNotes,
             null,
-            {},
+            {}
         );
     }
 
@@ -233,7 +233,7 @@ export class WeaponDamagePF2e {
         options: string[] = [],
         rollNotes: Record<string, RollNotePF2e[]>,
         weaponPotency: WeaponPotencyPF2e | null,
-        striking: Record<string, StrikingPF2e[]>,
+        striking: Record<string, StrikingPF2e[]>
     ): DamageTemplate {
         let effectDice = weapon.data.damage.dice ?? 1;
         const diceModifiers: DiceModifierPF2e[] = [];
@@ -254,18 +254,18 @@ export class WeaponDamagePF2e {
         {
             let modifier = 0;
             const melee =
-                ['melee', 'reach', ''].includes(weapon.data?.range?.value?.trim()) ||
-                traits.some((t) => t.name.startsWith('thrown'));
+                ["melee", "reach", ""].includes(weapon.data?.range?.value?.trim()) ||
+                traits.some((t) => t.name.startsWith("thrown"));
             if (melee) {
-                ability = 'str';
+                ability = "str";
                 modifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
-                options.push('melee');
+                options.push("melee");
             } else {
-                options.push('ranged');
+                options.push("ranged");
             }
 
-            if (traits.some((t) => t.name === 'propulsive')) {
-                ability = 'str';
+            if (traits.some((t) => t.name === "propulsive")) {
+                ability = "str";
                 const strengthModifier = Math.floor((actor.data.abilities.str.value - 10) / 2);
                 modifier = strengthModifier < 0 ? strengthModifier : Math.floor(strengthModifier / 2);
             }
@@ -273,19 +273,19 @@ export class WeaponDamagePF2e {
             // check for Rogue's Racket: Thief
             if (
                 // character has Thief Racket class feature
-                actor.items.some((item) => item.type === 'feat' && item.slug === 'thief-racket') &&
-                !traits.some((t) => t.name === 'unarmed') && // NOT unarmed attack
-                traits.some((t) => t.name === 'finesse') &&
+                actor.items.some((item) => item.type === "feat" && item.slug === "thief-racket") &&
+                !traits.some((t) => t.name === "unarmed") && // NOT unarmed attack
+                traits.some((t) => t.name === "finesse") &&
                 melee && // finesse melee weapon
                 Math.floor((actor.data.abilities.dex.value - 10) / 2) > modifier // dex bonus higher than the current bonus
             ) {
-                ability = 'dex';
+                ability = "dex";
                 modifier = Math.floor((actor.data.abilities.dex.value - 10) / 2);
             }
 
             if (ability) {
                 numericModifiers.push(
-                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], modifier, MODIFIER_TYPE.ABILITY),
+                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], modifier, MODIFIER_TYPE.ABILITY)
                 );
             }
         }
@@ -294,24 +294,25 @@ export class WeaponDamagePF2e {
         // two-hand trait
         const twoHandTrait = traits.find(
             // utilizing the css class here is a dirty (and hopefully temporary!) hack
-            (t) => t.name.toLowerCase().startsWith('two-hand-') && t.cssClass === 'toggled-on',
+            (t) => t.name.toLowerCase().startsWith("two-hand-") && t.cssClass === "toggled-on"
         );
         if (twoHandTrait && options.some((o) => o === twoHandTrait.rollOption)) {
-            baseDamageDie = twoHandTrait.name.substring(twoHandTrait.name.lastIndexOf('-') + 1) as DamageDieSize;
+            baseDamageDie = twoHandTrait.name.substring(twoHandTrait.name.lastIndexOf("-") + 1) as DamageDieSize;
         }
 
         // versatile trait
         const versatileTrait = traits.find(
             // utilizing the css class here is a dirty (and hopefully temporary!) hack
-            (t) => t.name.toLowerCase().startsWith('versatile-') && t.cssClass === 'toggled-on',
+            (t) => t.name.toLowerCase().startsWith("versatile-") && t.cssClass === "toggled-on"
         );
         if (versatileTrait && options.some((o) => o === versatileTrait.rollOption)) {
             const dmg = {
-                b: 'bludgeoning',
-                p: 'piercing',
-                s: 'slashing',
-            };
-            baseDamageType = dmg[versatileTrait.name.substring(versatileTrait.name.lastIndexOf('-') + 1)];
+                b: "bludgeoning",
+                p: "piercing",
+                s: "slashing",
+            } as const;
+            baseDamageType =
+                dmg[versatileTrait.name.substring(versatileTrait.name.lastIndexOf("-") + 1) as "b" | "p" | "s"];
         }
 
         // custom damage
@@ -320,12 +321,12 @@ export class WeaponDamagePF2e {
             const damageType = weapon.data?.property1?.damageType ?? baseDamageType;
             diceModifiers.push(
                 new DiceModifierPF2e({
-                    name: 'PF2E.WeaponCustomDamageLabel',
+                    name: "PF2E.WeaponCustomDamageLabel",
                     diceNumber: normalDice,
                     dieSize: weapon.data?.property1?.die as DamageDieSize,
                     damageType: damageType,
                     traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
-                }),
+                })
             );
         }
         const critDice = weapon.data?.property1?.critDice ?? 0;
@@ -333,13 +334,13 @@ export class WeaponDamagePF2e {
             const damageType = weapon.data?.property1?.critDamageType ?? baseDamageType;
             diceModifiers.push(
                 new DiceModifierPF2e({
-                    name: 'PF2E.WeaponCustomDamageLabel',
+                    name: "PF2E.WeaponCustomDamageLabel",
                     diceNumber: critDice,
                     dieSize: weapon.data?.property1?.critDie as DamageDieSize,
                     damageType: damageType,
                     critical: true,
                     traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
-                }),
+                })
             );
         }
 
@@ -357,14 +358,14 @@ export class WeaponDamagePF2e {
             });
 
             // find best striking source
-            const strikingRune = weapon.type === 'weapon' ? getStrikingDice(weapon.data) : null;
+            const strikingRune = weapon.type === "weapon" ? getStrikingDice(weapon.data) : null;
             if (strikingRune) {
-                strikingList.push({ label: 'PF2E.StrikingRuneLabel', bonus: strikingRune });
+                strikingList.push({ label: "PF2E.StrikingRuneLabel", bonus: strikingRune });
             }
             if (strikingList.length > 0) {
                 const s = strikingList.reduce(
                     (highest, current) => (highest.bonus > current.bonus ? highest : current),
-                    strikingList[0],
+                    strikingList[0]
                 );
                 effectDice += s.bonus;
                 strikingDice = s.bonus;
@@ -372,8 +373,8 @@ export class WeaponDamagePF2e {
                     new DiceModifierPF2e({
                         name: s.label,
                         diceNumber: s.bonus,
-                        traits: ['magical'],
-                    }),
+                        traits: ["magical"],
+                    })
                 );
             }
         }
@@ -384,31 +385,31 @@ export class WeaponDamagePF2e {
         if (hasGhostTouchRune(weapon)) {
             diceModifiers.push(
                 new DiceModifierPF2e({
-                    name: 'PF2E.WeaponPropertyRuneGhostTouch',
-                    traits: ['ghostTouch'],
-                }),
+                    name: "PF2E.WeaponPropertyRuneGhostTouch",
+                    traits: ["ghostTouch"],
+                })
             );
         }
 
         // backstabber trait
-        if (traits.some((t) => t.name === 'backstabber') && options.includes('target:flatFooted')) {
+        if (traits.some((t) => t.name === "backstabber") && options.includes("target:flatFooted")) {
             const modifier = new ModifierPF2e(
                 CONFIG.PF2E.weaponTraits.backstabber,
                 potency > 2 ? 2 : 1,
-                MODIFIER_TYPE.UNTYPED,
+                MODIFIER_TYPE.UNTYPED
             );
-            modifier.damageCategory = 'precision';
+            modifier.damageCategory = "precision";
             numericModifiers.push(modifier);
         }
 
         // deadly trait
         traits
-            .filter((t) => t.name.startsWith('deadly-'))
+            .filter((t) => t.name.startsWith("deadly-"))
             .forEach((t) => {
-                const deadly = t.name.substring(t.name.indexOf('-') + 1);
+                const deadly = t.name.substring(t.name.indexOf("-") + 1);
                 const diceNumber = (() => {
                     if (deadly.match(/\d+d\d+/)) {
-                        return parseInt(deadly.substring(0, deadly.indexOf('d')), 10);
+                        return parseInt(deadly.substring(0, deadly.indexOf("d")), 10);
                     } else {
                         return strikingDice > 1 ? strikingDice : 1;
                     }
@@ -417,17 +418,17 @@ export class WeaponDamagePF2e {
                     new DiceModifierPF2e({
                         name: CONFIG.PF2E.weaponTraits[t.name],
                         diceNumber,
-                        dieSize: deadly.substring(deadly.indexOf('d')) as DamageDieSize,
+                        dieSize: deadly.substring(deadly.indexOf("d")) as DamageDieSize,
                         critical: true,
-                    }),
+                    })
                 );
             });
 
         // fatal trait
         traits
-            .filter((t) => t.name.startsWith('fatal-'))
+            .filter((t) => t.name.startsWith("fatal-"))
             .forEach((t) => {
-                const dieSize = t.name.substring(t.name.indexOf('-') + 1) as DamageDieSize;
+                const dieSize = t.name.substring(t.name.indexOf("-") + 1) as DamageDieSize;
                 diceModifiers.push(
                     new DiceModifierPF2e({
                         name: CONFIG.PF2E.weaponTraits[t.name],
@@ -436,7 +437,7 @@ export class WeaponDamagePF2e {
                         critical: true,
                         enabled: true,
                         override: { dieSize },
-                    }),
+                    })
                 );
             });
 
@@ -445,19 +446,19 @@ export class WeaponDamagePF2e {
         if (weaponSpecializationDamage > 0) {
             const has = (slug: string, name: string) =>
                 actor.items.some(
-                    (item) => item.type === 'feat' && (item.slug?.startsWith(slug) || item.name.startsWith(name)),
+                    (item) => item.type === "feat" && (item.slug?.startsWith(slug) || item.name.startsWith(name))
                 );
-            if (has('greater-weapon-specialization', 'Greater Weapon Specialization')) {
+            if (has("greater-weapon-specialization", "Greater Weapon Specialization")) {
                 numericModifiers.push(
                     new ModifierPF2e(
-                        'PF2E.GreaterWeaponSpecialization',
+                        "PF2E.GreaterWeaponSpecialization",
                         weaponSpecializationDamage * 2,
-                        MODIFIER_TYPE.UNTYPED,
-                    ),
+                        MODIFIER_TYPE.UNTYPED
+                    )
                 );
-            } else if (has('weapon-specialization', 'Weapon Specialization')) {
+            } else if (has("weapon-specialization", "Weapon Specialization")) {
                 numericModifiers.push(
-                    new ModifierPF2e('PF2E.WeaponSpecialization', weaponSpecializationDamage, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e("PF2E.WeaponSpecialization", weaponSpecializationDamage, MODIFIER_TYPE.UNTYPED)
                 );
             }
         }
@@ -466,14 +467,14 @@ export class WeaponDamagePF2e {
         const splashDamage = Number(weapon.data.splashDamage?.value) || 0;
         if (splashDamage > 0) {
             numericModifiers.push(
-                new ModifierPF2e('PF2E.WeaponSplashDamageLabel', splashDamage, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e("PF2E.WeaponSplashDamageLabel", splashDamage, MODIFIER_TYPE.UNTYPED)
             );
         }
 
         // add bonus damage
         const bonusDamage = Number(weapon.data.bonusDamage?.value) || 0;
         if (bonusDamage > 0) {
-            numericModifiers.push(new ModifierPF2e('PF2E.WeaponBonusDamageLabel', bonusDamage, MODIFIER_TYPE.UNTYPED));
+            numericModifiers.push(new ModifierPF2e("PF2E.WeaponBonusDamageLabel", bonusDamage, MODIFIER_TYPE.UNTYPED));
         }
 
         // conditions, custom modifiers, and roll notes
@@ -503,7 +504,7 @@ export class WeaponDamagePF2e {
         }
 
         const damage: any = {
-            name: `${game.i18n.localize('PF2E.DamageRoll')}: ${weapon.name}`,
+            name: `${game.i18n.localize("PF2E.DamageRoll")}: ${weapon.name}`,
             base: {
                 diceNumber: weapon.data.damage.dice,
                 dieSize: baseDamageDie,
@@ -531,7 +532,7 @@ export class WeaponDamagePF2e {
             if (weapon.data.baseItem && !stats.includes(`${weapon.data.baseItem}-damage`)) {
                 stats.push(`${weapon.data.baseItem}-damage`);
             }
-            stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
+            stats.concat([`${weapon._id}-damage`, "damage"]).forEach((key) => {
                 (damageDice[key] || [])
                     .map((d) => new DamageDicePF2e(d))
                     .forEach((d) => {
@@ -615,7 +616,7 @@ export class WeaponDamagePF2e {
                             dm.damageType ?? base.damageType,
                             dm.category,
                             dm.dieSize ?? base.dieSize,
-                            dm.diceNumber,
+                            dm.diceNumber
                         );
                     }
                     (dm.traits ?? []).forEach((t) => {
@@ -631,7 +632,7 @@ export class WeaponDamagePF2e {
                             dm.damageType ?? base.damageType,
                             dm.category,
                             dm.dieSize ?? base.dieSize,
-                            dm.diceNumber,
+                            dm.diceNumber
                         );
                     }
                     (dm.traits ?? []).forEach((t) => {
@@ -666,7 +667,7 @@ export class WeaponDamagePF2e {
                     const dmg = current.damageType ?? base.damageType;
                     accumulator[dmg] = (accumulator[dmg] ?? []).concat(current);
                     return accumulator;
-                }, {}),
+                }, {})
             )
                 .map(([damageType, damageTypeModifiers]) => {
                     // apply stacking rules for numeric modifiers of each damage type separately
@@ -727,7 +728,7 @@ export class WeaponDamagePF2e {
         damageType: string,
         category: string | undefined,
         dieSize: string,
-        count: number,
+        count: number
     ): DamagePool {
         // Ensure that the damage pool for this given damage type exists...
         pool[damageType] = pool[damageType] || { categories: {} };
@@ -747,7 +748,7 @@ export class WeaponDamagePF2e {
     /** Converts a damage pool to a final string formula. */
     public static buildFormula(
         pool: DamagePool,
-        partials: { [damageType: string]: { [damageCategory: string]: string } } = {},
+        partials: { [damageType: string]: { [damageCategory: string]: string } } = {}
     ): string {
         // First collect all of the individual components of the pool into one flattened list...
         const parts: string[] = [];
@@ -779,34 +780,34 @@ export class WeaponDamagePF2e {
                 partials[type][category] = [formula]
                     .concat(
                         p.slice(offset).flatMap((part) => {
-                            if (part.startsWith('-')) {
-                                return ['-', part.substring(1)];
+                            if (part.startsWith("-")) {
+                                return ["-", part.substring(1)];
                             } else {
-                                return ['+', part];
+                                return ["+", part];
                             }
-                        }),
+                        })
                     )
-                    .join(' ');
+                    .join(" ");
             }
         }
 
         // To avoid out-of-bounds exceptions, short-circuit with the empty string if there are no damage components whatsoever.
         if (parts.length === 0) {
-            return '';
+            return "";
         }
 
         // Then correct signs (adding '+' or '-' as appropriate) and join; don't modify the first component.
         const formula = [parts[0]]
             .concat(
                 parts.slice(1).flatMap((part) => {
-                    if (part.startsWith('-')) {
-                        return ['-', part.substring(1)];
+                    if (part.startsWith("-")) {
+                        return ["-", part.substring(1)];
                     } else {
-                        return ['+', part];
+                        return ["+", part];
                     }
-                }),
+                })
             )
-            .join(' ');
+            .join(" ");
 
         // Finally, if the minimum formula value can be 0 or lower, lower bound it.
         if (minValue <= 0) {
@@ -818,8 +819,8 @@ export class WeaponDamagePF2e {
 
     /** Double a textual formula based on the current crit rules. */
     static doubleFormula(formula: string): string {
-        const rule = game.settings.get('pf2e', 'critRule');
-        if (rule === 'doubledamage') {
+        const rule = game.settings.get("pf2e", "critRule");
+        if (rule === "doubledamage") {
             return `2 * (${formula})`;
         } else {
             const critRoll = new Roll(formula).alter(2, 0, { multiplyNumeric: true });
@@ -836,10 +837,10 @@ export class WeaponDamagePF2e {
             selectors.push(`${ability}-damage`);
         }
         if (proficiencyRank >= 0) {
-            const proficiencies = ['untrained', 'trained', 'expert', 'master', 'legendary'];
+            const proficiencies = ["untrained", "trained", "expert", "master", "legendary"];
             selectors.push(`${proficiencies[proficiencyRank]}-damage`);
         }
         selectors.push(`${weapon.name.slugify()}-damage`); // convert white spaces to dash and lower-case all letters
-        return selectors.concat([`${weapon._id}-damage`, 'mundane-damage', 'damage']);
+        return selectors.concat([`${weapon._id}-damage`, "mundane-damage", "damage"]);
     }
 }

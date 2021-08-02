@@ -1,7 +1,7 @@
-import { CharacterData, NPCData } from '@actor/data';
-import { ModifierPF2e, MODIFIER_TYPE } from '@module/modifiers';
-import { RuleElementPF2e } from '../rule-element';
-import { RuleElementData, RuleElementSynthetics } from '../rules-data-definitions';
+import { CharacterData, NPCData } from "@actor/data";
+import { ModifierPF2e, MODIFIER_TYPE } from "@module/modifiers";
+import { RuleElementPF2e } from "../rule-element";
+import { RuleElementData, RuleElementSynthetics } from "../rules-data-definitions";
 
 /**
  * @category RuleElement
@@ -35,11 +35,11 @@ export class PF2MageArmorRuleElement extends RuleElementPF2e {
             }
 
             statisticsModifiers.ac = (statisticsModifiers.ac || []).concat(
-                new ModifierPF2e(label, ac, MODIFIER_TYPE.ITEM),
+                new ModifierPF2e(label, ac, MODIFIER_TYPE.ITEM)
             );
             if (save > 0) {
-                statisticsModifiers['saving-throw'] = (statisticsModifiers['saving-throw'] || []).concat(
-                    new ModifierPF2e(label, save, MODIFIER_TYPE.ITEM),
+                statisticsModifiers["saving-throw"] = (statisticsModifiers["saving-throw"] || []).concat(
+                    new ModifierPF2e(label, save, MODIFIER_TYPE.ITEM)
                 );
             }
             actorData.data.attributes.dexCap = (actorData.data.attributes.dexCap ?? []).concat({
@@ -47,7 +47,7 @@ export class PF2MageArmorRuleElement extends RuleElementPF2e {
                 source: label,
             });
         } else {
-            console.warn('PF2E | Mage armor requires at least a label field or item name');
+            console.warn("PF2E | Mage armor requires at least a label field or item name");
         }
     }
 }

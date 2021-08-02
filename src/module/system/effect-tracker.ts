@@ -1,6 +1,6 @@
-import type { ActorPF2e } from '@actor/base';
-import { CreaturePF2e } from '@actor/creature';
-import type { EffectPF2e } from '@item/index';
+import type { ActorPF2e } from "@actor/base";
+import { CreaturePF2e } from "@actor/creature";
+import type { EffectPF2e } from "@item/index";
 
 export class EffectTracker {
     private trackedEffects: Embedded<EffectPF2e>[] = [];
@@ -24,8 +24,8 @@ export class EffectTracker {
                     this.trackedEffects.splice(index, 0, effect);
                     return;
                 } else if (
-                    other.data.data.duration.expiry === 'turn-start' &&
-                    effect.data.data.duration.expiry === 'turn-end'
+                    other.data.data.duration.expiry === "turn-start" &&
+                    effect.data.data.duration.expiry === "turn-end"
                 ) {
                     this.trackedEffects.splice(index, 0, effect);
                     return;
@@ -37,7 +37,7 @@ export class EffectTracker {
 
     register(effect: Embedded<EffectPF2e>): void {
         const index = this.trackedEffects.findIndex((e) => e.id === effect.id);
-        if (effect.data.data.duration.unit === 'unlimited') {
+        if (effect.data.data.duration.unit === "unlimited") {
             effect.data.data.expired = false;
             if (index >= 0 && index < this.trackedEffects.length) {
                 this.trackedEffects.splice(index, 1);
@@ -110,8 +110,8 @@ export class EffectTracker {
             : [...new Set(expired.map((effect) => effect.actor))].filter((owner) => game.actors.has(owner.id));
         for await (const owner of owners) {
             await owner.deleteEmbeddedDocuments(
-                'Item',
-                expired.flatMap((effect) => (owner.items.has(effect.id) ? effect.id : [])),
+                "Item",
+                expired.flatMap((effect) => (owner.items.has(effect.id) ? effect.id : []))
             );
         }
     }

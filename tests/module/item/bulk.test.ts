@@ -6,23 +6,23 @@ import {
     convertBulkToSize,
     toBulkItems,
     weightToBulk,
-} from '@item/physical/bulk';
-import { PhysicalItemData } from '@item/data';
+} from "@item/physical/bulk";
+import { PhysicalItemData } from "@item/data";
 
 function createItem({
-    id = 'ignore',
+    id = "ignore",
     weight = undefined,
     unequippedBulk = undefined,
     equippedBulk = undefined,
-    negateBulk = '',
-    bulkCapacity = '',
-    containerId = '',
+    negateBulk = "",
+    bulkCapacity = "",
+    containerId = "",
     equipped = false,
-    type = 'equipment',
+    type = "equipment",
     traits = [],
     quantity = 1,
     stackGroup = undefined,
-    size = 'med',
+    size = "med",
 }: {
     id?: string;
     weight?: string;
@@ -79,8 +79,8 @@ function createItem({
     } as unknown as PhysicalItemData;
 }
 
-describe('should calculate bulk', () => {
-    test('empty inventory', () => {
+describe("should calculate bulk", () => {
+    test("empty inventory", () => {
         const [bulk] = calculateBulk();
 
         expect(bulk).toEqual({
@@ -89,7 +89,7 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('11 light items are 1 bulk and 1 light bulk', () => {
+    test("11 light items are 1 bulk and 1 light bulk", () => {
         const items = [
             new BulkItem({
                 bulk: new Bulk({ light: 11 }),
@@ -103,7 +103,7 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('item quantity multiplies bulk', () => {
+    test("item quantity multiplies bulk", () => {
         const items = [
             new BulkItem({
                 bulk: new Bulk({ light: 1 }),
@@ -118,7 +118,7 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('light armor that is worn counts as 1 bulk', () => {
+    test("light armor that is worn counts as 1 bulk", () => {
         const items = [
             new BulkItem({
                 isEquipped: true,
@@ -133,7 +133,7 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('armor that is worn counts as 1 more bulk', () => {
+    test("armor that is worn counts as 1 more bulk", () => {
         const items = [
             new BulkItem({
                 isEquipped: false,
@@ -149,7 +149,7 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('backpacks are light bulk when not worn', () => {
+    test("backpacks are light bulk when not worn", () => {
         const items = [
             new BulkItem({
                 isEquipped: false,
@@ -165,7 +165,7 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('backpacks are negligible bulk when worn', () => {
+    test("backpacks are negligible bulk when worn", () => {
         const items = [
             new BulkItem({
                 isEquipped: true,
@@ -181,10 +181,10 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('arrows that shoot bags of holding', () => {
+    test("arrows that shoot bags of holding", () => {
         const items = [
             new BulkItem({
-                stackGroup: 'arrows',
+                stackGroup: "arrows",
                 holdsItems: [
                     // bag of holding
                     new BulkItem({
@@ -200,7 +200,7 @@ describe('should calculate bulk', () => {
                 ],
             }),
             new BulkItem({
-                stackGroup: 'arrows',
+                stackGroup: "arrows",
                 quantity: 9,
             }),
         ];
@@ -212,7 +212,7 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('worn backpack negate bulk', () => {
+    test("worn backpack negate bulk", () => {
         const items = [
             // backpack
             new BulkItem({
@@ -221,7 +221,7 @@ describe('should calculate bulk', () => {
                         bulk: new Bulk({ normal: 1 }),
                     }),
                     new BulkItem({
-                        stackGroup: 'arrows',
+                        stackGroup: "arrows",
                         quantity: 10,
                     }),
                     new BulkItem({
@@ -234,7 +234,7 @@ describe('should calculate bulk', () => {
                 bulk: new Bulk({ normal: 1 }),
             }),
             new BulkItem({
-                stackGroup: 'arrows',
+                stackGroup: "arrows",
                 quantity: 9,
             }),
         ];
@@ -247,7 +247,7 @@ describe('should calculate bulk', () => {
         expect(overflow).toEqual({ arrows: 9 });
     });
 
-    test('unequipped backpack does not negate bulk', () => {
+    test("unequipped backpack does not negate bulk", () => {
         const items = [
             // backpack
             new BulkItem({
@@ -269,7 +269,7 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('nesting bag of holdings into backpacks reduces bulk', () => {
+    test("nesting bag of holdings into backpacks reduces bulk", () => {
         const items = [
             // backpack
             new BulkItem({
@@ -300,7 +300,7 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('nested extra dimensional containers dont reduce bulk', () => {
+    test("nested extra dimensional containers dont reduce bulk", () => {
         const items = [
             // bag of holding
             new BulkItem({
@@ -330,7 +330,7 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('nested stacks pass overflow up', () => {
+    test("nested stacks pass overflow up", () => {
         const items = [
             // backpack
             new BulkItem({
@@ -342,7 +342,7 @@ describe('should calculate bulk', () => {
                         holdsItems: [
                             // partial stack gets passed up
                             new BulkItem({
-                                stackGroup: 'coins',
+                                stackGroup: "coins",
                                 quantity: 997,
                             }),
                         ],
@@ -351,7 +351,7 @@ describe('should calculate bulk', () => {
                     // this container now holds 999 coins
                     new BulkItem({
                         quantity: 2,
-                        stackGroup: 'coins',
+                        stackGroup: "coins",
                     }),
                 ],
                 negateBulk: new Bulk({ normal: 2 }),
@@ -363,7 +363,7 @@ describe('should calculate bulk', () => {
                     // the last coin from this container should add to 1 bulk
                     new BulkItem({
                         quantity: 1,
-                        stackGroup: 'coins',
+                        stackGroup: "coins",
                     }),
                 ],
             }),
@@ -376,7 +376,7 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('nested stacks doesnt pass overflow up if extradimensional', () => {
+    test("nested stacks doesnt pass overflow up if extradimensional", () => {
         const items = [
             // backpack
             new BulkItem({
@@ -388,12 +388,12 @@ describe('should calculate bulk', () => {
                         holdsItems: [
                             // partial stack gets passed up
                             new BulkItem({
-                                stackGroup: 'coins',
+                                stackGroup: "coins",
                                 quantity: 997,
                             }),
                             // full stack gets absorbed
                             new BulkItem({
-                                stackGroup: 'arrows',
+                                stackGroup: "arrows",
                                 quantity: 10,
                             }),
                         ],
@@ -402,7 +402,7 @@ describe('should calculate bulk', () => {
                     }),
                     new BulkItem({
                         quantity: 2,
-                        stackGroup: 'coins',
+                        stackGroup: "coins",
                     }),
                 ],
                 negateBulk: new Bulk({ normal: 2 }),
@@ -413,7 +413,7 @@ describe('should calculate bulk', () => {
                 holdsItems: [
                     new BulkItem({
                         quantity: 1,
-                        stackGroup: 'coins',
+                        stackGroup: "coins",
                     }),
                 ],
                 bulk: new Bulk({ light: 1 }),
@@ -427,34 +427,34 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('should convert an inventory', () => {
+    test("should convert an inventory", () => {
         const rawItems = [
             createItem({
-                type: 'armor',
-                weight: 'lala',
-                equippedBulk: 'l',
-                unequippedBulk: '1',
-                negateBulk: '2',
-                traits: ['extradimensional'],
+                type: "armor",
+                weight: "lala",
+                equippedBulk: "l",
+                unequippedBulk: "1",
+                negateBulk: "2",
+                traits: ["extradimensional"],
             }),
             createItem({
-                type: 'armor',
+                type: "armor",
                 equipped: true,
-                weight: 'L',
+                weight: "L",
             }),
             createItem({
-                type: 'weapon',
+                type: "weapon",
                 quantity: 2,
-                weight: '1',
+                weight: "1",
             }),
             createItem({
-                type: 'weapon',
-                stackGroup: 'arrows',
+                type: "weapon",
+                stackGroup: "arrows",
             }),
             createItem({
-                type: 'treasure',
+                type: "treasure",
                 quantity: 9,
-                stackGroup: 'coins',
+                stackGroup: "coins",
             }),
         ];
         const items = toBulkItems(rawItems);
@@ -499,32 +499,32 @@ describe('should calculate bulk', () => {
             light: 0,
         });
 
-        expect(items[3].stackGroup).toBe('arrows');
+        expect(items[3].stackGroup).toBe("arrows");
 
         const coins = items[4];
-        expect(coins.stackGroup).toBe('coins');
+        expect(coins.stackGroup).toBe("coins");
         expect(coins.quantity).toBe(9);
     });
 
-    test('handle string and integer weight values :(', () => {
+    test("handle string and integer weight values :(", () => {
         const rawItems = [
             createItem({
-                type: 'armor',
-                weight: 'L',
+                type: "armor",
+                weight: "L",
             }),
             createItem({
-                type: 'armor',
-                weight: '1',
+                type: "armor",
+                weight: "1",
             }),
             createItem({
-                type: 'armor',
-                weight: '0',
+                type: "armor",
+                weight: "0",
             }),
-            createItem({ type: 'armor' }),
+            createItem({ type: "armor" }),
             createItem({
-                type: 'treasure',
+                type: "treasure",
                 quantity: 9,
-                stackGroup: 'coins',
+                stackGroup: "coins",
             }),
         ];
         const items = toBulkItems(rawItems);
@@ -556,37 +556,37 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('should nest items into containers', () => {
+    test("should nest items into containers", () => {
         const rawItems = [
-            createItem({ id: 'test1', type: 'armor' }),
-            createItem({ id: 'test2', type: 'armor', containerId: 'test1' }),
-            createItem({ id: 'test3', type: 'armor', containerId: 'test2' }),
-            createItem({ id: 'test4', type: 'armor', containerId: 'test2' }),
-            createItem({ id: 'test5', type: 'armor' }),
+            createItem({ id: "test1", type: "armor" }),
+            createItem({ id: "test2", type: "armor", containerId: "test1" }),
+            createItem({ id: "test3", type: "armor", containerId: "test2" }),
+            createItem({ id: "test4", type: "armor", containerId: "test2" }),
+            createItem({ id: "test5", type: "armor" }),
         ];
         const items = toBulkItems(rawItems);
 
         expect(items.length).toBe(2);
     });
 
-    test('should not nest items that have an containerId that does not exist', () => {
-        const rawItems = [createItem({ id: 'test1', type: 'armor', containerId: 'test2' })];
+    test("should not nest items that have an containerId that does not exist", () => {
+        const rawItems = [createItem({ id: "test1", type: "armor", containerId: "test2" })];
         const items = toBulkItems(rawItems);
 
         expect(items.length).toBe(1);
     });
 
-    test('should calculate carried bulk for armors', () => {
-        expect(calculateCarriedArmorBulk('l')).toBe('1');
-        expect(calculateCarriedArmorBulk('L')).toBe('1');
-        expect(calculateCarriedArmorBulk('')).toBe('-');
-        expect(calculateCarriedArmorBulk(null)).toBe('-');
-        expect(calculateCarriedArmorBulk(undefined)).toBe('-');
-        expect(calculateCarriedArmorBulk('0')).toBe('-');
-        expect(calculateCarriedArmorBulk('1')).toBe('2');
+    test("should calculate carried bulk for armors", () => {
+        expect(calculateCarriedArmorBulk("l")).toBe("1");
+        expect(calculateCarriedArmorBulk("L")).toBe("1");
+        expect(calculateCarriedArmorBulk("")).toBe("-");
+        expect(calculateCarriedArmorBulk(null)).toBe("-");
+        expect(calculateCarriedArmorBulk(undefined)).toBe("-");
+        expect(calculateCarriedArmorBulk("0")).toBe("-");
+        expect(calculateCarriedArmorBulk("1")).toBe("2");
     });
 
-    test('should implement various bulk calculation', () => {
+    test("should implement various bulk calculation", () => {
         expect(
             new Bulk({
                 normal: 3,
@@ -595,8 +595,8 @@ describe('should calculate bulk', () => {
                 new Bulk({
                     normal: 4,
                     light: 1,
-                }),
-            ),
+                })
+            )
         ).toEqual({
             normal: 7,
             light: 3,
@@ -609,8 +609,8 @@ describe('should calculate bulk', () => {
                 new Bulk({
                     normal: 4,
                     light: 4,
-                }),
-            ),
+                })
+            )
         ).toEqual({
             normal: 0,
             light: 0,
@@ -623,8 +623,8 @@ describe('should calculate bulk', () => {
                 new Bulk({
                     normal: 2,
                     light: 1,
-                }),
-            ),
+                })
+            )
         ).toEqual({
             normal: 0,
             light: 3,
@@ -637,8 +637,8 @@ describe('should calculate bulk', () => {
                 new Bulk({
                     normal: 0,
                     light: 1,
-                }),
-            ),
+                })
+            )
         ).toEqual({
             normal: 1,
             light: 9,
@@ -647,7 +647,7 @@ describe('should calculate bulk', () => {
             new Bulk({
                 normal: 4,
                 light: 3,
-            }).times(3),
+            }).times(3)
         ).toEqual({
             normal: 12,
             light: 9,
@@ -660,8 +660,8 @@ describe('should calculate bulk', () => {
                 new Bulk({
                     normal: 1,
                     light: 0,
-                }),
-            ),
+                })
+            )
         ).toBe(true);
         expect(
             new Bulk({
@@ -671,8 +671,8 @@ describe('should calculate bulk', () => {
                 new Bulk({
                     normal: 1,
                     light: 0,
-                }),
-            ),
+                })
+            )
         ).toBe(false);
         expect(
             new Bulk({
@@ -682,8 +682,8 @@ describe('should calculate bulk', () => {
                 new Bulk({
                     normal: 1,
                     light: 0,
-                }),
-            ),
+                })
+            )
         ).toBe(true);
         expect(
             new Bulk({
@@ -693,8 +693,8 @@ describe('should calculate bulk', () => {
                 new Bulk({
                     normal: 0,
                     light: 1,
-                }),
-            ),
+                })
+            )
         ).toBe(true);
         expect(
             new Bulk({
@@ -704,15 +704,15 @@ describe('should calculate bulk', () => {
                 new Bulk({
                     normal: 2,
                     light: 0,
-                }),
-            ),
+                })
+            )
         ).toBe(false);
     });
 
-    test('should respect configs to ignore coin bulk', () => {
+    test("should respect configs to ignore coin bulk", () => {
         const items = [
             new BulkItem({
-                stackGroup: 'coins',
+                stackGroup: "coins",
                 quantity: 100000,
             }),
         ];
@@ -735,156 +735,156 @@ describe('should calculate bulk', () => {
         });
     });
 
-    test('should parse more complex weights', () => {
-        expect(weightToBulk('2; l')).toEqual({
+    test("should parse more complex weights", () => {
+        expect(weightToBulk("2; l")).toEqual({
             normal: 2,
             light: 1,
         });
 
-        expect(weightToBulk('2; L')).toEqual({
+        expect(weightToBulk("2; L")).toEqual({
             normal: 2,
             light: 1,
         });
 
-        expect(weightToBulk('2;3l')).toEqual({
+        expect(weightToBulk("2;3l")).toEqual({
             normal: 2,
             light: 3,
         });
 
-        expect(weightToBulk('2')).toEqual({
+        expect(weightToBulk("2")).toEqual({
             normal: 2,
             light: 0,
         });
 
-        expect(weightToBulk('l')).toEqual({
+        expect(weightToBulk("l")).toEqual({
             normal: 0,
             light: 1,
         });
 
-        expect(weightToBulk('2, 1l')).toEqual(undefined);
+        expect(weightToBulk("2, 1l")).toEqual(undefined);
 
-        expect(weightToBulk('2, 1lL')).toEqual(undefined);
+        expect(weightToBulk("2, 1lL")).toEqual(undefined);
 
-        expect(weightToBulk('-')).toEqual(undefined);
+        expect(weightToBulk("-")).toEqual(undefined);
 
-        expect(weightToBulk('2L')).toEqual({
+        expect(weightToBulk("2L")).toEqual({
             normal: 0,
             light: 2,
         });
 
-        expect(weightToBulk('3; 2L')).toEqual({
+        expect(weightToBulk("3; 2L")).toEqual({
             normal: 3,
             light: 2,
         });
     });
 });
 
-describe('Bulk conversions', () => {
-    test('negligible tiny bulk is always negligible bulk', () => {
-        expect(convertBulkToSize(new Bulk(), 'tiny', 'tiny')).toEqual(
+describe("Bulk conversions", () => {
+    test("negligible tiny bulk is always negligible bulk", () => {
+        expect(convertBulkToSize(new Bulk(), "tiny", "tiny")).toEqual(
             new Bulk({
                 light: 0,
                 normal: 0,
-            }),
+            })
         );
-        expect(convertBulkToSize(new Bulk(), 'tiny', 'sm')).toEqual(
+        expect(convertBulkToSize(new Bulk(), "tiny", "sm")).toEqual(
             new Bulk({
                 light: 0,
                 normal: 0,
-            }),
+            })
         );
-        expect(convertBulkToSize(new Bulk(), 'tiny', 'med')).toEqual(
+        expect(convertBulkToSize(new Bulk(), "tiny", "med")).toEqual(
             new Bulk({
                 light: 0,
                 normal: 0,
-            }),
+            })
         );
-        expect(convertBulkToSize(new Bulk(), 'tiny', 'lg')).toEqual(
+        expect(convertBulkToSize(new Bulk(), "tiny", "lg")).toEqual(
             new Bulk({
                 light: 0,
                 normal: 0,
-            }),
+            })
         );
     });
 
-    test('negligible items become L bulk after one increase', () => {
-        expect(convertBulkToSize(new Bulk(), 'lg', 'med')).toEqual(
+    test("negligible items become L bulk after one increase", () => {
+        expect(convertBulkToSize(new Bulk(), "lg", "med")).toEqual(
             new Bulk({
                 light: 1,
                 normal: 0,
-            }),
+            })
         );
     });
 
-    test('L items become 1 bulk after one increase', () => {
-        expect(convertBulkToSize(new Bulk({ light: 1 }), 'lg', 'med')).toEqual(
+    test("L items become 1 bulk after one increase", () => {
+        expect(convertBulkToSize(new Bulk({ light: 1 }), "lg", "med")).toEqual(
             new Bulk({
                 light: 0,
                 normal: 1,
-            }),
+            })
         );
     });
 
-    test('6L items become 6 bulk after one increase', () => {
-        expect(convertBulkToSize(new Bulk({ light: 6 }), 'lg', 'med')).toEqual(
+    test("6L items become 6 bulk after one increase", () => {
+        expect(convertBulkToSize(new Bulk({ light: 6 }), "lg", "med")).toEqual(
             new Bulk({
                 light: 0,
                 normal: 6,
-            }),
+            })
         );
     });
 
-    test('6 bulk items become 3 bulk after one decrease', () => {
-        expect(convertBulkToSize(new Bulk({ normal: 6 }), 'med', 'lg')).toEqual(
+    test("6 bulk items become 3 bulk after one decrease", () => {
+        expect(convertBulkToSize(new Bulk({ normal: 6 }), "med", "lg")).toEqual(
             new Bulk({
                 light: 0,
                 normal: 3,
-            }),
+            })
         );
     });
 
-    test('1 bulk items become 2 bulk after one increase', () => {
-        expect(convertBulkToSize(new Bulk({ normal: 1 }), 'lg', 'med')).toEqual(
+    test("1 bulk items become 2 bulk after one increase", () => {
+        expect(convertBulkToSize(new Bulk({ normal: 1 }), "lg", "med")).toEqual(
             new Bulk({
                 light: 0,
                 normal: 2,
-            }),
+            })
         );
     });
 
-    test('1 bulk items become 4 bulk after two increases', () => {
-        expect(convertBulkToSize(new Bulk({ normal: 1 }), 'huge', 'med')).toEqual(
+    test("1 bulk items become 4 bulk after two increases", () => {
+        expect(convertBulkToSize(new Bulk({ normal: 1 }), "huge", "med")).toEqual(
             new Bulk({
                 light: 0,
                 normal: 4,
-            }),
+            })
         );
     });
 
-    test('items that have the same size as the actor do not change in bulk', () => {
-        expect(convertBulkToSize(new Bulk({ normal: 1 }), 'huge', 'huge')).toEqual(
+    test("items that have the same size as the actor do not change in bulk", () => {
+        expect(convertBulkToSize(new Bulk({ normal: 1 }), "huge", "huge")).toEqual(
             new Bulk({
                 light: 0,
                 normal: 1,
-            }),
+            })
         );
     });
 
-    test('maximum halving', () => {
-        expect(convertBulkToSize(new Bulk({ normal: 16 }), 'tiny', 'grg')).toEqual(
+    test("maximum halving", () => {
+        expect(convertBulkToSize(new Bulk({ normal: 16 }), "tiny", "grg")).toEqual(
             new Bulk({
                 light: 0,
                 normal: 1,
-            }),
+            })
         );
     });
 
-    test('maximum doubling', () => {
-        expect(convertBulkToSize(new Bulk(), 'grg', 'tiny')).toEqual(
+    test("maximum doubling", () => {
+        expect(convertBulkToSize(new Bulk(), "grg", "tiny")).toEqual(
             new Bulk({
                 light: 0,
                 normal: 4,
-            }),
+            })
         );
     });
 });
