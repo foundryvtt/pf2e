@@ -1,4 +1,4 @@
-import { FolderConstructor } from './constructors';
+import { FolderConstructor } from "./constructors";
 
 declare global {
     /**
@@ -20,7 +20,7 @@ declare global {
          */
         static override createDialog(
             data?: { folder?: string },
-            options?: FormApplicationOptions,
+            options?: FormApplicationOptions
         ): Promise<Folder | undefined>;
 
         /** The depth of this folder in its sidebar tree */
@@ -56,7 +56,7 @@ declare global {
          */
         exportToCompendium(
             pack: CompendiumCollection<TDocument>,
-            { updateByName }?: { updateByName?: boolean },
+            { updateByName }?: { updateByName?: boolean }
         ): Promise<CompendiumCollection<TDocument>>;
 
         /**

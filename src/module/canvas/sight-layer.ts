@@ -1,10 +1,10 @@
-import { FogExplorationPF2e } from '@module/fog-exploration';
-import { TokenPF2e } from './token';
+import { FogExplorationPF2e } from "@module/fog-exploration";
+import { TokenPF2e } from "./token";
 
 export class SightLayerPF2e extends SightLayer<TokenPF2e, FogExplorationPF2e> {
     /** Is the rules-based vision setting enabled? */
     get rulesBasedVision(): boolean {
-        const settingEnabled = game.settings.get('pf2e', 'automation.rulesBasedVision');
+        const settingEnabled = game.settings.get("pf2e", "automation.rulesBasedVision");
         return canvas.ready && !!canvas.scene && this.tokenVision && settingEnabled;
     }
 
@@ -13,7 +13,7 @@ export class SightLayerPF2e extends SightLayer<TokenPF2e, FogExplorationPF2e> {
     }
 
     get hasDarkvision(): boolean {
-        return this.sources.some((source) => source.object.hasDarkvision);
+        return canvas.tokens.controlled.some((token) => token.hasDarkvision);
     }
 
     /** Re-prepare scene data prior to this layer's initialization */

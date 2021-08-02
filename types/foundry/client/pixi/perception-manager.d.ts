@@ -83,4 +83,4 @@ declare global {
     }
 }
 
-type PerceptionManagerParameters = DeepPartial<typeof PerceptionManager['DEFAULTS']>;
+type PerceptionManagerParameters = DeepPartial<typeof PerceptionManager["DEFAULTS"]>;

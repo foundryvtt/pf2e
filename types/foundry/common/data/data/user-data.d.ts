@@ -20,18 +20,18 @@ declare module foundry {
             name: string;
             password: string;
             role: UserRole;
-            flags: Record<string, unknown>;
+            flags: Record<string, Record<string, unknown>>;
         }
 
         class UserData<
-            TDocument extends documents.BaseUser = documents.BaseUser,
+            TDocument extends documents.BaseUser = documents.BaseUser
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
 
             character: documents.BaseActor | null;
         }
 
-        interface UserData extends Omit<UserSource, 'character'> {
+        interface UserData extends Omit<UserSource, "character"> {
             readonly _source: UserSource;
         }
     }

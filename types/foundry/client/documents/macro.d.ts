@@ -1,4 +1,4 @@
-import { MacroConstructor } from './constructors';
+import { MacroConstructor } from "./constructors";
 
 declare global {
     /**

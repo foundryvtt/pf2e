@@ -11,7 +11,7 @@ declare global {
         static REGEXP: RegExp;
 
         /** @override */
-        static SERIALIZE_ATTRIBUTES: ['number'];
+        static SERIALIZE_ATTRIBUTES: ["number"];
 
         /** @override */
         get expression(): string;

@@ -19,9 +19,9 @@ declare module foundry {
         }
 
         interface FolderMetadata extends abstract.DocumentMetadata {
-            name: 'Folder';
-            collection: 'folders';
-            label: 'DOCUMENT.Folder';
+            name: "Folder";
+            collection: "folders";
+            label: "DOCUMENT.Folder";
             isPrimary: true;
             types: typeof CONST.FOLDER_ENTITY_TYPES;
         }

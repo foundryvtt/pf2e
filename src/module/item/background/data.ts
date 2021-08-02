@@ -1,17 +1,17 @@
-import { AbilityString } from '@actor/data/base';
-import { ABCSystemData } from '@item/abc/data';
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from '@item/data/non-physical';
-import { BackgroundPF2e } from '.';
+import { AbilityString } from "@actor/data/base";
+import { ABCSystemData } from "@item/abc/data";
+import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { BackgroundPF2e } from ".";
 
-export type BackgroundSource = BaseNonPhysicalItemSource<'background', BackgroundSystemData>;
+export type BackgroundSource = BaseNonPhysicalItemSource<"background", BackgroundSystemData>;
 
 export class BackgroundData extends BaseNonPhysicalItemData<BackgroundPF2e> {
-    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/background.svg';
+    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/background.svg";
 }
 
-export interface BackgroundData extends Omit<BackgroundSource, '_id' | 'effects'> {
-    type: BackgroundSource['type'];
-    data: BackgroundSource['data'];
+export interface BackgroundData extends Omit<BackgroundSource, "_id" | "effects"> {
+    type: BackgroundSource["type"];
+    data: BackgroundSource["data"];
     readonly _source: BackgroundSource;
 }
 

@@ -78,7 +78,7 @@ declare class MouseInteractionManager {
         layer: PlaceablesLayer,
         permissions?: object,
         callbacks?: object,
-        options?: object,
+        options?: object
     );
 
     /**

@@ -66,6 +66,6 @@ declare class EntitySheetConfig extends FormApplication<foundry.abstract.Documen
         entityClass: typeof foundry.abstract.Document,
         scope: string,
         sheetClass: typeof DocumentSheet,
-        { label, types, makeDefault }?: RegisterSheetOptions,
+        { label, types, makeDefault }?: RegisterSheetOptions
     ): void;
 }

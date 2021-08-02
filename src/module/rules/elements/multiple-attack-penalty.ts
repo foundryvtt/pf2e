@@ -1,7 +1,7 @@
-import { RuleElementPF2e } from '../rule-element';
-import { MultipleAttackPenaltyPF2e, RuleElementSynthetics } from '../rules-data-definitions';
-import { CharacterData, NPCData } from '@actor/data';
-import { ModifierPredicate } from '@module/modifiers';
+import { RuleElementPF2e } from "../rule-element";
+import { MultipleAttackPenaltyPF2e, RuleElementSynthetics } from "../rules-data-definitions";
+import { CharacterData, NPCData } from "@actor/data";
+import { ModifierPredicate } from "@module/modifiers";
 
 /**
  * @category RuleElement
@@ -9,7 +9,7 @@ import { ModifierPredicate } from '@module/modifiers';
 export class PF2MultipleAttackPenaltyRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(
         _actorData: CharacterData | NPCData,
-        { multipleAttackPenalties }: RuleElementSynthetics,
+        { multipleAttackPenalties }: RuleElementSynthetics
     ) {
         const selector = this.resolveInjectedProperties(this.data.selector);
         const label = this.resolveInjectedProperties(this.label);
@@ -22,7 +22,7 @@ export class PF2MultipleAttackPenaltyRuleElement extends RuleElementPF2e {
             multipleAttackPenalties[selector] = (multipleAttackPenalties[selector] || []).concat(map);
         } else {
             console.warn(
-                'PF2E | Multiple attack penalty requires at least a selector field and a non-empty value field',
+                "PF2E | Multiple attack penalty requires at least a selector field and a non-empty value field"
             );
         }
     }

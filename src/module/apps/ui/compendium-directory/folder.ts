@@ -1,4 +1,4 @@
-import { EnfolderedSummaryData } from './index';
+import { EnfolderedSummaryData } from "./index";
 
 interface DataParameters {
     id: string;
@@ -23,7 +23,7 @@ export class PackFolderPF2e extends Array<EnfolderedSummaryData> {
 
     constructor(
         items: EnfolderedSummaryData[] = [],
-        { id, name, type, parent = null, expanded = false }: DataParameters,
+        { id, name, type, parent = null, expanded = false }: DataParameters
     ) {
         super(...items);
         this.id = id;

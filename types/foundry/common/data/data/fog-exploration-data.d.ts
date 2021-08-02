@@ -19,7 +19,7 @@ declare module foundry {
         }
 
         class FogExplorationData<
-            TDocument extends documents.BaseFogExploration = documents.BaseFogExploration,
+            TDocument extends documents.BaseFogExploration = documents.BaseFogExploration
         > extends abstract.DocumentData<TDocument> {
             static defineSchema(): {
                 _id: typeof fields.DOCUMENT_ID;
@@ -31,7 +31,7 @@ declare module foundry {
                     nullable: true;
                     default: null;
                     validate: typeof validators.isBase64Image;
-                    validationError: 'The provided FogExploration explored image is not a valid base64 image string';
+                    validationError: "The provided FogExploration explored image is not a valid base64 image string";
                 };
                 positions: typeof fields.OBJECT_FIELD;
                 timestamp: typeof fields.TIMESTAMP_FIELD & { required: true };

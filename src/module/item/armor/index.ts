@@ -1,9 +1,9 @@
-import { LocalizePF2e } from '@module/system/localize';
-import { addSign } from '@module/utils';
-import { TRADITION_TRAITS } from '../data/values';
-import { PhysicalItemPF2e } from '../physical';
-import { getArmorBonus } from '../runes';
-import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from './data';
+import { LocalizePF2e } from "@module/system/localize";
+import { addSign } from "@module/utils";
+import { TRADITION_TRAITS } from "../data/values";
+import { PhysicalItemPF2e } from "../physical";
+import { getArmorBonus } from "../runes";
+import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from "./data";
 
 export class ArmorPF2e extends PhysicalItemPF2e {
     static override get schema(): typeof ArmorData {
@@ -16,7 +16,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     get isShield(): boolean {
-        return this.data.data.armorType.value === 'shield';
+        return this.data.data.armorType.value === "shield";
     }
 
     get isArmor(): boolean {
@@ -81,11 +81,11 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
         // Add traits from potency rune
         const baseTraits = this.data.data.traits.value;
-        const fromRunes: ('invested' | 'abjuration')[] = this.data.data.potencyRune.value
-            ? ['invested', 'abjuration']
+        const fromRunes: ("invested" | "abjuration")[] = this.data.data.potencyRune.value
+            ? ["invested", "abjuration"]
             : [];
         const hasTraditionTraits = TRADITION_TRAITS.some((trait) => baseTraits.includes(trait));
-        const magicTraits: 'magical'[] = fromRunes.length > 0 && !hasTraditionTraits ? ['magical'] : [];
+        const magicTraits: "magical"[] = fromRunes.length > 0 && !hasTraditionTraits ? ["magical"] : [];
         this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
     }
 
@@ -95,11 +95,11 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         const properties = [
             CONFIG.PF2E.armorTypes[this.category],
             this.group ? CONFIG.PF2E.armorGroups[this.group] : null,
-            `${addSign(getArmorBonus(data))} ${localize('PF2E.ArmorArmorLabel')}`,
-            `${data.dex.value || 0} ${localize('PF2E.ArmorDexLabel')}`,
-            `${data.check.value || 0} ${localize('PF2E.ArmorCheckLabel')}`,
-            `${data.speed.value || 0} ${localize('PF2E.ArmorSpeedLabel')}`,
-            data.equipped.value ? localize('PF2E.ArmorEquippedLabel') : null,
+            `${addSign(getArmorBonus(data))} ${localize("PF2E.ArmorArmorLabel")}`,
+            `${data.dex.value || 0} ${localize("PF2E.ArmorDexLabel")}`,
+            `${data.check.value || 0} ${localize("PF2E.ArmorCheckLabel")}`,
+            `${data.speed.value || 0} ${localize("PF2E.ArmorSpeedLabel")}`,
+            data.equipped.value ? localize("PF2E.ArmorEquippedLabel") : null,
         ].filter((property) => property);
 
         return this.processChatData(htmlOptions, {
@@ -113,7 +113,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         const translations = LocalizePF2e.translations.PF2E;
         const base = this.baseType ? translations.Item.Armor.Base[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.armorGroups[this.group] : null;
-        const fallback = this.isShield ? 'PF2E.ArmorTypeShield' : 'ITEM.TypeArmor';
+        const fallback = this.isShield ? "PF2E.ArmorTypeShield" : "ITEM.TypeArmor";
 
         const itemType = game.i18n.localize(base ?? group ?? fallback);
 

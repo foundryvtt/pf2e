@@ -1,9 +1,9 @@
-import type { ActorPF2e } from '@actor/index';
-import { ActorSourcePF2e } from '@actor/data';
-import type { ItemPF2e } from '@item/index';
-import { ItemSourcePF2e } from '@item/data';
-import { FoundryUtils } from 'tests/utils';
-import { FakeCollection } from './fake-collection';
+import type { ActorPF2e } from "@actor/index";
+import { ActorSourcePF2e } from "@actor/data";
+import type { ItemPF2e } from "@item/index";
+import { ItemSourcePF2e } from "@item/data";
+import { FoundryUtils } from "tests/utils";
+import { FakeCollection } from "./fake-collection";
 
 export class FakeActorItem {
     actor: FakeActor;
@@ -87,12 +87,12 @@ export class FakeActor {
 
         for (const itemChanges of data) {
             let obj: unknown;
-            if (type == 'Item') {
+            if (type == "Item") {
                 obj = this.data.items.find((itemData: ItemSourcePF2e) => itemData._id === itemChanges._id);
             }
 
             for (const [k, v] of Object.entries(itemChanges)) {
-                if (typeof obj === 'object' && obj !== null) {
+                if (typeof obj === "object" && obj !== null) {
                     global.setProperty(obj, k, v);
                 }
             }
@@ -100,7 +100,7 @@ export class FakeActor {
     }
 
     createOwnedItem(data: any | any[]) {
-        return this.createEmbeddedDocuments('Item', data);
+        return this.createEmbeddedDocuments("Item", data);
     }
 
     createEmbeddedDocuments(type: string, data: any | any[]) {
@@ -111,7 +111,7 @@ export class FakeActor {
             this._data.items = [];
         }
 
-        if (type == 'Item') {
+        if (type == "Item") {
             for (const obj of data) {
                 obj._id = `item${this._itemGuid}`;
                 this._itemGuid += 1;
@@ -124,7 +124,7 @@ export class FakeActor {
         // make sure data is an array, since it expects multiple
         data = data instanceof Array ? data : [data];
 
-        if (type == 'Item') {
+        if (type == "Item") {
             for (const id of data) {
                 this._data.items = this._data.items?.filter((x: any) => x._id !== id);
             }

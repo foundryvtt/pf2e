@@ -124,5 +124,5 @@ declare global {
 }
 
 interface GridLayerOptions extends CanvasLayerOptions {
-    name: 'grid';
+    name: "grid";
 }

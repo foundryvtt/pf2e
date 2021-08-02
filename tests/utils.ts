@@ -2,7 +2,7 @@
 export const FoundryUtils = {
     randomID: (length = 16): string => {
         const rnd = () => Math.random().toString(36).substr(2);
-        let id = '';
+        let id = "";
         while (id.length < length) {
             id += rnd();
         }

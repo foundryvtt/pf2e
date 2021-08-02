@@ -4,20 +4,20 @@ import {
     BaseActorDataPF2e,
     BaseActorSourcePF2e,
     BaseHitPointsData,
-} from '@actor/data/base';
-import { VehiclePF2e } from '.';
+} from "@actor/data/base";
+import { VehiclePF2e } from ".";
 
 /** The stored source data of a vehicle actor */
-export type VehicleSource = BaseActorSourcePF2e<'vehicle', VehicleSystemData>;
+export type VehicleSource = BaseActorSourcePF2e<"vehicle", VehicleSystemData>;
 
 /** The boxed data object of the vehicle actor */
 export class VehicleData extends BaseActorDataPF2e<VehiclePF2e> {
-    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/vehicle.svg';
+    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/vehicle.svg";
 }
 
-export interface VehicleData extends Omit<VehicleSource, 'effects' | 'items' | 'token'> {
-    type: VehicleSource['type'];
-    data: VehicleSource['data'];
+export interface VehicleData extends Omit<VehicleSource, "effects" | "items" | "token"> {
+    type: VehicleSource["type"];
+    data: VehicleSource["data"];
     readonly _source: VehicleSource;
 }
 

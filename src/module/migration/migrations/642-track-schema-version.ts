@@ -1,6 +1,6 @@
-import { ActorSourcePF2e } from '@actor/data';
-import { ItemSourcePF2e } from '@item/data';
-import { MigrationBase } from '../base';
+import { ActorSourcePF2e } from "@actor/data";
+import { ItemSourcePF2e } from "@item/data";
+import { MigrationBase } from "../base";
 
 /** Start recording the schema version and other details of a migration */
 export class Migration642TrackSchemaVersion extends MigrationBase {

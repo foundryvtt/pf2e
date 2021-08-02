@@ -11,7 +11,7 @@ declare module foundry {
             static override get metadata(): RollTableMetadata;
 
             /** A reference to the Collection of TableResult instances in this document, indexed by _id. */
-            get results(): this['data']['results'];
+            get results(): this["data"]["results"];
         }
 
         interface BaseRollTable {
@@ -21,9 +21,9 @@ declare module foundry {
         }
 
         interface RollTableMetadata extends abstract.DocumentMetadata {
-            name: 'RollTable';
-            collection: 'tables';
-            label: 'DOCUMENT.RollTable';
+            name: "RollTable";
+            collection: "tables";
+            label: "DOCUMENT.RollTable";
             embedded: {
                 TableResult: typeof documents.BaseTableResult;
             };

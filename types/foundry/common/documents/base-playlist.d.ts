@@ -7,7 +7,7 @@ declare module foundry {
             static override get metadata(): PlaylistMetadata;
 
             /** A reference to the Collection of PlaylistSound instances in the Playlist document, indexed by _id. */
-            get sounds(): this['data']['sounds'];
+            get sounds(): this["data"]["sounds"];
         }
 
         interface BasePlaylist {
@@ -17,9 +17,9 @@ declare module foundry {
         }
 
         interface PlaylistMetadata extends abstract.DocumentMetadata {
-            name: 'Playlist';
-            collection: 'playlists';
-            label: 'DOCUMENT.Playlist';
+            name: "Playlist";
+            collection: "playlists";
+            label: "DOCUMENT.Playlist";
             embedded: {
                 PlaylistSound: typeof BasePlaylistSound;
             };

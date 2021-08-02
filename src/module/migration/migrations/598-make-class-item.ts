@@ -1,25 +1,25 @@
-import { MigrationBase } from '../base';
+import { MigrationBase } from "../base";
 
 export class Migration598AddClassItem extends MigrationBase {
     static override version = 0.598;
     override requiresFlush = true;
 
     override async updateActor(actor: any) {
-        if (actor.type !== 'character') return;
+        if (actor.type !== "character") return;
 
-        const classItem = actor.items.find((x: any) => x.type === 'class');
+        const classItem = actor.items.find((x: any) => x.type === "class");
         if (classItem) return; // no need to do anything since it's already there
 
-        const name = actor.data.details.class?.value ?? '';
+        const name = actor.data.details.class?.value ?? "";
         actor.items.push({
-            type: 'class',
-            name: name !== '' ? name : 'unknown',
+            type: "class",
+            name: name !== "" ? name : "unknown",
             data: {
-                keyAbility: { value: [actor.data.details?.keyability ?? 'str'] },
+                keyAbility: { value: [actor.data.details?.keyability ?? "str"] },
                 items: [],
                 traits: {
                     rarity: {
-                        value: 'common',
+                        value: "common",
                     },
                     value: [],
                 },
@@ -35,7 +35,7 @@ export class Migration598AddClassItem extends MigrationBase {
                     martial: 0,
                     advanced: 0,
                     unarmed: 0,
-                    other: { name: '', rank: 0 },
+                    other: { name: "", rank: 0 },
                 },
                 defenses: {
                     unarmored: 0,

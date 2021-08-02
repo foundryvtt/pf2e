@@ -1,12 +1,12 @@
-import { PhysicalItemData, TraitChatData } from '@item/data';
-import { LocalizePF2e } from '@module/system/localize';
-import { Rarity, Size } from '@module/data';
-import { ItemPF2e } from '@item/index';
-import type { ContainerPF2e } from '@item/index';
-import { MystifiedTraits } from '@item/data/values';
-import { getUnidentifiedPlaceholderImage } from '../identification';
-import { IdentificationStatus, MystifiedData, PhysicalItemTrait } from './data';
-import { coinsToString, extractPriceFromItem } from '@item/treasure/helpers';
+import { PhysicalItemData, TraitChatData } from "@item/data";
+import { LocalizePF2e } from "@module/system/localize";
+import { Rarity, Size } from "@module/data";
+import { ItemPF2e } from "@item/index";
+import type { ContainerPF2e } from "@item/index";
+import { MystifiedTraits } from "@item/data/values";
+import { getUnidentifiedPlaceholderImage } from "../identification";
+import { IdentificationStatus, MystifiedData, PhysicalItemTrait } from "./data";
+import { coinsToString, extractPriceFromItem } from "@item/treasure/helpers";
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     // The cached container of this item, if in a container, or null
@@ -50,13 +50,13 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     get isMagical(): boolean {
         const traits: Set<string> = this.traits;
-        const magicTraits = ['magical', 'arcane', 'primal', 'divine', 'occult'] as const;
+        const magicTraits = ["magical", "arcane", "primal", "divine", "occult"] as const;
         return magicTraits.some((trait) => traits.has(trait));
     }
 
     get isInvested(): boolean | null {
         const traits: Set<string> = this.traits;
-        if (!traits.has('invested')) return null;
+        if (!traits.has("invested")) return null;
         return this.data.isEquipped && this.data.isIdentified && this.data.data.invested?.value === true;
     }
 
@@ -82,8 +82,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     get container(): Embedded<ContainerPF2e> | null {
         if (this.data.data.containerId.value === null) return (this._container = null);
 
-        const container = this._container ?? this.actor?.items.get(this.data.data.containerId.value ?? '');
-        if (container?.type === 'backpack') this._container = container as Embedded<ContainerPF2e>;
+        const container = this._container ?? this.actor?.items.get(this.data.data.containerId.value ?? "");
+        if (container?.type === "backpack") this._container = container as Embedded<ContainerPF2e>;
 
         return this._container;
     }
@@ -101,11 +101,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         systemData.price.value = coinsToString(extractPriceFromItem(this.data, 1));
 
         this.data.isEquipped = systemData.equipped.value;
-        this.data.isIdentified = systemData.identification.status === 'identified';
+        this.data.isIdentified = systemData.identification.status === "identified";
 
         const traits = this.traits;
-        this.data.isAlchemical = traits.has('alchemical');
-        this.data.isCursed = traits.has('cursed');
+        this.data.isAlchemical = traits.has("alchemical");
+        this.data.isCursed = traits.has("cursed");
 
         // Magic and invested status is determined at the class-instance level since it can be updated later in data
         // preparation
@@ -138,7 +138,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         mergeObject(this.data, mystifiedData, { insertKeys: false, insertValues: false });
 
         // Fill gaps in unidentified data with defaults
-        systemData.identification.unidentified = this.getMystifiedData('unidentified');
+        systemData.identification.unidentified = this.getMystifiedData("unidentified");
     }
 
     /** Can the provided item stack with this item? */
@@ -165,12 +165,12 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         const description =
             mystifiedData.data.description.value ||
             (() => {
-                if (status === 'identified') return this.description;
+                if (status === "identified") return this.description;
 
                 const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedDescription;
                 const itemType = this.generateUnidentifiedName({ typeOnly: true });
                 const caseCorrect = (noun: string) =>
-                    game.i18n.lang.toLowerCase() === 'de' ? noun : noun.toLowerCase();
+                    game.i18n.lang.toLowerCase() === "de" ? noun : noun.toLowerCase();
                 return game.i18n.format(formatString, { item: caseCorrect(itemType) });
             })();
 
@@ -196,8 +196,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         if (this.identificationStatus === status) return;
 
         await this.update({
-            'data.identification.status': status,
-            'data.identification.unidentified': this.getMystifiedData('unidentified'),
+            "data.identification.status": status,
+            "data.identification.unidentified": this.getMystifiedData("unidentified"),
         });
     }
 
