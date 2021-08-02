@@ -22,7 +22,7 @@
  */
 declare class SightLayer<
     TToken extends Token = Token,
-    TFogExploration extends FogExploration<TToken> = FogExploration<TToken>,
+    TFogExploration extends FogExploration<TToken> = FogExploration<TToken>
 > extends CanvasLayer {
     constructor();
 
@@ -221,11 +221,11 @@ declare class SightLayer<
         endpoints: PointArray[],
         rays: Ray[],
         los: PIXI.Polygon,
-        fov: PIXI.Polygon,
+        fov: PIXI.Polygon
     ): void;
 }
 
 declare interface SightLayerOptions extends CanvasLayerOptions {
-    name: 'sight';
+    name: "sight";
     zIndex: number;
 }

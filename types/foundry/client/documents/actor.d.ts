@@ -1,4 +1,4 @@
-import { ActorConstructor } from './constructors';
+import { ActorConstructor } from "./constructors";
 
 declare global {
     /**
@@ -23,7 +23,7 @@ declare global {
         constructor(data: PreCreate<foundry.data.ActorSource>, context?: DocumentConstructionContext<Actor>);
 
         /** An object that tracks which tracks the changes to the data model which were applied by active effects */
-        overrides: DeepPartial<this['data']['_source']>;
+        overrides: DeepPartial<this["data"]["_source"]>;
 
         /**
          * A cached array of image paths which can be used for this Actor's token.
@@ -67,19 +67,19 @@ declare global {
          * @param [document=false] Return the Document instance rather than the PlaceableObject
          * @return An array of Token instances in the current Scene which reference this Actor.
          */
-        getActiveTokens(linked?: boolean, document?: boolean): NonNullable<TParent['object']>[];
+        getActiveTokens(linked?: boolean, document?: boolean): NonNullable<TParent["object"]>[];
 
         /** Prepare a data object which defines the data schema used by dice roll commands against this Actor */
         getRollData(): object;
 
-        protected override _getSheetClass(): ConstructorOf<NonNullable<this['_sheet']>>;
+        protected override _getSheetClass(): ConstructorOf<NonNullable<this["_sheet"]>>;
 
         /**
          * Create a new TokenData object which can be used to create a Token representation of the Actor.
          * @param [data={}] Additional data, such as x, y, rotation, etc. for the created token data
          * @return The created TokenData instance
          */
-        getTokenData(data?: DocumentModificationContext): Promise<TParent['data']>;
+        getTokenData(data?: DocumentModificationContext): Promise<TParent["data"]>;
 
         /** Get an Array of Token images which could represent this Actor */
         getTokenImages(): Promise<ImagePath[]>;
@@ -116,44 +116,44 @@ declare global {
             initiativeOptions?: object;
         }): Promise<Combat | null>;
 
-        override getEmbeddedCollection(embeddedName: 'ActiveEffect'): this['effects'];
-        override getEmbeddedCollection(embeddedName: 'Item'): this['items'];
-        override getEmbeddedCollection(embeddedName: 'ActiveEffect' | 'Item'): this['effects'] | this['items'];
+        override getEmbeddedCollection(embeddedName: "ActiveEffect"): this["effects"];
+        override getEmbeddedCollection(embeddedName: "Item"): this["items"];
+        override getEmbeddedCollection(embeddedName: "ActiveEffect" | "Item"): this["effects"] | this["items"];
 
         protected override _preCreate(
-            data: PreDocumentId<this['data']['_source']>,
+            data: PreDocumentId<this["data"]["_source"]>,
             options: DocumentModificationContext,
-            user: User,
+            user: User
         ): Promise<void>;
 
         protected override _onUpdate(
-            changed: DeepPartial<this['data']['_source']>,
+            changed: DeepPartial<this["data"]["_source"]>,
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         protected override _onCreateEmbeddedDocuments(
-            embeddedName: 'ActiveEffect' | 'Item',
+            embeddedName: "ActiveEffect" | "Item",
             documents: ActiveEffect[] | Item[],
             result: foundry.data.ActiveEffectSource[] | foundry.data.ItemSource[],
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         protected override _onUpdateEmbeddedDocuments(
-            embeddedName: 'ActiveEffect' | 'Item',
+            embeddedName: "ActiveEffect" | "Item",
             documents: ActiveEffect[] | Item[],
             result: foundry.data.ActiveEffectSource[] | foundry.data.ItemSource[],
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         protected override _onDeleteEmbeddedDocuments(
-            embeddedName: 'ActiveEffect' | 'Item',
+            embeddedName: "ActiveEffect" | "Item",
             documents: ActiveEffect[] | Item[],
             result: foundry.data.ActiveEffectSource[] | foundry.data.ItemSource[],
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         /** Refresh the display of active Tokens for this Actor if ActiveEffects were changed */
@@ -170,37 +170,37 @@ declare global {
         get sheet(): ActorSheet<Actor, Item>;
 
         deleteEmbeddedDocuments(
-            embeddedName: 'ActiveEffect',
+            embeddedName: "ActiveEffect",
             dataId: string[],
-            context?: DocumentModificationContext,
+            context?: DocumentModificationContext
         ): Promise<ActiveEffect[]>;
         deleteEmbeddedDocuments(
-            embeddedName: 'Item',
+            embeddedName: "Item",
             dataId: string[],
-            context?: DocumentModificationContext,
+            context?: DocumentModificationContext
         ): Promise<Item[]>;
         deleteEmbeddedDocuments(
-            embeddedName: 'ActiveEffect' | 'Item',
+            embeddedName: "ActiveEffect" | "Item",
             dataId: string[],
-            context?: DocumentModificationContext,
+            context?: DocumentModificationContext
         ): Promise<ActiveEffect[] | Item[]>;
     }
 
     namespace Actor {
         function create<A extends Actor>(
             this: ConstructorOf<A>,
-            data: PreCreate<A['data']['_source']>,
-            context?: DocumentModificationContext,
+            data: PreCreate<A["data"]["_source"]>,
+            context?: DocumentModificationContext
         ): Promise<A | undefined>;
         function create<A extends Actor>(
             this: ConstructorOf<A>,
-            data: PreCreate<A['data']['_source']>[],
-            context?: DocumentModificationContext,
+            data: PreCreate<A["data"]["_source"]>[],
+            context?: DocumentModificationContext
         ): Promise<A[]>;
         function create<A extends Actor>(
             this: ConstructorOf<A>,
-            data: PreCreate<A['data']['_source']>[] | PreCreate<A['data']['_source']>,
-            context?: DocumentModificationContext,
+            data: PreCreate<A["data"]["_source"]>[] | PreCreate<A["data"]["_source"]>,
+            context?: DocumentModificationContext
         ): Promise<A[] | A | undefined>;
     }
 }

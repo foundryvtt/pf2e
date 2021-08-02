@@ -14,9 +14,9 @@ declare module foundry {
         }
 
         interface TileMetadata extends abstract.DocumentMetadata {
-            name: 'Tile';
-            collection: 'tiles';
-            label: 'DOCUMENT.Tile';
+            name: "Tile";
+            collection: "tiles";
+            label: "DOCUMENT.Tile";
             isEmbedded: true;
         }
     }

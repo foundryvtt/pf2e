@@ -1,4 +1,4 @@
-import { PlaylistConstructor } from './constructors';
+import { PlaylistConstructor } from "./constructors";
 
 declare global {
     /**
@@ -96,39 +96,39 @@ declare global {
         protected override _preUpdate(
             data: DocumentUpdateData<this>,
             options: DocumentModificationContext,
-            user: User,
+            user: User
         ): Promise<void>;
 
         protected override _onUpdate(
-            changed: DeepPartial<this['data']['_source']>,
+            changed: DeepPartial<this["data"]["_source"]>,
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         protected override _onDelete(options: DocumentModificationContext, userId: string): void;
 
         protected override _onCreateEmbeddedDocuments(
-            embeddedName: 'PlaylistSound',
+            embeddedName: "PlaylistSound",
             documents: PlaylistSound[],
             result: foundry.data.PlaylistSoundSource[],
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         protected override _onUpdateEmbeddedDocuments(
-            embeddedName: 'PlaylistSound',
+            embeddedName: "PlaylistSound",
             documents: PlaylistSound[],
             result: foundry.data.PlaylistSoundSource[],
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         protected override _onDeleteEmbeddedDocuments(
-            embeddedName: 'PlaylistSound',
+            embeddedName: "PlaylistSound",
             documents: ClientDocument[],
             result: PlaylistSound[],
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         /** Handle callback logic when an individual sound within the Playlist concludes playback naturally */

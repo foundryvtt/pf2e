@@ -23,7 +23,7 @@ declare global {
      */
     class DocumentSheet<
         TDocument extends foundry.abstract.Document = foundry.abstract.Document,
-        TOptions extends DocumentSheetOptions = DocumentSheetOptions,
+        TOptions extends DocumentSheetOptions = DocumentSheetOptions
     > extends FormApplication<TDocument, TOptions> {
         constructor(object: TDocument, options: Partial<DocumentSheetOptions>);
 

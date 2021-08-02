@@ -61,7 +61,7 @@ declare module foundry {
         }
 
         class DrawingData<
-            TDocument extends documents.BaseDrawing = documents.BaseDrawing,
+            TDocument extends documents.BaseDrawing = documents.BaseDrawing
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
 

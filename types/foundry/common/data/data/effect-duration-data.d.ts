@@ -21,7 +21,7 @@ declare module foundry {
         }
 
         class EffectDurationData<
-            TDocument extends documents.BaseActiveEffect = documents.BaseActiveEffect,
+            TDocument extends documents.BaseActiveEffect = documents.BaseActiveEffect
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): {
                 startTime: typeof fields.TIMESTAMP_FIELD;
@@ -42,7 +42,7 @@ declare module foundry {
         }
 
         namespace EffectDurationData {
-            const schema: ReturnType<typeof EffectDurationData['defineSchema']>;
+            const schema: ReturnType<typeof EffectDurationData["defineSchema"]>;
         }
     }
 }

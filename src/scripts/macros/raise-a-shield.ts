@@ -1,17 +1,17 @@
-import { CharacterPF2e } from '@actor/character';
-import { NPCPF2e } from '@actor/npc';
-import { EffectPF2e } from '@item/effect';
-import { ChatMessagePF2e } from '@module/chat-message';
-import { ErrorPF2e } from '@module/utils';
-import { ActionDefaultOptions } from '../..//module/system/actions/actions';
-import { LocalizePF2e } from '../../module/system/localize';
+import { CharacterPF2e } from "@actor/character";
+import { NPCPF2e } from "@actor/npc";
+import { EffectPF2e } from "@item/effect";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { ErrorPF2e } from "@module/utils";
+import { ActionDefaultOptions } from "../..//module/system/actions/actions";
+import { LocalizePF2e } from "../../module/system/localize";
 
 /** Effect: Raise a Shield */
-const ITEM_UUID = 'Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr';
+const ITEM_UUID = "Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr";
 
 const TEMPLATES = {
-    flavor: './systems/pf2e/templates/chat/action/flavor.html',
-    content: './systems/pf2e/templates/chat/action/content.html',
+    flavor: "./systems/pf2e/templates/chat/action/flavor.html",
+    content: "./systems/pf2e/templates/chat/action/content.html",
 };
 
 /** A macro for the Raise a Shield action */
@@ -30,7 +30,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
 
     const isSuccess = await (async (): Promise<boolean> => {
         const existingEffect = actor.itemTypes.effect.find(
-            (effect) => effect.getFlag('core', 'sourceId') === ITEM_UUID,
+            (effect) => effect.getFlag("core", "sourceId") === ITEM_UUID
         );
         if (existingEffect) {
             await existingEffect.delete();
@@ -40,19 +40,19 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
         if (shield?.isBroken === false) {
             const effect = await fromUuid(ITEM_UUID);
             if (!(effect instanceof EffectPF2e)) {
-                throw ErrorPF2e('Raise a Shield effect not found');
+                throw ErrorPF2e("Raise a Shield effect not found");
             }
             const effectSource = effect.toObject();
             effectSource.img = shield.img;
             const rule = effectSource.data.rules.find(
-                (rule) => rule.selector === 'ac' && rule.key === 'PF2E.RuleElement.FlatModifier',
+                (rule) => rule.selector === "ac" && rule.key === "PF2E.RuleElement.FlatModifier"
             );
             rule!.value = shield.acBonus;
-            await actor.createEmbeddedDocuments('Item', [effectSource]);
+            await actor.createEmbeddedDocuments("Item", [effectSource]);
             return true;
         } else if (shield?.isBroken) {
             ui.notifications.warn(
-                game.i18n.format(translations.ShieldIsBroken, { actor: speaker.alias, shield: shield.name }),
+                game.i18n.format(translations.ShieldIsBroken, { actor: speaker.alias, shield: shield.name })
             );
             return false;
         } else {
@@ -64,7 +64,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
     if (isSuccess) {
         const combatActor = (game.combat?.active && game.combat.combatant?.actor) || null;
         const [actionType, glyph] =
-            combatActor && combatActor !== actor ? (['Reaction', 'R'] as const) : (['SingleAction', '1'] as const);
+            combatActor && combatActor !== actor ? (["Reaction", "R"] as const) : (["SingleAction", "1"] as const);
 
         const title = translations[`${actionType}Title` as const];
 

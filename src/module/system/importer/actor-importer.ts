@@ -1,8 +1,8 @@
-import { CharacterPF2e } from '@actor';
-import { ItemPF2e } from '@item';
-import { AncestrySource, BackgroundSource, ClassSource } from '@item/data';
-import { ABCManagerOptions, AncestryBackgroundClassManager } from '@item/abc/abc-manager';
-import { ErrorPF2e } from '@module/utils';
+import { CharacterPF2e } from "@actor";
+import { ItemPF2e } from "@item";
+import { AncestrySource, BackgroundSource, ClassSource } from "@item/data";
+import { ABCManagerOptions, AncestryBackgroundClassManager } from "@item/abc/abc-manager";
+import { ErrorPF2e } from "@module/utils";
 
 export class ActorImporter {
     /**
@@ -15,13 +15,13 @@ export class ActorImporter {
     static async addAncestry(
         character: CharacterPF2e,
         ancestry: string | AncestrySource,
-        options: ABCManagerOptions,
+        options: ABCManagerOptions
     ): Promise<ItemPF2e[]> {
         if (!(character instanceof CharacterPF2e)) {
             throw ErrorPF2e(`Invalid Actor type. Ancestry items can only be added to characters.`);
         }
-        if (typeof ancestry === 'string') {
-            ancestry = await AncestryBackgroundClassManager.getItemSource('pf2e.ancestries', ancestry);
+        if (typeof ancestry === "string") {
+            ancestry = await AncestryBackgroundClassManager.getItemSource("pf2e.ancestries", ancestry);
         }
         return AncestryBackgroundClassManager.addABCItem(ancestry, character, options);
     }
@@ -36,13 +36,13 @@ export class ActorImporter {
     static async addBackground(
         character: CharacterPF2e,
         background: string | BackgroundSource,
-        options: ABCManagerOptions,
+        options: ABCManagerOptions
     ): Promise<ItemPF2e[]> {
         if (!(character instanceof CharacterPF2e)) {
             throw ErrorPF2e(`Invalid Actor type. Background items can only be added to characters.`);
         }
-        if (typeof background === 'string') {
-            background = await AncestryBackgroundClassManager.getItemSource('pf2e.backgrounds', background);
+        if (typeof background === "string") {
+            background = await AncestryBackgroundClassManager.getItemSource("pf2e.backgrounds", background);
         }
         return AncestryBackgroundClassManager.addABCItem(background, character, options);
     }
@@ -57,13 +57,13 @@ export class ActorImporter {
     static async addClass(
         character: CharacterPF2e,
         cls: string | ClassSource,
-        options: ABCManagerOptions,
+        options: ABCManagerOptions
     ): Promise<ItemPF2e[]> {
         if (!(character instanceof CharacterPF2e)) {
             throw ErrorPF2e(`Invalid Actor type. Class items can only be added to characters.`);
         }
-        if (typeof cls === 'string') {
-            cls = await AncestryBackgroundClassManager.getItemSource('pf2e.classes', cls);
+        if (typeof cls === "string") {
+            cls = await AncestryBackgroundClassManager.getItemSource("pf2e.classes", cls);
         }
         return AncestryBackgroundClassManager.addABCItem(cls, character, options);
     }

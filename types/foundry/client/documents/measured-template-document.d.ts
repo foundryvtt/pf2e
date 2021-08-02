@@ -1,4 +1,4 @@
-import { MeasuredTemplateDocumentConstructor } from './constructors';
+import { MeasuredTemplateDocumentConstructor } from "./constructors";
 
 declare global {
     /**

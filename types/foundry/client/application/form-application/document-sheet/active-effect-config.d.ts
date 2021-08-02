@@ -9,10 +9,10 @@ declare global {
         height: string;
         tabs: [
             {
-                navSelector: '.tabs';
-                contentSelector: 'form';
-                initial: 'details';
-            },
+                navSelector: ".tabs";
+                contentSelector: "form";
+                initial: "details";
+            }
         ];
     }
 
@@ -48,7 +48,7 @@ declare global {
         /** @override */
         protected _updateObject(
             event: Event,
-            formData: Record<string, unknown> & { changes?: foundry.data.EffectChangeData[] },
+            formData: Record<string, unknown> & { changes?: foundry.data.EffectChangeData[] }
         ): Promise<void>;
     }
 }

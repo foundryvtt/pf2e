@@ -6,7 +6,7 @@
  */
 declare class Items<TItem extends Item> extends WorldCollection<TItem> {
     /** @override */
-    static documentName: 'Item';
+    static documentName: "Item";
 
     /* -------------------------------------------- */
     /*  Methods                                     */
@@ -19,7 +19,7 @@ declare class Items<TItem extends Item> extends WorldCollection<TItem> {
     static registerSheet(
         scope: string,
         sheetClass: new (...args: any[]) => ItemSheet,
-        options?: RegisterSheetOptions,
+        options?: RegisterSheetOptions
     ): void;
 
     /**

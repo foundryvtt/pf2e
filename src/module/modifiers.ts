@@ -1,16 +1,16 @@
-import { AbilityString } from '@actor/data/base';
-import { DamageCategory, DamageDieSize } from '@system/damage/damage';
+import { AbilityString } from "@actor/data/base";
+import { DamageCategory, DamageDieSize } from "@system/damage/damage";
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
-    'proficiency:untrained',
-    'proficiency:trained',
-    'proficiency:expert',
-    'proficiency:master',
-    'proficiency:legendary',
+    "proficiency:untrained",
+    "proficiency:trained",
+    "proficiency:expert",
+    "proficiency:master",
+    "proficiency:legendary",
 ]);
 
 export function ensureProficiencyOption(options: string[], proficiencyRank: number) {
-    if (proficiencyRank >= 0 && !options.some((option) => option.toLowerCase().startsWith('proficiency:'))) {
+    if (proficiencyRank >= 0 && !options.some((option) => option.toLowerCase().startsWith("proficiency:"))) {
         options.push(PROFICIENCY_RANK_OPTION[proficiencyRank]);
     }
 }
@@ -20,13 +20,13 @@ export function ensureProficiencyOption(options: string[], proficiencyRank: numb
  * which fully stack).
  */
 export const MODIFIER_TYPE = Object.freeze({
-    ABILITY: 'ability',
-    PROFICIENCY: 'proficiency',
-    CIRCUMSTANCE: 'circumstance',
-    ITEM: 'item',
-    POTENCY: 'potency',
-    STATUS: 'status',
-    UNTYPED: 'untyped',
+    ABILITY: "ability",
+    PROFICIENCY: "proficiency",
+    CIRCUMSTANCE: "circumstance",
+    ITEM: "item",
+    POTENCY: "potency",
+    STATUS: "status",
+    UNTYPED: "untyped",
 } as const);
 
 export type ModifierType = typeof MODIFIER_TYPE[keyof typeof MODIFIER_TYPE];
@@ -97,7 +97,7 @@ export class ModifierPF2e implements RawModifier {
 
         this.name = name;
         this.modifier = modifier;
-        this.type = isValidModifierType(type) ? type : 'untyped';
+        this.type = isValidModifierType(type) ? type : "untyped";
         this.enabled = enabled;
         this.ignored = false;
         this.custom = false;
@@ -106,32 +106,32 @@ export class ModifierPF2e implements RawModifier {
     }
 }
 
-export type MinimalModifier = Pick<ModifierPF2e, 'name' | 'type' | 'modifier'>;
+export type MinimalModifier = Pick<ModifierPF2e, "name" | "type" | "modifier">;
 
 // ability scores
 export const STRENGTH = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityStr', Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
+        new ModifierPF2e("PF2E.AbilityStr", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
 });
 export const DEXTERITY = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityDex', Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
+        new ModifierPF2e("PF2E.AbilityDex", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
 });
 export const CONSTITUTION = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityCon', Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
+        new ModifierPF2e("PF2E.AbilityCon", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
 });
 export const INTELLIGENCE = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityInt', Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
+        new ModifierPF2e("PF2E.AbilityInt", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
 });
 export const WISDOM = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityWis', Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
+        new ModifierPF2e("PF2E.AbilityWis", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
 });
 export const CHARISMA = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityCha', Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
+        new ModifierPF2e("PF2E.AbilityCha", Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
 });
 export const AbilityModifier = Object.freeze({
     /**
@@ -142,23 +142,23 @@ export const AbilityModifier = Object.freeze({
      */
     fromAbilityScore: (ability: AbilityString, score: number) => {
         switch (ability) {
-            case 'str':
+            case "str":
                 return STRENGTH.withScore(score);
-            case 'dex':
+            case "dex":
                 return DEXTERITY.withScore(score);
-            case 'con':
+            case "con":
                 return CONSTITUTION.withScore(score);
-            case 'int':
+            case "int":
                 return INTELLIGENCE.withScore(score);
-            case 'wis':
+            case "wis":
                 return WISDOM.withScore(score);
-            case 'cha':
+            case "cha":
                 return CHARISMA.withScore(score);
             default:
                 // Throwing an actual error can completely break the sheet. Instead, log
                 // and use 0 for the modifier
                 console.error(`invalid ability abbreviation: ${ability}`);
-                return new ModifierPF2e('PF2E.AbilityUnknown', 0, MODIFIER_TYPE.ABILITY);
+                return new ModifierPF2e("PF2E.AbilityUnknown", 0, MODIFIER_TYPE.ABILITY);
         }
     },
 });
@@ -166,48 +166,48 @@ export const AbilityModifier = Object.freeze({
 // proficiency ranks
 export const UNTRAINED = Object.freeze({
     atLevel: (_level: number) => {
-        const modifier = (game.settings.get('pf2e', 'proficiencyUntrainedModifier') as number | null) ?? 0;
-        return new ModifierPF2e('PF2E.ProficiencyLevel0', modifier, MODIFIER_TYPE.PROFICIENCY);
+        const modifier = (game.settings.get("pf2e", "proficiencyUntrainedModifier") as number | null) ?? 0;
+        return new ModifierPF2e("PF2E.ProficiencyLevel0", modifier, MODIFIER_TYPE.PROFICIENCY);
     },
 });
 export const TRAINED = Object.freeze({
     atLevel: (level: number) => {
-        const rule = game.settings.get('pf2e', 'proficiencyVariant') ?? 'ProficiencyWithLevel';
-        let modifier = game.settings.get('pf2e', 'proficiencyTrainedModifier') ?? 2;
-        if (rule === 'ProficiencyWithLevel') {
+        const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
+        let modifier = game.settings.get("pf2e", "proficiencyTrainedModifier") ?? 2;
+        if (rule === "ProficiencyWithLevel") {
             modifier += level;
         }
-        return new ModifierPF2e('PF2E.ProficiencyLevel1', modifier, MODIFIER_TYPE.PROFICIENCY);
+        return new ModifierPF2e("PF2E.ProficiencyLevel1", modifier, MODIFIER_TYPE.PROFICIENCY);
     },
 });
 export const EXPERT = Object.freeze({
     atLevel: (level: number) => {
-        const rule = game.settings.get('pf2e', 'proficiencyVariant') ?? 'ProficiencyWithLevel';
-        let modifier = game.settings.get('pf2e', 'proficiencyExpertModifier') ?? 4;
-        if (rule === 'ProficiencyWithLevel') {
+        const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
+        let modifier = game.settings.get("pf2e", "proficiencyExpertModifier") ?? 4;
+        if (rule === "ProficiencyWithLevel") {
             modifier += level;
         }
-        return new ModifierPF2e('PF2E.ProficiencyLevel2', modifier, MODIFIER_TYPE.PROFICIENCY);
+        return new ModifierPF2e("PF2E.ProficiencyLevel2", modifier, MODIFIER_TYPE.PROFICIENCY);
     },
 });
 export const MASTER = Object.freeze({
     atLevel: (level: number) => {
-        const rule = game.settings.get('pf2e', 'proficiencyVariant') ?? 'ProficiencyWithLevel';
-        let modifier = game.settings.get('pf2e', 'proficiencyMasterModifier') ?? 6;
-        if (rule === 'ProficiencyWithLevel') {
+        const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
+        let modifier = game.settings.get("pf2e", "proficiencyMasterModifier") ?? 6;
+        if (rule === "ProficiencyWithLevel") {
             modifier += level;
         }
-        return new ModifierPF2e('PF2E.ProficiencyLevel3', modifier, MODIFIER_TYPE.PROFICIENCY);
+        return new ModifierPF2e("PF2E.ProficiencyLevel3", modifier, MODIFIER_TYPE.PROFICIENCY);
     },
 });
 export const LEGENDARY = Object.freeze({
     atLevel: (level: number) => {
-        const rule = game.settings.get('pf2e', 'proficiencyVariant') ?? 'ProficiencyWithLevel';
-        let modifier = game.settings.get('pf2e', 'proficiencyLegendaryModifier') ?? 8;
-        if (rule === 'ProficiencyWithLevel') {
+        const rule = game.settings.get("pf2e", "proficiencyVariant") ?? "ProficiencyWithLevel";
+        let modifier = game.settings.get("pf2e", "proficiencyLegendaryModifier") ?? 8;
+        if (rule === "ProficiencyWithLevel") {
             modifier += level;
         }
-        return new ModifierPF2e('PF2E.ProficiencyLevel4', modifier, MODIFIER_TYPE.PROFICIENCY);
+        return new ModifierPF2e("PF2E.ProficiencyLevel4", modifier, MODIFIER_TYPE.PROFICIENCY);
     },
 });
 export const ProficiencyModifier = Object.freeze({
@@ -249,7 +249,7 @@ const LOWER_PENALTY = (a: ModifierPF2e, b: ModifierPF2e) => a.modifier <= b.modi
 function applyStacking(
     best: Record<string, ModifierPF2e>,
     modifier: ModifierPF2e,
-    isBetter: (first: ModifierPF2e, second: ModifierPF2e) => boolean,
+    isBetter: (first: ModifierPF2e, second: ModifierPF2e) => boolean
 ) {
     // If there is no existing bonus of this type, then add ourselves.
     const existing = best[modifier.type];
@@ -469,7 +469,7 @@ export class DiceModifierPF2e implements RawModifier {
         if (param.name) {
             this.name = param.name;
         } else {
-            throw new Error('name is mandatory');
+            throw new Error("name is mandatory");
         }
 
         this.label = param.label;
@@ -492,7 +492,7 @@ export class DiceModifierPF2e implements RawModifier {
     }
 }
 
-type DamageDiceParameters = Partial<DamageDicePF2e> & Pick<DamageDicePF2e, 'selector' | 'name'>;
+type DamageDiceParameters = Partial<DamageDicePF2e> & Pick<DamageDicePF2e, "selector" | "name">;
 
 export class DamageDicePF2e extends DiceModifierPF2e {
     /** The selector used to determine when   */
@@ -503,7 +503,7 @@ export class DamageDicePF2e extends DiceModifierPF2e {
         if (params.selector) {
             this.selector = params.selector;
         } else {
-            throw new Error('selector is mandatory');
+            throw new Error("selector is mandatory");
         }
     }
 }

@@ -1,5 +1,5 @@
-import { Rarity } from '@module/data';
-import { PreciousMaterialGrade, PreciousMaterialType } from './data';
+import { Rarity } from "@module/data";
+import { PreciousMaterialGrade, PreciousMaterialType } from "./data";
 
 export interface MaterialGradeData {
     level: number;
@@ -10,11 +10,11 @@ export interface MaterialGradeData {
 // https://2e.aonprd.com/Equipment.aspx?Category=11&Subcategory=12
 // https://2e.aonprd.com/Equipment.aspx?Category=37&Subcategory=38
 export type MaterialValuationData = Record<
-    PreciousMaterialType | '',
+    PreciousMaterialType | "",
     Record<PreciousMaterialGrade, MaterialGradeData | null>
 >;
 export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
-    '': {
+    "": {
         low: null,
         standard: null,
         high: null,
@@ -24,29 +24,29 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
         standard: {
             level: 11,
             price: 1400,
-            rarity: 'uncommon',
+            rarity: "uncommon",
         },
         high: {
             level: 17,
             price: 13500,
-            rarity: 'uncommon',
+            rarity: "uncommon",
         },
     },
     coldIron: {
         low: {
             level: 2,
             price: 40,
-            rarity: 'common',
+            rarity: "common",
         },
         standard: {
             level: 10,
             price: 880,
-            rarity: 'common',
+            rarity: "common",
         },
         high: {
             level: 16,
             price: 9000,
-            rarity: 'common',
+            rarity: "common",
         },
     },
     darkwood: {
@@ -54,12 +54,12 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
         standard: {
             level: 11,
             price: 1400,
-            rarity: 'uncommon',
+            rarity: "uncommon",
         },
         high: {
             level: 17,
             price: 13500,
-            rarity: 'uncommon',
+            rarity: "uncommon",
         },
     },
     dragonhide: {
@@ -67,12 +67,12 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
         standard: {
             level: 12,
             price: 1600,
-            rarity: 'uncommon',
+            rarity: "uncommon",
         },
         high: {
             level: 17,
             price: 32000,
-            rarity: 'uncommon',
+            rarity: "uncommon",
         },
     },
     mithral: {
@@ -80,12 +80,12 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
         standard: {
             level: 11,
             price: 1400,
-            rarity: 'uncommon',
+            rarity: "uncommon",
         },
         high: {
             level: 17,
             price: 13500,
-            rarity: 'uncommon',
+            rarity: "uncommon",
         },
     },
     orichalcum: {
@@ -94,24 +94,24 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
         high: {
             level: 18,
             price: 22500,
-            rarity: 'rare',
+            rarity: "rare",
         },
     },
     silver: {
         low: {
             level: 2,
             price: 40,
-            rarity: 'common',
+            rarity: "common",
         },
         standard: {
             level: 10,
             price: 880,
-            rarity: 'common',
+            rarity: "common",
         },
         high: {
             level: 16,
             price: 9000,
-            rarity: 'common',
+            rarity: "common",
         },
     },
     sovereignSteel: {
@@ -119,12 +119,12 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
         standard: {
             level: 12,
             price: 1600,
-            rarity: 'rare',
+            rarity: "rare",
         },
         high: {
             level: 19,
             price: 32000,
-            rarity: 'rare',
+            rarity: "rare",
         },
     },
     warpglass: {
@@ -133,7 +133,7 @@ export const MATERIAL_VALUATION_DATA: MaterialValuationData = {
         high: {
             level: 17,
             price: 14000,
-            rarity: 'rare',
+            rarity: "rare",
         },
     },
 };

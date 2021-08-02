@@ -1,8 +1,8 @@
-import { ActorSourcePF2e } from '@actor/data';
-import { ABCFeatureEntryData } from '@item/abc/data';
-import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e, KitSource } from '@item/data';
-import { KitEntryData } from '@item/kit/data';
-import { MigrationBase } from '../base';
+import { ActorSourcePF2e } from "@actor/data";
+import { ABCFeatureEntryData } from "@item/abc/data";
+import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e, KitSource } from "@item/data";
+import { KitEntryData } from "@item/kit/data";
+import { MigrationBase } from "../base";
 
 export class Migration620RenameToWebp extends MigrationBase {
     static override version = 0.62;
@@ -13,21 +13,21 @@ export class Migration620RenameToWebp extends MigrationBase {
     private renameToWebP(imgPath: undefined): undefined;
     private renameToWebP<T extends string>(imgPath: T | undefined): T | undefined;
     private renameToWebP<T extends string>(imgPath: T | undefined): T | undefined {
-        if (typeof imgPath === 'string' && this.regexp.test(imgPath)) {
-            return imgPath.replace(this.regexp, '$1.webp') as T;
+        if (typeof imgPath === "string" && this.regexp.test(imgPath)) {
+            return imgPath.replace(this.regexp, "$1.webp") as T;
         }
-        return imgPath?.replace('icons/svg/mystery-man.svg', 'systems/pf2e/icons/default-icons/mystery-man.svg') as T;
+        return imgPath?.replace("icons/svg/mystery-man.svg", "systems/pf2e/icons/default-icons/mystery-man.svg") as T;
     }
 
     private isABCK(itemData: ItemSourcePF2e): itemData is AncestrySource | BackgroundSource | ClassSource | KitSource {
-        const ITEMS_WITH_ITEMS = ['ancestry', 'background', 'class', 'kit'];
+        const ITEMS_WITH_ITEMS = ["ancestry", "background", "class", "kit"];
         return ITEMS_WITH_ITEMS.includes(itemData.type);
     }
 
     override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         actorData.img = this.renameToWebP(actorData.img);
 
-        if (typeof actorData.token?.img === 'string') {
+        if (typeof actorData.token?.img === "string") {
             actorData.token.img = this.renameToWebP(actorData.token.img);
         }
 
@@ -36,7 +36,7 @@ export class Migration620RenameToWebp extends MigrationBase {
             effect.icon = this.renameToWebP(effect.icon);
         }
 
-        if (actorData.type === 'character') {
+        if (actorData.type === "character") {
             actorData.data.details.deity.image = this.renameToWebP(actorData.data.details.deity.image);
         }
     }
@@ -49,23 +49,23 @@ export class Migration620RenameToWebp extends MigrationBase {
             effect.icon = this.renameToWebP(effect.icon);
         }
 
-        if (itemData.type === 'consumable' && itemData.data.spell?.data) {
+        if (itemData.type === "consumable" && itemData.data.spell?.data) {
             const embeddedSpell = itemData.data.spell.data;
             embeddedSpell.img = this.renameToWebP(embeddedSpell.img);
         }
 
-        if (itemData.type === 'condition' && itemData.flags.pf2e?.condition) {
+        if (itemData.type === "condition" && itemData.flags.pf2e?.condition) {
             itemData.data.hud.img.value = this.renameToWebP(itemData.data.hud.img.value);
         }
 
         if (this.isABCK(itemData)) {
             const embedData = itemData.data.items;
             const embeds = Object.values(embedData).filter(
-                (maybeEmbed): maybeEmbed is KitEntryData | ABCFeatureEntryData => !!maybeEmbed,
+                (maybeEmbed): maybeEmbed is KitEntryData | ABCFeatureEntryData => !!maybeEmbed
             );
             for (const embed of embeds) {
                 embed.img = this.renameToWebP(embed.img);
-                if ('items' in embed && embed.items) {
+                if ("items" in embed && embed.items) {
                     const deepEmbeds = Object.values(embed.items).filter((maybeDeepEmbed) => !!maybeDeepEmbed);
                     for (const deepEmbed of deepEmbeds) {
                         deepEmbed.img = this.renameToWebP(deepEmbed.img);

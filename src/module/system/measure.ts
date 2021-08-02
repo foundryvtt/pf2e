@@ -1,8 +1,8 @@
 // Code taken from Furyspark's Pathfinder 1st edition system with permission.
 // @ts-nocheck
 
-import { MeasuredTemplatePF2e } from '@module/canvas';
-import { MeasuredTemplateDocumentPF2e } from '@module/scene';
+import { MeasuredTemplatePF2e } from "@module/canvas";
+import { MeasuredTemplateDocumentPF2e } from "@module/scene";
 
 function degtorad(degrees: number) {
     return (degrees * Math.PI) / 180;
@@ -27,10 +27,10 @@ TemplateLayer.prototype._onDragLeftStart = function _onDragLeftStart(event: PIXI
         y: pos.y,
         distance: 5,
         direction: 0,
-        fillColor: game.user.data.color || '#FF0000',
+        fillColor: game.user.data.color || "#FF0000",
     };
-    if (tool === 'cone') data.angle = 90;
-    else if (tool === 'ray') data.width = 5;
+    if (tool === "cone") data.angle = 90;
+    else if (tool === "ray") data.width = 5;
 
     // Assign the template
     const template = new MeasuredTemplatePF2e(new MeasuredTemplateDocumentPF2e(data, { parent: canvas.scene }));
@@ -53,10 +53,10 @@ TemplateLayer.prototype._onDragLeftMove = function _onDragLeftMove(event: Elemen
         const ratio = canvas.dimensions.size / canvas.dimensions.distance;
 
         // Update the shape data
-        if (['cone', 'circle'].includes(template.data.t)) {
+        if (["cone", "circle"].includes(template.data.t)) {
             const direction = ray.angle;
             template.data.direction = Math.toDegrees(
-                Math.floor((direction + Math.PI * 0.125) / (Math.PI * 0.25)) * (Math.PI * 0.25),
+                Math.floor((direction + Math.PI * 0.125) / (Math.PI * 0.25)) * (Math.PI * 0.25)
             );
             const distance = Math.max(ray.distance / ratio, 5);
             template.data.distance = Math.floor(distance / canvas.dimensions.distance) * canvas.dimensions.distance;

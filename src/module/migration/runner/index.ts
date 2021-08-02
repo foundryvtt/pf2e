@@ -1,25 +1,25 @@
-import type { ActorPF2e } from '@actor/base';
-import type { ItemPF2e } from '@item/base';
-import type { MacroPF2e } from '@module/macro';
-import { MigrationRunnerBase } from '@module/migration/runner/base';
-import { MigrationBase } from '@module/migration/base';
-import type { UserPF2e } from '@module/user';
-import { TokenDocumentPF2e } from '@module/scene/token-document';
+import type { ActorPF2e } from "@actor/base";
+import type { ItemPF2e } from "@item/base";
+import type { MacroPF2e } from "@module/macro";
+import { MigrationRunnerBase } from "@module/migration/runner/base";
+import { MigrationBase } from "@module/migration/base";
+import type { UserPF2e } from "@module/user";
+import { TokenDocumentPF2e } from "@module/scene/token-document";
 
 export class MigrationRunner extends MigrationRunnerBase {
     override needsMigration(): boolean {
-        return super.needsMigration(game.settings.get('pf2e', 'worldSchemaVersion'));
+        return super.needsMigration(game.settings.get("pf2e", "worldSchemaVersion"));
     }
 
     /** Ensure that an actor or item reflects the current data schema before it is created */
     static async ensureSchemaVersion(document: ActorPF2e | ItemPF2e, migrations: MigrationBase[]): Promise<void> {
         const currentVersion = this.LATEST_SCHEMA_VERSION;
         if (!document.sourceId) {
-            document.data.update({ 'data.schema.version': currentVersion });
-            if (!('items' in document)) return;
+            document.data.update({ "data.schema.version": currentVersion });
+            if (!("items" in document)) return;
             for (const item of document.items) {
                 if (item.schemaVersion === null) {
-                    item.data.update({ 'data.schema.version': currentVersion });
+                    item.data.update({ "data.schema.version": currentVersion });
                 }
             }
             return;
@@ -29,7 +29,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             const runner = new this(migrations);
             const source = document.data._source;
             const updated =
-                'items' in source
+                "items" in source
                     ? await runner.getUpdatedActor(source, runner.migrations)
                     : await runner.getUpdatedItem(source, runner.migrations);
 
@@ -67,13 +67,13 @@ export class MigrationRunner extends MigrationRunnerBase {
             // we pull out the items here so that the embedded document operations get called
             const itemDiff = this.diffItems(baseItems, updatedItems);
             if (itemDiff.deleted.length > 0) {
-                await actor.deleteEmbeddedDocuments('Item', itemDiff.deleted);
+                await actor.deleteEmbeddedDocuments("Item", itemDiff.deleted);
             }
             if (itemDiff.inserted.length > 0) {
-                await actor.createEmbeddedDocuments('Item', itemDiff.inserted);
+                await actor.createEmbeddedDocuments("Item", itemDiff.inserted);
             }
             if (itemDiff.updated.length > 0) {
-                await actor.updateEmbeddedDocuments('Item', itemDiff.updated);
+                await actor.updateEmbeddedDocuments("Item", itemDiff.updated);
             }
         } catch (error) {
             console.error(error);
@@ -195,9 +195,9 @@ export class MigrationRunner extends MigrationRunnerBase {
     /** Migrate actors and items in world compendia */
     private async runPackMigrations(
         migrations: MigrationBase[],
-        promises: Promise<void>[],
+        promises: Promise<void>[]
     ): Promise<CompendiumCollection[]> {
-        const worldPacks = game.packs.filter((pack) => pack.metadata.package === 'world');
+        const worldPacks = game.packs.filter((pack) => pack.metadata.package === "world");
         // Packs need to be unlocked in order for their content to be updated
         const packsToRelock = worldPacks.filter((pack) => pack.locked);
         for await (const pack of packsToRelock) {
@@ -206,7 +206,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         // Migrate Compendium Actors
         const actorPacks = worldPacks.filter(
-            (pack): pack is CompendiumCollection<ActorPF2e> => pack.documentName === 'Actor',
+            (pack): pack is CompendiumCollection<ActorPF2e> => pack.documentName === "Actor"
         );
         for await (const pack of actorPacks) {
             for (const actor of await pack.getDocuments()) {
@@ -216,7 +216,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         // Migrate Compendium Items
         const itemPacks = worldPacks.filter(
-            (pack): pack is CompendiumCollection<ItemPF2e> => pack.documentName === 'Item',
+            (pack): pack is CompendiumCollection<ItemPF2e> => pack.documentName === "Item"
         );
         for await (const pack of itemPacks) {
             for (const item of await pack.getDocuments()) {
@@ -226,7 +226,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         // Migrate Compendium Macros
         const macroPacks = worldPacks.filter(
-            (pack): pack is CompendiumCollection<Macro> => pack.documentName === 'Macro',
+            (pack): pack is CompendiumCollection<Macro> => pack.documentName === "Macro"
         );
         for await (const pack of macroPacks) {
             for (const macro of await pack.getDocuments()) {
@@ -236,7 +236,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         // Migrate Compendium RollTables
         const tablePacks = worldPacks.filter(
-            (pack): pack is CompendiumCollection<RollTable> => pack.documentName === 'RollTable',
+            (pack): pack is CompendiumCollection<RollTable> => pack.documentName === "RollTable"
         );
         for await (const pack of tablePacks) {
             for (const table of await pack.getDocuments()) {
@@ -250,11 +250,11 @@ export class MigrationRunner extends MigrationRunnerBase {
     async runMigration(force = false) {
         const schemaVersion = {
             latest: MigrationRunner.LATEST_SCHEMA_VERSION,
-            current: game.settings.get('pf2e', 'worldSchemaVersion'),
+            current: game.settings.get("pf2e", "worldSchemaVersion"),
         };
         const systemVersion = game.system.data.version;
 
-        ui.notifications.info(game.i18n.format('PF2E.Migrations.Starting', { version: systemVersion }), {
+        ui.notifications.info(game.i18n.format("PF2E.Migrations.Starting", { version: systemVersion }), {
             permanent: true,
         });
 
@@ -281,8 +281,8 @@ export class MigrationRunner extends MigrationRunnerBase {
             }
         }
 
-        game.settings.set('pf2e', 'worldSchemaVersion', schemaVersion.latest);
-        ui.notifications.info(game.i18n.format('PF2E.Migrations.Finished', { version: systemVersion }), {
+        game.settings.set("pf2e", "worldSchemaVersion", schemaVersion.latest);
+        ui.notifications.info(game.i18n.format("PF2E.Migrations.Finished", { version: systemVersion }), {
             permanent: true,
         });
     }

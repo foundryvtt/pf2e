@@ -1,7 +1,7 @@
-import { MigrationBase } from '../base';
-import { ItemSourcePF2e } from '@item/data';
-import { ItemPF2e } from '@item/index';
-import { isPhysicalData } from '@item/data/helpers';
+import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data";
+import { ItemPF2e } from "@item/index";
+import { isPhysicalData } from "@item/data/helpers";
 
 type ItemMap = Map<string, ItemPF2e>;
 type PackContent = Map<string, Promise<ItemMap>>;
@@ -21,8 +21,8 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
         super();
         this.itemPacks = new Map(
             game.packs
-                .filter((pack) => pack.documentName === 'Item')
-                .map((pack) => [pack.collection, pack as CompendiumCollection<ItemPF2e>]),
+                .filter((pack) => pack.documentName === "Item")
+                .map((pack) => [pack.collection, pack as CompendiumCollection<ItemPF2e>])
         );
     }
 
@@ -35,7 +35,7 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
             // Cache on first retrieval
             const pack = this.itemPacks.get(collection);
             if (pack === undefined) {
-                throw Error('PF2e System | Expected error retrieving compendium');
+                throw Error("PF2e System | Expected error retrieving compendium");
             }
 
             // Make all item updates wait for this content retrieval to resolve
@@ -55,7 +55,7 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
     /** Look through each pack and attempt to find the originating item */
     private async findCompendiumItem(
         itemData: ItemSourcePF2e,
-        collection?: string,
+        collection?: string
     ): Promise<ItemSourcePF2e | undefined> {
         const identificationData = isPhysicalData(itemData)
             ? ((itemData.data.identification ?? null) as unknown as {
@@ -64,17 +64,17 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
               } | null)
             : null;
         const itemName =
-            identificationData?.status === 'identified'
+            identificationData?.status === "identified"
                 ? identificationData?.identified?.name || itemData.name
                 : itemData.name;
 
-        const packs = typeof collection === 'string' ? [this.itemPacks.get(collection)] : this.itemPacks.values();
+        const packs = typeof collection === "string" ? [this.itemPacks.get(collection)] : this.itemPacks.values();
 
         for await (const pack of packs) {
             if (pack === undefined) continue;
             const content = await this.getPackContent(pack.collection);
             const packItem = Array.from(content.values()).find(
-                (packItem) => packItem.type === itemData.type && packItem.name === itemName,
+                (packItem) => packItem.type === itemData.type && packItem.name === itemName
             );
 
             if (packItem instanceof ItemPF2e) {
@@ -87,10 +87,10 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
 
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         const existingSourceId: string | undefined = itemData.flags.core?.sourceId;
-        const match = this.sourceIdPattern.exec(existingSourceId ?? '');
+        const match = this.sourceIdPattern.exec(existingSourceId ?? "");
         const collection = Array.isArray(match) ? match[1] : undefined;
 
-        const sourcedItemData = [collection, itemData.data.slug].every((maybeString) => typeof maybeString === 'string')
+        const sourcedItemData = [collection, itemData.data.slug].every((maybeString) => typeof maybeString === "string")
             ? itemData
             : await this.findCompendiumItem(itemData, collection);
 

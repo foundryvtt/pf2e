@@ -1,4 +1,4 @@
-import { TableResultConstructor } from './constructors';
+import { TableResultConstructor } from "./constructors";
 declare global {
     /**
      * The TableResult embedded document within a RollTable document which extends the BaseRollTable abstraction.

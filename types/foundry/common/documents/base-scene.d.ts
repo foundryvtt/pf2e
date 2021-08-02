@@ -14,28 +14,28 @@ declare global {
                 static override get metadata(): SceneMetadata;
 
                 /** A reference to the Collection of Drawing instances in the Scene document, indexed by _id. */
-                get drawings(): this['data']['drawings'];
+                get drawings(): this["data"]["drawings"];
 
                 /** A reference to the Collection of AmbientLight instances in the Scene document, indexed by _id. */
-                get lights(): this['data']['lights'];
+                get lights(): this["data"]["lights"];
 
                 /** A reference to the Collection of Note instances in the Scene document, indexed by _id. */
-                get notes(): this['data']['notes'];
+                get notes(): this["data"]["notes"];
 
                 /** A reference to the Collection of AmbientSound instances in the Scene document, indexed by _id. */
-                get sounds(): this['data']['sounds'];
+                get sounds(): this["data"]["sounds"];
 
                 /** A reference to the Collection of MeasuredTemplate instances in the Scene document, indexed by _id. */
-                get templates(): this['data']['templates'];
+                get templates(): this["data"]["templates"];
 
                 /** A reference to the Collection of Token instances in the Scene document, indexed by _id. */
-                get tokens(): this['data']['tokens'];
+                get tokens(): this["data"]["tokens"];
 
                 /** A reference to the Collection of Tile instances in the Scene document, indexed by _id. */
-                get tiles(): this['data']['tiles'];
+                get tiles(): this["data"]["tiles"];
 
                 /** A reference to the Collection of Wall instances in the Scene document, indexed by _id. */
-                get walls(): this['data']['walls'];
+                get walls(): this["data"]["walls"];
 
                 /**
                  * Get the Canvas dimensions which would be used to display this Scene.
@@ -80,9 +80,9 @@ declare global {
             }
 
             interface SceneMetadata extends abstract.DocumentMetadata {
-                name: 'Scene';
-                collection: 'scenes';
-                label: 'DOCUMENT.Scene';
+                name: "Scene";
+                collection: "scenes";
+                label: "DOCUMENT.Scene";
                 isPrimary: true;
                 embedded: {
                     AmbientLight: typeof documents.BaseAmbientLight;

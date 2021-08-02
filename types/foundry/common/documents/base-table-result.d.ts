@@ -12,7 +12,7 @@ declare module foundry {
             override testUserPermission(
                 user: BaseUser,
                 permission: DocumentPermission | UserAction,
-                { exact }?: { exact?: boolean },
+                { exact }?: { exact?: boolean }
             ): boolean;
         }
 
@@ -23,12 +23,12 @@ declare module foundry {
         }
 
         interface TableResultMetadata extends abstract.DocumentMetadata {
-            name: 'TableResult';
-            collection: 'results';
-            label: 'DOCUMENT.TableResult';
+            name: "TableResult";
+            collection: "results";
+            label: "DOCUMENT.TableResult";
             types: typeof CONST.TABLE_RESULT_TYPES;
-            permissions: Omit<foundry.abstract.DocumentMetadata['permissions'], 'update'> & {
-                update: typeof BaseTableResult['_canUpdate'];
+            permissions: Omit<foundry.abstract.DocumentMetadata["permissions"], "update"> & {
+                update: typeof BaseTableResult["_canUpdate"];
             };
         }
     }

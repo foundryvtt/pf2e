@@ -1,4 +1,4 @@
-import * as io from 'socket.io';
+import * as io from "socket.io";
 
 declare global {
     /**
@@ -8,17 +8,14 @@ declare global {
      * @see {@link UserDirectory} The UserDirectory sidebar directory
      */
     class Users<TUser extends User = User> extends WorldCollection<TUser> {
-        /** @override */
         constructor(data?: foundry.data.UserSource[]);
 
         /** The User entity of the currently connected user */
-        current: TUser | null;
+        current: Active<TUser> | null;
 
-        /** @override */
-        protected _initialize(data: TUser['data']['_source'][]): void;
+        protected override _initialize(data: TUser["data"]["_source"][]): void;
 
-        /** @override */
-        static documentName: 'User';
+        static override documentName: "User";
 
         /** Get the users with player roles */
         get players(): TUser[];

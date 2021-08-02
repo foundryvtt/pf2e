@@ -1,8 +1,8 @@
-import { RuleElementPF2e } from '../rule-element';
-import { SenseAcuity, SenseData } from '@actor/creature/data';
-import { RuleElementSource, RuleElementData } from '../rules-data-definitions';
-import { CharacterPF2e, FamiliarPF2e } from '@actor';
-import { ItemPF2e } from '@item';
+import { RuleElementPF2e } from "../rule-element";
+import { SenseAcuity, SenseData } from "@actor/creature/data";
+import { RuleElementSource, RuleElementData } from "../rules-data-definitions";
+import { CharacterPF2e, FamiliarPF2e } from "@actor";
+import { ItemPF2e } from "@item";
 
 /**
  * @category RuleElement
@@ -19,8 +19,8 @@ export class PF2SenseRuleElement extends RuleElementPF2e {
         if (!replacement && existing) return false;
         return (
             (replacement && !existing) ||
-            (replacement === 'precise' && ['imprecise', 'vague'].includes(existing!)) ||
-            (replacement === 'imprecise' && existing === 'vague')
+            (replacement === "precise" && ["imprecise", "vague"].includes(existing!)) ||
+            (replacement === "imprecise" && existing === "vague")
         );
     }
 
@@ -48,7 +48,7 @@ export class PF2SenseRuleElement extends RuleElementPF2e {
                     label: this.label,
                     source: source,
                     type: this.data.selector,
-                    value: '',
+                    value: "",
                 };
                 if (range) {
                     sense.value = range;
@@ -59,7 +59,7 @@ export class PF2SenseRuleElement extends RuleElementPF2e {
                 senses.push(sense);
             }
         } else {
-            console.warn('PF2E | Sense requires at least a selector field and a label field or item name');
+            console.warn("PF2E | Sense requires at least a selector field and a label field or item name");
         }
     }
 }

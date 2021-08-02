@@ -1,4 +1,4 @@
-import { ItemDataPF2e } from '@item/data';
+import { ItemDataPF2e } from "@item/data";
 
 export class FakeItem {
     _data: Partial<ItemDataPF2e>;
@@ -15,7 +15,7 @@ export class FakeItem {
     }
 
     get level(): number | null {
-        return 'level' in this.data.data! ? this.data.data.level.value : null;
+        return "level" in this.data.data! ? this.data.data.level.value : null;
     }
 
     get traits(): Set<string> {
@@ -23,11 +23,11 @@ export class FakeItem {
     }
 
     get isMagical(): boolean {
-        return ['magical', 'arcane', 'primal', 'divine', 'occult'].some((trait) => this.traits.has(trait));
+        return ["magical", "arcane", "primal", "divine", "occult"].some((trait) => this.traits.has(trait));
     }
 
     get isAlchemical(): boolean {
-        return this.traits.has('alchemical');
+        return this.traits.has("alchemical");
     }
 
     update(changes: object) {

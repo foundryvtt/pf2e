@@ -24,12 +24,12 @@ declare module foundry {
         }
 
         interface TokenMetadata extends abstract.DocumentMetadata {
-            name: 'Token';
-            collection: 'tokens';
-            label: 'DOCUMENT.Token';
+            name: "Token";
+            collection: "tokens";
+            label: "DOCUMENT.Token";
             isEmbedded: true;
-            permissions: Omit<abstract.DocumentMetadata['permissions'], 'create'> & {
-                create: 'TOKEN_CREATE';
+            permissions: Omit<abstract.DocumentMetadata["permissions"], "create"> & {
+                create: "TOKEN_CREATE";
             };
         }
     }

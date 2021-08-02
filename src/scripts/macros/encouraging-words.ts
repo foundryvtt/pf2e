@@ -1,6 +1,6 @@
-import { CharacterPF2e } from '@actor/character';
-import { LocalizePF2e } from '../../module/system/localize';
-import { ActionDefaultOptions } from '../..//module/system/actions/actions';
+import { CharacterPF2e } from "@actor/character";
+import { LocalizePF2e } from "../../module/system/localize";
+import { ActionDefaultOptions } from "../..//module/system/actions/actions";
 
 export function encouragingWords(options: ActionDefaultOptions): void {
     const translations = LocalizePF2e.translations.PF2E.Actions.EncouragingWords;
@@ -13,10 +13,10 @@ export function encouragingWords(options: ActionDefaultOptions): void {
     }
 
     const encouragingWordsMacro = async (DC: number, bonus: number, dip: any) => {
-        const options = actor.getRollOptions(['all', 'skill-check', 'diplomacy']);
+        const options = actor.getRollOptions(["all", "skill-check", "diplomacy"]);
 
         options.push(translations.Title);
-        options.push('action:encourage-words');
+        options.push("action:encourage-words");
 
         const dc = {
             value: DC,
@@ -28,7 +28,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
             callback: (roll: any) => {
                 let healFormula: string | undefined, successLabel: string | undefined;
 
-                const bonusString = bonus > 0 ? `+ ${bonus}` : '';
+                const bonusString = bonus > 0 ? `+ ${bonus}` : "";
                 if (roll.data.degreeOfSuccess === 3) {
                     healFormula = `2d8${bonusString}`;
                     successLabel = translations.CritSuccess;
@@ -38,7 +38,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
                 } else if (roll.data.degreeOfSuccess === 1) {
                     successLabel = translations.Failure;
                 } else if (roll.data.degreeOfSuccess === 0) {
-                    healFormula = '1d8';
+                    healFormula = "1d8";
                     successLabel = translations.CritFailure;
                 }
                 if (healFormula !== undefined) {
@@ -73,7 +73,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
                     ui.notifications.warn(
                         game.i18n.format(translations.NotTrained, {
                             name: name,
-                        }),
+                        })
                     ),
                 () => encouragingWordsMacro(15 + mod, 0, dip),
                 () => encouragingWordsMacro(20 + mod, 5, dip),
@@ -122,7 +122,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
                     label: translations.Cancel,
                 },
             },
-            default: 'yes',
+            default: "yes",
         });
         dialog.render(true);
     }

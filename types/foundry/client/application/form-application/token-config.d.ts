@@ -10,14 +10,14 @@ declare interface TokenConfigData<T extends TokenDocument | Token> extends FormA
     bar1: string;
     bar2: string;
     displayModes: Record<string, string>;
-    actors: T['actor'][];
+    actors: T["actor"][];
     dispositions: Record<string, string>;
     isGM: boolean;
 }
 
 /** A Token Configuration Application */
 declare class TokenConfig<
-    TObject extends TokenDocument | Token = TokenDocument | Token,
+    TObject extends TokenDocument | Token = TokenDocument | Token
 > extends FormApplication<TObject> {
     constructor(object: TObject, options?: FormApplicationOptions);
 
@@ -31,7 +31,7 @@ declare class TokenConfig<
     get isPrototype(): boolean;
 
     /** Convenience access to the Actor document that this Token represents */
-    get actor(): TObject['actor'];
+    get actor(): TObject["actor"];
 
     get title(): string;
 
@@ -55,7 +55,7 @@ declare class TokenConfig<
     /** @inheritdoc */
     protected _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown>;
 
-    protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<TObject | TObject['parent']>;
+    protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<TObject | TObject["parent"]>;
 
     /**
      * Handle Token assignment requests to update the default prototype Token

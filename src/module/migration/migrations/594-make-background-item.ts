@@ -1,19 +1,19 @@
-import { MigrationBase } from '../base';
+import { MigrationBase } from "../base";
 
 export class Migration594AddBackgroundItem extends MigrationBase {
     static override version = 0.594;
     override requiresFlush = true;
 
     override async updateActor(actor: any) {
-        if (actor.type !== 'character') return;
+        if (actor.type !== "character") return;
 
-        const backgroundItem = actor.items.find((x: any) => x.type === 'background');
+        const backgroundItem = actor.items.find((x: any) => x.type === "background");
         if (backgroundItem) return; // no need to do anything since it's already there
 
-        const name = actor.data.details.background?.value ?? '';
+        const name = actor.data.details.background?.value ?? "";
         actor.items.push({
-            type: 'background',
-            name: name !== '' ? name : 'unknown',
+            type: "background",
+            name: name !== "" ? name : "unknown",
             data: {
                 boosts: {
                     0: { value: [] },
@@ -22,11 +22,11 @@ export class Migration594AddBackgroundItem extends MigrationBase {
                 items: [],
                 traits: {
                     rarity: {
-                        value: 'common',
+                        value: "common",
                     },
                     value: [],
                 },
-                trainedLore: '',
+                trainedLore: "",
                 trainedSkills: {
                     value: [],
                 },

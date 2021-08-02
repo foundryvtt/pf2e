@@ -1,6 +1,6 @@
-import { NPCPF2e } from '@actor/index';
-import { ActorSheetPF2e } from '@actor/sheet/base';
-import { ActorDataPF2e } from '@actor/data';
+import { NPCPF2e } from "@actor/index";
+import { ActorSheetPF2e } from "@actor/sheet/base";
+import { ActorDataPF2e } from "@actor/data";
 
 export class ActorSheetPF2eDataEntryNPC extends ActorSheetPF2e<NPCPF2e> {
     private readonly CUSTOM_TRAIT_SEPARATOR = new RegExp(/[,;|]+/g);
@@ -9,12 +9,12 @@ export class ActorSheetPF2eDataEntryNPC extends ActorSheetPF2e<NPCPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
         return mergeObject(options, {
-            classes: options.classes.concat(['npc', 'data-entry']),
+            classes: options.classes.concat(["npc", "data-entry"]),
         });
     }
 
     override get template() {
-        return 'systems/pf2e/templates/actors/npc/data-entry-sheet.html';
+        return "systems/pf2e/templates/actors/npc/data-entry-sheet.html";
     }
 
     protected prepareItems(_sheetData: { actor: ActorDataPF2e }): void {}
@@ -40,8 +40,8 @@ export class ActorSheetPF2eDataEntryNPC extends ActorSheetPF2e<NPCPF2e> {
         super.activateListeners(html);
 
         // add creature trait when pressing enter in the trait text box
-        html.on('keydown', `#${this.id}-actor-trait`, (event) => {
-            if (event && event.key && event.key.toLowerCase() === 'enter') {
+        html.on("keydown", `#${this.id}-actor-trait`, (event) => {
+            if (event && event.key && event.key.toLowerCase() === "enter") {
                 const target = event.target as HTMLInputElement;
                 const actor = this.token?.actor ?? this.actor;
                 const trait = target.value.trim();
@@ -52,7 +52,7 @@ export class ActorSheetPF2eDataEntryNPC extends ActorSheetPF2e<NPCPF2e> {
                         // multiple rarity traits
                         .filter((token) => !(token in CONFIG.PF2E.rarityTraits));
                     if (!builtin.includes(trait)) {
-                        actor.update({ 'data.traits.traits.value': builtin.concat(trait) });
+                        actor.update({ "data.traits.traits.value": builtin.concat(trait) });
                     }
                 } else {
                     // custom trait - ignore duplicates
@@ -61,16 +61,16 @@ export class ActorSheetPF2eDataEntryNPC extends ActorSheetPF2e<NPCPF2e> {
                         .map((token) => token.trim())
                         .filter((token) => !!token);
                     if (!custom.includes(trait)) {
-                        actor.update({ 'data.traits.traits.custom': custom.concat(trait).join(',') });
+                        actor.update({ "data.traits.traits.custom": custom.concat(trait).join(",") });
                     }
                 }
-                target.value = '';
+                target.value = "";
                 target.focus();
             }
         });
 
         // remove creature trait when clicking the tag
-        html.on('click', '.actor-traits.tags [data-trait]:not([data-trait=""]).tag', (event) => {
+        html.on("click", '.actor-traits.tags [data-trait]:not([data-trait=""]).tag', (event) => {
             const actor = this.token?.actor ?? this.actor;
             const trait = event.target.dataset.trait.trim() as string;
             // built-in trait
@@ -81,10 +81,10 @@ export class ActorSheetPF2eDataEntryNPC extends ActorSheetPF2e<NPCPF2e> {
                 .map((token) => token.trim())
                 .filter((token) => !!token)
                 .filter((token) => token.toLowerCase() !== trait.toLowerCase())
-                .join(',');
+                .join(",");
             actor.update({
-                'data.traits.traits.value': builtin,
-                'data.traits.traits.custom': custom,
+                "data.traits.traits.value": builtin,
+                "data.traits.traits.custom": custom,
             });
         });
     }
@@ -93,11 +93,11 @@ export class ActorSheetPF2eDataEntryNPC extends ActorSheetPF2e<NPCPF2e> {
         // find the first input element in focus that has an "id" attribute but no "name" attribute, as these are not
         // handle by the Foundry's built-in FormApplication#_render method
         const focus = this.element
-            .find(':focus')
+            .find(":focus")
             .toArray()
             .filter((element) => element instanceof HTMLInputElement)
             .map((element) => element as HTMLInputElement)
-            .filter((element) => !element.hasAttribute('name'))
+            .filter((element) => !element.hasAttribute("name"))
             .find((_element) => true);
 
         await super._render(force, options);

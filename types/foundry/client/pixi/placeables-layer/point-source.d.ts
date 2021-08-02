@@ -197,8 +197,8 @@ declare class PointSource<TObject extends PlaceableObject> {
             sigma,
             max,
             min,
-        }?: { phi?: number; center?: number; sigma?: number; max?: number | null; min?: number | null },
+        }?: { phi?: number; center?: number; sigma?: number; max?: number | null; min?: number | null }
     ): number;
 }
 
-declare type PointSourceType = 'light' | 'sight';
+declare type PointSourceType = "light" | "sight";

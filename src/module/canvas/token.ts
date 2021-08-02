@@ -1,5 +1,5 @@
-import { CreaturePF2e } from '@actor';
-import { TokenDocumentPF2e } from '@module/scene/token-document';
+import { CreaturePF2e } from "@actor";
+import { TokenDocumentPF2e } from "@module/scene/token-document";
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
@@ -52,7 +52,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         const imageChanged = this.icon?.src !== this.data.img;
 
         if (sizeChanged || imageChanged) {
-            console.debug('PF2e System | Redrawing due to token size or image change');
+            console.debug("PF2e System | Redrawing due to token size or image change");
             const visible = this.visible;
             await this.draw();
             this.visible = visible;
@@ -60,11 +60,11 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     emitHoverIn() {
-        this.emit('mouseover', { data: { object: this } });
+        this.emit("mouseover", { data: { object: this } });
     }
 
     emitHoverOut() {
-        this.emit('mouseout', { data: { object: this } });
+        this.emit("mouseout", { data: { object: this } });
     }
 
     /** Set the icon src when drawing for later tracking */
@@ -123,16 +123,16 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
         if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
-
         super._onControl(options);
+        if (this.hasDarkvision) canvas.darkvision.refresh();
     }
 
     /** Refresh vision and the `EffectPanel` */
     protected override _onRelease(options?: Record<string, unknown>) {
         game.pf2e.effectPanel.refresh();
         if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
-
         super._onRelease(options);
+        if (this.hasDarkvision) canvas.darkvision.refresh();
     }
 }
 

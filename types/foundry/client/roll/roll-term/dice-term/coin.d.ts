@@ -7,11 +7,11 @@ declare global {
         constructor(termData: CoinData);
 
         /** @override */
-        static DENOMINATION: 'c';
+        static DENOMINATION: "c";
 
         /** @override */
         static MODIFIERS: {
-            c: 'call';
+            c: "call";
         };
 
         /** @override */
