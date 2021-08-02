@@ -1,5 +1,5 @@
-import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoins, Coins } from '@item/treasure/helpers';
-import { ActorPF2e } from '../../base';
+import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoins, Coins } from "@item/treasure/helpers";
+import { ActorPF2e } from "../../base";
 
 interface PopupFormData extends Coins {
     removeByValue: boolean;
@@ -11,11 +11,11 @@ interface PopupFormData extends Coins {
 export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
-        options.id = 'remove-coins';
+        options.id = "remove-coins";
         options.classes = [];
-        options.title = 'Remove Coins';
-        options.template = 'systems/pf2e/templates/actors/remove-coins.html';
-        options.width = 'auto';
+        options.title = "Remove Coins";
+        options.template = "systems/pf2e/templates/actors/remove-coins.html";
+        options.width = "auto";
         return options;
     }
 
@@ -29,7 +29,7 @@ export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
         };
         if (formData.removeByValue) {
             if (!(await attemptToRemoveCoinsByValue({ actor, coinsToRemove }))) {
-                ui.notifications.warn('Insufficient coins');
+                ui.notifications.warn("Insufficient coins");
             }
         } else {
             const actorCoins = calculateValueOfCurrency(actor.items.map((item) => item.data));
@@ -41,7 +41,7 @@ export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
             ) {
                 removeCoins(actor, { coins: coinsToRemove });
             } else {
-                ui.notifications.warn('Insufficient coins');
+                ui.notifications.warn("Insufficient coins");
             }
         }
     }

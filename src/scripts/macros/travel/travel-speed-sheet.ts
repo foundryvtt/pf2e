@@ -9,25 +9,25 @@ import {
     Terrain,
     TravelDuration,
     Trip,
-} from './travel-speed';
-import { Fraction, zip } from '@module/utils';
-import { CharacterPF2e } from '@actor/character';
+} from "./travel-speed";
+import { Fraction, zip } from "@module/utils";
+import { CharacterPF2e } from "@actor/character";
 
-type DetectionModeData = 'none' | 'everything' | 'before';
-type SpeedUnitData = 'feet' | 'miles';
-type TerrainData = 'normal' | 'difficult' | 'greaterDifficult';
+type DetectionModeData = "none" | "everything" | "before";
+type SpeedUnitData = "feet" | "miles";
+type TerrainData = "normal" | "difficult" | "greaterDifficult";
 type ExplorationActivitiesData =
-    | 'AvoidNotice'
-    | 'CoverTracks'
-    | 'Defend'
-    | 'DetectMagic'
-    | 'Investigate'
-    | 'RepeatASpell'
-    | 'Scout'
-    | 'Search'
-    | 'Track'
-    | 'None'
-    | 'HalfSpeed';
+    | "AvoidNotice"
+    | "CoverTracks"
+    | "Defend"
+    | "DetectMagic"
+    | "Investigate"
+    | "RepeatASpell"
+    | "Scout"
+    | "Search"
+    | "Track"
+    | "None"
+    | "HalfSpeed";
 
 /*
 TODO:
@@ -111,11 +111,11 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
 
     static override get defaultOptions() {
         const options = super.defaultOptions;
-        options.id = 'travel-duration';
-        options.classes = ['travel-duration'];
-        options.title = game.i18n.localize('PF2E.TravelSpeed.Title');
-        options.template = 'systems/pf2e/templates/gm/travel/travel-speed-sheet.html';
-        options.width = 'auto';
+        options.id = "travel-duration";
+        options.classes = ["travel-duration"];
+        options.title = game.i18n.localize("PF2E.TravelSpeed.Title");
+        options.template = "systems/pf2e/templates/gm/travel/travel-speed-sheet.html";
+        options.width = "auto";
         options.submitOnChange = true;
         options.closeOnSubmit = false;
         return options;
@@ -130,7 +130,7 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
 
     private actorFormToSheetData(actor: CharacterPF2e, data: FormActorData): SheetActorData {
         return {
-            requiresDetectionMode: data.explorationActivity === 'Search' || data.explorationActivity === 'DetectMagic',
+            requiresDetectionMode: data.explorationActivity === "Search" || data.explorationActivity === "DetectMagic",
             detectionMode: data.detectionMode,
             explorationActivity: data.explorationActivity,
             explorationSpeed: parseFloat(
@@ -138,8 +138,8 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
                     data.speed,
                     parseExplorationActivity(data.explorationActivity),
                     parseDetectionModeData(data.detectionMode),
-                    parseExplorationOptions(actor),
-                ).toFixed(2),
+                    parseExplorationOptions(actor)
+                ).toFixed(2)
             ),
             speed: data.speed,
             name: actor.name,
@@ -148,8 +148,8 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
 
     private getInitialActorData(actor: CharacterPF2e): SheetActorData {
         return this.actorFormToSheetData(actor, {
-            detectionMode: 'before',
-            explorationActivity: 'Search',
+            detectionMode: "before",
+            explorationActivity: "Search",
             speed: actor.data.data.attributes.speed.total,
         });
     }
@@ -170,7 +170,7 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
             },
         ];
         const actorFormData = zip(actors, data.actors, (actor, actorData) =>
-            this.actorFormToSheetData(actor, actorData),
+            this.actorFormToSheetData(actor, actorData)
         );
         const partySpeedInFeet = Math.min(...actorFormData.map((data) => data.explorationSpeed));
         const velocity = speedToVelocity(partySpeedInFeet);
@@ -197,8 +197,8 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
     private getInitialFormData(actors: CharacterPF2e[]): SheetData {
         return this.formToSheetData(actors, {
             actors: actors.map((actor) => this.getInitialActorData(actor)),
-            terrain: 'normal',
-            distanceUnit: 'miles',
+            terrain: "normal",
+            distanceUnit: "miles",
             normalTerrainSlowdown: { denominator: 1, numerator: 1 },
             difficultTerrainSlowdown: { denominator: 1, numerator: 2 },
             greaterDifficultTerrainSlowdown: { denominator: 1, numerator: 3 },
@@ -222,7 +222,7 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
 }
 
 function parseDistanceUnit(unit: SpeedUnitData): LengthUnit {
-    if (unit === 'feet') {
+    if (unit === "feet") {
         return LengthUnit.FEET;
     } else {
         return LengthUnit.MILES;
@@ -230,9 +230,9 @@ function parseDistanceUnit(unit: SpeedUnitData): LengthUnit {
 }
 
 function parseTerrainData(terrain: TerrainData): Terrain {
-    if (terrain === 'normal') {
+    if (terrain === "normal") {
         return Terrain.NORMAL;
-    } else if (terrain === 'difficult') {
+    } else if (terrain === "difficult") {
         return Terrain.DIFFICULT;
     } else {
         return Terrain.GREATER_DIFFICULT;
@@ -240,9 +240,9 @@ function parseTerrainData(terrain: TerrainData): Terrain {
 }
 
 function parseDetectionModeData(detectionMode: DetectionModeData): DetectionMode {
-    if (detectionMode === 'none') {
+    if (detectionMode === "none") {
         return DetectionMode.NONE;
-    } else if (detectionMode === 'before') {
+    } else if (detectionMode === "before") {
         return DetectionMode.DETECT_BEFORE_WALKING_INTO_IT;
     } else {
         return DetectionMode.DETECT_EVERYTHING;
@@ -250,17 +250,17 @@ function parseDetectionModeData(detectionMode: DetectionModeData): DetectionMode
 }
 
 function parseExplorationActivity(activity: ExplorationActivitiesData): ExplorationActivities {
-    if (activity === 'AvoidNotice') {
+    if (activity === "AvoidNotice") {
         return ExplorationActivities.AVOID_NOTICE;
-    } else if (activity === 'Defend') {
+    } else if (activity === "Defend") {
         return ExplorationActivities.DEFEND;
-    } else if (activity === 'DetectMagic') {
+    } else if (activity === "DetectMagic") {
         return ExplorationActivities.DETECT_MAGIC;
-    } else if (activity === 'Scout') {
+    } else if (activity === "Scout") {
         return ExplorationActivities.SCOUT;
-    } else if (activity === 'Search') {
+    } else if (activity === "Search") {
         return ExplorationActivities.SEARCH;
-    } else if (activity === 'None') {
+    } else if (activity === "None") {
         return ExplorationActivities.NONE;
     } else {
         return ExplorationActivities.HALF_SPEED;
@@ -277,7 +277,7 @@ function getHustleMinutes(actors: CharacterPF2e[]): number {
     return Math.min(
         ...actors.map((actor) => {
             return Math.max(1, actor.data.data.abilities.con.mod) * 10;
-        }),
+        })
     );
 }
 
@@ -288,11 +288,11 @@ function hasFeat(actor: CharacterPF2e, slug: string): boolean {
 function parseExplorationOptions(actor: CharacterPF2e): ExplorationOptions {
     // FIXME: instead of matching the name these should probably be rule toggles at some point
     return {
-        practicedDefender: hasFeat(actor, 'practiced-defender'),
-        swiftSneak: hasFeat(actor, 'swift-sneak'),
-        legendarySneak: hasFeat(actor, 'legendary-sneak'),
-        expeditiousSearch: hasFeat(actor, 'expeditious-search'),
-        expeditiousSearchLegendary: hasFeat(actor, 'expeditious-search') && actor.attributes.perception.rank === 4,
+        practicedDefender: hasFeat(actor, "practiced-defender"),
+        swiftSneak: hasFeat(actor, "swift-sneak"),
+        legendarySneak: hasFeat(actor, "legendary-sneak"),
+        expeditiousSearch: hasFeat(actor, "expeditious-search"),
+        expeditiousSearchLegendary: hasFeat(actor, "expeditious-search") && actor.attributes.perception.rank === 4,
     };
 }
 

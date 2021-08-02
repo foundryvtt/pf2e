@@ -10,7 +10,7 @@ declare class Playlists extends WorldCollection<Playlist> {
     constructor(data?: foundry.data.PlaylistSoundData[]);
 
     /** @override */
-    static documentName: 'Playlist';
+    static documentName: "Playlist";
 
     /** Return the subset of Playlist entities which are currently playing */
     get playing(): Playlist[];

@@ -8,11 +8,14 @@
                         <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"><i class="fas {{#if entry.data.showUnpreparedSpells.value}}fa-book-open{{else}}fa-book{{/if}}"></i></a>
                     {{/if}}
                     <h3 class="item-name pf-heading pf-actions hide-container-toggle">
-                        <input type="text" name="data.items.{{eid}}.name" class="item-name-input" value="{{entry.name}}" data-item-id="{{entry._id}}" data-dtype="String" />
+                        <input type="text" data-item-id="{{entry.id}}" data-property="name" class="item-name-input" value="{{entry.name}}" data-dtype="String" />
                     </h3>
                     {{#if @root.owner}}
                         <div class="item-controls">
-                            <a class="item-control spellcasting-remove" title="{{localize "PF2E.RemoveSpellcastingEntryTitle"}}" data-type="{{eid}}">{{localize "PF2E.DeleteShortLabel"}} <i class="fas fa-trash"></i></a>
+                            {{#unless entry.isRitual}}
+                                <a class="item-control spellcasting-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
+                            {{/unless}}
+                            <a class="item-control spellcasting-remove" title="{{localize "PF2E.RemoveSpellcastingEntryTitle"}}"><i class="fas fa-trash"></i></a>
                         </div>
                     {{/if}}
                 </div>
@@ -57,7 +60,7 @@
                         <li class="spell-ability">
                             <span class="pf-value pf-rank adjust-item-stat" data-property="data.proficiency.value" value="{{entry.data.proficiency.value}}" title="{{entry.data.spelldc.hover}}">{{localize (add "PF2E.ProficiencyLevel" entry.data.proficiency.value)}}</span>
                             <div class="skill-name">
-                                <select class="ability-select" name="data.items.{{eid}}.data.ability.value" data-type="String">
+                                <select class="ability-select" data-item-id="{{entry.id}}" data-property="data.ability.value" data-dtype="String">
                                     {{#select entry.data.ability.value}}
                                         <option value="">{{localize "PF2E.SpellAbilityLabel"}}</option>
                                         {{#each ../data.abilities as |abl a|}}

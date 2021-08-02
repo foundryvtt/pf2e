@@ -1,4 +1,4 @@
-import { ActorPF2e } from '@actor/base';
+import { ActorPF2e } from "@actor/base";
 
 /** In Foundry this is actually a subclass of Map, but it incompatibly extends it at several points. */
 export class FakeCollection<V> {

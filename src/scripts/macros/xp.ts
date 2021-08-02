@@ -2,7 +2,7 @@
  * Rules are implemented as described in https://2e.aonprd.com/Rules.aspx?ID=575
  * including the variant rules for proficiency without level https://2e.aonprd.com/Rules.aspx?ID=1371
  */
-import { DCOptions } from '../../module/dc';
+import { DCOptions } from "../../module/dc";
 
 // level without proficiency variant
 const xpVariantCreatureDifferences = new Map<number, number>();
@@ -75,7 +75,7 @@ function getHazardXp(partyLevel: number, hazard: HazardLevel, dcOptions: DCOptio
     }
 }
 
-export type EncounterBudget = 'trivial' | 'low' | 'moderate' | 'severe' | 'extreme';
+export type EncounterBudget = "trivial" | "low" | "moderate" | "severe" | "extreme";
 
 export interface EncounterBudgets {
     trivial: number;
@@ -87,15 +87,15 @@ export interface EncounterBudgets {
 
 function calculateEncounterRating(challenge: number, budgets: EncounterBudgets): EncounterBudget {
     if (challenge < budgets.low) {
-        return 'trivial';
+        return "trivial";
     } else if (challenge < budgets.moderate) {
-        return 'low';
+        return "low";
     } else if (challenge < budgets.severe) {
-        return 'moderate';
+        return "moderate";
     } else if (challenge < budgets.extreme) {
-        return 'severe';
+        return "severe";
     } else {
-        return 'extreme';
+        return "extreme";
     }
 }
 
@@ -113,7 +113,7 @@ export function calculateXP(
     partySize: number,
     npcLevels: number[],
     hazards: HazardLevel[],
-    dcOptions: DCOptions,
+    dcOptions: DCOptions
 ): XP {
     const budget = partySize * 20;
     const creatureChallenge = npcLevels

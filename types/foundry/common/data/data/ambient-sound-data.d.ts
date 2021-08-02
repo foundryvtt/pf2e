@@ -30,14 +30,14 @@ declare module foundry {
         }
 
         class AmbientSoundData<
-            TDocument extends documents.BaseAmbientSound = documents.BaseAmbientSound,
+            TDocument extends documents.BaseAmbientSound = documents.BaseAmbientSound
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
 
             darkness: DarknessActivation;
         }
 
-        interface AmbientSoundData extends Omit<AmbientSoundSource, 'darkness'> {
+        interface AmbientSoundData extends Omit<AmbientSoundSource, "darkness"> {
             readonly _source: AmbientSoundSource;
         }
     }

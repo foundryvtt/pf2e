@@ -16,7 +16,12 @@
  *   texture: "tiles/fire.jpg"
  * });
  */
-declare class MeasuredTemplate extends PlaceableObject<MeasuredTemplateDocument> {
+declare class MeasuredTemplate<
+    TDocument extends MeasuredTemplateDocument = MeasuredTemplateDocument
+> extends PlaceableObject<TDocument> {
+    /** The template shape used for testing point intersection */
+    shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle;
+
     /** A convenience accessor for the border color as a numeric hex code */
     get borderColor(): number;
 
@@ -73,14 +78,15 @@ declare class MeasuredTemplate extends PlaceableObject<MeasuredTemplateDocument>
     /* -------------------------------------------- */
 
     protected override _onUpdate(
-        changed: DeepPartial<this['document']['data']['_source']>,
+        changed: DeepPartial<this["document"]["data"]["_source"]>,
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext, userId: string): void;
 }
 
-declare interface MeasuredTemplate extends PlaceableObject<MeasuredTemplateDocument> {
+declare interface MeasuredTemplate<TDocument extends MeasuredTemplateDocument = MeasuredTemplateDocument>
+    extends PlaceableObject<TDocument> {
     get layer(): TemplateLayer<this>;
 }

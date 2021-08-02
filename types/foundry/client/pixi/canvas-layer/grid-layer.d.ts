@@ -96,7 +96,7 @@ declare global {
          * Obtain the highlight layer graphic by name
          * @param name The name for the referenced highlight layer
          */
-        getHighlightLayer(name: string): PIXI.Graphics | undefined;
+        getHighlightLayer(name: string): GridHighlight | undefined;
 
         /**
          * Add highlighting for a specific grid position to a named highlight graphic
@@ -124,5 +124,5 @@ declare global {
 }
 
 interface GridLayerOptions extends CanvasLayerOptions {
-    name: 'grid';
+    name: "grid";
 }

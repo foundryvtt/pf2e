@@ -1,11 +1,11 @@
-import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-dialog';
-import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
-import { ModifierPredicate, StatisticModifier } from '../modifiers';
-import { PF2CheckDC } from './check-degree-of-success';
-import { DamageTemplate } from '@system/damage/weapon';
-import { RollNotePF2e } from '@module/notes';
-import { ChatMessagePF2e } from '@module/chat-message';
-import { ZeroToThree } from '@module/data';
+import { CheckModifiersDialog, CheckModifiersContext } from "./check-modifiers-dialog";
+import { DamageRollModifiersDialog } from "./damage-roll-modifiers-dialog";
+import { ModifierPredicate, StatisticModifier } from "../modifiers";
+import { PF2CheckDC } from "./check-degree-of-success";
+import { DamageTemplate } from "@system/damage/weapon";
+import { RollNotePF2e } from "@module/notes";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { ZeroToThree } from "@module/data";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -31,7 +31,7 @@ export interface RollParameters {
 
 interface RerollOptions {
     heroPoint?: boolean;
-    keep?: 'new' | 'best' | 'worst';
+    keep?: "new" | "best" | "worst";
 }
 
 export class CheckPF2e {
@@ -42,7 +42,7 @@ export class CheckPF2e {
         check: StatisticModifier,
         context: CheckModifiersContext = {},
         event?: JQuery.Event,
-        callback?: (roll: Rolled<Roll>) => void,
+        callback?: (roll: Rolled<Roll>) => void
     ): Promise<ChatMessage | foundry.data.ChatMessageData<foundry.documents.BaseChatMessage> | undefined> {
         if (context.options?.length) {
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
@@ -52,7 +52,7 @@ export class CheckPF2e {
             check.applyStackingRules();
 
             // change default roll mode to blind GM roll if the 'secret' option is specified
-            if (context.options.map((o) => o.toLowerCase()).includes('secret')) {
+            if (context.options.map((o) => o.toLowerCase()).includes("secret")) {
                 context.secret = true;
             }
         }
@@ -83,7 +83,7 @@ export class CheckPF2e {
             context.secret = true;
         }
 
-        const userSettingQuickD20Roll = !game.user.getFlag('pf2e', 'settings.showRollDialogs');
+        const userSettingQuickD20Roll = !game.user.getFlag("pf2e", "settings.showRollDialogs");
         if (userSettingQuickD20Roll !== event?.shiftKey || context.skipDialog === true) {
             return await CheckModifiersDialog.roll(check, context, callback);
         } else {
@@ -93,36 +93,36 @@ export class CheckPF2e {
     }
 
     /** Reroll a rolled check given a chat message. */
-    static async rerollFromMessage(message: ChatMessagePF2e, { heroPoint = false, keep = 'new' }: RerollOptions = {}) {
+    static async rerollFromMessage(message: ChatMessagePF2e, { heroPoint = false, keep = "new" }: RerollOptions = {}) {
         if (!(message.isAuthor || game.user.isGM)) {
-            ui.notifications.error(game.i18n.localize('PF2E.RerollMenu.ErrorCantDelete'));
+            ui.notifications.error(game.i18n.localize("PF2E.RerollMenu.ErrorCantDelete"));
             return;
         }
 
-        const actor = game.actors.get(message.data.speaker.actor ?? '');
+        const actor = game.actors.get(message.data.speaker.actor ?? "");
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
         if (heroPoint) {
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
-            if (actor?.data.type === 'character') {
+            if (actor?.data.type === "character") {
                 const heroPointCount = actor.data.data.attributes.heroPoints.rank;
                 if (heroPointCount) {
                     await actor.update({
-                        'data.attributes.heroPoints.rank': Math.clamped(heroPointCount - 1, 0, 3),
+                        "data.attributes.heroPoints.rank": Math.clamped(heroPointCount - 1, 0, 3),
                     });
-                    rerollFlavor = game.i18n.format('PF2E.RerollMenu.MessageHeroPoint', { name: actor.name });
+                    rerollFlavor = game.i18n.format("PF2E.RerollMenu.MessageHeroPoint", { name: actor.name });
                 } else {
-                    ui.notifications.warn(game.i18n.format('PF2E.RerollMenu.WarnNoHeroPoint', { name: actor.name }));
+                    ui.notifications.warn(game.i18n.format("PF2E.RerollMenu.WarnNoHeroPoint", { name: actor.name }));
                     return;
                 }
             } else {
-                ui.notifications.error(game.i18n.localize('PF2E.RerollMenu.ErrorNoActor'));
+                ui.notifications.error(game.i18n.localize("PF2E.RerollMenu.ErrorNoActor"));
                 return;
             }
         }
 
         const flags = duplicate(message.data.flags.pf2e);
         if (flags) {
-            const check = new StatisticModifier(flags.modifierName ?? '', flags.modifiers);
+            const check = new StatisticModifier(flags.modifierName ?? "", flags.modifiers);
             const context = flags.context;
             if (context) {
                 context.createMessage = false;
@@ -130,19 +130,19 @@ export class CheckPF2e {
                 flags.canReroll = false;
                 const newMessage = (await CheckPF2e.roll(
                     check,
-                    context,
+                    context
                 )) as foundry.data.ChatMessageData<foundry.documents.BaseChatMessage>;
                 const oldRoll = message.roll;
                 const newRoll = Roll.fromData(JSON.parse(newMessage.roll as string)) as Rolled<Roll<RollDataPF2e>>;
 
                 // Keep the new roll by default; Old roll is discarded
                 let keepRoll = newRoll;
-                let [oldRollClass, newRollClass] = ['pf2e-reroll-discard', ''];
+                let [oldRollClass, newRollClass] = ["pf2e-reroll-discard", ""];
 
                 // Check if we should keep the old roll instead.
                 if (
-                    (keep === 'best' && oldRoll.total > newRoll.total) ||
-                    (keep === 'worst' && oldRoll.total < newRoll.total)
+                    (keep === "best" && oldRoll.total > newRoll.total) ||
+                    (keep === "worst" && oldRoll.total < newRoll.total)
                 ) {
                     // If so, switch the css classes and keep the old roll.
                     [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
@@ -152,9 +152,9 @@ export class CheckPF2e {
                 await keepRoll.toMessage(
                     {
                         content: `<div class="${oldRollClass}">${await CheckPF2e.renderReroll(
-                            oldRoll!,
+                            oldRoll!
                         )}</div><div class='pf2e-reroll-second ${newRollClass}'>${await CheckPF2e.renderReroll(
-                            newRoll,
+                            newRoll
                         )}</div>`,
                         flavor: `<i class='fa fa-dice pf2e-reroll-indicator' title="${rerollFlavor}"></i>${newMessage.flavor}`,
                         speaker: message.data.speaker,
@@ -163,8 +163,8 @@ export class CheckPF2e {
                         },
                     },
                     {
-                        rollMode: context?.rollMode ?? 'roll',
-                    },
+                        rollMode: context?.rollMode ?? "roll",
+                    }
                 );
             }
         }
@@ -188,9 +188,9 @@ export class CheckPF2e {
         const die = roll.dice[0];
 
         if (die.total == 20) {
-            rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, 'success');
+            rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, "success");
         } else if (die.total == 1) {
-            rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, 'failure');
+            rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, "failure");
         }
 
         return rollHtml;
@@ -202,11 +202,11 @@ export class CheckPF2e {
      * @param classToInsert - The specifier whether we want to have a success or failure.
      */
     static insertNatOneAndNatTwentyIntoRollTemplate(rollHtml: string, classToInsert: string): string {
-        const classIdentifierDice = 'dice-total';
+        const classIdentifierDice = "dice-total";
         const locationOfDiceRoll = rollHtml.search(classIdentifierDice);
         const partBeforeClass = rollHtml.substr(0, locationOfDiceRoll);
         const partAfterClass = rollHtml.substr(locationOfDiceRoll, rollHtml.length);
-        return partBeforeClass.concat(classToInsert, ' ', partAfterClass);
+        return partBeforeClass.concat(classToInsert, " ", partAfterClass);
     }
 }
 /**
@@ -222,7 +222,7 @@ export class DamageRollPF2e {
     static roll(damage: DamageTemplate, context: any = {}, _event: JQuery.Event | undefined, callback?: Function) {
         if (context.options?.length > 0) {
             // change default roll mode to blind GM roll if the 'secret' option is specified
-            if (context.options.map((o: string) => o.toLowerCase()).includes('secret')) {
+            if (context.options.map((o: string) => o.toLowerCase()).includes("secret")) {
                 context.secret = true;
             }
         }

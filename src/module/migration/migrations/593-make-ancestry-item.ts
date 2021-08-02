@@ -1,23 +1,23 @@
-import { MigrationBase } from '../base';
+import { MigrationBase } from "../base";
 
 export class Migration593AddAncestryItem extends MigrationBase {
     static override version = 0.593;
     override requiresFlush = true;
 
     override async updateActor(actor: any) {
-        if (actor.type !== 'character') return;
+        if (actor.type !== "character") return;
 
-        const ancestryItem = actor.items.find((x: any) => x.type === 'ancestry');
+        const ancestryItem = actor.items.find((x: any) => x.type === "ancestry");
         if (ancestryItem) return; // no need to do anything since it's already there
 
-        const name = actor.data.details.ancestry?.value ?? '';
+        const name = actor.data.details.ancestry?.value ?? "";
         actor.items.push({
-            type: 'ancestry',
-            name: name !== '' ? name : 'unknown',
+            type: "ancestry",
+            name: name !== "" ? name : "unknown",
             data: {
                 hp: actor.data.attributes?.ancestryhp ?? 8,
                 speed: parseInt(actor.data.attributes.speed?.value, 10) ?? 25,
-                size: actor.data.traits.size?.value ?? 'med',
+                size: actor.data.traits.size?.value ?? "med",
                 boosts: {
                     0: { value: [] },
                     1: { value: [] },
@@ -27,22 +27,22 @@ export class Migration593AddAncestryItem extends MigrationBase {
                     0: { value: [] },
                 },
                 languages: {
-                    value: ['common'],
-                    custom: '',
+                    value: ["common"],
+                    custom: "",
                 },
                 additionalLanguages: {
                     count: 0,
                     value: [],
-                    custom: '',
+                    custom: "",
                 },
                 items: [],
                 traits: {
                     rarity: {
-                        value: 'common',
+                        value: "common",
                     },
                     value: [],
                 },
-                vision: 'normal',
+                vision: "normal",
             },
         });
 

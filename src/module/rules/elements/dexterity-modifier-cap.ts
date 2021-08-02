@@ -1,5 +1,5 @@
-import { CharacterData, NPCData } from '@actor/data';
-import { RuleElementPF2e } from '../rule-element';
+import { CharacterData, NPCData } from "@actor/data";
+import { RuleElementPF2e } from "../rule-element";
 
 /**
  * @category RuleElement
@@ -13,7 +13,7 @@ export class PF2DexterityModifierCapRuleElement extends RuleElementPF2e {
                 source: this.label,
             });
         } else {
-            console.warn('PF2E | Dexterity modifier cap requires at least a label field or item name, and a value');
+            console.warn("PF2E | Dexterity modifier cap requires at least a label field or item name, and a value");
         }
     }
 }

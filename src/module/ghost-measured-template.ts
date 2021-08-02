@@ -15,9 +15,9 @@ export class GhostTemplate extends MeasuredTemplate {
 
     override _onClickRight = (_event: PIXI.InteractionEvent) => {
         this.layer.preview.removeChildren();
-        canvas.stage.off('mousemove', this._onMouseMove);
-        canvas.stage.off('mousedown', this._onLeftClick);
-        canvas.stage.off('rightdown', this._onClickRight);
+        canvas.stage.off("mousemove", this._onMouseMove);
+        canvas.stage.off("mousedown", this._onLeftClick);
+        canvas.stage.off("rightdown", this._onClickRight);
         canvas.app.view.onwheel = null;
     };
 
@@ -28,7 +28,7 @@ export class GhostTemplate extends MeasuredTemplate {
         this.data._source.y = destination.y;
 
         if (canvas.scene) {
-            canvas.scene.createEmbeddedDocuments('MeasuredTemplate', [this.data]);
+            canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [this.data]);
         }
     };
 
@@ -59,9 +59,9 @@ export class GhostTemplate extends MeasuredTemplate {
     }
 
     activatePreviewListeners() {
-        canvas.stage.on('mousemove', this._onMouseMove);
-        canvas.stage.on('mousedown', this._onLeftClick);
-        canvas.stage.on('rightdown', this._onClickRight);
+        canvas.stage.on("mousemove", this._onMouseMove);
+        canvas.stage.on("mousedown", this._onLeftClick);
+        canvas.stage.on("rightdown", this._onClickRight);
         canvas.app.view.onwheel = this._onMouseWheel;
     }
 }

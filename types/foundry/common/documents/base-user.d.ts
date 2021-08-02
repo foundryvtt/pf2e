@@ -59,9 +59,9 @@ declare module foundry {
         }
 
         interface UserMetadata extends abstract.DocumentMetadata {
-            name: 'User';
-            collection: 'users';
-            label: 'DOCUMENT.User';
+            name: "User";
+            collection: "users";
+            label: "DOCUMENT.User";
             isPrimary: true;
         }
     }

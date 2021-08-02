@@ -15,12 +15,12 @@ declare module foundry {
     }
 
     interface JournalEntryMetadata extends abstract.DocumentMetadata {
-        name: 'JournalEntry';
-        collection: 'journal';
-        label: 'DOCUMENT.JournalEntry';
+        name: "JournalEntry";
+        collection: "journal";
+        label: "DOCUMENT.JournalEntry";
         isPrimary: true;
-        permissions: Omit<abstract.DocumentMetadata['permissions'], 'create'> & {
-            create: 'JOURNAL_CREATE';
+        permissions: Omit<abstract.DocumentMetadata["permissions"], "create"> & {
+            create: "JOURNAL_CREATE";
         };
     }
 }

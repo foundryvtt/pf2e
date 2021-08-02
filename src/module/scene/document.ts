@@ -1,6 +1,6 @@
-import { LightLevels, SceneDataPF2e } from './data';
-import { SceneConfigPF2e } from './sheet';
-import { AmbientLightDocumentPF2e, TokenDocumentPF2e } from '.';
+import { LightLevels, SceneDataPF2e } from "./data";
+import { SceneConfigPF2e } from "./sheet";
+import { AmbientLightDocumentPF2e, TokenDocumentPF2e } from ".";
 
 export class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e> {
     /** Toggle Unrestricted Global Vision according to scene darkness level */
@@ -11,8 +11,8 @@ export class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e
             this.data.globalLight = true;
         }
 
-        this.data.flags.pf2e ??= { syncDarkness: 'default' };
-        this.data.flags.pf2e.syncDarkness ??= 'default';
+        this.data.flags.pf2e ??= { syncDarkness: "default" };
+        this.data.flags.pf2e.syncDarkness ??= "default";
     }
 
     get lightLevel(): number {
@@ -27,6 +27,6 @@ export interface ScenePF2e {
 
     get sheet(): SceneConfigPF2e;
 
-    getFlag(scope: 'pf2e', key: 'syncDarkness'): 'enabled' | 'disabled' | 'default';
+    getFlag(scope: "pf2e", key: "syncDarkness"): "enabled" | "disabled" | "default";
     getFlag(scope: string, key: string): unknown;
 }

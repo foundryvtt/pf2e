@@ -1,6 +1,6 @@
-import { DamageDicePF2e, ModifierPF2e, ModifierPredicate } from '../modifiers';
-import { WeaponData } from '@item/data';
-import { RollNotePF2e } from '../notes';
+import { DamageDicePF2e, ModifierPF2e, ModifierPredicate } from "../modifiers";
+import { WeaponData } from "@item/data";
+import { RollNotePF2e } from "../notes";
 
 export interface RuleElementData {
     key: string;
@@ -16,7 +16,7 @@ export interface RuleElementData {
     ignored: boolean;
 }
 
-export type RuleElementSource = Omit<RuleElementData, 'label' | 'priority' | 'ignored'> & {
+export type RuleElementSource = Omit<RuleElementData, "label" | "priority" | "ignored"> & {
     label?: string;
     priority?: number;
 };

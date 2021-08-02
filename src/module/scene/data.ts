@@ -1,5 +1,5 @@
-import { ZeroToTwo } from '@module/data';
-import type { AmbientLightDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from '.';
+import { ZeroToTwo } from "@module/data";
+import type { AmbientLightDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from ".";
 
 export interface SceneDataPF2e<T extends ScenePF2e>
     extends foundry.data.SceneData<
@@ -16,7 +16,7 @@ export interface SceneDataPF2e<T extends ScenePF2e>
     flags: {
         pf2e: {
             [key: string]: unknown;
-            syncDarkness: 'enabled' | 'disabled' | 'default';
+            syncDarkness: "enabled" | "disabled" | "default";
         };
         [key: string]: Record<string, unknown>;
     };

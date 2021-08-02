@@ -1,50 +1,50 @@
-import { MenuTemplateData, SettingsMenuPF2e } from '../menu';
-import Tagify from '@yaireo/tagify';
-import { prepareCleanup } from './cleanup-migration';
-import { LocalizePF2e } from '@module/system/localize';
-import { MigrationRunner } from '@module/migration/runner';
-import { CharacterPF2e } from '@actor/index';
-import { MigrationBase } from '@module/migration/base';
-import { BaseWeaponType } from '@item/weapon/data';
+import { MenuTemplateData, SettingsMenuPF2e } from "../menu";
+import Tagify from "@yaireo/tagify";
+import { prepareCleanup } from "./cleanup-migration";
+import { LocalizePF2e } from "@module/system/localize";
+import { MigrationRunner } from "@module/migration/runner";
+import { CharacterPF2e } from "@actor/index";
+import { MigrationBase } from "@module/migration/base";
+import { BaseWeaponType } from "@item/weapon/data";
 
-import '@yaireo/tagify/src/tagify.scss';
+import "@yaireo/tagify/src/tagify.scss";
 
 export type ConfigPF2eHomebrewList = typeof HomebrewElements.SETTINGS[number];
 export type HomebrewSettingsKey = `homebrew.${ConfigPF2eHomebrewList}`;
 
 export interface HomebrewTag<T extends ConfigPF2eHomebrewList = ConfigPF2eHomebrewList> {
-    id: T extends 'baseWeapons'
+    id: T extends "baseWeapons"
         ? BaseWeaponType
-        : T extends Exclude<ConfigPF2eHomebrewList, 'baseWeapons'>
-        ? keyof ConfigPF2e['PF2E'][T]
+        : T extends Exclude<ConfigPF2eHomebrewList, "baseWeapons">
+        ? keyof ConfigPF2e["PF2E"][T]
         : never;
     value: string;
 }
 
 export class HomebrewElements extends SettingsMenuPF2e {
-    static override readonly namespace = 'homebrew';
+    static override readonly namespace = "homebrew";
 
     /** Whether this is the first time the homebrew tags will have been injected into CONFIG and actor derived data */
     private static initialRefresh = true;
 
     static override readonly SETTINGS = [
-        'creatureTraits',
-        'featTraits',
-        'languages',
-        'magicSchools',
-        'spellTraits',
-        'weaponCategories',
-        'weaponGroups',
-        'baseWeapons',
+        "creatureTraits",
+        "featTraits",
+        "languages",
+        "magicSchools",
+        "spellTraits",
+        "weaponCategories",
+        "weaponGroups",
+        "baseWeapons",
     ] as const;
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            title: 'PF2E.SETTINGS.Homebrew.Name',
-            id: 'homebrew-settings',
-            template: 'systems/pf2e/templates/system/settings/homebrew.html',
+            title: "PF2E.SETTINGS.Homebrew.Name",
+            id: "homebrew-settings",
+            template: "systems/pf2e/templates/system/settings/homebrew.html",
             width: 550,
-            height: 'auto',
+            height: "auto",
             closeOnSubmit: true,
         });
     }
@@ -56,7 +56,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
                 value: {
                     name: CONFIG.PF2E.SETTINGS.homebrew[key].name,
                     hint: CONFIG.PF2E.SETTINGS.homebrew[key].hint,
-                    scope: 'world',
+                    scope: "world",
                     config: false,
                     default: [],
                     type: Object,
@@ -64,7 +64,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
             };
         }).reduce(
             (settings, setting) => mergeObject(settings, { [setting.key]: setting.value }),
-            {} as Record<ConfigPF2eHomebrewList, ClientSettingsData & { placeholder: string }>,
+            {} as Record<ConfigPF2eHomebrewList, ClientSettingsData & { placeholder: string }>
         );
     }
 
@@ -79,7 +79,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     override activateListeners($form: JQuery<HTMLFormElement>): void {
         super.activateListeners($form);
 
-        $form.find('button[name="reset"]').on('click', () => {
+        $form.find('button[name="reset"]').on("click", () => {
             this.render();
         });
 
@@ -107,12 +107,12 @@ export class HomebrewElements extends SettingsMenuPF2e {
     /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
     protected override async _onSubmit(
         event: Event,
-        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
+        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {}
     ): Promise<Record<string, unknown>> {
         const $form = $<HTMLFormElement>(this.form);
-        $form.find<HTMLInputElement>('tags ~ input').each((_i, input) => {
-            if (input.value === '') {
-                input.value = '[]';
+        $form.find<HTMLInputElement>("tags ~ input").each((_i, input) => {
+            if (input.value === "") {
+                input.value = "[]";
             }
         });
         return super._onSubmit(event, { updateData, preventClose, preventRender });
@@ -120,11 +120,11 @@ export class HomebrewElements extends SettingsMenuPF2e {
 
     protected override async _updateObject(
         _event: Event,
-        data: Record<ConfigPF2eHomebrewList, HomebrewTag[]>,
+        data: Record<ConfigPF2eHomebrewList, HomebrewTag[]>
     ): Promise<void> {
         const cleanupTasks = HomebrewElements.SETTINGS.map((key) => {
             for (const tag of data[key]) {
-                tag.id ??= randomID(16) as HomebrewTag<typeof key>['id'];
+                tag.id ??= randomID(16) as HomebrewTag<typeof key>["id"];
             }
 
             return this.processDeletions(key, data[key]);
@@ -139,13 +139,13 @@ export class HomebrewElements extends SettingsMenuPF2e {
 
     /** Prepare and run a migration for each set of tag deletions from a tag map */
     private processDeletions(listKey: ConfigPF2eHomebrewList, newTagList: HomebrewTag[]): MigrationBase | null {
-        const oldTagList = game.settings.get('pf2e', `homebrew.${listKey}` as const); // `;
+        const oldTagList = game.settings.get("pf2e", `homebrew.${listKey}` as const); // `;
         const newIDList = newTagList.map((tag) => tag.id);
         const deletions: string[] = oldTagList.flatMap((oldTag) => (newIDList.includes(oldTag.id) ? [] : oldTag.id));
 
         // The base-weapons map only exists in the localization file
         const coreElements: Record<string, string> =
-            listKey === 'baseWeapons' ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[listKey];
+            listKey === "baseWeapons" ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[listKey];
         for (const id of deletions) {
             delete coreElements[id];
         }
@@ -158,9 +158,9 @@ export class HomebrewElements extends SettingsMenuPF2e {
         for (const key of HomebrewElements.SETTINGS) {
             // The base-weapons map only exists in the localization file
             const coreElements: Record<string, string> =
-                key === 'baseWeapons' ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[key];
+                key === "baseWeapons" ? LocalizePF2e.translations.PF2E.Weapon.Base : CONFIG.PF2E[key];
             const settingsKey: HomebrewSettingsKey = `homebrew.${key}` as const;
-            const elements = game.settings.get('pf2e', settingsKey);
+            const elements = game.settings.get("pf2e", settingsKey);
             for (const element of elements) {
                 coreElements[element.id] = element.value;
             }

@@ -1,5 +1,5 @@
-import { MigrationBase } from '../base';
-import { ItemSourcePF2e } from '@item/data';
+import { MigrationBase } from "../base";
+import { ItemSourcePF2e } from "@item/data";
 
 /** Remove "instinct" trait from feats */
 export class Migration615RemoveInstinctTrait extends MigrationBase {
@@ -7,11 +7,11 @@ export class Migration615RemoveInstinctTrait extends MigrationBase {
 
     override async updateItem(itemData: ItemSourcePF2e) {
         const traits: { value: string[] } = itemData.data.traits;
-        if (typeof traits.value === 'string') {
+        if (typeof traits.value === "string") {
             // Catch trait.value properties that missed migration 597
             traits.value = [];
         } else {
-            traits.value = traits.value.filter((trait) => trait !== 'instinct');
+            traits.value = traits.value.filter((trait) => trait !== "instinct");
         }
     }
 }

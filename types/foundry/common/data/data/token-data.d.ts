@@ -82,7 +82,7 @@ declare module foundry {
         }
 
         class TokenData<
-            TDocument extends documents.BaseToken = documents.BaseToken,
+            TDocument extends documents.BaseToken = documents.BaseToken
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
 
@@ -92,7 +92,7 @@ declare module foundry {
 
             bar2: TokenBarData<TDocument>;
         }
-        interface TokenData extends Omit<TokenSource, 'lightAnimation' | 'bar1' | 'bar2'> {
+        interface TokenData extends Omit<TokenSource, "lightAnimation" | "bar1" | "bar2"> {
             readonly _source: TokenSource;
         }
     }

@@ -1,4 +1,4 @@
-import { DrawingConstructor } from './constructors';
+import { DrawingConstructor } from "./constructors";
 
 declare global {
     /**

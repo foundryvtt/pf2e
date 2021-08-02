@@ -1,5 +1,5 @@
-import { ActorSourcePF2e } from '@actor/data';
-import { MigrationBase } from '../base';
+import { ActorSourcePF2e } from "@actor/data";
+import { MigrationBase } from "../base";
 
 interface BaseSaveData {
     value: number;
@@ -17,19 +17,19 @@ export class Migration625EnsurePresenceOfSaves extends MigrationBase {
     static override version = 0.625;
 
     override async updateActor(actorData: ActorSourcePF2e): Promise<void> {
-        if (actorData.type !== 'npc') return;
+        if (actorData.type !== "npc") return;
 
         const saves: BaseNPCSaves = actorData.data.saves;
-        for (const key of ['fortitude', 'reflex', 'will'] as const) {
+        for (const key of ["fortitude", "reflex", "will"] as const) {
             saves[key] ??= {
                 value: 0,
-                saveDetail: '',
+                saveDetail: "",
             };
-            if (typeof saves[key].value !== 'number') {
+            if (typeof saves[key].value !== "number") {
                 saves[key].value = Number(saves[key].value) || 0;
             }
-            if (typeof saves[key].saveDetail !== 'string') {
-                saves[key].saveDetail = '';
+            if (typeof saves[key].saveDetail !== "string") {
+                saves[key].saveDetail = "";
             }
         }
     }

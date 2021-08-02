@@ -6,11 +6,11 @@
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
 
-import { PhysicalItemData } from './data';
-import { adjustDCByRarity, calculateDC, DCOptions } from '../dc';
-import { PhysicalItemPF2e } from './physical';
+import { PhysicalItemData } from "./data";
+import { adjustDCByRarity, calculateDC, DCOptions } from "../dc";
+import { PhysicalItemPF2e } from "./physical";
 
-const magicTraditions = new Set(['arcane', 'primal', 'divine', 'occult']);
+const magicTraditions = new Set(["arcane", "primal", "divine", "occult"]);
 
 function getTraits(itemData: PhysicalItemData): Set<string> {
     return new Set(itemData.data.traits.value);
@@ -32,7 +32,7 @@ function getMagicTraditions(itemData: PhysicalItemData): Set<string> {
 }
 
 function isCursed(itemData: PhysicalItemData) {
-    return getTraits(itemData).has('cursed');
+    return getTraits(itemData).has("cursed");
 }
 
 /**
@@ -41,9 +41,9 @@ function isCursed(itemData: PhysicalItemData) {
  */
 function getDcRarity(itemData: PhysicalItemData) {
     if (isCursed(itemData)) {
-        return 'unique';
+        return "unique";
     } else {
-        return itemData.data.traits.rarity?.value ?? 'common';
+        return itemData.data.traits.rarity?.value ?? "common";
     }
 }
 
@@ -53,7 +53,7 @@ export class IdentifyMagicDCs {
         public arc: number,
         public nat: number,
         public rel: number,
-        public occ: number, // eslint-disable-next-line no-empty-function
+        public occ: number // eslint-disable-next-line no-empty-function
     ) {}
 }
 
@@ -86,9 +86,9 @@ function identifyMagic(itemData: PhysicalItemData, baseDc: number, notMatchingTr
 }
 
 function hasRunes(itemData: PhysicalItemData): boolean {
-    if (itemData.type === 'weapon') {
+    if (itemData.type === "weapon") {
         return !!(itemData.data.potencyRune.value || itemData.data.strikingRune.value);
-    } else if (itemData.type === 'armor') {
+    } else if (itemData.type === "armor") {
         return !!(itemData.data.potencyRune.value || itemData.data.resiliencyRune.value);
     } else {
         return false;
@@ -98,7 +98,7 @@ function hasRunes(itemData: PhysicalItemData): boolean {
 export function isMagical(itemData: PhysicalItemData): boolean {
     const traits = getTraits(itemData);
     return (
-        traits.has('magical') || hasRunes(itemData) || Array.from(magicTraditions).some((trait) => traits.has(trait))
+        traits.has("magical") || hasRunes(itemData) || Array.from(magicTraditions).some((trait) => traits.has(trait))
     );
 }
 
@@ -108,7 +108,7 @@ interface IdentifyItemOptions extends DCOptions {
 
 export function identifyItem(
     item: PhysicalItemPF2e,
-    { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions,
+    { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions
 ): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs {
     const dc = calculateDC(item.level, { proficiencyWithoutLevel });
     const rarity = getDcRarity(item.data);
@@ -124,70 +124,70 @@ export function identifyItem(
 
 export function getUnidentifiedPlaceholderImage(itemData: PhysicalItemData): string {
     const traits = getTraits(itemData);
-    let iconName = 'adventuring_gear';
+    let iconName = "adventuring_gear";
     switch (itemData.type) {
-        case 'weapon':
-            if (traits.has('bomb')) {
-                iconName = 'alchemical_bomb';
-            } else if (traits.has('staff')) {
-                iconName = 'staves';
-            } else if (traits.has('artifact')) {
-                iconName = 'artifact';
+        case "weapon":
+            if (traits.has("bomb")) {
+                iconName = "alchemical_bomb";
+            } else if (traits.has("staff")) {
+                iconName = "staves";
+            } else if (traits.has("artifact")) {
+                iconName = "artifact";
             } else {
-                iconName = 'weapon';
+                iconName = "weapon";
             }
             break;
-        case 'armor':
-            iconName = itemData.data.armorType.value === 'shield' ? 'shields' : 'armor';
+        case "armor":
+            iconName = itemData.data.armorType.value === "shield" ? "shields" : "armor";
             break;
-        case 'consumable':
+        case "consumable":
             switch (itemData.data.consumableType.value as string) {
-                case 'ammo':
-                    iconName = 'ammunition';
+                case "ammo":
+                    iconName = "ammunition";
                     break;
-                case 'oil':
-                    iconName = 'oils';
+                case "oil":
+                    iconName = "oils";
                     break;
-                case 'scroll':
-                    iconName = 'infernal-contracts';
+                case "scroll":
+                    iconName = "infernal-contracts";
                     break;
-                case 'talisman':
-                    iconName = 'talisman';
+                case "talisman":
+                    iconName = "talisman";
                     break;
-                case 'elixir':
-                case 'mutagen':
-                    iconName = 'alchemical_elixir';
+                case "elixir":
+                case "mutagen":
+                    iconName = "alchemical_elixir";
                     break;
-                case 'poison':
-                    iconName = 'alchemical_poison';
+                case "poison":
+                    iconName = "alchemical_poison";
                     break;
-                case 'tool':
-                    iconName = 'alchemical_tool';
+                case "tool":
+                    iconName = "alchemical_tool";
                     break;
-                case 'wand':
-                    iconName = 'wands';
+                case "wand":
+                    iconName = "wands";
                     break;
-                case 'potion':
-                    iconName = 'potions';
+                case "potion":
+                    iconName = "potions";
                     break;
-                case 'snare':
-                case 'other':
+                case "snare":
+                case "other":
                 default:
-                    if (traits.has('drug')) {
-                        iconName = 'drugs';
+                    if (traits.has("drug")) {
+                        iconName = "drugs";
                     } else {
-                        iconName = 'other-consumables';
+                        iconName = "other-consumables";
                     }
                     break;
             }
             break;
-        case 'equipment':
-            if (traits.has('precious')) {
-                iconName = 'material-chunk';
+        case "equipment":
+            if (traits.has("precious")) {
+                iconName = "material-chunk";
             }
             break;
         default:
-            iconName = 'adventuring_gear';
+            iconName = "adventuring_gear";
             break;
     }
 

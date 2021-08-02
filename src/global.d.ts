@@ -1,24 +1,24 @@
-import { ActorPF2e } from '@actor/base';
-import { ItemPF2e } from '@item/base';
-import { ActiveEffectPF2e } from '@module/active-effect';
-import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
-import { ChatMessagePF2e } from '@module/chat-message';
-import { MacroPF2e } from '@module/macro';
-import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
-import type { HomebrewSettingsKey, HomebrewTag } from '@module/settings/homebrew';
-import { EncounterTrackerPF2e } from '@module/apps/ui/encounter-tracker';
-import { StatusEffects } from '@scripts/actor/status-effects';
-import { PF2ECONFIG, StatusEffectIconType } from '@scripts/config';
-import { DicePF2e } from '@scripts/dice';
-import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
-import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
-import { calculateXP } from '@scripts/macros/xp';
-import { EffectPanel } from '@system/effect-panel';
-import { EffectTracker } from '@system/effect-tracker';
-import { CheckPF2e } from '@system/rolls';
-import { WorldClock } from '@system/world-clock';
-import { CombatPF2e } from './module/combat';
-import { ConditionManager } from './module/conditions';
+import { ActorPF2e } from "@actor/base";
+import { ItemPF2e } from "@item/base";
+import { ActiveEffectPF2e } from "@module/active-effect";
+import { CompendiumDirectoryPF2e } from "@module/apps/ui/compendium-directory";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { MacroPF2e } from "@module/macro";
+import { RuleElementPF2e, RuleElements } from "@module/rules/rules";
+import type { HomebrewSettingsKey, HomebrewTag } from "@module/settings/homebrew";
+import { EncounterTrackerPF2e } from "@module/apps/ui/encounter-tracker";
+import { StatusEffects } from "@scripts/actor/status-effects";
+import { PF2ECONFIG, StatusEffectIconType } from "@scripts/config";
+import { DicePF2e } from "@scripts/dice";
+import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
+import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
+import { calculateXP } from "@scripts/macros/xp";
+import { EffectPanel } from "@system/effect-panel";
+import { EffectTracker } from "@system/effect-tracker";
+import { CheckPF2e } from "@system/rolls";
+import { WorldClock } from "@system/world-clock";
+import { CombatPF2e } from "./module/combat";
+import { ConditionManager } from "./module/conditions";
 import {
     AbilityModifier,
     CheckModifier,
@@ -26,15 +26,15 @@ import {
     MODIFIER_TYPE,
     ProficiencyModifier,
     StatisticModifier,
-} from './module/modifiers';
-import { UserPF2e } from '@module/user';
-import { AmbientLightDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from '@module/scene';
-import { CompendiumBrowser } from '@module/apps/compendium-browser';
-import { remigrate } from '@scripts/system/remigrate';
-import { FolderPF2e } from '@module/folder';
-import { CanvasPF2e } from '@module/canvas';
-import { FogExplorationPF2e } from '@module/fog-exploration';
-import { ActorImporter } from '@system/importer/actor-importer';
+} from "./module/modifiers";
+import { UserPF2e } from "@module/user";
+import { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from "@module/scene";
+import { CompendiumBrowser } from "@module/apps/compendium-browser";
+import { remigrate } from "@scripts/system/remigrate";
+import { FolderPF2e } from "@module/folder";
+import { CanvasPF2e, DarkvisionLayerPF2e } from "@module/canvas";
+import { FogExplorationPF2e } from "@module/fog-exploration";
+import { ActorImporter } from "@system/importer/actor-importer";
 
 declare global {
     interface Game {
@@ -71,15 +71,19 @@ declare global {
         };
     }
 
-    interface ConfigPF2e extends ParameterizedConfig {
-        debug: Config['debug'] & {
+    interface ConfigPF2e extends ConfiguredConfig {
+        debug: ConfiguredConfig["debug"] & {
             ruleElement: boolean;
         };
         PF2E: typeof PF2ECONFIG;
         time: {
             roundTime: number;
         };
-        Canvas: ParameterizedConfig['Canvas'];
+        Canvas: ConfiguredConfig["Canvas"] & {
+            layers: ConfiguredConfig["Canvas"]["layers"] & {
+                darkvision: typeof DarkvisionLayerPF2e;
+            };
+        };
     }
 
     const CONFIG: ConfigPF2e;
@@ -90,48 +94,48 @@ declare global {
     }
 
     interface ClientSettings {
-        get(module: 'pf2e', setting: 'automation.rulesBasedVision'): boolean;
-        get(module: 'pf2e', setting: 'automation.effectExpiration'): boolean;
-        get(module: 'pf2e', setting: 'automation.lootableNPCs'): boolean;
+        get(module: "pf2e", setting: "automation.rulesBasedVision"): boolean;
+        get(module: "pf2e", setting: "automation.effectExpiration"): boolean;
+        get(module: "pf2e", setting: "automation.lootableNPCs"): boolean;
 
-        get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
-        get(module: 'pf2e', setting: 'freeArchetypeVariant'): boolean;
-        get(module: 'pf2e', setting: 'staminaVariant'): 0 | 1;
+        get(module: "pf2e", setting: "ancestryParagonVariant"): boolean;
+        get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
+        get(module: "pf2e", setting: "staminaVariant"): 0 | 1;
 
-        get(module: 'pf2e', setting: 'metagame.showResults'): 'none' | 'gm ' | 'owner' | 'all';
-        get(module: 'pf2e', setting: 'metagame.showDC'): 'none' | 'gm ' | 'owner' | 'all';
+        get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm " | "owner" | "all";
+        get(module: "pf2e", setting: "metagame.showDC"): "none" | "gm " | "owner" | "all";
 
-        get(module: 'pf2e', setting: 'worldClock.dateTheme'): 'AR' | 'IC' | 'AD' | 'CE';
-        get(module: 'pf2e', setting: 'worldClock.syncDarkness'): boolean;
-        get(module: 'pf2e', setting: 'worldClock.timeConvention'): 24 | 12;
-        get(module: 'pf2e', setting: 'worldClock.worldCreatedOn'): string;
+        get(module: "pf2e", setting: "worldClock.dateTheme"): "AR" | "IC" | "AD" | "CE";
+        get(module: "pf2e", setting: "worldClock.syncDarkness"): boolean;
+        get(module: "pf2e", setting: "worldClock.timeConvention"): 24 | 12;
+        get(module: "pf2e", setting: "worldClock.worldCreatedOn"): string;
 
-        get(module: 'pf2e', setting: 'homebrew.weaponCategories'): HomebrewTag<'weaponCategories'>[];
-        get(module: 'pf2e', setting: HomebrewSettingsKey): HomebrewTag[];
+        get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
+        get(module: "pf2e", setting: HomebrewSettingsKey): HomebrewTag[];
 
-        get(module: 'pf2e', setting: 'defaultTokenSettings'): boolean;
-        get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;
-        get(module: 'pf2e', setting: 'defaultTokenSettingsName'): string;
-        get(module: 'pf2e', setting: 'enabledRulesUI'): boolean;
-        get(module: 'pf2e', setting: 'ignoreCoinBulk'): boolean;
-        get(module: 'pf2e', setting: 'pfsSheetTab'): boolean;
-        get(module: 'pf2e', setting: 'statusEffectType'): StatusEffectIconType;
-        get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
-        get(module: 'pf2e', setting: 'drawCritFumble'): boolean;
-        get(module: 'pf2e', setting: 'critFumbleButtons'): boolean;
-        get(module: 'pf2e', setting: 'journalEntryTheme'): 'pf2eTheme' | 'foundry';
-        get(module: 'pf2e', setting: 'identifyMagicNotMatchingTraditionModifier'): 0 | 2 | 5 | 10;
+        get(module: "pf2e", setting: "defaultTokenSettings"): boolean;
+        get(module: "pf2e", setting: "defaultTokenSettingsBar"): number;
+        get(module: "pf2e", setting: "defaultTokenSettingsName"): string;
+        get(module: "pf2e", setting: "enabledRulesUI"): boolean;
+        get(module: "pf2e", setting: "ignoreCoinBulk"): boolean;
+        get(module: "pf2e", setting: "pfsSheetTab"): boolean;
+        get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconType;
+        get(module: "pf2e", setting: "worldSchemaVersion"): number;
+        get(module: "pf2e", setting: "drawCritFumble"): boolean;
+        get(module: "pf2e", setting: "critFumbleButtons"): boolean;
+        get(module: "pf2e", setting: "journalEntryTheme"): "pf2eTheme" | "foundry";
+        get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
     }
 
     interface WorldSettingsStorage {
-        get(setting: 'pf2e.worldSchemaVersion'): string | undefined;
-        getItem(setting: 'pf2e.worldSchemaVersion'): string | null;
+        get(setting: "pf2e.worldSchemaVersion"): string | undefined;
+        getItem(setting: "pf2e.worldSchemaVersion"): string | null;
     }
 
-    const BUILD_MODE: 'development' | 'production';
+    const BUILD_MODE: "development" | "production";
 }
 
-type ParameterizedConfig = Config<
+type ConfiguredConfig = Config<
     AmbientLightDocumentPF2e,
     ActiveEffectPF2e,
     ActorPF2e,
@@ -143,6 +147,7 @@ type ParameterizedConfig = Config<
     FolderPF2e,
     ItemPF2e,
     MacroPF2e,
+    MeasuredTemplateDocumentPF2e,
     TokenDocumentPF2e,
     ScenePF2e,
     UserPF2e

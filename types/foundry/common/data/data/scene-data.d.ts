@@ -75,7 +75,7 @@ declare module foundry {
             TMeasuredTemplate extends documents.BaseMeasuredTemplate = documents.BaseMeasuredTemplate,
             TNote extends documents.BaseNote = documents.BaseNote,
             TTile extends documents.BaseTile = documents.BaseTile,
-            TWall extends documents.BaseWall = documents.BaseWall,
+            TWall extends documents.BaseWall = documents.BaseWall
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
 
@@ -98,17 +98,17 @@ declare module foundry {
         interface SceneData
             extends Omit<
                 SceneSource,
-                | 'drawings'
-                | 'tokens'
-                | 'lights'
-                | 'notes'
-                | 'sounds'
-                | 'templates'
-                | 'tiles'
-                | 'walls'
-                | 'playlist'
-                | 'playlistSound'
-                | 'journal'
+                | "drawings"
+                | "tokens"
+                | "lights"
+                | "notes"
+                | "sounds"
+                | "templates"
+                | "tiles"
+                | "walls"
+                | "playlist"
+                | "playlistSound"
+                | "journal"
             > {
             _source: SceneSource;
         }

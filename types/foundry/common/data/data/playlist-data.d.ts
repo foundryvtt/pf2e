@@ -28,14 +28,14 @@ declare module foundry {
         }
 
         class PlaylistData<
-            TDocument extends documents.BasePlaylist = documents.BasePlaylist,
+            TDocument extends documents.BasePlaylist = documents.BasePlaylist
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
 
             sounds: abstract.EmbeddedCollection<documents.BasePlaylistSound>;
         }
 
-        interface PlaylistData extends Omit<PlaylistSoundSource, 'sounds'> {
+        interface PlaylistData extends Omit<PlaylistSoundSource, "sounds"> {
             readonly _source: PlaylistSource;
         }
     }

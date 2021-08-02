@@ -1,28 +1,28 @@
-import { ChatMessagePF2e } from '@module/chat-message';
+import { ChatMessagePF2e } from "@module/chat-message";
 import {
     AbilityModifier,
     ensureProficiencyOption,
     ModifierPF2e,
     ProficiencyModifier,
     StatisticModifier,
-} from '@module/modifiers';
-import { ErrorPF2e } from '@module/utils';
-import { DicePF2e } from '@scripts/dice';
-import { ActorPF2e } from '../actor/base';
-import { RuleElementPF2e, RuleElements } from '../rules/rules';
-import { ItemDataPF2e, ItemSourcePF2e, TraitChatData } from './data';
-import { isItemSystemData } from './data/helpers';
-import { MeleeSystemData } from './melee/data';
-import { getAttackBonus, getStrikingDice } from './runes';
-import { ItemSheetPF2e } from './sheet/base';
-import { AbilityString } from '@actor/data/base';
-import { isCreatureData } from '@actor/data/helpers';
-import { NPCSystemData } from '@actor/npc/data';
-import { HazardSystemData } from '@actor/hazard/data';
-import { CheckPF2e } from '@system/rolls';
-import { ItemTrait } from './data/base';
-import { UserPF2e } from '@module/user';
-import { MigrationRunner, Migrations } from '@module/migration';
+} from "@module/modifiers";
+import { ErrorPF2e } from "@module/utils";
+import { DicePF2e } from "@scripts/dice";
+import { ActorPF2e } from "../actor/base";
+import { RuleElementPF2e, RuleElements } from "../rules/rules";
+import { ItemDataPF2e, ItemSourcePF2e, TraitChatData } from "./data";
+import { isItemSystemData } from "./data/helpers";
+import { MeleeSystemData } from "./melee/data";
+import { getAttackBonus, getStrikingDice } from "./runes";
+import { ItemSheetPF2e } from "./sheet/base";
+import { AbilityString } from "@actor/data/base";
+import { isCreatureData } from "@actor/data/helpers";
+import { NPCSystemData } from "@actor/npc/data";
+import { HazardSystemData } from "@actor/hazard/data";
+import { CheckPF2e } from "@system/rolls";
+import { ItemTrait } from "./data/base";
+import { UserPF2e } from "@module/user";
+import { MigrationRunner, Migrations } from "@module/migration";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -56,7 +56,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
 
     /** The compendium source ID of the item **/
     get sourceId(): string | null {
-        return this.getFlag('core', 'sourceId') ?? null;
+        return this.getFlag("core", "sourceId") ?? null;
     }
 
     /** The recorded schema version of this item, updated after each data migration */
@@ -75,7 +75,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
     override async delete(context: DocumentModificationContext = {}) {
         if (this.actor) {
-            await this.actor.deleteEmbeddedDocuments('Item', [this.id], context);
+            await this.actor.deleteEmbeddedDocuments("Item", [this.id], context);
             return this;
         }
         return super.delete(context);
@@ -95,12 +95,12 @@ export class ItemPF2e extends Item<ActorPF2e> {
     async toMessage(
         this: Embedded<ItemPF2e>,
         event?: JQuery.TriggeredEvent,
-        { create = true } = {},
+        { create = true } = {}
     ): Promise<ChatMessagePF2e | undefined> {
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
         const { token } = this.actor;
-        const nearestItem = event ? event.currentTarget.closest('.item') : {};
+        const nearestItem = event ? event.currentTarget.closest(".item") : {};
         const contextualData = nearestItem.dataset || {};
         const templateData = {
             actor: this.actor,
@@ -111,10 +111,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
 
         // Basic chat message data
         const chatData: PreCreate<foundry.data.ChatMessageSource> = {
-            speaker: {
-                actor: this.actor.id,
-                token: this.actor.getActiveTokens()[0]?.id,
-            },
+            speaker: ChatMessagePF2e.getSpeaker({
+                actor: this.actor,
+                token: this.actor.getActiveTokens()[0],
+            }),
             flags: {
                 core: {
                     canPopout: true,
@@ -127,10 +127,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
         };
 
         // Toggle default roll mode
-        const rollMode = game.settings.get('core', 'rollMode');
-        if (['gmroll', 'blindroll'].includes(rollMode))
-            chatData.whisper = ChatMessagePF2e.getWhisperRecipients('GM').map((u) => u.id);
-        if (rollMode === 'blindroll') chatData.blind = true;
+        const rollMode = game.settings.get("core", "rollMode");
+        if (["gmroll", "blindroll"].includes(rollMode))
+            chatData.whisper = ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id);
+        if (rollMode === "blindroll") chatData.blind = true;
 
         // Render the template
         chatData.content = await renderTemplate(template, templateData);
@@ -178,7 +178,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     getChatData(
         this: Embedded<ItemPF2e>,
         htmlOptions: EnrichHTMLOptions = {},
-        _rollOptions: Record<string, any> = {},
+        _rollOptions: Record<string, any> = {}
     ): Record<string, unknown> {
         return this.processChatData(htmlOptions, {
             ...duplicate(this.data.data),
@@ -217,7 +217,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollWeaponAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
-        if (this.type !== 'weapon' && this.type !== 'melee') throw new Error('Wrong item type!');
+        if (this.type !== "weapon" && this.type !== "melee") throw new Error("Wrong item type!");
 
         // Prepare roll data
         const itemData: any = this.getChatData();
@@ -225,16 +225,16 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const isFinesse = itemData.isFinesse;
         const abl =
             isFinesse && rollData.abilities.dex.mod > rollData.abilities.str.mod
-                ? 'dex'
-                : itemData.ability.value || 'str';
-        const prof = itemData.weaponType.value || 'simple';
-        let parts = ['@itemBonus', `@abilities.${abl}.mod`];
+                ? "dex"
+                : itemData.ability.value || "str";
+        const prof = itemData.weaponType.value || "simple";
+        let parts = ["@itemBonus", `@abilities.${abl}.mod`];
 
-        const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ''}`;
+        const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ""}`;
 
-        if (this.actor.data.type === 'npc') {
-            parts = ['@itemBonus'];
-        } else if (itemData.proficiency && itemData.proficiency.type === 'skill') {
+        if (this.actor.data.type === "npc") {
+            parts = ["@itemBonus"];
+        } else if (itemData.proficiency && itemData.proficiency.type === "skill") {
             parts.push(itemData.proficiency.value);
         } else {
             parts.push(`@martial.${prof}.value`);
@@ -255,7 +255,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
             parts,
             actor: this.actor,
             data: rollData,
-            rollType: 'attack-roll',
+            rollType: "attack-roll",
             title,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             dialogOptions: {
@@ -275,13 +275,13 @@ export class ItemPF2e extends Item<ActorPF2e> {
 
         const item = this.data;
         // Check to see if this is a damage roll for either: a weapon, a NPC attack or an action associated with a weapon.
-        if (item.type !== 'weapon') throw new Error('Wrong item type!');
+        if (item.type !== "weapon") throw new Error("Wrong item type!");
         const itemData = item.data;
 
         // Get item and actor data and format it for the damage roll
         const rollData = duplicate(this.actor.data.data) as any;
         let rollDie = itemData.damage.die;
-        const abl = 'str';
+        const abl = "str";
         let abilityMod: number = rollData.abilities[abl].mod;
         let parts: (string | number)[] = [];
         const partsCritOnly: string[] = [];
@@ -289,16 +289,16 @@ export class ItemPF2e extends Item<ActorPF2e> {
 
         // Get detailed trait information from item
         const traits = itemData.traits.value;
-        let critTrait = '';
-        let critDie = '';
+        let critTrait = "";
+        let critDie = "";
         let bonusDamage = 0;
         let twohandedTrait = false;
-        let twohandedDie = '';
+        let twohandedDie = "";
         let thrownTrait = false;
         const critRegex = /\b(deadly|fatal)-(d\d+)/;
         const twohandedRegex = /\b(two-hand)-(d\d+)/;
         const thrownRegex = /\b(thrown)-(\d+)/;
-        const hasThiefRacket = this.actor.itemTypes.feat.some((feat) => feat.slug === 'thief-racket');
+        const hasThiefRacket = this.actor.itemTypes.feat.some((feat) => feat.slug === "thief-racket");
         const strikingDice = getStrikingDice(itemData);
 
         if (hasThiefRacket && rollData.abilities.dex.mod > abilityMod) abilityMod = rollData.abilities.dex.mod;
@@ -308,10 +308,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
             const critMatch = critRegex.exec(trait);
             const twoHandedMatch = twohandedRegex.exec(trait);
             const thrownMatch = thrownRegex.exec(trait);
-            if (Array.isArray(critMatch) && typeof critMatch[1] === 'string' && typeof critMatch[2] === 'string') {
+            if (Array.isArray(critMatch) && typeof critMatch[1] === "string" && typeof critMatch[2] === "string") {
                 critTrait = critMatch[1];
                 critDie = critMatch[2];
-            } else if (Array.isArray(twoHandedMatch) && typeof twoHandedMatch[2] === 'string') {
+            } else if (Array.isArray(twoHandedMatch) && typeof twoHandedMatch[2] === "string") {
                 twohandedTrait = true;
                 twohandedDie = twoHandedMatch[2];
             } else if (Array.isArray(thrownMatch)) {
@@ -330,29 +330,29 @@ export class ItemPF2e extends Item<ActorPF2e> {
         // Join the damage die into the parts to make a roll (this will be overwriten below if the damage is critical)
         const damageDice = itemData.damage.dice ?? 1;
         let weaponDamage = damageDice + strikingDice + rollDie;
-        parts = [weaponDamage, '@itemBonus'];
+        parts = [weaponDamage, "@itemBonus"];
         rollData.itemBonus = bonusDamage;
 
         // Apply critical damage and effects
-        if (critTrait === 'deadly') {
+        if (critTrait === "deadly") {
             // Deadly adds 3 dice with major Striking, 2 dice with greater Striking
             // and 1 die otherwise
             const deadlyDice = strikingDice > 0 ? strikingDice : 1;
             const deadlyDamage = deadlyDice + critDie;
             partsCritOnly.push(deadlyDamage);
-        } else if (critTrait === 'fatal') {
+        } else if (critTrait === "fatal") {
             if (critical === true) {
                 weaponDamage = damageDice + strikingDice + critDie;
-                parts = [weaponDamage, '@itemBonus'];
+                parts = [weaponDamage, "@itemBonus"];
             }
             partsCritOnly.push(1 + critDie);
         }
 
         // Add abilityMod to the damage roll.
-        if (itemData.range.value === 'melee' || itemData.range.value === 'reach' || itemData.range.value === '') {
+        if (itemData.range.value === "melee" || itemData.range.value === "reach" || itemData.range.value === "") {
             // if a melee attack
             parts.push(abilityMod);
-        } else if (itemData.traits.value.includes('propulsive')) {
+        } else if (itemData.traits.value.includes("propulsive")) {
             if (Math.sign(this.actor.data.data.abilities.str.mod) === 1) {
                 const halfStr = Math.floor(this.actor.data.data.abilities.str.mod / 2);
                 parts.push(halfStr);
@@ -375,10 +375,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
         }
 
         // Set the title of the roll
-        const critTitle = critTrait ? critTrait.toUpperCase() : '';
+        const critTitle = critTrait ? critTrait.toUpperCase() : "";
         let title = critical
-            ? `${localize('PF2E.CriticalDamageLabel')} ${critTitle} ${localize('PF2E.DamageLabel')}: ${this.name}`
-            : `${localize('PF2E.DamageLabel')}: ${this.name}`;
+            ? `${localize("PF2E.CriticalDamageLabel")} ${critTitle} ${localize("PF2E.DamageLabel")}: ${this.name}`
+            : `${localize("PF2E.DamageLabel")}: ${this.name}`;
         if (dtype) title += ` (${dtype})`;
 
         // Call the roll helper utility
@@ -405,25 +405,25 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollNPCAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
-        if (this.type !== 'melee') throw ErrorPF2e('Wrong item type!');
-        if (this.actor?.data.type !== 'npc' && this.actor?.data.type !== 'hazard') {
-            throw ErrorPF2e('Attempted to roll an attack without an actor!');
+        if (this.type !== "melee") throw ErrorPF2e("Wrong item type!");
+        if (this.actor?.data.type !== "npc" && this.actor?.data.type !== "hazard") {
+            throw ErrorPF2e("Attempted to roll an attack without an actor!");
         }
         // Prepare roll data
         const itemData: any = this.getChatData();
         const rollData: (NPCSystemData | HazardSystemData) & { item?: unknown; itemBonus?: number } = duplicate(
-            this.actor.data.data,
+            this.actor.data.data
         );
-        const parts = ['@itemBonus'];
-        const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ''}`;
+        const parts = ["@itemBonus"];
+        const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ""}`;
 
         rollData.item = itemData;
 
         let adjustment = 0;
         const traits = this.actor.data.data.traits.traits.value;
-        if (traits.some((trait) => trait === 'elite')) {
+        if (traits.some((trait) => trait === "elite")) {
             adjustment = 2;
-        } else if (traits.some((trait) => trait === 'weak')) {
+        } else if (traits.some((trait) => trait === "weak")) {
             adjustment = -2;
         }
 
@@ -438,7 +438,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
             parts,
             actor: this.actor,
             data: rollData,
-            rollType: 'attack-roll',
+            rollType: "attack-roll",
             title,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             dialogOptions: {
@@ -454,22 +454,22 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
     rollNPCDamage(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, critical = false) {
-        if (this.data.type !== 'melee') throw ErrorPF2e('Wrong item type!');
-        if (this.actor.data.type !== 'npc' && this.actor.data.type !== 'hazard') {
-            throw ErrorPF2e('Attempted to roll an attack without an actor!');
+        if (this.data.type !== "melee") throw ErrorPF2e("Wrong item type!");
+        if (this.actor.data.type !== "npc" && this.actor.data.type !== "hazard") {
+            throw ErrorPF2e("Attempted to roll an attack without an actor!");
         }
 
         // Get item and actor data and format it for the damage roll
         const item = this.data;
         const itemData = item.data;
         const rollData: (NPCSystemData | HazardSystemData) & { item?: MeleeSystemData } = duplicate(
-            this.actor.data.data,
+            this.actor.data.data
         );
         let parts: Array<string | number> = [];
         const partsType: string[] = [];
 
         // If the NPC is using the updated NPC Attack data object
-        if (itemData.damageRolls && typeof itemData.damageRolls === 'object') {
+        if (itemData.damageRolls && typeof itemData.damageRolls === "object") {
             Object.keys(itemData.damageRolls).forEach((key) => {
                 if (itemData.damageRolls[key].damage) parts.push(itemData.damageRolls[key].damage);
                 partsType.push(`${itemData.damageRolls[key].damage} ${itemData.damageRolls[key].damageType}`);
@@ -479,19 +479,19 @@ export class ItemPF2e extends Item<ActorPF2e> {
         }
 
         // Set the title of the roll
-        const title = `${this.name}: ${partsType.join(', ')}`;
+        const title = `${this.name}: ${partsType.join(", ")}`;
 
         // do nothing if no parts are provided in the damage roll
         if (parts.length === 0) {
-            console.log('PF2e System | No damage parts provided in damage roll');
-            parts = ['0'];
+            console.log("PF2e System | No damage parts provided in damage roll");
+            parts = ["0"];
         }
 
         const traits = this.actor.data.data.traits.traits.value;
-        if (traits.some((trait) => trait === 'elite')) {
-            parts.push('+2');
-        } else if (traits.some((trait) => trait === 'weak')) {
-            parts.push('-2');
+        if (traits.some((trait) => trait === "elite")) {
+            parts.push("+2");
+        } else if (traits.some((trait) => trait === "weak")) {
+            parts.push("-2");
         }
 
         // Call the roll helper utility
@@ -519,8 +519,8 @@ export class ItemPF2e extends Item<ActorPF2e> {
     rollSpellcastingEntryCheck(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent) {
         // Prepare roll data
         const itemData: ItemDataPF2e = this.data;
-        if (itemData.type !== 'spellcastingEntry') throw new Error('Wrong item type!');
-        if (!this.actor) throw new Error('Attempted a spellcasting check without an actor!');
+        if (itemData.type !== "spellcastingEntry") throw new Error("Wrong item type!");
+        if (!this.actor) throw new Error("Attempted a spellcasting check without an actor!");
 
         const rollData = duplicate(this.actor.data.data);
         const modifier = itemData.data.spelldc.value;
@@ -528,9 +528,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const title = `${this.name} - Spellcasting Check`;
 
         const traits = this.actor.data.data.traits.traits.value;
-        if (traits.some((trait) => trait === 'elite')) {
+        if (traits.some((trait) => trait === "elite")) {
             parts.push(2);
-        } else if (traits.some((trait) => trait === 'weak')) {
+        } else if (traits.some((trait) => trait === "weak")) {
             parts.push(-2);
         }
 
@@ -554,7 +554,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollSpellAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
-        if (this.data.type !== 'spell') throw new Error('Wrong item type!');
+        if (this.data.type !== "spell") throw new Error("Wrong item type!");
         const itemData = this.data.toObject(false);
 
         // Prepare roll data
@@ -562,23 +562,23 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const systemData = itemData.data;
         const rollData = deepClone(this.actor.data.data);
         const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
-            (entry) => entry.id === systemData.location.value,
+            (entry) => entry.id === systemData.location.value
         )?.data;
         const useTrickData = !spellcastingEntry;
 
         if (useTrickData && !trickMagicItemData)
-            throw new Error('Spell points to location that is not a spellcasting type');
+            throw new Error("Spell points to location that is not a spellcasting type");
 
         // calculate multiple attack penalty
         const map = this.calculateMap();
 
         if (spellcastingEntry && spellcastingEntry.data.attack?.roll) {
             const options = this.actor
-                .getRollOptions(['all', 'attack-roll', 'spell-attack-roll'])
+                .getRollOptions(["all", "attack-roll", "spell-attack-roll"])
                 .concat(...this.traits);
             const modifiers: ModifierPF2e[] = [];
             if (multiAttackPenalty > 1) {
-                modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
+                modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], "untyped"));
             }
             spellcastingEntry.data.attack.roll({ event, item: this, options, modifiers });
         } else {
@@ -589,9 +589,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
             const title = `${this.name} - Spell Attack Roll`;
 
             const traits = this.actor.data.data.traits.traits.value;
-            if (traits.some((trait) => trait === 'elite')) {
+            if (traits.some((trait) => trait === "elite")) {
                 parts.push(2);
-            } else if (traits.some((trait) => trait === 'weak')) {
+            } else if (traits.some((trait) => trait === "weak")) {
                 parts.push(-2);
             }
 
@@ -605,7 +605,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 item: this,
                 parts,
                 data: rollData,
-                rollType: 'attack-roll',
+                rollType: "attack-roll",
                 title,
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                 dialogOptions: {
@@ -624,7 +624,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      */
     static findSpellLevel(event: any): number {
         const button = event.currentTarget;
-        const card = button.closest('*[data-spell-lvl]');
+        const card = button.closest("*[data-spell-lvl]");
         const cardData = card ? card.dataset : {};
         return parseInt(cardData.spellLvl, 10);
     }
@@ -641,23 +641,23 @@ export class ItemPF2e extends Item<ActorPF2e> {
         }
 
         if (!(this instanceof CONFIG.PF2E.Item.documentClasses.spell)) {
-            throw new Error('Wrong item type!');
+            throw new Error("Wrong item type!");
         }
 
-        const isHeal = this.data.data.spellType.value === 'heal';
+        const isHeal = this.data.data.spellType.value === "heal";
         const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[this.data.data.damageType.value]);
         const castLevel = ItemPF2e.findSpellLevel(event);
         const parts = this.computeDamageParts(castLevel);
 
         // Append damage type to title
-        const damageLabel = game.i18n.localize(isHeal ? 'PF2E.SpellTypeHeal' : 'PF2E.DamageLabel');
+        const damageLabel = game.i18n.localize(isHeal ? "PF2E.SpellTypeHeal" : "PF2E.DamageLabel");
         let title = `${this.name} - ${damageLabel}`;
         if (damageType && !isHeal) title += ` (${damageType})`;
 
         const traits = this.actor.data.data.traits.traits.value;
-        if (traits.some((trait) => trait === 'elite')) {
+        if (traits.some((trait) => trait === "elite")) {
             parts.push(4);
-        } else if (traits.some((trait) => trait === 'weak')) {
+        } else if (traits.some((trait) => trait === "weak")) {
             parts.push(-4);
         }
 
@@ -685,30 +685,30 @@ export class ItemPF2e extends Item<ActorPF2e> {
      */
     rollCounteract(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent) {
         const itemData =
-            this.data.type === 'consumable' && this.data.data.spell?.data
+            this.data.type === "consumable" && this.data.data.spell?.data
                 ? duplicate(this.data.data.spell.data)
                 : this.toObject();
-        if (itemData.type !== 'spell') throw new Error('Wrong item type!');
+        if (itemData.type !== "spell") throw new Error("Wrong item type!");
 
         const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
-            (entry) => entry.id === itemData.data.location.value,
+            (entry) => entry.id === itemData.data.location.value
         );
-        if (!spellcastingEntry) throw ErrorPF2e('Spell points to location that is not a spellcasting type');
+        if (!spellcastingEntry) throw ErrorPF2e("Spell points to location that is not a spellcasting type");
 
         const modifiers: ModifierPF2e[] = [];
-        const ability: AbilityString = spellcastingEntry.data.data.ability?.value || 'int';
+        const ability: AbilityString = spellcastingEntry.data.data.ability?.value || "int";
         const score = this.actor.data.data.abilities[ability]?.value ?? 0;
         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
 
         const proficiencyRank = spellcastingEntry.data.data.proficiency.value ?? 0;
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.actor.data.data.details.level.value, proficiencyRank));
 
-        const rollOptions = ['all', 'counteract-check'];
+        const rollOptions = ["all", "counteract-check"];
         const extraOptions = [];
         const traits = itemData.data.traits.value;
 
-        let flavor = '<hr>';
-        flavor += `<h3>${game.i18n.localize('PF2E.Counteract')}</h3>`;
+        let flavor = "<hr>";
+        flavor += `<h3>${game.i18n.localize("PF2E.Counteract")}</h3>`;
         flavor += `<hr>`;
 
         const spellLevel = ItemPF2e.findSpellLevel(event);
@@ -720,13 +720,13 @@ export class ItemPF2e extends Item<ActorPF2e> {
             });
             flavor += `<b>${title}</b> ${desc}<br>`;
         };
-        flavor += `<p>${game.i18n.localize('PF2E.CounteractDescription.Hint')}</p>`;
-        flavor += '<p>';
-        addFlavor('CritSuccess', spellLevel + 3);
-        addFlavor('Success', spellLevel + 1);
-        addFlavor('Failure', spellLevel);
-        addFlavor('CritFailure', 0);
-        flavor += '</p>';
+        flavor += `<p>${game.i18n.localize("PF2E.CounteractDescription.Hint")}</p>`;
+        flavor += "<p>";
+        addFlavor("CritSuccess", spellLevel + 3);
+        addFlavor("Success", spellLevel + 1);
+        addFlavor("Failure", spellLevel);
+        addFlavor("CritFailure", 0);
+        flavor += "</p>";
         const check = new StatisticModifier(flavor, modifiers);
         const finalOptions = this.actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
         ensureProficiencyOption(finalOptions, proficiencyRank);
@@ -734,12 +734,12 @@ export class ItemPF2e extends Item<ActorPF2e> {
             check,
             {
                 actor: this.actor,
-                type: 'counteract-check',
+                type: "counteract-check",
                 options: finalOptions,
-                title: game.i18n.localize('PF2E.Counteract'),
+                title: game.i18n.localize("PF2E.Counteract"),
                 traits,
             },
-            event,
+            event
         );
     }
 
@@ -748,39 +748,39 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     static calculateMap(item: ItemDataPF2e): { label: string; map2: number; map3: number } {
-        if (item.type === 'melee' || item.type === 'weapon') {
+        if (item.type === "melee" || item.type === "weapon") {
             // calculate multiple attack penalty tiers
-            const agile = item.data.traits.value.includes('agile');
+            const agile = item.data.traits.value.includes("agile");
             const alternateMAP = ((item.data as any).MAP || {}).value;
             switch (alternateMAP) {
-                case '1':
-                    return { label: 'PF2E.MultipleAttackPenalty', map2: -1, map3: -2 };
-                case '2':
-                    return { label: 'PF2E.MultipleAttackPenalty', map2: -2, map3: -4 };
-                case '3':
-                    return { label: 'PF2E.MultipleAttackPenalty', map2: -3, map3: -6 };
-                case '4':
-                    return { label: 'PF2E.MultipleAttackPenalty', map2: -4, map3: -8 };
-                case '5':
-                    return { label: 'PF2E.MultipleAttackPenalty', map2: -5, map3: -10 };
+                case "1":
+                    return { label: "PF2E.MultipleAttackPenalty", map2: -1, map3: -2 };
+                case "2":
+                    return { label: "PF2E.MultipleAttackPenalty", map2: -2, map3: -4 };
+                case "3":
+                    return { label: "PF2E.MultipleAttackPenalty", map2: -3, map3: -6 };
+                case "4":
+                    return { label: "PF2E.MultipleAttackPenalty", map2: -4, map3: -8 };
+                case "5":
+                    return { label: "PF2E.MultipleAttackPenalty", map2: -5, map3: -10 };
                 default: {
-                    if (agile) return { label: 'PF2E.MultipleAttackPenalty', map2: -4, map3: -8 };
-                    else return { label: 'PF2E.MultipleAttackPenalty', map2: -5, map3: -10 };
+                    if (agile) return { label: "PF2E.MultipleAttackPenalty", map2: -4, map3: -8 };
+                    else return { label: "PF2E.MultipleAttackPenalty", map2: -5, map3: -10 };
                 }
             }
         }
-        return { label: 'PF2E.MultipleAttackPenalty', map2: -5, map3: -10 };
+        return { label: "PF2E.MultipleAttackPenalty", map2: -5, map3: -10 };
     }
 
     /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
     static override async createDialog(
         data: { folder?: string } = {},
-        options: FormApplicationOptions = {},
+        options: FormApplicationOptions = {}
     ): Promise<ItemPF2e | undefined> {
         const original = game.system.entityTypes.Item;
         game.system.entityTypes.Item = original.filter(
             (itemType: string) =>
-                !(['condition', 'martial', 'spellcastingEntry'].includes(itemType) && BUILD_MODE === 'production'),
+                !(["condition", "martial", "spellcastingEntry"].includes(itemType) && BUILD_MODE === "production")
         );
         const newItem = super.createDialog(data, options) as Promise<ItemPF2e | undefined>;
         game.system.entityTypes.Item = original;
@@ -793,9 +793,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
 
     /** Ensure imported items are current on their schema version */
     protected override async _preCreate(
-        data: PreDocumentId<this['data']['_source']>,
+        data: PreDocumentId<this["data"]["_source"]>,
         options: DocumentModificationContext,
-        user: UserPF2e,
+        user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
         if (options.parent) return;
@@ -806,7 +806,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     protected override _onCreate(data: ItemSourcePF2e, options: DocumentModificationContext, userId: string): void {
         if (this.actor) {
             // Rule Elements
-            if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, 'update'))) return;
+            if (!(isCreatureData(this.actor?.data) && this.canUserModify(game.user, "update"))) return;
             const actorUpdates: Record<string, unknown> = {};
             for (const rule of this.rules) {
                 rule.onCreate(actorUpdates);
@@ -820,7 +820,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     /** Call onDelete rule-element hooks */
     protected override _onDelete(options: DocumentModificationContext, userId: string): void {
         if (this.actor) {
-            if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
+            if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, "update"))) return;
             const tokens = this.actor.getAllTokens();
             const actorUpdates: DocumentUpdateData<ActorPF2e> = {};
             for (const rule of this.rules) {
@@ -840,7 +840,7 @@ export interface ItemPF2e {
 
     get sheet(): ItemSheetPF2e<this>;
 
-    getFlag(scope: 'core', key: 'sourceId'): string;
-    getFlag(scope: 'pf2e', key: 'constructing'): true | undefined;
+    getFlag(scope: "core", key: "sourceId"): string;
+    getFlag(scope: "pf2e", key: "constructing"): true | undefined;
     getFlag(scope: string, key: string): any;
 }

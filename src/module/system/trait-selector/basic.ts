@@ -1,14 +1,14 @@
-import { ActorSourcePF2e } from '@actor/data';
-import { ActorPF2e } from '@actor/index';
-import { ItemSourcePF2e } from '@item/data';
-import { ItemPF2e } from '@item/index';
-import { ValuesList } from '@module/data';
-import { TagSelectorBase } from './base';
-import { BasicSelectorOptions, SelectableTagField } from './index';
+import { ActorSourcePF2e } from "@actor/data";
+import { ActorPF2e } from "@actor/index";
+import { ItemSourcePF2e } from "@item/data";
+import { ItemPF2e } from "@item/index";
+import { ValuesList } from "@module/data";
+import { TagSelectorBase } from "./base";
+import { BasicSelectorOptions, SelectableTagField } from "./index";
 
 export class TagSelectorBasic extends TagSelectorBase {
     allowCustom: boolean;
-    searchString = '';
+    searchString = "";
     private filterTimeout: number | null = null;
 
     constructor(object: ActorPF2e | ItemPF2e, options: BasicSelectorOptions) {
@@ -19,7 +19,7 @@ export class TagSelectorBasic extends TagSelectorBase {
             mergeObject(this.choices, options.customChoices);
             this.choices = this.sortChoices(this.choices);
         }
-        this.options.title = options.title ?? 'PF2E.TraitsLabel';
+        this.options.title = options.title ?? "PF2E.TraitsLabel";
     }
 
     protected get configTypes(): readonly SelectableTagField[] {
@@ -28,7 +28,7 @@ export class TagSelectorBasic extends TagSelectorBase {
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            template: 'systems/pf2e/templates/system/trait-selector/basic.html',
+            template: "systems/pf2e/templates/system/trait-selector/basic.html",
             height: 710,
         });
     }
@@ -36,7 +36,7 @@ export class TagSelectorBasic extends TagSelectorBase {
     override getData() {
         const property: ValuesList = getProperty(
             (this.object as { toObject(): ActorSourcePF2e | ItemSourcePF2e }).toObject(),
-            this.objectProperty,
+            this.objectProperty
         );
         const chosen: string[] = (property.value ?? []).map((prop) => prop.toString());
 
@@ -62,7 +62,7 @@ export class TagSelectorBasic extends TagSelectorBase {
         super.activateListeners($html);
 
         // Search filtering
-        $html.find<HTMLInputElement>('input[id="search"]').on('keyup', (event) => this.onFilterResults(event));
+        $html.find<HTMLInputElement>('input[id="search"]').on("keyup", (event) => this.onFilterResults(event));
         if (this.searchString) {
             this.search(this.searchString);
         }
@@ -70,8 +70,8 @@ export class TagSelectorBasic extends TagSelectorBase {
 
     protected async _updateObject(_event: Event, formData: Record<string, unknown>) {
         const value = this.getUpdateData(formData);
-        if (this.allowCustom && typeof formData['custom'] === 'string') {
-            this.object.update({ [this.objectProperty]: { value, custom: formData['custom'] } });
+        if (this.allowCustom && typeof formData["custom"] === "string") {
+            this.object.update({ [this.objectProperty]: { value, custom: formData["custom"] } });
         } else {
             this.object.update({ [`${this.objectProperty}.value`]: value });
         }
@@ -92,10 +92,10 @@ export class TagSelectorBasic extends TagSelectorBase {
      * @param searchString The search string to match
      */
     private search(searchString: string) {
-        const query = new RegExp((RegExp as any).escape(searchString), 'i');
-        (this.element as JQuery).find('li.trait-item').each((_i, li) => {
-            const name = li.getElementsByClassName('trait-label')[0].textContent ?? '';
-            li.style.display = query.test(name) ? 'flex' : 'none';
+        const query = new RegExp((RegExp as any).escape(searchString), "i");
+        (this.element as JQuery).find("li.trait-item").each((_i, li) => {
+            const name = li.getElementsByClassName("trait-label")[0].textContent ?? "";
+            li.style.display = query.test(name) ? "flex" : "none";
         });
         this.searchString = searchString;
     }

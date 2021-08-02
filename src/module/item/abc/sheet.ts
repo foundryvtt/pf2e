@@ -1,10 +1,10 @@
-import { AbilityString } from '@actor/data';
-import { ABCFeatureEntryData } from '@item/abc/data';
-import { FeatType } from '@item/feat/data';
-import { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e, ItemPF2e } from '@item/index';
-import { LocalizePF2e } from '@system/localize';
-import { ItemSheetPF2e } from '../sheet/base';
-import { ABCSheetData } from '../sheet/data-types';
+import { AbilityString } from "@actor/data";
+import { ABCFeatureEntryData } from "@item/abc/data";
+import { FeatType } from "@item/feat/data";
+import { AncestryPF2e, BackgroundPF2e, ClassPF2e, FeatPF2e, ItemPF2e } from "@item/index";
+import { LocalizePF2e } from "@system/localize";
+import { ItemSheetPF2e } from "../sheet/base";
+import { ABCSheetData } from "../sheet/data-types";
 
 type ABCItem = AncestryPF2e | BackgroundPF2e | ClassPF2e;
 
@@ -12,8 +12,8 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
     static override get defaultOptions() {
         return {
             ...super.defaultOptions,
-            scrollY: ['.item-details'],
-            dragDrop: [{ dropSelector: '.item-details' }],
+            scrollY: [".item-details"],
+            dragDrop: [{ dropSelector: ".item-details" }],
         };
     }
 
@@ -22,7 +22,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
 
         return {
             ...this.getBaseData(),
-            hasSidebar: itemType !== 'class',
+            hasSidebar: itemType !== "class",
             sidebarTemplate: () => `systems/pf2e/templates/items/${itemType}-sidebar.html`,
             hasDetails: true,
             detailsTemplate: () => `systems/pf2e/templates/items/${itemType}-details.html`,
@@ -31,7 +31,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
 
     protected getLocalizedAbilities(traits: { value: AbilityString[] }): { [key: string]: string } {
         if (traits !== undefined && traits.value) {
-            if (traits.value.length === 6) return { free: game.i18n.localize('PF2E.AbilityFree') };
+            if (traits.value.length === 6) return { free: game.i18n.localize("PF2E.AbilityFree") };
             return Object.fromEntries(traits.value.map((x: AbilityString) => [x, CONFIG.PF2E.abilities[x]]));
         }
 
@@ -40,7 +40,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
 
     /** Is the dropped feat or feature valid for the given section? */
     private isValidDrop(event: ElementDragEvent, feat: FeatPF2e): boolean {
-        const validFeatTypes: FeatType[] = $(event.target).closest('.abc-list').data('valid-drops')?.split(' ') ?? [];
+        const validFeatTypes: FeatType[] = $(event.target).closest(".abc-list").data("valid-drops")?.split(" ") ?? [];
         if (validFeatTypes.includes(feat.featType.value)) {
             return true;
         }
@@ -62,8 +62,8 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
 
     protected override async _onDrop(event: ElementDragEvent): Promise<void> {
         event.preventDefault();
-        const dataString = event.dataTransfer?.getData('text/plain');
-        const dropData = JSON.parse(dataString ?? '');
+        const dataString = event.dataTransfer?.getData("text/plain");
+        const dropData = JSON.parse(dataString ?? "");
         const item = await ItemPF2e.fromDropData(dropData);
 
         if (!(item instanceof FeatPF2e) || !this.isValidDrop(event, item)) {
@@ -79,7 +79,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         };
 
         const items = this.item.data.data.items;
-        const pathPrefix = 'data.items';
+        const pathPrefix = "data.items";
 
         let id: string;
         do {
@@ -93,9 +93,9 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
 
     private removeItem(event: JQuery.ClickEvent) {
         event.preventDefault();
-        const target = $(event.target).parents('li');
-        const containerId = target.parents('[data-container-id]').data('containerId');
-        let path = `-=${target.data('index')}`;
+        const target = $(event.target).parents("li");
+        const containerId = target.parents("[data-container-id]").data("containerId");
+        let path = `-=${target.data("index")}`;
         if (containerId) {
             path = `${containerId}.items.${path}`;
         }
@@ -107,6 +107,6 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
 
     override activateListeners(html: JQuery): void {
         super.activateListeners(html);
-        html.on('click', '[data-action=remove]', (ev) => this.removeItem(ev));
+        html.on("click", "[data-action=remove]", (ev) => this.removeItem(ev));
     }
 }

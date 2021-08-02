@@ -1,8 +1,8 @@
-import { Bulk } from '../../../src/module/item/physical/bulk';
-import { calculateEncumbrance } from '../../../src/module/item/physical/encumbrance';
+import { Bulk } from "../../../src/module/item/physical/bulk";
+import { calculateEncumbrance } from "../../../src/module/item/physical/encumbrance";
 
-describe('should calculate encumbrance', () => {
-    test('light bulk is ignored', () => {
+describe("should calculate encumbrance", () => {
+    test("light bulk is ignored", () => {
         const encumbrance = calculateEncumbrance(9, 2, 1, new Bulk({ normal: 5, light: 9 }));
 
         expect(encumbrance.encumberedAt).toBe(16);
@@ -14,7 +14,7 @@ describe('should calculate encumbrance', () => {
         expect(encumbrance.isOverLimit).toBe(false);
     });
 
-    test('is encumbered', () => {
+    test("is encumbered", () => {
         const encumbrance = calculateEncumbrance(9, 1, 1, new Bulk({ normal: 16 }));
 
         expect(encumbrance.encumberedAt).toBe(15);
@@ -27,7 +27,7 @@ describe('should calculate encumbrance', () => {
         expect(encumbrance.limitPercentageMax100).toBe(76);
     });
 
-    test('is over limit', () => {
+    test("is over limit", () => {
         const encumbrance = calculateEncumbrance(9, 1, 1, new Bulk({ normal: 21 }));
 
         expect(encumbrance.encumberedAt).toBe(15);

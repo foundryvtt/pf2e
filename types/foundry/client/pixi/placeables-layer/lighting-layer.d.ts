@@ -65,7 +65,7 @@ declare global {
         /** A mapping of different light level channels */
         channels: LightChannels;
 
-        static override get layerOptions(): typeof PlaceablesLayer['layerOptions'] & {
+        static override get layerOptions(): typeof PlaceablesLayer["layerOptions"] & {
             rotatableObjects: true;
             objectClass: AmbientLight;
             quadtree: true;
@@ -91,7 +91,7 @@ declare global {
         /**
          * Draw the illumination container which is responsible for displaying darkness and light.
          */
-        protected _drawIlluminationContainer(): PIXI.Container;
+        protected _drawIlluminationContainer(): IlluminationContainer;
 
         /** Does this scene currently benefit from global illumination? */
         hasGlobalIllumination(): boolean;
@@ -146,11 +146,12 @@ declare global {
 
         protected override _onDragLeftCancel(event: PIXI.InteractionEvent): void;
 
-        protected override _onMouseWheel(event: PIXI.InteractionEvent): void;
+        protected override _onMouseWheel(event: WheelEvent): void;
     }
-}
 
-interface IlluminationContainer extends PIXI.Container {
-    background: PIXI.Graphics;
-    lights: PIXI.Container;
+    interface IlluminationContainer extends PIXI.Container {
+        background: PIXI.Graphics;
+        filter: InstanceType<typeof PIXI.filters.AlphaFilter> | InstanceType<typeof PIXI.filters.BlurFilter>;
+        lights: PIXI.Container;
+    }
 }

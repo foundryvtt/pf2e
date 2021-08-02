@@ -8,16 +8,16 @@ declare global {
         operator: ArithmeticOperator;
 
         /** An array of operators which represent arithmetic operations */
-        static OPERATORS: ['+', '-', '*', '/'];
+        static OPERATORS: ["+", "-", "*", "/"];
 
         /** @override */
         static REGEXP: RegExp;
 
         /** @override */
-        static SERIALIZE_ATTRIBUTES: ['operator'];
+        static SERIALIZE_ATTRIBUTES: ["operator"];
 
         /** @override */
-        get flavor(): ''; // Operator terms cannot have flavor text
+        get flavor(): ""; // Operator terms cannot have flavor text
 
         /** @override */
         get expression(): ` ${ArithmeticOperator} `;
@@ -26,7 +26,7 @@ declare global {
         get total(): ` ${ArithmeticOperator} `;
     }
 
-    type ArithmeticOperator = typeof OperatorTerm['OPERATORS'][number];
+    type ArithmeticOperator = typeof OperatorTerm["OPERATORS"][number];
 
     interface OperatorTermData extends RollTermData {
         operator: ArithmeticOperator;

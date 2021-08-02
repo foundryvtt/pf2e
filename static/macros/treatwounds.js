@@ -1,25 +1,25 @@
 function CheckFeat(slug) {
-    if (token.actor.items.find((i) => i.data.data.slug === slug && i.type === 'feat')) {
+    if (token.actor.items.find((i) => i.data.data.slug === slug && i.type === "feat")) {
         return true;
     }
     return false;
 }
 const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing, assurance }) => {
-    const options = actor.getRollOptions(['all', 'skill-check', 'medicine']);
+    const options = actor.getRollOptions(["all", "skill-check", "medicine"]);
 
-    options.push('treat wounds');
-    options.push('action:treat-wounds');
+    options.push("treat wounds");
+    options.push("action:treat-wounds");
 
     const dc = {
         value: DC,
     };
     if (riskysurgery || mortalhealing) {
         dc.modifiers = {
-            success: 'one-degree-better',
+            success: "one-degree-better",
         };
     }
     if (riskysurgery) {
-        options.push('risky-surgery');
+        options.push("risky-surgery");
     }
 
     med.roll({
@@ -29,27 +29,27 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing, as
         fate: assurance ? 'assurance' : undefined,
         callback: (roll) => {
             let healFormula, successLabel;
-            const magicHands = CheckFeat('magic-hands');
-        
-            const bonusString = bonus > 0 ? `+ ${bonus}` : '';
+            const magicHands = CheckFeat("magic-hands");
+
+            const bonusString = bonus > 0 ? `+ ${bonus}` : "";
             if (roll.data.degreeOfSuccess === 3) {
                 healFormula = magicHands ? `32${bonusString}` : `4d8${bonusString}`;
-                successLabel = 'Critical Success';
+                successLabel = "Critical Success";
             } else if (roll.data.degreeOfSuccess === 2) {
                 healFormula = magicHands ? `16${bonusString}` : `2d8${bonusString}`;
-                successLabel = 'Success';
+                successLabel = "Success";
             } else if (roll.data.degreeOfSuccess === 1) {
-                successLabel = 'Failure';
+                successLabel = "Failure";
             } else if (roll.data.degreeOfSuccess === 0) {
-                healFormula = '1d8';
-                successLabel = 'Critical Failure';
+                healFormula = "1d8";
+                successLabel = "Critical Failure";
             }
             if (riskysurgery) {
                 healFormula = roll.data.degreeOfSuccess > 1 ? `${healFormula}-1d8` : healFormula ? `2d8` : `1d8`;
             }
             if (healFormula !== undefined) {
-                const healRoll = new Roll(healFormula).roll({async: false});
-                const rollType = roll.data.degreeOfSuccess > 1 ? 'Healing' : 'Damage';
+                const healRoll = new Roll(healFormula).roll();
+                const rollType = roll.data.degreeOfSuccess > 1 ? "Healing" : "Damage";
                 ChatMessage.create(
                     {
                         user: game.user.id,
@@ -58,7 +58,7 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing, as
                         roll: healRoll,
                         speaker: ChatMessage.getSpeaker(),
                     },
-                    {},
+                    {}
                 );
             }
         },
@@ -83,35 +83,35 @@ async function applyChanges($html) {
         // Handle Rule Interpretation
         if (game.user.isGM) {
             await game.settings.set(
-                'pf2e',
-                'RAI.TreatWoundsAltSkills',
-                $html.find('[name="strict_rules"]')[0]?.checked,
+                "pf2e",
+                "RAI.TreatWoundsAltSkills",
+                $html.find('[name="strict_rules"]')[0]?.checked
             );
         }
 
         var usedProf = 0;
 
-        if (game.settings.get('pf2e', 'RAI.TreatWoundsAltSkills')) {
-            if (skill === 'cra') {
-                med = token.actor.data.data.skills['cra'];
+        if (game.settings.get("pf2e", "RAI.TreatWoundsAltSkills")) {
+            if (skill === "cra") {
+                med = token.actor.data.data.skills["cra"];
             }
-            if (skill === 'nat') {
-                med = token.actor.data.data.skills['nat'];
+            if (skill === "nat") {
+                med = token.actor.data.data.skills["nat"];
             }
             usedProf = requestedProf <= med.rank ? requestedProf : med.rank;
         } else {
             usedProf = requestedProf <= med.rank ? requestedProf : med.rank;
-            if (skill === 'cra') {
-                med = token.actor.data.data.skills['cra'];
+            if (skill === "cra") {
+                med = token.actor.data.data.skills["cra"];
             }
-            if (skill === 'nat') {
-                med = token.actor.data.data.skills['nat'];
+            if (skill === "nat") {
+                med = token.actor.data.data.skills["nat"];
                 if (usedProf === 0) {
                     usedProf = 1;
                 }
             }
         }
-        const medicBonus = CheckFeat('medic-dedication') ? (usedProf - 1) * 5 : 0;
+        const medicBonus = CheckFeat("medic-dedication") ? (usedProf - 1) * 5 : 0;
         const roll = [
             () => ui.notifications.warn(`${name} is not trained in Medicine and doesn't know how to treat wounds.`),
             () => rollTreatWounds({ DC: 15 + mod, bonus: 0 + medicBonus, med, riskysurgery, mortalhealing, assurance }),
@@ -125,12 +125,12 @@ async function applyChanges($html) {
 }
 
 if (token === undefined) {
-    ui.notifications.warn('No token is selected.');
+    ui.notifications.warn("No token is selected.");
 } else {
-    const chirurgeon = CheckFeat('chirurgeon');
-    const naturalMedicine = CheckFeat('natural-medicine');
+    const chirurgeon = CheckFeat("chirurgeon");
+    const naturalMedicine = CheckFeat("natural-medicine");
     const dialog = new Dialog({
-        title: 'Treat Wounds',
+        title: "Treat Wounds",
         content: `
 <div>Select a target DC. Remember that you can't attempt a heal above your proficiency. Attempting to do so will downgrade the DC and amount healed to the highest you're capable of.</div>
 <hr/>
@@ -170,7 +170,7 @@ ${naturalMedicine ? `<option value="nat">Nature</option>` : ``}
 </div>
 </form>
 ${
-    CheckFeat('risky-surgery')
+    CheckFeat("risky-surgery")
         ? `<form><div class="form-group">
 <label>Risky Surgery</label>
 <input type="checkbox" id="risky_surgery_bool" name="risky_surgery_bool"></input>
@@ -178,7 +178,7 @@ ${
         : ``
 }
 ${
-    CheckFeat('mortal-healing')
+    CheckFeat("mortal-healing")
         ? `<form><div class="form-group">
 <label>Mortal Healing</label>
 <input type="checkbox" id="mortal_healing_bool" name="mortal_healing_bool" checked></input>
@@ -198,7 +198,7 @@ ${
         ? `<form><div class="form-group">
 <label>Allow higher DC from alternate skills?</label>
 <input type="checkbox" id="strict_rules" name="strict_rules"` +
-          (game.settings.get('pf2e', 'RAI.TreatWoundsAltSkills') ? ` checked` : ``) +
+          (game.settings.get("pf2e", "RAI.TreatWoundsAltSkills") ? ` checked` : ``) +
           `></input>
 </div></form>`
         : ``
@@ -208,15 +208,15 @@ ${
         buttons: {
             yes: {
                 icon: `<i class="fas fa-hand-holding-medical"></i>`,
-                label: 'Treat Wounds',
+                label: "Treat Wounds",
                 callback: applyChanges,
             },
             no: {
                 icon: `<i class="fas fa-times"></i>`,
-                label: 'Cancel',
+                label: "Cancel",
             },
         },
-        default: 'yes',
+        default: "yes",
     });
     dialog.render(true);
 }

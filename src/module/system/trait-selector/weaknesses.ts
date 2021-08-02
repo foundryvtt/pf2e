@@ -1,21 +1,21 @@
-import { ActorPF2e } from '@actor/base';
-import { NPCPF2e } from '@actor/npc';
-import { LabeledValue } from '@module/data';
-import { TagSelectorBase } from './base';
-import { SelectableTagField } from './index';
+import { ActorPF2e } from "@actor/base";
+import { NPCPF2e } from "@actor/npc";
+import { LabeledValue } from "@module/data";
+import { TagSelectorBase } from "./base";
+import { SelectableTagField } from "./index";
 
 export class TraitSelectorWeaknesses extends TagSelectorBase<ActorPF2e> {
-    override objectProperty = 'data.traits.dv';
+    override objectProperty = "data.traits.dv";
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            template: 'systems/pf2e/templates/system/trait-selector/weaknesses.html',
-            title: 'PF2E.WeaknessesLabel',
+            template: "systems/pf2e/templates/system/trait-selector/weaknesses.html",
+            title: "PF2E.WeaknessesLabel",
         });
     }
 
     protected get configTypes(): readonly SelectableTagField[] {
-        return ['weaknessTypes'] as const;
+        return ["weaknessTypes"] as const;
     }
 
     override getData() {
@@ -32,7 +32,7 @@ export class TraitSelectorWeaknesses extends TagSelectorBase<ActorPF2e> {
             choices[type] = {
                 label,
                 selected: res !== undefined,
-                value: res?.value ?? '',
+                value: res?.value ?? "",
             };
         });
         data.choices = choices;
@@ -44,15 +44,15 @@ export class TraitSelectorWeaknesses extends TagSelectorBase<ActorPF2e> {
         super.activateListeners($html);
 
         $html
-            .find<HTMLInputElement>('input[id^=input_value]')
-            .on('focusin', (event) => {
+            .find<HTMLInputElement>("input[id^=input_value]")
+            .on("focusin", (event) => {
                 const input = $(event.currentTarget);
-                input.prev().prev().prop('checked', true);
+                input.prev().prev().prop("checked", true);
             })
-            .on('focusout', (event) => {
+            .on("focusout", (event) => {
                 const input = $(event.currentTarget);
                 if (!input.val()) {
-                    input.prev().prev().prop('checked', false);
+                    input.prev().prev().prop("checked", false);
                 }
             });
     }
@@ -68,7 +68,7 @@ export class TraitSelectorWeaknesses extends TagSelectorBase<ActorPF2e> {
         const choices: Record<string, unknown>[] = [];
         for (const [k, v] of Object.entries(formData as Record<string, any>)) {
             if (v.length > 1 && v[0]) {
-                if (!Number.isNaN(Number(v[1])) && v[1] !== '') {
+                if (!Number.isNaN(Number(v[1])) && v[1] !== "") {
                     const label = this.choices[k];
                     choices.push({ type: k, label, value: v[1] });
                 }

@@ -1,18 +1,18 @@
-import { AbilityString } from '@actor/data/base';
-import { ABCSystemData } from '@item/abc/data';
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from '@item/data/non-physical';
-import { ZeroToFour } from '@module/data';
-import type { ClassPF2e } from '.';
+import { AbilityString } from "@actor/data/base";
+import { ABCSystemData } from "@item/abc/data";
+import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { ZeroToFour } from "@module/data";
+import type { ClassPF2e } from ".";
 
-export type ClassSource = BaseNonPhysicalItemSource<'class', ClassSystemData>;
+export type ClassSource = BaseNonPhysicalItemSource<"class", ClassSystemData>;
 
 export class ClassData extends BaseNonPhysicalItemData<ClassPF2e> {
-    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/class.svg';
+    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/class.svg";
 }
 
-export interface ClassData extends Omit<ClassSource, '_id' | 'effects'> {
-    type: ClassSource['type'];
-    data: ClassSource['data'];
+export interface ClassData extends Omit<ClassSource, "_id" | "effects"> {
+    type: ClassSource["type"];
+    data: ClassSource["data"];
     readonly _source: ClassSource;
 }
 
@@ -53,21 +53,21 @@ interface ClassSystemData extends ABCSystemData {
 
 // Classes don't have traits, both feats, spells, and other items can have traits corresponding with a class
 export const CLASS_TRAITS = [
-    'alchemist',
-    'barbarian',
-    'bard',
-    'champion',
-    'cleric',
-    'druid',
-    'fighter',
-    'investigator',
-    'monk',
-    'oracle',
-    'ranger',
-    'rogue',
-    'sorcerer',
-    'swashbuckler',
-    'witch',
-    'wizard',
+    "alchemist",
+    "barbarian",
+    "bard",
+    "champion",
+    "cleric",
+    "druid",
+    "fighter",
+    "investigator",
+    "monk",
+    "oracle",
+    "ranger",
+    "rogue",
+    "sorcerer",
+    "swashbuckler",
+    "witch",
+    "wizard",
 ] as const;
 export type ClassTrait = typeof CLASS_TRAITS[number];

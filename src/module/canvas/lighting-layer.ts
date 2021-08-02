@@ -1,7 +1,7 @@
-import { AmbientLightPF2e } from './ambient-light';
+import { AmbientLightPF2e } from "./ambient-light";
 
 export class LightingLayerPF2e<
-    TAmbientLight extends AmbientLightPF2e = AmbientLightPF2e,
+    TAmbientLight extends AmbientLightPF2e = AmbientLightPF2e
 > extends LightingLayer<TAmbientLight> {
     setPerceivedLightLevel({ defer = true } = {}): void {
         if (!canvas.sight.rulesBasedVision) return;
@@ -29,9 +29,13 @@ export class LightingLayerPF2e<
                 source.dim = 0;
                 source.ratio = 1;
             }
-            this.darknessLevel = Math.min(this.darknessLevel, 0.925);
         }
 
         super.refresh(darkness);
+    }
+
+    protected override _onDarknessChange(darkness: number, prior: number): void {
+        super._onDarknessChange(darkness, prior);
+        canvas.darkvision.refresh({ darkness });
     }
 }

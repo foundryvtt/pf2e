@@ -1,4 +1,4 @@
-import { Fraction, sum } from '@module/utils';
+import { Fraction, sum } from "@module/utils";
 
 /**
  * Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470
@@ -68,7 +68,7 @@ export function calculateNormalizedCharacterSpeed(
     defaultSpeedInFeet: number,
     activity: ExplorationActivities,
     detectionMode: DetectionMode,
-    explorationOptions: ExplorationOptions,
+    explorationOptions: ExplorationOptions
 ): number {
     // you can be reduced below 5 ft, also gets rid of division by 0
     return Math.max(5, calculateCharacterSpeed(defaultSpeedInFeet, activity, detectionMode, explorationOptions));
@@ -78,7 +78,7 @@ function calculateCharacterSpeed(
     defaultSpeedInFeet: number,
     activity: ExplorationActivities,
     detectionMode: DetectionMode,
-    explorationOptions: ExplorationOptions,
+    explorationOptions: ExplorationOptions
 ): number {
     const halvedSpeed = defaultSpeedInFeet / 2;
     if (sneaksAtFullSpeed(activity, explorationOptions) || defendsAtFullSpeed(activity, explorationOptions)) {
