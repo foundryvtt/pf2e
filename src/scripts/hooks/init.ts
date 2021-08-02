@@ -4,7 +4,15 @@ import { MystifiedTraits } from '@item/data/values';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 import { FogExplorationPF2e } from '@module/fog-exploration';
-import { AmbientLightPF2e, DarkvisionLayerPF2e, LightingLayerPF2e, SightLayerPF2e, TokenPF2e } from '@module/canvas';
+import {
+    AmbientLightPF2e,
+    DarkvisionLayerPF2e,
+    LightingLayerPF2e,
+    MeasuredTemplatePF2e,
+    SightLayerPF2e,
+    TokenPF2e,
+    TemplateLayerPF2e,
+} from '@module/canvas';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { CombatPF2e } from '@module/combat';
 import { CombatantPF2e } from '@module/combatant';
@@ -21,7 +29,6 @@ import { PlayerConfigPF2e } from '@module/user/player-config';
 import { PF2ECONFIG } from '../config';
 import { UserPF2e } from '@module/user';
 import { JournalSheetPF2e } from '@module/journal-entry/sheet';
-import { MeasuredTemplatePF2e } from '@module/canvas/measured-template';
 import { MeasuredTemplateDocumentPF2e } from '@module/scene/measured-template-document';
 
 export function listen(): void {
@@ -62,6 +69,7 @@ export function listen(): void {
         CONFIG.Canvas.layers.darkvision = DarkvisionLayerPF2e;
         CONFIG.Canvas.layers.lighting = LightingLayerPF2e;
         CONFIG.Canvas.layers.sight = SightLayerPF2e;
+        CONFIG.Canvas.layers.templates = TemplateLayerPF2e;
 
         // Automatically advance world time by 6 seconds each round
         CONFIG.time.roundTime = 6;

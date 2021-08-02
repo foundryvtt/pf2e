@@ -218,7 +218,7 @@ declare global {
                 context?: DocumentConstructionContext<TMeasuredTemplate>,
             ) => TMeasuredTemplate;
             objectClass: ConstructorOf<TMeasuredTemplate['object']>;
-            layerClass: ConstructorOf<TemplateLayer<TMeasuredTemplate['object']>>;
+            layerClass: ConstructorOf<TMeasuredTemplate['object']['layer']>;
             sheetClass: typeof MeasuredTemplateConfig;
         };
 
@@ -255,7 +255,7 @@ declare global {
                 drawings: typeof DrawingsLayer;
                 grid: typeof GridLayer;
                 walls: typeof WallsLayer;
-                templates: typeof TemplateLayer;
+                templates: ConstructorOf<TMeasuredTemplate['object']['layer']>;
                 notes: typeof NotesLayer;
                 tokens: ConstructorOf<TToken['object']['layer']>;
                 foreground: typeof ForegroundLayer;

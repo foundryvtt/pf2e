@@ -146,7 +146,7 @@ declare global {
 
         protected override _onDragLeftCancel(event: PIXI.InteractionEvent): void;
 
-        protected override _onMouseWheel(event: PIXI.InteractionEvent): void;
+        protected override _onMouseWheel(event: WheelEvent): void;
     }
 
     interface IlluminationContainer extends PIXI.Container {

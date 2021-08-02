@@ -34,5 +34,5 @@ declare class TemplateLayer<
 
     protected override _onDragLeftMove(event: PIXI.InteractionEvent): Promise<void>;
 
-    protected override _onMouseWheel(event: PIXI.InteractionEvent): void;
+    protected override _onMouseWheel(event: WheelEvent): void;
 }

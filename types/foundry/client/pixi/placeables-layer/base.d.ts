@@ -14,7 +14,7 @@ declare global {
         history: unknown[];
 
         /** Track the PlaceableObject on this layer which is currently being hovered upon */
-        protected _hover: this;
+        protected _hover: TPlaceableObject | null;
 
         /** Track the set of PlaceableObjects on this layer which are currently controlled by their id */
         protected _controlled: Record<string, TPlaceableObject>;
@@ -304,7 +304,7 @@ declare global {
          * This handler will rotate all controlled objects by some incremental angle.
          * @param event   The mousewheel event which originated the request
          */
-        protected _onMouseWheel(event: PIXI.InteractionEvent): void;
+        protected _onMouseWheel(event: WheelEvent): void;
 
         /**
          * Handle a DELETE keypress while a placeable object is hovered
