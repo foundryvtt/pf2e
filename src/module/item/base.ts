@@ -773,7 +773,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         }
 
         templateData.user = game.user.id;
-        //templateData.color = game.user.color;
+        templateData.fillColor = game.user.color;
         const measuredTemplateDoc = new MeasuredTemplateDocument(templateData, { parent: canvas.scene });
         const ghostTemplate = new GhostTemplate(measuredTemplateDoc);
         ghostTemplate.drawPreview();

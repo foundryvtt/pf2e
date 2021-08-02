@@ -22,4 +22,5 @@ export interface UserPF2e extends User<ActorPF2e> {
     getFlag(scope: 'pf2e', key: 'settings.showEffectPanel'): boolean;
     getFlag(scope: 'pf2e', key: 'settings.showRollDialogs'): boolean;
     getFlag(scope: 'pf2e', key: `compendiumFolders.${string}.expanded`): boolean | undefined;
+    color: string;
 }
