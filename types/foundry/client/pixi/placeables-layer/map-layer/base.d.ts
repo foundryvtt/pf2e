@@ -9,7 +9,7 @@ declare abstract class MapLayer extends PlaceablesLayer<Tile> {
     level: number;
 
     /** The background source path */
-    bgPath: string;
+    bgPath: VideoPath;
 
     /** The layer background image */
     bg: PIXI.Sprite;
@@ -22,9 +22,7 @@ declare abstract class MapLayer extends PlaceablesLayer<Tile> {
 
     static override get layerOptions(): MapLayerOptions;
 
-    /**
-     * Return the base HTML image or video element which is used to generate the background Sprite.
-     */
+    /** Return the base HTML image or video element which is used to generate the background Sprite.*/
     get bgSource(): HTMLImageElement | HTMLVideoElement;
 
     get hud(): TileHUD;

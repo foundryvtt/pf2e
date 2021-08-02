@@ -56,4 +56,6 @@ declare interface CanvasLayerOptions {
     name: string;
     zIndex: number;
     sortActiveTop: boolean;
+    controllableObjects?: boolean;
+    rotatableObjects?: boolean;
 }

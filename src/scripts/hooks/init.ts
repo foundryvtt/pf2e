@@ -4,7 +4,7 @@ import { MystifiedTraits } from '@item/data/values';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 import { FogExplorationPF2e } from '@module/fog-exploration';
-import { AmbientLightPF2e, LightingLayerPF2e, SightLayerPF2e, TokenPF2e } from '@module/canvas';
+import { AmbientLightPF2e, DarkvisionLayerPF2e, LightingLayerPF2e, SightLayerPF2e, TokenPF2e } from '@module/canvas';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { CombatPF2e } from '@module/combat';
 import { CombatantPF2e } from '@module/combatant';
@@ -59,6 +59,7 @@ export function listen(): void {
         CONFIG.Token.objectClass = TokenPF2e;
         CONFIG.Token.sheetClass = TokenConfigPF2e;
 
+        CONFIG.Canvas.layers.darkvision = DarkvisionLayerPF2e;
         CONFIG.Canvas.layers.lighting = LightingLayerPF2e;
         CONFIG.Canvas.layers.sight = SightLayerPF2e;
 
