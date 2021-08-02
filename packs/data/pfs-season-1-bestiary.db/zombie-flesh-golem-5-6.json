@@ -3,7 +3,7 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": 0
+                "mod": -5
             },
             "con": {
                 "mod": 2
@@ -12,7 +12,7 @@
                 "mod": -2
             },
             "int": {
-                "mod": 0
+                "mod": -5
             },
             "str": {
                 "mod": 4
@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 20,
                 "details": "",
                 "value": 20
             },
@@ -50,7 +51,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "details": {
@@ -62,7 +63,7 @@
                 "value": 4
             },
             "source": {
-                "value": "Pathfinder Society: Season 1"
+                "value": "Pathfinder Society Quest #12: Putrid Seeds"
             }
         },
         "resources": {},
@@ -90,14 +91,14 @@
                 "custom": "",
                 "value": [
                     "bleed",
-                    "disease",
                     "death effects",
-                    "electricity",
+                    "disease",
                     "doomed",
                     "drained",
+                    "electricity",
                     "fatigued",
                     "healing",
-                    "magic (see Golem Antimagic below)",
+                    "magic",
                     "mental",
                     "necromancy",
                     "nonlethal attacks",
@@ -109,7 +110,7 @@
             },
             "dr": [
                 {
-                    "exceptions": "except adamantine",
+                    "exceptions": "except Adamantine",
                     "label": "Physical",
                     "type": "physical",
                     "value": "3"
@@ -124,7 +125,9 @@
             "rarity": {
                 "value": "uncommon"
             },
-            "senses": [],
+            "senses": {
+                "value": ""
+            },
             "size": {
                 "value": "med"
             },
@@ -161,7 +164,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(magical)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
@@ -235,7 +238,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Berserk",
             "sort": 200000,
             "type": "action"
@@ -253,7 +256,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>A golem is immune to spells and magical abilities other than its own, but the golem presented here is affected by a few types of magic in special ways.</p>"
+                    "value": "<p>harmed by fire ([[/r 2d10 #fire]]{2d10 fire damage}, [[/r 1d8 #fire]]{1d8 fire damage} from areas and persistent damage); healed by electricity (area effects [[/r 2d4 #hit points]]{2d4 hit points}); slowed by cold</p>\n<hr />\n<p>A golem is immune to spells and magical abilities other than its own, but each type of golem is affected by a few types of magic in special ways. If an entry lists multiple types (such as 'cold and water'), either type of spell can affect the golem.</p>\n<p><strong>Harmed By</strong> Any magic of this type that targets the golem causes it to take the listed amount of damage (this damage has no type) instead of the usual effect. If the golem starts its turn in an area of magic of this type or is affected by a persistent effect of the appropriate type, it takes the damage listed in the parenthetical.</p>\n<p><strong>Healed By</strong> Any magic of this type that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of this type of magic, it gains the HP listed in the parenthetical.</p>\n<p><strong>Slowed By</strong> Any magic of this type that targets the golem causes it to be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for [[/br 2d6 #rounds]]{2d6 rounds} instead of the usual effect. If the golem starts its turn in an area of this type of magic, it's @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for that round.</p>\n<p><strong>Vulnerable To</strong> Each golem is vulnerable to one or more specific spells, with the effects described in its stat block.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -283,153 +286,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Golem Antimagic",
             "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "yc7YzcWFyiTA0Otb",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>Any fire magic that targets the golem causes it to take [[/r 2d10 # damage]] damage instead of the usual effect. If the golem starts its turn in an area of fire magic or is affected by a persistent fire effect, it takes [[/r 1d8 # damage]] damage instead.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Harmed By",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "vzpfSmOmvNC3ZRvn",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>Any electricity magic that targets the golem makes the golem lose the slowed condition and gain HP equal to half the damage the spell would have dealt. If the golem starts its turn in an area of electricity magic, it gains 2d4 HP.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Healed By",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "sdKiFR6IA0SFcjV8",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>Any cold magic that targets the golem causes it to be slowed 1 for 2d6 rounds instead of the usual effect.<br />\nIf the golem starts its turn in an area of cold magic, it's slowed 1 for that round.<br />\nVulnerable to Flesh to Stone Casting a flesh to stone spell on the golem affects it normally.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Slowed By",
-            "sort": 600000,
             "type": "action"
         },
         {
@@ -445,7 +304,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The golem takes electricity damage and a creature is adjacent to it; <br />\n<strong>Effect</strong> The golem lashes out and tries to grab a nearby creature. The golem attempts an Athletics check to Grapple an adjacent creature. The creature also takes [[/r 1d8 # electricity damage]] electricity damage on a success, or [[/r 2d8 # electricity damage]] electricity damage on a critical success.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The golem takes electricity damage and a creature is adjacent to it;</p>\n<p><strong>Effect</strong> The golem lashes out and tries to grab a nearby creature. The golem attempts an Athletics check to Grapple an adjacent creature. The creature also takes [[/r 1d8 #electricity]]{1d8 electricity damage} on a success, or [[/r 2d8 #electricity]]{2d8 electricity damage} on a critical success.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -475,9 +334,57 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Electric Reflexes",
-            "sort": 700000,
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "Mh9Hxq31c6Zrpg2e",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>Casting a @Compendium[pf2e.spells-srd.Flesh to Stone]{Flesh to Stone} spell on the golem affects it normally.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.649
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Vulnerable to Flesh to Stone",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -490,15 +397,62 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The golem is berserk; <br />\n<strong>Effect</strong> The flesh golem Strikes with its fist at a -1 circumstance penalty. If it hits, it deals [[/r 1d6 # extra damage]] extra damage and knocks the target prone.</p>"
+                    "value": "<p><strong>Requirements</strong> The golem is berserk;</p>\n<p><strong>Effect</strong> The flesh golem Strikes with its fist at a -1 circumstance penalty. If it hits, it deals [[/r 1d6 #extra damage]]{1d6 extra damage} and knocks the target @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.berserk-slam"
+                    },
+                    {
+                        "damageType": "bludgeoning",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "berserk-slam"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "damage"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "berserk-slam"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": -1
+                    },
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "predicate": {
+                            "all": [
+                                "berserk-slam"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "damage",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> The target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.649
@@ -523,9 +477,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Berserk Slam",
-            "sort": 800000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -564,25 +518,35 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 700000,
             "type": "lore"
         },
         {
-            "_id": "Hhr6xZfb6cUwnXcW",
+            "_id": "dpc2xCZkVvOaIMmA",
             "data": {
                 "description": {
                     "value": ""
                 },
-                "item": {
-                    "value": 0
-                },
                 "mod": {
-                    "value": 12
+                    "value": 0
                 },
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Impersonate a Zombie",
+                        "predicate": {
+                            "all": [
+                                "action:impersonate-zombie"
+                            ]
+                        },
+                        "selector": "deception",
+                        "type": "untyped",
+                        "value": 12
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.649
@@ -597,13 +561,19 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+12 to impersonate a zombie",
+                        "options": "action:impersonate-zombie"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception (to Impersonate a zombie only)",
-            "sort": 1000000,
+            "name": "Deception",
+            "sort": 800000,
             "type": "lore"
         }
     ],
