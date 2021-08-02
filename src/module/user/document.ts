@@ -26,6 +26,20 @@ export class UserPF2e extends User<ActorPF2e> {
     get settings(): UserSettingsPF2e {
         return deepClone(this.data.flags.pf2e.settings);
     }
+
+    protected override _onUpdate(
+        changed: DeepPartial<this['data']['_source']>,
+        options: DocumentModificationContext,
+        userId: string,
+    ) {
+        super._onUpdate(changed, options, userId);
+        const filterSetting = changed.flags?.pf2e?.settings?.darkvisionFilter;
+        if (filterSetting) {
+            canvas.darkvision.draw();
+        } else if (filterSetting === false) {
+            canvas.darkvision.disable();
+        }
+    }
 }
 
 export interface UserPF2e extends User<ActorPF2e> {
