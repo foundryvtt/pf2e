@@ -50,13 +50,14 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         if (!canvas.sight.rulesBasedVision) return;
 
         const lightLevel = canvas.scene.lightLevel;
+        const hasDarkvision = this.object.hasDarkvision && this.actor.visionLevel !== VisionLevels.BLINDED;
         const perceivedBrightness = {
             [VisionLevels.BLINDED]: 0,
             [VisionLevels.NORMAL]: lightLevel,
             [VisionLevels.LOWLIGHT]: lightLevel > LightLevels.DARKNESS ? 1 : lightLevel,
             [VisionLevels.DARKVISION]: 1,
         }[this.actor.visionLevel];
-        this.data.brightSight = perceivedBrightness > lightLevel ? 1000 : 0;
+        this.data.brightSight = perceivedBrightness > lightLevel || hasDarkvision ? 1000 : 0;
     }
 
     /**

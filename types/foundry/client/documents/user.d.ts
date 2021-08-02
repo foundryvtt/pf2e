@@ -9,7 +9,6 @@ declare global {
      * @see {@link applications.UserConfig}     The User configuration application
      */
     class User<TActor extends Actor = Actor> extends UserConstructor {
-        /** @override */
         constructor(data: PreCreate<foundry.data.UserSource>, context?: DocumentConstructionContext<User>);
 
         /** Track whether the user is currently active in the game */
@@ -20,6 +19,11 @@ declare global {
 
         /** Track the ID of the Scene that is currently being viewed by the User */
         viewedScene: string | null;
+
+        // From PlayerConfig: Process user data by adding extra characteristics
+        charname?: string;
+        color?: HexColorString;
+        border?: HexColorString;
 
         /* ---------------------------------------- */
         /*  User Properties                         */
@@ -105,4 +109,10 @@ declare global {
         sceneId?: string;
         target?: string[];
     }
+
+    type Active<T extends User> = T & {
+        charname: string;
+        color: HexColorString;
+        border: HexColorString;
+    };
 }

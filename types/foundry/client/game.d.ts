@@ -182,7 +182,7 @@ declare global {
         /**
          * The currently connected User
          */
-        get user(): TUser;
+        get user(): Active<TUser>;
 
         /**
          * Metadata regarding the current game World

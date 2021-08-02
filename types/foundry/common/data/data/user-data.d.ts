@@ -20,7 +20,7 @@ declare module foundry {
             name: string;
             password: string;
             role: UserRole;
-            flags: Record<string, unknown>;
+            flags: Record<string, Record<string, unknown>>;
         }
 
         class UserData<

@@ -81,9 +81,9 @@ declare global {
         /*  Methods                                     */
         /* -------------------------------------------- */
 
-        override activate(): void;
+        override activate(): this;
 
-        override deactivate(): void;
+        override deactivate(): this;
 
         /**
          * Get a PlaceableObject contained in this layer by it's ID
