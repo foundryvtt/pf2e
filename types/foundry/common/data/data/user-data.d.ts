@@ -24,14 +24,14 @@ declare module foundry {
         }
 
         class UserData<
-            TDocument extends documents.BaseUser = documents.BaseUser,
+            TDocument extends documents.BaseUser = documents.BaseUser
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
 
             character: documents.BaseActor | null;
         }
 
-        interface UserData extends Omit<UserSource, 'character'> {
+        interface UserData extends Omit<UserSource, "character"> {
             readonly _source: UserSource;
         }
     }

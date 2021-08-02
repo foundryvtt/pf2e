@@ -1,6 +1,6 @@
-import { ActorPF2e } from '@actor/base';
-import { PhysicalItemSource } from '@item/data';
-import { ErrorPF2e } from '@module/utils';
+import { ActorPF2e } from "@actor/base";
+import { PhysicalItemSource } from "@item/data";
+import { ErrorPF2e } from "@module/utils";
 
 interface PopupData extends FormApplicationData<ActorPF2e> {
     tokenInfo: Array<{
@@ -13,11 +13,11 @@ interface PopupData extends FormApplicationData<ActorPF2e> {
 export class LootNPCsPopup extends FormApplication<ActorPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
-        options.id = 'loot-NPCs';
+        options.id = "loot-NPCs";
         options.classes = [];
-        options.title = 'Loot NPCs';
-        options.template = 'systems/pf2e/templates/actors/loot/loot-npcs-popup.html';
-        options.width = 'auto';
+        options.title = "Loot NPCs";
+        options.template = "systems/pf2e/templates/actors/loot/loot-npcs-popup.html";
+        options.width = "auto";
         return options;
     }
 
@@ -38,17 +38,17 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
                 const currentSourceItemData = currentSource.physicalItems.map((item) => item.toObject());
                 itemData.push(...currentSourceItemData);
                 const idsToDelete = currentSourceItemData.map((item) => item._id);
-                currentSource.deleteEmbeddedDocuments('Item', idsToDelete);
+                currentSource.deleteEmbeddedDocuments("Item", idsToDelete);
             }
         }
         if (itemData.length > 0) {
-            await this.object.createEmbeddedDocuments('Item', itemData);
+            await this.object.createEmbeddedDocuments("Item", itemData);
         }
     }
 
     override getData(): PopupData {
         const selectedTokens = canvas.tokens.controlled.filter(
-            (token) => token.actor && token.actor.id !== this.object.id,
+            (token) => token.actor && token.actor.id !== this.object.id
         );
         const tokenInfo = selectedTokens.map((token) => ({
             id: token.id,

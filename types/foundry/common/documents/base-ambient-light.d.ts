@@ -16,9 +16,9 @@ declare module foundry {
         }
 
         interface AmbientLightMetadata extends abstract.DocumentMetadata {
-            name: 'AmbientLight';
-            collection: 'lights';
-            label: 'DOCUMENT.AmbientLight';
+            name: "AmbientLight";
+            collection: "lights";
+            label: "DOCUMENT.AmbientLight";
             isEmbedded: true;
         }
     }

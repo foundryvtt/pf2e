@@ -1,8 +1,8 @@
-import { CheckModifier, ModifierPF2e, ModifierPredicate, StatisticModifier } from '@module/modifiers';
-import { CheckPF2e, RollParameters } from '@system/rolls';
-import { RollNotePF2e } from '@module/notes';
-import { ActorPF2e } from '@actor';
-import { DegreeOfSuccessAdjustment } from '@system/check-degree-of-success';
+import { CheckModifier, ModifierPF2e, ModifierPredicate, StatisticModifier } from "@module/modifiers";
+import { CheckPF2e, RollParameters } from "@system/rolls";
+import { RollNotePF2e } from "@module/notes";
+import { ActorPF2e } from "@actor";
+import { DegreeOfSuccessAdjustment } from "@system/check-degree-of-success";
 
 export interface StatisticCheckData {
     adjustments?: DegreeOfSuccessAdjustment[];
@@ -50,13 +50,13 @@ export interface Statistic extends StatisticWithCheck, StatisticWithDC {}
 export class StatisticBuilder {
     static from(
         actor: ActorPF2e,
-        data: StatisticData & ({ check: StatisticCheckData } & { dc: StatisticDifficultyClassData }),
+        data: StatisticData & ({ check: StatisticCheckData } & { dc: StatisticDifficultyClassData })
     ): StatisticWithCheck & StatisticWithDC;
     static from(actor: ActorPF2e, data: StatisticData & { check: StatisticCheckData }): StatisticWithCheck;
     static from(actor: ActorPF2e, data: StatisticData & { dc: StatisticDifficultyClassData }): StatisticWithDC;
     static from(
         actor: ActorPF2e,
-        data: StatisticData & ({ check: StatisticCheckData } | { dc: StatisticDifficultyClassData }),
+        data: StatisticData & ({ check: StatisticCheckData } | { dc: StatisticDifficultyClassData })
     ): StatisticWithCheck | StatisticWithDC {
         const stat = {} as StatisticWithCheck & StatisticWithDC;
         if (data.dc) {
@@ -77,7 +77,7 @@ export class StatisticBuilder {
             };
         }
         if (data.check) {
-            Object.defineProperty(stat, 'check', {
+            Object.defineProperty(stat, "check", {
                 get(): StatisticCheck {
                     const modifiers = (data.modifiers ?? []).concat(data.check!.modifiers ?? []);
                     const stat = new StatisticModifier(data.name, modifiers);
@@ -100,7 +100,7 @@ export class StatisticBuilder {
                                 new CheckModifier(name, stat, args?.modifiers),
                                 context,
                                 args?.event,
-                                args?.callback,
+                                args?.callback
                             );
                         },
                         totalModifier: (options?: { options?: string[] }) => {

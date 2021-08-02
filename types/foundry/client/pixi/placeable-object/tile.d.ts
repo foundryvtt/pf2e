@@ -1,5 +1,5 @@
 declare class Tile extends PlaceableObject<TileDocument> {
-    static override embeddedName: 'Tile';
+    static override embeddedName: "Tile";
 
     /**
      * Get the native aspect ratio of the base texture for the Tile sprite

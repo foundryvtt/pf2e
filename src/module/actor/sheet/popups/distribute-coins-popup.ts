@@ -1,6 +1,6 @@
-import { addCoins, attemptToRemoveCoinsByValue, calculateValueOfCurrency, removeCoins } from '@item/treasure/helpers';
-import { ActorPF2e } from '../../base';
-import { CharacterPF2e } from '@actor/character';
+import { addCoins, attemptToRemoveCoinsByValue, calculateValueOfCurrency, removeCoins } from "@item/treasure/helpers";
+import { ActorPF2e } from "../../base";
+import { CharacterPF2e } from "@actor/character";
 
 interface PopupData extends FormApplicationData<ActorPF2e> {
     selection?: string[];
@@ -22,11 +22,11 @@ interface PopupFormData extends FormData {
 export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
     static override get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
-        options.id = 'distribute-coins';
+        options.id = "distribute-coins";
         options.classes = [];
-        options.title = 'Distribute Coins';
-        options.template = 'systems/pf2e/templates/actors/distribute-coins.html';
-        options.width = 'auto';
+        options.title = "Distribute Coins";
+        options.template = "systems/pf2e/templates/actors/distribute-coins.html";
+        options.width = "auto";
         return options;
     }
 
@@ -49,7 +49,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
                 const copperToDistribute = Math.trunc(thisActorCopperValue / playerCount);
                 // return if there is nothing to distribute
                 if (copperToDistribute === 0) {
-                    ui.notifications.warn('Nothing to distribute');
+                    ui.notifications.warn("Nothing to distribute");
                     return;
                 }
                 attemptToRemoveCoinsByValue({
@@ -67,7 +67,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
                 coinShare.sp = Math.trunc(thisActorCurrency.sp / playerCount);
                 // return if there is nothing to distribute
                 if (coinShare.pp === 0 && coinShare.gp === 0 && coinShare.sp === 0 && coinShare.cp === 0) {
-                    ui.notifications.warn('Nothing to distribute');
+                    ui.notifications.warn("Nothing to distribute");
                     return;
                 }
                 removeCoins(thisActor, {
@@ -84,7 +84,7 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
             if (coinShare.gp !== 0) message += `${coinShare.gp} gp `;
             if (coinShare.sp !== 0) message += `${coinShare.sp} sp `;
             if (coinShare.cp !== 0) message += `${coinShare.cp} cp `;
-            const each = playerCount > 1 ? 'each ' : '';
+            const each = playerCount > 1 ? "each " : "";
             message += `${each}from ${thisActor.name} to `;
             for await (const actor of selectedActors) {
                 await addCoins(actor, { coins: coinShare, combineStacks: true });
@@ -104,10 +104,10 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
     /** Prevent Foundry from converting the actor IDs to boolean values */
     protected override async _onSubmit(
         event: Event,
-        options: OnSubmitFormOptions = {},
+        options: OnSubmitFormOptions = {}
     ): Promise<Record<string, unknown>> {
         const actorIds: string[] = Array.from(this.form.elements).flatMap((element) =>
-            element instanceof HTMLInputElement && element.name === 'actorIds' && element.checked ? element.value : [],
+            element instanceof HTMLInputElement && element.name === "actorIds" && element.checked ? element.value : []
         );
         options.updateData = mergeObject(options.updateData ?? {}, { actorIds: actorIds });
         return super._onSubmit(event, options);

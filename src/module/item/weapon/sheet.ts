@@ -1,14 +1,14 @@
-import { PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES } from '@item/data/values';
-import { PreciousMaterialGrade } from '@item/physical/data';
-import { MaterialValuationData, MATERIAL_VALUATION_DATA } from '@item/physical/materials';
-import { PhysicalItemSheetPF2e } from '@item/physical/sheet';
-import { ItemSheetDataPF2e } from '@item/sheet/data-types';
-import { coinValueInCopper, extractPriceFromItem } from '@item/treasure/helpers';
-import { OneToFour, OneToThree } from '@module/data';
-import { objectHasKey } from '@module/utils';
-import { LocalizePF2e } from '@system/localize';
-import { WeaponPF2e } from '.';
-import { WeaponPropertyRuneSlot } from './data';
+import { PRECIOUS_MATERIAL_GRADES, PRECIOUS_MATERIAL_TYPES } from "@item/data/values";
+import { PreciousMaterialGrade } from "@item/physical/data";
+import { MaterialValuationData, MATERIAL_VALUATION_DATA } from "@item/physical/materials";
+import { PhysicalItemSheetPF2e } from "@item/physical/sheet";
+import { ItemSheetDataPF2e } from "@item/sheet/data-types";
+import { coinValueInCopper, extractPriceFromItem } from "@item/treasure/helpers";
+import { OneToFour, OneToThree } from "@module/data";
+import { objectHasKey } from "@module/utils";
+import { LocalizePF2e } from "@system/localize";
+import { WeaponPF2e } from ".";
+import { WeaponPropertyRuneSlot } from "./data";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     override getData() {
@@ -32,9 +32,9 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         sheetData.propertyRuneSlots = propertyRuneSlots
             .filter(
                 ([slotNumber, slot], idx) =>
-                    (slotNumber <= potencyRuneValue || sheetData.data.preciousMaterial.value === 'orichalcum') &&
+                    (slotNumber <= potencyRuneValue || sheetData.data.preciousMaterial.value === "orichalcum") &&
                     (slotNumber === 1 || !!sheetData.data[`propertyRune${idx as OneToThree}` as const]?.value) &&
-                    !(sheetData.data.specific?.value && slot.value === null),
+                    !(sheetData.data.specific?.value && slot.value === null)
             )
             .map(([slotNumber, slot]) => ({
                 ...slot,
@@ -62,8 +62,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             };
 
         const preciousMaterials: Partial<MaterialSheetData> = deepClone(MATERIAL_VALUATION_DATA);
-        delete preciousMaterials[''];
-        delete preciousMaterials['dragonhide'];
+        delete preciousMaterials[""];
+        delete preciousMaterials["dragonhide"];
         for (const materialKey of PRECIOUS_MATERIAL_TYPES) {
             const materialData = preciousMaterials[materialKey];
             if (materialData) {
@@ -104,16 +104,16 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             weaponMAP: CONFIG.PF2E.weaponMAP,
             bulkTypes: CONFIG.PF2E.bulkTypes,
             sizes: CONFIG.PF2E.actorSizes,
-            isBomb: this.item.group === 'bomb',
+            isBomb: this.item.group === "bomb",
         };
     }
 
     override activateListeners($html: JQuery) {
         super.activateListeners($html);
-        $('i.fa-info-circle[title]').tooltipster({
-            animation: 'fade',
+        $("i.fa-info-circle[title]").tooltipster({
+            animation: "fade",
             maxWidth: 400,
-            theme: 'crb-hover',
+            theme: "crb-hover",
             contentAsHTML: true,
         });
     }
@@ -127,35 +127,35 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         }
 
         // Process precious-material selection
-        if (typeof formData['preciousMaterial'] === 'string') {
-            const typeGrade = formData['preciousMaterial'].split('-');
+        if (typeof formData["preciousMaterial"] === "string") {
+            const typeGrade = formData["preciousMaterial"].split("-");
             const isValidSelection =
-                objectHasKey(CONFIG.PF2E.preciousMaterials, typeGrade[0] ?? '') &&
-                objectHasKey(CONFIG.PF2E.preciousMaterialGrades, typeGrade[1] ?? '');
+                objectHasKey(CONFIG.PF2E.preciousMaterials, typeGrade[0] ?? "") &&
+                objectHasKey(CONFIG.PF2E.preciousMaterialGrades, typeGrade[1] ?? "");
             if (isValidSelection) {
-                formData['data.preciousMaterial.value'] = typeGrade[0];
-                formData['data.preciousMaterialGrade.value'] = typeGrade[1];
+                formData["data.preciousMaterial.value"] = typeGrade[0];
+                formData["data.preciousMaterialGrade.value"] = typeGrade[1];
             } else {
-                formData['data.preciousMaterial.value'] = null;
-                formData['data.preciousMaterialGrade.value'] = null;
+                formData["data.preciousMaterial.value"] = null;
+                formData["data.preciousMaterialGrade.value"] = null;
             }
 
             // Seal specific magic weapon data if set to true
-            const isSpecific = formData['data.specific.value'];
+            const isSpecific = formData["data.specific.value"];
             if (isSpecific !== weapon.isSpecific) {
                 if (isSpecific === true) {
-                    formData['data.specific.material'] = weapon.material;
-                    formData['data.specific.runes'] = {
-                        potency: formData['data.potencyRune.value'],
-                        striking: formData['data.strikingRune.value'],
+                    formData["data.specific.material"] = weapon.material;
+                    formData["data.specific.runes"] = {
+                        potency: formData["data.potencyRune.value"],
+                        striking: formData["data.strikingRune.value"],
                     };
                 } else if (isSpecific === false) {
-                    formData['data.specific.-=material'] = null;
-                    formData['data.specific.-=runes'] = null;
+                    formData["data.specific.-=material"] = null;
+                    formData["data.specific.-=runes"] = null;
                 }
             }
 
-            delete formData['preciousMaterial'];
+            delete formData["preciousMaterial"];
         }
         super._updateObject(event, formData);
     }

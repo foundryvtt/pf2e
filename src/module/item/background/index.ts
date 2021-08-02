@@ -1,5 +1,5 @@
-import { ABCItemPF2e } from '../abc';
-import { BackgroundData } from './data';
+import { ABCItemPF2e } from "../abc";
+import { BackgroundData } from "./data";
 
 export class BackgroundPF2e extends ABCItemPF2e {
     static override get schema(): typeof BackgroundData {

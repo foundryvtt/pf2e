@@ -1,6 +1,6 @@
-import { ActorPF2e } from '@actor/base';
-import { UserDataPF2e } from './data';
-import { PlayerConfigPF2e, UserSettingsPF2e } from './player-config';
+import { ActorPF2e } from "@actor/base";
+import { UserDataPF2e } from "./data";
+import { PlayerConfigPF2e, UserSettingsPF2e } from "./player-config";
 
 export class UserPF2e extends User<ActorPF2e> {
     override prepareData(): void {
@@ -19,7 +19,7 @@ export class UserPF2e extends User<ActorPF2e> {
                     settings: PlayerConfigPF2e.defaultSettings,
                 },
             },
-            this.data.flags,
+            this.data.flags
         );
     }
 
@@ -28,9 +28,9 @@ export class UserPF2e extends User<ActorPF2e> {
     }
 
     protected override _onUpdate(
-        changed: DeepPartial<this['data']['_source']>,
+        changed: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ) {
         super._onUpdate(changed, options, userId);
         const filterSetting = changed.flags?.pf2e?.settings?.darkvisionFilter;
@@ -46,15 +46,15 @@ export interface UserPF2e extends User<ActorPF2e> {
     readonly data: UserDataPF2e<this>;
 
     getFlag(
-        scope: 'pf2e',
-        key: 'settings',
+        scope: "pf2e",
+        key: "settings"
     ): {
-        uiTheme: 'blue' | 'red' | 'original' | 'ui';
+        uiTheme: "blue" | "red" | "original" | "ui";
         showEffectPanel: boolean;
         showRollDialogs: boolean;
     };
-    getFlag(scope: 'pf2e', key: 'settings.uiTheme'): 'blue' | 'red' | 'original' | 'ui';
-    getFlag(scope: 'pf2e', key: 'settings.showEffectPanel'): boolean;
-    getFlag(scope: 'pf2e', key: 'settings.showRollDialogs'): boolean;
-    getFlag(scope: 'pf2e', key: `compendiumFolders.${string}.expanded`): boolean | undefined;
+    getFlag(scope: "pf2e", key: "settings.uiTheme"): "blue" | "red" | "original" | "ui";
+    getFlag(scope: "pf2e", key: "settings.showEffectPanel"): boolean;
+    getFlag(scope: "pf2e", key: "settings.showRollDialogs"): boolean;
+    getFlag(scope: "pf2e", key: `compendiumFolders.${string}.expanded`): boolean | undefined;
 }

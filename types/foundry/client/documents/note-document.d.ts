@@ -1,4 +1,4 @@
-import { NoteDocumentConstructor } from './constructors';
+import { NoteDocumentConstructor } from "./constructors";
 
 declare global {
     /**

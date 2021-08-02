@@ -12,7 +12,7 @@ declare global {
              */
             function debounce<T extends (...args: any[]) => unknown>(
                 callback: T,
-                delay: number,
+                delay: number
             ): (...args: Parameters<T>) => void;
 
             /**
@@ -23,7 +23,7 @@ declare global {
              * @return The clone of that data
              */
             function deepClone<T>(
-                original: T,
+                original: T
             ): T extends Set<any> | Map<any, any> | foundry.utils.Collection<any> ? never : T;
 
             /**
@@ -31,7 +31,7 @@ declare global {
              * For a subset of cases the deepClone function will offer better performance.
              * @param original Some sort of data
              */
-            function duplicate<T extends foundry.abstract.Document>(original: T): T['data'];
+            function duplicate<T extends foundry.abstract.Document>(original: T): T["data"];
             function duplicate<T extends foundry.abstract.DocumentData>(original: T): RawObject<T>;
             function duplicate<T>(original: T): T;
 
@@ -71,7 +71,7 @@ declare global {
                 original: T,
                 other?: U,
                 { insertKeys, insertValues, overwrite, inplace, enforceTypes }?: MergeObjectOptions,
-                _d?: number,
+                _d?: number
             ): T & U;
 
             /**
@@ -107,7 +107,7 @@ declare global {
                 source: object,
                 template: object,
                 keepSpecial?: boolean,
-                templateValues?: boolean,
+                templateValues?: boolean
             ): object;
 
             /**

@@ -83,7 +83,7 @@ declare class FilePicker extends Application {
     static browse(
         source: string,
         target: string,
-        options?: { bucket?: string; extensions?: string[]; wildcard?: boolean },
+        options?: { bucket?: string; extensions?: string[]; wildcard?: boolean }
     ): Promise<any>;
 
     /**

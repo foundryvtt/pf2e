@@ -1,24 +1,24 @@
-import { ActorPF2e, NPCPF2e, HazardPF2e } from '@actor/index';
-import { LabeledValue } from '@module/data';
-import { TagSelectorBase } from './base';
-import { SelectableTagField } from './index';
+import { ActorPF2e, NPCPF2e, HazardPF2e } from "@actor/index";
+import { LabeledValue } from "@module/data";
+import { TagSelectorBase } from "./base";
+import { SelectableTagField } from "./index";
 
 export class TraitSelectorResistances extends TagSelectorBase<ActorPF2e> {
-    override objectProperty = 'data.traits.dr';
+    override objectProperty = "data.traits.dr";
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            id: 'trait-selector',
-            classes: ['pf2e'],
-            template: 'systems/pf2e/templates/system/trait-selector/resistances.html',
-            title: 'PF2E.ResistancesLabel',
-            width: 'auto',
+            id: "trait-selector",
+            classes: ["pf2e"],
+            template: "systems/pf2e/templates/system/trait-selector/resistances.html",
+            title: "PF2E.ResistancesLabel",
+            width: "auto",
             height: 700,
         });
     }
 
     protected get configTypes(): readonly SelectableTagField[] {
-        return ['resistanceTypes'] as const;
+        return ["resistanceTypes"] as const;
     }
 
     override getData() {
@@ -35,8 +35,8 @@ export class TraitSelectorResistances extends TagSelectorBase<ActorPF2e> {
             choices[type] = {
                 label,
                 selected: res !== undefined,
-                value: res?.value ?? '',
-                exceptions: res?.exceptions ?? '',
+                value: res?.value ?? "",
+                exceptions: res?.exceptions ?? "",
             };
         });
         data.choices = choices;
@@ -48,15 +48,15 @@ export class TraitSelectorResistances extends TagSelectorBase<ActorPF2e> {
         super.activateListeners($html);
 
         $html
-            .find<HTMLInputElement>('input[id^=input_value]')
-            .on('focusin', (event) => {
+            .find<HTMLInputElement>("input[id^=input_value]")
+            .on("focusin", (event) => {
                 const input = $(event.currentTarget);
-                input.prev().prev().prop('checked', true);
+                input.prev().prev().prop("checked", true);
             })
-            .on('focusout', (event) => {
+            .on("focusout", (event) => {
                 const input = $(event.currentTarget);
                 if (!input.val()) {
-                    input.prev().prev().prop('checked', false);
+                    input.prev().prev().prop("checked", false);
                 }
             });
     }
@@ -72,9 +72,9 @@ export class TraitSelectorResistances extends TagSelectorBase<ActorPF2e> {
         const choices: Record<string, unknown>[] = [];
         for (const [k, v] of Object.entries(formData as Record<string, any>)) {
             if (v.length > 1 && v[0]) {
-                if (!Number.isNaN(Number(v[1])) && v[1] !== '') {
+                if (!Number.isNaN(Number(v[1])) && v[1] !== "") {
                     const label = this.choices[k];
-                    const exceptions = v[2] ?? '';
+                    const exceptions = v[2] ?? "";
                     choices.push({ type: k, label, value: v[1], exceptions });
                 }
             }

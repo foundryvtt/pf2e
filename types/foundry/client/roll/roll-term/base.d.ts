@@ -144,6 +144,6 @@ declare global {
 
     type Evaluated<T extends RollTerm> = T & {
         _evaluated: true;
-        total: NonNullable<T['total']>;
+        total: NonNullable<T["total"]>;
     };
 }

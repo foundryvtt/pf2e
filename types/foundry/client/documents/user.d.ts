@@ -1,4 +1,4 @@
-import { UserConstructor } from './constructors';
+import { UserConstructor } from "./constructors";
 
 declare global {
     /**
@@ -15,7 +15,7 @@ declare global {
         active: boolean;
 
         /** Track references to the current set of Tokens which are targeted by the User */
-        targets: Set<NonNullable<NonNullable<TActor['parent']>['_object']>>;
+        targets: Set<NonNullable<NonNullable<TActor["parent"]>["_object"]>>;
 
         /** Track the ID of the Scene that is currently being viewed by the User */
         viewedScene: string | null;
@@ -54,7 +54,7 @@ declare global {
         assignHotbarMacro(
             macro: Macro | null,
             slot?: number | string,
-            { fromSlot }?: { fromSlot: number },
+            { fromSlot }?: { fromSlot: number }
         ): Promise<this>;
 
         /**
@@ -93,9 +93,9 @@ declare global {
         updateTokenTargets(targetIds?: string[]): void;
 
         protected override _onUpdate(
-            changed: DeepPartial<this['data']['_source']>,
+            changed: DeepPartial<this["data"]["_source"]>,
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         protected override _onDelete(options: DocumentModificationContext, userId: string): void;

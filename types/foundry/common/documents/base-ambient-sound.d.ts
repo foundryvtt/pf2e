@@ -14,11 +14,11 @@ declare module foundry {
         }
 
         interface AmbientSoundMetadata extends abstract.DocumentMetadata {
-            name: 'AmbientSound';
-            collection: 'sounds';
-            label: 'DOCUMENT.AmbientSound';
+            name: "AmbientSound";
+            collection: "sounds";
+            label: "DOCUMENT.AmbientSound";
             isEmbedded: true;
-            types: ['l', 'g'];
+            types: ["l", "g"];
         }
     }
 }

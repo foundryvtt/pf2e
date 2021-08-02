@@ -9,7 +9,7 @@ declare class Settings extends SidebarTab {
     /** @override */
     getData(options?: {}): {
         user: User;
-        system: Game['system'];
+        system: Game["system"];
         coreVersion: string;
         canConfigure: boolean;
         canSetup: boolean;

@@ -1,7 +1,7 @@
-import { ItemPF2e } from '@item/base';
-import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
-import { ordinal, toNumber } from '@module/utils';
-import { SpellData, SpellTrait } from './data';
+import { ItemPF2e } from "@item/base";
+import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
+import { ordinal, toNumber } from "@module/utils";
+import { SpellData, SpellTrait } from "./data";
 
 export class SpellPF2e extends ItemPF2e {
     static override get schema(): typeof SpellData {
@@ -54,12 +54,12 @@ export class SpellPF2e extends ItemPF2e {
     get components() {
         const components = this.data.data.components;
         const results: string[] = [];
-        if (components.material) results.push(game.i18n.localize('PF2E.SpellComponentShortM'));
-        if (components.somatic) results.push(game.i18n.localize('PF2E.SpellComponentShortS'));
-        if (components.verbal) results.push(game.i18n.localize('PF2E.SpellComponentShortV'));
+        if (components.material) results.push(game.i18n.localize("PF2E.SpellComponentShortM"));
+        if (components.somatic) results.push(game.i18n.localize("PF2E.SpellComponentShortS"));
+        if (components.verbal) results.push(game.i18n.localize("PF2E.SpellComponentShortV"));
         return {
             ...components,
-            value: results.join(''),
+            value: results.join(""),
         };
     }
 
@@ -68,7 +68,7 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     get damageValue() {
-        if (this.damage.value && this.damage.value !== '' && this.damage.value !== '0') {
+        if (this.damage.value && this.damage.value !== "" && this.damage.value !== "0") {
             return this.damage.value;
         }
         return null;
@@ -79,9 +79,9 @@ export class SpellPF2e extends ItemPF2e {
         if (this.actor) {
             const spellcasting = this.spellcasting;
             if (!spellcasting?.data && this.data.data.trickMagicItemData) {
-                rollData['mod'] = this.actor.getAbilityMod(this.data.data.trickMagicItemData.ability);
+                rollData["mod"] = this.actor.getAbilityMod(this.data.data.trickMagicItemData.ability);
             } else {
-                rollData['mod'] = this.actor.getAbilityMod(spellcasting?.ability ?? 'int');
+                rollData["mod"] = this.actor.getAbilityMod(spellcasting?.ability ?? "int");
             }
         }
 
@@ -92,9 +92,9 @@ export class SpellPF2e extends ItemPF2e {
         castLevel = this.computeCastLevel(castLevel);
         const parts: (string | number)[] = [];
         if (this.damageValue) parts.push(this.damage.value);
-        if (this.damage.applyMod && this.actor) parts.push('@mod');
-        if (this.data.data.duration.value === '' && this.actor) {
-            const hasDangerousSorcery = this.actor.itemTypes.feat.some((feat) => feat.slug === 'dangerous-sorcery');
+        if (this.damage.applyMod && this.actor) parts.push("@mod");
+        if (this.data.data.duration.value === "" && this.actor) {
+            const hasDangerousSorcery = this.actor.itemTypes.feat.some((feat) => feat.slug === "dangerous-sorcery");
             if (hasDangerousSorcery && !this.isFocusSpell && !this.isCantrip) {
                 console.debug(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.name}`);
                 parts.push(castLevel);
@@ -104,7 +104,7 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     get scaling() {
-        return this.data.data?.scaling || { formula: '', mode: '' };
+        return this.data.data?.scaling || { formula: "", mode: "" };
     }
 
     private computeHeightenedParts(castLevel: number) {
@@ -116,7 +116,7 @@ export class SpellPF2e extends ItemPF2e {
         };
 
         let parts: string[] = [];
-        if (this.scaling.formula !== '') {
+        if (this.scaling.formula !== "") {
             const heighteningDivisor: number = heighteningModes[this.scaling.mode];
             if (heighteningDivisor) {
                 let effectiveSpellLevel = 1;
@@ -133,53 +133,53 @@ export class SpellPF2e extends ItemPF2e {
 
     override prepareBaseData() {
         super.prepareBaseData();
-        this.data.isFocusSpell = this.data.data.category.value === 'focus';
-        this.data.isRitual = this.data.data.category.value === 'ritual';
-        this.data.isCantrip = this.traits.has('cantrip') && !this.data.isRitual;
+        this.data.isFocusSpell = this.data.data.category.value === "focus";
+        this.data.isRitual = this.data.data.category.value === "ritual";
+        this.data.isCantrip = this.traits.has("cantrip") && !this.data.isRitual;
     }
 
     override getChatData(
         this: Embedded<SpellPF2e>,
         htmlOptions: EnrichHTMLOptions = {},
-        rollOptions: { spellLvl?: number | string } = {},
+        rollOptions: { spellLvl?: number | string } = {}
     ): Record<string, unknown> {
-        const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
+        const localize: Localization["localize"] = game.i18n.localize.bind(game.i18n);
         const systemData = this.data.data;
 
         const spellcastingData = this.data.data.trickMagicItemData ?? this.spellcasting?.data;
         if (!spellcastingData) {
             console.warn(
-                `PF2e System | Oprhaned spell ${this.name} (${this.id}) on actor ${this.actor.name} (${this.actor.id})`,
+                `PF2e System | Oprhaned spell ${this.name} (${this.id}) on actor ${this.actor.name} (${this.actor.id})`
             );
             return { ...systemData };
         }
 
         const spellDC =
-            'dc' in spellcastingData.data
+            "dc" in spellcastingData.data
                 ? spellcastingData.data.dc?.value ?? spellcastingData.data.spelldc.dc
                 : spellcastingData.data.spelldc.dc;
         const spellAttack =
-            'attack' in spellcastingData.data
+            "attack" in spellcastingData.data
                 ? spellcastingData.data.attack?.value ?? spellcastingData.data.spelldc.value
                 : spellcastingData.data.spelldc.value;
 
-        const isAttack = systemData.spellType.value === 'attack';
-        const isSave = systemData.spellType.value === 'save' || systemData.save.value !== '';
+        const isAttack = systemData.spellType.value === "attack";
+        const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
 
         // Spell saving throw text and DC
         const save = duplicate(this.data.data.save);
         save.dc = isSave ? spellDC : spellAttack;
-        save.str = systemData.save.value ? game.i18n.localize(CONFIG.PF2E.saves[systemData.save.value]) : '';
+        save.str = systemData.save.value ? game.i18n.localize(CONFIG.PF2E.saves[systemData.save.value]) : "";
 
         // Spell attack labels
         const damageLabel =
-            systemData.spellType.value === 'heal' ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
+            systemData.spellType.value === "heal" ? localize("PF2E.SpellTypeHeal") : localize("PF2E.DamageLabel");
 
         const area = (() => {
             if (systemData.area.value) {
-                const areaSize = game.i18n.localize(CONFIG.PF2E.areaSizes[systemData.area.value] ?? '');
-                const areaType = game.i18n.localize(CONFIG.PF2E.areaTypes[systemData.area.areaType] ?? '');
-                return `${localize('PF2E.SpellAreaLabel')}: ${areaSize} ${areaType}`.trim();
+                const areaSize = game.i18n.localize(CONFIG.PF2E.areaSizes[systemData.area.value] ?? "");
+                const areaType = game.i18n.localize(CONFIG.PF2E.areaTypes[systemData.area.areaType] ?? "");
+                return `${localize("PF2E.SpellAreaLabel")}: ${areaSize} ${areaType}`.trim();
             }
 
             return null;
@@ -190,21 +190,21 @@ export class SpellPF2e extends ItemPF2e {
         const heightened = level - baseLevel;
         const levelLabel = (() => {
             const category = this.isCantrip
-                ? localize('PF2E.TraitCantrip')
+                ? localize("PF2E.TraitCantrip")
                 : localize(CONFIG.PF2E.spellCategories[this.data.data.category.value]);
-            return game.i18n.format('PF2E.SpellLevel', { category, level });
+            return game.i18n.format("PF2E.SpellLevel", { category, level });
         })();
 
         // Combine properties
         const properties: string[] = [
-            heightened ? game.i18n.format('PF2E.SpellLevelBase', { level: ordinal(baseLevel) }) : null,
-            heightened ? game.i18n.format('PF2E.SpellLevelHeightened', { heightened }) : null,
-            `${localize('PF2E.SpellComponentsLabel')}: ${this.components.value}`,
-            systemData.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${systemData.range.value}` : null,
-            systemData.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${systemData.target.value}` : null,
+            heightened ? game.i18n.format("PF2E.SpellLevelBase", { level: ordinal(baseLevel) }) : null,
+            heightened ? game.i18n.format("PF2E.SpellLevelHeightened", { heightened }) : null,
+            `${localize("PF2E.SpellComponentsLabel")}: ${this.components.value}`,
+            systemData.range.value ? `${localize("PF2E.SpellRangeLabel")}: ${systemData.range.value}` : null,
+            systemData.target.value ? `${localize("PF2E.SpellTargetLabel")}: ${systemData.target.value}` : null,
             area,
-            systemData.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${systemData.time.value}` : null,
-            systemData.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${systemData.duration.value}` : null,
+            systemData.time.value ? `${localize("PF2E.SpellTimeLabel")}: ${systemData.time.value}` : null,
+            systemData.duration.value ? `${localize("PF2E.SpellDurationLabel")}: ${systemData.duration.value}` : null,
         ].filter((p): p is string => p !== null);
 
         const traits = this.traitChatData(CONFIG.PF2E.spellTraits);

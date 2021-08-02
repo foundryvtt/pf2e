@@ -32,7 +32,7 @@ declare module foundry {
 
         class ItemData<
             TDocument extends documents.BaseItem,
-            TActiveEffect extends documents.BaseActiveEffect,
+            TActiveEffect extends documents.BaseActiveEffect
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): {
                 _id: typeof fields.DOCUMENT_ID;
@@ -41,7 +41,7 @@ declare module foundry {
                     type: typeof String;
                     required: true;
                     validate: (t: string) => boolean;
-                    validationError: 'The provided Item type must be in the array of types defined by the game system';
+                    validationError: "The provided Item type must be in the array of types defined by the game system";
                 };
                 img: typeof fields.IMAGE_FIELD;
                 data: typeof fields.OBJECT_FIELD;
@@ -62,14 +62,14 @@ declare module foundry {
             /** The default icon used for newly created Item documents */
             static DEFAULT_ICON: ImagePath;
 
-            protected override _initializeSource(data: this['_source']): this['_source'];
+            protected override _initializeSource(data: this["_source"]): this["_source"];
 
             /** A collection of ActiveEffect embedded Documents */
             effects: abstract.EmbeddedCollection<TActiveEffect>;
         }
 
         interface ItemData<TDocument extends documents.BaseItem, TActiveEffect extends documents.BaseActiveEffect>
-            extends Omit<ItemSource, 'effects'> {
+            extends Omit<ItemSource, "effects"> {
             readonly _source: ItemSource;
 
             /** @todo uncomment when prettier is updated to support typescript 4.3 */
@@ -77,7 +77,7 @@ declare module foundry {
         }
 
         namespace ItemData {
-            const schema: ReturnType<typeof ItemData['defineSchema']>;
+            const schema: ReturnType<typeof ItemData["defineSchema"]>;
         }
     }
 }

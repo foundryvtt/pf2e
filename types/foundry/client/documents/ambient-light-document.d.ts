@@ -1,4 +1,4 @@
-import { AmbientLightDocumentConstructor } from './constructors';
+import { AmbientLightDocumentConstructor } from "./constructors";
 
 declare global {
     class AmbientLightDocument extends AmbientLightDocumentConstructor {

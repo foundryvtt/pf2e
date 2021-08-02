@@ -30,10 +30,10 @@ declare class ItemSheet<ItemType extends Item = Item> extends DocumentSheet<Item
     get item(): ItemType;
 
     /** The Actor instance which owns this item. This may be null if the item is unowned. */
-    get actor(): ItemType['parent'];
+    get actor(): ItemType["parent"];
 
     /** @override */
-    getData(option?: this['options']): ItemSheetData<ItemType>;
+    getData(option?: this["options"]): ItemSheetData<ItemType>;
 
     /**
      * Activate listeners which provide interactivity for item sheet events

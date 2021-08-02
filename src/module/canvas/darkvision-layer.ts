@@ -1,5 +1,5 @@
-import { CharacterPF2e } from '@actor';
-import { LightLevels } from '@module/scene/data';
+import { CharacterPF2e } from "@actor";
+import { LightLevels } from "@module/scene/data";
 
 export class DarkvisionLayerPF2e extends CanvasLayer {
     /** The darkvision (monochrome) filter applied to the BackgroundLayer */
@@ -8,11 +8,11 @@ export class DarkvisionLayerPF2e extends CanvasLayer {
     /** Somewhat like a mask, except parts of the background are redrawn over the darkvision filter */
     private notMask!: PIXI.Sprite;
 
-    static documentName = 'Darkvision';
+    static documentName = "Darkvision";
 
     static override get layerOptions(): CanvasLayerOptions {
         return foundry.utils.mergeObject(super.layerOptions, {
-            name: 'darkvision',
+            name: "darkvision",
             zIndex: 1,
             controllableObjects: false,
             rotatableObjects: false,
@@ -86,7 +86,7 @@ export class DarkvisionLayerPF2e extends CanvasLayer {
             circles,
             PIXI.SCALE_MODES.NEAREST,
             1,
-            canvas.dimensions.sceneRect,
+            canvas.dimensions.sceneRect
         );
         const mask = new PIXI.Sprite(texture);
         this.notMask.removeChildren();
@@ -97,7 +97,7 @@ export class DarkvisionLayerPF2e extends CanvasLayer {
     private getSaturation(lightLevel: number): number {
         const fetchlingSight = canvas.tokens.controlled
             .flatMap((token) => token.actor ?? [])
-            .some((actor) => actor instanceof CharacterPF2e && actor.ancestry?.slug === 'fetchling');
+            .some((actor) => actor instanceof CharacterPF2e && actor.ancestry?.slug === "fetchling");
         const monochrome = Math.clamped(4 * lightLevel - 1, -1, 0);
         const saturation = fetchlingSight ? -1 * monochrome : monochrome;
         console.debug(`Setting darkvision filter saturation to ${saturation}`);

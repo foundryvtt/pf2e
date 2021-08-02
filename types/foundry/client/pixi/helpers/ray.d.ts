@@ -81,7 +81,7 @@ declare class Ray {
         x3: number,
         y3: number,
         x4: number,
-        y4: number,
+        y4: number
     ): Vector2;
 }
 

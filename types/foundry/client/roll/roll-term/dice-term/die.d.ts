@@ -13,29 +13,29 @@ declare global {
         constructor(termData: DieData);
 
         /** @override */
-        DENOMINATION: 'd';
+        DENOMINATION: "d";
 
         /** @override */
         MODIFIERS: {
-            r: 'reroll';
-            rr: 'rerollRecursive';
-            x: 'explode';
-            xo: 'explodeOnce';
-            k: 'keep';
-            kh: 'keep';
-            kl: 'keep';
-            d: 'drop';
-            dh: 'drop';
-            dl: 'drop';
-            min: 'minimum';
-            max: 'maximum';
-            even: 'countEven';
-            odd: 'countOdd';
-            cs: 'countSuccess';
-            cf: 'countFailures';
-            df: 'deductFailures';
-            sf: 'subtractFailures';
-            ms: 'marginSuccess';
+            r: "reroll";
+            rr: "rerollRecursive";
+            x: "explode";
+            xo: "explodeOnce";
+            k: "keep";
+            kh: "keep";
+            kl: "keep";
+            d: "drop";
+            dh: "drop";
+            dl: "drop";
+            min: "minimum";
+            max: "maximum";
+            even: "countEven";
+            odd: "countOdd";
+            cs: "countSuccess";
+            cf: "countFailures";
+            df: "deductFailures";
+            sf: "subtractFailures";
+            ms: "marginSuccess";
         };
 
         /**

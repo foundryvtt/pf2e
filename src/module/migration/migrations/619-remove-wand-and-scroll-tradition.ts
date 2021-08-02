@@ -1,10 +1,10 @@
-import { ActorSourcePF2e } from '@actor/data';
-import { ItemSourcePF2e } from '@item/data';
-import { SpellcastingEntrySource } from '@item/spellcasting-entry/data';
-import { tupleHasValue } from '@module/utils';
-import { MigrationBase } from '../base';
+import { ActorSourcePF2e } from "@actor/data";
+import { ItemSourcePF2e } from "@item/data";
+import { SpellcastingEntrySource } from "@item/spellcasting-entry/data";
+import { tupleHasValue } from "@module/utils";
+import { MigrationBase } from "../base";
 
-const LEGIT_TRADITIONS = ['arcane', 'divine', 'occult', 'primal', 'focus', 'ritual', 'halcyon', ''] as const;
+const LEGIT_TRADITIONS = ["arcane", "divine", "occult", "primal", "focus", "ritual", "halcyon", ""] as const;
 
 interface HighestTradition {
     name: typeof LEGIT_TRADITIONS[number];
@@ -32,7 +32,7 @@ export class Migration619TraditionLowercaseAndRemoveWandScroll extends Migration
     static override version = 0.619;
 
     override async updateItem(item: ItemSourcePF2e, actorData?: ActorSourcePF2e) {
-        if (!actorData || item.type !== 'spellcastingEntry') {
+        if (!actorData || item.type !== "spellcastingEntry") {
             return;
         }
 
@@ -47,7 +47,7 @@ export class Migration619TraditionLowercaseAndRemoveWandScroll extends Migration
 
         // Calculate the highest tradition in the actor
         const allEntries = actorData.items.filter(
-            (itemData): itemData is SpellcastingEntrySource => itemData.type === 'spellcastingEntry',
+            (itemData): itemData is SpellcastingEntrySource => itemData.type === "spellcastingEntry"
         );
         const highestTradition = allEntries.reduce<HighestTradition>(
             (prev, current) => {
@@ -61,7 +61,7 @@ export class Migration619TraditionLowercaseAndRemoveWandScroll extends Migration
 
                 return prev;
             },
-            { name: 'arcane', value: 0 },
+            { name: "arcane", value: 0 }
         );
 
         tradition.value = highestTradition.name;

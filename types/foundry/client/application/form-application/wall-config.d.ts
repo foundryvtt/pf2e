@@ -9,6 +9,6 @@ declare class WallConfig extends FormApplication {
 }
 
 declare interface WallConfigOptions extends FormApplicationOptions {
-    id: 'wall-config';
+    id: "wall-config";
     editTargets: WallDocument[];
 }

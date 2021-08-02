@@ -7,9 +7,9 @@ export class MystifiedTraits {
         this.mystifiedTraits = new Set([
             ...Object.keys(CONFIG.PF2E.magicSchools),
             ...Object.keys(CONFIG.PF2E.spellTraditions),
-            ...Object.keys(CONFIG.PF2E.consumableTraits).filter((trait) => trait !== 'consumable'),
-            'extradimensional',
-            'invested',
+            ...Object.keys(CONFIG.PF2E.consumableTraits).filter((trait) => trait !== "consumable"),
+            "extradimensional",
+            "invested",
         ]);
     }
 
@@ -19,19 +19,19 @@ export class MystifiedTraits {
     }
 }
 
-export const PHYSICAL_ITEM_TYPES = ['armor', 'backpack', 'consumable', 'equipment', 'treasure', 'weapon'] as const;
-export const TRADITION_TRAITS = ['arcane', 'primal', 'divine', 'occult'] as const;
+export const PHYSICAL_ITEM_TYPES = ["armor", "backpack", "consumable", "equipment", "treasure", "weapon"] as const;
+export const TRADITION_TRAITS = ["arcane", "primal", "divine", "occult"] as const;
 
 export const PRECIOUS_MATERIAL_TYPES = [
-    'adamantine',
-    'coldIron',
-    'darkwood',
-    'dragonhide',
-    'mithral',
-    'orichalcum',
-    'silver',
-    'sovereignSteel',
-    'warpglass',
+    "adamantine",
+    "coldIron",
+    "darkwood",
+    "dragonhide",
+    "mithral",
+    "orichalcum",
+    "silver",
+    "sovereignSteel",
+    "warpglass",
 ] as const;
 
-export const PRECIOUS_MATERIAL_GRADES = ['low', 'standard', 'high'] as const;
+export const PRECIOUS_MATERIAL_GRADES = ["low", "standard", "high"] as const;

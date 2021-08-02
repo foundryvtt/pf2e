@@ -1,14 +1,14 @@
-import { LocalizePF2e } from '@system/localize';
-import { registerSheets } from '../register-sheets';
-import { calculateXP } from '@scripts/macros/xp';
-import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
-import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
-import { raiseAShield } from '@scripts/macros/raise-a-shield';
-import { restForTheNight } from '@scripts/macros/rest-for-the-night';
-import { steelYourResolve } from '@scripts/macros/steel-your-resolve';
-import { encouragingWords } from '@scripts/macros/encouraging-words';
-import { earnIncome } from '@scripts/macros/earn-income';
-import { DicePF2e } from '@scripts/dice';
+import { LocalizePF2e } from "@system/localize";
+import { registerSheets } from "../register-sheets";
+import { calculateXP } from "@scripts/macros/xp";
+import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
+import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
+import { raiseAShield } from "@scripts/macros/raise-a-shield";
+import { restForTheNight } from "@scripts/macros/rest-for-the-night";
+import { steelYourResolve } from "@scripts/macros/steel-your-resolve";
+import { encouragingWords } from "@scripts/macros/encouraging-words";
+import { earnIncome } from "@scripts/macros/earn-income";
+import { DicePF2e } from "@scripts/dice";
 import {
     AbilityModifier,
     CheckModifier,
@@ -16,29 +16,29 @@ import {
     MODIFIER_TYPE,
     ProficiencyModifier,
     StatisticModifier,
-} from '@module/modifiers';
-import { CheckPF2e } from '@system/rolls';
-import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
-import { ConditionManager } from '@module/conditions';
-import { StatusEffects } from '@scripts/actor/status-effects';
-import { EffectPanel } from '@module/system/effect-panel';
-import { EffectTracker } from '@module/system/effect-tracker';
-import { remigrate } from '@scripts/system/remigrate';
-import { ActorImporter } from '@system/importer/actor-importer';
-import { HomebrewElements } from '@module/settings/homebrew';
+} from "@module/modifiers";
+import { CheckPF2e } from "@system/rolls";
+import { RuleElementPF2e, RuleElements } from "@module/rules/rules";
+import { ConditionManager } from "@module/conditions";
+import { StatusEffects } from "@scripts/actor/status-effects";
+import { EffectPanel } from "@module/system/effect-panel";
+import { EffectTracker } from "@module/system/effect-tracker";
+import { remigrate } from "@scripts/system/remigrate";
+import { ActorImporter } from "@system/importer/actor-importer";
+import { HomebrewElements } from "@module/settings/homebrew";
 
 /**
  * This runs after game data has been requested and loaded from the servers, so entities exist
  */
 export function listen() {
-    Hooks.once('setup', () => {
+    Hooks.once("setup", () => {
         LocalizePF2e.ready = true;
 
         // Register actor and item sheets
         registerSheets();
 
         // Exposed objects for macros and modules
-        Object.defineProperty(globalThis.game, 'pf2e', { value: {} });
+        Object.defineProperty(globalThis.game, "pf2e", { value: {} });
         game.pf2e.actions = {
             earnIncome,
             raiseAShield,

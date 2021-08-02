@@ -1,4 +1,4 @@
-import * as io from 'socket.io';
+import * as io from "socket.io";
 
 declare global {
     const socket: io.Socket | null;
@@ -33,7 +33,7 @@ declare global {
         TItem extends Item<TActor> = Item<TActor>,
         TMacro extends Macro = Macro,
         TScene extends Scene<TokenDocument<TActor>> = Scene<TokenDocument<TActor>>,
-        TUser extends User<TActor> = User<TActor>,
+        TUser extends User<TActor> = User<TActor>
     > {
         /**
          * The named view which is currently active.
@@ -43,8 +43,8 @@ declare global {
 
         /** The object of world data passed from the server */
         data: {
-            actors: TActor['data']['_source'][];
-            items: TItem['data']['_source'][];
+            actors: TActor["data"]["_source"][];
+            items: TItem["data"]["_source"][];
             macros: foundry.data.MacroSource[];
             messages: foundry.data.ChatMessageSource[];
             packs: CompendiumMetadata[];
@@ -243,7 +243,7 @@ declare global {
                 Folder: string[];
                 Item: string[];
                 JournalEntry: string[];
-                Macro: ['chat', 'script'];
+                Macro: ["chat", "script"];
                 Playlist: string[];
                 RollTable: string[];
                 Scene: string[];

@@ -1,4 +1,4 @@
-import * as io from 'socket.io';
+import * as io from "socket.io";
 
 declare global {
     /**
@@ -9,7 +9,7 @@ declare global {
      */
     class Journal extends WorldCollection<JournalEntry> {
         /** @override */
-        static documentName: 'JournalEntry';
+        static documentName: "JournalEntry";
 
         /** Open Socket listeners which transact JournalEntry data */
         protected static _activateSocketListeners(socket: io.Socket): void;
