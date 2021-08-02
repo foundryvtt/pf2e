@@ -112,10 +112,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
 
         // Basic chat message data
         const chatData: PreCreate<foundry.data.ChatMessageSource> = {
-            speaker: {
-                actor: this.actor.id,
-                token: this.actor.getActiveTokens()[0]?.id,
-            },
+            speaker: ChatMessagePF2e.getSpeaker({
+                actor: this.actor,
+                token: this.actor.getActiveTokens()[0],
+            }),
             flags: {
                 core: {
                     canPopout: true,
