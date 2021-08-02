@@ -36,6 +36,11 @@ export class DarkvisionLayerPF2e extends CanvasLayer {
         if (this.userRequestsFilter && canvas.ready) {
             const texture = canvas.background.bg.texture;
             this.notMask = this.addChild(PIXI.Sprite.from(texture));
+            const { dimensions } = canvas;
+            this.notMask.position.set(dimensions.paddingX - dimensions.shiftX, dimensions.paddingY - dimensions.shiftY);
+            this.notMask.width = dimensions.sceneWidth;
+            this.notMask.height = dimensions.sceneHeight;
+
             for (const layer of [canvas.background, canvas.foreground]) {
                 layer.filters ??= [];
                 if (!layer.filters.includes(this.filter)) {
