@@ -1,6 +1,11 @@
 import { MeasuredTemplateDocumentPF2e } from '@module/scene/measured-template-document';
+import { TemplateLayerPF2e } from './template-layer';
 
-export class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
+class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
+    get type(): MeasuredTemplateType {
+        return this.data.t;
+    }
+
     /** Highlight grid according to Pathfinder 2e effect-area shapes */
     override highlightGrid(): void {
         if (!['circle', 'cone'].includes(this.data.t)) {
@@ -118,3 +123,9 @@ export class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocum
         return MeasuredTemplatePF2e.measureDistance(p0, p1);
     }
 }
+
+interface MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
+    get layer(): TemplateLayerPF2e<this>;
+}
+
+export { MeasuredTemplatePF2e };
