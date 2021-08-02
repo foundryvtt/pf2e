@@ -8,7 +8,7 @@ import {
     SaveData,
     SkillAbbreviation,
     SkillData,
-} from '@actor/creature/data';
+} from "@actor/creature/data";
 import {
     AbilityString,
     ArmorClassData,
@@ -19,23 +19,23 @@ import {
     RawSkillData,
     RollToggle,
     StrikeData,
-} from '@actor/data/base';
-import { ArmorCategory } from '@item/armor/data';
-import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from '@item/weapon/data';
-import { CheckModifier, StatisticModifier } from '@module/modifiers';
-import { LabeledValue, ZeroToFour, ZeroToThree } from '@module/data';
-import type { CharacterPF2e } from '.';
-import { SaveType } from '@actor/data';
+} from "@actor/data/base";
+import { ArmorCategory } from "@item/armor/data";
+import { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/data";
+import { CheckModifier, StatisticModifier } from "@module/modifiers";
+import { LabeledValue, ZeroToFour, ZeroToThree } from "@module/data";
+import type { CharacterPF2e } from ".";
+import { SaveType } from "@actor/data";
 
-export type CharacterSource = BaseCreatureSource<'character', CharacterSystemData>;
+export type CharacterSource = BaseCreatureSource<"character", CharacterSystemData>;
 
 export class CharacterData extends BaseCreatureData<CharacterPF2e, CharacterSystemData> {
-    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/mystery-man.svg';
+    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/mystery-man.svg";
 }
 
-export interface CharacterData extends Omit<CharacterSource, 'effects' | 'items' | 'token'> {
-    readonly type: CharacterSource['type'];
-    data: CharacterSource['data'];
+export interface CharacterData extends Omit<CharacterSource, "effects" | "items" | "token"> {
+    readonly type: CharacterSource["type"];
+    data: CharacterSource["data"];
     readonly _source: CharacterSource;
 }
 
@@ -146,10 +146,10 @@ export type ClassDCData = StatisticModifier & RawSkillData;
 export type CharacterStrike = StatisticModifier & StrikeData;
 
 /** A Pathfinder Society Faction */
-type PFSFaction = 'EA' | 'GA' | 'HH' | 'VS' | 'RO' | 'VW';
+type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
 
 /** A Pathfinder Society School */
-type PFSSchool = 'none' | 'scrolls' | 'spells' | 'swords';
+type PFSSchool = "none" | "scrolls" | "spells" | "swords";
 
 /** PFS faction reputation values */
 interface PathfinderSocietyReputation {

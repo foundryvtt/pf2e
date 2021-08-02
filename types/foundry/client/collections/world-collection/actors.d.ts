@@ -8,7 +8,7 @@
  * let actor = game.actors.get(actorId);
  */
 declare class Actors<TActor extends Actor> extends WorldCollection<TActor> {
-    get documentName(): 'Actor';
+    get documentName(): "Actor";
 
     /**
      * A mapping of synthetic Token Actors which are currently active within the viewed Scene.
@@ -27,7 +27,7 @@ declare class Actors<TActor extends Actor> extends WorldCollection<TActor> {
     static registerSheet<A extends ActorSheet>(
         scope: string,
         sheetClass: ConstructorOf<A>,
-        options?: RegisterSheetOptions,
+        options?: RegisterSheetOptions
     ): void;
     /** Unregister an Actor sheet class, removing it from the list of avaliable sheet Applications to use
      * See EntitySheetConfig.unregisterSheet for details

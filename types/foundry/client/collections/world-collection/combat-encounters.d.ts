@@ -7,7 +7,7 @@
  */
 declare class CombatEncounters<TCombat extends Combat> extends WorldCollection<TCombat> {
     /** @override */
-    static documentName: 'Combat';
+    static documentName: "Combat";
 
     /** Provide the settings object which configures the Combat entity */
     static get settings(): object;

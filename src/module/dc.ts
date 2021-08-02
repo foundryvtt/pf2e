@@ -3,33 +3,33 @@
  * and variant rule Proficiency Without Level https://2e.aonprd.com/Rules.aspx?ID=1370
  */
 
-import { ProficiencyRank } from '@item/data';
-import { Rarity } from './data';
+import { ProficiencyRank } from "@item/data";
+import { Rarity } from "./data";
 
-export type NegativeDCAdjustment = 'incredibly easy' | 'very easy' | 'easy' | 'normal';
+export type NegativeDCAdjustment = "incredibly easy" | "very easy" | "easy" | "normal";
 
-export type PositiveDCAdjustment = 'normal' | 'hard' | 'very hard' | 'incredibly hard';
+export type PositiveDCAdjustment = "normal" | "hard" | "very hard" | "incredibly hard";
 
 export type DCAdjustment = NegativeDCAdjustment | PositiveDCAdjustment;
 
 const adjustmentScale: DCAdjustment[] = [
-    'incredibly easy',
-    'very easy',
-    'easy',
-    'normal',
-    'hard',
-    'very hard',
-    'incredibly hard',
+    "incredibly easy",
+    "very easy",
+    "easy",
+    "normal",
+    "hard",
+    "very hard",
+    "incredibly hard",
 ];
 
 const dcAdjustments = new Map<DCAdjustment, number>();
-dcAdjustments.set('incredibly easy', -10);
-dcAdjustments.set('very easy', -5);
-dcAdjustments.set('easy', -2);
-dcAdjustments.set('normal', 0);
-dcAdjustments.set('hard', 2);
-dcAdjustments.set('very hard', 5);
-dcAdjustments.set('incredibly hard', 10);
+dcAdjustments.set("incredibly easy", -10);
+dcAdjustments.set("very easy", -5);
+dcAdjustments.set("easy", -2);
+dcAdjustments.set("normal", 0);
+dcAdjustments.set("hard", 2);
+dcAdjustments.set("very hard", 5);
+dcAdjustments.set("incredibly hard", 10);
 
 const dcByLevel = new Map<number, number>();
 dcByLevel.set(-1, 13);
@@ -61,36 +61,36 @@ dcByLevel.set(24, 48);
 dcByLevel.set(25, 50);
 
 const simpleDCs = new Map<ProficiencyRank, number>();
-simpleDCs.set('untrained', 10);
-simpleDCs.set('trained', 15);
-simpleDCs.set('expert', 20);
-simpleDCs.set('master', 30);
-simpleDCs.set('legendary', 40);
+simpleDCs.set("untrained", 10);
+simpleDCs.set("trained", 15);
+simpleDCs.set("expert", 20);
+simpleDCs.set("master", 30);
+simpleDCs.set("legendary", 40);
 
 const simpleDCsWithoutLevel = new Map<ProficiencyRank, number>();
-simpleDCsWithoutLevel.set('untrained', 10);
-simpleDCsWithoutLevel.set('trained', 15);
-simpleDCsWithoutLevel.set('expert', 20);
-simpleDCsWithoutLevel.set('master', 25);
-simpleDCsWithoutLevel.set('legendary', 30);
+simpleDCsWithoutLevel.set("untrained", 10);
+simpleDCsWithoutLevel.set("trained", 15);
+simpleDCsWithoutLevel.set("expert", 20);
+simpleDCsWithoutLevel.set("master", 25);
+simpleDCsWithoutLevel.set("legendary", 30);
 
-export function rarityToDCAdjustment(rarity: Rarity = 'common'): PositiveDCAdjustment {
-    if (rarity === 'uncommon') {
-        return 'hard';
-    } else if (rarity === 'rare') {
-        return 'very hard';
-    } else if (rarity === 'unique') {
-        return 'incredibly hard';
+export function rarityToDCAdjustment(rarity: Rarity = "common"): PositiveDCAdjustment {
+    if (rarity === "uncommon") {
+        return "hard";
+    } else if (rarity === "rare") {
+        return "very hard";
+    } else if (rarity === "unique") {
+        return "incredibly hard";
     } else {
-        return 'normal';
+        return "normal";
     }
 }
 
-export function adjustDC(dc: number, adjustment: DCAdjustment = 'normal') {
+export function adjustDC(dc: number, adjustment: DCAdjustment = "normal") {
     return dc + (dcAdjustments.get(adjustment) ?? 0);
 }
 
-export function adjustDCByRarity(dc: number, rarity: Rarity = 'common') {
+export function adjustDCByRarity(dc: number, rarity: Rarity = "common") {
     return adjustDC(dc, rarityToDCAdjustment(rarity));
 }
 

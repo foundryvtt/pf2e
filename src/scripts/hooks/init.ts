@@ -1,9 +1,9 @@
-import { ActorPF2e } from '@actor/base';
-import { ItemPF2e } from '@item/base';
-import { MystifiedTraits } from '@item/data/values';
-import { ActiveEffectPF2e } from '@module/active-effect';
-import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
-import { FogExplorationPF2e } from '@module/fog-exploration';
+import { ActorPF2e } from "@actor/base";
+import { ItemPF2e } from "@item/base";
+import { MystifiedTraits } from "@item/data/values";
+import { ActiveEffectPF2e } from "@module/active-effect";
+import { CompendiumDirectoryPF2e } from "@module/apps/ui/compendium-directory";
+import { FogExplorationPF2e } from "@module/fog-exploration";
 import {
     AmbientLightPF2e,
     DarkvisionLayerPF2e,
@@ -12,28 +12,28 @@ import {
     SightLayerPF2e,
     TokenPF2e,
     TemplateLayerPF2e,
-} from '@module/canvas';
-import { ChatMessagePF2e } from '@module/chat-message';
-import { CombatPF2e } from '@module/combat';
-import { CombatantPF2e } from '@module/combatant';
-import { FolderPF2e } from '@module/folder';
-import { registerHandlebarsHelpers } from '@module/handlebars';
-import { MacroPF2e } from '@module/macro';
-import { AmbientLightDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from '@module/scene';
-import { SceneConfigPF2e } from '@module/scene/sheet';
-import { registerSettings } from '@module/settings';
-import { EncounterTrackerPF2e } from '@module/apps/ui/encounter-tracker';
-import { loadPF2ETemplates } from '@module/templates';
-import { TokenConfigPF2e } from '@module/scene/token-config';
-import { PlayerConfigPF2e } from '@module/user/player-config';
-import { PF2ECONFIG } from '../config';
-import { UserPF2e } from '@module/user';
-import { JournalSheetPF2e } from '@module/journal-entry/sheet';
-import { MeasuredTemplateDocumentPF2e } from '@module/scene/measured-template-document';
+} from "@module/canvas";
+import { ChatMessagePF2e } from "@module/chat-message";
+import { CombatPF2e } from "@module/combat";
+import { CombatantPF2e } from "@module/combatant";
+import { FolderPF2e } from "@module/folder";
+import { registerHandlebarsHelpers } from "@module/handlebars";
+import { MacroPF2e } from "@module/macro";
+import { AmbientLightDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from "@module/scene";
+import { SceneConfigPF2e } from "@module/scene/sheet";
+import { registerSettings } from "@module/settings";
+import { EncounterTrackerPF2e } from "@module/apps/ui/encounter-tracker";
+import { loadPF2ETemplates } from "@module/templates";
+import { TokenConfigPF2e } from "@module/scene/token-config";
+import { PlayerConfigPF2e } from "@module/user/player-config";
+import { PF2ECONFIG } from "../config";
+import { UserPF2e } from "@module/user";
+import { JournalSheetPF2e } from "@module/journal-entry/sheet";
+import { MeasuredTemplateDocumentPF2e } from "@module/scene/measured-template-document";
 
 export function listen(): void {
-    Hooks.once('init', () => {
-        console.log('PF2e System | Initializing Pathfinder 2nd Edition System');
+    Hooks.once("init", () => {
+        console.log("PF2e System | Initializing Pathfinder 2nd Edition System");
 
         CONFIG.PF2E = PF2ECONFIG;
         CONFIG.debug.ruleElement ??= false;
@@ -81,51 +81,51 @@ export function listen(): void {
         CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
         // configure the bundled TinyMCE editor with PF2-specific options
-        CONFIG.TinyMCE.extended_valid_elements = 'pf2-action[action|glyph]';
+        CONFIG.TinyMCE.extended_valid_elements = "pf2-action[action|glyph]";
         CONFIG.TinyMCE.content_css = CONFIG.TinyMCE.content_css.concat(
             `systems/${game.system.id}/styles/pf2e.css`,
-            `systems/${game.system.id}/styles/tinymce.css`,
+            `systems/${game.system.id}/styles/tinymce.css`
         );
         CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
-            title: 'PF2E',
+            title: "PF2E",
             items: [
                 {
-                    title: 'Icons A D T F R',
-                    inline: 'span',
-                    classes: ['pf2-icon'],
+                    title: "Icons A D T F R",
+                    inline: "span",
+                    classes: ["pf2-icon"],
                     wrapper: true,
                 },
                 {
-                    title: 'Inline Header',
-                    block: 'h4',
-                    classes: 'inline-header',
+                    title: "Inline Header",
+                    block: "h4",
+                    classes: "inline-header",
                 },
                 {
-                    title: 'Info Block',
-                    block: 'section',
-                    classes: 'info',
-                    wrapper: true,
-                    exact: true,
-                    merge_siblings: false,
-                },
-                {
-                    title: 'Stat Block',
-                    block: 'section',
-                    classes: 'statblock',
+                    title: "Info Block",
+                    block: "section",
+                    classes: "info",
                     wrapper: true,
                     exact: true,
                     merge_siblings: false,
                 },
                 {
-                    title: 'Trait',
-                    block: 'section',
-                    classes: 'traits',
+                    title: "Stat Block",
+                    block: "section",
+                    classes: "statblock",
+                    wrapper: true,
+                    exact: true,
+                    merge_siblings: false,
+                },
+                {
+                    title: "Trait",
+                    block: "section",
+                    classes: "traits",
                     wrapper: true,
                 },
                 {
-                    title: 'Written Note',
-                    block: 'p',
-                    classes: 'message',
+                    title: "Written Note",
+                    block: "p",
+                    classes: "message",
                 },
             ],
         });

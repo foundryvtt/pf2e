@@ -1,21 +1,21 @@
-import { ActorPF2e } from '@actor/base';
-import { NPCPF2e } from '@actor/npc';
-import { LabeledValue } from '@module/data';
-import { TagSelectorBase } from './base';
-import { SelectableTagField } from './index';
+import { ActorPF2e } from "@actor/base";
+import { NPCPF2e } from "@actor/npc";
+import { LabeledValue } from "@module/data";
+import { TagSelectorBase } from "./base";
+import { SelectableTagField } from "./index";
 
 export class TraitSelectorSpeeds extends TagSelectorBase<ActorPF2e> {
-    override objectProperty = 'data.attributes.speed.otherSpeeds';
+    override objectProperty = "data.attributes.speed.otherSpeeds";
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            template: 'systems/pf2e/templates/system/trait-selector/speed-types.html',
-            title: 'PF2E.SpeedTypes',
+            template: "systems/pf2e/templates/system/trait-selector/speed-types.html",
+            title: "PF2E.SpeedTypes",
         });
     }
 
     protected get configTypes(): readonly SelectableTagField[] {
-        return ['speedTypes'] as const;
+        return ["speedTypes"] as const;
     }
 
     override getData() {
@@ -32,7 +32,7 @@ export class TraitSelectorSpeeds extends TagSelectorBase<ActorPF2e> {
             choices[type] = {
                 label,
                 selected: res !== undefined,
-                value: res?.value ?? '',
+                value: res?.value ?? "",
             };
         });
         data.choices = choices;
@@ -44,15 +44,15 @@ export class TraitSelectorSpeeds extends TagSelectorBase<ActorPF2e> {
         super.activateListeners($html);
 
         $html
-            .find<HTMLInputElement>('input[id^=input_value]')
-            .on('focusin', (event) => {
+            .find<HTMLInputElement>("input[id^=input_value]")
+            .on("focusin", (event) => {
                 const input = $(event.currentTarget);
-                input.prev().prev().prop('checked', true);
+                input.prev().prev().prop("checked", true);
             })
-            .on('focusout', (event) => {
+            .on("focusout", (event) => {
                 const input = $(event.currentTarget);
                 if (!input.val()) {
-                    input.prev().prev().prop('checked', false);
+                    input.prev().prev().prop("checked", false);
                 }
             });
     }

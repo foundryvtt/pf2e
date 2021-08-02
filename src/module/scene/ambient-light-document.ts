@@ -1,5 +1,5 @@
-import { AmbientLightPF2e } from '@module/canvas';
-import { ScenePF2e } from '.';
+import { AmbientLightPF2e } from "@module/canvas";
+import { ScenePF2e } from ".";
 
 export class AmbientLightDocumentPF2e extends AmbientLightDocument {
     /** Is this light actually a source of darkness? */

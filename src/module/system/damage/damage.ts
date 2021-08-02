@@ -1,24 +1,24 @@
-import { combineObjects } from '../../utils';
+import { combineObjects } from "../../utils";
 
 /** The possible standard damage die sizes. */
-export type DamageDieSize = 'd4' | 'd6' | 'd8' | 'd10' | 'd12';
+export type DamageDieSize = "d4" | "d6" | "d8" | "d10" | "d12";
 
 /** Provides constants for typical damage categories, as well as a simple API for adding custom damage types and categories. */
 export const DamageCategory = Object.freeze({
     /**
      * Physical damage; one of bludgeoning, piercing, or slashing, and usually caused by a physical object hitting you.
      */
-    PHYSICAL: 'physical',
+    PHYSICAL: "physical",
     /**
      * Energy damage; one of acid, cold, electricity, fire, or sonic. Generally caused by either magic or strong natural
      * phenomena (like storms, harsh weather, etc).
      */
-    ENERGY: 'energy',
+    ENERGY: "energy",
     /**
      * Alignment damage; one of chaotic, evil, good, or lawful. Generally caused by special magic weapons and by some
      * extraplanar creatures.
      */
-    ALIGNMENT: 'alignment',
+    ALIGNMENT: "alignment",
 
     /**
      * Map a damage type to it's corresponding damage category. If the type has no category, the type itself will be
@@ -38,7 +38,7 @@ export const DamageCategory = Object.freeze({
     /** Get a set of all damage categories (both base and custom). */
     allCategories: () =>
         new Set(
-            Object.values(BASE_DAMAGE_TYPES_TO_CATEGORIES).concat(Object.values(CUSTOM_DAMAGE_TYPES_TO_CATEGORIES)),
+            Object.values(BASE_DAMAGE_TYPES_TO_CATEGORIES).concat(Object.values(CUSTOM_DAMAGE_TYPES_TO_CATEGORIES))
         ),
 
     /** Get a set of all of the base rule damage types. */

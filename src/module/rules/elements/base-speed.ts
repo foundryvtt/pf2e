@@ -1,5 +1,5 @@
-import { RuleElementPF2e } from '../rule-element';
-import { CharacterData, FamiliarData, NPCData } from '@actor/data';
+import { RuleElementPF2e } from "../rule-element";
+import { CharacterData, FamiliarData, NPCData } from "@actor/data";
 
 /**
  * @category RuleElement
@@ -8,7 +8,7 @@ export class PF2BaseSpeedRuleElement extends RuleElementPF2e {
     override onBeforePrepareData(actorData: CharacterData | NPCData | FamiliarData) {
         const value = this.resolveValue(this.data.value);
         if (this.data.selector && value) {
-            const selector: string = this.data.selector.endsWith('-speed')
+            const selector: string = this.data.selector.endsWith("-speed")
                 ? this.data.selector.substring(-6)
                 : this.data.selector;
             const existing = (actorData as any).data.attributes.speed.otherSpeeds.find((speed: { type: string }) => {
@@ -27,7 +27,7 @@ export class PF2BaseSpeedRuleElement extends RuleElementPF2e {
             }
         } else {
             console.warn(
-                'PF2E | Base speed requires at least a selector field, a label field or item name, and a non-zero value field',
+                "PF2E | Base speed requires at least a selector field, a label field or item name, and a non-zero value field"
             );
         }
     }

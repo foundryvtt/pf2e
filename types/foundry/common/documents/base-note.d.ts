@@ -17,12 +17,12 @@ declare module foundry {
         }
 
         interface NoteMetadata extends abstract.DocumentMetadata {
-            name: 'Note';
-            collection: 'notess';
-            label: 'DOCUMENT.Note';
+            name: "Note";
+            collection: "notess";
+            label: "DOCUMENT.Note";
             isEmbedded: true;
-            permissions: Omit<abstract.DocumentMetadata['permissions'], 'update'> & {
-                update: typeof foundry.documents.BaseNote['_canUpdate'];
+            permissions: Omit<abstract.DocumentMetadata["permissions"], "update"> & {
+                update: typeof foundry.documents.BaseNote["_canUpdate"];
             };
         }
     }

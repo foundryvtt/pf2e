@@ -1,14 +1,14 @@
-import { ActorPF2e } from '@actor/base';
-import { PhysicalItemPF2e } from '@item/physical';
-import { ItemPF2e } from '@item/base';
-import { addCoins, attemptToRemoveCoinsByValue, extractPriceFromItem } from '@item/treasure/helpers';
-import { ErrorPF2e } from '@module/utils';
-import { UserPF2e } from '@module/user';
-import { LootData, LootSource } from './data';
-import { ActiveEffectPF2e } from '@module/active-effect';
-import { ItemSourcePF2e } from '@item/data';
-import { TokenDocumentPF2e } from '@module/scene/token-document';
-import { ScenePF2e } from '@module/scene';
+import { ActorPF2e } from "@actor/base";
+import { PhysicalItemPF2e } from "@item/physical";
+import { ItemPF2e } from "@item/base";
+import { addCoins, attemptToRemoveCoinsByValue, extractPriceFromItem } from "@item/treasure/helpers";
+import { ErrorPF2e } from "@module/utils";
+import { UserPF2e } from "@module/user";
+import { LootData, LootSource } from "./data";
+import { ActiveEffectPF2e } from "@module/active-effect";
+import { ItemSourcePF2e } from "@item/data";
+import { TokenDocumentPF2e } from "@module/scene/token-document";
+import { ScenePF2e } from "@module/scene";
 
 export class LootPF2e extends ActorPF2e {
     static override get schema(): typeof LootData {
@@ -16,11 +16,11 @@ export class LootPF2e extends ActorPF2e {
     }
 
     get isLoot(): boolean {
-        return this.data.data.lootSheetType === 'Loot';
+        return this.data.data.lootSheetType === "Loot";
     }
 
     get isMerchant(): boolean {
-        return this.data.data.lootSheetType === 'Merchant';
+        return this.data.data.lootSheetType === "Merchant";
     }
 
     /** Should this actor's token(s) be hidden when there are no items in its inventory? */
@@ -30,7 +30,7 @@ export class LootPF2e extends ActorPF2e {
 
     /** Anyone with Limited permission can update a loot actor */
     override canUserModify(user: UserPF2e, action: UserAction): boolean {
-        if (action === 'update') {
+        if (action === "update") {
             return this.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
         }
         return super.canUserModify(user, action);
@@ -45,7 +45,7 @@ export class LootPF2e extends ActorPF2e {
         targetActor: ActorPF2e,
         item: Embedded<ItemPF2e>,
         quantity: number,
-        containerId?: string,
+        containerId?: string
     ): Promise<Embedded<PhysicalItemPF2e> | null> {
         // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
         if (!(this.isOwner && targetActor.isOwner)) {
@@ -57,7 +57,7 @@ export class LootPF2e extends ActorPF2e {
                 await addCoins(item.actor, { coins: itemValue, combineStacks: true });
                 return super.transferItemToActor(targetActor, item, quantity, containerId);
             } else if (this.isLoot) {
-                throw ErrorPF2e('Loot transfer failed');
+                throw ErrorPF2e("Loot transfer failed");
             } else {
                 return null;
             }
@@ -76,9 +76,9 @@ export class LootPF2e extends ActorPF2e {
         ]);
         const promises = scenesAndTokens.map(([scene, tokenDocs]) =>
             scene.updateEmbeddedDocuments(
-                'Token',
-                tokenDocs.map((tokenDoc) => ({ _id: tokenDoc.id, hidden: hiddenStatus })),
-            ),
+                "Token",
+                tokenDocs.map((tokenDoc) => ({ _id: tokenDoc.id, hidden: hiddenStatus }))
+            )
         );
         await Promise.allSettled(promises);
     }
@@ -93,9 +93,9 @@ export class LootPF2e extends ActorPF2e {
     }
 
     protected override _onUpdate(
-        changed: DeepPartial<this['data']['_source']>,
+        changed: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ): void {
         if (changed.data?.hiddenWhenEmpty !== undefined) {
             this.toggleTokenHiding();
@@ -104,22 +104,22 @@ export class LootPF2e extends ActorPF2e {
     }
 
     protected override _onCreateEmbeddedDocuments(
-        embeddedName: 'ActiveEffect' | 'Item',
+        embeddedName: "ActiveEffect" | "Item",
         documents: ActiveEffectPF2e[] | ItemPF2e[],
         result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ): void {
         this.toggleTokenHiding();
         super._onCreateEmbeddedDocuments(embeddedName, documents, result, options, userId);
     }
 
     protected override _onDeleteEmbeddedDocuments(
-        embeddedName: 'ActiveEffect' | 'Item',
+        embeddedName: "ActiveEffect" | "Item",
         documents: ActiveEffectPF2e[] | ItemPF2e[],
         result: foundry.data.ActiveEffectSource[] | ItemSourcePF2e[],
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ): void {
         this.toggleTokenHiding();
         super._onDeleteEmbeddedDocuments(embeddedName, documents, result, options, userId);
@@ -130,5 +130,5 @@ export interface LootPF2e extends ActorPF2e {
     readonly data: LootData;
 
     getFlag(scope: string, key: string): any;
-    getFlag(scope: 'core', key: 'sourceId'): string | undefined;
+    getFlag(scope: "core", key: "sourceId"): string | undefined;
 }

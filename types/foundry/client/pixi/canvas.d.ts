@@ -6,7 +6,7 @@ declare global {
         TAmbientLight extends AmbientLight = AmbientLight,
         TMeasuredTemplate extends MeasuredTemplate = MeasuredTemplate,
         TToken extends Token = Token,
-        TSightLayer extends SightLayer = SightLayer,
+        TSightLayer extends SightLayer = SightLayer
     > {
         constructor();
 
@@ -47,7 +47,7 @@ declare global {
         blurDistance: number;
 
         /** An array of blur filter instances which are modified by the zoom level and the "soft shadows" setting */
-        blurFilters: InstanceType<typeof PIXI.filters['BlurFilter']>[];
+        blurFilters: InstanceType<typeof PIXI.filters["BlurFilter"]>[];
 
         /** The singleton interaction manager instance which handles mouse workflows on the Canvas */
         mouseInteractionManager: MouseInteractionManager;
@@ -74,12 +74,12 @@ declare global {
         effects: EffectsLayer;
         foreground: ForegroundLayer;
         grid: GridLayer;
-        lighting: TAmbientLight['layer'];
+        lighting: TAmbientLight["layer"];
         notes: NotesLayer;
         sight: TSightLayer;
         sounds: SoundsLayer;
-        templates: TMeasuredTemplate['layer'];
-        tokens: TToken['layer'];
+        templates: TMeasuredTemplate["layer"];
+        tokens: TToken["layer"];
         walls: WallsLayer;
 
         _initialize(): void;

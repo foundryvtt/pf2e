@@ -1,6 +1,6 @@
-import type { ActorPF2e } from '@actor/base';
-import { TokenPF2e } from './canvas/token';
-import { CombatPF2e } from './combat';
+import type { ActorPF2e } from "@actor/base";
+import { TokenPF2e } from "./canvas/token";
+import { CombatPF2e } from "./combat";
 
 export class CombatantPF2e extends Combatant {
     /** In order for the Combat Tracker's "Skip Defeated" feature to function, a Combatant instance needs a `defeated`
@@ -22,29 +22,29 @@ export class CombatantPF2e extends Combatant {
 
     override _getInitiativeFormula(): string {
         const { actor } = this;
-        if (!actor) return '1d20';
+        if (!actor) return "1d20";
         const actorData = actor.data;
         let bonus = 0;
 
-        if (actorData.type === 'hazard') {
+        if (actorData.type === "hazard") {
             bonus = actorData.data.attributes.stealth.value;
         } else if (
-            'initiative' in actorData.data.attributes &&
-            'totalModifier' in actorData.data.attributes.initiative
+            "initiative" in actorData.data.attributes &&
+            "totalModifier" in actorData.data.attributes.initiative
         ) {
             bonus = actorData.data.attributes.initiative.totalModifier;
-        } else if ('perception' in actorData.data.attributes) {
+        } else if ("perception" in actorData.data.attributes) {
             bonus = actorData.data.attributes.perception.value;
         }
 
-        const parts = ['1d20', bonus || 0];
+        const parts = ["1d20", bonus || 0];
 
         // NPC's are always first in PF2e rules
         if (!actor.hasPlayerOwner) {
             parts.push(0.5);
         }
 
-        return parts.join('+');
+        return parts.join("+");
     }
 }
 

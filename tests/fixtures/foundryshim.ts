@@ -13,9 +13,9 @@ function setProperty(obj: Record<string, any>, key: string, value: any): boolean
     let changed = false;
 
     // Convert the key to an object reference if it contains dot notation
-    if (key.indexOf('.') !== -1) {
-        const parts = key.split('.');
-        key = parts.pop() ?? '';
+    if (key.indexOf(".") !== -1) {
+        const parts = key.split(".");
+        key = parts.pop() ?? "";
         target = parts.reduce((o, i) => {
             if (!Object.prototype.hasOwnProperty.call(o, i)) o[i] = {};
             return o[i];
@@ -39,12 +39,12 @@ function setProperty(obj: Record<string, any>, key: string, value: any): boolean
  */
 function getType(token: Token | null) {
     const tof = typeof token;
-    if (tof === 'object') {
-        if (token === null) return 'null';
+    if (tof === "object") {
+        if (token === null) return "null";
         const cn = token.constructor.name;
-        if (['String', 'Number', 'Boolean', 'Array', 'Set'].includes(cn)) return cn;
-        else if (/^HTML/.test(cn)) return 'HTMLElement';
-        else return 'Object';
+        if (["String", "Number", "Boolean", "Array", "Set"].includes(cn)) return cn;
+        else if (/^HTML/.test(cn)) return "HTMLElement";
+        else return "Object";
     }
     return tof;
 }
@@ -59,7 +59,7 @@ function getType(token: Token | null) {
  */
 function expandObject(obj: any, _d = 0) {
     const expanded = {};
-    if (_d > 10) throw new Error('Maximum depth exceeded');
+    if (_d > 10) throw new Error("Maximum depth exceeded");
     for (const [k, v0] of Object.entries(obj)) {
         let v = v0;
         if (v instanceof Object && !Array.isArray(v)) v = expandObject(v, _d + 1);
@@ -74,7 +74,7 @@ function expandObject(obj: any, _d = 0) {
  * @return Is the object empty?
  */
 function isObjectEmpty(obj: unknown): boolean {
-    if (!(obj instanceof Object)) throw new Error('The provided data is not an object!');
+    if (!(obj instanceof Object)) throw new Error("The provided data is not an object!");
     return Object.keys(obj).length === 0;
 }
 
@@ -136,11 +136,11 @@ function mergeObject(
         inplace = true,
         enforceTypes = false,
     } = {},
-    _d = 0,
+    _d = 0
 ) {
     other = other || {};
     if (!(original instanceof Object) || !(other instanceof Object)) {
-        throw Error('One of original or other are not Objects!');
+        throw Error("One of original or other are not Objects!");
     }
     const depth = _d + 1;
 
@@ -158,7 +158,7 @@ function mergeObject(
 
         // Prepare to delete
         let toDelete = false;
-        if (k.startsWith('-=')) {
+        if (k.startsWith("-=")) {
             k = k.slice(2);
             toDelete = v === null;
         }
@@ -169,17 +169,17 @@ function mergeObject(
         let tx = getType(x);
 
         // Ensure that inner objects exist
-        if (!has && tv === 'Object') {
+        if (!has && tv === "Object") {
             x = {};
             original[k] = {};
             has = true;
-            tx = 'Object';
+            tx = "Object";
         }
 
         // Case 1 - Key exists
         if (has) {
             // 1.1 - Recursively merge an inner object
-            if (tv === 'Object' && tx === 'Object' && recursive) {
+            if (tv === "Object" && tx === "Object" && recursive) {
                 mergeObject(
                     x,
                     v as Token,
@@ -190,7 +190,7 @@ function mergeObject(
                         inplace: true,
                         enforceTypes,
                     },
-                    depth,
+                    depth
                 );
             }
 
@@ -241,8 +241,8 @@ function diffObject(original: any, other: any, { inner = false } = {}): any {
         const t0 = getType(v0);
         const t1 = getType(v1);
         if (t0 !== t1) return [true, v1];
-        if (t0 === 'Array') return [!arrayEquals(v0, v1), v1];
-        if (t0 === 'Object') {
+        if (t0 === "Array") return [!arrayEquals(v0, v1), v1];
+        if (t0 === "Object") {
             if (isObjectEmpty(v0) !== isObjectEmpty(v1)) return [true, v1];
             const d = diffObject(v0, v1, { inner });
             return [!isObjectEmpty(d), d];

@@ -14,7 +14,7 @@ declare abstract class MapLayer extends PlaceablesLayer<Tile> {
     /** The layer background image */
     bg: PIXI.Sprite;
 
-    static documentName: 'Tile';
+    static documentName: "Tile";
 
     /* -------------------------------------------- */
     /*  Layer Attributes                            */
@@ -80,7 +80,7 @@ declare abstract class MapLayer extends PlaceablesLayer<Tile> {
      */
     protected _getDropData(
         event: PIXI.InteractionEvent,
-        data: foundry.data.TileSource,
+        data: foundry.data.TileSource
     ): Promise<foundry.data.TileSource>;
 }
 

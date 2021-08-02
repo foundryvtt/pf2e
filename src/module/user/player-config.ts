@@ -1,4 +1,4 @@
-const USER_SETTINGS_KEYS = ['uiTheme', 'showEffectPanel', 'showRollDialogs', 'darkvisionFilter'] as const;
+const USER_SETTINGS_KEYS = ["uiTheme", "showEffectPanel", "showRollDialogs", "darkvisionFilter"] as const;
 
 /** Player-specific settings, stored as flags on each world User */
 export class PlayerConfigPF2e extends FormApplication {
@@ -6,17 +6,17 @@ export class PlayerConfigPF2e extends FormApplication {
 
     constructor() {
         super();
-        this.settings = mergeObject(PlayerConfigPF2e.defaultSettings, game.user.getFlag('pf2e', 'settings'));
+        this.settings = mergeObject(PlayerConfigPF2e.defaultSettings, game.user.getFlag("pf2e", "settings"));
     }
 
     static async init(): Promise<void> {
-        if (game.user.getFlag('pf2e', 'settings') === undefined) {
-            await game.user.setFlag('pf2e', 'settings', PlayerConfigPF2e.defaultSettings);
+        if (game.user.getFlag("pf2e", "settings") === undefined) {
+            await game.user.setFlag("pf2e", "settings", PlayerConfigPF2e.defaultSettings);
         }
     }
 
     static readonly defaultSettings: UserSettingsPF2e = {
-        uiTheme: 'blue',
+        uiTheme: "blue",
         showEffectPanel: true,
         showRollDialogs: true,
         darkvisionFilter: false,
@@ -24,26 +24,26 @@ export class PlayerConfigPF2e extends FormApplication {
 
     static override get defaultOptions(): FormApplicationOptions {
         return mergeObject(super.defaultOptions, {
-            id: 'pf2e-player-config-panel',
-            title: 'PF2e Player Settings',
-            template: 'systems/pf2e/templates/user/player-config.html',
-            classes: ['sheet'],
+            id: "pf2e-player-config-panel",
+            title: "PF2e Player Settings",
+            template: "systems/pf2e/templates/user/player-config.html",
+            classes: ["sheet"],
             width: 500,
-            height: 'auto',
+            height: "auto",
             resizable: false,
         });
     }
 
     override getData(): PlayerConfigData {
-        return { ...super.getData(), ...this.settings, developMode: BUILD_MODE === 'development' };
+        return { ...super.getData(), ...this.settings, developMode: BUILD_MODE === "development" };
     }
 
     static activateColorScheme(): void {
-        console.debug('PF2e System | Activating Player Configured color scheme');
-        const color = game.user.getFlag('pf2e', 'settings.uiTheme') ?? PlayerConfigPF2e.defaultSettings.uiTheme;
+        console.debug("PF2e System | Activating Player Configured color scheme");
+        const color = game.user.getFlag("pf2e", "settings.uiTheme") ?? PlayerConfigPF2e.defaultSettings.uiTheme;
 
         const cssLink = `<link id="pf2e-color-scheme" href="systems/pf2e/styles/user/color-scheme-${color}.css" rel="stylesheet" type="text/css">`;
-        $('head').append(cssLink);
+        $("head").append(cssLink);
     }
 
     /**
@@ -51,17 +51,17 @@ export class PlayerConfigPF2e extends FormApplication {
      * @param html the html element where the button will be created
      */
     static hookOnRenderSettings(): void {
-        Hooks.on('renderSettings', (_app: SettingsConfig, html: JQuery) => {
+        Hooks.on("renderSettings", (_app: SettingsConfig, html: JQuery) => {
             const configButton = $(
                 `<button id="pf2e-player-config" data-action="pf2e-player-config">
                     <i class="fas fa-cogs"></i> ${PlayerConfigPF2e.defaultOptions.title}
-                 </button>`,
+                 </button>`
             );
 
-            const setupButton = html.find('#settings-game');
+            const setupButton = html.find("#settings-game");
             setupButton.prepend(configButton);
 
-            configButton.on('click', () => {
+            configButton.on("click", () => {
                 new PlayerConfigPF2e().render(true);
             });
         });
@@ -73,8 +73,8 @@ export class PlayerConfigPF2e extends FormApplication {
             return currentSettings;
         }, this.settings);
 
-        await game.user.setFlag('pf2e', `settings`, settings);
-        $('link#pf2e-color-scheme').attr({ href: `systems/pf2e/styles/user/color-scheme-${formData['uiTheme']}.css` });
+        await game.user.setFlag("pf2e", `settings`, settings);
+        $("link#pf2e-color-scheme").attr({ href: `systems/pf2e/styles/user/color-scheme-${formData["uiTheme"]}.css` });
     }
 }
 
@@ -84,7 +84,7 @@ interface PlayerConfigData extends FormApplicationData, UserSettingsPF2e {
 
 type UserSettingsKey = typeof USER_SETTINGS_KEYS[number];
 export interface UserSettingsPF2e {
-    uiTheme: 'blue' | 'red' | 'original' | 'ui';
+    uiTheme: "blue" | "red" | "original" | "ui";
     showEffectPanel: boolean;
     showRollDialogs: boolean;
     darkvisionFilter: boolean;

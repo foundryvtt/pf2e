@@ -1,7 +1,7 @@
-import { AmbientLightPF2e } from './ambient-light';
+import { AmbientLightPF2e } from "./ambient-light";
 
 export class LightingLayerPF2e<
-    TAmbientLight extends AmbientLightPF2e = AmbientLightPF2e,
+    TAmbientLight extends AmbientLightPF2e = AmbientLightPF2e
 > extends LightingLayer<TAmbientLight> {
     setPerceivedLightLevel({ defer = true } = {}): void {
         if (!canvas.sight.rulesBasedVision) return;

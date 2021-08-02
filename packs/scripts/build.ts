@@ -1,8 +1,8 @@
-import * as path from 'path';
-import * as fs from 'fs';
-import { CompendiumPack, PackError } from './packman/compendium-pack';
+import * as path from "path";
+import * as fs from "fs";
+import { CompendiumPack, PackError } from "./packman/compendium-pack";
 
-const packsDataPath = path.resolve(__dirname, '../data');
+const packsDataPath = path.resolve(__dirname, "../data");
 const packDirPaths = fs.readdirSync(packsDataPath).map((dirName) => path.resolve(__dirname, packsDataPath, dirName));
 
 // Loads all packs into memory for the sake of making all entity name/id mappings available
@@ -13,5 +13,5 @@ const total = entityCounts.reduce((runningTotal, entityCount) => runningTotal + 
 if (entityCounts.length > 0) {
     console.log(`Created ${entityCounts.length} packs with ${total} entities.`);
 } else {
-    throw PackError('No data available to build packs.');
+    throw PackError("No data available to build packs.");
 }

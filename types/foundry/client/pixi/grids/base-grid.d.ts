@@ -55,7 +55,7 @@ declare class BaseGrid extends PIXI.Container {
      */
     highlightGridPosition(
         layer: object,
-        data: { x?: number; y?: number; color?: number; border?: number; alpha?: number },
+        data: { x?: number; y?: number; color?: number; border?: number; alpha?: number }
     ): this;
 
     /* -------------------------------------------- */

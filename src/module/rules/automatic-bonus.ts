@@ -1,5 +1,5 @@
-import { ModifierPF2e, MODIFIER_TYPE, DamageDicePF2e } from '@module/modifiers'; //, DiceModifierPF2e, DamageDicePF2e
-import { RuleElementSynthetics, StrikingPF2e, WeaponPotencyPF2e } from './rules-data-definitions';
+import { ModifierPF2e, MODIFIER_TYPE, DamageDicePF2e } from "@module/modifiers"; //, DiceModifierPF2e, DamageDicePF2e
+import { RuleElementSynthetics, StrikingPF2e, WeaponPotencyPF2e } from "./rules-data-definitions";
 
 export class AutomaticBonusProgression {
     /**
@@ -7,7 +7,7 @@ export class AutomaticBonusProgression {
      * @param synthetics All relevant modifiers for this statistic.
      */
     static concatModifiers(level: number, synthetics: RuleElementSynthetics) {
-        if (game.settings.get('pf2e', 'automaticBonusVariant') === 'noABP') return;
+        if (game.settings.get("pf2e", "automaticBonusVariant") === "noABP") return;
 
         const values = this.abpValues(level);
         const ac = values.ac;
@@ -15,83 +15,83 @@ export class AutomaticBonusProgression {
         const save = values.save;
 
         if (save > 0) {
-            synthetics.statisticsModifiers['saving-throw'] = (
-                synthetics.statisticsModifiers['saving-throw'] || []
+            synthetics.statisticsModifiers["saving-throw"] = (
+                synthetics.statisticsModifiers["saving-throw"] || []
             ).concat(
                 new ModifierPF2e(
-                    game.i18n.localize('PF2E.AutomaticBonusProgression.savePotency'),
+                    game.i18n.localize("PF2E.AutomaticBonusProgression.savePotency"),
                     save,
-                    MODIFIER_TYPE.POTENCY,
-                ),
+                    MODIFIER_TYPE.POTENCY
+                )
             );
         }
 
         if (ac > 0) {
-            synthetics.statisticsModifiers['ac'] = (synthetics.statisticsModifiers['ac'] || []).concat(
+            synthetics.statisticsModifiers["ac"] = (synthetics.statisticsModifiers["ac"] || []).concat(
                 new ModifierPF2e(
-                    game.i18n.localize('PF2E.AutomaticBonusProgression.defensePotency'),
+                    game.i18n.localize("PF2E.AutomaticBonusProgression.defensePotency"),
                     ac,
-                    MODIFIER_TYPE.POTENCY,
-                ),
+                    MODIFIER_TYPE.POTENCY
+                )
             );
         }
 
         if (perception > 0) {
-            synthetics.statisticsModifiers['perception'] = (synthetics.statisticsModifiers['perception'] || []).concat(
+            synthetics.statisticsModifiers["perception"] = (synthetics.statisticsModifiers["perception"] || []).concat(
                 new ModifierPF2e(
-                    game.i18n.localize('PF2E.AutomaticBonusProgression.perceptionPotency'),
+                    game.i18n.localize("PF2E.AutomaticBonusProgression.perceptionPotency"),
                     perception,
-                    MODIFIER_TYPE.POTENCY,
-                ),
+                    MODIFIER_TYPE.POTENCY
+                )
             );
         }
 
-        if (game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPRulesAsWritten') {
+        if (game.settings.get("pf2e", "automaticBonusVariant") === "ABPRulesAsWritten") {
             const values = this.abpValues(level);
             const attack = values.attack;
             const damage = values.damage;
             if (attack > 0) {
-                synthetics.statisticsModifiers['mundane-attack'] = (
-                    synthetics.statisticsModifiers['mundane-attack'] || []
+                synthetics.statisticsModifiers["mundane-attack"] = (
+                    synthetics.statisticsModifiers["mundane-attack"] || []
                 ).concat(
                     new ModifierPF2e(
-                        game.i18n.localize('PF2E.AutomaticBonusProgression.attackPotency'),
+                        game.i18n.localize("PF2E.AutomaticBonusProgression.attackPotency"),
                         attack,
-                        MODIFIER_TYPE.POTENCY,
-                    ),
+                        MODIFIER_TYPE.POTENCY
+                    )
                 );
             }
 
             if (damage > 0) {
-                synthetics.damageDice['damage'] = (synthetics.damageDice['damage'] || []).concat(
+                synthetics.damageDice["damage"] = (synthetics.damageDice["damage"] || []).concat(
                     new DamageDicePF2e({
-                        name: game.i18n.localize('PF2E.AutomaticBonusProgression.devastatingAttacks'),
-                        selector: 'damage',
+                        name: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
+                        selector: "damage",
                         diceNumber: damage,
-                    }),
+                    })
                 );
             }
         }
 
-        if (game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPFundamentalPotency') {
+        if (game.settings.get("pf2e", "automaticBonusVariant") === "ABPFundamentalPotency") {
             const values = this.abpValues(level);
             const attack = values.attack;
             const damage = values.damage;
 
             if (damage > 0) {
                 const s: StrikingPF2e = {
-                    label: game.i18n.localize('PF2E.AutomaticBonusProgression.devastatingAttacks'),
+                    label: game.i18n.localize("PF2E.AutomaticBonusProgression.devastatingAttacks"),
                     bonus: damage,
                 };
-                synthetics.striking['mundane-damage'] = (synthetics.striking['mundane-damage'] || []).concat(s);
+                synthetics.striking["mundane-damage"] = (synthetics.striking["mundane-damage"] || []).concat(s);
             }
             if (attack > 0) {
                 const potency: WeaponPotencyPF2e = {
-                    label: game.i18n.localize('PF2E.AutomaticBonusProgression.attackPotency'),
+                    label: game.i18n.localize("PF2E.AutomaticBonusProgression.attackPotency"),
                     bonus: attack,
                 };
-                synthetics.weaponPotency['mundane-attack'] = (synthetics.weaponPotency['mundane-attack'] || []).concat(
-                    potency,
+                synthetics.weaponPotency["mundane-attack"] = (synthetics.weaponPotency["mundane-attack"] || []).concat(
+                    potency
                 );
             }
         }

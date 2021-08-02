@@ -1,5 +1,5 @@
-import { PhysicalItemPF2e } from '@item/physical';
-import { TreasureData } from './data';
+import { PhysicalItemPF2e } from "@item/physical";
+import { TreasureData } from "./data";
 
 export class TreasurePF2e extends PhysicalItemPF2e {
     static override get schema(): typeof TreasureData {
@@ -10,7 +10,7 @@ export class TreasurePF2e extends PhysicalItemPF2e {
     override prepareBaseData(): void {
         super.prepareBaseData();
         const systemData = this.data.data;
-        if (systemData.stackGroup.value !== 'coins') {
+        if (systemData.stackGroup.value !== "coins") {
             const value = systemData.value.value;
             const denomination = systemData.denomination.value.trim();
             systemData.price.value = `${value} ${denomination}`;

@@ -8,6 +8,6 @@ export function patchTokenClasses(): void {
      */
     TokenHUD.prototype.clear = function clear(this: TokenHUD) {
         BasePlaceableHUD.prototype.clear.call(this);
-        Hooks.call('onTokenHUDClear', this, this.object);
+        Hooks.call("onTokenHUDClear", this, this.object);
     };
 }

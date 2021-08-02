@@ -1,5 +1,5 @@
-import { WorldClock } from '.';
-import { DateTime, Duration, Interval } from 'luxon';
+import { WorldClock } from ".";
+import { DateTime, Duration, Interval } from "luxon";
 
 interface DarknessTransition {
     /** Target darkness level; between 0 and 1 */
@@ -10,11 +10,11 @@ interface DarknessTransition {
     interval?: Interval;
 }
 
-const dayInSeconds = Duration.fromObject({ hours: 24 }).as('seconds');
+const dayInSeconds = Duration.fromObject({ hours: 24 }).as("seconds");
 
 /** Plot darkness level along a cosine of a duration */
 function darknessLevelAtTime(time: DateTime) {
-    const secondsElapsed = time.diff(time.startOf('day')).as('seconds');
+    const secondsElapsed = time.diff(time.startOf("day")).as("seconds");
     const radians = 2 * Math.PI * (secondsElapsed / dayInSeconds);
     const lightnessLevel = -1 * Math.cos(radians);
     const rad18degrees = Math.toRadians(18);
@@ -36,7 +36,7 @@ function intervalToTransition(interval: Interval, compactInterval: Interval): Da
     const darknessDiff = Math.abs((currentDarkness ?? targetDarkness) - targetDarkness);
 
     // Cap the darkness transition duration
-    const elapsedSeconds = compactInterval.length('seconds');
+    const elapsedSeconds = compactInterval.length("seconds");
     const proportionOfDay = elapsedSeconds / dayInSeconds;
     const darkTimeMean = (darknessDiff * 0.5 + proportionOfDay) / 2;
 
@@ -74,7 +74,7 @@ export async function animateDarkness(this: WorldClock, timeDiff: number): Promi
     }
 
     const compactInterval = (() => {
-        if (fullInterval.length('hours') > 24) {
+        if (fullInterval.length("hours") > 24) {
             // Compact the full time interval to >= 24 hours for the purpose of darkness transitions
             const adjustedOldTime = newTime.minus({ hours: 24 });
             return Interval.fromDateTimes(adjustedOldTime, newTime);

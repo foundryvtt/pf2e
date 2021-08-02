@@ -1,9 +1,9 @@
 /** The size property of creatures and equipment */
-export const SIZES = ['tiny', 'sm', 'med', 'lg', 'huge', 'grg'] as const;
+export const SIZES = ["tiny", "sm", "med", "lg", "huge", "grg"] as const;
 export type Size = typeof SIZES[number];
 
 /** The rarity trait of creatures, equipment, spells, etc. */
-export const RARITIES = ['common', 'uncommon', 'rare', 'unique'] as const;
+export const RARITIES = ["common", "uncommon", "rare", "unique"] as const;
 export type Rarity = typeof RARITIES[number];
 
 export interface ValuesList<T extends string = string> {

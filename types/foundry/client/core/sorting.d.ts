@@ -24,6 +24,6 @@ declare class SortingHelpers {
             siblings,
             sortKey,
             sortBefore,
-        }: { target: any; siblings: any[]; sortKey: string; sortBefore: boolean },
+        }: { target: any; siblings: any[]; sortKey: string; sortBefore: boolean }
     ): any[];
 }

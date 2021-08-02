@@ -13,13 +13,13 @@ declare module foundry {
             protected override _preCreate(
                 data: PreDocumentId<data.ActiveEffectSource>,
                 options: DocumentModificationContext,
-                user: BaseUser,
+                user: BaseUser
             ): Promise<void>;
 
             override testUserPermission(
                 user: BaseUser,
                 permission: DocumentPermission | UserAction,
-                { exact }?: { exact?: boolean },
+                { exact }?: { exact?: boolean }
             ): boolean;
         }
 
@@ -30,9 +30,9 @@ declare module foundry {
         }
 
         interface ActiveEffectMetadata extends abstract.DocumentMetadata {
-            name: 'ActiveEffect';
-            collection: 'effects';
-            label: 'DOCUMENT.ActiveEffect';
+            name: "ActiveEffect";
+            collection: "effects";
+            label: "DOCUMENT.ActiveEffect";
             isEmbedded: true;
         }
     }

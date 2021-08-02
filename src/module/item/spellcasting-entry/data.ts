@@ -1,22 +1,22 @@
-import { AbilityString } from '@actor/data/base';
-import { ItemSystemData } from '@item/data/base';
-import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from '@item/data/non-physical';
-import { OneToTen, ZeroToEleven } from '@module/data';
-import { RollNotePF2e } from '@module/notes';
-import { SpellcastingEntryPF2e } from '.';
+import { AbilityString } from "@actor/data/base";
+import { ItemSystemData } from "@item/data/base";
+import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { OneToTen, ZeroToEleven } from "@module/data";
+import { RollNotePF2e } from "@module/notes";
+import { SpellcastingEntryPF2e } from ".";
 
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
 export type SlotKey = `slot${ZeroToEleven}`;
 
-export type SpellcastingEntrySource = BaseNonPhysicalItemSource<'spellcastingEntry', SpellcastingEntrySystemData>;
+export type SpellcastingEntrySource = BaseNonPhysicalItemSource<"spellcastingEntry", SpellcastingEntrySystemData>;
 
 export class SpellcastingEntryData extends BaseNonPhysicalItemData<SpellcastingEntryPF2e> {
-    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/spellcastingEntry.svg';
+    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/spellcastingEntry.svg";
 }
 
-export interface SpellcastingEntryData extends Omit<SpellcastingEntrySource, '_id' | 'effects'> {
-    type: SpellcastingEntrySource['type'];
-    data: SpellcastingEntrySource['data'];
+export interface SpellcastingEntryData extends Omit<SpellcastingEntrySource, "_id" | "effects"> {
+    type: SpellcastingEntrySource["type"];
+    data: SpellcastingEntrySource["data"];
     readonly _source: SpellcastingEntrySource;
 }
 
@@ -46,12 +46,12 @@ interface SpellSlotData {
     max: number;
 }
 
-export type MagicTradition = keyof ConfigPF2e['PF2E']['magicTraditions'];
-export type PreparationType = keyof ConfigPF2e['PF2E']['preparationType'];
+export type MagicTradition = keyof ConfigPF2e["PF2E"]["magicTraditions"];
+export type PreparationType = keyof ConfigPF2e["PF2E"]["preparationType"];
 
 export interface SpellcastingEntrySystemData extends ItemSystemData {
     ability: {
-        value: AbilityString | '';
+        value: AbilityString | "";
     };
     spelldc: {
         value: number;
@@ -61,7 +61,7 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
     attack?: SpellAttackRollModifier;
     dc?: SpellDifficultyClass;
     tradition: {
-        value: MagicTradition | '';
+        value: MagicTradition | "";
     };
     prepared: {
         value: PreparationType;
