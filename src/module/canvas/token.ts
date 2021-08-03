@@ -88,6 +88,13 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         }
     }
 
+    protected override _isVisionSource(): boolean {
+        return (
+            (!!this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.partyVision")) ||
+            super._isVisionSource()
+        );
+    }
+
     /** Prevent premature redraw of resource bar */
     protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
         if (bar.geometry) super._drawBar(number, bar, data);
