@@ -108,6 +108,7 @@ declare global {
         get(module: "pf2e", setting: "freeArchetypeVariant"): boolean;
         get(module: "pf2e", setting: "staminaVariant"): 0 | 1;
 
+        get(module: "pf2e", setting: "metagame.partyVision"): boolean;
         get(module: "pf2e", setting: "metagame.showResults"): "none" | "gm " | "owner" | "all";
         get(module: "pf2e", setting: "metagame.showDC"): "none" | "gm " | "owner" | "all";
 
