@@ -19,7 +19,13 @@ import { CombatantPF2e } from "@module/combatant";
 import { FolderPF2e } from "@module/folder";
 import { registerHandlebarsHelpers } from "@module/handlebars";
 import { MacroPF2e } from "@module/macro";
-import { AmbientLightDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from "@module/scene";
+import {
+    AmbientLightDocumentPF2e,
+    MeasuredTemplateDocumentPF2e,
+    ScenePF2e,
+    TileDocumentPF2e,
+    TokenDocumentPF2e,
+} from "@module/scene";
 import { SceneConfigPF2e } from "@module/scene/sheet";
 import { registerSettings } from "@module/settings";
 import { EncounterTrackerPF2e } from "@module/apps/ui/encounter-tracker";
@@ -29,7 +35,6 @@ import { PlayerConfigPF2e } from "@module/user/player-config";
 import { PF2ECONFIG } from "../config";
 import { UserPF2e } from "@module/user";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
-import { MeasuredTemplateDocumentPF2e } from "@module/scene/measured-template-document";
 
 export function listen(): void {
     Hooks.once("init", () => {
@@ -61,6 +66,8 @@ export function listen(): void {
 
         CONFIG.MeasuredTemplate.documentClass = MeasuredTemplateDocumentPF2e;
         CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
+
+        CONFIG.Tile.documentClass = TileDocumentPF2e;
 
         CONFIG.Token.documentClass = TokenDocumentPF2e;
         CONFIG.Token.objectClass = TokenPF2e;
