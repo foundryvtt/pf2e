@@ -9,7 +9,7 @@ export class DarkvisionLayerPF2e extends CanvasLayer {
     private background!: PIXI.Sprite;
 
     /** Clones of the tile sprites */
-    private tileSprites!: PIXI.Sprite[];
+    private tileSprites: PIXI.Sprite[] = [];
 
     static documentName = "Darkvision";
 
@@ -36,50 +36,46 @@ export class DarkvisionLayerPF2e extends CanvasLayer {
         await super.draw();
         this.disable();
 
-        if (this.userRequestsFilter && canvas.ready) {
-            // Add the background
-            const texture = canvas.background.bg.texture;
-            this.background = PIXI.Sprite.from(texture);
-            const { dimensions } = canvas;
-            this.background.position.set(
-                dimensions.paddingX - dimensions.shiftX,
-                dimensions.paddingY - dimensions.shiftY
-            );
-            this.background.width = dimensions.sceneWidth;
-            this.background.height = dimensions.sceneHeight;
-            this.addChild(this.background);
+        // Return early if darkvision filter is disabled
+        if (!this.userRequestsFilter) return this;
 
-            // Add the scene tiles
-            const tiles = canvas.background.placeables.filter((tile) => tile.tile && tile.texture && tile.visible);
-            this.tileSprites = tiles.map((tile): PIXI.Sprite => {
-                const clone = PIXI.Sprite.from(tile.texture);
-                clone.x = tile.x;
-                clone.y = tile.y;
-                clone.height = tile.tile.height;
-                clone.width = tile.tile.width;
-                return this.addChild(clone);
-            });
+        // Add the background
+        const texture = canvas.background.bg.texture;
+        this.background = PIXI.Sprite.from(texture);
+        const { dimensions } = canvas;
+        this.background.position.set(dimensions.paddingX - dimensions.shiftX, dimensions.paddingY - dimensions.shiftY);
+        this.background.width = dimensions.sceneWidth;
+        this.background.height = dimensions.sceneHeight;
+        this.addChild(this.background);
 
-            // Set the filter
-            for (const layer of [canvas.background, canvas.foreground]) {
-                layer.filters ??= [];
-                if (!layer.filters.includes(this.filter)) {
-                    layer.filters.push(this.filter);
-                }
+        // Add the scene tiles
+        const tiles = canvas.background.placeables.filter((tile) => tile.tile && tile.texture && tile.visible);
+        this.tileSprites = tiles.map((tile): PIXI.Sprite => {
+            const clone = PIXI.Sprite.from(tile.texture);
+            clone.x = tile.x;
+            clone.y = tile.y;
+            clone.height = tile.tile.height;
+            clone.width = tile.tile.width;
+            return this.addChild(clone);
+        });
+
+        // Set the filter
+        for (const layer of [canvas.background, canvas.foreground]) {
+            layer.filters ??= [];
+            if (!layer.filters.includes(this.filter)) {
+                layer.filters.push(this.filter);
             }
-
-            // Draw the mask
-            this.refresh({ drawMask: true });
         }
 
-        return this;
+        // Draw the mask
+        return this.refresh({ drawMask: true });
     }
 
     /** Apply a mask to the notMask and activate the darkvision filter */
-    refresh({ darkness = canvas.lighting.darknessLevel, drawMask = false } = {}): void {
-        if (!this.userRequestsFilter) return;
-
+    refresh({ darkness = canvas.lighting.darknessLevel, drawMask = false } = {}): this {
+        if (!this.userRequestsFilter) return this;
         if (drawMask) this.drawMask();
+
         const lightLevel = 1 - darkness;
         if (lightLevel <= LightLevels.DARKNESS && canvas.sight.hasDarkvision) {
             const saturation = this.getSaturation(lightLevel);
@@ -88,15 +84,24 @@ export class DarkvisionLayerPF2e extends CanvasLayer {
         } else {
             this.disable();
         }
+
+        return this;
     }
 
-    /** Cut out all but the light sources from the notMask */
+    /** Cut out all but the light sources from the background clone */
     private drawMask(): void {
         const circles = new PIXI.Graphics().beginFill(0xffffff);
         for (const source of canvas.lighting.sources) {
             circles.drawPolygon(source.fov);
         }
+        const lightEmitters = canvas.tokens.placeables.flatMap((token) =>
+            token.isVisible && token.emitsLight ? token.light : []
+        );
+        for (const source of lightEmitters) {
+            circles.drawPolygon(source.fov);
+        }
         circles.endFill();
+
         const blur = new PIXI.filters.BlurFilter(canvas.blurDistance);
         circles.filters = [blur];
         const texture = canvas.app.renderer.generateTexture(
