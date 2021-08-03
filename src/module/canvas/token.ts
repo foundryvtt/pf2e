@@ -89,10 +89,9 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     protected override _isVisionSource(): boolean {
-        return (
-            (!!this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame.partyVision")) ||
-            super._isVisionSource()
-        );
+        const partyVisionEnabled =
+            !!this.actor?.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame.partyVision");
+        return partyVisionEnabled || super._isVisionSource();
     }
 
     /** Prevent premature redraw of resource bar */
@@ -131,7 +130,6 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         if (game.ready) game.pf2e.effectPanel.refresh();
         if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
         super._onControl(options);
-        if (this.hasDarkvision) canvas.darkvision.refresh();
     }
 
     /** Refresh vision and the `EffectPanel` */
@@ -139,7 +137,6 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         game.pf2e.effectPanel.refresh();
         if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
         super._onRelease(options);
-        if (this.hasDarkvision) canvas.darkvision.refresh();
     }
 }
 
