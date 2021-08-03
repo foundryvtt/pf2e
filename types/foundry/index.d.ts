@@ -93,6 +93,7 @@ import "./client/pixi/helpers/door-control";
 import "./client/pixi/helpers/grid-highlight";
 import "./client/pixi/helpers/ray";
 import "./client/pixi/helpers/rectangle";
+import "./client/pixi/helpers/resize-handle";
 import "./client/pixi/helpers/ruler";
 import "./client/pixi/mask-filter/base";
 import "./client/pixi/mask-filter/inverse-occlusion-mask-filter";

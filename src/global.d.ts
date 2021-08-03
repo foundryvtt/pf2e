@@ -28,7 +28,13 @@ import {
     StatisticModifier,
 } from "./module/modifiers";
 import { UserPF2e } from "@module/user";
-import { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from "@module/scene";
+import {
+    AmbientLightDocumentPF2e,
+    MeasuredTemplateDocumentPF2e,
+    ScenePF2e,
+    TileDocumentPF2e,
+    TokenDocumentPF2e,
+} from "@module/scene";
 import { CompendiumBrowser } from "@module/apps/compendium-browser";
 import { remigrate } from "@scripts/system/remigrate";
 import { FolderPF2e } from "@module/folder";
@@ -148,6 +154,7 @@ type ConfiguredConfig = Config<
     ItemPF2e,
     MacroPF2e,
     MeasuredTemplateDocumentPF2e,
+    TileDocumentPF2e,
     TokenDocumentPF2e,
     ScenePF2e,
     UserPF2e

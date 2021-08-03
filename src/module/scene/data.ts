@@ -1,5 +1,11 @@
 import { ZeroToTwo } from "@module/data";
-import type { AmbientLightDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from ".";
+import type {
+    AmbientLightDocumentPF2e,
+    MeasuredTemplateDocumentPF2e,
+    ScenePF2e,
+    TileDocumentPF2e,
+    TokenDocumentPF2e,
+} from ".";
 
 export interface SceneDataPF2e<T extends ScenePF2e>
     extends foundry.data.SceneData<
@@ -8,9 +14,9 @@ export interface SceneDataPF2e<T extends ScenePF2e>
         AmbientLightDocumentPF2e,
         AmbientSoundDocument,
         DrawingDocument,
-        MeasuredTemplateDocument,
+        MeasuredTemplateDocumentPF2e,
         NoteDocument,
-        TileDocument,
+        TileDocumentPF2e,
         WallDocument
     > {
     flags: {
