@@ -3,21 +3,22 @@ import * as PIXI from "pixi.js";
 
 declare global {
     interface Config<
-        TAmbientLight extends AmbientLightDocument = AmbientLightDocument,
-        TActiveEffect extends ActiveEffect = ActiveEffect,
-        TActor extends Actor = Actor,
-        TChatMessage extends ChatMessage<TActor> = ChatMessage<TActor>,
-        TCombat extends Combat = Combat,
-        TCombatTracker extends CombatTracker<TCombat> = CombatTracker<TCombat>,
-        TCompendiumDirectory extends CompendiumDirectory = CompendiumDirectory,
-        TFogExploration extends FogExploration = FogExploration,
-        TFolder extends Folder = Folder,
-        TItem extends Item<TActor> = Item<TActor>,
-        TMacro extends Macro = Macro,
-        TMeasuredTemplate extends MeasuredTemplateDocument = MeasuredTemplateDocument,
-        TToken extends TokenDocument<TActor> = TokenDocument<TActor>,
-        TScene extends Scene<TToken, TAmbientLight> = Scene<TToken, TAmbientLight>,
-        TUser extends User<TActor> = User<TActor>
+        TAmbientLightDocument extends AmbientLightDocument,
+        TActiveEffect extends ActiveEffect,
+        TActor extends Actor,
+        TChatMessage extends ChatMessage,
+        TCombat extends Combat,
+        TCombatTracker extends CombatTracker<TCombat>,
+        TCompendiumDirectory extends CompendiumDirectory,
+        TFogExploration extends FogExploration,
+        TFolder extends Folder,
+        TItem extends Item,
+        TMacro extends Macro,
+        TMeasuredTemplateDocument extends MeasuredTemplateDocument,
+        TTileDocument extends TileDocument,
+        TTokenDocument extends TokenDocument,
+        TScene extends Scene,
+        TUser extends User
     > {
         /** Configure debugging flags to display additional information */
         debug: {
@@ -175,9 +176,9 @@ declare global {
 
         /** Configuration for the AmbientLight embedded document type and its representation on the game Canvas */
         AmbientLight: {
-            documentClass: ConstructorOf<TAmbientLight>;
-            objectClass: ConstructorOf<TAmbientLight["object"]>;
-            layerClass: ConstructorOf<TAmbientLight["object"]["layer"]>;
+            documentClass: ConstructorOf<TAmbientLightDocument>;
+            objectClass: ConstructorOf<TAmbientLightDocument["object"]>;
+            layerClass: ConstructorOf<TAmbientLightDocument["object"]["layer"]>;
             sheetClass: typeof LightConfig;
         };
 
@@ -215,19 +216,27 @@ declare global {
             };
             documentClass: new (
                 data: PreCreate<foundry.data.MeasuredTemplateSource>,
-                context?: DocumentConstructionContext<TMeasuredTemplate>
-            ) => TMeasuredTemplate;
-            objectClass: ConstructorOf<TMeasuredTemplate["object"]>;
-            layerClass: ConstructorOf<TMeasuredTemplate["object"]["layer"]>;
+                context?: DocumentConstructionContext<TMeasuredTemplateDocument>
+            ) => TMeasuredTemplateDocument;
+            objectClass: ConstructorOf<TMeasuredTemplateDocument["object"]>;
+            layerClass: ConstructorOf<TMeasuredTemplateDocument["object"]["layer"]>;
             sheetClass: typeof MeasuredTemplateConfig;
+        };
+
+        /** Configuration for the Tile embedded document type and its representation on the game Canvas */
+        Tile: {
+            documentClass: ConstructorOf<TTileDocument>;
+            objectClass: ConstructorOf<TTileDocument["object"]>;
+            layerClass: ConstructorOf<BackgroundLayer>;
+            sheetClass: ConstructorOf<TileConfig>;
         };
 
         /** Configuration for the Token embedded document type and its representation on the game Canvas */
         Token: {
-            documentClass: ConstructorOf<TToken>;
-            objectClass: new (...args: any[]) => TToken["object"];
-            layerClass: ConstructorOf<TToken["object"]["layer"]>;
-            sheetClass: ConstructorOf<TToken["sheet"]>;
+            documentClass: ConstructorOf<TTokenDocument>;
+            objectClass: new (...args: any[]) => TTokenDocument["object"];
+            layerClass: ConstructorOf<TTokenDocument["object"]["layer"]>;
+            sheetClass: ConstructorOf<TTokenDocument["sheet"]>;
         };
 
         /* -------------------------------------------- */
@@ -255,13 +264,13 @@ declare global {
                 drawings: typeof DrawingsLayer;
                 grid: typeof GridLayer;
                 walls: typeof WallsLayer;
-                templates: ConstructorOf<TMeasuredTemplate["object"]["layer"]>;
+                templates: ConstructorOf<TMeasuredTemplateDocument["object"]["layer"]>;
                 notes: typeof NotesLayer;
-                tokens: ConstructorOf<TToken["object"]["layer"]>;
+                tokens: ConstructorOf<TTokenDocument["object"]["layer"]>;
                 foreground: typeof ForegroundLayer;
                 sounds: typeof SoundsLayer;
-                lighting: ConstructorOf<TAmbientLight["object"]["layer"]>;
-                sight: ConstructorOf<SightLayer<TToken["object"], TFogExploration>>;
+                lighting: ConstructorOf<TAmbientLightDocument["object"]["layer"]>;
+                sight: ConstructorOf<SightLayer<TTokenDocument["object"], TFogExploration>>;
                 effects: typeof EffectsLayer;
                 controls: typeof ControlsLayer;
             };
@@ -276,72 +285,72 @@ declare global {
             lightAnimations: {
                 torch: {
                     label: "LIGHT.AnimationTorch";
-                    animation: PointSource<TAmbientLight["object"] | TToken["object"]>["animateTorch"];
+                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTorch"];
                     illuminationShader: typeof TorchIlluminationShader;
                     colorationShader: typeof TorchColorationShader;
                 };
                 pulse: {
                     label: "LIGHT.AnimationPulse";
-                    animation: PointSource<TAmbientLight["object"] | TToken["object"]>["animatePulse"];
+                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animatePulse"];
                     illuminationShader: typeof PulseIlluminationShader;
                     colorationShader: typeof PulseColorationShader;
                 };
                 chroma: {
                     label: "LIGHT.AnimationChroma";
-                    animation: PointSource<TAmbientLight["object"] | TToken["object"]>["animateTime"];
+                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 wave: {
                     label: "LIGHT.AnimationWave";
-                    animation: PointSource<TAmbientLight["object"] | TToken["object"]>["animateTime"];
+                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 fog: {
                     label: "LIGHT.AnimationFog";
-                    animation: PointSource<TAmbientLight["object"] | TToken["object"]>["animateTime"];
+                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 sunburst: {
                     label: "LIGHT.AnimationSunburst";
-                    animation: PointSource<TAmbientLight["object"] | TToken["object"]>["animateTime"];
+                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 dome: {
                     label: "LIGHT.AnimationLightDome";
-                    animation: PointSource<TAmbientLight["object"] | TToken["object"]>["animateTime"];
+                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 emanation: {
                     label: "LIGHT.AnimationEmanation";
-                    animation: PointSource<TAmbientLight["object"] | TToken["object"]>["animateTime"];
+                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 hexa: {
                     label: "LIGHT.AnimationHexaDome";
-                    animation: PointSource<TAmbientLight["object"] | TToken["object"]>["animateTime"];
+                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 ghost: {
                     label: "LIGHT.AnimationGhostLight";
-                    animation: PointSource<TAmbientLight["object"] | TToken["object"]>["animateTime"];
+                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 energy: {
                     label: "LIGHT.AnimationEnergyField";
-                    animation: PointSource<TAmbientLight["object"] | TToken["object"]>["animateTime"];
+                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 roiling: {
                     label: "LIGHT.AnimationRoilingMass";
-                    animation: PointSource<TAmbientLight["object"] | TToken["object"]>["animateTime"];
+                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                 };
                 hole: {
                     label: "LIGHT.AnimationBlackHole";
-                    animation: PointSource<TAmbientLight["object"] | TToken["object"]>["animateTime"];
+                    animation: PointSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                 };
             };

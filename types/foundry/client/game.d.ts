@@ -32,7 +32,7 @@ declare global {
         TFolder extends Folder = Folder,
         TItem extends Item<TActor> = Item<TActor>,
         TMacro extends Macro = Macro,
-        TScene extends Scene<TokenDocument<TActor>> = Scene<TokenDocument<TActor>>,
+        TScene extends Scene = Scene,
         TUser extends User<TActor> = User<TActor>
     > {
         /**

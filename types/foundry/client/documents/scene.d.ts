@@ -7,8 +7,10 @@ declare global {
      * @param [data={}]        Initial data provided to construct the Scene document
      */
     class Scene<
-        TTokenDocument extends TokenDocument = TokenDocument,
-        TAmbientLightDocument extends AmbientLightDocument = AmbientLightDocument
+        TAmbientLightDocument extends AmbientLightDocument = AmbientLightDocument,
+        TMeasuredTemplateDocument extends MeasuredTemplateDocument = MeasuredTemplateDocument,
+        TTileDocument extends TileDocument = TileDocument,
+        TTokenDocument extends TokenDocument = TokenDocument
     > extends SceneConstructor {
         constructor(data: PreCreate<foundry.data.SceneSource>, context?: DocumentConstructionContext<Scene>);
 
@@ -168,8 +170,10 @@ declare global {
     }
 
     interface Scene<
-        TTokenDocument extends TokenDocument = TokenDocument,
-        TAmbientLightDocument extends AmbientLightDocument = AmbientLightDocument
+        TAmbientLightDocument extends AmbientLightDocument = AmbientLightDocument,
+        TMeasuredTemplateDocument extends MeasuredTemplateDocument = MeasuredTemplateDocument,
+        TTileDocument extends TileDocument = TileDocument,
+        TTokenDocument extends TokenDocument = TokenDocument
     > {
         readonly data: foundry.data.SceneData<
             this,
@@ -177,9 +181,9 @@ declare global {
             TAmbientLightDocument,
             AmbientSoundDocument,
             DrawingDocument,
-            MeasuredTemplateDocument,
+            TMeasuredTemplateDocument,
             NoteDocument,
-            TileDocument,
+            TTileDocument,
             WallDocument
         >;
 
@@ -211,7 +215,7 @@ declare global {
         ): Promise<CollectionValue<this["data"]["drawings"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "MeasuredTemplate",
-            updateData: EmbeddedDocumentUpdateData<MeasuredTemplateDocument>[],
+            updateData: EmbeddedDocumentUpdateData<TMeasuredTemplateDocument>[],
             options?: SceneEmbeddedModificationContext
         ): Promise<CollectionValue<this["data"]["tokens"]>[]>;
         updateEmbeddedDocuments(
@@ -221,7 +225,7 @@ declare global {
         ): Promise<CollectionValue<this["data"]["notes"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Tile",
-            updateData: EmbeddedDocumentUpdateData<TileDocument>[],
+            updateData: EmbeddedDocumentUpdateData<TTileDocument>[],
             options?: SceneEmbeddedModificationContext
         ): Promise<CollectionValue<this["data"]["tiles"]>[]>;
         updateEmbeddedDocuments(
@@ -244,9 +248,9 @@ declare global {
                 | EmbeddedDocumentUpdateData<TAmbientLightDocument>[]
                 | EmbeddedDocumentUpdateData<AmbientSoundDocument>[]
                 | EmbeddedDocumentUpdateData<DrawingDocument>[]
-                | EmbeddedDocumentUpdateData<MeasuredTemplateDocument>[]
+                | EmbeddedDocumentUpdateData<TMeasuredTemplateDocument>[]
                 | EmbeddedDocumentUpdateData<NoteDocument>[]
-                | EmbeddedDocumentUpdateData<TileDocument>[]
+                | EmbeddedDocumentUpdateData<TTileDocument>[]
                 | EmbeddedDocumentUpdateData<WallDocument>[],
             options?: SceneEmbeddedModificationContext
         ): Promise<

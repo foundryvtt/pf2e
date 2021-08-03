@@ -1,8 +1,13 @@
 import { LightLevels, SceneDataPF2e } from "./data";
 import { SceneConfigPF2e } from "./sheet";
-import { AmbientLightDocumentPF2e, TokenDocumentPF2e } from ".";
+import { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, TileDocumentPF2e, TokenDocumentPF2e } from ".";
 
-export class ScenePF2e extends Scene<TokenDocumentPF2e, AmbientLightDocumentPF2e> {
+export class ScenePF2e extends Scene<
+    AmbientLightDocumentPF2e,
+    MeasuredTemplateDocumentPF2e,
+    TileDocumentPF2e,
+    TokenDocumentPF2e
+> {
     /** Toggle Unrestricted Global Vision according to scene darkness level */
     override prepareBaseData() {
         super.prepareBaseData();
