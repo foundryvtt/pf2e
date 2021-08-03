@@ -8,20 +8,15 @@ import { AutomationSettings } from "./automation";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
 
 export function registerSettings() {
-    game.settings.register("pf2e", "worldSchemaVersion", {
-        name: "PF2E.SETTINGS.WorldSchemaVersion.Name",
-        hint: "PF2E.SETTINGS.WorldSchemaVersion.Hint",
-        scope: "world",
-        config: true,
-        default: MigrationRunner.LATEST_SCHEMA_VERSION,
-        type: Number,
-    });
+    if (BUILD_MODE === "development") {
+        registerWorldSchemaVersion();
+    }
 
     game.settings.register("pf2e", "defaultTokenSettings", {
         name: "PF2E.SETTINGS.DefaultTokenSettings.Name",
         hint: "PF2E.SETTINGS.DefaultTokenSettings.Hint",
         scope: "world",
-        config: true,
+        config: false,
         default: true,
         type: Boolean,
     });
@@ -258,6 +253,15 @@ export function registerSettings() {
         type: Boolean,
     });
 
+    game.settings.register("pf2e", "metagame.partyVision", {
+        name: "PF2E.SETTINGS.Metagame.PartyVision.Name",
+        hint: "PF2E.SETTINGS.Metagame.PartyVision.Hint",
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean,
+    });
+
     // this section starts Metaknowledge settings, all of them should have a 'metagame.' at the start of their name
     game.settings.register("pf2e", "metagame.secretDamage", {
         name: "PF2E.SETTINGS.Metagame.SecretDamage.Name",
@@ -309,5 +313,20 @@ export function registerSettings() {
         default: "gm",
         type: String,
         choices: metagameResultsChoices,
+    });
+
+    if (BUILD_MODE === "production") {
+        registerWorldSchemaVersion();
+    }
+}
+
+function registerWorldSchemaVersion(): void {
+    game.settings.register("pf2e", "worldSchemaVersion", {
+        name: "PF2E.SETTINGS.WorldSchemaVersion.Name",
+        hint: "PF2E.SETTINGS.WorldSchemaVersion.Hint",
+        scope: "world",
+        config: true,
+        default: MigrationRunner.LATEST_SCHEMA_VERSION,
+        type: Number,
     });
 }
