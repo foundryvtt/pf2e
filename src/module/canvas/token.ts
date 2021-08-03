@@ -121,6 +121,11 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return clone;
     }
 
+    override async animateMovement(ray: Ray) {
+        await super.animateMovement(ray);
+        canvas.darkvision.refresh({ drawMask: true });
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
