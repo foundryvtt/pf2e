@@ -175,13 +175,16 @@ export class SpellPF2e extends ItemPF2e {
         const damageLabel =
             systemData.spellType.value === "heal" ? localize("PF2E.SpellTypeHeal") : localize("PF2E.DamageLabel");
 
+        const areaSize = systemData.area.value ?? "";
+        const areaType = game.i18n.localize(CONFIG.PF2E.areaTypes[systemData.area.areaType] ?? "");
+        const areaUnit = game.i18n.localize("PF2E.Foot");
+
         const area = (() => {
             if (systemData.area.value) {
-                const areaSize = game.i18n.localize(CONFIG.PF2E.areaSizes[systemData.area.value] ?? "");
-                const areaType = game.i18n.localize(CONFIG.PF2E.areaTypes[systemData.area.areaType] ?? "");
-                return `${localize("PF2E.SpellAreaLabel")}: ${areaSize} ${areaType}`.trim();
+                return game.i18n
+                    .format("PF2E.SpellAreaLabel", { areaSize: areaSize, areaUnit: areaUnit, areaType: areaType })
+                    .trim();
             }
-
             return null;
         })();
 
@@ -219,6 +222,9 @@ export class SpellPF2e extends ItemPF2e {
             damageLabel,
             properties,
             traits,
+            areaSize,
+            areaType,
+            areaUnit,
         });
     }
 }
