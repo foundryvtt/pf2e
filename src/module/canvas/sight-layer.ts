@@ -9,11 +9,11 @@ export class SightLayerPF2e extends SightLayer<TokenPF2e, FogExplorationPF2e> {
     }
 
     get hasLowLightVision(): boolean {
-        return this.sources.some((source) => source.object.hasLowLightVision);
+        return this.rulesBasedVision && this.sources.some((source) => source.object.hasLowLightVision);
     }
 
     get hasDarkvision(): boolean {
-        return this.sources.some((source) => source.object.hasDarkvision);
+        return this.rulesBasedVision && this.sources.some((source) => source.object.hasDarkvision);
     }
 
     /** Re-prepare scene data prior to this layer's initialization */

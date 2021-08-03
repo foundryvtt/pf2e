@@ -121,6 +121,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         if (this.actor instanceof NPCPF2e && typeof changed.disposition === "number" && game.userId === userId) {
             this.actor.updateAttitudeFromDisposition(changed.disposition);
         }
+        canvas.darkvision.refresh({ drawMask: true });
     }
 }
 

@@ -23,6 +23,18 @@ export class ScenePF2e extends Scene<
     get lightLevel(): number {
         return 1 - this.data.darkness;
     }
+
+    /** Redraw the darkvision layer if the scene background or dimensions were changed */
+    protected override _onUpdate(
+        changed: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext,
+        userId: string
+    ) {
+        super._onUpdate(changed, options, userId);
+        if (["img", "width", "height", "padding"].some((key) => key in changed)) {
+            canvas.darkvision.draw();
+        }
+    }
 }
 
 export interface ScenePF2e {

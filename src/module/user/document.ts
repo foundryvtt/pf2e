@@ -34,11 +34,7 @@ export class UserPF2e extends User<ActorPF2e> {
     ) {
         super._onUpdate(changed, options, userId);
         const filterSetting = changed.flags?.pf2e?.settings?.darkvisionFilter;
-        if (filterSetting) {
-            canvas.darkvision.draw();
-        } else if (filterSetting === false) {
-            canvas.darkvision.disable();
-        }
+        if (filterSetting) canvas.darkvision.draw();
     }
 }
 
