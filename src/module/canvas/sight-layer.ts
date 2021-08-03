@@ -13,12 +13,17 @@ export class SightLayerPF2e extends SightLayer<TokenPF2e, FogExplorationPF2e> {
     }
 
     get hasDarkvision(): boolean {
-        return canvas.tokens.controlled.some((token) => token.hasDarkvision);
+        return this.sources.some((source) => source.object.hasDarkvision);
     }
 
     /** Re-prepare scene data prior to this layer's initialization */
     override async initialize(): Promise<void> {
         canvas.scene?.prepareData();
         await super.initialize();
+    }
+
+    override refresh({ forceUpdateFog = false, noUpdateFog = false } = {}): void {
+        super.refresh({ forceUpdateFog, noUpdateFog });
+        canvas.darkvision.refresh();
     }
 }
