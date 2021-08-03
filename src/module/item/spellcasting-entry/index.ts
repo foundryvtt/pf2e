@@ -77,7 +77,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
 
     get highestLevel(): number {
         const highestSpell = Math.max(...this.spells.map((s) => s.heightenedLevel));
-        const actorSpellLevel = Math.ceil(this.actor?.level ?? 0 / 2);
+        const actorSpellLevel = Math.ceil((this.actor?.level ?? 0) / 2);
         return Math.min(10, Math.max(highestSpell, actorSpellLevel));
     }
 
