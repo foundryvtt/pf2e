@@ -90,11 +90,13 @@ export class NPCPF2e extends CreaturePF2e {
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
+        const systemData = this.data.data;
 
         for (const key of SAVE_TYPES) {
-            this.data.data.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
+            systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
         }
-        this.data.data.attributes.perception.ability = "wis";
+        systemData.attributes.perception.ability = "wis";
+        systemData.attributes.dexCap = [{ value: Infinity, source: "" }];
     }
 
     override prepareDerivedData(): void {
@@ -246,10 +248,7 @@ export class NPCPF2e extends CreaturePF2e {
         // Armor Class
         {
             const base: number = data.attributes.ac.base ?? Number(data.attributes.ac.value);
-            const dexterity = Math.min(
-                data.abilities.dex.mod,
-                ...(data.attributes.dexCap ?? []).map((cap) => cap.value)
-            );
+            const dexterity = Math.min(data.abilities.dex.mod, ...data.attributes.dexCap.map((cap) => cap.value));
             const modifiers = [
                 new ModifierPF2e("PF2E.BaseModifier", base - 10 - dexterity, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.dex, dexterity, MODIFIER_TYPE.ABILITY),
