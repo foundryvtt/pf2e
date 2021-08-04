@@ -1,10 +1,10 @@
-import { ArmorPF2e } from '@item/armor';
-import { ConsumablePF2e } from '@item/consumable';
-import { EquipmentPF2e } from '@item/equipment';
-import { identifyItem, isMagical } from '@item/identification';
-import { WeaponPF2e } from '@item/weapon';
-import { Rarity } from '@module/data';
-import { FakeItem } from 'tests/fakes/fake-item';
+import { ArmorPF2e } from "@item/armor";
+import { ConsumablePF2e } from "@item/consumable";
+import { EquipmentPF2e } from "@item/equipment";
+import { identifyItem, isMagical } from "@item/identification";
+import { WeaponPF2e } from "@item/weapon";
+import { Rarity } from "@module/data";
+import { FakeItem } from "tests/fakes/fake-item";
 
 interface TestItemData<T extends WeaponPF2e | ArmorPF2e | ConsumablePF2e = WeaponPF2e> {
     level: number;
@@ -13,7 +13,7 @@ interface TestItemData<T extends WeaponPF2e | ArmorPF2e | ConsumablePF2e = Weapo
     potencyRune?: string;
     strikingRune?: string;
     resilienceRune?: string;
-    type?: T['data']['type'];
+    type?: T["data"]["type"];
 }
 
 function createItem<T extends WeaponPF2e>(data: TestItemData<T>): T;
@@ -27,7 +27,7 @@ function createItem<T extends WeaponPF2e | ArmorPF2e>({
     potencyRune,
     strikingRune,
     resilienceRune,
-    type = 'weapon',
+    type = "weapon",
 }: TestItemData<T>): T {
     return new FakeItem({
         type,
@@ -40,7 +40,7 @@ function createItem<T extends WeaponPF2e | ArmorPF2e>({
                 rarity: {
                     value: rarity,
                 },
-                custom: '',
+                custom: "",
             },
             potencyRune: {
                 value: potencyRune,
@@ -51,13 +51,13 @@ function createItem<T extends WeaponPF2e | ArmorPF2e>({
             resiliencyRune: {
                 value: resilienceRune,
             },
-        } as unknown as T['data']['data'],
-    } as T['data']) as unknown as T;
+        } as unknown as T["data"]["data"],
+    } as T["data"]) as unknown as T;
 }
 
-describe('test identification DCs', () => {
-    test('identify normal item', () => {
-        const item = createItem({ level: 2, rarity: 'common', traits: ['magical'] });
+describe("test identification DCs", () => {
+    test("identify normal item", () => {
+        const item = createItem({ level: 2, rarity: "common", traits: ["magical"] });
         const dcs = identifyItem(item, { notMatchingTraditionModifier: 5 });
         expect(dcs).toEqual({
             arc: 16,
@@ -67,8 +67,8 @@ describe('test identification DCs', () => {
         });
     });
 
-    test('identify rare item', () => {
-        const item = createItem({ level: 2, rarity: 'rare', traits: ['magical'] });
+    test("identify rare item", () => {
+        const item = createItem({ level: 2, rarity: "rare", traits: ["magical"] });
         const dcs = identifyItem(item, { notMatchingTraditionModifier: 5 });
         expect(dcs).toEqual({
             arc: 21,
@@ -78,8 +78,8 @@ describe('test identification DCs', () => {
         });
     });
 
-    test('identify rare item with tradition', () => {
-        const item = createItem({ level: 2, rarity: 'rare', traits: ['primal', 'occult'] });
+    test("identify rare item with tradition", () => {
+        const item = createItem({ level: 2, rarity: "rare", traits: ["primal", "occult"] });
         const dcs = identifyItem(item, { notMatchingTraditionModifier: 3 });
         expect(dcs).toEqual({
             arc: 24,
@@ -89,21 +89,21 @@ describe('test identification DCs', () => {
         });
     });
 
-    test('identify rare alchemical ingredient', () => {
-        const item = createItem({ type: 'consumable', level: 2, rarity: 'rare', traits: ['alchemical'] });
+    test("identify rare alchemical ingredient", () => {
+        const item = createItem({ type: "consumable", level: 2, rarity: "rare", traits: ["alchemical"] });
         const dcs = identifyItem(item, { notMatchingTraditionModifier: 3 });
         expect(dcs).toEqual({
             cra: 21,
         });
     });
 
-    test('identify item without level', () => {
+    test("identify item without level", () => {
         const item = {
             data: {
                 data: {
                     traits: {
                         value: [],
-                        rarity: { value: 'common' },
+                        rarity: { value: "common" },
                     },
                 },
             },
@@ -114,33 +114,33 @@ describe('test identification DCs', () => {
         });
     });
 
-    test('potency runes are magical', () => {
+    test("potency runes are magical", () => {
         const item = createItem({
             level: 2,
-            rarity: 'rare',
+            rarity: "rare",
             traits: [],
-            potencyRune: '1',
+            potencyRune: "1",
         }) as unknown as WeaponPF2e;
         expect(isMagical(item.data)).toBe(true);
     });
 
-    test('striking runes are magical', () => {
+    test("striking runes are magical", () => {
         const item = createItem({
             level: 2,
-            rarity: 'rare',
+            rarity: "rare",
             traits: [],
-            strikingRune: '2',
+            strikingRune: "2",
         });
         expect(isMagical(item.data)).toBe(true);
     });
 
-    test('resiliency runes are magical', () => {
+    test("resiliency runes are magical", () => {
         const item = createItem({
             level: 2,
-            rarity: 'rare',
+            rarity: "rare",
             traits: [],
-            resilienceRune: '3',
-            type: 'armor',
+            resilienceRune: "3",
+            type: "armor",
         });
         expect(isMagical(item.data)).toBe(true);
     });

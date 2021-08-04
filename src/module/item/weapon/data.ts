@@ -1,4 +1,4 @@
-import { AbilityString } from '@actor/data/base';
+import { AbilityString } from "@actor/data/base";
 import {
     BasePhysicalItemData,
     BasePhysicalItemSource,
@@ -6,30 +6,30 @@ import {
     PhysicalItemTraits,
     PreciousMaterialGrade,
     PreciousMaterialType,
-} from '@item/physical/data';
-import { DamageType } from '@module/damage-calculation';
-import type { LocalizePF2e } from '@module/system/localize';
-import { OneToFour } from '@module/data';
-import type { WeaponPF2e } from '.';
-import { WEAPON_PROPERTY_RUNE_TYPES } from '@item/runes';
+} from "@item/physical/data";
+import { DamageType } from "@module/damage-calculation";
+import type { LocalizePF2e } from "@module/system/localize";
+import { OneToFour } from "@module/data";
+import type { WeaponPF2e } from ".";
+import { WEAPON_PROPERTY_RUNE_TYPES } from "@item/runes";
 
-export type WeaponSource = BasePhysicalItemSource<'weapon', WeaponSystemData>;
+export type WeaponSource = BasePhysicalItemSource<"weapon", WeaponSystemData>;
 
 export class WeaponData extends BasePhysicalItemData<WeaponPF2e> {
-    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/weapon.svg';
+    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/weapon.svg";
 }
 
-export interface WeaponData extends Omit<WeaponSource, '_id' | 'effects'> {
-    type: WeaponSource['type'];
-    data: WeaponSource['data'];
+export interface WeaponData extends Omit<WeaponSource, "_id" | "effects"> {
+    type: WeaponSource["type"];
+    data: WeaponSource["data"];
     readonly _source: WeaponSource;
 }
 
-export type WeaponTrait = keyof ConfigPF2e['PF2E']['weaponTraits'];
+export type WeaponTrait = keyof ConfigPF2e["PF2E"]["weaponTraits"];
 type WeaponTraits = PhysicalItemTraits<WeaponTrait>;
 
-export type WeaponCategory = keyof ConfigPF2e['PF2E']['weaponCategories'];
-export type WeaponGroup = keyof ConfigPF2e['PF2E']['weaponGroups'];
+export type WeaponCategory = keyof ConfigPF2e["PF2E"]["weaponCategories"];
+export type WeaponGroup = keyof ConfigPF2e["PF2E"]["weaponGroups"];
 export type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 
 export interface WeaponDamage {
@@ -40,10 +40,10 @@ export interface WeaponDamage {
     modifier: number;
 }
 
-export type StrikingRuneType = 'striking' | 'greaterStriking' | 'majorStriking';
+export type StrikingRuneType = "striking" | "greaterStriking" | "majorStriking";
 
 export type WeaponPropertyRuneType = typeof WEAPON_PROPERTY_RUNE_TYPES[number];
-export type WeaponMaterialType = Exclude<PreciousMaterialType, 'dragonhide'>;
+export type WeaponMaterialType = Exclude<PreciousMaterialType, "dragonhide">;
 export interface WeaponRuneData {
     potency: OneToFour | null;
     striking: StrikingRuneType | null;
@@ -61,7 +61,7 @@ type SpecificWeaponData =
               type: WeaponMaterialType;
               grade: PreciousMaterialGrade;
           };
-          runes: Omit<WeaponRuneData, 'property'>;
+          runes: Omit<WeaponRuneData, "property">;
       };
 
 export interface WeaponPropertyRuneSlot {
@@ -71,7 +71,7 @@ export interface WeaponPropertyRuneSlot {
 interface WeaponSystemData extends MagicItemSystemData {
     traits: WeaponTraits;
     weaponType: {
-        value: WeaponCategory | null;
+        value: WeaponCategory;
     };
     group: {
         value: WeaponGroup | null;

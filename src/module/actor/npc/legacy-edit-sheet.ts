@@ -1,17 +1,17 @@
-import { CreatureSheetPF2e } from '../creature/sheet';
-import { SKILL_DICTIONARY } from '@actor/data/values';
-import { NPCPF2e } from '.';
-import { identifyCreature } from '@module/recall-knowledge';
-import { RecallKnowledgePopup } from '../sheet/popups/recall-knowledge-popup';
-import { getActionIcon, objectHasKey } from '@module/utils';
-import { ConsumablePF2e, SpellcastingEntryPF2e } from '@item';
-import { SpellcastingSheetData } from './sheet';
+import { CreatureSheetPF2e } from "../creature/sheet";
+import { SKILL_DICTIONARY } from "@actor/data/values";
+import { NPCPF2e } from ".";
+import { identifyCreature } from "@module/recall-knowledge";
+import { RecallKnowledgePopup } from "../sheet/popups/recall-knowledge-popup";
+import { getActionIcon, objectHasKey } from "@module/utils";
+import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
+import { SpellcastingSheetData } from "./sheet";
 
 export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes.concat('npc-sheet'),
+            classes: options.classes.concat("npc-sheet"),
             width: 650,
             height: 680,
             showUnpreparedSpells: true,
@@ -21,7 +21,7 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
     /** Get the correct HTML template path to use for rendering this particular sheet */
     override get template(): string {
-        const path = 'systems/pf2e/templates/actors/';
+        const path = "systems/pf2e/templates/actors/";
         return `${path}npc-sheet.html`;
     }
 
@@ -32,24 +32,24 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.monsterTraits = CONFIG.PF2E.monsterTraits;
 
         // recall knowledge DCs
-        const proficiencyWithoutLevel = game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel';
+        const proficiencyWithoutLevel = game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel";
         const identifyCreatureData = identifyCreature(sheetData, { proficiencyWithoutLevel });
 
         sheetData.identifyCreatureData = identifyCreatureData;
         sheetData.identifySkillDC = identifyCreatureData.skill.dc;
         sheetData.identifySkillAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.skill.start];
-        sheetData.identifySkillProgression = identifyCreatureData.skill.progression.join('/');
+        sheetData.identifySkillProgression = identifyCreatureData.skill.progression.join("/");
         sheetData.identificationSkills = Array.from(identifyCreatureData.skills)
             .sort()
             .map((skillAcronym) => CONFIG.PF2E.skills[skillAcronym]);
 
         sheetData.specificLoreDC = identifyCreatureData.specificLoreDC.dc;
         sheetData.specificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.specificLoreDC.start];
-        sheetData.specificLoreProgression = identifyCreatureData.specificLoreDC.progression.join('/');
+        sheetData.specificLoreProgression = identifyCreatureData.specificLoreDC.progression.join("/");
 
         sheetData.unspecificLoreDC = identifyCreatureData.unspecificLoreDC.dc;
         sheetData.unspecificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.unspecificLoreDC.start];
-        sheetData.unspecificLoreProgression = identifyCreatureData.unspecificLoreDC.progression.join('/');
+        sheetData.unspecificLoreProgression = identifyCreatureData.unspecificLoreDC.progression.join("/");
 
         this.prepareSpellcasting(sheetData);
 
@@ -62,16 +62,16 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const actorData: any = sheetData.actor;
         // Actions
         const attacks = {
-            melee: { label: 'NPC Melee Attack', prefix: 'PF2E.NPCAttackMelee', items: [], type: 'melee' },
-            ranged: { label: 'NPC Ranged Attack', prefix: 'PF2E.NPCAttackRanged', items: [], type: 'melee' },
+            melee: { label: "NPC Melee Attack", prefix: "PF2E.NPCAttackMelee", items: [], type: "melee" },
+            ranged: { label: "NPC Ranged Attack", prefix: "PF2E.NPCAttackRanged", items: [], type: "melee" },
         };
 
         // Actions
         const actions = {
-            action: { label: 'Actions', actions: [] },
-            reaction: { label: 'Reactions', actions: [] },
-            free: { label: 'Free Actions', actions: [] },
-            passive: { label: 'Passive Actions', actions: [] },
+            action: { label: "Actions", actions: [] },
+            reaction: { label: "Reactions", actions: [] },
+            free: { label: "Free Actions", actions: [] },
+            passive: { label: "Passive Actions", actions: [] },
         };
 
         // Skills
@@ -82,14 +82,14 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             i.img = i.img || CONST.DEFAULT_TOKEN;
 
             // Weapons
-            if (i.type === 'weapon') {
+            if (i.type === "weapon") {
                 // we don't want to do anything if they're a weapon. They should be using the melee attacks
             }
 
             // NPC Generic Attacks
-            else if (i.type === 'melee') {
-                const weaponType = (i.data.weaponType || {}).value || 'melee';
-                const isAgile = (i.data.traits.value || []).includes('agile');
+            else if (i.type === "melee") {
+                const weaponType = (i.data.weaponType || {}).value || "melee";
+                const isAgile = (i.data.traits.value || []).includes("agile");
                 i.data.bonus.total = parseInt(i.data.bonus.value, 10) || 0;
                 i.data.isAgile = isAgile;
 
@@ -101,7 +101,7 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                             label:
                                 CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] ||
                                 i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1),
-                            description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || '',
+                            description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || "",
                         };
                         traits.push(traitsObject);
                     }
@@ -112,8 +112,8 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             }
 
             // Actions
-            else if (i.type === 'action') {
-                const actionType = i.data.actionType.value || 'action';
+            else if (i.type === "action") {
+                const actionType = i.data.actionType.value || "action";
                 i.img = NPCPF2e.getActionGraphics(actionType, parseInt((i.data.actions || {}).value, 10) || 1).imageUrl;
 
                 // get formated traits for read-only npc sheet
@@ -124,7 +124,7 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                             label:
                                 CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] ||
                                 i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1),
-                            description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || '',
+                            description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || "",
                         };
                         traits.push(traitsObject);
                     }
@@ -134,7 +134,7 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                         label:
                             CONFIG.PF2E.weaponTraits[i.data.actionType.value] ||
                             i.data.actionType.value.charAt(0).toUpperCase() + i.data.actionType.value.slice(1),
-                        description: CONFIG.PF2E.traitsDescriptions[i.data.actionType.value] || '',
+                        description: CONFIG.PF2E.traitsDescriptions[i.data.actionType.value] || "",
                     });
                 }
                 i.traits = traits.filter((p) => !!p);
@@ -143,21 +143,21 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             }
 
             // Feats
-            else if (i.type === 'feat') {
-                const actionType = i.data.actionType.value || 'passive';
+            else if (i.type === "feat") {
+                const actionType = i.data.actionType.value || "passive";
 
                 if (Object.keys(actions).includes(actionType)) {
                     i.feat = true;
                     i.img = NPCPF2e.getActionGraphics(
                         actionType,
-                        parseInt((i.data.actions || {}).value, 10) || 1,
+                        parseInt((i.data.actions || {}).value, 10) || 1
                     ).imageUrl;
                     actions[actionType].actions.push(i);
                 }
             }
 
             // Lore Skills
-            else if (i.type === 'lore') {
+            else if (i.type === "lore") {
                 lores.push(i);
             }
         }
@@ -167,12 +167,12 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         // Update all embedded entities that have an incorrect location.
         if (embeddedEntityUpdate.length) {
             console.log(
-                'PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ',
-                embeddedEntityUpdate,
+                "PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ",
+                embeddedEntityUpdate
             );
-            this.actor.updateEmbeddedDocuments('Item', embeddedEntityUpdate);
+            this.actor.updateEmbeddedDocuments("Item", embeddedEntityUpdate);
             ui.notifications.info(
-                'PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.',
+                "PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect."
             );
         }
 
@@ -188,26 +188,26 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         for (const i of sheetData.items) {
             // Spellcasting Entries
-            if (i.type === 'spellcastingEntry') {
+            if (i.type === "spellcastingEntry") {
                 const entry = this.actor.items.get(i._id);
                 if (!(entry instanceof SpellcastingEntryPF2e)) {
                     continue;
                 }
 
-                if ((i.data.prepared || {}).value === 'prepared') i.data.prepared.preparedSpells = true;
+                if ((i.data.prepared || {}).value === "prepared") i.data.prepared.preparedSpells = true;
                 else i.data.prepared.preparedSpells = false;
                 // Check if Ritual spellcasting tradtion and set Boolean
-                if ((i.data.tradition || {}).value === 'ritual') i.data.tradition.ritual = true;
+                if ((i.data.tradition || {}).value === "ritual") i.data.tradition.ritual = true;
                 else i.data.tradition.ritual = false;
 
                 // There are still some bestiary entries where these values are strings.
                 i.data.spelldc.dc = Number(i.data.spelldc.dc);
                 i.data.spelldc.value = Number(i.data.spelldc.value);
 
-                if (this.actor.data.data.traits.traits.value.some((trait) => trait === 'elite')) {
+                if (this.actor.data.data.traits.traits.value.some((trait) => trait === "elite")) {
                     i.data.spelldc.dc += 2;
                     i.data.spelldc.value += 2;
-                } else if (this.actor.data.data.traits.traits.value.some((trait) => trait === 'weak')) {
+                } else if (this.actor.data.data.traits.traits.value.some((trait) => trait === "weak")) {
                     i.data.spelldc.dc -= 2;
                     i.data.spelldc.value -= 2;
                 }
@@ -243,76 +243,76 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         super.activateListeners(html);
 
         // Melee Attack summaries
-        html.find('.item .melee-name h4').on('click', (event) => {
+        html.find(".item .melee-name h4").on("click", (event) => {
             this.onItemSummary(event);
         });
 
         // Melee Weapon Rolling
-        html.find('button:not(.recall-knowledge-breakdown)').on('click', (ev) => {
+        html.find("button:not(.recall-knowledge-breakdown)").on("click", (ev) => {
             ev.preventDefault();
             ev.stopPropagation();
 
-            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id') ?? '';
+            const itemId = $(ev.currentTarget).parents(".item").attr("data-item-id") ?? "";
             const item = this.actor.items.get(itemId, { strict: true });
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (ev.target.dataset.action) {
-                case 'weaponAttack':
+                case "weaponAttack":
                     item.rollWeaponAttack(ev);
                     break;
-                case 'weaponAttack2':
+                case "weaponAttack2":
                     item.rollWeaponAttack(ev, 2);
                     break;
-                case 'weaponAttack3':
+                case "weaponAttack3":
                     item.rollWeaponAttack(ev, 3);
                     break;
-                case 'weaponDamage':
+                case "weaponDamage":
                     item.rollWeaponDamage(ev);
                     break;
-                case 'weaponDamageCritical':
+                case "weaponDamageCritical":
                     item.rollWeaponDamage(ev, true);
                     break;
-                case 'npcAttack':
+                case "npcAttack":
                     item.rollNPCAttack(ev);
                     break;
-                case 'npcAttack2':
+                case "npcAttack2":
                     item.rollNPCAttack(ev, 2);
                     break;
-                case 'npcAttack3':
+                case "npcAttack3":
                     item.rollNPCAttack(ev, 3);
                     break;
-                case 'npcDamage':
+                case "npcDamage":
                     item.rollNPCDamage(ev);
                     break;
-                case 'npcDamageCritical':
+                case "npcDamageCritical":
                     item.rollNPCDamage(ev, true);
                     break;
-                case 'spellAttack':
+                case "spellAttack":
                     item.rollSpellAttack(ev);
                     break;
-                case 'spellDamage':
+                case "spellDamage":
                     item.rollSpellDamage(ev);
                     break;
-                case 'consume':
+                case "consume":
                     if (item instanceof ConsumablePF2e) item.consume();
                     break;
                 default:
-                    throw new Error('Unknown action type');
+                    throw new Error("Unknown action type");
             }
         });
 
         if (!this.options.editable) return;
 
         // NPC SKill Rolling
-        html.find('.rollable[data-skill]').on('click', (event) => {
+        html.find(".rollable[data-skill]").on("click", (event) => {
             const $target = $(event.delegateTarget);
-            const shortform = $target.attr('data-skill') ?? '';
+            const shortform = $target.attr("data-skill") ?? "";
             if (!objectHasKey(SKILL_DICTIONARY, shortform)) return;
-            const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[shortform] ?? shortform]);
-            const extraOptions = $target.attr('data-options');
+            const opts = this.actor.getRollOptions(["all", "skill-check", SKILL_DICTIONARY[shortform] ?? shortform]);
+            const extraOptions = $target.attr("data-options");
             if (extraOptions) {
                 const split = extraOptions
-                    .split(',')
+                    .split(",")
                     .map((o) => o.trim())
                     .filter((o) => !!o);
                 opts.push(...split);
@@ -320,44 +320,44 @@ export class NPCLegacyEditSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             this.actor.data.data.skills[shortform]?.roll({ event, options: opts }); // eslint-disable-line no-unused-expressions
         });
 
-        html.find<HTMLInputElement>('.skill-input').on('change', async (event) => {
-            const itemId = event.target.attributes['data-item-id'].value;
-            await this.actor.updateEmbeddedDocuments('Item', [
+        html.find<HTMLInputElement>(".skill-input").on("change", async (event) => {
+            const itemId = $(event.target).attr("data-item-id") ?? "";
+            await this.actor.updateEmbeddedDocuments("Item", [
                 {
                     _id: itemId,
-                    'data.mod.value': Number(event.target.value),
+                    "data.mod.value": Number(event.target.value),
                 },
             ]);
         });
 
-        html.find<HTMLInputElement>('.spelldc-input').on('change', async (event) => {
+        html.find<HTMLInputElement>(".spelldc-input").on("change", async (event) => {
             event.preventDefault();
 
-            const li = $(event.currentTarget).parents('.item-container');
-            const itemId = li.attr('data-container-id') ?? '';
-            const spelldcType = $(event.currentTarget).parents('.npc-defense').attr('data-spelldc-attribute') ?? '';
+            const li = $(event.currentTarget).parents(".item-container");
+            const itemId = li.attr("data-container-id") ?? "";
+            const spelldcType = $(event.currentTarget).parents(".npc-defense").attr("data-spelldc-attribute") ?? "";
 
-            if (['dc', 'value'].includes(spelldcType)) {
-                await this.actor.updateEmbeddedDocuments('Item', [
+            if (["dc", "value"].includes(spelldcType)) {
+                await this.actor.updateEmbeddedDocuments("Item", [
                     {
                         _id: itemId,
                         [`data.spelldc.${spelldcType}`]: Number(event.target.value),
                     },
                 ]);
-            } else if (spelldcType === 'ability') {
-                await this.actor.updateEmbeddedDocuments('Item', [
+            } else if (spelldcType === "ability") {
+                await this.actor.updateEmbeddedDocuments("Item", [
                     {
                         _id: itemId,
-                        ['data.ability.value']: event.target.value,
+                        ["data.ability.value"]: event.target.value,
                     },
                 ]);
             }
         });
 
-        html.find('.recall-knowledge-breakdown').on('click', (event) => {
+        html.find(".recall-knowledge-breakdown").on("click", (event) => {
             event.preventDefault();
             const { identifyCreatureData } = this.getData();
-            new RecallKnowledgePopup(identifyCreatureData).render(true);
+            new RecallKnowledgePopup({}, identifyCreatureData).render(true);
         });
     }
 }

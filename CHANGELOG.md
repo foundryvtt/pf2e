@@ -1,5 +1,83 @@
 # Patch Notes:
 
+## Version 2.11.0
+### Bug Fixes
+* (xdy) Fix copy/paste error in Make an Impression action outcome notes
+* (In3luki) Fix hangup sometimes happening when loading scenes
+* (In3luki) Fix semi-rare error in effect data preparation
+* (stwlam) Add migration to fix malformed senses data in PC actors
+* (stwlam) Fix issue causing token image rule elements to not immediately reflect on all clients
+* (stwlam) Work around occasionally-triggered Foundry bug with token redrawing
+* (stwlam) Preserve token size and image in drag preview
+* (stwlam) Work around Foundry bug preventing item cards from being popout-able
+* (stwlam) Fix dexterity cap rule element
+* (Supe) Fix deleting spellcasting entries on legacy npc sheet
+* (Supe) Fix clipping issue for shield max hp when 3 digits long
+* (Supe) Fix error that can occur when viewing sheet with observer permissions
+* (Tikael) Fix display of unspecific lore
+* (Tikael) Allow NPCs to have negative skill modifiers
+
+### Content Changes
+* (SpartanCPA) Change the default image of Bestiary Passives
+* (SpartanCPA) Brush-up of Abomination Vaults level 2 monsters and hazards
+* (SpartanCPA) Add a +1 to Saves vs Magic to Bestiary Ability Glossary
+* (Tikael) Candlaron's Echo update
+* (Tikael) Archetype automation A through Z
+* (Tikael) Background automation: Add skill proficiency rule element to backgrounds, change auto added assurance feats for the specific skill versions, add automation for backgrounds with special bonuses
+* (Tikael) Age of Ashes 4 brushup part 1. 4/26 actors done
+* (Tikael) Automate Brutal Critical
+* (TMun) Correct spelling of fortuitous shift feat. Closes #1612
+* (TMun) Add new dragon breaths from Mwangi expanse. Convert links to new style. Add to table on generic dragons breath. Closes #1609
+* (TMun) Correct Volluk Azinrae's strike. Rename Rusty Grave Pit to Rusty Grate Pit. Closes #1613.
+* (TMun) Update Pathfinder Society Season 1 Bestiary for NPCs from Quest 8
+* (TMun) Correct hazards and update/add new NPCs from Quest 9
+* (TMun) Update zombie flesh golems(Quest 12) and add modified ruffian (Quest 11)
+* (TMun) Updates NPCs for Pathfinder Society 2-01
+* (TMun) Set equipped flag to true for backpacks by default
+* (TMun) Add Strength of Thousands Player's Guide
+* (TMun) Add constrict damage and DC to black pudding. Closes #1616
+* (TMun) Fix ruffian Snagging Strike missing action count
+* (TMun) Correct a typo in superstition instinct. Closes #1620
+* (TMun) Fix Triceretops trample and adds vicious gore rule elements. Closes #1619
+* (TMun) Add Pathfinder Society season 2 hazards. Move Ssalarn from season 1 to season 2
+* (TMun) Update Chupacabra with bonus to leap
+* (TMun) Add NPCs, equipment, spells, actions, backgrounds and spell effects for Strength of Thousands
+* (Shandyan) Automation for the conrasu
+* (Shandyan) Automation for changelings
+* (Drental) Set ranged strikes from rule elements to use Dexterity for attack rolls
+* (Drental) Fix DC of Elder Wyrmwraith breath weapon
+* (Friz) More persistent damage edits to bring things up to standards, including Bestiary 1
+* (Friz) Fix typo in rod of wonder dice roll
+* (Friz) Correct bulk of Force Shield
+* (Friz) Add reflex save button to necklace of fireballs
+* (tslawler) Correct the damage of Nolly Peltry's strike
+
+### Core System Improvements
+* (putty) Allow untyped damage in damage calculation
+* (In3luki) Reroll checks with the original modifiers instead of replacing flavor elements
+* (Supe) Re-arranged spell details to be more like the stat block
+* (Supe) Easier drag/drop for preparing/heightening/resorting spells
+* (Supe) Traits are easier to toggle. Input element smaller on senses/speed dialogs
+* (Supe) Focus Points is now stored directly in the actor data instead of incorrectly on each focus spellcasting entry
+* (Supe) Spellcasting slots/attack/DC no longer writes erroneous actor data
+* (Supe) Spellcasting traditions can now be changed after creation
+* (stwlam) Clean up display of numeric inputs on NPC sheet
+* (stwlam) Back to circle.svg for character focus pool size. Closes #1611
+* (stwlam) Remove chat-message migrations as those could potentially take a _very_ long time to finish with minimal gains for users
+* (stwlam) Remove unused invested property from consumables and treasure
+* (stwlam) Prevent extended token data preparation prior to initialization
+* (stwlam) Limit application of inline-roll listeners to sheets, dialogs, journal entries, and chat messages
+* (stwlam) Skip application of resilient rune bonuses on uninvested armor
+* (stwlam) Prevent rule element initialization from breaking actors
+* (stwlam) Ensure a weapon always has a category
+* (stwlam) Ensure cone area effect angles always divide 45°
+* (Tikael) Add recall knowledge pop up to new NPC sheet
+* (Tikael) Fix floating parenthesis on limited sheet
+* (Tikael) Add rarity tag to hazard sheets
+* (Tikael) Add place template button to spell chat card
+* (Drental) Add bon mot action macro
+
+
 ## Version 2.10.1
 
 You will need to drag in new copies of any effect macros previously created by dragging an effect to the hotbar.

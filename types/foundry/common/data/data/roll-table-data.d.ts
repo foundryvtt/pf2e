@@ -36,7 +36,7 @@ declare module foundry {
 
         class RollTableData<
             TDocument extends documents.BaseRollTable = documents.BaseRollTable,
-            TResults extends documents.BaseTableResult = documents.BaseTableResult,
+            TResults extends documents.BaseTableResult = documents.BaseTableResult
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
 
@@ -47,7 +47,7 @@ declare module foundry {
             results: abstract.EmbeddedCollection<TResults>;
         }
 
-        interface RollTableData extends Omit<RollTableSource, 'results'> {
+        interface RollTableData extends Omit<RollTableSource, "results"> {
             readonly _source: RollTableSource;
         }
     }

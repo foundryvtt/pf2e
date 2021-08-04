@@ -3,96 +3,53 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 4
             },
             "con": {
-                "min": 3,
-                "mod": 7,
-                "value": 24
+                "mod": 7
             },
             "dex": {
-                "min": 3,
-                "mod": 6,
-                "value": 22
+                "mod": 6
             },
             "int": {
-                "min": 3,
-                "mod": 3,
-                "value": 16
+                "mod": 3
             },
             "str": {
-                "min": 3,
-                "mod": 8,
-                "value": 26
+                "mod": 8
             },
             "wis": {
-                "min": 3,
-                "mod": 5,
-                "value": 20
+                "mod": 5
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 35
             },
             "allSaves": {
                 "value": null
             },
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 285,
-                "min": 0,
                 "temp": 0,
                 "value": 285
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "value": 25
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 2,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
                 "value": "45"
             }
         },
@@ -100,64 +57,38 @@
             "alignment": {
                 "value": "NE"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
             "flavorText": "<p>Many kinds of giants lurk in the inhospitable corners of the world, making their homes in unlikely locales ranging from fetid sinkholes and ruined battlefields to mass graveyards and barren badlands.</p>\n<hr />\n<p>Plague giants are rasping behemoths, whose weeping sores, fetid breath, and filthy fingernails all bear a terrible wasting disease. Like sewer rats or flies that swarm a fresh battlefield, plague giants bear an inborn pathogen that does little harm to the giants themselves (their wretched physical appearances are purely superficial) but can wreak devastation on afflicted victims.</p>\n<p>Whatever their origin, the majority of plague giants are so accustomed to being viewed as monstrosities by other humanoids, giant and otherwise, that they become vehemently xenophobic. Some of their communities do permit other types of shunned humanoids-especially those with leprosy and other stigmatized diseases-to join their fold. Whether because they are expelled to the world's worst badlands or because they purposefully seek out such locales, plague giants often settle amid abandoned battlefields, sewer outlets, and other despoiled places. Their close ties to disease lead many to worship Apollyon, the Horseman of Pestilence, or other deities associated with disease. Plague giants claim that their kind is as death itself, violently rejecting the theory often touted among non-giants that they are an offshoot of some other giant ancestry afflicted with a terrible divine curse. (Most other giants also reject this theory.)</p>\n<p>Plague giants measure 24 feet tall and weigh 15,000 pounds.</p>",
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 14
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
         },
+        "resources": {
+            "focus": {
+                "max": 0,
+                "value": 0
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 27
             },
             "reflex": {
-                "ability": "dex",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 24
             },
             "will": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 23
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -212,10 +143,6 @@
                     "value": ""
                 },
                 "displayLevels": {},
-                "focus": {
-                    "points": 0,
-                    "pool": 0
-                },
                 "item": {
                     "value": 0
                 },
@@ -228,7 +155,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -374,8 +301,6 @@
                     "value": "poison"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You conjure a poisonous fog. This functions as @Compendium[pf2e.spells-srd.Obscuring Mist]{Obscuring Mist}, except the area moves 10 feet away from you each round. You deal 7d8 poison damage to each breathing creature that starts its turn in the spell's area. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
                 },
                 "duration": {
@@ -413,7 +338,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -504,8 +429,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You snuff the life out of a creature on the brink of death. The target must attempt a Will save. If this kills it, you gain 10 temporary HP and a +1 status bonus to attack and damage rolls for 10 minutes.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target's @Compendium[pf2e.conditionitems.Dying]{Dying} value increases by 1.</p>\n<p><strong>Failure</strong> The target dies.</p>"
                 },
                 "duration": {
@@ -543,7 +466,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -633,8 +556,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You snuff the life out of a creature on the brink of death. The target must attempt a Will save. If this kills it, you gain 10 temporary HP and a +1 status bonus to attack and damage rolls for 10 minutes.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target's @Compendium[pf2e.conditionitems.Dying]{Dying} value increases by 1.</p>\n<p><strong>Failure</strong> The target dies.</p>"
                 },
                 "duration": {
@@ -672,7 +593,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -762,8 +683,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You snuff the life out of a creature on the brink of death. The target must attempt a Will save. If this kills it, you gain 10 temporary HP and a +1 status bonus to attack and damage rolls for 10 minutes.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target's @Compendium[pf2e.conditionitems.Dying]{Dying} value increases by 1.</p>\n<p><strong>Failure</strong> The target dies.</p>"
                 },
                 "duration": {
@@ -801,7 +720,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -891,8 +810,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>When someone has overindulged, you can hasten them past the worst of their affliction or intensify their misery. This spell attempts to progress a disease affliction, a poison affliction, or persistent poison damage affecting the target. If the target is affected by more than one of these, you can choose from among those you are aware of; otherwise the GM chooses randomly. An unwilling target can attempt a Will save to negate <em>take its course</em>.</p>\n<p>The effect of this spell depends on whether you're attempting to end an affliction or persistent poison damage, and whether you are attempting to help or hinder the target's recovery.</p>\n<ul>\n<li><strong>Affliction</strong> The target immediately attempts its next saving throw against the affliction. You can grant the creature your choice of a @Compendium[pf2e.spell-effects.Spell Effect: Take Its Course (Affliction, Help)]{+2 status bonus} or a @Compendium[pf2e.spell-effects.Spell Effect: Take Its Course (Affliction, Hinder)]{-2 status penalty} to its saving throw against the affliction.</li>\n<li><strong>Persistent Poison</strong> You can cause the target take the persistent poison damage immediately when you Cast this Spell (in addition to taking it at the end of its next turn). Whether or not you do so, the target attempts an additional flat check against the persistent poison damage. You can set the DC of that flat check to 5 or 20 instead of the normal DC.</li>\n</ul>\n<hr />\n<p><strong>Heightened (7th)</strong> You can attempt to progress any number of the target's eligible afflictions and persistent poison damage.</p>"
                 },
                 "duration": {
@@ -930,7 +847,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -1017,8 +934,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>This weapon consists of a wooden handle attached to a spiked ball or cylinder by a chain, rope, or strap of leather.</p>"
                 },
                 "equipped": {
@@ -1114,7 +1029,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "size": {
                     "value": "med"
@@ -1269,7 +1184,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "size": {
                     "value": "med"
@@ -1352,7 +1267,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1409,7 +1324,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1461,7 +1376,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1501,8 +1416,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
                 },
                 "requirements": {
@@ -1511,7 +1424,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "low-light-vision",
                 "source": {
@@ -1563,7 +1476,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1603,8 +1516,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p><strong>Requirements</strong> The monster must have a free hand but can @Compendium[pf2e.actionspf2e.Release]{Release} anything it's holding as part of this reaction.</p>\n<p><strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster.</p>\n<p><strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock</p>"
                 },
                 "requirements": {
@@ -1613,7 +1524,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "catch-rock",
                 "source": {
@@ -1665,7 +1576,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1717,7 +1628,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1765,7 +1676,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1805,8 +1716,6 @@
                     "value": "1"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike.</p>"
                 },
                 "requirements": {
@@ -1815,7 +1724,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "throw-rock",
                 "source": {
@@ -1864,7 +1773,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1903,7 +1812,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1942,7 +1851,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1981,7 +1890,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2005,42 +1914,10 @@
     ],
     "name": "Plague Giant",
     "token": {
-        "actorId": "ZMrydoEfgGUAJGNI",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 3,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lightColor": null,
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Plague Giant",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 3
     },
     "type": "npc"

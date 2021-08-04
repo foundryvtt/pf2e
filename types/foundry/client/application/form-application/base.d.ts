@@ -1,4 +1,4 @@
-import { Editor as MCEEditor } from 'tinymce';
+import { Editor as MCEEditor } from "tinymce";
 
 declare global {
     class FormDataExtended extends FormData {
@@ -75,7 +75,7 @@ declare global {
      */
     abstract class FormApplication<
         TObject extends {} = {},
-        TOptions extends FormApplicationOptions = FormApplicationOptions,
+        TOptions extends FormApplicationOptions = FormApplicationOptions
     > extends Application<TOptions> {
         constructor(object?: TObject, options?: TOptions);
 
@@ -142,7 +142,7 @@ declare global {
          */
         protected _onSubmit(
             event: Event,
-            { updateData, preventClose, preventRender }?: OnSubmitFormOptions,
+            { updateData, preventClose, preventRender }?: OnSubmitFormOptions
         ): Promise<Record<string, unknown>>;
 
         /**

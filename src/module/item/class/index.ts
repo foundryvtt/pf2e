@@ -1,7 +1,7 @@
-import { CharacterPF2e } from '@actor';
-import { FeatPF2e } from '@item/feat';
-import { ABCItemPF2e } from '../abc';
-import { ClassData, ClassTrait } from './data';
+import { CharacterPF2e } from "@actor";
+import { FeatPF2e } from "@item/feat";
+import { ABCItemPF2e } from "../abc";
+import { ClassData, ClassTrait } from "./data";
 
 export class ClassPF2e extends ABCItemPF2e {
     static override get schema(): typeof ClassData {
@@ -15,7 +15,7 @@ export class ClassPF2e extends ABCItemPF2e {
     /** Prepare a character's data derived from their class */
     prepareActorData(this: Embedded<ClassPF2e>) {
         if (!(this.actor instanceof CharacterPF2e)) {
-            console.error('Only a character can have aa class');
+            console.error("Only a character can have aa class");
             return;
         }
 

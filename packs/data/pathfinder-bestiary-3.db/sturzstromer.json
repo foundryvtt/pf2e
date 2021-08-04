@@ -3,91 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 2,
-                "value": 14
+                "mod": 2
             },
             "con": {
-                "min": 3,
-                "mod": 8,
-                "value": 26
+                "mod": 8
             },
             "dex": {
-                "min": 3,
-                "mod": 10,
-                "value": 30
+                "mod": 10
             },
             "int": {
-                "min": 3,
-                "mod": -1,
-                "value": 8
+                "mod": -1
             },
             "str": {
-                "min": 3,
-                "mod": 8,
-                "value": 26
+                "mod": 8
             },
             "wis": {
-                "min": 3,
-                "mod": 6,
-                "value": 22
+                "mod": 6
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 41
             },
             "allSaves": {
                 "value": null
             },
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 280,
-                "min": 0,
                 "temp": 0,
                 "value": 280
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "value": 33
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 2,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -99,7 +57,6 @@
                         "value": "20"
                     }
                 ],
-                "special": "",
                 "value": "50"
             }
         },
@@ -107,64 +64,38 @@
             "alignment": {
                 "value": "N"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
             "flavorText": "<p>Cobble mites resemble squarish stones a few inches across with mouths like split geodes. Though indolent and harmless alone, they're dangerous in large groups.</p>\n<hr />\n<p>Cobble mites that remain a cohesive swarm for many years become dangerous living landslides.</p>",
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 19
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
         },
+        "resources": {
+            "focus": {
+                "max": 0,
+                "value": 0
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 33
             },
             "reflex": {
-                "ability": "dex",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 35
             },
             "will": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 29
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "attitude": {
@@ -250,10 +181,6 @@
                     "value": ""
                 },
                 "displayLevels": {},
-                "focus": {
-                    "points": 0,
-                    "pool": 0
-                },
                 "item": {
                     "value": 0
                 },
@@ -266,7 +193,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -416,8 +343,6 @@
                     "value": "bludgeoning"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You shake the ground, topple creatures into fissures, and collapse structures. The GM might add additional effects in certain areas. Cliffs might collapse, causing creatures to fall, or a lake might drain as fissures open up below its surface, leaving a morass of quicksand. Shaking Ground The ground is difficult terrain, and creatures on it take a -2 circumstance penalty to attack rolls, AC, and skill checks. Fissures Each creature on the ground must attempt a Reflex save at the start of its turn to keep its footing and avoid falling into 40-foot-deep fissures that open beneath it. The fissures are permanent, and their sides require DC 15 Athletics to Climb. Collapse Structures and ceilings might collapse. The GM rolls a flat check for each (DC 16 for a sturdy structure, DC 14 for an average structure and most natural formations, DC 9 for a shoddy structure, all adjusted higher or lower as the GM sees fit). A collapse deals 11d6 bludgeoning damage; each creature caught in a collapse must attempt a Reflex save to avoid it.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes half the collapse damage.</p>\n<p><strong>Success</strong> The creature takes half the collapse damage and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Failure</strong> The creature takes the full collapse damage and falls Prone.</p>\n<p><strong>Critical Failure</strong> The creature takes the full collapse damage and falls into a fissure.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> You create a massive earthquake that can devastate a settlement. The range increases to half a mile and the area to a quarter-mile burst.</p>"
                 },
                 "duration": {
@@ -455,7 +380,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -545,8 +470,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Using the weight of earth, you hamper a target's flight, with effects based on its Fortitude save. If the creature reaches the ground safely, it doesn't take falling damage.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target falls safely up to 120 feet.</p>\n<p><strong>Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 round.</p>\n<p><strong>Critical Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 minute.</p>"
                 },
                 "duration": {
@@ -584,7 +507,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "transmutation"
@@ -673,8 +596,6 @@
                     "value": "bludgeoning"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You shake the ground, topple creatures into fissures, and collapse structures. The GM might add additional effects in certain areas. Cliffs might collapse, causing creatures to fall, or a lake might drain as fissures open up below its surface, leaving a morass of quicksand. Shaking Ground The ground is difficult terrain, and creatures on it take a -2 circumstance penalty to attack rolls, AC, and skill checks. Fissures Each creature on the ground must attempt a Reflex save at the start of its turn to keep its footing and avoid falling into 40-foot-deep fissures that open beneath it. The fissures are permanent, and their sides require DC 15 Athletics to Climb. Collapse Structures and ceilings might collapse. The GM rolls a flat check for each (DC 16 for a sturdy structure, DC 14 for an average structure and most natural formations, DC 9 for a shoddy structure, all adjusted higher or lower as the GM sees fit). A collapse deals 11d6 bludgeoning damage; each creature caught in a collapse must attempt a Reflex save to avoid it.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes half the collapse damage.</p>\n<p><strong>Success</strong> The creature takes half the collapse damage and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Failure</strong> The creature takes the full collapse damage and falls Prone.</p>\n<p><strong>Critical Failure</strong> The creature takes the full collapse damage and falls into a fissure.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> You create a massive earthquake that can devastate a settlement. The range increases to half a mile and the area to a quarter-mile burst.</p>"
                 },
                 "duration": {
@@ -712,7 +633,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -802,8 +723,6 @@
                     "value": "bludgeoning"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You shake the ground, topple creatures into fissures, and collapse structures. The GM might add additional effects in certain areas. Cliffs might collapse, causing creatures to fall, or a lake might drain as fissures open up below its surface, leaving a morass of quicksand. Shaking Ground The ground is difficult terrain, and creatures on it take a -2 circumstance penalty to attack rolls, AC, and skill checks. Fissures Each creature on the ground must attempt a Reflex save at the start of its turn to keep its footing and avoid falling into 40-foot-deep fissures that open beneath it. The fissures are permanent, and their sides require DC 15 Athletics to Climb. Collapse Structures and ceilings might collapse. The GM rolls a flat check for each (DC 16 for a sturdy structure, DC 14 for an average structure and most natural formations, DC 9 for a shoddy structure, all adjusted higher or lower as the GM sees fit). A collapse deals 11d6 bludgeoning damage; each creature caught in a collapse must attempt a Reflex save to avoid it.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes half the collapse damage.</p>\n<p><strong>Success</strong> The creature takes half the collapse damage and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Failure</strong> The creature takes the full collapse damage and falls Prone.</p>\n<p><strong>Critical Failure</strong> The creature takes the full collapse damage and falls into a fissure.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> You create a massive earthquake that can devastate a settlement. The range increases to half a mile and the area to a quarter-mile burst.</p>"
                 },
                 "duration": {
@@ -841,7 +760,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -931,8 +850,6 @@
                     "value": "bludgeoning"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You shake the ground, topple creatures into fissures, and collapse structures. The GM might add additional effects in certain areas. Cliffs might collapse, causing creatures to fall, or a lake might drain as fissures open up below its surface, leaving a morass of quicksand. Shaking Ground The ground is difficult terrain, and creatures on it take a -2 circumstance penalty to attack rolls, AC, and skill checks. Fissures Each creature on the ground must attempt a Reflex save at the start of its turn to keep its footing and avoid falling into 40-foot-deep fissures that open beneath it. The fissures are permanent, and their sides require DC 15 Athletics to Climb. Collapse Structures and ceilings might collapse. The GM rolls a flat check for each (DC 16 for a sturdy structure, DC 14 for an average structure and most natural formations, DC 9 for a shoddy structure, all adjusted higher or lower as the GM sees fit). A collapse deals 11d6 bludgeoning damage; each creature caught in a collapse must attempt a Reflex save to avoid it.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes half the collapse damage.</p>\n<p><strong>Success</strong> The creature takes half the collapse damage and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Failure</strong> The creature takes the full collapse damage and falls Prone.</p>\n<p><strong>Critical Failure</strong> The creature takes the full collapse damage and falls into a fissure.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> You create a massive earthquake that can devastate a settlement. The range increases to half a mile and the area to a quarter-mile burst.</p>"
                 },
                 "duration": {
@@ -970,7 +887,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -1060,8 +977,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You can ask questions of and receive answers from natural or worked stone. While stone is not intelligent, you speak with the natural spirits of the stone, which have a personality colored by the type of stone, as well as by the type of structure the stone is part of, for worked stone. A stone's perspective, perception, and knowledge give it a worldview different enough from a human's that it doesn't consider the same details important. Stones can mostly answer questions about creatures that touched them in the past and what is concealed beneath or behind them.</p>"
                 },
                 "duration": {
@@ -1099,7 +1014,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -1167,8 +1082,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface.</p>"
                 },
                 "requirements": {
@@ -1177,7 +1090,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "tremorsense",
                 "source": {
@@ -1221,8 +1134,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface.</p>"
                 },
                 "requirements": {
@@ -1231,7 +1142,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "tremorsense",
                 "source": {
@@ -1275,8 +1186,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
                 },
                 "requirements": {
@@ -1285,7 +1194,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "at-will-spells",
                 "source": {
@@ -1337,7 +1246,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1385,7 +1294,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1435,7 +1344,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1483,7 +1392,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1528,7 +1437,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1567,7 +1476,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1591,42 +1500,10 @@
     ],
     "name": "Sturzstromer",
     "token": {
-        "actorId": "cWlntwaa4HPFEf3u",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 3,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lightColor": null,
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Sturzstromer",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 3
     },
     "type": "npc"

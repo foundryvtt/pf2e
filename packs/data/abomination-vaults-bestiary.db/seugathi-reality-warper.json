@@ -3,91 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 5,
-                "value": 10
+                "mod": 5
             },
             "con": {
-                "min": 3,
-                "mod": 3,
-                "value": 10
+                "mod": 3
             },
             "dex": {
-                "min": 3,
-                "mod": 6,
-                "value": 10
+                "mod": 6
             },
             "int": {
-                "min": 3,
-                "mod": 4,
-                "value": 10
+                "mod": 4
             },
             "str": {
-                "min": 3,
-                "mod": "+4",
-                "value": 10
+                "mod": 4
             },
             "wis": {
-                "min": 3,
-                "mod": 2,
-                "value": 10
+                "mod": 2
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 27
             },
             "allSaves": {
                 "value": "+1 status to all saves vs. magic"
             },
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 120,
-                "min": 0,
                 "temp": 0,
                 "value": 120
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "value": 17
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -99,63 +57,37 @@
             "alignment": {
                 "value": "CE"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 9
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": "Pathfinder #164: Hands of the Devil"
             }
         },
+        "resources": {
+            "focus": {
+                "max": 1,
+                "value": 1
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 18
             },
             "reflex": {
-                "ability": "dex",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 21
             },
             "will": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 15
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -215,10 +147,6 @@
                     "value": ""
                 },
                 "displayLevels": {},
-                "focus": {
-                    "points": 1,
-                    "pool": 1
-                },
                 "item": {
                     "value": 0
                 },
@@ -231,7 +159,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -361,8 +289,6 @@
                     "value": "bludgeoning"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Oily black tentacles rise up and attempt to Grapple each creature in the area. Make spell attack rolls against the Fortitude DC of each creature. Any creature you succeed against is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} and takes 3d6 bludgeoning damage. Whenever a creature ends its turn in the area, the tentacles attempt to grab that creature if they haven't already, and they deal 1d6 bludgeoning damage to any creature already Grabbed.</p>\n<p>The tentacles' Escape DC is equal to your spell DC. A creature can attack a tentacle in an attempt to release its grip. Its AC is equal to your spell DC, and it is destroyed if it takes 12 or more damage. Even if destroyed, additional tentacles continue to grow in the area until the duration ends. You can Dismiss the spell.</p>"
                 },
                 "duration": {
@@ -400,7 +326,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "conjuration"
@@ -486,8 +412,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You inflict despair on creatures in the area. The effects for each creature are determined by its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> For 1 round, the creature can't use reactions and must attempt another save at the start of its turn; on a failure, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for that turn as it sobs uncontrollably.</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is automatically Slowed 1 for 1 minute.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The area increases to a 60-foot cone.</p>"
                 },
                 "duration": {
@@ -525,7 +449,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -613,8 +537,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The target consistently detects one thing as another, can't detect something that's there, or detects something that's not there, though it doesn't alter their beliefs. You choose which of these effects applies, and you determine the specifics of the hallucination. For example, you could make the target see all elves as humans, be unable to detect the presence of their brother, see their beloved pocket watch on their person even when it isn't, or see a tower in the center of town. The target can attempt an initial Will save, with effects below. They also receive a Will save to disbelieve the hallucination every time they Seek or directly interact with the hallucination. For example, the target could attempt to disbelieve the hallucination each time they interacted with an elf, bumped into their brother accidentally, tried to check their pocket watch, or studied the tower. The target can attempt to disbelieve with a large circumstance bonus in situations determined by the GM, such as if the target attempted to climb the nonexistent tower.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature perceives what you chose until it disbelieves, but it knows what the hallucination is.</p>\n<p><strong>Failure</strong> The creature perceives what you chose until it disbelieves.</p>\n<p><strong>Critical Failure</strong> The creature perceives what you chose until it disbelieves, and it trusts its false senses, taking a -4 circumstance penalty to saves to disbelieve.</p>\n<hr /><strong>Heightened (6th)</strong> Choose to either target up to 10 creatures or change the spell's duration to until the next time you make your daily preparations.\n<p><strong>Heightened (8th)</strong> Choose to either target any number of creatures or change the spell's duration to unlimited.</p>"
                 },
                 "duration": {
@@ -652,7 +574,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "illusion"
@@ -740,8 +662,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The target's senses are suddenly rewired in unexpected ways, causing them to process noises as bursts of color, smells as sounds, and so on. This has three effects, and the target must attempt a Will save. Due to the distraction, the target must succeed at a DC 5 flat check each time it uses a concentrate action, or the action fails and is wasted. The target's difficulty processing visual input makes all creatures and objects @Compendium[pf2e.conditionitems.Concealed]{Concealed} from it. The creature has trouble moving, making it @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 3 and giving it a -10-foot status penalty to its Speeds.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is affected for 1 round.</p>\n<p><strong>Failure</strong> The target is affected for 1 minute.</p>\n<p><strong>Critical Failure</strong> As failure, and the target is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 2 as it attempts to process the sensory shifts.</p>\n<hr />\n<p><strong>Heightened (9th)</strong></p>"
                 },
                 "duration": {
@@ -779,7 +699,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -865,8 +785,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You befuddle your target with strange impulses, causing it to act randomly. The effects are determined by the target's Will save. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target babbles incoherently and is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute. It can attempt a new save at the end of each of its turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The target is Confused for 1 minute, with no save to end early.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
@@ -904,7 +822,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -996,8 +914,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You befuddle your target with strange impulses, causing it to act randomly. The effects are determined by the target's Will save. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target babbles incoherently and is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute. It can attempt a new save at the end of each of its turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The target is Confused for 1 minute, with no save to end early.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
@@ -1035,7 +951,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -1127,8 +1043,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You befuddle your target with strange impulses, causing it to act randomly. The effects are determined by the target's Will save. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target babbles incoherently and is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute. It can attempt a new save at the end of each of its turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The target is Confused for 1 minute, with no save to end early.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
@@ -1166,7 +1080,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -1258,8 +1172,6 @@
                     "value": "mental"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You create a phantasmal image of the most fearsome creature imaginable to the target. Only the spell's target can see the killer, though you can see the vague shape of the illusion as it races forth to attack. The effect of the killer is based on the outcome of the target's Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 4d6 mental damage and is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The target takes 8d6 mental damage and is Frightened 2.</p>\n<p><strong>Critical Failure</strong> The target is so afraid it might die. It must attempt a Fortitude save; if the target fails, it dies. On a successful Fortitude save, the target takes 12d6 mental damage, is @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} until the end of its next turn, and is Frightened 4. This effect has the incapacitation trait.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 on a failure and by 3d6 on a critical failure.</p>"
                 },
                 "duration": {
@@ -1297,7 +1209,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "illusion"
@@ -1387,8 +1299,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened (8th)</strong> You can target up to 10 creatures."
                 },
                 "duration": {
@@ -1426,7 +1336,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -1515,8 +1425,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You rapidly catalog and collate information relevant to your current situation. You can instantly use up to 6 Recall Knowledge actions as part of Casting this Spell. For these actions, you can't use any special abilities, reactions, or free actions that trigger when you Recall Knowledge.</p>"
                 },
                 "duration": {
@@ -1554,7 +1462,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -1639,8 +1547,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You rapidly catalog and collate information relevant to your current situation. You can instantly use up to 6 Recall Knowledge actions as part of Casting this Spell. For these actions, you can't use any special abilities, reactions, or free actions that trigger when you Recall Knowledge.</p>"
                 },
                 "duration": {
@@ -1678,7 +1584,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -1763,8 +1669,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You rapidly catalog and collate information relevant to your current situation. You can instantly use up to 6 Recall Knowledge actions as part of Casting this Spell. For these actions, you can't use any special abilities, reactions, or free actions that trigger when you Recall Knowledge.</p>"
                 },
                 "duration": {
@@ -1802,7 +1706,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -1887,8 +1791,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You defy gravity and levitate the target 5 feet off the ground. For the duration of the spell, you can move the target up or down 10 feet with a single action, which has the concentrate trait. A creature floating in the air from levitate takes a -2 circumstance penalty to attack rolls. A floating creature can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If the target is adjacent to a fixed object or terrain of suitable stability, it can move across the surface by climbing (if the surface is vertical, like a wall) or crawling (if the surface is horizontal, such as a ceiling). The GM determines which surfaces can be climbed or crawled across.</p>"
                 },
                 "duration": {
@@ -1926,7 +1828,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -2012,8 +1914,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You defy gravity and levitate the target 5 feet off the ground. For the duration of the spell, you can move the target up or down 10 feet with a single action, which has the concentrate trait. A creature floating in the air from levitate takes a -2 circumstance penalty to attack rolls. A floating creature can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If the target is adjacent to a fixed object or terrain of suitable stability, it can move across the surface by climbing (if the surface is vertical, like a wall) or crawling (if the surface is horizontal, such as a ceiling). The GM determines which surfaces can be climbed or crawled across.</p>"
                 },
                 "duration": {
@@ -2051,7 +1951,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -2137,8 +2037,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You defy gravity and levitate the target 5 feet off the ground. For the duration of the spell, you can move the target up or down 10 feet with a single action, which has the concentrate trait. A creature floating in the air from levitate takes a -2 circumstance penalty to attack rolls. A floating creature can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If the target is adjacent to a fixed object or terrain of suitable stability, it can move across the surface by climbing (if the surface is vertical, like a wall) or crawling (if the surface is horizontal, such as a ceiling). The GM determines which surfaces can be climbed or crawled across.</p>"
                 },
                 "duration": {
@@ -2176,7 +2074,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -2262,8 +2160,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>With a cursory mental touch, you attempt to read the target's mind. It must attempt a Will save. The target then becomes temporarily immune to your mind reading for 1 hour.</p>\n<hr /><strong>Critical Success</strong> The target perceives vague surface thoughts from you when you Cast the Spell.\n<p><strong>Success</strong> You find out whether the target's Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Failure</strong> You perceive vague surface thoughts from the target when you Cast the Spell, and you find out whether its Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Critical Failure</strong> As failure, and for the duration of the spell, you can Sustain the Spell to detect the target's surface thoughts again. The target doesn't receive any additional saves.</p>"
                 },
                 "duration": {
@@ -2301,7 +2197,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -2390,8 +2286,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>With a cursory mental touch, you attempt to read the target's mind. It must attempt a Will save. The target then becomes temporarily immune to your mind reading for 1 hour.</p>\n<hr /><strong>Critical Success</strong> The target perceives vague surface thoughts from you when you Cast the Spell.\n<p><strong>Success</strong> You find out whether the target's Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Failure</strong> You perceive vague surface thoughts from the target when you Cast the Spell, and you find out whether its Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Critical Failure</strong> As failure, and for the duration of the spell, you can Sustain the Spell to detect the target's surface thoughts again. The target doesn't receive any additional saves.</p>"
                 },
                 "duration": {
@@ -2429,7 +2323,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -2518,8 +2412,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>With a cursory mental touch, you attempt to read the target's mind. It must attempt a Will save. The target then becomes temporarily immune to your mind reading for 1 hour.</p>\n<hr /><strong>Critical Success</strong> The target perceives vague surface thoughts from you when you Cast the Spell.\n<p><strong>Success</strong> You find out whether the target's Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Failure</strong> You perceive vague surface thoughts from the target when you Cast the Spell, and you find out whether its Intelligence modifier is higher than, equal to, or lower than yours.</p>\n<p><strong>Critical Failure</strong> As failure, and for the duration of the spell, you can Sustain the Spell to detect the target's surface thoughts again. The target doesn't receive any additional saves.</p>"
                 },
                 "duration": {
@@ -2557,7 +2449,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -2646,8 +2538,6 @@
                     "value": "mental"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
@@ -2685,7 +2575,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -2775,8 +2665,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
@@ -2814,7 +2702,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -2905,8 +2793,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
                 },
                 "duration": {
@@ -2944,7 +2830,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -3031,8 +2917,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack attack against the target. If you hit, you deal bludgeoning, piercing, or slashing damage-as appropriate for the object you hurled-equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr /><strong>Critical Success</strong> You deal double damage.\n<p><strong>Success</strong> You deal full damage.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 1d6."
                 },
                 "duration": {
@@ -3070,7 +2954,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -3161,8 +3045,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>These axes are designed explicitly as weapons, rather than tools. They typically weigh less, with a shaft reinforced with metal bands or bolts, and have a sharper blade, making them ideal for chopping limbs rather than wood.</p>"
                 },
                 "equipped": {
@@ -3258,7 +3140,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "size": {
                     "value": "med"
@@ -3336,7 +3218,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3391,7 +3273,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3440,7 +3322,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3491,7 +3373,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3539,7 +3421,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3589,7 +3471,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3637,7 +3519,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3687,7 +3569,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3736,7 +3618,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3775,7 +3657,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3814,7 +3696,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3853,7 +3735,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3892,7 +3774,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3931,7 +3813,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3970,7 +3852,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -4009,7 +3891,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -4033,41 +3915,10 @@
     ],
     "name": "Seugathi Reality Warper",
     "token": {
-        "actorId": "vS1YISLmSnkNotkL",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Seugathi Reality Warper",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 2
     },
     "type": "npc"

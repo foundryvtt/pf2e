@@ -21,6 +21,7 @@
         "level": {
             "value": 6
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -34,10 +35,26 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "analyze-idiolect"
+                    ]
+                },
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "property": "flags.pf2e.rollOptions.all.analyze-idiolect"
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "source": {
             "value": ""

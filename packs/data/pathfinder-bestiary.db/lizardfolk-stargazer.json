@@ -3,101 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             },
             "con": {
-                "min": 3,
-                "mod": 1,
-                "value": 12
+                "mod": 1
             },
             "dex": {
-                "min": 3,
-                "mod": 2,
-                "value": 14
+                "mod": 2
             },
             "int": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             },
             "str": {
-                "min": 3,
-                "mod": "+2",
-                "value": 14
+                "mod": 2
             },
             "wis": {
-                "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 4
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 17
             },
             "allSaves": {
                 "value": ""
             },
-            "ancestryhp": 0,
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "classDC": {
-                "ability": "str",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
-                "value": 0
-            },
-            "classhp": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 30,
-                "min": 0,
                 "temp": 0,
                 "value": 30
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "value": 8
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -114,67 +62,38 @@
             "alignment": {
                 "value": "N"
             },
-            "ancestry": {
-                "value": "Lizardfolk"
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "Humanoid",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
             "flavorText": "The tradition of astrology and looking to the stars for both navigation and prognostication is well-established in iruxi society, and their wise and observant stargazers are among the people's most respected members. Even the lowliest stargazer, as presented here, has a number of useful primal spells to aid their kin; in larger iruxi settlements, stargazers wield even greater powers.<br /><br />",
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 2
             },
-            "recallKnowledgeText": "Recall Knowledge : DC 16",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
         },
+        "resources": {
+            "focus": {
+                "max": 1,
+                "value": 1
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 7
             },
             "reflex": {
-                "ability": "dex",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 6
             },
             "will": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 10
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -222,16 +141,10 @@
                     "value": null
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "displayLevel": {},
                 "displayLevels": {},
-                "focus": {
-                    "points": 1,
-                    "pool": 1
-                },
                 "item": {
                     "value": 0
                 },
@@ -244,7 +157,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -403,8 +316,6 @@
                     "value": "mental"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
@@ -439,7 +350,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -519,8 +430,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You ask for divine guidance, granting the target a +1 status bonus to one attack roll, Perception check, saving throw, or skill check the target attempts before the duration ends. The target chooses which roll to use the bonus on before rolling. If the target uses the bonus, the spell ends. Either way, the target is then temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
@@ -555,7 +464,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -634,8 +543,6 @@
                     "value": "positive"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
@@ -670,7 +577,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -749,8 +656,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>In your mind's eye, you see a path northward. You immediately know which direction is north (if it exists at your current location).</p>\n<hr />\n<p><strong>Heightened</strong> You can instead know the direction to a familiar location, such as a previous home or a favorite tavern.</p>"
                 },
                 "duration": {
@@ -785,7 +690,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -865,8 +770,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Choose one of the target's unarmed attacks. You cause that unarmed attack to shine with primal energy. The unarmed attack becomes a +1 striking unarmed attack, gaining a +1 item bonus to attack rolls and increasing the number of damage dice to two if it had only one.</p>"
                 },
                 "duration": {
@@ -901,7 +804,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "transmutation"
@@ -976,9 +879,7 @@
                     "value": "fire"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and 1d4 persistent fire damage.</p>\n<hr />\n<p><strong>Heightened</strong> Increase the damage by 1d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and [[/r 1d4 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}.</p>\n<hr />\n<p><strong>Heightened</strong> Increase the damage by 1d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1012,7 +913,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -1092,8 +993,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The target grows vines and leaves, brimming with primal energy. The target becomes a<em>+1 striking weapon</em>while in your hands, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two. Additionally, as long as you are on your home plane, attacks you make with the target against aberrations, extraplanar creatures, and undead increase the number of weapon damage dice to three.</p>"
                 },
                 "duration": {
@@ -1128,7 +1027,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "transmutation"
@@ -1204,8 +1103,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Positive energy shuts death's door. The target loses the @Compendium[pf2e.conditionitems.Dying]{Dying} condition, though it remains @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} at 0 Hit Points.</p>"
                 },
                 "duration": {
@@ -1240,7 +1137,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -1321,8 +1218,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You conjure an animal to fight for you. You summon a common creature that has the animal trait and whose level is -1. Heightening the spell increases the maximum level of creature you can summon.</p>\n<hr />\n<p><strong>Heightened</strong> Level 1</p>\n<p><strong>Heightened</strong> Level 2</p>\n<p><strong>Heightened</strong> Level 3</p>\n<p><strong>Heightened</strong> Level 5</p>\n<p><strong>Heightened</strong> Level 7</p>\n<p><strong>Heightened</strong> Level 9</p>\n<p><strong>Heightened</strong> Level 11</p>\n<p><strong>Heightened</strong> Level 13</p>\n<p><strong>Heightened</strong> Level 15</p>"
                 },
                 "duration": {
@@ -1357,7 +1252,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "conjuration"
@@ -1418,8 +1313,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "equipped": {
@@ -1474,7 +1367,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "size": {
                     "value": "med"
@@ -1526,14 +1419,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1578,14 +1469,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1628,14 +1517,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1675,8 +1562,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A lizardfolk stargazer can hold their breath for 200 rounds (20 minutes).</p>"
                 },
                 "requirements": {
@@ -1685,7 +1570,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1716,8 +1601,6 @@
             "_id": "X9nZDP7pknNlOqmK",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1732,7 +1615,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1757,8 +1640,6 @@
             "_id": "IXKSet09gpO7nCje",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1773,7 +1654,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1798,8 +1679,6 @@
             "_id": "5nnNq3IuUHMylaOW",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1814,7 +1693,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1839,8 +1718,6 @@
             "_id": "IbZBAIm1fpYbRXwU",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1855,7 +1732,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1880,8 +1757,6 @@
             "_id": "lOetJZOEnGNzkrEw",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1896,7 +1771,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1920,41 +1795,10 @@
     ],
     "name": "Lizardfolk Stargazer",
     "token": {
-        "actorId": "yzyaD2yGDrxmYh7P",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Lizardfolk Stargazer",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 1
     },
     "type": "npc"

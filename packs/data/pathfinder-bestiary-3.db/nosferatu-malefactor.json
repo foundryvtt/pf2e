@@ -3,91 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 3,
-                "value": 16
+                "mod": 3
             },
             "con": {
-                "min": 3,
-                "mod": 3,
-                "value": 16
+                "mod": 3
             },
             "dex": {
-                "min": 3,
-                "mod": 7,
-                "value": 24
+                "mod": 7
             },
             "int": {
-                "min": 3,
-                "mod": 7,
-                "value": 24
+                "mod": 7
             },
             "str": {
-                "min": 3,
-                "mod": 5,
-                "value": 20
+                "mod": 5
             },
             "wis": {
-                "min": 3,
-                "mod": 5,
-                "value": 20
+                "mod": 5
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 30
             },
             "allSaves": {
                 "value": null
             },
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "fast healing 10, negative healing, plagued coffin restoration",
                 "max": 135,
-                "min": 0,
                 "temp": 0,
                 "value": 135
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "value": 19
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 2,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -99,7 +57,6 @@
                         "value": "25"
                     }
                 ],
-                "special": "",
                 "value": "30"
             }
         },
@@ -107,64 +64,38 @@
             "alignment": {
                 "value": "NE"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
             "flavorText": "<p>Among the most ancient of vampires are the nosferatus, twisted remnants of&nbsp;mortals who died in great plagues of old. Perhaps because of their age, nosferatus&nbsp;can no longer create more of their kind. Yet they still lurk among the living,&nbsp;manipulating the hearts and minds of their prey to either serve them beyond the&nbsp;limits of natural life or to become sustenance for the nosferatu like so many others&nbsp;before.</p>\n<hr />\n<p>Twisted by age and eternal hunger, nosferatu malefactors spread plague in their wake and yearn for mortal blood.</p>",
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 10
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
         },
+        "resources": {
+            "focus": {
+                "max": 0,
+                "value": 0
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 17
             },
             "reflex": {
-                "ability": "dex",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 21
             },
             "will": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 19
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "attitude": {
@@ -234,10 +165,6 @@
                     "value": ""
                 },
                 "displayLevels": {},
-                "focus": {
-                    "points": 0,
-                    "pool": 0
-                },
                 "item": {
                     "value": 0
                 },
@@ -250,7 +177,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -393,8 +320,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Casting it requires staring into the target’s eyes, giving the spell the visual trait. A creature that succeeds is temporarily immune to that nosferatu’s <em>Dominate </em>for 24 hours.</p>\n<hr />\n<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} as it fights off your commands, and is temporarily immune to your <em>Dominate </em>for 24 hours.</p>\n<p><strong>Failure</strong> The target follows your orders but can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The duration is unlimited.</p>"
                 },
                 "duration": {
@@ -432,7 +357,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -524,8 +449,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You move the target up to 20 feet, potentially suspending it in midair. When you Sustain the Spell, you can do so again, or you can choose a different eligible target to move.</p>"
                 },
                 "duration": {
@@ -563,7 +486,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -652,8 +575,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You move the target up to 20 feet, potentially suspending it in midair. When you Sustain the Spell, you can do so again, or you can choose a different eligible target to move.</p>"
                 },
                 "duration": {
@@ -691,7 +612,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -780,8 +701,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You move the target up to 20 feet, potentially suspending it in midair. When you Sustain the Spell, you can do so again, or you can choose a different eligible target to move.</p>"
                 },
                 "duration": {
@@ -819,7 +738,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -900,7 +819,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -953,7 +872,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -993,8 +912,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
@@ -1003,7 +920,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "darkvision",
                 "source": {
@@ -1047,8 +964,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>"
                 },
                 "requirements": {
@@ -1057,7 +972,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "telepathy",
                 "source": {
@@ -1105,8 +1020,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
                 },
                 "requirements": {
@@ -1115,7 +1028,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "at-will-spells",
                 "source": {
@@ -1167,7 +1080,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1215,7 +1128,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1267,7 +1180,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1310,8 +1223,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn.</p>"
                 },
                 "requirements": {
@@ -1320,7 +1231,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "fast-healing",
                 "source": {
@@ -1364,8 +1275,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
                 },
                 "requirements": {
@@ -1374,7 +1283,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "negative-healing",
                 "source": {
@@ -1426,7 +1335,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1477,7 +1386,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1531,7 +1440,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1575,8 +1484,6 @@
                     "value": "1"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>DC 29</p>\n<hr />\n<p>The nosferatu transforms into a swarm of pale-gray rats. They gain a land Speed of 30 feet and a climb Speed of 10 feet, and they become Large. Each enemy in the swarm’s space takes [[/r 2d10 #piercing]] piercing damage and must attempt a basic Reflex save with a high DC for the creature’s level. A creature that fails its save is exposedto plague of ancients.</p>\n<hr />\n<p>The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the @Compendium[pf2e.action-macros.Impersonate: Deception]{Impersonate} use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>"
                 },
                 "requirements": {
@@ -1585,7 +1492,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "change-shape",
                 "source": {
@@ -1639,7 +1546,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1678,7 +1585,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1717,7 +1624,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1756,7 +1663,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1795,7 +1702,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1834,7 +1741,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1858,41 +1765,10 @@
     ],
     "name": "Nosferatu Malefactor",
     "token": {
-        "actorId": "BEzfxlrA0CNfh4Fr",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Nosferatu Malefactor",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 1
     },
     "type": "npc"

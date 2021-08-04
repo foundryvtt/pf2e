@@ -10,7 +10,7 @@ declare module foundry {
             protected static _canModify(
                 user: BaseUser,
                 doc: BaseMeasuredTemplate,
-                data: data.MeasuredTemplateData,
+                data: data.MeasuredTemplateData
             ): boolean;
         }
 
@@ -21,14 +21,14 @@ declare module foundry {
         }
 
         interface MeasuredTemplateMetadata extends abstract.DocumentMetadata {
-            name: 'MeasuredTemplate';
-            collection: 'templates';
-            label: 'DOCUMENT.MeasuredTemplate';
+            name: "MeasuredTemplate";
+            collection: "templates";
+            label: "DOCUMENT.MeasuredTemplate";
             isEmbedded: true;
             permissions: {
-                create: 'TEMPLATE_CREATE';
-                update: typeof BaseMeasuredTemplate['_canModify'];
-                delete: typeof BaseMeasuredTemplate['_canModify'];
+                create: "TEMPLATE_CREATE";
+                update: typeof BaseMeasuredTemplate["_canModify"];
+                delete: typeof BaseMeasuredTemplate["_canModify"];
             };
         }
     }

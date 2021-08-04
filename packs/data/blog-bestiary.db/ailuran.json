@@ -3,91 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 4,
-                "value": 10
+                "mod": 4
             },
             "con": {
-                "min": 3,
-                "mod": 4,
-                "value": 10
+                "mod": 4
             },
             "dex": {
-                "min": 3,
-                "mod": 5,
-                "value": 10
+                "mod": 5
             },
             "int": {
-                "min": 3,
-                "mod": 4,
-                "value": 10
+                "mod": 4
             },
             "str": {
-                "min": 3,
-                "mod": "+4",
-                "value": 10
+                "mod": 4
             },
             "wis": {
-                "min": 3,
-                "mod": 3,
-                "value": 10
+                "mod": 3
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 20
             },
             "allSaves": {
                 "value": "+1 status to all vs. poison"
             },
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 80,
-                "min": 0,
                 "temp": 0,
                 "value": 80
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "value": 14
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -99,63 +57,37 @@
             "alignment": {
                 "value": "CN"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 5
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": "Pathfinder Blog"
             }
         },
+        "resources": {
+            "focus": {
+                "max": 1,
+                "value": 1
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 9
             },
             "reflex": {
-                "ability": "dex",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 12
             },
             "will": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 15
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "attitude": {
@@ -220,10 +152,6 @@
                     "value": ""
                 },
                 "displayLevels": {},
-                "focus": {
-                    "points": 1,
-                    "pool": 1
-                },
                 "item": {
                     "value": 0
                 },
@@ -236,7 +164,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -366,8 +294,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You create a visible tunnel through the wall in the chosen area, replacing the area with empty space. If the wall is thicker than 10 feet, the tunnel ends 10 feet in. Even a small layer of metal in the wall prevents this spell from functioning. This spell doesn't reduce the integrity of the structure. When the spell ends, anyone inside the tunnel is shunted to the nearest exit.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The tunnel can be up to 20 feet deep. The areas of the wall that contain your tunnel's entrance appear completely normal (unless viewed with true seeing or a similar effect), despite the tunnel's existence. The tunnel's entrance functions as a solid wall, but you can specify a password or a trigger, allowing creatures to enter the tunnel freely.</p>"
                 },
                 "duration": {
@@ -405,7 +331,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "conjuration"
@@ -492,8 +418,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Creatures in the area are outlined by glittering dust. Each creature must attempt a Reflex save. If a creature has its invisibility negated by this spell, it is @Compendium[pf2e.conditionitems.Concealed]{Concealed} instead of @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This applies both if the creature was already Invisible and if it benefits from new invisibility effects before the end of the invisibility negation effect from this spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's invisibility is negated for 2 rounds.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 minute and its invisibility is negated for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round and Dazzled for 10 minutes. Its invisibility is negated for 10 minutes.</p>"
                 },
                 "duration": {
@@ -531,7 +455,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -617,8 +541,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Creatures in the area are outlined by glittering dust. Each creature must attempt a Reflex save. If a creature has its invisibility negated by this spell, it is @Compendium[pf2e.conditionitems.Concealed]{Concealed} instead of @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This applies both if the creature was already Invisible and if it benefits from new invisibility effects before the end of the invisibility negation effect from this spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target's invisibility is negated for 2 rounds.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 minute and its invisibility is negated for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round and Dazzled for 10 minutes. Its invisibility is negated for 10 minutes.</p>"
                 },
                 "duration": {
@@ -656,7 +578,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -742,8 +664,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You create an illusory visual image of a stationary object. The entire image must fit within the spell's area. The object appears to animate naturally, but it doesn't make sounds or generate smells. For example, water would appear to pour down an illusory waterfall, but it would be silent.</p>\n<p>Any creature that touches the image or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Your image makes appropriate sounds, generates normal smells, and feels right to the touch. The spell gains the auditory trait. The duration increases to 1 hour.</p>\n<p><strong>Heightened (5th)</strong> As the 2nd-level version, but the duration is unlimited.</p>"
                 },
                 "duration": {
@@ -781,7 +701,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "illusion"
@@ -868,8 +788,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You can ask questions of, receive answers from, and use the Diplomacy skill with animals. The spell doesn't make them more friendly than normal. Cunning animals are likely to be terse and evasive, while less intelligent ones often make inane comments.</p>"
                 },
                 "duration": {
@@ -907,7 +825,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -992,8 +910,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You create up to four floating lights, no two of which are more than 10 feet apart. Each sheds light like a torch. When you Sustain the Spell, you can move any number of lights up to 60 feet. Each light must remain within 120 feet of you and within 10 feet of all others, or it winks out.</p>"
                 },
                 "duration": {
@@ -1031,7 +947,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -1124,8 +1040,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>This is a piece of stout wood shaped or repurposed to bludgeon an enemy. Clubs can be intricately carved pieces of martial art or as simple as a tree branch or piece of wood.</p>"
                 },
                 "equipped": {
@@ -1221,7 +1135,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "size": {
                     "value": "med"
@@ -1340,7 +1254,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "size": {
                     "value": "med"
@@ -1397,7 +1311,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1445,7 +1359,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1495,7 +1409,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1542,7 +1456,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1590,7 +1504,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1638,7 +1552,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1678,8 +1592,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The ailuran deals [[/r 1d6 #precision]] extra precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals 1d6 precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
@@ -1706,7 +1618,7 @@
                 ],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "sneak-attack",
                 "source": {
@@ -1755,7 +1667,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1794,7 +1706,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1833,7 +1745,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1872,7 +1784,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1911,7 +1823,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1950,7 +1862,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1974,41 +1886,10 @@
     ],
     "name": "Ailuran",
     "token": {
-        "actorId": "F8UHnGYafHS3Pnyt",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Ailuran",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 1
     },
     "type": "npc"

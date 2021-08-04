@@ -1,15 +1,15 @@
-import * as path from 'path';
-import * as fs from 'fs';
-import { FakeActor } from './fakes/fake-actor';
-import { FakeItem } from './fakes/fake-item';
-import { FakeToken } from './fakes/fake-token';
+import * as path from "path";
+import * as fs from "fs";
+import { FakeActor } from "./fakes/fake-actor";
+import { FakeItem } from "./fakes/fake-item";
+import { FakeToken } from "./fakes/fake-token";
 
 export const fetchSpell = (name: string) => {
-    const spellsDb = './packs/data/spells.db/';
+    const spellsDb = "./packs/data/spells.db/";
     const spellFiles = fs.readdirSync(spellsDb);
 
     for (const file of spellFiles) {
-        const content = fs.readFileSync(path.resolve(spellsDb, file), 'utf-8');
+        const content = fs.readFileSync(path.resolve(spellsDb, file), "utf-8");
         const json = JSON.parse(content);
         if (json.name === name) return json;
     }
@@ -22,24 +22,24 @@ global.game = Object.freeze({
         get: (_module: string, settingKey: string) => {
             switch (settingKey) {
                 /* Proficiency Modifiers */
-                case 'proficiencyUntrainedModifier':
+                case "proficiencyUntrainedModifier":
                     return 0;
-                case 'proficiencyTrainedModifier':
+                case "proficiencyTrainedModifier":
                     return 2;
-                case 'proficiencyExpertModifier':
+                case "proficiencyExpertModifier":
                     return 4;
-                case 'proficiencyMasterModifier':
+                case "proficiencyMasterModifier":
                     return 6;
-                case 'proficiencyLegendaryModifier':
+                case "proficiencyLegendaryModifier":
                     return 8;
 
                 /* Variant rules */
-                case 'proficiencyVariant':
-                    return 'ProficiencyWithLevel';
-                case 'automaticBonusVariant':
-                    return 'automaticBonusVariant';
+                case "proficiencyVariant":
+                    return "ProficiencyWithLevel";
+                case "automaticBonusVariant":
+                    return "automaticBonusVariant";
                 default:
-                    throw new Error('Undefined setting.');
+                    throw new Error("Undefined setting.");
             }
         },
     }),
@@ -48,14 +48,14 @@ global.game = Object.freeze({
             return Object.freeze({
                 getEntity: (id: string) => {
                     switch (id) {
-                        case 'JuNPeK5Qm1w6wpb4':
-                            return { data: require('../packs/data/equipment.db/platinum-pieces.json') };
-                        case 'B6B7tBWJSqOBz5zz':
-                            return { data: require('../packs/data/equipment.db/gold-pieces.json') };
-                        case '5Ew82vBF9YfaiY9f':
-                            return { data: require('../packs/data/equipment.db/silver-pieces.json') };
-                        case 'lzJ8AVhRcbFul5fh':
-                            return { data: require('../packs/data/equipment.db/copper-pieces.json') };
+                        case "JuNPeK5Qm1w6wpb4":
+                            return { data: require("../packs/data/equipment.db/platinum-pieces.json") };
+                        case "B6B7tBWJSqOBz5zz":
+                            return { data: require("../packs/data/equipment.db/gold-pieces.json") };
+                        case "5Ew82vBF9YfaiY9f":
+                            return { data: require("../packs/data/equipment.db/silver-pieces.json") };
+                        case "lzJ8AVhRcbFul5fh":
+                            return { data: require("../packs/data/equipment.db/copper-pieces.json") };
                         default:
                             return { data: {} };
                     }
@@ -68,12 +68,12 @@ global.game = Object.freeze({
 
 function getType(token: Token | null) {
     const tof = typeof token;
-    if (tof === 'object') {
-        if (token === null) return 'null';
+    if (tof === "object") {
+        if (token === null) return "null";
         const cn = token.constructor.name;
-        if (['String', 'Number', 'Boolean', 'Array', 'Set'].includes(cn)) return cn;
-        else if (/^HTML/.test(cn)) return 'HTMLElement';
-        else return 'Object';
+        if (["String", "Number", "Boolean", "Array", "Set"].includes(cn)) return cn;
+        else if (/^HTML/.test(cn)) return "HTMLElement";
+        else return "Object";
     }
     return tof;
 }
@@ -82,9 +82,9 @@ function setProperty(object: Record<string, any>, key: string, value: unknown) {
     let target = object;
     let changed = false;
     // Convert the key to an object reference if it contains dot notation
-    if (key.indexOf('.') !== -1) {
-        const parts = key.split('.');
-        key = parts.pop() ?? '';
+    if (key.indexOf(".") !== -1) {
+        const parts = key.split(".");
+        key = parts.pop() ?? "";
         target = parts.reduce((o, i) => {
             if (!(i in o)) o[i] = {};
             return o[i];
@@ -112,7 +112,7 @@ function duplicate(original: unknown) {
  */
 function deepClone<T>(original: T): T extends Set<any> | Map<any, any> | Collection<any> ? never : T {
     // Simple types
-    if (typeof original !== 'object' || original === null)
+    if (typeof original !== "object" || original === null)
         return original as T extends Set<any> | Map<any, any> | Collection<any> ? never : T;
 
     // Arrays
@@ -137,7 +137,7 @@ function deepClone<T>(original: T): T extends Set<any> | Map<any, any> | Collect
 
 function expandObject(obj: Record<string, any>, _d = 0) {
     const expanded = {};
-    if (_d > 10) throw new Error('Maximum depth exceeded');
+    if (_d > 10) throw new Error("Maximum depth exceeded");
     for (const entry of Object.entries(obj)) {
         const k = entry[0];
         let v = entry[1];
@@ -158,11 +158,11 @@ function mergeObject(
         inplace = true,
         enforceTypes = false,
     } = {},
-    _d = 0,
+    _d = 0
 ): any {
     other = other || {};
     if (!(original instanceof Object) || !(other instanceof Object)) {
-        throw Error('One of original or other are not Objects!');
+        throw Error("One of original or other are not Objects!");
     }
     const depth = _d + 1;
 
@@ -180,7 +180,7 @@ function mergeObject(
 
         // Prepare to delete
         let toDelete = false;
-        if (k.startsWith('-=')) {
+        if (k.startsWith("-=")) {
             k = k.slice(2);
             toDelete = v === null;
         }
@@ -191,16 +191,16 @@ function mergeObject(
         let tx = getType(x);
 
         // Ensure that inner objects exist
-        if (!has && tv === 'Object') {
+        if (!has && tv === "Object") {
             x = original[k] = {};
             has = true;
-            tx = 'Object';
+            tx = "Object";
         }
 
         // Case 1 - Key exists
         if (has) {
             // 1.1 - Recursively merge an inner object
-            if (tv === 'Object' && tx === 'Object' && recursive) {
+            if (tv === "Object" && tx === "Object" && recursive) {
                 mergeObject(
                     x,
                     v,
@@ -211,7 +211,7 @@ function mergeObject(
                         inplace: true,
                         enforceTypes: enforceTypes,
                     },
-                    depth,
+                    depth
                 );
             }
 

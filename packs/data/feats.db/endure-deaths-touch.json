@@ -32,10 +32,30 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Use Endure Death's Touch",
+                "property": "flags.pf2e.rollOptions.all.endure-deaths-touch"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "endure-deaths-touch"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "source": {
             "value": ""

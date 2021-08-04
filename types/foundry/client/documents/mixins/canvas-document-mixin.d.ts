@@ -7,27 +7,27 @@ declare global {
      * @mixin
      */
     function CanvasDocumentMixin<TDocument extends typeof foundry.abstract.Document, TLayer extends PlaceablesLayer>(
-        Base: TDocument,
+        Base: TDocument
     ): CanvasDocumentMixin<TDocument, TLayer>;
 
     type CanvasDocumentMixin<
         TDocument extends typeof foundry.abstract.Document,
-        TLayer extends PlaceablesLayer,
+        TLayer extends PlaceablesLayer
     > = TDocument & {
         new (...args: any[]): CanvasDocument<InstanceType<TDocument>, TLayer> & InstanceType<TDocument>;
     };
 
     class CanvasDocument<
         TDocument extends foundry.abstract.Document = foundry.abstract.Document,
-        TLayer extends PlaceablesLayer = PlaceablesLayer<any>,
+        TLayer extends PlaceablesLayer = PlaceablesLayer<any>
     > extends ClientDocument<TDocument> {
-        constructor(data: PreCreate<TDocument['data']['_source']>, context?: DocumentModificationContext);
+        constructor(data: PreCreate<TDocument["data"]["_source"]>, context?: DocumentModificationContext);
 
         /** A reference to the PlaceableObject instance which represents this Embedded Document. */
-        protected _object: TLayer['placeables'][number] | null;
+        protected _object: TLayer["placeables"][number] | null;
 
         /** A lazily constructed PlaceableObject instance which can represent this Document on the game canvas. */
-        get object(): TLayer['placeables'][number];
+        get object(): TLayer["placeables"][number];
 
         /** A reference to the CanvasLayer which contains Document objects of this type. */
         get layer(): TLayer;
@@ -36,15 +36,15 @@ declare global {
         get rendered(): boolean;
 
         protected override _onCreate(
-            data: this['data']['_source'],
+            data: this["data"]["_source"],
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         protected override _onUpdate(
-            changed: DeepPartial<this['data']['_source']>,
+            changed: DeepPartial<this["data"]["_source"]>,
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         protected override _onDelete(options: DocumentModificationContext, userId: string): void;

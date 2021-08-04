@@ -3,108 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 4
             },
             "con": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             },
             "dex": {
-                "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 4
             },
             "int": {
-                "min": 3,
-                "mod": 2,
-                "value": 14
+                "mod": 2
             },
             "str": {
-                "min": 3,
-                "mod": "-1",
-                "value": 8
+                "mod": -1
             },
             "wis": {
-                "min": 3,
-                "mod": 2,
-                "value": 14
+                "mod": 2
             }
         },
         "attributes": {
             "ac": {
-                "base": 20,
-                "breakdown": "Base Armor Class 10, Base Modifier +6, Dexterity +4",
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
-                "name": "ac",
-                "totalModifier": 10,
                 "value": 20
             },
             "allSaves": {
                 "value": ""
             },
-            "ancestryhp": 0,
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "classDC": {
-                "ability": "str",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
-                "value": 0
-            },
-            "classhp": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 52,
-                "min": 0,
                 "temp": 0,
                 "value": 52
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "base": 10,
-                "breakdown": "Base Modifier +8, Wisdom +2",
-                "item": 0,
-                "name": "perception",
-                "rank": 0,
-                "totalModifier": 10,
                 "value": 10
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -116,75 +57,37 @@
             "alignment": {
                 "value": "LE"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 4
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": "Pathfinder Society: Season 1"
             }
         },
+        "resources": {
+            "focus": {
+                "max": 1,
+                "value": 1
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "base": 8,
-                "breakdown": "Base Modifier +8, Constitution +0",
-                "item": 0,
-                "name": "fortitude",
-                "rank": 0,
                 "saveDetail": "",
-                "totalModifier": 8,
                 "value": 8
             },
             "reflex": {
-                "ability": "dex",
-                "base": 12,
-                "breakdown": "Base Modifier +8, Dexterity +4",
-                "item": 0,
-                "name": "reflex",
-                "rank": 0,
                 "saveDetail": "",
-                "totalModifier": 12,
                 "value": 12
             },
             "will": {
-                "ability": "wis",
-                "base": 12,
-                "breakdown": "Base Modifier +10, Wisdom +2",
-                "item": 0,
-                "name": "will",
-                "rank": 0,
                 "saveDetail": "",
-                "totalModifier": 12,
                 "value": 12
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -242,15 +145,9 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "displayLevels": {},
-                "focus": {
-                    "points": 1,
-                    "pool": 1
-                },
                 "item": {
                     "value": 0
                 },
@@ -263,7 +160,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -393,9 +290,7 @@
                     "value": "acid"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>You conjure an arrow of acid that continues corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus 1d6 persistent acid damage. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that continues corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r 1d6 #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -432,7 +327,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -516,8 +411,6 @@
                     "value": "fire"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You create a sphere of flame in a square within range. The sphere must be supported by a solid surface, such as a stone floor. The sphere deals 3d6 fire damage to each creature in the square where it first appears; each creature must attempt a basic Reflex save. On subsequent rounds, you can Sustain this Spell, leaving the sphere in its square or rolling it to another square within range and dealing 3d6 fire damage; each creature in its square must attempt a basic Reflex save.</p>\n<p>Creatures that succeed at their save take no damage (instead of half).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
@@ -555,7 +448,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -638,8 +531,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You create an illusory visual image of a stationary object. The entire image must fit within the spell's area. The object appears to animate naturally, but it doesn't make sounds or generate smells. For example, water would appear to pour down an illusory waterfall, but it would be silent.</p>\n<p>Any creature that touches the image or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> Your image makes appropriate sounds, generates normal smells, and feels right to the touch. The spell gains the auditory trait. The duration increases to 1 hour.</p>\n<p><strong>Heightened (5th)</strong> As the 2nd-level version, but the duration is unlimited.</p>"
                 },
                 "duration": {
@@ -677,7 +568,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "illusion"
@@ -760,8 +651,6 @@
                     "value": "force"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You send a dart of force streaking toward a creature that you can see. It automatically hits and deals 1d4+1 force damage. For each additional action you use when Casting the Spell, increase the number of missiles you shoot by one, to a maximum of three missiles for 3 actions. You choose the target for each missile individually. If you shoot more than one missile at the same target, combine the damage before applying bonuses or penalties to damage, resistances, weaknesses, and so forth.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> You shoot one additional missile with each action you spend.</p>"
                 },
                 "duration": {
@@ -799,7 +688,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -878,8 +767,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "duration": {
@@ -914,7 +801,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -985,8 +872,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.<br style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\"><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
@@ -1024,7 +909,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -1111,8 +996,6 @@
                     "value": "electricity"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>An arc of lightning leaps from one target to another. You deal electricity damage equal to 1d4 plus your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
                 },
                 "duration": {
@@ -1150,7 +1033,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -1235,8 +1118,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You create an auditory illusion of simple sounds that has a maximum volume equal to four normal humans shouting. The sounds emanate from a square you designate within range. You can't create intelligible words or other intricate sounds (such as music).</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The range increases to 60 feet.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 120 feet.</p>"
                 },
                 "duration": {
@@ -1274,7 +1155,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "illusion"
@@ -1355,8 +1236,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You create a single magical hand, either invisible or ghostlike, that grasps the target object and moves it slowly up to 20 feet. Because you're levitating the object, you can move it in any direction. When you Sustain the Spell, you can move the object an additional 20 feet. If the object is in the air when the spell ends, the object falls.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (5th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 1 or less.</p>\n<p><strong>Heightened (7th)</strong> The range increases to 60 feet, and you can target an unattended object with a Bulk of 2 or less.</p>"
                 },
                 "duration": {
@@ -1391,7 +1270,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -1465,8 +1344,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition.<br /><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.<br /><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.<br /><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
                 },
                 "duration": {
@@ -1501,7 +1378,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "conjuration"
@@ -1570,8 +1447,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "equipped": {
@@ -1626,7 +1501,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "size": {
                     "value": "med"
@@ -1678,14 +1553,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>(agile, finesse)</p>"
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1731,14 +1604,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>(two-hand d8)</p>"
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1777,8 +1648,6 @@
                     "value": 3
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p><strong>Frequency</strong> once per hour; <br />\n<strong>Requirements</strong> The dragon spellweaver is adjacent to at least one enemy; <br />\n<strong>Effect</strong> The dragon spellweaver creates an illusion of itself in its square and then becomes invisible (with the effects of a 2nd-level invisibility spell) for 1d4+2 rounds. The dragon spellweaver can move up to half its Speed, but it must end its movement in a space that's not adjacent to any enemies.<br />\nThis is a 2nd-level spell that requires a somatic component.</p>"
                 },
                 "requirements": {
@@ -1787,7 +1656,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1832,8 +1701,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The dragon spellweaver deals an extra [[/r 1d6 # precision damage]] precision damage to flat-footed creatures.</p>"
                 },
                 "requirements": {
@@ -1860,7 +1727,7 @@
                 ],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1891,8 +1758,6 @@
             "_id": "qTmSsqcZoK0XUDKX",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1907,7 +1772,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1932,8 +1797,6 @@
             "_id": "YLjOw1OssjmtzdFn",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1948,7 +1811,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1973,8 +1836,6 @@
             "_id": "WO64cB7l9IEguZQR",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1989,7 +1850,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2014,8 +1875,6 @@
             "_id": "iQR9wmQidkfqVLY7",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2030,7 +1889,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2055,8 +1914,6 @@
             "_id": "Z0PwpFXIKDbO6Bvo",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2071,7 +1928,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2096,8 +1953,6 @@
             "_id": "8VlDMl1DpmPW34KB",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2112,7 +1967,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2136,41 +1991,10 @@
     ],
     "name": "Kobold Dragon Spellweaver",
     "token": {
-        "actorId": "2fUyhm29ugKzkIdS",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Kobold Dragon Spellweaver",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 1
     },
     "type": "npc"

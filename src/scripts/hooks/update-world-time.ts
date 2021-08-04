@@ -1,5 +1,5 @@
 export function listen() {
-    Hooks.on('updateWorldTime', async (_total, diff) => {
+    Hooks.on("updateWorldTime", async (_total, diff) => {
         game.pf2e.effectPanel.refresh();
         await game.pf2e.effectTracker.refresh();
 

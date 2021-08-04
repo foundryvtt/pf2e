@@ -1,15 +1,15 @@
 declare class AmbientLight<
-    TDocument extends AmbientLightDocument = AmbientLightDocument,
+    TDocument extends AmbientLightDocument = AmbientLightDocument
 > extends PlaceableObject<TDocument> {
     constructor(document: TDocument);
 
     /** A reference to the PointSource object which defines this light source area of effect */
-    source: PointSource;
+    source: PointSource<this>;
 
     /** A reference to the ControlIcon used to configure this light */
     controlIcon: ControlIcon;
 
-    static override embeddedName: 'AmbientLight';
+    static override embeddedName: "AmbientLight";
 
     override get bounds(): NormalizedRectangle;
 
@@ -61,15 +61,15 @@ declare class AmbientLight<
     /* -------------------------------------------- */
 
     protected override _onCreate(
-        data: this['document']['data']['_source'],
+        data: this["document"]["data"]["_source"],
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ): void;
 
     protected override _onUpdate(
-        changed: DocumentUpdateData<this['document']>,
+        changed: DocumentUpdateData<this["document"]>,
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ): void;
 
     protected override _onDelete(options: DocumentModificationContext, userId: string): void;
@@ -92,5 +92,5 @@ declare class AmbientLight<
 }
 
 declare interface AmbientLight {
-    get layer(): LightingLayer;
+    get layer(): LightingLayer<this>;
 }

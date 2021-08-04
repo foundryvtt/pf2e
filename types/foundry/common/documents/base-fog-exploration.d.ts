@@ -9,7 +9,7 @@ declare module foundry {
             protected override _preUpdate(
                 changed: DocumentUpdateData<this>,
                 options: DocumentModificationContext,
-                user: BaseUser,
+                user: BaseUser
             ): Promise<void>;
 
             /** Test whether a User can modify a FogExploration document. */
@@ -23,14 +23,14 @@ declare module foundry {
         }
 
         interface FogExplorationMetadata extends abstract.DocumentMetadata {
-            name: 'DogExploration';
-            collection: 'fog';
-            label: 'DOCUMENT.FogExploration';
+            name: "DogExploration";
+            collection: "fog";
+            label: "DOCUMENT.FogExploration";
             isPrimary: true;
             permissions: {
-                create: 'PLAYER';
-                update: typeof BaseFogExploration['_canUserModify'];
-                delete: typeof BaseFogExploration['_canUserModify'];
+                create: "PLAYER";
+                update: typeof BaseFogExploration["_canUserModify"];
+                delete: typeof BaseFogExploration["_canUserModify"];
             };
         }
     }

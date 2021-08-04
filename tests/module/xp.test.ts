@@ -1,11 +1,11 @@
-import { calculateXP } from '../../src/scripts/macros/xp';
+import { calculateXP } from "../../src/scripts/macros/xp";
 
 const dcOptions = {
     proficiencyWithoutLevel: false,
 };
 
-describe('should calculate xp', () => {
-    test('party of 4', () => {
+describe("should calculate xp", () => {
+    test("party of 4", () => {
         const result = calculateXP(
             4,
             4,
@@ -17,7 +17,7 @@ describe('should calculate xp', () => {
                     isComplex: false,
                 },
             ],
-            dcOptions,
+            dcOptions
         );
 
         expect(result).toEqual({
@@ -28,7 +28,7 @@ describe('should calculate xp', () => {
                 severe: 120,
                 extreme: 160,
             },
-            rating: 'moderate',
+            rating: "moderate",
             xpPerPlayer: 88,
             totalXP: 88,
             partySize: 4,
@@ -36,7 +36,7 @@ describe('should calculate xp', () => {
         });
     });
 
-    test('party of 5', () => {
+    test("party of 5", () => {
         const result = calculateXP(
             4,
             5,
@@ -48,7 +48,7 @@ describe('should calculate xp', () => {
                     isComplex: false,
                 },
             ],
-            dcOptions,
+            dcOptions
         );
 
         expect(result).toEqual({
@@ -59,7 +59,7 @@ describe('should calculate xp', () => {
                 severe: 150,
                 extreme: 200,
             },
-            rating: 'low',
+            rating: "low",
             xpPerPlayer: 70,
             totalXP: 88,
             partySize: 5,

@@ -34,7 +34,7 @@ declare class SidebarDirectory extends SidebarTab {
     static setupFolders(
         folders: Folder[],
         entities: foundry.abstract.Document[],
-        sortMode: string,
+        sortMode: string
     ): { root: boolean; content: foundry.abstract.Document[]; children: any[] };
 
     static get entity(): foundry.abstract.Document;

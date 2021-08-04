@@ -21,7 +21,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Ceiling sprinklers spray in response to any fire in the room.</p>",
-            "disable": "<p>DC 22 Thievery (trained) to jam the sprinkler system or DC 18 Engineering Lore (trained) on the control panel on the north wall to turn the system off.</p>",
+            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-traits=\"mechanical,trap\" data-pf2-label=\"Neutralize Automatic Fire Suppression DC\" data-pf2-dc=\"22\" data-pf2-show-dc=\"gm\">Thievery</span> (trained) to jam the sprinkler system or <span data-pf2-check=\"engineering-lore\" data-pf2-traits=\"mechanical,trap\" data-pf2-label=\"Disable Control Panel DC\" data-pf2-dc=\"18\" data-pf2-show-dc=\"gm\">Engineering Lore</span> (trained) on the control panel on the north wall to turn the system off.</p>",
             "isComplex": false,
             "level": {
                 "value": 4
@@ -29,30 +29,26 @@
             "reset": "",
             "routine": ""
         },
-        "recallKnowledgeText": "",
         "saves": {
             "fortitude": {
-                "rank": 0,
                 "saveDetail": "",
                 "value": 14
             },
             "reflex": {
-                "rank": 0,
                 "saveDetail": "",
                 "value": 8
             },
             "will": {
-                "rank": 0,
                 "saveDetail": "",
-                "value": null
+                "value": 0
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "source": {
-            "value": ""
+            "value": "Pathfinder Society Quest #9: Wayfinder Origins"
         },
         "statusEffects": [],
         "traits": {
@@ -100,7 +96,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Fire damage is dealt in area A1;</p>\n<p><strong>Effect</strong> Frozen fire retardant rains down on all creatures in area A1, dealing [[/r 4d8+10 #cold]] cold damage (<span data-pf2-check=\"reflex\" data-pf2-traits=\"cold,damaging-effect\" data-pf2-label=\"Overloaded Extinguisher DC\" data-pf2-dc=\"23\" data-pf2-show-dc=\"gm\">basic Reflex</span>). Any persistent fire damage in area A1 ends.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> Fire damage is dealt in area A1;</p>\n<p><strong>Effect</strong> Frozen fire retardant rains down on all creatures in area A1, dealing [[/r 4d8+10 #cold]]{4d8+10 cold damage} (<span data-pf2-check=\"reflex\" data-pf2-traits=\"cold,damaging-effect\" data-pf2-label=\"Overloaded Extinguisher DC\" data-pf2-dc=\"23\" data-pf2-show-dc=\"gm\">basic Reflex</span>).<span data-visibility=\"gm\"> Any persistent fire damage in area A1 ends.</span></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -108,7 +104,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -140,45 +136,11 @@
     ],
     "name": "Automatic Fire Suppression (5-6)",
     "token": {
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": 0,
-        "elevation": null,
-        "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
-        "lightAlpha": 0.25,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lightColor": null,
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Automatic Fire Suppression",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
-        "width": 1,
-        "x": null,
-        "y": null
+        "width": 1
     },
     "type": "hazard"
 }

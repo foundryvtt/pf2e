@@ -3,102 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 4
             },
             "con": {
-                "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 4
             },
             "dex": {
-                "min": 3,
-                "mod": 6,
-                "value": 22
+                "mod": 6
             },
             "int": {
-                "min": 3,
-                "mod": 9,
-                "value": 28
+                "mod": 9
             },
             "str": {
-                "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 4
             },
             "wis": {
-                "min": 3,
-                "mod": 6,
-                "value": 22
+                "mod": 6
             }
         },
         "attributes": {
             "ac": {
-                "base": 36,
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
-                "value": 0
+                "value": 36
             },
             "allSaves": {
                 "value": "+2 status to all saves vs. magic"
             },
-            "ancestryhp": 0,
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "classDC": {
-                "ability": "str",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
-                "value": 0
-            },
-            "classhp": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 275,
-                "min": 0,
                 "temp": 0,
                 "value": 275
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "value": 29
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 2,
                 "brokenThreshold": "0",
                 "hardness": 0,
                 "max": "0",
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -110,69 +57,37 @@
             "alignment": {
                 "value": "NE"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 15
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": "Pathfinder #161: Belly of the Black Whale"
             }
         },
+        "resources": {
+            "focus": {
+                "max": 1,
+                "value": 1
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "base": 23,
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
-                "value": 0
+                "value": 23
             },
             "reflex": {
-                "ability": "dex",
-                "base": 25,
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
-                "value": 0
+                "value": 25
             },
             "will": {
-                "ability": "wis",
-                "base": 29,
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
-                "value": 0
+                "value": 29
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -218,15 +133,9 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "displayLevels": {},
-                "focus": {
-                    "points": 1,
-                    "pool": 1
-                },
                 "item": {
                     "value": 0
                 },
@@ -239,7 +148,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": true
@@ -369,8 +278,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (+8)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
@@ -408,7 +315,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -494,8 +401,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (+8)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
@@ -533,7 +438,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -619,8 +524,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You shroud a creature from others' senses. The target becomes @Compendium[pf2e.conditionitems.Undetected]{Undetected}, not just to sight but to all senses, allowing the target to count as @Compendium[pf2e.conditionitems.Invisible]{Invisible} no matter what precise and imprecise senses an observer might have. It's still possible for a creature to find the target by Seeking, looking for disturbed dust, hearing gaps in the sound spectrum, or finding some other way to discover the presence of an otherwise-undetectable creature.</p>"
                 },
                 "duration": {
@@ -658,7 +561,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "illusion"
@@ -740,8 +643,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Powerful wards hide a creature from divination magic. The target gains a +4 status bonus to saves against mental effects. Mind blank attempts to counteract any detection, revelation, and scrying effects as if its spell level were 1 higher than its actual level. On a success, the divination effect functions normally except that it detects nothing about the target and its possessions. For instance, detect magic would still detect other magic in the area, but not any magic on the target.</p>"
                 },
                 "duration": {
@@ -779,7 +680,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "abjuration"
@@ -861,8 +762,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you succeed against a spell effect, you counteract it. If you succeed against a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.</p>"
                 },
                 "duration": {
@@ -900,7 +799,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "abjuration"
@@ -984,8 +883,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you succeed against a spell effect, you counteract it. If you succeed against a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.</p>"
                 },
                 "duration": {
@@ -1023,7 +920,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "abjuration"
@@ -1107,8 +1004,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You link your mind to the target's mind and mentally impart to that target an amount of information in an instant that could otherwise be communicated in 10 minutes.</p>"
                 },
                 "duration": {
@@ -1146,7 +1041,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -1228,8 +1123,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The target can walk on air as if it were solid ground. It can ascend and descend in this way at a maximum of a 45-degree angle.</p>"
                 },
                 "duration": {
@@ -1267,7 +1160,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "transmutation"
@@ -1350,8 +1243,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You rapidly catalog and collate information relevant to your current situation. You can instantly use up to 6 Recall Knowledge actions as part of Casting this Spell. For these actions, you can't use any special abilities, reactions, or free actions that trigger when you Recall Knowledge.</p>"
                 },
                 "duration": {
@@ -1389,7 +1280,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -1470,8 +1361,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You designate an area in which creatures are compelled to speak only truth. Creatures within or entering the area have difficulty lying. Each potentially affected creature must attempt a Will save when the spell is cast or when the creature first enters the area. It uses the results of this initial save if it leaves and reenters the area. Affected creatures are aware of this enchantment; therefore, they can avoid answering questions to which they would normally respond with a lie, or they can be evasive as long as they remain within the boundaries of the truth.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target takes a -2 status penalty to Deception checks.</p>\n<p><strong>Failure</strong> The target can't speak any deliberate and intentional lies, and it takes a -2 status penalty to Deception checks.</p>\n<p><strong>Critical Failure</strong> The target can't speak any deliberate and intentional lies and takes a -4 status penalty to Deception checks.</p>"
                 },
                 "duration": {
@@ -1509,7 +1398,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -1593,8 +1482,6 @@
                     "value": "mental"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
@@ -1632,7 +1519,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -1718,8 +1605,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
@@ -1757,7 +1642,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -1841,8 +1726,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic.</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.<br /><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
@@ -1877,7 +1760,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -1943,8 +1826,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p><span>This garment appears to be an ordinary robe until donned, at which point numerous strange and alien eyes of varied shapes and colors open and blink across its fabric. While wearing the robe, you gain a +3 item bonus to Perception checks, and you constantly benefit from the effects of a 2nd-level see @Compendium[pf2e.spells-srd.Invisibility]{Invisibility} spell.<br /></span></p>\n<p><span>You can also see powerful magic auras. The highest-level magic aura within 30 feet of you glows in a color that reveals its school to you and allows you to determine where the effect originates. This can narrow down the origin point of the effect to a 5-foot-cube, but not more precisely than that.<br /></span></p>\n<p><span>The <em>robe of eyes</em> is not without its dangers. If any spell with the light trait is cast on you or your square while you are wearing the robe, you are blinded for a number of rounds equal to the spell's level unless you succeed at a Fortitude save against the spell's DC.<br /></span></p>\n<p><span><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact; <strong>Effect</strong> You pluck an eye from the robe and toss it into the air, where it turns invisible and floats to a destination you choose, with the same effect as a 5th-level @Compendium[pf2e.spells-srd.Prying Eye]{Prying Eye} spell. You can Sustain the Activation just as you would be able to Sustain the Spell. </span></p>"
                 },
                 "equipped": {
@@ -1999,7 +1880,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "size": {
                     "value": "med"
@@ -2061,14 +1942,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2110,8 +1989,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Ixusoth retains a vast amount of knowledge. She can use her Bardic Lore skill to Recall Knowledge on any topic, and she knows any languages common to an area she has spent a day or more in.</p>"
                 },
                 "requirements": {
@@ -2120,7 +1997,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2160,8 +2037,6 @@
                     "value": "3"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p>Up to six of Ixusoth's eyes detach from her body. Each eye has AC 26, HP 1, and a fly speed of 40 feet. Ixusoth can see through all of her eye probes. She can move the probes all in separate directions using a single action. Ixusoth can have no more than six eye probes active at a time; using this ability to create more eyes causes the eye or eyes farthest away to shrivel and die.</p>\n<p>Ixusoth can deliver touch spells through her eye probes and make melee spell attacks through them. In addition, she can Steal Memories through an eye probe using a single action by touching the target with the eye.</p>"
                 },
                 "requirements": {
@@ -2170,7 +2045,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2213,8 +2088,6 @@
                     "value": "3"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Ixusoth reaches out with her mind and attempts to steal memories from a creature within 30 feet. The target must succeed at a <span data-pf2-check=\"will\" data-pf2-dc=\"40\" data-pf2-traits=\"emotion,mental,necromancy,occult\" data-pf2-label=\"Steal Memories DC\" data-pf2-show-dc=\"gm\">Will</span> saving throw or become stupefied 2 and have some of its memories stolen. When Ixusoth steals memories, she learns some of the creature's memories (chosen by the GM). These memories are then lost to that creature.</p>"
                 },
                 "requirements": {
@@ -2223,7 +2096,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2268,8 +2141,6 @@
                     "value": "3"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A creature hit by Ixusoth's fist Strike must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"36\" data-pf2-traits=\"divination,enchantment,incapacitation,occult\" data-pf2-label=\"Scatterbrain Palm DC\" data-pf2-show-dc=\"gm\">Will</span> save. The creature is then temporarily immune until the start of its next turn.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is stunned 1.</p>\n<p><strong>Failure</strong> The creature is stunned 2.</p>\n<p><strong>Critical Failure</strong> The creature is stunned 3, and the hyakume can use Steal Memories on the target as part of this action.</p>"
                 },
                 "requirements": {
@@ -2278,7 +2149,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2323,8 +2194,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>When first exposed to bright light, the monster is @Compendium[pf2e.conditionitems.Blinded]{blinded} until the end of its next turn. After this exposure, light doesn't blind the monster again until after it spends 1 hour in darkness. However, as long as the monster is in an area of bright light, it's @Compendium[pf2e.conditionitems.Dazzled]{dazzled}.</p>"
                 },
                 "requirements": {
@@ -2333,7 +2202,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2373,8 +2242,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>This monster can see in all directions simultaneously, and therefore can't be flanked.</p>"
                 },
                 "requirements": {
@@ -2383,7 +2250,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2414,8 +2281,6 @@
             "_id": "Gk1YpCawjWGlEZ69",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2430,7 +2295,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2455,8 +2320,6 @@
             "_id": "Mt5gA0Ecgq48bbxm",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2471,7 +2334,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2496,8 +2359,6 @@
             "_id": "F7OMPEH8jkrKpAV4",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2512,7 +2373,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2537,8 +2398,6 @@
             "_id": "OQPHO5VCiINNoDHC",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2553,7 +2412,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2578,8 +2437,6 @@
             "_id": "NscLkQgRh8bCVFpY",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2594,7 +2451,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2619,8 +2476,6 @@
             "_id": "q4Lm2VRr1kEVcTuc",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2635,7 +2490,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2660,8 +2515,6 @@
             "_id": "J9d9Uni4BmgXz9Xc",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2676,7 +2529,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2701,8 +2554,6 @@
             "_id": "48uz0L0EAjOiykAN",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2717,7 +2568,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2742,8 +2593,6 @@
             "_id": "cOx3fIBkPJeRqGBX",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2758,7 +2607,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2783,8 +2632,6 @@
             "_id": "4J7XozzwGJ6kqYQg",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2799,7 +2646,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2823,41 +2670,10 @@
     ],
     "name": "Ixusoth",
     "token": {
-        "actorId": "M8ONVV7yl4uu0zcz",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Ixusoth",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 2
     },
     "type": "npc"

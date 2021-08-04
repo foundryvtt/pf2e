@@ -3,91 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 5,
-                "value": 20
+                "mod": 5
             },
             "con": {
-                "min": 3,
-                "mod": 3,
-                "value": 16
+                "mod": 3
             },
             "dex": {
-                "min": 3,
-                "mod": 6,
-                "value": 22
+                "mod": 6
             },
             "int": {
-                "min": 3,
-                "mod": 5,
-                "value": 20
+                "mod": 5
             },
             "str": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             },
             "wis": {
-                "min": 3,
-                "mod": 7,
-                "value": 24
+                "mod": 7
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 30
             },
             "allSaves": {
                 "value": null
             },
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 190,
-                "min": 0,
                 "temp": 0,
                 "value": 190
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "value": 24
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 2,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -99,7 +57,6 @@
                         "value": "60"
                     }
                 ],
-                "special": "",
                 "value": "10"
             }
         },
@@ -107,64 +64,38 @@
             "alignment": {
                 "value": "CN"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
             "flavorText": "<p>Catching a glimpse of a harmona is said to be lucky. Flying quickly, observing and scouting new areas, these brightly colored avian fey are all but hidden to the eye. A soft buzz accompanies them, discernible only to creatures with particularly keen hearing.</p>\n<p>Intelligent and curious, these tiny fey birds freely roam the First World, accompanying high-ranking fey creatures such as queens or their courts. In turn, companions who treat a harmona with respect for their knowledge and skill benefit from the harmona's aid in times of need.</p>\n<p>When these curious creatures find a natural gate between the planes, they glide through to explore and expand their knowledge. Those who find their&nbsp;way onto the Material Plane often choose to remain there in search of diverse and unusual places. This frequently leads them to the same locations that draw in curious adventurers. A harmona might befriend a non-fey adventurer as a companion, but they resent those who would treat them as pets and fight to the death to avoid capture.</p>",
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 11
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": "Pathfinder Bestiary 3"
             }
         },
+        "resources": {
+            "focus": {
+                "max": 0,
+                "value": 0
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 18
             },
             "reflex": {
-                "ability": "dex",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 21
             },
             "will": {
-                "ability": "wis",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 24
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "attitude": {
@@ -227,10 +158,6 @@
                     "value": ""
                 },
                 "displayLevels": {},
-                "focus": {
-                    "points": 0,
-                    "pool": 0
-                },
                 "item": {
                     "value": 0
                 },
@@ -243,7 +170,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -380,8 +307,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
@@ -419,7 +344,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -507,7 +432,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -561,7 +486,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -602,8 +527,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
                 },
                 "requirements": {
@@ -612,7 +535,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "low-light-vision",
                 "source": {
@@ -664,7 +587,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -712,7 +635,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -764,7 +687,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -815,7 +738,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -859,8 +782,6 @@
                     "value": "1"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Push in its damage entry.</p>\n<p><strong>Effect</strong> The monster automatically knocks the target away from the monster. Unless otherwise noted in the ability description, the creature is pushed 5 feet. If the attack was a critical hit, this distance is doubled.</p>"
                 },
                 "requirements": {
@@ -869,7 +790,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "push",
                 "source": {
@@ -918,7 +839,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -957,7 +878,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -996,7 +917,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1035,7 +956,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1074,7 +995,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1113,7 +1034,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1137,41 +1058,10 @@
     ],
     "name": "Harmona",
     "token": {
-        "actorId": "Pnw71fJ41j6Wx62M",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 0.5,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Harmona",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 0.5
     },
     "type": "npc"

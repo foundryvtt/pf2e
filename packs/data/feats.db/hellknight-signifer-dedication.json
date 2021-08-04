@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<div><strong>Archetype</strong> @Compendium[pf2e.archetypes.Hellknight Signifer]{Hellknight Signifer}</div>\n<div></div>\n<hr />\n<p>You have bolstered your force of will with the power of the Measure and the Chain. Upon initiation, you receive a signifer mask, often devoid of eyeholes or other decorative features. The mask doesn't obscure your vision, though it makes it impossible for others to see your eyes. While wearing your signifer's mask, you gain +1 circumstance bonus to Deception checks to Lie, Intimidation checks, and Deception DCs against Sense Motive. You gain expert proficiency in Intimidation (or in another skill in which you're trained of your choice, if you were already an expert in Intimidation) as well as in your choice of Arcana, Nature, Occultism, or Religion.</p>\n<div><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the @Compendium[pf2e.archetypes.Hellknight Signifer]{Hellknight Signifer} or @Compendium[pf2e.archetypes.Hellknight Armiger]{Hellknight Armiger} archetypes. </div>"
+            "value": "<p>You have bolstered your force of will with the power of the Measure and the Chain. Upon initiation, you receive a signifer mask, often devoid of eyeholes or other decorative features. The mask doesn't obscure your vision, though it makes it impossible for others to see your eyes. While wearing your signifer's mask, you gain +1 circumstance bonus to Deception checks to Lie, Intimidation checks, and Deception DCs against Sense Motive. You gain expert proficiency in Intimidation (or in another skill in which you're trained of your choice, if you were already an expert in Intimidation) as well as in your choice of Arcana, Nature, Occultism, or Religion.</p>\n<div><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the @Compendium[pf2e.archetypes.Hellknight Signifer]{Hellknight Signifer} or @Compendium[pf2e.archetypes.Hellknight Armiger]{Hellknight Armiger} archetypes.</div>"
         },
         "featType": {
             "value": "archetype"
@@ -21,6 +21,7 @@
         "level": {
             "value": 6
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -40,10 +41,30 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.int.rank",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "to Lie wearing Signifier Mask",
+                "predicate": {
+                    "all": [
+                        "action:lie",
+                        "wearing-signifier-mask"
+                    ]
+                },
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "source": {
             "value": ""

@@ -1,7 +1,7 @@
-import { Size, SIZES } from '@module/data';
-import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from '@module/utils';
-import { ItemDataPF2e, PhysicalItemData } from '../data';
-import { isPhysicalData } from '../data/helpers';
+import { Size, SIZES } from "@module/data";
+import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from "@module/utils";
+import { ItemDataPF2e, PhysicalItemData } from "../data";
+import { isPhysicalData } from "../data/helpers";
 
 interface StackDefinition {
     size: number;
@@ -187,9 +187,9 @@ export class Bulk {
  * @param actorSize
  */
 export function convertBulkToSize(bulk: Bulk, itemSize: Size, actorSize: Size): Bulk {
-    const sizes = SIZES.filter((size) => size !== 'sm');
-    const itemSizeIndex = sizes.indexOf(itemSize === 'sm' ? 'med' : itemSize);
-    const actorSizeIndex = sizes.indexOf(actorSize === 'sm' ? 'med' : actorSize);
+    const sizes = SIZES.filter((size) => size !== "sm");
+    const itemSizeIndex = sizes.indexOf(itemSize === "sm" ? "med" : itemSize);
+    const actorSizeIndex = sizes.indexOf(actorSize === "sm" ? "med" : actorSize);
 
     if (itemSizeIndex === actorSizeIndex) {
         return bulk;
@@ -208,7 +208,7 @@ export function convertBulkToSize(bulk: Bulk, itemSize: Size, actorSize: Size): 
  */
 export function formatBulk(bulk: Bulk): string {
     if (bulk.normal === 0 && bulk.light === 0) {
-        return '-';
+        return "-";
     }
     if (bulk.normal > 0 && bulk.light === 0) {
         return `${bulk.normal}`;
@@ -249,7 +249,7 @@ export class BulkItem {
     extraDimensionalContainer: boolean;
 
     constructor({
-        id = '',
+        id = "",
         bulk = new Bulk(),
         quantity = 1,
         stackGroup,
@@ -264,7 +264,7 @@ export class BulkItem {
         negateBulk = new Bulk(),
         // extra dimensional containers cease to work when nested inside each other
         extraDimensionalContainer = false,
-        size = 'med',
+        size = "med",
     }: {
         id?: string;
         bulk?: Bulk;
@@ -355,11 +355,11 @@ function calculateStackBulk({
     itemSize: Size;
 }): BulkAndOverflow {
     return Object.entries(itemStacks)
-        .filter(([stackType]) => !(bulkConfig.ignoreCoinBulk && stackType === 'coins'))
+        .filter(([stackType]) => !(bulkConfig.ignoreCoinBulk && stackType === "coins"))
         .map(([stackType, quantity]) => {
             if (!(stackType in stackDefinitions)) {
                 console.warn(`No stack definition found for stack ${stackType}`);
-                stackType = 'arrows';
+                stackType = "arrows";
             }
             const { size, lightBulk } = stackDefinitions[stackType];
             const bulkRelevantQuantity = Math.floor(quantity / size);
@@ -466,7 +466,7 @@ function calculateCombinedBulk({
                 nestedExtraDimensionalContainer: item.extraDimensionalContainer,
                 bulkConfig,
                 actorSize,
-            }),
+            })
         )
         .reduce(combineBulkAndOverflow, [new Bulk(), {}]);
 
@@ -498,7 +498,7 @@ function calculateCombinedBulk({
 export function calculateBulk({
     items = [],
     nestedExtraDimensionalContainer = false,
-    actorSize = 'med',
+    actorSize = "med",
     bulkConfig = defaultBulkConfig,
 }: {
     items?: BulkItem[];
@@ -535,14 +535,14 @@ export function weightToBulk(weight: Optional<string>): Bulk | undefined {
     }
     const lightMatch = trimmed.match(lightBulkRegex);
     if (lightMatch) {
-        return new Bulk({ light: parseInt(lightMatch[1] || '1', 10) });
+        return new Bulk({ light: parseInt(lightMatch[1] || "1", 10) });
     }
     const complexMatch = trimmed.match(complexBulkRegex);
     if (complexMatch) {
         const [, normal, light] = complexMatch;
         return new Bulk({
             normal: parseInt(normal, 10),
-            light: parseInt(light || '1', 10),
+            light: parseInt(light || "1", 10),
         });
     }
     return undefined;
@@ -578,8 +578,8 @@ export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = [])
     const stackGroup = item.data?.stackGroup?.value;
     const negateBulk = item.data.negateBulk?.value;
     const traits: string[] = item.data.traits.value;
-    const extraDimensionalContainer = traits.includes('extradimensional');
-    const size = item.data.size.value || 'med';
+    const extraDimensionalContainer = traits.includes("extradimensional");
+    const size = item.data.size.value || "med";
 
     return new BulkItem({
         id,
@@ -606,7 +606,7 @@ export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = [])
  */
 function buildContainerTree(
     items: PhysicalItemData[],
-    groupedItems: Map<string | null, PhysicalItemData[]>,
+    groupedItems: Map<string | null, PhysicalItemData[]>
 ): BulkItem[] {
     return items.map((item) => {
         const containedItems = groupedItems.get(item._id);
@@ -662,12 +662,12 @@ export function itemsFromActorData(actorData: { items: ItemDataPF2e[] }): BulkIt
 export function calculateCarriedArmorBulk(wornBulk: BrokenBulk): string {
     const bulk = weightToBulk(normalizeWeight(wornBulk)) ?? new Bulk();
     if (bulk.light === 1) {
-        return '1';
+        return "1";
     }
     if (bulk.normal > 0) {
         return `${bulk.normal + 1}`;
     }
-    return '-';
+    return "-";
 }
 
 /**
@@ -678,7 +678,7 @@ export function calculateCarriedArmorBulk(wornBulk: BrokenBulk): string {
 export function fixWeight(brokenWeight: BrokenBulk): string | null {
     const bulk = weightToBulk(normalizeWeight(brokenWeight)) ?? new Bulk();
     if (bulk.light === 1) {
-        return 'l';
+        return "l";
     }
     if (bulk.normal > 0) {
         return `${bulk.normal}`;

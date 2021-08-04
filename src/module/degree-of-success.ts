@@ -25,7 +25,7 @@ export type DegreeAdjustmentValues = typeof DegreeAdjustment[keyof typeof Degree
 
 export function adjustDegreeOfSuccess(
     adjustment: DegreeAdjustmentValues,
-    degreeOfSuccess: DegreeOfSuccess,
+    degreeOfSuccess: DegreeOfSuccess
 ): DegreeOfSuccess {
     return DegreeOfSuccess[
         DegreeOfSuccess[Math.clamped(degreeOfSuccess + adjustment, 0, 3)] as keyof typeof DegreeOfSuccess

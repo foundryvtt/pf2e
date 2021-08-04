@@ -2,13 +2,13 @@
  * Implementation of Earn Income rules on https://2e.aonprd.com/Skills.aspx?ID=2&General=true
  */
 
-import { ProficiencyRank } from '@item/data';
-import { Coins } from '../../module/item/treasure/helpers';
-import { calculateDC, DCOptions } from '../../module/dc';
-import { calculateDegreeOfSuccess, DegreeOfSuccess, DieRoll } from '../../module/degree-of-success';
+import { ProficiencyRank } from "@item/data";
+import { Coins } from "../../module/item/treasure/helpers";
+import { calculateDC, DCOptions } from "../../module/dc";
+import { calculateDegreeOfSuccess, DegreeOfSuccess, DieRoll } from "../../module/degree-of-success";
 
 // you have to be at least trained to earn income
-type TrainedProficiencies = Exclude<ProficiencyRank, 'untrained'>;
+type TrainedProficiencies = Exclude<ProficiencyRank, "untrained">;
 type Rewards = {
     [rank in TrainedProficiencies]: Partial<Coins>;
 };
@@ -97,13 +97,13 @@ function applyIncomeOptions(
     result: PerDayEarnIncomeResult,
     earnIncomeOptions: EarnIncomeOptions,
     level: number,
-    proficiency: TrainedProficiencies,
+    proficiency: TrainedProficiencies
 ) {
     if (earnIncomeOptions.useLoreAsExperiencedProfessional) {
         if (result.degreeOfSuccess === DegreeOfSuccess.CRITICAL_FAILURE) {
             result.degreeOfSuccess = DegreeOfSuccess.FAILURE;
             result.rewards = getIncomeForLevel(level).failure;
-        } else if (result.degreeOfSuccess === DegreeOfSuccess.FAILURE && proficiency !== 'trained') {
+        } else if (result.degreeOfSuccess === DegreeOfSuccess.FAILURE && proficiency !== "trained") {
             result.rewards = multiplyIncome(result.rewards, 2);
         }
     }
@@ -123,7 +123,7 @@ export function earnIncome(
     roll: DieRoll,
     proficiency: TrainedProficiencies,
     earnIncomeOptions: EarnIncomeOptions,
-    dcOptions: DCOptions,
+    dcOptions: DCOptions
 ): EarnIncomeResult {
     const dc = calculateDC(level, dcOptions);
     const degreeOfSuccess = calculateDegreeOfSuccess(roll, dc);

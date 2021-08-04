@@ -3,101 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             },
             "con": {
-                "min": 3,
-                "mod": 5,
-                "value": 20
+                "mod": 5
             },
             "dex": {
-                "min": 3,
-                "mod": 6,
-                "value": 22
+                "mod": 6
             },
             "int": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             },
             "str": {
-                "min": 3,
-                "mod": 6,
-                "value": 22
+                "mod": 6
             },
             "wis": {
-                "min": 3,
-                "mod": 3,
-                "value": 16
+                "mod": 3
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 31
             },
             "allSaves": {
                 "value": ""
             },
-            "ancestryhp": 0,
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "classDC": {
-                "ability": "str",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
-                "value": 0
-            },
-            "classhp": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 210,
-                "min": 0,
                 "temp": 0,
                 "value": 210
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "value": 20
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -109,67 +57,33 @@
             "alignment": {
                 "value": "N"
             },
-            "ancestry": {
-                "value": "Elemental, Fire"
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "Elemental",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
             "flavorText": "Walking conflagrations of unimaginably hot fire, elemental infernos are harbingers of destruction and heedless chaos.<br /><br />",
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 11
             },
-            "recallKnowledgeText": "Recall Knowledge : DC 28",
             "source": {
                 "value": "Pathfinder Bestiary"
             }
         },
+        "resources": {},
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 21
             },
             "reflex": {
-                "ability": "dex",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 23
             },
             "will": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 19
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -239,14 +153,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>[[/r 3d8 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -291,14 +203,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -337,8 +247,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The elemental inferno ignores the concealed condition from smoke.</p>"
                 },
                 "requirements": {
@@ -347,7 +255,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -387,8 +295,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>When the elemental inferno dies, it explodes, dealing [[/r 7d6 # fire damage]] fire damage to each creature in a 10-foot emanation (<span data-pf2-check=\"reflex\" data-pf2-dc=\"30\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Explosion DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
@@ -397,7 +303,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -439,8 +345,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>10 feet, [[/r 7d6 # fire damage]] fire, <span data-pf2-check=\"reflex\" data-pf2-dc=\"28\" data-pf2-traits=\"aura,fire,damaging-effect\" data-pf2-label=\"Intense Heat DC\" data-pf2-show-dc=\"gm\">basic Reflex</span>.</p>"
                 },
                 "requirements": {
@@ -449,7 +353,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -492,8 +396,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>When the elemental inferno scores a critical hit, its body surges with blue flames, increasing the damage of its intense heat and Inferno Leap by 3d6 until the start of its next turn.</p>"
                 },
                 "requirements": {
@@ -502,7 +404,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -542,8 +444,6 @@
                     "value": 2
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The elemental inferno jumps horizontally and vertically with a maximum height and distance each equal to its Speed. Its intense heat is suppressed until the end of the jump. At any point during the jump, flames explode from the elemental in a 30-foot emanation, dealing [[/r 12d6 # fire damage]] fire damage to each creature within the area (<span data-pf2-check=\"reflex\" data-pf2-dc=\"30\" data-pf2-traits=\"fire,damaging-effect\" data-pf2-label=\"Inferno Leap DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The elemental inferno can't Inferno Leap again for 1d4 rounds.</p>"
                 },
                 "requirements": {
@@ -552,7 +452,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -585,8 +485,6 @@
             "_id": "pTGPRXgc6v1Pv0q1",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -601,7 +499,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -625,41 +523,10 @@
     ],
     "name": "Elemental Inferno",
     "token": {
-        "actorId": "NbGLrlt7RYdFFBQ5",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 3,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Elemental Inferno",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 3
     },
     "type": "npc"

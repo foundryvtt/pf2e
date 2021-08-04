@@ -1,11 +1,11 @@
-import { RuleElementPF2e } from '../rule-element';
-import { CharacterData, NPCData } from '@actor/data';
-import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from '@actor/data/values';
-import { SkillAbbreviation } from '@actor/creature/data';
-import { DegreeOfSuccessAdjustment, PF2CheckDCModifiers } from '@system/check-degree-of-success';
-import { ModifierPredicate } from '@module/modifiers';
-import { RuleElementData } from '../rules-data-definitions';
-import { tupleHasValue } from '@module/utils';
+import { RuleElementPF2e } from "../rule-element";
+import { CharacterData, NPCData } from "@actor/data";
+import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/data/values";
+import { SkillAbbreviation } from "@actor/creature/data";
+import { DegreeOfSuccessAdjustment, PF2CheckDCModifiers } from "@system/check-degree-of-success";
+import { ModifierPredicate } from "@module/modifiers";
+import { RuleElementData } from "../rules-data-definitions";
+import { tupleHasValue } from "@module/utils";
 
 /**
  * @category RuleElement
@@ -15,9 +15,9 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
         const selector = this.resolveInjectedProperties(this.data.selector);
         const adjustment = this.data.adjustment;
 
-        if (selector && adjustment && typeof adjustment === 'object') {
+        if (selector && adjustment && typeof adjustment === "object") {
             if (!this.isAdjustmentData(adjustment)) {
-                console.warn('PF2E | Degree of success adjustment does not have the correct format.', adjustment);
+                console.warn("PF2E | Degree of success adjustment does not have the correct format.", adjustment);
             }
             const completeAdjustment: DegreeOfSuccessAdjustment = {
                 modifiers: adjustment,
@@ -28,8 +28,8 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
 
             const skill = this.skillAbbreviationFromString(selector);
             const save = tupleHasValue(SAVE_TYPES, selector) ? selector : undefined;
-            if (selector === 'saving-throw' || save) {
-                if (selector === 'saving-throw') {
+            if (selector === "saving-throw" || save) {
+                if (selector === "saving-throw") {
                     SAVE_TYPES.forEach((save) => {
                         actorData.data.saves[save].adjustments ??= [];
                         actorData.data.saves[save].adjustments.push(completeAdjustment);
@@ -38,8 +38,8 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
                     actorData.data.saves[save].adjustments ??= [];
                     actorData.data.saves[save].adjustments.push(completeAdjustment);
                 }
-            } else if (selector === 'skill-check' || skill !== undefined) {
-                if (selector === 'skill-check') {
+            } else if (selector === "skill-check" || skill !== undefined) {
+                if (selector === "skill-check") {
                     Object.keys(actorData.data.skills).forEach((key) => {
                         const skill = key as SkillAbbreviation;
                         actorData.data.skills[skill].adjustments ??= [];
@@ -49,10 +49,10 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
                     actorData.data.skills[skill].adjustments ??= [];
                     actorData.data.skills[skill].adjustments.push(completeAdjustment);
                 }
-            } else if (selector === 'perception-check') {
+            } else if (selector === "perception-check") {
                 actorData.data.attributes.perception.adjustments ??= [];
                 actorData.data.attributes.perception.adjustments.push(completeAdjustment);
-            } else if (selector === 'attack-roll') {
+            } else if (selector === "attack-roll") {
                 actorData.data.actions.forEach((action) => {
                     action.adjustments ??= [];
                     action.adjustments.push(completeAdjustment);
@@ -62,7 +62,7 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
             }
         } else {
             console.warn(
-                'PF2E | Degree of success adjustment requires a selector field, a type field and an adjustment object.',
+                "PF2E | Degree of success adjustment requires a selector field, a type field and an adjustment object."
             );
         }
     }
@@ -77,8 +77,8 @@ export class PF2AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e {
     }
 
     isAdjustmentData(adjustment: PF2CheckDCModifiers): boolean {
-        const adjusts = ['criticalFailure', 'failure', 'success', 'criticalSuccess', 'all'];
-        const modifiers = ['one-degree-better', 'one-degree-worse'];
+        const adjusts = ["criticalFailure", "failure", "success", "criticalSuccess", "all"];
+        const modifiers = ["one-degree-better", "one-degree-worse"];
 
         for (const [key, value] of Object.entries(adjustment)) {
             if (!adjusts.includes(key) || !modifiers.includes(value)) {

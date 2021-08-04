@@ -1,8 +1,8 @@
-import { SpellPF2e } from '@item/spell';
-import { OneToTen, ZeroToTen } from '@module/data';
-import { groupBy } from '@module/utils';
-import { ItemPF2e } from '../base';
-import { SlotKey, SpellcastingEntryData } from './data';
+import { SpellPF2e } from "@item/spell";
+import { OneToTen, ZeroToTen } from "@module/data";
+import { groupBy } from "@module/utils";
+import { ItemPF2e } from "../base";
+import { SlotKey, SpellcastingEntryData } from "./data";
 
 export interface SpellcastingSlotLevel {
     label: string;
@@ -48,7 +48,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     }
 
     get ability() {
-        return this.data.data.ability.value || 'int';
+        return this.data.data.ability.value || "int";
     }
 
     get tradition() {
@@ -56,28 +56,28 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     }
 
     get isPrepared(): boolean {
-        return this.data.data.prepared.value === 'prepared';
+        return this.data.data.prepared.value === "prepared";
     }
 
     get isSpontaneous(): boolean {
-        return this.data.data.prepared.value === 'spontaneous';
+        return this.data.data.prepared.value === "spontaneous";
     }
 
     get isInnate(): boolean {
-        return this.data.data.prepared.value === 'innate';
+        return this.data.data.prepared.value === "innate";
     }
 
     get isFocusPool(): boolean {
-        return this.data.data.prepared.value === 'focus';
+        return this.data.data.prepared.value === "focus";
     }
 
     get isRitual(): boolean {
-        return this.data.data.prepared.value === 'ritual';
+        return this.data.data.prepared.value === "ritual";
     }
 
     get highestLevel(): number {
         const highestSpell = Math.max(...this.spells.map((s) => s.heightenedLevel));
-        const actorSpellLevel = Math.ceil(this.actor.level / 2);
+        const actorSpellLevel = Math.ceil((this.actor?.level ?? 0) / 2);
         return Math.min(10, Math.max(highestSpell, actorSpellLevel));
     }
 
@@ -98,7 +98,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
 
         if (CONFIG.debug.hooks) {
             console.debug(
-                `PF2e System | Updating location for spell ${spell.name} to match spellcasting entry ${this.id}`,
+                `PF2e System | Updating location for spell ${spell.name} to match spellcasting entry ${this.id}`
             );
         }
 
@@ -125,14 +125,14 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     unprepareSpell(spellLevel: number, spellSlot: number) {
         if (CONFIG.debug.hooks === true) {
             console.debug(
-                `PF2e System | Updating spellcasting entry ${this.id} to remove spellslot ${spellSlot} for spell level ${spellLevel}`,
+                `PF2e System | Updating spellcasting entry ${this.id} to remove spellslot ${spellSlot} for spell level ${spellLevel}`
             );
         }
 
         const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
         return this.update({
             [key]: {
-                name: game.i18n.localize('PF2E.SpellSlotEmpty'),
+                name: game.i18n.localize("PF2E.SpellSlotEmpty"),
                 id: null,
                 prepared: false,
             },
@@ -167,7 +167,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                 }
 
                 results.push({
-                    label: level === 0 ? 'PF2E.TraitCantrip' : CONFIG.PF2E.spellLevels[level as OneToTen],
+                    label: level === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[level as OneToTen],
                     level: level as ZeroToTen,
                     slots: data.max,
                     isCantrip: level === 0,
@@ -191,7 +191,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                 // todo: innate spells should be able to expend like prep spells do
                 if (alwaysShow || spells.length) {
                     results.push({
-                        label: level === 0 ? 'PF2E.TraitCantrip' : CONFIG.PF2E.spellLevels[level as OneToTen],
+                        label: level === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[level as OneToTen],
                         level: level as ZeroToTen,
                         uses: data.value,
                         slots: data.max,
@@ -230,6 +230,28 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
             isRitual: this.isRitual,
             levels: results,
         };
+    }
+
+    protected override async _preUpdate(
+        data: DeepPartial<this["data"]["_source"]>,
+        options: DocumentModificationContext,
+        user: foundry.documents.BaseUser
+    ) {
+        // Clamp slot updates
+        if (data.data?.slots) {
+            for (const key of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as const) {
+                const slotKey = `slot${key}` as const;
+                const slotData = data.data.slots[slotKey];
+                if (!slotData) continue;
+
+                if (slotData.value) {
+                    const max = Number(slotData?.max ?? this.data.data.slots[slotKey].max);
+                    slotData.value = Math.clamped(Number(slotData.value), 0, max);
+                }
+            }
+        }
+
+        await super._preUpdate(data, options, user);
     }
 }
 

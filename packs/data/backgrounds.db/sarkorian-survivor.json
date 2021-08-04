@@ -22,7 +22,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Prerequisite</strong>: Region - Broken Lands</p>\n<hr style=\"box-sizing: border-box; user-select: text; color: #191813; font-family: Roboto, system, -apple-system, sans-serif; font-size: 13px;\">\n<p>The devastation and carnage of the Worldwound were nearly complete, but you somehow managed to survive it.</p>\n<p>Choose two ability boosts. One must be to <strong>Strength</strong> or <strong>Constitution</strong>, and one is a free boost.</p>\n<p>You're trained in the Survival skill and the Sarkorian History Lore skill. You gain the @Compendium[pf2e.feats-srd.Forager]{Forager} skill feat.</p>"
+            "value": "<p><strong>Prerequisite</strong>: Region - Broken Lands</p>\n<hr />\n<p>The devastation and carnage of the Worldwound were nearly complete, but you somehow managed to survive it.</p>\n<p>Choose two ability boosts. One must be to <strong>Strength</strong> or <strong>Constitution</strong>, and one is a free boost.</p>\n<p>You're trained in the Survival skill and the Sarkorian History Lore skill. You gain the @Compendium[pf2e.feats-srd.Forager]{Forager} skill feat.</p>"
         },
         "items": {
             "yj8hr": {
@@ -33,10 +33,17 @@
                 "pack": "pf2e.feats-srd"
             }
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.sur.rank",
+                "value": 1
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "source": {
             "value": ""
@@ -57,7 +64,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
     "name": "Sarkorian Survivor",
     "type": "background"
 }

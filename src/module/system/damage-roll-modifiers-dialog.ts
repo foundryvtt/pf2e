@@ -1,30 +1,30 @@
-import { DegreeOfSuccessString } from '@system/check-degree-of-success';
-import { RollNotePF2e } from '@module/notes';
-import { DiceModifierPF2e, ModifierPF2e, RawModifier } from '@module/modifiers';
-import { DamageTemplate } from '@system/damage/weapon';
-import { ChatMessagePF2e } from '@module/chat-message';
-import type { ItemPF2e } from '@item';
+import { DegreeOfSuccessString } from "@system/check-degree-of-success";
+import { RollNotePF2e } from "@module/notes";
+import { DiceModifierPF2e, ModifierPF2e, RawModifier } from "@module/modifiers";
+import { DamageTemplate } from "@system/damage/weapon";
+import { ChatMessagePF2e } from "@module/chat-message";
+import type { ItemPF2e } from "@item";
 
 /** Dialog for excluding certain modifiers before rolling for damage. */
 export class DamageRollModifiersDialog extends Application {
     private static DAMAGE_TYPE_ICONS = Object.freeze({
-        acid: 'vial',
-        bludgeoning: 'hammer',
-        chaotic: 'dizzy',
-        cold: 'snowflake',
-        electricity: 'bolt',
-        evil: 'crow',
-        fire: 'fire',
-        force: 'hand-sparkles',
-        good: 'dove',
-        lawful: 'balance-scale',
-        mental: 'brain',
-        negative: 'skull',
-        piercing: 'bow-arrow',
-        poison: 'spider',
-        positive: 'sun',
-        slashing: 'swords',
-        sonic: 'volume-up',
+        acid: "vial",
+        bludgeoning: "hammer",
+        chaotic: "dizzy",
+        cold: "snowflake",
+        electricity: "bolt",
+        evil: "crow",
+        fire: "fire",
+        force: "hand-sparkles",
+        good: "dove",
+        lawful: "balance-scale",
+        mental: "brain",
+        negative: "skull",
+        piercing: "bow-arrow",
+        poison: "spider",
+        positive: "sun",
+        slashing: "swords",
+        sonic: "volume-up",
     });
 
     damage: object;
@@ -34,8 +34,8 @@ export class DamageRollModifiersDialog extends Application {
     constructor(damage: any, context: any, callback: any) {
         super({
             title: damage.name,
-            template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html', // change this later
-            classes: ['dice-checks', 'dialog'],
+            template: "systems/pf2e/templates/chat/check-modifiers-dialog.html", // change this later
+            classes: ["dice-checks", "dialog"],
             popOut: true,
             width: 380,
         });
@@ -46,12 +46,12 @@ export class DamageRollModifiersDialog extends Application {
 
     static roll(damage: DamageTemplate, context: any, callback: any) {
         const ctx = context ?? {};
-        const outcome = (ctx.outcome ?? 'success') as DegreeOfSuccessString;
+        const outcome = (ctx.outcome ?? "success") as DegreeOfSuccessString;
 
         ctx.rollMode =
-            ctx.rollMode ?? (ctx.secret ? 'blindroll' : undefined) ?? game.settings.get('core', 'rollMode') ?? 'roll';
+            ctx.rollMode ?? (ctx.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode") ?? "roll";
 
-        let damageBaseModifier = '';
+        let damageBaseModifier = "";
         if (damage.base.modifier) {
             damageBaseModifier =
                 damage.base.modifier > 0 ? ` + ${damage.base.modifier}` : ` - ${Math.abs(damage.base.modifier)}`;
@@ -63,41 +63,41 @@ export class DamageRollModifiersDialog extends Application {
             const traits = damage.traits
                 .map((trait) => game.i18n.localize(CONFIG.PF2E.weaponTraits[trait]) ?? trait)
                 .map((trait) => `<span class="tag">${trait}</span>`)
-                .join('');
+                .join("");
             flavor += `<div class="tags">${traits}</div><hr>`;
         }
 
-        const baseBreakdown = `<span class="damage-tag damage-tag-base">${game.i18n.localize('Base')} ${
+        const baseBreakdown = `<span class="damage-tag damage-tag-base">${game.i18n.localize("Base")} ${
             damage.base.diceNumber
         }${damage.base.dieSize}${damageBaseModifier} ${damage.base.damageType}</span>`;
         const modifierBreakdown = ([] as RawModifier[])
             .concat(damage.diceModifiers.filter((m: DiceModifierPF2e) => m.diceNumber !== 0))
             .concat(damage.numericModifiers)
             .filter((m) => m.enabled)
-            .filter((m) => !m.critical || outcome === 'criticalSuccess')
+            .filter((m) => !m.critical || outcome === "criticalSuccess")
             .map((m) => {
                 const label = game.i18n.localize(m.label ?? m.name);
-                const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? '' : '+'}${m.modifier}` : '';
-                const damageType = m.damageType && m.damageType !== damage.base.damageType ? ` ${m.damageType}` : '';
+                const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? "" : "+"}${m.modifier}` : "";
+                const damageType = m.damageType && m.damageType !== damage.base.damageType ? ` ${m.damageType}` : "";
                 return `<span class="damage-tag damage-tag-modifier">${label}${modifier}${damageType}</span>`;
             })
-            .join('');
+            .join("");
         flavor += `<div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}</div>`;
 
         const notes = ((damage.notes ?? []) as RollNotePF2e[])
             .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
             .map((note) => TextEditor.enrichHTML(note.text))
-            .join('<br />');
+            .join("<br />");
         flavor += `${notes}`;
 
         const formula = duplicate(damage.formula[outcome]);
         if (!formula) {
-            ui.notifications.error(game.i18n.format('PF2E.UI.noDamageInfoForOutcome', { outcome }));
+            ui.notifications.error(game.i18n.format("PF2E.UI.noDamageInfoForOutcome", { outcome }));
             return;
         }
         const rollData: any = {
             outcome,
-            rollMode: ctx.rollMode ?? 'roll',
+            rollMode: ctx.rollMode ?? "roll",
             traits: damage.traits ?? [],
             types: {},
             total: 0,
@@ -113,7 +113,7 @@ export class DamageRollModifiersDialog extends Application {
         for (const [damageType, categories] of Object.entries(formula.partials)) {
             content += `<div class="damage-type ${damageType}">`;
             content += `<h3 class="flexrow"><span>${damageType}</span><i class="fa fa-${DamageRollModifiersDialog.getDamageTypeIcon(
-                damageType,
+                damageType
             )}"></i></h3>`;
             rollData.diceResults[damageType] = {};
             for (const [damageCategory, partial] of Object.entries(categories)) {
@@ -129,9 +129,9 @@ export class DamageRollModifiersDialog extends Application {
                         d.results.map((r) => {
                             rollData.diceResults[damageType][damageCategory].push(r.result);
                             return `<li class="roll die d${d.faces}">${r.result}</li>`;
-                        }),
+                        })
                     )
-                    .join('\n');
+                    .join("\n");
                 content += `
             <section class="tooltip-part">
                 <div class="dice">
@@ -145,7 +145,7 @@ export class DamageRollModifiersDialog extends Application {
             </section>
             `;
             }
-            content += '</div>';
+            content += "</div>";
         }
         content += `</div><h4 class="dice-total"><span id="value">${rollData.total}</span></h4></div></div>`;
 
@@ -169,7 +169,7 @@ export class DamageRollModifiersDialog extends Application {
                 flavor,
                 content: content.trim(),
                 roll,
-                sound: 'sounds/dice.wav',
+                sound: "sounds/dice.wav",
                 flags: {
                     core: {
                         canPopout: true,
@@ -181,8 +181,8 @@ export class DamageRollModifiersDialog extends Application {
                 },
             },
             {
-                rollMode: ctx.rollMode ?? 'roll',
-            },
+                rollMode: ctx.rollMode ?? "roll",
+            }
         );
         Hooks.call(`${game.system.id}.damageRoll`, rollData);
         if (callback) {

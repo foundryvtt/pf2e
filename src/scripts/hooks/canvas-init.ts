@@ -1,14 +1,14 @@
-import * as MonkeyPatch from '../🐵🩹';
+import * as MonkeyPatch from "../🐵🩹";
 
 export function listen(): void {
-    Hooks.on('canvasInit', async (canvas: DrawnCanvas) => {
+    Hooks.on("canvasInit", async (canvas: DrawnCanvas) => {
         /**
          * Activate certain behaviors on Canvas Initialization hook (thanks for MooMan for this snippet)
          * Double every other diagonal movement
          */
         SquareGrid.prototype.measureDistances = function measureDistances(
             segments: Segment[],
-            options: MeasureDistancesOptions = {},
+            options: MeasureDistancesOptions = {}
         ) {
             if (!options.gridSpaces) return BaseGrid.prototype.measureDistances.call(this, segments, options);
 

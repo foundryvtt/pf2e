@@ -28,7 +28,7 @@ function getHazardLevels(actors, type) {
  * @returns {Array<number>}
  */
 function getLevels(actors, type) {
-    return actors.filter((a) => a.data.type === type).map((a) => parseInt(a.data.data.details.level.value ?? '1', 10));
+    return actors.filter((a) => a.data.type === type).map((a) => parseInt(a.data.data.details.level.value ?? "1", 10));
 }
 
 /**
@@ -78,8 +78,8 @@ function dialogTemplate(xp) {
 }
 
 const askLevelPopupTemplate = () => {
-    const partySize = parseInt(localStorage.getItem('xpMacroPartySize') ?? 4, 10);
-    const partyLevel = parseInt(localStorage.getItem('xpMacroPartyLevel') ?? 1, 10);
+    const partySize = parseInt(localStorage.getItem("xpMacroPartySize") ?? 4, 10);
+    const partyLevel = parseInt(localStorage.getItem("xpMacroPartyLevel") ?? 1, 10);
     return `
     <form>
     <div class="form-group">
@@ -102,10 +102,10 @@ const askLevelPopupTemplate = () => {
  */
 function showXP(partyLevel, partySize, npcLevels, hazardLevels) {
     const xp = game.pf2e.gm.calculateXP(partyLevel, partySize, npcLevels, hazardLevels, {
-        proficiencyWithoutLevel: game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel',
+        proficiencyWithoutLevel: game.settings.get("pf2e", "proficiencyVariant") === "ProficiencyWithoutLevel",
     });
     new Dialog({
-        title: 'XP',
+        title: "XP",
         content: dialogTemplate(xp),
         buttons: {},
     }).render(true);
@@ -117,36 +117,36 @@ function showXP(partyLevel, partySize, npcLevels, hazardLevels) {
  */
 function askPartyLevelAndSize(npcLevels, hazardLevels) {
     new Dialog({
-        title: 'Party Information',
+        title: "Party Information",
         content: askLevelPopupTemplate,
         buttons: {
             no: {
                 icon: '<i class="fas fa-times"></i>',
-                label: 'Cancel',
+                label: "Cancel",
             },
             yes: {
                 icon: '<i class="fas fa-calculator"></i>',
-                label: 'Calculate XP',
+                label: "Calculate XP",
                 callback: ($html) => {
                     const partySize = parseInt($html[0].querySelector('[name="party-size"]').value, 10) ?? 1;
                     const partyLevel = parseInt($html[0].querySelector('[name="party-level"]').value, 10) ?? 1;
                     // persist for future uses
-                    localStorage.setItem('xpMacroPartySize', partySize);
-                    localStorage.setItem('xpMacroPartyLevel', partyLevel);
+                    localStorage.setItem("xpMacroPartySize", partySize);
+                    localStorage.setItem("xpMacroPartyLevel", partyLevel);
                     showXP(partyLevel, partySize, npcLevels, hazardLevels);
                 },
             },
         },
-        default: 'yes',
+        default: "yes",
     }).render(true);
 }
 
 function main() {
     const actors = canvas.tokens.controlled.map((a) => a.actor);
 
-    const npcLevels = getLevels(actors, 'npc');
-    const pcLevels = getLevels(actors, 'character');
-    const hazardLevels = getHazardLevels(actors, 'hazard');
+    const npcLevels = getLevels(actors, "npc");
+    const pcLevels = getLevels(actors, "character");
+    const hazardLevels = getHazardLevels(actors, "hazard");
 
     if (npcLevels.length === 0 && hazardLevels.length === 0) {
         ui.notifications.error(`You must select at least one npc and/or hazard token and optionally all PC tokens`);

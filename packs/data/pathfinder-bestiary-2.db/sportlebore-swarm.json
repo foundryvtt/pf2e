@@ -3,101 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 4
             },
             "con": {
-                "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 4
             },
             "dex": {
-                "min": 3,
-                "mod": 6,
-                "value": 22
+                "mod": 6
             },
             "int": {
-                "min": 3,
-                "mod": -4,
-                "value": 2
+                "mod": -4
             },
             "str": {
-                "min": 3,
-                "mod": "+2",
-                "value": 14
+                "mod": 2
             },
             "wis": {
-                "min": 3,
-                "mod": 2,
-                "value": 14
+                "mod": 2
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 25
             },
             "allSaves": {
                 "value": ""
             },
-            "ancestryhp": 0,
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "classDC": {
-                "ability": "str",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
-                "value": 0
-            },
-            "classhp": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 85,
-                "min": 0,
                 "temp": 0,
                 "value": 85
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "value": 13
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -116,67 +64,33 @@
             "alignment": {
                 "value": "N"
             },
-            "ancestry": {
-                "value": "Sportlebore"
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "Animal",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
             "flavorText": "A swarm of sportlebores is a much more dangerous foe than a single insect.<br /><br />",
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 7
             },
-            "recallKnowledgeText": "Recall Knowledge - Animal : DC 23",
             "source": {
                 "value": "Pathfinder Bestiary 2"
             }
         },
+        "resources": {},
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 15
             },
             "reflex": {
-                "ability": "dex",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 17
             },
             "will": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 13
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "attitude": {
@@ -267,7 +181,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -309,8 +223,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
                 },
                 "requirements": {
@@ -319,7 +231,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "low-light-vision",
                 "source": {
@@ -363,8 +275,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p><strong>Trigger</strong> A creature in the sportlebore swarm's area speaks, uses a verbal component, or opens its mouth;</p>\n<p><strong>Effect</strong> A portion of the sportlebore swarm attempts to surge down the throat of the triggering creature, which must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"25\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Pour Down Throat DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature gets a mouthful of sportlebores. It spits the insects out and avoids further damage, but it can't speak for 1 round, and if it was performing a verbal spellcasting action, the spell fails and the caster wastes the action.</p>\n<p><strong>Failure</strong> The creature takes [[/r 4d6 #piercing]] piercing damage from sportlebore bites, can't speak for 1 round, and loses a spell as noted under Success.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is also exposed to sportlebore infestation.</p>"
                 },
                 "requirements": {
@@ -373,7 +283,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -413,8 +323,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>This monster doesn't have a single mind (typically because it's a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area.</p>"
                 },
                 "requirements": {
@@ -423,7 +331,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -463,8 +371,6 @@
                     "value": "1"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Each creature in the sportlebore swarm's area takes [[/r 4d6 # piercing damage]] piercing damage (<span data-pf2-check=\"reflex\" data-pf2-dc=\"25\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Swarming Bites DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
@@ -473,7 +379,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -504,8 +410,6 @@
             "_id": "lX8hhtp34UIqJCVv",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -520,7 +424,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -545,8 +449,6 @@
             "_id": "56IojEV0wzWU6uRX",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -561,7 +463,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -585,41 +487,10 @@
     ],
     "name": "Sportlebore Swarm",
     "token": {
-        "actorId": "3VFHZyjSjNA1jbiO",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Sportlebore Swarm",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 2
     },
     "type": "npc"

@@ -1,12 +1,12 @@
-import { ActorPF2e } from '@actor/index';
-import { ItemPF2e } from '@item/index';
-import { SelectableTagField, TagSelectorOptions } from './index';
+import { ActorPF2e } from "@actor/index";
+import { ItemPF2e } from "@item/index";
+import { SelectableTagField, TagSelectorOptions } from "./index";
 
 export abstract class TagSelectorBase<
-    EntityType extends ActorPF2e | ItemPF2e = ActorPF2e | ItemPF2e,
+    EntityType extends ActorPF2e | ItemPF2e = ActorPF2e | ItemPF2e
 > extends FormApplication<EntityType> {
     choices: Record<string, string>;
-    objectProperty = '';
+    objectProperty = "";
 
     constructor(object: EntityType, options: TagSelectorOptions = {}) {
         super(object, options);
@@ -17,9 +17,9 @@ export abstract class TagSelectorBase<
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            id: 'trait-selector',
-            classes: ['pf2e'],
-            width: 'auto',
+            id: "trait-selector",
+            classes: ["pf2e"],
+            width: "auto",
             height: 700,
         });
     }
@@ -33,7 +33,7 @@ export abstract class TagSelectorBase<
     private getChoices(): Record<string, string> {
         const choices = this.configTypes.reduce(
             (types, key) => mergeObject(types, CONFIG.PF2E[key]),
-            {} as Record<string, string>,
+            {} as Record<string, string>
         );
         return this.sortChoices(choices);
     }
@@ -45,7 +45,7 @@ export abstract class TagSelectorBase<
             .sort(([_keyA, valueA], [_keyB, valueB]) => valueA.localeCompare(valueB))
             .reduce(
                 (accumulated: Record<string, string>, [key, value]) => mergeObject(accumulated, { [key]: value }),
-                {},
+                {}
             );
     }
 }

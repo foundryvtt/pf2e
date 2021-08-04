@@ -21,6 +21,7 @@
         "level": {
             "value": 6
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -31,10 +32,21 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "action:disarm"
+                    ]
+                },
+                "selector": "athletics",
+                "text": "<p class='compact-text'><strong>Relentless Disarm</strong> When you succeed, but don't critically succeed, at a check to Disarm a creature, your circumstance bonus to further checks to Disarm that creature is +4 instead of +2. Other creatures gain only the normal bonus.  When you critically succeed at a Disarm check, you can immediately <span data-pf2-action=\"demoralize\" data-pf2-glyph=\"A\">Intimidation</span> your target as a reaction.</p></p>"
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "source": {
             "value": "Pathfinder #149: Against the Scarlet Triad"

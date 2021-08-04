@@ -1,8 +1,8 @@
-import { CharacterData, NPCData } from '@actor/data';
-import { WeaponData } from '@item/data';
-import { WeaponDamage } from '@item/weapon/data';
-import { RuleElementPF2e } from '../rule-element';
-import { RuleElementData, RuleElementSynthetics } from '../rules-data-definitions';
+import { CharacterData, NPCData } from "@actor/data";
+import { WeaponData } from "@item/data";
+import { WeaponDamage } from "@item/weapon/data";
+import { RuleElementPF2e } from "../rule-element";
+import { RuleElementData, RuleElementSynthetics } from "../rules-data-definitions";
 
 /**
  * @category RuleElement
@@ -12,19 +12,19 @@ export class PF2StrikeRuleElement extends RuleElementPF2e {
         strikes.push({
             _id: this.item.id,
             name: this.label || this.item.name,
-            type: actorData.type === 'npc' ? 'melee' : 'weapon',
+            type: actorData.type === "npc" ? "melee" : "weapon",
             img: this.data.img ?? this.item.img,
             data: {
-                description: { value: '', chat: '', unidentified: '' },
-                ability: { value: this.data.ability || 'str' },
-                weaponType: { value: this.data.category || 'unarmed' },
-                group: { value: this.data.group || 'brawling' },
-                damage: this.data.damage?.base ?? { dice: 1, die: 'd4', damageType: 'bludgeoning' },
+                description: { value: "", chat: "", unidentified: "" },
+                ability: { value: this.data.ability || "str" },
+                weaponType: { value: this.data.category || "unarmed" },
+                group: { value: this.data.group || "brawling" },
+                damage: this.data.damage?.base ?? { dice: 1, die: "d4", damageType: "bludgeoning" },
                 damageRolls: {},
                 attackEffects: { value: [] },
-                range: { value: this.data.range || 'melee' },
-                strikingRune: { value: '' },
-                traits: { value: this.data.traits ?? [], rarity: { value: 'common' }, custom: '' },
+                range: { value: this.data.range || "melee" },
+                strikingRune: { value: "" },
+                traits: { value: this.data.traits ?? [], rarity: { value: "common" }, custom: "" },
                 options: { value: this.data.options ?? [] },
                 equipped: { value: true },
             },

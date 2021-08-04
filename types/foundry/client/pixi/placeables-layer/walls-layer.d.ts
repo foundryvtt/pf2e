@@ -1,5 +1,5 @@
 /** The Walls canvas layer which provides a container for Wall objects within the rendered Scen */
-declare class WallsLayer extends PlaceablesLayer<Wall> {
+declare class WallsLayer<TWall extends Wall = Wall> extends PlaceablesLayer<TWall> {
     constructor(document: WallDocument);
 
     /** A graphics layer used to display chained Wall selection */
@@ -31,7 +31,7 @@ declare class WallsLayer extends PlaceablesLayer<Wall> {
 
     static override get layerOptions(): WallsLayerOptions;
 
-    static documentName: 'Wall';
+    static documentName: "Wall";
 
     /** An Array of Wall instances in the current Scene which act as Doors. */
     get doors(): Wall[];
@@ -74,7 +74,7 @@ declare class WallsLayer extends PlaceablesLayer<Wall> {
      */
     static getUniqueEndpoints(
         walls: Wall[] | Set<Wall>,
-        { bounds, type }?: { bounds?: NormalizedRectangle; type?: WallType },
+        { bounds, type }?: { bounds?: NormalizedRectangle; type?: WallType }
     ): PointArray[];
 
     /**
@@ -94,7 +94,7 @@ declare class WallsLayer extends PlaceablesLayer<Wall> {
 
     override releaseAll(options: Record<string, unknown>): number;
 
-    pasteObjects(position: { x: number; y: number }, { hidden }?: { hidden?: boolean }): Promise<Wall['document'][]>;
+    pasteObjects(position: { x: number; y: number }, { hidden }?: { hidden?: boolean }): Promise<Wall["document"][]>;
 
     /**
      * Pan the canvas view when the cursor position gets close to the edge of the frame
@@ -169,7 +169,7 @@ declare class WallsLayer extends PlaceablesLayer<Wall> {
             density?: number;
             rotation?: number;
             unrestricted?: boolean;
-        },
+        }
     ): { rays: Ray; los: PIXI.Polygon; fov: PIXI.Polygon };
 
     /**
@@ -186,7 +186,7 @@ declare class WallsLayer extends PlaceablesLayer<Wall> {
      */
     getRayCollisions(
         ray: Ray,
-        { type, mode, _performance }?: { type?: WallType; mode?: WallMode; _performance?: unknown },
+        { type, mode, _performance }?: { type?: WallType; mode?: WallMode; _performance?: unknown }
     ): Record<string, unknown> | Record<string, unknown> | boolean;
 
     /* -------------------------------------------- */
@@ -218,7 +218,7 @@ declare class WallsLayer extends PlaceablesLayer<Wall> {
             limitAngle,
             aMin,
             aMax,
-        }?: { density?: number; endpoints?: PointArray[]; limitAngle?: boolean; aMin?: number; aMax?: boolean },
+        }?: { density?: number; endpoints?: PointArray[]; limitAngle?: boolean; aMin?: number; aMax?: boolean }
     ): Ray[];
 
     /**
@@ -253,7 +253,7 @@ declare class WallsLayer extends PlaceablesLayer<Wall> {
 }
 
 declare interface WallsLayerOptions extends PlaceablesLayerOptions {
-    name: 'walls';
+    name: "walls";
     controllableObjects: boolean;
     objectClass: typeof Wall;
     quadtree: boolean;
@@ -262,6 +262,6 @@ declare interface WallsLayerOptions extends PlaceablesLayerOptions {
     zIndex: number;
 }
 
-declare type WallType = 'movement' | 'sight' | 'sound';
+declare type WallType = "movement" | "sight" | "sound";
 
-declare type WallMode = 'all' | 'any' | 'closest';
+declare type WallMode = "all" | "any" | "closest";

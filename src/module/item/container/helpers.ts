@@ -6,10 +6,10 @@ import {
     defaultBulkConfig,
     formatBulk,
     weightToBulk,
-} from '../physical/bulk';
-import { PhysicalItemData } from '../data';
-import { groupBy } from '@module/utils';
-import { Size } from '@module/data';
+} from "../physical/bulk";
+import { PhysicalItemData } from "../data";
+import { groupBy } from "@module/utils";
+import { Size } from "@module/data";
 
 /**
  * Datatype that holds container information for *every* item, even non containers
@@ -149,7 +149,7 @@ function toContainer({
     });
 }
 
-function detectCycle(itemId: string, containerId = '', idIndexedItems: Map<string, PhysicalItemData>): boolean {
+function detectCycle(itemId: string, containerId = "", idIndexedItems: Map<string, PhysicalItemData>): boolean {
     const currentItem = idIndexedItems.get(containerId);
     if (currentItem) {
         if (itemId === currentItem?._id) {
@@ -190,7 +190,7 @@ export function getContainerMap({
     items = [],
     bulkItemsById = new Map(),
     bulkConfig = defaultBulkConfig,
-    actorSize = 'med',
+    actorSize = "med",
 }: {
     items?: PhysicalItemData[];
     bulkItemsById?: Map<string, BulkItem>;
@@ -200,7 +200,7 @@ export function getContainerMap({
     const allIds = groupBy(items, (itemData) => itemData._id);
 
     const containerGroups = groupBy(items, (itemData) => {
-        const containerId = itemData.data.containerId.value ?? '';
+        const containerId = itemData.data.containerId.value ?? "";
         return allIds.has(containerId) ? containerId : null;
     });
 
@@ -218,7 +218,7 @@ export function getContainerMap({
                 isInContainer,
                 bulkConfig,
                 actorSize,
-            }),
+            })
         );
     }
 

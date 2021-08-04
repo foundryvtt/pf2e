@@ -17,14 +17,14 @@ declare module foundry {
         }
 
         interface DrawingMetadata extends abstract.DocumentMetadata {
-            name: 'Drawing';
-            collection: 'drawings';
-            label: 'DOCUMENT.Drawing';
+            name: "Drawing";
+            collection: "drawings";
+            label: "DOCUMENT.Drawing";
             isEmbedded: true;
             permissions: {
-                create: 'TEMPLATE_CREATE';
-                update: typeof BaseDrawing['_canModify'];
-                delete: typeof BaseDrawing['_canModify'];
+                create: "TEMPLATE_CREATE";
+                update: typeof BaseDrawing["_canModify"];
+                delete: typeof BaseDrawing["_canModify"];
             };
         }
     }

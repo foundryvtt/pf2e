@@ -21,6 +21,7 @@
         "level": {
             "value": 8
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -28,10 +29,16 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "hp",
+                "value": "@details.level.value"
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "source": {
             "value": "Pathfinder #153: Life's Long Shadows"

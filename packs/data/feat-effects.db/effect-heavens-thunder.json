@@ -1,0 +1,70 @@
+{
+    "_id": "L9g3EMCT3imX650b",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Heaven's Thunder]{Heaven's Thunder}</p>\n<p>With a loud shout, you unleash your ki in a crackling shroud of thunder and lightning that engulfs your body. Until the end of your next turn, your unarmed attacks and weapons you wield that have the monk trait deal additional electricity damage equal to one-half your level and additional sonic damage equal to one-half your level.<br /><br />If you also know the @Compendium[pf2e.spells-srd.Ki Blast]{Ki Blast} ki spell, you can choose to deal either electricity or sonic damage with the spell instead of force while this effect is active (<em>ki blast</em> loses the force trait and gains the electricity or sonic trait instead). Any creature who successfully Grapples you or is successfully Grappled by you also takes this damage immediately after the Grapple check is resolved.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "damageType": "electricity",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "any": [
+                        "unarmed",
+                        "monk"
+                    ]
+                },
+                "selector": "damage",
+                "value": "floor(@details.level.value/2)"
+            },
+            {
+                "damageType": "sonic",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "any": [
+                        "unarmed",
+                        "monk"
+                    ]
+                },
+                "selector": "damage",
+                "value": "floor(@details.level.value/2)"
+            }
+        ],
+        "schema": {
+            "lastMigration": null,
+            "version": 0.649
+        },
+        "source": {
+            "value": "Pathfinder #158: Sixty Feet Under"
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Heaven's Thunder",
+    "type": "effect"
+}

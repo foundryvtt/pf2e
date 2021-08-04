@@ -33,10 +33,56 @@
                 "pack": "pf2e.feats-srd"
             }
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.soc.rank",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Interacting with members of the Sleepless Suns and residents of the Foreign Quarter (Sleepless Suns Star)",
+                "predicate": {
+                    "any": [
+                        "target:sleepless-suns",
+                        "target:forein-quarter"
+                    ]
+                },
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Interacting with members of the Sleepless Suns and residents of the Foreign Quarter (Sleepless Suns Star)",
+                "predicate": {
+                    "any": [
+                        "target:sleepless-suns",
+                        "target:forein-quarter"
+                    ]
+                },
+                "selector": "intimidation",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Interacting with members of the Sleepless Suns and residents of the Foreign Quarter (Sleepless Suns Star)",
+                "predicate": {
+                    "any": [
+                        "target:sleepless-suns",
+                        "target:forein-quarter"
+                    ]
+                },
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "source": {
             "value": ""
@@ -57,7 +103,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
     "name": "Sleepless Suns Star",
     "type": "background"
 }

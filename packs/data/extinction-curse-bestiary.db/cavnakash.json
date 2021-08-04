@@ -3,101 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 2,
-                "value": 14
+                "mod": 2
             },
             "con": {
-                "min": 3,
-                "mod": 2,
-                "value": 14
+                "mod": 2
             },
             "dex": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             },
             "int": {
-                "min": 3,
-                "mod": 1,
-                "value": 12
+                "mod": 1
             },
             "str": {
-                "min": 3,
-                "mod": 3,
-                "value": 16
+                "mod": 3
             },
             "wis": {
-                "min": 3,
-                "mod": 5,
-                "value": 20
+                "mod": 5
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 22
             },
             "allSaves": {
                 "value": ""
             },
-            "ancestryhp": 0,
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "classDC": {
-                "ability": "str",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
-                "value": 0
-            },
-            "classhp": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 83,
-                "min": 0,
                 "temp": 0,
                 "value": 83
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "value": 12
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": "0",
                 "hardness": 0,
                 "max": "0",
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -109,66 +57,37 @@
             "alignment": {
                 "value": "NE"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 5
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": ""
             }
         },
+        "resources": {
+            "focus": {
+                "max": 1,
+                "value": 1
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 13
             },
             "reflex": {
-                "ability": "dex",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 10
             },
             "will": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 15
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -216,16 +135,10 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "displayLevels": {
                     "2": true
-                },
-                "focus": {
-                    "points": 1,
-                    "pool": 1
                 },
                 "item": {
                     "value": 0
@@ -239,7 +152,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": true
@@ -401,15 +314,9 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "displayLevels": {},
-                "focus": {
-                    "points": 1,
-                    "pool": 1
-                },
                 "item": {
                     "value": 0
                 },
@@ -422,7 +329,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": true
@@ -552,8 +459,6 @@
                     "value": "cold"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack against the target. You deal 5d6 cold damage, plus 5d6 evil damage if the target is a celestial.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 2d6, and the evil damage against celestials increases by 2d6.</p>"
                 },
                 "duration": {
@@ -591,7 +496,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -676,8 +581,6 @@
                     "value": "mental"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You assault the target's faith, riddling the creature with doubt and mental turmoil that deal 6d6 mental damage, or 6d8 mental damage if it can cast divine spells. The effects are determined by its Will save.</p>\n<p>To many deities, casting this spell on a follower of your own deity without significant cause is anathema.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage; if the target can cast divine spells, it's @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 1 for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 1 for 1 round, and can't cast divine spells for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 (or by 2d8 if the target is a divine spellcaster).</p>"
                 },
                 "duration": {
@@ -715,7 +618,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -797,8 +700,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You snuff the life out of a creature on the brink of death. The target must attempt a Will save. If this kills it, you gain 10 temporary HP and a +1 status bonus to attack and damage rolls for 10 minutes.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target's @Compendium[pf2e.conditionitems.Dying]{Dying} value increases by 1.</p>\n<p><strong>Failure</strong> The target dies.</p>"
                 },
                 "duration": {
@@ -836,7 +737,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -919,8 +820,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You can see @Compendium[pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @Compendium[pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>"
                 },
                 "duration": {
@@ -958,7 +857,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -1042,8 +941,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You fill the minds of your enemies with doubt. Targets that fail their Will saves take a -1 status penalty to attack rolls as long as they are in the area. Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw. Bane can counteract bless.</p>"
                 },
                 "duration": {
@@ -1081,7 +978,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -1164,8 +1061,6 @@
                     "value": "negative"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage to living creatures increases by 1d4.</p>"
                 },
                 "duration": {
@@ -1203,7 +1098,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -1288,8 +1183,6 @@
                     "value": "sonic"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Your voice booms, smashing what's in front of you. Each creature and unattended object in the area takes 1d8 sonic damage. If you already dealt damage to an enemy this turn with a Strike or spell, increase the damage dice from this spell to d12s.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
                 },
                 "duration": {
@@ -1327,7 +1220,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -1408,8 +1301,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You unleash a beam of divine energy. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or if your deity is true neutral. Make a ranged spell attack roll against the target's AC. On a hit, the target takes damage of the chosen alignment type equal to 1d4 + your spellcasting ability modifier (double damage on a critical hit). The spell gains the trait of the alignment you chose.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
                 },
                 "duration": {
@@ -1447,7 +1338,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -1530,8 +1421,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You ask for divine guidance, granting the target a +1 status bonus to one attack roll, Perception check, saving throw, or skill check the target attempts before the duration ends. The target chooses which roll to use the bonus on before rolling. If the target uses the bonus, the spell ends. Either way, the target is then temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
@@ -1569,7 +1458,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -1654,8 +1543,6 @@
                     "value": "negative"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
@@ -1694,7 +1581,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -1776,8 +1663,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You ward a creature against a specified alignment. Choose chaotic, evil, good, or lawful when you cast this spell. The target gains a +1 status bonus to Armor Class and saving throws against creatures and effects of the chosen alignment. This bonus increases to +3 against effects from such creatures that would directly control the target and against attacks made by summoned creatures of the chosen alignment.</p>\n<p>This spell gains the trait that opposes the alignment you chose-if you choose chaos, this spell gains the lawful trait, and vice versa; if you choose evil, this spell gains the good trait, and vice versa.</p>"
                 },
                 "duration": {
@@ -1815,7 +1700,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "abjuration"
@@ -1898,8 +1783,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the Shield Block reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the magic missile spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
@@ -1937,7 +1820,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "abjuration"
@@ -2025,8 +1908,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Mauls are massive warhammers that must be swung with two hands.</p>"
                 },
                 "equipped": {
@@ -2122,7 +2003,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "size": {
                     "value": "med"
@@ -2192,8 +2073,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Scale mail consists of many metal scales sewn onto a reinforced leather backing, often in the form of a long shirt that protects the torso, arms, and legs.</p>"
                 },
                 "dex": {
@@ -2304,7 +2183,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "size": {
                     "value": "med"
@@ -2360,8 +2239,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
                 },
                 "equipped": {
@@ -2416,7 +2293,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "size": {
                     "value": "med"
@@ -2469,8 +2346,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p><span>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.<br /></span></p>\n<p><span><strong>Activate</strong> Cast a Spell; <strong>Frequency</strong> once per day, plus overcharge; <strong>Effect</strong> You Cast the Spell at the indicated level.<br /></span></p>\n<p><span><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</span></p>"
                 },
                 "equipped": {
@@ -2525,7 +2400,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "size": {
                     "value": "med"
@@ -2584,14 +2459,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>(shove, magical)</p>"
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2637,14 +2510,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2687,14 +2558,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>(agile)</p>"
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2733,8 +2602,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>(aura, olfactory) 30 feet. A creature that enters the aura must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"aura,olfactory\" data-pf2-label=\"Stench DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. On a failure, the creature is sickened 1, and on a critical failure, the creature also takes a -5-foot status penalty to its Speeds for 1 round. While within the aura, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to all xulgaths' stenches for 1 minute.</p>"
                 },
                 "requirements": {
@@ -2743,7 +2610,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2786,8 +2653,6 @@
                     "value": 1
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Cavnakash expends a harm spell and attempts a melee Strike. If he hits, he adds the spell's negative damage to his Strike damage. If he misses, the harm spell is still expended.</p>"
                 },
                 "requirements": {
@@ -2796,7 +2661,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2836,8 +2701,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Cavnakash has a profane gift from Balenni, giving him a +1 status bonus to attack rolls, skill checks, and saving throws (already factored into his statistics).</p>"
                 },
                 "requirements": {
@@ -2846,7 +2709,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2877,8 +2740,6 @@
             "_id": "xo41gw1CsQaxi590",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2893,7 +2754,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2918,8 +2779,6 @@
             "_id": "ODUwHxRXae92KY8g",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2934,7 +2793,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -2959,8 +2818,6 @@
             "_id": "YkvCvsoqS2EaHu85",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -2975,7 +2832,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3000,8 +2857,6 @@
             "_id": "soTATQMSAIRfgOU5",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -3016,7 +2871,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3041,8 +2896,6 @@
             "_id": "Enfcmw7xN7HMY38n",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -3057,7 +2910,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -3081,41 +2934,10 @@
     ],
     "name": "Cavnakash",
     "token": {
-        "actorId": "BBamjhcpvwXGhlbM",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Cavnakash",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 1
     },
     "type": "npc"

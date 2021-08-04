@@ -3,101 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 8,
-                "value": 10
+                "mod": 8
             },
             "con": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             },
             "dex": {
-                "min": 3,
-                "mod": 7,
-                "value": 10
+                "mod": 7
             },
             "int": {
-                "min": 3,
-                "mod": 1,
-                "value": 10
+                "mod": 1
             },
             "str": {
-                "min": 3,
-                "mod": -5,
-                "value": 10
+                "mod": -5
             },
             "wis": {
-                "min": 3,
-                "mod": 6,
-                "value": 10
+                "mod": 6
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 35
             },
             "allSaves": {
                 "value": ""
             },
-            "ancestryhp": 0,
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "classDC": {
-                "ability": "str",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
-                "value": 0
-            },
-            "classhp": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "negative healing",
                 "max": 280,
-                "min": 0,
                 "temp": 0,
                 "value": 280
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "value": 27
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": "0",
                 "hardness": 0,
                 "max": "0",
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -109,66 +57,37 @@
             "alignment": {
                 "value": "NE"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 15
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": ""
             }
         },
+        "resources": {
+            "focus": {
+                "max": 1,
+                "value": 1
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 19
             },
             "reflex": {
-                "ability": "dex",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 28
             },
             "will": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 29
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -232,15 +151,9 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "displayLevels": {},
-                "focus": {
-                    "points": 1,
-                    "pool": 1
-                },
                 "item": {
                     "value": 0
                 },
@@ -253,7 +166,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -383,8 +296,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1 as it fights off your commands.</p>\n<p><strong>Failure</strong> The target follows your orders but can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr /><strong>Heightened (10th)</strong> The duration is unlimited."
                 },
                 "duration": {
@@ -422,7 +333,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -506,8 +417,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You drastically reduce the target's mental faculties. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 2 for 1 round.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 4 with an unlimited duration.</p>\n<p><strong>Critical Failure</strong> The target's intellect is permanently reduced below that of an animal, and it treats its Charisma, Intelligence, and Wisdom modifiers as -5. It loses all class abilities that require mental faculties, including all spellcasting. If the target is a PC, they become an NPC under the GM's control.</p>"
                 },
                 "duration": {
@@ -545,7 +454,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -630,8 +539,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>With a rush of telekinetic power, you move a foe or something they carry. You can attempt to Disarm, Shove, or Trip the target using a spell attack roll instead of an Athletics check.</p>"
                 },
                 "duration": {
@@ -669,7 +576,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -753,8 +660,6 @@
                     "value": "cold"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack against the target. You deal 5d6 cold damage, plus 5d6 evil damage if the target is a celestial.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 2d6, and the evil damage against celestials increases by 2d6.</p>"
                 },
                 "duration": {
@@ -792,7 +697,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -877,8 +782,6 @@
                     "value": "cold"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack against the target. You deal 5d6 cold damage, plus 5d6 evil damage if the target is a celestial.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 2d6, and the evil damage against celestials increases by 2d6.</p>"
                 },
                 "duration": {
@@ -916,7 +819,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -1001,8 +904,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 3 and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr /><strong>Heightened (3rd)</strong> You can target up to five creatures."
                 },
                 "duration": {
@@ -1040,7 +941,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -1127,8 +1028,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You alter the target's memories, either erasing a memory, enhancing a memory's clarity, altering a memory, or adding a false memory. The target can attempt a Will save to resist the spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and realizes you tried to alter its memory.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of modify memory, unless it identifies the spell.</p>\n<p><strong>Failure</strong> During the first 5 minutes of the spell's duration, you can Sustain the Spell to modify a memory once each round. When you do, you imagine up to 6 seconds of memory to modify, to a maximum of 5 continuous minutes of memory.</p>\n<p>Any memories you've altered remain changed as long as the spell is active. If the target moves out of range before the 5 minutes is up, you can't alter any further memories.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> You can cast the spell on a willing target to suppress all memory of a particular topic, detailed in 50 words or fewer. The effect is permanent, and it patches these omissions with an indistinct haze.</p>"
                 },
                 "duration": {
@@ -1166,7 +1065,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -1248,8 +1147,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 3 and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr /><strong>Heightened (3rd)</strong> You can target up to five creatures."
                 },
                 "duration": {
@@ -1287,7 +1184,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "enchantment"
@@ -1374,8 +1271,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack attack against the target. If you hit, you deal bludgeoning, piercing, or slashing damage-as appropriate for the object you hurled-equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr /><strong>Critical Success</strong> You deal double damage.\n<p><strong>Success</strong> You deal full damage.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 1d6."
                 },
                 "duration": {
@@ -1413,7 +1308,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -1488,14 +1383,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>(agile, evil, finesse, magical)</p>"
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1537,8 +1430,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>30 feet, DC 33</p>"
                 },
                 "requirements": {
@@ -1547,7 +1438,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1594,8 +1485,6 @@
                     "value": 1
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Lyrt possesses a Large or smaller object within 20 feet, making it an animated object. This animated object's level can be no higher than Lyrt's level - 2. If the target object is being held by a creature, the bearer can attempt a Will save to prevent the possession. This possession ends when the object is destroyed or Lyrt leaves it. At this point, Lyrt reappears in the object's square and can't Inhabit an Object again for 1d4 rounds.</p>"
                 },
                 "requirements": {
@@ -1604,7 +1493,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1644,8 +1533,6 @@
                     "value": 2
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Lyrt attempts to possess an adjacent corporeal creature. This has the same effect as the possession spell with an unlimited duration, except since Lyrt doesn't have a physical body, he is unaffected by that restriction. When Lyrt departs, the target has only confused and incoherent memories of the period during which they were possessed. If a creature dies while possessed by Lyrt and its corpse remains intact, Lyrt can immediately inhabit the corpse (see Inhabit Object) as a reaction, in which case the corpse acts like an animated object.</p>"
                 },
                 "requirements": {
@@ -1654,7 +1541,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1685,8 +1572,6 @@
             "_id": "6G3wPd9oFZO3Bpyf",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1701,7 +1586,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1726,8 +1611,6 @@
             "_id": "a5TwiUmSqPiKhFs7",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1742,7 +1625,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1767,8 +1650,6 @@
             "_id": "TZFRHEzFS0fSFL1d",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1783,7 +1664,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1808,8 +1689,6 @@
             "_id": "Dc8dKxFrYpckfn9v",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1824,7 +1703,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1849,8 +1728,6 @@
             "_id": "PZrUaTo4inuQsxU0",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -1865,7 +1742,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1889,41 +1766,10 @@
     ],
     "name": "Lyrt Cozurn",
     "token": {
-        "actorId": "wBlnbLj8FfgxArQm",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Lyrt Cozurn",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 1
     },
     "type": "npc"

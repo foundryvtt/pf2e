@@ -3,101 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 1,
-                "value": 12
+                "mod": 1
             },
             "con": {
-                "min": 3,
-                "mod": 3,
-                "value": 16
+                "mod": 3
             },
             "dex": {
-                "min": 3,
-                "mod": -5,
-                "value": 0
+                "mod": -5
             },
             "int": {
-                "min": 3,
-                "mod": -5,
-                "value": 0
+                "mod": -5
             },
             "str": {
-                "min": 3,
-                "mod": "+3",
-                "value": 16
+                "mod": 3
             },
             "wis": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 11
             },
             "allSaves": {
                 "value": ""
             },
-            "ancestryhp": 0,
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "classDC": {
-                "ability": "str",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
-                "value": 0
-            },
-            "classhp": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "",
                 "max": 80,
-                "min": 0,
                 "temp": 0,
                 "value": 80
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "value": 6
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -109,67 +57,33 @@
             "alignment": {
                 "value": "N"
             },
-            "ancestry": {
-                "value": "Ooze"
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "Ooze",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
             "flavorText": "Luminous oozes are strange globular creatures that glow with brilliant multicolored light. Unlike many oozes, which rely on camouflage and stealth to attack their prey, luminous oozes attract victims with their impressive light displays before blinding them and launching into a frenzied attack. They are often found on the ceilings or walls of dark caverns, and more than a few curious spelunkers have met their end simply by investigating their strange yet beautiful light. The effects of electricity on luminous oozes are ill understood, though those who have studied these creatures liken their static-absorbing power to that of lightning rods.<br />These creatures are highly sought after by status-hungry socialites, flamboyant barkeeps, and daring showrunners, for in addition to being dangerous monsters, luminous oozes are also incredible sources of beautiful prismatic light, comparable to a magical light show but available for a fraction of the price. The trick, of course, is capturing and penning such a specimen. The most reliable means of caging a luminous ooze is with a permanent wall of force shaped into a cube or sphere, but few have the means to create or commission such an enclosure. Instead, most people who find themselves in possession of a luminous ooze simply put it in a thick glass box. As long as they are well fed, luminous oozes accept this treatment, though woe be unto anyone in the vicinity if a hungry luminous ooze should escape from its display case.",
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 4
             },
-            "recallKnowledgeText": "Recall Knowledge  Occultism DC 19",
             "source": {
                 "value": "Pathfinder #151: The Show Must Go On"
             }
         },
+        "resources": {},
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 11
             },
             "reflex": {
-                "ability": "dex",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 3
             },
             "will": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 6
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -232,14 +146,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -276,8 +188,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>5 feet. A luminous ooze constantly sheds distracting multicolored light. A creature that ends its turn within the aura must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"21\" data-pf2-traits=\"aura,light,visual\" data-pf2-label=\"Bedazzling DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} until the end of its next turn. On a critical failure, it instead becomes @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn.</p>"
                 },
                 "requirements": {
@@ -286,7 +196,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -330,8 +240,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Whenever the luminous ooze's electricity immunity prevents it from taking damage, it gains 8 temporary HP. Until the end of its next turn, the luminous ooze's pseudopod Strike deals an additional [[/r 1d6 # points of electricity damage]] points of electricity damage.</p>"
                 },
                 "requirements": {
@@ -340,7 +248,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -380,8 +288,6 @@
                     "value": 2
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The ooze glows with blinding brightness. All creatures within a 30-foot emanation must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"21\" data-pf2-traits=\"light,visual\" data-pf2-label=\"Light Up DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.<br /><strong>Critical Success</strong> The creature is unaffected<br /><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} until the end of its next turn.<br /><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until the end of its next turn.<br /><strong>Critical Failure</strong> The creature is blinded for 1 minute.</p>"
                 },
                 "requirements": {
@@ -390,7 +296,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -424,8 +330,6 @@
             "_id": "dDVZPjPHfohFd3Yn",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -440,7 +344,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -464,41 +368,10 @@
     ],
     "name": "Luminous Ooze",
     "token": {
-        "actorId": "RIZDryL3Wnk6ucks",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Luminous Ooze",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 1
     },
     "type": "npc"

@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You are the child of a night hag, making one of your eyes violet or even black. Your mother's powers over sleep and dreams have given you a degree of resistance to those effects, granting you a +2 circumstance bonus to all saving throws against sleep effects and effects that cause or alter dreams.</p>\n<p>In addition, sleep is more restorative for you. You regain HP equal to your Constitution modifier times double your level instead of just times your level, and you reduce any drained and doomed conditions you have by 2 instead of by 1.</p>"
+            "value": "<p>You are the child of a night hag, making one of your eyes violet or even black. Your mother's powers over sleep and dreams have given you a degree of resistance to those effects, granting you a +2 circumstance bonus to all saving throws against sleep effects and effects that cause or alter dreams.</p>\n<p>In addition, sleep is more restorative for you. You regain [[/r (@details.level.value*2)*(max(@abilities.con.mod,1))]]{HP equal to your Constitution modifier times double your level} instead of just times your level, and you reduce any @Compendium[pf2e.conditionitems.Drained]{Drained} and @Compendium[pf2e.conditionitems.Doomed]{Doomed} conditions you have by 2 instead of by 1.</p>"
         },
         "featType": {
             "value": "ancestry"
@@ -21,13 +21,28 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "vs. sleep or dream-related effects (Dream May)",
+                "predicate": {
+                    "any": [
+                        "sleep",
+                        "dream"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "source": {
             "value": ""

@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>All too aware of your true nature, you've studied hags and their powers.</p>\n<p>You gain the trained proficiency rank in Deception and Occultism. If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice. You also become trained in Hag Lore.</p>"
+            "value": "<p>All too aware of your true nature, you've studied hags and their powers.</p>\n<p>You gain the trained proficiency rank in Deception and Occultism. If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice. You also become trained in Hag Lore.</p>\n<hr />\n<p><em>Note: If you are already trained in the skill provided by this feat, you need to manually select an alternative skill. You also need to manually enter the granted Lore skill.</em></p>"
         },
         "featType": {
             "value": "ancestry"
@@ -21,13 +21,27 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.dec.rank",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.occ.rank",
+                "value": 1
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "source": {
             "value": ""

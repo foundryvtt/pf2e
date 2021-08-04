@@ -3,108 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             },
             "con": {
-                "min": 3,
-                "mod": 2,
-                "value": 12
+                "mod": 2
             },
             "dex": {
-                "min": 3,
-                "mod": 4,
-                "value": 16
+                "mod": 4
             },
             "int": {
-                "min": 3,
-                "mod": -2,
-                "value": 6
+                "mod": -2
             },
             "str": {
-                "min": 3,
-                "mod": 2,
-                "value": 12
+                "mod": 2
             },
             "wis": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             }
         },
         "attributes": {
             "ac": {
-                "base": 19,
-                "breakdown": "Base Armor Class 10, Base Modifier +3, Dexterity +3",
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
-                "name": "ac",
-                "totalModifier": 6,
-                "value": 16
+                "value": 19
             },
             "allSaves": {
                 "value": ""
             },
-            "ancestryhp": 0,
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "classDC": {
-                "ability": "str",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
-                "value": 0
-            },
-            "classhp": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "fast healing 2 (while underwater)",
                 "max": 43,
-                "min": 0,
                 "temp": 0,
                 "value": 43
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "base": 5,
-                "breakdown": "Base Modifier +3, Wisdom +0",
-                "item": 0,
-                "name": "perception",
-                "rank": 0,
-                "totalModifier": 3,
-                "value": 3
-            },
-            "resolve": {
-                "value": 0
+                "value": 5
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -127,75 +68,37 @@
             "alignment": {
                 "value": "N"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 3
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": "Pathfinder Society Quest 5: The Dragon who Stole Evoking Day"
             }
         },
+        "resources": {
+            "focus": {
+                "max": 1,
+                "value": 1
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "base": 9,
-                "breakdown": "Base Modifier +6, Constitution +1",
-                "item": 0,
-                "name": "fortitude",
-                "rank": 0,
                 "saveDetail": "",
-                "totalModifier": 7,
-                "value": 7
+                "value": 9
             },
             "reflex": {
-                "ability": "dex",
-                "base": 13,
-                "breakdown": "Base Modifier +8, Dexterity +3",
-                "item": 0,
-                "name": "reflex",
-                "rank": 0,
                 "saveDetail": "",
-                "totalModifier": 11,
-                "value": 11
+                "value": 13
             },
             "will": {
-                "ability": "wis",
-                "base": 6,
-                "breakdown": "Base Modifier +4, Wisdom +0",
-                "item": 0,
-                "name": "will",
-                "rank": 0,
                 "saveDetail": "",
-                "totalModifier": 4,
-                "value": 4
+                "value": 6
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -261,15 +164,9 @@
                     "value": null
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "displayLevels": {},
-                "focus": {
-                    "points": 1,
-                    "pool": 1
-                },
                 "item": {
                     "value": 0
                 },
@@ -282,7 +179,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -415,9 +312,7 @@
                     "value": "acid"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus 1d6 persistent acid damage. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r 1d6 #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -454,7 +349,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -529,14 +424,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -575,8 +468,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
@@ -585,7 +476,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "darkvision",
                 "source": {
@@ -629,8 +520,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn.</p>"
                 },
                 "requirements": {
@@ -639,7 +528,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "fast-healing",
                 "source": {
@@ -683,8 +572,6 @@
                     "value": "2"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Muraxi breathes acid in a 15-foot cone that deals [[/r 2d6 #acid]] acid damage to each creature within the area (<span data-pf2-check=\"reflex\" data-pf2-dc=\"20\" data-pf2-traits=\"acid,arcane,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p data-visibility=\"gm\">Muraxi can't use again for [[/br 1d4 #rounds]] rounds.</p>"
                 },
                 "requirements": {
@@ -693,7 +580,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -736,8 +623,6 @@
                     "value": "1"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Muraxi puts out all fires in a 5-foot emanation. She extinguishes all non-magical fires automatically and attempts to counteract magical fires ([[/r 1d20+10 #Counteract]]{+10 counteract modifier}).</p>"
                 },
                 "requirements": {
@@ -746,7 +631,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -781,8 +666,6 @@
             "_id": "IxSpF6sAntDa0u3N",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -797,7 +680,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -822,8 +705,6 @@
             "_id": "Y6OFll9MgXv1MKGt",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -838,7 +719,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -862,41 +743,10 @@
     ],
     "name": "Muraxi (5-6)",
     "token": {
-        "actorId": "vgn39Yta3lgeRP1s",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": "attributes.hp"
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Muraxi",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 1
     },
     "type": "npc"

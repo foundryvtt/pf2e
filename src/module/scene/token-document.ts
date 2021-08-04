@@ -1,20 +1,29 @@
-import { VisionLevels } from '@actor/creature/data';
-import { ActorPF2e, LootPF2e, NPCPF2e } from '@actor/index';
-import { TokenPF2e } from '../canvas/token';
-import { LightLevels, ScenePF2e } from '.';
-import { UserPF2e } from '../user';
-import { TokenConfigPF2e } from './token-config';
+import { VisionLevels } from "@actor/creature/data";
+import { ActorPF2e, LootPF2e, NPCPF2e } from "@actor/index";
+import { TokenPF2e } from "../canvas/token";
+import { ScenePF2e } from ".";
+import { UserPF2e } from "../user/document";
+import { TokenConfigPF2e } from "./token-config";
+import { LightLevels } from "./data";
 
 export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
+    /** Has this token gone through at least one cycle of data preparation? */
+    private initialized: true | undefined;
+
     /** This should be in Foundry core, but ... */
     get scene(): ScenePF2e | null {
         return this.parent;
     }
 
+    override _initialize() {
+        super._initialize();
+        this.initialized = true;
+    }
+
     /** Refresh this token's properties if it's controlled and the request came from its actor */
     override prepareData({ fromActor = false } = {}): void {
         super.prepareData();
-        if (fromActor && this.rendered) {
+        if (fromActor && this.initialized && this.rendered) {
             if (this.object.isControlled) {
                 canvas.lighting.setPerceivedLightLevel({ defer: false });
             }
@@ -26,28 +35,29 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        if (!canvas.sight?.rulesBasedVision) return;
+        if (!(this.initialized && canvas.sight?.rulesBasedVision)) return;
 
         this.data.brightSight = 0;
         this.data.dimSight = 0;
-        this.data.lightAngle = 360;
         this.data.sightAngle = 360;
     }
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        mergeObject(this.data, this.actor?.overrides.token ?? {}, { insertKeys: false });
+        if (!(this.initialized && this.actor && canvas.scene)) return;
 
-        if (!(this.actor && canvas.scene && canvas.sight.rulesBasedVision)) return;
+        mergeObject(this.data, this.actor.overrides.token ?? {}, { insertKeys: false });
+        if (!canvas.sight.rulesBasedVision) return;
 
         const lightLevel = canvas.scene.lightLevel;
+        const hasDarkvision = this.object.hasDarkvision && this.actor.visionLevel !== VisionLevels.BLINDED;
         const perceivedBrightness = {
             [VisionLevels.BLINDED]: 0,
             [VisionLevels.NORMAL]: lightLevel,
             [VisionLevels.LOWLIGHT]: lightLevel > LightLevels.DARKNESS ? 1 : lightLevel,
             [VisionLevels.DARKVISION]: 1,
         }[this.actor.visionLevel];
-        this.data.brightSight = perceivedBrightness > lightLevel ? 1000 : 0;
+        this.data.brightSight = perceivedBrightness > lightLevel || hasDarkvision ? 1000 : 0;
     }
 
     /**
@@ -57,13 +67,13 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
      */
     static override async updateDocuments(
         updates: DocumentUpdateData<TokenDocumentPF2e>[] = [],
-        context: DocumentModificationContext = {},
+        context: DocumentModificationContext = {}
     ): Promise<TokenDocumentPF2e[]> {
         const scene = context.parent;
         if (scene instanceof ScenePF2e) {
             updates = updates.filter((data) => {
-                if (game.user.isGM || typeof data['_id'] !== 'string') return true;
-                const tokenDoc = scene.tokens.get(data['_id']);
+                if (game.user.isGM || typeof data["_id"] !== "string") return true;
+                const tokenDoc = scene.tokens.get(data["_id"]);
                 return !!tokenDoc?.actor?.isOwner;
             });
         }
@@ -77,13 +87,13 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
 
     /** Call `onCreateToken` hook of any rule element on this actor's items */
     protected override async _preCreate(
-        data: PreDocumentId<this['data']['_source']>,
+        data: PreDocumentId<this["data"]["_source"]>,
         options: DocumentModificationContext,
-        user: UserPF2e,
+        user: UserPF2e
     ): Promise<void> {
-        super._preCreate(data, options, user);
+        await super._preCreate(data, options, user);
 
-        const actor = game.actors.get(data.actorId ?? '');
+        const actor = game.actors.get(data.actorId ?? "");
         if (!actor) return;
         for (const rule of actor.rules.filter((rule) => !rule.ignored)) {
             rule.onCreateToken(actor.data, rule.item.data, data);
@@ -92,9 +102,9 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
 
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
-        data: this['data']['_source'],
+        data: this["data"]["_source"],
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ): void {
         super._onCreate(data, options, userId);
         if (this.actor instanceof LootPF2e) this.actor.toggleTokenHiding();
@@ -102,15 +112,16 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
 
     /** Synchronize actor attitude with token disposition, refresh the EffectPanel, update perceived light */
     protected override _onUpdate(
-        changed: DeepPartial<this['data']['_source']>,
+        changed: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ): void {
         super._onUpdate(changed, options, userId);
 
-        if (this.actor instanceof NPCPF2e && typeof changed.disposition === 'number' && game.userId === userId) {
+        if (this.actor instanceof NPCPF2e && typeof changed.disposition === "number" && game.userId === userId) {
             this.actor.updateAttitudeFromDisposition(changed.disposition);
         }
+        canvas.darkvision.refresh({ drawMask: true });
     }
 }
 

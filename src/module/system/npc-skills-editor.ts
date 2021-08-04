@@ -1,8 +1,8 @@
-import { SKILL_EXPANDED } from '@actor/data/values';
-import { NPCSkillData } from '@actor/npc/data';
-import type { NPCPF2e } from '@actor/index';
-import type { ItemPF2e, LorePF2e } from '@item/index';
-import { ErrorPF2e } from '@module/utils';
+import { SKILL_EXPANDED } from "@actor/data/values";
+import { NPCSkillData } from "@actor/npc/data";
+import type { NPCPF2e } from "@actor/index";
+import type { ItemPF2e, LorePF2e } from "@item/index";
+import { ErrorPF2e } from "@module/utils";
 
 /**
  * Specialized form to setup skills for an NPC character.
@@ -21,13 +21,13 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
 
-        options.id = 'npc-skills-selector';
-        options.classes = ['pf2e', 'npc'];
-        options.title = game.i18n.localize('PF2E.NPC.SkillsEditor.TitleLabel');
-        options.template = 'systems/pf2e/templates/actors/npc/forms/npc-skills-editor.html';
-        options.width = 'auto';
+        options.id = "npc-skills-selector";
+        options.classes = ["pf2e", "npc"];
+        options.title = game.i18n.localize("PF2E.NPC.SkillsEditor.TitleLabel");
+        options.template = "systems/pf2e/templates/actors/npc/forms/npc-skills-editor.html";
+        options.width = "auto";
         options.height = 700;
-        options.scrollY = ['.skills-list']; // ???
+        options.scrollY = [".skills-list"]; // ???
 
         return options;
     }
@@ -44,7 +44,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
                 skill.isLore = true;
                 skills[skillId] = skill;
             } else if (skill.visible) {
-                skill.label = game.i18n.localize('PF2E.Skill' + skill.name);
+                skill.label = game.i18n.localize("PF2E.Skill" + skill.name);
                 skills[skillId] = skill;
             } else {
                 missingSkills[skillId] = skill;
@@ -65,30 +65,30 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
     override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
-        html.find('.delete').on('click', (event) => this.onRemoveSkillClicked(event));
-        html.find('.add-lore-button').on('click', (event) => this.onAddLoreSkillClicked(event));
-        html.find('.item-edit').on('click', (event) => this.onEditSkillClicked(event));
-        html.find('.add-skill-button').on('click', (event) => this.onAddSkillClicked(event));
+        html.find(".delete").on("click", (event) => this.onRemoveSkillClicked(event));
+        html.find(".add-lore-button").on("click", (event) => this.onAddLoreSkillClicked(event));
+        html.find(".item-edit").on("click", (event) => this.onEditSkillClicked(event));
+        html.find(".add-skill-button").on("click", (event) => this.onAddSkillClicked(event));
     }
 
     private async onAddSkillClicked(eventData: JQuery.ClickEvent) {
         eventData.preventDefault();
 
-        const skillSelector = $(eventData.currentTarget).parents('#skill-selector').find('select');
+        const skillSelector = $(eventData.currentTarget).parents("#skill-selector").find("select");
         const skillId: string = skillSelector.val() as string;
         const skillName = this.findSkillName(skillId);
-        const itemName = skillName.replace(/-/g, ' ').titleCase();
-        await this.npc.createEmbeddedDocuments('Item', [{ name: itemName, type: 'lore' }]);
+        const itemName = skillName.replace(/-/g, " ").titleCase();
+        await this.npc.createEmbeddedDocuments("Item", [{ name: itemName, type: "lore" }]);
 
         this.render(true);
     }
 
     private async onRemoveSkillClicked(event: JQuery.ClickEvent) {
         event.preventDefault();
-        const skillContainer = $(event.currentTarget).parents('.skill');
-        const skillId = skillContainer.attr('data-skill');
+        const skillContainer = $(event.currentTarget).parents(".skill");
+        const skillId = skillContainer.attr("data-skill");
 
-        const skillItem = this.findSkillItem(skillId ?? '');
+        const skillItem = this.findSkillItem(skillId ?? "");
 
         if (skillItem) {
             skillContainer.remove();
@@ -103,12 +103,12 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
     private async onAddLoreSkillClicked(event: JQuery.ClickEvent) {
         event.preventDefault();
 
-        const loreNameField = $(event.currentTarget).parents('#lore-skill-creator').find('input');
+        const loreNameField = $(event.currentTarget).parents("#lore-skill-creator").find("input");
         const loreName = String(loreNameField.val());
 
         const data = {
             name: loreName,
-            type: 'lore',
+            type: "lore",
             label: loreName,
             data: {
                 mod: {
@@ -117,15 +117,15 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
             },
         };
 
-        await this.npc.createEmbeddedDocuments('Item', [data]);
+        await this.npc.createEmbeddedDocuments("Item", [data]);
 
         this.render(true);
     }
 
     private onEditSkillClicked(event: JQuery.ClickEvent) {
-        const skillId = $(event.currentTarget).parents('.skill').attr('data-skill');
+        const skillId = $(event.currentTarget).parents(".skill").attr("data-skill");
 
-        const item = this.findSkillItem(skillId ?? '');
+        const item = this.findSkillItem(skillId ?? "");
 
         if (!item) {
             throw ErrorPF2e(`Unable to find item for skill ${skillId}. Can't edit the skill.`);
@@ -148,7 +148,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
             if (!skillItem) return;
 
             const skillItemValue: number = skillItem.data.data.mod.value;
-            const hasToUpdateItem = skillItemValue !== value && value > 0;
+            const hasToUpdateItem = skillItemValue !== value;
             if (hasToUpdateItem) {
                 await skillItem.update({
                     [`data.mod.value`]: value,

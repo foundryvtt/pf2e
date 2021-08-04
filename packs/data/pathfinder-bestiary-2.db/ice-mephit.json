@@ -3,101 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 2,
-                "value": 14
+                "mod": 2
             },
             "con": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             },
             "dex": {
-                "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 4
             },
             "int": {
-                "min": 3,
-                "mod": -2,
-                "value": 6
+                "mod": -2
             },
             "str": {
-                "min": 3,
-                "mod": "+0",
-                "value": 10
+                "mod": 0
             },
             "wis": {
-                "min": 3,
-                "mod": 0,
-                "value": 10
+                "mod": 0
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 17
             },
             "allSaves": {
                 "value": ""
             },
-            "ancestryhp": 0,
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "classDC": {
-                "ability": "str",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
-                "value": 0
-            },
-            "classhp": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "(fast healing 2 (when touching ice or snow))",
                 "max": 18,
-                "min": 0,
                 "temp": 0,
                 "value": 18
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "value": 3
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -116,67 +64,38 @@
             "alignment": {
                 "value": "N"
             },
-            "ancestry": {
-                "value": "Elemental, Mephit"
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "Elemental",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
             "flavorText": "Though capable of the same depths of cruelty as their fire mephit kin, ice mephits carry theirs out in a more calculating way. Unlike most mephits, these pale blue mephits prefer solitude to company. Lacking in empathy, they are known for their callousness, and have a reputation for brutal honesty. They also have few moral qualms about acting selfishly and exploiting weakness for their own gain, should the chance arise.<br /><br />",
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 1
             },
-            "recallKnowledgeText": "Recall Knowledge - Elemental : DC 17",
             "source": {
                 "value": "Pathfinder Bestiary 2"
             }
         },
+        "resources": {
+            "focus": {
+                "max": 1,
+                "value": 1
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 5
             },
             "reflex": {
-                "ability": "dex",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 9
             },
             "will": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 3
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "attitude": {
@@ -242,16 +161,10 @@
                     "value": null
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "displayLevel": {},
                 "displayLevels": {},
-                "focus": {
-                    "points": 1,
-                    "pool": 1
-                },
                 "item": {
                     "value": 0
                 },
@@ -264,7 +177,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": false
@@ -397,8 +310,6 @@
                     "value": "negative"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage to living creatures increases by 1d4.</p>"
                 },
                 "duration": {
@@ -436,7 +347,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -528,8 +439,6 @@
                     "value": "cold"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals cold damage equal to 1d4 + your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
                 },
                 "duration": {
@@ -567,7 +476,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -648,14 +557,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -695,8 +602,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
@@ -705,7 +610,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "darkvision",
                 "source": {
@@ -749,8 +654,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn.</p>"
                 },
                 "requirements": {
@@ -759,7 +662,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -799,8 +702,6 @@
                     "value": "2"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The ice mephit breathes shards of ice in a 15-foot cone that deals [[/r 1d6 # cold damage]] cold damage and [[/r 1d6 # piercing damage]] piercing damage to each creature within the area (<span data-pf2-check=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"arcane,cold,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>\n<p>The ice mephit can't use Breath Weapon again for [[/r 1d4]] rounds.</p>"
                 },
                 "requirements": {
@@ -809,7 +710,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -843,8 +744,6 @@
             "_id": "7o7gH6TkGwhhHxFL",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -859,7 +758,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -884,8 +783,6 @@
             "_id": "rOawONHmK9CybyWU",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -900,7 +797,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -924,41 +821,10 @@
     ],
     "name": "Ice Mephit",
     "token": {
-        "actorId": "6Me4Q1JDupyCCnGg",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Ice Mephit",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 1
     },
     "type": "npc"
