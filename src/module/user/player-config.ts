@@ -6,13 +6,7 @@ export class PlayerConfigPF2e extends FormApplication {
 
     constructor() {
         super();
-        this.settings = mergeObject(PlayerConfigPF2e.defaultSettings, game.user.getFlag("pf2e", "settings"));
-    }
-
-    static async init(): Promise<void> {
-        if (game.user.getFlag("pf2e", "settings") === undefined) {
-            await game.user.setFlag("pf2e", "settings", PlayerConfigPF2e.defaultSettings);
-        }
+        this.settings = game.user.settings;
     }
 
     static readonly defaultSettings: UserSettingsPF2e = {

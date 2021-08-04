@@ -41,7 +41,6 @@ export function listen(): void {
 
         ActionsPF2e.exposeActions(game.pf2e.actions);
 
-        PlayerConfigPF2e.init();
         PlayerConfigPF2e.activateColorScheme();
 
         // update minion-type actors to trigger another prepare data cycle with the master actor already prepared and ready
