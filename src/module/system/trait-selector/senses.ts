@@ -1,20 +1,20 @@
-import { SenseData } from '@actor/creature/data';
-import { ActorPF2e, NPCPF2e } from '@actor/index';
-import { TagSelectorBase } from './base';
-import { SelectableTagField } from './index';
+import { SenseData } from "@actor/creature/data";
+import { ActorPF2e, NPCPF2e } from "@actor/index";
+import { TagSelectorBase } from "./base";
+import { SelectableTagField } from "./index";
 
 export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
-    override objectProperty = 'data.traits.senses';
+    override objectProperty = "data.traits.senses";
 
     static override get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            template: 'systems/pf2e/templates/system/trait-selector/senses.html',
-            title: 'PF2E.Senses',
+            template: "systems/pf2e/templates/system/trait-selector/senses.html",
+            title: "PF2E.Senses",
         });
     }
 
     protected get configTypes(): readonly SelectableTagField[] {
-        return ['senses'] as const;
+        return ["senses"] as const;
     }
 
     override getData() {
@@ -29,11 +29,11 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
         Object.entries(this.choices).forEach(([type, label]) => {
             const sense = senses.find((sense) => sense.type === type);
             choices[type] = {
-                acuity: sense?.acuity ?? '',
-                disabled: sense?.source ? 'disabled' : '',
+                acuity: sense?.acuity ?? "",
+                disabled: sense?.source ? "disabled" : "",
                 label,
                 selected: sense !== undefined,
-                value: sense?.value ?? '',
+                value: sense?.value ?? "",
             };
         });
         data.choices = choices;
@@ -45,15 +45,15 @@ export class TraitSelectorSenses extends TagSelectorBase<ActorPF2e> {
         super.activateListeners($html);
 
         $html
-            .find<HTMLInputElement>('input[id^=input_value]')
-            .on('focusin', (event) => {
+            .find<HTMLInputElement>("input[id^=input_value]")
+            .on("focusin", (event) => {
                 const input = $(event.currentTarget);
-                input.prev().prev().prop('checked', true);
+                input.prev().prev().prop("checked", true);
             })
-            .on('focusout', (event) => {
+            .on("focusout", (event) => {
                 const input = $(event.currentTarget);
                 if (!input.val()) {
-                    input.prev().prev().prop('checked', false);
+                    input.prev().prev().prop("checked", false);
                 }
             });
     }

@@ -37,7 +37,7 @@ declare module foundry {
         }
 
         class AmbientLightData<
-            TDocument extends documents.BaseAmbientLight = documents.BaseAmbientLight,
+            TDocument extends documents.BaseAmbientLight = documents.BaseAmbientLight
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
 
@@ -46,7 +46,7 @@ declare module foundry {
             darkness: DarknessActivation;
         }
 
-        interface AmbientLightData extends Omit<AmbientLightSource, 'lightAnimation' | 'darknessActivation'> {
+        interface AmbientLightData extends Omit<AmbientLightSource, "lightAnimation" | "darknessActivation"> {
             readonly _source: AmbientLightSource;
         }
     }

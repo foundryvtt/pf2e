@@ -12,14 +12,14 @@ declare module foundry {
             speaker: ChatSpeakerSource;
             whisper: string[];
             blind: boolean;
-            roll: object;
+            roll: object | string;
             sound: AudioPath;
             emote?: boolean;
             flags: Record<string, Record<string, unknown>>;
         }
 
         class ChatMessageData<
-            TDocument extends documents.BaseChatMessage = documents.BaseChatMessage,
+            TDocument extends documents.BaseChatMessage = documents.BaseChatMessage
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
         }

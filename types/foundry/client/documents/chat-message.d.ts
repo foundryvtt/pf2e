@@ -1,4 +1,4 @@
-import { ChatMessageConstructor } from './constructors';
+import { ChatMessageConstructor } from "./constructors";
 
 declare global {
     /**
@@ -10,7 +10,7 @@ declare global {
     class ChatMessage<TActor extends Actor = Actor> extends ChatMessageConstructor {
         constructor(
             data: PreCreate<foundry.data.ChatMessageSource>,
-            context?: DocumentConstructionContext<ChatMessage>,
+            context?: DocumentConstructionContext<ChatMessage>
         );
 
         /** If the chat message contains a Roll instance, cache it here */
@@ -57,12 +57,12 @@ declare global {
          */
         static applyRollMode(
             chatData: foundry.data.ChatMessageSource,
-            rollMode: RollMode,
+            rollMode: RollMode
         ): foundry.data.ChatMessageSource;
         static applyRollMode(chatData: foundry.data.ChatMessageData, rollMode: RollMode): foundry.data.ChatMessageData;
         static applyRollMode(
             chatData: foundry.data.ChatMessageSource | foundry.data.ChatMessageData,
-            rollMode: RollMode,
+            rollMode: RollMode
         ): foundry.data.ChatMessageSource | foundry.data.ChatMessageData;
 
         /**
@@ -157,19 +157,19 @@ declare global {
         protected override _preUpdate(
             data: Partial<foundry.data.ChatMessageSource>,
             options: DocumentModificationContext,
-            user: User,
+            user: User
         ): Promise<void>;
 
         protected override _onCreate(
             data: foundry.data.ChatMessageSource,
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         protected override _onUpdate(
-            changed: DeepPartial<this['data']['_source']>,
+            changed: DeepPartial<this["data"]["_source"]>,
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         protected override _onDelete(options: DocumentModificationContext, userId: string): void;
@@ -186,18 +186,18 @@ declare global {
     namespace ChatMessage {
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
-            data: PreCreate<T['data']['_source']>[],
-            context?: ChatMessageModificationContext,
+            data: PreCreate<T["data"]["_source"]>[],
+            context?: ChatMessageModificationContext
         ): Promise<T[]>;
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
-            data: PreCreate<T['data']['_source']>,
-            context?: ChatMessageModificationContext,
+            data: PreCreate<T["data"]["_source"]>,
+            context?: ChatMessageModificationContext
         ): Promise<T | undefined>;
         function create<T extends ChatMessage>(
             this: ConstructorOf<T>,
-            data: PreCreate<T['data']['_source']>[] | PreCreate<T['data']['_source']>,
-            context?: ChatMessageModificationContext,
+            data: PreCreate<T["data"]["_source"]>[] | PreCreate<T["data"]["_source"]>,
+            context?: ChatMessageModificationContext
         ): Promise<T[] | T | undefined>;
     }
 

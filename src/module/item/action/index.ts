@@ -1,5 +1,5 @@
-import { ItemPF2e } from '@item/base';
-import { ActionData } from './data';
+import { ItemPF2e } from "@item/base";
+import { ActionData } from "./data";
 
 export class ActionPF2e extends ItemPF2e {
     static override get schema(): typeof ActionData {

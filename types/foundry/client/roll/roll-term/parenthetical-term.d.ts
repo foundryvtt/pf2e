@@ -25,7 +25,7 @@ declare global {
         static CLOSE_REGEXP: RegExp;
 
         /** @override */
-        static SERIALIZE_ATTRIBUTES: ['term'];
+        static SERIALIZE_ATTRIBUTES: ["term"];
 
         /* -------------------------------------------- */
         /*  Parenthetical Term Attributes               */

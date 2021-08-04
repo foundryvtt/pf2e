@@ -1,4 +1,4 @@
-import { AmbientSoundDocumentConstructor } from './constructors';
+import { AmbientSoundDocumentConstructor } from "./constructors";
 
 declare global {
     class AmbientSoundDocument extends AmbientSoundDocumentConstructor {}

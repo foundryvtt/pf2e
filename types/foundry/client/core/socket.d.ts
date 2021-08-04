@@ -32,7 +32,7 @@ declare class SocketInterface {
             postHook: string;
             context: any;
             success: Function;
-        },
+        }
     ): Promise<any>;
 
     /**
@@ -41,7 +41,7 @@ declare class SocketInterface {
     static handle(
         response: any,
         handler: Function,
-        { postHook, context }: { postHook: string; context: any },
+        { postHook, context }: { postHook: string; context: any }
     ): Promise<any>;
 
     /**
@@ -77,7 +77,7 @@ declare class SocketInterface {
             postHook: string;
             context: any;
             success: Function;
-        },
+        }
     ): Promise<any>;
 
     /**
@@ -87,6 +87,6 @@ declare class SocketInterface {
     static handleMany(
         response: any,
         handler: Function,
-        { postHook, context }: { postHook: string; context: any },
+        { postHook, context }: { postHook: string; context: any }
     ): Promise<any>;
 }

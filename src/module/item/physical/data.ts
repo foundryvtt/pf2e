@@ -1,20 +1,20 @@
-import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemLevelData, ItemSystemData, ItemTraits } from '../data/base';
-import type { PhysicalItemPF2e } from '@item/physical';
-import type { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from '../data/values';
-import { EquipmentTrait } from '@item/equipment/data';
-import { ArmorTrait } from '@item/armor/data';
-import { WeaponTrait } from '@item/weapon/data';
-import { ConsumableTrait } from '@item/consumable/data';
-import { Size } from '@module/data';
+import { BaseItemDataPF2e, BaseItemSourcePF2e, ItemLevelData, ItemSystemData, ItemTraits } from "../data/base";
+import type { PhysicalItemPF2e } from "@item/physical";
+import type { PHYSICAL_ITEM_TYPES, PRECIOUS_MATERIAL_TYPES } from "../data/values";
+import { EquipmentTrait } from "@item/equipment/data";
+import { ArmorTrait } from "@item/armor/data";
+import { WeaponTrait } from "@item/weapon/data";
+import { ConsumableTrait } from "@item/consumable/data";
+import { Size } from "@module/data";
 
 export type BasePhysicalItemSource<
     TItemType extends PhysicalItemType = PhysicalItemType,
-    TSystemData extends PhysicalSystemData = PhysicalSystemData,
+    TSystemData extends PhysicalSystemData = PhysicalSystemData
 > = BaseItemSourcePF2e<TItemType, TSystemData>;
 
 export class BasePhysicalItemData<
     TItem extends PhysicalItemPF2e = PhysicalItemPF2e,
-    TSystemData extends PhysicalSystemData = PhysicalSystemData,
+    TSystemData extends PhysicalSystemData = PhysicalSystemData
 > extends BaseItemDataPF2e<TItem> {
     /** Prepared data */
     readonly isPhysical: true = true;
@@ -27,9 +27,9 @@ export class BasePhysicalItemData<
 }
 
 export interface BasePhysicalItemData<TItem extends PhysicalItemPF2e = PhysicalItemPF2e>
-    extends Omit<BasePhysicalItemSource, 'effects'> {
+    extends Omit<BasePhysicalItemSource, "effects"> {
     type: PhysicalItemType;
-    data: BasePhysicalItemSource['data'];
+    data: BasePhysicalItemSource["data"];
 
     readonly document: TItem;
     readonly _source: BasePhysicalItemSource;
@@ -44,7 +44,7 @@ export interface MagicItemSystemData extends PhysicalSystemData {
 }
 
 export type PreciousMaterialType = typeof PRECIOUS_MATERIAL_TYPES[number];
-export type PreciousMaterialGrade = 'low' | 'standard' | 'high';
+export type PreciousMaterialGrade = "low" | "standard" | "high";
 
 export interface ActivatedEffectData {
     activation: {
@@ -73,7 +73,7 @@ export interface ActivatedEffectData {
     };
 }
 
-export type IdentificationStatus = 'identified' | 'unidentified';
+export type IdentificationStatus = "identified" | "unidentified";
 
 export interface MystifiedData {
     name: string;
@@ -144,7 +144,7 @@ export interface PhysicalSystemData extends ItemSystemData, ItemLevelData {
         value: string | null;
     };
     preciousMaterial: {
-        value: Exclude<PreciousMaterialType, 'dragonhide'> | null;
+        value: Exclude<PreciousMaterialType, "dragonhide"> | null;
     };
     preciousMaterialGrade: {
         value: PreciousMaterialGrade | null;

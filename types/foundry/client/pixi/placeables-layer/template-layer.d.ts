@@ -3,15 +3,17 @@
  * @todo: fill this in
  */
 declare interface TemplateLayerOptions extends PlaceablesLayerOptions {
-    name: 'templates';
+    name: "templates";
     sortActiveTop: boolean;
     zIndex: number;
 }
 
-declare class TemplateLayer extends PlaceablesLayer<MeasuredTemplate> {
+declare class TemplateLayer<
+    TMeasuredTemplate extends MeasuredTemplate = MeasuredTemplate
+> extends PlaceablesLayer<TMeasuredTemplate> {
     static override get layerOptions(): TemplateLayerOptions;
 
-    static documentName: 'MeasuredTemplate';
+    static documentName: "MeasuredTemplate";
 
     /* -------------------------------------------- */
     /*  Methods                                     */
@@ -32,5 +34,5 @@ declare class TemplateLayer extends PlaceablesLayer<MeasuredTemplate> {
 
     protected override _onDragLeftMove(event: PIXI.InteractionEvent): Promise<void>;
 
-    protected override _onMouseWheel(event: PIXI.InteractionEvent): void;
+    protected override _onMouseWheel(event: WheelEvent): void;
 }

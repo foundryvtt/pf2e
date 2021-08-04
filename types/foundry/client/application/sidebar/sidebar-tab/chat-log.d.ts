@@ -35,19 +35,12 @@ declare class ChatLog extends SidebarTab {
 
     constructor(options?: {});
 
-    /** @override */
-    static get defaultOptions(): typeof SidebarTab['defaultOptions'] & {
-        id: 'chat';
-        template: string;
-        title: string;
-        scrollContainer: null;
-        stream: boolean;
-    };
+    static override get defaultOptions(): ChatLogDefaultOptions;
 
     /**
      * A reference to the Messages collection that the chat log displays
      */
-    get collection(): Game['messages'];
+    get collection(): Game["messages"];
 
     /* -------------------------------------------- */
     /*  Application Rendering                       */
@@ -121,7 +114,7 @@ declare class ChatLog extends SidebarTab {
     updateTimestamps(): void;
 
     /* -------------------------------------------- */
-    /*  Event Listeners and Handlers
+    /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
     /**
@@ -138,4 +131,12 @@ declare class ChatLog extends SidebarTab {
     protected processMessage(message: string): Promise<foundry.data.ChatMessageData>;
 
     /** @todo: Fill remaining properties */
+}
+
+declare interface ChatLogDefaultOptions extends SidebarTabOptions {
+    id: "chat";
+    template: string;
+    title: string;
+    scrollContainer: null;
+    stream: boolean;
 }

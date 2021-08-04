@@ -1,4 +1,4 @@
-import * as pixiJs from 'pixi.js';
+import * as pixiJs from "pixi.js";
 
 declare global {
     namespace globalThis {

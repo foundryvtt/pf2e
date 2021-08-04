@@ -9,7 +9,7 @@ declare module foundry {
             protected override _preCreate(
                 data: PreDocumentId<foundry.data.MacroSource>,
                 options: DocumentModificationContext,
-                user: BaseUser,
+                user: BaseUser
             ): Promise<void>;
 
             /** Is a user able to update an existing Macro document? */
@@ -26,15 +26,15 @@ declare module foundry {
         }
 
         interface MacroMetadata extends abstract.DocumentMetadata {
-            name: 'Macro';
-            collection: 'macros';
-            label: 'DOCUMENT.Macro';
+            name: "Macro";
+            collection: "macros";
+            label: "DOCUMENT.Macro";
             isPrimary: true;
-            types: ['script', 'chat'];
+            types: ["script", "chat"];
             permissions: {
-                create: 'PLAYER';
-                update: typeof BaseMacro['_canUpdate'];
-                delete: typeof BaseMacro['_canDelete'];
+                create: "PLAYER";
+                update: typeof BaseMacro["_canUpdate"];
+                delete: typeof BaseMacro["_canDelete"];
             };
         }
     }

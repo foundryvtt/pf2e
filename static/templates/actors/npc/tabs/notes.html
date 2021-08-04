@@ -3,7 +3,7 @@
         <div class="flexrow">
             <div class="recall-knowledge section-container">
                 <div class="section-header">
-                    <h4>{{localize "PF2E.RecallKnowledge.Label"}}</h4>
+                    <h4>{{localize "PF2E.RecallKnowledge.Label"}}</h4> <div class="stats-line recall-knowledge"><button type="button" class="recall-knowledge-breakdown">{{localize "PF2E.RecallKnowledge.Breakdown"}}</button></div>
                 </div>
                 <div class="section-body">
                     {{#if identificationSkills }}
@@ -16,15 +16,15 @@
                             {{identifySkillDC}} ({{localize identifySkillAdjustment}})
                         </div>
                     {{/if}}
-                    <div id="unspecified-lore" class="tag" title="{{unspecificLoreProgression}}">
+                    <div class="unspecified-lore tag" title="{{unspecificLoreProgression}}">
                         {{localize "PF2E.RecallKnowledge.UnspecificLore"}} {{unspecificLoreDC}} ({{localize unspecificLoreAdjustment}})
                     </div>
-                    <div id="specific-lore" class="tag" title="{{specificLoreProgression}}">
+                    <div class="specific-lore tag" title="{{specificLoreProgression}}">
                         {{localize "PF2E.RecallKnowledge.SpecificLore"}} {{specificLoreDC}} ({{localize specificLoreAdjustment}})
                     </div>
                 </div>
             </div>
-            <div id="languages" class="section-container" style="flex: 1;">
+            <div class="languages section-container" style="flex: 1;">
                 <div class="section-header" data-attribute="languages" for="data.traits.languages">
                     <h4>{{localize "PF2E.Languages"}}</h4>
                     {{# if options.editable }}

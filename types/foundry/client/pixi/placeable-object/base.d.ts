@@ -6,13 +6,13 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
     constructor(document: TDocument);
 
     /** Retain a reference to the Scene within which this Placeable Object resides */
-    scene: TDocument['parent'];
+    scene: TDocument["parent"];
 
     /** A reference to the Scene embedded Document instance which this object represents */
     document: TDocument;
 
     /** The underlying data object which provides the basis for this placeable object */
-    data: TDocument['data'];
+    data: TDocument["data"];
 
     /**
      * Track the field of vision for the placeable object.
@@ -55,7 +55,7 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
     get fov(): PIXI.Polygon;
 
     /** Provide a reference to the CanvasLayer which contains this PlaceableObject. */
-    get layer(): PIXI.Container;
+    get layer(): PlaceablesLayer<this>;
 
     /** The line-of-sight polygon for the object, if it has been computed */
     get los(): PIXI.Polygon | null;
@@ -64,7 +64,7 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
      * A Form Application which is used to configure the properties of this Placeable Object or the EmbeddedEntity
      * it represents.
      */
-    get sheet(): TDocument['sheet'];
+    get sheet(): TDocument["sheet"];
 
     /* -------------------------------------------- */
     /*  Permission Controls                         */
@@ -142,16 +142,16 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
 
     /** Register pending canvas operations which should occur after a new PlaceableObject of this type is created */
     protected _onCreate(
-        data: this['document']['data']['_source'],
+        data: this["document"]["data"]["_source"],
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ): void;
 
     /** Define additional steps taken when an existing placeable object of this type is updated with new data */
     protected _onUpdate(
-        changed: DocumentUpdateData<this['document']>,
+        changed: DocumentUpdateData<this["document"]>,
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ): void;
 
     /** Define additional steps taken when an existing placeable object of this type is deleted */
@@ -254,7 +254,7 @@ declare abstract class PlaceableObject<TDocument extends CanvasDocument = Canvas
     protected _onDragLeftMove(event: PIXI.InteractionEvent): void;
 
     /** Callback actions which occur on a mouse-move operation. */
-    protected _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<this['document'][]>;
+    protected _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<this["document"][]>;
 
     /** Callback actions which occur on a mouse-move operation. */
     protected _onDragLeftCancel(event: PIXI.InteractionEvent): void;

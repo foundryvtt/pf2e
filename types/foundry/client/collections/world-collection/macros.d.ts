@@ -4,11 +4,11 @@
  */
 declare class Macros<TMacro extends Macro> extends WorldCollection<TMacro> {
     /** @override */
-    get documentName(): 'Macro';
+    get documentName(): "Macro";
 
     /** @override */
     get directory(): SidebarDirectory;
 
     /** @override */
-    fromCompendium(document: TMacro): TMacro['data']['_source'];
+    fromCompendium(document: TMacro): TMacro["data"]["_source"];
 }

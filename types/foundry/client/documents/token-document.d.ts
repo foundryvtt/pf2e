@@ -1,4 +1,4 @@
-import { TokenDocumentConstructor } from './constructors';
+import { TokenDocumentConstructor } from "./constructors";
 
 type _Actor = Actor<TokenDocument<_Actor>>;
 
@@ -6,7 +6,7 @@ declare global {
     class TokenDocument<TActor extends Actor = _Actor> extends TokenDocumentConstructor {
         constructor(
             data: PreCreate<foundry.data.TokenSource>,
-            context: TokenDocumentConstructionContext<TokenDocument>,
+            context: TokenDocumentConstructionContext<TokenDocument>
         );
 
         /**
@@ -26,7 +26,7 @@ declare global {
         override get isOwner(): boolean;
 
         /** A convenient reference for whether this TokenDocument is linked to the Actor it represents, or is a synthetic copy */
-        get isLinked(): this['data']['actorLink'];
+        get isLinked(): this["data"]["actorLink"];
 
         /** Return a reference to a Combatant that represents this Token, if one is present in the current encounter. */
         get combatant(): Combatant | null;
@@ -39,17 +39,17 @@ declare global {
         /* -------------------------------------------- */
 
         override clone(
-            data: PreCreate<foundry.data.TokenSource> | undefined,
-            options: { save?: false | undefined; keepId?: boolean },
-        ): this;
-        override clone(
-            data?: PreCreate<foundry.data.TokenSource>,
-            options?: { save: true; keepId?: boolean },
+            createData: DeepPartial<foundry.data.TokenSource> | undefined,
+            options: { save: true; keepId?: boolean }
         ): Promise<this>;
         override clone(
-            data?: PreCreate<foundry.data.TokenSource>,
-            options?: { save?: boolean; keepId?: boolean },
+            createData: DeepPartial<foundry.data.TokenSource> | undefined,
+            options?: { save?: false | undefined; keepId?: boolean }
         ): this;
+        override clone(
+            createData?: DeepPartial<foundry.data.TokenSource>,
+            options?: { save?: boolean; keepId?: boolean }
+        ): this | Promise<this>;
 
         /**
          * Create a synthetic Actor using a provided Token instance
@@ -81,8 +81,8 @@ declare global {
         modifyActorDocument(update: Record<string, unknown>, options: DocumentModificationContext): Promise<TActor[]>;
 
         override getEmbeddedCollection(
-            embeddedName: 'Item' | 'ActiveEffect',
-        ): ReturnType<TActor['getEmbeddedCollection']>;
+            embeddedName: "Item" | "ActiveEffect"
+        ): ReturnType<TActor["getEmbeddedCollection"]>;
 
         /**
          * Redirect creation of Documents within a synthetic Token Actor to instead update the tokenData override object.
@@ -92,9 +92,9 @@ declare global {
          * @returns The created Embedded Document instances
          */
         createActorEmbeddedDocuments(
-            embeddedName: 'ActiveEffect' | 'Item',
+            embeddedName: "ActiveEffect" | "Item",
             data: PreCreate<foundry.data.ActiveEffectSource>[] | Partial<foundry.data.ActiveEffectSource>[],
-            options?: DocumentModificationContext,
+            options?: DocumentModificationContext
         ): ActiveEffect | Item[];
 
         /**
@@ -105,9 +105,9 @@ declare global {
          * @returns The updated Embedded Document instances
          */
         updateActorEmbeddedDocuments(
-            embeddedName: 'ActiveEffect' | 'Item',
+            embeddedName: "ActiveEffect" | "Item",
             updates: EmbeddedDocumentUpdateData<ActiveEffect | Item>,
-            options: DocumentModificationContext,
+            options: DocumentModificationContext
         ): Promise<ActiveEffect[] | Item[]>;
 
         /**
@@ -118,9 +118,9 @@ declare global {
          * @returns The updated Embedded Document instances
          */
         deleteActorEmbeddedDocuments(
-            embeddedName: 'ActiveEffect' | 'Item',
+            embeddedName: "ActiveEffect" | "Item",
             ids: string[],
-            options: DocumentModificationContext,
+            options: DocumentModificationContext
         ): Promise<ActiveEffect[] | Item[]>;
 
         /* -------------------------------------------- */
@@ -130,20 +130,20 @@ declare global {
         protected override _preUpdate(
             data: DocumentUpdateData<this>,
             options: DocumentModificationContext,
-            user: User,
+            user: User
         ): Promise<void>;
 
         /** When the Actor data overrides change for an un-linked Token Actor, simulate the pre-update process. */
         protected _preUpdateTokenActor(
             data: DocumentUpdateData<TActor>,
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): Promise<void>;
 
         protected override _onUpdate(
-            changed: DeepPartial<this['data']['_source']>,
+            changed: DeepPartial<this["data"]["_source"]>,
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         /** When the base Actor for a TokenDocument changes, we may need to update its Actor instance */
@@ -153,7 +153,7 @@ declare global {
         protected _onUpdateTokenActor(
             data: Record<string, unknown>,
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         /** Get an Array of attribute choices which could be tracked for Actors in the Combat Tracker */
@@ -173,7 +173,7 @@ declare global {
 
     interface TokenDocumentConstructionContext<TTokenDocument extends TokenDocument>
         extends DocumentConstructionContext<TTokenDocument> {
-        actor?: TTokenDocument['actor'];
+        actor?: TTokenDocument["actor"];
     }
 
     namespace TokenDocument {
@@ -181,7 +181,7 @@ declare global {
 
         function updateDocuments(
             updates?: DocumentUpdateData<TokenDocument>[],
-            context?: DocumentModificationContext,
+            context?: DocumentModificationContext
         ): Promise<TokenDocument[]>;
     }
 

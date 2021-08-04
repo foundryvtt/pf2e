@@ -24,7 +24,7 @@ declare class Notifications extends Application {
      * @param type      The type of notification, currently "info", "warning", and "error" are supported
      * @param {Object} options    Notification options passed to the notify function
      */
-    notify(message: string, type: 'info' | 'warning' | 'error', options?: object): void;
+    notify(message: string, type: "info" | "warning" | "error", options?: object): void;
 
     /**
      * Display a notification with the "info" type

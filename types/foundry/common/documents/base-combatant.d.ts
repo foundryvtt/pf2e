@@ -10,7 +10,7 @@ declare module foundry {
             protected static _canUpdate(
                 user: documents.BaseUser,
                 doc: BaseCombatant,
-                data: data.CombatantData,
+                data: data.CombatantData
             ): boolean;
         }
 
@@ -20,14 +20,14 @@ declare module foundry {
         }
 
         interface CombatantMetadata extends abstract.DocumentMetadata {
-            name: 'Combatant';
-            collection: 'combatants';
-            label: 'DOCUMENT.Combatant';
+            name: "Combatant";
+            collection: "combatants";
+            label: "DOCUMENT.Combatant";
             isPrimary: true;
             permissions: {
-                create: 'PLAYER';
-                update: typeof BaseCombatant['_canUpdate'];
-                delete: 'ASSISTANT';
+                create: "PLAYER";
+                update: typeof BaseCombatant["_canUpdate"];
+                delete: "ASSISTANT";
             };
         }
     }

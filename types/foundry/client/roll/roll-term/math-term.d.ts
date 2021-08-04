@@ -22,7 +22,7 @@ declare global {
         isIntermediate: true;
 
         /** @override */
-        static SERIALIZE_ATTRIBUTES: ['fn', 'terms'];
+        static SERIALIZE_ATTRIBUTES: ["fn", "terms"];
 
         /* -------------------------------------------- */
         /*  Math Term Attributes                        */
@@ -56,7 +56,7 @@ declare global {
 
     type MathFunctionName = Exclude<
         MathStringKey,
-        'E' | 'LN2' | 'LN10' | 'LOG2E' | 'LOG10E' | 'PI' | 'SQRT1_2' | 'SQRT2'
+        "E" | "LN2" | "LN10" | "LOG2E" | "LOG10E" | "PI" | "SQRT1_2" | "SQRT2"
     >;
 
     interface MathTermData<TFunctionName extends MathFunctionName = MathFunctionName> extends RollTermData {

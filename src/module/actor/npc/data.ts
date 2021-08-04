@@ -6,7 +6,7 @@ import {
     BaseCreatureSource,
     CreatureSystemData,
     SaveData,
-} from '@actor/creature/data';
+} from "@actor/creature/data";
 import {
     ArmorClassData,
     DexterityModifierCapData,
@@ -14,20 +14,20 @@ import {
     RawInitiativeData,
     Rollable,
     StrikeData,
-} from '@actor/data/base';
-import { StatisticModifier } from '@module/modifiers';
-import { LabeledValue } from '@module/data';
-import type { NPCPF2e } from '.';
+} from "@actor/data/base";
+import { StatisticModifier } from "@module/modifiers";
+import { LabeledValue } from "@module/data";
+import type { NPCPF2e } from ".";
 
-export type NPCSource = BaseCreatureSource<'npc', NPCSystemData>;
+export type NPCSource = BaseCreatureSource<"npc", NPCSystemData>;
 
 export class NPCData extends BaseCreatureData<NPCPF2e, NPCSystemData> {
-    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/npc.svg';
+    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/npc.svg";
 }
 
-export interface NPCData extends Omit<NPCSource, 'effects' | 'items' | 'token'> {
-    readonly type: NPCSource['type'];
-    data: NPCSource['data'];
+export interface NPCData extends Omit<NPCSource, "effects" | "items" | "token"> {
+    readonly type: NPCSource["type"];
+    data: NPCSource["data"];
     readonly _source: NPCSource;
 }
 
@@ -47,8 +47,6 @@ export interface NPCSystemData extends CreatureSystemData {
         level: { value: number };
         /** Which sourcebook this creature comes from. */
         source: { value: string };
-        /** Information about what is needed to recall knowledge about this creature. */
-        recallKnowledgeText: string;
         /** The type of this creature (such as 'undead') */
         creatureType: string;
     };
@@ -108,8 +106,8 @@ export interface NPCAttributes extends BaseCreatureAttributes {
     /** The perception score for this NPC. */
     perception: NPCPerceptionData;
 
-    /** Dexterity modifier cap to AC. Undefined means no limit. */
-    dexCap?: DexterityModifierCapData[];
+    /** Sources of the dexterity modifier cap to AC */
+    dexCap: DexterityModifierCapData[];
 
     initiative: NPCInitiativeData;
 

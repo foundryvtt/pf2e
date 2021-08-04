@@ -1,9 +1,9 @@
-import { ModifierPF2e } from './modifiers';
-import { StatusEffects } from '@scripts/actor/status-effects';
-import type { ConditionData, ConditionSource } from '@item/condition/data';
-import { ConditionPF2e } from '@item/condition';
-import { ActorPF2e } from '@actor/base';
-import { TokenPF2e } from './canvas/token';
+import { ModifierPF2e } from "./modifiers";
+import { StatusEffects } from "@scripts/actor/status-effects";
+import type { ConditionData, ConditionSource } from "@item/condition/data";
+import { ConditionPF2e } from "@item/condition";
+import { ActorPF2e } from "@actor/base";
+import { TokenPF2e } from "./canvas/token";
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
@@ -24,7 +24,7 @@ export class ConditionManager {
             this.__conditionsCache = new Map<string, ConditionData>();
 
             this._compediumConditions.forEach((condition, name) =>
-                this.__conditionsCache.set(name, deepClone(condition)),
+                this.__conditionsCache.set(name, deepClone(condition))
             );
             this._customConditions.forEach((condition, name) => this.__conditionsCache.set(name, deepClone(condition)));
 
@@ -48,7 +48,7 @@ export class ConditionManager {
 
     static async init() {
         const content =
-            (await game.packs.get<CompendiumCollection<ConditionPF2e>>('pf2e.conditionitems')?.getDocuments()) ?? [];
+            (await game.packs.get<CompendiumCollection<ConditionPF2e>>("pf2e.conditionitems")?.getDocuments()) ?? [];
 
         for (const condition of content) {
             this._compediumConditions.set(condition.name.toLowerCase(), condition.data);
@@ -71,7 +71,7 @@ export class ConditionManager {
             deepClone(ConditionManager._compediumConditions.get(conditionKey));
 
         if (!condition) {
-            throw Error('PF2e System | Unexpected failure looking up condition');
+            throw Error("PF2e System | Unexpected failure looking up condition");
         }
 
         return condition;
@@ -139,7 +139,7 @@ export class ConditionManager {
      */
     private static processValuedCondition(
         conditions: ConditionData[],
-        updates: Map<string, ConditionSource>,
+        updates: Map<string, ConditionSource>
     ): ConditionData {
         let appliedCondition: ConditionData;
 
@@ -196,7 +196,7 @@ export class ConditionManager {
      */
     private static processToggleCondition(
         conditions: ConditionData[],
-        updates: Map<string, ConditionSource>,
+        updates: Map<string, ConditionSource>
     ): ConditionData {
         let appliedCondition: ConditionData;
 
@@ -251,7 +251,7 @@ export class ConditionManager {
     private static processOverride(
         overridden: ConditionSource,
         overrider: ConditionSource,
-        updates: Map<string, ConditionSource>,
+        updates: Map<string, ConditionSource>
     ) {
         if (overridden.data.active) {
             // Condition was active.  Deactivate it.
@@ -266,7 +266,7 @@ export class ConditionManager {
             // Condition doesn't have overrider as part of overridenBy list.
 
             const update = updates.get(overridden._id) ?? duplicate(overridden);
-            update.data.references.overriddenBy.push({ id: overrider._id, type: 'condition' });
+            update.data.references.overriddenBy.push({ id: overrider._id, type: "condition" });
             updates.set(update._id, update);
         }
 
@@ -274,7 +274,7 @@ export class ConditionManager {
             // Overrider does not have overriden condition in overrides list.
 
             const update = updates.get(overrider._id) ?? duplicate(overrider);
-            update.data.references.overrides.push({ id: overridden._id, type: 'condition' });
+            update.data.references.overrides.push({ id: overridden._id, type: "condition" });
             updates.set(update._id, update);
         }
     }
@@ -331,7 +331,7 @@ export class ConditionManager {
         overriding.forEach((base) => {
             // Make sure to get the most recent version of a condition.
             const overrider =
-                updates.get(appliedConditions.get(base)?._id ?? '') ?? appliedConditions.get(base)?.toObject();
+                updates.get(appliedConditions.get(base)?._id ?? "") ?? appliedConditions.get(base)?.toObject();
 
             // Iterate the condition's overrides.
             overrider?.data.overrides.forEach((overriddenBase) => {
@@ -356,7 +356,7 @@ export class ConditionManager {
 
         // Make sure to update any items that need updating.
         if (updates.size) {
-            await actor?.updateEmbeddedDocuments('Item', Array.from(updates.values()));
+            await actor?.updateEmbeddedDocuments("Item", Array.from(updates.values()));
         }
 
         // Update token effects from applied conditions.
@@ -404,14 +404,14 @@ export class ConditionManager {
     static addConditionToToken(name: string | ConditionSource, actor: ActorPF2e): Promise<ConditionPF2e | null>;
     static addConditionToToken(
         name: string | ConditionSource,
-        actorOrToken: ActorPF2e | TokenPF2e,
+        actorOrToken: ActorPF2e | TokenPF2e
     ): Promise<ConditionPF2e | null>;
     static async addConditionToToken(
         name: string | ConditionSource,
-        actorOrToken: ActorPF2e | TokenPF2e,
+        actorOrToken: ActorPF2e | TokenPF2e
     ): Promise<ConditionPF2e | null> {
         const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
-        const conditionSource = typeof name === 'string' ? this.getCondition(name).toObject() : name;
+        const conditionSource = typeof name === "string" ? this.getCondition(name).toObject() : name;
 
         if (actor) {
             const condition = await this.createConditions(conditionSource, actor);
@@ -432,7 +432,7 @@ export class ConditionManager {
 
     private static async createConditions(condition: ConditionSource, actor: ActorPF2e): Promise<ConditionPF2e | null> {
         const exists = actor.itemTypes.condition.some(
-            (existing) => existing.data.data.base === condition.data.base && !condition.data.references.parent?.id,
+            (existing) => existing.data.data.base === condition.data.base && !condition.data.references.parent?.id
         );
         if (exists) return null;
 
@@ -440,7 +440,7 @@ export class ConditionManager {
         const conditionsToCreate = this.createAdditionallyAppliedConditions(condition);
         conditionsToCreate.push(condition);
 
-        actor.createEmbeddedDocuments('Item', conditionsToCreate, { keepId: true }).then((result) => {
+        actor.createEmbeddedDocuments("Item", conditionsToCreate, { keepId: true }).then((result) => {
             return result.find((item) => item.id === condition._id) as ConditionPF2e;
         });
 
@@ -456,8 +456,8 @@ export class ConditionManager {
                 conditionSource.data.value.value = linkedCondition.value;
             }
             conditionSource._id = randomID(16);
-            conditionSource.data.references.parent = { id: baseCondition._id, type: 'condition' };
-            baseCondition.data.references.children.push({ id: conditionSource._id, type: 'condition' });
+            conditionSource.data.references.parent = { id: baseCondition._id, type: "condition" };
+            baseCondition.data.references.children.push({ id: conditionSource._id, type: "condition" });
             conditionSource.data.sources.hud = baseCondition.data.sources.hud;
 
             // Add linked condition to the list of items to create
@@ -494,7 +494,7 @@ export class ConditionManager {
     static removeConditionFromToken(itemId: string | string[], actorOrToken: ActorPF2e | TokenPF2e): Promise<void>;
     static async removeConditionFromToken(
         itemId: string | string[],
-        actorOrToken: ActorPF2e | TokenPF2e,
+        actorOrToken: ActorPF2e | TokenPF2e
     ): Promise<void> {
         itemId = itemId instanceof Array ? itemId : [itemId];
         const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
@@ -513,7 +513,7 @@ export class ConditionManager {
         const list: string[] = [];
         const stack = [...itemIds];
         while (stack.length) {
-            const id = stack.pop() ?? '';
+            const id = stack.pop() ?? "";
             const condition = actor.itemTypes.condition.find((condition) => condition.id === id);
 
             if (condition) {
@@ -539,7 +539,7 @@ export class ConditionManager {
                 await this.deleteConditions([itemId], actor);
             } else {
                 // Apply new value.
-                await condition.update({ 'data.value.value': value });
+                await condition.update({ "data.value.value": value });
                 console.debug(`PF2e System | Setting condition '${condition.name}' to ${value}.`);
             }
 
@@ -595,7 +595,7 @@ export class ConditionManager {
                             id: c.data.references.parent,
                             name: refCondition.name,
                             base: refCondition.data.base,
-                            text: '',
+                            text: "",
                         };
 
                         if (refCondition.data.value.isValued) {
@@ -617,7 +617,7 @@ export class ConditionManager {
                             id: c.data.references.parent,
                             name: refCondition.name,
                             base: refCondition.data.base,
-                            text: '',
+                            text: "",
                         };
 
                         if (refCondition.data.value.isValued) {
@@ -639,7 +639,7 @@ export class ConditionManager {
                             id: c.data.references.parent,
                             name: refCondition.name,
                             base: refCondition.data.base,
-                            text: '',
+                            text: "",
                         };
 
                         if (refCondition.data.value.isValued) {
@@ -661,7 +661,7 @@ export class ConditionManager {
                             id: c.data.references.parent,
                             name: refCondition.name,
                             base: refCondition.data.base,
-                            text: '',
+                            text: "",
                         };
 
                         if (refCondition.data.value.isValued) {
@@ -683,7 +683,7 @@ export class ConditionManager {
                             id: c.data.references.parent,
                             name: refCondition.name,
                             base: refCondition.data.base,
-                            text: '',
+                            text: "",
                         };
 
                         if (refCondition.data.value.isValued) {

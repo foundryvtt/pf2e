@@ -21,6 +21,7 @@
         "level": {
             "value": 20
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -28,10 +29,25 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "final-horizon"
+                    ]
+                },
+                "selector": "attack",
+                "value": -2
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "property": "flags.pf2e.rollOptions.attack-roll.final-horizon"
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "source": {
             "value": ""

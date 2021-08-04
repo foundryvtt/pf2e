@@ -1,6 +1,6 @@
-import { CharacterData, NPCData } from '@actor/data';
-import { RuleElementPF2e } from '../rule-element';
-import { RuleElementData } from '../rules-data-definitions';
+import { CharacterData, NPCData } from "@actor/data";
+import { RuleElementPF2e } from "../rule-element";
+import { RuleElementData } from "../rules-data-definitions";
 
 /**
  * @category RuleElement
@@ -15,7 +15,7 @@ export class PF2TogglePropertyRuleElement extends RuleElementPF2e {
             });
         } else {
             console.warn(
-                'PF2E | Toggle flag requires at least a label field or item name, and a property field with the name of the property',
+                "PF2E | Toggle flag requires at least a label field or item name, and a property field with the name of the property"
             );
         }
     }

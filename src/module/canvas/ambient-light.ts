@@ -1,5 +1,5 @@
-import { AmbientLightDocumentPF2e } from '@module/scene';
-import { LightingLayerPF2e } from './lighting-layer';
+import { AmbientLightDocumentPF2e } from "@module/scene";
+import { LightingLayerPF2e } from "./lighting-layer";
 
 export class AmbientLightPF2e extends AmbientLight<AmbientLightDocumentPF2e> {
     /** Return a bright radius of the greater of dim and bright radii if any controlled tokens have low-light vision */
@@ -20,5 +20,5 @@ export class AmbientLightPF2e extends AmbientLight<AmbientLightDocumentPF2e> {
 }
 
 export interface AmbientLightPF2e {
-    get layer(): LightingLayerPF2e;
+    get layer(): LightingLayerPF2e<this>;
 }

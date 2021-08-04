@@ -1,4 +1,4 @@
-import * as io from 'socket.io';
+import * as io from "socket.io";
 
 declare global {
     const socket: io.Socket | null;
@@ -6,7 +6,7 @@ declare global {
     const ui: {
         actors: ActorDirectory;
         chat: ChatLog;
-        combat: CombatTracker;
+        combat: CombatTracker<Combat>;
         compendium: CompendiumDirectory;
         controls: SceneControls;
         items: ItemDirectory;
@@ -32,8 +32,8 @@ declare global {
         TFolder extends Folder = Folder,
         TItem extends Item<TActor> = Item<TActor>,
         TMacro extends Macro = Macro,
-        TScene extends Scene<TokenDocument<TActor>> = Scene<TokenDocument<TActor>>,
-        TUser extends User<TActor> = User<TActor>,
+        TScene extends Scene = Scene,
+        TUser extends User<TActor> = User<TActor>
     > {
         /**
          * The named view which is currently active.
@@ -43,8 +43,8 @@ declare global {
 
         /** The object of world data passed from the server */
         data: {
-            actors: TActor['data']['_source'][];
-            items: TItem['data']['_source'][];
+            actors: TActor["data"]["_source"][];
+            items: TItem["data"]["_source"][];
             macros: foundry.data.MacroSource[];
             messages: foundry.data.ChatMessageSource[];
             packs: CompendiumMetadata[];
@@ -182,7 +182,7 @@ declare global {
         /**
          * The currently connected User
          */
-        get user(): TUser;
+        get user(): Active<TUser>;
 
         /**
          * Metadata regarding the current game World
@@ -243,7 +243,7 @@ declare global {
                 Folder: string[];
                 Item: string[];
                 JournalEntry: string[];
-                Macro: ['chat', 'script'];
+                Macro: ["chat", "script"];
                 Playlist: string[];
                 RollTable: string[];
                 Scene: string[];

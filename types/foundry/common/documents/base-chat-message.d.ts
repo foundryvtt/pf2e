@@ -20,7 +20,7 @@ declare module foundry {
             protected static _canUpdate(
                 user: documents.BaseUser,
                 doc: documents.BaseChatMessage,
-                data: data.ChatMessageData,
+                data: data.ChatMessageData
             ): boolean;
 
             /** Is a user able to delete an existing chat message? */
@@ -34,14 +34,14 @@ declare module foundry {
         }
 
         interface ChatMessageMetadata extends abstract.DocumentMetadata {
-            name: 'ChatMessage';
-            collection: 'messages';
-            label: 'DOCUMENT.ChatMessage';
+            name: "ChatMessage";
+            collection: "messages";
+            label: "DOCUMENT.ChatMessage";
             isPrimary: true;
             permissions: {
-                create: typeof BaseChatMessage['_canCreate'];
-                update: typeof BaseChatMessage['_canUpdate'];
-                delete: typeof BaseChatMessage['_canDelete'];
+                create: typeof BaseChatMessage["_canCreate"];
+                update: typeof BaseChatMessage["_canUpdate"];
+                delete: typeof BaseChatMessage["_canDelete"];
             };
         }
     }

@@ -3,37 +3,28 @@
     "data": {
         "abilities": {
             "cha": {
-                "mod": -2,
-                "value": 10
+                "mod": -2
             },
             "con": {
-                "mod": 10,
-                "value": 10
+                "mod": 10
             },
             "dex": {
-                "mod": 2,
-                "value": 10
+                "mod": 2
             },
             "int": {
-                "mod": -5,
-                "value": 10
+                "mod": -5
             },
             "str": {
-                "mod": 9,
-                "value": 10
+                "mod": 9
             },
             "wis": {
-                "mod": 0,
-                "value": 10
+                "mod": 0
             }
         },
         "attributes": {
             "ac": {
-                "base": 45,
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "value": 10
+                "value": 45
             },
             "allSaves": {
                 "value": ""
@@ -48,7 +39,6 @@
                 "ability": "perception"
             },
             "perception": {
-                "ability": "wis",
                 "value": 33
             },
             "shield": {
@@ -72,31 +62,33 @@
             "level": {
                 "value": 20
             },
-            "recallKnowledgeText": "",
             "source": {
                 "value": "Pathfinder #168: King of the Mountain"
             }
         },
+        "resources": {
+            "focus": {
+                "max": 1,
+                "value": 1
+            }
+        },
         "saves": {
             "fortitude": {
-                "ability": "con",
                 "saveDetail": "",
                 "value": 29
             },
             "reflex": {
-                "ability": "dex",
                 "saveDetail": "",
                 "value": 27
             },
             "will": {
-                "ability": "wis",
                 "saveDetail": "",
                 "value": 33
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "ci": [],
@@ -157,10 +149,6 @@
                     "value": ""
                 },
                 "displayLevels": {},
-                "focus": {
-                    "points": 1,
-                    "pool": 1
-                },
                 "prepared": {
                     "value": "innate"
                 },
@@ -170,7 +158,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "showUnpreparedSpells": {
                     "value": true
@@ -302,8 +290,6 @@
                     "value": "negative"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You unleash a wave of necromantic energy to snuff out the life force of those in its path. Each living creature of 17th level or lower in the line must attempt a Fortitude save. If the damage from massacre reduces a creature to 0 Hit Points, that creature dies instantly. If massacre doesn't kill even a single creature, the negative energy violently explodes back toward you, dealing an additional 30 negative damage to every living creature in the line (even those above 17th level) and 30 negative damage to you.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes 9d6 negative damage.</p>\n<p><strong>Failure</strong> The creature takes 100 negative damage.</p>\n<p><strong>Critical Failure</strong> The creature dies.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> The spell can affect living creatures up to 19th level. Increase the damage to 10d6 on a success, and to 115 on a failure.</p>"
                 },
                 "duration": {
@@ -341,7 +327,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -433,8 +419,6 @@
                     "value": "cold"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You fire a blue-white ray of freezing air and sleet that deals 10d8 cold damage. Make a spell attack roll against the target.</p>\n<p><strong>Critical Success</strong> The target takes double damage and is @Compendium[pf2e.conditionitems.Drained]{Drained 2}</p>\n<p><strong>Success</strong> The target takes full damage and is @Compendium[pf2e.conditionitems.Drained]{Drained 2}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d8</p>"
                 },
                 "duration": {
@@ -472,7 +456,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -563,8 +547,6 @@
                     "value": "cold"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You fire a blue-white ray of freezing air and sleet that deals 10d8 cold damage. Make a spell attack roll against the target.</p>\n<p><strong>Critical Success</strong> The target takes double damage and is @Compendium[pf2e.conditionitems.Drained]{Drained 2}</p>\n<p><strong>Success</strong> The target takes full damage and is @Compendium[pf2e.conditionitems.Drained]{Drained 2}</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d8</p>"
                 },
                 "duration": {
@@ -602,7 +584,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -693,8 +675,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A massive storm cloud forms in the air in a 360-foot burst. Beneath it, rain begins to fall, and gales impose a -4 circumstance penalty to physical ranged attacks and weapon ranged attacks, and the air in the area becomes greater difficult terrain for flying creatures. When you Cast this Spell and the first time each round you Sustain the Spell, you can choose one of the following storm effects. You can't choose the same effect twice in a row.</p>\n<ul>\n<li><strong>Acid Rain</strong> Each creature in the storm takes 4d8 acid damage with no saving throw.</li>\n<li><strong>Hail</strong> The storm deals 4d10 bludgeoning damage to creatures beneath it (basic Fortitude save).</li>\n<li><strong>Lightning</strong> Up to 10 bolts of lightning strike down, targeting creatures of your choice in the storm. No more than one bolt can target any one creature. Each bolt deals 7d6 electricity damage (basic Reflex save). Rain and Wind Heavy rain and whipping wind reduce visibility and mobility, making the area under the storm cloud difficult terrain and making everything seen within or through the area @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</li>\n<li><strong>Thunderclap</strong> Each creature in the storm must succeed at a Fortitude save or be @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 10 minutes. A creature that succeeds is temporarily immune to thunderclaps from storm of vengeance for 1 hour.</li>\n</ul>\n<hr />\n<p><strong>Heightened (10th)</strong> The range increases to 2,200 feet, and the cloud is a 1,000-foot burst.</p>"
                 },
                 "duration": {
@@ -732,7 +712,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -822,8 +802,6 @@
                     "value": "cold"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You sculpt an ice barrier that blocks sight and, once shattered, freezes foes. You create either a 1-foot-thick wall of ice in a straight line up to 60 feet long and 10 feet high (the wall doesn't have to be vertical, but it must be anchored on both sides to a solid surface) or a 1-foot-thick, 10-foot radius hemisphere of ice. The ice that makes up the wall is opaque. If you wish, the wall can be of a smaller length, height, or radius.</p>\n<p>You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. Each 10-foot-by-10-foot section of the wall has AC 10, Hardness 10, and 40 Hit Points, and it's immune to critical hits, cold damage, and precision damage. A section also has weakness to fire 15; a section of the wall destroyed by fire melts, evaporating into water and steam. A section destroyed by means other than fire leaves behind a chilling mass of ice that is difficult terrain and deals 2d6 cold damage to any creature passing through it.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The Hit Points of each section of the wall increase by 10, and the cold damage dealt to creatures crossing a destroyed section increases by 1d6.</p>"
                 },
                 "duration": {
@@ -861,7 +839,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -952,8 +930,6 @@
                     "value": "cold"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals cold damage equal to 1d4 + your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Ray of Frost]{Spell Effect: Ray of Frost}</p>\n<p><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
                 },
                 "duration": {
@@ -991,7 +967,7 @@
                 },
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -1084,8 +1060,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>This immense two‑handed sword is nearly as tall as its wielder. Its lower blade is often somewhat dulled to allow it to be gripped for extra leverage in close‑quarter fights.</p>"
                 },
                 "equipped": {
@@ -1181,7 +1155,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "size": {
                     "value": "med"
@@ -1263,7 +1237,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1323,7 +1297,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1363,8 +1337,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
@@ -1373,7 +1345,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "darkvision",
                 "source": {
@@ -1425,7 +1397,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1468,8 +1440,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
                 },
                 "requirements": {
@@ -1478,7 +1448,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "negative-healing",
                 "source": {
@@ -1522,8 +1492,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "requirements": {
@@ -1532,7 +1500,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "attack-of-opportunity",
                 "source": {
@@ -1584,7 +1552,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1634,7 +1602,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1679,7 +1647,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>A creature that takes cold damage from a sthira's Strikes or aura must attempt a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Frostbite DC\" data-pf2-dc=\"42\" data-pf2-show-dc=\"gm\">Fortitude</span> save. A creature that already has persistent cold damage from frostbite ignores this effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected, and is temporarily immune to this ability for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature takes [[/r 3d6 # persistent cold damage]]{3d6} @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent cold Damage}.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is also @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>"
+                    "value": "<p>A creature that takes cold damage from a sthira's Strikes or aura must attempt a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Frostbite DC\" data-pf2-dc=\"42\" data-pf2-show-dc=\"gm\">Fortitude</span> save. A creature that already has persistent cold damage from frostbite ignores this effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected, and is temporarily immune to this ability for 1 hour.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature takes [[/r 3d6 #persistent cold]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature is also @Compendium[pf2e.conditionitems.Drained]{Drained 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1687,7 +1655,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1727,8 +1695,6 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}.</p>"
                 },
                 "requirements": {
@@ -1737,7 +1703,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": "improved-grab",
                 "source": {
@@ -1783,7 +1749,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -1807,39 +1773,10 @@
     ],
     "name": "Sthira",
     "token": {
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": "attributes.hp"
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 0.25,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Sthira",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "vision": false,
         "width": 2
     },
     "type": "npc"

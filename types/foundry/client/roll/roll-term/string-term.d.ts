@@ -8,7 +8,7 @@ declare global {
         term: string;
 
         /** @override */
-        static SERIALIZE_ATTRIBUTES: ['term'];
+        static SERIALIZE_ATTRIBUTES: ["term"];
 
         /** @override */
         get expression(): string;

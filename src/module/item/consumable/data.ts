@@ -2,29 +2,29 @@ import {
     ActivatedEffectData,
     BasePhysicalItemData,
     BasePhysicalItemSource,
-    MagicItemSystemData,
     PhysicalItemTraits,
-} from '@item/physical/data';
-import { SpellSource } from '@item/spell/data';
-import type { ConsumablePF2e } from '.';
+    PhysicalSystemData,
+} from "@item/physical/data";
+import { SpellSource } from "@item/spell/data";
+import type { ConsumablePF2e } from ".";
 
-export type ConsumableSource = BasePhysicalItemSource<'consumable', ConsumableSystemData>;
+export type ConsumableSource = BasePhysicalItemSource<"consumable", ConsumableSystemData>;
 
 export class ConsumableData extends BasePhysicalItemData<ConsumablePF2e> {
-    static override DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/consumable.svg';
+    static override DEFAULT_ICON: ImagePath = "systems/pf2e/icons/default-icons/consumable.svg";
 }
 
-export interface ConsumableData extends Omit<ConsumableSource, '_id' | 'effects'> {
-    type: ConsumableSource['type'];
-    data: ConsumableSource['data'];
+export interface ConsumableData extends Omit<ConsumableSource, "_id" | "effects"> {
+    type: ConsumableSource["type"];
+    data: ConsumableSource["data"];
     readonly _source: ConsumableSource;
 }
 
-export type ConsumableType = keyof ConfigPF2e['PF2E']['consumableTypes'];
-export type ConsumableTrait = keyof ConfigPF2e['PF2E']['consumableTraits'];
+export type ConsumableType = keyof ConfigPF2e["PF2E"]["consumableTypes"];
+export type ConsumableTrait = keyof ConfigPF2e["PF2E"]["consumableTraits"];
 type ConsumableTraits = PhysicalItemTraits<ConsumableTrait>;
 
-interface ConsumableSystemData extends MagicItemSystemData, ActivatedEffectData {
+interface ConsumableSystemData extends PhysicalSystemData, ActivatedEffectData {
     traits: ConsumableTraits;
 
     consumableType: {

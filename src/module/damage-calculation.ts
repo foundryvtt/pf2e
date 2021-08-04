@@ -1,18 +1,19 @@
-import { Alignment } from '@actor/creature/data';
-import { ModeOfBeing } from '@actor/data';
-import { isChaotic, isEvil, isGood, isLawful } from './alignment';
-import { groupBy, sum } from './utils';
+import { Alignment } from "@actor/creature/data";
+import { ModeOfBeing } from "@actor/data";
+import { isChaotic, isEvil, isGood, isLawful } from "./alignment";
+import { groupBy, sum } from "./utils";
 
-const physicalDamageTypes = ['bludgeoning', 'piercing', 'slashing', 'bleed'] as const;
-const lifeEnergyDamageTypes = ['positive', 'negative'] as const;
-const energyDamageTypes = ['acid', 'cold', 'electricity', 'fire', 'sonic', 'force', ...lifeEnergyDamageTypes] as const;
-const alignmentDamageTypes = ['chaotic', 'lawful', 'good', 'evil'] as const;
+const physicalDamageTypes = ["bludgeoning", "piercing", "slashing", "bleed"] as const;
+const lifeEnergyDamageTypes = ["positive", "negative"] as const;
+const energyDamageTypes = ["acid", "cold", "electricity", "fire", "sonic", "force", ...lifeEnergyDamageTypes] as const;
+const alignmentDamageTypes = ["chaotic", "lawful", "good", "evil"] as const;
 const damageTypes = new Set([
     ...physicalDamageTypes,
     ...energyDamageTypes,
     ...alignmentDamageTypes,
-    'mental',
-    'poison',
+    "mental",
+    "poison",
+    "untyped", // see https://2e.aonprd.com/Spells.aspx?ID=162
 ] as const);
 
 export type SetElement<SetType extends Set<unknown>> = SetType extends Set<infer ElementType> ? ElementType : never;
@@ -24,27 +25,27 @@ export function isDamageType(value: string): value is DamageType {
 }
 
 const attackTraits = new Set([
-    'adamantine',
-    'air',
-    'area-damage',
-    'coldiron',
-    'darkwood',
-    'earth',
-    'fire',
-    'ghostTouch',
-    'light',
-    'magical',
-    'mithral',
-    'nonlethal attacks', // has to be present on every damage type pool!
-    'persistent-damage',
-    'salt',
-    'salt water',
-    'silver',
-    'orichalcum',
-    'unarmed',
-    'vorpal',
-    'warpglass',
-    'water',
+    "adamantine",
+    "air",
+    "area-damage",
+    "coldiron",
+    "darkwood",
+    "earth",
+    "fire",
+    "ghostTouch",
+    "light",
+    "magical",
+    "mithral",
+    "nonlethal attacks", // has to be present on every damage type pool!
+    "persistent-damage",
+    "salt",
+    "salt water",
+    "silver",
+    "orichalcum",
+    "unarmed",
+    "vorpal",
+    "warpglass",
+    "water",
 ] as const);
 
 export type AttackTrait = SetElement<typeof attackTraits>;
@@ -56,13 +57,13 @@ export function isAttackTrait(trait: string): trait is AttackTrait {
 const combinedTraits = new Set([
     ...attackTraits,
     ...damageTypes,
-    'all',
-    'physical',
-    'non-magical',
-    'critical-hits',
-    'splash-damage',
-    'energy',
-    'precision',
+    "all",
+    "physical",
+    "non-magical",
+    "critical-hits",
+    "splash-damage",
+    "energy",
+    "precision",
 ] as const);
 
 export type CombinedTrait = SetElement<typeof combinedTraits>;
@@ -204,7 +205,7 @@ class Modifier {
         return this.exceptions.some((traitCombination) =>
             Array.from(traitCombination).every((trait) => {
                 return damageTraits.has(trait);
-            }),
+            })
         );
     }
 
@@ -230,11 +231,11 @@ export class Weakness extends Modifier implements HasValue {
     calculateValue(damage: Damage, damageType: DamageType): number {
         const damageValues = damage.get(damageType) ?? new DamageValues();
         // if no damage is dealt, no weakness is triggered
-        if (this.type === 'critical-hits') {
+        if (this.type === "critical-hits") {
             return damageValues.totalCritical() > 0 ? this.value : 0;
-        } else if (this.type === 'precision') {
+        } else if (this.type === "precision") {
             return damageValues.totalPrecision() > 0 ? this.value : 0;
-        } else if (this.type === 'splash-damage') {
+        } else if (this.type === "splash-damage") {
             return damageValues.totalSplash() > 0 ? this.value : 0;
         } else {
             return damageValues.total() > 0 ? this.value : 0;
@@ -264,17 +265,17 @@ export class Resistance extends Modifier implements HasValue {
 
     calculateValue(damage: Damage, damageType: DamageType): number {
         const damageValues = damage.get(damageType) ?? new DamageValues();
-        const isNonMagical = getAllAttackTraits(damage).has('non-magical');
+        const isNonMagical = getAllAttackTraits(damage).has("non-magical");
         const adjustedValue = this.doubleResistanceVsNonMagical && isNonMagical ? this.value * 2 : this.value;
         // calculation for critical hits, precision and splash damage is different since these are
         // part of the actual damage object and need to be capped at their value, e.g.
         // resistance 7 splash damage and 5 splash damage will only reduce 5 total
         // therefore these modifiers will always be looked up if they're present
-        if (this.type === 'critical-hits') {
+        if (this.type === "critical-hits") {
             return Math.min(adjustedValue, damageValues.totalCritical());
-        } else if (this.type === 'precision') {
+        } else if (this.type === "precision") {
             return Math.min(adjustedValue, damageValues.totalPrecision());
-        } else if (this.type === 'splash-damage') {
+        } else if (this.type === "splash-damage") {
             return Math.min(adjustedValue, damageValues.totalSplash());
         } else {
             return adjustedValue;
@@ -301,23 +302,23 @@ export class Resistance extends Modifier implements HasValue {
  */
 function denormalizeTraits(traits: Set<CombinedTrait>): Set<CombinedTrait> {
     const result: Set<CombinedTrait> = new Set();
-    result.add('all');
+    result.add("all");
     if ([...physicalDamageTypes].some((damageType) => traits.has(damageType))) {
-        result.add('physical');
+        result.add("physical");
     }
     if ([...energyDamageTypes].some((damageType) => traits.has(damageType))) {
-        result.add('energy');
+        result.add("energy");
     }
-    if (traits.has('salt water')) {
-        result.add('water');
+    if (traits.has("salt water")) {
+        result.add("water");
     }
     // Mithral weapons and armor are treated as if they were silver for the purpose of damaging
     // creatures with weakness to silver
-    if (traits.has('mithral')) {
-        result.add('silver');
+    if (traits.has("mithral")) {
+        result.add("silver");
     }
-    if (!traits.has('magical')) {
-        result.add('non-magical');
+    if (!traits.has("magical")) {
+        result.add("non-magical");
     }
     for (const trait of traits) {
         result.add(trait);
@@ -344,13 +345,13 @@ function getAllAttackTraits(damage: Damage): Set<CombinedTrait> {
 function filterModifiers<T extends Modifier>(
     damage: Damage,
     damageType: DamageType,
-    modifiersByType: Map<CombinedTrait, T[]>,
+    modifiersByType: Map<CombinedTrait, T[]>
 ): T[] {
     const allAttackTraits = getAllAttackTraits(damage);
     const damageTraits: Set<CombinedTrait> = new Set([
-        'critical-hits',
-        'precision',
-        'splash-damage',
+        "critical-hits",
+        "precision",
+        "splash-damage",
         ...denormalizeTraits(new Set([damageType])),
         ...(damage.get(damageType)?.getTraits() ?? new Set<AttackTrait>()),
     ]);
@@ -368,7 +369,7 @@ function filterModifiers<T extends Modifier>(
 function findHighestModifier<T extends Weakness | Resistance>(
     damage: Damage,
     damageType: DamageType,
-    modifiersByType: Map<CombinedTrait, T[]>,
+    modifiersByType: Map<CombinedTrait, T[]>
 ): number | undefined {
     return filterModifiers(damage, damageType, modifiersByType)
         .map((modifier) => modifier.calculateValue(damage, damageType))
@@ -378,31 +379,31 @@ function findHighestModifier<T extends Weakness | Resistance>(
 
 export function removeAlignmentDamage(damage: Damage, alignment: Alignment) {
     if (!isEvil(alignment)) {
-        damage.delete('good');
+        damage.delete("good");
     }
     if (!isGood(alignment)) {
-        damage.delete('evil');
+        damage.delete("evil");
     }
     if (!isLawful(alignment)) {
-        damage.delete('chaotic');
+        damage.delete("chaotic");
     }
     if (!isChaotic(alignment)) {
-        damage.delete('lawful');
+        damage.delete("lawful");
     }
 }
 
 export function removePositiveOrNegativeDamage(damage: Damage, modeOfBeing: ModeOfBeing) {
-    if (modeOfBeing === 'living') {
-        damage.delete('positive');
-    } else if (modeOfBeing === 'undead') {
-        damage.delete('negative');
+    if (modeOfBeing === "living") {
+        damage.delete("positive");
+    } else if (modeOfBeing === "undead") {
+        damage.delete("negative");
         // Another special type of physical damage is bleed damage.
         // This is persistent damage that represents loss of blood. As such, it has
         // no effect on nonliving creatures or living creatures that don't need blood to live.
-        damage.delete('bleed');
+        damage.delete("bleed");
     } else {
-        damage.delete('negative');
-        damage.delete('positive');
+        damage.delete("negative");
+        damage.delete("positive");
     }
 }
 
@@ -410,8 +411,8 @@ function applyImmunities(damage: Damage, immunities: Immunity[]): void {
     // replace object-immunities with their respective immunities
     const flattenedImmunities = immunities
         .flatMap((immunity) => {
-            if (immunity.getType() === 'object-immunities') {
-                return ['bleed', 'poison', 'nonlethal attacks', 'mental'].map((type) => {
+            if (immunity.getType() === "object-immunities") {
+                return ["bleed", "poison", "nonlethal attacks", "mental"].map((type) => {
                     return immunity.copy({ type });
                 });
             } else {
@@ -427,11 +428,11 @@ function applyImmunities(damage: Damage, immunities: Immunity[]): void {
         let isImmune = false;
         const applicableModifiers = filterModifiers(damage, type, modifiersByType);
         for (const modifier of applicableModifiers) {
-            if (modifier.getType() === 'critical-hits') {
+            if (modifier.getType() === "critical-hits") {
                 damageValues = damageValues.withoutCritical();
-            } else if (modifier.getType() === 'precision') {
+            } else if (modifier.getType() === "precision") {
                 damageValues = damageValues.withoutPrecision();
-            } else if (modifier.getType() === 'splash-damage') {
+            } else if (modifier.getType() === "splash-damage") {
                 damageValues = damageValues.withoutSplash();
             } else {
                 isImmune = true;
@@ -471,7 +472,7 @@ function applyResistances(damage: Damage, resistances: Resistance[]): number {
             } else {
                 return Math.max(0, damageValues.total() - highestModifier);
             }
-        }),
+        })
     );
 }
 
@@ -497,8 +498,8 @@ export function calculateDamage({
     immunities = [],
     resistances = [],
     weaknesses = [],
-    modeOfBeing = 'living',
-    alignment = 'N',
+    modeOfBeing = "living",
+    alignment = "N",
     damageOptions = {
         disregardTargetAlignment: false,
     },
@@ -588,15 +589,15 @@ export function golemAntiMagic(damage: Damage, immunity: GolemMagicImmunity): Go
     for (const [type, damageValues] of damage.entries()) {
         if (isTriggeredBy(type, damageValues, immunity.harmedBy.type)) {
             const traits = damage.get(type)!.getTraits();
-            if (traits.has('area-damage') || traits.has('persistent-damage')) {
-                result['harmedFormula'] = immunity.harmedBy.areaOrPersistentFormula;
+            if (traits.has("area-damage") || traits.has("persistent-damage")) {
+                result["harmedFormula"] = immunity.harmedBy.areaOrPersistentFormula;
             } else {
-                result['harmedFormula'] = immunity.harmedBy.formula;
+                result["harmedFormula"] = immunity.harmedBy.formula;
             }
         } else if (isTriggeredBy(type, damageValues, immunity.healedBy.type)) {
-            result['healedFormula'] = immunity.healedBy.formula;
+            result["healedFormula"] = immunity.healedBy.formula;
         } else if (isTriggeredBy(type, damageValues, immunity.slowedBy)) {
-            result['slowedRoundsFormula'] = '2d6';
+            result["slowedRoundsFormula"] = "2d6";
         }
     }
     return new GolemMagicImmunityResult(result);
@@ -631,25 +632,25 @@ export function parseExceptions(exceptions: string | undefined | null): ParsedEx
     } else {
         const sanitizedExceptions = exceptions
             .toLocaleLowerCase()
-            .replace('except', '')
-            .replace(', or ', ' or ')
-            .replace(', ', ' or ')
-            .replace('unarmed attacks', 'unarmed')
-            .replace('ghost touch', 'ghostTouch')
-            .replace('cold iron', 'coldiron') // needed to match trait
+            .replace("except", "")
+            .replace(", or ", " or ")
+            .replace(", ", " or ")
+            .replace("unarmed attacks", "unarmed")
+            .replace("ghost touch", "ghostTouch")
+            .replace("cold iron", "coldiron") // needed to match trait
             .trim();
 
         // double-resistance is trailing after the ; normal resistances are before that
-        const traitExceptions = sanitizedExceptions.split(';');
-        const traitCombinations = traitExceptions[0].split(' or ').map((value) => value.trim());
-        const doubleResistanceVsNonMagical = traitExceptions[1]?.trim() === 'double resistance vs. non-magical';
+        const traitExceptions = sanitizedExceptions.split(";");
+        const traitCombinations = traitExceptions[0].split(" or ").map((value) => value.trim());
+        const doubleResistanceVsNonMagical = traitExceptions[1]?.trim() === "double resistance vs. non-magical";
         return {
             doubleResistanceVsNonMagical,
             except: traitCombinations
                 .map((traitCombination) => {
                     // assume traits to be separated by space
                     return new Set(
-                        traitCombination.split(' ').filter((traitCombination) => isCombinedTrait(traitCombination)),
+                        traitCombination.split(" ").filter((traitCombination) => isCombinedTrait(traitCombination))
                     );
                 })
                 .filter((traits) => traits.size > 0) as DamageExceptions,

@@ -1,7 +1,9 @@
 /** An extension of the MapLayer that displays overhead in the foreground of the Scene. */
 declare class ForegroundLayer extends MapLayer {
+    occlusionMask: PIXI.Container;
+
     static get layerOptions(): MapLayerOptions & {
-        name: 'foreground';
+        name: "foreground";
     };
 
     /** Get an array of overhead Tile objects which are roofs */
@@ -47,6 +49,6 @@ declare class ForegroundLayer extends MapLayer {
 
     protected override _getDropData(
         event: PIXI.InteractionEvent,
-        data: foundry.data.TileSource,
+        data: foundry.data.TileSource
     ): Promise<foundry.data.TileSource>;
 }

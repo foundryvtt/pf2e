@@ -31,7 +31,7 @@ declare global {
         /** Load token texture */
         texture: PIXI.Texture;
 
-        static embeddedName: 'Token';
+        static embeddedName: "Token";
 
         /**
          * Establish an initial velocity of the token based on it's direction of facing.
@@ -44,7 +44,7 @@ declare global {
         /* -------------------------------------------- */
 
         /** A convenient reference to the Actor object associated with the Token embedded document. */
-        get actor(): TDocument['actor'] | null;
+        get actor(): TDocument["actor"] | null;
 
         /** A convenient reference for whether the current User has full control over the Token document. */
         get isOwner(): boolean;
@@ -62,13 +62,13 @@ declare global {
         /*  Rendering Attributes                        */
         /* -------------------------------------------- */
 
-        border: PIXI.Graphics;
-        icon: PIXI.Sprite;
-        bars: PIXI.Container & { bar1: PIXI.Graphics; bar2: PIXI.Graphics };
-        nameplate: PIXI.Text;
-        tooltip: PIXI.Container;
-        effects: PIXI.Container;
-        target: PIXI.Graphics;
+        border?: PIXI.Graphics;
+        icon?: PIXI.Sprite;
+        bars?: PIXI.Container & { bar1: PIXI.Graphics; bar2: PIXI.Graphics };
+        nameplate?: PIXI.Text;
+        tooltip?: PIXI.Container;
+        effects?: PIXI.Container;
+        target?: PIXI.Graphics;
 
         /**
          * Translate the token's grid width into a pixel width based on the canvas size
@@ -91,7 +91,7 @@ declare global {
         get inCombat(): boolean;
 
         /** Return a reference to a Combatant that represents this Token, if one is present in the current encounter. */
-        get combatant(): TDocument['combatant'];
+        get combatant(): TDocument["combatant"];
 
         /** An indicator for whether the Token is currently targeted by the active game User */
         get isTargeted(): boolean;
@@ -238,7 +238,7 @@ declare global {
         protected _onMovementFrame(
             dt: number,
             anim: TokenAnimationAttribute<this>[],
-            config: TokenAnimationConfig,
+            config: TokenAnimationConfig
         ): void;
 
         /** Update perception each frame depending on the animation configuration */
@@ -306,7 +306,7 @@ declare global {
                 user,
                 releaseOthers,
                 groupSelection,
-            }?: { user: User | null; releaseOthers?: boolean; groupSelection?: boolean },
+            }?: { user: User | null; releaseOthers?: boolean; groupSelection?: boolean }
         ): void;
 
         /**
@@ -327,13 +327,13 @@ declare global {
          */
         toggleEffect(
             effect: ActiveEffect | ImagePath,
-            { active, overlay }?: { active?: boolean; overlay?: boolean },
+            { active, overlay }?: { active?: boolean; overlay?: boolean }
         ): Promise<boolean>;
 
         /** A helper function to toggle a status effect which includes an Active Effect template */
         protected _toggleActiveEffect(
             effectData: ActiveEffect | ImagePath,
-            { overlay }?: { overlay?: boolean },
+            { overlay }?: { overlay?: boolean }
         ): Promise<boolean>;
 
         /** A helper function to toggle the overlay status icon on the Token
@@ -344,7 +344,7 @@ declare global {
          * Toggle the visibility state of any Tokens in the currently selected set
          * @return A Promise which resolves to the updated Token documents
          */
-        toggleVisibility(): Promise<this['document'][]>;
+        toggleVisibility(): Promise<this["document"][]>;
 
         /** Return the token's sight origin, tailored for the direction of their movement velocity to break ties with walls */
         getSightOrigin(): Point;
@@ -363,15 +363,15 @@ declare global {
         override rotate(angle: number, snap: number): void;
 
         protected override _onCreate(
-            data: this['document']['data']['_source'],
+            data: this["document"]["data"]["_source"],
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         protected override _onUpdate(
-            changed: DeepPartial<this['data']['_source']>,
+            changed: DeepPartial<this["data"]["_source"]>,
             options: DocumentModificationContext,
-            userId: string,
+            userId: string
         ): void;
 
         /* -------------------------------------------- */
@@ -395,7 +395,7 @@ declare global {
 
         protected override _onHoverIn(
             event: PIXI.InteractionEvent,
-            { hoverOutOthers }?: { hoverOutOthers?: boolean },
+            { hoverOutOthers }?: { hoverOutOthers?: boolean }
         ): boolean;
 
         protected override _onHoverOut(event: PIXI.InteractionEvent): boolean;
@@ -406,13 +406,15 @@ declare global {
 
         protected override _onClickRight2(event: PIXI.InteractionEvent): void;
 
-        protected override _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<this['document'][]>;
+        protected override _onDragLeftDrop(event: PIXI.InteractionEvent): Promise<this["document"][]>;
 
         protected override _onDragLeftMove(event: PIXI.InteractionEvent): void;
     }
 
     interface Token {
         hitArea: PIXI.Rectangle;
+
+        get layer(): TokenLayer<this>;
     }
 
     interface TokenVelocity {
@@ -446,7 +448,7 @@ declare global {
 
     interface TokenResourceData {
         attribute: string;
-        type: 'bar';
+        type: "bar";
         value: number;
         max: number;
         editable: boolean;

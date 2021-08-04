@@ -3,101 +3,49 @@
     "data": {
         "abilities": {
             "cha": {
-                "min": 3,
-                "mod": 1,
-                "value": 12
+                "mod": 1
             },
             "con": {
-                "min": 3,
-                "mod": 3,
-                "value": 16
+                "mod": 3
             },
             "dex": {
-                "min": 3,
-                "mod": 4,
-                "value": 18
+                "mod": 4
             },
             "int": {
-                "min": 3,
-                "mod": -1,
-                "value": 8
+                "mod": -1
             },
             "str": {
-                "min": 3,
-                "mod": "-2",
-                "value": 6
+                "mod": -2
             },
             "wis": {
-                "min": 3,
-                "mod": 1,
-                "value": 12
+                "mod": 1
             }
         },
         "attributes": {
             "ac": {
-                "check": 0,
                 "details": "",
-                "dex": 0,
-                "item": 0,
-                "min": 0,
                 "value": 16
             },
             "allSaves": {
                 "value": ""
             },
-            "ancestryhp": 0,
-            "bonusEncumbranceBulk": 0,
-            "bonusLimitBulk": 0,
-            "classDC": {
-                "ability": "str",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
-                "value": 0
-            },
-            "classhp": 0,
-            "flatbonushp": 0,
-            "flatbonussp": 0,
             "hp": {
                 "details": "negative healing",
                 "max": 20,
-                "min": 0,
                 "temp": 0,
                 "value": 20
             },
-            "init": {
-                "bonus": 0,
-                "value": 0
-            },
             "initiative": {
-                "ability": "",
-                "circumstance": 0,
-                "status": 0
+                "ability": "perception"
             },
-            "levelbonushp": 0,
-            "levelbonussp": 0,
             "perception": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "value": 10
-            },
-            "resolve": {
-                "value": 0
             },
             "shield": {
                 "ac": 0,
                 "brokenThreshold": 0,
                 "hardness": 0,
                 "max": 0,
-                "min": 0,
-                "value": 0
-            },
-            "sp": {
-                "details": "",
-                "max": 0,
-                "min": 0,
                 "value": 0
             },
             "speed": {
@@ -109,67 +57,33 @@
             "alignment": {
                 "value": "LE"
             },
-            "ancestry": {
-                "value": ""
-            },
-            "biography": {
-                "public": "",
-                "value": ""
-            },
-            "class": {
-                "value": ""
-            },
             "creatureType": "Undead",
-            "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.webp",
-                "value": ""
-            },
             "flavorText": "The life of a Hellknight is bloody, brutal, and often short. Many who perish in service to a Hellknight order are glad to rest after having served their masters so faithfully, but others seek to continue their work even in death. When a Hellknight is decapitated, the ghostly undead known as a hellcrown is an occasional result. Consumed by the desire to bring about order by inflicting cruelty, hellcrowns haunt battlefields and abandoned castles, slaying all they encounter. A strange fusion of spirit and steel, a hellcrown has no corporeal form by itself, but instead inhabits the helmet it so proudly wore in life. Dangling from the helmet like a shroud is a shadow of the former Hellknight's spine, adding to the creature's terrifyingly gruesome appearance. Hellknights regard hellcrowns with a mixture of disgust and respect, considering the individuals who transform into these floating undead to have been resolute in purpose but weak in body.<br /><br /> A hellcrown usually manifests hours or longer after its body's death, and only when its body is unattended; this might even take days if the Hellknight perished in a major battle. Typically, no recognizable fragment of the Hellknight's former personality survives the grisly transformation into a hellcrown, but in rare and particularly tragic cases a hellcrown might remember its life and hold grudges against those it views as the cause of its death. Regardless of whether they retain memories of their lives or have lost all former sense of self, hellcrowns linger around the site of their death, reminding all they encounter of the merciless principles of their order.<br /><br />",
-            "flavourText": "",
-            "heritage": {
-                "value": ""
-            },
-            "keyability": {
-                "value": "str"
-            },
             "level": {
-                "min": 1,
                 "value": 1
             },
-            "recallKnowledgeText": "Recall Knowledge : DC 17",
             "source": {
                 "value": "Pathfinder #145: Hellknight Hill"
             }
         },
+        "resources": {},
         "saves": {
             "fortitude": {
-                "ability": "con",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 4
             },
             "reflex": {
-                "ability": "dex",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 6
             },
             "will": {
-                "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "rank": 0,
                 "saveDetail": "",
                 "value": 10
             }
         },
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "traits": {
             "attitude": {
@@ -237,14 +151,12 @@
                     }
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -283,9 +195,7 @@
                     "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>If the hellcrown hits with a nail Strike, the target must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Bleeding Nail DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. On a failure, the nail is embedded in the creature, making it @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute and giving it 1 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} (@Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and [[/r 1d4 #persistent bleed]] persistent bleed damage on a critical failure). Each additional embedded nail increases the @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} value by 1 (to a maximum of enfeebled 4) and the bleed damage by 1. A creature can remove a nail with an Interact action to reduce the enfeeblement and amount of bleed damage. Pulling out the last nail removes both conditions.</p>"
+                    "value": "<p>If the hellcrown hits with a nail Strike, the target must attempt a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Bleeding Nail DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save. On a failure, the nail is embedded in the creature, making it @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 minute and giving it [[/r 1 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} (@Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and [[/r 1d4 #persistent bleed]] persistent bleed damage on a critical failure). Each additional embedded nail increases the @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} value by 1 (to a maximum of enfeebled 4) and the bleed damage by 1. A creature can remove a nail with an Interact action to reduce the enfeeblement and amount of bleed damage. Pulling out the last nail removes both conditions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -293,7 +203,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -333,8 +243,6 @@
                     "value": "1"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>All creatures that can see the hellcrown and are suffering from its bleeding nail must attempt a <span data-pf2-check=\"will\" data-pf2-dc=\"16\" data-pf2-traits=\"fear,mental,visual\" data-pf2-label=\"Terrifying Stare DC\" data-pf2-show-dc=\"gm\">Will</span> saving throw. A creature that fails is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}, and on a critical failure becomes fleeing for as long as it's frightened. Any creature that attempts a save is then temporarily immune for 10 minutes.</p>"
                 },
                 "requirements": {
@@ -343,7 +251,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -378,8 +286,6 @@
             "_id": "1TBTjsMnNkNnPbpt",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -394,7 +300,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -419,8 +325,6 @@
             "_id": "Js7neEYKwlo4WOvM",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -435,7 +339,7 @@
                 "rules": [],
                 "schema": {
                     "lastMigration": null,
-                    "version": 0.646
+                    "version": 0.649
                 },
                 "slug": null,
                 "source": {
@@ -459,41 +363,10 @@
     ],
     "name": "Hellcrown",
     "token": {
-        "actorId": "KROWh0CteDFFGsih",
-        "actorLink": false,
-        "alpha": 1,
-        "bar1": {
-            "attribute": null
-        },
-        "bar2": {
-            "attribute": null
-        },
-        "brightLight": 0,
-        "brightSight": 0,
-        "dimLight": 0,
-        "dimSight": 0,
-        "displayBars": 20,
-        "displayName": 20,
         "disposition": -1,
-        "flags": {},
         "height": 0.5,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
-        "lightAlpha": 1,
-        "lightAngle": 0,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
-        "lockRotation": false,
-        "mirrorX": false,
-        "mirrorY": false,
         "name": "Hellcrown",
-        "randomImg": false,
-        "rotation": 0,
-        "scale": 1,
-        "sightAngle": 0,
-        "tint": null,
-        "vision": false,
         "width": 0.5
     },
     "type": "npc"

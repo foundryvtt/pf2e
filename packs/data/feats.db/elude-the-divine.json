@@ -21,6 +21,7 @@
         "level": {
             "value": 8
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -28,10 +29,25 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Slippery Secrets vs divine enchantment",
+                "predicate": {
+                    "all": [
+                        "divine",
+                        "enchantment",
+                        "slippery-secrets"
+                    ]
+                },
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "schema": {
             "lastMigration": null,
-            "version": 0.646
+            "version": 0.649
         },
         "source": {
             "value": ""

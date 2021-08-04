@@ -1,48 +1,49 @@
-import type { ActorPF2e } from '@actor/base';
-import { CreaturePF2e } from '@actor';
-import { SKILL_EXPANDED } from '@actor/data/values';
+import type { ActorPF2e } from "@actor/base";
+import { CreaturePF2e } from "@actor";
+import { SKILL_EXPANDED } from "@actor/data/values";
 import {
     ensureProficiencyOption,
     CheckModifier,
     StatisticModifier,
     ModifierPF2e,
     ModifierPredicate,
-} from '../../modifiers';
-import { CheckPF2e } from '../rolls';
-import { StatisticWithDC } from '@system/statistic';
-import { RollNotePF2e } from '@module/notes';
-import { DegreeOfSuccessString } from '@system/check-degree-of-success';
-import { seek } from './basic/seek';
-import { senseMotive } from './basic/sense-motive';
-import { balance } from './acrobatics/balance';
-import { maneuverInFlight } from './acrobatics/maneuver-in-flight';
-import { squeeze } from './acrobatics/squeeze';
-import { tumbleThrough } from './acrobatics/tumble-through';
-import { climb } from './athletics/climb';
-import { disarm } from './athletics/disarm';
-import { forceOpen } from './athletics/force-open';
-import { grapple } from './athletics/grapple';
-import { highJump } from './athletics/high-jump';
-import { longJump } from './athletics/long-jump';
-import { shove } from './athletics/shove';
-import { swim } from './athletics/swim';
-import { trip } from './athletics/trip';
-import { createADiversion } from './deception/create-a-diversion';
-import { feint } from './deception/feint';
-import { impersonate } from './deception/impersonate';
-import { lie } from './deception/lie';
-import { gatherInformation } from './diplomacy/gather-information';
-import { makeAnImpression } from './diplomacy/make-an-impression';
-import { request } from './diplomacy/request';
-import { coerce } from './intimidation/coerce';
-import { demoralize } from './intimidation/demoralize';
-import { hide } from './stealth/hide';
-import { sneak } from './stealth/sneak';
-import { pickALock } from './thievery/pick-a-lock';
+} from "../../modifiers";
+import { CheckPF2e } from "../rolls";
+import { StatisticWithDC } from "@system/statistic";
+import { RollNotePF2e } from "@module/notes";
+import { DegreeOfSuccessString } from "@system/check-degree-of-success";
+import { seek } from "./basic/seek";
+import { senseMotive } from "./basic/sense-motive";
+import { balance } from "./acrobatics/balance";
+import { maneuverInFlight } from "./acrobatics/maneuver-in-flight";
+import { squeeze } from "./acrobatics/squeeze";
+import { tumbleThrough } from "./acrobatics/tumble-through";
+import { climb } from "./athletics/climb";
+import { disarm } from "./athletics/disarm";
+import { forceOpen } from "./athletics/force-open";
+import { grapple } from "./athletics/grapple";
+import { highJump } from "./athletics/high-jump";
+import { longJump } from "./athletics/long-jump";
+import { shove } from "./athletics/shove";
+import { swim } from "./athletics/swim";
+import { trip } from "./athletics/trip";
+import { createADiversion } from "./deception/create-a-diversion";
+import { feint } from "./deception/feint";
+import { impersonate } from "./deception/impersonate";
+import { lie } from "./deception/lie";
+import { bonMot } from "./diplomacy/bon-mot";
+import { gatherInformation } from "./diplomacy/gather-information";
+import { makeAnImpression } from "./diplomacy/make-an-impression";
+import { request } from "./diplomacy/request";
+import { coerce } from "./intimidation/coerce";
+import { demoralize } from "./intimidation/demoralize";
+import { hide } from "./stealth/hide";
+import { sneak } from "./stealth/sneak";
+import { pickALock } from "./thievery/pick-a-lock";
 
-type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
+type CheckType = "skill-check" | "perception-check" | "saving-throw" | "attack-roll";
 
-export type ActionGlyph = 'A' | 'D' | 'T' | 'R' | 'F' | 'a' | 'd' | 't' | 'r' | 'f' | 1 | 2 | 3 | '1' | '2' | '3';
+export type ActionGlyph = "A" | "D" | "T" | "R" | "F" | "a" | "d" | "t" | "r" | "f" | 1 | 2 | 3 | "1" | "2" | "3";
 
 export interface ActionDefaultOptions {
     event: JQuery.Event;
@@ -85,6 +86,7 @@ export class ActionsPF2e {
         actions.lie = lie;
 
         // diplomacy
+        actions.bonMot = bonMot;
         actions.gatherInformation = gatherInformation;
         actions.makeAnImpression = makeAnImpression;
         actions.request = request;
@@ -108,16 +110,16 @@ export class ActionsPF2e {
         subtitle: string;
     } {
         switch (stat) {
-            case 'perception':
+            case "perception":
                 return {
-                    checkType: 'perception-check',
-                    property: 'data.data.attributes.perception',
+                    checkType: "perception-check",
+                    property: "data.data.attributes.perception",
                     stat,
-                    subtitle: 'PF2E.ActionsCheck.perception',
+                    subtitle: "PF2E.ActionsCheck.perception",
                 };
             default:
                 return {
-                    checkType: 'skill-check',
+                    checkType: "skill-check",
                     property: `data.data.skills.${SKILL_EXPANDED[stat]?.shortform ?? stat}`,
                     stat,
                     subtitle: `PF2E.ActionsCheck.${stat}`,
@@ -129,15 +131,15 @@ export class ActionsPF2e {
         selector: string,
         translationPrefix: string,
         outcome: DegreeOfSuccessString,
-        translationKey?: string,
+        translationKey?: string
     ): RollNotePF2e {
-        const visibility = game.settings.get('pf2e', 'metagame.showResults');
+        const visibility = game.settings.get("pf2e", "metagame.showResults");
         const translated = game.i18n.localize(translationKey ?? `${translationPrefix}.Notes.${outcome}`);
         return new RollNotePF2e(
             selector,
             `<p class="compact-text">${translated}</p>`,
             new ModifierPredicate(),
-            visibility === 'all' ? [outcome] : [],
+            visibility === "all" ? [outcome] : []
         );
     }
 
@@ -154,7 +156,7 @@ export class ActionsPF2e {
         checkType: CheckType,
         event: JQuery.Event,
         difficultyClassStatistic?: (creature: CreaturePF2e) => StatisticWithDC,
-        extraNotes?: (selector: string) => RollNotePF2e[],
+        extraNotes?: (selector: string) => RollNotePF2e[]
     ) {
         // figure out actors to roll for
         const rollers: ActorPF2e[] = [];
@@ -173,7 +175,7 @@ export class ActionsPF2e {
 
         if (rollers.length) {
             rollers.forEach((actor) => {
-                let flavor = '';
+                let flavor = "";
                 if (actionGlyph) {
                     flavor += `<span class="pf2-icon">${actionGlyph}</span> `;
                 }
@@ -197,7 +199,7 @@ export class ActionsPF2e {
                         targetOptions.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
 
                         // target's traits
-                        const targetTraits = (target.actor.data.data.traits.traits.custom ?? '')
+                        const targetTraits = (target.actor.data.data.traits.traits.custom ?? "")
                             .split(/[;,\\|]/)
                             .map((value) => value.trim())
                             .concat(target.actor.data.data.traits.traits.value ?? [])
@@ -211,7 +213,7 @@ export class ActionsPF2e {
                         });
                         if (dc) {
                             return {
-                                label: game.i18n.format(dc.labelKey, { creature: target.name, dc: '{dc}' }),
+                                label: game.i18n.format(dc.labelKey, { creature: target.name, dc: "{dc}" }),
                                 value: dc.value,
                                 adjustments: stat.adjustments ?? [],
                             };
@@ -230,11 +232,11 @@ export class ActionsPF2e {
                         traits,
                         title: `${game.i18n.localize(title)} - ${game.i18n.localize(subtitle)}`,
                     },
-                    event,
+                    event
                 );
             });
         } else {
-            ui.notifications.warn(game.i18n.localize('PF2E.ActionsWarning.NoActor'));
+            ui.notifications.warn(game.i18n.localize("PF2E.ActionsWarning.NoActor"));
         }
     }
 }

@@ -248,7 +248,7 @@ declare global {
         static replaceFormulaData<T extends object>(
             formula: string,
             data: T,
-            { missing, warn }?: { missing?: string; warn?: boolean },
+            { missing, warn }?: { missing?: string; warn?: boolean }
         ): string;
 
         /**
@@ -295,7 +295,7 @@ declare global {
                 openSymbol?: string;
                 closeSymbol?: string;
                 onClose?: () => void | Promise<void>;
-            },
+            }
         ): string[];
 
         /**
@@ -338,7 +338,7 @@ declare global {
                 intermediate,
                 prior,
                 next,
-            }?: { intermediate?: boolean; prior?: RollTerm | string; next?: RollTerm | string },
+            }?: { intermediate?: boolean; prior?: RollTerm | string; next?: RollTerm | string }
         ): RollTerm;
 
         /* -------------------------------------------- */
@@ -372,15 +372,15 @@ declare global {
          */
         toMessage(
             messageData: PreCreate<foundry.data.ChatMessageSource> | undefined,
-            { rollMode, create }: { rollMode: RollMode; create: false },
+            { rollMode, create }: { rollMode: RollMode; create: false }
         ): Promise<foundry.data.ChatMessageData>;
         toMessage(
             messageData?: PreCreate<foundry.data.ChatMessageSource>,
-            { rollMode, create }?: { rollMode?: RollMode; create?: true },
+            { rollMode, create }?: { rollMode?: RollMode; create?: true }
         ): Promise<foundry.data.ChatMessageData>;
         toMessage(
             messageData?: PreCreate<foundry.data.ChatMessageSource>,
-            { rollMode, create }?: { rollMode?: RollMode; create?: boolean },
+            { rollMode, create }?: { rollMode?: RollMode; create?: boolean }
         ): Promise<ChatMessage> | Promise<foundry.data.ChatMessageData>;
 
         /* -------------------------------------------- */

@@ -1,8 +1,8 @@
-import { CreatureTrait } from '@actor/creature/data';
-import { CharacterPF2e } from '@actor';
-import { Size } from '@module/data';
-import { ABCItemPF2e } from '../abc';
-import { AncestryData } from './data';
+import { CreatureTrait } from "@actor/creature/data";
+import { CharacterPF2e } from "@actor";
+import { Size } from "@module/data";
+import { ABCItemPF2e } from "../abc";
+import { AncestryData } from "./data";
 
 export class AncestryPF2e extends ABCItemPF2e {
     static override get schema(): typeof AncestryData {
@@ -24,7 +24,7 @@ export class AncestryPF2e extends ABCItemPF2e {
     /** Prepare a character's data derived from their ancestry */
     prepareActorData(this: Embedded<AncestryPF2e>): void {
         if (!(this.actor instanceof CharacterPF2e)) {
-            console.error('Only a character can have an ancestry');
+            console.error("Only a character can have an ancestry");
             return;
         }
 
@@ -40,9 +40,9 @@ export class AncestryPF2e extends ABCItemPF2e {
         const traits = Array.from(
             new Set(
                 [...ancestryTraits, ...heritageTraits].filter(
-                    (trait) => !['common', 'versatile heritage'].includes(trait),
-                ),
-            ),
+                    (trait) => !["common", "versatile heritage"].includes(trait)
+                )
+            )
         ).sort();
         actorData.data.traits.traits.value.push(...traits);
     }
