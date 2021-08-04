@@ -227,15 +227,15 @@ export class CheckModifiersDialog extends Application {
     }
 
     override getData() {
-        const fortune = this?.context?.fate === "fortune";
-        const misfortune = this?.context?.fate === "misfortune";
+        const fortune = this.context.fate === "fortune";
+        const misfortune = this.context.fate === "misfortune";
         const none = fortune === misfortune;
         return {
             appId: this.id,
             check: this.check,
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context.rollMode,
-            showRollDialogs: game.user.getFlag("pf2e", "settings.showRollDialogs"),
+            showRollDialogs: game.user.settings.showRollDialogs,
             fortune,
             none,
             misfortune,

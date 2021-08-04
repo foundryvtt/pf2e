@@ -16,7 +16,7 @@ export class UserPF2e extends User<ActorPF2e> {
         this.data.flags = mergeObject(
             {
                 pf2e: {
-                    settings: PlayerConfigPF2e.defaultSettings,
+                    settings: deepClone(PlayerConfigPF2e.defaultSettings),
                 },
             },
             this.data.flags
