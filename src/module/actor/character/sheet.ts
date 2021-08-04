@@ -663,8 +663,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         html.find(".crb-trait-selector").on("click", (event) => this.onTraitSelector(event));
 
-        html.find(".actions-list").on("click", '[data-roll-option]:not([data-roll-option=""])', (event) => {
-            this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);
+        html.find(".actions-list span[data-roll-option]").on("click", (event) => {
+            const { rollName, rollOption } = event.currentTarget.dataset;
+            if (!(rollName && rollOption)) return;
+            this.actor.toggleRollOption(rollName, rollOption);
         });
 
         // Set damage-formula tooltips on damage buttons
