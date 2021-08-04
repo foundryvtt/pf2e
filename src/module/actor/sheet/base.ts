@@ -237,7 +237,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         /*  Attributes, Skills, Saves and Traits        */
         /* -------------------------------------------- */
 
-        InlineRollsLinks.listen(html);
+        if (this.actor.type !== "character") InlineRollsLinks.listen(html);
 
         // Roll Save Checks
         html.find(".save-name").on("click", (event) => {
@@ -1021,45 +1021,45 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
      * delegating the populating of the item summary to renderItemSummary()
      */
     protected onItemSummary(event: JQuery.ClickEvent) {
-        event.preventDefault();
-
-        const li = $(event.currentTarget).parent().parent();
-        this.toggleItemSummary(li);
+        const $li = $(event.currentTarget).closest("li");
+        this.toggleItemSummary($li);
     }
 
     /**
      * Triggers toggling the visibility of an item summary element,
      * delegating the populating of the item summary to renderItemSummary()
      */
-    toggleItemSummary(li: JQuery, options: { instant?: boolean } = {}) {
-        const itemId = li.attr("data-item-id");
-        const itemType = li.attr("data-item-type");
+    toggleItemSummary($li: JQuery, options: { instant?: boolean } = {}) {
+        const itemId = $li.attr("data-item-id");
+        const itemType = $li.attr("data-item-type");
 
         if (itemType === "spellSlot") return;
 
         const item = this.actor.items.get(itemId ?? "");
-        if (!item) return;
-
-        if (item.data.type === "spellcastingEntry" || item.data.type === "condition") return;
+        if (!item || ["condition", "spellcastingEntry"].includes(item.type)) return;
 
         // Toggle summary
-        if (li.hasClass("expanded")) {
-            const summary = li.children(".item-summary");
+        if ($li.hasClass("expanded")) {
+            const $summary = $li.children(".item-summary");
             if (options.instant) {
-                summary.remove();
+                $summary.remove();
             } else {
-                summary.slideUp(200, () => summary.remove());
+                $summary.slideUp(200, () => $summary.remove());
             }
         } else {
-            const div = $('<div class="item-summary"/>');
-            this.renderItemSummary(div, item);
-            li.append(div);
-            if (!options.instant) {
-                div.hide().slideDown(200);
+            const $summary = $('<div class="item-summary">');
+            this.renderItemSummary($summary, item);
+            $li.append($summary);
+            if (options.instant) {
+                InlineRollsLinks.listen($summary);
+            } else {
+                $summary.hide().slideDown(200, () => {
+                    InlineRollsLinks.listen($summary);
+                });
             }
         }
 
-        li.toggleClass("expanded");
+        $li.toggleClass("expanded");
     }
 
     /**
