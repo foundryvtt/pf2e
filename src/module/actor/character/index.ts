@@ -77,6 +77,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Armor
         const armorAttribute: { ac?: Partial<CharacterArmorClass> } = systemData.attributes;
         armorAttribute.ac = { modifiers: [] };
+        systemData.attributes.dexCap = [{ value: Infinity, source: "" }];
 
         // Saves, skills, and perception
         for (const key of SAVE_TYPES) {
@@ -405,7 +406,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Armor Class
         {
             const modifiers = [...systemData.attributes.ac.modifiers];
-            const dexCapSources = [{ value: Infinity, source: "" }];
+            const dexCapSources = systemData.attributes.dexCap;
             let armorCheckPenalty = 0;
             let proficiency: ArmorCategory = "unarmored";
 
