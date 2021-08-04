@@ -21,7 +21,6 @@ const inlineSelector = [
     "effect-area",
     "flat-check",
     "perception-check",
-    "repost",
     "saving-throw",
     "skill-check",
 ]
@@ -45,10 +44,6 @@ export const InlineRollsLinks = {
     listen: ($html: JQuery): void => {
         const $links = $html.find("span").filter(inlineSelector);
         InlineRollsLinks.injectDCText($links);
-
-        $links.filter("[data-pf2-repost]").on("click", (event) => {
-            InlineRollsLinks.repostAction(event.target.parentElement!);
-        });
 
         $links.filter("[data-pf2-action]").on("click", (event) => {
             const $target = $(event.currentTarget);
@@ -324,43 +319,5 @@ export const InlineRollsLinks = {
                 console.warn(`PF2e System | Could not create template'`);
             }
         });
-
-        if (BUILD_MODE === "development") {
-            $links.on("contextmenu", (event) => {
-                InlineRollsLinks.repostAction(event.currentTarget);
-            });
-        }
-    },
-
-    repostAction: (target: HTMLElement): void => {
-        if (
-            target?.matches(
-                '[data-pf2-action]:not([data-pf2-action=""]), [data-pf2-action]:not([data-pf2-action=""]) *'
-            ) ||
-            target?.matches(
-                '[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]), [data-pf2-saving-throw]:not([data-pf2-saving-throw=""]) *'
-            ) ||
-            target?.matches(
-                '[data-pf2-skill-check]:not([data-pf2-skill-check=""]), [data-pf2-skill-check]:not([data-pf2-skill-check=""]) *'
-            ) ||
-            target?.matches("[data-pf2-perception-check], [data-pf2-perception-check] *") ||
-            target?.matches("[data-pf2-flat-check], [data-pf2-flat-check] *") ||
-            target?.matches("[data-pf2-check], [data-pf2-check] *")
-        ) {
-            const flavor = target.attributes.getNamedItem("data-pf2-repost-flavor")?.value ?? "";
-            target.setAttributeNS(
-                null,
-                "data-pf2-show-dc",
-                target.attributes.getNamedItem("data-pf2-repost-show-dc")?.value ?? "gm"
-            );
-            ChatMessage.create({
-                content:
-                    flavor +
-                    " " +
-                    target.outerHTML
-                        .replace(/>DC \d+ /gi, ">")
-                        .replace(/<[^>]+data-pf2e-repost(="")?[^>]*>[^<]*<\s*\/[^>]+>/gi, ""),
-            });
-        }
     },
 };
