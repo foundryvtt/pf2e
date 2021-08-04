@@ -106,8 +106,8 @@ export interface NPCAttributes extends BaseCreatureAttributes {
     /** The perception score for this NPC. */
     perception: NPCPerceptionData;
 
-    /** Dexterity modifier cap to AC. Undefined means no limit. */
-    dexCap?: DexterityModifierCapData[];
+    /** Sources of the dexterity modifier cap to AC */
+    dexCap: DexterityModifierCapData[];
 
     initiative: NPCInitiativeData;
 
