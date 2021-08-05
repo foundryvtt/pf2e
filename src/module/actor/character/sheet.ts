@@ -58,6 +58,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     override getData() {
         const sheetData = super.getData();
 
+        // Lock editing on sheet
+        sheetData.locksheet = this.actor.data.data.locksheet;
+        
         // ABC
         sheetData.ancestry = this.actor.ancestry;
         sheetData.background = this.actor.background;
@@ -586,6 +589,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     override activateListeners(html: JQuery) {
         super.activateListeners(html);
 
+        // Lock sheet editing
+        html.find(".lockbutton").on("click", (event) => this.onClickLockbutton(event));
+
         // ACTIONS
         html.find('[name="ammo-used"]').on("change", (event) => {
             event.stopPropagation();
@@ -599,11 +605,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         // Left/right-click adjustments (increment or decrement) of actor and item stats
-        html.find(".adjust-stat").on("click contextmenu", (event) => this.onClickAdjustStat(event));
-        html.find(".adjust-item-stat").on("click contextmenu", (event) => this.onClickAdjustItemStat(event));
-        html.find(".focus-points .proficiency-rank").on("click contextmenu", (event) =>
-            this.onClickAdjustFocusPoints(event)
-        );
+        if (!this.actor.data.data.locksheet) {
+            html.find(".adjust-stat").on("click contextmenu", (event) => this.onClickAdjustStat(event));
+            html.find(".adjust-item-stat").on("click contextmenu", (event) => this.onClickAdjustItemStat(event));
+            html.find(".focus-points .proficiency-rank").on("click contextmenu", (event) =>
+                this.onClickAdjustFocusPoints(event)
+            );
+        }
+        
 
         {
             // ensure correct tab name is displayed after actor update
@@ -806,8 +815,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
     }
 
+    /** Handle clicking of lock button */
+    private async onClickLockbutton(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
+        const currentValue = getProperty(this.actor.data, "data.locksheet");
+        if (typeof currentValue !== "boolean") throw ErrorPF2e("Actor property not found");
+        const newValue = !currentValue;
+        await this.actor.update({ ["data.locksheet"]: newValue });
+    }
+
     /** Handle clicking of proficiency-rank adjustment buttons */
     private async onClickAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
+        // if (getProperty(this.actor.data, "data.locksheet")) return;
         const $button = $(event.delegateTarget);
         const propertyKey = $button.attr("data-property") ?? "";
         const currentValue = getProperty(this.actor.data, propertyKey);
