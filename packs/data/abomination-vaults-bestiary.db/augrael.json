@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 18,
                 "details": "",
                 "value": 18
             },
@@ -51,12 +52,14 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Burrow",
-                        "value": "5 feet"
+                        "label": "Burrow",
+                        "type": "burrow",
+                        "value": "5"
                     },
                     {
-                        "type": "Climb",
-                        "value": "20 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
                     }
                 ],
                 "value": "30"
@@ -150,9 +153,10 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "ghoul fever",
-                        "paralysis"
+                        "ghoul-ghoul-fever",
+                        "ghoul-paralysis"
                     ]
                 },
                 "bonus": {
@@ -189,7 +193,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 100000,
             "type": "melee"
@@ -201,6 +205,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "paralysis"
                     ]
@@ -215,7 +220,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
@@ -241,13 +246,65 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 200000,
             "type": "melee"
         },
         {
-            "_id": "HVzFpn8OeALQQS1N",
+            "_id": "p9kCNA8Mq9cXm23t",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.649
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "DriJGrzzm1Qq0NNX",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -290,28 +347,28 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "CompendiumPack.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Light Blindness",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "J98z8alM9N5PHHH2",
+            "_id": "nkgGXuCapE0gTVxH",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "defensive"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": 1
+                    "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Augrael is adjacent to the corpse of an undead creature that was destroyed within the last hour; <br />\n<strong>Effect</strong> Augrael devours a chunk of the destroyed undead creature and regains 2d6 Hit Points. He can regain Hit Points from any given corpse only once.</p>"
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -321,7 +378,59 @@
                     "lastMigration": null,
                     "version": 0.649
                 },
-                "slug": null,
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "NyXCVjhHwWZtpfOI",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Augrael is adjacent to the corpse of an undead creature that was destroyed within the last hour.</p>\n<p><strong>Effect</strong> Augrael devours a chunk of the corpse and regains [[/r 2d6 #Hit Points]]{2d6 Hit Points}. He can regain Hit Points from any given corpse only once.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.649
+                },
+                "slug": "ghoul-consume-flesh",
                 "source": {
                     "value": ""
                 },
@@ -342,14 +451,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.ixPqVlqLaYTB1b23"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Consume Flesh",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "3bhMbp5Ld67lF0y9",
+            "_id": "XKiDDCClxzUDYSO8",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -361,7 +474,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"20\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghoul Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; <br /><strong>Stage 1</strong> carrier with no ill effects (1 day); <br /><strong>Stage 2</strong> [[/r 2d6 # negative damage]] negative damage and regains half as many Hit Points from all healing (1 day); <br /><strong>Stage 3</strong> as stage 2 (1 day); <br /><strong>Stage 4</strong> [[/r 2d6 # negative damage]] negative damage and gains no benefit from healing (1 day); <br /><strong>Stage 5</strong> as stage 4 (1 day); <br /><strong>Stage 6</strong> dead, and rises as a ghoul the next midnight</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"20\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghoul Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day);</p>\n<p><strong>Stage 2</strong> [[/r 2d6 #negative]]{2d6 negative damage} and regains half as many Hit Points from all healing (1 day);</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day);</p>\n<p><strong>Stage 4</strong> [[/r 2d6 #negative]]{2d6 negative damage} and gains no benefit from healing (1 day);</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day);</p>\n<p><strong>Stage 6</strong> dead, and rises as a ghoul the next midnight.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -371,7 +484,7 @@
                     "lastMigration": null,
                     "version": 0.649
                 },
-                "slug": null,
+                "slug": "ghoul-ghoul-fever",
                 "source": {
                     "value": ""
                 },
@@ -392,14 +505,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.N7UV5CZXtcoxDxCF"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghoul Fever",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "pqy0X8yaxvq3HUQ0",
+            "_id": "0QhLcUbXJtWWVCmp",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -411,12 +528,86 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Augrael deals an extra [[/r 1d6 # precision damage]] precision damage to flat-footed creatures.</p>"
+                    "value": "<p>Any living, non-elf creature hit by a ghoul's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"20\" data-pf2-traits=\"incapacitation,occult,necromancy\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.649
+                },
+                "slug": "ghoul-paralysis",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "incapacitation",
+                        "necromancy",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.FW4KAUHb7r8WkxUc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Paralysis",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "D8o83tvKi46maS3U",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>Augrael deals an extra [[/r 1d6 #precision]]{1d6 precision damage} to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.649
@@ -442,16 +633,16 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "CompendiumPack.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
                 }
             },
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 600000,
+            "sort": 900000,
             "type": "action"
         },
         {
-            "_id": "IQrseGhHS7JQ5xL5",
+            "_id": "zZQXw3WG7NLAQrux",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -460,10 +651,10 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
-                    "value": "<p>Augrael jumps up to half his Speed. This movement doesn’t trigger reactions.</p>"
+                    "value": "<p>Augrael jumps up to half its Speed. This movement doesn't trigger reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -473,55 +664,7 @@
                     "lastMigration": null,
                     "version": 0.649
                 },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/item-bag.svg",
-            "name": "Swift Leap",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "ryyY0iSfpvjJM5Zy",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>Any living, non-elf creature hit by a ghoul's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"20\" data-pf2-traits=\"incapacitation,necromancy,occult\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become paralyzed. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each save.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
-                "slug": null,
+                "slug": "ghoul-swift-leap",
                 "source": {
                     "value": ""
                 },
@@ -531,9 +674,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "incapacitation",
-                        "necromancy",
-                        "occult"
+                        "move"
                     ]
                 },
                 "trigger": {
@@ -544,10 +685,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Paralysis",
-            "sort": 800000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.UU1Fp3PRuTFONjC9"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swift Leap",
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -586,85 +731,103 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
-            "type": "lore"
-        },
-        {
-            "_id": "n4mUE3UNWhngJkLZ",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics (+12 to Climb)",
-            "sort": 1000000,
-            "type": "lore"
-        },
-        {
-            "_id": "VXP0Kg5olvChnCTu",
-            "data": {
-                "description": {
-                    "value": ""
-                },
-                "item": {
-                    "value": 0
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting (Repair only)",
             "sort": 1100000,
+            "type": "lore"
+        },
+        {
+            "_id": "Xd2kZ5dL4yuq4lr3",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "To Climb",
+                        "predicate": {
+                            "all": [
+                                "action:climb"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 3
+                    }
+                ],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.649
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+12 to Climb",
+                        "options": "action:climb"
+                    }
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1200000,
+            "type": "lore"
+        },
+        {
+            "_id": "vmnzh7dfffPn9ub8",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 9
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.649
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "Repair only",
+                        "options": ""
+                    }
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Crafting",
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -703,7 +866,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -742,7 +905,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "lore"
         }
     ],
