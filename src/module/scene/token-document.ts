@@ -1,5 +1,5 @@
 import { VisionLevels } from "@actor/creature/data";
-import { ActorPF2e, CreaturePF2e, LootPF2e, NPCPF2e } from "@actor";
+import { ActorPF2e, LootPF2e, NPCPF2e } from "@actor/index";
 import { TokenPF2e } from "../canvas/token";
 import { ScenePF2e } from ".";
 import { UserPF2e } from "../user/document";
@@ -15,24 +15,9 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         return this.parent;
     }
 
-    override _initialize(): void {
+    override _initialize() {
         super._initialize();
         this.initialized = true;
-    }
-
-    /** Is this token emitting light with a negative value */
-    get emitsDarkness(): boolean {
-        return this.data.brightLight < 0;
-    }
-
-    /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
-    get hasLowLightVision(): boolean {
-        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
-    }
-
-    /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
-    get hasDarkvision(): boolean {
-        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasDarkvision;
     }
 
     /** Refresh this token's properties if it's controlled and the request came from its actor */
@@ -66,7 +51,7 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         if (!canvas.sight.rulesBasedVision) return;
 
         const lightLevel = canvas.scene.lightLevel;
-        const hasDarkvision = this.hasDarkvision && this.actor.visionLevel !== VisionLevels.BLINDED;
+        const hasDarkvision = this.object.hasDarkvision && this.actor.visionLevel !== VisionLevels.BLINDED;
         const perceivedBrightness = {
             [VisionLevels.BLINDED]: 0,
             [VisionLevels.NORMAL]: lightLevel,
