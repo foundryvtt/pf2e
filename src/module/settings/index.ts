@@ -6,7 +6,7 @@ import { objectHasKey } from "@module/utils";
 import { MigrationRunner } from "@module/migration/runner";
 import { AutomationSettings } from "./automation";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet";
-import { ChatSettings } from "./chat";
+import { MetagameSettings } from "./metagame";
 
 export function registerSettings() {
     if (BUILD_MODE === "development") {
@@ -214,12 +214,12 @@ export function registerSettings() {
     });
     AutomationSettings.registerSettings();
 
-    game.settings.registerMenu("pf2e", "chat", {
-        name: "PF2E.SETTINGS.Chat.Name",
-        label: "PF2E.SETTINGS.Chat.Label",
-        hint: "PF2E.SETTINGS.Chat.Hint",
+    game.settings.registerMenu("pf2e", "metagame", {
+        name: "PF2E.SETTINGS.Metagame.Name",
+        label: "PF2E.SETTINGS.Metagame.Label",
+        hint: "PF2E.SETTINGS.Metagame.Hint",
         icon: "fas fa-comment",
-        type: ChatSettings,
+        type: MetagameSettings,
         restricted: true,
     });
     MetagameSettings.registerSettings();
