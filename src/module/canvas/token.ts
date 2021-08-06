@@ -1,3 +1,4 @@
+import { CreaturePF2e } from "@actor";
 import { TokenDocumentPF2e } from "@module/scene/token-document";
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
@@ -16,17 +17,17 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Is this token emitting light with a negative value */
     get emitsDarkness(): boolean {
-        return this.document.emitsDarkness;
+        return this.data.brightLight < 0;
     }
 
     /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
     get hasLowLightVision(): boolean {
-        return this.document.hasLowLightVision;
+        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
     }
 
     /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
     get hasDarkvision(): boolean {
-        return this.document.hasDarkvision;
+        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasDarkvision;
     }
 
     /** Max the brightness emitted by this token's `PointSource` if any controlled token has low-light vision */
