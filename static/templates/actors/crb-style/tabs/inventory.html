@@ -35,7 +35,7 @@
         <div class="inventory-header">
             <h3 class="item-name">{{section.label}}</h3>
             {{#if (eq sid "equipment")}}
-                <span class="item-invested-total">{{localize "PF2E.InvestedLabel"}} ({{section.investedItemCount}}/10)</span>
+                <span class="item-invested-total" {{#if section.overInvested}}style="color:orange; text-shadow: 1px 1px 0px black;"{{/if}}>{{localize "PF2E.InvestedLabel"}} ({{section.investedItemCount}}/{{section.investedMax}})</span>
             {{/if}}
             {{#if (eq sid "treasure")}}
                 <span class="item-sell-value">{{localize "PF2E.ValueLabel"}}</span>
