@@ -29,7 +29,7 @@ export class Migration644SpellcastingCategory extends MigrationBase {
         const spellcasting: SpellcastingOld = item.data;
         if (spellcasting.tradition.value === "ritual") {
             spellcasting.prepared.value = "ritual";
-            // todo: figure out spellcasting tradition value for ritual
+            spellcasting.tradition.value = "";
         } else if (spellcasting.tradition.value === "focus") {
             spellcasting.prepared.value = "focus";
 
