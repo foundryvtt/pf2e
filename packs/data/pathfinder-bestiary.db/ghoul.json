@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 16,
                 "details": "",
                 "value": 16
             },
@@ -51,8 +52,9 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Burrow",
-                        "value": "5 feet"
+                        "label": "Burrow",
+                        "type": "burrow",
+                        "value": "5"
                     }
                 ],
                 "value": "30"
@@ -63,7 +65,7 @@
                 "value": "CE"
             },
             "creatureType": "Undead",
-            "flavorText": "Ghouls are ravenous undead who haunt graveyards and eat corpses.<br /><br />",
+            "flavorText": "<p>Ghouls are ravenous undead who haunt graveyards and eat corpses.</p>\n<hr />\n<p>Few creatures are more ubiquitous to sinister locations such as lonely graveyards and ruined crypts than the flesh-eating undead known as ghouls.</p>",
             "level": {
                 "value": 1
             },
@@ -140,9 +142,10 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Ghoul Fever",
-                        "Paralysis"
+                        "ghoul-ghoul-fever",
+                        "ghoul-paralysis"
                     ]
                 },
                 "bonus": {
@@ -189,8 +192,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Paralysis"
+                        "ghoul-paralysis"
                     ]
                 },
                 "bonus": {
@@ -232,7 +236,7 @@
             "type": "melee"
         },
         {
-            "_id": "WPqKaqSpj91W5BQu",
+            "_id": "Qm2Y7QgwNitdGYIl",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -274,13 +278,13 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "TqaQnbl1Jorndlz0",
+            "_id": "6fGqptenx9qEegwS",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -322,13 +326,13 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Negative Healing",
             "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "gnWkPwMXfz9aUe7N",
+            "_id": "Ev6vuAb8rqAKu6ss",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -340,13 +344,13 @@
                     "value": "1"
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The ghoul is adjacent to the corpse of a creature that died within the last hour.</p>\n<p><strong>Effect</strong> The ghoul devours a chunk of the corpse and regains [[/r 1d6 #Hit Points]] Hit Points.</p>\n<p>It can regain Hit Points from any given corpse only once.</p>"
+                    "value": "<p><strong>Requirements</strong> The ghoul is adjacent to the corpse of a creature that died within the last hour.</p>\n<p><strong>Effect</strong> The ghoul devours a chunk of the corpse and regains [[/r 1d6 #Hit Points]]{1d6 Hit Points}. It can regain Hit Points from any given corpse only once.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghoul-consume-flesh",
                 "source": {
                     "value": ""
                 },
@@ -367,14 +371,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.ixPqVlqLaYTB1b23"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Consume Flesh",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "PjrdaBOxMxVqUSEM",
+            "_id": "TwoYirIOl1z1WbOZ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -386,13 +394,13 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghoul Fever DC\" data-pf2-dc=\"15\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<p><em data-visibility=\"gm\"><strong>Stage 1</strong> carrier with no ill effect (1 day);</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 2</strong> [[/r 2d6 #negative]] negative damage and regains half as many Hit Points from all healing (1 day);</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 3</strong> as stage 2 (1 day);</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 4</strong> [[/r 2d6 #negative]] negative damage and gains no benefit from healing (1 day);</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 5</strong> as stage 4 (1 day);</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 6</strong> dead, and rises as a ghoul the next midnight.</em></p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"15\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghoul Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day);</p>\n<p><strong>Stage 2</strong> [[/r 2d6 #negative]]{2d6 negative damage} and regains half as many Hit Points from all healing (1 day);</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day);</p>\n<p><strong>Stage 4</strong> [[/r 2d6 #negative]]{2d6 negative damage} and gains no benefit from healing (1 day);</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day);</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghoul]{Ghoul} the next midnight.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghoul-ghoul-fever",
                 "source": {
                     "value": ""
                 },
@@ -413,14 +421,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.N7UV5CZXtcoxDxCF"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghoul Fever",
             "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "trYUC0btAZ9ZU1Pc",
+            "_id": "rLNDBZSXuC3QhpxX",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -432,13 +444,13 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Any living, non-elf creature hit by a ghoul's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"15\" data-pf2-traits=\"incapacitation,occult,necromancy\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}.</p>\n<p>It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
+                    "value": "<p>Any living, non-elf creature hit by a ghoul's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"15\" data-pf2-traits=\"incapacitation,occult,necromancy\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghoul-paralysis",
                 "source": {
                     "value": ""
                 },
@@ -449,8 +461,8 @@
                     },
                     "value": [
                         "incapacitation",
-                        "occult",
-                        "necromancy"
+                        "necromancy",
+                        "occult"
                     ]
                 },
                 "trigger": {
@@ -461,14 +473,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.FW4KAUHb7r8WkxUc"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Paralysis",
             "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "EtaTrbL9805JhjuS",
+            "_id": "OVvzGRkQ4BEgGtYw",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -477,7 +493,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "value": "<p>The ghoul jumps up to half its Speed. This movement doesn't trigger reactions.</p>"
@@ -486,7 +502,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghoul-swift-leap",
                 "source": {
                     "value": ""
                 },
@@ -507,8 +523,12 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.UU1Fp3PRuTFONjC9"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swift Leap",
             "sort": 800000,
             "type": "action"
