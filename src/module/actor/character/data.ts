@@ -45,6 +45,9 @@ export interface CharacterSkillData extends SkillData {
 
 /** The raw information contained within the actor data object for characters. */
 export interface CharacterSystemData extends CreatureSystemData {
+    /** Lock editing on sheet */
+    locksheet: boolean;
+
     /** The six primary ability scores. */
     abilities: Abilities;
 
