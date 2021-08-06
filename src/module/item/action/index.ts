@@ -1,5 +1,6 @@
 import { ItemPF2e } from "@item/base";
 import { ActionData } from "./data";
+import { OneToThree } from "@module/data";
 
 export class ActionPF2e extends ItemPF2e {
     static override get schema(): typeof ActionData {
@@ -28,6 +29,18 @@ export class ActionPF2e extends ItemPF2e {
         ].filter((p) => p);
         const traits = this.traitChatData(CONFIG.PF2E.featTraits);
         return this.processChatData(htmlOptions, { ...data, properties, traits });
+    }
+
+    protected override async _preUpdate(
+        data: DeepPartial<ActionPF2e["data"]["_source"]>,
+        options: DocumentModificationContext,
+        user: foundry.documents.BaseUser
+    ) {
+        const actionCount = data.data?.actions;
+        if (actionCount) {
+            actionCount.value = (Math.clamped(Number(actionCount.value), 0, 3) || null) as OneToThree | null;
+        }
+        await super._preUpdate(data, options, user);
     }
 }
 

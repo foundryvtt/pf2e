@@ -1,5 +1,6 @@
 import { ItemLevelData, ItemSystemData, ItemTraits } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
+import { OneToThree } from "@module/data";
 import { FeatPF2e } from ".";
 
 export type FeatSource = BaseNonPhysicalItemSource<"feat", FeatSystemData>;
@@ -33,7 +34,7 @@ interface FeatSystemData extends ItemSystemData, ItemLevelData {
         value: string;
     };
     actions: {
-        value: string;
+        value: OneToThree | null;
     };
     prerequisites: {
         value: PrerequisiteTagData[];
