@@ -3,6 +3,7 @@ import {
     Alignment,
     BaseCreatureAttributes,
     BaseCreatureData,
+    BaseCreatureResources,
     BaseCreatureSource,
     CreatureSystemData,
     SaveData,
@@ -113,6 +114,8 @@ export interface CharacterSystemData extends CreatureSystemData {
     toggles: {
         actions: RollToggle[];
     };
+
+    resources: CharacterResources;
 }
 
 export interface CharacterProficiencyData extends ProficiencyData {
@@ -182,6 +185,13 @@ interface PathfinderSocietyData {
 }
 
 export type CharacterArmorClass = Required<ArmorClassData>;
+
+interface CharacterResources extends BaseCreatureResources {
+    investiture: {
+        value: number;
+        max: number;
+    };
+}
 
 interface CharacterAttributes extends BaseCreatureAttributes {
     /** The perception skill. */

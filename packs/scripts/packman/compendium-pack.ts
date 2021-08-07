@@ -3,6 +3,8 @@ import * as path from "path";
 import { sluggify } from "@module/utils";
 import { ItemSourcePF2e } from "@item/data";
 import { isPhysicalData } from "@item/data/helpers";
+import { MigrationRunnerBase } from "@module/migration/runner/base";
+import { ActorSourcePF2e } from "@actor/data";
 
 export interface PackMetadata {
     system: string;
@@ -17,18 +19,18 @@ export const PackError = (message: string) => {
 };
 
 type CompendiumSource = CompendiumDocument["data"]["_source"];
-const isActorSource = (docSource: CompendiumSource): docSource is foundry.data.ActorSource => {
+export function isActorSource(docSource: CompendiumSource): docSource is ActorSourcePF2e {
     return (
         "effects" in docSource &&
         Array.isArray(docSource.effects) &&
         "items" in docSource &&
         Array.isArray(docSource.items)
     );
-};
+}
 
-const isItemSource = (docSource: CompendiumSource): docSource is ItemSourcePF2e => {
+export function isItemSource(docSource: CompendiumSource): docSource is ItemSourcePF2e {
     return "effects" in docSource && Array.isArray(docSource.effects) && "description" in docSource.data;
-};
+}
 
 export class CompendiumPack {
     name: string;
@@ -156,8 +158,15 @@ export class CompendiumPack {
         }
 
         docSource.flags.core = { sourceId: this.sourceIdOf(docSource._id) };
+        if (isActorSource(docSource)) {
+            docSource.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
+            for (const item of docSource.items) {
+                item.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
+            }
+        }
         if (isItemSource(docSource)) {
             docSource.data.slug = sluggify(docSource.name);
+            docSource.data.schema = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, lastMigration: null };
 
             if (isPhysicalData(docSource)) {
                 docSource.data.equipped.value = false;

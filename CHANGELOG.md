@@ -1,5 +1,14 @@
 # Patch Notes:
 
+## Version 2.11.1
+### Bug Fixes
+* (stwlam) Fix sporadic error where a token would not have access to its data when determining vision
+* (Supe) Only migrate focus points for entries of type focus, make category migration set rituals to the empty tradition
+
+### Content Changes
+* (SpartanCPA) Add a compendium for Creature Family Optional Abilities
+
+
 ## Version 2.11.0
 ### Bug Fixes
 * (xdy) Fix copy/paste error in Make an Impression action outcome notes
