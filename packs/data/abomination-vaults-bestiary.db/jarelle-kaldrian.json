@@ -49,7 +49,13 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
+                "otherSpeeds": [
+                    {
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "25"
+                    }
+                ],
                 "value": ""
             }
         },
@@ -95,7 +101,7 @@
             },
             "dr": [
                 {
-                    "exceptions": "",
+                    "exceptions": "except force, ghost touch, or positive; double resistance vs. non-magical",
                     "label": "All",
                     "type": "all",
                     "value": "5"
@@ -155,7 +161,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, finesse, magical)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "slug": null,
@@ -185,7 +191,7 @@
             "type": "melee"
         },
         {
-            "_id": "uiNFhlnkkj31MWAL",
+            "_id": "8nidqgL5pawfDVZa",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -197,13 +203,13 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>(area C13)</p>"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -222,14 +228,70 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Site Bound",
+            "name": "Darkvision",
             "sort": 200000,
             "type": "action"
         },
         {
-            "_id": "ocd6oTY2HpF78u71",
+            "_id": "HtINDVVIov9yMEhV",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>Area <strong>C13</strong></p>\n<hr />\n<p>A typical ghost can stray only a short distance from where it was killed or the place it haunts. A typical limit is 120 feet. Some ghosts are instead bound to a room, building, item, or creature that was special to it rather than a location.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.649
+                },
+                "slug": "ghost-site-bound",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.BcSlVpaN72LoQ5BV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Site Bound",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "P7RUoae9G01AaAHd",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -241,13 +303,65 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Removing this room’s tables and tools allows Jarelle to move on to the afterlife.</p>"
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "XNJnpNGQCkQD00v3",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>Removing this room's tables and tools allows Jarelle to move on to the afterlife.</p>\n<hr />\n<p>When a ghost is destroyed, it re-forms after [[/br 2d4 #days]]{2d4 days} within the location it's bound to, fully healed. A ghost can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.649
+                },
+                "slug": "ghost-rejuvenation",
                 "source": {
                     "value": ""
                 },
@@ -269,14 +383,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.unR8VVR4yyRnsmnB"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rejuvenation",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "JJqXsmJmKEj6ErTj",
+            "_id": "J1YjLfTIk9vqgvRy",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -288,13 +406,13 @@
                     "value": "2"
                 },
                 "description": {
-                    "value": "<p>Jarelle attempts to possess an adjacent corporeal creature. This has the same effect as the @Compendium[pf2e.spells-srd.Possession]{Possession} spell (with a spell DC of 22), except since Jarelle doesn't have a physical body, she is unaffected by that restriction of the spell.</p>"
+                    "value": "<p>Jarelle attempts to possess an adjacent corporeal creature. This has the same effect as the <em>@Compendium[pf2e.spells-srd.Possession]{Possession}</em> spell (with a spell DC of 22), except since Jarelle doesn't have a physical body, she is unaffected by that restriction of the spell.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "ghost-malevolent-possession",
                 "source": {
                     "value": ""
                 },
@@ -319,14 +437,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.iwLj14liESK5OBN8"
+                }
+            },
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Malevolent Possession",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "8ljlq9RKtRCyRiLP",
+            "_id": "DSrUNlWJjUN1fnWL",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -335,10 +457,10 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
-                    "value": "<p>Jarelle exhales a 15-foot cone of toxic mist that deals [[/r 5d6 # poison damage]] poison damage (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"divine,necromancy,poison,damaging-effect\" data-pf2-label=\"Poisoned Breath DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save; on a critical failure, the target is also enfeebled 1 for 24 hours). She then can’t use again for 1d4 rounds.</p>"
+                    "value": "<p>Jarelle exhales a 15-foot cone of toxic mist that deals [[/r 5d6 #poison]]{5d6 poison damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"divine,necromancy,poison\" data-pf2-label=\"Poisoned Breath DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save<span data-visibility=\"gm\">; on a critical failure, the target is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 24 hours</span>).</p>\n<p data-visibility=\"gm\">She then can't use Poisoned Breath again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -368,9 +490,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Poisoned Breath",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -405,7 +527,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Library lore",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -440,7 +562,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Library Lore",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -475,7 +597,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],
