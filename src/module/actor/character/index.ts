@@ -89,6 +89,7 @@ export class CharacterPF2e extends CreaturePF2e {
             skill.armor = ["dex", "str"].includes(skill.ability);
         }
         systemData.attributes.perception.ability = "wis";
+        this.data.data.resources.investiture = { value: 0, max: 10 };
 
         // Conditions
         systemData.attributes.doomed = { value: 0, max: 3 };
