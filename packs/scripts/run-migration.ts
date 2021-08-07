@@ -145,31 +145,35 @@ async function migrate() {
         }
 
         // skip journal entries, rollable tables, and macros
-        let updatedEntity: ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource;
-        try {
-            if (isActorData(source)) {
-                source.data.schema.lastMigration = null;
-                updatedEntity = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
-                updatedEntity.data.schema.lastMigration = null;
-                for (const itemSource of updatedEntity.items) {
-                    itemSource.data.schema.lastMigration = null;
+        const updated = await (async (): Promise<
+            ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource
+        > => {
+            try {
+                if (isActorData(source)) {
+                    const updatedActor = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
+                    delete (updatedActor.data as { schema?: unknown }).schema;
+                    for (const updatedItem of updatedActor.items) {
+                        delete (updatedItem.data as { schema?: unknown }).schema;
+                    }
+                    return updatedActor;
+                } else if (isItemData(source)) {
+                    const updatedItem = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
+                    delete (updatedItem.data as { schema?: unknown }).schema;
+                    return updatedItem;
+                } else if (isMacroData(source)) {
+                    return await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
+                } else if (isTableData(source)) {
+                    return await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
+                } else {
+                    return source;
                 }
-            } else if (isItemData(source)) {
-                updatedEntity = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
-                updatedEntity.data.schema.lastMigration = null;
-            } else if (isMacroData(source)) {
-                updatedEntity = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
-            } else if (isTableData(source)) {
-                updatedEntity = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
-            } else {
-                updatedEntity = source;
+            } catch (error) {
+                throw Error(`Error while trying to edit ${filePath}: ${error.message}`);
             }
-        } catch (error) {
-            throw Error(`Error while trying to edit ${filePath}: ${error.message}`);
-        }
+        })();
 
         const origData = JSONstringifyOrder(source);
-        const outData = JSONstringifyOrder(updatedEntity);
+        const outData = JSONstringifyOrder(updated);
 
         if (outData !== origData) {
             console.log(`${filePath} is different. writing`);
