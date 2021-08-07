@@ -433,8 +433,10 @@ export class NPCPF2e extends CreaturePF2e {
         data.actions = [];
 
         // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
-        const items = this.items.map((item) => item.data).concat(strikes);
-        for (const itemData of items) {
+        const generatedMelee = strikes.map((weapon) => weapon.toMelee());
+        const items = this.items.contents.concat(generatedMelee);
+        for (const item of items) {
+            const itemData = item.data;
             if (itemData.type === "lore") {
                 // override untrained skills if defined in the NPC data
                 const skill = itemData.name.slugify(); // normalize skill name to lower-case and dash-separated words

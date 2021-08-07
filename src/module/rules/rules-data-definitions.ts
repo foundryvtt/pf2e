@@ -1,6 +1,6 @@
 import { DamageDicePF2e, ModifierPF2e, ModifierPredicate } from "../modifiers";
-import { WeaponData } from "@item/data";
 import { RollNotePF2e } from "../notes";
+import { WeaponPF2e } from "@item";
 
 export interface RuleElementData {
     key: string;
@@ -55,7 +55,7 @@ export interface MultipleAttackPenaltyPF2e {
 export interface RuleElementSynthetics {
     damageDice: Record<string, DamageDicePF2e[]>;
     statisticsModifiers: Record<string, ModifierPF2e[]>;
-    strikes: WeaponData[];
+    strikes: Embedded<WeaponPF2e>[];
     rollNotes: Record<string, RollNotePF2e[]>;
     weaponPotency: Record<string, WeaponPotencyPF2e[]>;
     striking: Record<string, StrikingPF2e[]>;
