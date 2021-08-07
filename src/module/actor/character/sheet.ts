@@ -137,7 +137,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected prepareItems(sheetData: any) {
         const actorData: any = sheetData.actor;
         // Inventory
-        const inventory: Record<string, { label: string; items: ItemDataPF2e[]; investedItemCount?: number }> = {
+        const inventory: Record<
+            string,
+            {
+                label: string;
+                items: ItemDataPF2e[];
+                investedItemCount?: number;
+                investedMax?: number;
+                overInvested?: boolean;
+            }
+        > = {
             weapon: { label: game.i18n.localize("PF2E.InventoryWeaponsHeader"), items: [] },
             armor: { label: game.i18n.localize("PF2E.InventoryArmorHeader"), items: [] },
             equipment: { label: game.i18n.localize("PF2E.InventoryEquipmentHeader"), items: [], investedItemCount: 0 },
@@ -211,6 +220,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
 
         let investedCount = 0; // Tracking invested items
+        const investedMax = actorData.data.resources.investiture.max;
 
         for (const itemData of sheetData.items) {
             const physicalData: ItemDataPF2e = itemData;
@@ -400,6 +410,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         inventory.equipment.investedItemCount = investedCount; // Tracking invested items
+        inventory.equipment.investedMax = investedMax;
+        inventory.equipment.overInvested = investedMax < investedCount;
 
         // put the feats in their feat slots
         const allFeatSlots = Object.values(featSlots).flatMap((slot) => slot.feats);
