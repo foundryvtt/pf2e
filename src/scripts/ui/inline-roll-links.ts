@@ -46,9 +46,8 @@ export const InlineRollsLinks = {
         $links.each((_idx, link) => {
             if (game.user.isGM) {
                 const text = link.innerHTML;
-                const repostElement = ' <i class="fas fa-comment-alt" data-pf2-repost></i>';
-                const replacer = / <i class="fas fa-comment-alt" data-pf2-repost=""><\/i>/g;
-                link.innerHTML = `${text.replaceAll(replacer, "")}${repostElement}`;
+                const repostElement = ' <i class="fas fa-comment-alt" data-pf2-repost=""></i>';
+                link.innerHTML = `${text}${ text.inculdes(repostElement)? "" : repostElement}`
             }
         });
     },
