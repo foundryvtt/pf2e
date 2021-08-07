@@ -606,7 +606,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Left/right-click adjustments (increment or decrement) of actor and item stats
         html.find(".adjust-stat").on("click contextmenu", (event) => this.onClickAdjustStat(event));
+        html.find(".adjust-stat-select").on("change", (event) => this.onChangeAdjustStat(event));
         html.find(".adjust-item-stat").on("click contextmenu", (event) => this.onClickAdjustItemStat(event));
+        html.find(".adjust-item-stat-select").on("change", (event) => this.onChangeAdjustItemStat(event));
 
         {
             // ensure correct tab name is displayed after actor update
@@ -809,6 +811,21 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         });
     }
 
+    /** Handle changing of proficiency-rank via dropdown */
+    private async onChangeAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
+        const $select = $(event.delegateTarget);
+        const propertyKey = $select.attr("data-property") ?? "";
+        const currentValue = getProperty(this.actor.data, propertyKey);
+        const selectedValue = Number($select.val());
+
+        if (typeof currentValue !== "number") throw ErrorPF2e("Actor property not found");
+
+        const update = this.getIntendedChange(propertyKey, selectedValue);
+        const newValue = Math.clamped(update, 0, 4);
+
+        await this.actor.update({ [propertyKey]: newValue });
+    }
+
     /** Handle clicking of proficiency-rank adjustment buttons */
     private async onClickAdjustStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
         const $button = $(event.delegateTarget);
@@ -823,6 +840,37 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const newValue = Math.clamped(update, 0, max);
 
         await this.actor.update({ [propertyKey]: newValue });
+    }
+
+    /** Handle changing of lore and spellcasting entry proficiency-rank via dropdown */
+    private async onChangeAdjustItemStat(event: JQuery.TriggeredEvent<HTMLElement>): Promise<void> {
+        const $select = $(event.delegateTarget);
+        const propertyKey = $select.attr("data-property") ?? "";
+        const selectedValue = Number($select.val());
+
+        const itemId = $select.closest(".item").attr("data-item-id") ?? "";
+        const item = this.actor.items.get(itemId);
+        if (!item) throw ErrorPF2e("Item not found");
+
+        const update = this.getIntendedChange(propertyKey, selectedValue);
+
+        // Retrieve and validate the updated value
+        const newValue = ((): number | undefined => {
+            if (item instanceof SpellcastingEntryPF2e) {
+                const dispatch: Record<string, () => number> = {
+                    "data.proficiency.value": () => Math.clamped(update, 0, 4),
+                };
+                return dispatch[propertyKey]?.();
+            } else if (item instanceof LorePF2e) {
+                return Math.clamped(update, 0, 4);
+            } else {
+                throw ErrorPF2e("Item not recognized");
+            }
+        })();
+
+        if (typeof newValue === "number") {
+            await item.update({ [propertyKey]: newValue });
+        }
     }
 
     /** Handle clicking of lore and spellcasting entry adjustment buttons */
