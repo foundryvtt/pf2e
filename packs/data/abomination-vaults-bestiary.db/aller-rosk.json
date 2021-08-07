@@ -51,8 +51,9 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Burrow",
-                        "value": "5 feet"
+                        "label": "Burrow",
+                        "type": "burrow",
+                        "value": "5"
                     }
                 ],
                 "value": "30"
@@ -175,7 +176,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Jaws",
             "sort": 100000,
             "type": "melee"
@@ -201,7 +202,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile)</p>"
+                    "value": ""
                 },
                 "rules": [],
                 "schema": {
@@ -227,13 +228,117 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 200000,
             "type": "melee"
         },
         {
-            "_id": "ogKY3HDNog7OmYyK",
+            "_id": "7QmN8VFF7J1MzXXO",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.649
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "ikaHblTttb4ck8mr",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>A creature with negative healing draws health from negative energy rather than positive energy. It is damaged by positive damage and is not healed by positive healing effects. It does not take negative damage, and it is healed by negative effects that heal undead.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.649
+                },
+                "slug": "negative-healing",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Negative Healing",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "rzTC3Hz3hT9xd3W9",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -245,7 +350,7 @@
                     "value": "1"
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Aller is adjacent to a tattooed scrap of flesh or to the corpse of a creature that died within the last hour; <br />\n<strong>Effect</strong> Aller devours a bite of flesh and regains 4d6 Hit Points.<br />\nIf the piece of flesh was tattooed, he is also quickened 1 and can use this extra action to make a jaws Strike. Aller then can’t Consume Flesh for 1d4 rounds. He has one piece of tattooed flesh on his person.</p>"
+                    "value": "<p><strong>Requirements</strong> Aller is adjacent to a tattooed scrap of flesh or to the corpse of a creature that died within the last hour;</p>\n<p><strong>Effect</strong> Aller devours a bite of flesh and regains [[/r 4d6 #Hit Points]]{4d6 Hit Points}. If the piece of flesh was tattooed, he is also @Compendium[pf2e.conditionitems.Quickened]{Quickened 1} and can use this extra action to make a jaws Strike.</p>\n<p>Aller then can't Consume Flesh for [[/br 1d4 #rounds]]{1d4 rounds}. He has one piece of tattooed flesh on his person.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -255,7 +360,7 @@
                     "lastMigration": null,
                     "version": 0.649
                 },
-                "slug": null,
+                "slug": "ghoul-consume-flesh",
                 "source": {
                     "value": ""
                 },
@@ -276,14 +381,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.ixPqVlqLaYTB1b23"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Consume Tattooed Flesh",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "8ruOXUxs1uH8rKnK",
+            "_id": "H61mcURmEhYdmt9L",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -295,7 +404,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghoul Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; <br /><strong>Stage 1</strong> carrier with no ill effects (1 day); <br /><strong>Stage 2</strong> [[/r 2d6 # negative damage]] negative damage and regains half as many Hit Points from all healing (1 day); <br /><strong>Stage 3</strong> as stage 2 (1 day); <br /><strong>Stage 4</strong> [[/r 2d6 # negative damage]] negative damage and gains no benefit from healing (1 day); <br /><strong>Stage 5</strong> as stage 4 (1 day); <br /><strong>Stage 6</strong> dead, and rises as a ghoul the next midnight</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"disease\" data-pf2-label=\"Ghoul Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\"><hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day);</p>\n<p><strong>Stage 2</strong> [[/r 2d6 #negative]]{2d6 negative damage} and regains half as many Hit Points from all healing (1 day);</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day);</p>\n<p><strong>Stage 4</strong> [[/r 2d6 #negative]]{2d6 negative damage} and gains no benefit from healing (1 day);</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day);</p>\n<p><strong>Stage 6</strong> dead, and rises as a @Compendium[pf2e.pathfinder-bestiary.Ghoul]{Ghoul} the next midnight.</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -305,7 +414,7 @@
                     "lastMigration": null,
                     "version": 0.649
                 },
-                "slug": null,
+                "slug": "ghoul-ghoul-fever",
                 "source": {
                     "value": ""
                 },
@@ -326,14 +435,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.N7UV5CZXtcoxDxCF"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Ghoul Fever",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "L5bEDBExdIxDU55Z",
+            "_id": "WCcurB9iEOCcU58H",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -345,7 +458,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>Any living, non-elf creature hit by a Canker cultist's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"incapacitation,occult,necromancy\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}.<br />It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each save.</p>"
+                    "value": "<p>Any living, non-elf creature hit by Aller's attack must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"22\" data-pf2-traits=\"incapacitation,occult,necromancy\" data-pf2-label=\"Paralysis DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -355,7 +468,7 @@
                     "lastMigration": null,
                     "version": 0.649
                 },
-                "slug": null,
+                "slug": "ghoul-paralysis",
                 "source": {
                     "value": ""
                 },
@@ -366,8 +479,8 @@
                     },
                     "value": [
                         "incapacitation",
-                        "occult",
-                        "necromancy"
+                        "necromancy",
+                        "occult"
                     ]
                 },
                 "trigger": {
@@ -378,14 +491,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.FW4KAUHb7r8WkxUc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Paralysis",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "7pzO89sNxqNbk3lS",
+            "_id": "5YFP1XKwVqEkmjZV",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -394,10 +511,10 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
-                    "value": "<p>The cultist jumps up to half its Speed. This movement doesn’t trigger reactions.</p>"
+                    "value": "<p>Aller jumps up to half his Speed. This movement doesn't trigger reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -407,7 +524,7 @@
                     "lastMigration": null,
                     "version": 0.649
                 },
-                "slug": null,
+                "slug": "ghoul-swift-leap",
                 "source": {
                     "value": ""
                 },
@@ -416,7 +533,9 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "move"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -426,10 +545,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/item-bag.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.UU1Fp3PRuTFONjC9"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swift Leap",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -468,7 +591,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -507,7 +630,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -546,7 +669,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -585,7 +708,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -624,7 +747,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],
