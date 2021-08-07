@@ -460,16 +460,6 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
         });
 
-        // Toggle Spell prepared value
-        html.find(".item-prepare").on("click", (event) => {
-            const itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
-            const item = this.actor.items.get(itemId ?? "");
-            if (!(item instanceof SpellPF2e)) {
-                throw new Error("Tried to update prepared on item that does not have prepared");
-            }
-            item.update({ "data.prepared.value": !item.data.data.prepared.value });
-        });
-
         // Item Rolling
         html.find("[data-item-id].item .item-image").on("click", (event) => this.onItemRoll(event));
 
@@ -995,11 +985,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             throw ErrorPF2e(`SpellcastingEntry ${targetLocation} not found in actor ${this.actor.id}`);
         }
 
-        spellData.data.location.value = targetLocation;
+        spellData.data.location = { value: targetLocation };
 
         if (!spell.isCantrip && !spell.isFocusSpell && !spell.isRitual) {
             if (spellcastingEntry.isSpontaneous || spellcastingEntry.isInnate) {
-                spellData.data.heightenedLevel = { value: Math.max(spell.level, targetLevel) };
+                spellData.data.location.heightenedLevel = Math.max(spell.level, targetLevel);
             }
         }
 
