@@ -86,7 +86,13 @@ export class CharacterPF2e extends CreaturePF2e {
             skill.armor = ["dex", "str"].includes(skill.ability);
         }
         systemData.attributes.perception.ability = "wis";
-        this.data.data.resources.investiture = { value: 0, max: 10 };
+
+        // Resources
+        const resources = systemData.resources;
+        resources.investiture = { value: 0, max: 10 };
+        if (typeof resources.focus?.value === "number") {
+            resources.focus.max = 0;
+        }
 
         // Conditions
         systemData.attributes.doomed = { value: 0, max: 3 };
@@ -1136,6 +1142,16 @@ export class CharacterPF2e extends CreaturePF2e {
                 spellcastingEntry.data.dc = dc as Required<SpellDifficultyClass>;
             }
         });
+
+        // Resources
+        const resources = this.data.data.resources;
+        if (typeof resources.focus?.max === "number") {
+            resources.focus.max = Math.clamped(resources.focus.max, 0, 3);
+            // Ensure the character has a focus pool of at least one point if they have focus spellcasting entries
+            if (resources.focus.max === 0 && this.itemTypes.spellcastingEntry.some((entry) => entry.isFocusPool)) {
+                resources.focus.max = 1;
+            }
+        }
 
         this.prepareInitiative(this.data, statisticsModifiers, rollNotes);
 

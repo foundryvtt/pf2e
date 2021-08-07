@@ -5,8 +5,6 @@ import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "@module/migration/base";
 import { MigrationRunnerBase } from "@module/migration/runner/base";
-import { Migration641SovereignSteelValue } from "@module/migration/migrations/641-sovereign-steel-value";
-import { Migration642TrackSchemaVersion } from "@module/migration/migrations/642-track-schema-version";
 import { Migration643HazardLevel } from "@module/migration/migrations/643-hazard-level";
 import { Migration644SpellcastingCategory } from "@module/migration/migrations/644-spellcasting-category";
 import { Migration646UpdateInlineLinks } from "@module/migration/migrations/646-update-inline-links";
@@ -14,10 +12,9 @@ import { Migration647FixPCSenses } from "@module/migration/migrations/647-fix-pc
 import { Migration648RemoveInvestedProperty } from "@module/migration/migrations/648-remove-invested-property";
 import { Migration649FocusToActor } from "@module/migration/migrations/649-focus-to-actor";
 import { Migration650StringifyWeaponProperties } from "@module/migration/migrations/650-stringify-weapon-properties";
+import { Migration651EphemeralFocusPool } from "@module/migration/migrations/651-ephemeral-focus-pool";
 
 const migrations: MigrationBase[] = [
-    new Migration641SovereignSteelValue(),
-    new Migration642TrackSchemaVersion(),
     new Migration643HazardLevel(),
     new Migration644SpellcastingCategory(),
     new Migration646UpdateInlineLinks(),
@@ -25,6 +22,7 @@ const migrations: MigrationBase[] = [
     new Migration648RemoveInvestedProperty(),
     new Migration649FocusToActor(),
     new Migration650StringifyWeaponProperties(),
+    new Migration651EphemeralFocusPool(),
 ];
 
 global.deepClone = function (original: any): any {
