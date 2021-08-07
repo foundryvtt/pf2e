@@ -94,9 +94,6 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     ability: {
         value: AbilityString;
     };
-    prepared: {
-        value: boolean;
-    };
     location: {
         value: string;
     };
