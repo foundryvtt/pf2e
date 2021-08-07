@@ -50,7 +50,7 @@ export const InlineRollsLinks = {
                     child.classList.add("fas");
                     child.classList.add("fa-comment-alt");
                     child.setAttribute("data-pf2-repost", "");
-                    child.style.paddingLeft = "3 px";
+                    child.setAttribute("title", game.i18n.localize("PF2E.Repost"));
                     link.appendChild(child);
                 }
             }
@@ -342,12 +342,6 @@ export const InlineRollsLinks = {
                 console.warn(`PF2e System | Could not create template'`);
             }
         });
-
-        if (BUILD_MODE === "development") {
-            $links.on("contextmenu", (event) => {
-                InlineRollsLinks.repostAction(event.currentTarget);
-            });
-        }
     },
 
     repostAction: (target: HTMLElement): void => {
