@@ -975,21 +975,31 @@ export class CharacterPF2e extends CreaturePF2e {
                 game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map2 }),
                 game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map3 }),
             ];
-            const checkModifiers: [CheckModifier, CheckModifier, CheckModifier] = [
-                new CheckModifier(`${strikeLabel}: ${action.name}`, action),
-                new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
-                ]),
-                new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map3, MODIFIER_TYPE.UNTYPED),
-                ]),
+            const checkModifiers = [
+                () => new CheckModifier(`${strikeLabel}: ${action.name}`, action),
+                () =>
+                    new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
+                        new ModifierPF2e(
+                            multipleAttackPenalty.label,
+                            multipleAttackPenalty.map2,
+                            MODIFIER_TYPE.UNTYPED
+                        ),
+                    ]),
+                () =>
+                    new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
+                        new ModifierPF2e(
+                            multipleAttackPenalty.label,
+                            multipleAttackPenalty.map3,
+                            MODIFIER_TYPE.UNTYPED
+                        ),
+                    ]),
             ];
-            const variances: [string, CheckModifier][] = [0, 1, 2].map((index) => [
+            const variances: [string, () => CheckModifier][] = [0, 1, 2].map((index) => [
                 labels[index],
                 checkModifiers[index],
             ]);
 
-            action.variants = variances.map(([label, modifier]) => ({
+            action.variants = variances.map(([label, constructModifier]) => ({
                 label,
                 roll: (args: RollParameters) => {
                     const ctx = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
@@ -1002,7 +1012,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         dc.adjustments = action.adjustments;
                     }
                     CheckPF2e.roll(
-                        modifier,
+                        constructModifier(),
                         { actor: this, item: weapon, type: "attack-roll", options, notes, dc },
                         args.event,
                         args.callback
