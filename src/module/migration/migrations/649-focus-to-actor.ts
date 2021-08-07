@@ -31,7 +31,7 @@ export class Migration649FocusToActor extends MigrationBase {
             .filter((i): i is SpellcastingEntrySource => i.type === "spellcastingEntry")
             .sort((a, b) => (a.sort || 0) - (b.sort || 0))
             .map((i) => i.data as SpellcastingEntrySystemDataOld)
-            .filter((i) => i.focus)
+            .filter((i) => i.prepared.value === "focus" && i.focus)
             .sort((a, b) => (b.focus?.pool || 0) - (a.focus?.pool || 0));
 
         if (spellLists.length === 0) return;
