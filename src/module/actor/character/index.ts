@@ -723,7 +723,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Add a basic unarmed strike unless a fixed-proficiency rule element is in effect
         const unarmed = ((): Embedded<WeaponPF2e> => {
             const source: PreCreate<WeaponSource> & { data: { damage: Partial<WeaponDamage> } } = {
-                _id: "fist",
+                _id: randomID(),
                 name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
                 type: "weapon",
                 img: "systems/pf2e/icons/features/classes/powerful-fist.webp",
@@ -749,6 +749,7 @@ export class CharacterPF2e extends CreaturePF2e {
             );
             if (fistFeat) {
                 source.name = LocalizePF2e.translations.PF2E.Weapon.Base.fist;
+                source.data.slug = "fist";
                 source.data.baseItem = "fist";
                 source.data.damage.die = "d6";
             }
