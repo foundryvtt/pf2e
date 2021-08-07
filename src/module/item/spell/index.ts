@@ -182,7 +182,7 @@ export class SpellPF2e extends ItemPF2e {
         const area = (() => {
             if (systemData.area.value) {
                 return game.i18n
-                    .format("PF2E.SpellAreaLabel", { areaSize: areaSize, areaUnit: areaUnit, areaType: areaType })
+                    .format("PF2E.SpellArea", { areaSize: areaSize, areaUnit: areaUnit, areaType: areaType })
                     .trim();
             }
             return null;
