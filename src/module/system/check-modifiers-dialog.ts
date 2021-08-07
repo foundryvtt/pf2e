@@ -55,6 +55,7 @@ export class CheckModifiersDialog extends Application {
             classes: ["dice-checks", "dialog"],
             popOut: true,
             width: 380,
+            height: "auto",
         });
 
         this.check = check;

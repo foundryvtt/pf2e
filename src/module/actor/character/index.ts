@@ -723,7 +723,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // Add a basic unarmed strike unless a fixed-proficiency rule element is in effect
         const unarmed = ((): Embedded<WeaponPF2e> => {
             const source: PreCreate<WeaponSource> & { data: { damage: Partial<WeaponDamage> } } = {
-                _id: "fist",
+                _id: randomID(),
                 name: game.i18n.localize("PF2E.WeaponTypeUnarmed"),
                 type: "weapon",
                 img: "systems/pf2e/icons/features/classes/powerful-fist.webp",
@@ -749,6 +749,7 @@ export class CharacterPF2e extends CreaturePF2e {
             );
             if (fistFeat) {
                 source.name = LocalizePF2e.translations.PF2E.Weapon.Base.fist;
+                source.data.slug = "fist";
                 source.data.baseItem = "fist";
                 source.data.damage.die = "d6";
             }
@@ -975,21 +976,31 @@ export class CharacterPF2e extends CreaturePF2e {
                 game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map2 }),
                 game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: multipleAttackPenalty.map3 }),
             ];
-            const checkModifiers: [CheckModifier, CheckModifier, CheckModifier] = [
-                new CheckModifier(`${strikeLabel}: ${action.name}`, action),
-                new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map2, MODIFIER_TYPE.UNTYPED),
-                ]),
-                new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
-                    new ModifierPF2e(multipleAttackPenalty.label, multipleAttackPenalty.map3, MODIFIER_TYPE.UNTYPED),
-                ]),
+            const checkModifiers = [
+                () => new CheckModifier(`${strikeLabel}: ${action.name}`, action),
+                () =>
+                    new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
+                        new ModifierPF2e(
+                            multipleAttackPenalty.label,
+                            multipleAttackPenalty.map2,
+                            MODIFIER_TYPE.UNTYPED
+                        ),
+                    ]),
+                () =>
+                    new CheckModifier(`${strikeLabel}: ${action.name}`, action, [
+                        new ModifierPF2e(
+                            multipleAttackPenalty.label,
+                            multipleAttackPenalty.map3,
+                            MODIFIER_TYPE.UNTYPED
+                        ),
+                    ]),
             ];
-            const variances: [string, CheckModifier][] = [0, 1, 2].map((index) => [
+            const variances: [string, () => CheckModifier][] = [0, 1, 2].map((index) => [
                 labels[index],
                 checkModifiers[index],
             ]);
 
-            action.variants = variances.map(([label, modifier]) => ({
+            action.variants = variances.map(([label, constructModifier]) => ({
                 label,
                 roll: (args: RollParameters) => {
                     const ctx = this.createAttackRollContext(args.event!, ["all", "attack-roll"]);
@@ -1002,7 +1013,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         dc.adjustments = action.adjustments;
                     }
                     CheckPF2e.roll(
-                        modifier,
+                        constructModifier(),
                         { actor: this, item: weapon, type: "attack-roll", options, notes, dc },
                         args.event,
                         args.callback
