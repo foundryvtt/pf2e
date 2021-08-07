@@ -13,6 +13,7 @@ import { Migration646UpdateInlineLinks } from "@module/migration/migrations/646-
 import { Migration647FixPCSenses } from "@module/migration/migrations/647-fix-pc-senses";
 import { Migration648RemoveInvestedProperty } from "@module/migration/migrations/648-remove-invested-property";
 import { Migration649FocusToActor } from "@module/migration/migrations/649-focus-to-actor";
+import { Migration650StringifyWeaponProperties } from "@module/migration/migrations/650-stringify-weapon-properties";
 
 const migrations: MigrationBase[] = [
     new Migration641SovereignSteelValue(),
@@ -23,6 +24,7 @@ const migrations: MigrationBase[] = [
     new Migration647FixPCSenses(),
     new Migration648RemoveInvestedProperty(),
     new Migration649FocusToActor(),
+    new Migration650StringifyWeaponProperties(),
 ];
 
 global.deepClone = function (original: any): any {

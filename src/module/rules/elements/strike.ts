@@ -1,6 +1,6 @@
-import { CharacterData, NPCData } from "@actor/data";
-import { WeaponData } from "@item/data";
-import { WeaponDamage } from "@item/weapon/data";
+import { AbilityString } from "@actor/data";
+import { WeaponPF2e } from "@item";
+import { WeaponCategory, WeaponDamage, WeaponGroup, WeaponSource, WeaponTrait } from "@item/weapon/data";
 import { RuleElementPF2e } from "../rule-element";
 import { RuleElementData, RuleElementSynthetics } from "../rules-data-definitions";
 
@@ -8,39 +8,37 @@ import { RuleElementData, RuleElementSynthetics } from "../rules-data-definition
  * @category RuleElement
  */
 export class PF2StrikeRuleElement extends RuleElementPF2e {
-    override onBeforePrepareData(actorData: CharacterData | NPCData, { strikes }: RuleElementSynthetics) {
-        strikes.push({
+    override onBeforePrepareData(_actorData: unknown, { strikes }: RuleElementSynthetics) {
+        const source: PreCreate<WeaponSource> = {
             _id: this.item.id,
             name: this.label || this.item.name,
-            type: actorData.type === "npc" ? "melee" : "weapon",
+            type: "weapon",
             img: this.data.img ?? this.item.img,
             data: {
-                description: { value: "", chat: "", unidentified: "" },
+                description: { value: "" },
                 ability: { value: this.data.ability || "str" },
                 weaponType: { value: this.data.category || "unarmed" },
                 group: { value: this.data.group || "brawling" },
-                damage: this.data.damage?.base ?? { dice: 1, die: "d4", damageType: "bludgeoning" },
-                damageRolls: {},
-                attackEffects: { value: [] },
+                damage: this.data.damage,
                 range: { value: this.data.range || "melee" },
-                strikingRune: { value: "" },
                 traits: { value: this.data.traits ?? [], rarity: { value: "common" }, custom: "" },
                 options: { value: this.data.options ?? [] },
                 equipped: { value: true },
             },
-        } as unknown as WeaponData);
+        };
+        strikes.push(new WeaponPF2e(source, { parent: this.actor }) as Embedded<WeaponPF2e>);
     }
 }
 
 export interface PF2StrikeRuleElement {
     data: RuleElementData & {
-        img?: string;
-        ability?: string;
-        category?: string;
-        group?: string;
-        damage?: WeaponDamage & { base?: number };
+        img?: ImagePath;
+        ability?: AbilityString;
+        category?: WeaponCategory;
+        group?: WeaponGroup;
+        damage?: WeaponDamage;
         range?: string;
-        traits?: string[];
+        traits?: WeaponTrait[];
         options?: string[];
     };
 }
