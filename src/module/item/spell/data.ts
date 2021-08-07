@@ -94,27 +94,21 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     ability: {
         value: AbilityString;
     };
-    prepared: {
-        value: boolean;
-    };
-    location: {
-        value: string;
-    };
-    heightenedLevel: {
-        value: number;
-    };
     hasCounteractCheck: {
         value: boolean;
     };
     isSave?: boolean;
     damageLabel?: string;
     isAttack?: boolean;
-    spellLvl?: string;
     properties?: (number | string)[];
-    item?: string;
     trickMagicItemData?: TrickMagicItemCastData;
-    isSignatureSpell?: boolean;
     autoHeightenLevel: {
         value: OneToTen | null;
+    };
+
+    /** Data related to the spell's existance in a spellcasting entry. */
+    location: {
+        value: string;
+        heightenedLevel?: number;
     };
 }

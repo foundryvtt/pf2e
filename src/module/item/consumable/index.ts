@@ -35,8 +35,8 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         if (!this.actor) throw ErrorPF2e(`No owning actor found for "${this.name}" (${this.id})`);
 
         const heightenedLevel = this.data.data.spell.heightenedLevel;
-        if (typeof heightenedLevel === "number") {
-            spellData.data.heightenedLevel = { value: heightenedLevel };
+        if (typeof heightenedLevel === 'number') {
+            spellData.data.location.heightenedLevel = heightenedLevel;
         }
 
         return new SpellPF2e(spellData, { parent: this.actor }) as Embedded<SpellPF2e>;

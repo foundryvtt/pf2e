@@ -3,6 +3,21 @@ import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { ordinal, toNumber } from "@module/utils";
 import { SpellData, SpellTrait } from "./data";
 
+/**
+ * Document update Data in an unflattened form. Handlers like preUpdate() usually receieve it in this form.
+ */
+type UnflattenedDocumentUpdateData<T extends foundry.abstract.Document = foundry.abstract.Document> = DeepPartial<
+    DocumentUpdateSubData<T['data']['_source']>
+>;
+
+type DocumentUpdateSubData<T> = T extends Function
+    ? never
+    : T extends Array<infer U>
+    ? Array<U>
+    : T extends object
+    ? { [K in keyof T]: DocumentUpdateSubData<T[K]> } & { [key in `-=${Extract<keyof T, string | number>}`]: null }
+    : T;
+
 export class SpellPF2e extends ItemPF2e {
     static override get schema(): typeof SpellData {
         return SpellData;
@@ -22,7 +37,7 @@ export class SpellPF2e extends ItemPF2e {
      * This applies for spontaneous or innate spells usually, but not prepared ones.
      */
     get heightenedLevel() {
-        return this.data.data.heightenedLevel?.value ?? this.level;
+        return this.data.data.location.heightenedLevel ?? this.level;
     }
 
     private computeCastLevel(castLevel?: number) {
@@ -226,6 +241,31 @@ export class SpellPF2e extends ItemPF2e {
             areaType,
             areaUnit,
         });
+    }
+
+    protected override _preUpdate(
+        data: UnflattenedDocumentUpdateData<SpellPF2e>,
+        options: DocumentModificationContext,
+        user: foundry.documents.BaseUser,
+    ) {
+        // If location has changed, replace the entire location object
+        // Send a delete followed the desired updates
+        const oldLocation = this.data.data.location.value;
+        if (!this.actor && this.data.data.location.value !== '') {
+            mergeObject(data, {
+                data: {
+                    '-=location': null,
+                    location: { value: '' },
+                },
+            });
+        } else if (data.data?.location && 'value' in data.data?.location && data.data?.location.value !== oldLocation) {
+            const locationUpdates = data.data?.location;
+            delete data.data?.location;
+            data.data['-=location'] = null;
+            data.data.location = locationUpdates;
+        }
+
+        return super._preUpdate(data, options, user);
     }
 }
 
