@@ -42,12 +42,30 @@ export const InlineRollsLinks = {
         });
     },
 
+    injectRepostElement: ($links: JQuery) => {
+        $links.each((_idx, link) => {
+            if (game.user.isGM) {
+                if (!link.querySelector("[data-pf2-repost]")) {
+                    const child = document.createElement("i");
+                    child.classList.add("fas");
+                    child.classList.add("fa-comment-alt");
+                    child.setAttribute("data-pf2-repost", "");
+                    child.style.paddingLeft = "3 px";
+                    link.appendChild(child);
+                }
+            }
+        });
+    },
+
     listen: ($html: JQuery): void => {
         const $links = $html.find("span").filter(inlineSelector);
         InlineRollsLinks.injectDCText($links);
+        InlineRollsLinks.injectRepostElement($links);
+        const $repostLinks = $html.find("i.fas.fa-comment-alt").filter(inlineSelector);
 
-        $links.filter("[data-pf2-repost]").on("click", (event) => {
+        $repostLinks.filter("[data-pf2-repost]").on("click", (event) => {
             InlineRollsLinks.repostAction(event.target.parentElement!);
+            event.stopPropagation();
         });
 
         $links.filter("[data-pf2-action]").on("click", (event) => {
