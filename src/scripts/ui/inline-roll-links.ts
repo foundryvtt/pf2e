@@ -45,9 +45,14 @@ export const InlineRollsLinks = {
     injectRepostElement: ($links: JQuery) => {
         $links.each((_idx, link) => {
             if (game.user.isGM) {
-                const text = link.innerHTML;
-                const repostElement = ' <i class="fas fa-comment-alt" data-pf2-repost=""></i>';
-                link.innerHTML = `${text}${ text.inculdes(repostElement)? "" : repostElement}`
+                if (!link.querySelector("[data-pf2-repost]")) {
+                    const child = document.createElement("i");
+                    child.classList.add("fas");
+                    child.classList.add("fa-comment-alt");
+                    child.setAttribute("data-pf2-repost", "");
+                    child.style.paddingLeft = "3 px";
+                    link.appendChild(child);
+                }
             }
         });
     },
