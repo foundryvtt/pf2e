@@ -57,6 +57,7 @@ import { Migration646UpdateInlineLinks } from "./migrations/646-update-inline-li
 import { Migration647FixPCSenses } from "./migrations/647-fix-pc-senses";
 import { Migration648RemoveInvestedProperty } from "./migrations/648-remove-invested-property";
 import { Migration649FocusToActor } from "@module/migration/migrations/649-focus-to-actor";
+import { Migration650StringifyWeaponProperties } from "./migrations/650-stringify-weapon-properties";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -118,6 +119,7 @@ export class Migrations {
         Migration647FixPCSenses,
         Migration648RemoveInvestedProperty,
         Migration649FocusToActor,
+        Migration650StringifyWeaponProperties,
     ];
 
     static get latestVersion(): number {
