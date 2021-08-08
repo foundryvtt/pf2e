@@ -110,6 +110,7 @@ export class MigrationRunnerBase {
     }
 
     private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase | undefined): void {
+        if (!("game" in globalThis)) return;
         if (!latestMigration) throw ErrorPF2e("No migrations in this run!");
 
         const fromVersion = typeof schema.version === "number" ? schema.version : null;
