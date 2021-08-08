@@ -12,7 +12,7 @@
 </div>
 <div class="pc pc_key-ability dropdown">
     <label for="key-ability">{{localize "PF2E.KeyAbilityLabel"}}</label>
-    <select id="key-ability" name="data.details.keyability.value" {{disabled data.details.keyability.aeOverride}}>
+    <select id="key-ability" name="data.details.keyability.value" {{disabled data.details.keyability.singleOption}}>
         {{#select data.details.keyability.value}}
             {{#each abilities as |label ability|}}
                 <option value="{{ability}}">{{localize label}}</option>
