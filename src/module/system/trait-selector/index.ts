@@ -69,7 +69,7 @@ export const SELECTABLE_TAG_FIELDS = [
     "skillList",
     "spellComponents",
     "spellTypes",
-    "spellTraditions",
+    "magicTraditions",
     "spellLevels",
     "featTypes",
     "featActionTypes",
