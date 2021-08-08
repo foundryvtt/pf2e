@@ -823,7 +823,7 @@ export class CompendiumBrowser extends Application {
             times: [...times].sort(),
             schools: schoolsObj,
             categories: CONFIG.PF2E.spellCategories,
-            traditions: CONFIG.PF2E.spellTraditions,
+            traditions: CONFIG.PF2E.magicTraditions,
             rarities: CONFIG.PF2E.rarityTraits,
             spellTraits: sortedObject({ ...CONFIG.PF2E.spellOtherTraits, ...CONFIG.PF2E.damageTraits }),
         };

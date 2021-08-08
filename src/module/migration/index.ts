@@ -59,6 +59,7 @@ import { Migration648RemoveInvestedProperty } from "./migrations/648-remove-inve
 import { Migration649FocusToActor } from "@module/migration/migrations/649-focus-to-actor";
 import { Migration650StringifyWeaponProperties } from "./migrations/650-stringify-weapon-properties";
 import { Migration651EphemeralFocusPool } from "./migrations/651-ephemeral-focus-pool";
+import { Migration652KillHalcyonTradition } from "@module/migration/migrations/652-kill-halcyon-tradition";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -122,6 +123,7 @@ export class Migrations {
         Migration649FocusToActor,
         Migration650StringifyWeaponProperties,
         Migration651EphemeralFocusPool,
+        Migration652KillHalcyonTradition,
     ];
 
     static get latestVersion(): number {

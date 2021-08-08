@@ -5,7 +5,7 @@ import { MigrationBase } from "../base";
 
 const oldTraditions = ["arcane", "occult", "primal", "divine", "focus", "ritual", "halcyon", ""] as const;
 
-const defaultTraditionByClass: Record<string, keyof ConfigPF2e["PF2E"]["spellTraditions"]> = {
+const defaultTraditionByClass: Record<string, keyof ConfigPF2e["PF2E"]["magicTraditions"]> = {
     Wizard: "arcane",
     Cleric: "divine",
     Druid: "primal",

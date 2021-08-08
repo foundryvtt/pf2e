@@ -107,9 +107,9 @@ export function calculateTrickMagicItemCheckDC(
     const level = Number(itemData.data.level.value);
     const saveDC = calculateDC(level, options);
 
-    type RealTraditionKey = keyof ConfigPF2e["PF2E"]["spellTraditions"];
+    type RealTraditionKey = keyof ConfigPF2e["PF2E"]["magicTraditions"];
     const skills: [string, number][] = itemData.data.traits.value
-        .filter((trait): trait is RealTraditionKey => trait in CONFIG.PF2E.spellTraditions)
+        .filter((trait): trait is RealTraditionKey => trait in CONFIG.PF2E.magicTraditions)
         .map((tradition) => [TraditionSkills[tradition], saveDC]);
 
     return Object.fromEntries(skills);
