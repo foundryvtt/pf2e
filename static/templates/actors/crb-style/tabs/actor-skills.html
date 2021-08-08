@@ -9,7 +9,6 @@
                         <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
                         <h4 class="skill-name rollable">{{localize skill.label}}</h4>
                         <div class="skill-prof button-group">
-                            <!-- <span class="skill-proficiency pf-value pf-rank adjust-stat" data-property="data.skills.{{key}}.rank" value="{{skill.rank}}" title="{{localize skill.hover}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span> -->
                             <select class="skill-proficiency pf-value pf-rank adjust-stat-select" data-property="data.skills.{{key}}.rank" value="{{skill.rank}}" title="{{localize skill.hover}}">
                                 {{> systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html proflevel=skill.rank }}
                             </select>
@@ -46,7 +45,6 @@
                             <input data-item-id="{{skill.itemID}}" data-property="name" type="text" data-dtype="String" value="{{skill.name}}" style="color: white;"/>
                         </div>
                         <div class="skill-prof button-group skill-container">
-                            <!-- <span class="skill-proficiency pf-value pf-rank adjust-item-stat" data-property="data.proficient.value" value="{{skill.rank}}" title="{{skill.breakdown}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span> -->
                             <select class="skill-proficiency pf-value pf-rank adjust-item-stat-select" data-property="data.proficient.value" value="{{skill.rank}}" title="{{skill.breakdown}}">
                                 {{> systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html proflevel=skill.rank }}
                             </select>
@@ -81,7 +79,6 @@
                     <h1 class="skill-score lore-score" title="{{localize proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</h1>
                     <h4 class="skill-name lore-name-input">{{localize proficiency.label}}</h4>
                     <div class="skill-prof button-group skill-container">
-                        <!-- <span class="skill-proficiency pf-value pf-rank adjust-stat" data-property="data.martial.{{key}}.rank" value="{{proficiency.rank}}" title="{{localize proficiency.hover}}">{{localize (add 'PF2E.ProficiencyLevel' proficiency.rank)}}</span> -->
                         <select class="skill-proficiency pf-value pf-rank adjust-stat-select" data-property="data.martial.{{key}}.rank" value="{{proficiency.rank}}" title="{{localize proficiency.hover}}">
                             {{> systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html proflevel=proficiency.rank }}
                         </select>
