@@ -9,12 +9,12 @@ declare abstract class MapLayer extends PlaceablesLayer<Tile> {
     level: number;
 
     /** The background source path */
-    bgPath: string;
+    bgPath: VideoPath;
 
     /** The layer background image */
     bg: PIXI.Sprite;
 
-    static documentName: 'Tile';
+    static documentName: "Tile";
 
     /* -------------------------------------------- */
     /*  Layer Attributes                            */
@@ -22,9 +22,7 @@ declare abstract class MapLayer extends PlaceablesLayer<Tile> {
 
     static override get layerOptions(): MapLayerOptions;
 
-    /**
-     * Return the base HTML image or video element which is used to generate the background Sprite.
-     */
+    /** Return the base HTML image or video element which is used to generate the background Sprite.*/
     get bgSource(): HTMLImageElement | HTMLVideoElement;
 
     get hud(): TileHUD;
@@ -82,7 +80,7 @@ declare abstract class MapLayer extends PlaceablesLayer<Tile> {
      */
     protected _getDropData(
         event: PIXI.InteractionEvent,
-        data: foundry.data.TileSource,
+        data: foundry.data.TileSource
     ): Promise<foundry.data.TileSource>;
 }
 

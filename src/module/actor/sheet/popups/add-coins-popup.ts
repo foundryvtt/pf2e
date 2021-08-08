@@ -1,5 +1,5 @@
-import { addCoins, Coins } from '@item/treasure/helpers';
-import { ActorPF2e } from '@actor/base';
+import { addCoins, Coins } from "@item/treasure/helpers";
+import { ActorPF2e } from "@actor/base";
 
 interface AddCoinsFormData extends Coins {
     combineStacks: boolean;
@@ -11,11 +11,11 @@ interface AddCoinsFormData extends Coins {
 export class AddCoinsPopup extends FormApplication<ActorPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
-        options.id = 'add-coins';
+        options.id = "add-coins";
         options.classes = [];
-        options.title = 'Add Coins';
-        options.template = 'systems/pf2e/templates/actors/add-coins.html';
-        options.width = 'auto';
+        options.title = "Add Coins";
+        options.template = "systems/pf2e/templates/actors/add-coins.html";
+        options.width = "auto";
         return options;
     }
 

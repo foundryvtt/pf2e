@@ -1,20 +1,20 @@
-import { MigrationBase } from '../base';
-import { ActorSourcePF2e } from '@actor/data';
-import { ItemSourcePF2e, SpellcastingEntrySource } from '@item/data';
-import { SpellcastingEntrySystemData } from '@item/spellcasting-entry/data';
-import { CharacterSource } from '@actor/character/data';
-import { NPCSource } from '@actor/npc/data';
+import { MigrationBase } from "../base";
+import { ActorSourcePF2e } from "@actor/data";
+import { ItemSourcePF2e, SpellcastingEntrySource } from "@item/data";
+import { SpellcastingEntrySystemData } from "@item/spellcasting-entry/data";
+import { CharacterSource } from "@actor/character/data";
+import { NPCSource } from "@actor/npc/data";
 
-interface SpellcastingEntrySystemDataOld extends Omit<SpellcastingEntrySystemData, 'focus'> {
+interface SpellcastingEntrySystemDataOld extends Omit<SpellcastingEntrySystemData, "focus"> {
     focus?: {
         points: number;
         pool: number;
     };
-    '-=focus'?: null;
+    "-=focus"?: null;
 }
 
 function isCreatureSource(source: ActorSourcePF2e): source is CharacterSource | NPCSource {
-    return ['character', 'npc'].includes(source.type);
+    return ["character", "npc"].includes(source.type);
 }
 
 /** Focus Points became an actor resource. Relies on items running after actor */
@@ -28,10 +28,10 @@ export class Migration649FocusToActor extends MigrationBase {
         // Focus points in descending order by max pool, and then "most recent".
         // Javascript sort is stable, so we first sort by order, filter to focus, and then sort by max.
         const spellLists = actorData.items
-            .filter((i): i is SpellcastingEntrySource => i.type === 'spellcastingEntry')
+            .filter((i): i is SpellcastingEntrySource => i.type === "spellcastingEntry")
             .sort((a, b) => (a.sort || 0) - (b.sort || 0))
             .map((i) => i.data as SpellcastingEntrySystemDataOld)
-            .filter((i) => i.focus)
+            .filter((i) => i.prepared.value === "focus" && i.focus)
             .sort((a, b) => (b.focus?.pool || 0) - (a.focus?.pool || 0));
 
         if (spellLists.length === 0) return;
@@ -43,11 +43,11 @@ export class Migration649FocusToActor extends MigrationBase {
     }
 
     override async updateItem(itemData: ItemSourcePF2e): Promise<void> {
-        if (itemData.type !== 'spellcastingEntry') return;
+        if (itemData.type !== "spellcastingEntry") return;
         const data: SpellcastingEntrySystemDataOld = itemData.data;
         delete data.focus;
-        if ('game' in globalThis) {
-            data['-=focus'] = null;
+        if ("game" in globalThis) {
+            data["-=focus"] = null;
         }
     }
 }

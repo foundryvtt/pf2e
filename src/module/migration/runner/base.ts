@@ -1,10 +1,10 @@
-import { ActorSourcePF2e } from '@actor/data';
-import { ItemSourcePF2e } from '@item/data';
-import { DocumentSchemaRecord } from '@module/data';
-import { MigrationBase } from '@module/migration/base';
-import { TokenDocumentPF2e } from '@module/scene/token-document';
-import { ErrorPF2e } from '@module/utils';
-import { DateTime } from 'luxon';
+import { ActorSourcePF2e } from "@actor/data";
+import { ItemSourcePF2e } from "@item/data";
+import { DocumentSchemaRecord } from "@module/data";
+import { MigrationBase } from "@module/migration/base";
+import { TokenDocumentPF2e } from "@module/scene/token-document";
+import { ErrorPF2e } from "@module/utils";
+import { DateTime } from "luxon";
 
 interface ItemsDiff {
     inserted: ItemSourcePF2e[];
@@ -15,7 +15,7 @@ interface ItemsDiff {
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.649;
+    static LATEST_SCHEMA_VERSION = 0.651;
 
     static MINIMUM_SAFE_VERSION = 0.6;
 
@@ -70,7 +70,7 @@ export class MigrationRunnerBase {
             try {
                 await migration.updateItem(current);
                 // Handle embedded spells
-                if (current.type === 'consumable' && current.data.spell.data) {
+                if (current.type === "consumable" && current.data.spell.data) {
                     await migration.updateItem(current.data.spell.data);
                 }
             } catch (err) {
@@ -91,7 +91,7 @@ export class MigrationRunnerBase {
                 for await (const currentItem of currentActor.items) {
                     await migration.updateItem(currentItem, currentActor);
                     // Handle embedded spells
-                    if (currentItem.type === 'consumable' && currentItem.data.spell.data) {
+                    if (currentItem.type === "consumable" && currentItem.data.spell.data) {
                         await migration.updateItem(currentItem.data.spell.data, currentActor);
                     }
                 }
@@ -110,23 +110,23 @@ export class MigrationRunnerBase {
     }
 
     private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase | undefined): void {
-        if (!latestMigration) throw ErrorPF2e('No migrations in this run!');
+        if (!latestMigration) throw ErrorPF2e("No migrations in this run!");
 
-        const fromVersion = typeof schema.version === 'number' ? schema.version : null;
+        const fromVersion = typeof schema.version === "number" ? schema.version : null;
         schema.version = latestMigration.version;
         schema.lastMigration = {
             datetime: DateTime.now().toISO(),
             version: {
                 schema: fromVersion,
-                foundry: 'game' in globalThis ? game.data.version : undefined,
-                system: 'game' in globalThis ? game.system.data.version : undefined,
+                foundry: "game" in globalThis ? game.data.version : undefined,
+                system: "game" in globalThis ? game.system.data.version : undefined,
             },
         };
     }
 
     async getUpdatedMacro(
         macroSource: foundry.data.MacroSource,
-        migrations: MigrationBase[],
+        migrations: MigrationBase[]
     ): Promise<foundry.data.MacroSource> {
         const current = deepClone(macroSource);
 
@@ -143,7 +143,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedTable(
         tableSource: foundry.data.RollTableSource,
-        migrations: MigrationBase[],
+        migrations: MigrationBase[]
     ): Promise<foundry.data.RollTableSource> {
         const current = deepClone(tableSource);
 
@@ -173,7 +173,7 @@ export class MigrationRunnerBase {
 
     async getUpdatedUser(
         userData: foundry.data.UserSource,
-        migrations: MigrationBase[],
+        migrations: MigrationBase[]
     ): Promise<foundry.data.UserSource> {
         const current = duplicate(userData);
         for (const migration of migrations) {

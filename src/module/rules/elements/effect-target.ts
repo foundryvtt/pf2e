@@ -1,4 +1,4 @@
-import { RuleElementPF2e } from '../rule-element';
+import { RuleElementPF2e } from "../rule-element";
 
 /**
  * @category RuleElement

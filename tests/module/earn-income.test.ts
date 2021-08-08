@@ -1,5 +1,5 @@
-import { earnIncome } from '../../src/scripts/macros/earn-income';
-import { DegreeOfSuccess } from '../../src/module/degree-of-success';
+import { earnIncome } from "../../src/scripts/macros/earn-income";
+import { DegreeOfSuccess } from "../../src/module/degree-of-success";
 
 const options = {
     useLoreAsExperiencedProfessional: false,
@@ -9,9 +9,9 @@ const dcOptions = {
     proficiencyWithoutLevel: false,
 };
 
-describe('earn income', () => {
-    test('should earn a crit failure', () => {
-        expect(earnIncome(1, 1, { dieValue: 1, modifier: 13 }, 'trained', options, dcOptions)).toEqual({
+describe("earn income", () => {
+    test("should earn a crit failure", () => {
+        expect(earnIncome(1, 1, { dieValue: 1, modifier: 13 }, "trained", options, dcOptions)).toEqual({
             rewards: { combined: {}, perDay: {} },
             degreeOfSuccess: DegreeOfSuccess.CRITICAL_FAILURE,
             daysSpentWorking: 1,
@@ -21,7 +21,7 @@ describe('earn income', () => {
         });
     });
 
-    test('crit failures for using lores as an experienced professional should become a failure', () => {
+    test("crit failures for using lores as an experienced professional should become a failure", () => {
         expect(
             earnIncome(
                 1,
@@ -30,10 +30,10 @@ describe('earn income', () => {
                     dieValue: 1,
                     modifier: 13,
                 },
-                'expert',
+                "expert",
                 { useLoreAsExperiencedProfessional: true },
-                dcOptions,
-            ),
+                dcOptions
+            )
         ).toEqual({
             rewards: {
                 combined: {
@@ -51,7 +51,7 @@ describe('earn income', () => {
         });
     });
 
-    test('using lores as an experienced professional should earn double failure income', () => {
+    test("using lores as an experienced professional should earn double failure income", () => {
         expect(
             earnIncome(
                 1,
@@ -60,10 +60,10 @@ describe('earn income', () => {
                     dieValue: 2,
                     modifier: 12,
                 },
-                'expert',
+                "expert",
                 { useLoreAsExperiencedProfessional: true },
-                dcOptions,
-            ),
+                dcOptions
+            )
         ).toEqual({
             rewards: {
                 combined: {
@@ -81,8 +81,8 @@ describe('earn income', () => {
         });
     });
 
-    test('should earn failure', () => {
-        expect(earnIncome(1, 1, { dieValue: 13, modifier: 1 }, 'legendary', options, dcOptions)).toEqual({
+    test("should earn failure", () => {
+        expect(earnIncome(1, 1, { dieValue: 13, modifier: 1 }, "legendary", options, dcOptions)).toEqual({
             rewards: {
                 combined: {
                     cp: 2,
@@ -99,8 +99,8 @@ describe('earn income', () => {
         });
     });
 
-    test('should earn a success', () => {
-        expect(earnIncome(1, 1, { dieValue: 13, modifier: 2 }, 'legendary', options, dcOptions)).toEqual({
+    test("should earn a success", () => {
+        expect(earnIncome(1, 1, { dieValue: 13, modifier: 2 }, "legendary", options, dcOptions)).toEqual({
             rewards: {
                 combined: {
                     sp: 2,
@@ -117,8 +117,8 @@ describe('earn income', () => {
         });
     });
 
-    test('should earn a success for 5 days', () => {
-        expect(earnIncome(1, 5, { dieValue: 13, modifier: 2 }, 'legendary', options, dcOptions)).toEqual({
+    test("should earn a success for 5 days", () => {
+        expect(earnIncome(1, 5, { dieValue: 13, modifier: 2 }, "legendary", options, dcOptions)).toEqual({
             rewards: {
                 combined: {
                     sp: 10,
@@ -135,8 +135,8 @@ describe('earn income', () => {
         });
     });
 
-    test('should earn a critical success', () => {
-        expect(earnIncome(20, 1, { dieValue: 20, modifier: 20 }, 'legendary', options, dcOptions)).toEqual({
+    test("should earn a critical success", () => {
+        expect(earnIncome(20, 1, { dieValue: 20, modifier: 20 }, "legendary", options, dcOptions)).toEqual({
             rewards: {
                 combined: {
                     gp: 300,
@@ -153,7 +153,7 @@ describe('earn income', () => {
         });
     });
 
-    test('should earn a critical success with variant proficiency without level', () => {
+    test("should earn a critical success with variant proficiency without level", () => {
         expect(
             earnIncome(
                 20,
@@ -162,10 +162,10 @@ describe('earn income', () => {
                     dieValue: 20,
                     modifier: 0,
                 },
-                'legendary',
+                "legendary",
                 options,
-                { proficiencyWithoutLevel: true },
-            ),
+                { proficiencyWithoutLevel: true }
+            )
         ).toEqual({
             rewards: {
                 combined: {

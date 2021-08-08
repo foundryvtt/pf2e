@@ -5,7 +5,7 @@ declare module foundry {
          * This concept is reused throughout Foundry VTT where a collection of uniquely identified elements is required.
          */
         interface Collection<V>
-            extends Omit<Map<string, V>, 'forEach' | 'delete' | 'set' | SymbolConstructor['iterator']> {
+            extends Omit<Map<string, V>, "forEach" | "delete" | "set" | SymbolConstructor["iterator"]> {
             set(key: string, value: V): this;
 
             delete(key: string): boolean;

@@ -1,9 +1,14 @@
-import { MeasuredTemplateDocumentPF2e } from '@module/scene/measured-template-document';
+import { MeasuredTemplateDocumentPF2e } from "@module/scene/measured-template-document";
+import { TemplateLayerPF2e } from "./template-layer";
 
-export class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
+class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
+    get type(): MeasuredTemplateType {
+        return this.data.t;
+    }
+
     /** Highlight grid according to Pathfinder 2e effect-area shapes */
     override highlightGrid(): void {
-        if (!['circle', 'cone'].includes(this.data.t)) {
+        if (!["circle", "cone"].includes(this.data.t)) {
             return super.highlightGrid();
         }
 
@@ -37,7 +42,7 @@ export class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocum
         const originOffset = { x: 0, y: 0 };
         // Offset measurement for cones
         // Offset is to ensure that cones only start measuring from cell borders, as in https://www.d20pfsrd.com/magic/#Aiming_a_Spell
-        if (this.data.t === 'cone') {
+        if (this.data.t === "cone") {
             // Degrees anticlockwise from pointing right. In 45-degree increments from 0 to 360
             const dir = (this.data.direction >= 0 ? 360 - this.data.direction : -this.data.direction) % 360;
             // If we're not on a border for X, offset by 0.5 or -0.5 to the border of the cell in the direction we're looking on X axis
@@ -79,7 +84,7 @@ export class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocum
                 const ray = new Ray(origin, { x: cellCenterX, y: cellCenterY });
 
                 const rayAngle = (360 + ((ray.angle / (Math.PI / 180)) % 360)) % 360;
-                if (this.data.t === 'cone' && ray.distance > 0 && !withinAngle(minAngle, maxAngle, rayAngle)) {
+                if (this.data.t === "cone" && ray.distance > 0 && !withinAngle(minAngle, maxAngle, rayAngle)) {
                     continue;
                 }
 
@@ -118,3 +123,9 @@ export class MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocum
         return MeasuredTemplatePF2e.measureDistance(p0, p1);
     }
 }
+
+interface MeasuredTemplatePF2e extends MeasuredTemplate<MeasuredTemplateDocumentPF2e> {
+    get layer(): TemplateLayerPF2e<this>;
+}
+
+export { MeasuredTemplatePF2e };

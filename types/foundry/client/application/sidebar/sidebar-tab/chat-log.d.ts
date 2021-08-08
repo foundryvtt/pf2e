@@ -40,7 +40,7 @@ declare class ChatLog extends SidebarTab {
     /**
      * A reference to the Messages collection that the chat log displays
      */
-    get collection(): Game['messages'];
+    get collection(): Game["messages"];
 
     /* -------------------------------------------- */
     /*  Application Rendering                       */
@@ -134,7 +134,7 @@ declare class ChatLog extends SidebarTab {
 }
 
 declare interface ChatLogDefaultOptions extends SidebarTabOptions {
-    id: 'chat';
+    id: "chat";
     template: string;
     title: string;
     scrollContainer: null;

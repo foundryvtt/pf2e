@@ -6,7 +6,7 @@
  */
 declare class Messages<TChatMessage extends ChatMessage = ChatMessage> extends WorldCollection<TChatMessage> {
     /** @override */
-    static documentName: 'ChatMessage';
+    static documentName: "ChatMessage";
 
     /** @override */
     render(force?: boolean): void;

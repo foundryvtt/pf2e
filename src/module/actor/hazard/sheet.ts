@@ -1,13 +1,13 @@
-import { ActorSheetPF2e } from '../sheet/base';
-import { ErrorPF2e } from '@module/utils';
-import { HazardPF2e } from '.';
-import { ConsumablePF2e } from '@item';
+import { ActorSheetPF2e } from "../sheet/base";
+import { ErrorPF2e } from "@module/utils";
+import { HazardPF2e } from ".";
+import { ConsumablePF2e } from "@item";
 
 export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static override get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes.concat('hazard'),
+            classes: options.classes.concat("hazard"),
             width: 650,
             height: 680,
         });
@@ -16,8 +16,8 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
     /** Get the HTML template path to use depending on whether this sheet is in edit mode */
     override get template(): string {
-        const path = 'systems/pf2e/templates/actors/';
-        if (this.actor.getFlag('pf2e', 'editHazard.value')) return `${path}hazard-sheet.html`;
+        const path = "systems/pf2e/templates/actors/";
+        if (this.actor.getFlag("pf2e", "editHazard.value")) return `${path}hazard-sheet.html`;
         return `${path}hazard-sheet-no-edit.html`;
     }
 
@@ -25,7 +25,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const sheetData: any = super.getData();
 
         // Update save labels
-        for (const key of ['fortitude', 'reflex', 'will'] as const) {
+        for (const key of ["fortitude", "reflex", "will"] as const) {
             sheetData.data.saves[key].label = CONFIG.PF2E.saves[key];
         }
 
@@ -62,16 +62,16 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const actorData = sheetData.actor;
         // Actions
         const attacks = {
-            melee: { label: 'NPC Melee Attack', items: [], type: 'melee' },
-            ranged: { label: 'NPC Ranged Attack', items: [], type: 'melee' },
+            melee: { label: "NPC Melee Attack", items: [], type: "melee" },
+            ranged: { label: "NPC Ranged Attack", items: [], type: "melee" },
         };
 
         // Actions
         const actions = {
-            action: { label: 'Actions', actions: [] },
-            reaction: { label: 'Reactions', actions: [] },
-            free: { label: 'Free Actions', actions: [] },
-            passive: { label: 'Passive Actions', actions: [] },
+            action: { label: "Actions", actions: [] },
+            reaction: { label: "Reactions", actions: [] },
+            free: { label: "Free Actions", actions: [] },
+            passive: { label: "Passive Actions", actions: [] },
         };
 
         // Iterate through items, allocating to containers
@@ -79,9 +79,9 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             i.img = i.img || CONST.DEFAULT_TOKEN;
 
             // NPC Generic Attacks
-            if (i.type === 'melee') {
-                const weaponType = (i.data.weaponType || {}).value || 'melee';
-                const isAgile = (i.data.traits.value || []).includes('agile');
+            if (i.type === "melee") {
+                const weaponType = (i.data.weaponType || {}).value || "melee";
+                const isAgile = (i.data.traits.value || []).includes("agile");
                 i.data.bonus.total = parseInt(i.data.bonus.value, 10) || 0;
                 i.data.isAgile = isAgile;
 
@@ -93,7 +93,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                             label:
                                 CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] ||
                                 i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1),
-                            description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || '',
+                            description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || "",
                         };
                         traits.push(traitsObject);
                     }
@@ -104,11 +104,11 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             }
 
             // Actions
-            else if (i.type === 'action') {
-                const actionType = i.data.actionType.value || 'action';
+            else if (i.type === "action") {
+                const actionType = i.data.actionType.value || "action";
                 i.img = HazardPF2e.getActionGraphics(
                     actionType,
-                    parseInt((i.data.actions || {}).value, 10) || 1,
+                    parseInt((i.data.actions || {}).value, 10) || 1
                 ).imageUrl;
 
                 // get formated traits for read-only npc sheet
@@ -119,7 +119,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                             label:
                                 CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] ||
                                 i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1),
-                            description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || '',
+                            description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || "",
                         };
                         traits.push(traitsObject);
                     }
@@ -129,7 +129,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                         label:
                             CONFIG.PF2E.weaponTraits[i.data.actionType.value] ||
                             i.data.actionType.value.charAt(0).toUpperCase() + i.data.actionType.value.slice(1),
-                        description: CONFIG.PF2E.traitsDescriptions[i.data.actionType.value] || '',
+                        description: CONFIG.PF2E.traitsDescriptions[i.data.actionType.value] || "",
                     });
                 }
                 i.traits = traits.filter((p) => !!p);
@@ -151,16 +151,16 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         super.activateListeners(html);
 
         // Melee Attack summaries
-        html.find('.item .melee-name h4').on('click', (event) => {
+        html.find(".item .melee-name h4").on("click", (event) => {
             this.onItemSummary(event);
         });
 
         // NPC Weapon Rolling
-        html.find('button').on('click', (event) => {
+        html.find("button").on("click", (event) => {
             event.preventDefault();
             event.stopPropagation();
 
-            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
+            const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
             const item = this.actor.items.get(itemId);
             if (!item) {
                 throw ErrorPF2e(`Item ${itemId} not found`);
@@ -168,54 +168,54 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (event.target.dataset.action) {
-                case 'weaponAttack':
+                case "weaponAttack":
                     item.rollWeaponAttack(event);
                     break;
-                case 'weaponAttack2':
+                case "weaponAttack2":
                     item.rollWeaponAttack(event, 2);
                     break;
-                case 'weaponAttack3':
+                case "weaponAttack3":
                     item.rollWeaponAttack(event, 3);
                     break;
-                case 'weaponDamage':
+                case "weaponDamage":
                     item.rollWeaponDamage(event);
                     break;
-                case 'weaponDamageCritical':
+                case "weaponDamageCritical":
                     item.rollWeaponDamage(event, true);
                     break;
-                case 'npcAttack':
+                case "npcAttack":
                     item.rollNPCAttack(event);
                     break;
-                case 'npcAttack2':
+                case "npcAttack2":
                     item.rollNPCAttack(event, 2);
                     break;
-                case 'npcAttack3':
+                case "npcAttack3":
                     item.rollNPCAttack(event, 3);
                     break;
-                case 'npcDamage':
+                case "npcDamage":
                     item.rollNPCDamage(event);
                     break;
-                case 'npcDamageCritical':
+                case "npcDamageCritical":
                     item.rollNPCDamage(event, true);
                     break;
-                case 'spellAttack':
+                case "spellAttack":
                     item.rollSpellAttack(event);
                     break;
-                case 'spellDamage':
+                case "spellDamage":
                     item.rollSpellDamage(event);
                     break;
-                case 'consume':
+                case "consume":
                     if (item instanceof ConsumablePF2e) item.consume();
                     break;
                 default:
-                    throw new Error('Unknown action type');
+                    throw new Error("Unknown action type");
             }
         });
 
         if (!this.options.editable) return;
 
-        html.find<HTMLInputElement>('.isHazardEditable').on('change', (event) => {
-            this.actor.setFlag('pf2e', 'editHazard', { value: event.target.checked });
+        html.find<HTMLInputElement>(".isHazardEditable").on("change", (event) => {
+            this.actor.setFlag("pf2e", "editHazard", { value: event.target.checked });
         });
     }
 }

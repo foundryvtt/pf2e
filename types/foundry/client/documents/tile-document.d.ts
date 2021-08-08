@@ -1,4 +1,4 @@
-import { TileDocumentConstructor } from './constructors';
+import { TileDocumentConstructor } from "./constructors";
 
 declare global {
     class TileDocument extends TileDocumentConstructor {}

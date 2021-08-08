@@ -16,7 +16,7 @@ declare class TextEditor {
      * @param content   Initial HTML or text content to populate the editor with
      * @return          The editor instance.
      */
-    static create(options: object, content: string): Promise<import('tinymce').Editor[]>;
+    static create(options: object, content: string): Promise<import("tinymce").Editor[]>;
 
     /**
      * Enrich HTML content by replacing or augmenting components of it
@@ -119,5 +119,5 @@ declare class TextEditor {
      * @param event The originating drop event which triggered the data transfer
      * @param editor    The TinyMCE editor instance being dropped on
      */
-    protected static _onDropEditorData(event: Event, editor: import('tinymce').Editor): Promise<boolean>;
+    protected static _onDropEditorData(event: Event, editor: import("tinymce").Editor): Promise<boolean>;
 }

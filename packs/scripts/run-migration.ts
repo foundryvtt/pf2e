@@ -1,33 +1,33 @@
-import * as fs from 'fs-extra';
-import * as path from 'path';
-import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
-import { ActorSourcePF2e } from '@actor/data';
-import { ItemSourcePF2e } from '@item/data';
-import { MigrationBase } from '@module/migration/base';
-import { MigrationRunnerBase } from '@module/migration/runner/base';
-import { Migration641SovereignSteelValue } from '@module/migration/migrations/641-sovereign-steel-value';
-import { Migration642TrackSchemaVersion } from '@module/migration/migrations/642-track-schema-version';
-import { Migration643HazardLevel } from '@module/migration/migrations/643-hazard-level';
-import { Migration644SpellcastingCategory } from '@module/migration/migrations/644-spellcasting-category';
-import { Migration646UpdateInlineLinks } from '@module/migration/migrations/646-update-inline-links';
-import { Migration647FixPCSenses } from '@module/migration/migrations/647-fix-pc-senses';
-import { Migration648RemoveInvestedProperty } from '@module/migration/migrations/648-remove-invested-property';
-import { Migration649FocusToActor } from '@module/migration/migrations/649-focus-to-actor';
+import * as fs from "fs-extra";
+import * as path from "path";
+import { populateFoundryUtilFunctions } from "../../tests/fixtures/foundryshim";
+import { ActorSourcePF2e } from "@actor/data";
+import { ItemSourcePF2e } from "@item/data";
+import { MigrationBase } from "@module/migration/base";
+import { MigrationRunnerBase } from "@module/migration/runner/base";
+import { Migration643HazardLevel } from "@module/migration/migrations/643-hazard-level";
+import { Migration644SpellcastingCategory } from "@module/migration/migrations/644-spellcasting-category";
+import { Migration646UpdateInlineLinks } from "@module/migration/migrations/646-update-inline-links";
+import { Migration647FixPCSenses } from "@module/migration/migrations/647-fix-pc-senses";
+import { Migration648RemoveInvestedProperty } from "@module/migration/migrations/648-remove-invested-property";
+import { Migration649FocusToActor } from "@module/migration/migrations/649-focus-to-actor";
+import { Migration650StringifyWeaponProperties } from "@module/migration/migrations/650-stringify-weapon-properties";
+import { Migration651EphemeralFocusPool } from "@module/migration/migrations/651-ephemeral-focus-pool";
 
 const migrations: MigrationBase[] = [
-    new Migration641SovereignSteelValue(),
-    new Migration642TrackSchemaVersion(),
     new Migration643HazardLevel(),
     new Migration644SpellcastingCategory(),
     new Migration646UpdateInlineLinks(),
     new Migration647FixPCSenses(),
     new Migration648RemoveInvestedProperty(),
     new Migration649FocusToActor(),
+    new Migration650StringifyWeaponProperties(),
+    new Migration651EphemeralFocusPool(),
 ];
 
 global.deepClone = function (original: any): any {
     // Simple types
-    if (typeof original !== 'object' || original === null) return original;
+    if (typeof original !== "object" || original === null) return original;
 
     // Arrays
     if (Array.isArray(original)) return original.map(deepClone);
@@ -36,7 +36,7 @@ global.deepClone = function (original: any): any {
     if (original instanceof Date) return new Date(original);
 
     // Unsupported advanced objects
-    if ('constructor' in original && original['constructor'] !== Object) return original;
+    if ("constructor" in original && original["constructor"] !== Object) return original;
 
     // Other objects
     const clone: Record<string, unknown> = {};
@@ -46,45 +46,45 @@ global.deepClone = function (original: any): any {
     return clone;
 };
 
-const packsDataPath = path.resolve(process.cwd(), 'packs/data');
+const packsDataPath = path.resolve(process.cwd(), "packs/data");
 
-type CompendiumSource = CompendiumDocument['data']['_source'];
+type CompendiumSource = CompendiumDocument["data"]["_source"];
 
-const actorTypes = ['character', 'npc', 'hazard', 'loot', 'familiar', 'vehicle'];
+const actorTypes = ["character", "npc", "hazard", "loot", "familiar", "vehicle"];
 const itemTypes = [
-    'backpack',
-    'treasure',
-    'weapon',
-    'armor',
-    'kit',
-    'melee',
-    'consumable',
-    'equipment',
-    'ancestry',
-    'background',
-    'class',
-    'feat',
-    'lore',
-    'martial',
-    'action',
-    'spell',
-    'spellcastingEntry',
-    'status',
-    'condition',
-    'effect',
+    "backpack",
+    "treasure",
+    "weapon",
+    "armor",
+    "kit",
+    "melee",
+    "consumable",
+    "equipment",
+    "ancestry",
+    "background",
+    "class",
+    "feat",
+    "lore",
+    "martial",
+    "action",
+    "spell",
+    "spellcastingEntry",
+    "status",
+    "condition",
+    "effect",
 ];
 
 const isActorData = (docSource: CompendiumSource): docSource is ActorSourcePF2e => {
-    return 'type' in docSource && actorTypes.includes(docSource.type);
+    return "type" in docSource && actorTypes.includes(docSource.type);
 };
 const isItemData = (docSource: CompendiumSource): docSource is ItemSourcePF2e => {
-    return 'type' in docSource && itemTypes.includes(docSource.type);
+    return "type" in docSource && itemTypes.includes(docSource.type);
 };
 const isMacroData = (docSource: CompendiumSource): docSource is foundry.data.MacroSource => {
-    return 'type' in docSource && ['chat', 'script'].includes(docSource.type);
+    return "type" in docSource && ["chat", "script"].includes(docSource.type);
 };
 const isTableData = (docSource: CompendiumSource): docSource is foundry.data.RollTableSource => {
-    return 'results' in docSource && Array.isArray(docSource.results);
+    return "results" in docSource && Array.isArray(docSource.results);
 };
 
 function JSONstringifyOrder(obj: object): string {
@@ -134,7 +134,7 @@ async function migrate() {
     const migrationRunner = new MigrationRunnerBase(migrations);
 
     for (const filePath of allEntries) {
-        const content = await fs.readFile(filePath, { encoding: 'utf-8' });
+        const content = await fs.readFile(filePath, { encoding: "utf-8" });
 
         let source: ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource;
         try {
@@ -145,31 +145,35 @@ async function migrate() {
         }
 
         // skip journal entries, rollable tables, and macros
-        let updatedEntity: ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource;
-        try {
-            if (isActorData(source)) {
-                source.data.schema.lastMigration = null;
-                updatedEntity = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
-                updatedEntity.data.schema.lastMigration = null;
-                for (const itemSource of updatedEntity.items) {
-                    itemSource.data.schema.lastMigration = null;
+        const updated = await (async (): Promise<
+            ActorSourcePF2e | ItemSourcePF2e | foundry.data.MacroSource | foundry.data.RollTableSource
+        > => {
+            try {
+                if (isActorData(source)) {
+                    const updatedActor = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
+                    delete (updatedActor.data as { schema?: unknown }).schema;
+                    for (const updatedItem of updatedActor.items) {
+                        delete (updatedItem.data as { schema?: unknown }).schema;
+                    }
+                    return updatedActor;
+                } else if (isItemData(source)) {
+                    const updatedItem = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
+                    delete (updatedItem.data as { schema?: unknown }).schema;
+                    return updatedItem;
+                } else if (isMacroData(source)) {
+                    return await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
+                } else if (isTableData(source)) {
+                    return await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
+                } else {
+                    return source;
                 }
-            } else if (isItemData(source)) {
-                updatedEntity = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
-                updatedEntity.data.schema.lastMigration = null;
-            } else if (isMacroData(source)) {
-                updatedEntity = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
-            } else if (isTableData(source)) {
-                updatedEntity = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
-            } else {
-                updatedEntity = source;
+            } catch (error) {
+                throw Error(`Error while trying to edit ${filePath}: ${error.message}`);
             }
-        } catch (error) {
-            throw Error(`Error while trying to edit ${filePath}: ${error.message}`);
-        }
+        })();
 
         const origData = JSONstringifyOrder(source);
-        const outData = JSONstringifyOrder(updatedEntity);
+        const outData = JSONstringifyOrder(updated);
 
         if (outData !== origData) {
             console.log(`${filePath} is different. writing`);

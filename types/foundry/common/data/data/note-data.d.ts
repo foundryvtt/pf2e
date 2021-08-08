@@ -39,7 +39,7 @@ declare module foundry {
         }
 
         class NoteData<
-            TDocument extends documents.BaseNote = documents.BaseNote,
+            TDocument extends documents.BaseNote = documents.BaseNote
         > extends abstract.DocumentData<TDocument> {
             static override defineSchema(): abstract.DocumentSchema;
         }

@@ -1,10 +1,10 @@
-import { VisionLevels } from '@actor/creature/data';
-import { ActorPF2e, LootPF2e, NPCPF2e } from '@actor/index';
-import { TokenPF2e } from '../canvas/token';
-import { ScenePF2e } from '.';
-import { UserPF2e } from '../user';
-import { TokenConfigPF2e } from './token-config';
-import { LightLevels } from './data';
+import { VisionLevels } from "@actor/creature/data";
+import { ActorPF2e, CreaturePF2e, LootPF2e, NPCPF2e } from "@actor";
+import { TokenPF2e } from "../canvas/token";
+import { ScenePF2e } from ".";
+import { UserPF2e } from "../user/document";
+import { TokenConfigPF2e } from "./token-config";
+import { LightLevels } from "./data";
 
 export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
     /** Has this token gone through at least one cycle of data preparation? */
@@ -15,9 +15,24 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         return this.parent;
     }
 
-    override _initialize() {
+    override _initialize(): void {
         super._initialize();
         this.initialized = true;
+    }
+
+    /** Is this token emitting light with a negative value */
+    get emitsDarkness(): boolean {
+        return this.data.brightLight < 0;
+    }
+
+    /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
+    get hasLowLightVision(): boolean {
+        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
+    }
+
+    /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
+    get hasDarkvision(): boolean {
+        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasDarkvision;
     }
 
     /** Refresh this token's properties if it's controlled and the request came from its actor */
@@ -50,13 +65,14 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         if (!canvas.sight.rulesBasedVision) return;
 
         const lightLevel = canvas.scene.lightLevel;
+        const hasDarkvision = this.hasDarkvision && this.actor.visionLevel !== VisionLevels.BLINDED;
         const perceivedBrightness = {
             [VisionLevels.BLINDED]: 0,
             [VisionLevels.NORMAL]: lightLevel,
             [VisionLevels.LOWLIGHT]: lightLevel > LightLevels.DARKNESS ? 1 : lightLevel,
             [VisionLevels.DARKVISION]: 1,
         }[this.actor.visionLevel];
-        this.data.brightSight = perceivedBrightness > lightLevel ? 1000 : 0;
+        this.data.brightSight = perceivedBrightness > lightLevel || hasDarkvision ? 1000 : 0;
     }
 
     /**
@@ -66,13 +82,13 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
      */
     static override async updateDocuments(
         updates: DocumentUpdateData<TokenDocumentPF2e>[] = [],
-        context: DocumentModificationContext = {},
+        context: DocumentModificationContext = {}
     ): Promise<TokenDocumentPF2e[]> {
         const scene = context.parent;
         if (scene instanceof ScenePF2e) {
             updates = updates.filter((data) => {
-                if (game.user.isGM || typeof data['_id'] !== 'string') return true;
-                const tokenDoc = scene.tokens.get(data['_id']);
+                if (game.user.isGM || typeof data["_id"] !== "string") return true;
+                const tokenDoc = scene.tokens.get(data["_id"]);
                 return !!tokenDoc?.actor?.isOwner;
             });
         }
@@ -86,13 +102,13 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
 
     /** Call `onCreateToken` hook of any rule element on this actor's items */
     protected override async _preCreate(
-        data: PreDocumentId<this['data']['_source']>,
+        data: PreDocumentId<this["data"]["_source"]>,
         options: DocumentModificationContext,
-        user: UserPF2e,
+        user: UserPF2e
     ): Promise<void> {
         await super._preCreate(data, options, user);
 
-        const actor = game.actors.get(data.actorId ?? '');
+        const actor = game.actors.get(data.actorId ?? "");
         if (!actor) return;
         for (const rule of actor.rules.filter((rule) => !rule.ignored)) {
             rule.onCreateToken(actor.data, rule.item.data, data);
@@ -101,9 +117,9 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
 
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
-        data: this['data']['_source'],
+        data: this["data"]["_source"],
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ): void {
         super._onCreate(data, options, userId);
         if (this.actor instanceof LootPF2e) this.actor.toggleTokenHiding();
@@ -111,15 +127,16 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
 
     /** Synchronize actor attitude with token disposition, refresh the EffectPanel, update perceived light */
     protected override _onUpdate(
-        changed: DeepPartial<this['data']['_source']>,
+        changed: DeepPartial<this["data"]["_source"]>,
         options: DocumentModificationContext,
-        userId: string,
+        userId: string
     ): void {
         super._onUpdate(changed, options, userId);
 
-        if (this.actor instanceof NPCPF2e && typeof changed.disposition === 'number' && game.userId === userId) {
+        if (this.actor instanceof NPCPF2e && typeof changed.disposition === "number" && game.userId === userId) {
             this.actor.updateAttitudeFromDisposition(changed.disposition);
         }
+        canvas.darkvision.refresh({ drawMask: true });
     }
 }
 

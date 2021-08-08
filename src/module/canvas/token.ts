@@ -1,5 +1,4 @@
-import { CreaturePF2e } from '@actor';
-import { TokenDocumentPF2e } from '@module/scene/token-document';
+import { TokenDocumentPF2e } from "@module/scene/token-document";
 
 export class TokenPF2e extends Token<TokenDocumentPF2e> {
     /** Used to track conditions and other token effects by game.pf2e.StatusEffects */
@@ -17,17 +16,17 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
 
     /** Is this token emitting light with a negative value */
     get emitsDarkness(): boolean {
-        return this.data.brightLight < 0;
+        return this.document.emitsDarkness;
     }
 
     /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
     get hasLowLightVision(): boolean {
-        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasLowLightVision;
+        return this.document.hasLowLightVision;
     }
 
     /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
     get hasDarkvision(): boolean {
-        return canvas.sight.rulesBasedVision && this.actor instanceof CreaturePF2e && this.actor.hasDarkvision;
+        return this.document.hasDarkvision;
     }
 
     /** Max the brightness emitted by this token's `PointSource` if any controlled token has low-light vision */
@@ -52,7 +51,7 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         const imageChanged = this.icon?.src !== this.data.img;
 
         if (sizeChanged || imageChanged) {
-            console.debug('PF2e System | Redrawing due to token size or image change');
+            console.debug("PF2e System | Redrawing due to token size or image change");
             const visible = this.visible;
             await this.draw();
             this.visible = visible;
@@ -60,11 +59,11 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     }
 
     emitHoverIn() {
-        this.emit('mouseover', { data: { object: this } });
+        this.emit("mouseover", { data: { object: this } });
     }
 
     emitHoverOut() {
-        this.emit('mouseout', { data: { object: this } });
+        this.emit("mouseout", { data: { object: this } });
     }
 
     /** Set the icon src when drawing for later tracking */
@@ -86,6 +85,12 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
             });
             return this;
         }
+    }
+
+    protected override _isVisionSource(): boolean {
+        const partyVisionEnabled =
+            !!this.actor?.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame.partyVision");
+        return partyVisionEnabled || super._isVisionSource();
     }
 
     /** Prevent premature redraw of resource bar */
@@ -115,6 +120,11 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
         return clone;
     }
 
+    override async animateMovement(ray: Ray) {
+        await super.animateMovement(ray);
+        canvas.darkvision.refresh({ drawMask: true });
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -123,7 +133,6 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onControl(options?: { releaseOthers?: boolean; pan?: boolean }): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
         if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
-
         super._onControl(options);
     }
 
@@ -131,7 +140,6 @@ export class TokenPF2e extends Token<TokenDocumentPF2e> {
     protected override _onRelease(options?: Record<string, unknown>) {
         game.pf2e.effectPanel.refresh();
         if (this.hasLowLightVision) canvas.lighting.setPerceivedLightLevel();
-
         super._onRelease(options);
     }
 }

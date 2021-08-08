@@ -1,25 +1,21 @@
 module.exports = {
-    trailingComma: 'all',
-    singleQuote: true,
     printWidth: 120,
     tabWidth: 4,
-    useTabs: false,
-    requirePragma: false,
     overrides: [
         {
-            files: ['*.scss', '*.css'],
+            files: ["*.scss", "*.css"],
             options: {
                 requirePragma: false,
-                parser: 'scss',
+                parser: "scss",
             },
         },
         {
-            files: '*.html',
+            files: "*.html",
             options: {
                 requirePragma: false,
-                parser: 'html',
-                htmlWhitespaceSensitivity: 'ignore',
-            }
-        }
+                parser: "html",
+                htmlWhitespaceSensitivity: "ignore",
+            },
+        },
     ],
 };

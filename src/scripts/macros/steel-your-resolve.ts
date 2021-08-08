@@ -1,6 +1,6 @@
-import { CharacterPF2e } from '@actor/character';
-import { LocalizePF2e } from '../../module/system/localize';
-import { ActionDefaultOptions } from '../..//module/system/actions/actions';
+import { CharacterPF2e } from "@actor/character";
+import { LocalizePF2e } from "../../module/system/localize";
+import { ActionDefaultOptions } from "../..//module/system/actions/actions";
 
 export function steelYourResolve(options: ActionDefaultOptions): void {
     const translations = LocalizePF2e.translations.PF2E.Actions.SteelYourResolve;
@@ -23,7 +23,7 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
     const title = translations.Title;
     const content = translations.Content;
 
-    if (!game.settings.get('pf2e', 'staminaVariant')) {
+    if (!game.settings.get("pf2e", "staminaVariant")) {
         ui.notifications.error(translations.StaminaNotEnabled);
         return;
     }
@@ -43,8 +43,8 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
                 toChat(actor.name, recoverStamina);
                 const newSP = sp.value + Math.floor(sp.max / 2);
                 actor.update({
-                    'data.attributes.sp.value': Math.min(newSP, sp.max),
-                    'data.attributes.resolve.value': resolve.value - 1,
+                    "data.attributes.sp.value": Math.min(newSP, sp.max),
+                    "data.attributes.resolve.value": resolve.value - 1,
                 });
             } else {
                 toChat(actor.name, noStamina);

@@ -1,14 +1,14 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as process from 'process';
-import Datastore from 'nedb-promises';
-import yargs from 'yargs';
-import { JSDOM } from 'jsdom';
-import type { ActorPF2e } from '@actor/base';
-import type { ItemPF2e } from '@item/base';
-import { sluggify } from '@module/utils';
-import systemJSON from 'system.json';
-import templateJSON from 'static/template.json';
+import * as fs from "fs";
+import * as path from "path";
+import * as process from "process";
+import Datastore from "nedb-promises";
+import yargs from "yargs";
+import { JSDOM } from "jsdom";
+import type { ActorPF2e } from "@actor/base";
+import type { ItemPF2e } from "@item/base";
+import { sluggify } from "@module/utils";
+import systemJSON from "system.json";
+import templateJSON from "static/template.json";
 
 declare global {
     interface Global {
@@ -20,9 +20,10 @@ declare global {
 const { window } = new JSDOM();
 global.document = window.document;
 global.window = global.document.defaultView!;
-import $ from 'jquery';
-import { ActionSource, ItemSourcePF2e, MeleeSource, SpellSource } from '@item/data';
-import { NPCSystemData } from '@actor/npc/data';
+import $ from "jquery";
+import { ActionSource, ItemSourcePF2e, MeleeSource, SpellSource } from "@item/data";
+import { NPCSystemData } from "@actor/npc/data";
+import { isActorSource, isItemSource } from "./packman/compendium-pack";
 
 // show error message without needless traceback
 const PackError = (message: string) => {
@@ -39,38 +40,38 @@ interface ExtractArgs {
 
 const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
     .command(
-        '$0 <packDb> [foundryConfig] [disablePresort] [logWarnings]',
-        'Extract one or all compendium packs to packs/data',
+        "$0 <packDb> [foundryConfig] [disablePresort] [logWarnings]",
+        "Extract one or all compendium packs to packs/data",
         () => {
             yargs
-                .positional('packDb', {
+                .positional("packDb", {
                     describe: 'A compendium pack filename (*.db) or otherwise "all"',
                 })
-                .positional('foundryConfig', {
+                .positional("foundryConfig", {
                     describe: "The path to your local Foundry server's config.json file",
-                    default: '.\\foundryconfig.json',
+                    default: ".\\foundryconfig.json",
                 })
-                .option('disablePresort', {
-                    describe: 'Turns off data item presorting.',
-                    type: 'boolean',
+                .option("disablePresort", {
+                    describe: "Turns off data item presorting.",
+                    type: "boolean",
                     default: false,
                 })
-                .option('logWarnings', {
-                    describe: 'Turns on logging out warnings about extracted data.',
-                    type: 'boolean',
+                .option("logWarnings", {
+                    describe: "Turns on logging out warnings about extracted data.",
+                    type: "boolean",
                     default: true,
                 })
                 .example([
-                    ['npm run $0 spells.db /path/to/foundryvtt/Config/options.json'],
-                    ['npm run $0 spells.db C:\\Users\\me\\this\\way\\to\\options.json'],
-                    ['npm run $0 spells.db # copy of config at ./foundryconfig.json or otherwise using dist/'],
-                    ['npm run $0 all       # same'],
+                    ["npm run $0 spells.db /path/to/foundryvtt/Config/options.json"],
+                    ["npm run $0 spells.db C:\\Users\\me\\this\\way\\to\\options.json"],
+                    ["npm run $0 spells.db # copy of config at ./foundryconfig.json or otherwise using dist/"],
+                    ["npm run $0 all       # same"],
                 ]);
-        },
+        }
     )
     .check((argv) => {
         if (
-            typeof argv.foundryConfig === 'string' &&
+            typeof argv.foundryConfig === "string" &&
             !(fs.existsSync(argv.foundryConfig) && fs.statSync(argv.foundryConfig).isFile())
         ) {
             argv.foundryConfig = undefined;
@@ -83,15 +84,15 @@ const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
 
 const packsPath = (() => {
     try {
-        const content = fs.readFileSync(args.foundryConfig ?? '', { encoding: 'utf-8' });
-        return path.join(JSON.parse(content).dataPath, 'Data/systems/pf2e/packs');
+        const content = fs.readFileSync(args.foundryConfig ?? "", { encoding: "utf-8" });
+        return path.join(JSON.parse(content).dataPath, "Data/systems/pf2e/packs");
     } catch (_error) {
-        return path.join(process.cwd(), 'dist/packs');
+        return path.join(process.cwd(), "dist/packs");
     }
 })();
 
-const tempDataPath = path.resolve(process.cwd(), 'packs/temp-data');
-const dataPath = path.resolve(process.cwd(), 'packs/data');
+const tempDataPath = path.resolve(process.cwd(), "packs/temp-data");
+const dataPath = path.resolve(process.cwd(), "packs/data");
 const packsMetadata = systemJSON.packs as unknown as CompendiumMetadata[];
 
 const npcSystemKeys = new Set(Object.keys({ ...templateJSON.Actor.templates.common, ...templateJSON.Actor.npc }));
@@ -105,15 +106,15 @@ const linkPatterns = {
 };
 
 type CompendiumDocumentPF2e = ActorPF2e | ItemPF2e | JournalEntry | Macro | RollTable;
-type PackEntry = CompendiumDocumentPF2e['data']['_source'];
+type PackEntry = CompendiumDocumentPF2e["data"]["_source"];
 
 function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
     if (fs.existsSync(jsonPath)) {
-        const oldEntity = JSON.parse(fs.readFileSync(jsonPath, { encoding: 'utf-8' })) as PackEntry;
+        const oldEntity = JSON.parse(fs.readFileSync(jsonPath, { encoding: "utf-8" })) as PackEntry;
         if (oldEntity._id !== newEntity._id) {
             throw PackError(
                 `The ID of entity "${newEntity.name}" (${newEntity._id}) does not match the current ID ` +
-                    `(${oldEntity._id}). Entities that are already in the system must keep their current ID.`,
+                    `(${oldEntity._id}). Entities that are already in the system must keep their current ID.`
             );
         }
     }
@@ -123,11 +124,13 @@ function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
 function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
     type DocumentKey = keyof PackEntry;
     for (const key in entityData) {
-        if (key === '_id') {
+        if (key === "_id") {
             topLevel = entityData;
             delete entityData.folder;
-            if ('type' in entityData) {
-                if ('token' in entityData) {
+            if ("type" in entityData) {
+                if (isActorSource(entityData)) {
+                    delete (entityData.data as { schema?: unknown }).schema;
+
                     (entityData.token as Partial<foundry.data.PrototypeTokenSource>) = {
                         disposition: entityData.token.disposition,
                         height: entityData.token.height,
@@ -136,25 +139,22 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
                         width: entityData.token.width,
                     };
                 }
-                if ('data' in entityData && !('items' in entityData)) {
+                if (isItemSource(entityData)) {
+                    delete (entityData.data as { schema?: unknown }).schema;
                     entityData.data.description = { value: entityData.data.description.value };
                 }
-                if (entityData.type !== 'script') {
+                if (entityData.type !== "script") {
                     delete (entityData as Partial<PackEntry>).permission;
-                    if ('effects' in entityData) {
-                        // null out lastMigration to reduce commit spam
-                        entityData.data.schema.lastMigration = null;
-                    }
                 }
-                if (entityData.type === 'npc') {
+                if (entityData.type === "npc") {
                     for (const key of Object.keys(entityData.data)) {
                         if (!npcSystemKeys.has(key)) {
-                            delete (entityData.data as NPCSystemData & { extraneous?: unknown })[key as 'extraneous'];
+                            delete (entityData.data as NPCSystemData & { extraneous?: unknown })[key as "extraneous"];
                         }
                     }
                 }
             }
-        } else if (['_modifiers', '_sheetTab'].includes(key)) {
+        } else if (["_modifiers", "_sheetTab"].includes(key)) {
             delete entityData[key as DocumentKey];
         } else if (entityData[key as DocumentKey] instanceof Object) {
             pruneTree(entityData[key as DocumentKey] as PackEntry, topLevel);
@@ -163,32 +163,35 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
 }
 
 function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = { isEmbedded: false }): T {
-    // Remove individual permissions
-    if (isEmbedded) {
-        delete entityData.flags.pf2e_updatednpcsheet;
-    } else {
+    // Clear non-core/pf2e flags
+    for (const flagScope in entityData.flags) {
+        if (!["core", "pf2e"].includes(flagScope) || !isEmbedded) {
+            delete entityData.flags[flagScope];
+        }
+    }
+
+    if (!isEmbedded) {
         entityData.permission = { default: entityData.permission?.default ?? 0 };
         delete (entityData as Partial<typeof entityData>).sort;
 
-        if ('data' in entityData && 'slug' in entityData.data) {
+        if (isItemSource(entityData)) {
             const slug = entityData.data.slug;
-            if (typeof slug === 'string' && slug !== sluggify(entityData.name)) {
+            if (typeof slug === "string" && slug !== sluggify(entityData.name)) {
                 console.warn(
                     `Warning: Name change detected on ${entityData.name}. ` +
-                        'Please remember to create a slug migration before next release.',
+                        "Please remember to create a slug migration before next release."
                 );
             }
 
-            delete entityData.data.slug;
+            delete (entityData.data as { slug?: unknown }).slug;
+            entityData.flags = entityData.type === "condition" ? { pf2e: { condition: true } } : {};
         }
 
-        entityData.flags = 'type' in entityData && entityData.type === 'condition' ? { pf2e: { condition: true } } : {};
-        if (
-            'effects' in entityData &&
-            !entityData.effects.some((effect: foundry.data.ActiveEffectSource) => effect.origin?.startsWith('Actor.'))
-        ) {
-            for (const effect of entityData.effects) {
-                effect.origin = '';
+        if (isActorSource(entityData)) {
+            if (!entityData.effects.some((effect) => effect.origin?.startsWith("Actor."))) {
+                for (const effect of entityData.effects) {
+                    effect.origin = "";
+                }
             }
         }
     }
@@ -198,33 +201,33 @@ function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = {
     // Clean up description HTML
     const cleanDescription = (description: string) => {
         if (!description) {
-            return '';
+            return "";
         }
 
         const $description = ((): JQuery => {
             try {
                 return $(
-                    description.startsWith('<p>') && /<\/(?:p|ol|ul|table)>$/.test(description)
+                    description.startsWith("<p>") && /<\/(?:p|ol|ul|table)>$/.test(description)
                         ? description
-                        : `<p>${description}</p>`,
+                        : `<p>${description}</p>`
                 );
             } catch (error) {
                 console.error(error);
                 throw PackError(
-                    `Failed to parse description of ${entityData.name} (${entityData._id}):\n${description}`,
+                    `Failed to parse description of ${entityData.name} (${entityData._id}):\n${description}`
                 );
             }
         })();
 
         // Strip out span tags from AoN copypasta
-        const selectors = ['span#ctl00_MainContent_DetailedOutput', 'span.fontstyle0'];
+        const selectors = ["span#ctl00_MainContent_DetailedOutput", "span.fontstyle0"];
         for (const selector of selectors) {
             $description.find(selector).each((_i, span) => {
                 $(span)
                     .contents()
                     .unwrap(selector)
                     .each((_j, node) => {
-                        if (node.nodeName === '#text') {
+                        if (node.nodeName === "#text") {
                             node.textContent = node.textContent!.trim();
                         }
                     });
@@ -232,34 +235,34 @@ function sanitizeDocument<T extends PackEntry>(entityData: T, { isEmbedded } = {
         }
 
         // Sometimes Foundry's conversion of entity links to anchor tags makes it into an export: convert them back
-        const $anchors = $description.find('a.entity-link');
+        const $anchors = $description.find("a.entity-link");
         $anchors.each((_i, anchor) => {
             const $anchor = $(anchor);
             const label = $anchor.text().trim();
-            const packName = $anchor.attr('data-pack');
-            const entityId = $anchor.attr('data-id');
+            const packName = $anchor.attr("data-pack");
+            const entityId = $anchor.attr("data-id");
             $anchor.text(`@Compendium[${packName}.${entityId}]{${label}}`);
             $anchor.contents().unwrap();
         });
 
-        return $('<div>')
+        return $("<div>")
             .append($description)
             .html()
-            .replace(/<([hb]r)>/g, '<$1 />') // Prefer self-closing tags
-            .replace(/&nbsp;/g, ' ')
-            .replace(/ {2,}/g, ' ')
-            .replace(/<p> ?<\/p>/g, '')
-            .replace(/<\/p> ?<p>/g, '</p><p>')
-            .replace(/<p>[ \r\n]+/g, '<p>')
-            .replace(/[ \r\n]+<\/p>/g, '</p>')
-            .replace(/<(?:b|strong)>\s*/g, '<strong>')
-            .replace(/\s*<\/(?:b|strong)>/g, '</strong>')
-            .replace(/(<\/strong>)(\w)/g, '$1 $2')
-            .replace(/(<p><\/p>)/g, '')
+            .replace(/<([hb]r)>/g, "<$1 />") // Prefer self-closing tags
+            .replace(/&nbsp;/g, " ")
+            .replace(/ {2,}/g, " ")
+            .replace(/<p> ?<\/p>/g, "")
+            .replace(/<\/p> ?<p>/g, "</p><p>")
+            .replace(/<p>[ \r\n]+/g, "<p>")
+            .replace(/[ \r\n]+<\/p>/g, "</p>")
+            .replace(/<(?:b|strong)>\s*/g, "<strong>")
+            .replace(/\s*<\/(?:b|strong)>/g, "</strong>")
+            .replace(/(<\/strong>)(\w)/g, "$1 $2")
+            .replace(/(<p><\/p>)/g, "")
             .trim();
     };
 
-    if ('data' in entityData && 'description' in entityData.data) {
+    if ("data" in entityData && "description" in entityData.data) {
         const description = entityData.data.description;
         description.value = cleanDescription(description.value);
     }
@@ -273,7 +276,7 @@ function convertLinks(entityData: PackEntry, packName: string): PackEntry {
     newEntityIdMap[entityData._id] = entityData.name;
 
     const sanitized = sanitizeDocument(entityData);
-    if ('items' in sanitized) {
+    if (isActorSource(sanitized)) {
         sanitized.items = sanitized.items.map((itemData) => sanitizeDocument(itemData, { isEmbedded: true }));
     }
     const entityJson = JSON.stringify(sanitized);
@@ -282,14 +285,14 @@ function convertLinks(entityData: PackEntry, packName: string): PackEntry {
 
     const worldItemLinks = Array.from(entityJson.matchAll(linkPatterns.world));
     if (worldItemLinks.length > 0) {
-        const linkString = worldItemLinks.map((match) => match[0]).join(', ');
+        const linkString = worldItemLinks.map((match) => match[0]).join(", ");
         console.warn(`${entityData.name} (${packName}) has links to world items: ${linkString}`);
     }
 
     const compendiumLinks = Array.from(entityJson.matchAll(linkPatterns.compendium)).map((match) => match[0]);
-    const linksLackingLabels = compendiumLinks.filter((link) => !link.endsWith('{'));
+    const linksLackingLabels = compendiumLinks.filter((link) => !link.endsWith("{"));
     if (linksLackingLabels.length > 0) {
-        const linkString = linksLackingLabels.map((match) => match[0]).join(', ');
+        const linkString = linksLackingLabels.map((match) => match[0]).join(", ");
         throw PackError(`${entityData.name} (${packName}) has links with no labels: ${linkString}`);
     }
 
@@ -299,7 +302,7 @@ function convertLinks(entityData: PackEntry, packName: string): PackEntry {
     const convertedJson = compendiumLinks.reduce((partiallyConverted, linkById) => {
         const match = linkPatterns.components.exec(linkById);
         if (!Array.isArray(match)) {
-            throw PackError('Unexpected error looking for compendium link');
+            throw PackError("Unexpected error looking for compendium link");
         }
         const [packId, entityId] = match.slice(1, 3);
         const packMap = idsToNames.get(packId);
@@ -309,20 +312,20 @@ function convertLinks(entityData: PackEntry, packName: string): PackEntry {
 
         const entityName = packMap.get(entityId) ?? newEntityIdMap[entityId];
         if (entityName === undefined) {
-            notFound.push(match[0].replace(/\{$/, ''));
+            notFound.push(match[0].replace(/\{$/, ""));
             return partiallyConverted;
         }
 
-        const replacePattern = new RegExp(`(?<!"_?id":")${entityId}`, 'g');
+        const replacePattern = new RegExp(`(?<!"_?id":")${entityId}`, "g");
         return partiallyConverted.replace(replacePattern, entityName);
     }, entityJson);
 
     // In case some new items with links to other new items weren't found
     if (notFound.length > 0) {
-        const idsNotFound = notFound.join(', ');
+        const idsNotFound = notFound.join(", ");
         console.debug(
             `Warning: Unable to find names for the following links in ${entityData.name} ` +
-                `(${packName}): ${idsNotFound}`,
+                `(${packName}): ${idsNotFound}`
         );
     }
 
@@ -338,18 +341,18 @@ async function getAllData(filename: string): Promise<PackEntry[]> {
 
 function sortDataItems(entityData: PackEntry): any[] {
     const itemTypeList: string[] = [
-        'spellcastingEntry',
-        'spell',
-        'weapon',
-        'armor',
-        'equipment',
-        'consumable',
-        'treasure',
-        'melee',
-        'action',
-        'lore',
+        "spellcastingEntry",
+        "spell",
+        "weapon",
+        "armor",
+        "equipment",
+        "consumable",
+        "treasure",
+        "melee",
+        "action",
+        "lore",
     ];
-    if (!('items' in entityData)) {
+    if (!("items" in entityData)) {
         return [];
     }
 
@@ -381,16 +384,16 @@ function sortDataItems(entityData: PackEntry): any[] {
             if (itemGroup) {
                 let items: ItemSourcePF2e[];
                 switch (itemType) {
-                    case 'spell':
+                    case "spell":
                         items = sortSpells(itemGroup);
                         break;
-                    case 'action':
+                    case "action":
                         items = sortActions(entityData.name, itemGroup);
                         break;
-                    case 'lore':
+                    case "lore":
                         items = Array.from(itemGroup).sort((a, b) => a.name.localeCompare(b.name));
                         break;
-                    case 'melee':
+                    case "melee":
                         items = sortAttacks(entityData.name, itemGroup);
                         break;
                     default:
@@ -411,7 +414,7 @@ function sortDataItems(entityData: PackEntry): any[] {
         if (!itemTypeList.includes(key)) {
             if (args.logWarnings) {
                 console.log(
-                    `Warning in ${entityData.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`,
+                    `Warning in ${entityData.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`
                 );
             }
             Array.from(itemGroup).forEach((item) => {
@@ -470,15 +473,15 @@ function sortActions(entityName: string, actions: Set<ItemSourcePF2e>): ItemSour
                 return 0;
             }
 
-            if (aActionCategory == 'interaction') {
+            if (aActionCategory == "interaction") {
                 return -1;
             }
 
-            if (bActionCategory == 'interaction') {
+            if (bActionCategory == "interaction") {
                 return 1;
             }
 
-            if (aActionCategory == 'defensive') {
+            if (aActionCategory == "defensive") {
                 return -1;
             }
 
@@ -509,7 +512,7 @@ function sortSpells(spells: Set<ItemSourcePF2e>): SpellSource[] {
 }
 
 async function extractPack(filePath: string, packFilename: string) {
-    console.log(`Extracting pack: ${packFilename} (Presorting: ${args.disablePresort ? 'Disabled' : 'Enabled'})`);
+    console.log(`Extracting pack: ${packFilename} (Presorting: ${args.disablePresort ? "Disabled" : "Enabled"})`);
     const outPath = path.resolve(tempDataPath, packFilename);
 
     const packEntities = await getAllData(filePath);
@@ -518,7 +521,7 @@ async function extractPack(filePath: string, packFilename: string) {
     for await (const entityData of packEntities) {
         // Remove or replace unwanted values from the entity
         const preparedEntity = convertLinks(entityData, packFilename);
-        if ('items' in preparedEntity && preparedEntity.type === 'npc' && !args.disablePresort) {
+        if ("items" in preparedEntity && preparedEntity.type === "npc" && !args.disablePresort) {
             preparedEntity.items = sortDataItems(preparedEntity);
         }
 
@@ -555,7 +558,7 @@ async function extractPack(filePath: string, packFilename: string) {
         assertEntityIdSame(preparedEntity, outFilePath);
 
         // Write the JSON file
-        await fs.promises.writeFile(outFilePath, outData, 'utf-8');
+        await fs.promises.writeFile(outFilePath, outData, "utf-8");
     }
 
     return packEntities.length;
@@ -577,7 +580,7 @@ function populateIdNameMap() {
         const filePaths = filenames.map((filename) => path.resolve(dataPath, packDir, filename));
 
         for (const filePath of filePaths) {
-            const jsonString = fs.readFileSync(filePath, 'utf-8');
+            const jsonString = fs.readFileSync(filePath, "utf-8");
             const entityData = (() => {
                 try {
                     return JSON.parse(jsonString);
@@ -596,17 +599,17 @@ async function extractPacks() {
         await fs.promises.mkdir(dataPath);
     }
     if (!fs.existsSync(packsPath)) {
-        throw Error('Foundry directory not found! Check your foundryconfig.json.');
+        throw Error("Foundry directory not found! Check your foundryconfig.json.");
     }
 
-    console.log('Cleaning up old temp data...');
+    console.log("Cleaning up old temp data...");
     await fs.promises.rmdir(tempDataPath, { recursive: true });
     await fs.promises.mkdir(tempDataPath);
 
     populateIdNameMap();
 
-    const foundryPacks = (args.packDb === 'all' ? fs.readdirSync(packsPath) : [args.packDb])
-        .filter((filename) => filename !== 'Spells (SRD) - LICENSE')
+    const foundryPacks = (args.packDb === "all" ? fs.readdirSync(packsPath) : [args.packDb])
+        .filter((filename) => filename !== "Spells (SRD) - LICENSE")
         .map((filename) => path.resolve(packsPath, filename));
 
     return (
@@ -614,7 +617,7 @@ async function extractPacks() {
             foundryPacks.map(async (filePath) => {
                 const dbFilename = path.basename(filePath);
 
-                if (!dbFilename.endsWith('.db')) {
+                if (!dbFilename.endsWith(".db")) {
                     throw PackError(`Pack file is not a DB file: '${dbFilename}'`);
                 }
                 if (!fs.existsSync(filePath)) {
@@ -634,7 +637,7 @@ async function extractPacks() {
 
                 console.log(`Finished extracting ${entityCount} entities from pack ${dbFilename}`);
                 return entityCount;
-            }),
+            })
         )
     ).reduce((runningTotal, entityCount) => runningTotal + entityCount, 0);
 }

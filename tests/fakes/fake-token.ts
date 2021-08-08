@@ -1,6 +1,6 @@
-import { ActorPF2e } from '@actor/base';
-import { ScenePF2e } from '@module/scene';
-import { TokenDocumentPF2e } from '@module/scene/token-document';
+import { ActorPF2e } from "@actor/base";
+import { ScenePF2e } from "@module/scene";
+import { TokenDocumentPF2e } from "@module/scene/token-document";
 
 export class FakeToken {
     _actor: ActorPF2e | null;
@@ -30,7 +30,7 @@ export class FakeToken {
     }
 
     update(changes: EmbeddedDocumentUpdateData<TokenDocument>, context: DocumentModificationContext = {}) {
-        changes['_id'] = this.id;
-        this.scene?.updateEmbeddedDocuments('Token', [changes], context);
+        changes["_id"] = this.id;
+        this.scene?.updateEmbeddedDocuments("Token", [changes], context);
     }
 }

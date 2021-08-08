@@ -11,8 +11,6 @@
             "value": ""
         },
         "description": {
-            "chat": "",
-            "unidentified": "",
             "value": "<p>You have an incredible ability to invest more magic items. Increase your limit on invested items from 10 to 12.</p>"
         },
         "featType": {
@@ -21,6 +19,7 @@
         "level": {
             "value": 11
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 {
@@ -28,11 +27,14 @@
                 }
             ]
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.investiture.max",
+                "value": 12
+            }
+        ],
         "source": {
             "value": ""
         },

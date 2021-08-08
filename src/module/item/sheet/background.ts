@@ -1,6 +1,6 @@
-import { ABCSheetPF2e } from '../abc/sheet';
-import { BackgroundPF2e } from '@item/background';
-import { BackgroundSheetData } from './data-types';
+import { ABCSheetPF2e } from "../abc/sheet";
+import { BackgroundPF2e } from "@item/background";
+import { BackgroundSheetData } from "./data-types";
 
 export class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {
     override getData(): BackgroundSheetData {
@@ -12,7 +12,7 @@ export class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {
             rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.data.traits.rarity.value] }),
             trainedSkills: this.prepareOptions(CONFIG.PF2E.skills, itemData.data.trainedSkills),
             selectedBoosts: Object.fromEntries(
-                Object.entries(itemData.data.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)]),
+                Object.entries(itemData.data.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)])
             ),
         };
     }

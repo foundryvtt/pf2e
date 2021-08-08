@@ -10,6 +10,6 @@ declare class MacroConfig<MacroType extends Macro> extends DocumentSheet<MacroTy
 }
 
 declare interface MacroConfigData extends DocumentSheetData {
-    macroTypes: Game['system']['entityTypes']['Macro'] | ['chat'];
-    macroScopes: typeof CONST['MACRO_SCOPES'];
+    macroTypes: Game["system"]["entityTypes"]["Macro"] | ["chat"];
+    macroScopes: typeof CONST["MACRO_SCOPES"];
 }

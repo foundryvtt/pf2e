@@ -1,20 +1,20 @@
-import { ActorPF2e } from '@actor';
-import type { ActorDataPF2e, CreatureData } from '@actor/data';
-import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from '@item';
-import type { ItemDataPF2e } from '@item/data';
+import { ActorPF2e } from "@actor";
+import type { ActorDataPF2e, CreatureData } from "@actor/data";
+import { EffectPF2e, ItemPF2e, PhysicalItemPF2e } from "@item";
+import type { ItemDataPF2e } from "@item/data";
 import {
     BracketedValue,
     RuleElementSource,
     RuleElementData,
     RuleElementSynthetics,
     RuleValue,
-} from './rules-data-definitions';
+} from "./rules-data-definitions";
 
 export class TokenEffect implements TemporaryEffect {
     public data: { disabled: boolean; icon: string; tint: string } = {
         disabled: false,
-        icon: '',
-        tint: '',
+        icon: "",
+        tint: "",
     };
 
     public readonly isTemporary = true;
@@ -49,15 +49,15 @@ export abstract class RuleElementPF2e {
      */
     constructor(data: RuleElementSource, public item: Embedded<ItemPF2e>) {
         this.data = {
-            ...data,
             priority: 100,
+            ...data,
             label: game.i18n.localize(data.label ?? item.name),
             ignored: false,
         };
     }
 
     get key(): string {
-        return this.data.key.replace(/^PF2E\.RuleElement\./, '');
+        return this.data.key.replace(/^PF2E\.RuleElement\./, "");
     }
 
     get actor(): ActorPF2e {
@@ -78,7 +78,7 @@ export abstract class RuleElementPF2e {
         if (this.data.ignored) return true;
 
         const { item } = this;
-        if (game.settings.get('pf2e', 'automation.effectExpiration') && item instanceof EffectPF2e && item.isExpired) {
+        if (game.settings.get("pf2e", "automation.effectExpiration") && item instanceof EffectPF2e && item.isExpired) {
             return (this.data.ignored = true);
         }
         if (!(item instanceof PhysicalItemPF2e)) return (this.data.ignored = false);
@@ -176,7 +176,7 @@ export abstract class RuleElementPF2e {
             item: this.item,
             rule: this,
         };
-        return (source ?? '').replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
+        return (source ?? "").replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
             return getProperty(objects[key]?.data ?? this.item.data, prop);
         });
     }
@@ -202,22 +202,22 @@ export abstract class RuleElementPF2e {
     resolveValue(valueData = this.data.value, defaultValue: Exclude<RuleValue, BracketedValue> = 0): any {
         let value = valueData;
         const actor = this.item.actor;
-        if (typeof valueData === 'object') {
-            let bracket = getProperty(actor.data, 'data.details.level.value');
+        if (typeof valueData === "object") {
+            let bracket = getProperty(actor.data, "data.details.level.value");
             if (valueData?.field) {
                 const field = String(valueData.field);
-                const separator = field.indexOf('|');
+                const separator = field.indexOf("|");
                 const source = field.substring(0, separator);
                 switch (source) {
-                    case 'actor': {
+                    case "actor": {
                         bracket = getProperty(actor.data, field.substring(separator + 1));
                         break;
                     }
-                    case 'item': {
+                    case "item": {
                         bracket = getProperty(this.item.data, field.substring(separator + 1));
                         break;
                     }
-                    case 'rule': {
+                    case "rule": {
                         bracket = getProperty(this.data, field.substring(separator + 1));
                         break;
                     }
@@ -231,11 +231,11 @@ export abstract class RuleElementPF2e {
                 (Number(defaultValue) || 0);
         }
 
-        if (typeof value === 'string') {
+        if (typeof value === "string") {
             value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actor.data.data, item: this.item.data.data }));
         }
 
-        if (typeof value !== 'boolean' && Number.isInteger(Number(value))) {
+        if (typeof value !== "boolean" && Number.isInteger(Number(value))) {
             value = Number(value);
         }
 

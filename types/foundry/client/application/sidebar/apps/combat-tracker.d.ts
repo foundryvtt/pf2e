@@ -1,5 +1,5 @@
 declare interface CombatTrackerDefaultOptions extends ApplicationOptions {
-    id: 'combat';
+    id: "combat";
     template: string;
     title: string;
     scrollY: string[];

@@ -1,15 +1,15 @@
-import { getActionGlyph } from './utils';
+import { getActionGlyph } from "./utils";
 
 export function registerHandlebarsHelpers() {
-    Handlebars.registerHelper('pad', (value, length, character) => {
+    Handlebars.registerHelper("pad", (value, length, character) => {
         return `${value}`.padStart(length, character);
     });
 
-    Handlebars.registerHelper('add', (a, b) => {
+    Handlebars.registerHelper("add", (a, b) => {
         return a + b;
     });
 
-    Handlebars.registerHelper('if_all', (...args) => {
+    Handlebars.registerHelper("if_all", (...args) => {
         const opts = args.pop();
 
         let { fn } = opts;
@@ -22,111 +22,111 @@ export function registerHandlebarsHelpers() {
         return fn();
     });
 
-    Handlebars.registerHelper('any', (...args) => {
+    Handlebars.registerHelper("any", (...args) => {
         const opts = args.pop();
         return args.some((v) => !!v) ? opts : opts.inverse;
     });
 
-    Handlebars.registerHelper('disabled', (condition: unknown) => {
-        return condition ? 'disabled' : '';
+    Handlebars.registerHelper("disabled", (condition: unknown) => {
+        return condition ? "disabled" : "";
     });
 
-    Handlebars.registerHelper('not', (arg) => {
+    Handlebars.registerHelper("not", (arg) => {
         return !arg;
     });
 
-    Handlebars.registerHelper('lower', (str) => {
-        return String.prototype.toLowerCase.call(str ?? '');
+    Handlebars.registerHelper("lower", (str) => {
+        return String.prototype.toLowerCase.call(str ?? "");
     });
 
-    Handlebars.registerHelper('multiply', (a, b) => {
+    Handlebars.registerHelper("multiply", (a, b) => {
         return a * b;
     });
 
-    Handlebars.registerHelper('percentage', (value, max) => {
+    Handlebars.registerHelper("percentage", (value, max) => {
         return (value * 100) / max;
     });
 
-    Handlebars.registerHelper('strip_tags', (value) => {
+    Handlebars.registerHelper("strip_tags", (value) => {
         // eslint-disable-next-line camelcase
         function strip_tags(input: unknown, allowed?: string): string {
             const _phpCastString = (phpValue: unknown): string => {
-                if (typeof phpValue === 'string') {
+                if (typeof phpValue === "string") {
                     return phpValue;
                 }
 
                 const type = typeof phpValue;
                 switch (type) {
-                    case 'boolean':
-                        return phpValue ? '1' : '';
-                    case 'number':
+                    case "boolean":
+                        return phpValue ? "1" : "";
+                    case "number":
                         if (Number.isNaN(phpValue)) {
-                            return 'NAN';
+                            return "NAN";
                         }
 
                         if (phpValue === Infinity) {
-                            return `${phpValue < 0 ? '-' : ''}INF`;
+                            return `${phpValue < 0 ? "-" : ""}INF`;
                         }
 
                         return `${phpValue}`;
-                    case 'undefined':
-                        return '';
-                    case 'object':
+                    case "undefined":
+                        return "";
+                    case "object":
                         if (Array.isArray(phpValue)) {
-                            return 'Array';
+                            return "Array";
                         }
 
                         if (phpValue !== null) {
-                            return 'Object';
+                            return "Object";
                         }
 
-                        return '';
-                    case 'function':
+                        return "";
+                    case "function":
                     // fall through
                     default:
-                        throw new Error('Unsupported value type');
+                        throw new Error("Unsupported value type");
                 }
             };
 
             // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
-            allowed = (`${allowed || ''}`.toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('');
+            allowed = (`${allowed || ""}`.toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join("");
 
             const tags = /<\/?([a-z0-9]*)\b[^>]*>?/gi;
             const commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
 
             let after = _phpCastString(input);
             // removes tha '<' char at the end of the string to replicate PHP's behaviour
-            after = after.substring(after.length - 1) === '<' ? after.substring(0, after.length - 1) : after;
+            after = after.substring(after.length - 1) === "<" ? after.substring(0, after.length - 1) : after;
 
             // recursively remove tags to ensure that the returned string doesn't contain forbidden tags after previous passes (e.g. '<<bait/>switch/>')
             let before: string;
             do {
                 before = after;
                 after = before
-                    .replace(commentsAndPhpTags, '')
-                    .replace(tags, ($0, $1) => (allowed!.indexOf(`<${$1.toLowerCase()}>`) > -1 ? $0 : ''));
+                    .replace(commentsAndPhpTags, "")
+                    .replace(tags, ($0, $1) => (allowed!.indexOf(`<${$1.toLowerCase()}>`) > -1 ? $0 : ""));
 
                 // return once no more tags are removed
                 if (before === after) {
                     return after;
                 }
             } while (before !== after);
-            return '';
+            return "";
         }
 
         return strip_tags(String(value));
     });
 
-    Handlebars.registerHelper('enrichHTML', (html) => {
+    Handlebars.registerHelper("enrichHTML", (html) => {
         return TextEditor.enrichHTML(html);
     });
 
-    Handlebars.registerHelper('json', (html) => {
+    Handlebars.registerHelper("json", (html) => {
         return JSON.stringify(html);
     });
 
-    Handlebars.registerHelper('actionGlyph', (value, options) => {
-        const glyph = getActionGlyph(value ?? '');
+    Handlebars.registerHelper("actionGlyph", (value, options) => {
+        const glyph = getActionGlyph(value ?? "");
         if (glyph) {
             return `<span class="activity-icon">${glyph}</span>`;
         } else if (options?.hash.fallback) {
@@ -137,12 +137,12 @@ export function registerHandlebarsHelpers() {
     });
 
     // From https://github.com/leapfrogtechnology/just-handlebars-helpers/
-    Handlebars.registerHelper('concat', function (...params) {
+    Handlebars.registerHelper("concat", function (...params) {
         // Ignore the object appended by handlebars.
-        if (typeof params[params.length - 1] === 'object') {
+        if (typeof params[params.length - 1] === "object") {
             params.pop();
         }
 
-        return params.join('');
+        return params.join("");
     });
 }

@@ -19,7 +19,7 @@ declare class ContextMenu {
         element: HTMLElement | JQuery,
         selector: string,
         menuItems: any[],
-        { eventName }?: { eventName?: string },
+        { eventName }?: { eventName?: string }
     );
 
     /**

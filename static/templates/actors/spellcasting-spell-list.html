@@ -16,7 +16,7 @@
 
                 {{#if entry.isPrepared}}
                     <span class="spell-max-input">
-                        <input type="number" name="data.items.{{entry.eid}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number"/>
+                        <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number"/>
                     </span>
                 {{else}}
                     {{#unless (or entry.isRitual entry.isFocusPool)}}
@@ -26,13 +26,13 @@
                             <span class="spell-max">&infin;</span>
                         {{else}}
                             <span class="spell-slots-input">
-                                <input type="number" name="data.items.{{entry.eid}}.data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0" data-dtype="Number"/>
+                                <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0" data-dtype="Number"/>
                             </span>
                             <span class="flex0"> / </span>
                             <span class="spell-max-input">
-                                <input type="number" name="data.items.{{entry.eid}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number"/>
+                                <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number"/>
                             </span>
-                            <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}"  data-level="{{lvl}}"><i class="fas fa-redo"></i></a>
+                            <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}" data-level="{{lvl}}"><i class="fas fa-redo"></i></a>
                         {{/if}}
                     {{/unless}}
                 {{/if}}

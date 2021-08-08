@@ -1,8 +1,8 @@
-import { PhysicalItemPF2e } from '@item/index';
-import { LocalizePF2e } from '@module/system/localize';
-import { UserPF2e } from '@module/user';
-import { ErrorPF2e } from '@module/utils';
-import { ActorPF2e } from './index';
+import { PhysicalItemPF2e } from "@item/index";
+import { LocalizePF2e } from "@module/system/localize";
+import { UserPF2e } from "@module/user";
+import { ErrorPF2e } from "@module/utils";
+import { ActorPF2e } from "./index";
 
 export interface ItemTransferData {
     source: {
@@ -20,15 +20,15 @@ export interface ItemTransferData {
 
 export class ItemTransfer implements ItemTransferData {
     private templatePaths = {
-        flavor: './systems/pf2e/templates/chat/action/flavor.html',
-        content: './systems/pf2e/templates/chat/action/content.html',
+        flavor: "./systems/pf2e/templates/chat/action/flavor.html",
+        content: "./systems/pf2e/templates/chat/action/content.html",
     };
 
     constructor(
-        public source: ItemTransferData['source'],
-        public target: ItemTransferData['target'],
+        public source: ItemTransferData["source"],
+        public target: ItemTransferData["target"],
         public quantity: number,
-        public containerId?: string,
+        public containerId?: string
     ) {}
 
     async request(): Promise<void> {
@@ -37,28 +37,28 @@ export class ItemTransfer implements ItemTransferData {
             const source = this.getSource();
             const target = this.getTarget();
             const loot = [source, target].find(
-                (actor) => actor instanceof ActorPF2e && actor.isLootableBy(game.user) && !actor.isOwner,
+                (actor) => actor instanceof ActorPF2e && actor.isLootableBy(game.user) && !actor.isOwner
             );
 
-            if (!(loot instanceof ActorPF2e)) throw ErrorPF2e('Unexpected missing actor');
+            if (!(loot instanceof ActorPF2e)) throw ErrorPF2e("Unexpected missing actor");
             const translations = LocalizePF2e.translations.PF2E.loot;
             ui.notifications.error(
-                game.i18n.format(translations.GMSupervisionError, { loot: ItemTransfer.tokenName(loot) }),
+                game.i18n.format(translations.GMSupervisionError, { loot: ItemTransfer.tokenName(loot) })
             );
             return Promise.reject();
         }
-        console.debug(`PF2e System | Requesting item transfer from GM ${gamemaster?.name ?? '<None available>'}`);
+        console.debug(`PF2e System | Requesting item transfer from GM ${gamemaster?.name ?? "<None available>"}`);
 
-        game.socket.emit('system.pf2e', { request: 'itemTransfer', data: this });
+        game.socket.emit("system.pf2e", { request: "itemTransfer", data: this });
     }
 
     // Only a GM can call this method, or else Foundry will block it (or would if we didn't first)
     async enact(requester: UserPF2e): Promise<void> {
         if (!game.user.isGM) {
-            throw ErrorPF2e('Unauthorized item transfer');
+            throw ErrorPF2e("Unauthorized item transfer");
         }
 
-        console.debug('PF2e System | Enacting item transfer');
+        console.debug("PF2e System | Enacting item transfer");
         const sourceActor = this.getSource();
         const sourceItem = sourceActor?.items?.find((item) => item.id === this.source.itemId);
         const targetActor = this.getTarget();
@@ -73,16 +73,16 @@ export class ItemTransfer implements ItemTransferData {
                 targetActor.isLootableBy(game.user)
             )
         ) {
-            throw ErrorPF2e('Failed sanity check during item transfer');
+            throw ErrorPF2e("Failed sanity check during item transfer");
         }
 
         const targetItem = await sourceActor.transferItemToActor(
             targetActor,
             sourceItem,
             this.quantity,
-            this.containerId,
+            this.containerId
         );
-        const sourceIsLoot = sourceActor.data.type === 'loot' && sourceActor.data.data.lootSheetType === 'Loot';
+        const sourceIsLoot = sourceActor.data.type === "loot" && sourceActor.data.data.lootSheetType === "Loot";
 
         // A merchant transaction can fail if funds are insufficient, but a loot transfer failing is an error.
         if (!sourceItem && sourceIsLoot) {
@@ -94,7 +94,7 @@ export class ItemTransfer implements ItemTransferData {
 
     /** Retrieve the full actor from the source or target ID */
     private getActor(tokenId: string | undefined, actorId: string): ActorPF2e | null {
-        if (typeof tokenId === 'string') {
+        if (typeof tokenId === "string") {
             const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === tokenId);
             return token?.actor ?? null;
         }
@@ -139,13 +139,13 @@ export class ItemTransfer implements ItemTransferData {
         requester: UserPF2e,
         sourceActor: ActorPF2e,
         targetActor: ActorPF2e,
-        item: PhysicalItemPF2e | null,
+        item: PhysicalItemPF2e | null
     ): Promise<void> {
         const translations = LocalizePF2e.translations.PF2E.loot;
 
         if (!item) {
             const sourceIsMerchant =
-                sourceActor.data.type === 'loot' && sourceActor.data.data.lootSheetType === 'Merchant';
+                sourceActor.data.type === "loot" && sourceActor.data.data.lootSheetType === "Merchant";
             if (sourceIsMerchant) {
                 const message = translations.InsufficientFundsMessage;
                 // The buyer didn't have enough funds! No transaction.
@@ -166,27 +166,27 @@ export class ItemTransfer implements ItemTransferData {
                 });
                 return;
             } else {
-                throw ErrorPF2e('Unexpected item-transfer failure');
+                throw ErrorPF2e("Unexpected item-transfer failure");
             }
         }
 
         // Exhaustive pattern match to determine speaker and item-transfer parties
-        type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Game['i18n']['format']>];
+        type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Game["i18n"]["format"]>];
 
         const [speaker, subtitle, formatArgs] = ((): PatternMatch => {
             const isMerchant = (actor: ActorPF2e) =>
-                actor.data.type === 'loot' && actor.data.data.lootSheetType === 'Merchant';
+                actor.data.type === "loot" && actor.data.data.lootSheetType === "Merchant";
             const isWhat = (actor: ActorPF2e) => ({
-                isCharacter: actor.testUserPermission(requester, 'OWNER') && actor.data.type === 'character',
+                isCharacter: actor.testUserPermission(requester, "OWNER") && actor.data.type === "character",
                 isMerchant: isMerchant(actor),
                 isNPC:
-                    actor.data.type === 'npc' &&
+                    actor.data.type === "npc" &&
                     actor.isLootableBy(requester) &&
-                    !actor.testUserPermission(requester, 'OWNER'),
+                    !actor.testUserPermission(requester, "OWNER"),
                 isLoot:
-                    actor.data.type === 'loot' &&
+                    actor.data.type === "loot" &&
                     actor.isLootableBy(requester) &&
-                    !actor.testUserPermission(requester, 'OWNER') &&
+                    !actor.testUserPermission(requester, "OWNER") &&
                     !isMerchant(actor),
             });
             const source = isWhat(sourceActor);
@@ -297,18 +297,18 @@ export class ItemTransfer implements ItemTransferData {
                 ];
             } else {
                 // Possibly to fill out later: Merchant sells item to character directly from loot container
-                throw ErrorPF2e('Unexpected item-transfer failure');
+                throw ErrorPF2e("Unexpected item-transfer failure");
             }
         })();
         const formatProperties = formatArgs[1];
-        if (!formatProperties) throw ErrorPF2e('Unexpected item-transfer failure');
+        if (!formatProperties) throw ErrorPF2e("Unexpected item-transfer failure");
         formatProperties.quantity = this.quantity;
         formatProperties.item = item.name;
 
         // Don't bother showing quantity if it's only 1:
         const content = await renderTemplate(this.templatePaths.content, {
             imgPath: item.img,
-            message: game.i18n.format(...formatArgs).replace(/\b1 × /, ''),
+            message: game.i18n.format(...formatArgs).replace(/\b1 × /, ""),
         });
 
         const flavor = await this.messageFlavor(sourceActor, targetActor, subtitle);
@@ -328,7 +328,7 @@ export class ItemTransfer implements ItemTransferData {
                 title: CONFIG.PF2E.featTraits.interact,
                 subtitle: subtitle,
                 tooltip: CONFIG.PF2E.featTraits.interact,
-                typeNumber: sourceActor.data.type === 'loot' && targetActor.data.type === 'loot' ? 2 : 1,
+                typeNumber: sourceActor.data.type === "loot" && targetActor.data.type === "loot" ? 2 : 1,
             },
             traits: [
                 {
