@@ -7,15 +7,14 @@ import { RuleElementSource, RuleElementData, RuleValue } from "../rules-data-def
  * @category RuleElement
  */
 export class AELikeRuleElement extends RuleElementPF2e {
-    private CHANGE_MODES = ["multiply", "add", "downgrade", "upgrade", "override"];
+    static CHANGE_MODES = ["multiply", "add", "downgrade", "upgrade", "override"];
 
     constructor(data: AELikeConstructionData, item: Embedded<ItemPF2e>) {
-        super(data, item);
-
-        this.data.priority =
-            typeof data.mode === "string" && this.CHANGE_MODES.includes(data.mode)
-                ? this.CHANGE_MODES.indexOf(data.mode) * 10 + 10
+        data.priority ??=
+            typeof data.mode === "string" && AELikeRuleElement.CHANGE_MODES.includes(data.mode)
+                ? AELikeRuleElement.CHANGE_MODES.indexOf(data.mode) * 10 + 10
                 : NaN;
+        super(data, item);
 
         if (Number.isNaN(this.priority)) {
             this.ignored = true;
