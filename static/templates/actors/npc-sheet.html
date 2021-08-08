@@ -407,7 +407,7 @@
 
                                     {{#if entry.isPrepared}}
                                         <span class="spell-max-input">
-                                            <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number" />
+                                            <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.uses.max}}" placeholder="0" data-dtype="Number" />
                                         </span>
                                     {{else}}
                                         {{#unless (or entry.isRitual entry.isFocusPool)}}
@@ -417,11 +417,11 @@
                                                 <span class="spell-max">&infin;</span>
                                             {{else}}
                                                 <span class="spell-slots-input">
-                                                    <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0" data-dtype="Number" />
+                                                    <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.value" value="{{section.uses.value}}" placeholder="0" data-dtype="Number" />
                                                 </span>
                                                 <span class="flex0"> / </span>
                                                 <span class="spell-max-input">
-                                                    <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number" />
+                                                    <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.uses.max}}" placeholder="0" data-dtype="Number" />
                                                 </span>
                                             {{/if}}
                                         {{/unless}}

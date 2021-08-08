@@ -19,17 +19,11 @@
                         </div>
                     {{/if}}
                 </div>
-                {{#if entry.isFocusPool}}
-                    <ol class="skills-list focus">
+
+                {{#unless entry.isRitual}}
+                    <ol class="skills-list spell-dc">
+                        {{#if entry.isFocusPool}}
                         <li class="skill-grid">
-                            <div class="skill-container focus-points">
-                                <h4 class="skill-name">{{localize "PF2E.Focus.label"}}</h4>
-                                <span class="skill-item pf-small" title="{{localize "PF2E.Focus.pointTitle"}}">
-                                    <span class="proficiency-rank pf-value" title="{{localize "PF2E.Focus.pointTitle"}}">
-                                        {{{@root.focusIcon}}}
-                                    </span>
-                                </span>
-                            </div>
                             <div class="skill-container focus-pool">
                                 <img class="pool-size" src="systems/pf2e/assets/sheet/circle.svg" />
                                 <span class="skill-item pf-value focus-pool-text" title="{{localize "PF2E.Focus.poolTitle"}}">
@@ -38,18 +32,13 @@
                                 </span>
                             </div>
                         </li>
-                    </ol>
-                {{/if}}
+                        {{/if}}
 
-                {{#unless entry.isRitual}}
-                    <ol class="skills-list spell-dc">
                         <li class="skill-grid">
-                            {{#unless entry.isFocusPool}}
                             <div class="skill-data">
                                 <span class="skill-score spell-attack" title="{{entry.data.attack.breakdown}}">{{numberFormat entry.data.attack.value decimals=0 sign=true}}</span>
                                 <h4 class="skill-name spell-attack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.SpellAttackLabel"}}</h4>
                             </div>
-                            {{/unless}}
 
                             <div class="skill-data">
                                 <span class="skill-score spellcasting" title="{{entry.data.dc.breakdown}}">{{entry.data.dc.value}}</span>

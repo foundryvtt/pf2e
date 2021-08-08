@@ -1,15 +1,18 @@
+import { CreaturePF2e } from "@actor";
 import { SpellPF2e } from "@item/spell";
 import { OneToTen, ZeroToTen } from "@module/data";
-import { groupBy } from "@module/utils";
+import { groupBy, ErrorPF2e } from "@module/utils";
 import { ItemPF2e } from "../base";
 import { SlotKey, SpellcastingEntryData } from "./data";
 
 export interface SpellcastingSlotLevel {
     label: string;
     level: ZeroToTen;
-    uses?: number;
-    slots: number;
     isCantrip: boolean;
+    uses?: {
+        value?: number;
+        max: number;
+    };
     displayPrepared?: boolean;
     active: (ActiveSpell | null)[];
     spellPrepList?: {
@@ -146,9 +149,14 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
     }
 
     getSpellData(this: Embedded<SpellcastingEntryPF2e>) {
+        if (!(this.actor instanceof CreaturePF2e)) {
+            throw ErrorPF2e("Spellcasting entries can only exist on creatures");
+        }
+
         const results: SpellcastingSlotLevel[] = [];
         const spells = this.spells.contents.sort((s1, s2) => (s1.data.sort || 0) - (s2.data.sort || 0));
         if (this.isPrepared) {
+            // Prepared Spells. Active spells are what's been prepped.
             const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.level));
             for (let level = 0; level <= this.highestLevel; level++) {
                 const data = this.data.data.slots[`slot${level}` as SlotKey];
@@ -169,7 +177,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                 results.push({
                     label: level === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[level as OneToTen],
                     level: level as ZeroToTen,
-                    slots: data.max,
+                    uses: { max: data.max },
                     isCantrip: level === 0,
                     spellPrepList: spellsByLevel.get(level as ZeroToTen)?.map((spell) => ({
                         spell,
@@ -182,20 +190,44 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                             : true,
                 });
             }
+        } else if (this.isFocusPool) {
+            // Focus Spells. All non-cantrips are grouped together as they're auto-scaled
+            const cantrips = spells.filter((spell) => spell.isCantrip);
+            const leveled = spells.filter((spell) => !spell.isCantrip);
+
+            if (cantrips.length) {
+                results.push({
+                    label: "PF2E.TraitCantrip",
+                    level: 0,
+                    isCantrip: true,
+                    active: cantrips.map((spell) => ({ spell, chatData: spell.getChatData() })),
+                });
+            }
+
+            if (leveled.length) {
+                results.push({
+                    label: "PF2E.Focus.label",
+                    level: Math.max(1, Math.ceil(this.actor.level / 2)) as OneToTen,
+                    isCantrip: false,
+                    uses: this.actor.data.data.resources.focus ?? { value: 0, max: 0 },
+                    active: leveled.map((spell) => ({ spell, chatData: spell.getChatData() })),
+                });
+            }
         } else {
-            const alwaysShow = !this.isRitual && !this.isFocusPool;
+            // Everything else
+            const alwaysShowHeader = !this.isRitual;
             const spellsByLevel = groupBy(spells, (spell) => (spell.isCantrip ? 0 : spell.heightenedLevel));
             for (let level = 0; level <= this.highestLevel; level++) {
                 const data = this.data.data.slots[`slot${level}` as SlotKey];
                 const spells = spellsByLevel.get(level) ?? [];
                 // todo: innate spells should be able to expend like prep spells do
-                if (alwaysShow || spells.length) {
+                if (alwaysShowHeader || spells.length) {
+                    const uses = this.isRitual || level === 0 ? undefined : { value: data.value, max: data.max };
                     results.push({
                         label: level === 0 ? "PF2E.TraitCantrip" : CONFIG.PF2E.spellLevels[level as OneToTen],
                         level: level as ZeroToTen,
-                        uses: data.value,
-                        slots: data.max,
                         isCantrip: level === 0,
+                        uses,
                         active: spells.map((spell) => ({ spell, chatData: spell.getChatData() })),
                     });
                 }
