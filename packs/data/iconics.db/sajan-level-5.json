@@ -176,7 +176,6 @@
         },
         "resources": {
             "focus": {
-                "max": 1,
                 "value": 1
             }
         },
@@ -1188,7 +1187,14 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.resources.focus.max",
+                        "value": 1
+                    }
+                ],
                 "slug": "ki-rush",
                 "source": {
                     "value": ""
