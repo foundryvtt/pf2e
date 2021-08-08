@@ -176,7 +176,6 @@
         },
         "resources": {
             "focus": {
-                "max": 2,
                 "value": 1
             }
         },
@@ -1198,7 +1197,15 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.resources.focus.max",
+                        "priority": 10,
+                        "value": 1
+                    }
+                ],
                 "slug": "hexes",
                 "source": {
                     "value": ""
@@ -4089,7 +4096,14 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.resources.focus.max",
+                        "value": 1
+                    }
+                ],
                 "slug": "basic-lesson",
                 "source": {
                     "value": ""

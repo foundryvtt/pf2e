@@ -176,7 +176,6 @@
         },
         "resources": {
             "focus": {
-                "max": 2,
                 "value": 2
             }
         },
@@ -995,7 +994,15 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.resources.focus.max",
+                        "priority": 10,
+                        "value": 2
+                    }
+                ],
                 "slug": "revelation-spells",
                 "source": {
                     "value": ""
@@ -7169,7 +7176,14 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.resources.focus.max",
+                        "value": 1
+                    }
+                ],
                 "slug": "vision-of-weakness",
                 "source": {
                     "value": ""

@@ -186,7 +186,6 @@
         },
         "resources": {
             "focus": {
-                "max": 3,
                 "value": 3
             }
         },
@@ -1107,7 +1106,15 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.resources.focus.max",
+                        "priority": 10,
+                        "value": 1
+                    }
+                ],
                 "slug": "hexes",
                 "source": {
                     "value": ""
@@ -3909,7 +3916,14 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.resources.focus.max",
+                        "value": 1
+                    }
+                ],
                 "slug": "cackle",
                 "source": {
                     "value": ""
@@ -6922,7 +6936,14 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.resources.focus.max",
+                        "value": 1
+                    }
+                ],
                 "slug": "basic-lesson",
                 "source": {
                     "value": ""
@@ -9289,7 +9310,7 @@
                     "value": 1
                 },
                 "range": {
-                    "value": ""
+                    "value": "melee"
                 },
                 "reload": {
                     "value": ""

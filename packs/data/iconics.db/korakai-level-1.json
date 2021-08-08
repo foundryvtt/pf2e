@@ -192,7 +192,6 @@
         },
         "resources": {
             "focus": {
-                "max": 2,
                 "value": 2
             }
         },
@@ -1116,7 +1115,15 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.resources.focus.max",
+                        "priority": 10,
+                        "value": 2
+                    }
+                ],
                 "slug": "revelation-spells",
                 "source": {
                     "value": ""
@@ -3415,7 +3422,7 @@
                     "value": 1
                 },
                 "range": {
-                    "value": ""
+                    "value": "melee"
                 },
                 "reload": {
                     "value": ""
