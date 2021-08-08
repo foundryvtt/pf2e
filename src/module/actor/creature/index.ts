@@ -390,8 +390,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // Clamp focus points when actor is updated
         const focus = data.data?.resources?.focus;
         if (focus) {
-            if (focus.max) {
-                focus.max = Math.clamped(Number(focus.max) || 0, 0, 3);
+            if (typeof focus.max === "number") {
+                focus.max = Math.clamped(focus.max, 0, 3);
             }
 
             const currentPoints = focus.value ?? this.data.data.resources.focus?.value ?? 0;

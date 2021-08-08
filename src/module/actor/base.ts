@@ -125,29 +125,13 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
      * overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
      */
-    static override create<A extends ActorPF2e>(
-        this: ConstructorOf<A>,
-        data: PreCreate<A["data"]["_source"]>,
-        context?: DocumentModificationContext
-    ): Promise<A | undefined>;
-    static override create<A extends ActorPF2e>(
-        this: ConstructorOf<A>,
-        data: PreCreate<A["data"]["_source"]>[],
-        context?: DocumentModificationContext
-    ): Promise<A[]>;
-    static override create<A extends ActorPF2e>(
-        this: ConstructorOf<A>,
-        data: PreCreate<A["data"]["_source"]>[] | PreCreate<A["data"]["_source"]>,
-        context?: DocumentModificationContext
-    ): Promise<A[] | A | undefined>;
-    static override async create<A extends ActorPF2e>(
-        this: ConstructorOf<A>,
-        data: PreCreate<A["data"]["_source"]>[] | PreCreate<A["data"]["_source"]>,
+    static override async createDocuments<A extends ConstructorOf<ActorPF2e>>(
+        this: A,
+        data: PreCreate<InstanceType<A>["data"]["_source"]>[] = [],
         context: DocumentModificationContext = {}
-    ): Promise<A[] | A | undefined> {
+    ): Promise<InstanceType<A>[]> {
         if (game.settings.get("pf2e", "defaultTokenSettings")) {
-            const createData = Array.isArray(data) ? data : [data];
-            for (const datum of createData) {
+            for (const datum of data) {
                 // Set wounds, advantage, and display name visibility
                 const nameMode = game.settings.get("pf2e", "defaultTokenSettingsName");
                 const barMode = game.settings.get("pf2e", "defaultTokenSettingsBar");
@@ -190,7 +174,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             }
         }
 
-        return super.create(data, context) as Promise<A[] | A | undefined>;
+        return super.createDocuments(data, context) as Promise<InstanceType<A>[]>;
     }
 
     /** Prepare token data derived from this actor, refresh Effects Panel */
