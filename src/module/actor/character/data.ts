@@ -27,6 +27,7 @@ import { CheckModifier, StatisticModifier } from "@module/modifiers";
 import { LabeledValue, ZeroToFour, ZeroToThree } from "@module/data";
 import type { CharacterPF2e } from ".";
 import { SaveType } from "@actor/data";
+import { MagicTradition } from "@item/spell/data";
 
 export type CharacterSource = BaseCreatureSource<"character", CharacterSystemData>;
 
@@ -136,6 +137,7 @@ export interface CharacterProficiencyData extends ProficiencyData {
     };
 }
 
+export type MagicTraditionProficiencies = Record<MagicTradition, CharacterProficiencyData>;
 export type CategoryProficiencies = Record<ArmorCategory | WeaponCategory, CharacterProficiencyData>;
 
 export type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponType}`;
@@ -144,7 +146,8 @@ type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, CharacterProfici
 export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
 type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, CharacterProficiencyData>;
 
-export type CombatProficiencies = CategoryProficiencies &
+export type CombatProficiencies = MagicTraditionProficiencies &
+    CategoryProficiencies &
     Partial<BaseWeaponProficiencies> &
     Partial<WeaponGroupProfiencies>;
 

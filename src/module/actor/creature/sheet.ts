@@ -129,6 +129,9 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 const groupMatch = /weapon-group-([-a-z0-9]+)$/.exec(key);
                 const baseWeaponMatch = /weapon-base-([-a-z0-9]+)$/.exec(key);
                 const label = ((): string => {
+                    if (objectHasKey(CONFIG.PF2E.magicTraditions, key)) {
+                        return CONFIG.PF2E.magicTraditions[key];
+                    }
                     if (objectHasKey(CONFIG.PF2E.martialSkills, key)) {
                         return CONFIG.PF2E.martialSkills[key];
                     }

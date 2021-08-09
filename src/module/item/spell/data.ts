@@ -24,6 +24,7 @@ export interface SpellData extends Omit<SpellSource, "_id" | "effects"> {
     readonly _source: SpellSource;
 }
 
+export type MagicTradition = keyof ConfigPF2e["PF2E"]["magicTraditions"];
 export type MagicSchool = keyof ConfigPF2e["PF2E"]["magicSchools"];
 
 export type SpellTrait = keyof ConfigPF2e["PF2E"]["spellTraits"];
@@ -40,7 +41,7 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     category: {
         value: keyof ConfigPF2e["PF2E"]["spellCategories"];
     };
-    traditions: ValuesList<keyof ConfigPF2e["PF2E"]["magicTraditions"]>;
+    traditions: ValuesList<MagicTradition>;
     school: {
         value: MagicSchool;
     };
@@ -115,3 +116,5 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
         value: OneToTen | null;
     };
 }
+
+export const MAGIC_TRADITIONS = ["arcane", "divine", "occult", "primal"] as const;

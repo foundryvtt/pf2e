@@ -42,6 +42,7 @@ import { AbilityString, PerceptionData, StrikeTrait } from "@actor/data/base";
 import { SkillAbbreviation, SkillData } from "@actor/creature/data";
 import { ArmorCategory, ARMOR_CATEGORIES } from "@item/armor/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
+import { MAGIC_TRADITIONS } from "@item/spell/data";
 
 export class CharacterPF2e extends CreaturePF2e {
     static override get schema(): typeof CharacterData {
@@ -111,7 +112,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Combat category proficiencies
         const martial: DeepPartial<CombatProficiencies> = this.data.data.martial;
-        for (const category of [...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
+        for (const category of [...MAGIC_TRADITIONS, ...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
             const proficiency: Partial<CharacterProficiencyData> = martial[category] ?? {};
             proficiency.rank = martial[category]?.rank ?? 0;
             martial[category] = proficiency;
