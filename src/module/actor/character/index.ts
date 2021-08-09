@@ -27,6 +27,7 @@ import {
     CombatProficiencies,
     CombatProficiencyKey,
     WeaponGroupProficiencyKey,
+    MagicTraditionProficiencies,
 } from "./data";
 import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e, WeaponPotencyPF2e } from "@module/rules/rules-data-definitions";
@@ -110,9 +111,17 @@ export class CharacterPF2e extends CreaturePF2e {
             resources.focus.max = 0;
         }
 
-        // Combat category proficiencies
+        // Magic proficiencies
+        const magic: DeepPartial<MagicTraditionProficiencies> = this.data.data.magic;
+        for (const category of MAGIC_TRADITIONS) {
+            const proficiency: Partial<CharacterProficiencyData> = magic[category] ?? {};
+            proficiency.rank = magic[category]?.rank ?? 0;
+            magic[category] = proficiency;
+        }
+
+        // Weapon and Armor category proficiencies
         const martial: DeepPartial<CombatProficiencies> = this.data.data.martial;
-        for (const category of [...MAGIC_TRADITIONS, ...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
+        for (const category of [...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
             const proficiency: Partial<CharacterProficiencyData> = martial[category] ?? {};
             proficiency.rank = martial[category]?.rank ?? 0;
             martial[category] = proficiency;

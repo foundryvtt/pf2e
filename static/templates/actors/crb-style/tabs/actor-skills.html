@@ -80,5 +80,22 @@
                 </li>
             {{/each}}
         </ol>
+        <!-- Magic Proficiencies Header -->
+        <ol class="lore-header inventory-header directory-list combat-proficiencies">
+            <li class="action-header">
+                <h3 class="item-name pf-heading pf-actions">{{localize "PF2E.MagicSkillsHeader"}}</h3>
+            </li>
+        </ol>
+        <ol class="combat-list">
+            {{#each data.magic as |proficiency key|}}
+                <li class="skill" data-skill="{{key}}">
+                    <h1 class="skill-score lore-score" title="{{localize proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</h1>
+                    <h4 class="skill-name lore-name-input">{{localize proficiency.label}}</h4>
+                    <div class="skill-prof button-group skill-container">
+                        <span class="skill-proficiency pf-value pf-rank adjust-stat" data-property="data.magic.{{key}}.rank" value="{{proficiency.rank}}">{{localize (add 'PF2E.ProficiencyLevel' proficiency.rank)}}</span>
+                    </div>
+                </li>
+            {{/each}}
+        </ol>
     </ol>
 </div>

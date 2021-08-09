@@ -53,7 +53,10 @@ export interface CharacterSystemData extends CreatureSystemData {
     /** The three save types. */
     saves: CharacterSaves;
 
-    /** Tracks proficiencies for martial skills. */
+    /** Tracks proficiencies for magic skills */
+    magic: MagicTraditionProficiencies;
+
+    /** Tracks proficiencies for martial (weapon and armor) skills. */
     martial: CombatProficiencies;
 
     /** Various details about the character, such as level, experience, etc. */
@@ -146,8 +149,7 @@ type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, CharacterProfici
 export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
 type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, CharacterProficiencyData>;
 
-export type CombatProficiencies = MagicTraditionProficiencies &
-    CategoryProficiencies &
+export type CombatProficiencies = CategoryProficiencies &
     Partial<BaseWeaponProficiencies> &
     Partial<WeaponGroupProfiencies>;
 

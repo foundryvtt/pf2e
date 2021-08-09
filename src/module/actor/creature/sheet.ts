@@ -122,6 +122,20 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
     override getData() {
         const sheetData: any = super.getData();
+
+        // Update magic-proficiency labels
+        if (sheetData.data.magic) {
+            const proficiencies = Object.entries(sheetData.data.magic as Record<string, SkillData>);
+            for (const [key, proficiency] of proficiencies) {
+                const label = objectHasKey(CONFIG.PF2E.magicTraditions, key) ? CONFIG.PF2E.magicTraditions[key] : key;
+                proficiency.label = label;
+                proficiency.value = ProficiencyModifier.fromLevelAndRank(
+                    sheetData.data.details.level.value,
+                    proficiency.rank || 0
+                ).modifier;
+            }
+        }
+
         // Update martial-proficiency labels
         if (sheetData.data.martial) {
             const proficiencies = Object.entries(sheetData.data.martial as Record<string, SkillData>);
@@ -129,9 +143,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 const groupMatch = /weapon-group-([-a-z0-9]+)$/.exec(key);
                 const baseWeaponMatch = /weapon-base-([-a-z0-9]+)$/.exec(key);
                 const label = ((): string => {
-                    if (objectHasKey(CONFIG.PF2E.magicTraditions, key)) {
-                        return CONFIG.PF2E.magicTraditions[key];
-                    }
                     if (objectHasKey(CONFIG.PF2E.martialSkills, key)) {
                         return CONFIG.PF2E.martialSkills[key];
                     }
