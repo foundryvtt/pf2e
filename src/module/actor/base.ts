@@ -152,6 +152,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 switch (merged.type) {
                     case "character":
                     case "familiar":
+                        merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
                         // Default characters and their minions to having tokens with vision and an actor link
                         merged.token.actorLink = true;
                         merged.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
