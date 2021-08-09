@@ -127,48 +127,7 @@
                 "value": 0
             }
         },
-        "martial": {
-            "advanced": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "heavy": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "light": {
-                "breakdown": "Trained +7",
-                "rank": 1,
-                "value": 7
-            },
-            "martial": {
-                "breakdown": "Expert +9",
-                "rank": 2,
-                "value": 9
-            },
-            "medium": {
-                "breakdown": "Trained +7",
-                "rank": 1,
-                "value": 7
-            },
-            "simple": {
-                "breakdown": "Expert +9",
-                "rank": 2,
-                "value": 9
-            },
-            "unarmed": {
-                "breakdown": "Expert +9",
-                "rank": 2,
-                "value": 9
-            },
-            "unarmored": {
-                "breakdown": "Trained +7",
-                "rank": 1,
-                "value": 7
-            }
-        },
+        "martial": {},
         "pfs": {
             "characterNumber": "",
             "currentFaction": "EA",
@@ -282,28 +241,7 @@
             }
         }
     },
-    "effects": [
-        {
-            "_id": "vcoWpy4KPeFztDLW",
-            "changes": [
-                {
-                    "key": "data.attributes.dying.max",
-                    "mode": 4,
-                    "value": "5"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "icons/svg/aura.svg",
-            "label": "Diehard",
-            "origin": "Actor.LgULbuRlIaoU8XQl.OwnedItem.WbDvJjo78Lo0VmTl",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/iconics/AmiriFull.webp",
     "items": [
@@ -2163,7 +2101,14 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.attributes.dying.max",
+                        "value": 5
+                    }
+                ],
                 "slug": "diehard",
                 "source": {
                     "value": ""
@@ -2178,28 +2123,7 @@
                     ]
                 }
             },
-            "effects": [
-                {
-                    "_id": "r9IFkTGzEqWuheEr",
-                    "changes": [
-                        {
-                            "key": "data.attributes.dying.max",
-                            "mode": 4,
-                            "value": "5"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "icons/svg/aura.svg",
-                    "label": "Diehard",
-                    "origin": "Compendium.pf2e.feats-srd.I0BhPWqYf1bbzEYg",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.feats-srd.I0BhPWqYf1bbzEYg"
