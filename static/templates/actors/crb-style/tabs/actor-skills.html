@@ -9,7 +9,7 @@
                         <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
                         <h4 class="skill-name rollable">{{localize skill.label}}</h4>
                         <div class="skill-prof button-group">
-                            <select class="skill-proficiency pf-value pf-rank adjust-stat-select" data-property="data.skills.{{key}}.rank" value="{{skill.rank}}" title="{{localize skill.hover}}">
+                            <select class="skill-proficiency pf-value pf-rank adjust-stat-select" data-property="data.skills.{{key}}.rank" value="{{skill.rank}}">
                                 {{> systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html proflevel=skill.rank }}
                             </select>
                             <div class="hover-container">
@@ -79,7 +79,7 @@
                     <h1 class="skill-score lore-score" title="{{localize proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</h1>
                     <h4 class="skill-name lore-name-input">{{localize proficiency.label}}</h4>
                     <div class="skill-prof button-group skill-container">
-                        <select class="skill-proficiency pf-value pf-rank adjust-stat-select" data-property="data.martial.{{key}}.rank" value="{{proficiency.rank}}" title="{{localize proficiency.hover}}">
+                        <select class="skill-proficiency pf-value pf-rank adjust-stat-select" data-property="data.martial.{{key}}.rank" value="{{proficiency.rank}}">
                             {{> systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html proflevel=proficiency.rank }}
                         </select>
                     </div>
