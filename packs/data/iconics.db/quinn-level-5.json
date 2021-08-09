@@ -126,48 +126,7 @@
                 "value": 0
             }
         },
-        "martial": {
-            "advanced": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "heavy": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "light": {
-                "breakdown": "Trained +7",
-                "rank": 0,
-                "value": 0
-            },
-            "martial": {
-                "breakdown": "Expert +9",
-                "rank": 0,
-                "value": 0
-            },
-            "medium": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "simple": {
-                "breakdown": "Expert +9",
-                "rank": 0,
-                "value": 0
-            },
-            "unarmed": {
-                "breakdown": "Expert +9",
-                "rank": 0,
-                "value": 0
-            },
-            "unarmored": {
-                "breakdown": "Trained +7",
-                "rank": 0,
-                "value": 0
-            }
-        },
+        "martial": {},
         "pfs": {
             "characterNumber": "",
             "currentFaction": "EA",
@@ -198,10 +157,6 @@
                 "rank": 0,
                 "value": 0
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "skills": {
             "acr": {
@@ -286,128 +241,7 @@
             }
         }
     },
-    "effects": [
-        {
-            "_id": "oyKszhkv5hxCIgQ8",
-            "changes": [
-                {
-                    "key": "data.attributes.perception.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.saves.fortitude.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.reflex.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.saves.will.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.skills.soc.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.simple.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.martial.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.unarmed.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.unarmored.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.light.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.attributes.classDC.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/classes/investigator.webp",
-            "label": "Initial Proficiencies",
-            "origin": "Actor.joGs68agX3M46CjW.OwnedItem.WzPwddviNMoENceT",
-            "tint": null,
-            "transfer": true
-        },
-        {
-            "_id": "q6sfw4nuAHKKVdkF",
-            "changes": [
-                {
-                    "key": "data.details.keyability.value",
-                    "mode": 5,
-                    "value": "int"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/classes/investigator.webp",
-            "label": "Key Ability",
-            "origin": "Actor.joGs68agX3M46CjW.OwnedItem.WzPwddviNMoENceT",
-            "tint": null,
-            "transfer": true
-        },
-        {
-            "_id": "qZw7Tro2yMRwV9dg",
-            "changes": [
-                {
-                    "key": "data.martial.simple.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.martial.unarmed.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.martial.martial.rank",
-                    "mode": 4,
-                    "value": "2"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
-            "label": "Weapon Expertise (Level 5)",
-            "origin": "Actor.iR53NC2tLm3YtIUc.OwnedItem.lGIwXGb9D8ZFFPqo",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/iconics/QuinnFull.webp",
     "items": [
@@ -462,10 +296,6 @@
                 },
                 "reach": 5,
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": "med",
                 "slug": "human",
                 "source": {
@@ -715,15 +545,18 @@
                     ]
                 },
                 "perception": 2,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.skills.soc.rank",
+                        "value": 1
+                    }
+                ],
                 "savingThrows": {
                     "fortitude": 1,
                     "reflex": 2,
                     "will": 2
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "skillFeatLevels": {
                     "value": [
@@ -789,96 +622,7 @@
                     "value": []
                 }
             },
-            "effects": [
-                {
-                    "_id": "ejkpHlAOU2Tpeva9",
-                    "changes": [
-                        {
-                            "key": "data.attributes.perception.rank",
-                            "mode": 4,
-                            "value": "2"
-                        },
-                        {
-                            "key": "data.saves.fortitude.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.reflex.rank",
-                            "mode": 4,
-                            "value": "2"
-                        },
-                        {
-                            "key": "data.saves.will.rank",
-                            "mode": 4,
-                            "value": "2"
-                        },
-                        {
-                            "key": "data.skills.soc.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.simple.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.martial.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.unarmed.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.unarmored.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.light.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.attributes.classDC.rank",
-                            "mode": 4,
-                            "value": "1"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/classes/investigator.webp",
-                    "label": "Initial Proficiencies",
-                    "tint": null,
-                    "transfer": true
-                },
-                {
-                    "_id": "F6RiWKJskMwW2EOZ",
-                    "changes": [
-                        {
-                            "key": "data.details.keyability.value",
-                            "mode": 5,
-                            "value": "int"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/classes/investigator.webp",
-                    "label": "Key Ability",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classes.4wrSCyX6akmyo7Wj"
@@ -918,10 +662,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "on-the-case",
                 "source": {
                     "value": ""
@@ -997,10 +737,6 @@
                         "value": "@abilities.int.mod"
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "devise-a-stratagem",
                 "source": {
                     "value": ""
@@ -1101,10 +837,6 @@
                         }
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "strategic-strike",
                 "source": {
                     "value": ""
@@ -1156,10 +888,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "methodology",
                 "source": {
                     "value": ""
@@ -1219,10 +947,6 @@
                     }
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "barrister",
                 "source": {
                     "value": ""
@@ -1282,10 +1006,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "group-impression",
                 "source": {
                     "value": ""
@@ -1328,10 +1048,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1377,10 +1093,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "skilled-heritage",
                 "source": {
                     "value": ""
@@ -1432,10 +1144,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "cooperative-nature",
                 "source": {
                     "value": ""
@@ -1501,10 +1209,6 @@
                         "value": 1
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "known-weaknesses",
                 "source": {
                     "value": ""
@@ -1556,10 +1260,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "thats-odd",
                 "source": {
                     "value": ""
@@ -1611,10 +1311,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "empiricism-methodology",
                 "source": {
                     "value": ""
@@ -1659,10 +1355,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "expeditious-inspection",
                 "source": {
                     "value": ""
@@ -1713,10 +1405,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "clue-in",
                 "source": {
                     "value": ""
@@ -1826,10 +1514,6 @@
                         }
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "pursue-a-lead",
                 "source": {
                     "value": ""
@@ -1944,10 +1628,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -2052,10 +1732,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -2163,10 +1839,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -2274,10 +1946,6 @@
                     "value": 10
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -2385,10 +2053,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -2496,10 +2160,6 @@
                     "value": 14
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -2607,10 +2267,6 @@
                     "value": 5
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -2718,10 +2374,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -2829,10 +2481,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -2999,10 +2647,6 @@
                     "value": "1"
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "selectedAmmoId": "feSrbnrv3ZW1MAcb",
                 "size": {
                     "value": "med"
@@ -3148,10 +2792,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3328,16 +2968,12 @@
                     "value": 1
                 },
                 "range": {
-                    "value": ""
+                    "value": "melee"
                 },
                 "reload": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3490,10 +3126,6 @@
                 },
                 "resilient": {},
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3554,10 +3186,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "devise-a-stratagem",
                 "source": {
                     "value": ""
@@ -3616,11 +3244,26 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.simple.rank",
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.unarmed.rank",
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.martial.rank",
+                        "value": 2
+                    }
+                ],
                 "slug": "weapon-expertise-level-5",
                 "source": {
                     "value": ""
@@ -3636,37 +3279,7 @@
                     ]
                 }
             },
-            "effects": [
-                {
-                    "_id": "TIkHTYc1FSgFQF1E",
-                    "changes": [
-                        {
-                            "key": "data.martial.simple.rank",
-                            "mode": 4,
-                            "value": "2"
-                        },
-                        {
-                            "key": "data.martial.unarmed.rank",
-                            "mode": 4,
-                            "value": "2"
-                        },
-                        {
-                            "key": "data.martial.martial.rank",
-                            "mode": 4,
-                            "value": "2"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
-                    "label": "Weapon Expertise (Level 5)",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.9XLUh9iMepZesdmc"
@@ -3716,10 +3329,6 @@
                         "value": "@details.level.value"
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "keen-recollection",
                 "source": {
                     "value": ""
@@ -3771,10 +3380,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "skillful-lessons",
                 "source": {
                     "value": ""
@@ -3826,10 +3431,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "clever-improviser",
                 "source": {
                     "value": ""
@@ -3899,10 +3500,6 @@
                         }
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "untrained-improvisation",
                 "source": {
                     "value": ""
@@ -3954,10 +3551,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "shared-stratagem",
                 "source": {
                     "value": ""
@@ -4009,10 +3602,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "strategic-assessment",
                 "source": {
                     "value": ""
@@ -4064,10 +3653,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "canny-acumen",
                 "source": {
                     "value": ""
@@ -4137,10 +3722,6 @@
                         "value": 2
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "eye-for-numbers",
                 "source": {
                     "value": ""
@@ -4197,10 +3778,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "lie-to-me",
                 "source": {
                     "value": ""
@@ -4257,10 +3834,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "quiet-allies",
                 "source": {
                     "value": ""
@@ -4317,10 +3890,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "read-lips",
                 "source": {
                     "value": ""
@@ -4447,10 +4016,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4590,10 +4155,6 @@
                         "value": 1
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4760,10 +4321,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4914,10 +4471,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5106,10 +4659,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5260,10 +4809,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5390,10 +4935,6 @@
                     "value": 15
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5498,10 +5039,6 @@
                     "value": 3
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },

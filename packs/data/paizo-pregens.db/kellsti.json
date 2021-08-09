@@ -113,46 +113,7 @@
                 "value": 0
             }
         },
-        "martial": {
-            "advanced": {
-                "rank": 0,
-                "value": 0
-            },
-            "heavy": {
-                "rank": 0,
-                "value": 0
-            },
-            "light": {
-                "rank": 0,
-                "value": 0
-            },
-            "martial": {
-                "rank": 0,
-                "value": 0
-            },
-            "medium": {
-                "rank": 0,
-                "value": 0
-            },
-            "simple": {
-                "rank": 1,
-                "value": 0
-            },
-            "unarmed": {
-                "rank": 1,
-                "value": 0
-            },
-            "unarmored": {
-                "rank": 1,
-                "value": 0
-            },
-            "weapon-base-shortbow": {
-                "breakdown": "",
-                "custom": true,
-                "rank": 1,
-                "value": 0
-            }
-        },
+        "martial": {},
         "pfs": {
             "characterNumber": "",
             "currentFaction": "EA",
@@ -171,7 +132,6 @@
         },
         "resources": {
             "focus": {
-                "max": 1,
                 "value": 1
             }
         },
@@ -188,10 +148,6 @@
                 "rank": 2,
                 "value": 0
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "skills": {
             "acr": {
@@ -276,123 +232,7 @@
             }
         }
     },
-    "effects": [
-        {
-            "_id": "kIqxJrArlDNz8e5E",
-            "changes": [
-                {
-                    "key": "token.brightSight",
-                    "mode": 4,
-                    "value": "500"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/ancestry/darkvision.webp",
-            "label": "Darkvision",
-            "origin": "Actor.sJICSEgoALfEG4sj.Item.QnkUBxiDltgsXjJs",
-            "tint": null,
-            "transfer": false
-        },
-        {
-            "_id": "3kTRrnnPl9IBiVov",
-            "changes": [
-                {
-                    "key": "data.attributes.perception.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.fortitude.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.reflex.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.will.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.skills.rel.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.simple.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.unarmed.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.unarmored.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/classes/cleric.webp",
-            "label": "Initial Proficiencies",
-            "origin": "Actor.sJICSEgoALfEG4sj.Item.xAExSiXeY5HHDuWk",
-            "tint": null,
-            "transfer": false
-        },
-        {
-            "_id": "gn0xG4Epja1I9eEy",
-            "changes": [
-                {
-                    "key": "data.details.keyability.value",
-                    "mode": 5,
-                    "value": "wis"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/classes/cleric.webp",
-            "label": "Key Ability",
-            "origin": "Actor.sJICSEgoALfEG4sj.Item.xAExSiXeY5HHDuWk",
-            "tint": null,
-            "transfer": false
-        },
-        {
-            "_id": "p5AukLOQEbRRE6kY",
-            "changes": [
-                {
-                    "key": "data.saves.fortitude.rank",
-                    "mode": 4,
-                    "value": "2"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/cloistered-cleric.webp",
-            "label": "Second Doctrine (Cloistered Cleric)",
-            "origin": "Actor.sJICSEgoALfEG4sj.Item.PIXGmFHVm4EMoeyM",
-            "tint": null,
-            "transfer": false
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "icons/svg/mystery-man.svg",
     "items": [
@@ -469,10 +309,6 @@
                 },
                 "reach": 5,
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": "sm",
                 "slug": "kobold",
                 "source": {
@@ -532,12 +368,14 @@
                         "key": "PF2E.RuleElement.Sense",
                         "label": "PF2E.SensesDarkvision",
                         "selector": "darkvision"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "token.brightSight",
+                        "value": 500
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "darkvision",
                 "source": {
                     "value": ""
@@ -550,27 +388,7 @@
                     "value": []
                 }
             },
-            "effects": [
-                {
-                    "_id": "WM2xeGsDz0csogJR",
-                    "changes": [
-                        {
-                            "key": "token.brightSight",
-                            "mode": 4,
-                            "value": "500"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/features/ancestry/darkvision.webp",
-                    "label": "Darkvision",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.ancestryfeatures.HHVQDp61ehcpdiU8"
@@ -607,10 +425,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "draconic-exemplar",
                 "source": {
                     "value": ""
@@ -827,15 +641,18 @@
                     ]
                 },
                 "perception": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.skills.rel.rank",
+                        "value": 1
+                    }
+                ],
                 "savingThrows": {
                     "fortitude": 1,
                     "reflex": 1,
                     "will": 2
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "skillFeatLevels": {
                     "value": [
@@ -882,81 +699,7 @@
                     "value": []
                 }
             },
-            "effects": [
-                {
-                    "_id": "iai6bYcjyxURHrbJ",
-                    "changes": [
-                        {
-                            "key": "data.attributes.perception.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.fortitude.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.reflex.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.will.rank",
-                            "mode": 4,
-                            "value": "2"
-                        },
-                        {
-                            "key": "data.skills.rel.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.simple.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.unarmed.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.unarmored.rank",
-                            "mode": 4,
-                            "value": "1"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/classes/cleric.webp",
-                    "label": "Initial Proficiencies",
-                    "tint": null,
-                    "transfer": true
-                },
-                {
-                    "_id": "c4n6BuTDpCsx55o5",
-                    "changes": [
-                        {
-                            "key": "data.details.keyability.value",
-                            "mode": 5,
-                            "value": "wis"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/classes/cleric.webp",
-                    "label": "Key Ability",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classes.EizrWvUPMS67Pahd"
@@ -996,10 +739,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "doctrine",
                 "source": {
                     "value": ""
@@ -1051,10 +790,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "divine-font",
                 "source": {
                     "value": ""
@@ -1106,10 +841,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "deity",
                 "source": {
                     "value": ""
@@ -1161,10 +892,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "divine-spellcasting-cleric",
                 "source": {
                     "value": ""
@@ -1216,10 +943,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "anathema-cleric",
                 "source": {
                     "value": ""
@@ -1271,10 +994,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "first-doctrine",
                 "source": {
                     "value": ""
@@ -1411,10 +1130,6 @@
                     }
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "artist",
                 "source": {
                     "value": ""
@@ -1501,10 +1216,6 @@
                         }
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "specialty-crafting-artistry",
                 "source": {
                     "value": ""
@@ -1544,10 +1255,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1593,10 +1300,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "second-doctrine",
                 "source": {
                     "value": ""
@@ -1661,10 +1364,6 @@
                         "value": 1
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "ganzi",
                 "source": {
                     "value": ""
@@ -1717,10 +1416,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "vestigial-wings",
                 "source": {
                     "value": ""
@@ -1772,10 +1467,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "communal-healing",
                 "source": {
                     "value": ""
@@ -1833,10 +1524,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "improved-communal-healing",
                 "source": {
                     "value": ""
@@ -1892,10 +1579,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "battle-medicine",
                 "source": {
                     "value": ""
@@ -1954,10 +1637,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "cat-fall",
                 "source": {
                     "value": ""
@@ -2025,10 +1704,6 @@
                         "text": "<p class='compact-text'><strong>{item|name}</strong> If you roll a success using the Balance action, you get a critical success instead.</p>"
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "steady-balance",
                 "source": {
                     "value": ""
@@ -2081,10 +1756,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "weapon-proficiency",
                 "source": {
                     "value": ""
@@ -2140,10 +1811,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "continual-recovery",
                 "source": {
                     "value": ""
@@ -2196,10 +1863,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "first-doctrine-cloistered-cleric",
                 "source": {
                     "value": ""
@@ -2250,11 +1913,14 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.saves.fortitude.rank",
+                        "value": 2
+                    }
+                ],
                 "slug": "second-doctrine-cloistered-cleric",
                 "source": {
                     "value": ""
@@ -2269,27 +1935,7 @@
                     ]
                 }
             },
-            "effects": [
-                {
-                    "_id": "gdaVcz8ZWlsYTRPr",
-                    "changes": [
-                        {
-                            "key": "data.saves.fortitude.rank",
-                            "mode": 4,
-                            "value": "2"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/features/classes/cloistered-cleric.webp",
-                    "label": "Second Doctrine (Cloistered Cleric)",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Second Doctrine (Cloistered Cleric)"
@@ -2326,10 +1972,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "cloistered-cleric",
                 "source": {
                     "value": ""
@@ -2381,10 +2023,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "domain-initiate",
                 "source": {
                     "value": ""
@@ -2538,10 +2176,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -2719,10 +2353,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "selectedAmmoId": "jfWyGVxsK4SJeD29",
                 "size": {
                     "value": "med"
@@ -2870,10 +2500,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3030,10 +2656,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3144,10 +2766,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3286,10 +2904,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3419,10 +3033,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3558,10 +3168,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3602,8 +3208,6 @@
                                 "value": "positive"
                             },
                             "description": {
-                                "chat": "",
-                                "unidentified": "",
                                 "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                             },
                             "duration": {
@@ -3638,10 +3242,6 @@
                             "scaling": {
                                 "formula": "1d8",
                                 "mode": "level1"
-                            },
-                            "schema": {
-                                "lastMigration": null,
-                                "version": null
                             },
                             "school": {
                                 "value": "necromancy"
@@ -3817,10 +3417,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3928,10 +3524,6 @@
                     "value": 15
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3988,10 +3580,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -4190,10 +3778,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "divination"
                 },
@@ -4318,10 +3902,6 @@
                     "formula": "1d4",
                     "mode": "level1"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -4441,10 +4021,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -4568,10 +4144,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "abjuration"
                 },
@@ -4693,10 +4265,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -4821,10 +4389,6 @@
                     "formula": "1d8",
                     "mode": "level1"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "necromancy"
                 },
@@ -4947,10 +4511,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "transmutation"
                 },
@@ -5070,10 +4630,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -5196,10 +4752,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "necromancy"
                 },
@@ -5321,10 +4873,6 @@
                     "formula": "1d8",
                     "mode": "level2"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -5445,10 +4993,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "abjuration"
                 },
@@ -5520,10 +5064,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -5696,10 +5236,6 @@
                     "formula": "1d8",
                     "mode": "level1"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "necromancy"
                 },
@@ -5772,10 +5308,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "showUnpreparedSpells": {
                     "value": true
                 },
@@ -5937,10 +5469,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "illusion"

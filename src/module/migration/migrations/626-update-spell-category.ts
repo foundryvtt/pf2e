@@ -12,7 +12,7 @@ export class Migration626UpdateSpellCategory extends MigrationBase {
     override async updateItem(itemData: ItemSourcePF2e) {
         if (itemData.type === "spell") {
             interface MaybeCategorie extends Partial<SpellData["data"]> {
-                traditions: ValuesList<keyof ConfigPF2e["PF2E"]["spellTraditions"]>;
+                traditions: ValuesList<keyof ConfigPF2e["PF2E"]["magicTraditions"]>;
                 spellCategorie?: { value: "spell" | "focus" | "ritual" | "" };
                 spellCategory?: { value: "spell" | "focus" | "ritual" | "" };
                 "-=spellCategorie"?: unknown;

@@ -23,11 +23,14 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
-        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.skills.prf.rank",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -42,28 +45,7 @@
             ]
         }
     },
-    "effects": [
-        {
-            "_id": "MjMR0eHrvoFVi80Z",
-            "changes": [
-                {
-                    "key": "data.skills.prf.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": null
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/default-icons/feat.svg",
-            "label": "Polychromatic Anadi",
-            "origin": "",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/feat.svg",
     "name": "Polychromatic Anadi",

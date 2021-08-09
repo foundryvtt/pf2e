@@ -126,54 +126,7 @@
                 "value": 0
             }
         },
-        "martial": {
-            "advanced": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "heavy": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "light": {
-                "breakdown": "Trained +3",
-                "rank": 0,
-                "value": 0
-            },
-            "martial": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "medium": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "simple": {
-                "breakdown": "Trained +3",
-                "rank": 0,
-                "value": 0
-            },
-            "unarmed": {
-                "breakdown": "Trained +3",
-                "rank": 0,
-                "value": 0
-            },
-            "unarmored": {
-                "breakdown": "Trained +3",
-                "rank": 0,
-                "value": 0
-            },
-            "weapon-base-khakkara": {
-                "breakdown": "",
-                "custom": true,
-                "rank": 1,
-                "value": 0
-            }
-        },
+        "martial": {},
         "pfs": {
             "characterNumber": "",
             "currentFaction": "EA",
@@ -192,7 +145,6 @@
         },
         "resources": {
             "focus": {
-                "max": 2,
                 "value": 2
             }
         },
@@ -209,10 +161,6 @@
                 "rank": 0,
                 "value": 0
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "skills": {
             "acr": {
@@ -299,108 +247,7 @@
             }
         }
     },
-    "effects": [
-        {
-            "_id": "fwOIB4uMAhbKao0Q",
-            "changes": [
-                {
-                    "key": "data.attributes.perception.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.fortitude.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.reflex.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.will.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.skills.rel.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.simple.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.unarmed.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.unarmored.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.light.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/classes/oracle.webp",
-            "label": "Initial Proficiencies",
-            "origin": "Actor.bo4jkbkZQ3KPTnyd.OwnedItem.HSNouXeI24TvmGGP",
-            "tint": null,
-            "transfer": true
-        },
-        {
-            "_id": "uCRMlimHHZ4VhqxP",
-            "changes": [
-                {
-                    "key": "data.details.keyability.value",
-                    "mode": 5,
-                    "value": "cha"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/classes/oracle.webp",
-            "label": "Key Ability",
-            "origin": "Actor.bo4jkbkZQ3KPTnyd.OwnedItem.HSNouXeI24TvmGGP",
-            "tint": null,
-            "transfer": true
-        },
-        {
-            "_id": "fZPH6A2ihYvbVN5a",
-            "changes": [
-                {
-                    "key": "data.skills.nat.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/tempest-mystery.webp",
-            "label": "Tempest Mystery",
-            "origin": "Actor.bo4jkbkZQ3KPTnyd.OwnedItem.2fDabuC0ve2RRbr9",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/iconics/KorakaiFull.webp",
     "items": [
@@ -473,10 +320,6 @@
                 },
                 "reach": 5,
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": "med",
                 "slug": "tengu",
                 "source": {
@@ -538,10 +381,6 @@
                         "selector": "lowLightVision"
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "low-light-vision",
                 "source": {
                     "value": ""
@@ -617,10 +456,6 @@
                         ]
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "sharp-beak",
                 "source": {
                     "value": ""
@@ -861,15 +696,18 @@
                     ]
                 },
                 "perception": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.skills.rel.rank",
+                        "value": 1
+                    }
+                ],
                 "savingThrows": {
                     "fortitude": 1,
                     "reflex": 1,
                     "will": 2
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "skillFeatLevels": {
                     "value": [
@@ -916,86 +754,7 @@
                     "value": []
                 }
             },
-            "effects": [
-                {
-                    "_id": "Pw1PrxARGfANESnD",
-                    "changes": [
-                        {
-                            "key": "data.attributes.perception.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.fortitude.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.reflex.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.will.rank",
-                            "mode": 4,
-                            "value": "2"
-                        },
-                        {
-                            "key": "data.skills.rel.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.simple.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.unarmed.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.unarmored.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.light.rank",
-                            "mode": 4,
-                            "value": "1"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/classes/oracle.webp",
-                    "label": "Initial Proficiencies",
-                    "tint": null,
-                    "transfer": true
-                },
-                {
-                    "_id": "3KEL71Rbzckhru1q",
-                    "changes": [
-                        {
-                            "key": "data.details.keyability.value",
-                            "mode": 5,
-                            "value": "cha"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/classes/oracle.webp",
-                    "label": "Key Ability",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classes.pWHx4SXcft9O2udP"
@@ -1035,10 +794,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "spell-repertoire-oracle",
                 "source": {
                     "value": ""
@@ -1090,10 +845,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "oracular-curse",
                 "source": {
                     "value": ""
@@ -1144,11 +895,15 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.resources.focus.max",
+                        "priority": 10,
+                        "value": 2
+                    }
+                ],
                 "slug": "revelation-spells",
                 "source": {
                     "value": ""
@@ -1200,10 +955,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "mystery",
                 "source": {
                     "value": ""
@@ -1255,10 +1006,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "divine-spellcasting-oracle",
                 "source": {
                     "value": ""
@@ -1318,10 +1065,6 @@
                     }
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "cook",
                 "source": {
                     "value": ""
@@ -1413,10 +1156,6 @@
                         }
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "seasoned",
                 "source": {
                     "value": ""
@@ -1469,10 +1208,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "skyborn-tengu",
                 "source": {
                     "value": ""
@@ -1524,10 +1259,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "tengu-weapon-familiarity",
                 "source": {
                     "value": ""
@@ -1578,11 +1309,14 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.skills.nat.rank",
+                        "value": 1
+                    }
+                ],
                 "slug": "tempest-mystery",
                 "source": {
                     "value": ""
@@ -1597,27 +1331,7 @@
                     ]
                 }
             },
-            "effects": [
-                {
-                    "_id": "H0YKlj4m0KbkurRp",
-                    "changes": [
-                        {
-                            "key": "data.skills.nat.rank",
-                            "mode": 4,
-                            "value": "1"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/features/classes/tempest-mystery.webp",
-                    "label": "Tempest Mystery",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Tempest Mystery"
@@ -1645,10 +1359,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "showUnpreparedSpells": {
                     "value": true
                 },
@@ -1812,10 +1522,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "enchantment"
                 },
@@ -1940,10 +1646,6 @@
                     "formula": "1d8",
                     "mode": "level1"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "necromancy"
                 },
@@ -2065,10 +1767,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -2194,10 +1892,6 @@
                     "formula": "1d6",
                     "mode": "level1"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "necromancy"
                 },
@@ -2319,10 +2013,6 @@
                 "scaling": {
                     "formula": "1d4",
                     "mode": "level1"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -2446,10 +2136,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "divination"
                 },
@@ -2571,10 +2257,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -2700,10 +2382,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "abjuration"
                 },
@@ -2776,10 +2454,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "showUnpreparedSpells": {
                     "value": true
                 },
@@ -2943,10 +2617,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "conjuration"
                 },
@@ -3064,10 +2734,6 @@
                 "scaling": {
                     "formula": "1d4",
                     "mode": "level1"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -3222,10 +2888,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3266,8 +2928,6 @@
                                 "value": ""
                             },
                             "description": {
-                                "chat": "",
-                                "unidentified": "",
                                 "value": "<p>The weapon glimmers with magic and energy. The target becomes a +1 striking weapon, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Magic Weapon]{Spell Effect: Magic Weapon}</p>"
                             },
                             "duration": {
@@ -3302,10 +2962,6 @@
                             "scaling": {
                                 "formula": "",
                                 "mode": "none"
-                            },
-                            "schema": {
-                                "lastMigration": null,
-                                "version": null
                             },
                             "school": {
                                 "value": "transmutation"
@@ -3533,16 +3189,12 @@
                     "value": 1
                 },
                 "range": {
-                    "value": ""
+                    "value": "melee"
                 },
                 "reload": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3672,10 +3324,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3780,10 +3428,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3891,10 +3535,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4002,10 +3642,6 @@
                     "value": 10
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4113,10 +3749,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4224,10 +3856,6 @@
                     "value": 14
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4335,10 +3963,6 @@
                     "value": 5
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4446,10 +4070,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4557,10 +4177,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4668,10 +4284,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4810,10 +4422,6 @@
                 },
                 "resilient": {},
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4986,10 +4594,6 @@
                     "value": "1"
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "selectedAmmoId": "gqgWgFckjQaOFwHH",
                 "size": {
                     "value": "med"
@@ -5137,10 +4741,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5295,10 +4895,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5374,10 +4970,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -5466,10 +5058,6 @@
                     "value": 2
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5574,10 +5162,6 @@
                     "value": 9
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },

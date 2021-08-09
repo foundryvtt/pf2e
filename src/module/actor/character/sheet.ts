@@ -105,12 +105,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         // Is the character's key ability score overridden by an Active Effect?
-        sheetData.data.details.keyability.aeOverride = this.actor.effects.contents.some((effect) => {
-            return (
-                !effect.data.disabled &&
-                effect.data.changes.some((change) => change.key === "data.details.keyability.value")
-            );
-        });
+        sheetData.data.details.keyability.singleOption = this.actor.class?.data.data.keyAbility.value.length === 1;
 
         sheetData.data.effects = {};
 
@@ -125,7 +120,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         this.prepareSpellcasting(sheetData);
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
-        sheetData.focusIcon = this.getFocusIcon(this.actor.data.data.resources?.focus);
 
         // Return data for rendering
         return sheetData;
@@ -613,9 +607,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         // Left/right-click adjustments (increment or decrement) of actor and item stats
         html.find(".adjust-stat").on("click contextmenu", (event) => this.onClickAdjustStat(event));
         html.find(".adjust-item-stat").on("click contextmenu", (event) => this.onClickAdjustItemStat(event));
-        html.find(".focus-points .proficiency-rank").on("click contextmenu", (event) =>
-            this.onClickAdjustFocusPoints(event)
-        );
 
         {
             // ensure correct tab name is displayed after actor update
@@ -863,37 +854,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (typeof newValue === "number") {
             await item.update({ [propertyKey]: newValue });
         }
-    }
-
-    /** Handle clicking/right clicking the focus points control */
-    private async onClickAdjustFocusPoints(event: JQuery.TriggeredEvent<HTMLElement>) {
-        const change = event.type === "click" ? 1 : -1;
-        const focusPool = this.actor.data.data.resources.focus;
-        const points = Math.clamped((focusPool?.value ?? 0) + change, 0, focusPool?.max ?? 0);
-        await this.actor.update({ "data.resources.focus.value": points });
-    }
-
-    /**
-     * Get the font-awesome icon used to display a certain level of focus points
-     * expection focus = { points: 1, pool: 1}
-     */
-    private getFocusIcon(focus?: { value: number; max: number }) {
-        if (!focus) return "";
-        const icons: Record<number, string> = {};
-        const usedPoint = '<i class="fas fa-dot-circle"></i>';
-        const unUsedPoint = '<i class="far fa-circle"></i>';
-
-        for (let i = 0; i <= focus.max; i++) {
-            // creates focus.pool amount of icon options to be selected in the icons object
-            let iconHtml = "";
-            for (let iconColumn = 1; iconColumn <= focus.max; iconColumn++) {
-                // creating focus.pool amount of icons
-                iconHtml += iconColumn <= i ? usedPoint : unUsedPoint;
-            }
-            icons[i] = iconHtml;
-        }
-
-        return icons[focus.value];
     }
 
     private onIncrementModifierValue(event: JQuery.ClickEvent) {

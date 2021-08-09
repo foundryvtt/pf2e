@@ -130,7 +130,7 @@ const damageTypes = {
     untyped: "PF2E.DamageTypeUntyped",
 };
 
-const spellTraditions = {
+const magicTraditions = {
     arcane: "PF2E.TraitArcane",
     divine: "PF2E.TraitDivine",
     occult: "PF2E.TraitOccult",
@@ -546,13 +546,13 @@ const spellOtherTraits = {
 const spellTraits = {
     ...classTraits,
     ...damageTraits,
-    ...spellTraditions,
+    ...magicTraditions,
     ...spellOtherTraits,
 };
 
 const consumableTraits = {
     ...magicSchools,
-    ...spellTraditions,
+    ...magicTraditions,
     acid: "PF2E.TraitAcid",
     air: "PF2E.TraitAir",
     alchemical: "PF2E.TraitAlchemical",
@@ -1058,16 +1058,8 @@ export const PF2ECONFIG = {
         unique: "PF2E.TraitUnique",
     },
 
-    spellTraditions,
+    magicTraditions,
     spellOtherTraits,
-
-    magicTraditions: {
-        arcane: "PF2E.TraitArcane",
-        divine: "PF2E.TraitDivine",
-        occult: "PF2E.TraitOccult",
-        primal: "PF2E.TraitPrimal",
-        halcyon: "PF2E.TraitHalcyon",
-    },
 
     magicSchools,
     classTraits,
@@ -1078,7 +1070,7 @@ export const PF2ECONFIG = {
         ...ancestryTraits,
         ...classTraits,
         ...magicSchools,
-        ...spellTraditions,
+        ...magicTraditions,
         acid: "PF2E.TraitAcid",
         adamantine: "PF2E.PreciousMaterialAdamantine",
         air: "PF2E.TraitAir",
@@ -1232,7 +1224,7 @@ export const PF2ECONFIG = {
 
     armorTraits: {
         ...magicSchools,
-        ...spellTraditions,
+        ...magicTraditions,
         apex: "PF2E.TraitApex",
         artifact: "PF2E.TraitArtifact",
         bulwark: "PF2E.TraitBulwark",
@@ -1252,7 +1244,7 @@ export const PF2ECONFIG = {
     equipmentTraits: {
         ...ancestryTraits,
         ...magicSchools,
-        ...spellTraditions,
+        ...magicTraditions,
         acid: "PF2E.TraitAcid",
         adjustment: "PF2E.TraitAdjustment",
         air: "PF2E.TraitAir",
@@ -1314,7 +1306,7 @@ export const PF2ECONFIG = {
         ...classTraits,
         ...damageTraits,
         ...magicSchools,
-        ...spellTraditions,
+        ...magicTraditions,
         ...spellTraits,
         move: "PF2E.TraitMove",
         manipulate: "PF2E.TraitManipulate",
@@ -1363,7 +1355,7 @@ export const PF2ECONFIG = {
     hazardTraits: {
         ...damageTraits,
         ...magicSchools,
-        ...spellTraditions,
+        ...magicTraditions,
         alchemical: "PF2E.TraitAlchemical",
         auditory: "PF2E.TraitAuditory",
         environmental: "PF2E.TraitEnvironmental",
@@ -1890,6 +1882,7 @@ export const PF2ECONFIG = {
         kitsune: "PF2E.LanguageKitsune",
         kelish: "PF2E.LanguageKelish",
         lirgeni: "PF2E.LanguageLirgeni",
+        mahwek: "PF2E.LanguageMahwek",
         minaten: "PF2E.LanguageMinaten",
         mwangi: "PF2E.LanguageMwangi",
         mzunu: "PF2E.LanguageMzunu",

@@ -1,6 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ItemSourcePF2e } from "@item/data";
 import { RuleElementSource } from "@module/rules/rules-data-definitions";
+import { sluggify } from "@module/utils";
 import { MigrationBase } from "../base";
 
 /** Don't store the max value of the focus pool */
@@ -110,7 +111,7 @@ export class Migration651EphemeralFocusPool extends MigrationBase {
         const systemData = itemSource.data;
 
         const rule = ((): (RuleElementSource & { [key: string]: unknown }) | null => {
-            const slug = systemData.slug ?? "";
+            const slug = systemData.slug ?? sluggify(itemSource.name);
 
             if (slug === "revelation-spells") {
                 return {

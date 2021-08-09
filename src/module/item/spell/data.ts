@@ -40,7 +40,7 @@ export interface SpellSystemData extends ItemSystemData, ItemLevelData {
     category: {
         value: keyof ConfigPF2e["PF2E"]["spellCategories"];
     };
-    traditions: ValuesList<keyof ConfigPF2e["PF2E"]["spellTraditions"]>;
+    traditions: ValuesList<keyof ConfigPF2e["PF2E"]["magicTraditions"]>;
     school: {
         value: MagicSchool;
     };

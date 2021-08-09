@@ -6,16 +6,16 @@ import { TokenDocumentPF2e } from "@module/scene/token-document";
 import { ErrorPF2e } from "@module/utils";
 import { DateTime } from "luxon";
 
-interface ItemsDiff {
-    inserted: ItemSourcePF2e[];
+interface CollectionDiff<T extends foundry.data.ActiveEffectSource | ItemSourcePF2e> {
+    inserted: T[];
     deleted: string[];
-    updated: ItemSourcePF2e[];
+    updated: T[];
 }
 
 export class MigrationRunnerBase {
     migrations: MigrationBase[];
 
-    static LATEST_SCHEMA_VERSION = 0.651;
+    static LATEST_SCHEMA_VERSION = 0.652;
 
     static MINIMUM_SAFE_VERSION = 0.6;
 
@@ -29,35 +29,44 @@ export class MigrationRunnerBase {
         return currentVersion < (this.constructor as typeof MigrationRunnerBase).LATEST_SCHEMA_VERSION;
     }
 
-    diffItems(orig: ItemSourcePF2e[], updated: ItemSourcePF2e[]): ItemsDiff {
-        const ret: ItemsDiff = {
+    diffCollection<T extends foundry.data.ActiveEffectSource>(orig: T[], updated: T[]): CollectionDiff<T>;
+    diffCollection<T extends ItemSourcePF2e>(orig: T[], updated: T[]): CollectionDiff<T>;
+    diffCollection<T extends foundry.data.ActiveEffectSource | ItemSourcePF2e>(
+        orig: T[],
+        updated: T[]
+    ): CollectionDiff<T>;
+    diffCollection<TSource extends foundry.data.ActiveEffectSource | ItemSourcePF2e>(
+        orig: TSource[],
+        updated: TSource[]
+    ): CollectionDiff<TSource> {
+        const ret: CollectionDiff<TSource> = {
             inserted: [],
             deleted: [],
             updated: [],
         };
 
-        const origItems: Map<string, ItemSourcePF2e> = new Map();
-        for (const item of orig) {
-            origItems.set(item._id, item);
+        const origSources: Map<string, TSource> = new Map();
+        for (const source of orig) {
+            origSources.set(source._id, source);
         }
 
-        for (const item of updated) {
-            const origItem = origItems.get(item._id);
-            if (origItem) {
+        for (const source of updated) {
+            const origSource = origSources.get(source._id);
+            if (origSource) {
                 // check to see if anything changed
-                if (JSON.stringify(origItem) !== JSON.stringify(item)) {
-                    ret.updated.push(item);
+                if (JSON.stringify(origSource) !== JSON.stringify(source)) {
+                    ret.updated.push(source);
                 }
-                origItems.delete(item._id);
+                origSources.delete(source._id);
             } else {
                 // it's new
-                ret.inserted.push(item);
+                ret.inserted.push(source);
             }
         }
 
         // since we've been deleting them as we process, the ones remaining need to be deleted
-        for (const item of origItems.values()) {
-            ret.deleted.push(item._id);
+        for (const source of origSources.values()) {
+            ret.deleted.push(source._id);
         }
 
         return ret;
@@ -77,7 +86,7 @@ export class MigrationRunnerBase {
                 console.error(err);
             }
         }
-        this.updateSchemaRecord(current.data.schema, migrations.slice(-1)[0]);
+        if ("game" in globalThis) this.updateSchemaRecord(current.data.schema, migrations.slice(-1)[0]);
 
         return current;
     }
@@ -100,16 +109,20 @@ export class MigrationRunnerBase {
             }
         }
 
-        const latestMigration = migrations.slice(-1)[0];
-        this.updateSchemaRecord(currentActor.data.schema, latestMigration);
-        for (const itemSource of currentActor.items) {
-            this.updateSchemaRecord(itemSource.data.schema, latestMigration);
+        // Don't set schema record on compendium JSON
+        if ("game" in globalThis) {
+            const latestMigration = migrations.slice(-1)[0];
+            this.updateSchemaRecord(currentActor.data.schema, latestMigration);
+            for (const itemSource of currentActor.items) {
+                this.updateSchemaRecord(itemSource.data.schema, latestMigration);
+            }
         }
 
         return currentActor;
     }
 
     private updateSchemaRecord(schema: DocumentSchemaRecord, latestMigration: MigrationBase | undefined): void {
+        if (!("game" in globalThis)) return;
         if (!latestMigration) throw ErrorPF2e("No migrations in this run!");
 
         const fromVersion = typeof schema.version === "number" ? schema.version : null;
