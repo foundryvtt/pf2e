@@ -39,6 +39,7 @@ export function loadPF2ETemplates() {
 
         // Actor Sheet Partials (General)
         "systems/pf2e/templates/actors/spellcasting-spell-list.html",
+        "systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html",
 
         // NPC partials
         "systems/pf2e/templates/actors/npc/tabs/main.html",
