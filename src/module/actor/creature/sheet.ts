@@ -9,6 +9,7 @@ import { BaseWeaponType, WeaponGroup } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
 import { SkillData } from "./data";
 import { CharacterPF2e } from "@actor/character";
+import { ABILITY_ABBREVIATIONS } from "@actor/data/values";
 
 /**
  * Base class for NPC and character sheets
@@ -176,18 +177,21 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         }
 
         // Ability Scores
-        if (sheetData.data.abilities !== undefined) {
-            for (const [a, abl] of Object.entries(sheetData.data.abilities as Record<any, any>)) {
-                abl.label = CONFIG.PF2E.abilities[a];
+        if (sheetData.data.abilities) {
+            for (const key of ABILITY_ABBREVIATIONS) {
+                sheetData.data.abilities[key].label = CONFIG.PF2E.abilities[key];
             }
         }
 
         // Update skill labels
-        if (sheetData.data.skills !== undefined) {
-            for (const [s, skl] of Object.entries(sheetData.data.skills as Record<any, any>)) {
-                skl.icon = this.getProficiencyIcon(skl.rank);
-                skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
-                skl.label = skl.label ?? CONFIG.PF2E.skills[s];
+        if (sheetData.data.skills) {
+            const skills: Record<string, SkillData & Record<string, string>> = sheetData.data.skills;
+            const mainSkills: Record<string, string> = CONFIG.PF2E.skills;
+            for (const key in skills) {
+                const skill = skills[key];
+                skill.icon = this.getProficiencyIcon(skill.rank);
+                skill.hover = CONFIG.PF2E.proficiencyLevels[skill.rank];
+                skill.label = skill.label ?? mainSkills[key];
             }
         }
 
