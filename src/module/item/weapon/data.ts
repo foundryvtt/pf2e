@@ -28,7 +28,7 @@ export interface WeaponData extends Omit<WeaponSource, "_id" | "effects"> {
 export type WeaponTrait = keyof ConfigPF2e["PF2E"]["weaponTraits"];
 type WeaponTraits = PhysicalItemTraits<WeaponTrait>;
 
-export type WeaponCategory = keyof ConfigPF2e["PF2E"]["weaponCategories"];
+export type WeaponCategory = typeof WEAPON_CATEGORIES[number];
 export type WeaponGroup = keyof ConfigPF2e["PF2E"]["weaponGroups"];
 export type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 
@@ -131,3 +131,5 @@ interface WeaponSystemData extends MagicItemSystemData {
     };
     selectedAmmoId?: string;
 }
+
+export const WEAPON_CATEGORIES = ["unarmed", "simple", "martial", "advanced"] as const;

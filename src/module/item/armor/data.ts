@@ -72,3 +72,5 @@ interface ArmorSystemData extends MagicItemSystemData {
         value: string;
     };
 }
+
+export const ARMOR_CATEGORIES = ["unarmored", "light", "medium", "heavy"] as const;

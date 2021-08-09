@@ -30,6 +30,7 @@ export {
     HazardSource,
     LootData,
     LootSource,
+    SAVE_TYPES,
     VehicleData,
     VehicleSource,
 };

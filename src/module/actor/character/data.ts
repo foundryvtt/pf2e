@@ -50,7 +50,7 @@ export interface CharacterSystemData extends CreatureSystemData {
     abilities: Abilities;
 
     /** The three save types. */
-    saves: Record<SaveType, SaveData>;
+    saves: CharacterSaves;
 
     /** Tracks proficiencies for martial skills. */
     martial: CombatProficiencies;
@@ -118,6 +118,11 @@ export interface CharacterSystemData extends CreatureSystemData {
     resources: CharacterResources;
 }
 
+interface CharacterSaveData extends SaveData {
+    rank: ZeroToFour;
+}
+export type CharacterSaves = Record<SaveType, CharacterSaveData>;
+
 export interface CharacterProficiencyData extends ProficiencyData {
     /** The proficiency rank (0 untrained - 4 legendary). */
     rank: ZeroToFour;
@@ -139,12 +144,17 @@ type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, CharacterProfici
 export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
 type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, CharacterProficiencyData>;
 
-export type CombatProficiencies = CategoryProficiencies & BaseWeaponProficiencies & WeaponGroupProfiencies;
+export type CombatProficiencies = CategoryProficiencies &
+    Partial<BaseWeaponProficiencies> &
+    Partial<WeaponGroupProfiencies>;
 
-export type CombatProficiencyKey = keyof CombatProficiencies;
+export type CombatProficiencyKey = keyof Required<CombatProficiencies>;
 
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
-export type ClassDCData = StatisticModifier & RawSkillData;
+export interface ClassDCData extends StatisticModifier, RawSkillData {
+    rank: ZeroToFour;
+}
+
 /** The full data for a character action (used primarily for strikes.) */
 export type CharacterStrike = StatisticModifier & StrikeData;
 
@@ -193,9 +203,13 @@ interface CharacterResources extends BaseCreatureResources {
     };
 }
 
-interface CharacterAttributes extends BaseCreatureAttributes {
+interface CharacterPerception extends PerceptionData {
+    rank: ZeroToFour;
+}
+
+export interface CharacterAttributes extends BaseCreatureAttributes {
     /** The perception skill. */
-    perception: PerceptionData;
+    perception: CharacterPerception;
     /** The class DC, used for saves related to class abilities. */
     classDC: ClassDCData;
     /** Creature armor class, used to defend against attacks. */

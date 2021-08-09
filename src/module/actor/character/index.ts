@@ -18,8 +18,10 @@ import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } fro
 import {
     BaseWeaponProficiencyKey,
     CharacterArmorClass,
+    CharacterAttributes,
     CharacterData,
     CharacterProficiencyData,
+    CharacterSaves,
     CharacterStrike,
     CharacterSystemData,
     CombatProficiencies,
@@ -34,11 +36,11 @@ import { CreaturePF2e } from "../index";
 import { LocalizePF2e } from "@module/system/localize";
 import { AutomaticBonusProgression } from "@module/rules/automatic-bonus";
 import { SpellAttackRollModifier, SpellDifficultyClass } from "@item/spellcasting-entry/data";
-import { WeaponCategory, WeaponDamage, WeaponSource } from "@item/weapon/data";
+import { WeaponCategory, WeaponDamage, WeaponSource, WEAPON_CATEGORIES } from "@item/weapon/data";
 import { ZeroToFour } from "@module/data";
 import { AbilityString, PerceptionData, StrikeTrait } from "@actor/data/base";
 import { SkillAbbreviation, SkillData } from "@actor/creature/data";
-import { ArmorCategory } from "@item/armor/data";
+import { ArmorCategory, ARMOR_CATEGORIES } from "@item/armor/data";
 import { ActiveEffectPF2e } from "@module/active-effect";
 
 export class CharacterPF2e extends CreaturePF2e {
@@ -69,40 +71,55 @@ export class CharacterPF2e extends CreaturePF2e {
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     override prepareBaseData(): void {
         super.prepareBaseData();
-        const systemData = this.data.data;
+        const systemData: DeepPartial<CharacterSystemData> = this.data.data;
 
-        // Armor
-        const armorAttribute: { ac?: Partial<CharacterArmorClass> } = systemData.attributes;
-        armorAttribute.ac = { modifiers: [] };
-        systemData.attributes.dexCap = [{ value: Infinity, source: "" }];
+        // Attributes
+        const attributes: DeepPartial<CharacterAttributes> = this.data.data.attributes;
+        attributes.ac = { modifiers: [] };
+        attributes.classDC = { rank: 0 };
+        attributes.dexCap = [{ value: Infinity, source: "" }];
+        attributes.perception = { ability: "wis", rank: 0 };
+        attributes.doomed = { value: 0, max: 3 };
+        attributes.dying = { value: 0, max: 4 };
+        attributes.wounded = { value: 0, max: 3 };
+        // Hit points from Ancestry and Class
+        attributes.ancestryhp = 0;
+        attributes.classhp = 0;
 
-        // Saves, skills, and perception
-        for (const key of SAVE_TYPES) {
-            systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAbilities[key];
+        // Saves and skills
+        const saves: DeepPartial<CharacterSaves> = this.data.data.saves;
+        for (const save of SAVE_TYPES) {
+            saves[save] = {
+                ability: CONFIG.PF2E.savingThrowDefaultAbilities[save],
+                rank: saves[save]?.rank ?? 0,
+            };
         }
+
+        const skills = this.data.data.skills;
         for (const key of SKILL_ABBREVIATIONS) {
-            const skill = systemData.skills[key];
+            const skill = skills[key];
             skill.ability = SKILL_EXPANDED[SKILL_DICTIONARY[key]].ability;
             skill.armor = ["dex", "str"].includes(skill.ability);
         }
-        systemData.attributes.perception.ability = "wis";
 
         // Resources
-        const resources = systemData.resources;
+        const resources = this.data.data.resources;
         resources.investiture = { value: 0, max: 10 };
         if (typeof resources.focus?.value === "number") {
             resources.focus.max = 0;
         }
 
-        // Conditions
-        systemData.attributes.doomed = { value: 0, max: 3 };
-        systemData.attributes.dying = { value: 0, max: 4 };
-        systemData.attributes.wounded = { value: 0, max: 3 };
+        // Combat category proficiencies
+        const martial: DeepPartial<CombatProficiencies> = this.data.data.martial;
+        for (const category of [...ARMOR_CATEGORIES, ...WEAPON_CATEGORIES]) {
+            const proficiency: Partial<CharacterProficiencyData> = martial[category] ?? {};
+            proficiency.rank = martial[category]?.rank ?? 0;
+            martial[category] = proficiency;
+        }
 
-        // Add any homebrew categories
         const homebrewCategories = game.settings.get("pf2e", "homebrew.weaponCategories").map((tag) => tag.id);
         for (const category of homebrewCategories) {
-            systemData.martial[category] ??= {
+            martial[category] ??= {
                 rank: 0,
                 value: 0,
                 breakdown: "",
@@ -120,12 +137,9 @@ export class CharacterPF2e extends CreaturePF2e {
             ],
         };
 
-        // Hit points from Ancestry and Class
-        systemData.attributes.ancestryhp = 0;
-        systemData.attributes.classhp = 0;
-
-        // Keep in place until sense data is migrated
-        systemData.traits.senses = systemData.traits.senses.filter((sense) => !!sense);
+        // Keep in place until the source of sense-data corruption is found
+        const traits = this.data.data.traits;
+        traits.senses = Array.isArray(traits.senses) ? traits.senses.filter((sense) => !!sense) : [];
     }
 
     /** Adjustments from ABC items are made after all items are prepared but before active effects are applied. */
@@ -671,7 +685,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .filter((key) => key.startsWith(prefix) && key.replace(prefix, "") in translationMap)
                 .map((key) => ({ key, data: combatProficiencies[key] }))
                 .reduce((accumulated: ProficienciesBrief, proficiency) => {
-                    if (!Number.isInteger(proficiency.data.rank)) {
+                    if (proficiency.data?.rank === undefined) {
                         return accumulated;
                     }
                     return {
