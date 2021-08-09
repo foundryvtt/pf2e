@@ -39,10 +39,21 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     private async migrateWorldItem(migrations: MigrationBase[], item: ItemPF2e): Promise<void> {
         try {
-            const updatedItem = await this.getUpdatedItem(item.toObject(), migrations);
-            const changes = diffObject(item.toObject(), updatedItem);
+            const baseItem = item.toObject();
+            const updatedItem = await this.getUpdatedItem(baseItem, migrations);
+            const baseAEs = baseItem.effects;
+            const updatedAEs = updatedItem.effects;
+
+            delete (baseItem as { effects?: unknown[] }).effects;
+            delete (updatedItem as { effects?: unknown[] }).effects;
+            const changes = diffObject(baseItem, updatedItem);
             if (!isObjectEmpty(changes)) {
                 await item.update(changes);
+            }
+
+            const aeDiff = this.diffCollection(baseAEs, updatedAEs);
+            if (aeDiff.deleted.length > 0) {
+                await item.deleteEmbeddedDocuments("ActiveEffect", aeDiff.deleted);
             }
         } catch (error) {
             console.error(error);
@@ -56,16 +67,20 @@ export class MigrationRunner extends MigrationRunnerBase {
             const updatedActor = await this.getUpdatedActor(baseActor, migrations);
 
             const baseItems = baseActor.items;
+            const baseAEs = baseActor.effects;
             const updatedItems = updatedActor.items;
+            const updatedAEs = updatedActor.effects;
 
             delete (baseActor as { items?: unknown[] }).items;
             delete (updatedActor as { items?: unknown[] }).items;
+            delete (baseActor as { effects?: unknown[] }).effects;
+            delete (updatedActor as { effects?: unknown[] }).effects;
             if (JSON.stringify(baseActor) !== JSON.stringify(updatedActor)) {
                 await actor.update(updatedActor);
             }
 
-            // we pull out the items here so that the embedded document operations get called
-            const itemDiff = this.diffItems(baseItems, updatedItems);
+            // We pull out the items here so that the embedded document operations get called
+            const itemDiff = this.diffCollection(baseItems, updatedItems);
             if (itemDiff.deleted.length > 0) {
                 await actor.deleteEmbeddedDocuments("Item", itemDiff.deleted);
             }
@@ -74,6 +89,11 @@ export class MigrationRunner extends MigrationRunnerBase {
             }
             if (itemDiff.updated.length > 0) {
                 await actor.updateEmbeddedDocuments("Item", itemDiff.updated);
+            }
+
+            const aeDiff = this.diffCollection(baseAEs, updatedAEs);
+            if (aeDiff.deleted.length > 0) {
+                await actor.deleteEmbeddedDocuments("ActiveEffect", aeDiff.deleted);
             }
         } catch (error) {
             console.error(error);
