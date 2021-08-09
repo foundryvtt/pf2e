@@ -689,8 +689,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
     /** Handle a drop event for an existing Owned Item to sort that item */
     protected override async _onSortItem(event: ElementDragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
-        const dropSlotType = $(event.target).closest(".item").attr("data-item-type");
-        const dropContainerType = $(event.target).parents(".item-container").attr("data-container-type");
+        const $dropItemEl = $(event.target).closest(".item");
+        const $dropContainerEl = $(event.target).closest(".item-container");
+
+        const dropSlotType = $dropItemEl.attr("data-item-type");
+        const dropContainerType = $dropContainerEl.attr("data-container-type");
         const item = this.actor.items.get(itemData._id);
         if (!item) return [];
 
@@ -706,17 +709,25 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     }
                 }
             } else if (dropSlotType === "spell") {
-                const dropId = $(event.target).parents(".item").attr("data-item-id") ?? "";
+                const dropId = $dropItemEl.attr("data-item-id") ?? "";
                 const target = this.actor.items.get(dropId);
                 if (target instanceof SpellPF2e && item.id !== dropId) {
-                    const sourceLevel = item.heightenedLevel;
                     const sourceLocation = item.data.data.location.value;
-                    const targetLevel = target.heightenedLevel;
                     const targetLocation = target.data.data.location.value;
-                    if (sourceLevel === targetLevel && sourceLocation === targetLocation) {
+
+                    // Inner helper to test if two spells are siblings
+                    const testSibling = (item: SpellPF2e, test: SpellPF2e) => {
+                        if (item.isCantrip !== test.isCantrip) return false;
+                        if (item.isCantrip && test.isCantrip) return true;
+                        if (item.isFocusSpell && test.isFocusSpell) return true;
+                        if (item.heightenedLevel === test.heightenedLevel) return true;
+                        return false;
+                    };
+
+                    if (sourceLocation === targetLocation && testSibling(item, target)) {
                         const entry = this.actor.items.get(sourceLocation);
                         if (entry instanceof SpellcastingEntryPF2e) {
-                            const siblings = entry.spells.filter((i) => i.heightenedLevel === sourceLevel);
+                            const siblings = entry.spells.filter((spell) => testSibling(item, spell));
                             const sortBefore = item.data.sort >= target.data.sort;
                             await item.sortRelative({ target, siblings, sortBefore });
                             return [target];
@@ -724,7 +735,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                             console.warn("PF2E System | Failed to load spellcasting entry");
                         }
                     } else {
-                        if (this.moveSpell(itemData, targetLocation, targetLevel)) {
+                        if (this.moveSpell(itemData, targetLocation, target.heightenedLevel)) {
                             return this.actor.updateEmbeddedDocuments("Item", [itemData]);
                         }
                     }

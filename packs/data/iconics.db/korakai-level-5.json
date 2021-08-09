@@ -192,7 +192,6 @@
         },
         "resources": {
             "focus": {
-                "max": 3,
                 "value": 3
             }
         },
@@ -209,10 +208,6 @@
                 "rank": 0,
                 "value": 0
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "skills": {
             "acr": {
@@ -493,10 +488,6 @@
                 },
                 "reach": 5,
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": "med",
                 "slug": "tengu",
                 "source": {
@@ -558,10 +549,6 @@
                         "selector": "lowLightVision"
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "low-light-vision",
                 "source": {
                     "value": ""
@@ -637,10 +624,6 @@
                         ]
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "sharp-beak",
                 "source": {
                     "value": ""
@@ -887,10 +870,6 @@
                     "reflex": 1,
                     "will": 2
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "skillFeatLevels": {
                     "value": [
                         2,
@@ -1055,10 +1034,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "spell-repertoire-oracle",
                 "source": {
                     "value": ""
@@ -1110,10 +1085,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "oracular-curse",
                 "source": {
                     "value": ""
@@ -1164,11 +1135,15 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.resources.focus.max",
+                        "priority": 10,
+                        "value": 2
+                    }
+                ],
                 "slug": "revelation-spells",
                 "source": {
                     "value": ""
@@ -1220,10 +1195,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "mystery",
                 "source": {
                     "value": ""
@@ -1275,10 +1246,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "divine-spellcasting-oracle",
                 "source": {
                     "value": ""
@@ -1338,10 +1305,6 @@
                     }
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "cook",
                 "source": {
                     "value": ""
@@ -1433,10 +1396,6 @@
                         }
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "seasoned",
                 "source": {
                     "value": ""
@@ -1489,10 +1448,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "skyborn-tengu",
                 "source": {
                     "value": ""
@@ -1544,10 +1499,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "tengu-weapon-familiarity",
                 "source": {
                     "value": ""
@@ -1599,10 +1550,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "tempest-mystery",
                 "source": {
                     "value": ""
@@ -1682,10 +1629,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "showUnpreparedSpells": {
                     "value": true
                 },
@@ -1856,10 +1799,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "enchantment"
                 },
@@ -1987,10 +1926,6 @@
                     "formula": "1d8",
                     "mode": "level1"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "necromancy"
                 },
@@ -2115,10 +2050,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -2247,10 +2178,6 @@
                     "formula": "1d6",
                     "mode": "level1"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "necromancy"
                 },
@@ -2375,10 +2302,6 @@
                 "scaling": {
                     "formula": "1d4",
                     "mode": "level1"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -2505,10 +2428,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "divination"
                 },
@@ -2633,10 +2552,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -2765,10 +2680,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "abjuration"
                 },
@@ -2844,10 +2755,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "showUnpreparedSpells": {
                     "value": true
                 },
@@ -3014,10 +2921,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "conjuration"
                 },
@@ -3138,10 +3041,6 @@
                 "scaling": {
                     "formula": "1d4",
                     "mode": "level1"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -3318,16 +3217,12 @@
                     "value": 1
                 },
                 "range": {
-                    "value": ""
+                    "value": "melee"
                 },
                 "reload": {
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3460,10 +3355,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3568,10 +3459,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3679,10 +3566,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3790,10 +3673,6 @@
                     "value": 10
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3901,10 +3780,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4012,10 +3887,6 @@
                     "value": 14
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4123,10 +3994,6 @@
                     "value": 5
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4234,10 +4101,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4345,10 +4208,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4456,10 +4315,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4598,10 +4453,6 @@
                 },
                 "resilient": {},
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4774,10 +4625,6 @@
                     "value": "1"
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "selectedAmmoId": "gqgWgFckjQaOFwHH",
                 "size": {
                     "value": "med"
@@ -4928,10 +4775,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5086,10 +4929,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5165,10 +5004,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -5257,10 +5092,6 @@
                     "value": 2
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5365,10 +5196,6 @@
                     "value": 9
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5430,10 +5257,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "signature-spells-level-3",
                 "source": {
                     "value": ""
@@ -5530,10 +5353,6 @@
                     "value": 5
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5638,10 +5457,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5784,10 +5599,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5946,10 +5757,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5990,8 +5797,6 @@
                                 "value": ""
                             },
                             "description": {
-                                "chat": "",
-                                "unidentified": "",
                                 "value": "<p>All creatures in the area when you cast the spell are limned in colorful, heatless fire of a color of your choice for the duration. Visible creatures can't be @Compendium[pf2e.conditionitems.Concealed]{Concealed} while affected by faerie fire. If the creatures are @Compendium[pf2e.conditionitems.Invisible]{Invisible}, they are Concealed while affected by faerie fire, rather than being @Compendium[pf2e.conditionitems.Undetected]{Undetected}.</p>"
                             },
                             "duration": {
@@ -6026,10 +5831,6 @@
                             "scaling": {
                                 "formula": "",
                                 "mode": "none"
-                            },
-                            "schema": {
-                                "lastMigration": null,
-                                "version": null
                             },
                             "school": {
                                 "value": "evocation"
@@ -6236,10 +6037,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -6280,8 +6077,6 @@
                                 "value": ""
                             },
                             "description": {
-                                "chat": "",
-                                "unidentified": "",
                                 "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @Compendium[pf2e.conditionitems.Drained]{Drained} to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @Compendium[pf2e.conditionitems.Doomed]{Doomed} value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-level restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
                             },
                             "duration": {
@@ -6316,10 +6111,6 @@
                             "scaling": {
                                 "formula": "",
                                 "mode": "none"
-                            },
-                            "schema": {
-                                "lastMigration": null,
-                                "version": null
                             },
                             "school": {
                                 "value": "necromancy"
@@ -6526,10 +6317,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -6570,8 +6357,6 @@
                                 "value": "positive"
                             },
                             "description": {
-                                "chat": "",
-                                "unidentified": "",
                                 "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                             },
                             "duration": {
@@ -6606,10 +6391,6 @@
                             "scaling": {
                                 "formula": "1d8",
                                 "mode": "level1"
-                            },
-                            "schema": {
-                                "lastMigration": null,
-                                "version": null
                             },
                             "school": {
                                 "value": "necromancy"
@@ -6785,10 +6566,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "necromancy"
                 },
@@ -6910,10 +6687,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "abjuration"
@@ -7039,10 +6812,6 @@
                     "formula": "1d10",
                     "mode": "level1"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -7164,10 +6933,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -7293,10 +7058,6 @@
                     "formula": "2d6",
                     "mode": "level1"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "enchantment"
                 },
@@ -7418,10 +7179,6 @@
                 "scaling": {
                     "formula": "1d8",
                     "mode": "level1"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "necromancy"
@@ -7545,10 +7302,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "divination"
                 },
@@ -7626,10 +7379,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "eat-fortune",
                 "source": {
                     "value": ""
@@ -7684,10 +7433,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "divine-aegis",
                 "source": {
                     "value": ""
@@ -7740,11 +7485,14 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "data.resources.focus.max",
+                        "value": 1
+                    }
+                ],
                 "slug": "vision-of-weakness",
                 "source": {
                     "value": ""
@@ -7800,10 +7548,6 @@
                         "key": "PF2E.RuleElement.RecoveryCheckDC"
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "toughness",
                 "source": {
                     "value": ""
@@ -7879,10 +7623,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "pilgrims-token",
                 "source": {
                     "value": ""
@@ -7950,10 +7690,6 @@
                         "text": "<p class='compact-text'><strong>{item|name}</strong> If you roll a success using the Balance action, you get a critical success instead.</p>"
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "steady-balance",
                 "source": {
                     "value": ""

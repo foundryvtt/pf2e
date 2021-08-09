@@ -176,7 +176,6 @@
         },
         "resources": {
             "focus": {
-                "max": 1,
                 "value": 1
             }
         },
@@ -193,10 +192,6 @@
                 "rank": 0,
                 "value": 0
             }
-        },
-        "schema": {
-            "lastMigration": null,
-            "version": 0.649
         },
         "skills": {
             "acr": {
@@ -466,10 +461,6 @@
                 },
                 "reach": 5,
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": "med",
                 "slug": "human",
                 "source": {
@@ -689,10 +680,6 @@
                     "reflex": 1,
                     "will": 2
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "skillFeatLevels": {
                     "value": [
                         2,
@@ -845,10 +832,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "spell-repertoire-sorcerer",
                 "source": {
                     "value": ""
@@ -902,11 +885,15 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.resources.focus.max",
+                        "priority": 10,
+                        "value": 1
+                    }
+                ],
                 "slug": "bloodline-spells",
                 "source": {
                     "value": ""
@@ -958,10 +945,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "sorcerer-spellcasting",
                 "source": {
                     "value": ""
@@ -1016,10 +999,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "bloodline",
                 "source": {
                     "value": ""
@@ -1079,10 +1058,6 @@
                     }
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "nomad",
                 "source": {
                     "value": ""
@@ -1142,10 +1117,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "assurance",
                 "source": {
                     "value": ""
@@ -1189,10 +1160,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1242,10 +1209,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "adapted-cantrip",
                 "source": {
                     "value": ""
@@ -1296,11 +1259,15 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.resources.focus.max",
+                        "priority": 10,
+                        "value": 1
+                    }
+                ],
                 "slug": "bloodline-imperial",
                 "source": {
                     "value": ""
@@ -1368,10 +1335,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "showUnpreparedSpells": {
                     "value": true
                 },
@@ -1535,10 +1498,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -1661,10 +1620,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "divination"
@@ -1790,10 +1745,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "abjuration"
                 },
@@ -1913,10 +1864,6 @@
                 "scaling": {
                     "formula": "1d4",
                     "mode": "level1"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"
@@ -2041,10 +1988,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "abjuration"
                 },
@@ -2167,10 +2110,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "illusion"
                 },
@@ -2292,10 +2231,6 @@
                     "formula": "2d4",
                     "mode": "level1"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "necromancy"
                 },
@@ -2416,10 +2351,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -2490,10 +2421,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "showUnpreparedSpells": {
                     "value": true
                 },
@@ -2657,10 +2584,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "divination"
                 },
@@ -2793,10 +2716,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -2934,10 +2853,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3107,10 +3022,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3226,10 +3137,6 @@
                     "value": 3
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3334,10 +3241,6 @@
                     "value": 8
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3442,10 +3345,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3584,10 +3483,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3711,10 +3606,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3822,10 +3713,6 @@
                     "value": 21
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -3933,10 +3820,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4044,10 +3927,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4155,10 +4034,6 @@
                     "value": 1
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4223,10 +4098,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "signature-spells-level-3",
                 "source": {
                     "value": ""
@@ -4280,10 +4151,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "magical-fortitude-level-5",
                 "source": {
                     "value": ""
@@ -4356,10 +4223,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "skilled-heritage",
                 "source": {
                     "value": ""
@@ -4418,10 +4281,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "adaptive-adept",
                 "source": {
                     "value": ""
@@ -4473,10 +4332,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "bespell-weapon",
                 "source": {
                     "value": ""
@@ -4530,10 +4385,6 @@
                     "value": []
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "counterspell-spontaneous",
                 "source": {
                     "value": ""
@@ -4590,10 +4441,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "assurance",
                 "source": {
                     "value": ""
@@ -4651,10 +4498,6 @@
                     ]
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "lie-to-me",
                 "source": {
                     "value": ""
@@ -4711,10 +4554,6 @@
                         "key": "PF2E.RuleElement.RecoveryCheckDC"
                     }
                 ],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "slug": "toughness",
                 "source": {
                     "value": ""
@@ -4829,10 +4668,6 @@
                     "value": 12
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -4996,10 +4831,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5147,10 +4978,6 @@
                     "value": null
                 },
                 "rules": [],
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "size": {
                     "value": "med"
                 },
@@ -5277,10 +5104,6 @@
                     "formula": "1d10+4",
                     "mode": "level1"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "enchantment"
                 },
@@ -5402,10 +5225,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "divination"
                 },
@@ -5525,10 +5344,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "abjuration"
@@ -5651,10 +5466,6 @@
                     "formula": "1d6",
                     "mode": "level1"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -5775,10 +5586,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "evocation"
                 },
@@ -5897,10 +5704,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "transmutation"
@@ -6021,10 +5824,6 @@
                     "formula": "",
                     "mode": "none"
                 },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
-                },
                 "school": {
                     "value": "transmutation"
                 },
@@ -6143,10 +5942,6 @@
                 "scaling": {
                     "formula": "",
                     "mode": "none"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "transmutation"
@@ -6267,10 +6062,6 @@
                 "scaling": {
                     "formula": "1d12",
                     "mode": "level1"
-                },
-                "schema": {
-                    "lastMigration": null,
-                    "version": 0.649
                 },
                 "school": {
                     "value": "evocation"

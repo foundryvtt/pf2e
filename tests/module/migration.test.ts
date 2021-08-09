@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import { populateFoundryUtilFunctions } from "../fixtures/foundryshim";
-import { ActorDataPF2e, CharacterData } from "@actor/data";
+import { ActorSourcePF2e, CharacterSource } from "@actor/data";
 import { MigrationRunner } from "@module/migration/runner";
 import { MigrationBase } from "@module/migration/base";
 import { FakeActor } from "tests/fakes/fake-actor";
@@ -14,13 +14,19 @@ import { FakeChatMessage } from "tests/fakes/fake-chat-message";
 
 import characterJSON from "../../packs/data/iconics.db/amiri-level-1.json";
 import armorJSON from "../../packs/data/equipment.db/scale-mail.json";
-import { ArmorData } from "@item/data";
+import { ArmorSource } from "@item/data";
 import { FoundryUtils } from "tests/utils";
 import { FakeActors, FakeCollection, FakeWorldCollection } from "tests/fakes/fake-collection";
 import { LocalizePF2e } from "@module/system/localize";
 
-const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterData;
-const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorData;
+const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterSource;
+characterData.data.schema = { version: 0, lastMigration: null };
+for (const item of characterData.items) {
+    item.data.schema = { version: 0, lastMigration: null };
+}
+
+const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorSource;
+armorData.data.schema = { version: 0, lastMigration: null };
 
 declare let game: any;
 LocalizePF2e.ready = true;
@@ -77,14 +83,14 @@ describe("test migration runner", () => {
 
     class ChangeNameMigration extends MigrationBase {
         static version = 12;
-        async updateActor(actor: ActorDataPF2e) {
+        async updateActor(actor: ActorSourcePF2e) {
             actor.name = "updated";
         }
     }
 
     class ChangeSizeMigration extends MigrationBase {
         static version = 12;
-        async updateActor(actor: ActorDataPF2e) {
+        async updateActor(actor: ActorSourcePF2e) {
             actor.data.traits.size.value = "sm";
         }
     }
@@ -139,7 +145,7 @@ describe("test migration runner", () => {
         expect(settings.worldSchemaVersion).toEqual(12);
     });
 
-    test("expect update actor name in world", async () => {
+    test("expect updated actor name in world", async () => {
         game.actors.set(characterData._id, new FakeActor(characterData));
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
