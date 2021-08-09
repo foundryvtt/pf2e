@@ -127,48 +127,7 @@
                 "value": 0
             }
         },
-        "martial": {
-            "advanced": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "heavy": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "light": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "martial": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "medium": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "simple": {
-                "breakdown": "Untrained +0",
-                "rank": 0,
-                "value": 0
-            },
-            "unarmed": {
-                "breakdown": "Trained +5",
-                "rank": 1,
-                "value": 5
-            },
-            "unarmored": {
-                "breakdown": "Trained +5",
-                "rank": 1,
-                "value": 5
-            }
-        },
+        "martial": {},
         "pfs": {
             "characterNumber": "",
             "currentFaction": "EA",
@@ -290,123 +249,7 @@
             }
         }
     },
-    "effects": [
-        {
-            "_id": "LyqNkD2DZy7hSMw5",
-            "changes": [
-                {
-                    "key": "data.attributes.perception.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.fortitude.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.reflex.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.will.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.skills.arc.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-club.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-crossbow.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-dagger.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-heavy-crossbow.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.weapon-base-staff.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.unarmed.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.unarmored.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/classes/wizard.webp",
-            "label": "Initial Proficiencies",
-            "origin": "Actor.jvSLqJphvInafLeK.OwnedItem.H2EGxqlE3j0g5DwK",
-            "tint": null,
-            "transfer": true
-        },
-        {
-            "_id": "ZBvqrrqZJM2RTG5p",
-            "changes": [
-                {
-                    "key": "data.details.keyability.value",
-                    "mode": 5,
-                    "value": "int"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/classes/wizard.webp",
-            "label": "Key Ability",
-            "origin": "Actor.jvSLqJphvInafLeK.OwnedItem.H2EGxqlE3j0g5DwK",
-            "tint": null,
-            "transfer": true
-        },
-        {
-            "_id": "rvdnlSy2GZouUAYm",
-            "changes": [
-                {
-                    "key": "data.saves.reflex.rank",
-                    "mode": 4,
-                    "value": "2"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
-            "label": "Lightning Reflexes",
-            "origin": "Actor.uB1IpKAkNHpxoaPj.OwnedItem.VGaaH4EaI708hXLT",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/iconics/EzrenFull.webp",
     "items": [
@@ -1763,7 +1606,44 @@
                     ]
                 },
                 "perception": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.skills.arc.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.weapon-base-club.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.weapon-base-crossbow.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.weapon-base-dagger.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.weapon-base-heavy-crossbow.rank",
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.weapon-base-staff.rank",
+                        "value": 1
+                    }
+                ],
                 "savingThrows": {
                     "fortitude": 1,
                     "reflex": 1,
@@ -1814,101 +1694,7 @@
                     "value": []
                 }
             },
-            "effects": [
-                {
-                    "_id": "snhfsEvZXQcSxaTF",
-                    "changes": [
-                        {
-                            "key": "data.attributes.perception.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.fortitude.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.reflex.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.will.rank",
-                            "mode": 4,
-                            "value": "2"
-                        },
-                        {
-                            "key": "data.skills.arc.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.weapon-base-club.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.weapon-base-crossbow.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.weapon-base-dagger.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.weapon-base-heavy-crossbow.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.weapon-base-staff.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.unarmed.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.unarmored.rank",
-                            "mode": 4,
-                            "value": "1"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/classes/wizard.webp",
-                    "label": "Initial Proficiencies",
-                    "tint": null,
-                    "transfer": true
-                },
-                {
-                    "_id": "85WGHfJbFcoWzuci",
-                    "changes": [
-                        {
-                            "key": "data.details.keyability.value",
-                            "mode": 5,
-                            "value": "int"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/classes/wizard.webp",
-                    "label": "Key Ability",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classes.RwjIZzIxzPpUglnK"
@@ -7209,7 +6995,14 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.saves.reflex.rank",
+                        "value": 2
+                    }
+                ],
                 "slug": "lightning-reflexes-level-5",
                 "source": {
                     "value": ""
@@ -7225,27 +7018,7 @@
                     ]
                 }
             },
-            "effects": [
-                {
-                    "_id": "1KBSjaSEqOn5nkj6",
-                    "changes": [
-                        {
-                            "key": "data.saves.reflex.rank",
-                            "mode": 4,
-                            "value": "2"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/features/classes/lightning-reflexes.webp",
-                    "label": "Lightning Reflexes",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.rz87RgR1crWTd7j5"

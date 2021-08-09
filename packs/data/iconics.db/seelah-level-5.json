@@ -124,40 +124,7 @@
                 "value": 0
             }
         },
-        "martial": {
-            "advanced": {
-                "rank": 0,
-                "value": 0
-            },
-            "heavy": {
-                "rank": 0,
-                "value": 0
-            },
-            "light": {
-                "rank": 0,
-                "value": 0
-            },
-            "martial": {
-                "rank": 0,
-                "value": 0
-            },
-            "medium": {
-                "rank": 0,
-                "value": 0
-            },
-            "simple": {
-                "rank": 0,
-                "value": 0
-            },
-            "unarmed": {
-                "rank": 0,
-                "value": 0
-            },
-            "unarmored": {
-                "rank": 0,
-                "value": 0
-            }
-        },
+        "martial": {},
         "pfs": {
             "characterNumber": "",
             "currentFaction": "EA",
@@ -269,138 +236,7 @@
             }
         }
     },
-    "effects": [
-        {
-            "_id": "KuDwSO2yYidamClI",
-            "changes": [
-                {
-                    "key": "data.attributes.perception.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.fortitude.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.saves.reflex.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.will.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.skills.rel.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.simple.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.martial.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.unarmed.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.unarmored.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.heavy.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.medium.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.light.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.attributes.classDC.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/classes/champion.webp",
-            "label": "Initial Proficiencies",
-            "origin": "Actor.itow5q0opvOS4GI0.OwnedItem.sbW6nf2vVBuaDbMy",
-            "tint": null,
-            "transfer": true
-        },
-        {
-            "_id": "oehh5RLVkVNgxgdM",
-            "changes": [
-                {
-                    "key": "data.martial.simple.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.martial.unarmed.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.martial.martial.rank",
-                    "mode": 4,
-                    "value": "2"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
-            "label": "Weapon Expertise (Level 5)",
-            "origin": "Actor.gX6fMVMxbyE5f2ti.OwnedItem.evzEEjpJ75X99RNl",
-            "tint": null,
-            "transfer": true
-        },
-        {
-            "_id": "2fkOyYk6MLPQGePL",
-            "changes": [
-                {
-                    "key": "data.attributes.hp.modifiers",
-                    "mode": 2,
-                    "value": "{ \"modifier\": \"@data.details.level.value * 1\", \"type\": \"untyped\" }"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/feats/feats.webp",
-            "label": "Toughness",
-            "origin": "Actor.gX6fMVMxbyE5f2ti.OwnedItem.jki3LRxh9j0eUCyd",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/iconics/SeelahFull.webp",
     "items": [
@@ -719,7 +555,14 @@
                     ]
                 },
                 "perception": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.skills.rel.rank",
+                        "value": 1
+                    }
+                ],
                 "savingThrows": {
                     "fortitude": 2,
                     "reflex": 1,
@@ -770,87 +613,7 @@
                     "value": []
                 }
             },
-            "effects": [
-                {
-                    "_id": "Dlw0o6T96jUQfL36",
-                    "changes": [
-                        {
-                            "key": "data.attributes.perception.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.fortitude.rank",
-                            "mode": 4,
-                            "value": "2"
-                        },
-                        {
-                            "key": "data.saves.reflex.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.will.rank",
-                            "mode": 4,
-                            "value": "2"
-                        },
-                        {
-                            "key": "data.skills.rel.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.simple.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.martial.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.unarmed.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.unarmored.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.heavy.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.medium.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.light.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.attributes.classDC.rank",
-                            "mode": 4,
-                            "value": "1"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/classes/champion.webp",
-                    "label": "Initial Proficiencies",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classes.x8iwnpdLbfcoZkHA"
@@ -3858,7 +3621,26 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.simple.rank",
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.unarmed.rank",
+                        "value": 2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.martial.martial.rank",
+                        "value": 2
+                    }
+                ],
                 "slug": "weapon-expertise-level-5",
                 "source": {
                     "value": ""
@@ -3874,37 +3656,7 @@
                     ]
                 }
             },
-            "effects": [
-                {
-                    "_id": "TIkHTYc1FSgFQF1E",
-                    "changes": [
-                        {
-                            "key": "data.martial.simple.rank",
-                            "mode": 4,
-                            "value": "2"
-                        },
-                        {
-                            "key": "data.martial.unarmed.rank",
-                            "mode": 4,
-                            "value": "2"
-                        },
-                        {
-                            "key": "data.martial.martial.rank",
-                            "mode": 4,
-                            "value": "2"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
-                    "label": "Weapon Expertise (Level 5)",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.9XLUh9iMepZesdmc"

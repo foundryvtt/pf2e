@@ -124,40 +124,7 @@
                 "value": 0
             }
         },
-        "martial": {
-            "advanced": {
-                "rank": 0,
-                "value": 0
-            },
-            "heavy": {
-                "rank": 0,
-                "value": 0
-            },
-            "light": {
-                "rank": 0,
-                "value": 0
-            },
-            "martial": {
-                "rank": 0,
-                "value": 0
-            },
-            "medium": {
-                "rank": 0,
-                "value": 0
-            },
-            "simple": {
-                "rank": 0,
-                "value": 0
-            },
-            "unarmed": {
-                "rank": 0,
-                "value": 0
-            },
-            "unarmored": {
-                "rank": 0,
-                "value": 0
-            }
-        },
+        "martial": {},
         "pfs": {
             "characterNumber": "",
             "currentFaction": "EA",
@@ -283,108 +250,7 @@
             }
         }
     },
-    "effects": [
-        {
-            "_id": "JSyRmqSP4ZnisSAr",
-            "changes": [
-                {
-                    "key": "data.attributes.perception.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.fortitude.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.reflex.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.saves.will.rank",
-                    "mode": 4,
-                    "value": "2"
-                },
-                {
-                    "key": "data.skills.rel.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.simple.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.unarmed.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.unarmored.rank",
-                    "mode": 4,
-                    "value": "1"
-                },
-                {
-                    "key": "data.martial.light.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/classes/oracle.webp",
-            "label": "Initial Proficiencies",
-            "origin": "Actor.QYx2uiQaZoVGs7EA.OwnedItem.9qMljrf6zSrUAMSu",
-            "tint": null,
-            "transfer": true
-        },
-        {
-            "_id": "0B4QGjBcNJYpf5yB",
-            "changes": [
-                {
-                    "key": "data.details.keyability.value",
-                    "mode": 5,
-                    "value": "cha"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/classes/oracle.webp",
-            "label": "Key Ability",
-            "origin": "Actor.QYx2uiQaZoVGs7EA.OwnedItem.9qMljrf6zSrUAMSu",
-            "tint": null,
-            "transfer": true
-        },
-        {
-            "_id": "I03lW9Omnmd2cApt",
-            "changes": [
-                {
-                    "key": "data.skills.nat.rank",
-                    "mode": 4,
-                    "value": "1"
-                }
-            ],
-            "disabled": false,
-            "duration": {
-                "startTime": 0
-            },
-            "flags": {},
-            "icon": "systems/pf2e/icons/features/classes/cosmos-mystery.webp",
-            "label": "Cosmos Mystery",
-            "origin": "Actor.QYx2uiQaZoVGs7EA.OwnedItem.bhnaGSrqQpwS6BFC",
-            "tint": null,
-            "transfer": true
-        }
-    ],
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
     "items": [
@@ -723,7 +589,14 @@
                     ]
                 },
                 "perception": 1,
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.skills.rel.rank",
+                        "value": 1
+                    }
+                ],
                 "savingThrows": {
                     "fortitude": 1,
                     "reflex": 1,
@@ -774,86 +647,7 @@
                     "value": []
                 }
             },
-            "effects": [
-                {
-                    "_id": "Pw1PrxARGfANESnD",
-                    "changes": [
-                        {
-                            "key": "data.attributes.perception.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.fortitude.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.reflex.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.saves.will.rank",
-                            "mode": 4,
-                            "value": "2"
-                        },
-                        {
-                            "key": "data.skills.rel.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.simple.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.unarmed.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.unarmored.rank",
-                            "mode": 4,
-                            "value": "1"
-                        },
-                        {
-                            "key": "data.martial.light.rank",
-                            "mode": 4,
-                            "value": "1"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/classes/oracle.webp",
-                    "label": "Initial Proficiencies",
-                    "tint": null,
-                    "transfer": true
-                },
-                {
-                    "_id": "3KEL71Rbzckhru1q",
-                    "changes": [
-                        {
-                            "key": "data.details.keyability.value",
-                            "mode": 5,
-                            "value": "cha"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/classes/oracle.webp",
-                    "label": "Key Ability",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classes.pWHx4SXcft9O2udP"
@@ -1443,7 +1237,14 @@
                 "prerequisites": {
                     "value": []
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "data.skills.nat.rank",
+                        "value": 1
+                    }
+                ],
                 "slug": "cosmos-mystery",
                 "source": {
                     "value": ""
@@ -1458,27 +1259,7 @@
                     ]
                 }
             },
-            "effects": [
-                {
-                    "_id": "8Z1Onb5ohl4Dd27o",
-                    "changes": [
-                        {
-                            "key": "data.skills.nat.rank",
-                            "mode": 4,
-                            "value": "1"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/features/classes/cosmos-mystery.webp",
-                    "label": "Cosmos Mystery",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
+            "effects": [],
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Cosmos Mystery"
