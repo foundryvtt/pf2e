@@ -132,6 +132,7 @@ const config: Configuration = {
             "@actor": path.resolve(__dirname, "src/module/actor"),
             "@item": path.resolve(__dirname, "src/module/item"),
             "@module": path.resolve(__dirname, "src/module"),
+            "@scene": path.resolve(__dirname, "src/module/scene"),
             "@scripts": path.resolve(__dirname, "src/scripts"),
             "@system": path.resolve(__dirname, "src/module/system"),
         },
