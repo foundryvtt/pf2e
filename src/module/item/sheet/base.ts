@@ -125,7 +125,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.equipmentTraits = CONFIG.PF2E.equipmentTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
-            // this._prepareTraits(data.data.traits, CONFIG.PF2E.backpackTraits);
         } else if (itemData.type === "armor") {
             // Armor data
             const slots = getPropertySlots(data);
@@ -256,22 +255,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 data[`propertyRuneSlots${slot}`] = true;
             }
         }
-    }
-
-    protected prepareTraits(traits: any, choices: Record<string, string>): void {
-        if (traits === undefined) {
-            return;
-        }
-        if (traits.selected) {
-            traits.selected = traits.value.reduce((obj: any, t: string) => {
-                obj[t] = choices[t];
-                return obj;
-            }, {});
-        } else {
-            traits.selected = [];
-        } // Add custom entry
-
-        if (traits.custom) traits.selected.custom = traits.custom;
     }
 
     /** Prepare form options on the item sheet */
