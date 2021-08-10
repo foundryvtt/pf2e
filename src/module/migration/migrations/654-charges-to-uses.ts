@@ -39,13 +39,14 @@ export class Migration654ChargesToUses extends MigrationBase {
             data.uses.per = "day";
         }
 
-        delete data.charges;
-        delete data.autoDestroy;
-        delete data.autoUse;
         if ("game" in globalThis) {
             data["-=charges"] = null;
             data["-=autoDestroy"] = null;
             data["-=autoUse"] = null;
+        } else {
+            delete data.charges;
+            delete data.autoDestroy;
+            delete data.autoUse;
         }
     }
 }
