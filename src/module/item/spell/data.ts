@@ -25,7 +25,6 @@ export interface SpellData extends Omit<SpellSource, "_id" | "effects"> {
     readonly _source: SpellSource;
 }
 
-export type MagicTradition = keyof ConfigPF2e["PF2E"]["magicTraditions"];
 export type MagicSchool = keyof ConfigPF2e["PF2E"]["magicSchools"];
 
 export type SpellTrait = keyof ConfigPF2e["PF2E"]["spellTraits"];

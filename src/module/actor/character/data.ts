@@ -27,7 +27,7 @@ import { CheckModifier, StatisticModifier } from "@module/modifiers";
 import { LabeledValue, ZeroToFour, ZeroToThree } from "@module/data";
 import type { CharacterPF2e } from ".";
 import { SaveType } from "@actor/data";
-import { MagicTradition } from "@item/spell/data";
+import { MagicTradition } from "@item/spellcasting-entry/data";
 
 export type CharacterSource = BaseCreatureSource<"character", CharacterSystemData>;
 
