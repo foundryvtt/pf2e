@@ -26,6 +26,7 @@ import { PF2RecoveryCheckDCRuleElement } from "@module/rules/feats/recovery-chec
 import { PF2AdjustDegreeOfSuccessRuleElement } from "./elements/adjust-degree-of-success";
 import { AELikeRuleElement } from "./elements/ae-like";
 import { LoseHitPointsRuleElement } from "./elements/lose-hit-points";
+import { CreatureSizeRuleElement } from "./elements/creature-size";
 
 /**
  * @category RuleElement
@@ -39,6 +40,7 @@ export class RuleElements {
         TempHP: PF2TempHPRuleElement,
         DamageDice: PF2DamageDiceRuleElement,
         ToggleProperty: PF2TogglePropertyRuleElement,
+        CreatureSize: CreatureSizeRuleElement,
         TokenEffectIcon: PF2TokenEffectIconRuleElement,
         TokenImage: PF2TokenImageRuleElement,
         TokenSize: PF2TokenSizeRuleElement,

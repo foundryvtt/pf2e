@@ -249,6 +249,13 @@ export interface CharacterAttributes extends BaseCreatureAttributes {
     /** The number of familiar abilities this character's familiar has access to. */
     familiarAbilities: StatisticModifier;
 
+    /** The character's natural reach */
+    reach: {
+        value: number;
+        /** Its reach for the purpose of manipulate actions */
+        manipulate: number | null;
+    };
+
     /** Data related to character hitpoints. */
     hp: HitPointsData;
 

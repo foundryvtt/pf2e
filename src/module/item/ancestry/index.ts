@@ -21,6 +21,10 @@ export class AncestryPF2e extends ABCItemPF2e {
         return this.data.data.size;
     }
 
+    get reach(): number {
+        return this.data.data.reach;
+    }
+
     /** Prepare a character's data derived from their ancestry */
     prepareActorData(this: Embedded<AncestryPF2e>): void {
         if (!(this.actor instanceof CharacterPF2e)) {
@@ -30,9 +34,10 @@ export class AncestryPF2e extends ABCItemPF2e {
 
         const actorData = this.actor.data;
         const systemData = actorData.data;
-        systemData.attributes.speed.value = String(this.speed);
-        systemData.traits.size.value = this.size;
         systemData.attributes.ancestryhp = this.hitPoints;
+        systemData.attributes.speed.value = String(this.speed);
+        systemData.attributes.reach = { value: this.reach, manipulate: this.reach };
+        systemData.traits.size.value = this.size;
 
         // Add traits from ancestry and heritage
         const ancestryTraits: Set<string> = this?.traits ?? new Set();
@@ -44,7 +49,7 @@ export class AncestryPF2e extends ABCItemPF2e {
                 )
             )
         ).sort();
-        actorData.data.traits.traits.value.push(...traits);
+        systemData.traits.traits.value.push(...traits);
     }
 }
 
