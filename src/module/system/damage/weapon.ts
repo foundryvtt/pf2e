@@ -403,6 +403,7 @@ export class WeaponDamagePF2e {
         }
 
         // deadly trait
+        const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
         traits
             .filter((t) => t.name.startsWith("deadly-"))
             .forEach((t) => {
@@ -416,7 +417,7 @@ export class WeaponDamagePF2e {
                 })();
                 diceModifiers.push(
                     new DiceModifierPF2e({
-                        name: CONFIG.PF2E.weaponTraits[t.name],
+                        name: weaponTraits[t.name],
                         diceNumber,
                         dieSize: deadly.substring(deadly.indexOf("d")) as DamageDieSize,
                         critical: true,
@@ -431,7 +432,7 @@ export class WeaponDamagePF2e {
                 const dieSize = t.name.substring(t.name.indexOf("-") + 1) as DamageDieSize;
                 diceModifiers.push(
                     new DiceModifierPF2e({
-                        name: CONFIG.PF2E.weaponTraits[t.name],
+                        name: weaponTraits[t.name],
                         diceNumber: 1,
                         dieSize,
                         critical: true,

@@ -2,17 +2,14 @@ import { ActorPF2e } from "@actor/index";
 import { SpellSource } from "@item/spell/data";
 import { ErrorPF2e } from "@module/utils";
 
-/**
- * @category Other
- */
 export class ScrollWandPopup extends FormApplication<ActorPF2e> {
-    onSubmitCallback: (a: number, b: string, spellData: SpellSource) => void;
+    onSubmitCallback: ScrollWandCallback;
     spellData?: SpellSource;
 
     constructor(
         object: ActorPF2e,
         options: FormApplicationOptions,
-        callback: (a: number, b: string, c: SpellSource) => void,
+        callback: ScrollWandCallback,
         spellData: SpellSource
     ) {
         super(object, options);
@@ -53,3 +50,5 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
         }
     }
 }
+
+type ScrollWandCallback = (level: number, itemType: string, spellData: SpellSource) => Promise<void>;

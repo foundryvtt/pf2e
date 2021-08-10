@@ -81,3 +81,5 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
         value: OneToTen | null;
     };
 }
+
+export const MAGIC_TRADITIONS = ["arcane", "primal", "divine", "occult"] as const;
