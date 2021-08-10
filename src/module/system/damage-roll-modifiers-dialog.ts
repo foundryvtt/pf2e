@@ -7,7 +7,7 @@ import type { ItemPF2e } from "@item";
 
 /** Dialog for excluding certain modifiers before rolling for damage. */
 export class DamageRollModifiersDialog extends Application {
-    private static DAMAGE_TYPE_ICONS = Object.freeze({
+    private static DAMAGE_TYPE_ICONS: Record<string, string | undefined> = Object.freeze({
         acid: "vial",
         bludgeoning: "hammer",
         chaotic: "dizzy",
@@ -60,8 +60,9 @@ export class DamageRollModifiersDialog extends Application {
         const outcomeLabel = game.i18n.localize(`PF2E.CheckOutcome.${outcome}`);
         let flavor = `<b>${damage.name}</b> (${outcomeLabel})`;
         if (damage.traits) {
+            const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
             const traits = damage.traits
-                .map((trait) => game.i18n.localize(CONFIG.PF2E.weaponTraits[trait]) ?? trait)
+                .map((trait) => game.i18n.localize(weaponTraits[trait]) ?? trait)
                 .map((trait) => `<span class="tag">${trait}</span>`)
                 .join("");
             flavor += `<div class="tags">${traits}</div><hr>`;

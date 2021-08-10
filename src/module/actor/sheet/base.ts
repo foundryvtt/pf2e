@@ -878,7 +878,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                             itemType == "wand" ? SpellConsumableTypes.Wand : SpellConsumableTypes.Scroll;
 
                         const item = await createConsumableFromSpell(consumableType, spellData, heightenedLevel);
-                        return this._onDropItemCreate(item);
+                        await this._onDropItemCreate(item);
                     },
                     itemData
                 );

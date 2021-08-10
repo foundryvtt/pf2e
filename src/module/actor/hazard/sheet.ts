@@ -75,66 +75,67 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         };
 
         // Iterate through items, allocating to containers
-        for (const i of actorData.items) {
-            i.img = i.img || CONST.DEFAULT_TOKEN;
-
+        for (const itemData of actorData.items) {
             // NPC Generic Attacks
-            if (i.type === "melee") {
-                const weaponType = (i.data.weaponType || {}).value || "melee";
-                const isAgile = (i.data.traits.value || []).includes("agile");
-                i.data.bonus.total = parseInt(i.data.bonus.value, 10) || 0;
-                i.data.isAgile = isAgile;
+            if (itemData.type === "melee") {
+                const weaponType = (itemData.data.weaponType || {}).value || "melee";
+                const isAgile = (itemData.data.traits.value || []).includes("agile");
+                itemData.data.bonus.total = parseInt(itemData.data.bonus.value, 10) || 0;
+                itemData.data.isAgile = isAgile;
 
                 // get formated traits for read-only npc sheet
                 const traits: { label: string; description: string }[] = [];
-                if ((i.data.traits.value || []).length !== 0) {
-                    for (let j = 0; j < i.data.traits.value.length; j++) {
+                if ((itemData.data.traits.value || []).length !== 0) {
+                    for (let j = 0; j < itemData.data.traits.value.length; j++) {
                         const traitsObject = {
                             label:
-                                CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] ||
-                                i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1),
-                            description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || "",
+                                CONFIG.PF2E.weaponTraits[itemData.data.traits.value[j]] ||
+                                itemData.data.traits.value[j].charAt(0).toUpperCase() +
+                                    itemData.data.traits.value[j].slice(1),
+                            description: CONFIG.PF2E.traitsDescriptions[itemData.data.traits.value[j]] || "",
                         };
                         traits.push(traitsObject);
                     }
                 }
-                i.traits = traits.filter((p) => !!p);
+                itemData.traits = traits.filter((p) => !!p);
 
-                attacks[weaponType].items.push(i);
+                attacks[weaponType].items.push(itemData);
             }
 
             // Actions
-            else if (i.type === "action") {
-                const actionType = i.data.actionType.value || "action";
-                i.img = HazardPF2e.getActionGraphics(
+            else if (itemData.type === "action") {
+                const actionType = itemData.data.actionType.value || "action";
+                itemData.img = HazardPF2e.getActionGraphics(
                     actionType,
-                    parseInt((i.data.actions || {}).value, 10) || 1
+                    parseInt((itemData.data.actions || {}).value, 10) || 1
                 ).imageUrl;
 
                 // get formated traits for read-only npc sheet
                 const traits: { label: string; description: string }[] = [];
-                if ((i.data.traits.value || []).length !== 0) {
-                    for (let j = 0; j < i.data.traits.value.length; j++) {
+                if ((itemData.data.traits.value || []).length !== 0) {
+                    for (let j = 0; j < itemData.data.traits.value.length; j++) {
                         const traitsObject = {
                             label:
-                                CONFIG.PF2E.weaponTraits[i.data.traits.value[j]] ||
-                                i.data.traits.value[j].charAt(0).toUpperCase() + i.data.traits.value[j].slice(1),
-                            description: CONFIG.PF2E.traitsDescriptions[i.data.traits.value[j]] || "",
+                                CONFIG.PF2E.weaponTraits[itemData.data.traits.value[j]] ||
+                                itemData.data.traits.value[j].charAt(0).toUpperCase() +
+                                    itemData.data.traits.value[j].slice(1),
+                            description: CONFIG.PF2E.traitsDescriptions[itemData.data.traits.value[j]] || "",
                         };
                         traits.push(traitsObject);
                     }
                 }
-                if (i.data.actionType.value) {
+                if (itemData.data.actionType.value) {
                     traits.push({
                         label:
-                            CONFIG.PF2E.weaponTraits[i.data.actionType.value] ||
-                            i.data.actionType.value.charAt(0).toUpperCase() + i.data.actionType.value.slice(1),
-                        description: CONFIG.PF2E.traitsDescriptions[i.data.actionType.value] || "",
+                            CONFIG.PF2E.weaponTraits[itemData.data.actionType.value] ||
+                            itemData.data.actionType.value.charAt(0).toUpperCase() +
+                                itemData.data.actionType.value.slice(1),
+                        description: CONFIG.PF2E.traitsDescriptions[itemData.data.actionType.value] || "",
                     });
                 }
-                i.traits = traits.filter((p) => !!p);
+                itemData.traits = traits.filter((p) => !!p);
 
-                actions[actionType].actions.push(i);
+                actions[actionType].actions.push(itemData);
             }
         }
 

@@ -6,6 +6,9 @@ import { SheetInventory } from "../sheet/data-types";
 import { ActionSource, ItemDataPF2e } from "@item/data";
 import { ActionPF2e } from "@item/action";
 import { MeleePF2e } from "@item/melee";
+import { DamageType } from "@module/damage-calculation";
+import { MeleeSystemData } from "@item/melee/data";
+import { ActorDataPF2e } from "@actor/data";
 
 interface LootSheetData {
     actor: { name: string; items: ItemDataPF2e[] };
@@ -121,8 +124,21 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         sheetData.hasSpells = sheetData.actor.spellcastingEntries.length ? sheetData.actor.spellcastingEntries : false;
         // sheetData.spellAttackBonus = sheetData.data.attributes.spelldc.value;
 
-        const equipment: any[] = [];
-        const reorgActions = {
+        const equipment: unknown[] = [];
+        interface SheetActions {
+            label: string;
+            actions: ItemDataPF2e[];
+        }
+        interface ActionCategories {
+            label: string;
+            actions: {
+                action: SheetActions;
+                reaction: SheetActions;
+                free: SheetActions;
+                passive: SheetActions;
+            };
+        }
+        const reorgActions: Record<"interaction" | "defensive" | "offensive", ActionCategories> = {
             interaction: {
                 label: "Interaction Actions",
                 actions: {
@@ -155,46 +171,41 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
         sheetData.hasDefensiveActions = false;
         sheetData.hasOffensiveActions = false;
         sheetData.hasEquipment = false;
-        for (const i of sheetData.actor.items) {
+        const items: ItemDataPF2e[] = sheetData.actor.items;
+        for (const itemData of items) {
             // Equipment
-            if (
-                i.type === "weapon" ||
-                i.type === "armor" ||
-                i.type === "equipment" ||
-                i.type === "consumable" ||
-                i.type === "treasure"
-            ) {
+            if (itemData.isPhysical) {
                 // non-strict because `quantity.value` can be a string
                 // eslint-disable-next-line eqeqeq
-                if (i.data.quantity.value != 1) {
+                if (itemData.data.quantity.value != 1) {
                     // `i` is a copy, so we can append the quantity to it without updating the original
-                    i.name += ` (${i.data.quantity.value})`;
+                    itemData.name += ` (${itemData.data.quantity.value})`;
                 }
-                equipment.push(i);
+                equipment.push(itemData);
                 sheetData.hasEquipment = true;
             }
             // Actions
-            else if (i.type === "action") {
-                const actionType = i.data.actionType.value || "action";
-                const actionCategory = i.data.actionCategory?.value || "offensive";
+            else if (itemData.type === "action") {
+                const actionType = itemData.data.actionType.value || "action";
+                const actionCategory = itemData.data.actionCategory?.value || "offensive";
                 switch (actionCategory) {
                     case "interaction":
-                        reorgActions.interaction.actions[actionType].actions.push(i);
+                        reorgActions.interaction.actions[actionType].actions.push(itemData);
                         sheetData.hasInteractionActions = true;
                         break;
                     case "defensive":
-                        reorgActions.defensive.actions[actionType].actions.push(i);
+                        reorgActions.defensive.actions[actionType].actions.push(itemData);
                         sheetData.hasDefensiveActions = true;
                         break;
                     // Should be offensive but throw anything else in there too
                     default:
-                        reorgActions.offensive.actions[actionType].actions.push(i);
+                        reorgActions.offensive.actions[actionType].actions.push(itemData);
                         sheetData.hasOffensiveActions = true;
                 }
             }
             // Give Melee/Ranged an img
-            else if (i.type === "melee" || i.type === "ranged") {
-                i.img = ActorPF2e.getActionGraphics("action", 1).imageUrl;
+            else if (itemData.type === "melee") {
+                itemData.img = ActorPF2e.getActionGraphics("action", 1).imageUrl;
             }
         }
         sheetData.actor.reorgActions = reorgActions;
@@ -259,13 +270,14 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
      * Roll NPC Damage using DamageRoll
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollNPCDamageRoll(event: any, damageRoll: any, item: any) {
-        // Get data
+    rollNPCDamageRoll(
+        event: JQuery.ClickEvent,
+        damageRoll: { die: string; damageType: DamageType },
+        item: Embedded<MeleePF2e>
+    ) {
         const itemData = item.data.data;
-        const rollData = duplicate(item.actor.data.data);
+        const rollData: ActorDataPF2e["data"] & { item?: MeleeSystemData } = duplicate(item.actor.data.data);
         const weaponDamage = damageRoll.die;
-        // abl = itemData.ability.value || "str",
-        // abl = "str",
         const parts = [weaponDamage];
         const dtype = CONFIG.PF2E.damageTypes[damageRoll.damageType];
 
@@ -294,7 +306,12 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
     expandAttackEffect(attackEffectName: string, event: JQuery.TriggeredEvent) {
         const actionList = $(event.currentTarget).parents("form").find(".item.action-item");
         let toggledAnything = false;
-        const mAbilities = CONFIG.PF2E.monsterAbilities();
+        interface MonsterAbility {
+            actionType: string;
+            actionCost: number;
+            description: string;
+        }
+        const mAbilities: Record<string, MonsterAbility | undefined> = CONFIG.PF2E.monsterAbilities();
         actionList.each((_index, element) => {
             // 'this' = element found
             if ($(element).attr("data-item-name")?.trim().toLowerCase() === attackEffectName.trim().toLowerCase()) {
@@ -373,7 +390,8 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
 
             const itemId = $(event.currentTarget).parents(".item").attr("data-item-id") ?? "";
             const drId = Number($(event.currentTarget).attr("data-dmgRoll"));
-            const item = this.actor.items.get(itemId, { strict: true });
+            const item = this.actor.items.get(itemId);
+            if (!(item instanceof MeleePF2e)) return;
             const damageRoll = item.data.flags.pf2e_updatednpcsheet.damageRolls[drId];
 
             // which function gets called depends on the type of button stored in the dataset attribute action
