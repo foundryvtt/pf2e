@@ -1,0 +1,141 @@
+.pf2e.actor.sheet {
+    ol.currency {
+        @include button;
+        list-style: none;
+        border-bottom: 1px solid var(--secondary-background);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        line-height: 20px;
+        padding: 2px;
+        background-color: var(--sub);
+        margin: 0 0 8px;
+        height: 30px;
+        font-family: var(--sans-serif);
+
+        > {
+            * {
+                flex: 0;
+            }
+
+            .denomination {
+                flex: 1;
+            }
+        }
+
+        > li.denomination {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            padding: 3px 3px 0;
+            align-items: end;
+            justify-content: flex-end;
+            width: 100%;
+            color: white;
+            background-color: transparent;
+            border-right: 1px solid var(--secondary-background);
+            border-left: 1px solid rgba(black, 0.2);
+            text-shadow: 0 0 3px rgba(black, 0.75);
+
+            > * {
+                flex: 1;
+            }
+
+            &:first-child {
+                border-left: none;
+            }
+
+            &:last-child {
+                border-right: none;
+                margin-right: 8px;
+            }
+
+            label {
+                @include micro;
+                color: #ffe8d1;
+                text-shadow: 1px 1px 1px rgba(white, 0.2), -1px -1px 1px rgba(black, 0.2);
+                flex: none;
+                margin-right: 3px;
+            }
+
+            span {
+                padding-left: 8px;
+                text-align: left;
+                max-width: 48px;
+            }
+
+            &.pp {
+                .currency-image {
+                    background: url('../icons/equipment/treasure/currency/platinum-pieces.webp') no-repeat;
+                }
+            }
+            &.gp {
+                .currency-image {
+                    background: url('../icons/equipment/treasure/currency/gold-pieces.webp') no-repeat;
+                }
+            }
+            &.sp {
+                .currency-image {
+                    background: url('../icons/equipment/treasure/currency/silver-pieces.webp') no-repeat;
+                }
+            }
+            &.cp {
+                .currency-image {
+                    background: url('../icons/equipment/treasure/currency/copper-pieces.webp') no-repeat;
+                }
+            }
+
+            .currency-image {
+                height: 24px;
+                width: 24px;
+                @include gold-border;
+                background-size: cover !important;
+                flex: none;
+            }
+        }
+
+        .add-coins-popup,
+        .remove-coins-popup,
+        .sell-all-treasure {
+            height: 100%;
+            button {
+                @include flex-center;
+                @include p-reset;
+                line-height: 1;
+                color: rgba(black, 0.75);
+                background-color: var(--tertiary);
+                border: none;
+                padding: 3px 8px;
+                margin-top: 1px;
+                border-radius: 1px;
+                box-shadow: 0 0 0 1px rgba(black, 0.25), inset 0 0 0 1px rgba(white, 0.25), 0 0 3px rgba(black, 0.5);
+
+                &:hover {
+                    background-color: var(--primary);
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        > li.add-coins-popup, li.remove-coins-popup {
+            margin: 0 1px 0px 5px;
+            > button {
+                font-size: 10px;
+                padding: 6px 8px;
+                > i.fas {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        .sell-all-treasure {
+            margin: 0 1px 0px 5px;
+            button {
+                font-size: 11px;
+                padding: 5px 6px 6px 10px;
+            }
+        }
+    }
+}
