@@ -1,5 +1,21 @@
 <div class="tab inventory item-container" data-container-type="actorInventory" data-group="primary" data-tab="inventory">
     <div class="items inventory-section">
+        {{#if @root.owner}}
+            <ol class="currency">
+                {{#each totalCoinage as |value denomination|}}
+                    <li class="denomination {{denomination}}">
+                        <div class="currency-image" title="{{localize value.label}}"></div>
+                        <span>{{value.value}}</span>
+                    </li>
+                {{/each}}
+                <li class="add-coins-popup" title="{{localize "PF2E.AddCoinsTitle"}}">
+                    <button type="button"><i class="fas fa-plus"></i></button>
+                </li>
+                <li class="remove-coins-popup" title="{{localize "PF2E.RemoveCoinsTitle"}}">
+                    <button type="button"><i class="fas fa-minus"></i></button>
+                </li>
+            </ol>
+        {{/if}}
         <div class="header">
             <div></div>
             <div class="item-name">{{localize "PF2E.NPC.Inventory.Header.NameLabel"}}</div>
@@ -10,15 +26,15 @@
         <div class="body">
             <ul class="item-list">
                 {{#each inventory as |category categoryId|}}
-                <div class="category-header">
-                    <h4>{{category.label}}</h4>
-                    <div class="category-controls controls">
-                        {{#if @root.owner}}
-                            <a class="item-control item-create" data-type="{{category.type}}"><i class="fas fa-plus"></i></a>
-                            <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-filter="itemtypes-{{category.type}}"><i class="fas fa-search"></i></a>
-                        {{/if}}
+                    <div class="category-header">
+                        <h4>{{category.label}}</h4>
+                        <div class="category-controls controls">
+                            {{#if @root.owner}}
+                                <a class="item-control item-create" data-type="{{category.type}}"><i class="fas fa-plus"></i></a>
+                                <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-filter="itemtypes-{{category.type}}"><i class="fas fa-search"></i></a>
+                            {{/if}}
+                        </div>
                     </div>
-                </div>
                     {{#each category.items as |item itemId|}}
                         {{> "systems/pf2e/templates/actors/npc/partials/item.html" item=item user=@root.user owner=@root.owner editable=@root.editable}}
                     {{/each}}
