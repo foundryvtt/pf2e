@@ -820,8 +820,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         if (typeof currentValue !== "number") throw ErrorPF2e("Actor property not found");
 
-        const update = this.getIntendedChange(propertyKey, selectedValue);
-        const newValue = Math.clamped(update, 0, 4);
+        const newValue = Math.clamped(selectedValue, 0, 4);
 
         await this.actor.update({ [propertyKey]: newValue });
     }
@@ -852,17 +851,15 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const item = this.actor.items.get(itemId);
         if (!item) throw ErrorPF2e("Item not found");
 
-        const update = this.getIntendedChange(propertyKey, selectedValue);
-
         // Retrieve and validate the updated value
         const newValue = ((): number | undefined => {
             if (item instanceof SpellcastingEntryPF2e) {
                 const dispatch: Record<string, () => number> = {
-                    "data.proficiency.value": () => Math.clamped(update, 0, 4),
+                    "data.proficiency.value": () => Math.clamped(selectedValue, 0, 4),
                 };
                 return dispatch[propertyKey]?.();
             } else if (item instanceof LorePF2e) {
-                return Math.clamped(update, 0, 4);
+                return Math.clamped(selectedValue, 0, 4);
             } else {
                 throw ErrorPF2e("Item not recognized");
             }
