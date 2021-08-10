@@ -6,6 +6,7 @@
  * See https://www.youtube.com/watch?v=UtNS1vM7czM for interpretations
  */
 
+import { SkillAbbreviation } from "@actor/creature/data";
 import { NPCSystemData } from "@actor/npc/data";
 import { Rarity } from "@module/data";
 import {
@@ -20,7 +21,7 @@ import {
 } from "./dc";
 import { toNumber } from "./utils";
 
-const identifySkills = new Map<string, string[]>();
+const identifySkills = new Map<string, SkillAbbreviation[]>();
 identifySkills.set("aberration", ["occ"]);
 identifySkills.set("animal", ["nat"]);
 identifySkills.set("astral", ["occ"]);
@@ -50,7 +51,7 @@ export interface IdentifyCreatureData {
     skill: RecallKnowledgeDC;
     specificLoreDC: RecallKnowledgeDC;
     unspecificLoreDC: RecallKnowledgeDC;
-    skills: Set<string>;
+    skills: Set<SkillAbbreviation>;
 }
 
 function toKnowledgeDC(dc: number, rarity: Rarity, loreAdjustment: NegativeDCAdjustment = "normal"): RecallKnowledgeDC {
