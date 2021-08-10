@@ -24,6 +24,7 @@ import { ItemTrait } from "./data/base";
 import { UserPF2e } from "@module/user";
 import { MigrationRunner, Migrations } from "@module/migration";
 import { GhostTemplate } from "@module/ghost-measured-template";
+import { OneToThree, TwoToThree } from "@module/data";
 
 interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF2e> {
     pf2e?: {
@@ -554,7 +555,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Roll Spell Damage
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollSpellAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
+    rollSpellAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty: OneToThree = 1) {
         if (this.data.type !== "spell") throw new Error("Wrong item type!");
         const itemData = this.data.toObject(false);
 
@@ -579,7 +580,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 .concat(...this.traits);
             const modifiers: ModifierPF2e[] = [];
             if (multiAttackPenalty > 1) {
-                modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], "untyped"));
+                modifiers.push(
+                    new ModifierPF2e(map.label, map[`map${multiAttackPenalty as TwoToThree}` as const], "untyped")
+                );
             }
             spellcastingEntry.data.attack.roll({ event, item: this, options, modifiers });
         } else {
@@ -597,7 +600,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
             }
 
             if (multiAttackPenalty > 1) {
-                parts.push(map[`map${multiAttackPenalty}`]);
+                parts.push(map[`map${multiAttackPenalty as TwoToThree}` as const]);
             }
 
             // Call the roll helper utility
@@ -705,7 +708,6 @@ export class ItemPF2e extends Item<ActorPF2e> {
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.actor.data.data.details.level.value, proficiencyRank));
 
         const rollOptions = ["all", "counteract-check"];
-        const extraOptions = [];
         const traits = itemData.data.traits.value;
 
         let flavor = "<hr>";
@@ -729,7 +731,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         addFlavor("CritFailure", 0);
         flavor += "</p>";
         const check = new StatisticModifier(flavor, modifiers);
-        const finalOptions = this.actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
+        const finalOptions = this.actor.getRollOptions(rollOptions).concat(traits);
         ensureProficiencyOption(finalOptions, proficiencyRank);
         CheckPF2e.roll(
             check,

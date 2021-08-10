@@ -201,7 +201,7 @@ export class NPCPF2e extends CreaturePF2e {
         // Speeds
         {
             const label = game.i18n.localize("PF2E.SpeedTypesLand");
-            const base = parseInt(data.attributes.speed.value, 10) || 0;
+            const base = Number(data.attributes.speed.value) || 0;
             const modifiers: ModifierPF2e[] = [];
             ["land-speed", "speed"].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
@@ -224,7 +224,7 @@ export class NPCPF2e extends CreaturePF2e {
         }
         for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
             const speed = data.attributes.speed.otherSpeeds[idx];
-            const base = typeof speed.value === "string" ? parseInt(speed.value, 10) || 0 : 0;
+            const base = typeof speed.value === "string" ? Number(speed.value) || 0 : 0;
             const modifiers: ModifierPF2e[] = [];
             [`${speed.type.toLowerCase()}-speed`, "speed"].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
@@ -494,7 +494,7 @@ export class NPCPF2e extends CreaturePF2e {
                 data.skills[shortform] = stat;
             } else if (itemData.type === "melee") {
                 const modifiers: ModifierPF2e[] = [];
-                const notes = [] as RollNotePF2e[];
+                const notes: RollNotePF2e[] = [];
 
                 // traits
                 const traits = itemData.data.traits.value;
@@ -544,11 +544,7 @@ export class NPCPF2e extends CreaturePF2e {
                 }
 
                 // action image
-                const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics(
-                    (itemData as any).data?.actionType?.value || "action",
-                    parseInt(((itemData as any).data?.actions || {}).value, 10) || 1
-                );
-
+                const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics("action", 1);
                 const action = new StatisticModifier(itemData.name, modifiers) as NPCStrike;
                 action.glyph = actionGlyph;
                 action.imageUrl = imageUrl;
@@ -562,11 +558,12 @@ export class NPCPF2e extends CreaturePF2e {
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
                     .join(", ");
 
+                const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
                 action.traits = [
                     { name: "attack", label: game.i18n.localize("PF2E.TraitAttack"), toggle: false },
                 ].concat(
                     traits.map((trait) => {
-                        const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
+                        const key = weaponTraits[trait] ?? trait;
                         const option: StrikeTrait = {
                             name: trait,
                             label: game.i18n.localize(key),
