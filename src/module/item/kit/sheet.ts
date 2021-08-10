@@ -15,18 +15,18 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     }
 
     override getData() {
-        const data = mergeObject(super.getBaseData(), {
+        const data = super.getBaseData();
+        const traits = this.prepareOptions(CONFIG.PF2E.classTraits, data.data.traits, { selectedOnly: true });
+        return {
+            ...data,
             type: "kit",
             hasSidebar: true,
             sidebarTemplate: () => "systems/pf2e/templates/items/kit-sidebar.html",
             hasDetails: true,
             detailsTemplate: () => "systems/pf2e/templates/items/kit-details.html",
             rarity: CONFIG.PF2E.rarityTraits,
-        });
-
-        this.prepareTraits(data.data.traits, CONFIG.PF2E.classTraits);
-
-        return data;
+            traits,
+        };
     }
 
     protected override async _onDrop(event: ElementDragEvent): Promise<void> {
