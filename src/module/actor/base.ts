@@ -2,7 +2,7 @@ import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, R
 import { isCycle } from "@item/container/helpers";
 import { DicePF2e } from "@scripts/dice";
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e, ContainerPF2e } from "@item";
-import type { ConditionPF2e, ArmorPF2e } from "@item/index";
+import type { ConditionPF2e, ArmorPF2e } from "@item";
 import { ConditionData, WeaponData, ItemSourcePF2e, ItemType } from "@item/data";
 import { ErrorPF2e, objectHasKey } from "@module/utils";
 import type { ActiveEffectPF2e } from "@module/active-effect";
@@ -16,7 +16,7 @@ import { SUPPORTED_ROLL_OPTIONS } from "./data/values";
 import { SaveData, SkillAbbreviation, SkillData, VisionLevel, VisionLevels } from "./creature/data";
 import { AbilityString, BaseActorDataPF2e } from "./data/base";
 import { ActorDataPF2e, ActorSourcePF2e, ModeOfBeing, SaveType } from "./data";
-import { TokenDocumentPF2e } from "@module/scene/token-document";
+import { TokenDocumentPF2e } from "@scene";
 import { UserPF2e } from "@module/user";
 import { isCreatureData } from "./data/helpers";
 import { ConditionType } from "@item/condition/data";

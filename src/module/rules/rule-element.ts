@@ -231,7 +231,7 @@ export abstract class RuleElementPF2e {
                 (Number(defaultValue) || 0);
         }
 
-        if (typeof value === "string") {
+        if (typeof value === "string" && value.includes("@")) {
             value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actor.data.data, item: this.item.data.data }));
         }
 

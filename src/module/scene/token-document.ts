@@ -61,7 +61,8 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         super.prepareDerivedData();
         if (!(this.initialized && this.actor && canvas.scene)) return;
 
-        mergeObject(this.data, this.actor.overrides.token ?? {}, { insertKeys: false });
+        this.prepareSize();
+
         if (!canvas.sight.rulesBasedVision) return;
 
         const lightLevel = canvas.scene.lightLevel;
@@ -73,6 +74,26 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
             [VisionLevels.DARKVISION]: 1,
         }[this.actor.visionLevel];
         this.data.brightSight = perceivedBrightness > lightLevel || hasDarkvision ? 1000 : 0;
+    }
+
+    /** Set this token's dimensions from actor data */
+    private prepareSize(): void {
+        if (!(this.actor instanceof CreaturePF2e)) return;
+        const { width, height } = this.data;
+        mergeObject(this.data, this.actor.overrides.token ?? {}, { insertKeys: false });
+
+        // If not overridden by an actor override, set according to creature size (skipping gargantuan)
+        if (this.data.width == width && this.data.height === height && this.actor.size !== "grg") {
+            const size = {
+                tiny: 0.5,
+                sm: 1,
+                med: 1,
+                lg: 2,
+                huge: 3,
+                grg: 4,
+            }[this.actor.size];
+            if (size !== width) this.data.width = this.data.height = size;
+        }
     }
 
     /**
