@@ -34,6 +34,8 @@ export interface CheckModifiersContext {
     createMessage?: boolean;
     /** Skip the roll dialog regardless of user setting  */
     skipDialog?: boolean;
+    /** Is the roll a reroll? */
+    isReroll?: boolean;
 }
 
 /**

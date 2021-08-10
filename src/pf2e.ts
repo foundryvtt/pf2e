@@ -42,7 +42,7 @@ Hooks.on("getChatLogEntryContext", (_html, options) => {
 
         const actorId = message.data.speaker.actor ?? "";
         const actor = game.actors.get(actorId);
-        const canReroll = !!message.getFlag("pf2e", "canReroll");
+        const canReroll = !message.getFlag("pf2e", "context")?.isReroll === true;
         return (
             canReroll &&
             actor?.data.type === "character" &&
@@ -55,7 +55,7 @@ Hooks.on("getChatLogEntryContext", (_html, options) => {
         const message = game.messages.get(li.data("messageId"), { strict: true });
         const actorId = message.data.speaker.actor ?? "";
         const isOwner = !!game.actors.get(actorId)?.isOwner;
-        const canRerollMessage = !!message.getFlag("pf2e", "canReroll");
+        const canRerollMessage = !message.getFlag("pf2e", "context")?.isReroll === true;
         return canRerollMessage && isOwner && (message.isAuthor || game.user.isGM);
     };
 
