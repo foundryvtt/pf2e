@@ -15,6 +15,7 @@ import { Migration650StringifyWeaponProperties } from "@module/migration/migrati
 import { Migration651EphemeralFocusPool } from "@module/migration/migrations/651-ephemeral-focus-pool";
 import { Migration652KillHalcyonTradition } from "@module/migration/migrations/652-kill-halcyon-tradition";
 import { Migration653AEstoREs } from "@module/migration/migrations/653-aes-to-res";
+import { Migration654ChargesToUses } from "@module/migration/migrations/654-charges-to-uses";
 
 const migrations: MigrationBase[] = [
     new Migration643HazardLevel(),
@@ -27,6 +28,7 @@ const migrations: MigrationBase[] = [
     new Migration651EphemeralFocusPool(),
     new Migration652KillHalcyonTradition(),
     new Migration653AEstoREs(),
+    new Migration654ChargesToUses(),
 ];
 
 global.deepClone = function (original: any): any {

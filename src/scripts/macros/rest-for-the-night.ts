@@ -53,16 +53,14 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
             conditionChanges[slug] = newValue === 0 ? "removed" : "reduced";
         }
 
-        // Restore wand charges
         const items = actor.itemTypes;
-        const wands = items.consumable.filter(
-            (item) => item.consumableType === "wand" && item.charges.current < item.charges.max
-        );
-        const updateData: EmbeddedDocumentUpdateData<ItemPF2e>[] = wands.map((wand) => ({
-            _id: wand.id,
-            "data.charges.value": 1,
+
+        // Restore daily consumable charges
+        const uncharged = items.consumable.filter((item) => item.uses.per === "day" && item.uses.value < item.uses.max);
+        const updateData: EmbeddedDocumentUpdateData<ItemPF2e>[] = uncharged.map((item) => ({
+            _id: item.id,
+            "data.uses.value": item.uses.max,
         }));
-        const wandRecharged = updateData.length > 0;
 
         // Restore focus points
         const rechargeFocus = focus?.max && focus.value < focus.max;
@@ -137,9 +135,9 @@ export async function restForTheNight(options: ActionDefaultOptions): Promise<vo
             messages.push(`${hpRestored} hit points restored.`);
         }
 
-        // Wand recharge
-        if (wandRecharged) {
-            messages.push("Wands recharged.");
+        // Wand and any daily consumable recharge
+        if (uncharged.length) {
+            messages.push("Daily consumables recharged.");
         }
 
         if (rechargeFocus) {

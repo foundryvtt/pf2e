@@ -61,6 +61,7 @@ import { Migration650StringifyWeaponProperties } from "./migrations/650-stringif
 import { Migration651EphemeralFocusPool } from "./migrations/651-ephemeral-focus-pool";
 import { Migration652KillHalcyonTradition } from "@module/migration/migrations/652-kill-halcyon-tradition";
 import { Migration653AEstoREs } from "./migrations/653-aes-to-res";
+import { Migration654ChargesToUses } from "./migrations/654-charges-to-uses";
 export { MigrationRunner } from "./runner";
 
 export class Migrations {
@@ -126,6 +127,7 @@ export class Migrations {
         Migration651EphemeralFocusPool,
         Migration652KillHalcyonTradition,
         Migration653AEstoREs,
+        Migration654ChargesToUses,
     ];
 
     static get latestVersion(): number {

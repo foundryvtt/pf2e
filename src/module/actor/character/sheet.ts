@@ -259,7 +259,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                         actorSize: this.actor.data.data.traits.size.value,
                     });
                     itemData.totalWeight = formatBulk(approximatedBulk);
-                    itemData.hasCharges = physicalData.type === "consumable" && physicalData.data.charges.max > 0;
+                    itemData.hasCharges = physicalData.type === "consumable" && physicalData.data.uses.max > 0;
                     if (physicalData.type === "weapon") {
                         itemData.isTwoHanded = physicalData.data.traits.value.some((trait: string) =>
                             trait.startsWith("two-hand")

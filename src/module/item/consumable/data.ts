@@ -24,7 +24,7 @@ export type ConsumableType = keyof ConfigPF2e["PF2E"]["consumableTypes"];
 export type ConsumableTrait = keyof ConfigPF2e["PF2E"]["consumableTraits"];
 type ConsumableTraits = PhysicalItemTraits<ConsumableTrait>;
 
-interface ConsumableSystemData extends PhysicalSystemData, ActivatedEffectData {
+export interface ConsumableSystemData extends PhysicalSystemData, ActivatedEffectData {
     traits: ConsumableTraits;
 
     consumableType: {
@@ -33,24 +33,12 @@ interface ConsumableSystemData extends PhysicalSystemData, ActivatedEffectData {
     uses: {
         value: number;
         max: number;
-        per: any;
-        autoUse: boolean;
+        per: null | "day";
         autoDestroy: boolean;
     };
-    charges: {
-        value: number;
-        max: number;
-    };
+    /** Used to roll the result of consumption */
     consume: {
         value: string;
-        _deprecated: boolean;
-    };
-    autoUse: {
-        value: boolean;
-    };
-    autoDestroy: {
-        value: boolean;
-        _deprecated: boolean;
     };
     spell: {
         data?: SpellSource | null;

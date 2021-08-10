@@ -67,7 +67,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
                 break;
             case "consumable":
-                if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified)
+                if (item instanceof ConsumablePF2e && item.uses.max > 0 && item.isIdentified)
                     buttons.append(
                         `<span class="tag"><button class="consume" data-action="consume">${game.i18n.localize(
                             "PF2E.ConsumableUseLabel"

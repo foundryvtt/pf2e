@@ -86,9 +86,17 @@
     <!-- Charges -->
     <div class="form-group consumable-details">
         <label>{{localize "PF2E.ConsumableChargesLabel"}}</label>
-        <input type="number" name="data.charges.value" value="{{data.charges.value}}" data-dtype="Number"/>
-        <span class="flex0">/</span>
-        <input type="number" name="data.charges.max" value="{{data.charges.max}}" data-dtype="Number"/>
+        <div class="details-container-flex-row">
+            <input type="number" name="data.uses.value" value="{{data.uses.value}}" data-dtype="Number"/>
+            <span class="flex0">/</span>
+            <input type="number" name="data.uses.max" value="{{data.uses.max}}" data-dtype="Number"/>
+            <select name="data.uses.per" data-dtype="String">
+                {{#select data.uses.per}}
+                    <option></option>
+                    <option value="day">{{localize "PF2E.ConsumableRecharge.day"}}</option>
+                {{/select}}
+            </select>
+        </div>
     </div>
     <!-- Traits -->
     <ol class="item-tags">
