@@ -42,7 +42,7 @@ export class CheckPF2e {
         event?: JQuery.Event,
         callback?: (roll: Rolled<Roll>) => void
     ): Promise<ChatMessage | foundry.data.ChatMessageData<foundry.documents.BaseChatMessage> | undefined> {
-        if (context.options?.length) {
+        if (context.options?.length && !context.isReroll) {
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
             check.modifiers.forEach((modifier) => {
                 modifier.ignored = !ModifierPredicate.test(modifier.predicate, context.options);
@@ -125,7 +125,7 @@ export class CheckPF2e {
             if (context) {
                 context.createMessage = false;
                 context.skipDialog = true;
-                flags.canReroll = false;
+                context.isReroll = true;
                 const newMessage = (await CheckPF2e.roll(
                     check,
                     context
