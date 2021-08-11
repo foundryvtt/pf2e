@@ -106,7 +106,10 @@
             },
             "traits": {
                 "custom": "",
-                "value": []
+                "value": [
+                    "beast",
+                    "electricity"
+                ]
             }
         }
     },
@@ -171,7 +174,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Knockdown"
+                        "knockdown"
                     ]
                 },
                 "bonus": {
@@ -212,25 +215,25 @@
             "type": "melee"
         },
         {
-            "_id": "rjEjl4EfYDSqvrBQ",
+            "_id": "Ueh3pDuKiyo3T2ex",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
-                    "value": "action"
+                    "value": "passive"
                 },
                 "actions": {
-                    "value": null
+                    "value": ""
                 },
                 "description": {
-                    "value": "<p>The storm bear unleashes a deafening roar. Any non-storm bear creature within 10 feet takes [[/r 2d6 #sonic]]{2d6 sonic damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"damaging-effect,primal\" data-pf2-label=\"Thunderous Roar DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save); creatures that critically fail this save are deafened for [[/br 1d6 #rounds]]{1d6 rounds}.</p>\n<p>The storm bear can't use Thunderous Roar again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "low-light-vision",
                 "source": {
                     "value": ""
                 },
@@ -239,9 +242,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "primal"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -251,26 +252,78 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Thunderous Roar",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Low-Light Vision",
             "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "k9SCULhdeqOF25Tx",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 400000,
             "type": "action"
         },
         {
             "_id": "r8cgU9xUWcrYwZxc",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": null
+                    "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong><span class=\"fontstyle2\">The storm bear is targeted by, or in the area of, an effect that deals electricity damage;</span></p>\n<p><span class=\"fontstyle2\"><br /></span><strong>Effect</strong><span class=\"fontstyle2\">The storm bear devours some of the electricity to fuel a quick burst of speed, becoming quickened for 1 round. While quickened, the storm bear's motions produce visible sparks of electricity. </span></p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> The storm bear is targeted by, or in the area of, an effect that deals electricity damage;</p>\n<p><strong>Effect</strong> The storm bear devours some of the electricity to fuel a quick burst of speed, becoming @Compendium[pf2e.conditionitems.Quickened]{Quickened} for 1 round. While quickened, the storm bear's motions produce visible sparks of electricity.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -298,7 +351,104 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Consume Lightning",
-            "sort": 400000,
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "rjEjl4EfYDSqvrBQ",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "2"
+                },
+                "description": {
+                    "value": "<p>The storm bear unleashes a deafening roar. Any non-storm bear creature within 10 feet takes [[/r 2d6 #sonic]]{2d6 sonic damage} (<span data-pf2-check=\"fortitude\" data-pf2-dc=\"17\" data-pf2-traits=\"damaging-effect,primal,auditory,evocation,sonic\" data-pf2-label=\"Thunderous Roar DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save); creatures that critically fail this save are deafened for [[/r 1d6 #rounds]]{1d6 rounds}.</p>\n<p data-visibility=\"gm\">The storm bear can't use Thunderous Roar again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "auditory",
+                        "evocation",
+                        "primal",
+                        "sonic"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Thunderous Roar",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "9FbSMuvbQPO4uxoy",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Knockdown in its damage entry.</p>\n<p><strong>Effect</strong> The monster knocks the target @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -333,7 +483,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 800000,
             "type": "lore"
         }
     ],
