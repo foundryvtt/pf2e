@@ -278,7 +278,7 @@
             "_id": "I7TPiY7nSjh8NCvV",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -287,7 +287,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>The belker is accustomed to working together with the mist stalkers and ignores the concealed condition from both smoke and mist.</p>"
+                    "value": "<p>The belker is accustomed to working together with the mist stalkers and ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition from both smoke and mist.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -322,7 +322,7 @@
             "_id": "hDgRV0F4vLYv4H9C",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -366,7 +366,7 @@
             "_id": "Ebi8GNY5UeM9WeJ5",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -375,7 +375,7 @@
                     "value": "2"
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The belker is occupying the same space as a Medium or smaller creature;</p>\n<p><strong>Effect</strong> The belker attempts to flow into the creature's lungs; the creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Noxious Fumes DC\" data-pf2-dc=\"21 data-pf2-show-dc=\">Fortitude</span> save. On a failure, the creature partially inhales the belker and is immobilized by the pain of the smoke rasping in its throat and lungs. The creature can attempt to exhale the belker by spending an action coughing and succeeding at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Noxious Fumes DC\" data-pf2-dc=\"21\" data-pf2-show-dc=\"gm\">Fortitude</span> save. Most of the belker remains outside the creature, so the belker can still act normally. If the belker moves out of the creature's space or uses again, the creature automatically exhales it.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> The belker is occupying the same space as a Medium or smaller creature;</p>\n<p><strong>Effect</strong> The belker attempts to flow into the creature's lungs; the creature must attempt a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Noxious Fumes DC\" data-pf2-dc=\"21 data-pf2-show-dc=\">Fortitude</span> save. On a failure, the creature partially inhales the belker and is immobilized by the pain of the smoke rasping in its throat and lungs. The creature can attempt to exhale the belker by spending an action coughing and succeeding at a <span data-pf2-check=\"fortitude\" data-pf2-label=\"Noxious Fumes DC\" data-pf2-dc=\"21\" data-pf2-show-dc=\"gm\">Fortitude</span> save. Most of the belker remains outside the creature, so the belker can still act normally. If the belker moves out of the creature's space or uses again, the creature automatically exhales it.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -410,7 +410,7 @@
             "_id": "TbwDJPCnJc8ncoVB",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -419,7 +419,7 @@
                     "value": "1"
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The belker is partially inhaled by a creature;</p>\n<p><strong>Effect</strong> The belker automatically deals its claw damage to the inhaling creature by forming a claw to slash and scrape the creature from within.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Requirements</strong> The belker is partially inhaled by a creature;</p>\n<p><strong>Effect</strong> The belker automatically deals its claw damage to the inhaling creature by forming a claw to slash and scrape the creature from within.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -486,13 +486,10 @@
             "type": "lore"
         },
         {
-            "_id": "dAdurXCNAgv5xGDd",
+            "_id": "zJSgvKwgyIM9DgIT",
             "data": {
                 "description": {
                     "value": ""
-                },
-                "item": {
-                    "value": 0
                 },
                 "mod": {
                     "value": 13
@@ -500,7 +497,20 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Belker is in smoke",
+                        "predicate": {
+                            "all": [
+                                "terrain:smoke"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "type": "untyped",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -511,12 +521,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+15 in smoke",
+                        "options": "terrain:smoke"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/item-bag.svg",
-            "name": "Stealth (+15 in smoke)",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
             "sort": 900000,
             "type": "lore"
         }

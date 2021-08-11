@@ -9,9 +9,9 @@
             "hasHealth": true,
             "hp": {
                 "details": "",
-                "max": 10,
+                "max": 0,
                 "temp": 0,
-                "value": 10
+                "value": 0
             },
             "stealth": {
                 "details": null,
@@ -21,13 +21,13 @@
         "creatureType": "",
         "details": {
             "description": "<p>The cracks scintillate and shift between the elemental planes, leaking perilous energy with each shift.</p>",
-            "disable": "<p>DC 28 Thievery (expert) twice to assemble a seal using objects strongly grounded to the Material Plane, DC 26 Arcana (trained) twice to invoke incantations to seal the cracks, or @Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic} (4th level, counteract DC 22) to counteract the cracks.</p>",
+            "disable": "<p><span data-pf2-check=\"thievery\" data-pf2-traits=\"environmental,magical\" data-pf2-label=\"Assemble a Seal DC\" data-pf2-dc=\"28\" data-pf2-show-dc=\"gm\">Thievery</span> (expert) twice to assemble a seal using objects strongly grounded to the Material Plane, <span data-pf2-check=\"arcana\" data-pf2-traits=\"environmental,magical\" data-pf2-label=\"Invoke Incantations DC\" data-pf2-dc=\"26\" data-pf2-show-dc=\"gm\">Arcana</span> (trained) twice to invoke incantations to seal the cracks, or @Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic} (4th level, counteract DC 22) to counteract the cracks.</p>",
             "isComplex": true,
             "level": {
                 "value": 7
             },
             "reset": "<p>The cracks re-form after 1 hour.</p>",
-            "routine": "<p><span class=\"pf2-icon\">1</span> A surge of energy strikes a random non-mephit creature in the foyer. Roll [[/r 1d4]] to determine the element of the energy surge.</p>\n<p>1-Energy from the Plane of Air: the creature takes [[/r 2d10+3 #electricity]]{2d10+3 electricity damage} (<span data-pf2-saving-throw=\"reflex\" data-pf2-traits=\"damaging-effect,air,electricity\" data-pf2-label=\"Planar Cracks DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">basic Reflex</span> save); on a failure, the creature is pushed back 10 feet toward the entryway. The hazard gains the air and electricity traits for this round.</p>\n<p>2-Energy from the Plane of Earth: the creature takes [[/r 2d10+3 #bludgeoning]]{2d10+3 bludgeoning damage} (<span data-pf2-saving-throw=\"reflex\" data-pf2-traits=\"damaging-effect,earth\" data-pf2-label=\"Planar Cracks DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">basic Reflex</span> save); on a failed save, the creature is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}. The hazard gains the earth trait for this round.</p>\n<p>3-Energy from the Plane of Fire: the creature takes [[/r 2d10+9 #fire]]{2d10+9 fire damage} (<span data-pf2-saving-throw=\"reflex\" data-pf2-traits=\"damaging-effect,fire\" data-pf2-label=\"Planar Cracks DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The hazard gains the fire trait for this round.</p>\n<p>4-Energy from the Plane of Water: the creature takes [[/r 2d10+3 #cold]]{2d10+3 cold damage} (<span data-pf2-saving-throw=\"reflex\" data-pf2-traits=\"damaging-effect,water,cold\" data-pf2-label=\"Planar Cracks DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">basic Reflex</span> save); on a failed save, the creature's lungs fill with water, making them @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}. The hazard gains the cold and water traits for this round.</p>"
+            "routine": "<p><span class=\"pf2-icon\">1</span> A surge of energy strikes a random non-mephit creature in the foyer. Roll [[/r 1d4]] to determine the element of the energy surge.</p>\n<p>1-Energy from the Plane of Air: the creature takes [[/r 2d10+3 #electricity]]{2d10+3 electricity damage} (<span data-pf2-saving-throw=\"reflex\" data-pf2-traits=\"damaging-effect,air,electricity\" data-pf2-label=\"Planar Cracks DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">basic Reflex</span> save); on a failure, the creature is pushed back 10 feet toward the entryway. The hazard gains the air and electricity traits for this round.</p>\n<p>2-Energy from the Plane of Earth: the creature takes [[/r 2d10+3 #bludgeoning]]{2d10+3 bludgeoning damage} (<span data-pf2-saving-throw=\"reflex\" data-pf2-traits=\"damaging-effect,earth\" data-pf2-label=\"Planar Cracks DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">basic Reflex</span> save); on a failed save, the creature is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}. The hazard gains the earth trait for this round.</p>\n<p>3-Energy from the Plane of Fire: the creature takes [[/r 2d10+9 #fire]]{2d10+9 fire damage} (<span data-pf2-saving-throw=\"reflex\" data-pf2-traits=\"damaging-effect,fire\" data-pf2-label=\"Planar Cracks DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The hazard gains the fire trait for this round.</p>\n<p>4-Energy from the Plane of Water: the creature takes [[/r 2d10+3 #cold]]{2d10+3 cold damage }(<span data-pf2-saving-throw=\"reflex\" data-pf2-traits=\"damaging-effect,water,cold\" data-pf2-label=\"Planar Cracks DC\" data-pf2-dc=\"25\" data-pf2-show-dc=\"gm\">basic Reflex</span> save); on a failed save, the creature's lungs fill with water, making them @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}. The hazard gains the cold and water traits for this round.</p>"
         },
         "saves": {
             "fortitude": {
@@ -88,7 +88,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A non-mephit creature enters the manor;</p>\n<p><strong>Effect</strong> Raw elemental energy seeps into the Material Plane. The hazard rolls initiative.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A non-mephit creature enters the manor;</p>\n<p><strong>Effect</strong> Raw elemental energy seeps into the Material Plane. The hazard rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
