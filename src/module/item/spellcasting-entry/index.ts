@@ -255,6 +255,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         return {
             id: this.id,
             name: this.name,
+            tradition: this.tradition,
             isPrepared: this.isPrepared,
             isSpontaneous: this.isSpontaneous,
             isInnate: this.isInnate,
