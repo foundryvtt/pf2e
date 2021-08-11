@@ -133,8 +133,8 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "Bloodfire Fever",
-                        "Knockdown"
+                        "bloodfire-fever",
+                        "knockdown"
                     ]
                 },
                 "bonus": {
@@ -311,8 +311,8 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Regeneration",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 10 (deactivated by acid or fire)",
             "sort": 400000,
             "type": "action"
         },
@@ -329,7 +329,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"disease\" data-pf2-label=\"Bloodfire Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (1 day);</p>\n<p><strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 day);</p>\n<p><strong>Stage 5</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} (1 day)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"16\" data-pf2-traits=\"disease\" data-pf2-label=\"Bloodfire Fever DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day);</p>\n<p><strong>Stage 3</strong> Enfeebled 1 and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (1 day);</p>\n<p><strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 day);</p>\n<p><strong>Stage 5</strong> Enfeebled 2, Clumsy 2, and @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} (1 day)</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -357,13 +357,61 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Bloodfire Fever",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "yu9qHv1cTpn6eIB1",
+            "_id": "HYQxV1Bd4TSA5oNF",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Knockdown in its damage entry.</p>\n<p><strong>Effect</strong> The monster knocks the target @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "hvk3jTMWT9RaDiBH",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -375,7 +423,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>The frostbitten trollhound deals an extra [[/r 1d4]] damage to any creature within reach of at least two of its allies.</p>"
+                    "value": "<p>The frostbitten trollhound deals an extra [[/r 1d4 # extra damage]]{1d4 damage} to creatures within reach of at least two of it's allies.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -383,9 +431,11 @@
                 "rules": [
                     {
                         "key": "PF2E.RuleElement.ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.all.pack-attack"
+                        "label": "There are two allies within reach of the target",
+                        "property": "flags.pf2e.rollOptions.damage-roll.pack-attack"
                     },
                     {
+                        "damageType": "piercing",
                         "diceNumber": 1,
                         "dieSize": "d4",
                         "key": "PF2E.RuleElement.DamageDice",
@@ -416,10 +466,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.zFNrz9di2EnI53hz"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Pack Attack",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -454,7 +508,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -489,7 +543,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -524,7 +578,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -559,7 +613,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],
