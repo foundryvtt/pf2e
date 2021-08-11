@@ -1,3 +1,9 @@
+import { PhysicalItemData } from "./data";
+import { adjustDCByRarity, calculateDC, DCOptions } from "../dc";
+import { PhysicalItemPF2e } from "./physical";
+import { MagicTradition } from "./spellcasting-entry/data";
+import { MAGIC_TRADITIONS } from "./spellcasting-entry/data/values";
+
 /**
  * Implementation of Identify Magic and Identify Alchemy Rules for items
  * https://2e.aonprd.com/Actions.aspx?ID=24
@@ -6,11 +12,7 @@
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
 
-import { PhysicalItemData } from "./data";
-import { adjustDCByRarity, calculateDC, DCOptions } from "../dc";
-import { PhysicalItemPF2e } from "./physical";
-
-const magicTraditions = new Set(["arcane", "primal", "divine", "occult"]);
+const magicTraditions: Set<string> = new Set(MAGIC_TRADITIONS);
 
 function getTraits(itemData: PhysicalItemData): Set<string> {
     return new Set(itemData.data.traits.value);
@@ -20,15 +22,9 @@ function getTraits(itemData: PhysicalItemData): Set<string> {
  * Extract all traits from an item, that match a magic tradition
  * @param itemData
  */
-function getMagicTraditions(itemData: PhysicalItemData): Set<string> {
+function getMagicTraditions(itemData: PhysicalItemData): Set<MagicTradition> {
     const traits = getTraits(itemData);
-    const result = new Set<string>();
-    for (const trait of traits) {
-        if (magicTraditions.has(trait)) {
-            result.add(trait);
-        }
-    }
-    return result;
+    return new Set([...traits].filter((trait): trait is MagicTradition => magicTraditions.has(trait)));
 }
 
 function isCursed(itemData: PhysicalItemData) {
@@ -75,7 +71,7 @@ function identifyMagic(itemData: PhysicalItemData, baseDc: number, notMatchingTr
         arcane: baseDc,
     };
     const traditions = getMagicTraditions(itemData);
-    for (const key of Object.keys(result)) {
+    for (const key of MAGIC_TRADITIONS) {
         // once an item has a magic tradition, all skills
         // that don't match the tradition are hard
         if (traditions.size > 0 && !traditions.has(key)) {
