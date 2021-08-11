@@ -967,7 +967,7 @@ export class NPCPF2e extends CreaturePF2e {
             return;
         }
 
-        const extraHP = this.getHpAdjustment(this.level);
+        const extraHP = this.getHpAdjustment(this.getBaseLevel());
         const currentHP = this.data.data.attributes.hp.value;
         const newHP = (() => {
             switch (adjustment) {
@@ -990,6 +990,16 @@ export class NPCPF2e extends CreaturePF2e {
             "data.attributes.hp.value": Math.max(0, newHP),
             "data.traits.traits.value": newTraits,
         });
+    }
+
+    getBaseLevel(): number {
+        if (this.isElite) {
+            return this.level - 1;
+        } else if (this.isWeak) {
+            return this.level + 1;
+        } else {
+            return this.level;
+        }
     }
 
     updateAttitudeFromDisposition(disposition: number) {
