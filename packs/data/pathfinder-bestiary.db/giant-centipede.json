@@ -51,8 +51,9 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "30 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "30"
                     }
                 ],
                 "value": "30 feet"
@@ -127,8 +128,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "giant centipede venom"
+                        "giant-centipede-venom"
                     ]
                 },
                 "bonus": {
@@ -169,6 +171,58 @@
             "type": "melee"
         },
         {
+            "_id": "g0VHu9Gu6uxjumBD",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "schema": {
+                    "lastMigration": null,
+                    "version": 0.649
+                },
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
             "_id": "PIjZTZsbQlriq5X3",
             "data": {
                 "actionCategory": {
@@ -181,7 +235,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"14\" data-pf2-traits=\"poison\" data-pf2-label=\"Giant Centipede Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span>; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> [[/r 1d6 #poison]]{1d6 poison damage} (1 round); <strong>Stage 2</strong> [[/r 1d8 #poison]]{1d8 poison damage} and flat-footed (1 round); <strong>Stage 3</strong> [[/r 1d12 #poison]]{1d12 poison damage}, clumsy 1, and flat-footed (1 round).</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-check=\"fortitude\" data-pf2-dc=\"14\" data-pf2-traits=\"poison\" data-pf2-label=\"Giant Centipede Venom DC\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<div data-visibility=\"gm\">\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d6 #poison]]{1d6 poison damage} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d8 #poison]]{1d8 poison damage} and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 1d12 #poison]]{1d12 poison damage}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, and flat-footed (1 round).</p>\n</div>"
                 },
                 "requirements": {
                     "value": ""
@@ -209,9 +263,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Giant Centipede Venom",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -246,7 +300,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 300000,
+            "sort": 400000,
             "type": "lore"
         },
         {
@@ -281,7 +335,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -316,7 +370,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         }
     ],
