@@ -44,7 +44,7 @@ export class GhostTemplate extends MeasuredTemplate {
         } else if (event.shiftKey) {
             event.preventDefault();
             event.stopPropagation();
-            const snap = 5;
+            const snap = 45;
             this.data._source.direction += snap * Math.sign(event.deltaY);
             this.data.direction += snap * Math.sign(event.deltaY);
             this.refresh();
