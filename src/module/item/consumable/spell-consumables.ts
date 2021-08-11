@@ -4,12 +4,7 @@ import { ConsumablePF2e } from "@item/index";
 import { calculateDC, DCOptions } from "@module/dc";
 import { ErrorPF2e, tupleHasValue } from "@module/utils";
 
-export enum SpellConsumableTypes {
-    Scroll,
-    Wand,
-}
-
-const scrollCompendiumIds = {
+const scrollCompendiumIds: Record<number, string | undefined> = {
     1: "RjuupS9xyXDLgyIr",
     2: "Y7UD64foDbDMV9sx",
     3: "ZmefGBXGJF3CFDbn",
@@ -22,7 +17,7 @@ const scrollCompendiumIds = {
     10: "o1XIHJ4MJyroAHfF",
 };
 
-const wandCompendiumIds = {
+const wandCompendiumIds: Record<number, string | undefined> = {
     1: "UJWiN0K3jqVjxvKk",
     2: "vJZ49cgi8szuQXAD",
     3: "wrDmWkGxmwzYtfiA",
@@ -34,16 +29,12 @@ const wandCompendiumIds = {
     9: "Fgv722039TVM5JTc",
 };
 
-function getIdForSpellConsumable(type: SpellConsumableTypes, heightenedLevel: number): string {
-    if (type == SpellConsumableTypes.Scroll) {
-        return scrollCompendiumIds[heightenedLevel];
-    } else {
-        return wandCompendiumIds[heightenedLevel];
-    }
+function getIdForSpellConsumable(type: "scroll" | "wand", heightenedLevel: number): string | null {
+    return type == "scroll" ? scrollCompendiumIds[heightenedLevel] ?? null : wandCompendiumIds[heightenedLevel] ?? null;
 }
 
-function getNameForSpellConsumable(type: SpellConsumableTypes, spellName: string, heightenedLevel: number): string {
-    if (type == SpellConsumableTypes.Scroll) {
+function getNameForSpellConsumable(type: "scroll" | "wand", spellName: string, heightenedLevel: number): string {
+    if (type == "scroll") {
         return game.i18n.format("PF2E.ScrollFromSpell", { name: spellName, level: heightenedLevel });
     } else {
         return game.i18n.format("PF2E.WandFromSpell", { name: spellName, level: heightenedLevel });
@@ -51,14 +42,14 @@ function getNameForSpellConsumable(type: SpellConsumableTypes, spellName: string
 }
 
 export async function createConsumableFromSpell(
-    type: SpellConsumableTypes,
+    type: "scroll" | "wand",
     spellData: SpellSource,
     heightenedLevel?: number
 ): Promise<ConsumableSource> {
     heightenedLevel = heightenedLevel ?? spellData.data.level.value;
     const pack = game.packs.find((p) => p.collection === "pf2e.equipment-srd");
     const itemId = getIdForSpellConsumable(type, heightenedLevel);
-    const consumable = await pack?.getDocument(itemId);
+    const consumable = await pack?.getDocument(itemId ?? "");
     if (!(consumable instanceof ConsumablePF2e)) {
         throw ErrorPF2e("Failed to retrieve consumable item");
     }

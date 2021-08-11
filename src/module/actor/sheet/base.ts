@@ -7,7 +7,7 @@ import { isPhysicalData } from "@item/data/helpers";
 import { KitPF2e } from "@item/kit";
 import { PhysicalItemPF2e } from "@item/physical";
 import { SpellPF2e } from "@item/spell";
-import { createConsumableFromSpell, SpellConsumableTypes } from "@item/consumable/spell-consumables";
+import { createConsumableFromSpell } from "@item/consumable/spell-consumables";
 import { SpellSource } from "@item/spell/data";
 import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import {
@@ -45,7 +45,7 @@ import { ScrollWandPopup } from "./popups/scroll-wand-popup";
 import { ContainerPF2e } from "@item/container";
 import { ActorDataPF2e, SaveType } from "@actor/data";
 import { SkillAbbreviation } from "@actor/creature/data";
-import { AbilityString } from "@actor/data/base";
+import { AbilityString, RollFunction } from "@actor/data/base";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data";
 import { FolderPF2e } from "@module/folder";
 import { MagicTradition } from "@item/spellcasting-entry/data";
@@ -159,7 +159,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     protected prepareTraits(traits: any): void {
         if (traits === undefined) return;
 
-        const map = {
+        const map: Record<string, Record<string, string | undefined>> = {
             languages: CONFIG.PF2E.languages,
             dr: CONFIG.PF2E.resistanceTypes,
             di: CONFIG.PF2E.immunityTypes,
@@ -176,7 +176,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 (trait as any).selected = {};
                 for (const entry of trait) {
                     if (typeof entry === "object") {
-                        const entryType = game.i18n.localize(choices[entry.type]);
+                        const entryType = game.i18n.localize(choices[entry.type] ?? "");
                         if ("exceptions" in entry && entry.exceptions !== "") {
                             const exceptions = entry.exceptions;
                             (trait as any).selected[entry.type] = `${entryType} (${entry.value}) [${exceptions}]`;
@@ -268,16 +268,18 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
 
         html.find(".attribute-name").on("click", (event) => {
             event.preventDefault();
-            const attribute = event.currentTarget.parentElement?.getAttribute("data-attribute") || "";
+            const key = event.currentTarget.parentElement?.getAttribute("data-attribute") || "";
             const isSecret = event.currentTarget.getAttribute("data-secret");
-            if (this.actor.data.data.attributes[attribute]?.roll) {
-                const options = this.actor.getRollOptions(["all", attribute]);
-                if (isSecret) {
-                    options.push("secret");
-                }
-                this.actor.data.data.attributes[attribute].roll({ event, options });
+            const attributes: object = this.actor.data.data.attributes;
+            const attribute: unknown = objectHasKey(attributes, key) ? attributes[key] : null;
+            const isRollable = (property: unknown): property is { roll: RollFunction } =>
+                property instanceof Object && "roll" in property && typeof property["roll"] === "function";
+            if (isRollable(attribute)) {
+                const options = this.actor.getRollOptions(["all", key]);
+                if (isSecret) options.push("secret");
+                attribute.roll({ event, options });
             } else {
-                this.actor.rollAttribute(event, attribute);
+                this.actor.rollAttribute(event, key);
             }
         });
 
@@ -874,10 +876,8 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     this.actor,
                     {},
                     async (heightenedLevel, itemType, spellData) => {
-                        const consumableType =
-                            itemType == "wand" ? SpellConsumableTypes.Wand : SpellConsumableTypes.Scroll;
-
-                        const item = await createConsumableFromSpell(consumableType, spellData, heightenedLevel);
+                        if (!(itemType === "scroll" || itemType === "wand")) return;
+                        const item = await createConsumableFromSpell(itemType, spellData, heightenedLevel);
                         await this._onDropItemCreate(item);
                     },
                     itemData
@@ -1195,14 +1195,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             callback: (html) => {
                 let name = "";
                 let magicTradition = "arcane";
-                const spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
+                const spellcastingType = String(html.find('[name="spellcastingType"]').val());
+                const preparationTypes: Record<string, string | undefined> = CONFIG.PF2E.preparationType;
+                const magicTraditions: Record<string, string | undefined> = CONFIG.PF2E.magicTraditions;
                 if (spellcastingType === "ritual") {
-                    magicTradition = "";
                     name = game.i18n.localize(CONFIG.PF2E.preparationType["ritual"]);
                 } else {
-                    magicTradition = `${html.find('[name="magicTradition"]').val()}` as MagicTradition;
-                    const preparationType = game.i18n.localize(CONFIG.PF2E.preparationType[spellcastingType]);
-                    const tradition = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
+                    magicTradition = String(html.find('[name="magicTradition"]').val());
+                    const preparationType = game.i18n.localize(preparationTypes[spellcastingType] ?? "");
+                    const tradition = game.i18n.localize(magicTraditions[magicTradition] ?? "");
                     name = game.i18n.format("PF2E.SpellCastingFormat", {
                         preparationType,
                         tradition,

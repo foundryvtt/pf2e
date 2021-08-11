@@ -3,7 +3,7 @@ import { ItemSystemData } from "@item/data/base";
 import { BaseNonPhysicalItemData, BaseNonPhysicalItemSource } from "@item/data/non-physical";
 import { OneToTen, ZeroToEleven } from "@module/data";
 import { RollNotePF2e } from "@module/notes";
-import { SpellcastingEntryPF2e } from ".";
+import { SpellcastingEntryPF2e } from "..";
 
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
 export type SlotKey = `slot${ZeroToEleven}`;
@@ -81,5 +81,3 @@ export interface SpellcastingEntrySystemData extends ItemSystemData {
         value: OneToTen | null;
     };
 }
-
-export const MAGIC_TRADITIONS = ["arcane", "primal", "divine", "occult"] as const;
