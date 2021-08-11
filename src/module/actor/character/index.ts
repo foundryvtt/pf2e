@@ -1089,9 +1089,9 @@ export class CharacterPF2e extends CreaturePF2e {
 
         this.itemTypes.spellcastingEntry.forEach((item) => {
             const spellcastingEntry = item.data;
-            const tradition = spellcastingEntry.data.tradition.value;
-            const rank = spellcastingEntry.data.proficiency.value;
-            const ability = spellcastingEntry.data.ability.value || "int";
+            const tradition = item.tradition;
+            const rank = item.rank;
+            const ability = item.ability;
             const baseModifiers = [
                 AbilityModifier.fromAbilityScore(ability, systemData.abilities[ability].value),
                 ProficiencyModifier.fromLevelAndRank(this.level, rank),
