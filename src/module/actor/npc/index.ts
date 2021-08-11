@@ -992,6 +992,7 @@ export class NPCPF2e extends CreaturePF2e {
         });
     }
 
+    // Returns the base level of a creature, as this gets modified on elite and weak adjustments
     getBaseLevel(): number {
         if (this.isElite) {
             return this.level - 1;
