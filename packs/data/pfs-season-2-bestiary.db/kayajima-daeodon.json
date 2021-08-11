@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 23,
                 "details": "",
                 "value": 23
             },
@@ -323,7 +324,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Daeodonis charging and has moved at least 20 feet",
+                        "property": "flags.pf2e.rollOptions.attack-roll.daeodon-charge"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "daeodon-charge"
+                            ]
+                        },
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
