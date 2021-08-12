@@ -9,7 +9,9 @@ export function listen(): void {
             $("#game-details li.system").after($guideLog);
 
             $("#settings-documentation").after(
-                "<h2>Pathfinder 2e</h2><div id='pf2e-documentation'><button data-action='pf2e-license'><i class='fas fa-balance-scale'></i> Legal Notice</button>"
+                "<h2>Pathfinder 2e</h2><div id='pf2e-documentation'><button data-action='pf2e-license'><i class='fas fa-balance-scale'></i> " +
+                    game.i18n.localize("PF2E.LicenseViewer.Label") +
+                    "</button>"
             );
             $html.find("button[data-action=pf2e-license]").on("click", () => game.pf2e.licenseViewer!.render(true));
         }
