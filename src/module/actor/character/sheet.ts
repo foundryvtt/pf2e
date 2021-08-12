@@ -823,6 +823,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const newValue = Math.clamped(selectedValue, 0, 4);
 
         await this.actor.update({ [propertyKey]: newValue });
+        if (newValue !== getProperty(this.actor.data, propertyKey)) {
+            ui.notifications.info(game.i18n.localize("PF2E.ErrorMessage.MinimumProfLevelSetByFeatures"));
+        }
     }
 
     /** Handle clicking of proficiency-rank adjustment buttons */
