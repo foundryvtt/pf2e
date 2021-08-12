@@ -42,7 +42,7 @@ export interface CharacterData extends Omit<CharacterSource, "effects" | "items"
 }
 
 export interface CharacterSkillData extends SkillData {
-    rank: number;
+    rank: ZeroToFour;
 }
 
 /** The raw information contained within the actor data object for characters. */
