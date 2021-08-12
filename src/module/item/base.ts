@@ -704,7 +704,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const score = this.actor.data.data.abilities[ability]?.value ?? 0;
         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
 
-        const proficiencyRank = spellcastingEntry.data.data.proficiency.value ?? 0;
+        const proficiencyRank = spellcastingEntry.rank;
         modifiers.push(ProficiencyModifier.fromLevelAndRank(this.actor.data.data.details.level.value, proficiencyRank));
 
         const rollOptions = ["all", "counteract-check"];

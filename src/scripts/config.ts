@@ -538,7 +538,7 @@ const spellOtherTraits = {
     shadow: "PF2E.TraitShadow",
     sleep: "PF2E.TraitSleep",
     stance: "PF2E.TraitStance",
-    summon: "PF2E,TraitSummon",
+    summon: "PF2E.TraitSummon",
     teleportation: "PF2E.TraitTeleportation",
     visual: "PF2E.TraitVisual",
     water: "PF2E.TraitWater",
