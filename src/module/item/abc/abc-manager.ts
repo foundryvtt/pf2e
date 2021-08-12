@@ -106,7 +106,7 @@ export class AncestryBackgroundClassManager {
         const feats: FeatSource[] = [];
         if (entries.length > 0) {
             // Get feats from a compendium pack
-            const packEntries = entries.filter((entry) => entry.pack !== undefined);
+            const packEntries = entries.filter((entry) => !!entry.pack);
             if (packEntries.length > 0) {
                 const compendiumFeats = await this.getFromCompendium(packEntries);
                 feats.push(
@@ -127,7 +127,7 @@ export class AncestryBackgroundClassManager {
                 );
             }
             // Get feats from the game.items collection
-            const gameEntries = entries.filter((entry) => entry.pack === undefined);
+            const gameEntries = entries.filter((entry) => !entry.pack);
             feats.push(
                 ...gameEntries.map((entry) => {
                     const item = game.items.get(entry.id);
