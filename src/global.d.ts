@@ -1,12 +1,11 @@
 import { ActorPF2e } from "@actor/base";
 import { ItemPF2e } from "@item/base";
 import { ActiveEffectPF2e } from "@module/active-effect";
-import { CompendiumDirectoryPF2e } from "@module/apps/ui/compendium-directory";
+import { ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e } from "@module/apps/ui";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { MacroPF2e } from "@module/macro";
 import { RuleElementPF2e, RuleElements } from "@module/rules/rules";
 import type { HomebrewSettingsKey, HomebrewTag } from "@module/settings/homebrew";
-import { EncounterTrackerPF2e } from "@module/apps/ui/encounter-tracker";
 import { StatusEffects } from "@scripts/actor/status-effects";
 import { PF2ECONFIG, StatusEffectIconType } from "@scripts/config";
 import { DicePF2e } from "@scripts/dice";
@@ -146,6 +145,7 @@ type ConfiguredConfig = Config<
     AmbientLightDocumentPF2e,
     ActiveEffectPF2e,
     ActorPF2e,
+    ChatLogPF2e,
     ChatMessagePF2e,
     CombatPF2e,
     EncounterTrackerPF2e,
