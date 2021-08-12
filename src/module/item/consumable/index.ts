@@ -16,16 +16,17 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         return this.data.data.consumableType.value;
     }
 
-    get charges() {
+    get uses() {
         return {
-            current: this.data.data.charges.value,
-            max: this.data.data.charges.max,
+            value: this.data.data.uses.value,
+            max: this.data.data.uses.max,
+            per: this.data.data.uses.per,
         };
     }
 
     /** Should this item be automatically destroyed upon use */
     get autoDestroy(): boolean {
-        return this.data.data.autoDestroy.value;
+        return this.data.data.uses.autoDestroy;
     }
 
     get embeddedSpell(): Embedded<SpellPF2e> | null {
@@ -53,15 +54,16 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
                   !["other", "scroll", "talisman", "tool", "wand"].includes(this.consumableType),
               ];
 
+        const charges = this.uses;
         return this.processChatData(htmlOptions, {
             ...data,
             traits,
             properties:
-                this.isIdentified && this.charges.max > 0
-                    ? [`${data.charges.value}/${data.charges.max} ${translations.ConsumableChargesLabel}`]
+                this.isIdentified && charges.max > 0
+                    ? [`${charges.value}/${charges.max} ${translations.ConsumableChargesLabel}`]
                     : [],
-            usesCharges: this.charges.max > 0,
-            hasCharges: this.charges.max > 0 && this.charges.current > 0,
+            usesCharges: charges.max > 0,
+            hasCharges: charges.max > 0 && charges.value > 0,
             consumableType,
             isUsable,
         });
@@ -119,23 +121,23 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         }
 
         const quantity = this.quantity;
-        const charges = this.data.data.charges;
+        const uses = this.data.data.uses;
 
         // Optionally destroy the item
-        if (this.autoDestroy && charges.value <= 1) {
+        if (this.autoDestroy && uses.value <= 1) {
             if (quantity <= 1) {
                 await this.delete();
             } else {
                 // Deduct one from quantity if this item has one charge or doesn't have charges
                 await this.update({
                     "data.quantity.value": Math.max(quantity - 1, 0),
-                    "data.charges.value": charges.max,
+                    "data.uses.value": uses.max,
                 });
             }
         } else {
             // Deduct one charge
             await this.update({
-                "data.charges.value": Math.max(charges.value - 1, 0),
+                "data.uses.value": Math.max(uses.value - 1, 0),
             });
         }
     }
