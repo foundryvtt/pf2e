@@ -6,6 +6,7 @@ import { DamageTemplate } from "@system/damage/weapon";
 import { RollNotePF2e } from "@module/notes";
 import { ChatMessagePF2e } from "@module/chat-message";
 import { ZeroToThree } from "@module/data";
+import { fontAwesomeIcon } from "@module/utils";
 
 export interface RollDataPF2e extends RollData {
     totalModifier?: number;
@@ -146,15 +147,20 @@ export class CheckPF2e {
                     [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
                     keepRoll = oldRoll;
                 }
+                const renders = {
+                    old: await CheckPF2e.renderReroll(oldRoll),
+                    new: await CheckPF2e.renderReroll(newRoll),
+                };
+
+                const rerollIcon = fontAwesomeIcon(heroPoint ? "hospital-symbol" : "dice");
+                rerollIcon.classList.add("pf2e-reroll-indicator");
+                rerollIcon.setAttribute("title", rerollFlavor);
+
                 await message.delete({ render: false });
                 await keepRoll.toMessage(
                     {
-                        content: `<div class="${oldRollClass}">${await CheckPF2e.renderReroll(
-                            oldRoll!
-                        )}</div><div class='pf2e-reroll-second ${newRollClass}'>${await CheckPF2e.renderReroll(
-                            newRoll
-                        )}</div>`,
-                        flavor: `<i class='fa fa-dice pf2e-reroll-indicator' title="${rerollFlavor}"></i>${newMessage.flavor}`,
+                        content: `<div class="${oldRollClass}">${renders.old}</div><div class="pf2e-reroll-second ${newRollClass}">${renders.new}</div>`,
+                        flavor: `${rerollIcon.outerHTML}${newMessage.flavor}`,
                         speaker: message.data.speaker,
                         flags: {
                             pf2e: flags,
