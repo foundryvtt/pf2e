@@ -15,6 +15,29 @@
             {{/each}}
         </div>
     </div>
+    <div class="recall-knowledge section-container">
+        <div class="section-header">
+            <h4>{{localize "PF2E.RecallKnowledge.Label"}}</h4> <div class="stats-line recall-knowledge"><button type="button" class="recall-knowledge-breakdown">{{localize "PF2E.RecallKnowledge.Breakdown"}}</button></div>
+        </div>
+        <div class="section-body">
+            {{#if identificationSkills }}
+                <div class="tag identification-skills" title="{{identifySkillProgression}}">
+                    <ul>
+                        {{#each identificationSkills as |skill|}}
+                            <li>{{localize skill}}</li>
+                        {{/each}}
+                    </ul>
+                    {{identifySkillDC}} ({{localize identifySkillAdjustment}})
+                </div>
+            {{/if}}
+            <div class="unspecified-lore tag" title="{{unspecificLoreProgression}}">
+                {{localize "PF2E.RecallKnowledge.UnspecificLore"}} {{unspecificLoreDC}} ({{localize unspecificLoreAdjustment}})
+            </div>
+            <div class="specific-lore tag" title="{{specificLoreProgression}}">
+                {{localize "PF2E.RecallKnowledge.SpecificLore"}} {{specificLoreDC}} ({{localize specificLoreAdjustment}})
+            </div>
+        </div>
+    </div>
     <div class="top-sections">
         <div class="ability-scores section-container">
             <div class="section-header">
@@ -50,6 +73,22 @@
                     <span>{{ data.traits.senses.value }}</span>
                 {{/if}}
             </div>
+        </div>
+    </div>
+    <!-- LANGUAGES -->
+    <div class="languages section-container" style="flex: 1;">
+        <div class="section-header" data-attribute="languages" for="data.traits.languages">
+            <h4>{{localize "PF2E.Languages"}}</h4>
+            {{# if options.editable }}
+            <div class="languages-controls controls">
+                <a class="trait-edit edit" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages" title="{{ localize 'PF2E.NPC.EditLanguages' }}"><i class="fas fa-edit"></i></a>
+            </div>
+            {{/if}}
+        </div>
+        <div class="section-body">
+            {{#each languages as |language|}}
+                <div class="tag language">{{localize language}}</div>
+            {{/each}}
         </div>
     </div>
     <!-- SKILLS -->
