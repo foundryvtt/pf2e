@@ -650,9 +650,10 @@ export class CompendiumBrowser extends Application {
                     } else if (featData.data.actionType.value === "passive") {
                         featData.data.actionType.img = this._getActionImg("passive");
                         time = "passive";
-                    } else if (parseInt(featData.data.actions.value, 10)) {
-                        featData.data.actionType.img = this._getActionImg(featData.data.actions.value);
-                        time = featData.data.actions.value.toLowerCase();
+                    } else if (featData.data.actions.value) {
+                        // _getActionImg handles action counts as strings because they’re specified as strings in spells (which can take "1 to 3" actions, e.g. Heal)
+                        featData.data.actionType.img = this._getActionImg(featData.data.actions.value.toString());
+                        time = featData.data.actions.value.toString();
                     }
 
                     if (time !== "") {
