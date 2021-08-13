@@ -10,7 +10,6 @@ import { PF2DexterityModifierCapRuleElement } from "./elements/dexterity-modifie
 import { PF2DamageDiceRuleElement } from "./elements/damage-dice";
 import { PF2TogglePropertyRuleElement } from "./elements/toggle-property";
 import { PF2TokenImageRuleElement } from "./elements/token-image";
-import { PF2TokenSizeRuleElement } from "./elements/token-size";
 import { PF2BaseSpeedRuleElement } from "./elements/base-speed";
 import { PF2SenseRuleElement } from "./elements/sense";
 import { PF2TokenEffectIconRuleElement } from "./elements/token-effect-icon";
@@ -43,7 +42,6 @@ export class RuleElements {
         CreatureSize: CreatureSizeRuleElement,
         TokenEffectIcon: PF2TokenEffectIconRuleElement,
         TokenImage: PF2TokenImageRuleElement,
-        TokenSize: PF2TokenSizeRuleElement,
         BaseSpeed: PF2BaseSpeedRuleElement,
         Sense: PF2SenseRuleElement,
         SetProperty: PF2SetPropertyRuleElement,

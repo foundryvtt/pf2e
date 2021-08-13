@@ -26,7 +26,7 @@ export type RuleValue = string | number | boolean | null | BracketedValue;
 export interface Bracket {
     start?: number;
     end?: number;
-    value: number;
+    value: number | string;
 }
 
 export interface BracketedValue {

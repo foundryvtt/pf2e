@@ -83,14 +83,14 @@ export class TokenDocumentPF2e extends TokenDocument<ActorPF2e> {
         mergeObject(this.data, this.actor.overrides.token ?? {}, { insertKeys: false });
 
         // If not overridden by an actor override, set according to creature size (skipping gargantuan)
-        if (this.data.width == width && this.data.height === height && this.actor.size !== "grg") {
+        if (this.data.width == width && this.data.height === height) {
             const size = {
                 tiny: 0.5,
                 sm: 1,
                 med: 1,
                 lg: 2,
                 huge: 3,
-                grg: 4,
+                grg: Math.max(width, 4),
             }[this.actor.size];
             if (size !== width) this.data.width = this.data.height = size;
         }
