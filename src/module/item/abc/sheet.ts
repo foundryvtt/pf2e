@@ -71,7 +71,7 @@ export abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<
         }
 
         const entry: ABCFeatureEntryData = {
-            pack: dropData.pack,
+            pack: dropData.pack || undefined,
             id: dropData.id,
             img: item.data.img,
             name: item.name,
