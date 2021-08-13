@@ -323,8 +323,7 @@ export const InlineRollsLinks = {
         });
 
         $links.filter("[data-pf2-effect-area]").on("click", (event) => {
-            const { pf2EffectArea, pf2Distance } = event.currentTarget.dataset;
-            let { pf2TemplateData } = event.currentTarget.dataset;
+            const { pf2EffectArea, pf2Distance, pf2TemplateData = "{}" } = event.currentTarget.dataset;
             const templateConversion: Record<string, string> = {
                 burst: "circle",
                 emanation: "circle",
@@ -334,8 +333,6 @@ export const InlineRollsLinks = {
             };
 
             if (typeof pf2EffectArea === "string") {
-                pf2TemplateData ||= "{}";
-
                 const templateData = JSON.parse(pf2TemplateData);
                 templateData.t = templateConversion[pf2EffectArea];
                 templateData.user = game.user.id;
