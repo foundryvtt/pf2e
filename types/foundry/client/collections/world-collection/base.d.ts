@@ -3,10 +3,7 @@
  * Each primary Document type has an associated subclass of WorldCollection which contains them.
  * @param data An array of data objects from which to create Document instances
  */
-declare abstract class WorldCollection<
-    TDocument extends foundry.abstract.Document
-> extends DocumentCollection<TDocument> {
-    /** @override */
+declare abstract class WorldCollection<TDocument extends ClientDocument> extends DocumentCollection<TDocument> {
     constructor(data?: TDocument["data"]["_source"][]);
 
     /** The source data is, itself, a mapping of IDs to data objects */
@@ -25,8 +22,7 @@ declare abstract class WorldCollection<
     /*  Collection Properties                       */
     /* -------------------------------------------- */
 
-    /** @override */
-    get documentName(): string | null;
+    override get documentName(): string | null;
 
     /** The base Document type which is contained within this WorldCollection */
     static documentName: string | null;
@@ -35,7 +31,7 @@ declare abstract class WorldCollection<
      * Return a reference to the SidebarDirectory application for this WorldCollection, or null if it has not yet been
      * created.
      */
-    get directory(): SidebarDirectory | null;
+    get directory(): SidebarDirectory<TDocument> | null;
 
     /** Return a reference to the singleton instance of this WorldCollection, or null if it has not yet been created. */
     static get instance(): WorldCollection<ClientDocument>;

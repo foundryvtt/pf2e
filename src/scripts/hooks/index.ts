@@ -1,7 +1,7 @@
 import * as CanvasInit from "./canvas-init";
 import * as CanvasReady from "./canvas-ready";
 import * as CloseWorldClockSettings from "./close-world-clock-settings";
-import * as Init from "./init";
+import { Init } from "./init";
 import * as HotbarDrop from "./hotbar-drop";
 import * as Ready from "./ready";
 import * as Setup from "./setup";
