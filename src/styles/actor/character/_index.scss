@@ -27,6 +27,7 @@
 
     .action-header {
         display: flex;
+        flex-wrap: nowrap;
         justify-content: space-between;
         align-items: center;
         background: url('../assets/sheet/stroke.svg') left bottom no-repeat;
@@ -39,6 +40,7 @@
         border: none;
 
         h3 {
+            color: white;
             flex: 1 1 100%;
         }
 
@@ -51,6 +53,10 @@
         .item-controls {
             color: var(--primary);
             font-size: 12px;
+            flex: 1 0 auto;
+            a + a {
+                margin-left: 4px;
+            }
         }
 
         &:first-child {
