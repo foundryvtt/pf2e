@@ -14,6 +14,8 @@ export class AELikeRuleElement extends RuleElementPF2e {
             typeof data.mode === "string" && AELikeRuleElement.CHANGE_MODES.includes(data.mode)
                 ? AELikeRuleElement.CHANGE_MODES.indexOf(data.mode) * 10 + 10
                 : NaN;
+        data.phase ??= "applyAEs";
+
         super(data, item);
 
         if (Number.isNaN(this.priority)) {
@@ -48,9 +50,22 @@ export class AELikeRuleElement extends RuleElementPF2e {
         return this.data.value;
     }
 
+    /** Apply the modifications immediately after proper ActiveEffects are applied */
     override onApplyActiveEffects(): void {
-        if (this.ignored) return;
+        if (!this.ignored && this.data.phase === "applyAEs") this.applyAELike();
+    }
 
+    /** Apply the modifications near the beginning of the actor's derived-data preparation */
+    override onBeforePrepareData(): void {
+        if (!this.ignored && this.data.phase === "beforeDerived") this.applyAELike();
+    }
+
+    /** Apply the modifications at the conclusion of the actor's derived-data preparation */
+    override onAfterPrepareData(): void {
+        if (!this.ignored && this.data.phase === "afterDerived") this.applyAELike();
+    }
+
+    private applyAELike(): void {
         const change: unknown = this.resolveValue(this.data.value);
         const current: unknown = getProperty(this.actor.data, this.path);
 
@@ -111,9 +126,11 @@ interface AELikeRuleElementData extends RuleElementData {
     value: RuleValue;
     mode: AELikeChangeMode;
     priority: number;
+    phase: "applyAEs" | "beforeDerived" | "afterDerived";
 }
 
 interface AELikeConstructionData extends RuleElementSource {
     mode?: unknown;
     path?: unknown;
+    phase?: "applyAEs" | "beforeDerived" | "afterDerived";
 }
