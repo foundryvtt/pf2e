@@ -36,6 +36,7 @@ import {
     TokenDocumentPF2e,
 } from "@module/scene";
 import { CompendiumBrowser } from "@module/apps/compendium-browser";
+import { LicenseViewer } from "@module/apps/license-viewer";
 import { remigrate } from "@scripts/system/remigrate";
 import { FolderPF2e } from "@module/folder";
 import { CanvasPF2e, DarkvisionLayerPF2e } from "@module/canvas";
@@ -47,6 +48,7 @@ declare global {
         pf2e: {
             actions: Record<string, Function>;
             compendiumBrowser: CompendiumBrowser;
+            licenseViewer: LicenseViewer;
             worldClock: WorldClock;
             effectPanel: EffectPanel;
             effectTracker: EffectTracker;

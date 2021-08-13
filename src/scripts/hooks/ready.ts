@@ -8,6 +8,7 @@ import { setWorldSchemaVersion } from "@module/migration/set-world-schema-versio
 import { WorldClock } from "@module/system/world-clock";
 import { CompendiumBrowser } from "@module/apps/compendium-browser";
 import { extendDragData } from "@scripts/system/dragstart-handler";
+import { LicenseViewer } from "@module/apps/license-viewer";
 
 export function listen(): void {
     Hooks.once("ready", () => {
@@ -20,6 +21,9 @@ export function listen(): void {
 
         // Start up the Compendium Browser
         game.pf2e.compendiumBrowser = new CompendiumBrowser();
+
+        // Start up the License viewer
+        game.pf2e.licenseViewer = new LicenseViewer();
 
         // Determine whether a system migration is required and feasible
         const currentVersion = game.settings.get("pf2e", "worldSchemaVersion");
