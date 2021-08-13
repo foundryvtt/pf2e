@@ -866,7 +866,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     private assignActionGraphics(item: (ActionData & SheetItemData) | (MeleeData & SheetItemData)): void {
         const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics(
             (item as ActionData).data.actionType?.value || "action",
-            parseInt(((item as ActionData).data?.actions || {}).value, 10) || 1
+            (item as ActionData).data?.actions?.value || 1
         );
 
         item.glyph = actionGlyph;
