@@ -16,6 +16,7 @@ import { Migration651EphemeralFocusPool } from "@module/migration/migrations/651
 import { Migration652KillHalcyonTradition } from "@module/migration/migrations/652-kill-halcyon-tradition";
 import { Migration653AEstoREs } from "@module/migration/migrations/653-aes-to-res";
 import { Migration654ActionTypeAndCount } from "@module/migration/migrations/654-action-type-count";
+import { Migration655CreatureTokenSizes } from "@module/migration/migrations/655-creature-token-sizes";
 
 const migrations: MigrationBase[] = [
     new Migration643HazardLevel(),
@@ -29,6 +30,7 @@ const migrations: MigrationBase[] = [
     new Migration652KillHalcyonTradition(),
     new Migration653AEstoREs(),
     new Migration654ActionTypeAndCount(),
+    new Migration655CreatureTokenSizes(),
 ];
 
 global.deepClone = function (original: any): any {
