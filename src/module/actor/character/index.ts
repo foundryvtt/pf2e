@@ -157,6 +157,7 @@ export class CharacterPF2e extends CreaturePF2e {
     /** Adjustments from ABC items are made after all items are prepared but before active effects are applied. */
     override applyActiveEffects(): void {
         this.ancestry?.prepareActorData();
+        this.background?.prepareActorData();
         this.class?.prepareActorData();
         super.applyActiveEffects();
     }
