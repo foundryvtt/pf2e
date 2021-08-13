@@ -3,12 +3,9 @@
  * This Collection is accessible within the Game object as game.macros.
  */
 declare class Macros<TMacro extends Macro> extends WorldCollection<TMacro> {
-    /** @override */
-    get documentName(): "Macro";
+    override get documentName(): "Macro";
 
-    /** @override */
-    get directory(): SidebarDirectory;
+    override get directory(): SidebarDirectory<TMacro>;
 
-    /** @override */
-    fromCompendium(document: TMacro): TMacro["data"]["_source"];
+    override fromCompendium(document: TMacro): TMacro["data"]["_source"];
 }

@@ -26,11 +26,9 @@ declare interface PackSummary {
 }
 
 declare class CompendiumDirectory extends SidebarTab {
-    /** @override */
-    static get defaultOptions(): CompendiumDirectoryOptions;
+    static override get defaultOptions(): CompendiumDirectoryOptions;
 
-    /** @override */
-    getData(options?: {}): CompendiumDirectoryData;
+    override getData(options?: {}): CompendiumDirectoryData;
 
     /**
      * Compendium sidebar Context Menu creation
@@ -42,7 +40,7 @@ declare class CompendiumDirectory extends SidebarTab {
      * Get the sidebar directory entry context options
      * @return The sidebar entry context options
      */
-    protected _getEntryContextOptions(): EntryContextOption[];
+    protected override _getEntryContextOptions(): EntryContextOption[];
 
     /**
      * Handle a Compendium Pack creation request
@@ -56,8 +54,7 @@ declare class CompendiumDirectory extends SidebarTab {
      */
     protected _onDeleteCompendium(pack: CompendiumCollection): Promise<boolean>;
 
-    /** @override */
-    protected _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, html: HTMLElement): void;
+    protected override _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, html: HTMLElement): void;
 }
 
 declare interface CompendiumDirectory {

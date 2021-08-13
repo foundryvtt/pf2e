@@ -38,23 +38,15 @@ declare interface CombatTrackerData {
 declare class CombatTracker<TCombat extends Combat> extends SidebarTab {
     constructor(options?: ApplicationOptions);
 
-    /**
-     * @inheritdoc
-     * @override
-     */
-    static get defaultOptions(): CombatTrackerDefaultOptions;
+    static override get defaultOptions(): CombatTrackerDefaultOptions;
 
     /** Return an array of Combat encounters which occur within the current Scene. */
     get combats(): TCombat[];
 
     /* -------------------------------------------- */
-    /*  Methods
-        /* -------------------------------------------- */
+    /*  Methods                                     */
+    /* -------------------------------------------- */
 
-    /**
-     * @inheritdoc
-     * @override
-     */
     createPopout(): ChatPopout;
 
     /**
@@ -68,17 +60,9 @@ declare class CombatTracker<TCombat extends Combat> extends SidebarTab {
     /** Scroll the combat log container to ensure the current Combatant turn is centered vertically */
     scrollToTurn(): void;
 
-    /**
-     * @inheritdoc
-     * @override
-     */
-    getData(options: CombatTrackerDefaultOptions): CombatTrackerData;
+    override getData(options: CombatTrackerDefaultOptions): CombatTrackerData;
 
-    /**
-     * @inheritdoc
-     * @override
-     */
-    activateListeners(html: JQuery): void;
+    override activateListeners(html: JQuery): void;
 
     /**
      * Handle new Combat creation request
@@ -143,7 +127,7 @@ declare class CombatTracker<TCombat extends Combat> extends SidebarTab {
      * @return The sidebar entry context options
      * @override
      */
-    protected _getEntryContextOptions(): EntryContextOption[];
+    protected override _getEntryContextOptions(): EntryContextOption[];
 
     /**
      * Display a dialog which prompts the user to enter a new initiative value for a Combatant

@@ -6,6 +6,7 @@ declare global {
         TAmbientLightDocument extends AmbientLightDocument,
         TActiveEffect extends ActiveEffect,
         TActor extends Actor,
+        TChatLog extends ChatLog,
         TChatMessage extends ChatMessage,
         TCombat extends Combat,
         TCombatTracker extends CombatTracker<TCombat>,
@@ -440,7 +441,7 @@ declare global {
 
         ui: {
             actors: typeof ActorDirectory;
-            chat: typeof ChatLog;
+            chat: ConstructorOf<TChatLog>;
             combat: ConstructorOf<TCombatTracker>;
             compendium: ConstructorOf<TCompendiumDirectory>;
             controls: typeof SceneControls;
