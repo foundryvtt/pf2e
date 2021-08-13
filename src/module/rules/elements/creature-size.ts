@@ -3,16 +3,19 @@ import { ItemPF2e } from "@item";
 import { Size, SIZES } from "@module/data";
 import { tupleHasValue } from "@module/utils";
 import { RuleElementPF2e } from "../rule-element";
-import { RuleElementSource } from "../rules-data-definitions";
+import { RuleElementData, RuleElementSource } from "../rules-data-definitions";
 
 /**
  * @category RuleElement
- * Increase the creature's size'
+ * Increase the creature's size
  */
 export class CreatureSizeRuleElement extends RuleElementPF2e {
-    constructor(data: RuleElementSource, item: Embedded<ItemPF2e>) {
+    constructor(data: CreatureSizeConstructionData, item: Embedded<ItemPF2e>) {
+        data.resizeEquipment ??= false;
+
         super(data, item);
-        if (!(this.actor instanceof CreaturePF2e)) {
+
+        if (!(item.actor instanceof CreaturePF2e)) {
             console.warn(
                 `PF2E System | CreatureSize Rule Element on actor ${this.actor.id} (${this.actor.name}) must be used on a creature`
             );
@@ -29,7 +32,7 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
         gargantuan: "grg",
     };
 
-    override onAfterPrepareData() {
+    override onBeforePrepareData() {
         if (this.ignored) return;
 
         const value = this.resolveValue();
@@ -54,5 +57,25 @@ export class CreatureSizeRuleElement extends RuleElementPF2e {
         }
 
         this.actor.data.data.traits.size.value = size;
+
+        if (this.data.resizeEquipment) {
+            for (const item of this.actor.physicalItems) {
+                item.data.data.size.value = size;
+            }
+        }
     }
+}
+
+export interface CreatureSizeRuleElement extends RuleElementPF2e {
+    get actor(): CreaturePF2e;
+
+    data: CreatureSizeRuleElementData;
+}
+
+interface CreatureSizeRuleElementData extends RuleElementData {
+    resizeEquipment: boolean;
+}
+
+interface CreatureSizeConstructionData extends RuleElementSource {
+    resizeEquipment?: boolean;
 }
