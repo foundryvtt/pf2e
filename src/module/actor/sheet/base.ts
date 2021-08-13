@@ -956,9 +956,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         targetTokenId: string,
         itemId: string
     ): Promise<void> {
-        const sourceActor = sourceTokenId ? game.actors.tokens[sourceTokenId] : game.actors.get(sourceActorId);
-        const targetActor = targetTokenId ? game.actors.tokens[targetTokenId] : game.actors.get(targetActorId);
-        const item = sourceActor?.items?.get(itemId);
+        const sourceActor = canvas.scene?.tokens.get(sourceTokenId ?? "")?.actor ?? game.actors.get(sourceActorId);
+        const targetActor = canvas.scene?.tokens.get(targetTokenId ?? "")?.actor ?? game.actors.get(targetActorId);
+        const item = sourceActor?.items.get(itemId);
 
         if (!sourceActor || !targetActor) {
             return Promise.reject(new Error("PF2e System | Unexpected missing actor(s)"));
