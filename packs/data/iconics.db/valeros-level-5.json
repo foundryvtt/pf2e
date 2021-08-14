@@ -37,6 +37,8 @@
                 "rank": 1
             },
             "hp": {
+                "details": "",
+                "temp": 0,
                 "value": 78
             },
             "initiative": {
@@ -71,6 +73,7 @@
                 "value": "25"
             }
         },
+        "customModifiers": {},
         "details": {
             "age": {
                 "value": ""
@@ -2515,6 +2518,9 @@
                 "source": {
                     "value": ""
                 },
+                "specific": {
+                    "value": false
+                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -2689,6 +2695,9 @@
                 "slug": "shortbow",
                 "source": {
                     "value": ""
+                },
+                "specific": {
+                    "value": false
                 },
                 "splashDamage": {
                     "value": 0
@@ -3032,6 +3041,9 @@
                 "source": {
                     "value": ""
                 },
+                "specific": {
+                    "value": false
+                },
                 "splashDamage": {
                     "value": 0
                 },
@@ -3292,81 +3304,6 @@
             "img": "systems/pf2e/icons/features/feats/feats.webp",
             "name": "Aggressive Block",
             "sort": 3400000,
-            "type": "feat"
-        },
-        {
-            "_id": "1qIgPR4p8nRtB6sm",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
-                },
-                "featType": {
-                    "value": "general"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "general-3",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "PF2E.RuleElement.RecoveryCheckDC"
-                    }
-                ],
-                "slug": "toughness",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "effects": [
-                {
-                    "_id": "Qp1gKcCLQ8O4d1Lo",
-                    "changes": [
-                        {
-                            "key": "data.attributes.hp.modifiers",
-                            "mode": 2,
-                            "value": "{ \"modifier\": \"@data.details.level.value * 1\", \"type\": \"untyped\" }"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/features/feats/feats.webp",
-                    "label": "Toughness",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.AmP0qu7c5dlBSath"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Toughness",
-            "sort": 3500000,
             "type": "feat"
         },
         {
@@ -4882,6 +4819,9 @@
                 "ability": {
                     "value": "cha"
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
@@ -5002,6 +4942,9 @@
                 "areasize": {
                     "value": ""
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "spell"
                 },
@@ -5110,6 +5053,66 @@
             "name": "Guidance",
             "sort": 5000000,
             "type": "spell"
+        },
+        {
+            "_id": "CADZpQRHrcYQs1pt",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
+                },
+                "featType": {
+                    "value": "general"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "hp",
+                        "value": "@details.level.value"
+                    },
+                    {
+                        "key": "RecoveryCheckDC"
+                    }
+                ],
+                "slug": "toughness",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.AmP0qu7c5dlBSath"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Toughness",
+            "sort": 0,
+            "type": "feat"
         }
     ],
     "name": "Valeros (Level 5)",
