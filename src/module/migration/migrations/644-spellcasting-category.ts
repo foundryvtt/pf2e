@@ -41,7 +41,7 @@ export class Migration644SpellcastingCategory extends MigrationBase {
                     testSpellcasting.tradition.value !== "focus" &&
                     testSpellcasting.spelldc.value === spellcasting.spelldc.value &&
                     testSpellcasting.proficiency.value === spellcasting.proficiency.value &&
-                    testSpellcasting.ability.value === spellcasting.ability.value
+                    (testSpellcasting.ability.value || "int") === (spellcasting.ability.value || "int")
                 );
             });
 
