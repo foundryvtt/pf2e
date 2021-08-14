@@ -114,12 +114,13 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Magic proficiencies
-        const magic: DeepPartial<MagicTraditionProficiencies> = this.data.data.magic;
-        for (const category of MAGIC_TRADITIONS) {
-            const proficiency: Partial<CharacterProficiencyData> = magic[category] ?? {};
-            proficiency.rank = magic[category]?.rank ?? 0;
-            magic[category] = proficiency;
-        }
+        systemData.magic = MAGIC_TRADITIONS.reduce(
+            (accumulated: DeepPartial<MagicTraditionProficiencies>, category) => ({
+                ...accumulated,
+                [category]: { rank: 0 },
+            }),
+            {}
+        );
 
         // Weapon and Armor category proficiencies
         const martial: DeepPartial<CombatProficiencies> = this.data.data.martial;
