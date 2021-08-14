@@ -36,6 +36,8 @@
                 "rank": 1
             },
             "hp": {
+                "details": "",
+                "temp": 0,
                 "value": 61
             },
             "initiative": {
@@ -70,6 +72,7 @@
                 "value": "25"
             }
         },
+        "customModifiers": {},
         "details": {
             "age": {
                 "value": ""
@@ -7266,81 +7269,6 @@
             "type": "feat"
         },
         {
-            "_id": "b9lDECMl3paeqAyh",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
-                },
-                "featType": {
-                    "value": "general"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "general-3",
-                "prerequisites": {
-                    "value": []
-                },
-                "rules": [
-                    {
-                        "key": "PF2E.RuleElement.RecoveryCheckDC"
-                    }
-                ],
-                "slug": "toughness",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "effects": [
-                {
-                    "_id": "Qp1gKcCLQ8O4d1Lo",
-                    "changes": [
-                        {
-                            "key": "data.attributes.hp.modifiers",
-                            "mode": 2,
-                            "value": "{ \"modifier\": \"@data.details.level.value * 1\", \"type\": \"untyped\" }"
-                        }
-                    ],
-                    "disabled": false,
-                    "duration": {
-                        "startTime": null
-                    },
-                    "flags": {},
-                    "icon": "systems/pf2e/icons/features/feats/feats.webp",
-                    "label": "Toughness",
-                    "tint": null,
-                    "transfer": true
-                }
-            ],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.AmP0qu7c5dlBSath"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Toughness",
-            "sort": 6100000,
-            "type": "feat"
-        },
-        {
             "_id": "xFXIdTdhsiczebeJ",
             "data": {
                 "actionCategory": {
@@ -7461,6 +7389,66 @@
             "img": "systems/pf2e/icons/features/feats/feats.webp",
             "name": "Steady Balance",
             "sort": 6300000,
+            "type": "feat"
+        },
+        {
+            "_id": "Co9vIMtibLOhhDaX",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "description": {
+                    "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
+                },
+                "featType": {
+                    "value": "general"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "hp",
+                        "value": "@details.level.value"
+                    },
+                    {
+                        "key": "RecoveryCheckDC"
+                    }
+                ],
+                "slug": "toughness",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.AmP0qu7c5dlBSath"
+                }
+            },
+            "img": "systems/pf2e/icons/features/feats/feats.webp",
+            "name": "Toughness",
+            "sort": 0,
             "type": "feat"
         }
     ],
