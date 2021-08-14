@@ -396,8 +396,15 @@ $negative-modifer: #cc3311;
 
     .controls {
         font-size: 0.8rem;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: baseline;
+        margin-left: auto;
+        gap: 1px;
+
         .chat {
-            margin-right: 6px;
+            margin-right: 3px;
+            font-size: 0.9em;
         }
         > a.item-control {
             padding-left: 4px;
@@ -589,134 +596,8 @@ $negative-modifer: #cc3311;
         }
     }
 
-    .attacks-list {
-        display: flex;
-        flex: auto;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: baseline;
-        padding: 0px;
-        margin: 0px;
-        width: 100%;
-
-        .attack {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            margin-left: 6px;
-            margin-right: 6px;
-
-            .attack-header {
-                display: flex;
-                flex: 1 0 auto;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-                border-bottom: 1px solid $faded-color;
-
-                .attack-name {
-                    display: flex;
-                    flex: auto;
-                    font-size: 0.9rem;
-
-                    h4 {
-                        margin: 0px;
-                        margin-bottom: 0px;
-                    }
-                }
-            }
-
-            .attack-body {
-                display: flex;
-                flex: auto;
-                width: 100%;
-                justify-content: flex-start;
-                align-items: flex-start;
-                padding-top: 4px;
-                padding-bottom: 4px;
-                flex-direction: column;
-
-                .sub-section {
-                    display: flex;
-                    width: 100%;
-                    flex: auto;
-                    flex-direction: row;
-                    justify-content: flex-start;
-                    align-items: flex-start;
-                    flex-wrap: wrap;
-
-                    h4 {
-                        margin-left: 12px;
-                        margin-right: 12px;
-                    }
-                }
-
-                .btn {
-                    width: auto !important;
-                    cursor: pointer;
-                    margin: 0 4px 4px 0;
-                    padding: 0 12px;
-                    font-size: 10px;
-                    line-height: 16px;
-                    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
-                    background: $attack-button-color;
-                    color: $light-text;
-                    text-align: center;
-                    white-space: nowrap;
-                    border-radius: 3px;
-                    border: none;
-
-                    &:first-child {
-                        margin-left: 0px;
-                    }
-
-                    &:hover {
-                        box-shadow: none;
-                        text-shadow: 0 0 2px white;
-                    }
-                }
-
-                .attack-button {
-                    background-color: $attack-button-color;
-                }
-
-                .damage-button {
-                    background-color: $damage-button-color;
-                }
-
-                .critical-button {
-                    background-color: $damage-button-color;
-                }
-
-                .attack-detail {
-                    .traits-list {
-                        display: flex;
-                        flex: auto;
-                        width: 100%;
-                        flex-direction: row;
-                        justify-content: flex-start;
-                        align-items: baseline;
-                        flex-wrap: wrap;
-                    }
-                }
-            }
-        }
-    }
-
     .expandable {
         display: none;
-    }
-
-    .attack, .action {
-        .controls {
-            display: none;
-        }
-
-        &:hover .controls {
-            display: inherit;
-        }
     }
 
     .labelled-field {
@@ -850,6 +731,137 @@ $negative-modifer: #cc3311;
         }
     }
 
+    .attacks {
+        .section-header .controls {
+            gap: 8px;
+        }
+
+        .section-body {
+            padding: 0 4px;
+
+            /** So it looks better empty since we removed vertical padding */
+            min-height: 10px;
+        }
+    }
+
+    .attacks-list {
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+
+        .attack {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+
+            margin: 8px 6px 0 6px;
+            border-bottom: 1px solid $faded-color;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .attack-header {
+                display: flex;
+                flex: 1 0 auto;
+                flex-direction: row;
+                align-items: baseline;
+                width: 100%;
+
+                .attack-name {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    gap: 2px;
+                    white-space: nowrap;
+
+                    margin: 0px;
+                    margin-bottom: 0px;
+                    margin-right: 4px;
+
+                    font-size: 0.9rem;
+                    font-weight: 800;
+                }
+
+                .activity-icon {
+                    margin-right: 4px;
+                }
+
+                .tag {
+                    float: none;
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    margin: 0;
+                    line-height: 18px;
+                }
+            }
+
+            .attack-body {
+                display: flex;
+                align-items: flex-start;
+                flex-direction: column;
+
+                width: 100%;
+                padding-top: 2px;
+
+                .flexrow, .sub-section {
+                    gap: 2px;
+                }
+
+                .sub-section {
+                    display: flex;
+                    flex: auto;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    flex-wrap: wrap;
+
+                    h4 {
+                        margin-left: 12px;
+                        margin-right: 12px;
+                    }
+                }
+
+                button {
+                    width: auto !important;
+                    cursor: pointer;
+                    margin: 0;
+                    padding: 0 8px;
+                    font-size: 10px;
+                    height: 18px;
+                    line-height: 18px;
+                    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+                    background: $attack-button-color;
+                    color: $light-text;
+                    text-align: center;
+                    white-space: nowrap;
+                    border-radius: 3px;
+                    border: none;
+
+                    &:first-child {
+                        margin-left: 0px;
+                    }
+
+                    &:hover {
+                        box-shadow: none;
+                        text-shadow: 0 0 2px white;
+                    }
+                }
+
+                .attack-button {
+                    background-color: $attack-button-color;
+                }
+
+                .damage-button, .critical-button {
+                    background-color: $damage-button-color;
+                }
+
+                .attack-description {
+                    min-height: 10px;
+                }
+            }
+        }
+    }
 
     select {
         flex: auto 0 0;
