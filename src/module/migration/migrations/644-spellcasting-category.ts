@@ -1,5 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data";
 import { ClassSource, ItemSourcePF2e } from "@item/data";
+import { tupleHasValue } from "@module/utils";
 import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "@item/spellcasting-entry/data";
 import { MigrationBase } from "../base";
 
@@ -38,6 +39,7 @@ export class Migration644SpellcastingCategory extends MigrationBase {
                 if (testItem.type !== "spellcastingEntry") return false;
                 const testSpellcasting: SpellcastingOld = testItem.data;
                 return (
+                    tupleHasValue(["prepared", "spontaneous"] as const, testSpellcasting.prepared.value) &&
                     testSpellcasting.tradition.value !== "focus" &&
                     testSpellcasting.spelldc.value === spellcasting.spelldc.value &&
                     testSpellcasting.proficiency.value === spellcasting.proficiency.value &&
