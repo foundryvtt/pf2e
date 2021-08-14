@@ -23,6 +23,7 @@
         },
         "attributes": {
             "ac": {
+                "base": 33,
                 "details": "",
                 "value": 33
             },
@@ -31,9 +32,9 @@
             },
             "hp": {
                 "details": "",
-                "max": 210,
+                "max": 215,
                 "temp": 0,
-                "value": 210
+                "value": 215
             },
             "initiative": {
                 "ability": "perception"
@@ -51,15 +52,17 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "30 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "30"
                     },
                     {
-                        "type": "Fly",
-                        "value": "50 feet; walk in shadow"
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "50"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "details": {
@@ -114,10 +117,10 @@
                 ]
             },
             "rarity": {
-                "value": "Common"
+                "value": "common"
             },
             "senses": {
-                "value": "infrared vision 60 feet, no vision"
+                "value": "infrared vision (precise) 60 feet, no vision"
             },
             "size": {
                 "value": "lg"
@@ -139,6 +142,9 @@
             "data": {
                 "ability": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "description": {
                     "value": ""
@@ -231,7 +237,7 @@
                     "dc": "32",
                     "item": 0,
                     "mod": 0,
-                    "value": 22
+                    "value": 24
                 },
                 "tradition": {
                     "value": "primal"
@@ -252,14 +258,20 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "3gWa9FrY30i7oOSk",
+            "_id": "ajoryTcPkySSPZU4",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "burst",
-                    "value": 20
+                    "value": "20"
+                },
+                "areasize": {
+                    "value": "20-foot burst"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "category": {
                     "value": "spell"
@@ -280,7 +292,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -288,8 +300,11 @@
                 "hasCounteractCheck": {
                     "value": false
                 },
-                "level": {
+                "heightenedLevel": {
                     "value": 6
+                },
+                "level": {
+                    "value": 2
                 },
                 "location": {
                     "value": "B2pDIbpVOV0J4SPQ"
@@ -298,6 +313,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -315,9 +333,15 @@
                 "school": {
                     "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "darkness",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=59"
+                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -351,9 +375,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4GE2ZdODgIQtg51c"
+                }
+            },
             "img": "systems/pf2e/icons/spells/darkness.webp",
-            "name": "Darkness at will",
+            "name": "Darkness (At Will)",
             "sort": 200000,
             "type": "spell"
         },
@@ -493,6 +521,54 @@
             "type": "action"
         },
         {
+            "_id": "TOo0Vq8jXzgZHSGq",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "At-Will Spells",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
             "_id": "TbMZhJ1evBpaauR7",
             "data": {
                 "actionCategory": {
@@ -505,7 +581,7 @@
                     "value": 2
                 },
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day; <strong>Effect</strong> The deculi creates an extradimensional space adjacent to itself in any 10-foot-by-10-foot area of darkness and enters it. To non-deculis, the extradimensional space looks like an ordinary area of darkness (though effects such as true seeing can see through this illusion). The deculi's infrared vision functions normally between this extradimensional space and the area outside its confines, allowing the deculi to sense what is going on around it, and its innate darkness spell also extends to the area around the shadow sanctuary. Attacks cannot be made into or from the extradimensional space.</p><p>The deculi can Dismiss this effect to emerge from its shadow sanctuary, but the space it emerges into must be in darkness and must be unobstructed. If the area is obstructed, the deculi is shunted to the nearest available space and takes [[/r 1d6 #bludgeoning]]{1d6 bludgeoning damage} per 5 feet shunted. If the area overlaying the shadow sanctuary becomes illuminated by magical light, the extradimensional space can no longer be accessed and the deculi is trapped within until the area is once again in darkness. The deculi can try to extinguish a magical light effect obscuring its sanctuary once per day by attempting to counteract the light effect with its darkness innate spell.</p><p>If a deculi dies (including from hunger, thirst, or asphyxiation) while within the extradimensional space, the shadow sanctuary immediately ends and the deculi's corpse is expelled. If the area is illuminated, the corpse is not expelled until the sanctuary entrance is in darkness once again.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Effect</strong> The deculi creates an extradimensional space adjacent to itself in any 10-foot-by-10-foot area of darkness and enters it. To non-deculis, the extradimensional space looks like an ordinary area of darkness (though effects such as true seeing can see through this illusion). The deculi's infrared vision functions normally between this extradimensional space and the area outside its confines, allowing the deculi to sense what is going on around it, and its innate darkness spell also extends to the area around the shadow sanctuary. Attacks cannot be made into or from the extradimensional space. The deculi can Dismiss this effect to emerge from its shadow sanctuary, but the space it emerges into must be in darkness and must be unobstructed. If the area is obstructed, the deculi is shunted to the nearest available space and takes [[/r 1d6 #bludgeoning]]{1d6 bludgeoning damage} per 5 feet shunted. If the area overlaying the shadow sanctuary becomes illuminated by magical light, the extradimensional space can no longer be accessed and the deculi is trapped within until the area is once again in darkness. The deculi can try to extinguish a magical light effect obscuring its sanctuary once per day by attempting to counteract the light effect with its darkness innate spell.</p>\n<p>If a deculi dies (including from hunger, thirst, or asphyxiation) while within the extradimensional space, the shadow sanctuary immediately ends and the deculi's corpse is expelled. If the area is illuminated, the corpse is not expelled until the sanctuary entrance is in darkness once again.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -536,9 +612,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Create Shadow Sanctuary",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -582,7 +658,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Shadow Strike",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -626,7 +702,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Walk in Shadow",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -661,7 +737,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -696,7 +772,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -731,7 +807,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],
