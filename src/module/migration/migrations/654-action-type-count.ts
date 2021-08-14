@@ -8,6 +8,7 @@ export class Migration654ActionTypeAndCount extends MigrationBase {
     override async updateItem(item: ItemSourcePF2e): Promise<void> {
         if (item.type !== "feat" && item.type !== "action") return;
         const systemData = item.data;
-        systemData.actions.value = (Math.clamped(Number(systemData.actions.value), 0, 3) || null) as OneToThree | null;
+        systemData.actions.value = (Math.min(3, Math.max(Number(systemData.actions.value), 0)) ||
+            null) as OneToThree | null;
     }
 }
