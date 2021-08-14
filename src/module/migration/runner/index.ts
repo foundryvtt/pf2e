@@ -38,66 +38,110 @@ export class MigrationRunner extends MigrationRunnerBase {
     }
 
     private async migrateWorldItem(migrations: MigrationBase[], item: ItemPF2e): Promise<void> {
-        try {
-            const baseItem = item.toObject();
-            const updatedItem = await this.getUpdatedItem(baseItem, migrations);
-            const baseAEs = baseItem.effects;
-            const updatedAEs = updatedItem.effects;
+        const baseItem = item.toObject();
+        const updatedItem = await (() => {
+            try {
+                return this.getUpdatedItem(baseItem, migrations);
+            } catch (error) {
+                console.error(error);
+                console.debug(error.stack);
+                return null;
+            }
+        })();
+        if (!updatedItem) return;
 
-            delete (baseItem as { effects?: unknown[] }).effects;
-            delete (updatedItem as { effects?: unknown[] }).effects;
-            const changes = diffObject(baseItem, updatedItem);
-            if (!isObjectEmpty(changes)) {
-                await item.update(changes);
+        const baseAEs = baseItem.effects;
+        const updatedAEs = updatedItem.effects;
+
+        delete (baseItem as { effects?: unknown[] }).effects;
+        delete (updatedItem as { effects?: unknown[] }).effects;
+        const changes = diffObject(baseItem, updatedItem);
+        if (!isObjectEmpty(changes)) {
+            try {
+                await item.update(changes, { noHook: true });
+            } catch (error) {
+                console.error(error);
+                console.debug(error.stack);
             }
 
             const aeDiff = this.diffCollection(baseAEs, updatedAEs);
             if (aeDiff.deleted.length > 0) {
-                await item.deleteEmbeddedDocuments("ActiveEffect", aeDiff.deleted);
+                try {
+                    await item.deleteEmbeddedDocuments("ActiveEffect", aeDiff.deleted, { noHook: true });
+                } catch (error) {
+                    console.error(error);
+                    console.debug(error.stack);
+                }
             }
-        } catch (error) {
-            console.error(error);
-            console.error(error.stack);
         }
     }
 
     private async migrateWorldActor(migrations: MigrationBase[], actor: ActorPF2e): Promise<void> {
-        try {
-            const baseActor = actor.toObject();
-            const updatedActor = await this.getUpdatedActor(baseActor, migrations);
+        const baseActor = actor.toObject();
+        const updatedActor = await (() => {
+            try {
+                return this.getUpdatedActor(baseActor, migrations);
+            } catch (error) {
+                console.error(error);
+                console.debug(error.stack);
+                return null;
+            }
+        })();
+        if (!updatedActor) return;
 
-            const baseItems = baseActor.items;
-            const baseAEs = baseActor.effects;
-            const updatedItems = updatedActor.items;
-            const updatedAEs = updatedActor.effects;
+        const baseItems = baseActor.items;
+        const baseAEs = baseActor.effects;
+        const updatedItems = updatedActor.items;
+        const updatedAEs = updatedActor.effects;
 
-            delete (baseActor as { items?: unknown[] }).items;
-            delete (updatedActor as { items?: unknown[] }).items;
-            delete (baseActor as { effects?: unknown[] }).effects;
-            delete (updatedActor as { effects?: unknown[] }).effects;
-            if (JSON.stringify(baseActor) !== JSON.stringify(updatedActor)) {
-                await actor.update(updatedActor);
+        delete (baseActor as { items?: unknown[] }).items;
+        delete (updatedActor as { items?: unknown[] }).items;
+        delete (baseActor as { effects?: unknown[] }).effects;
+        delete (updatedActor as { effects?: unknown[] }).effects;
+        if (JSON.stringify(baseActor) !== JSON.stringify(updatedActor)) {
+            try {
+                await actor.update(updatedActor, { noHook: true });
+            } catch (error) {
+                console.error(error);
+                console.debug(error.stack);
             }
+        }
 
-            // We pull out the items here so that the embedded document operations get called
-            const itemDiff = this.diffCollection(baseItems, updatedItems);
-            if (itemDiff.deleted.length > 0) {
-                await actor.deleteEmbeddedDocuments("Item", itemDiff.deleted);
+        // We pull out the items here so that the embedded document operations get called
+        const itemDiff = this.diffCollection(baseItems, updatedItems);
+        if (itemDiff.deleted.length > 0) {
+            try {
+                await actor.deleteEmbeddedDocuments("Item", itemDiff.deleted, { noHook: true });
+            } catch (error) {
+                console.error(error);
+                console.debug(error.stack);
             }
-            if (itemDiff.inserted.length > 0) {
-                await actor.createEmbeddedDocuments("Item", itemDiff.inserted);
+        }
+        if (itemDiff.inserted.length > 0) {
+            try {
+                await actor.createEmbeddedDocuments("Item", itemDiff.inserted, { noHook: true });
+            } catch (error) {
+                console.error(error);
+                console.debug(error.stack);
             }
-            if (itemDiff.updated.length > 0) {
-                await actor.updateEmbeddedDocuments("Item", itemDiff.updated);
+        }
+        if (itemDiff.updated.length > 0) {
+            try {
+                await actor.updateEmbeddedDocuments("Item", itemDiff.updated, { noHook: true });
+            } catch (error) {
+                console.error(error);
+                console.debug(error.stack);
             }
+        }
 
-            const aeDiff = this.diffCollection(baseAEs, updatedAEs);
-            if (aeDiff.deleted.length > 0) {
-                await actor.deleteEmbeddedDocuments("ActiveEffect", aeDiff.deleted);
+        const aeDiff = this.diffCollection(baseAEs, updatedAEs);
+        if (aeDiff.deleted.length > 0) {
+            try {
+                await actor.deleteEmbeddedDocuments("ActiveEffect", aeDiff.deleted, { noHook: true });
+            } catch (error) {
+                console.error(error);
+                console.debug(error.stack);
             }
-        } catch (error) {
-            console.error(error);
-            console.debug(error.stack);
         }
     }
 
@@ -106,7 +150,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             const updatedMacro = await this.getUpdatedMacro(macro.toObject(), migrations);
             const changes = diffObject(macro.toObject(), updatedMacro);
             if (!isObjectEmpty(changes)) {
-                await macro.update(changes);
+                await macro.update(changes, { noHook: true });
             }
         } catch (err) {
             console.error(err);
@@ -118,7 +162,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             const updatedMacro = await this.getUpdatedTable(table.toObject(), migrations);
             const changes = diffObject(table.toObject(), updatedMacro);
             if (!isObjectEmpty(changes)) {
-                table.update(changes);
+                table.update(changes, { noHook: true });
             }
         } catch (err) {
             console.error(err);
@@ -131,7 +175,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             const changes = diffObject(token.toObject(), updatedToken);
 
             if (!isObjectEmpty(changes)) {
-                await token.update(changes);
+                await token.update(changes, { noHook: true });
             }
         } catch (error) {
             console.error(error);
@@ -145,7 +189,7 @@ export class MigrationRunner extends MigrationRunnerBase {
             const updatedUser = await this.getUpdatedUser(baseUser, migrations);
             const changes = diffObject(user.toObject(), updatedUser);
             if (!isObjectEmpty(changes)) {
-                await user.update(changes);
+                await user.update(changes, { noHook: true });
             }
         } catch (err) {
             console.error(err);

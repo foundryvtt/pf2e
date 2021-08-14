@@ -33,7 +33,7 @@ interface ActorConstructorContextPF2e extends DocumentConstructionContext<ActorP
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  * @category Actor
  */
-export class ActorPF2e extends Actor<TokenDocumentPF2e> {
+class ActorPF2e extends Actor<TokenDocumentPF2e> {
     /** Has this actor gone through at least one cycle of data preparation? */
     private initialized: true | undefined;
 
@@ -1234,7 +1234,7 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
     }
 }
 
-export interface ActorPF2e extends Actor<TokenDocumentPF2e> {
+interface ActorPF2e extends Actor<TokenDocumentPF2e> {
     readonly data: ActorDataPF2e;
     _sheet: ActorSheetPF2e<ActorPF2e> | ActorSheet<ActorPF2e, ItemPF2e> | null;
 
@@ -1290,3 +1290,12 @@ export interface ActorPF2e extends Actor<TokenDocumentPF2e> {
     getFlag(scope: "core", key: "sourceId"): string | undefined;
     getFlag(scope: "pf2e", key: "rollOptions.all.target:flatFooted"): boolean;
 }
+
+declare namespace ActorPF2e {
+    function updateDocuments(
+        updates?: DocumentUpdateData<ActorPF2e>[],
+        context?: DocumentModificationContext
+    ): Promise<ActorPF2e[]>;
+}
+
+export { ActorPF2e };
