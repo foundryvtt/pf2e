@@ -1,9 +1,19 @@
-import { ItemDataPF2e } from "@item/data";
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
+import { ItemSourcePF2e } from "@item/data";
 
 export class FakeItem {
-    _data: Partial<ItemDataPF2e>;
-    constructor(data: Partial<ItemDataPF2e>) {
+    _data: ItemSourcePF2e;
+
+    parent: ActorPF2e | null = null;
+
+    constructor(data: ItemSourcePF2e, public options: DocumentConstructionContext<ItemPF2e> = {}) {
         this._data = duplicate(data);
+        this.parent = options.parent ?? null;
+    }
+
+    get id(): string {
+        return this.data._id;
     }
 
     get data() {
@@ -28,6 +38,17 @@ export class FakeItem {
 
     get isAlchemical(): boolean {
         return this.traits.has("alchemical");
+    }
+
+    static async updateDocuments(
+        updates: DocumentUpdateData<ItemPF2e>[] = [],
+        _context: DocumentModificationContext = {}
+    ): Promise<ItemPF2e[]> {
+        return updates.flatMap((update) => {
+            const item = game.items.find((item) => item.id === update._id);
+            if (item) mergeObject(item.data, update);
+            return item ?? [];
+        });
     }
 
     update(changes: object) {
