@@ -62,7 +62,7 @@
                 "value": 5
             },
             "source": {
-                "value": "Pathfinder Society: Season 2"
+                "value": "Pathfinder Society Scenario 2-05: Balancing the Scales"
             }
         },
         "resources": {},
@@ -212,7 +212,13 @@
                 "description": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "selector": "{item|_id}-attack",
+                        "text": "<p class='compact-text' data-visibility=\"gm\"><strong>Eye Throwing</strong> A fire-eye zombie can launch its eye at foes. While its eye is out of its head, the fire-eye zombie is @Compendium[pf2e.conditionitems.Blinded]{Blinded}. At the end of its turn, a fire-eye zombie's eye flies back into its eye socket.</p>"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -281,7 +287,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Darkvision",
             "sort": 300000,
             "type": "action"
@@ -299,7 +305,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>A zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions .</p>"
+                    "value": "<p>A zombie is permanently @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} and can't use reactions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -328,54 +334,6 @@
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slow",
             "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "2KNgEDTPLn8PkQ7P",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>10 feet. The fire-eye zombie emits an @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura} of heat that causes open wounds to sizzle.</p>\n<p>Any living creature that starts its turn within 10 feet of the zombie and isn't at full HP must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"aura,fire,necromancy,damaging-effect\" data-pf2-label=\"Searing Aura DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or take [[/r 1d6 #fire]]{1d6 fire damage} as its wounds burn.</p>\n<p>Creatures critically hit by the fire-eye zombie's Strikes must attempt this saving throw immediately.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "aura",
-                        "fire",
-                        "necromancy"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Searing Aura",
-            "sort": 500000,
             "type": "action"
         },
         {
@@ -423,6 +381,63 @@
             },
             "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Negative Healing",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "37XUiSCPpy3SyVwg",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>10 feet @Compendium[pf2e.bestiary-ability-glossary-srd.Aura]{Aura}.</p>\n<hr />\n<p>The fire-eye zombie emits an aura of heat that causes open wounds to sizzle.</p>\n<p>Any living creature that starts its turn within 10 feet of the zombie and isn't at full HP must succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"aura,fire,necromancy,damaging-effect\" data-pf2-label=\"Searing Aura DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or take [[/r 1d6 #fire]]{1d6 fire damage} as its wounds burn.</p>\n<p>Creatures critically hit by the fire-eye zombie's Strikes must attempt this saving throw immediately.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "damage",
+                        "text": "<p class='compact-text'><strong>Searing Aura</strong> On a critical hit a creature must immediately succeed at a <span data-pf2-check=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"aura,fire,necromancy,damaging-effect\" data-pf2-label=\"Searing Aura DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or take [[/r 1d6 #fire]]{1d6 fire damage} as its wounds burn.</p>"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "fire",
+                        "necromancy"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Searing Aura",
             "sort": 600000,
             "type": "action"
         },
@@ -474,7 +489,7 @@
             "_id": "NSrkmgeoEIMlRGQY",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
