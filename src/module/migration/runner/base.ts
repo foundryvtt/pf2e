@@ -145,7 +145,7 @@ export class MigrationRunnerBase {
 
         for (const migration of migrations) {
             try {
-                await migration.updateMacro(current);
+                await migration.updateMacro?.(current);
             } catch (err) {
                 console.error(err);
             }
@@ -162,7 +162,7 @@ export class MigrationRunnerBase {
 
         for (const migration of migrations) {
             try {
-                await migration.updateTable(current);
+                await migration.updateTable?.(current);
             } catch (err) {
                 console.error(err);
             }
@@ -175,7 +175,7 @@ export class MigrationRunnerBase {
         const current = token.toObject();
         for (const migration of migrations) {
             try {
-                await migration.updateToken(current, token.actor, token.scene);
+                await migration.updateToken?.(current, token.actor, token.scene);
             } catch (err) {
                 console.error(err);
             }
@@ -188,10 +188,10 @@ export class MigrationRunnerBase {
         userData: foundry.data.UserSource,
         migrations: MigrationBase[]
     ): Promise<foundry.data.UserSource> {
-        const current = duplicate(userData);
+        const current = deepClone(userData);
         for (const migration of migrations) {
             try {
-                await migration.updateUser(current);
+                await migration.updateUser?.(current);
             } catch (err) {
                 console.error(err);
             }

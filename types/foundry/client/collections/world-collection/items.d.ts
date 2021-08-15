@@ -5,8 +5,7 @@
  * @see {@link ItemDirectory} The ItemDirectory sidebar directory
  */
 declare class Items<TItem extends Item> extends WorldCollection<TItem> {
-    /** @override */
-    static documentName: "Item";
+    static override documentName: "Item";
 
     /* -------------------------------------------- */
     /*  Methods                                     */
@@ -16,20 +15,14 @@ declare class Items<TItem extends Item> extends WorldCollection<TItem> {
      * Register an Item sheet class as a candidate which can be used to display Actors of a given type
      * See EntitySheetConfig.registerSheet for details
      */
-    static registerSheet(
-        scope: string,
-        sheetClass: new (...args: any[]) => ItemSheet,
-        options?: RegisterSheetOptions
-    ): void;
+    static registerSheet(scope: string, sheetClass: ConstructorOf<ItemSheet>, options?: RegisterSheetOptions): void;
 
     /**
      * Unregister an Item sheet class, removing it from the list of avaliable sheet Applications to use
      * See EntitySheetConfig.unregisterSheet for details
      */
-    static unregisterSheet(scope: string, sheetClass: new (...args: any[]) => ItemSheet, types?: string[]): void;
+    static unregisterSheet(scope: string, sheetClass: ConstructorOf<ItemSheet>, types?: string[]): void;
 
-    /**
-     * Return an Array of currently registered sheet classes for this Entity type
-     */
+    /** Return an Array of currently registered sheet classes for this Entity type */
     static get registeredSheets(): ItemSheet[];
 }

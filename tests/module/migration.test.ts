@@ -28,7 +28,6 @@ for (const item of characterData.items) {
 const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorSource;
 armorData.data.schema = { version: 0, lastMigration: null };
 
-declare let game: any;
 LocalizePF2e.ready = true;
 
 describe("test migration runner", () => {
@@ -38,7 +37,7 @@ describe("test migration runner", () => {
         worldSchemaVersion: 10,
     };
 
-    game = {
+    (global as any).game = {
         data: {
             version: "3.2.1",
         },
@@ -65,6 +64,11 @@ describe("test migration runner", () => {
         users: new FakeWorldCollection<FakeUser>(),
         packs: new FakeCollection(),
         scenes: new FakeWorldCollection<FakeScene>(),
+    };
+
+    (global as any).CONFIG = {
+        Actor: { documentClass: FakeActor },
+        Item: { documentClass: FakeItem },
     };
 
     (global as any).ui = {
@@ -105,7 +109,7 @@ describe("test migration runner", () => {
     class RemoveItemProperty extends MigrationBase {
         static version = 14;
         async updateItem(item: any) {
-            delete item.data.someFakeProperty;
+            item.data["-=someFakeProperty"] = null;
         }
     }
 
@@ -236,16 +240,19 @@ describe("test migration runner", () => {
         }
 
         game.actors.set(characterData._id, new FakeActor(characterData));
+        expect(game.actors.contents[0].items.size).toBeGreaterThan(0);
 
         const migrationRunner = new MigrationRunner([new RemoveItemsFromActor()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.items.length).toEqual(0);
+        expect(game.actors.contents[0].items.size).toEqual(0);
     });
 
     class AddItemToActor extends MigrationBase {
         static version = 13;
+
         requiresFlush = true;
-        async updateActor(actor: any) {
+
+        async updateActor(actor: { items: any[] }) {
             actor.items.push({
                 name: "sample item",
                 type: "melee",
@@ -260,18 +267,20 @@ describe("test migration runner", () => {
     }
 
     test("migrations can add items to actors", async () => {
-        game.actors.set(characterData._id, new FakeActor(characterData));
-        game.actors.contents[0]._data.items = [];
+        characterData.items = [];
+        const actor = new FakeActor(characterData);
+        game.actors.set(actor.id, actor);
 
         const migrationRunner = new MigrationRunner([new AddItemToActor()]);
         await migrationRunner.runMigration();
-        expect(game.actors.contents[0]._data.items.length).toEqual(1);
-        expect(game.actors.contents[0]._data.items[0]._id).toEqual("item1");
+
+        expect(actor.items.size).toEqual(1);
+        expect(actor.items.get("item1")).toBeDefined();
     });
 
     class SetActorPropertyToAddedItem extends MigrationBase {
         static version = 14;
-        async updateActor(actor: any) {
+        async updateActor(actor: { items: any[] }) {
             actor.data.sampleItemId = actor.items.find((x: any) => x.name === "sample item")._id;
         }
     }

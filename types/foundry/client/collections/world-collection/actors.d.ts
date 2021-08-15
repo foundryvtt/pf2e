@@ -8,13 +8,13 @@
  * let actor = game.actors.get(actorId);
  */
 declare class Actors<TActor extends Actor> extends WorldCollection<TActor> {
-    get documentName(): "Actor";
+    static override documentName: "Actor";
 
     /**
      * A mapping of synthetic Token Actors which are currently active within the viewed Scene.
      * Each Actor is referenced by the Token.id.
      */
-    tokens: { [tokenID: string]: TActor };
+    tokens: Record<string, TActor | undefined>;
 
     /* -------------------------------------------- */
     /*  Sheet Registration Methods                  */
@@ -24,18 +24,17 @@ declare class Actors<TActor extends Actor> extends WorldCollection<TActor> {
      * Register an Actor sheet class as a candidate which can be used to display Actors of a given type
      * See EntitySheetConfig.registerSheet for details
      */
-    static registerSheet<A extends ActorSheet>(
-        scope: string,
-        sheetClass: ConstructorOf<A>,
-        options?: RegisterSheetOptions
-    ): void;
+    static registerSheet(scope: string, sheetClass: ConstructorOf<ActorSheet>, options?: RegisterSheetOptions): void;
+
     /** Unregister an Actor sheet class, removing it from the list of avaliable sheet Applications to use
      * See EntitySheetConfig.unregisterSheet for details
      */
-    static unregisterSheet<T extends ActorSheet>(scope: string, sheetClass: ConstructorOf<T>): void;
+    static unregisterSheet(scope: string, sheetClass: ConstructorOf<ActorSheet>): void;
 
-    /**
-     * Return an Array of currently registered sheet classes for this Entity type
-     */
+    /** Return an Array of currently registered sheet classes for this Entity type */
     static get registeredSheets(): typeof ActorSheet[];
+}
+
+declare interface Actors<TActor extends Actor> extends WorldCollection<TActor> {
+    get documentName(): "Actor";
 }
