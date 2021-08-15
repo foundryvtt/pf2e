@@ -901,6 +901,19 @@ export const PF2ECONFIG = {
     weaponPropertyRunes,
     damageTraits,
     damageTypes,
+    damageSubtypes: {
+        persistent: "PF2E.ConditionTypePersistentShort",
+        splash: "PF2E.TraitSplash",
+    },
+    damageCategories: {
+        adamantine: "PF2E.PreciousMaterialAdamantine",
+        coldiron: "PF2E.PreciousMaterialColdIron",
+        darkwood: "PF2E.PreciousMaterialDarkwood",
+        mithral: "PF2E.PreciousMaterialMithral",
+        salt: "PF2E.TraitSalt",
+        silver: "PF2E.PreciousMaterialSilver",
+        warpglass: "PF2E.PreciousMaterialWarpglass",
+    },
 
     resistanceTypes: {
         acid: "PF2E.TraitAcid",
@@ -1972,11 +1985,14 @@ export const PF2ECONFIG = {
     },
 
     spellScalingModes: {
-        none: "PF2E.SpellScalingModeNone",
-        level1: "PF2E.SpellScalingModeLevel1",
-        level2: "PF2E.SpellScalingModeLevel2",
-        level3: "PF2E.SpellScalingModeLevel3",
-        level4: "PF2E.SpellScalingModeLevel4",
+        0: "PF2E.SpellScalingModeNone",
+        1: "PF2E.SpellScalingModeLevel1",
+        2: "PF2E.SpellScalingModeLevel2",
+        3: "PF2E.SpellScalingModeLevel3",
+        4: "PF2E.SpellScalingModeLevel4",
+    },
+
+    spellHeightenedLevels: {
         levelsecond: "PF2E.SpellScalingModeLevelsecond",
         levelthird: "PF2E.SpellScalingModeLevelthird",
         levelfourth: "PF2E.SpellScalingModeLevelfourth",
