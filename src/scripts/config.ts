@@ -1350,7 +1350,7 @@ export const PF2ECONFIG = {
         multiclass: "PF2E.TraitMulticlass",
         oath: "PF2E.TraitOath",
         open: "PF2E.TraitOpen",
-        "pervasive-magic": "PF2E.TraitPervasiveMagic"
+        "pervasive-magic": "PF2E.TraitPervasiveMagic",
         press: "PF2E.TraitPress",
         stance: "PF2E.TraitStance",
         stamina: "PF2E.TraitStamina",
