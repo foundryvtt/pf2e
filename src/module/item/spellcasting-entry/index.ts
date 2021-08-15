@@ -176,7 +176,8 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                 const data = this.data.data.slots[`slot${level}` as SlotKey];
 
                 // Populate prepared spells
-                const active: (ActiveSpell | null)[] = Array(data.max).fill(null);
+                const maxPrepared = Math.max(data.max, 0);
+                const active: (ActiveSpell | null)[] = Array(maxPrepared).fill(null);
                 for (const [key, value] of Object.entries(data.prepared)) {
                     const spell = value.id ? this.spells.get(value.id) : null;
                     if (spell) {
@@ -291,8 +292,11 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                 const slotData = data.data.slots[slotKey];
                 if (!slotData) continue;
 
-                if (slotData.value) {
-                    const max = Number(slotData?.max ?? this.data.data.slots[slotKey].max);
+                if ("max" in slotData) {
+                    slotData.max = Math.max(Number(slotData.max) || 0, 0);
+                }
+                if ("value" in slotData) {
+                    const max = Number(slotData?.max) || 0;
                     slotData.value = Math.clamped(Number(slotData.value), 0, max);
                 }
             }
