@@ -930,6 +930,7 @@ export const PF2ECONFIG = {
         chaotic: "PF2E.DamageTypeChaotic",
         cold: "PF2E.DamageTypeCold",
         coldiron: "PF2E.WeaknessTypeColdIron",
+        "critical-hits": "PF2E.WeaknessTypeCriticalHits",
         darkwood: "PF2E.WeaknessTypeDarkwood",
         earth: "PF2E.TraitEarth",
         electricity: "PF2E.DamageTypeElectricity",
