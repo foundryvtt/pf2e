@@ -1,5 +1,5 @@
-import { ActorSourcePF2e } from "@actor/data";
-import { ItemSourcePF2e } from "@item/data";
+import { AbilityString, ActorSourcePF2e } from "@actor/data";
+import { ClassSource, ItemSourcePF2e } from "@item/data";
 import { MigrationBase } from "../base";
 import { RuleElementSource } from "@module/rules/rules-data-definitions";
 import { CharacterProficiencyData } from "@actor/character/data";
@@ -29,6 +29,12 @@ export class Migration653AEstoREs extends MigrationBase {
         );
     }
 
+    private fixClassKeyAbilities(classSource: ClassSource): void {
+        type MaybeOldKeyAbility = { value: AbilityString[] | { value: AbilityString }[] };
+        const keyAbility: MaybeOldKeyAbility = classSource.data.keyAbility;
+        keyAbility.value = keyAbility.value.map((value) => (typeof value === "string" ? value : value.value));
+    }
+
     override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
         if (actorSource.type !== "character") return;
         const systemData: { martial: Record<string, CharacterProficiencyData> } = actorSource.data;
@@ -45,6 +51,8 @@ export class Migration653AEstoREs extends MigrationBase {
 
     override async updateItem(itemSource: ItemSourcePF2e): Promise<void> {
         if (!(itemSource.type === "class" || itemSource.type === "effect" || itemSource.type === "feat")) return;
+
+        if (itemSource.type === "class") this.fixClassKeyAbilities(itemSource);
 
         // Collect changes from item and recreate some as rule elements
         const modes = { 1: "multiply", 2: "add", 3: "downgrade", 4: "upgrade", 5: "override" };
@@ -67,13 +75,11 @@ export class Migration653AEstoREs extends MigrationBase {
                     value: Number.isNaN(Number(change.value)) ? change.value : Number(change.value),
                     priority: change.priority,
                 });
-                effect.changes.splice(effect.changes.indexOf(change), 1);
             }
 
-            // Remove the ActiveEffect unless unrecognized (likely user-added) changes are present
-            if (this.isRemovableAE(effect)) {
-                itemSource.effects.splice(itemSource.effects.indexOf(effect), 1);
-            }
+            // Remove the ActiveEffect unless complex changes are present
+            effect.changes = effect.changes.filter((change) => !this.isRemoveableChange(change));
         }
+        itemSource.effects = itemSource.effects.filter((effect) => effect.changes.length > 0);
     }
 }
