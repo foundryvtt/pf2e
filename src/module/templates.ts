@@ -19,7 +19,6 @@ export function loadPF2ETemplates() {
         "systems/pf2e/templates/actors/crb-style/sidebar/actor-perception.html",
         "systems/pf2e/templates/actors/crb-style/sidebar/actor-initiative.html",
         "systems/pf2e/templates/actors/crb-style/sidebar/actor-saves.html",
-        "systems/pf2e/templates/actors/crb-style/sidebar/actor-ability-scores.html",
 
         // Actor Sheets Partials (CRB-Style Main Section)
         "systems/pf2e/templates/actors/crb-style/actor-header.html",
@@ -40,6 +39,10 @@ export function loadPF2ETemplates() {
         // Actor Sheet Partials (General)
         "systems/pf2e/templates/actors/spellcasting-spell-list.html",
         "systems/pf2e/templates/actors/crb-style/partials/proficiencylevels-dropdown.html",
+
+        // SVG icons
+        "systems/pf2e/templates/actors/crb-style/icons/d20.html",
+        "systems/pf2e/templates/actors/crb-style/icons/plus.html",
 
         // NPC partials
         "systems/pf2e/templates/actors/npc/tabs/main.html",
