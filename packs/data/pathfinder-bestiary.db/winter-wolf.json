@@ -50,7 +50,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "40 feet"
+                "value": "40"
             }
         },
         "details": {
@@ -58,7 +58,7 @@
                 "value": "NE"
             },
             "creatureType": "Beast",
-            "flavorText": "Winter wolves are related to wargs, but are larger, smarter, and far more dangerous. They are capable of exhaling plumes of freezing breath and are big enough to easily serve as mounts for orcs and hobgoblins-provided the winter wolf is willing, of course. Like wargs, winter wolves hunt in packs, but unlike their smaller cousins, they have a notable proud streak. When they deign to serve others, they reserve this privilege for larger and more dangerous creatures such as frost giants, renegade yetis, or even white dragons.<br /><br />",
+            "flavorText": "<p>Winter wolves are related to wargs, but are larger, smarter, and far more dangerous. They are capable of exhaling plumes of freezing breath and are big enough to easily serve as mounts for orcs and hobgoblins-provided the winter wolf is willing, of course. Like wargs, winter wolves hunt in packs, but unlike their smaller cousins, they have a notable proud streak. When they deign to serve others, they reserve this privilege for larger and more dangerous creatures such as frost giants, renegade yetis, or even white dragons.</p>\n<hr />\n<p>The warg is an intelligent and malevolent wolf that dwells among goblins, hobgoblins, orcs, and other violent humanoids.</p>",
             "level": {
                 "value": 5
             },
@@ -133,8 +133,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Knockdown"
+                        "knockdown"
                     ]
                 },
                 "bonus": {
@@ -179,10 +180,10 @@
             "type": "melee"
         },
         {
-            "_id": "uBgJc2ptcbRE0uq0",
+            "_id": "Frrjwe7TBU7SDJ4i",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -191,13 +192,13 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>[reaction] DC 21<br />Most monsters that serve as mounts can attempt to\nbuck off unwanted or annoying riders, but most mounts\nwill not use this reaction against a trusted creature unless\nthe mounts are spooked or mistreated. <strong>Trigger</strong> A creature\nMounts or uses the Command an Animal action while riding\nthe monster. <strong>Effect</strong> The triggering creature must succeed\nat a Reflex saving throw against the listed DC or fall off the\ncreature and land prone. If the save is a critical failure, the\ntriggering creature also takes [[/r 1d6 #bludgeoning]]{1d6 bludgeoning damage} in\naddition to the normal damage for the fall.</p>"
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -216,10 +217,62 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Buck",
+            "name": "Darkvision",
             "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "9joFFUfTXKf9Snry",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -235,7 +288,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within reach of the winter wolf's jaws attacks one of the winter wolfs's allies. <strong>Eflect</strong> The winter wolf makes a jaws Strike against the triggering creature.</p>"
+                    "value": "<p data-visibility=\"gm\"><strong>Trigger</strong> A creature within reach of the winter wolf's jaws attacks one of the winter wolf's allies.</p>\n<p><strong>Effect</strong> The winter wolf makes a jaws Strike against the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -261,9 +314,57 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Avenging Bite",
-            "sort": 300000,
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "01rO9MEsCBNi5Thc",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p><span data-pf2-check=\"reflex\" data-pf2-dc=\"21\" data-pf2-label=\"Buck DC\" data-pf2-show-dc=\"gm\">Reflex</span></p>\n<hr />\n<p>Most monsters that serve as mounts can attempt to buck off unwanted or annoying riders, but most mounts will not use this reaction against a trusted creature unless the mounts are spooked or mistreated.</p>\n<p><strong>Trigger</strong> A creature @Compendium[pf2e.actionspf2e.Mount]{Mounts} or uses the @Compendium[pf2e.actionspf2e.Command an Animal]{Command an Animal} action while riding the monster.</p>\n<p><strong>Effect</strong> The triggering creature must succeed at a Reflex saving throw against the listed DC or fall off the creature and land @Compendium[pf2e.conditionitems.Prone]{Prone}. If the save is a critical failure, the triggering creature also takes [[/r 1d6 #bludgeoning]]{1d6 bludgeoning damage} in addition to the normal damage for the fall.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "buck",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.nZMQh4AaBr291TUf"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Buck",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -276,7 +377,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "value": "<p>The winter wolf breathes a cloud of frost in a 15-foot cone that deals [[/r 5d8 #cold]]{5d8 cold damage} (<span data-pf2-check=\"reflex\" data-pf2-dc=\"23\" data-pf2-traits=\"cold,evocation,primal,damaging-effect\" data-pf2-label=\"Breath Weapon DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save). The winter wolf can't use Breath Weapon again for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
@@ -309,13 +410,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "dKz2U2eKId5IQ0Mx",
+            "_id": "G3eZICbsEGae5Qa8",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -324,16 +425,16 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Knockdown in its damage entry. <strong>Effect</strong> The monster knocks the target prone.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Knockdown in its damage entry.</p>\n<p><strong>Effect</strong> The monster knocks the target @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "knockdown",
                 "source": {
                     "value": ""
                 },
@@ -352,14 +453,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Knockdown",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "fXej5OVTsR40IOXw",
+            "_id": "9RRqDOZEOM8rUI1P",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -376,7 +481,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.pack-attack"
+                    },
+                    {
+                        "damageType": "piercing",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "pack-attack"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -399,7 +521,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Pack Attack",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -434,7 +556,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -469,7 +591,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -504,7 +626,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -539,7 +661,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -592,7 +714,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -627,7 +749,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         }
     ],
