@@ -33,7 +33,7 @@ interface ItemConstructionContextPF2e extends DocumentConstructionContext<ItemPF
 }
 
 /** Override and extend the basic :class:`Item` implementation */
-export class ItemPF2e extends Item<ActorPF2e> {
+class ItemPF2e extends Item<ActorPF2e> {
     /** Has this item gone through at least one cycle of data preparation? */
     private initialized: boolean | undefined;
 
@@ -870,7 +870,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 }
 
-export interface ItemPF2e {
+interface ItemPF2e {
     readonly data: ItemDataPF2e;
     readonly parent: ActorPF2e | null;
 
@@ -882,3 +882,12 @@ export interface ItemPF2e {
     getFlag(scope: "pf2e", key: "constructing"): true | undefined;
     getFlag(scope: string, key: string): any;
 }
+
+declare namespace ItemPF2e {
+    function updateDocuments(
+        updates?: DocumentUpdateData<ItemPF2e>[],
+        context?: DocumentModificationContext
+    ): Promise<ItemPF2e[]>;
+}
+
+export { ItemPF2e };
