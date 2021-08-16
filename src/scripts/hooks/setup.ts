@@ -19,10 +19,10 @@ import {
 } from "@module/modifiers";
 import { CheckPF2e } from "@system/rolls";
 import { RuleElementPF2e, RuleElements } from "@module/rules/rules";
-import { ConditionManager } from "@module/conditions";
+import { ConditionManager } from "@system/conditions";
 import { StatusEffects } from "@scripts/actor/status-effects";
-import { EffectPanel } from "@module/system/effect-panel";
-import { EffectTracker } from "@module/system/effect-tracker";
+import { EffectPanel } from "@system/effect-panel";
+import { EffectTracker } from "@system/effect-tracker";
 import { remigrate } from "@scripts/system/remigrate";
 import { ActorImporter } from "@system/importer/actor-importer";
 import { HomebrewElements } from "@module/settings/homebrew";
