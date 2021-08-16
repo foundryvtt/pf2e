@@ -1913,6 +1913,7 @@ export const PF2ECONFIG = {
         protean: "PF2E.LanguageProtean",
         rasu: "PF2E.LanguageRasu",
         requian: "PF2E.LanguageRequian",
+        russian: "PF2E.LanguageRussian",
         senzar: "PF2E.LanguageSenzar",
         shadowtongue: "PF2E.LanguageShadowtongue",
         shisk: "PF2E.LanguageShisk",
