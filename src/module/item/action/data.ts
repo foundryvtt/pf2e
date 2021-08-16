@@ -24,9 +24,6 @@ interface ActionSystemData extends ItemSystemData {
     actionCategory: {
         value: string;
     };
-    weapon: {
-        value: string;
-    };
     actions: {
         value: OneToThree | null;
     };
