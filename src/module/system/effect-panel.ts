@@ -3,13 +3,13 @@ import { EffectData } from "@item/data";
 import { ConditionPF2e, EffectPF2e } from "@item";
 import { ConditionReference, FlattenedCondition } from "./conditions";
 
-interface EffectPanelData {
+interface EffectsPanelData {
     conditions: FlattenedCondition[];
     effects: EffectData[];
     actor: ActorPF2e | null;
 }
 
-export class EffectPanel extends Application {
+export class EffectsPanel extends Application {
     private get actor(): ActorPF2e | null {
         return canvas.tokens.controlled[0]?.actor ?? game.user?.character ?? null;
     }
@@ -27,8 +27,8 @@ export class EffectPanel extends Application {
         });
     }
 
-    override getData(options?: ApplicationOptions): EffectPanelData {
-        const data: EffectPanelData = {
+    override getData(options?: ApplicationOptions): EffectsPanelData {
+        const data: EffectsPanelData = {
             ...super.getData(options),
             actor: this.actor,
             effects: [],
@@ -48,7 +48,7 @@ export class EffectPanel extends Application {
                 effectData.data.expired = duration.expired;
                 effectData.data.remaining = effectData.data.expired
                     ? game.i18n.localize("PF2E.EffectPanel.Expired")
-                    : EffectPanel.getRemainingDurationLabel(
+                    : EffectsPanel.getRemainingDurationLabel(
                           duration.remaining,
                           effectData.data.start.initiative ?? 0,
                           effectData.data.duration.expiry
@@ -59,7 +59,7 @@ export class EffectPanel extends Application {
 
         data.conditions = game.pf2e.ConditionManager.getFlattenedConditions(itemTypes.condition).map((condition) => {
             condition.locked = condition.parents.length > 0;
-            condition.breakdown = EffectPanel.getParentConditionsBreakdown(condition.parents);
+            condition.breakdown = EffectsPanel.getParentConditionsBreakdown(condition.parents);
             return condition;
         });
 
@@ -71,7 +71,7 @@ export class EffectPanel extends Application {
 
         // handle right-click on condition and effect icons
         $(html).on("contextmenu", '[data-item-id]:not([data-item-id=""])', async (event) => {
-            const actor = EffectPanel.actor;
+            const actor = EffectsPanel.actor;
             if (!actor) return;
             const effect = actor.items.get(event.currentTarget.dataset.itemId ?? "");
             if (effect instanceof ConditionPF2e) {

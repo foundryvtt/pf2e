@@ -12,7 +12,7 @@ import { DicePF2e } from "@scripts/dice";
 import { rollActionMacro, rollItemMacro } from "@scripts/macros/hotbar";
 import { launchTravelSheet } from "@scripts/macros/travel/travel-speed-sheet";
 import { calculateXP } from "@scripts/macros/xp";
-import { EffectPanel } from "@system/effect-panel";
+import { EffectsPanel } from "@system/effect-panel";
 import { EffectTracker } from "@system/effect-tracker";
 import { CheckPF2e } from "@system/rolls";
 import { WorldClock } from "@system/world-clock";
@@ -49,7 +49,7 @@ declare global {
             compendiumBrowser: CompendiumBrowser;
             licenseViewer: LicenseViewer;
             worldClock: WorldClock;
-            effectPanel: EffectPanel;
+            effectPanel: EffectsPanel;
             effectTracker: EffectTracker;
             rollActionMacro: typeof rollActionMacro;
             rollItemMacro: typeof rollItemMacro;
