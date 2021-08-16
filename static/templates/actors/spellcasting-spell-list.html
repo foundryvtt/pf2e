@@ -41,7 +41,9 @@
                         <span class="spell-max-input">
                             <input type="number" data-item-id="{{entry.id}}" data-property="data.slots.slot{{lvl}}.max" value="{{section.uses.max}}" placeholder="0" data-dtype="Number"/>
                         </span>
-                        <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}"  data-level="{{lvl}}"><i class="fas fa-redo"></i></a>
+                        {{#if @root.owner}}
+                            <a class="spell-slots-increment-reset" data-item-id="{{entry._id}}"  data-level="{{lvl}}"><i class="fas fa-redo"></i></a>
+                        {{/if}}
                     {{/if}}
                 {{/if}}
             </div>
