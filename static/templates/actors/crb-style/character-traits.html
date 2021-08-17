@@ -128,11 +128,13 @@
                 {{localize speed.label}} ({{speed.total}})
             </li>
             {{/each}}
-            <li class="tag edit-btn">
-                <a class="crb-trait-selector" data-trait-selector="speed-types">
-                    {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
-                </a>
-            </li>
+            {{#if @root.owner}}
+                <li class="tag edit-btn">
+                    <a class="crb-trait-selector" data-trait-selector="speed-types">
+                        {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
+                    </a>
+                </li>
+            {{/if}}
         </ol>
     </div>
     <div class="pc pc_senses">
@@ -145,11 +147,13 @@
                 {{localize sense.label}} {{#if sense.value}} ({{sense.value}}) {{/if}}
             </li>
             {{/each}}
-            <li class="tag edit-btn">
-                <a class="crb-trait-selector" data-trait-selector="senses">
-                    {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
-                </a>
-            </li>
+            {{#if @root.owner}}
+                <li class="tag edit-btn">
+                    <a class="crb-trait-selector" data-trait-selector="senses">
+                        {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
+                    </a>
+                </li>
+            {{/if}}
         </ol>
     </div>
 </div>
@@ -163,28 +167,32 @@
             {{localize v}}
         </li>
         {{/each}}
-        <li class="tag edit-btn">
-            <a class="crb-trait-selector" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages">
-                {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
-            </a>
-        </li>
+        {{#if @root.owner}}
+            <li class="tag edit-btn">
+                <a class="crb-trait-selector" data-trait-selector="basic" data-title="PF2E.Languages" data-config-types="languages" data-property="data.traits.languages">
+                    {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
+                </a>
+            </li>
+        {{/if}}
     </ul>
 </div>
 
 <div class="pc pc_traits">
-  <h4 class="pf-title">
-    {{localize 'PF2E.Traits'}}
-  </h4>
-  <ul class="tags">
-    {{#each data.traits.traits.selected as |v k|}}
-    <li class="tag {{k}}">
-      {{localize v}}
-    </li>
-    {{/each}}
-    <li class="tag edit-btn">
-      <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="monsterTraits" data-property="data.traits.traits">
-        {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
-      </a>
-    </li>
-  </ul>
+    <h4 class="pf-title">
+        {{localize 'PF2E.Traits'}}
+    </h4>
+    <ul class="tags">
+        {{#each data.traits.traits.selected as |v k|}}
+        <li class="tag {{k}}">
+            {{localize v}}
+        </li>
+        {{/each}}
+        {{#if @root.owner}}
+            <li class="tag edit-btn">
+                <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="monsterTraits" data-property="data.traits.traits">
+                    {{> systems/pf2e/templates/actors/crb-style/icons/plus.html}}
+                </a>
+            </li>
+        {{/if}}
+    </ul>
 </div>
