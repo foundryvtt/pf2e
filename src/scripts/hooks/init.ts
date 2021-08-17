@@ -90,7 +90,7 @@ export const Init = {
 
             // configure the bundled TinyMCE editor with PF2-specific options
             CONFIG.TinyMCE.extended_valid_elements = "pf2-action[action|glyph]";
-            CONFIG.TinyMCE.content_css = CONFIG.TinyMCE.content_css.concat("systems/pf2e/styles/pf2e.css");
+            CONFIG.TinyMCE.content_css = CONFIG.TinyMCE.content_css.concat("systems/pf2e/styles/main.css");
             CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
                 title: "PF2E",
                 items: [
