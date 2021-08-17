@@ -127,7 +127,6 @@ import "./client/pixi/shader/standard-coloration-shader";
 import "./client/pixi/shader/standard-illumination-shader";
 import "./client/pixi/shader/torch-coloration-shader";
 import "./client/pixi/shader/torch-illumination-shader";
-import "./client/prototypes";
 import "./client/roll";
 import "./client/roll/roll-term";
 import "./client/ui/context";

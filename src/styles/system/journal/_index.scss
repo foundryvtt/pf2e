@@ -14,14 +14,10 @@
         display: flex;
         flex-direction: column;
 
-        @import 'header';
+        @import "header";
 
         > * + * {
             margin-top: var(--space-m);
-        }
-
-        .editor {
-            height: calc(100% - 145px);
         }
 
         .editor-content {
@@ -35,16 +31,16 @@
             --max-width: 570px;
             display: flex;
             flex-direction: column;
-            font-family: 'Vollkorn', var(--serif);
+            font-family: var(--journal-serif);
             font-size: 1.2em;
             line-height: 1.5;
             color: var(--body);
             padding-bottom: 2em;
 
-            @import 'tinymce';
+            @import "tinymce";
         }
 
-        button[type='submit'] {
+        button[type="submit"] {
             border: none;
             box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.4);
             background-color: var(--alt);
