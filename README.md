@@ -18,7 +18,7 @@ A huge thanks to the large team of contributers and a special thanks to the foll
 
 > 🛠️ Please note that the functionality of this project is not complete and there is plenty of work remaining.
 
-If you have any suggestions or feedback, please contact me on Discord @ **hooking[UTC+12]#0492** or drop by the #pf2e channel on the Foundry Discord server.
+If you have any suggestions or feedback, please contact us on Discord in the #pf2e channel on the Foundry Discord server.
 
 ## Licenses
 
