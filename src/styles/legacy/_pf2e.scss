@@ -3078,11 +3078,6 @@ input[type="number"] {
     display: none;
 }
 
-#chat-log {
-    display: flex;
-    flex-direction: column;
-}
-
 .activity-icon {
     display: inline !important;
     margin: 0;
@@ -3117,89 +3112,5 @@ button {
 
     &:active {
         box-shadow: 0 0 5px red;
-    }
-}
-
-.chat-damage-buttons {
-    display: flex;
-    margin-top: 3px;
-
-    button {
-        flex: 1 1 0;
-        height: 32px;
-        width: 52px;
-        font-size: 18px;
-        position: relative;
-
-        > i.fas {
-            vertical-align: top;
-            position: relative;
-            top: 1px;
-            left: 1px;
-        }
-
-        > .transparent-half {
-            opacity: 0.6;
-            display: block;
-            position: absolute;
-            top: 0px;
-            left: 48%;
-            width: 16px;
-            height: 24px;
-            background: rgb(238, 238, 238);
-        }
-
-        .plus {
-            position: absolute;
-            left: 40%;
-            top: -4px;
-            color: white;
-            font-size: 17px;
-            font-weight: bold;
-        }
-
-        > img {
-            border: none;
-            height: 20px;
-            position: relative;
-            top: -2px;
-            vertical-align: text-top;
-        }
-
-        .label {
-            position: relative;
-            top: -22px;
-            font-size: 0.4em;
-            text-transform: uppercase;
-        }
-    }
-
-    // Slightly reposition elements if the triple-damage button is in
-    &.includes-fumble {
-        > button.triple-damage > img {
-            left: -1px;
-            top: -3px;
-        }
-        span.plus {
-            left: 16px;
-        }
-    }
-}
-
-.chat-damage-buttons-overlay {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-
-    display: flex;
-    align-items: center;
-
-    button {
-        width: 22px;
-        height: 22px;
-        font-size: 10px;
-        line-height: 1px;
-        padding-left: 5px;
     }
 }
