@@ -144,3 +144,66 @@
         text-transform: capitalize;
     }
 }
+
+#chat-log > li.message .chat-damage-buttons {
+    display: flex;
+    margin-top: 3px;
+
+    button {
+        flex: 1 1 0;
+        width: 52px;
+        font-size: 18px;
+        position: relative;
+        line-height: 0.5em;
+
+        > i.fas {
+            vertical-align: top;
+            position: relative;
+            top: 1px;
+            left: 1px;
+        }
+
+        > .transparent-half {
+            opacity: 0.6;
+            display: block;
+            position: absolute;
+            top: 0px;
+            left: 48%;
+            width: 16px;
+            height: 24px;
+            background: rgb(238, 238, 238);
+        }
+
+        .plus {
+            position: absolute;
+            left: 40%;
+            top: 6px;
+            color: rgba(255, 255, 240);
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        > img {
+            border: none;
+            height: 19px;
+            position: relative;
+            top: 2px;
+        }
+
+        .label {
+            font-size: 0.4em;
+            text-transform: uppercase;
+        }
+    }
+
+    // Slightly reposition elements if the triple-damage button is in
+    &.includes-fumble {
+        > button.triple-damage > img {
+            left: -1px;
+            top: -3px;
+        }
+        span.plus {
+            left: 16px;
+        }
+    }
+}
