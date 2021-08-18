@@ -1,0 +1,65 @@
+{
+    "_id": "ImgHXPEbN1mPyNTu",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.equipment-srd.Sylvan Wineskin]{Sylvan Wineskin}</p>\n<p>Automatically applied effects</p>\n<ul>\n<li>+1 Item bonus to Will Saves</li>\n<li>+3 item bonus to Will saves vs fear</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Sylvan Wine",
+                "selector": "will",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Sylvan Wine (vs fear)",
+                "predicate": {
+                    "any": [
+                        "fear"
+                    ]
+                },
+                "selector": "will",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "schema": {
+            "lastMigration": null,
+            "version": 0.649
+        },
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
+    "name": "Effect: Sylvan Wine",
+    "type": "effect"
+}
