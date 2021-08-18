@@ -19,6 +19,7 @@ import {
     TreasurePF2e,
     WeaponPF2e,
     FormulaPF2e,
+    CraftingEntryPF2e,
 } from "@item/index";
 import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from "@actor/index";
 import { ConditionType } from "@item/condition/data";
@@ -2434,6 +2435,7 @@ export const PF2ECONFIG = {
             spell: SpellPF2e,
             spellcastingEntry: SpellcastingEntryPF2e,
             condition: ConditionPF2e,
+            craftingEntry: CraftingEntryPF2e,
         },
     },
 };

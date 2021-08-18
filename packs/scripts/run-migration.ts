@@ -85,6 +85,7 @@ const itemTypes = [
     "condition",
     "effect",
     "formula",
+    "craftingEntry",
 ];
 
 const isActorData = (docSource: CompendiumSource): docSource is ActorSourcePF2e => {

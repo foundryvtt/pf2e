@@ -59,6 +59,9 @@ export interface CharacterSystemData extends CreatureSystemData {
     /** Tracks proficiencies for martial (weapon and armor) skills. */
     martial: CombatProficiencies;
 
+    /** Tracks details for crafting entries such as Advanced Alchemy level, slot limits, etc.  */
+    crafting: CharacterCraftingDetails;
+
     /** Various details about the character, such as level, experience, etc. */
     details: {
         /** The key ability which class saves (and other class-related things) scale off of. */
@@ -205,6 +208,27 @@ interface CharacterResources extends BaseCreatureResources {
     investiture: {
         value: number;
         max: number;
+    };
+    // TODO, experiement with cleaner design.
+    // Current preferences:
+    // 1) resources.crafting.XXXXXXXX
+    // 2) resources.custom.XXXXXXXXX
+    // Either option in combination with an "AddResource" rule element.
+    infusedReagents?: {
+        value: number;
+        max: number;
+    };
+    versatileVials?: {
+        value: number;
+        max: number;
+    };
+}
+
+export interface CharacterCraftingDetails {
+    [key: string]: {
+        advancedAlchemyLevel?: number;
+        maximumSlots?: number;
+        fieldDiscovery?: string;
     };
 }
 

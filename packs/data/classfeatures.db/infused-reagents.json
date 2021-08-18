@@ -23,7 +23,15 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "data.resources.infusedReagents.max",
+                "priority": 1,
+                "value": "@details.level.value  + floor((@abilities.int.value - 10) / 2)"
+            }
+        ],
         "source": {
             "value": ""
         },

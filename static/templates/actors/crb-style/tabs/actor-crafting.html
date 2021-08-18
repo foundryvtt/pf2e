@@ -1,6 +1,99 @@
 <div class="tab crafting crafting-pane" data-group="primary" data-tab="crafting">
-
+    <button class="prepare-daily-crafting">Prepare Daily Crafting</button>
     <ol class="craftingEntry-list directory-list item-list">
+        {{#if alchemicalCraftingEntries}}
+        <li class="crafting-entry item-container" data-container-type="craftingEntryGroup">
+            <div class="action-header">
+                <h3 class="item-name pf-heading pf-actions hide-container-toggle title">
+                    Advanced Alchemy
+                </h3>
+            </div>
+            <ol class="alchemicalEntry-list directory-list item-list">
+                <li class="item inventory-header formula-level-header entry-header">
+                    <div class = "flexrow">
+                        <div class="item-name reagent-cost flexrow">
+                            <h3>Total Cost:</h3>
+                            <div class="formula-number">
+                                {{@root.totalInfusedCost}}
+                            </div>
+                        </div>
+    
+                        <div class="item-name infused-reagents flexrow">
+                            <h3>Infused Reagents:</h3>
+                            <div class="resource-value-input">
+                                <input type="number" data-selector="value" data-resource="infusedReagents" value="{{infusedReagents.value}}" placeholder="0" data-dtype="Number"/>
+                            </span>
+                            <h3>/</h3>
+                            <div class="formula-number">
+                                {{@root.infusedReagents.max}}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {{#each alchemicalCraftingEntries as |entry eid|}}
+                <li class="alchemical-entry item-container item" data-container-type="craftingEntry"
+                    data-item-id="{{entry.id}}" data-container-id="{{entry.id}}">
+                    <div class="action-header">
+                        <h3 class="item-name pf-heading pf-actions hide-container-toggle title">
+                            {{entry.name}}
+                        </h3>
+                    </div>
+
+                    <ol class="directory-list item-list formula-list">
+                        <li class="item inventory-header formula-level-header formula-header">
+                            <div class="item-name flexrow reagent-cost">
+                                <h3>Reagent Cost:</h3>
+                                <div class="formula-number">
+                                    {{entry.reagentCost}}
+                                </div>
+                            </div>
+
+                            <div class="item-name flexrow aa-level">
+                                <h3>Advanced Alchemy Level:</h3>
+                                <div class="formula-number">
+                                    {{entry.advancedAlchemyLevel}}
+                                </div>
+                            </div>
+                        </li>
+
+                        {{#each entry.formulas}}
+                        <li class="item formula-item" data-item-id="{{this.formula.id}}" data-item-type="formula">
+                            <div class="item-name rollable">
+                                <div class="item-image">
+                                    <img class="item-icon" src="{{this.formula.img}}" alt="{{this.formula.name}}">
+                                </div>
+                                <h4>{{this.formula.name}}</h4>
+                            </div>
+
+                            <div class="formula-dc"></div>
+                            <div class="formula-cost"></div>
+
+                            <div class="item-quantity">
+                                <a class="formula-decrease-quantity {{#unless @root.owner}} hidden{{/unless}}">&ndash;</a>
+                                <div>{{this.quantity}}</div>
+                                <a class="formula-increase-quantity {{#unless @root.owner}} hidden{{/unless}}">+</a>
+                            </div>
+
+                            {{#if @root.owner}}
+                            <div class="item-controls">
+                                <a class="item-control formula-unprepare" title="{{localize "PF2E.UnprepareItemTitle"}}"><i class="fas fa-trash"></i></a>
+                            </div>
+                            {{/if}}
+                        </li>
+                        {{/each}}
+                        {{#unless entry.data.slots.prepared}}
+                        {{#if @root.owner}}
+                        <li class="inventory-header formula-header knownFormulas-empty">
+                            <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
+                        </li>
+                        {{/if}}
+                        {{/unless}}
+                    </ol>
+                </li>
+                {{/each}}
+            </ol>
+        </li>
+        {{/if}}
         <li class="knownFormulas-entry item-container" data-container-type="knownFormulas">
             <div class="action-header">
                 <h3 class="item-name pf-heading pf-actions hide-container-toggle title">
@@ -8,106 +101,109 @@
                 </h3>
 
                 {{#if @root.owner}}
-                    <div class="item-controls">
-                        <a class="item-control toggle-formula-filters" title="{{localize "PF2E.Filters"}}"><i class="fas fa-filter"></i></a>
-                        <a class="item-control clear-formula-filters" title="{{localize "PF2E.BrowserClearFilters"}}"><i class="fas fa-undo"></i></a>
-                    </div>
+                <div class="item-controls">
+                    <a class="item-control toggle-formula-filters" title="{{localize " PF2E.Filters"}}"><i
+                            class="fas fa-filter"></i></a>
+                    <a class="item-control clear-formula-filters" title="{{localize " PF2E.BrowserClearFilters"}}"><i
+                            class="fas fa-undo"></i></a>
+                </div>
                 {{/if}}
             </div>
             {{#if actor.flags.pf2e.crafting.showFormulaFilters}}
-                <div class="formula-filters">
-                    <form>
-                        <div class="form-group">
-                            <input class="filter-level-min" type="number" name="filter-level-min" min="0" max="20" data-dtype="Number" 
-                                {{#if actor.flags.pf2e.crafting.formulaFilters.level.min}} 
-                                    value="{{actor.flags.pf2e.crafting.formulaFilters.level.min}}" 
-                                    {{else}} 
-                                        value="0" 
-                                {{/if}}
-                            />
-                            -
-                            <input class="filter-level-max" type="number" name="filter-level-max" min="0" max="20" data-dtype="Number"
-                                {{#if actor.flags.pf2e.crafting.formulaFilters.level.max}} 
-                                    value="{{actor.flags.pf2e.crafting.formulaFilters.level.max}}" 
-                                {{else}} 
-                                    value="20" 
-                                {{/if}}
-                            />
-                        </div>
-                        <div class="form-group">
-                            {{#each actor.craftingTypes}}
-                                <input type="checkbox" class="filter-crafting-type" name="{{@key}}" {{#if (lookup ../actor.flags.pf2e.crafting.formulaFilters.craftingType @key)}}checked{{/if}}>
-                                <label for="{{@key}}">{{localize this}}</label>
-                            {{/each}}
-                        </div>
-                        <div class="form-group">
-                            {{#each actor.fieldDiscoveryTypes}}
-                                <input type="checkbox" class="filter-field-discovery" name="{{@key}}" {{#if (lookup ../actor.flags.pf2e.crafting.formulaFilters.fieldDiscovery @key)}}checked{{/if}}>
-                                <label for="{{@key}}">{{localize this}}</label>
-                            {{/each}}
-                        </div>
-                    </form>
-                </div>
+            <div class="formula-filters">
+                <form>
+                    <div class="form-group">
+                        <input class="filter-level-min" type="number" name="filter-level-min" min="0" max="20"
+                            data-dtype="Number" {{#if actor.flags.pf2e.crafting.formulaFilters.level.min}}
+                            value="{{actor.flags.pf2e.crafting.formulaFilters.level.min}}" {{else}} value="0" {{/if}} />
+                        -
+                        <input class="filter-level-max" type="number" name="filter-level-max" min="0" max="20"
+                            data-dtype="Number" {{#if actor.flags.pf2e.crafting.formulaFilters.level.max}}
+                            value="{{actor.flags.pf2e.crafting.formulaFilters.level.max}}" {{else}} value="20"
+                            {{/if}} />
+                    </div>
+                    <div class="form-group">
+                        {{#each actor.craftingTypes}}
+                        <input type="checkbox" class="filter-crafting-type" name="{{@key}}" {{#if (lookup
+                            ../actor.flags.pf2e.crafting.formulaFilters.craftingType @key)}}checked{{/if}}>
+                        <label for="{{@key}}">{{localize this}}</label>
+                        {{/each}}
+                    </div>
+                    <div class="form-group">
+                        {{#each actor.fieldDiscoveryTypes}}
+                        <input type="checkbox" class="filter-field-discovery" name="{{@key}}" {{#if (lookup
+                            ../actor.flags.pf2e.crafting.formulaFilters.fieldDiscovery @key)}}checked{{/if}}>
+                        <label for="{{@key}}">{{localize this}}</label>
+                        {{/each}}
+                    </div>
+                </form>
+            </div>
             {{/if}}
-            
+
             <ol class="directory-list item-list formula-list">
                 <!-- Add section for each formula level -->
                 {{#each actor.knownFormulas as |section lvl|}}
-                    <li class="item inventory-header formula-level-header formula-header" data-item-type="formulaLevel" data-level="{{lvl}}">
-                        <div class="item-name flexrow">
-                            <h3>{{localize 'PF2E.LevelN' level=lvl}}</h3>
+                <li class="item inventory-header formula-level-header formula-header" data-item-type="formulaLevel"
+                    data-level="{{lvl}}">
+                    <div class="item-name flexrow">
+                        <h3>{{localize 'PF2E.LevelN' level=lvl}}</h3>
+                    </div>
+
+                    <div class="formula-dc-header">DC</div>
+                    <div class="formula-cost-header">Cost</div>
+
+                    {{#if @root.owner}}
+                    <div class="item-controls">
+                        <a class="item-control inventory-browse" title="{{localize " PF2E.OpenInventoryBrowser"}}"
+                            data-type="equipment" data-level="{{lvl}}" data-location="{{entry._id}}"><i
+                                class="fas fa-search"></i></a>
+                    </div>
+                    {{/if}}
+                </li>
+                <!-- Add formula items for each formula level -->
+                {{#each section as |item i|}}
+                <li class="item formula-item" data-formula-lvl="{{lvl}}" data-item-id="{{item._id}}"
+                    data-item-type="formula">
+                    <div class="item-name rollable">
+                        <div class="item-image">
+                            <img class="item-icon" src="{{item.img}}" alt="{{item.name}}">
                         </div>
+                        <h4>{{item.name}}</h4>
+                    </div>
 
-                        <div class="formula-dc-header">DC</div>
-                        <div class="formula-cost-header">Cost</div>
+                    <div class="formula-dc">{{item.data.craftDC.value}}</div>
+                    <div class="formula-cost">{{item.data.cost.value}}</div>
 
-                        {{#if @root.owner}}
-                            <div class="item-controls">
-                                <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-type="equipment"
-                                    data-level="{{lvl}}" data-location="{{entry._id}}"><i class="fas fa-search"></i></a>
-                            </div>
-                        {{/if}}
-                    </li>
-                    <!-- Add formula items for each formula level -->
-                    {{#each section as |item i|}}
-                        <li class="item" data-formula-lvl="{{lvl}}" data-item-id="{{item._id}}" data-item-type="formula">
-                            <div class="item-name rollable">
-                                <div class="item-image">
-                                    <img class="item-icon" src="{{item.img}}" alt="{{item.name}}">
-                                </div>
-                                <h4>{{item.name}}</h4>
-                            </div>
+                    {{#if @root.owner}}
+                    <div class="item-controls">
+                        <a class="item-control item-edit" title="{{localize " PF2E.EditItemTitle"}}"><i
+                                class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete" title="{{localize " PF2E.DeleteItemTitle"}}"><i
+                                class="fas fa-trash"></i></a>
+                    </div>
+                    {{/if}}
 
-                            <div class="formula-dc">{{item.data.craftDC.value}}</div>
-                            <div class="formula-cost">{{item.data.cost.value}}</div>
-
-                            {{#if @root.owner}}
-                                <div class="item-controls">
-                                    <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
-                                    <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
-                                </div>
-                            {{/if}}
-
-                            <div class="formula-craft">
-                                <button type="button" class="craft-item" data-item-id="{{item._id}}"  data-level="{{lvl}}">
-                                    {{localize 'PF2E.CraftLabel'}}</button>
-                            </div>
-                        </li>
-                    {{/each}}
+                    <div class="formula-craft">
+                        <button type="button" class="craft-item" data-item-id="{{item._id}}" data-level="{{lvl}}">
+                            {{localize 'PF2E.CraftLabel'}}</button>
+                    </div>
+                </li>
+                {{/each}}
                 {{/each}}
 
                 {{#unless actor.knownFormulas}}
                 {{#if @root.owner}}
-                    <li class="inventory-header formula-header knownFormulas-empty">
-                        <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
-                        <a class="item-control inventory-browse" title="{{localize "PF2E.OpenInventoryBrowser"}}" data-type="equipment" data-location="{{entry._id}}">
-                            <i class="fas fa-search"></i>{{localize "PF2E.OpenInventoryBrowser"}}
-                        </a>
-                    </li>
+                <li class="inventory-header formula-header knownFormulas-empty">
+                    <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
+                    <a class="item-control inventory-browse" title="{{localize " PF2E.OpenInventoryBrowser"}}"
+                        data-type="equipment" data-location="{{entry._id}}">
+                        <i class="fas fa-search"></i>{{localize "PF2E.OpenInventoryBrowser"}}
+                    </a>
+                </li>
                 {{/if}}
                 {{/unless}}
             </ol>
         </li>
     </ol>
-    
+
 </div>

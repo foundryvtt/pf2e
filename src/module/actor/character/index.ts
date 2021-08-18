@@ -28,6 +28,7 @@ import {
     CombatProficiencyKey,
     WeaponGroupProficiencyKey,
     MagicTraditionProficiencies,
+    CharacterCraftingDetails,
 } from "./data";
 import { RollNotePF2e } from "@module/notes";
 import { MultipleAttackPenaltyPF2e, WeaponPotencyPF2e } from "@module/rules/rules-data-definitions";
@@ -116,6 +117,16 @@ export class CharacterPF2e extends CreaturePF2e {
         if (typeof resources.focus?.value === "number") {
             resources.focus.max = 0;
         }
+        if (typeof resources.infusedReagents?.value === "number") {
+            resources.infusedReagents.max = 0;
+        }
+        if (typeof resources.versatileVials?.value === "number") {
+            resources.versatileVials.max = 0;
+        }
+
+        // Crafting Entry Details
+        const crafting: DeepPartial<CharacterCraftingDetails> = this.data.data.crafting;
+        console.log(crafting);
 
         // Magic proficiencies
         systemData.magic = MAGIC_TRADITIONS.reduce(
@@ -1186,6 +1197,14 @@ export class CharacterPF2e extends CreaturePF2e {
             if (resources.focus.max === 0 && this.itemTypes.spellcastingEntry.some((entry) => entry.isFocusPool)) {
                 resources.focus.max = 1;
             }
+        }
+        if (typeof resources.infusedReagents?.max === "number") {
+            // Clamp infused reagents
+            const infusedReagents = resources.infusedReagents;
+
+            const currentPoints = infusedReagents.value ?? this.data.data.resources.infusedReagents?.value ?? 0;
+            const currentMax = infusedReagents.max ?? this.data.data.resources.infusedReagents?.max ?? 0;
+            infusedReagents.value = Math.clamped(currentPoints, 0, currentMax);
         }
 
         this.prepareInitiative(this.data, statisticsModifiers, rollNotes);

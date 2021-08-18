@@ -13,10 +13,11 @@ import { CharacterPF2e } from ".";
 import { CreatureSheetPF2e } from "../creature/sheet";
 import { ManageCombatProficiencies } from "../sheet/popups/manage-combat-proficiencies";
 import { ErrorPF2e } from "@module/utils";
-import { LorePF2e } from "@item";
+import { CraftingEntryPF2e, LorePF2e, PhysicalItemPF2e } from "@item";
 import { AncestryBackgroundClassManager } from "@item/abc/abc-manager";
 import { CraftingForm, performRoll } from "@module/crafting";
 import { CraftingType, FieldDiscoveryType } from "@item/formula/data";
+import { PhysicalItemTrait } from "@item/physical/data";
 
 export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     static override get defaultOptions() {
@@ -127,6 +128,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.hasStamina = game.settings.get("pf2e", "staminaVariant") > 0;
 
         this.prepareSpellcasting(sheetData);
+        this.prepareCrafting(sheetData);
 
         sheetData.abpEnabled = game.settings.get("pf2e", "automaticBonusVariant") !== "noABP";
 
@@ -638,6 +640,88 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
     }
 
+    protected prepareCrafting(sheetData: any) {
+        // Alchemical crafting entries share details, so will be grouped together.
+        // TODO: Consider sheetData.craftingEntries.alchemical and .other
+        sheetData.otherCraftingEntries = [];
+        sheetData.alchemicalCraftingEntries = [];
+
+        for (const itemData of sheetData.items) {
+            if (itemData.type === "craftingEntry") {
+                const entry = this.actor.items.get(itemData._id);
+                if (!(entry instanceof CraftingEntryPF2e)) {
+                    continue;
+                }
+
+                // Cleanup orphan crafting entries
+                const parent = this.actor.items.get(entry.data.data.source.value);
+                if (!parent) {
+                    entry.delete();
+                    continue;
+                }
+
+                const entryType = entry.data.data.entryType.value;
+                if (entryType === "alchemical") {
+                    /*
+                     * Alchemical Entries:
+                     * - Share infused reagents
+                     * - Have individual Advanced Alchemy levels
+                     * - Spend infused reagents during daily preparations to make items
+                     * - No limit on slots, only limited by Infused Reagent maximum vs crafting cost
+                     */
+
+                    // Fetch AE values for Advanced Alchemy level
+                    const selector = entry.data.data.entrySelector.value;
+                    const advancedAlchemyLevel = this.actor.data.data.crafting[selector]?.advancedAlchemyLevel || 0;
+                    sheetData.alchemicalCraftingEntries.push({
+                        eid: sheetData.alchemicalCraftingEntries.length,
+                        ...itemData,
+                        ...entry.getFormulaData(),
+                        ...{ advancedAlchemyLevel: advancedAlchemyLevel },
+                    });
+                } else if (entryType === "snare") {
+                    /*
+                     * Snare Entries (WIP - Rename to prepared entries?):
+                     * - Do not use resources
+                     * - Do not craft items during daily preparations
+                     * - Use slots that are expended like prepared casting
+                     * - Allow items to be crafted for free when crafted
+                     * - Do not have level restrictions on the slots (RAI, does not mean you can craft the snare though)
+                     * - Snares: decreases crafting time of snare
+                     */
+                } else if (entryType === "scroll") {
+                    /*
+                     * Scroll Entries (WIP - Rename to spellConsumables?):
+                     * - Do NOT need a formula to be known
+                     * - Do NOT need a spell to be known (scroll trickster)
+                     * - Prepared by dragging in a SPELL item, not a FORMULA
+                     * - COMPLICATION: Where is the Prepared item stored?
+                     * - Items granted during daily prep for free
+                     * - No resources
+                     * - Slot limits determined by feats
+                     * - Spell level limited slots
+                     */
+                } else {
+                    /**
+                     * Custom Entries:
+                     * - VERY WIP
+                     * - Need some easy to understand way of making totally custom entries through the RE
+                     * - Can have any combination of features of the other three slots?
+                     */
+                }
+            }
+        }
+
+        if (sheetData.alchemicalCraftingEntries) {
+            sheetData.infusedReagents = this.actor.data.data.resources.infusedReagents || { value: 0, max: 0 };
+            let totalInfusedCost = 0;
+            sheetData.alchemicalCraftingEntries.forEach((entry: any) => {
+                totalInfusedCost += entry.reagentCost;
+            });
+            sheetData.totalInfusedCost = totalInfusedCost;
+        }
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers
     /* -------------------------------------------- */
@@ -666,6 +750,30 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         html.find(".adjust-stat-select").on("change", (event) => this.onChangeAdjustStat(event));
         html.find(".adjust-item-stat").on("click contextmenu", (event) => this.onClickAdjustItemStat(event));
         html.find(".adjust-item-stat-select").on("change", (event) => this.onChangeAdjustItemStat(event));
+
+        html.find("[data-selector][data-resource]").on("change", (event) => {
+            const { selector, resource, dtype } = event.target.dataset;
+            if (!selector || !resource) return;
+
+            console.log(`Dataset: ${event.target.dataset}`);
+            console.log(`Selector: ${selector}`);
+            console.log(`Resource: ${resource}`);
+            console.log(`dtype: ${dtype}`);
+
+            const value = (() => {
+                const value = $(event.target).val();
+                if (typeof value === "undefined" || value === null) {
+                    return 0;
+                }
+
+                if (dtype === "Number") {
+                    return Number(value);
+                } else {
+                    return 0;
+                }
+            })();
+            this.actor.update({ [`data.resources.${resource}.${selector}`]: value });
+        });
 
         {
             // ensure correct tab name is displayed after actor update
@@ -923,6 +1031,60 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     left: window.innerWidth - 710,
                 }
             ).render(true);
+        });
+
+        // Crafting daily preparations
+        html.find(".prepare-daily-crafting").on("click", async () => {
+            const craftingEntries = this.actor.itemTypes.craftingEntry;
+            const physicalItems = this.actor.physicalItems;
+
+            let infusedReagentCost = 0;
+            for (const entry of craftingEntries) {
+                if (entry.isAlchemical) {
+                    infusedReagentCost += entry.reagentCost || 0;
+                }
+            }
+
+            const infusedReagents = this.actor.data.data.resources.infusedReagents?.value || 0;
+            if (infusedReagentCost) {
+                if (infusedReagentCost > infusedReagents) {
+                    ui.notifications.warn("Insufficient infused reagents to complete daily crafting");
+                    return;
+                } else {
+                    this.actor.update({ "data.resources.infusedReagents.value": infusedReagents - infusedReagentCost });
+                }
+            }
+
+            // TODO: Delete infused/temporary items
+            for (const item of physicalItems) {
+                if (item.data.flags.temporary) {
+                    await item.delete();
+                }
+            }
+
+            for (const entry of craftingEntries) {
+                if (entry.isDailyPrep) {
+                    for (const formula of entry.formulas) {
+                        const item = await fromUuid(formula.formula.data.data.craftedObjectUuid.value);
+                        if (item === null || !(item instanceof PhysicalItemPF2e)) return;
+
+                        const itemObject = item.toObject();
+                        itemObject.data.quantity.value = formula.quantity;
+
+                        if (entry.isAlchemical) {
+                            const traits = itemObject.data.traits.value as PhysicalItemTrait[];
+                            traits.push("infused");
+                        }
+
+                        itemObject.flags.temporary = true;
+
+                        const result = await this.actor.addItemToActor(itemObject, undefined);
+                        if (!result) {
+                            ui.notifications.warn("Could not add items");
+                        }
+                    }
+                }
+            }
         });
     }
 

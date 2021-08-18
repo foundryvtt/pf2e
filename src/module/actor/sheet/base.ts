@@ -53,6 +53,7 @@ import { FormulaPF2e } from "@item/formula";
 import { adjustDCByRarity, calculateDC } from "@module/dc";
 import { ItemTrait } from "@item/data/base";
 import { CraftingType, FieldDiscoveryType, FormulaSource } from "@item/formula/data";
+import { CraftingEntryPF2e } from "@item";
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -308,6 +309,41 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 this.actor.data.data.skills[skill].roll({ event, options });
             } else {
                 this.actor.rollSkill(event, skill);
+            }
+        });
+
+        // Unprepare formula
+        html.find(".formula-unprepare").on("click", (event) => {
+            const formulaId = $(event.target).parents(".item").attr("data-item-id") ?? "";
+            const entryId = $(event.target).parents(".item-container").attr("data-item-id") ?? "";
+            const entry = this.actor.items.get(entryId);
+            if (entry instanceof CraftingEntryPF2e) {
+                entry.unprepareFormula(formulaId);
+            } else {
+                console.warn("PF2E System | Failed to load crafting entry");
+            }
+        });
+
+        // Increase/Decrease Formula Prep Quantity
+        html.find(".formula-decrease-quantity").on("click", (event) => {
+            const formulaId = $(event.target).parents(".item").attr("data-item-id") ?? "";
+            const entryId = $(event.target).parents(".item-container").attr("data-item-id") ?? "";
+            const entry = this.actor.items.get(entryId);
+            if (entry instanceof CraftingEntryPF2e) {
+                entry.decreaseQuantity(formulaId);
+            } else {
+                console.warn("PF2E System | Failed to load crafting entry");
+            }
+        });
+
+        html.find(".formula-increase-quantity").on("click", (event) => {
+            const formulaId = $(event.target).parents(".item").attr("data-item-id") ?? "";
+            const entryId = $(event.target).parents(".item-container").attr("data-item-id") ?? "";
+            const entry = this.actor.items.get(entryId);
+            if (entry instanceof CraftingEntryPF2e) {
+                entry.increaseQuantity(formulaId);
+            } else {
+                console.warn("PF2E System | Failed to load crafting entry");
             }
         });
 
@@ -829,6 +865,19 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     const sortBefore = source.data.sort >= target.data.sort;
                     source.sortRelative({ target, siblings, sortBefore });
                     return [target];
+                }
+            }
+        } else if (item instanceof FormulaPF2e && itemData.type === "formula") {
+            console.log("Dropping a formula");
+            if (dropContainerType === "craftingEntry") {
+                console.log("Dropping a formula on a crafting entry!");
+                const entryId = $(event.target).closest(".item-container").attr("data-container-id") ?? "";
+                const entry = this.actor.items.get(entryId);
+                if (entry instanceof CraftingEntryPF2e) {
+                    const allocated = await entry.prepareFormula(item);
+                    if (allocated) return [allocated];
+                } else {
+                    console.warn("PF2E System | Failed to load crafting entry");
                 }
             }
         }
