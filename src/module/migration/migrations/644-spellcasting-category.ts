@@ -41,8 +41,9 @@ export class Migration644SpellcastingCategory extends MigrationBase {
                 return (
                     tupleHasValue(["prepared", "spontaneous"] as const, testSpellcasting.prepared.value) &&
                     testSpellcasting.tradition.value !== "focus" &&
-                    testSpellcasting.spelldc.value === spellcasting.spelldc.value &&
-                    testSpellcasting.proficiency.value === spellcasting.proficiency.value &&
+                    (actor.type === "character"
+                        ? testSpellcasting.proficiency.value === spellcasting.proficiency.value
+                        : testSpellcasting.spelldc.value === spellcasting.spelldc.value) &&
                     (testSpellcasting.ability.value || "int") === (spellcasting.ability.value || "int")
                 );
             });
