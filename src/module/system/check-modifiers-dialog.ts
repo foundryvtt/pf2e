@@ -119,7 +119,7 @@ export class CheckModifiersDialog extends Application {
             .join("");
 
         const totalModifierPart = check.totalModifier === 0 ? "" : `+${check.totalModifier}`;
-        const roll = new Roll(`${dice}${totalModifierPart}`, check as RollDataPF2e).evaluate({ async: false });
+        const roll = await new Roll(`${dice}${totalModifierPart}`, check as RollDataPF2e).evaluate({ async: true });
 
         let flavor = `<strong>${check.name}</strong>`;
         if (ctx.type === "spell-attack-roll" && game.modules.get("pf2qr")?.active) {
