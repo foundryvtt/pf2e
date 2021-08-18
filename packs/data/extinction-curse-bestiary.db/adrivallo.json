@@ -138,6 +138,9 @@
                 "autoHeightenLevel": {
                     "value": null
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "description": {
                     "value": ""
                 },
@@ -388,6 +391,9 @@
                 "autoHeightenLevel": {
                     "value": null
                 },
+                "autoHeightenLevel": {
+                    "value": null
+                },
                 "category": {
                     "value": "focus"
                 },
@@ -509,6 +515,9 @@
                 },
                 "areasize": {
                     "value": "60-foot emanation"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -889,6 +898,9 @@
                 },
                 "areasize": {
                     "value": ""
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1393,6 +1405,9 @@
                 },
                 "areasize": {
                     "value": "5-foot burst"
+                },
+                "autoHeightenLevel": {
+                    "value": null
                 },
                 "autoHeightenLevel": {
                     "value": null
@@ -1947,7 +1962,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 4
                 },
                 "maxHp": {
                     "value": 0
@@ -2169,7 +2184,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Use Nimble Dodge",
+                        "property": "flags.pf2e.rollOptions.all.nimble-dodge"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "nimble-dodge"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "schema": {
                     "lastMigration": null,
                     "version": 0.649
