@@ -296,7 +296,7 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
                     slotData.max = Math.max(Number(slotData.max) || 0, 0);
                 }
                 if ("value" in slotData) {
-                    const max = Number(slotData?.max) || 0;
+                    const max = "max" in slotData ? Number(slotData?.max) || 0 : this.data.data.slots[slotKey].max;
                     slotData.value = Math.clamped(Number(slotData.value), 0, max);
                 }
             }
