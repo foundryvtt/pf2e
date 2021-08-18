@@ -19,7 +19,7 @@ export class PF2StrikeRuleElement extends RuleElementPF2e {
                 ability: { value: this.data.ability || "str" },
                 weaponType: { value: this.data.category || "unarmed" },
                 group: { value: this.data.group || "brawling" },
-                damage: this.data.damage,
+                damage: this.data.damage?.base,
                 range: { value: this.data.range || "melee" },
                 traits: { value: this.data.traits ?? [], rarity: { value: "common" }, custom: "" },
                 options: { value: this.data.options ?? [] },
@@ -36,7 +36,7 @@ export interface PF2StrikeRuleElement {
         ability?: AbilityString;
         category?: WeaponCategory;
         group?: WeaponGroup;
-        damage?: WeaponDamage;
+        damage?: { base?: WeaponDamage };
         range?: string;
         traits?: WeaponTrait[];
         options?: string[];
