@@ -351,6 +351,7 @@ function sortDataItems(entityData: PackEntry): any[] {
         "melee",
         "action",
         "lore",
+        "formula",
     ];
     if (!("items" in entityData)) {
         return [];
