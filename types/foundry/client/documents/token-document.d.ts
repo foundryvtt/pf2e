@@ -45,7 +45,7 @@ declare global {
         override clone(
             data?: DeepPartial<foundry.data.TokenSource>,
             options?: { save?: false; keepId?: boolean }
-        ): Promise<this>;
+        ): this;
         override clone(
             data?: DeepPartial<foundry.data.TokenSource>,
             options?: { save?: boolean; keepId?: boolean }
