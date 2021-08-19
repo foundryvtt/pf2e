@@ -635,7 +635,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.shadowStrike"
+                    },
+                    {
+                        "damageCategory": "precision",
+                        "diceNumber": 4,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": {
+                            "all": [
+                                "shadowStrike"
+                            ]
+                        },
+                        "selector": "fangs-damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
