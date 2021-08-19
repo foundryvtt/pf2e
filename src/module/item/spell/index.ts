@@ -3,6 +3,11 @@ import { SpellcastingEntryPF2e } from "@item/spellcasting-entry";
 import { ordinal, toNumber } from "@module/utils";
 import { SpellData, SpellTrait } from "./data";
 
+export interface SpellChatButtons {
+    variants: { label: string }[];
+    damage: { label: string }[];
+}
+
 export class SpellPF2e extends ItemPF2e {
     static override get schema(): typeof SpellData {
         return SpellData;
@@ -165,6 +170,7 @@ export class SpellPF2e extends ItemPF2e {
 
         const isAttack = systemData.spellType.value === "attack";
         const isSave = systemData.spellType.value === "save" || systemData.save.value !== "";
+        const hasDamage = !!this.data.data.damage.value;
 
         // Spell saving throw text and DC
         const save = duplicate(this.data.data.save);
@@ -212,11 +218,30 @@ export class SpellPF2e extends ItemPF2e {
 
         const traits = this.traitChatData(CONFIG.PF2E.spellTraits);
 
+        const buttons: SpellChatButtons[] = [];
+        if (isAttack || hasDamage) {
+            const entry: SpellChatButtons = { variants: [], damage: [] };
+            if (isAttack) {
+                entry.variants.push(
+                    { label: localize("PF2E.AttackLabel") },
+                    { label: game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: -5 }) },
+                    { label: game.i18n.format("PF2E.MAPAbbreviationLabel", { penalty: -10 }) }
+                );
+            }
+
+            if (hasDamage) {
+                entry.damage.push({ label: damageLabel });
+            }
+
+            buttons.push(entry);
+        }
+
         return this.processChatData(htmlOptions, {
             ...systemData,
             save,
             isAttack,
             isSave,
+            hasDamage,
             spellLvl: level,
             levelLabel,
             damageLabel,
@@ -225,6 +250,7 @@ export class SpellPF2e extends ItemPF2e {
             areaSize,
             areaType,
             areaUnit,
+            buttons,
         });
     }
 }

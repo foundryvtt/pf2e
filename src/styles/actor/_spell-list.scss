@@ -220,6 +220,7 @@
             grid-area: cast;
             width: 32px;
         }
+
         .item-summary {
             grid-area: content;
             width: 100%;
@@ -232,8 +233,13 @@
                 margin-top: 0;
             }
             .item-buttons {
+                .button-group {
+                    display: flex;
+                    gap: 4px;
+                }
                 button {
                     @include p-reset;
+                    padding: 0 8px;
                     font-family: var(--serif);
                     font-weight: 500;
                     margin-top: 8px;
@@ -247,6 +253,15 @@
                     &:hover {
                         text-shadow: 0 0 2px white;
                     }
+                }
+
+                .spell_attack {
+                    white-space: nowrap;
+                    flex: 0;
+                }
+
+                .spell_damage {
+                    flex: 1;
                 }
             }
         }
